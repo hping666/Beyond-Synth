@@ -209,7 +209,8 @@
  "sverilog": false,
  "tags": [
   "cktevo",
-  "hsm"
+  "hsm",
+  "cktevo_set"
  ],
  "tb": null,
  "top": "hsm"

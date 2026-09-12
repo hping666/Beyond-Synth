@@ -128,7 +128,8 @@
  "sverilog": false,
  "tags": [
   "cktevo",
-  "mem_ctrl"
+  "mem_ctrl",
+  "cktevo_set"
  ],
  "tb": null,
  "top": "mc_obct_top"

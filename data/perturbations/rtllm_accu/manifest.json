@@ -1,0 +1,162 @@
+{
+ "cfg_hash": "386abc93a383",
+ "design_id": "rtllm_accu",
+ "error": null,
+ "git_sha": "a644e9497e02",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "accu": {
+      "add_cnt": "charlie_0",
+      "count": "mike_1",
+      "data_out_reg": "juliet_2",
+      "end_cnt": "romeo_3",
+      "ready_add": "sierra_4"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_accu/P1_rename_0.v",
+   "pert_id": "pd200c32758fa37",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "accu": {
+      "add_cnt": "zulu_0",
+      "count": "india_1",
+      "data_out_reg": "foxtrot_2",
+      "end_cnt": "bravo_3",
+      "ready_add": "yankee_4"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_accu/P1_rename_1.v",
+   "pert_id": "p81fe4c76f95afd",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "accu": {
+      "add_cnt": "foxtrot_0",
+      "count": "alpha_1",
+      "data_out_reg": "november_2",
+      "end_cnt": "india_3",
+      "ready_add": "juliet_4"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_accu/P1_rename_2.v",
+   "pert_id": "pdc7b0f88ff08a2",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "accu": {
+      "add_cnt": "echo_0",
+      "count": "golf_1",
+      "data_out_reg": "romeo_2",
+      "end_cnt": "quebec_3",
+      "ready_add": "alpha_4"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_accu/P1_rename_3.v",
+   "pert_id": "pc81bdf48150e22",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "accu": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_accu/P2_reorder_0.v",
+   "pert_id": "pf9c1171ddfe60c",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "accu": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_accu/P2_reorder_1.v",
+   "pert_id": "pfb1232842d336c",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "accu": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_accu/P2_reorder_2.v",
+   "pert_id": "p358c42400eda40",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "accu": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_accu/P2_reorder_3.v",
+   "pert_id": "p11e07a4076506c",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_accu/P3_expr_0.v",
+   "pert_id": "p53a168a8ac473b",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_accu/P4_ctrl_0.v",
+   "pert_id": "pb81b0307e1fff9",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtllm_accu/roundtrip.v",
+  "pert_id": "p1b0898f56681e8"
+ },
+ "seed": "rtllm_accu:1",
+ "top": "accu"
+}

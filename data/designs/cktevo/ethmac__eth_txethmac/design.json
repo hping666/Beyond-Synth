@@ -245,7 +245,8 @@
  "sverilog": false,
  "tags": [
   "cktevo",
-  "ethmac"
+  "ethmac",
+  "cktevo_set"
  ],
  "tb": null,
  "top": "eth_txethmac"

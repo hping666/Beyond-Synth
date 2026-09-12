@@ -256,7 +256,8 @@
  "sverilog": false,
  "tags": [
   "cktevo",
-  "nn_engine"
+  "nn_engine",
+  "cktevo_set"
  ],
  "tb": null,
  "top": "spikeNeuron8_H7"

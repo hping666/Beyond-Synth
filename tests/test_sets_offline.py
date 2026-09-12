@@ -41,6 +41,10 @@ def test_yaml_list_rewrite_only_touches_the_field():
     assert "dev: [rtllm_accu, rtllm_fsm], held: [rtllm_pe]}" in out
     out = S.set_yaml_list(out, "drrtl", "held", [])
     assert "drrtl:     {source: \"x\", count: 20, dev: [], held: []}" in out
+    out = S.set_yaml_list(out, "rtllm", "held", ["rtllm_a", "rtllm_b"])  # replacing an existing list must not leave a tail
+    assert "dev: [rtllm_accu, rtllm_fsm], held: [rtllm_a, rtllm_b]}" in out and out.count("]") == out.count("[")
+    import yaml
+    assert yaml.safe_load(out)["design_sets"]["suites"]["rtllm"]["held"] == ["rtllm_a", "rtllm_b"]
     with pytest.raises(ValueError):
         S.set_yaml_list(text, "nope", "dev", [])
 

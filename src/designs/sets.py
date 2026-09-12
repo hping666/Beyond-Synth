@@ -72,7 +72,7 @@ def select_sky130_subset(designs, count):
 
 def set_yaml_list(text, suite, field, values):
     """Replace `field: <value>` inside the one-line flow mapping of `<suite>:` under design_sets.suites."""
-    pat = re.compile(rf"^(\s*{re.escape(suite)}:\s*\{{.*?\b{re.escape(field)}:\s*)([^,}}]*)(.*)$", re.M)
+    pat = re.compile(rf"^(\s*{re.escape(suite)}:\s*\{{.*?\b{re.escape(field)}:\s*)(\[[^\]]*\]|[^,}}]*)(.*)$", re.M)  # scalar or flow list
     m = pat.search(text)
     if not m:
         raise ValueError(f"field {field} of suite {suite} not found in the config text")

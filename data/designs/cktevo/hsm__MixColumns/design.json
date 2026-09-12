@@ -99,7 +99,8 @@
  "tags": [
   "cktevo",
   "hsm",
-  "no_clock"
+  "no_clock",
+  "cktevo_set"
  ],
  "tb": null,
  "top": "MixColumns"

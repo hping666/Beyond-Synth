@@ -280,7 +280,8 @@
  "sverilog": false,
  "tags": [
   "cktevo",
-  "sdc_ctrl"
+  "sdc_ctrl",
+  "cktevo_set"
  ],
  "tb": null,
  "top": "sdc_controller"

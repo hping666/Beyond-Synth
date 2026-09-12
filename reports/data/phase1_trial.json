@@ -722,17 +722,22 @@
    "wns_ns": 1.3054
   },
   {
+   "area_um2": 153506.2027,
+   "cells": 56022,
+   "dc_seconds": 325.3,
    "design_id": "cktevo_risc__cache_sys",
-   "e4_fail_reason": "eval_failed: command returned 0 (DC reported an error; see the log)",
-   "e4_synthesizable": 0,
+   "e4_fail_reason": null,
+   "e4_synthesizable": 1,
    "loc": 2954,
-   "pending": false,
+   "registers": 25490.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "risc",
     "yosys_failed"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.000874758
   },
   {
    "area_um2": 3077.353995,
@@ -822,17 +827,22 @@
    "wns_ns": 1.95022
   },
   {
+   "area_um2": 78335.668435,
+   "cells": 29656,
+   "dc_seconds": 190.3,
    "design_id": "cktevo_risc__l2_cache",
-   "e4_fail_reason": "eval_failed: command returned 0 (DC reported an error; see the log)",
-   "e4_synthesizable": 0,
+   "e4_fail_reason": null,
+   "e4_synthesizable": 1,
    "loc": 1335,
-   "pending": false,
+   "registers": 12469.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "risc",
     "yosys_failed"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.617837
   },
   {
    "area_um2": 138.586,
@@ -852,30 +862,40 @@
    "wns_ns": 2.05406
   },
   {
+   "area_um2": 59558.728621,
+   "cells": 20610,
+   "dc_seconds": 137.1,
    "design_id": "cktevo_risc__l2_cache_datapath",
-   "e4_fail_reason": "eval_failed: command returned 0 (DC reported an error; see the log)",
-   "e4_synthesizable": 0,
+   "e4_fail_reason": null,
+   "e4_synthesizable": 1,
    "loc": 454,
-   "pending": false,
+   "registers": 10179.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "risc",
     "yosys_failed"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.59864
   },
   {
+   "area_um2": 58023.642572,
+   "cells": 19216,
+   "dc_seconds": 141.7,
    "design_id": "cktevo_risc__p_i_cache",
-   "e4_fail_reason": "eval_failed: command returned 0 (DC reported an error; see the log)",
-   "e4_synthesizable": 0,
+   "e4_fail_reason": null,
+   "e4_synthesizable": 1,
    "loc": 887,
-   "pending": false,
+   "registers": 10177.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "risc",
     "yosys_failed"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.26843
   },
   {
    "area_um2": 47.88,
@@ -895,17 +915,22 @@
    "wns_ns": 2.11065
   },
   {
+   "area_um2": 58361.462554,
+   "cells": 20022,
+   "dc_seconds": 132.5,
    "design_id": "cktevo_risc__p_i_cache_metadata_check",
-   "e4_fail_reason": "eval_failed: command returned 0 (DC reported an error; see the log)",
-   "e4_synthesizable": 0,
+   "e4_fail_reason": null,
+   "e4_synthesizable": 1,
    "loc": 365,
-   "pending": false,
+   "registers": 10143.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "risc",
     "yosys_failed"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.885401
   },
   {
    "area_um2": 139.118,
@@ -1549,7 +1574,7 @@
   {
    "area_um2": 24500.727418,
    "cells": 8259,
-   "dc_seconds": 95.1,
+   "dc_seconds": 101.7,
    "design_id": "drrtl_cpu_fsm",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1881,7 +1906,7 @@
   {
    "area_um2": 1310.848011,
    "cells": 1237,
-   "dc_seconds": 64.9,
+   "dc_seconds": 68.0,
    "design_id": "rtllm_alu",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1932,7 +1957,7 @@
   {
    "area_um2": 143.108003,
    "cells": 60,
-   "dc_seconds": 60.9,
+   "dc_seconds": 66.9,
    "design_id": "rtllm_calendar",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3211,22 +3236,27 @@
    ]
   },
   {
+   "area_um2": 6.118,
+   "cells": 3,
+   "dc_seconds": 1027.5,
    "design_id": "rtlrewriter_algorithm__md",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 51,
-   "pending": true,
+   "registers": 1.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "algorithm",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.08447
   },
   {
    "design_id": "rtlrewriter_algorithm__sort_merge",
-   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_algorithm__sort_merge/E4/10ad4dfc1b68df58-r2/inputs/rtl/sort_merge_redundancy.v:28: The construct 'post-increment assignment operator ++' is not supported in this language. (VER-720)",
+   "e4_fail_reason": "elaborate_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_algorithm__sort_merge/E4/bcf34805991c4d6d-r2/inputs/rtl/sort_merge_redundancy.v:44: Variable 'i' is the target of both blocking and nonblocking assignments in the same always block. (VER-134)",
    "e4_synthesizable": 0,
    "loc": 66,
    "pending": false,
@@ -3235,7 +3265,8 @@
     "rtlrewriter",
     "short",
     "algorithm",
-    "calibration_only"
+    "calibration_only",
+    "sverilog_only"
    ]
   },
   {
@@ -3730,7 +3761,7 @@
   },
   {
    "design_id": "rtlrewriter_datapath__loop_fusion",
-   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__loop_fusion/E4/08d1220023fa04fe-r2/inputs/rtl/loop_fusion_raw.v:10: The construct 'post-increment assignment operator ++' is not supported in this language. (VER-720)",
+   "e4_fail_reason": "empty_netlist: no leaf cells after compile",
    "e4_synthesizable": 0,
    "loc": 18,
    "pending": false,
@@ -3740,7 +3771,8 @@
     "short",
     "datapath",
     "calibration_only",
-    "no_clock"
+    "no_clock",
+    "sverilog_only"
    ]
   },
   {
@@ -3759,23 +3791,29 @@
    ]
   },
   {
+   "area_um2": 17.024,
+   "cells": 16,
+   "dc_seconds": 63.8,
    "design_id": "rtlrewriter_datapath__loop_tiling",
-   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__loop_tiling/E4/accbbdf396d8085d-r2/inputs/rtl/loop_tiling_raw.v:10: The construct 'post-increment assignment operator ++' is not supported in this language. (VER-720)",
-   "e4_synthesizable": 0,
+   "e4_fail_reason": null,
+   "e4_synthesizable": 1,
    "loc": 16,
-   "pending": false,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "datapath",
     "calibration_only",
-    "no_clock"
-   ]
+    "no_clock",
+    "sverilog_only"
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.36068
   },
   {
    "design_id": "rtlrewriter_datapath__loop_unrolling",
-   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__loop_unrolling/E4/e653e58240950ac0-r2/inputs/rtl/loop_unrolling_raw.v:10: The construct 'post-increment assignment operator ++' is not supported in this language. (VER-720)",
+   "e4_fail_reason": "empty_netlist: no leaf cells after compile",
    "e4_synthesizable": 0,
    "loc": 14,
    "pending": false,
@@ -3785,23 +3823,30 @@
     "short",
     "datapath",
     "calibration_only",
-    "no_clock"
+    "no_clock",
+    "sverilog_only"
    ]
   },
   {
+   "area_um2": 59.318,
+   "cells": 40,
+   "dc_seconds": 64.0,
    "design_id": "rtlrewriter_datapath__multiplier_architecture",
-   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__multiplier_architecture/E4/18f5ecf37eedb71a-r4/inputs/rtl/multiplier_architecture.v:14: The construct 'C-style unpacked dimension' is not supported in this language. (VER-720)",
-   "e4_synthesizable": 0,
+   "e4_fail_reason": null,
+   "e4_synthesizable": 1,
    "loc": 49,
-   "pending": false,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "datapath",
     "calibration_only",
-    "no_clock"
-   ]
+    "no_clock",
+    "sverilog_only"
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.71644
   },
   {
    "area_um2": 301.644002,
@@ -4080,7 +4125,7 @@
   },
   {
    "design_id": "rtlrewriter_long_cnn__processingElement",
-   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__processingElement/E4/332f99e3b58eb79f-r2/inputs/rtl/processingElementRaw.v:36: Type query about dimensions or access by indexing requires an array reference for signal intermediateResult2 as the first argument. (ELAB-400)",
+   "e4_fail_reason": "elaborate_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__processingElement/E4/43f72d105d3dad12-r2/inputs/rtl/processingElementRaw.v:36: Type query about dimensions or access by indexing requires an array reference for signal intermediateResult2 as the first argument. (ELAB-400)",
    "e4_synthesizable": 0,
    "loc": 546,
    "pending": false,
@@ -4090,7 +4135,8 @@
     "long",
     "cnn",
     "calibration_only",
-    "yosys_failed"
+    "yosys_failed",
+    "sverilog_only"
    ]
   },
   {
@@ -4507,24 +4553,24 @@
    "wns_ns": 2.28034
   }
  ],
- "generated_at": "2026-09-12T15:27:40",
+ "generated_at": "2026-09-12T15:39:48",
  "per_suite": {
   "cktevo": {
-   "dc_seconds": 6088.800000000001,
+   "dc_seconds": 7015.700000000002,
    "designs": 83,
-   "failed": 10,
-   "ok": 73,
+   "failed": 5,
+   "ok": 78,
    "pending": 0
   },
   "drrtl": {
-   "dc_seconds": 1792.6000000000001,
+   "dc_seconds": 1799.2,
    "designs": 20,
    "failed": 1,
    "ok": 19,
    "pending": 0
   },
   "rtllm": {
-   "dc_seconds": 2800.7999999999993,
+   "dc_seconds": 2809.8999999999996,
    "designs": 50,
    "failed": 7,
    "ok": 43,
@@ -4538,11 +4584,11 @@
    "pending": 0
   },
   "rtlrewriter": {
-   "dc_seconds": 5997.0,
+   "dc_seconds": 7152.3,
    "designs": 72,
-   "failed": 20,
-   "ok": 51,
-   "pending": 1
+   "failed": 18,
+   "ok": 54,
+   "pending": 0
   }
  }
 }

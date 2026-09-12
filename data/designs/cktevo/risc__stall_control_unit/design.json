@@ -218,7 +218,8 @@
  "tags": [
   "cktevo",
   "risc",
-  "no_clock"
+  "no_clock",
+  "cktevo_set"
  ],
  "tb": null,
  "top": "stall_control_unit"

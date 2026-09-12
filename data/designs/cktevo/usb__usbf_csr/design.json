@@ -252,7 +252,8 @@
  "sverilog": false,
  "tags": [
   "cktevo",
-  "usb"
+  "usb",
+  "cktevo_set"
  ],
  "tb": null,
  "top": "usbf_csr"

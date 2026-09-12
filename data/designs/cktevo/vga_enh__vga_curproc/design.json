@@ -145,7 +145,8 @@
  "sverilog": false,
  "tags": [
   "cktevo",
-  "vga_enh"
+  "vga_enh",
+  "cktevo_set"
  ],
  "tb": null,
  "top": "vga_curproc"

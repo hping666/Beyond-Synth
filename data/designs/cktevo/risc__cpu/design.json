@@ -191,7 +191,8 @@
  "sverilog": false,
  "tags": [
   "cktevo",
-  "risc"
+  "risc",
+  "cktevo_set"
  ],
  "tb": null,
  "top": "cpu"
