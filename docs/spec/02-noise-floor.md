@@ -42,3 +42,9 @@ D's record under each configuration (the unperturbed one) is marked `is_baseline
 - Positive: a legal renaming perturbation -> SEQ proven, E4 area delta within 2σ.
 - Negative: a "perturbation" that deliberately changes a bit width -> SEQ falsified, discarded and counted.
 - Statistics functions: numeric tests of MAD/q95 on known distributions.
+
+## 8. Implementation notes (2026-09-12)
+
+- Generator: `src/noise/vast.py` (Pyverilog front end, text normalisation), `src/noise/perturb.py` (P1–P4), `src/noise/generate.py` (files under data/perturbations/<design_id>/, manifest.json, gitignored RTL). The unmodified Pyverilog re-print is written as `roundtrip.v` (P0) and gated like a perturbation: it isolates re-print defects from transform defects. Designs Pyverilog cannot parse, or that declare registers with initial values (re-printed as continuous assignments), get no AST perturbations; both are recorded in the manifest and in reports/data/phase2_perturbations.json.
+- Gate (§2): `scripts/phase2_perturb.py gate` submits one `vcf` job per perturbation; `collect` fills `perturbations.seq_status` with the stack verdict; only `proven` enters the floor. A Yosys timeout in V1 is an `error` verdict, never a rejection.
+- Runs (§3): visible configurations through `scripts/phase2_noise.py submit` (E1–E4 at Φ_main); hidden configurations through `scripts/hidden_worker.py --submit-noise` (queue kind `dc_hidden`, records in the hidden database only). Statistics (§4): `src/noise/stats.py`; visible rows by `scripts/phase2_noise.py collect`, hidden rows by `scripts/hidden_worker.py --noise-floor` (counts only). The §6 comparison of σ_D under H1 / H2 / H5 with E4 is therefore part of the hidden report (scripts/report_hidden.py, after Phase 5).
