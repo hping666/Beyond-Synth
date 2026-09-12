@@ -1,0 +1,156 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_risc__cache_datapath",
+ "files": [
+  "rtl/cache_datapath.v",
+  "rtl/array.v",
+  "rtl/data_array.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/cache_mux_types.v",
+  "rtl/rv32i_mux_types.v",
+  "rtl/rv32i_types.v"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 584,
+  "loc": 175,
+  "n_cells": 617,
+  "n_ff_bits": 18957,
+  "n_files": 3,
+  "n_inputs": 11,
+  "n_outputs": 5,
+  "out_bits": 546,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "dirty_in": {
+    "dir": "input",
+    "width": 1
+   },
+   "dirty_load": {
+    "dir": "input",
+    "width": 1
+   },
+   "dirty_out": {
+    "dir": "output",
+    "width": 1
+   },
+   "hit": {
+    "dir": "output",
+    "width": 1
+   },
+   "mem_address": {
+    "dir": "input",
+    "width": 32
+   },
+   "mem_byte_enable": {
+    "dir": "input",
+    "width": 32
+   },
+   "mem_rdata": {
+    "dir": "output",
+    "width": 256
+   },
+   "mem_wdata": {
+    "dir": "input",
+    "width": 256
+   },
+   "pmem_address": {
+    "dir": "output",
+    "width": 32
+   },
+   "pmem_rdata": {
+    "dir": "input",
+    "width": 256
+   },
+   "pmem_wdata": {
+    "dir": "output",
+    "width": 256
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "tag_load": {
+    "dir": "input",
+    "width": 1
+   },
+   "valid_load": {
+    "dir": "input",
+    "width": 1
+   },
+   "writing": {
+    "dir": "input",
+    "width": 2
+   }
+  },
+  "ports_hash": "d1d0dcd94a4823b1",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 175,
+ "name": "risc__cache_datapath",
+ "notes": [
+  "closure: 3 modules, 175 lines (cache_datapath, array, data_array)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/array.v": "dbef0f3e4d2b6e5f538b2804cf46e075110699335614609ee25d7bac061cea34",
+  "rtl/cache_datapath.v": "7149037abcccf0831f65f5f487f1ef884ba6664015328a0f35bb91495c43b193",
+  "rtl/cache_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/data_array.v": "b2805874e1064c3125f497684551f074abe29cd5c0bd3440cd81c89a18ca7060",
+  "rtl/rv32i_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/rv32i_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/risc/cache_datapath.v",
+   "benchmark/risc/array.v",
+   "benchmark/risc/data_array.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "risc"
+ ],
+ "tb": null,
+ "top": "cache_datapath"
+}

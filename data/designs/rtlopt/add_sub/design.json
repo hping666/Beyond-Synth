@@ -1,0 +1,94 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlopt_add_sub",
+ "files": [
+  "rtl/add_sub.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 33,
+  "loc": 14,
+  "n_cells": 3,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 1,
+  "out_bits": 16,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 16
+   },
+   "b": {
+    "dir": "input",
+    "width": 16
+   },
+   "control": {
+    "dir": "input",
+    "width": 1
+   },
+   "result": {
+    "dir": "output",
+    "width": 16
+   }
+  },
+  "ports_hash": "9709bd553d5a5420",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 14,
+ "name": "add_sub",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/add_sub_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "add_sub_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/add_sub_ref.v": "2b84a15d62a13363d6aa25f3084288bf7f0ec9fb70fb0025466e3b8c7702c319",
+  "rtl/add_sub.v": "3e24786b2d37cbd97e8c69805d4686f50eb1c188bc68bb0acc5e555600041b96"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/add_sub/add_sub.v",
+   "benchmark/add_sub_ref/add_sub_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "add_sub"
+}

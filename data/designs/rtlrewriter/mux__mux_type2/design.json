@@ -1,0 +1,104 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_mux__mux_type2",
+ "files": [
+  "rtl/mux_type2_redundancy.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 2,
+  "loc": 31,
+  "n_cells": 4,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 1
+   },
+   "b": {
+    "dir": "input",
+    "width": 1
+   },
+   "y": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "91e5dda87a6b8ebc",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 31,
+ "name": "mux__mux_type2",
+ "notes": [
+  "file roles: {\"mux_type2_redundancy.v\": \"original\", \"mux_type2_redundancy_improve.v\": \"expert\", \"mux_type2_redundancy_optimized.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/mux_type2_redundancy_improve.v"
+  ],
+  "note": "engineers' rewrite; further expert versions staged as samples: ['mux_type2_redundancy_optimized.v']",
+  "top": "mux_tree"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/mux_type2_redundancy_optimized.v"
+   ],
+   "role": "expert",
+   "top": "mux_tree"
+  }
+ ],
+ "sha256": {
+  "reference/mux_type2_redundancy_improve.v": "87e3ecfc16890a12270bf5753efea1ab61e7c009a7385c02a3dedb6f0371584d",
+  "rtl/mux_type2_redundancy.v": "8f1e059d412ca3c99414c5b82e7a8e99342a07ad0fb1115166d09b873a0e6b36",
+  "samples/mux_type2_redundancy_optimized.v": "87e3ecfc16890a12270bf5753efea1ab61e7c009a7385c02a3dedb6f0371584d"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/mux/mux_type2/mux_type2_redundancy.v",
+   "short_benchmark/mux/mux_type2/mux_type2_redundancy_improve.v",
+   "short_benchmark/mux/mux_type2/mux_type2_redundancy_optimized.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "mux",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "mux_tree"
+}

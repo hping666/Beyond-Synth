@@ -1,0 +1,87 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_long_cnn__convUnit",
+ "files": [
+  "rtl/convUnit_raw.v",
+  "rtl/processingElement.v",
+  "rtl/processingElementRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "loc": 600,
+  "n_files": 3,
+  "ports": null,
+  "ports_hash": null,
+  "sdc_available": 0,
+  "tb_available": 0,
+  "yosys_error": "yosys exit 1: /Beyond-Synth/data/designs/rtlrewriter/long_cnn__convUnit/rtl/processingElementRaw.v:36: Warning: Identifier `\\intermediateResult2' is implicitly declared.\n/home/hping/Beyond-Synth/data/designs/rtlrewriter/long_cnn__convUnit/rtl/processingElementRaw.v:36: Warning: Range select out of bounds on signal `\\intermediateResult2': Setting result bit to undef.\n/home/hping/Beyond-Synth/data/designs/rtlrewriter/long_cnn__convUnit/rtl/processingElementRaw.v:46: ERROR: Re-definition of module ",
+  "yosys_ok": 0
+ },
+ "loc": 600,
+ "name": "long_cnn__convUnit",
+ "notes": [
+  "closure of convUnit_raw: ['convUnit_raw.v', 'processingElement.v', 'processingElementRaw.v']",
+  "module names defined in several files, chosen by variant: [('floatAdd', ['floatAdd.v', 'processingElement.v', 'processingElementRaw.v'], 'processingElementRaw.v'), ('floatMult', ['floatMult.v', 'processingElement.v', 'processingElementRaw.v'], 'processingElementRaw.v')]"
+ ],
+ "reference": {
+  "files": [
+   "reference/convUnit.v",
+   "reference/processingElement.v",
+   "reference/floatAdd.v",
+   "reference/floatMult.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "convUnit"
+ },
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/convUnit.v": "2279e75de54aa37076973f9776265e2150f89bb6b81107784bbbc0a464e5bf4e",
+  "reference/floatAdd.v": "213311092b2cb9e0442cfad3e2d4986fdd2c91f7661b0c92b393567fe3c168bc",
+  "reference/floatMult.v": "0b1ba8b8928067ab5e9e8cc567ebe00651c09b5778d407a7422c8614d380fa0f",
+  "reference/processingElement.v": "6a509abbce2b93205af33399f524c9baf02117641a9087aed84dded7fd94df6e",
+  "rtl/convUnit_raw.v": "2a6e633322574c99f146ddeff8a79201b1fe5369956708d1364b7e89a142925d",
+  "rtl/processingElement.v": "6a509abbce2b93205af33399f524c9baf02117641a9087aed84dded7fd94df6e",
+  "rtl/processingElementRaw.v": "e6f07c77ee22358bc2118a597bfb7c45995ff50074c3b3e22b663cdca4b634ab"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cnn/convUnit_raw.v",
+   "long_benchmark/cnn/processingElement.v",
+   "long_benchmark/cnn/processingElementRaw.v",
+   "long_benchmark/cnn/convUnit.v",
+   "long_benchmark/cnn/processingElement.v",
+   "long_benchmark/cnn/floatAdd.v",
+   "long_benchmark/cnn/floatMult.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cnn",
+  "calibration_only",
+  "yosys_failed"
+ ],
+ "tb": null,
+ "top": "convUnit_raw"
+}

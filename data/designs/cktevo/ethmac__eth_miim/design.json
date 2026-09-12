@@ -1,0 +1,177 @@
+{
+ "clk_ports": [
+  "Clk"
+ ],
+ "design_id": "cktevo_ethmac__eth_miim",
+ "files": [
+  "rtl/eth_miim.v",
+  "rtl/eth_clockgen.v",
+  "rtl/eth_outputcontrol.v",
+  "rtl/eth_shiftreg.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "Reset": "high"
+  },
+  "clk_ports": [
+   "Clk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 41,
+  "loc": 872,
+  "n_cells": 195,
+  "n_ff_bits": 76,
+  "n_files": 4,
+  "n_inputs": 11,
+  "n_outputs": 10,
+  "out_bits": 25,
+  "ports": {
+   "Busy": {
+    "dir": "output",
+    "width": 1
+   },
+   "Clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "CtrlData": {
+    "dir": "input",
+    "width": 16
+   },
+   "Divider": {
+    "dir": "input",
+    "width": 8
+   },
+   "Fiad": {
+    "dir": "input",
+    "width": 5
+   },
+   "LinkFail": {
+    "dir": "output",
+    "width": 1
+   },
+   "Mdc": {
+    "dir": "output",
+    "width": 1
+   },
+   "Mdi": {
+    "dir": "input",
+    "width": 1
+   },
+   "Mdo": {
+    "dir": "output",
+    "width": 1
+   },
+   "MdoEn": {
+    "dir": "output",
+    "width": 1
+   },
+   "NoPre": {
+    "dir": "input",
+    "width": 1
+   },
+   "Nvalid": {
+    "dir": "output",
+    "width": 1
+   },
+   "Prsd": {
+    "dir": "output",
+    "width": 16
+   },
+   "RStat": {
+    "dir": "input",
+    "width": 1
+   },
+   "RStatStart": {
+    "dir": "output",
+    "width": 1
+   },
+   "Reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "Rgad": {
+    "dir": "input",
+    "width": 5
+   },
+   "ScanStat": {
+    "dir": "input",
+    "width": 1
+   },
+   "UpdateMIIRX_DATAReg": {
+    "dir": "output",
+    "width": 1
+   },
+   "WCtrlData": {
+    "dir": "input",
+    "width": 1
+   },
+   "WCtrlDataStart": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "1991360849ae3aa4",
+  "rst_port": "Reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 872,
+ "name": "ethmac__eth_miim",
+ "notes": [
+  "closure: 4 modules, 568 lines (eth_miim, eth_clockgen, eth_outputcontrol, eth_shiftreg)"
+ ],
+ "reference": null,
+ "rst_port": "Reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_clockgen.v": "8d3b1b91f8e52f039fd852ae7c221cb254fc2c152cb04c111e14ff0ae07d4727",
+  "rtl/eth_miim.v": "1dc1d6f60689bb2d02d3576da31ec64caccc02c98188dda551afcf64d8827e29",
+  "rtl/eth_outputcontrol.v": "4596a460632c8e66977d2d60f8ff54acbfcf023c0aae353d9814feabad161d43",
+  "rtl/eth_shiftreg.v": "da19970941f8206a25fa1f57af70f9d1a6170be8cd2338608f394538d179a473",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_miim.v",
+   "benchmark/ethmac/eth_clockgen.v",
+   "benchmark/ethmac/eth_outputcontrol.v",
+   "benchmark/ethmac/eth_shiftreg.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac"
+ ],
+ "tb": null,
+ "top": "eth_miim"
+}

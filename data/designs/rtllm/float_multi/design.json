@@ -1,0 +1,65 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_float_multi",
+ "files": [
+  "rtl/float_multi.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "loc": 165,
+  "n_files": 1,
+  "ports": null,
+  "ports_hash": null,
+  "sdc_available": 0,
+  "tb_available": 1,
+  "yosys_error": "yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtllm/float_multi/rtl/float_multi.v:17: ERROR: Found non-synthesizable event list!\n",
+  "yosys_ok": 0
+ },
+ "loc": 165,
+ "name": "float_multi",
+ "notes": [],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/float_multi.v": "b22bf486597af9c3fdc3f8913a3fff291482a9387eff57f64644fa0a65e6c6c3",
+  "tb/testbench.v": "db695b8279956680f1ce48e364b0a3f3aae82d442af50fea069905bb5b3c2195"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Arithmetic/Other/float_multi/verified_float_multi.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "yosys_failed"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "fmultiplier_tb"
+ },
+ "top": "float_multi"
+}

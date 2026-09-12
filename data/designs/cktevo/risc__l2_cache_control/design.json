@@ -1,0 +1,331 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_risc__l2_cache_control",
+ "files": [
+  "rtl/l2_cache_control.v",
+  "rtl/perf_counter.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/cache_mux_types.v",
+  "rtl/rv32i_mux_types.v",
+  "rtl/rv32i_types.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "rst": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 24,
+  "loc": 454,
+  "n_cells": 1944,
+  "n_ff_bits": 65,
+  "n_files": 2,
+  "n_inputs": 22,
+  "n_outputs": 38,
+  "out_bits": 49,
+  "ports": {
+   "LRU_array_datain": {
+    "dir": "output",
+    "width": 3
+   },
+   "LRU_array_dataout": {
+    "dir": "input",
+    "width": 3
+   },
+   "LRU_array_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "d_array_0_datain": {
+    "dir": "output",
+    "width": 1
+   },
+   "d_array_0_dataout": {
+    "dir": "input",
+    "width": 1
+   },
+   "d_array_0_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "d_array_1_datain": {
+    "dir": "output",
+    "width": 1
+   },
+   "d_array_1_dataout": {
+    "dir": "input",
+    "width": 1
+   },
+   "d_array_1_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "d_array_2_datain": {
+    "dir": "output",
+    "width": 1
+   },
+   "d_array_2_dataout": {
+    "dir": "input",
+    "width": 1
+   },
+   "d_array_2_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "d_array_3_datain": {
+    "dir": "output",
+    "width": 1
+   },
+   "d_array_3_dataout": {
+    "dir": "input",
+    "width": 1
+   },
+   "d_array_3_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "data_array_0_datain_MUX_sel": {
+    "dir": "output",
+    "width": 2
+   },
+   "data_array_1_datain_MUX_sel": {
+    "dir": "output",
+    "width": 2
+   },
+   "data_array_2_datain_MUX_sel": {
+    "dir": "output",
+    "width": 2
+   },
+   "data_array_3_datain_MUX_sel": {
+    "dir": "output",
+    "width": 2
+   },
+   "dataout_MUX_sel": {
+    "dir": "output",
+    "width": 2
+   },
+   "ewb_empty": {
+    "dir": "input",
+    "width": 1
+   },
+   "ewb_full": {
+    "dir": "input",
+    "width": 1
+   },
+   "ewb_hit": {
+    "dir": "input",
+    "width": 1
+   },
+   "hit": {
+    "dir": "input",
+    "width": 1
+   },
+   "load_ewb": {
+    "dir": "output",
+    "width": 1
+   },
+   "mem_read": {
+    "dir": "input",
+    "width": 1
+   },
+   "mem_resp": {
+    "dir": "output",
+    "width": 1
+   },
+   "mem_write": {
+    "dir": "input",
+    "width": 1
+   },
+   "pmem_address_MUX_sel": {
+    "dir": "output",
+    "width": 1
+   },
+   "pmem_read": {
+    "dir": "output",
+    "width": 1
+   },
+   "pmem_resp": {
+    "dir": "input",
+    "width": 1
+   },
+   "pmem_write": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "tag_array_0_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "tag_array_1_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "tag_array_2_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "tag_array_3_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "tag_check": {
+    "dir": "output",
+    "width": 1
+   },
+   "v_array_0_datain": {
+    "dir": "output",
+    "width": 1
+   },
+   "v_array_0_dataout": {
+    "dir": "input",
+    "width": 1
+   },
+   "v_array_0_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "v_array_1_datain": {
+    "dir": "output",
+    "width": 1
+   },
+   "v_array_1_dataout": {
+    "dir": "input",
+    "width": 1
+   },
+   "v_array_1_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "v_array_2_datain": {
+    "dir": "output",
+    "width": 1
+   },
+   "v_array_2_dataout": {
+    "dir": "input",
+    "width": 1
+   },
+   "v_array_2_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "v_array_3_datain": {
+    "dir": "output",
+    "width": 1
+   },
+   "v_array_3_dataout": {
+    "dir": "input",
+    "width": 1
+   },
+   "v_array_3_load": {
+    "dir": "output",
+    "width": 1
+   },
+   "way_0_hit": {
+    "dir": "input",
+    "width": 1
+   },
+   "way_1_hit": {
+    "dir": "input",
+    "width": 1
+   },
+   "way_2_hit": {
+    "dir": "input",
+    "width": 1
+   },
+   "way_3_hit": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_ewb": {
+    "dir": "output",
+    "width": 1
+   },
+   "write_en_0_MUX_sel": {
+    "dir": "output",
+    "width": 2
+   },
+   "write_en_1_MUX_sel": {
+    "dir": "output",
+    "width": 2
+   },
+   "write_en_2_MUX_sel": {
+    "dir": "output",
+    "width": 2
+   },
+   "write_en_3_MUX_sel": {
+    "dir": "output",
+    "width": 2
+   }
+  },
+  "ports_hash": "04ceefa48cf98cb3",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 454,
+ "name": "risc__l2_cache_control",
+ "notes": [
+  "closure: 2 modules, 454 lines (l2_cache_control, perf_counter)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/cache_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/l2_cache_control.v": "f5f595c467c9b720a696b48c1cb90503ba495dc7c423176f242bd5d486a3328f",
+  "rtl/perf_counter.v": "ec1dc870e403b8c1f88595185dee86d2e2386cb1830a55d1a11506d2e886ea6b",
+  "rtl/rv32i_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/rv32i_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/risc/l2_cache_control.v",
+   "benchmark/risc/perf_counter.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "risc"
+ ],
+ "tb": null,
+ "top": "l2_cache_control"
+}

@@ -1,0 +1,102 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "drrtl_aes",
+ "files": [
+  "rtl/aes.sv"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_async_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 131,
+  "loc": 374,
+  "n_cells": 181,
+  "n_ff_bits": 1419,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 2,
+  "out_bits": 1409,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "i_key": {
+    "dir": "input",
+    "width": 128
+   },
+   "i_start": {
+    "dir": "input",
+    "width": 1
+   },
+   "o_done": {
+    "dir": "output",
+    "width": 1
+   },
+   "o_expanded_key": {
+    "dir": "output",
+    "width": 1408
+   },
+   "rst_async_n": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "57389b8cedaf72b1",
+  "rst_port": "rst_async_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": true,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 374,
+ "name": "aes",
+ "notes": [
+  "reset sense of rst_async_n guessed from its name (low); verify in the Phase 1 hand check"
+ ],
+ "reference": null,
+ "rst_port": "rst_async_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/aes.sv": "d01b23b3b61f81527687c8ff877aeb77f7e5193ef69d92e0f3a0b36949fb5af5"
+ },
+ "source": {
+  "commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "rtl_dataset/aes.v0.sv"
+  ],
+  "suite_key": "drrtl",
+  "url": "https://github.com/hkust-zhiyao/DR_RTL"
+ },
+ "suite": "drrtl",
+ "sverilog": true,
+ "tags": [
+  "drrtl"
+ ],
+ "tb": null,
+ "top": "key_expansion_128aes"
+}

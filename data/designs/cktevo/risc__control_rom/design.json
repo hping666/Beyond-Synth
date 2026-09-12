@@ -1,0 +1,109 @@
+{
+ "clk_ports": [],
+ "design_id": "cktevo_risc__control_rom",
+ "files": [
+  "rtl/control_rom.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/cache_mux_types.v",
+  "rtl/rv32i_mux_types.v",
+  "rtl/rv32i_types.v"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 32,
+  "loc": 162,
+  "n_cells": 331,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 6,
+  "n_outputs": 1,
+  "out_bits": 49,
+  "ports": {
+   "ctrl": {
+    "dir": "output",
+    "width": 49
+   },
+   "funct3": {
+    "dir": "input",
+    "width": 3
+   },
+   "funct7": {
+    "dir": "input",
+    "width": 7
+   },
+   "opcode": {
+    "dir": "input",
+    "width": 7
+   },
+   "rd_id": {
+    "dir": "input",
+    "width": 5
+   },
+   "rs1_id": {
+    "dir": "input",
+    "width": 5
+   },
+   "rs2_id": {
+    "dir": "input",
+    "width": 5
+   }
+  },
+  "ports_hash": "9f9f81f21c6be27e",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 162,
+ "name": "risc__control_rom",
+ "notes": [
+  "closure: 1 modules, 162 lines (control_rom)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/cache_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/control_rom.v": "186125754d3ea47e87c306f30653bbade77ce83b5a699b3359c9ece42455374d",
+  "rtl/rv32i_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/rv32i_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/risc/control_rom.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "risc",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "control_rom"
+}

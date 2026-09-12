@@ -1,0 +1,73 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_risc__l2_cache_datapath",
+ "files": [
+  "rtl/l2_cache_datapath.v",
+  "rtl/l2_array.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/cache_mux_types.v",
+  "rtl/rv32i_mux_types.v",
+  "rtl/rv32i_types.v"
+ ],
+ "inventory": {
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": true,
+   "timescale": false
+  },
+  "loc": 417,
+  "n_files": 2,
+  "ports": null,
+  "ports_hash": null,
+  "sdc_available": 0,
+  "tb_available": 0,
+  "yosys_error": "yosys exit 1: /home/hping/Beyond-Synth/data/designs/cktevo/risc__l2_cache_datapath/rtl/l2_cache_datapath.v:217: Warning: Identifier `\\WRITE_EN_0_MUX.$time' is implicitly declared.\n/home/hping/Beyond-Synth/data/designs/cktevo/risc__l2_cache_datapath/rtl/l2_cache_datapath.v:217: ERROR: Don't know how to detect sign and width for AST_AUTOWIRE node!\n",
+  "yosys_ok": 0
+ },
+ "loc": 417,
+ "name": "risc__l2_cache_datapath",
+ "notes": [
+  "closure: 2 modules, 417 lines (l2_cache_datapath, l2_array)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/cache_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/l2_array.v": "0ecd71d9e9632aeac58b6f3cdb6c3326618c42a9ce243b5bf68ddb935ce66576",
+  "rtl/l2_cache_datapath.v": "1b7bcca9582ef939aa9da349f5b4c4073cc96d31b36b72946c0c1dcf500b677f",
+  "rtl/rv32i_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/rv32i_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/risc/l2_cache_datapath.v",
+   "benchmark/risc/l2_array.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "risc",
+  "yosys_failed"
+ ],
+ "tb": null,
+ "top": "l2_cache_datapath"
+}

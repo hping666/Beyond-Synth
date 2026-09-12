@@ -1,0 +1,69 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_basic__if_prority",
+ "files": [
+  "rtl/basic.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "loc": 16,
+  "n_files": 1,
+  "ports": null,
+  "ports_hash": null,
+  "sdc_available": 0,
+  "tb_available": 0,
+  "yosys_error": "yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtlrewriter/basic__if_prority/rtl/basic.v:16: ERROR: syntax error, unexpected invalid token\n",
+  "yosys_ok": 0
+ },
+ "loc": 16,
+ "name": "basic__if_prority",
+ "notes": [
+  "file roles: {\"basic.v\": \"original\", \"basic_optimized.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/basic_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/basic_optimized.v": "5ba4c1e647cb826bb9a59a56327df8c74e7cc4a463b9364713dfb300ae22c4df",
+  "rtl/basic.v": "a019c820c579e7466118f297ab97a71693e064ebe84dbee178212fbec3431718"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/basic/if_prority/basic.v",
+   "short_benchmark/basic/if_prority/basic_optimized.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "basic",
+  "calibration_only",
+  "yosys_failed"
+ ],
+ "tb": null,
+ "top": "example"
+}

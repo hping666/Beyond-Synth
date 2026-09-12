@@ -1,0 +1,134 @@
+{
+ "clk_ports": [
+  "rclk",
+  "wclk"
+ ],
+ "design_id": "cktevo_vga_enh__generic_dpram",
+ "files": [
+  "rtl/generic_dpram.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/timescale.v",
+  "rtl/vga_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "rclk",
+   "wclk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": true,
+   "ifdef": true,
+   "include": true,
+   "initial": false,
+   "sysfunc": true,
+   "timescale": false
+  },
+  "in_bits": 34,
+  "loc": 515,
+  "n_cells": 11,
+  "n_ff_bits": 42,
+  "n_files": 1,
+  "n_inputs": 11,
+  "n_outputs": 1,
+  "out_bits": 16,
+  "ports": {
+   "di": {
+    "dir": "input",
+    "width": 16
+   },
+   "do": {
+    "dir": "output",
+    "width": 16
+   },
+   "oe": {
+    "dir": "input",
+    "width": 1
+   },
+   "raddr": {
+    "dir": "input",
+    "width": 5
+   },
+   "rce": {
+    "dir": "input",
+    "width": 1
+   },
+   "rclk": {
+    "dir": "input",
+    "width": 1
+   },
+   "rrst": {
+    "dir": "input",
+    "width": 1
+   },
+   "waddr": {
+    "dir": "input",
+    "width": 5
+   },
+   "wce": {
+    "dir": "input",
+    "width": 1
+   },
+   "wclk": {
+    "dir": "input",
+    "width": 1
+   },
+   "we": {
+    "dir": "input",
+    "width": 1
+   },
+   "wrst": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "8d756fa074acc753",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 515,
+ "name": "vga_enh__generic_dpram",
+ "notes": [
+  "closure: 3 modules, 395 lines (generic_dpram, altera_ram_dp, xilinx_ram_dp)",
+  "unresolved references in the text (vendor models under `ifdef?): ['C_MEM_DP_BLOCK_V1_0', 'art_hsdp', 'avant_atp', 'syn_dpram_rowr', 'virage_stp']"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/generic_dpram.v": "8c2f26038296a630eddeb2c5177f3e1b96400d650855d6e87aa7bcea66158cb5",
+  "rtl/timescale.v": "8ecd153830822ef5f1dd0b352067f72d8b08bbc3e8d360cc2b38175cd07f8d33",
+  "rtl/vga_defines.v": "dbf4a77dcaf8dec2030afb8b7c54dc3cc9b2913eb421624cd4e17dc252947cee"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/vga_enh/generic_dpram.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "vga_enh",
+  "multi_clock"
+ ],
+ "tb": null,
+ "top": "generic_dpram"
+}

@@ -16,6 +16,7 @@ from pathlib import Path
 from src import config as C
 from src.db import ingest
 from src.eval.dc import run_dc
+from src.eval.sdc import clock_ports
 
 CLOCK_KEYS = {"phi_main": "phi_main_ns_nangate45", "phi_main_asap7": "phi_main_ns_asap7",
               "phi_main_sky130hd": "phi_main_ns_sky130hd"}
@@ -41,6 +42,8 @@ def resolve_config(cfg, name, design=None, clock_ns=None):
         if "clock_ns" in c:
             clock_ns = float(c["clock_ns"])
         else:
+            if c.get("clock") == "sweep":
+                raise ValueError(f"configuration {name} is a knee-sweep configuration: pass clock_ns explicitly")
             key = CLOCK_KEYS.get(c.get("clock"))
             if not key or not design or design.get(key) is None:
                 raise ValueError(f"configuration {name} needs the design's {key or c.get('clock')} clock; none given")
@@ -58,6 +61,17 @@ def resolve_config(cfg, name, design=None, clock_ns=None):
     elif c["tool"] == "pt_primepower":
         out["input"] = c.get("input")
     return out
+
+
+class HiddenConfigError(ValueError):
+    """A hidden configuration was asked to record into the visible database, or vice versa (CLAUDE.md rule 3)."""
+
+
+def db_is_hidden(conn):
+    """True when the connection's main database file lives under a hidden/ directory (the hidden results DB)."""
+    row = conn.execute("PRAGMA database_list").fetchone()
+    path = ((row[2] if row else "") or "").replace("\\", "/")
+    return "/hidden/" in path
 
 
 def source_evaluation(conn, design_id, cand_id, pert_id, input_spec):
@@ -106,18 +120,33 @@ def job_directory(raw_root, force_rerun=False):
 
 def evaluate(cfg, conn, design_id, rtl_files, top, config_name, *, clock_ns=None, design=None, clk_port="clk",
              cand_id=None, pert_id=None, is_baseline=0, saif=None, saif_instance=None, sverilog=False,
-             incdirs=None, force_rerun=False, do_ingest=True, timeout_sec=None):
+             incdirs=None, force_rerun=False, do_ingest=True, timeout_sec=None, source_conn=None):
+    """clk_port: one port name, a whitespace-separated list of names or a list (all clocks get the same period).
+    Hidden configurations (config `hidden: true`) may only be recorded through a connection to the hidden database
+    (opened by scripts/hidden_worker.py) and write their raw directories under the hidden results tree; visible
+    configurations may not be recorded there (CLAUDE.md rule 3). `phase1_knee_only` configurations (K_asap7,
+    K_sky130hd) accept original designs only. source_conn: where a signoff configuration looks up the
+    netlist-producing evaluation (defaults to conn)."""
     config_name = canonical_config(cfg, config_name)
+    cdef = cfg["configs"][config_name]
+    hidden = bool(cdef.get("hidden"))
+    if conn is not None and hidden != db_is_hidden(conn):
+        raise HiddenConfigError(
+            f"{config_name} is a {'hidden' if hidden else 'visible'} configuration but the database connection is "
+            f"{'not ' if hidden else ''}the hidden one (CLAUDE.md rule 3)")
+    if cdef.get("phase1_knee_only") and (cand_id or pert_id):
+        raise ValueError(f"{config_name} is a Phase 1 knee-sweep configuration for original designs only (got cand_id={cand_id!r}, pert_id={pert_id!r})")
+    clk_port = " ".join(clock_ports(clk_port)) or None
     res = resolve_config(cfg, config_name, design, clock_ns)
     extra = {"saif": str(saif) if saif else None, "sverilog": bool(sverilog), "cand_id": cand_id, "pert_id": pert_id}
     source = None
     if res["tool"] == "pt_primepower":
-        source = source_evaluation(conn, design_id, cand_id, pert_id, res["input"])
+        source = source_evaluation(source_conn or conn, design_id, cand_id, pert_id, res["input"])
         if source is None:
             raise ValueError(f"{config_name} needs an ok {res['input']} evaluation of {design_id}/{cand_id}/{pert_id} first")
         extra["source_raw_dir"] = source["raw_dir"]
     h = _hash_inputs(rtl_files, res, clk_port, cfg, extra)
-    root = Path(C.results_dir(cfg)) / "raw" / design_id / config_name / h
+    root = Path(C.results_dir(cfg)) / ("hidden/raw" if hidden else "raw") / design_id / config_name / h
     job_dir, cached = job_directory(root, force_rerun)
     if cached:
         meta = json.loads((job_dir / "meta.json").read_text())

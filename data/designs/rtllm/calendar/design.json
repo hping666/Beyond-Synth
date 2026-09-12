@@ -1,0 +1,108 @@
+{
+ "clk_ports": [
+  "CLK"
+ ],
+ "design_id": "rtllm_calendar",
+ "files": [
+  "rtl/calendar.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "RST": "high"
+  },
+  "clk_ports": [
+   "CLK"
+  ],
+  "clk_ports_by_name": [
+   "CLK"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 2,
+  "loc": 37,
+  "n_cells": 24,
+  "n_ff_bits": 18,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 3,
+  "out_bits": 18,
+  "ports": {
+   "CLK": {
+    "dir": "input",
+    "width": 1
+   },
+   "Hours": {
+    "dir": "output",
+    "width": 6
+   },
+   "Mins": {
+    "dir": "output",
+    "width": 6
+   },
+   "RST": {
+    "dir": "input",
+    "width": 1
+   },
+   "Secs": {
+    "dir": "output",
+    "width": 6
+   }
+  },
+  "ports_hash": "101b0f9b4b8807e2",
+  "rst_port": "RST",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 37,
+ "name": "calendar",
+ "notes": [
+  "module verified_calendar renamed to calendar, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "RST",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/calendar.v": "af3b36fdc2725e9ce7a36e7a6960a264189e2eba5fa4306a4c6d770fe4ecd473",
+  "tb/reference.txt": "3f0fd2eb09f451ed784ec2f56c228be36190b4051abab01b121cf42bf70ca821",
+  "tb/testbench.v": "50f9797c93eadd11cd73c8caa64c0c01e78b743e1d62f8f1ea653192a3c37535"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/Others/calendar/verified_calendar.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [
+   "tb/reference.txt"
+  ],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "main"
+ },
+ "top": "calendar"
+}

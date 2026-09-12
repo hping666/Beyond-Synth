@@ -1,0 +1,130 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__adder_subexpression",
+ "files": [
+  "rtl/adder_subexpression.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 32,
+  "loc": 27,
+  "n_cells": 3,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 1,
+  "out_bits": 10,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "c": {
+    "dir": "input",
+    "width": 8
+   },
+   "d": {
+    "dir": "input",
+    "width": 8
+   },
+   "sum": {
+    "dir": "output",
+    "width": 10
+   }
+  },
+  "ports_hash": "a61a12ed0f4884c8",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 27,
+ "name": "datapath__adder_subexpression",
+ "notes": [
+  "file roles: {\"adder_subexpression.v\": \"original\", \"adder_subexpression_claude3.v\": \"llm\", \"adder_subexpression_gpt4.v\": \"llm\", \"adder_subexpression_optimized.v\": \"expert\", \"adder_subexpression_ours.v\": \"tool\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/adder_subexpression_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/adder_subexpression_claude3.v"
+   ],
+   "role": "llm",
+   "top": "example_optimized"
+  },
+  {
+   "files": [
+    "samples/adder_subexpression_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/adder_subexpression_ours.v"
+   ],
+   "role": "tool",
+   "top": "example"
+  }
+ ],
+ "sha256": {
+  "reference/adder_subexpression_optimized.v": "c8647682522ddbc2d186f2535576796cbb5358ccceb50d86fa757b9e58722e94",
+  "rtl/adder_subexpression.v": "92da0dd75cd8f085dab2828eac9566cd31cbfd49b1109b915d29d2a71683d897",
+  "samples/adder_subexpression_claude3.v": "916e75f4e07a77af56cd9972ebb6e7730b0dfca3b8ad8afe8ef4e4afd0c1a7fb",
+  "samples/adder_subexpression_gpt4.v": "cac2bfd598da8cdff3e264982aa10203c5e182e38d2a5d905b5b044a9355aceb",
+  "samples/adder_subexpression_ours.v": "665b6d9fed0778cf5c643a4c4c4baea3ae85068a8d3faccbe8da0e25c6a91afe"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/adder_subexpression/adder_subexpression.v",
+   "short_benchmark/datapath/adder_subexpression/adder_subexpression_claude3.v",
+   "short_benchmark/datapath/adder_subexpression/adder_subexpression_gpt4.v",
+   "short_benchmark/datapath/adder_subexpression/adder_subexpression_optimized.v",
+   "short_benchmark/datapath/adder_subexpression/adder_subexpression_ours.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example"
+}

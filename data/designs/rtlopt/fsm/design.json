@@ -1,0 +1,109 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlopt_fsm",
+ "files": [
+  "rtl/fsm.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 11,
+  "loc": 60,
+  "n_cells": 31,
+  "n_ff_bits": 9,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 2,
+  "out_bits": 9,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "data_in": {
+    "dir": "input",
+    "width": 8
+   },
+   "data_out": {
+    "dir": "output",
+    "width": 8
+   },
+   "done": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "start": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "1c5078c5364a0f48",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 60,
+ "name": "fsm",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/fsm_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "fsm_ref"
+ },
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "reference/fsm_ref.v": "fdb6aa54e690081c78a3661e545bb4dd6d0a268f3c525b0c6a9044fb41944d41",
+  "rtl/fsm.v": "285c544c48a267772bff7dfd1fdf845ad914eafa56b96be9bf00d712bb3a584e"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/fsm/fsm.v",
+   "benchmark/fsm_ref/fsm_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair"
+ ],
+ "tb": null,
+ "top": "fsm"
+}

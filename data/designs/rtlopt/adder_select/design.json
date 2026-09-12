@@ -1,0 +1,102 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlopt_adder_select",
+ "files": [
+  "rtl/adder_select.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 129,
+  "loc": 14,
+  "n_cells": 3,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 5,
+  "n_outputs": 1,
+  "out_bits": 33,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 32
+   },
+   "B": {
+    "dir": "input",
+    "width": 32
+   },
+   "C": {
+    "dir": "input",
+    "width": 32
+   },
+   "D": {
+    "dir": "input",
+    "width": 32
+   },
+   "Z": {
+    "dir": "output",
+    "width": 33
+   },
+   "s": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "39bc867ec07a8360",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 14,
+ "name": "adder_select",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/adder_select_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "adder_select_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/adder_select_ref.v": "d4946a1ac77bfaed378e2bb030b142210e8166f3f5809a183d4b490c4ea43e66",
+  "rtl/adder_select.v": "d23a66177b24fa62ad29a0a120c5cae83ff97bec61fb3ab73f17ada8883e54e0"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/adder_select/adder_select.v",
+   "benchmark/adder_select_ref/adder_select_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "adder_select"
+}

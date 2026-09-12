@@ -1,0 +1,352 @@
+{
+ "clk_ports": [
+  "WB_CLK_I",
+  "MTxClk",
+  "MRxClk"
+ ],
+ "design_id": "cktevo_ethmac__eth_wishbone",
+ "files": [
+  "rtl/eth_wishbone.v",
+  "rtl/eth_fifo.v",
+  "rtl/eth_spram_256x32.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "Reset": "high"
+  },
+  "clk_ports": [
+   "WB_CLK_I",
+   "MTxClk",
+   "MRxClk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": true,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 145,
+  "loc": 3161,
+  "n_cells": 1305,
+  "n_ff_bits": 912,
+  "n_files": 3,
+  "n_inputs": 41,
+  "n_outputs": 23,
+  "out_bits": 127,
+  "ports": {
+   "AddressMiss": {
+    "dir": "input",
+    "width": 1
+   },
+   "BDCs": {
+    "dir": "input",
+    "width": 4
+   },
+   "Busy_IRQ": {
+    "dir": "output",
+    "width": 1
+   },
+   "CarrierSenseLost": {
+    "dir": "input",
+    "width": 1
+   },
+   "DeferLatched": {
+    "dir": "input",
+    "width": 1
+   },
+   "DribbleNibble": {
+    "dir": "input",
+    "width": 1
+   },
+   "InvalidSymbol": {
+    "dir": "input",
+    "width": 1
+   },
+   "LatchedCrcError": {
+    "dir": "input",
+    "width": 1
+   },
+   "LateCollLatched": {
+    "dir": "input",
+    "width": 1
+   },
+   "LoadRxStatus": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "MTxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "PerPacketCrcEn": {
+    "dir": "output",
+    "width": 1
+   },
+   "PerPacketPad": {
+    "dir": "output",
+    "width": 1
+   },
+   "ReceivedPacketGood": {
+    "dir": "input",
+    "width": 1
+   },
+   "ReceivedPacketTooBig": {
+    "dir": "input",
+    "width": 1
+   },
+   "ReceivedPauseFrm": {
+    "dir": "input",
+    "width": 1
+   },
+   "Reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "RetryCntLatched": {
+    "dir": "input",
+    "width": 4
+   },
+   "RetryLimit": {
+    "dir": "input",
+    "width": 1
+   },
+   "RstDeferLatched": {
+    "dir": "output",
+    "width": 1
+   },
+   "RxAbort": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxB_IRQ": {
+    "dir": "output",
+    "width": 1
+   },
+   "RxData": {
+    "dir": "input",
+    "width": 8
+   },
+   "RxE_IRQ": {
+    "dir": "output",
+    "width": 1
+   },
+   "RxEndFrm": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxLateCollision": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxLength": {
+    "dir": "input",
+    "width": 16
+   },
+   "RxStartFrm": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxStatusWriteLatched_sync2": {
+    "dir": "output",
+    "width": 1
+   },
+   "RxValid": {
+    "dir": "input",
+    "width": 1
+   },
+   "ShortFrame": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxAbort": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxB_IRQ": {
+    "dir": "output",
+    "width": 1
+   },
+   "TxData": {
+    "dir": "output",
+    "width": 8
+   },
+   "TxDone": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxE_IRQ": {
+    "dir": "output",
+    "width": 1
+   },
+   "TxEndFrm": {
+    "dir": "output",
+    "width": 1
+   },
+   "TxRetry": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxStartFrm": {
+    "dir": "output",
+    "width": 1
+   },
+   "TxUnderRun": {
+    "dir": "output",
+    "width": 1
+   },
+   "TxUsedData": {
+    "dir": "input",
+    "width": 1
+   },
+   "WB_ACK_O": {
+    "dir": "output",
+    "width": 1
+   },
+   "WB_ADR_I": {
+    "dir": "input",
+    "width": 8
+   },
+   "WB_CLK_I": {
+    "dir": "input",
+    "width": 1
+   },
+   "WB_DAT_I": {
+    "dir": "input",
+    "width": 32
+   },
+   "WB_DAT_O": {
+    "dir": "output",
+    "width": 32
+   },
+   "WB_WE_I": {
+    "dir": "input",
+    "width": 1
+   },
+   "m_wb_ack_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "m_wb_adr_o": {
+    "dir": "output",
+    "width": 30
+   },
+   "m_wb_bte_o": {
+    "dir": "output",
+    "width": 2
+   },
+   "m_wb_cti_o": {
+    "dir": "output",
+    "width": 3
+   },
+   "m_wb_cyc_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "m_wb_dat_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "m_wb_dat_o": {
+    "dir": "output",
+    "width": 32
+   },
+   "m_wb_err_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "m_wb_sel_o": {
+    "dir": "output",
+    "width": 4
+   },
+   "m_wb_stb_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "m_wb_we_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_PassAll": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_RxEn": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_RxFlow": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_TxBDNum": {
+    "dir": "input",
+    "width": 8
+   },
+   "r_TxEn": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "688ddb3e49e7ee2b",
+  "rst_port": "Reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 3161,
+ "name": "ethmac__eth_wishbone",
+ "notes": [
+  "closure: 3 modules, 2771 lines (eth_wishbone, eth_fifo, eth_spram_256x32)",
+  "unresolved references in the text (vendor models under `ifdef?): ['RAMB4_S8', 'altera_dpram_16x32', 'altera_spram_256x32', 'xilinx_dist_ram_16x32']"
+ ],
+ "reference": null,
+ "rst_port": "Reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_fifo.v": "4a97114f4b263bce3f4385d2123eafd19fe5e10c89dfd8d16c7fe4e17399773d",
+  "rtl/eth_spram_256x32.v": "2d0b872817485f9bf6397328178d234b32dda0a2f9758164e180cc0e414980cd",
+  "rtl/eth_wishbone.v": "4e24d4a42b2e2aa37c2373029b3aae3b9c10e67dbe74c7073e41c37434cb7cb8",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_wishbone.v",
+   "benchmark/ethmac/eth_fifo.v",
+   "benchmark/ethmac/eth_spram_256x32.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac",
+  "multi_clock"
+ ],
+ "tb": null,
+ "top": "eth_wishbone"
+}

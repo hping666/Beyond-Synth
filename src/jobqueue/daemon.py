@@ -72,7 +72,7 @@ def run_foreground(cfg):
 
     signal.signal(signal.SIGTERM, on_signal)
     signal.signal(signal.SIGINT, on_signal)
-    q.log(f"daemon started pid={os.getpid()} caps={q.caps} openai_key={'configured' if env.get('OPENAI_API_KEY') else 'not configured'}")
+    q.log(f"daemon started pid={os.getpid()} caps={q.caps} limits={q.limits} openai_key={'configured' if env.get('OPENAI_API_KEY') else 'not configured'}")
     poll = float(cfg["queue"]["poll_sec"])
     while not stop["flag"]:
         try:

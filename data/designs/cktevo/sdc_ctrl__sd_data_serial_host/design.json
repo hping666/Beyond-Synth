@@ -1,0 +1,158 @@
+{
+ "clk_ports": [
+  "clock"
+ ],
+ "design_id": "cktevo_sdc_ctrl__sd_data_serial_host",
+ "files": [
+  "rtl/sd_data_serial_host.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/sd_defines.h"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clock"
+  ],
+  "clk_ports_by_name": [
+   "clock"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 73,
+  "loc": 311,
+  "n_cells": 665,
+  "n_ff_bits": 189,
+  "n_files": 1,
+  "n_inputs": 11,
+  "n_outputs": 8,
+  "out_bits": 42,
+  "ports": {
+   "blkcnt": {
+    "dir": "input",
+    "width": 16
+   },
+   "blksize": {
+    "dir": "input",
+    "width": 12
+   },
+   "bus_4bit": {
+    "dir": "input",
+    "width": 1
+   },
+   "busy": {
+    "dir": "output",
+    "width": 1
+   },
+   "byte_alignment": {
+    "dir": "input",
+    "width": 2
+   },
+   "clock": {
+    "dir": "input",
+    "width": 1
+   },
+   "clock_data_in": {
+    "dir": "input",
+    "width": 1
+   },
+   "clock_posedge": {
+    "dir": "input",
+    "width": 1
+   },
+   "crc_ok": {
+    "dir": "output",
+    "width": 1
+   },
+   "dat_i": {
+    "dir": "input",
+    "width": 4
+   },
+   "dat_o": {
+    "dir": "output",
+    "width": 4
+   },
+   "dat_oe": {
+    "dir": "output",
+    "width": 1
+   },
+   "data_in": {
+    "dir": "input",
+    "width": 32
+   },
+   "data_out": {
+    "dir": "output",
+    "width": 32
+   },
+   "rd": {
+    "dir": "output",
+    "width": 1
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "sd_data_busy": {
+    "dir": "output",
+    "width": 1
+   },
+   "start": {
+    "dir": "input",
+    "width": 2
+   },
+   "we": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "6aaa56239ce55e84",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 311,
+ "name": "sdc_ctrl__sd_data_serial_host",
+ "notes": [
+  "closure: 2 modules, 277 lines (sd_data_serial_host, sd_crc_16)"
+ ],
+ "reference": null,
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/sd_data_serial_host.v": "d83e0cabf7ce0215431c06fdcb758e969cfe63a79dd86ffe4172a9b430e4a4dd",
+  "rtl/sd_defines.h": "3754280b98d936669232b1813f99b5367b215019006a4bb75ce4e9291cf4e695"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/sdc_ctrl/sd_data_serial_host.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "sdc_ctrl"
+ ],
+ "tb": null,
+ "top": "sd_data_serial_host"
+}

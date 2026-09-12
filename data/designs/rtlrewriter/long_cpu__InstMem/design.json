@@ -1,0 +1,95 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_long_cpu__InstMem",
+ "files": [
+  "rtl/InstMemRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": true,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 33,
+  "loc": 209,
+  "n_cells": 514,
+  "n_ff_bits": 32,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 0,
+  "out_bits": 0,
+  "ports": {
+   "ReadAddr": {
+    "dir": "input",
+    "width": 32
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "323de1b6affef634",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 209,
+ "name": "long_cpu__InstMem",
+ "notes": [
+  "closure of InstMem_raw: ['InstMemRaw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/InstMem.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "InstMem"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/InstMem.v": "8d5c17b480302b76bb90f68090eb2db5ce7b07c2e121287fbbd81b0b12d098f1",
+  "rtl/InstMemRaw.v": "5862e3d7bbc692bf9ba6b73c514150d7123f9b8ef623e5ec38e363c4d01e6c4e"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cpu/InstMemRaw.v",
+   "long_benchmark/cpu/InstMem.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cpu",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "InstMem_raw"
+}

@@ -1,0 +1,127 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_memory__memory_banking",
+ "files": [
+  "rtl/memory_banking_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 36,
+  "loc": 45,
+  "n_cells": 34,
+  "n_ff_bits": 97,
+  "n_files": 1,
+  "n_inputs": 8,
+  "n_outputs": 2,
+  "out_bits": 16,
+  "ports": {
+   "bank0_addr": {
+    "dir": "input",
+    "width": 8
+   },
+   "bank0_data_in": {
+    "dir": "input",
+    "width": 8
+   },
+   "bank0_data_out": {
+    "dir": "output",
+    "width": 8
+   },
+   "bank0_write_en": {
+    "dir": "input",
+    "width": 1
+   },
+   "bank1_addr": {
+    "dir": "input",
+    "width": 8
+   },
+   "bank1_data_in": {
+    "dir": "input",
+    "width": 8
+   },
+   "bank1_data_out": {
+    "dir": "output",
+    "width": 8
+   },
+   "bank1_write_en": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "a33ac851e8826520",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 45,
+ "name": "memory__memory_banking",
+ "notes": [
+  "file roles: {\"memory_banking_opt.v\": \"expert\", \"memory_banking_raw.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/memory_banking_opt.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "memory_bank"
+ },
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/memory_banking_opt.v": "6679917bede4eb48cc7e4b8c094262308d3838e65c6b73a6d9ea080d25004dcb",
+  "rtl/memory_banking_raw.v": "0449887a9f83eb1b6c74045d00489965baeae72adbfa640e00233812d4fe5bb7"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/memory/memory_banking/memory_banking_opt.v",
+   "short_benchmark/memory/memory_banking/memory_banking_raw.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "memory",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "memory_bank"
+}

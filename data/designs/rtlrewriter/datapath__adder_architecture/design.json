@@ -1,0 +1,102 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__adder_architecture",
+ "files": [
+  "rtl/adder_architecture.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 17,
+  "loc": 48,
+  "n_cells": 64,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 2,
+  "out_bits": 9,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "cin": {
+    "dir": "input",
+    "width": 1
+   },
+   "cout": {
+    "dir": "output",
+    "width": 1
+   },
+   "sum": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "7759e44f1467854c",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 48,
+ "name": "datapath__adder_architecture",
+ "notes": [
+  "file roles: {\"adder_architecture.v\": \"original\", \"adder_architecture_improve.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/adder_architecture_improve.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "carry_look_ahead"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/adder_architecture_improve.v": "8bb64f90a68fb339f2e4ad3b0bad737f02a2d88ee5a8b98a0e23120729a11301",
+  "rtl/adder_architecture.v": "aef9f2a1fcc1800c14699d67a7698f10ed7b02e58d8addc23053515ed2818af2"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/adder_architecture/adder_architecture.v",
+   "short_benchmark/datapath/adder_architecture/adder_architecture_improve.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "ripple_adder"
+}

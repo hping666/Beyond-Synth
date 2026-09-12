@@ -1,0 +1,109 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_long_cpu__PC",
+ "files": [
+  "rtl/PCRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "reset": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": true,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 35,
+  "loc": 51,
+  "n_cells": 12,
+  "n_ff_bits": 128,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 1,
+  "out_bits": 32,
+  "ports": {
+   "PC_Hold": {
+    "dir": "input",
+    "width": 1
+   },
+   "PC_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "PC_o": {
+    "dir": "output",
+    "width": 32
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "88ab6fdc7ce629b5",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 51,
+ "name": "long_cpu__PC",
+ "notes": [
+  "closure of PC_raw: ['PCRaw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/PC.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "PC"
+ },
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/PC.v": "6c8b9daf3292d2940e42bebce30a78ed5a1ddd11056d028a30aa687b819ed6cb",
+  "rtl/PCRaw.v": "f00f5fe2af968078b64fe86cfc4dbfc256e861649f2142fda492b073b9ed5c97"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cpu/PCRaw.v",
+   "long_benchmark/cpu/PC.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cpu",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "PC_raw"
+}

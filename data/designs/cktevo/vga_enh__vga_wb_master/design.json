@@ -1,0 +1,226 @@
+{
+ "clk_ports": [
+  "clk_i"
+ ],
+ "design_id": "cktevo_vga_enh__vga_wb_master",
+ "files": [
+  "rtl/vga_wb_master.v",
+  "rtl/vga_fifo.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/timescale.v",
+  "rtl/vga_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "nrst_i": "low"
+  },
+  "clk_ports": [
+   "clk_i"
+  ],
+  "clk_ports_by_name": [
+   "clk_i"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": true,
+   "include": true,
+   "initial": false,
+   "sysfunc": true,
+   "timescale": false
+  },
+  "in_bits": 180,
+  "loc": 730,
+  "n_cells": 335,
+  "n_ff_bits": 222,
+  "n_files": 2,
+  "n_inputs": 19,
+  "n_outputs": 15,
+  "out_bits": 91,
+  "ports": {
+   "ImDoneFifoQ": {
+    "dir": "output",
+    "width": 1
+   },
+   "Thgate": {
+    "dir": "input",
+    "width": 16
+   },
+   "Tvgate": {
+    "dir": "input",
+    "width": 16
+   },
+   "VBAa": {
+    "dir": "input",
+    "width": 30
+   },
+   "VBAb": {
+    "dir": "input",
+    "width": 30
+   },
+   "ack_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "adr_o": {
+    "dir": "output",
+    "width": 32
+   },
+   "bte_o": {
+    "dir": "output",
+    "width": 2
+   },
+   "busy": {
+    "dir": "output",
+    "width": 1
+   },
+   "clk_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "cti_o": {
+    "dir": "output",
+    "width": 3
+   },
+   "ctrl_cd": {
+    "dir": "input",
+    "width": 2
+   },
+   "ctrl_vbl": {
+    "dir": "input",
+    "width": 2
+   },
+   "ctrl_vbsw": {
+    "dir": "input",
+    "width": 1
+   },
+   "ctrl_ven": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor0_ba": {
+    "dir": "input",
+    "width": 21
+   },
+   "cursor0_ld": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor1_ba": {
+    "dir": "input",
+    "width": 21
+   },
+   "cursor1_ld": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor_adr": {
+    "dir": "output",
+    "width": 9
+   },
+   "cyc_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "dat_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "err_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "fb_data_fifo_empty": {
+    "dir": "output",
+    "width": 1
+   },
+   "fb_data_fifo_q": {
+    "dir": "output",
+    "width": 32
+   },
+   "fb_data_fifo_rreq": {
+    "dir": "input",
+    "width": 1
+   },
+   "nrst_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "rst_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "sel_o": {
+    "dir": "output",
+    "width": 4
+   },
+   "sint": {
+    "dir": "output",
+    "width": 1
+   },
+   "stat_avmp": {
+    "dir": "output",
+    "width": 1
+   },
+   "stb_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "vmem_switch": {
+    "dir": "output",
+    "width": 1
+   },
+   "we_o": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "9b63751c4e0732f4",
+  "rst_port": "nrst_i",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 730,
+ "name": "vga_enh__vga_wb_master",
+ "notes": [
+  "closure: 2 modules, 553 lines (vga_wb_master, vga_fifo)",
+  "unresolved references in the text (vendor models under `ifdef?): ['FIFO']"
+ ],
+ "reference": null,
+ "rst_port": "nrst_i",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/timescale.v": "8ecd153830822ef5f1dd0b352067f72d8b08bbc3e8d360cc2b38175cd07f8d33",
+  "rtl/vga_defines.v": "dbf4a77dcaf8dec2030afb8b7c54dc3cc9b2913eb421624cd4e17dc252947cee",
+  "rtl/vga_fifo.v": "6ffe9f2d5095c319cffc502ac6bdb04b9ce4053a591540701b6599eeea570a5b",
+  "rtl/vga_wb_master.v": "88089e515368ed8a7bf75ee079ec7b03d1156e4fd5141260a25171628f751269"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/vga_enh/vga_wb_master.v",
+   "benchmark/vga_enh/vga_fifo.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "vga_enh"
+ ],
+ "tb": null,
+ "top": "vga_wb_master"
+}

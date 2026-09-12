@@ -1,0 +1,124 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_vga_enh__vga_vtim",
+ "files": [
+  "rtl/vga_vtim.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/timescale.v",
+  "rtl/vga_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 51,
+  "loc": 179,
+  "n_cells": 56,
+  "n_ff_bits": 40,
+  "n_files": 1,
+  "n_inputs": 7,
+  "n_outputs": 3,
+  "out_bits": 3,
+  "ports": {
+   "Done": {
+    "dir": "output",
+    "width": 1
+   },
+   "Gate": {
+    "dir": "output",
+    "width": 1
+   },
+   "Sync": {
+    "dir": "output",
+    "width": 1
+   },
+   "Tgate": {
+    "dir": "input",
+    "width": 16
+   },
+   "Tgdel": {
+    "dir": "input",
+    "width": 8
+   },
+   "Tlen": {
+    "dir": "input",
+    "width": 16
+   },
+   "Tsync": {
+    "dir": "input",
+    "width": 8
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "ena": {
+    "dir": "input",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "fc2a50c285372910",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 179,
+ "name": "vga_enh__vga_vtim",
+ "notes": [
+  "closure: 1 modules, 107 lines (vga_vtim)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/timescale.v": "8ecd153830822ef5f1dd0b352067f72d8b08bbc3e8d360cc2b38175cd07f8d33",
+  "rtl/vga_defines.v": "dbf4a77dcaf8dec2030afb8b7c54dc3cc9b2913eb421624cd4e17dc252947cee",
+  "rtl/vga_vtim.v": "a92cf86176323db4c204ade5f6691165dc650dcc3240bebbda0751220e96b8e3"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/vga_enh/vga_vtim.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "vga_enh"
+ ],
+ "tb": null,
+ "top": "vga_vtim"
+}

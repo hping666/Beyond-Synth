@@ -1,0 +1,111 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_algorithm__md",
+ "files": [
+  "rtl/md_redundancy.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 35,
+  "loc": 51,
+  "n_cells": 9607,
+  "n_ff_bits": 81953,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 2,
+  "out_bits": 33,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "done": {
+    "dir": "output",
+    "width": 1
+   },
+   "force_out": {
+    "dir": "output",
+    "width": 32
+   },
+   "position_in": {
+    "dir": "input",
+    "width": 32
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "start": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "e19bffbd0370c6af",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 51,
+ "name": "algorithm__md",
+ "notes": [
+  "file roles: {\"md.v\": \"expert\", \"md_redundancy.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/md.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "MolecularDynamics"
+ },
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/md.v": "050399646564cdf80d7f73afe53810483afd817be50bd86786161d77ac081765",
+  "rtl/md_redundancy.v": "1a5377d73fa95e3fe09aa2dd207e8ad33e852be5dd5a72c48ea5cfe40905186e"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/algorithm/md/md.v",
+   "short_benchmark/algorithm/md/md_redundancy.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "algorithm",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "MolecularDynamics"
+}

@@ -1,0 +1,1537 @@
+{
+ "count": 83,
+ "designs": [
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_cop",
+   "files": [
+    "rtl/eth_cop.v"
+   ],
+   "loc": 398,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_cop"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_ethmac__eth_fifo",
+   "files": [
+    "rtl/eth_fifo.v"
+   ],
+   "loc": 186,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_fifo"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_maccontrol",
+   "files": [
+    "rtl/eth_maccontrol.v",
+    "rtl/eth_receivecontrol.v",
+    "rtl/eth_transmitcontrol.v"
+   ],
+   "loc": 1030,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_maccontrol"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_macstatus",
+   "files": [
+    "rtl/eth_macstatus.v"
+   ],
+   "loc": 423,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_macstatus"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_miim",
+   "files": [
+    "rtl/eth_miim.v",
+    "rtl/eth_clockgen.v",
+    "rtl/eth_outputcontrol.v",
+    "rtl/eth_shiftreg.v"
+   ],
+   "loc": 872,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_miim"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_receivecontrol",
+   "files": [
+    "rtl/eth_receivecontrol.v"
+   ],
+   "loc": 437,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_receivecontrol"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_registers",
+   "files": [
+    "rtl/eth_registers.v",
+    "rtl/eth_register.v"
+   ],
+   "loc": 1292,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_registers"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_rxaddrcheck",
+   "files": [
+    "rtl/eth_rxaddrcheck.v"
+   ],
+   "loc": 214,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_rxaddrcheck"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_rxcounters",
+   "files": [
+    "rtl/eth_rxcounters.v"
+   ],
+   "loc": 217,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_rxcounters"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_rxethmac",
+   "files": [
+    "rtl/eth_rxethmac.v",
+    "rtl/eth_crc.v",
+    "rtl/eth_rxaddrcheck.v",
+    "rtl/eth_rxcounters.v",
+    "rtl/eth_rxstatem.v"
+   ],
+   "loc": 1204,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_rxethmac"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_rxstatem",
+   "files": [
+    "rtl/eth_rxstatem.v"
+   ],
+   "loc": 193,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_rxstatem"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_ethmac__eth_spram_256x32",
+   "files": [
+    "rtl/eth_spram_256x32.v"
+   ],
+   "loc": 299,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_spram_256x32"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_transmitcontrol",
+   "files": [
+    "rtl/eth_transmitcontrol.v"
+   ],
+   "loc": 324,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_transmitcontrol"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_txcounters",
+   "files": [
+    "rtl/eth_txcounters.v"
+   ],
+   "loc": 219,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_txcounters"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "files": [
+    "rtl/eth_txethmac.v",
+    "rtl/eth_crc.v",
+    "rtl/eth_random.v",
+    "rtl/eth_txcounters.v",
+    "rtl/eth_txstatem.v"
+   ],
+   "loc": 1273,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_txethmac"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_txstatem",
+   "files": [
+    "rtl/eth_txstatem.v"
+   ],
+   "loc": 282,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_txstatem"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_ethmac__eth_wishbone",
+   "files": [
+    "rtl/eth_wishbone.v",
+    "rtl/eth_fifo.v",
+    "rtl/eth_spram_256x32.v"
+   ],
+   "loc": 3161,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ],
+   "tb": false,
+   "top": "eth_wishbone"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_hsm__G16Inv2SharesDep",
+   "files": [
+    "rtl/G16Inv2SharesDep.v",
+    "rtl/G4Mul2SharesDepMul.v",
+    "rtl/G4ScaleN.v",
+    "rtl/G4Sq.v",
+    "rtl/G4Mul.v"
+   ],
+   "loc": 273,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "hsm"
+   ],
+   "tb": false,
+   "top": "G16Inv2SharesDep"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_hsm__G256Inv2Shares5Stages",
+   "files": [
+    "rtl/G256Inv2Shares5Stages.v",
+    "rtl/G16Inv2SharesDep.v",
+    "rtl/G16Mul2SharesDepMul.v",
+    "rtl/G16Mul2SharesIndepMul.v",
+    "rtl/G16SqSc.v",
+    "rtl/G4Mul2SharesDepMul.v",
+    "rtl/G4ScaleN.v",
+    "rtl/G4Sq.v",
+    "rtl/G16Mul.v",
+    "rtl/G4ScaleN2.v",
+    "rtl/G4Mul.v"
+   ],
+   "loc": 688,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "hsm"
+   ],
+   "tb": false,
+   "top": "G256Inv2Shares5Stages"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_hsm__MixColumns",
+   "files": [
+    "rtl/MixColumns.v"
+   ],
+   "loc": 132,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "hsm"
+   ],
+   "tb": false,
+   "top": "MixColumns"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_hsm__hsm",
+   "files": [
+    "rtl/HSM.v",
+    "rtl/AddRoundKey.v",
+    "rtl/MixColumns.v",
+    "rtl/SBoxMasked.v",
+    "rtl/G256Inv2Shares5Stages.v",
+    "rtl/NewBasis.v",
+    "rtl/G16Inv2SharesDep.v",
+    "rtl/G16Mul2SharesDepMul.v",
+    "rtl/G16Mul2SharesIndepMul.v",
+    "rtl/G16SqSc.v",
+    "rtl/G4Mul2SharesDepMul.v",
+    "rtl/G4ScaleN.v",
+    "rtl/G4Sq.v",
+    "rtl/G16Mul.v",
+    "rtl/G4ScaleN2.v",
+    "rtl/G4Mul.v"
+   ],
+   "loc": 2503,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "hsm"
+   ],
+   "tb": false,
+   "top": "hsm"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_mem_ctrl__mc_adr_sel",
+   "files": [
+    "rtl/mc_adr_sel.v",
+    "rtl/mc_incn_r.v"
+   ],
+   "loc": 392,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ],
+   "tb": false,
+   "top": "mc_adr_sel"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_mem_ctrl__mc_cs_rf",
+   "files": [
+    "rtl/mc_cs_rf.v"
+   ],
+   "loc": 276,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ],
+   "tb": false,
+   "top": "mc_cs_rf"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_mem_ctrl__mc_dp",
+   "files": [
+    "rtl/mc_dp.v",
+    "rtl/mc_rd_fifo.v"
+   ],
+   "loc": 374,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ],
+   "tb": false,
+   "top": "mc_dp"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_mem_ctrl__mc_mem_if",
+   "files": [
+    "rtl/mc_mem_if.v"
+   ],
+   "loc": 362,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ],
+   "tb": false,
+   "top": "mc_mem_if"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_mem_ctrl__mc_obct",
+   "files": [
+    "rtl/mc_obct.v"
+   ],
+   "loc": 236,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ],
+   "tb": false,
+   "top": "mc_obct"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_mem_ctrl__mc_obct_top",
+   "files": [
+    "rtl/mc_obct_top.v",
+    "rtl/mc_obct.v"
+   ],
+   "loc": 662,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ],
+   "tb": false,
+   "top": "mc_obct_top"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_mem_ctrl__mc_refresh",
+   "files": [
+    "rtl/mc_refresh.v"
+   ],
+   "loc": 210,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ],
+   "tb": false,
+   "top": "mc_refresh"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_mem_ctrl__mc_rf",
+   "files": [
+    "rtl/mc_rf.v",
+    "rtl/mc_cs_rf.v"
+   ],
+   "loc": 1112,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ],
+   "tb": false,
+   "top": "mc_rf"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_mem_ctrl__mc_timing",
+   "files": [
+    "rtl/mc_timing.v"
+   ],
+   "loc": 1735,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ],
+   "tb": false,
+   "top": "mc_timing"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_mem_ctrl__mc_wb_if",
+   "files": [
+    "rtl/mc_wb_if.v"
+   ],
+   "loc": 252,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ],
+   "tb": false,
+   "top": "mc_wb_if"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "cktevo_nn_engine__FADD711",
+   "files": [
+    "rtl/FADD711.v"
+   ],
+   "loc": 223,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ],
+   "tb": false,
+   "top": "FADD711"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "cktevo_nn_engine__FMUL711",
+   "files": [
+    "rtl/FMUL711.v"
+   ],
+   "loc": 182,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ],
+   "tb": false,
+   "top": "FMUL711"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "cktevo_nn_engine__dualDendRC_H7",
+   "files": [
+    "rtl/dualDendRC_H7.v",
+    "rtl/FMUL711.v",
+    "rtl/tauRom_H7.v"
+   ],
+   "loc": 1067,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ],
+   "tb": false,
+   "top": "dualDendRC_H7"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "cktevo_nn_engine__rates_256x4096",
+   "files": [
+    "rtl/rates_256x4096.v",
+    "rtl/UltraTDP64x4096_4.v",
+    "rtl/ultraRAMx72_TDP.v"
+   ],
+   "loc": 575,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ],
+   "tb": false,
+   "top": "rates_256x4096"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+   "files": [
+    "rtl/spikeLayer8_H7.v",
+    "rtl/spikeNeuron8_H7.v",
+    "rtl/FADD711.v",
+    "rtl/dualDendRC_H7.v",
+    "rtl/FMUL711.v",
+    "rtl/tauRom_H7.v"
+   ],
+   "loc": 2705,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ],
+   "tb": false,
+   "top": "spikeLayer8_H7"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
+   "files": [
+    "rtl/spikeNeuron8_H7.v",
+    "rtl/FADD711.v",
+    "rtl/dualDendRC_H7.v",
+    "rtl/FMUL711.v",
+    "rtl/tauRom_H7.v"
+   ],
+   "loc": 1674,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ],
+   "tb": false,
+   "top": "spikeNeuron8_H7"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "cktevo_nn_engine__tauRom_H7",
+   "files": [
+    "rtl/tauRom_H7.v"
+   ],
+   "loc": 651,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ],
+   "tb": false,
+   "top": "tauRom_H7"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "cktevo_nn_engine__thresholds_128x4096",
+   "files": [
+    "rtl/thresholds_128x4096.v",
+    "rtl/ultraRAMx72_TDP.v"
+   ],
+   "loc": 340,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ],
+   "tb": false,
+   "top": "thresholds_128x4096"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "cktevo_nn_engine__ultraRAMx72_TDP",
+   "files": [
+    "rtl/ultraRAMx72_TDP.v"
+   ],
+   "loc": 169,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ],
+   "tb": false,
+   "top": "ultraRAMx72_TDP"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "cktevo_nn_engine__weights_1024x4096",
+   "files": [
+    "rtl/weights_1024x4096.v",
+    "rtl/UltraTDP64x4096_16.v",
+    "rtl/ultraRAMx72_TDP.v"
+   ],
+   "loc": 640,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ],
+   "tb": false,
+   "top": "weights_1024x4096"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__btb",
+   "files": [
+    "rtl/btb.v",
+    "rtl/btb_array.v"
+   ],
+   "loc": 453,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "btb"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__cache_datapath",
+   "files": [
+    "rtl/cache_datapath.v",
+    "rtl/array.v",
+    "rtl/data_array.v"
+   ],
+   "loc": 175,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "cache_datapath"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__cache_sys",
+   "files": [
+    "rtl/cache_sys.v",
+    "rtl/arbiter_control.v",
+    "rtl/arbiter_datapath.v",
+    "rtl/cache.v",
+    "rtl/cacheline_adaptor.v",
+    "rtl/l2_cache.v",
+    "rtl/p_i_cache.v",
+    "rtl/perf_counter.v",
+    "rtl/cache_control.v",
+    "rtl/cache_datapath.v",
+    "rtl/line_adapter.v",
+    "rtl/ewb.v",
+    "rtl/l2_cache_control.v",
+    "rtl/l2_cache_datapath.v",
+    "rtl/p_i_cache_control.v",
+    "rtl/p_i_cache_metadata_check.v",
+    "rtl/p_i_cache_reg.v",
+    "rtl/p_line_adapter.v",
+    "rtl/array.v",
+    "rtl/data_array.v",
+    "rtl/l2_array.v"
+   ],
+   "loc": 2917,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "cache_sys"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__cacheline_adaptor",
+   "files": [
+    "rtl/cacheline_adaptor.v"
+   ],
+   "loc": 175,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "cacheline_adaptor"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_risc__control_rom",
+   "files": [
+    "rtl/control_rom.v"
+   ],
+   "loc": 162,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "control_rom"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__cpu",
+   "files": [
+    "rtl/cpu.v",
+    "rtl/alu.v",
+    "rtl/bht.v",
+    "rtl/btb.v",
+    "rtl/cmp.v",
+    "rtl/ex_mem_reg.v",
+    "rtl/forward_control_unit.v",
+    "rtl/ghr.v",
+    "rtl/id_ex_reg.v",
+    "rtl/if_id_reg.v",
+    "rtl/immediate_gen.v",
+    "rtl/mask_gen.v",
+    "rtl/mem_wb_reg.v",
+    "rtl/pc_reg.v",
+    "rtl/perf_counter.v",
+    "rtl/pht.v",
+    "rtl/regfile.v",
+    "rtl/stall_control_unit.v",
+    "rtl/btb_array.v"
+   ],
+   "loc": 2010,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "cpu"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__ewb",
+   "files": [
+    "rtl/ewb.v"
+   ],
+   "loc": 177,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "ewb"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_risc__forward_control_unit",
+   "files": [
+    "rtl/forward_control_unit.v"
+   ],
+   "loc": 122,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "forward_control_unit"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__l2_cache",
+   "files": [
+    "rtl/l2_cache.v",
+    "rtl/ewb.v",
+    "rtl/l2_cache_control.v",
+    "rtl/l2_cache_datapath.v",
+    "rtl/perf_counter.v",
+    "rtl/l2_array.v"
+   ],
+   "loc": 1298,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "l2_cache"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__l2_cache_control",
+   "files": [
+    "rtl/l2_cache_control.v",
+    "rtl/perf_counter.v"
+   ],
+   "loc": 454,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "l2_cache_control"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__l2_cache_datapath",
+   "files": [
+    "rtl/l2_cache_datapath.v",
+    "rtl/l2_array.v"
+   ],
+   "loc": 417,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "l2_cache_datapath"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__p_i_cache",
+   "files": [
+    "rtl/p_i_cache.v",
+    "rtl/p_i_cache_control.v",
+    "rtl/p_i_cache_metadata_check.v",
+    "rtl/p_i_cache_reg.v",
+    "rtl/p_line_adapter.v",
+    "rtl/perf_counter.v",
+    "rtl/l2_array.v"
+   ],
+   "loc": 850,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "p_i_cache"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__p_i_cache_control",
+   "files": [
+    "rtl/p_i_cache_control.v",
+    "rtl/perf_counter.v"
+   ],
+   "loc": 287,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "p_i_cache_control"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_risc__p_i_cache_metadata_check",
+   "files": [
+    "rtl/p_i_cache_metadata_check.v",
+    "rtl/l2_array.v"
+   ],
+   "loc": 328,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "p_i_cache_metadata_check"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_risc__stall_control_unit",
+   "files": [
+    "rtl/stall_control_unit.v"
+   ],
+   "loc": 307,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "risc"
+   ],
+   "tb": false,
+   "top": "stall_control_unit"
+  },
+  {
+   "clk_ports": [
+    "clock"
+   ],
+   "design_id": "cktevo_sdc_ctrl__sd_cmd_master",
+   "files": [
+    "rtl/sd_cmd_master.v"
+   ],
+   "loc": 152,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "sdc_ctrl"
+   ],
+   "tb": false,
+   "top": "sd_cmd_master"
+  },
+  {
+   "clk_ports": [
+    "clock"
+   ],
+   "design_id": "cktevo_sdc_ctrl__sd_cmd_serial_host",
+   "files": [
+    "rtl/sd_cmd_serial_host.v"
+   ],
+   "loc": 263,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "sdc_ctrl"
+   ],
+   "tb": false,
+   "top": "sd_cmd_serial_host"
+  },
+  {
+   "clk_ports": [
+    "clock"
+   ],
+   "design_id": "cktevo_sdc_ctrl__sd_data_master",
+   "files": [
+    "rtl/sd_data_master.v"
+   ],
+   "loc": 150,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "sdc_ctrl"
+   ],
+   "tb": false,
+   "top": "sd_data_master"
+  },
+  {
+   "clk_ports": [
+    "clock"
+   ],
+   "design_id": "cktevo_sdc_ctrl__sd_data_serial_host",
+   "files": [
+    "rtl/sd_data_serial_host.v"
+   ],
+   "loc": 311,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "sdc_ctrl"
+   ],
+   "tb": false,
+   "top": "sd_data_serial_host"
+  },
+  {
+   "clk_ports": [
+    "clock"
+   ],
+   "design_id": "cktevo_sdc_ctrl__sdc_controller",
+   "files": [
+    "rtl/axi_sdc_controller.v",
+    "rtl/sd_cmd_master.v",
+    "rtl/sd_cmd_serial_host.v",
+    "rtl/sd_data_master.v",
+    "rtl/sd_data_serial_host.v"
+   ],
+   "loc": 1545,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "sdc_ctrl"
+   ],
+   "tb": false,
+   "top": "sdc_controller"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_simple_cpu__simple_cpu",
+   "files": [
+    "rtl/Computer.v",
+    "rtl/ALU.v",
+    "rtl/ALUMUX.v",
+    "rtl/AddrMUX.v",
+    "rtl/Controller.v",
+    "rtl/DMem.v",
+    "rtl/DataMUX.v",
+    "rtl/EXMEMReg.v",
+    "rtl/FWD.v",
+    "rtl/FWDMUX.v",
+    "rtl/Flush.v",
+    "rtl/IDEXReg.v",
+    "rtl/IFIDReg.v",
+    "rtl/IMem.v",
+    "rtl/ImmGen.v",
+    "rtl/MEMWBReg.v",
+    "rtl/PC.v",
+    "rtl/PCRelAddrAdder.v",
+    "rtl/Reg.v",
+    "rtl/SeqAddrAdder.v",
+    "rtl/Stall.v",
+    "rtl/retAddrAdder.v",
+    "rtl/seg7x16.v"
+   ],
+   "loc": 946,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "simple_cpu"
+   ],
+   "tb": false,
+   "top": "simple_cpu"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_spi__spi",
+   "files": [
+    "rtl/spi_top.v",
+    "rtl/spi_clgen.v",
+    "rtl/spi_shift_in.v",
+    "rtl/spi_shift_out.v"
+   ],
+   "loc": 483,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "spi"
+   ],
+   "tb": false,
+   "top": "spi"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_usb__usbf_biu",
+   "files": [
+    "rtl/usbf_biu.v",
+    "rtl/usbf_dffs.v"
+   ],
+   "loc": 469,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "usb"
+   ],
+   "tb": false,
+   "top": "usbf_biu"
+  },
+  {
+   "clk_ports": [
+    "clk_i"
+   ],
+   "design_id": "cktevo_usb__usbf_core",
+   "files": [
+    "rtl/usbf_core.v",
+    "rtl/usbf_sie_rx.v",
+    "rtl/usbf_sie_tx.v",
+    "rtl/usbf_crc16.v"
+   ],
+   "loc": 1734,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "usb"
+   ],
+   "tb": false,
+   "top": "usbf_core"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_usb__usbf_csr",
+   "files": [
+    "rtl/usbf_csr.v",
+    "rtl/usbf_dffs.v"
+   ],
+   "loc": 1109,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "usb"
+   ],
+   "tb": false,
+   "top": "usbf_csr"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_usb__usbf_epu",
+   "files": [
+    "rtl/usbf_epu.v",
+    "rtl/usbf_sie_ep.v"
+   ],
+   "loc": 305,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "usb"
+   ],
+   "tb": false,
+   "top": "usbf_epu"
+  },
+  {
+   "clk_ports": [
+    "clk_i"
+   ],
+   "design_id": "cktevo_usb__usbf_fifo",
+   "files": [
+    "rtl/usbf_fifo.v"
+   ],
+   "loc": 248,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "usb"
+   ],
+   "tb": false,
+   "top": "usbf_fifo"
+  },
+  {
+   "clk_ports": [
+    "clk_i"
+   ],
+   "design_id": "cktevo_usb__usbf_sie_ep",
+   "files": [
+    "rtl/usbf_sie_ep.v"
+   ],
+   "loc": 179,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "usb"
+   ],
+   "tb": false,
+   "top": "usbf_sie_ep"
+  },
+  {
+   "clk_ports": [
+    "clk_i"
+   ],
+   "design_id": "cktevo_usb__usbf_sie_rx",
+   "files": [
+    "rtl/usbf_sie_rx.v",
+    "rtl/usbf_crc16.v"
+   ],
+   "loc": 521,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "usb"
+   ],
+   "tb": false,
+   "top": "usbf_sie_rx"
+  },
+  {
+   "clk_ports": [
+    "clk_i"
+   ],
+   "design_id": "cktevo_usb__usbf_sie_tx",
+   "files": [
+    "rtl/usbf_sie_tx.v",
+    "rtl/usbf_crc16.v"
+   ],
+   "loc": 387,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "usb"
+   ],
+   "tb": false,
+   "top": "usbf_sie_tx"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_usb__usbf_sync",
+   "files": [
+    "rtl/usbf_sync.v",
+    "rtl/usbf_sync_utilities.v",
+    "rtl/usbf_dffs.v"
+   ],
+   "loc": 905,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "usb"
+   ],
+   "tb": false,
+   "top": "usbf_sync"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_usb__usbf_ulpi_wrapper",
+   "files": [
+    "rtl/usbf_ulpi_wrapper.v"
+   ],
+   "loc": 423,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "usb"
+   ],
+   "tb": false,
+   "top": "usbf_ulpi_wrapper"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_vga_enh__generic_dpram",
+   "files": [
+    "rtl/generic_dpram.v"
+   ],
+   "loc": 515,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ],
+   "tb": false,
+   "top": "generic_dpram"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_vga_enh__generic_spram",
+   "files": [
+    "rtl/generic_spram.v"
+   ],
+   "loc": 410,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ],
+   "tb": false,
+   "top": "generic_spram"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_vga_enh__vga_colproc",
+   "files": [
+    "rtl/vga_colproc.v"
+   ],
+   "loc": 510,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ],
+   "tb": false,
+   "top": "vga_colproc"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_vga_enh__vga_curproc",
+   "files": [
+    "rtl/vga_curproc.v",
+    "rtl/generic_spram.v"
+   ],
+   "loc": 724,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ],
+   "tb": false,
+   "top": "vga_curproc"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_vga_enh__vga_fifo",
+   "files": [
+    "rtl/vga_fifo.v"
+   ],
+   "loc": 259,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ],
+   "tb": false,
+   "top": "vga_fifo"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "cktevo_vga_enh__vga_fifo_dc",
+   "files": [
+    "rtl/vga_fifo_dc.v",
+    "rtl/generic_dpram.v"
+   ],
+   "loc": 749,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ],
+   "tb": false,
+   "top": "vga_fifo_dc"
+  },
+  {
+   "clk_ports": [
+    "clk_i"
+   ],
+   "design_id": "cktevo_vga_enh__vga_pgen",
+   "files": [
+    "rtl/vga_pgen.v",
+    "rtl/vga_clkgen.v",
+    "rtl/vga_colproc.v",
+    "rtl/vga_curproc.v",
+    "rtl/vga_fifo.v",
+    "rtl/vga_tgen.v",
+    "rtl/generic_spram.v",
+    "rtl/vga_vtim.v"
+   ],
+   "loc": 2545,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ],
+   "tb": false,
+   "top": "vga_pgen"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "cktevo_vga_enh__vga_vtim",
+   "files": [
+    "rtl/vga_vtim.v"
+   ],
+   "loc": 179,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ],
+   "tb": false,
+   "top": "vga_vtim"
+  },
+  {
+   "clk_ports": [
+    "clk_i"
+   ],
+   "design_id": "cktevo_vga_enh__vga_wb_master",
+   "files": [
+    "rtl/vga_wb_master.v",
+    "rtl/vga_fifo.v"
+   ],
+   "loc": 730,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ],
+   "tb": false,
+   "top": "vga_wb_master"
+  },
+  {
+   "clk_ports": [
+    "clk_i"
+   ],
+   "design_id": "cktevo_vga_enh__vga_wb_slave",
+   "files": [
+    "rtl/vga_wb_slave.v",
+    "rtl/vga_cur_cregs.v"
+   ],
+   "loc": 605,
+   "reference": false,
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ],
+   "tb": false,
+   "top": "vga_wb_slave"
+  }
+ ],
+ "skipped": [],
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo"
+}

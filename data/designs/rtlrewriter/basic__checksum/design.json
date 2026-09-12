@@ -1,0 +1,102 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_basic__checksum",
+ "files": [
+  "rtl/basic.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 64,
+  "loc": 8,
+  "n_cells": 3,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 1,
+  "out_bits": 18,
+  "ports": {
+   "in0": {
+    "dir": "input",
+    "width": 16
+   },
+   "in1": {
+    "dir": "input",
+    "width": 16
+   },
+   "in2": {
+    "dir": "input",
+    "width": 16
+   },
+   "in3": {
+    "dir": "input",
+    "width": 16
+   },
+   "sum": {
+    "dir": "output",
+    "width": 18
+   }
+  },
+  "ports_hash": "e4c603f9dcb9b624",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 8,
+ "name": "basic__checksum",
+ "notes": [
+  "file roles: {\"basic.v\": \"original\", \"basic_optimized.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/basic_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/basic_optimized.v": "44f96cb9fa37417090275b3f91b689fbe3e5b2525206697a6322bcb603e10598",
+  "rtl/basic.v": "55e5acc562462f0f90a89c8846746f25513a10210bc8a2927ec2429b13e9263f"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/basic/checksum/basic.v",
+   "short_benchmark/basic/checksum/basic_optimized.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "basic",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example"
+}

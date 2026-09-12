@@ -1,0 +1,95 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlopt_selector",
+ "files": [
+  "rtl/selector.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 5,
+  "loc": 17,
+  "n_cells": 3,
+  "n_ff_bits": 7,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 1,
+  "out_bits": 7,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "dout": {
+    "dir": "output",
+    "width": 7
+   },
+   "sel": {
+    "dir": "input",
+    "width": 4
+   }
+  },
+  "ports_hash": "c179f053ceda8387",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 17,
+ "name": "selector",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/selector_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "selector_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/selector_ref.v": "cb1c7fa58a2eda6a2d935ea20bf5665141b6c7b6a716cd402e12278e73fece2d",
+  "rtl/selector.v": "8add9ea17b54580851b94f55e23a16449a9daa8189bf49d19c237685ab249c90"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/selector/selector.v",
+   "benchmark/selector_ref/selector_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair"
+ ],
+ "tb": null,
+ "top": "selector"
+}

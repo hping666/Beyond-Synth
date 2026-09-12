@@ -1,0 +1,102 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlopt_mul_const",
+ "files": [
+  "rtl/mul_const.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 24,
+  "loc": 17,
+  "n_cells": 3,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 3,
+  "out_bits": 24,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "c": {
+    "dir": "input",
+    "width": 8
+   },
+   "s1": {
+    "dir": "output",
+    "width": 8
+   },
+   "s2": {
+    "dir": "output",
+    "width": 8
+   },
+   "s3": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "5dd892b0c655d081",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 17,
+ "name": "mul_const",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/mul_const_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "mul_const_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/mul_const_ref.v": "ec6c842c2f88768a7d0cb203a83e5ad9c423fe769422bcf038009d8ff0f299be",
+  "rtl/mul_const.v": "3b83d8a61d49d4b63ff08684964a58f50ba4e4d9cca0c3a08c5b375cdae21a26"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/mul_const/mul_const.v",
+   "benchmark/mul_const_ref/mul_const_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "mul_const"
+}

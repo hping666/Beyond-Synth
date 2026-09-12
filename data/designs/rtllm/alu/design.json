@@ -1,0 +1,117 @@
+{
+ "clk_ports": [],
+ "design_id": "rtllm_alu",
+ "files": [
+  "rtl/alu.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 70,
+  "loc": 111,
+  "n_cells": 47,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 6,
+  "out_bits": 37,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 32
+   },
+   "aluc": {
+    "dir": "input",
+    "width": 6
+   },
+   "b": {
+    "dir": "input",
+    "width": 32
+   },
+   "carry": {
+    "dir": "output",
+    "width": 1
+   },
+   "flag": {
+    "dir": "output",
+    "width": 1
+   },
+   "negative": {
+    "dir": "output",
+    "width": 1
+   },
+   "overflow": {
+    "dir": "output",
+    "width": 1
+   },
+   "r": {
+    "dir": "output",
+    "width": 32
+   },
+   "zero": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "1ca9a3497e627e24",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 111,
+ "name": "alu",
+ "notes": [
+  "module verified_alu renamed to alu, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/alu.v": "491d34eebfb0f8a225e8c822226eac38bda019f5de07da7b8b190cf150c16f65",
+  "tb/reference.dat": "b6e90efc75ad43792cfaf5bcf77a928d8d391e3af2e710750e49cde80e272715",
+  "tb/testbench.v": "d9a40250ad2a7993dc07f72de08d3af1ef13d22a72425ecdc7da48628778646f"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/RISC-V/alu/verified_alu.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "no_clock"
+ ],
+ "tb": {
+  "data": [
+   "tb/reference.dat"
+  ],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "test_alu"
+ },
+ "top": "alu"
+}

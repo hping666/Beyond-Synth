@@ -1,0 +1,186 @@
+{
+ "clk_ports": [
+  "sysclk"
+ ],
+ "design_id": "rtlrewriter_long_cpu__PipelineCPU",
+ "files": [
+  "rtl/PipelineCPURaw.v",
+  "rtl/ALURaw.v",
+  "rtl/BranchAndJumpHazardRaw.v",
+  "rtl/Controller.v",
+  "rtl/DataHazardRaw.v",
+  "rtl/DataMemRaw.v",
+  "rtl/EX_MEM_Reg.v",
+  "rtl/ID_EX_Reg.v",
+  "rtl/IF_ID_Reg.v",
+  "rtl/ImmExtendRaw.v",
+  "rtl/InstMem.v",
+  "rtl/MEM_WB_Reg.v",
+  "rtl/PCRaw.v",
+  "rtl/RegFileRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "reset": "high"
+  },
+  "clk_ports": [
+   "sysclk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": true,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 2,
+  "loc": 1418,
+  "n_cells": 5442,
+  "n_ff_bits": 18084,
+  "n_files": 14,
+  "n_inputs": 2,
+  "n_outputs": 3,
+  "out_bits": 20,
+  "ports": {
+   "AN": {
+    "dir": "output",
+    "width": 4
+   },
+   "BCD": {
+    "dir": "output",
+    "width": 8
+   },
+   "leds": {
+    "dir": "output",
+    "width": 8
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "sysclk": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "fdfec48edd4fcf98",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 1418,
+ "name": "long_cpu__PipelineCPU",
+ "notes": [
+  "closure of PipelineCPU_raw: ['PipelineCPURaw.v', 'ALURaw.v', 'BranchAndJumpHazardRaw.v', 'Controller.v', 'DataHazardRaw.v', 'DataMemRaw.v', 'EX_MEM_Reg.v', 'ID_EX_Reg.v', 'IF_ID_Reg.v', 'ImmExtendRaw.v', 'InstMem.v', 'MEM_WB_Reg.v', 'PCRaw.v', 'RegFileRaw.v']",
+  "module names defined in several files, chosen by variant: [('RegFile', ['RegFile.v', 'RegFileRaw.v'], 'RegFileRaw.v')]"
+ ],
+ "reference": {
+  "files": [
+   "reference/PipelineCPU.v",
+   "reference/ALU.v",
+   "reference/BranchAndJumpHazard.v",
+   "reference/Controller.v",
+   "reference/DataHazard.v",
+   "reference/DataMem.v",
+   "reference/EX_MEM_Reg.v",
+   "reference/ID_EX_Reg.v",
+   "reference/IF_ID_Reg.v",
+   "reference/ImmExtend.v",
+   "reference/InstMem.v",
+   "reference/MEM_WB_Reg.v",
+   "reference/PC.v",
+   "reference/RegFile.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "PipelineCPU"
+ },
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/ALU.v": "a2bb3cfdaea626a789a3ca14ba9d5970004e968ecac0895b7cb1621c6db2c5d9",
+  "reference/BranchAndJumpHazard.v": "d16d5387d177958569381a98da27e783c71c5bfb5ccbe441edc4b20332592ec0",
+  "reference/Controller.v": "c75f295562b5e5e26f8fd4c97fbff5c14593aee802ee98af99384c82081cba05",
+  "reference/DataHazard.v": "0e4c46d4a657a5ddf9f031a15f198b1a57886d0b0f0696b618f629e9071e7e4b",
+  "reference/DataMem.v": "5c520823a4970a3dbe59714bdc3efc8dbaab2dc9f4570cf6fbe6e5f18d076518",
+  "reference/EX_MEM_Reg.v": "934176d32d75fb68f44efe27608b8c1ed236015bec07dc4fdd3c7b3a182df07a",
+  "reference/ID_EX_Reg.v": "8cee0dd39b906289b6e31eccc7192665de7bd3ce5fb8af371d1d9fc37aafb95f",
+  "reference/IF_ID_Reg.v": "2faf74c85e037b02247ff0848b0228b21cc1f0d66d955d1882fbdee27882cd3b",
+  "reference/ImmExtend.v": "626ae602bef91cff2629bf2818a95bfe38532a0868caace3da0a077b4ce79a80",
+  "reference/InstMem.v": "8d5c17b480302b76bb90f68090eb2db5ce7b07c2e121287fbbd81b0b12d098f1",
+  "reference/MEM_WB_Reg.v": "488337fb434a32d574331c69a4dbf94de69925d0572b0750874aee0d80958d51",
+  "reference/PC.v": "6c8b9daf3292d2940e42bebce30a78ed5a1ddd11056d028a30aa687b819ed6cb",
+  "reference/PipelineCPU.v": "21acaf89f15765ef8b5a5c24efad9c0526a4302ab0b8b204c7cdb30883a6fd71",
+  "reference/RegFile.v": "9f7d0197d4cc70ea2532657b7da55e8790fd12a2686043af97dda21362893d7e",
+  "rtl/ALURaw.v": "472778791b1251e28a9a19e78fcbd361f60fa8acdf9ddb9ccf2d8bf4743c6fd4",
+  "rtl/BranchAndJumpHazardRaw.v": "5d5c46c71e93aa2e6372db9364001238ce91058d7a3442893de3dd483d75a7a3",
+  "rtl/Controller.v": "c75f295562b5e5e26f8fd4c97fbff5c14593aee802ee98af99384c82081cba05",
+  "rtl/DataHazardRaw.v": "5e8d8f7a89885340132e19053cb663802ceaa38e269b26ce3e397de7f3861544",
+  "rtl/DataMemRaw.v": "787697101cd5d4e8ad31685ec8767c0a4d56fd51253dc11d54b7f2e2f8ea6826",
+  "rtl/EX_MEM_Reg.v": "934176d32d75fb68f44efe27608b8c1ed236015bec07dc4fdd3c7b3a182df07a",
+  "rtl/ID_EX_Reg.v": "8cee0dd39b906289b6e31eccc7192665de7bd3ce5fb8af371d1d9fc37aafb95f",
+  "rtl/IF_ID_Reg.v": "2faf74c85e037b02247ff0848b0228b21cc1f0d66d955d1882fbdee27882cd3b",
+  "rtl/ImmExtendRaw.v": "4ae0ea99e1c9034830d3d383c0b43f56a672bafc331c91f1054117ad9ec6d40d",
+  "rtl/InstMem.v": "8d5c17b480302b76bb90f68090eb2db5ce7b07c2e121287fbbd81b0b12d098f1",
+  "rtl/MEM_WB_Reg.v": "488337fb434a32d574331c69a4dbf94de69925d0572b0750874aee0d80958d51",
+  "rtl/PCRaw.v": "f00f5fe2af968078b64fe86cfc4dbfc256e861649f2142fda492b073b9ed5c97",
+  "rtl/PipelineCPURaw.v": "48c281abae57e87faf7238566e643122e50b5f13780b0a55bad485579aa40381",
+  "rtl/RegFileRaw.v": "d13f903500894f9698fd1af8efe3ad347e4f7182a1317a36529ccda7b970fd97"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cpu/PipelineCPURaw.v",
+   "long_benchmark/cpu/ALURaw.v",
+   "long_benchmark/cpu/BranchAndJumpHazardRaw.v",
+   "long_benchmark/cpu/Controller.v",
+   "long_benchmark/cpu/DataHazardRaw.v",
+   "long_benchmark/cpu/DataMemRaw.v",
+   "long_benchmark/cpu/EX_MEM_Reg.v",
+   "long_benchmark/cpu/ID_EX_Reg.v",
+   "long_benchmark/cpu/IF_ID_Reg.v",
+   "long_benchmark/cpu/ImmExtendRaw.v",
+   "long_benchmark/cpu/InstMem.v",
+   "long_benchmark/cpu/MEM_WB_Reg.v",
+   "long_benchmark/cpu/PCRaw.v",
+   "long_benchmark/cpu/RegFileRaw.v",
+   "long_benchmark/cpu/PipelineCPU.v",
+   "long_benchmark/cpu/ALU.v",
+   "long_benchmark/cpu/BranchAndJumpHazard.v",
+   "long_benchmark/cpu/Controller.v",
+   "long_benchmark/cpu/DataHazard.v",
+   "long_benchmark/cpu/DataMem.v",
+   "long_benchmark/cpu/EX_MEM_Reg.v",
+   "long_benchmark/cpu/ID_EX_Reg.v",
+   "long_benchmark/cpu/IF_ID_Reg.v",
+   "long_benchmark/cpu/ImmExtend.v",
+   "long_benchmark/cpu/InstMem.v",
+   "long_benchmark/cpu/MEM_WB_Reg.v",
+   "long_benchmark/cpu/PC.v",
+   "long_benchmark/cpu/RegFile.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cpu",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "PipelineCPU_raw"
+}

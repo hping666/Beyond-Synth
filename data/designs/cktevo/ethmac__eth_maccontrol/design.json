@@ -1,0 +1,254 @@
+{
+ "clk_ports": [
+  "MTxClk",
+  "MRxClk"
+ ],
+ "design_id": "cktevo_ethmac__eth_maccontrol",
+ "files": [
+  "rtl/eth_maccontrol.v",
+  "rtl/eth_receivecontrol.v",
+  "rtl/eth_transmitcontrol.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "RxReset": "high",
+   "TxReset": "high"
+  },
+  "clk_ports": [
+   "MTxClk",
+   "MRxClk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 103,
+  "loc": 1030,
+  "n_cells": 315,
+  "n_ff_bits": 104,
+  "n_files": 3,
+  "n_inputs": 27,
+  "n_outputs": 13,
+  "out_bits": 20,
+  "ports": {
+   "ControlFrmAddressOK": {
+    "dir": "output",
+    "width": 1
+   },
+   "CrcEnIn": {
+    "dir": "input",
+    "width": 1
+   },
+   "CrcEnOut": {
+    "dir": "output",
+    "width": 1
+   },
+   "DlyCrcEn": {
+    "dir": "input",
+    "width": 1
+   },
+   "MAC": {
+    "dir": "input",
+    "width": 48
+   },
+   "MRxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "MTxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "PadIn": {
+    "dir": "input",
+    "width": 1
+   },
+   "PadOut": {
+    "dir": "output",
+    "width": 1
+   },
+   "ReceiveEnd": {
+    "dir": "input",
+    "width": 1
+   },
+   "ReceivedLengthOK": {
+    "dir": "input",
+    "width": 1
+   },
+   "ReceivedPacketGood": {
+    "dir": "input",
+    "width": 1
+   },
+   "ReceivedPauseFrm": {
+    "dir": "output",
+    "width": 1
+   },
+   "RxData": {
+    "dir": "input",
+    "width": 8
+   },
+   "RxEndFrm": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxFlow": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxReset": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxStartFrm": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxStatusWriteLatched_sync2": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxValid": {
+    "dir": "input",
+    "width": 1
+   },
+   "SetPauseTimer": {
+    "dir": "output",
+    "width": 1
+   },
+   "TPauseRq": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxAbortIn": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxAbortOut": {
+    "dir": "output",
+    "width": 1
+   },
+   "TxCtrlEndFrm": {
+    "dir": "output",
+    "width": 1
+   },
+   "TxDataIn": {
+    "dir": "input",
+    "width": 8
+   },
+   "TxDataOut": {
+    "dir": "output",
+    "width": 8
+   },
+   "TxDoneIn": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxDoneOut": {
+    "dir": "output",
+    "width": 1
+   },
+   "TxEndFrmIn": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxEndFrmOut": {
+    "dir": "output",
+    "width": 1
+   },
+   "TxFlow": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxPauseTV": {
+    "dir": "input",
+    "width": 16
+   },
+   "TxReset": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxStartFrmIn": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxStartFrmOut": {
+    "dir": "output",
+    "width": 1
+   },
+   "TxUsedDataIn": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxUsedDataOut": {
+    "dir": "output",
+    "width": 1
+   },
+   "WillSendControlFrame": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_PassAll": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "fcb41fc71d885a3b",
+  "rst_port": "TxReset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 1030,
+ "name": "ethmac__eth_maccontrol",
+ "notes": [
+  "closure: 3 modules, 780 lines (eth_maccontrol, eth_receivecontrol, eth_transmitcontrol)"
+ ],
+ "reference": null,
+ "rst_port": "TxReset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_maccontrol.v": "967490e4796c2a8df416ed3de454e13e171fda52daf99cd4e982cea84d5dfac4",
+  "rtl/eth_receivecontrol.v": "27b1e327965966e4ce2a450538de4777aa722818636f9ea77424219a93cb27e5",
+  "rtl/eth_transmitcontrol.v": "f24c1477441df5999c829deeae64834f4d0461024cb935fb0a083c168f926624",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_maccontrol.v",
+   "benchmark/ethmac/eth_receivecontrol.v",
+   "benchmark/ethmac/eth_transmitcontrol.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac",
+  "multi_clock"
+ ],
+ "tb": null,
+ "top": "eth_maccontrol"
+}

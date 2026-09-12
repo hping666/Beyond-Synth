@@ -1,0 +1,126 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_basic__multi_constant_multiplication2",
+ "files": [
+  "rtl/basic.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 32,
+  "loc": 12,
+  "n_cells": 3,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 1,
+  "n_outputs": 3,
+  "out_bits": 96,
+  "ports": {
+   "w": {
+    "dir": "output",
+    "width": 32
+   },
+   "x": {
+    "dir": "input",
+    "width": 32
+   },
+   "y": {
+    "dir": "output",
+    "width": 32
+   },
+   "z": {
+    "dir": "output",
+    "width": 32
+   }
+  },
+  "ports_hash": "311dcea2a7614106",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 12,
+ "name": "basic__multi_constant_multiplication2",
+ "notes": [
+  "file roles: {\"basic.v\": \"original\", \"basic_claude3.v\": \"llm\", \"basic_gpt4.v\": \"llm\", \"basic_optimized.v\": \"expert\", \"basic_ours.v\": \"tool\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/basic_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/basic_claude3.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/basic_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/basic_ours.v"
+   ],
+   "role": "tool",
+   "top": "example"
+  }
+ ],
+ "sha256": {
+  "reference/basic_optimized.v": "3e6f14cd000418b450a36844b6db2a5c8f34ce7f0df42a0336889ff69a883eeb",
+  "rtl/basic.v": "102a41cd3aa99d9a7493378f46a4b7cd8155ad4ac2e4ae44b8860d52671a48e5",
+  "samples/basic_claude3.v": "eb7cb7befdada73e539d0281b0d4e504b9aaad0a18edffeebeeec7ae8e27ac9a",
+  "samples/basic_gpt4.v": "50764548c8cfc686288a03d3248d4cec352f398c0b6fd13a0f006a0c4765d6b9",
+  "samples/basic_ours.v": "8ecdb2fa919059975034c80b9e13ab93910c4edec6fb6d0fd466db6ce1cc2e4d"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/basic/multi_constant_multiplication2/basic.v",
+   "short_benchmark/basic/multi_constant_multiplication2/basic_claude3.v",
+   "short_benchmark/basic/multi_constant_multiplication2/basic_gpt4.v",
+   "short_benchmark/basic/multi_constant_multiplication2/basic_optimized.v",
+   "short_benchmark/basic/multi_constant_multiplication2/basic_ours.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "basic",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example"
+}

@@ -1,0 +1,98 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlopt_comparator_2bit",
+ "files": [
+  "rtl/comparator_2bit.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 4,
+  "loc": 8,
+  "n_cells": 13,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 3,
+  "out_bits": 3,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 2
+   },
+   "B": {
+    "dir": "input",
+    "width": 2
+   },
+   "eq": {
+    "dir": "output",
+    "width": 1
+   },
+   "gt": {
+    "dir": "output",
+    "width": 1
+   },
+   "lt": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "c65eb0e940a8f4c5",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 8,
+ "name": "comparator_2bit",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/comparator_2bit_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "comparator_2bit_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/comparator_2bit_ref.v": "5c0514cf7c736c4dbea1489a61b9a81d1a30a82c40f5a8a4f4d2c60a998e6f0f",
+  "rtl/comparator_2bit.v": "588648f1553b2fe0f6efa3b7e1d91092ff6b29309ba52b4b0d65f0b27aab359f"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/comparator_2bit/comparator_2bit.v",
+   "benchmark/comparator_2bit_ref/comparator_2bit_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "comparator_2bit"
+}

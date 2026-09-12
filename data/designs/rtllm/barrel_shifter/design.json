@@ -1,0 +1,88 @@
+{
+ "clk_ports": [],
+ "design_id": "rtllm_barrel_shifter",
+ "files": [
+  "rtl/barrel_shifter.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 11,
+  "loc": 45,
+  "n_cells": 48,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 1,
+  "out_bits": 8,
+  "ports": {
+   "ctrl": {
+    "dir": "input",
+    "width": 3
+   },
+   "in": {
+    "dir": "input",
+    "width": 8
+   },
+   "out": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "364afb9703280d43",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 45,
+ "name": "barrel_shifter",
+ "notes": [],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/barrel_shifter.v": "dbfdb5cbbbd3f15709ef5918308c5400839cedf66f3bcb97af48f9b0de986571",
+  "tb/testbench.v": "3915b57c7fb2777df35f7f97d05435ac7c47d2ecaad1ef6ff5f2b1e8e1f126de"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Memory/Shifter/barrel_shifter/verified_barrel_shifter.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "no_clock"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "barrel_shifter_tb"
+ },
+ "top": "barrel_shifter"
+}

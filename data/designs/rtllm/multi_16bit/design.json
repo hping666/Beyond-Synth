@@ -1,0 +1,113 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_multi_16bit",
+ "files": [
+  "rtl/multi_16bit.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 35,
+  "loc": 57,
+  "n_cells": 40,
+  "n_ff_bits": 70,
+  "n_files": 1,
+  "n_inputs": 5,
+  "n_outputs": 2,
+  "out_bits": 33,
+  "ports": {
+   "ain": {
+    "dir": "input",
+    "width": 16
+   },
+   "bin": {
+    "dir": "input",
+    "width": 16
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "done": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "start": {
+    "dir": "input",
+    "width": 1
+   },
+   "yout": {
+    "dir": "output",
+    "width": 32
+   }
+  },
+  "ports_hash": "523fa5fe8557d675",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 57,
+ "name": "multi_16bit",
+ "notes": [
+  "module verified_multi_16bit renamed to multi_16bit, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/multi_16bit.v": "4e731b95a6ca35e9021da137fc3b79f9125310444934d9cb7e30c8c48bcdb9be",
+  "tb/testbench.v": "78e9b599707b0c5686ddd05266fe705015bec816297d5890061d97beea353b69"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Arithmetic/Multiplier/multi_16bit/verified_multi_16bit.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "tb_multi_16bit"
+ },
+ "top": "multi_16bit"
+}

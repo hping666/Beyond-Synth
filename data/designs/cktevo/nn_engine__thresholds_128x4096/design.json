@@ -1,0 +1,114 @@
+{
+ "clk_ports": [
+  "CLK"
+ ],
+ "design_id": "cktevo_nn_engine__thresholds_128x4096",
+ "files": [
+  "rtl/thresholds_128x4096.v",
+  "rtl/ultraRAMx72_TDP.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "CLK"
+  ],
+  "clk_ports_by_name": [
+   "CLK"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 49,
+  "loc": 340,
+  "n_cells": 111,
+  "n_ff_bits": 1588,
+  "n_files": 2,
+  "n_inputs": 6,
+  "n_outputs": 2,
+  "out_bits": 144,
+  "ports": {
+   "CLK": {
+    "dir": "input",
+    "width": 1
+   },
+   "rdaddrs": {
+    "dir": "input",
+    "width": 15
+   },
+   "rddata": {
+    "dir": "output",
+    "width": 16
+   },
+   "rden": {
+    "dir": "input",
+    "width": 1
+   },
+   "thresholds": {
+    "dir": "output",
+    "width": 128
+   },
+   "wraddrs": {
+    "dir": "input",
+    "width": 15
+   },
+   "wrdata": {
+    "dir": "input",
+    "width": 16
+   },
+   "wren": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "f2176776de5b8903",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 340,
+ "name": "nn_engine__thresholds_128x4096",
+ "notes": [
+  "closure: 2 modules, 275 lines (thresholds_128x4096, ultraRAMx72_TDP)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/thresholds_128x4096.v": "449a87079ae93cc70cea96bfd61ce91850d07d43a68ed921eb9c1a67d3cae6d1",
+  "rtl/ultraRAMx72_TDP.v": "5360fa8e1b204b2ad21edec7fb1845993f2093d398db854c65cab1bd837f31e4"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/nn_engine/thresholds_128x4096.v",
+   "benchmark/nn_engine/ultraRAMx72_TDP.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "nn_engine"
+ ],
+ "tb": null,
+ "top": "thresholds_128x4096"
+}

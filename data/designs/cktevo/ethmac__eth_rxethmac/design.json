@@ -1,0 +1,220 @@
+{
+ "clk_ports": [
+  "MRxClk"
+ ],
+ "design_id": "cktevo_ethmac__eth_rxethmac",
+ "files": [
+  "rtl/eth_rxethmac.v",
+  "rtl/eth_crc.v",
+  "rtl/eth_rxaddrcheck.v",
+  "rtl/eth_rxcounters.v",
+  "rtl/eth_rxstatem.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "Reset": "high"
+  },
+  "clk_ports": [
+   "MRxClk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 143,
+  "loc": 1204,
+  "n_cells": 393,
+  "n_ff_bits": 107,
+  "n_files": 5,
+  "n_inputs": 16,
+  "n_outputs": 15,
+  "out_bits": 38,
+  "ports": {
+   "AddressMiss": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCnt": {
+    "dir": "output",
+    "width": 16
+   },
+   "ByteCntEq0": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntGreat2": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntMaxFrame": {
+    "dir": "output",
+    "width": 1
+   },
+   "ControlFrmAddressOK": {
+    "dir": "input",
+    "width": 1
+   },
+   "CrcError": {
+    "dir": "output",
+    "width": 1
+   },
+   "DlyCrcEn": {
+    "dir": "input",
+    "width": 1
+   },
+   "HugEn": {
+    "dir": "input",
+    "width": 1
+   },
+   "MAC": {
+    "dir": "input",
+    "width": 48
+   },
+   "MRxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxD": {
+    "dir": "input",
+    "width": 4
+   },
+   "MRxDV": {
+    "dir": "input",
+    "width": 1
+   },
+   "MaxFL": {
+    "dir": "input",
+    "width": 16
+   },
+   "PassAll": {
+    "dir": "input",
+    "width": 1
+   },
+   "Reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxAbort": {
+    "dir": "output",
+    "width": 1
+   },
+   "RxData": {
+    "dir": "output",
+    "width": 8
+   },
+   "RxEndFrm": {
+    "dir": "output",
+    "width": 1
+   },
+   "RxStartFrm": {
+    "dir": "output",
+    "width": 1
+   },
+   "RxValid": {
+    "dir": "output",
+    "width": 1
+   },
+   "StateData": {
+    "dir": "output",
+    "width": 2
+   },
+   "StateIdle": {
+    "dir": "output",
+    "width": 1
+   },
+   "StatePreamble": {
+    "dir": "output",
+    "width": 1
+   },
+   "StateSFD": {
+    "dir": "output",
+    "width": 1
+   },
+   "Transmitting": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_Bro": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_HASH0": {
+    "dir": "input",
+    "width": 32
+   },
+   "r_HASH1": {
+    "dir": "input",
+    "width": 32
+   },
+   "r_IFG": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_Pro": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "9169f89252eb2731",
+  "rst_port": "Reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 1204,
+ "name": "ethmac__eth_rxethmac",
+ "notes": [
+  "closure: 5 modules, 766 lines (eth_rxethmac, eth_crc, eth_rxaddrcheck, eth_rxcounters, eth_rxstatem)"
+ ],
+ "reference": null,
+ "rst_port": "Reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_crc.v": "d5b61a54d292d00fe1e68cae8b98d91fca4bd991aa4b26d4acced01337d3c88e",
+  "rtl/eth_rxaddrcheck.v": "a60dceb8490b805e596d8d3edb2e4047fdff4b549c68f2e7c4ae708585554bab",
+  "rtl/eth_rxcounters.v": "f53a80b386c428d75a7ecf2861c2960e6d1b81c6d6acf90b3bcc1871089667f4",
+  "rtl/eth_rxethmac.v": "52a4c40fd03087e83b853cb4f0b3dab5504866e24225c6ac83f71d90c27aad8c",
+  "rtl/eth_rxstatem.v": "57b569c60106e3a8307963784234e8b5b9520c810d5dd14f512a33ce3af7ed9f",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_rxethmac.v",
+   "benchmark/ethmac/eth_crc.v",
+   "benchmark/ethmac/eth_rxaddrcheck.v",
+   "benchmark/ethmac/eth_rxcounters.v",
+   "benchmark/ethmac/eth_rxstatem.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac"
+ ],
+ "tb": null,
+ "top": "eth_rxethmac"
+}

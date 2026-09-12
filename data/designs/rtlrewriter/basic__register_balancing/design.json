@@ -1,0 +1,107 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_basic__register_balancing",
+ "files": [
+  "rtl/basic1.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 4,
+  "loc": 10,
+  "n_cells": 6,
+  "n_ff_bits": 4,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_a": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_b": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_c": {
+    "dir": "input",
+    "width": 1
+   },
+   "sum": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "0d0afb7725b41405",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 10,
+ "name": "basic__register_balancing",
+ "notes": [
+  "file roles: {\"basic1.v\": \"original\", \"optimized1.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/optimized1.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "add3"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/optimized1.v": "e91852b7131ee96810dbe2eb689c1d193b4024349004c03f557e63ec0905208a",
+  "rtl/basic1.v": "77af35f5300f8dc754bde9b543f05d18f0cdb0a51a0c9482dd6406c722ed73a6"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/basic/register_balancing/basic1.v",
+   "short_benchmark/basic/register_balancing/optimized1.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "basic",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "add3"
+}

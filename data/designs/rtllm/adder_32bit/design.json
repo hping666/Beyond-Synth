@@ -1,0 +1,94 @@
+{
+ "clk_ports": [],
+ "design_id": "rtllm_adder_32bit",
+ "files": [
+  "rtl/adder_32bit.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 64,
+  "loc": 181,
+  "n_cells": 702,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 2,
+  "out_bits": 33,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 32
+   },
+   "B": {
+    "dir": "input",
+    "width": 32
+   },
+   "C32": {
+    "dir": "output",
+    "width": 1
+   },
+   "S": {
+    "dir": "output",
+    "width": 32
+   }
+  },
+  "ports_hash": "40aa748d906bb7de",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 181,
+ "name": "adder_32bit",
+ "notes": [
+  "module verified_adder_32bit renamed to adder_32bit, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/adder_32bit.v": "344c001dc6032a3b0ebb3ef38806e8f484ba97b8f99ba64b78ed1cfde4f67940",
+  "tb/testbench.v": "ebca058493802ceeb3819c8758ef003c14d08f86affc3c896a207af00dc9b1c1"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Arithmetic/Adder/adder_32bit/verified_adder_32bit.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "no_clock"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "adder32_tb"
+ },
+ "top": "adder_32bit"
+}

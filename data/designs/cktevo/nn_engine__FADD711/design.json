@@ -1,0 +1,111 @@
+{
+ "clk_ports": [
+  "CLK"
+ ],
+ "design_id": "cktevo_nn_engine__FADD711",
+ "files": [
+  "rtl/FADD711.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "CLK"
+  ],
+  "clk_ports_by_name": [
+   "CLK"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 39,
+  "loc": 223,
+  "n_cells": 127,
+  "n_ff_bits": 40,
+  "n_files": 1,
+  "n_inputs": 5,
+  "n_outputs": 3,
+  "out_bits": 24,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 16
+   },
+   "B": {
+    "dir": "input",
+    "width": 16
+   },
+   "CLK": {
+    "dir": "input",
+    "width": 1
+   },
+   "GRSinA": {
+    "dir": "input",
+    "width": 3
+   },
+   "GRSinB": {
+    "dir": "input",
+    "width": 3
+   },
+   "GRSout": {
+    "dir": "output",
+    "width": 3
+   },
+   "R": {
+    "dir": "output",
+    "width": 16
+   },
+   "except": {
+    "dir": "output",
+    "width": 5
+   }
+  },
+  "ports_hash": "944c753658379213",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 223,
+ "name": "nn_engine__FADD711",
+ "notes": [
+  "closure: 1 modules, 151 lines (FADD711)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/FADD711.v": "4cadebe628c6be1b37c24e3efbadd30930195a9b33e3c16b9a935ae6afb5d503"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/nn_engine/FADD711.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "nn_engine"
+ ],
+ "tb": null,
+ "top": "FADD711"
+}

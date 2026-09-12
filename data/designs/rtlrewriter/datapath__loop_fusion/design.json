@@ -1,0 +1,94 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__loop_fusion",
+ "files": [
+  "rtl/loop_fusion_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 16,
+  "loc": 18,
+  "n_cells": 0,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 1,
+  "n_outputs": 2,
+  "out_bits": 32,
+  "ports": {
+   "x": {
+    "dir": "input",
+    "width": 16
+   },
+   "y": {
+    "dir": "output",
+    "width": 16
+   },
+   "z": {
+    "dir": "output",
+    "width": 16
+   }
+  },
+  "ports_hash": "c1c66ac4b36343ef",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 18,
+ "name": "datapath__loop_fusion",
+ "notes": [
+  "file roles: {\"loop_fusion.v\": \"expert\", \"loop_fusion_raw.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/loop_fusion.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example_raw"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/loop_fusion.v": "4e42c9e8e90d5974535bb01c169444304f6b6ea7ab6423176ed5d2f08d26b8de",
+  "rtl/loop_fusion_raw.v": "67fd1a1539187f10167925810891d5ead5c5a33546dde8ce79e81b2639dc6bac"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/loop_fusion/loop_fusion.v",
+   "short_benchmark/datapath/loop_fusion/loop_fusion_raw.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example_raw"
+}

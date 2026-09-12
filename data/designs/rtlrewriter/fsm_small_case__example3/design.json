@@ -1,0 +1,141 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_fsm_small_case__example3",
+ "files": [
+  "rtl/example3_state.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "reset": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 3,
+  "loc": 66,
+  "n_cells": 20,
+  "n_ff_bits": 3,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "output_signal": {
+    "dir": "output",
+    "width": 1
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "x": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "084e81615d522052",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 66,
+ "name": "fsm_small_case__example3",
+ "notes": [
+  "file roles: {\"example3_state.v\": \"original\", \"example3_state_gpt4.v\": \"llm\", \"example3_state_optimized.v\": \"expert\", \"example3_state_ours.v\": \"tool\", \"example3_state_revision.v\": \"other\", \"example3_state_test.v\": \"testbench\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/example3_state_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [
+  {
+   "files": [
+    "samples/example3_state_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/example3_state_ours.v"
+   ],
+   "role": "tool",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/example3_state_revision.v"
+   ],
+   "role": "other",
+   "top": "example"
+  }
+ ],
+ "sha256": {
+  "reference/example3_state_optimized.v": "ef5f4f6c9162a3b14c2ba69ac154dc6da290bdbcfa6b92abd2d4d94283d3bf41",
+  "rtl/example3_state.v": "a56d29d2a1bcebd06cd057beec2c3263a3cd8ad37a4fda1b5f5e9f62e343b411",
+  "samples/example3_state_gpt4.v": "376dd2d5b16c08fc5f6124c5d9bde0347b0e3ab9ac0d4b9961cb54515cb1d81f",
+  "samples/example3_state_ours.v": "3b41a412ddbc67a16de9b52777b30f8208c321ac657a3c6df8adb418b9abc447",
+  "samples/example3_state_revision.v": "8c34b0c28ac6531c335ed9951b7dd939e9d0b740dff7154a822f784eb570328e",
+  "tb/example3_state_test.v": "a63350edbc1102e134e679f5e6d158817e766d02a875eff70e60c7ec3d5ca3cc"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/fsm_small_case/example3/example3_state.v",
+   "short_benchmark/fsm_small_case/example3/example3_state_gpt4.v",
+   "short_benchmark/fsm_small_case/example3/example3_state_optimized.v",
+   "short_benchmark/fsm_small_case/example3/example3_state_ours.v",
+   "short_benchmark/fsm_small_case/example3/example3_state_revision.v",
+   "short_benchmark/fsm_small_case/example3/example3_state_test.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "fsm_small_case",
+  "calibration_only"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/example3_state_test.v"
+  ],
+  "top": null
+ },
+ "top": "example"
+}

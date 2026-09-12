@@ -1,0 +1,96 @@
+{
+ "clk_ports": [],
+ "design_id": "rtllm_adder_bcd",
+ "files": [
+  "rtl/adder_bcd.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 9,
+  "loc": 22,
+  "n_cells": 7,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 2,
+  "out_bits": 5,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 4
+   },
+   "B": {
+    "dir": "input",
+    "width": 4
+   },
+   "Cin": {
+    "dir": "input",
+    "width": 1
+   },
+   "Cout": {
+    "dir": "output",
+    "width": 1
+   },
+   "Sum": {
+    "dir": "output",
+    "width": 4
+   }
+  },
+  "ports_hash": "814a7b05f475592f",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 22,
+ "name": "adder_bcd",
+ "notes": [],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/adder_bcd.v": "7bc3695726c0dc21f88fb6752e092dfb781eee82974af1e1f5e371986fd8c779",
+  "tb/testbench.v": "05c80fdf3f9660c5bcfc35f24dd73f46cb40b3be506589bc8747db4703f70323"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Arithmetic/Adder/adder_bcd/verified_adder_bcd.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "no_clock"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "testbench"
+ },
+ "top": "adder_bcd"
+}

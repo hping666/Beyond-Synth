@@ -1,0 +1,98 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlopt_comparator_4bit",
+ "files": [
+  "rtl/comparator_4bit.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 8,
+  "loc": 14,
+  "n_cells": 45,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 3,
+  "out_bits": 3,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 4
+   },
+   "B": {
+    "dir": "input",
+    "width": 4
+   },
+   "eq": {
+    "dir": "output",
+    "width": 1
+   },
+   "gt": {
+    "dir": "output",
+    "width": 1
+   },
+   "lt": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "5956328a9b931a6c",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 14,
+ "name": "comparator_4bit",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/comparator_4bit_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "comparator_4bit_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/comparator_4bit_ref.v": "2d6e915f21ae74e667d1324739044a22dae259b18333a4e964b133383c1d72bb",
+  "rtl/comparator_4bit.v": "722ba41893dd940dcb7d7c5bd5450c5ad9f44a95dfb42a3810fb50cb67c6d522"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/comparator_4bit/comparator_4bit.v",
+   "benchmark/comparator_4bit_ref/comparator_4bit_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "comparator_4bit"
+}

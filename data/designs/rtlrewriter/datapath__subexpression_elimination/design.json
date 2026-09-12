@@ -1,0 +1,122 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__subexpression_elimination",
+ "files": [
+  "rtl/subexpression_elimination_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 32,
+  "loc": 22,
+  "n_cells": 13,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 6,
+  "out_bits": 48,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "c": {
+    "dir": "input",
+    "width": 8
+   },
+   "d": {
+    "dir": "input",
+    "width": 8
+   },
+   "s1": {
+    "dir": "output",
+    "width": 8
+   },
+   "s2": {
+    "dir": "output",
+    "width": 8
+   },
+   "s3": {
+    "dir": "output",
+    "width": 8
+   },
+   "s4": {
+    "dir": "output",
+    "width": 8
+   },
+   "s5": {
+    "dir": "output",
+    "width": 8
+   },
+   "s6": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "2b30f6c7fe88dba4",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 22,
+ "name": "datapath__subexpression_elimination",
+ "notes": [
+  "file roles: {\"subexpression_elimination.v\": \"expert\", \"subexpression_elimination_raw.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/subexpression_elimination.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/subexpression_elimination.v": "57a39730f0cf98e6ebcdcf49fe59d0d0befff9ea9e8a5bea1549956d7f23dfcd",
+  "rtl/subexpression_elimination_raw.v": "43511603b9cd28d6cbbe5ad7feb60a4068bf5e538cab986d4cb54c30e5affe37"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/subexpression_elimination/subexpression_elimination.v",
+   "short_benchmark/datapath/subexpression_elimination/subexpression_elimination_raw.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example_raw"
+}

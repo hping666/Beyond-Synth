@@ -1,0 +1,106 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_basic__add1",
+ "files": [
+  "rtl/basic.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 129,
+  "loc": 14,
+  "n_cells": 3,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 5,
+  "n_outputs": 1,
+  "out_bits": 33,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 32
+   },
+   "B": {
+    "dir": "input",
+    "width": 32
+   },
+   "C": {
+    "dir": "input",
+    "width": 32
+   },
+   "D": {
+    "dir": "input",
+    "width": 32
+   },
+   "Z": {
+    "dir": "output",
+    "width": 33
+   },
+   "s": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "39bc867ec07a8360",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 14,
+ "name": "basic__add1",
+ "notes": [
+  "file roles: {\"basic.v\": \"original\", \"basic_optimized.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/basic_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/basic_optimized.v": "88459b9cbf4ed94fc6b1bb94df154dd3d741227b089d26ff421be0ef7db3bd1a",
+  "rtl/basic.v": "a405e2a31f25c6da08f9da7930b46b6e8e123d9ca9c183cf3e646e4b5426b2d9"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/basic/add1/basic.v",
+   "short_benchmark/basic/add1/basic_optimized.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "basic",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example"
+}

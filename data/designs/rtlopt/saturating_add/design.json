@@ -1,0 +1,99 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlopt_saturating_add",
+ "files": [
+  "rtl/saturating_add.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 17,
+  "loc": 17,
+  "n_cells": 14,
+  "n_ff_bits": 10,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 1,
+  "out_bits": 8,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "z": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "0f5f58f49b5eecac",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 17,
+ "name": "saturating_add",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/saturating_add_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "saturating_add_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/saturating_add_ref.v": "7b74e54e800651a6bb177429c1de94a00a0de1a01b1cf91706bf690025417459",
+  "rtl/saturating_add.v": "9c5d801432c138af2daee3bb2299a68ccf2e4cab0f4621186692a75df35e5a90"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/saturating_add/saturating_add.v",
+   "benchmark/saturating_add_ref/saturating_add_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair"
+ ],
+ "tb": null,
+ "top": "saturating_add"
+}

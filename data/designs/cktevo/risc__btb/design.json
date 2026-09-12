@@ -1,0 +1,121 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_risc__btb",
+ "files": [
+  "rtl/btb.v",
+  "rtl/btb_array.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/cache_mux_types.v",
+  "rtl/rv32i_mux_types.v",
+  "rtl/rv32i_types.v"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 101,
+  "loc": 453,
+  "n_cells": 4328,
+  "n_ff_bits": 2965,
+  "n_files": 2,
+  "n_inputs": 6,
+  "n_outputs": 2,
+  "out_bits": 35,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "in": {
+    "dir": "input",
+    "width": 34
+   },
+   "load": {
+    "dir": "input",
+    "width": 1
+   },
+   "out": {
+    "dir": "output",
+    "width": 34
+   },
+   "read_address": {
+    "dir": "input",
+    "width": 32
+   },
+   "read_hit": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "write_address": {
+    "dir": "input",
+    "width": 32
+   }
+  },
+  "ports_hash": "d4f539fdb65001bf",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 453,
+ "name": "risc__btb",
+ "notes": [
+  "closure: 2 modules, 453 lines (btb, btb_array)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/btb.v": "11b63d729a58731677d058c81619a442c9f5fc1ec2c675d674b242988effa932",
+  "rtl/btb_array.v": "9695ab9012565fb5a0c447a2ca53e0348fb7b0e7a71e2fe1f2c42e86674c70fb",
+  "rtl/cache_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/rv32i_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/rv32i_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/risc/btb.v",
+   "benchmark/risc/btb_array.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "risc"
+ ],
+ "tb": null,
+ "top": "btb"
+}

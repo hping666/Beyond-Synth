@@ -1,0 +1,111 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_instr_reg",
+ "files": [
+  "rtl/instr_reg.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 12,
+  "loc": 35,
+  "n_cells": 10,
+  "n_ff_bits": 16,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 3,
+  "out_bits": 16,
+  "ports": {
+   "ad1": {
+    "dir": "output",
+    "width": 5
+   },
+   "ad2": {
+    "dir": "output",
+    "width": 8
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "data": {
+    "dir": "input",
+    "width": 8
+   },
+   "fetch": {
+    "dir": "input",
+    "width": 2
+   },
+   "ins": {
+    "dir": "output",
+    "width": 3
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "796d0625d3723ebe",
+  "rst_port": "rst",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 35,
+ "name": "instr_reg",
+ "notes": [],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/instr_reg.v": "164a6818f62494be71793d1b31e8ecc4670e04dd1bef4a4b8344b2c57553dddc",
+  "tb/testbench.v": "5dd4f4bf5f62f828433a00ce7d48929221a8fd5736c5e47ff7f2d9db7ab94331"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/RISC-V/instr_reg/verified_instr_reg.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "instr_reg_tb"
+ },
+ "top": "instr_reg"
+}

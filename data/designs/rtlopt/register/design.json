@@ -1,0 +1,121 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlopt_register",
+ "files": [
+  "rtl/register.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "reset": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": true,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 50,
+  "loc": 64,
+  "n_cells": 210,
+  "n_ff_bits": 1056,
+  "n_files": 1,
+  "n_inputs": 7,
+  "n_outputs": 2,
+  "out_bits": 64,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "read_addr1": {
+    "dir": "input",
+    "width": 5
+   },
+   "read_addr2": {
+    "dir": "input",
+    "width": 5
+   },
+   "read_data1": {
+    "dir": "output",
+    "width": 32
+   },
+   "read_data2": {
+    "dir": "output",
+    "width": 32
+   },
+   "reg_write": {
+    "dir": "input",
+    "width": 1
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "write_addr": {
+    "dir": "input",
+    "width": 5
+   },
+   "write_data": {
+    "dir": "input",
+    "width": 32
+   }
+  },
+  "ports_hash": "c371f68c9a230b7f",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 64,
+ "name": "register",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/register_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "register_ref"
+ },
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/register_ref.v": "82a9e92699e9a18345fd49551a76825107d92607d3099562761a7128db42e384",
+  "rtl/register.v": "346024f16951831951c29b9070636de8e3ee3991a68eeceee9bcf04217d2358e"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/register/register.v",
+   "benchmark/register_ref/register_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair"
+ ],
+ "tb": null,
+ "top": "register"
+}

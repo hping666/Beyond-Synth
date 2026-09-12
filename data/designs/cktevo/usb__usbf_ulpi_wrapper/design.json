@@ -1,0 +1,168 @@
+{
+ "clk_ports": [
+  "ulpi_clk60_i"
+ ],
+ "design_id": "cktevo_usb__usbf_ulpi_wrapper",
+ "files": [
+  "rtl/usbf_ulpi_wrapper.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/usbf_cfg_defs.v",
+  "rtl/usbf_protocol_defs.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "ulpi_rstn_i": "low"
+  },
+  "clk_ports": [
+   "ulpi_clk60_i"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 28,
+  "loc": 423,
+  "n_cells": 266,
+  "n_ff_bits": 68,
+  "n_files": 1,
+  "n_inputs": 12,
+  "n_outputs": 9,
+  "out_bits": 31,
+  "ports": {
+   "ulpi_clk60_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "ulpi_data_in_o": {
+    "dir": "output",
+    "width": 8
+   },
+   "ulpi_data_out_en_o": {
+    "dir": "output",
+    "width": 8
+   },
+   "ulpi_data_out_i": {
+    "dir": "input",
+    "width": 8
+   },
+   "ulpi_dir_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "ulpi_nxt_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "ulpi_rstn_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "ulpi_stp_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "utmi_data_in_o": {
+    "dir": "output",
+    "width": 8
+   },
+   "utmi_data_out_i": {
+    "dir": "input",
+    "width": 8
+   },
+   "utmi_dmpulldown_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "utmi_dppulldown_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "utmi_linestate_o": {
+    "dir": "output",
+    "width": 2
+   },
+   "utmi_op_mode_i": {
+    "dir": "input",
+    "width": 2
+   },
+   "utmi_rxactive_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "utmi_rxerror_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "utmi_rxvalid_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "utmi_termselect_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "utmi_txready_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "utmi_txvalid_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "utmi_xcvrselect_i": {
+    "dir": "input",
+    "width": 2
+   }
+  },
+  "ports_hash": "08ed472ab28da0c7",
+  "rst_port": "ulpi_rstn_i",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 423,
+ "name": "usb__usbf_ulpi_wrapper",
+ "notes": [
+  "closure: 1 modules, 409 lines (usbf_ulpi_wrapper)"
+ ],
+ "reference": null,
+ "rst_port": "ulpi_rstn_i",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/usbf_cfg_defs.v": "50207a9444289f05d757c0fd8d73231844e44e32633849804558308b5576f43b",
+  "rtl/usbf_protocol_defs.v": "84270ec70a718cfcea5eff30af4097e5dfc838ba5bd91bd53bedd8cf7b211c1b",
+  "rtl/usbf_ulpi_wrapper.v": "28dcf18b8b74481af8fb9e5636a74aa148ff6742cb561b6225b4d9f107c4b5e0"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/usb/usbf_ulpi_wrapper.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "usb"
+ ],
+ "tb": null,
+ "top": "usbf_ulpi_wrapper"
+}

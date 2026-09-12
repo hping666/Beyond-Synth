@@ -1,0 +1,152 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_vga_enh__vga_curproc",
+ "files": [
+  "rtl/vga_curproc.v",
+  "rtl/generic_spram.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/timescale.v",
+  "rtl/vga_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": true,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 151,
+  "loc": 724,
+  "n_cells": 99,
+  "n_ff_bits": 274,
+  "n_files": 2,
+  "n_inputs": 13,
+  "n_outputs": 3,
+  "out_bits": 29,
+  "ports": {
+   "Thgate": {
+    "dir": "input",
+    "width": 16
+   },
+   "Tvgate": {
+    "dir": "input",
+    "width": 16
+   },
+   "cc_adr_o": {
+    "dir": "output",
+    "width": 4
+   },
+   "cc_dat_i": {
+    "dir": "input",
+    "width": 16
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor_en": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor_res": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor_wadr": {
+    "dir": "input",
+    "width": 9
+   },
+   "cursor_wdat": {
+    "dir": "input",
+    "width": 32
+   },
+   "cursor_we": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor_xy": {
+    "dir": "input",
+    "width": 32
+   },
+   "idat": {
+    "dir": "input",
+    "width": 24
+   },
+   "idat_wreq": {
+    "dir": "input",
+    "width": 1
+   },
+   "rgb": {
+    "dir": "output",
+    "width": 24
+   },
+   "rgb_fifo_wreq": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst_i": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "187a861c481c52b3",
+  "rst_port": "rst_i",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 724,
+ "name": "vga_enh__vga_curproc",
+ "notes": [
+  "closure: 4 modules, 554 lines (vga_curproc, generic_spram, altera_ram_sp, xilinx_ram_sp)",
+  "unresolved references in the text (vendor models under `ifdef?): ['C_MEM_SP_BLOCK_V1_0', 'artisan_ssp', 'avant_atp', 'syn_ram_irou', 'virage_ssp', 'virtualsilicon_spram']"
+ ],
+ "reference": null,
+ "rst_port": "rst_i",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/generic_spram.v": "dc9a5ca3359a01f2a9e18cf36a61c87dde6f29a2dca2e3bbe805e3c7aa6f9e90",
+  "rtl/timescale.v": "8ecd153830822ef5f1dd0b352067f72d8b08bbc3e8d360cc2b38175cd07f8d33",
+  "rtl/vga_curproc.v": "be69c519e8a6430f002ff174fbb4b731eb91db9b4a86823cf3d6b05a8db07dec",
+  "rtl/vga_defines.v": "dbf4a77dcaf8dec2030afb8b7c54dc3cc9b2913eb421624cd4e17dc252947cee"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/vga_enh/vga_curproc.v",
+   "benchmark/vga_enh/generic_spram.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "vga_enh"
+ ],
+ "tb": null,
+ "top": "vga_curproc"
+}

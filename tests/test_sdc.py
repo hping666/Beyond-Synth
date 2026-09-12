@@ -30,3 +30,17 @@ def test_dc_rewrite_replaces_no_clocks_and_scales_time_units():
     assert "BUFx2_ASAP7_75t_R" in d  # cell names untouched
     unscaled = dc_sdc(s, 1.0)
     assert "-period 0.5 " in unscaled
+
+
+def test_multi_clock_designs_get_one_clock_per_port_with_the_same_period():
+    from src.eval.sdc import clock_ports
+    s = opensta_sdc("t", ["wclk", "rclk"], 2.0, CFG, "nangate45")
+    assert "create_clock -name clk -period 2 [get_ports wclk]" in s and "create_clock -name clk_2 -period 2 [get_ports rclk]" in s
+    assert s.count("create_clock") == 2 and "set_input_delay 0.4 -clock clk $non_clk" in s and "set_output_delay 0.4 -clock clk" in s
+    assert opensta_sdc("t", "wclk rclk", 2.0, CFG, "nangate45") == s  # string and list forms agree
+    single = opensta_sdc("t", ["clk"], 2.0, CFG, "nangate45")
+    assert single.count("create_clock") == 1 and "clk_2" not in single and single == opensta_sdc("t", "clk", 2.0, CFG, "nangate45")
+    assert opensta_sdc("t", [], 1.0, CFG, "nangate45") == opensta_sdc("t", None, 1.0, CFG, "nangate45")  # virtual clock
+    assert clock_ports(None) == [] and clock_ports("clk") == ["clk"] and clock_ports(["a", ""]) == ["a"] and clock_ports("a  b") == ["a", "b"]
+    d = dc_sdc(s, 1000.0)
+    assert d.count("-period 2000 ") == 2

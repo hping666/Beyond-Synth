@@ -1,0 +1,130 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_mux__mux_dead_code",
+ "files": [
+  "rtl/mux_dead_code.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 18,
+  "loc": 106,
+  "n_cells": 20,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 1,
+  "out_bits": 8,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "result": {
+    "dir": "output",
+    "width": 8
+   },
+   "sel": {
+    "dir": "input",
+    "width": 1
+   },
+   "x": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "9a5518e40a749f00",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 106,
+ "name": "mux__mux_dead_code",
+ "notes": [
+  "file roles: {\"mux_dead_code.v\": \"original\", \"mux_dead_code_claude3.v\": \"llm\", \"mux_dead_code_gpt4.v\": \"llm\", \"mux_dead_code_optimized.v\": \"expert\", \"mux_dead_code_ours.v\": \"tool\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/mux_dead_code_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/mux_dead_code_claude3.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/mux_dead_code_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/mux_dead_code_ours.v"
+   ],
+   "role": "tool",
+   "top": null
+  }
+ ],
+ "sha256": {
+  "reference/mux_dead_code_optimized.v": "7d880952e9841a8397aa9113c297dda3eb0fa85dbbe24c813ad86f40738b877d",
+  "rtl/mux_dead_code.v": "9afa7acb0b1b5f85f817f9596f90246a337b61deb2f28030ca54d78ca275fe98",
+  "samples/mux_dead_code_claude3.v": "69d06eb486cefa89bdae653cb5c235b26b8d5fd1496f6b96931fe3ff5881321d",
+  "samples/mux_dead_code_gpt4.v": "c50414f095b8b8e6d784c8d275552d9ccd88913f5e683cbe2ab2567a6d4153a5",
+  "samples/mux_dead_code_ours.v": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/mux/mux_dead_code/mux_dead_code.v",
+   "short_benchmark/mux/mux_dead_code/mux_dead_code_claude3.v",
+   "short_benchmark/mux/mux_dead_code/mux_dead_code_gpt4.v",
+   "short_benchmark/mux/mux_dead_code/mux_dead_code_optimized.v",
+   "short_benchmark/mux/mux_dead_code/mux_dead_code_ours.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "mux",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example"
+}

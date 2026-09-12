@@ -1,0 +1,196 @@
+{
+ "clk_ports": [
+  "MRxClk"
+ ],
+ "design_id": "cktevo_ethmac__eth_rxcounters",
+ "files": [
+  "rtl/eth_rxcounters.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "Reset": "high"
+  },
+  "clk_ports": [
+   "MRxClk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 30,
+  "loc": 217,
+  "n_cells": 63,
+  "n_ff_bits": 25,
+  "n_files": 1,
+  "n_inputs": 14,
+  "n_outputs": 14,
+  "out_bits": 32,
+  "ports": {
+   "ByteCntEq0": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntEq1": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntEq2": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntEq3": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntEq4": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntEq5": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntEq6": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntEq7": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntGreat2": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntMaxFrame": {
+    "dir": "output",
+    "width": 1
+   },
+   "ByteCntOut": {
+    "dir": "output",
+    "width": 16
+   },
+   "ByteCntSmall7": {
+    "dir": "output",
+    "width": 1
+   },
+   "DlyCrcCnt": {
+    "dir": "output",
+    "width": 4
+   },
+   "DlyCrcEn": {
+    "dir": "input",
+    "width": 1
+   },
+   "HugEn": {
+    "dir": "input",
+    "width": 1
+   },
+   "IFGCounterEq24": {
+    "dir": "output",
+    "width": 1
+   },
+   "MRxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxDEqD": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxDV": {
+    "dir": "input",
+    "width": 1
+   },
+   "MaxFL": {
+    "dir": "input",
+    "width": 16
+   },
+   "Reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "StateData": {
+    "dir": "input",
+    "width": 2
+   },
+   "StateDrop": {
+    "dir": "input",
+    "width": 1
+   },
+   "StateIdle": {
+    "dir": "input",
+    "width": 1
+   },
+   "StatePreamble": {
+    "dir": "input",
+    "width": 1
+   },
+   "StateSFD": {
+    "dir": "input",
+    "width": 1
+   },
+   "Transmitting": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_IFG": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "dbc1d6f8e714b15e",
+  "rst_port": "Reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 217,
+ "name": "ethmac__eth_rxcounters",
+ "notes": [
+  "closure: 1 modules, 133 lines (eth_rxcounters)"
+ ],
+ "reference": null,
+ "rst_port": "Reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_rxcounters.v": "f53a80b386c428d75a7ecf2861c2960e6d1b81c6d6acf90b3bcc1871089667f4",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_rxcounters.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac"
+ ],
+ "tb": null,
+ "top": "eth_rxcounters"
+}

@@ -1,0 +1,216 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "drrtl_datapath",
+ "files": [
+  "rtl/datapath.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 91,
+  "loc": 1065,
+  "n_cells": 1173,
+  "n_ff_bits": 881,
+  "n_files": 1,
+  "n_inputs": 31,
+  "n_outputs": 4,
+  "out_bits": 97,
+  "ports": {
+   "bus_in": {
+    "dir": "input",
+    "width": 32
+   },
+   "bypass_key_en": {
+    "dir": "input",
+    "width": 1
+   },
+   "bypass_rk": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "col_bus": {
+    "dir": "output",
+    "width": 32
+   },
+   "col_en_cnt_unit": {
+    "dir": "input",
+    "width": 4
+   },
+   "col_en_host": {
+    "dir": "input",
+    "width": 4
+   },
+   "col_sel": {
+    "dir": "input",
+    "width": 2
+   },
+   "col_sel_host": {
+    "dir": "input",
+    "width": 2
+   },
+   "data_type": {
+    "dir": "input",
+    "width": 2
+   },
+   "enc_dec": {
+    "dir": "input",
+    "width": 1
+   },
+   "end_aes": {
+    "dir": "output",
+    "width": 1
+   },
+   "end_comp": {
+    "dir": "input",
+    "width": 1
+   },
+   "first_block": {
+    "dir": "input",
+    "width": 1
+   },
+   "iv_bus": {
+    "dir": "output",
+    "width": 32
+   },
+   "iv_cnt_en": {
+    "dir": "input",
+    "width": 1
+   },
+   "iv_cnt_sel": {
+    "dir": "input",
+    "width": 1
+   },
+   "iv_en": {
+    "dir": "input",
+    "width": 4
+   },
+   "iv_sel_rd": {
+    "dir": "input",
+    "width": 4
+   },
+   "key_bus": {
+    "dir": "output",
+    "width": 32
+   },
+   "key_derivation_en": {
+    "dir": "input",
+    "width": 1
+   },
+   "key_en": {
+    "dir": "input",
+    "width": 4
+   },
+   "key_gen": {
+    "dir": "input",
+    "width": 1
+   },
+   "key_host_en": {
+    "dir": "input",
+    "width": 4
+   },
+   "key_init": {
+    "dir": "input",
+    "width": 1
+   },
+   "key_out_sel": {
+    "dir": "input",
+    "width": 2
+   },
+   "key_sel": {
+    "dir": "input",
+    "width": 1
+   },
+   "key_sel_rd": {
+    "dir": "input",
+    "width": 2
+   },
+   "last_round": {
+    "dir": "input",
+    "width": 1
+   },
+   "mode_cbc": {
+    "dir": "input",
+    "width": 1
+   },
+   "mode_ctr": {
+    "dir": "input",
+    "width": 1
+   },
+   "rk_sel": {
+    "dir": "input",
+    "width": 2
+   },
+   "round": {
+    "dir": "input",
+    "width": 4
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "sbox_sel": {
+    "dir": "input",
+    "width": 3
+   }
+  },
+  "ports_hash": "e39338c408cee57e",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 1065,
+ "name": "datapath",
+ "notes": [],
+ "reference": null,
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/datapath.v": "9ff4e06e2bc609b9dad4480c2236bce75cf382d32b3caf7e800b52bd846ab0fc"
+ },
+ "source": {
+  "commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "rtl_dataset/datapath.v0.v"
+  ],
+  "suite_key": "drrtl",
+  "url": "https://github.com/hkust-zhiyao/DR_RTL"
+ },
+ "suite": "drrtl",
+ "sverilog": false,
+ "tags": [
+  "drrtl"
+ ],
+ "tb": null,
+ "top": "datapath"
+}

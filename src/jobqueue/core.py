@@ -71,6 +71,9 @@ class Queue:
         q = cfg["queue"]
         self.caps = {"dc": int(q["dc_seats_max"]), "pt": int(q["pt_seats_max"]),
                      "vcf": int(q["vcf_seats_max"]), "local": int(q["local_max"])}
+        # dispatch limits: an optional `<pool>_concurrency` below the seat cap (config queue.dc_concurrency, DECISIONS
+        # 2026-09-12: 12 DC jobs at once on the 64-core host); the caps stay the hard ceiling
+        self.concurrency = {pool: q.get(f"{pool}_concurrency") for pool in self.caps}
         self.backoff_cfg = q["backoff"]
         self.retries = int(q["retries"])
         self.env = dict(env) if env is not None else dict(os.environ)
@@ -78,6 +81,11 @@ class Queue:
         self.children = {}   # job_id -> Popen (only jobs spawned by this process)
         self._log = log
         os.makedirs(log_dir, exist_ok=True)
+
+    @property
+    def limits(self):
+        """Effective dispatch limit per pool: min(seat cap, configured concurrency); follows later changes of caps."""
+        return {p: (min(cap, int(self.concurrency[p])) if self.concurrency.get(p) else cap) for p, cap in self.caps.items()}
 
     def log(self, msg):
         self._log(f"{db.now()} {msg}", flush=True) if self._log is print else self._log(msg)
@@ -136,7 +144,7 @@ class Queue:
         for p, cap in self.caps.items():
             until, level = self._backoff(p)
             s = by.get(p, {})
-            pools[p] = {"cap": cap, "running": s.get("running", 0), "waiting": s.get("queued", 0) + s.get("backoff", 0),
+            pools[p] = {"cap": cap, "limit": self.limits[p], "running": s.get("running", 0), "waiting": s.get("queued", 0) + s.get("backoff", 0),
                         "done": s.get("done", 0), "failed": s.get("failed", 0),
                         "backoff_remaining_sec": max(0.0, until - time.time()), "backoff_level": level}
         return pools
@@ -254,7 +262,7 @@ class Queue:
 
     def _dispatch(self):
         now = time.time()
-        for pool, cap in self.caps.items():
+        for pool, cap in self.limits.items():
             until, _ = self._backoff(pool)
             if until > now:
                 continue

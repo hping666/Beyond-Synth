@@ -1,0 +1,90 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__loop_jamming",
+ "files": [
+  "rtl/loop_jamming_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 64,
+  "loc": 21,
+  "n_cells": 0,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 1,
+  "n_outputs": 1,
+  "out_bits": 64,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 64
+   },
+   "s": {
+    "dir": "output",
+    "width": 64
+   }
+  },
+  "ports_hash": "4a8f21776d7f462e",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 21,
+ "name": "datapath__loop_jamming",
+ "notes": [
+  "file roles: {\"loop_jamming.v\": \"expert\", \"loop_jamming_raw.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/loop_jamming.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example_raw"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/loop_jamming.v": "c48fb8ad95ef56695c175f58b5610d1188d596af3d79890ab3e11d03dddc0d46",
+  "rtl/loop_jamming_raw.v": "dafbd88a3574bb83249c8c7839114f5f7479ebe478bc3bc4772af56b61feed00"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/loop_jamming/loop_jamming.v",
+   "short_benchmark/datapath/loop_jamming/loop_jamming_raw.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example_raw"
+}

@@ -1,0 +1,164 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_mem_ctrl__mc_wb_if",
+ "files": [
+  "rtl/mc_wb_if.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/mc_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "rst": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 105,
+  "loc": 252,
+  "n_cells": 91,
+  "n_ff_bits": 42,
+  "n_files": 1,
+  "n_inputs": 12,
+  "n_outputs": 8,
+  "out_bits": 39,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "err": {
+    "dir": "input",
+    "width": 1
+   },
+   "mem_ack": {
+    "dir": "input",
+    "width": 1
+   },
+   "mem_dout": {
+    "dir": "input",
+    "width": 32
+   },
+   "par_err": {
+    "dir": "input",
+    "width": 1
+   },
+   "rf_dout": {
+    "dir": "input",
+    "width": 32
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_ack_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "wb_addr_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "wb_cyc_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_data_o": {
+    "dir": "output",
+    "width": 32
+   },
+   "wb_err": {
+    "dir": "output",
+    "width": 1
+   },
+   "wb_first": {
+    "dir": "output",
+    "width": 1
+   },
+   "wb_read_go": {
+    "dir": "output",
+    "width": 1
+   },
+   "wb_stb_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_wait": {
+    "dir": "output",
+    "width": 1
+   },
+   "wb_we_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_write_go": {
+    "dir": "output",
+    "width": 1
+   },
+   "wp_err": {
+    "dir": "input",
+    "width": 1
+   },
+   "wr_hold": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "85f67736dca0db72",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 252,
+ "name": "mem_ctrl__mc_wb_if",
+ "notes": [
+  "closure: 1 modules, 138 lines (mc_wb_if)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/mc_defines.v": "7014771beba02583c37c220642644edbf0b7dd34fb62551af260249969e5ef11",
+  "rtl/mc_wb_if.v": "f109cfc5338407ae1ff9965be1943be83a51eff7e47cf59cfc422069d7e5a36c"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/mem_ctrl/mc_wb_if.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "mem_ctrl"
+ ],
+ "tb": null,
+ "top": "mc_wb_if"
+}

@@ -1,0 +1,102 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlopt_addr_calcu",
+ "files": [
+  "rtl/addr_calcu.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 33,
+  "loc": 23,
+  "n_cells": 7,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 5,
+  "n_outputs": 1,
+  "out_bits": 16,
+  "ports": {
+   "address": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "control": {
+    "dir": "input",
+    "width": 1
+   },
+   "count": {
+    "dir": "output",
+    "width": 16
+   },
+   "ptr1": {
+    "dir": "input",
+    "width": 8
+   },
+   "ptr2": {
+    "dir": "input",
+    "width": 8
+   }
+  },
+  "ports_hash": "9b62c99287c6b8ae",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 23,
+ "name": "addr_calcu",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/addr_calcu_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "addr_calcu_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/addr_calcu_ref.v": "79a4672c5aa87a04d231b0e40de1b90971ab9a1611139abde747da3d6e57d510",
+  "rtl/addr_calcu.v": "dbef1644da5cebbf6eada8f03b9dbb937b8e990bff72a2e81fb68fb80d8ab247"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/addr_calcu/addr_calcu.v",
+   "benchmark/addr_calcu_ref/addr_calcu_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "addr_calcu"
+}

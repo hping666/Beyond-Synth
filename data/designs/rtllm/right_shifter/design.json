@@ -1,0 +1,95 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_right_shifter",
+ "files": [
+  "rtl/right_shifter.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": true,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 2,
+  "loc": 15,
+  "n_cells": 1,
+  "n_ff_bits": 8,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 1,
+  "out_bits": 8,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "d": {
+    "dir": "input",
+    "width": 1
+   },
+   "q": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "80fd5193a871c405",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 15,
+ "name": "right_shifter",
+ "notes": [
+  "module verified_right_shifter renamed to right_shifter, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/right_shifter.v": "aaf73c91fe832673501973d7d35e378d75d65fb219a8cf7e06c0ac3953ad0823",
+  "tb/testbench.v": "f09a6e060cedfebd470cab0af67ae21e49d13d5298b9a4f9c02da11369472ef9"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Memory/Shifter/right_shifter/verified_right_shifter.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "right_shifter_tb"
+ },
+ "top": "right_shifter"
+}

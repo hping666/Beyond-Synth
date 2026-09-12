@@ -1,0 +1,117 @@
+{
+ "clk_ports": [],
+ "design_id": "cktevo_risc__forward_control_unit",
+ "files": [
+  "rtl/forward_control_unit.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/cache_mux_types.v",
+  "rtl/rv32i_mux_types.v",
+  "rtl/rv32i_types.v"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 196,
+  "loc": 122,
+  "n_cells": 173,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 5,
+  "out_bits": 13,
+  "ports": {
+   "ex_forward_A_MUX_sel": {
+    "dir": "output",
+    "width": 3
+   },
+   "ex_forward_B_MUX_sel": {
+    "dir": "output",
+    "width": 3
+   },
+   "ex_mem_out_ctrl": {
+    "dir": "input",
+    "width": 49
+   },
+   "id_ex_in_ctrl": {
+    "dir": "input",
+    "width": 49
+   },
+   "id_ex_out_ctrl": {
+    "dir": "input",
+    "width": 49
+   },
+   "id_forward_A_MUX_sel": {
+    "dir": "output",
+    "width": 3
+   },
+   "id_forward_B_MUX_sel": {
+    "dir": "output",
+    "width": 3
+   },
+   "mem_wb_out_ctrl": {
+    "dir": "input",
+    "width": 49
+   },
+   "wb_mem_forward_MUX_sel": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "6a4a2cf5c210d963",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 122,
+ "name": "risc__forward_control_unit",
+ "notes": [
+  "closure: 1 modules, 122 lines (forward_control_unit)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/cache_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/forward_control_unit.v": "2c36535976da8aa65d5ad681dce53a25790fd50fe8f16bb852fd049bff09a7ef",
+  "rtl/rv32i_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/rv32i_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/risc/forward_control_unit.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "risc",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "forward_control_unit"
+}

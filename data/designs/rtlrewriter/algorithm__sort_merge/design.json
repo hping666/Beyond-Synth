@@ -1,0 +1,111 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_algorithm__sort_merge",
+ "files": [
+  "rtl/sort_merge_redundancy.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 1027,
+  "loc": 66,
+  "n_cells": 23597,
+  "n_ff_bits": 132228,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 2,
+  "out_bits": 1025,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "data_in": {
+    "dir": "input",
+    "width": 1024
+   },
+   "data_out": {
+    "dir": "output",
+    "width": 1024
+   },
+   "done_sort": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "start_sort": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "b23d1f96d1c27f9d",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 66,
+ "name": "algorithm__sort_merge",
+ "notes": [
+  "file roles: {\"sort_merge.v\": \"expert\", \"sort_merge_redundancy.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/sort_merge.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "MergeSort"
+ },
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/sort_merge.v": "c515fbe4c367470d4b12fc742e17ec0fb29b4b8d37cd68349f1bb501b21a96b4",
+  "rtl/sort_merge_redundancy.v": "864b94fa6e2b2dd08787ab61d8cb47d74c00fa9cd1ea9a0a4f0a7695e451d5a0"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/algorithm/sort_merge/sort_merge.v",
+   "short_benchmark/algorithm/sort_merge/sort_merge_redundancy.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "algorithm",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "MergeSort"
+}

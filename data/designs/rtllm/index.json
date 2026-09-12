@@ -1,0 +1,775 @@
+{
+ "count": 50,
+ "designs": [
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_accu",
+   "files": [
+    "rtl/accu.v"
+   ],
+   "loc": 77,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "accu"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_adder_16bit",
+   "files": [
+    "rtl/adder_16bit.v"
+   ],
+   "loc": 123,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "adder_16bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_adder_32bit",
+   "files": [
+    "rtl/adder_32bit.v"
+   ],
+   "loc": 181,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "adder_32bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_adder_8bit",
+   "files": [
+    "rtl/adder_8bit.v"
+   ],
+   "loc": 23,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "adder_8bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_adder_bcd",
+   "files": [
+    "rtl/adder_bcd.v"
+   ],
+   "loc": 22,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "adder_bcd"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_adder_pipe_64bit",
+   "files": [
+    "rtl/adder_pipe_64bit.v"
+   ],
+   "loc": 195,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "adder_pipe_64bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_comparator_3bit",
+   "files": [
+    "rtl/comparator_3bit.v"
+   ],
+   "loc": 13,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "comparator_3bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_comparator_4bit",
+   "files": [
+    "rtl/comparator_4bit.v"
+   ],
+   "loc": 21,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "comparator_4bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_div_16bit",
+   "files": [
+    "rtl/div_16bit.v"
+   ],
+   "loc": 38,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "div_16bit"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_radix2_div",
+   "files": [
+    "rtl/radix2_div.v"
+   ],
+   "loc": 83,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "radix2_div"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_multi_16bit",
+   "files": [
+    "rtl/multi_16bit.v"
+   ],
+   "loc": 57,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "multi_16bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_multi_8bit",
+   "files": [
+    "rtl/multi_8bit.v"
+   ],
+   "loc": 23,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "multi_8bit"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_multi_booth_8bit",
+   "files": [
+    "rtl/multi_booth_8bit.v"
+   ],
+   "loc": 42,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "multi_booth_8bit"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_multi_pipe_4bit",
+   "files": [
+    "rtl/multi_pipe_4bit.v"
+   ],
+   "loc": 53,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "multi_pipe_4bit"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_multi_pipe_8bit",
+   "files": [
+    "rtl/multi_pipe_8bit.v"
+   ],
+   "loc": 92,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "multi_pipe_8bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_fixed_point_adder",
+   "files": [
+    "rtl/fixed_point_adder.v"
+   ],
+   "loc": 52,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "fixed_point_adder"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_fixed_point_substractor",
+   "files": [
+    "rtl/fixed_point_substractor.v"
+   ],
+   "loc": 51,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "fixed_point_subtractor"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_float_multi",
+   "files": [
+    "rtl/float_multi.v"
+   ],
+   "loc": 165,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "float_multi"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_sub_64bit",
+   "files": [
+    "rtl/sub_64bit.v"
+   ],
+   "loc": 18,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "sub_64bit"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_JC_counter",
+   "files": [
+    "rtl/JC_counter.v"
+   ],
+   "loc": 14,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "JC_counter"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_counter_12",
+   "files": [
+    "rtl/counter_12.v"
+   ],
+   "loc": 33,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "counter_12"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_ring_counter",
+   "files": [
+    "rtl/ring_counter.v"
+   ],
+   "loc": 23,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "ring_counter"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_up_down_counter",
+   "files": [
+    "rtl/up_down_counter.v"
+   ],
+   "loc": 31,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "up_down_counter"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "rtllm_fsm",
+   "files": [
+    "rtl/fsm.v"
+   ],
+   "loc": 77,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "fsm"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_sequence_detector",
+   "files": [
+    "rtl/sequence_detector.v"
+   ],
+   "loc": 48,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "sequence_detector"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_asyn_fifo",
+   "files": [
+    "rtl/asyn_fifo.v"
+   ],
+   "loc": 147,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "asyn_fifo"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_LIFObuffer",
+   "files": [
+    "rtl/LIFObuffer.v"
+   ],
+   "loc": 51,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "LIFObuffer"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_LFSR",
+   "files": [
+    "rtl/LFSR.v"
+   ],
+   "loc": 15,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "LFSR"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_barrel_shifter",
+   "files": [
+    "rtl/barrel_shifter.v"
+   ],
+   "loc": 45,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "barrel_shifter"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_right_shifter",
+   "files": [
+    "rtl/right_shifter.v"
+   ],
+   "loc": 15,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "right_shifter"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_freq_div",
+   "files": [
+    "rtl/freq_div.v"
+   ],
+   "loc": 45,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "freq_div"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_freq_divbyeven",
+   "files": [
+    "rtl/freq_divbyeven.v"
+   ],
+   "loc": 27,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "freq_divbyeven"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_freq_divbyfrac",
+   "files": [
+    "rtl/freq_divbyfrac.v"
+   ],
+   "loc": 58,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "freq_divbyfrac"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_freq_divbyodd",
+   "files": [
+    "rtl/freq_divbyodd.v"
+   ],
+   "loc": 49,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "freq_divbyodd"
+  },
+  {
+   "clk_ports": [
+    "CLK"
+   ],
+   "design_id": "rtllm_calendar",
+   "files": [
+    "rtl/calendar.v"
+   ],
+   "loc": 37,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "calendar"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_edge_detect",
+   "files": [
+    "rtl/edge_detect.v"
+   ],
+   "loc": 37,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "edge_detect"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_parallel2serial",
+   "files": [
+    "rtl/parallel2serial.v"
+   ],
+   "loc": 39,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "parallel2serial"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_pulse_detect",
+   "files": [
+    "rtl/pulse_detect.v"
+   ],
+   "loc": 76,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "pulse_detect"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_serial2parallel",
+   "files": [
+    "rtl/serial2parallel.v"
+   ],
+   "loc": 45,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "serial2parallel"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_synchronizer",
+   "files": [
+    "rtl/synchronizer.v"
+   ],
+   "loc": 44,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "synchronizer"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_traffic_light",
+   "files": [
+    "rtl/traffic_light.v"
+   ],
+   "loc": 101,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "traffic_light"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_width_8to16",
+   "files": [
+    "rtl/width_8to16.v"
+   ],
+   "loc": 44,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "width_8to16"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_RAM",
+   "files": [
+    "rtl/RAM.v"
+   ],
+   "loc": 36,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "RAM"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_ROM",
+   "files": [
+    "rtl/ROM.v"
+   ],
+   "loc": 22,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "ROM"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_alu",
+   "files": [
+    "rtl/alu.v"
+   ],
+   "loc": 111,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "alu"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtllm_clkgenerator",
+   "files": [
+    "rtl/clkgenerator.v"
+   ],
+   "loc": 16,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "clkgenerator"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_instr_reg",
+   "files": [
+    "rtl/instr_reg.v"
+   ],
+   "loc": 35,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "instr_reg"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_pe",
+   "files": [
+    "rtl/pe.v"
+   ],
+   "loc": 27,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "pe"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_signal_generator",
+   "files": [
+    "rtl/signal_generator.v"
+   ],
+   "loc": 35,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "signal_generator"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtllm_square_wave",
+   "files": [
+    "rtl/square_wave.v"
+   ],
+   "loc": 24,
+   "reference": false,
+   "tags": [
+    "rtllm"
+   ],
+   "tb": true,
+   "top": "square_wave"
+  }
+ ],
+ "skipped": [],
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "license": "MIT",
+  "note": null,
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm"
+}

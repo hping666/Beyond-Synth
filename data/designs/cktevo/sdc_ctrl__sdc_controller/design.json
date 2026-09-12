@@ -1,0 +1,287 @@
+{
+ "clk_ports": [
+  "clock"
+ ],
+ "design_id": "cktevo_sdc_ctrl__sdc_controller",
+ "files": [
+  "rtl/axi_sdc_controller.v",
+  "rtl/sd_cmd_master.v",
+  "rtl/sd_cmd_serial_host.v",
+  "rtl/sd_data_master.v",
+  "rtl/sd_data_serial_host.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/sd_defines.h"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clock"
+  ],
+  "clk_ports_by_name": [
+   "clock"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 119,
+  "loc": 1545,
+  "n_cells": 1801,
+  "n_ff_bits": 1443,
+  "n_files": 5,
+  "n_inputs": 22,
+  "n_outputs": 26,
+  "out_bits": 169,
+  "ports": {
+   "async_resetn": {
+    "dir": "input",
+    "width": 1
+   },
+   "clock": {
+    "dir": "input",
+    "width": 1
+   },
+   "interrupt": {
+    "dir": "output",
+    "width": 1
+   },
+   "m_axi_araddr": {
+    "dir": "output",
+    "width": 32
+   },
+   "m_axi_arlen": {
+    "dir": "output",
+    "width": 8
+   },
+   "m_axi_arready": {
+    "dir": "input",
+    "width": 1
+   },
+   "m_axi_arvalid": {
+    "dir": "output",
+    "width": 1
+   },
+   "m_axi_awaddr": {
+    "dir": "output",
+    "width": 32
+   },
+   "m_axi_awlen": {
+    "dir": "output",
+    "width": 8
+   },
+   "m_axi_awready": {
+    "dir": "input",
+    "width": 1
+   },
+   "m_axi_awvalid": {
+    "dir": "output",
+    "width": 1
+   },
+   "m_axi_bready": {
+    "dir": "output",
+    "width": 1
+   },
+   "m_axi_bresp": {
+    "dir": "input",
+    "width": 2
+   },
+   "m_axi_bvalid": {
+    "dir": "input",
+    "width": 1
+   },
+   "m_axi_rdata": {
+    "dir": "input",
+    "width": 32
+   },
+   "m_axi_rlast": {
+    "dir": "input",
+    "width": 1
+   },
+   "m_axi_rready": {
+    "dir": "output",
+    "width": 1
+   },
+   "m_axi_rresp": {
+    "dir": "input",
+    "width": 2
+   },
+   "m_axi_rvalid": {
+    "dir": "input",
+    "width": 1
+   },
+   "m_axi_wdata": {
+    "dir": "output",
+    "width": 32
+   },
+   "m_axi_wlast": {
+    "dir": "output",
+    "width": 1
+   },
+   "m_axi_wready": {
+    "dir": "input",
+    "width": 1
+   },
+   "m_axi_wvalid": {
+    "dir": "output",
+    "width": 1
+   },
+   "s_axi_araddr": {
+    "dir": "input",
+    "width": 16
+   },
+   "s_axi_arready": {
+    "dir": "output",
+    "width": 1
+   },
+   "s_axi_arvalid": {
+    "dir": "input",
+    "width": 1
+   },
+   "s_axi_awaddr": {
+    "dir": "input",
+    "width": 16
+   },
+   "s_axi_awready": {
+    "dir": "output",
+    "width": 1
+   },
+   "s_axi_awvalid": {
+    "dir": "input",
+    "width": 1
+   },
+   "s_axi_bready": {
+    "dir": "input",
+    "width": 1
+   },
+   "s_axi_bresp": {
+    "dir": "output",
+    "width": 2
+   },
+   "s_axi_bvalid": {
+    "dir": "output",
+    "width": 1
+   },
+   "s_axi_rdata": {
+    "dir": "output",
+    "width": 32
+   },
+   "s_axi_rready": {
+    "dir": "input",
+    "width": 1
+   },
+   "s_axi_rresp": {
+    "dir": "output",
+    "width": 2
+   },
+   "s_axi_rvalid": {
+    "dir": "output",
+    "width": 1
+   },
+   "s_axi_wdata": {
+    "dir": "input",
+    "width": 32
+   },
+   "s_axi_wready": {
+    "dir": "output",
+    "width": 1
+   },
+   "s_axi_wvalid": {
+    "dir": "input",
+    "width": 1
+   },
+   "sd_cmd_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "sd_cmd_reg_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "sd_cmd_reg_t": {
+    "dir": "output",
+    "width": 1
+   },
+   "sd_dat_i": {
+    "dir": "input",
+    "width": 4
+   },
+   "sd_dat_reg_o": {
+    "dir": "output",
+    "width": 4
+   },
+   "sd_dat_reg_t": {
+    "dir": "output",
+    "width": 1
+   },
+   "sdio_cd": {
+    "dir": "input",
+    "width": 1
+   },
+   "sdio_clk": {
+    "dir": "output",
+    "width": 1
+   },
+   "sdio_reset": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "8d5992531fcc2ece",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 1545,
+ "name": "sdc_ctrl__sdc_controller",
+ "notes": [
+  "closure: 7 modules, 1380 lines (sdc_controller, sd_cmd_master, sd_cmd_serial_host, sd_data_master, sd_data_serial_host, sd_crc_7, sd_crc_16)",
+  "unresolved references in the text (vendor models under `ifdef?): ['define']"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/axi_sdc_controller.v": "4903f8fadcf0331d0c0054d0519edd09c437f7a7ad7bb151c28044c9790ad369",
+  "rtl/sd_cmd_master.v": "f0893e824ea5c6f75a15e1d08d83064fdaada7ab5d04e45254af85413e100c18",
+  "rtl/sd_cmd_serial_host.v": "fe23e6e1bfb9484f6680361d0fcbb6d13a56cb53a8fafceef6da75628ec8d6e8",
+  "rtl/sd_data_master.v": "ee8e3c19b54c043b699c21b9e9f843aa3a95ef949531d85af89b5302294d8640",
+  "rtl/sd_data_serial_host.v": "d83e0cabf7ce0215431c06fdcb758e969cfe63a79dd86ffe4172a9b430e4a4dd",
+  "rtl/sd_defines.h": "3754280b98d936669232b1813f99b5367b215019006a4bb75ce4e9291cf4e695"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/sdc_ctrl/axi_sdc_controller.v",
+   "benchmark/sdc_ctrl/sd_cmd_master.v",
+   "benchmark/sdc_ctrl/sd_cmd_serial_host.v",
+   "benchmark/sdc_ctrl/sd_data_master.v",
+   "benchmark/sdc_ctrl/sd_data_serial_host.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "sdc_ctrl"
+ ],
+ "tb": null,
+ "top": "sdc_controller"
+}

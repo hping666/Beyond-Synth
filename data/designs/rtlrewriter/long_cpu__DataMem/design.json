@@ -1,0 +1,138 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_long_cpu__DataMem",
+ "files": [
+  "rtl/DataMemRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "reset": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 68,
+  "loc": 66,
+  "n_cells": 3113,
+  "n_ff_bits": 16468,
+  "n_files": 1,
+  "n_inputs": 6,
+  "n_outputs": 4,
+  "out_bits": 52,
+  "ports": {
+   "AN": {
+    "dir": "output",
+    "width": 4
+   },
+   "BCD": {
+    "dir": "output",
+    "width": 8
+   },
+   "MemRead": {
+    "dir": "input",
+    "width": 1
+   },
+   "MemWrite": {
+    "dir": "input",
+    "width": 1
+   },
+   "ReadData": {
+    "dir": "output",
+    "width": 32
+   },
+   "WriteData": {
+    "dir": "input",
+    "width": 32
+   },
+   "addr": {
+    "dir": "input",
+    "width": 32
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "leds": {
+    "dir": "output",
+    "width": 8
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "8510ec63660ae021",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 66,
+ "name": "long_cpu__DataMem",
+ "notes": [
+  "closure of DataMem_raw: ['DataMemRaw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/DataMem.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "DataMem"
+ },
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [
+  {
+   "files": [
+    "samples/DataMem_raw_1.v"
+   ],
+   "role": "original",
+   "top": "DataMem_raw_1"
+  }
+ ],
+ "sha256": {
+  "reference/DataMem.v": "5c520823a4970a3dbe59714bdc3efc8dbaab2dc9f4570cf6fbe6e5f18d076518",
+  "rtl/DataMemRaw.v": "787697101cd5d4e8ad31685ec8767c0a4d56fd51253dc11d54b7f2e2f8ea6826",
+  "samples/DataMem_raw_1.v": "6ba8462acd303df0fbcac8f02ef30dd5c6c113779bbec4cc445e8e4dbda706a3"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cpu/DataMemRaw.v",
+   "long_benchmark/cpu/DataMem.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cpu",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "DataMem_raw"
+}

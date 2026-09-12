@@ -1,0 +1,147 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_mux__mux_type5",
+ "files": [
+  "rtl/mux_type5_redundancy.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 6,
+  "loc": 27,
+  "n_cells": 8,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 6,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 1
+   },
+   "b": {
+    "dir": "input",
+    "width": 1
+   },
+   "c": {
+    "dir": "input",
+    "width": 1
+   },
+   "d": {
+    "dir": "input",
+    "width": 1
+   },
+   "s1": {
+    "dir": "input",
+    "width": 1
+   },
+   "s2": {
+    "dir": "input",
+    "width": 1
+   },
+   "y": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "b0a72409b91f05cc",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 27,
+ "name": "mux__mux_type5",
+ "notes": [
+  "file roles: {\"mux_type5_gpt4.v\": \"llm\", \"mux_type5_ours.v\": \"tool\", \"mux_type5_redundancy.v\": \"original\", \"mux_type5_redundancy_improve.v\": \"expert\", \"mux_type5_redundancy_improve_more.v\": \"expert\", \"mux_type5_redundancy_optimized.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/mux_type5_redundancy_improve.v"
+  ],
+  "note": "engineers' rewrite; further expert versions staged as samples: ['mux_type5_redundancy_improve_more.v', 'mux_type5_redundancy_optimized.v']",
+  "top": "mux_tree"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/mux_type5_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "mux_tree"
+  },
+  {
+   "files": [
+    "samples/mux_type5_ours.v"
+   ],
+   "role": "tool",
+   "top": "mux_tree"
+  },
+  {
+   "files": [
+    "samples/mux_type5_redundancy_improve_more.v"
+   ],
+   "role": "expert",
+   "top": "mux_tree"
+  },
+  {
+   "files": [
+    "samples/mux_type5_redundancy_optimized.v"
+   ],
+   "role": "expert",
+   "top": "mux_tree"
+  }
+ ],
+ "sha256": {
+  "reference/mux_type5_redundancy_improve.v": "a746ec0496e12ea8b8f5a60a88979bea817997cd3826c5cbcb4f71ea0d36a083",
+  "rtl/mux_type5_redundancy.v": "0dc091df270b58e73c6beeff9bdc5dbd09b9784825e754053f796c1fa4c05a54",
+  "samples/mux_type5_gpt4.v": "76b74a7315dc343d7a4e52b1e84ed24982802ff51dafd693635c0d7368d36ab5",
+  "samples/mux_type5_ours.v": "18f05d499073df3f7a2a316e663996c83e70250668e728507739825219119552",
+  "samples/mux_type5_redundancy_improve_more.v": "c7ee5b436f349b7094a352fb5f3ad3637c470b9bda6fe168f36f614c8c112bc6",
+  "samples/mux_type5_redundancy_optimized.v": "a746ec0496e12ea8b8f5a60a88979bea817997cd3826c5cbcb4f71ea0d36a083"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/mux/mux_type5/mux_type5_gpt4.v",
+   "short_benchmark/mux/mux_type5/mux_type5_ours.v",
+   "short_benchmark/mux/mux_type5/mux_type5_redundancy.v",
+   "short_benchmark/mux/mux_type5/mux_type5_redundancy_improve.v",
+   "short_benchmark/mux/mux_type5/mux_type5_redundancy_improve_more.v",
+   "short_benchmark/mux/mux_type5/mux_type5_redundancy_optimized.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "mux",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "mux_tree"
+}

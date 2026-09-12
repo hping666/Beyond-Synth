@@ -1,0 +1,115 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_long_cpu__ImmExtend",
+ "files": [
+  "rtl/ImmExtendRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 18,
+  "loc": 12,
+  "n_cells": 2,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 1,
+  "out_bits": 32,
+  "ports": {
+   "LuiOp": {
+    "dir": "input",
+    "width": 1
+   },
+   "SignedOp": {
+    "dir": "input",
+    "width": 1
+   },
+   "in": {
+    "dir": "input",
+    "width": 16
+   },
+   "out_ext": {
+    "dir": "output",
+    "width": 32
+   }
+  },
+  "ports_hash": "a337e5c81cf7886b",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 12,
+ "name": "long_cpu__ImmExtend",
+ "notes": [
+  "closure of ImmExtend_raw: ['ImmExtendRaw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/ImmExtend.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "ImmExtend"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/ImmExtend_raw_1.v"
+   ],
+   "role": "original",
+   "top": "ImmExtend_raw_1"
+  },
+  {
+   "files": [
+    "samples/ImmExtend_raw_2.v"
+   ],
+   "role": "original",
+   "top": "ImmExtend_raw_2"
+  }
+ ],
+ "sha256": {
+  "reference/ImmExtend.v": "626ae602bef91cff2629bf2818a95bfe38532a0868caace3da0a077b4ce79a80",
+  "rtl/ImmExtendRaw.v": "4ae0ea99e1c9034830d3d383c0b43f56a672bafc331c91f1054117ad9ec6d40d",
+  "samples/ImmExtend_raw_1.v": "8e970976651e8cd3801d19858e050b2fad9c429facca88d4fca8357cefde83a4",
+  "samples/ImmExtend_raw_2.v": "9f57156d63ecd60b7d666783e4f28d215e1f3a533bcb06676886546870255228"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cpu/ImmExtendRaw.v",
+   "long_benchmark/cpu/ImmExtend.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cpu",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "ImmExtend_raw"
+}

@@ -1,0 +1,105 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_parallel2serial",
+ "files": [
+  "rtl/parallel2serial.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 6,
+  "loc": 39,
+  "n_cells": 12,
+  "n_ff_bits": 7,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 2,
+  "out_bits": 2,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "d": {
+    "dir": "input",
+    "width": 4
+   },
+   "dout": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "valid_out": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "839147f9b5ab94cd",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 39,
+ "name": "parallel2serial",
+ "notes": [
+  "module verified_parallel2serial renamed to parallel2serial, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/parallel2serial.v": "1c83c08a28420e1e2721568aa3a024a46ce84e33eb018db25b76b8dbd16ed7ed",
+  "tb/testbench.v": "5e58d526baa6e5e4c04141b85b6e7b512c469bb209829bb657e67df63fda4721"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/Others/parallel2serial/verified_parallel2serial.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "parallel2serial_tb"
+ },
+ "top": "parallel2serial"
+}

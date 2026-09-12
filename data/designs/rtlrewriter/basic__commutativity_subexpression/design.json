@@ -1,0 +1,184 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_basic__commutativity_subexpression",
+ "files": [
+  "rtl/basic.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 256,
+  "loc": 14,
+  "n_cells": 22,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 8,
+  "n_outputs": 6,
+  "out_bits": 192,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 32
+   },
+   "B": {
+    "dir": "input",
+    "width": 32
+   },
+   "C": {
+    "dir": "input",
+    "width": 32
+   },
+   "D": {
+    "dir": "input",
+    "width": 32
+   },
+   "E": {
+    "dir": "input",
+    "width": 32
+   },
+   "F": {
+    "dir": "input",
+    "width": 32
+   },
+   "G": {
+    "dir": "input",
+    "width": 32
+   },
+   "H": {
+    "dir": "input",
+    "width": 32
+   },
+   "result1": {
+    "dir": "output",
+    "width": 32
+   },
+   "result2": {
+    "dir": "output",
+    "width": 32
+   },
+   "result3": {
+    "dir": "output",
+    "width": 32
+   },
+   "result4": {
+    "dir": "output",
+    "width": 32
+   },
+   "result5": {
+    "dir": "output",
+    "width": 32
+   },
+   "result6": {
+    "dir": "output",
+    "width": 32
+   }
+  },
+  "ports_hash": "00c9d35966c673e1",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 14,
+ "name": "basic__commutativity_subexpression",
+ "notes": [
+  "file roles: {\"basic.v\": \"original\", \"basic_RTLCoder.v\": \"llm\", \"basic_VeriGen.v\": \"llm\", \"basic_gpt4.v\": \"llm\", \"basic_optimized.v\": \"expert\", \"basic_ours.v\": \"tool\", \"optimized1.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/basic_optimized.v"
+  ],
+  "note": "engineers' rewrite; further expert versions staged as samples: ['optimized1.v']",
+  "top": "communtativity_subexpression"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/basic_RTLCoder.v"
+   ],
+   "role": "llm",
+   "top": "arithmetic_operations"
+  },
+  {
+   "files": [
+    "samples/basic_VeriGen.v"
+   ],
+   "role": "llm",
+   "top": "arithmetic_operations"
+  },
+  {
+   "files": [
+    "samples/basic_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/basic_ours.v"
+   ],
+   "role": "tool",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/optimized1.v"
+   ],
+   "role": "expert",
+   "top": "arithmetic_operations_optimized"
+  }
+ ],
+ "sha256": {
+  "reference/basic_optimized.v": "892fba94982ff405327004b2adaf49b3894fb484c7c871e0bc19538371d07604",
+  "rtl/basic.v": "792b8515eebc50081116255f3dff99555ae21261bf7699096c0c0092fd395590",
+  "samples/basic_RTLCoder.v": "cbe48684a0e7ef894a8254a368df3571e067dfae3b6262713fe9c05b778fb427",
+  "samples/basic_VeriGen.v": "804d19de46a5ffd44a5319ee6291b7d8114f6c1cb23131d2b27f5baa454faad5",
+  "samples/basic_gpt4.v": "21a0752b81b04a644858a35456778a588a1c2a394a40d928028e51f5d5450ad8",
+  "samples/basic_ours.v": "124aa07766ae385d4bdc0983cf8e8a31b8f93c3c3532cadde03cbecd0c545f78",
+  "samples/optimized1.v": "facc684650e70fdb536a677ded318013ca46973e3f143a11fa26a56bdc740348"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/basic/commutativity_subexpression/basic.v",
+   "short_benchmark/basic/commutativity_subexpression/basic_RTLCoder.v",
+   "short_benchmark/basic/commutativity_subexpression/basic_VeriGen.v",
+   "short_benchmark/basic/commutativity_subexpression/basic_gpt4.v",
+   "short_benchmark/basic/commutativity_subexpression/basic_optimized.v",
+   "short_benchmark/basic/commutativity_subexpression/basic_ours.v",
+   "short_benchmark/basic/commutativity_subexpression/optimized1.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "basic",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "arithmetic_operations"
+}

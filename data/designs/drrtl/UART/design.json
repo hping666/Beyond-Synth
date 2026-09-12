@@ -1,0 +1,110 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "drrtl_UART",
+ "files": [
+  "rtl/UART.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 39,
+  "loc": 447,
+  "n_cells": 225,
+  "n_ff_bits": 81,
+  "n_files": 1,
+  "n_inputs": 7,
+  "n_outputs": 2,
+  "out_bits": 9,
+  "ports": {
+   "address": {
+    "dir": "input",
+    "width": 2
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "re": {
+    "dir": "input",
+    "width": 1
+   },
+   "read_data": {
+    "dir": "output",
+    "width": 8
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "rx": {
+    "dir": "input",
+    "width": 1
+   },
+   "tx": {
+    "dir": "output",
+    "width": 1
+   },
+   "we": {
+    "dir": "input",
+    "width": 1
+   },
+   "write_data": {
+    "dir": "input",
+    "width": 32
+   }
+  },
+  "ports_hash": "fdc4f1116ec1cf8e",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 447,
+ "name": "UART",
+ "notes": [],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/UART.v": "dc2ab7431c287e2ee49807369385cddc7d6bcd43e97304bbfa68e34ff2fc934a"
+ },
+ "source": {
+  "commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "rtl_dataset/UART.v0.v"
+  ],
+  "suite_key": "drrtl",
+  "url": "https://github.com/hkust-zhiyao/DR_RTL"
+ },
+ "suite": "drrtl",
+ "sverilog": false,
+ "tags": [
+  "drrtl"
+ ],
+ "tb": null,
+ "top": "uart_top_design"
+}

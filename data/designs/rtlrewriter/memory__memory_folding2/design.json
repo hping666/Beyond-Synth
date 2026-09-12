@@ -1,0 +1,115 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_memory__memory_folding2",
+ "files": [
+  "rtl/memory_folding_raw_1.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 12,
+  "loc": 108,
+  "n_cells": 397,
+  "n_ff_bits": 429,
+  "n_files": 1,
+  "n_inputs": 5,
+  "n_outputs": 2,
+  "out_bits": 9,
+  "ports": {
+   "busy": {
+    "dir": "output",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "data_in": {
+    "dir": "input",
+    "width": 8
+   },
+   "data_out": {
+    "dir": "output",
+    "width": 8
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "start_process": {
+    "dir": "input",
+    "width": 1
+   },
+   "write_enable": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "359d734efc678aef",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 108,
+ "name": "memory__memory_folding2",
+ "notes": [
+  "file roles: {\"memory_folding_opt_1.v\": \"expert\", \"memory_folding_raw_1.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/memory_folding_opt_1.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "memory_folding_opt"
+ },
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/memory_folding_opt_1.v": "ac82df080034d6b8a0b61e593a2741f56c09c97ac67027f0e550e29f9a2c60aa",
+  "rtl/memory_folding_raw_1.v": "0abcb4290c722dcf1a968c3859664ad67dfd578b22c51641dfe2a6e852a3f9ad"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/memory/memory_folding2/memory_folding_opt_1.v",
+   "short_benchmark/memory/memory_folding2/memory_folding_raw_1.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "memory",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "memory_folding_opt"
+}

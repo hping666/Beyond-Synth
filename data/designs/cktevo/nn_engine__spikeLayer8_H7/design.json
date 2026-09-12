@@ -1,0 +1,1106 @@
+{
+ "clk_ports": [
+  "CLK"
+ ],
+ "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+ "files": [
+  "rtl/spikeLayer8_H7.v",
+  "rtl/spikeNeuron8_H7.v",
+  "rtl/FADD711.v",
+  "rtl/dualDendRC_H7.v",
+  "rtl/FMUL711.v",
+  "rtl/tauRom_H7.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "CLK"
+  ],
+  "clk_ports_by_name": [
+   "CLK"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": true,
+   "include": false,
+   "initial": true,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 1485,
+  "loc": 2705,
+  "n_cells": 31896,
+  "n_ff_bits": 8000,
+  "n_files": 6,
+  "n_inputs": 157,
+  "n_outputs": 96,
+  "out_bits": 1416,
+  "ports": {
+   "CLK": {
+    "dir": "input",
+    "width": 1
+   },
+   "RESET": {
+    "dir": "input",
+    "width": 1
+   },
+   "accumulate": {
+    "dir": "input",
+    "width": 1
+   },
+   "activate": {
+    "dir": "input",
+    "width": 1
+   },
+   "err0": {
+    "dir": "output",
+    "width": 16
+   },
+   "err1": {
+    "dir": "output",
+    "width": 16
+   },
+   "err2": {
+    "dir": "output",
+    "width": 16
+   },
+   "err3": {
+    "dir": "output",
+    "width": 16
+   },
+   "err4": {
+    "dir": "output",
+    "width": 16
+   },
+   "err5": {
+    "dir": "output",
+    "width": 16
+   },
+   "err6": {
+    "dir": "output",
+    "width": 16
+   },
+   "err7": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut0": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut1": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut10": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut11": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut12": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut13": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut14": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut15": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut16": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut17": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut18": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut19": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut2": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut20": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut21": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut22": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut23": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut24": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut25": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut26": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut27": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut28": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut29": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut3": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut30": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut31": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut32": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut33": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut34": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut35": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut36": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut37": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut38": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut39": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut4": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut40": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut41": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut42": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut43": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut44": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut45": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut46": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut47": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut48": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut49": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut5": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut50": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut51": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut52": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut53": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut54": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut55": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut56": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut57": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut58": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut59": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut6": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut60": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut61": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut62": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut63": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut7": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut8": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOut9": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOutMembr0": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOutMembr1": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOutMembr2": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOutMembr3": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOutMembr4": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOutMembr5": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOutMembr6": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOutMembr7": {
+    "dir": "output",
+    "width": 16
+   },
+   "prevSumNode0": {
+    "dir": "input",
+    "width": 16
+   },
+   "prevSumNode1": {
+    "dir": "input",
+    "width": 16
+   },
+   "prevSumNode2": {
+    "dir": "input",
+    "width": 16
+   },
+   "prevSumNode3": {
+    "dir": "input",
+    "width": 16
+   },
+   "prevSumNode4": {
+    "dir": "input",
+    "width": 16
+   },
+   "prevSumNode5": {
+    "dir": "input",
+    "width": 16
+   },
+   "prevSumNode6": {
+    "dir": "input",
+    "width": 16
+   },
+   "prevSumNode7": {
+    "dir": "input",
+    "width": 16
+   },
+   "pushSpikesIn": {
+    "dir": "input",
+    "width": 1
+   },
+   "rate0": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate1": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate10": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate11": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate12": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate13": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate14": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate15": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate16": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate17": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate18": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate19": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate2": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate20": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate21": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate22": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate23": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate24": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate25": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate26": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate27": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate28": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate29": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate3": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate30": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate31": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate32": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate33": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate34": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate35": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate36": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate37": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate38": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate39": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate4": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate40": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate41": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate42": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate43": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate44": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate45": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate46": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate47": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate48": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate49": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate5": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate50": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate51": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate52": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate53": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate54": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate55": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate56": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate57": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate58": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate59": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate6": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate60": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate61": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate62": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate63": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate7": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate8": {
+    "dir": "input",
+    "width": 3
+   },
+   "rate9": {
+    "dir": "input",
+    "width": 3
+   },
+   "slope0": {
+    "dir": "output",
+    "width": 16
+   },
+   "slope1": {
+    "dir": "output",
+    "width": 16
+   },
+   "slope2": {
+    "dir": "output",
+    "width": 16
+   },
+   "slope3": {
+    "dir": "output",
+    "width": 16
+   },
+   "slope4": {
+    "dir": "output",
+    "width": 16
+   },
+   "slope5": {
+    "dir": "output",
+    "width": 16
+   },
+   "slope6": {
+    "dir": "output",
+    "width": 16
+   },
+   "slope7": {
+    "dir": "output",
+    "width": 16
+   },
+   "spikeIn0": {
+    "dir": "input",
+    "width": 1
+   },
+   "spikeIn1": {
+    "dir": "input",
+    "width": 1
+   },
+   "spikeIn2": {
+    "dir": "input",
+    "width": 1
+   },
+   "spikeIn3": {
+    "dir": "input",
+    "width": 1
+   },
+   "spikeIn4": {
+    "dir": "input",
+    "width": 1
+   },
+   "spikeIn5": {
+    "dir": "input",
+    "width": 1
+   },
+   "spikeIn6": {
+    "dir": "input",
+    "width": 1
+   },
+   "spikeIn7": {
+    "dir": "input",
+    "width": 1
+   },
+   "spikeOut0": {
+    "dir": "output",
+    "width": 1
+   },
+   "spikeOut1": {
+    "dir": "output",
+    "width": 1
+   },
+   "spikeOut2": {
+    "dir": "output",
+    "width": 1
+   },
+   "spikeOut3": {
+    "dir": "output",
+    "width": 1
+   },
+   "spikeOut4": {
+    "dir": "output",
+    "width": 1
+   },
+   "spikeOut5": {
+    "dir": "output",
+    "width": 1
+   },
+   "spikeOut6": {
+    "dir": "output",
+    "width": 1
+   },
+   "spikeOut7": {
+    "dir": "output",
+    "width": 1
+   },
+   "threshold0": {
+    "dir": "input",
+    "width": 16
+   },
+   "threshold1": {
+    "dir": "input",
+    "width": 16
+   },
+   "threshold2": {
+    "dir": "input",
+    "width": 16
+   },
+   "threshold3": {
+    "dir": "input",
+    "width": 16
+   },
+   "threshold4": {
+    "dir": "input",
+    "width": 16
+   },
+   "threshold5": {
+    "dir": "input",
+    "width": 16
+   },
+   "threshold6": {
+    "dir": "input",
+    "width": 16
+   },
+   "threshold7": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight0": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight1": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight10": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight11": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight12": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight13": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight14": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight15": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight16": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight17": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight18": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight19": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight2": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight20": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight21": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight22": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight23": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight24": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight25": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight26": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight27": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight28": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight29": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight3": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight30": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight31": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight32": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight33": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight34": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight35": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight36": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight37": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight38": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight39": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight4": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight40": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight41": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight42": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight43": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight44": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight45": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight46": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight47": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight48": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight49": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight5": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight50": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight51": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight52": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight53": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight54": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight55": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight56": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight57": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight58": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight59": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight6": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight60": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight61": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight62": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight63": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight7": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight8": {
+    "dir": "input",
+    "width": 16
+   },
+   "weight9": {
+    "dir": "input",
+    "width": 16
+   }
+  },
+  "ports_hash": "cb62ae7f888785a1",
+  "rst_port": "RESET",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 2705,
+ "name": "nn_engine__spikeLayer8_H7",
+ "notes": [
+  "closure: 6 modules, 2342 lines (spikeLayer8_H7, spikeNeuron8_H7, FADD711, dualDendRC_H7, FMUL711, tauRom_H7)"
+ ],
+ "reference": null,
+ "rst_port": "RESET",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/FADD711.v": "4cadebe628c6be1b37c24e3efbadd30930195a9b33e3c16b9a935ae6afb5d503",
+  "rtl/FMUL711.v": "13f2c3361d6e6991c923e9803342300095beaf78d0893b7df9a88ba942ee9bd1",
+  "rtl/dualDendRC_H7.v": "6ca134d4fcf2ff4c9a9dc710605938b52a6d1ea64d103bbf0b5964a5187d1447",
+  "rtl/spikeLayer8_H7.v": "c8be89d1b075ae0c977c1f6e57cc53f4779e380c83480d6b6903c43406d97b98",
+  "rtl/spikeNeuron8_H7.v": "dc627da402a9f567e36c34b841f07ae8c3389eb7c8d58fa1cfc24f734ab0923e",
+  "rtl/tauRom_H7.v": "420f02a0cf042644531a82c0030f0f2cf902455bd4fd07c2c8977f22be188b2a"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/nn_engine/spikeLayer8_H7.v",
+   "benchmark/nn_engine/spikeNeuron8_H7.v",
+   "benchmark/nn_engine/FADD711.v",
+   "benchmark/nn_engine/dualDendRC_H7.v",
+   "benchmark/nn_engine/FMUL711.v",
+   "benchmark/nn_engine/tauRom_H7.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "nn_engine"
+ ],
+ "tb": null,
+ "top": "spikeLayer8_H7"
+}

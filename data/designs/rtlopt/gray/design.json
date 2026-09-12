@@ -1,0 +1,101 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlopt_gray",
+ "files": [
+  "rtl/gray.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 6,
+  "loc": 82,
+  "n_cells": 34,
+  "n_ff_bits": 4,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 1,
+  "out_bits": 8,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "cmd": {
+    "dir": "input",
+    "width": 4
+   },
+   "out": {
+    "dir": "output",
+    "width": 8
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "2308a3ccc8377030",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 82,
+ "name": "gray",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/gray_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "gray_ref"
+ },
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "reference/gray_ref.v": "c7ccbd1f79c72d7e1e042c781577b47d8fd1f5b2a1f08b7c91083d54457a706b",
+  "rtl/gray.v": "b1eb7afeff0f6f73d17bbaf83c0b1af98ffa99a2eb09aa672b28dd9aec994fc3"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/gray/gray.v",
+   "benchmark/gray_ref/gray_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair"
+ ],
+ "tb": null,
+ "top": "gray"
+}

@@ -1,0 +1,106 @@
+{
+ "clk_ports": [],
+ "design_id": "cktevo_hsm__MixColumns",
+ "files": [
+  "rtl/MixColumns.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 32,
+  "loc": 132,
+  "n_cells": 32,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 4,
+  "out_bits": 32,
+  "ports": {
+   "io_mcIn1": {
+    "dir": "input",
+    "width": 8
+   },
+   "io_mcIn2": {
+    "dir": "input",
+    "width": 8
+   },
+   "io_mcIn3": {
+    "dir": "input",
+    "width": 8
+   },
+   "io_mcIn4": {
+    "dir": "input",
+    "width": 8
+   },
+   "io_mcOut1": {
+    "dir": "output",
+    "width": 8
+   },
+   "io_mcOut2": {
+    "dir": "output",
+    "width": 8
+   },
+   "io_mcOut3": {
+    "dir": "output",
+    "width": 8
+   },
+   "io_mcOut4": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "9a463202091a5a14",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 132,
+ "name": "hsm__MixColumns",
+ "notes": [
+  "closure: 1 modules, 130 lines (MixColumns)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/MixColumns.v": "81671509f632adb5475387a7f29afc98b94f33abcf4f2fde1104253b0d4dc450"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/hsm/MixColumns.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "hsm",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "MixColumns"
+}

@@ -1,0 +1,198 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_risc__cpu",
+ "files": [
+  "rtl/cpu.v",
+  "rtl/alu.v",
+  "rtl/bht.v",
+  "rtl/btb.v",
+  "rtl/cmp.v",
+  "rtl/ex_mem_reg.v",
+  "rtl/forward_control_unit.v",
+  "rtl/ghr.v",
+  "rtl/id_ex_reg.v",
+  "rtl/if_id_reg.v",
+  "rtl/immediate_gen.v",
+  "rtl/mask_gen.v",
+  "rtl/mem_wb_reg.v",
+  "rtl/pc_reg.v",
+  "rtl/perf_counter.v",
+  "rtl/pht.v",
+  "rtl/regfile.v",
+  "rtl/stall_control_unit.v",
+  "rtl/btb_array.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/cache_mux_types.v",
+  "rtl/rv32i_mux_types.v",
+  "rtl/rv32i_types.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "rst": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 68,
+  "loc": 2010,
+  "n_cells": 9255,
+  "n_ff_bits": 11705,
+  "n_files": 19,
+  "n_inputs": 6,
+  "n_outputs": 8,
+  "out_bits": 104,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "continue_i_cache": {
+    "dir": "output",
+    "width": 1
+   },
+   "data_mbe": {
+    "dir": "output",
+    "width": 4
+   },
+   "data_mem_address": {
+    "dir": "output",
+    "width": 32
+   },
+   "data_mem_rdata": {
+    "dir": "input",
+    "width": 32
+   },
+   "data_mem_resp": {
+    "dir": "input",
+    "width": 1
+   },
+   "data_mem_wdata": {
+    "dir": "output",
+    "width": 32
+   },
+   "data_read": {
+    "dir": "output",
+    "width": 1
+   },
+   "data_write": {
+    "dir": "output",
+    "width": 1
+   },
+   "instr_mem_address": {
+    "dir": "output",
+    "width": 32
+   },
+   "instr_mem_rdata": {
+    "dir": "input",
+    "width": 32
+   },
+   "instr_mem_resp": {
+    "dir": "input",
+    "width": 1
+   },
+   "instr_read": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "f8bdd95f968d055b",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 2010,
+ "name": "risc__cpu",
+ "notes": [
+  "closure: 19 modules, 2010 lines (cpu, alu, bht, btb, cmp, ex_mem_reg, forward_control_unit, ghr, id_ex_reg, if_id_reg, immediate_gen, mask_gen...)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/alu.v": "fd0e5c2fed92e9fd98b2635bab53f61a0be8035f59e27d36423d143ca27cc739",
+  "rtl/bht.v": "6113206a04b5d849d2dbe0674f4dcd6c5c57b99f71eac310d0e0ad3a099364c1",
+  "rtl/btb.v": "11b63d729a58731677d058c81619a442c9f5fc1ec2c675d674b242988effa932",
+  "rtl/btb_array.v": "9695ab9012565fb5a0c447a2ca53e0348fb7b0e7a71e2fe1f2c42e86674c70fb",
+  "rtl/cache_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/cmp.v": "8f8a7c7f5239c527498ac3bda4e34c0bf8c0a7fda2a5b7cc0745934aa4c01458",
+  "rtl/cpu.v": "cab3e90edfa6a7c9e16458a68268c60403e2c5d491e6da160efa2acd059a1ab3",
+  "rtl/ex_mem_reg.v": "b7b90d237ad2e8ee7a66e73a2ec111c74c2ca7351f617029177d55544e22108f",
+  "rtl/forward_control_unit.v": "2c36535976da8aa65d5ad681dce53a25790fd50fe8f16bb852fd049bff09a7ef",
+  "rtl/ghr.v": "e43e78bf71fd728f24b5541ada426c5c4fbe96a62c79626a70f36c89ae79a52b",
+  "rtl/id_ex_reg.v": "dfbb257109ed39cbc9fcf1a0c9d698a87ebd377a56c445e436e2b9058653026a",
+  "rtl/if_id_reg.v": "9486bc1cc8c539522c73a6c9f0a6317d7d8f7f2b5e5df0a960ad9582e940ace6",
+  "rtl/immediate_gen.v": "9702db1cc11363b59506cf5aad28408dea10dda6551ccd731e5ba14ef763ea2d",
+  "rtl/mask_gen.v": "6aa867689590cd4cfa1f574400488129f78f6dc1235475f3d5d5ae6a3096c28d",
+  "rtl/mem_wb_reg.v": "a01557b6add7ffcbb3c47736a90a8375b70b4a68c27b7017d59e2931b6cf1835",
+  "rtl/pc_reg.v": "19a01583a22e21f8e4c9af9cf5e1c7a0bbdf5334ce17076941a81c65cf5123fe",
+  "rtl/perf_counter.v": "ec1dc870e403b8c1f88595185dee86d2e2386cb1830a55d1a11506d2e886ea6b",
+  "rtl/pht.v": "c2498c568dc36bbf892ec5f0f0e472343f40e2fc90b87d46f8f91b44c763cfaa",
+  "rtl/regfile.v": "d3306d7db84551980a9ead4166e0f63721b96b387ccb4f77d46aaf65a5254448",
+  "rtl/rv32i_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/rv32i_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/stall_control_unit.v": "293ce67701f2eb641dda271df797abb747cbcd6584aa3bbcc04490a20f180d3e"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/risc/cpu.v",
+   "benchmark/risc/alu.v",
+   "benchmark/risc/bht.v",
+   "benchmark/risc/btb.v",
+   "benchmark/risc/cmp.v",
+   "benchmark/risc/ex_mem_reg.v",
+   "benchmark/risc/forward_control_unit.v",
+   "benchmark/risc/ghr.v",
+   "benchmark/risc/id_ex_reg.v",
+   "benchmark/risc/if_id_reg.v",
+   "benchmark/risc/immediate_gen.v",
+   "benchmark/risc/mask_gen.v",
+   "benchmark/risc/mem_wb_reg.v",
+   "benchmark/risc/pc_reg.v",
+   "benchmark/risc/perf_counter.v",
+   "benchmark/risc/pht.v",
+   "benchmark/risc/regfile.v",
+   "benchmark/risc/stall_control_unit.v",
+   "benchmark/risc/btb_array.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "risc"
+ ],
+ "tb": null,
+ "top": "cpu"
+}

@@ -1,0 +1,333 @@
+{
+ "count": 20,
+ "designs": [
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_DSP",
+   "files": [
+    "rtl/DSP.v"
+   ],
+   "loc": 165,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": true,
+   "top": "DSP"
+  },
+  {
+   "clk_ports": [
+    "clk_in"
+   ],
+   "design_id": "drrtl_FIFO",
+   "files": [
+    "rtl/FIFO.v"
+   ],
+   "loc": 383,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "fifo"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_LSTM",
+   "files": [
+    "rtl/LSTM.v"
+   ],
+   "loc": 135,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": true,
+   "top": "lstm_cell"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_SPI",
+   "files": [
+    "rtl/SPI.v"
+   ],
+   "loc": 441,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "spi"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_UART",
+   "files": [
+    "rtl/UART.v"
+   ],
+   "loc": 447,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "uart_top_design"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_aes",
+   "files": [
+    "rtl/aes.sv"
+   ],
+   "loc": 374,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "key_expansion_128aes"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_arm_cpu1",
+   "files": [
+    "rtl/arm_cpu1.v"
+   ],
+   "loc": 1870,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "arm9_compatiable_code"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_arm_cpu2",
+   "files": [
+    "rtl/arm_cpu2.v"
+   ],
+   "loc": 1450,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "risclite_mx"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_communication",
+   "files": [
+    "rtl/communication.v"
+   ],
+   "loc": 225,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "sync_serial_communication_tx_rx"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_controller",
+   "files": [
+    "rtl/controller.v"
+   ],
+   "loc": 546,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "control_unit"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_cpu_fsm",
+   "files": [
+    "rtl/cpu_fsm.v"
+   ],
+   "loc": 354,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "mini_cpu"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_cpu_pipe",
+   "files": [
+    "rtl/cpu_pipe.v"
+   ],
+   "loc": 927,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "dcpu16_cpu"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_datapath",
+   "files": [
+    "rtl/datapath.v"
+   ],
+   "loc": 1065,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "datapath"
+  },
+  {
+   "clk_ports": [
+    "wb_clk_i"
+   ],
+   "design_id": "drrtl_i2c",
+   "files": [
+    "rtl/i2c.v"
+   ],
+   "loc": 915,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "i2c_master_top"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_pcie",
+   "files": [
+    "rtl/pcie.v"
+   ],
+   "loc": 923,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "top"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_router",
+   "files": [
+    "rtl/router.v"
+   ],
+   "loc": 594,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "router_top"
+  },
+  {
+   "clk_ports": [
+    "clk_i"
+   ],
+   "design_id": "drrtl_simple_spi",
+   "files": [
+    "rtl/simple_spi.v"
+   ],
+   "loc": 463,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "simple_spi_top"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_ticket_machine",
+   "files": [
+    "rtl/ticket_machine.v"
+   ],
+   "loc": 134,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "ticket_machine"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_tv80",
+   "files": [
+    "rtl/tv80.v"
+   ],
+   "loc": 4616,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "tv80s"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "drrtl_vending_machine",
+   "files": [
+    "rtl/vending_machine.v"
+   ],
+   "loc": 128,
+   "reference": false,
+   "tags": [
+    "drrtl"
+   ],
+   "tb": false,
+   "top": "vending_machine"
+  }
+ ],
+ "skipped": [],
+ "source": {
+  "commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "url": "https://github.com/hkust-zhiyao/DR_RTL"
+ },
+ "suite": "drrtl"
+}

@@ -1,0 +1,170 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_long_cpu__ALU",
+ "files": [
+  "rtl/ALURaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 8325,
+  "loc": 92,
+  "n_cells": 1312,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 14,
+  "n_outputs": 8,
+  "out_bits": 6177,
+  "ports": {
+   "ALUOp": {
+    "dir": "input",
+    "width": 4
+   },
+   "in1": {
+    "dir": "input",
+    "width": 32
+   },
+   "in2": {
+    "dir": "input",
+    "width": 32
+   },
+   "in3": {
+    "dir": "input",
+    "width": 32
+   },
+   "in4": {
+    "dir": "input",
+    "width": 32
+   },
+   "out": {
+    "dir": "output",
+    "width": 32
+   },
+   "result1": {
+    "dir": "output",
+    "width": 1024
+   },
+   "result2": {
+    "dir": "output",
+    "width": 1024
+   },
+   "result3": {
+    "dir": "output",
+    "width": 1024
+   },
+   "result4": {
+    "dir": "output",
+    "width": 1024
+   },
+   "result5": {
+    "dir": "output",
+    "width": 1024
+   },
+   "result6": {
+    "dir": "output",
+    "width": 1024
+   },
+   "resultA": {
+    "dir": "input",
+    "width": 1024
+   },
+   "resultB": {
+    "dir": "input",
+    "width": 1024
+   },
+   "resultC": {
+    "dir": "input",
+    "width": 1024
+   },
+   "resultD": {
+    "dir": "input",
+    "width": 1024
+   },
+   "resultE": {
+    "dir": "input",
+    "width": 1024
+   },
+   "resultF": {
+    "dir": "input",
+    "width": 1024
+   },
+   "resultG": {
+    "dir": "input",
+    "width": 1024
+   },
+   "resultH": {
+    "dir": "input",
+    "width": 1024
+   },
+   "sel": {
+    "dir": "input",
+    "width": 1
+   },
+   "zero": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "a1d594fb5bcd5142",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 92,
+ "name": "long_cpu__ALU",
+ "notes": [
+  "closure of ALU_raw: ['ALURaw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/ALU.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "ALU"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/ALU.v": "a2bb3cfdaea626a789a3ca14ba9d5970004e968ecac0895b7cb1621c6db2c5d9",
+  "rtl/ALURaw.v": "472778791b1251e28a9a19e78fcbd361f60fa8acdf9ddb9ccf2d8bf4743c6fd4"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cpu/ALURaw.v",
+   "long_benchmark/cpu/ALU.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cpu",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "ALU_raw"
+}

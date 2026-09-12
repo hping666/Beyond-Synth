@@ -1,0 +1,125 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__multiplier_bitwidth",
+ "files": [
+  "rtl/multiplier_bitwidth.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 33,
+  "loc": 41,
+  "n_cells": 6,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 5,
+  "n_outputs": 1,
+  "out_bits": 16,
+  "ports": {
+   "multiplicandA": {
+    "dir": "input",
+    "width": 8
+   },
+   "multiplicandC": {
+    "dir": "input",
+    "width": 8
+   },
+   "multiplierB": {
+    "dir": "input",
+    "width": 8
+   },
+   "multiplierD": {
+    "dir": "input",
+    "width": 8
+   },
+   "product": {
+    "dir": "output",
+    "width": 16
+   },
+   "sel": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "15708151b418f4a8",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 41,
+ "name": "datapath__multiplier_bitwidth",
+ "notes": [
+  "file roles: {\"multiplier_bitwidth.v\": \"original\", \"multiplier_bitwidth_claude3.v\": \"llm\", \"multiplier_bitwidth_gpt4.v\": \"llm\", \"multiplier_bitwidth_optimized.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/multiplier_bitwidth_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "optimized_multiplier"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/multiplier_bitwidth_claude3.v"
+   ],
+   "role": "llm",
+   "top": "efficient_multiplier"
+  },
+  {
+   "files": [
+    "samples/multiplier_bitwidth_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "inefficient_multiplier"
+  }
+ ],
+ "sha256": {
+  "reference/multiplier_bitwidth_optimized.v": "40453118dec0f14a10b78e0a738f8cedabb2db8015767b610aa8ab45b0d91cb1",
+  "rtl/multiplier_bitwidth.v": "6d03171d17363c5399dd2f44ac2f0206892d56e9fc318e2d86bbb297136ac622",
+  "samples/multiplier_bitwidth_claude3.v": "c3819c10d4795d8408887d3ddd3c15bae0ca7b5ed25f6722a7690d9835415b50",
+  "samples/multiplier_bitwidth_gpt4.v": "6d03171d17363c5399dd2f44ac2f0206892d56e9fc318e2d86bbb297136ac622"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/multiplier_bitwidth/multiplier_bitwidth.v",
+   "short_benchmark/datapath/multiplier_bitwidth/multiplier_bitwidth_claude3.v",
+   "short_benchmark/datapath/multiplier_bitwidth/multiplier_bitwidth_gpt4.v",
+   "short_benchmark/datapath/multiplier_bitwidth/multiplier_bitwidth_optimized.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "inefficient_multiplier"
+}

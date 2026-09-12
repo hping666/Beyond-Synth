@@ -1,0 +1,135 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_memory__memory_sharing",
+ "files": [
+  "rtl/memory_sharing_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 30,
+  "loc": 52,
+  "n_cells": 158,
+  "n_ff_bits": 384,
+  "n_files": 1,
+  "n_inputs": 10,
+  "n_outputs": 2,
+  "out_bits": 16,
+  "ports": {
+   "address_a": {
+    "dir": "input",
+    "width": 4
+   },
+   "address_b": {
+    "dir": "input",
+    "width": 4
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "data_in_a": {
+    "dir": "input",
+    "width": 8
+   },
+   "data_in_b": {
+    "dir": "input",
+    "width": 8
+   },
+   "data_out_a": {
+    "dir": "output",
+    "width": 8
+   },
+   "data_out_b": {
+    "dir": "output",
+    "width": 8
+   },
+   "read_en_a": {
+    "dir": "input",
+    "width": 1
+   },
+   "read_en_b": {
+    "dir": "input",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "write_en_a": {
+    "dir": "input",
+    "width": 1
+   },
+   "write_en_b": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "538fb22ab280858d",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 52,
+ "name": "memory__memory_sharing",
+ "notes": [
+  "file roles: {\"memory_sharing_opt.v\": \"expert\", \"memory_sharing_raw.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/memory_sharing_opt.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "shared_memory_opt"
+ },
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/memory_sharing_opt.v": "dc8814604ab39afe869d93f942e6cb97f3bdbf4e79ae804c8102093f518f0bbc",
+  "rtl/memory_sharing_raw.v": "a2c88e259227a95d3fcac521d93259547c83ea796c1b09658db5e68758488999"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/memory/memory_sharing/memory_sharing_opt.v",
+   "short_benchmark/memory/memory_sharing/memory_sharing_raw.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "memory",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "shared_memory_raw"
+}

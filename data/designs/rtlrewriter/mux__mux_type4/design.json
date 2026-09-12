@@ -1,0 +1,143 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_mux__mux_type4",
+ "files": [
+  "rtl/mux_type4_redundancy.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 5,
+  "loc": 26,
+  "n_cells": 6,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 5,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 1
+   },
+   "b": {
+    "dir": "input",
+    "width": 1
+   },
+   "c": {
+    "dir": "input",
+    "width": 1
+   },
+   "d": {
+    "dir": "input",
+    "width": 1
+   },
+   "sel": {
+    "dir": "input",
+    "width": 1
+   },
+   "y": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "9ab024a735db3dbf",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 26,
+ "name": "mux__mux_type4",
+ "notes": [
+  "file roles: {\"mux_type4_claude3.v\": \"llm\", \"mux_type4_gpt4.v\": \"llm\", \"mux_type4_redundancy.v\": \"original\", \"mux_type4_redundancy_improve.v\": \"expert\", \"mux_type4_redundancy_optimzied.v\": \"expert\", \"mux_type_ours.v\": \"tool\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/mux_type4_redundancy_improve.v"
+  ],
+  "note": "engineers' rewrite; further expert versions staged as samples: ['mux_type4_redundancy_optimzied.v']",
+  "top": "mux_tree"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/mux_type4_claude3.v"
+   ],
+   "role": "llm",
+   "top": "mux_tree"
+  },
+  {
+   "files": [
+    "samples/mux_type4_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "mux_tree"
+  },
+  {
+   "files": [
+    "samples/mux_type_ours.v"
+   ],
+   "role": "tool",
+   "top": null
+  },
+  {
+   "files": [
+    "samples/mux_type4_redundancy_optimzied.v"
+   ],
+   "role": "expert",
+   "top": "mux_tree"
+  }
+ ],
+ "sha256": {
+  "reference/mux_type4_redundancy_improve.v": "05ecbfd8441bd8174ee01cbe006fad27c2c5b967103a1f21c59513b90bfc3742",
+  "rtl/mux_type4_redundancy.v": "2235c50445be29139b1d910ba8fd7bae8ade1ec95e86e6054f9840b54d652cd0",
+  "samples/mux_type4_claude3.v": "3a8ef8032fdf08f9c8130afe7c147e1328c33fb7acbcb71e7a622743a3b8042e",
+  "samples/mux_type4_gpt4.v": "849789c843783688cb66d692e807159d3a155956d172a6d5ef6bed41be5049c3",
+  "samples/mux_type4_redundancy_optimzied.v": "05ecbfd8441bd8174ee01cbe006fad27c2c5b967103a1f21c59513b90bfc3742",
+  "samples/mux_type_ours.v": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/mux/mux_type4/mux_type4_claude3.v",
+   "short_benchmark/mux/mux_type4/mux_type4_gpt4.v",
+   "short_benchmark/mux/mux_type4/mux_type4_redundancy.v",
+   "short_benchmark/mux/mux_type4/mux_type4_redundancy_improve.v",
+   "short_benchmark/mux/mux_type4/mux_type4_redundancy_optimzied.v",
+   "short_benchmark/mux/mux_type4/mux_type_ours.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "mux",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "mux_tree"
+}

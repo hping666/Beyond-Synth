@@ -1,0 +1,137 @@
+{
+ "clk_ports": [
+  "io_clk"
+ ],
+ "design_id": "cktevo_hsm__G256Inv2Shares5Stages",
+ "files": [
+  "rtl/G256Inv2Shares5Stages.v",
+  "rtl/G16Inv2SharesDep.v",
+  "rtl/G16Mul2SharesDepMul.v",
+  "rtl/G16Mul2SharesIndepMul.v",
+  "rtl/G16SqSc.v",
+  "rtl/G4Mul2SharesDepMul.v",
+  "rtl/G4ScaleN.v",
+  "rtl/G4Sq.v",
+  "rtl/G16Mul.v",
+  "rtl/G4ScaleN2.v",
+  "rtl/G4Mul.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "io_reset": "high"
+  },
+  "clk_ports": [
+   "io_clk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 46,
+  "loc": 688,
+  "n_cells": 713,
+  "n_ff_bits": 180,
+  "n_files": 11,
+  "n_inputs": 5,
+  "n_outputs": 2,
+  "out_bits": 16,
+  "ports": {
+   "io_clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "io_m": {
+    "dir": "input",
+    "width": 28
+   },
+   "io_reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "io_x_0": {
+    "dir": "input",
+    "width": 8
+   },
+   "io_x_1": {
+    "dir": "input",
+    "width": 8
+   },
+   "io_z_0": {
+    "dir": "output",
+    "width": 8
+   },
+   "io_z_1": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "45cfef8bf6658247",
+  "rst_port": "io_reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 688,
+ "name": "hsm__G256Inv2Shares5Stages",
+ "notes": [
+  "closure: 11 modules, 688 lines (G256Inv2Shares5Stages, G16Inv2SharesDep, G16Mul2SharesDepMul, G16Mul2SharesIndepMul, G16SqSc, G4Mul2SharesDepMul, G4ScaleN, G4Sq, G16Mul, G4ScaleN2, G4Mul)"
+ ],
+ "reference": null,
+ "rst_port": "io_reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/G16Inv2SharesDep.v": "1ab9b92cd9ee6fb124694c81dbc722d0130838eff3cd5633ab9471203be8f186",
+  "rtl/G16Mul.v": "193d0febb90d836c9e86187af5303758a2dbae9506f31d10801bf467134c5354",
+  "rtl/G16Mul2SharesDepMul.v": "d65d987d3ce6bcaf44f66ec6ffc5aa5ae7eaf9c3a0e85a2ce1e0d537a316e0f6",
+  "rtl/G16Mul2SharesIndepMul.v": "ee7a8d6695dfddcb213e860cbc8111c32d5e3cdf6787abeb07bbbfe6fc5e5ffb",
+  "rtl/G16SqSc.v": "9cd890d1bbe7166627414ef8aea5671685345207d262ce91e5a67c39ceb7542f",
+  "rtl/G256Inv2Shares5Stages.v": "8fb711711a972144a8d2e6613c4cc11fb3d147438f378f5e26b325bc239d6601",
+  "rtl/G4Mul.v": "c808d837fa4545bb6e0ceed66a727a3e19eee90b12e32e9ecd854d9a91e6d5b0",
+  "rtl/G4Mul2SharesDepMul.v": "69a3706cfdfeb662b3f6353b8a51361d8485462cbe5142e78ca4577708d02f46",
+  "rtl/G4ScaleN.v": "192427c9de3f351afba99aa0f2c4dcae308a68cb74bab790f6596a154237b009",
+  "rtl/G4ScaleN2.v": "023559fd2cdb282a95b13e27549b9c26dcdde0cb140eca35c5df4bf744eddb3f",
+  "rtl/G4Sq.v": "156cff443dd1d21616ffefdcea64ad3477e1cc6f9a6b43a0a41ca4804c367bff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/hsm/G256Inv2Shares5Stages.v",
+   "benchmark/hsm/G16Inv2SharesDep.v",
+   "benchmark/hsm/G16Mul2SharesDepMul.v",
+   "benchmark/hsm/G16Mul2SharesIndepMul.v",
+   "benchmark/hsm/G16SqSc.v",
+   "benchmark/hsm/G4Mul2SharesDepMul.v",
+   "benchmark/hsm/G4ScaleN.v",
+   "benchmark/hsm/G4Sq.v",
+   "benchmark/hsm/G16Mul.v",
+   "benchmark/hsm/G4ScaleN2.v",
+   "benchmark/hsm/G4Mul.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "hsm"
+ ],
+ "tb": null,
+ "top": "G256Inv2Shares5Stages"
+}

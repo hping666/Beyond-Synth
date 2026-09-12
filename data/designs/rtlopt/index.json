@@ -1,0 +1,633 @@
+{
+ "count": 40,
+ "designs": [
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_add_sub",
+   "files": [
+    "rtl/add_sub.v"
+   ],
+   "loc": 14,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "add_sub"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlopt_adder",
+   "files": [
+    "rtl/adder.v"
+   ],
+   "loc": 20,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "adder"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_adder_carry",
+   "files": [
+    "rtl/adder_carry.v"
+   ],
+   "loc": 48,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "adder_carry"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_adder_select",
+   "files": [
+    "rtl/adder_select.v"
+   ],
+   "loc": 14,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "adder_select"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_addr_calcu",
+   "files": [
+    "rtl/addr_calcu.v"
+   ],
+   "loc": 23,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "addr_calcu"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_alu_64bit",
+   "files": [
+    "rtl/alu_64bit.v"
+   ],
+   "loc": 19,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "alu_64bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_alu_8bit",
+   "files": [
+    "rtl/alu_8bit.v"
+   ],
+   "loc": 23,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "alu_8bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_calculation",
+   "files": [
+    "rtl/calculation.v"
+   ],
+   "loc": 22,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "calculation"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_comparator",
+   "files": [
+    "rtl/comparator.v"
+   ],
+   "loc": 28,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "comparator"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_comparator_16bit",
+   "files": [
+    "rtl/comparator_16bit.v"
+   ],
+   "loc": 14,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "comparator_16bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_comparator_2bit",
+   "files": [
+    "rtl/comparator_2bit.v"
+   ],
+   "loc": 8,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "comparator_2bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_comparator_4bit",
+   "files": [
+    "rtl/comparator_4bit.v"
+   ],
+   "loc": 14,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "comparator_4bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_comparator_8bit",
+   "files": [
+    "rtl/comparator_8bit.v"
+   ],
+   "loc": 23,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "comparator_8bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_decoder_6bit",
+   "files": [
+    "rtl/decoder_6bit.v"
+   ],
+   "loc": 12,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "decoder_6bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_decoder_8bit",
+   "files": [
+    "rtl/decoder_8bit.v"
+   ],
+   "loc": 12,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "decoder_8bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_divider_16bit",
+   "files": [
+    "rtl/divider_16bit.v"
+   ],
+   "loc": 37,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "divider_16bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_divider_32bit",
+   "files": [
+    "rtl/divider_32bit.v"
+   ],
+   "loc": 37,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "divider_32bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_divider_4bit",
+   "files": [
+    "rtl/divider_4bit.v"
+   ],
+   "loc": 36,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "divider_4bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_divider_8bit",
+   "files": [
+    "rtl/divider_8bit.v"
+   ],
+   "loc": 36,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "divider_8bit"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlopt_fsm",
+   "files": [
+    "rtl/fsm.v"
+   ],
+   "loc": 60,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "fsm"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlopt_fsm_encode",
+   "files": [
+    "rtl/fsm_encode.v"
+   ],
+   "loc": 85,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "fsm_encode"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlopt_gray",
+   "files": [
+    "rtl/gray.v"
+   ],
+   "loc": 82,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "gray"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlopt_mac",
+   "files": [
+    "rtl/mac.v"
+   ],
+   "loc": 25,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "mac"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlopt_mul",
+   "files": [
+    "rtl/mul.v"
+   ],
+   "loc": 12,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "mul"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_mul_const",
+   "files": [
+    "rtl/mul_const.v"
+   ],
+   "loc": 17,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "mul_const"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_mul_subexpression",
+   "files": [
+    "rtl/mul_subexpression.v"
+   ],
+   "loc": 37,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "mul_subexpression"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_mult_if",
+   "files": [
+    "rtl/mult_if.v"
+   ],
+   "loc": 39,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "mult_if"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_mux_4to1_16bit",
+   "files": [
+    "rtl/mux_4to1_16bit.v"
+   ],
+   "loc": 22,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "mux_4to1_16bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_mux_4to1_64bit",
+   "files": [
+    "rtl/mux_4to1_64bit.v"
+   ],
+   "loc": 22,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "mux_4to1_64bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_mux_dead",
+   "files": [
+    "rtl/mux_dead.v"
+   ],
+   "loc": 54,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "mux_dead"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_mux_encode",
+   "files": [
+    "rtl/mux_encode.sv"
+   ],
+   "loc": 21,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "mux_encode"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_mux_large",
+   "files": [
+    "rtl/mux_large.v"
+   ],
+   "loc": 23,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "mux_large"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlopt_register",
+   "files": [
+    "rtl/register.v"
+   ],
+   "loc": 64,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "register"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlopt_saturating_add",
+   "files": [
+    "rtl/saturating_add.v"
+   ],
+   "loc": 17,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "saturating_add"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlopt_selector",
+   "files": [
+    "rtl/selector.v"
+   ],
+   "loc": 17,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "selector"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_sub_16bit",
+   "files": [
+    "rtl/sub_16bit.v"
+   ],
+   "loc": 12,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "sub_16bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_sub_32bit",
+   "files": [
+    "rtl/sub_32bit.v"
+   ],
+   "loc": 24,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "sub_32bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_sub_4bit",
+   "files": [
+    "rtl/sub_4bit.v"
+   ],
+   "loc": 25,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "sub_4bit"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlopt_sub_8bit",
+   "files": [
+    "rtl/sub_8bit.v"
+   ],
+   "loc": 25,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "sub_8bit"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlopt_ticket_machine",
+   "files": [
+    "rtl/ticket_machine.v"
+   ],
+   "loc": 135,
+   "reference": true,
+   "tags": [
+    "rtlopt",
+    "pair"
+   ],
+   "tb": false,
+   "top": "ticket_machine"
+  }
+ ],
+ "skipped": [],
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt"
+}

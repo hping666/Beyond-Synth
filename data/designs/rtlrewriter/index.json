@@ -1,0 +1,1316 @@
+{
+ "count": 72,
+ "designs": [
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_algorithm__gemm",
+   "files": [
+    "rtl/gemm_redundancy.v"
+   ],
+   "loc": 51,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "algorithm",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "gemm"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_algorithm__md",
+   "files": [
+    "rtl/md_redundancy.v"
+   ],
+   "loc": 51,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "algorithm",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "MolecularDynamics"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_algorithm__sort_merge",
+   "files": [
+    "rtl/sort_merge_redundancy.v"
+   ],
+   "loc": 66,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "algorithm",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "MergeSort"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_algorithm__spmv",
+   "files": [
+    "rtl/spmv_redundancy.v"
+   ],
+   "loc": 78,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "algorithm",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "spmv"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_basic__add1",
+   "files": [
+    "rtl/basic.v"
+   ],
+   "loc": 14,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_basic__add3",
+   "files": [
+    "rtl/add3.v"
+   ],
+   "loc": 16,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_basic__checksum",
+   "files": [
+    "rtl/basic.v"
+   ],
+   "loc": 8,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
+   "files": [
+    "rtl/basic.v"
+   ],
+   "loc": 14,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_basic__commutativity_subexpression",
+   "files": [
+    "rtl/basic.v"
+   ],
+   "loc": 14,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "arithmetic_operations"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_basic__distributed_ram",
+   "files": [
+    "rtl/basic1.v"
+   ],
+   "loc": 22,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "memory_blockram"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_basic__flatten1",
+   "files": [
+    "rtl/basic.v"
+   ],
+   "loc": 24,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "multiplexer_structured"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_basic__if_else",
+   "files": [
+    "rtl/basic1.v"
+   ],
+   "loc": 19,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "MUX6to1"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_basic__if_prority",
+   "files": [
+    "rtl/basic.v"
+   ],
+   "loc": 16,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_basic__logic_elimnation",
+   "files": [
+    "rtl/basic1.v"
+   ],
+   "loc": 38,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "logic_reduce"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_basic__multi_constant_multiplication",
+   "files": [
+    "rtl/basic.v"
+   ],
+   "loc": 12,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_basic__multi_constant_multiplication2",
+   "files": [
+    "rtl/basic.v"
+   ],
+   "loc": 12,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_basic__register_balancing",
+   "files": [
+    "rtl/basic1.v"
+   ],
+   "loc": 10,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "add3"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_basic__sub-expression-basic",
+   "files": [
+    "rtl/basic1.v"
+   ],
+   "loc": 13,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "multiplier"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__adder_architecture",
+   "files": [
+    "rtl/adder_architecture.v"
+   ],
+   "loc": 48,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "ripple_adder"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__adder_bit_width",
+   "files": [
+    "rtl/adder_bit_width.v"
+   ],
+   "loc": 18,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__adder_resource",
+   "files": [
+    "rtl/adder_resource.v"
+   ],
+   "loc": 54,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "non_shared_adder"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__adder_subexpression",
+   "files": [
+    "rtl/adder_subexpression.v"
+   ],
+   "loc": 27,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__algebraic_simplification",
+   "files": [
+    "rtl/algebraic_simplification_raw.v"
+   ],
+   "loc": 14,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__alu_bit_width",
+   "files": [
+    "rtl/alu_bit_width.v"
+   ],
+   "loc": 37,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "alu_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__alu_resource",
+   "files": [
+    "rtl/alu_resource.v"
+   ],
+   "loc": 37,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "DedicatedResources"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__alu_subexpression",
+   "files": [
+    "rtl/alu_subexpression.v"
+   ],
+   "loc": 59,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__constant_folding",
+   "files": [
+    "rtl/constant_folding_raw.v"
+   ],
+   "loc": 14,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__constant_propagation",
+   "files": [
+    "rtl/constant_propagation_raw.v"
+   ],
+   "loc": 10,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__dead_code_elimination",
+   "files": [
+    "rtl/dead_code_elimination_raw.v"
+   ],
+   "loc": 16,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__loop_fusion",
+   "files": [
+    "rtl/loop_fusion_raw.v"
+   ],
+   "loc": 18,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__loop_jamming",
+   "files": [
+    "rtl/loop_jamming_raw.v"
+   ],
+   "loc": 21,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__loop_tiling",
+   "files": [
+    "rtl/loop_tiling_raw.v"
+   ],
+   "loc": 16,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__loop_unrolling",
+   "files": [
+    "rtl/loop_unrolling_raw.v"
+   ],
+   "loc": 14,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__multiplier_architecture",
+   "files": [
+    "rtl/multiplier_architecture.v"
+   ],
+   "loc": 49,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "array_multiplier"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__multiplier_bitwidth",
+   "files": [
+    "rtl/multiplier_bitwidth.v"
+   ],
+   "loc": 41,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "inefficient_multiplier"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__multiplier_subexpression",
+   "files": [
+    "rtl/multiplier_subexpression.v"
+   ],
+   "loc": 39,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "basic_array_multiplier"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__strength_reduction",
+   "files": [
+    "rtl/strength_reduction_raw.v"
+   ],
+   "loc": 17,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_datapath__subexpression_elimination",
+   "files": [
+    "rtl/subexpression_elimination_raw.v"
+   ],
+   "loc": 22,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example_raw"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_fsm_small_case__example1",
+   "files": [
+    "rtl/example1_state.v"
+   ],
+   "loc": 87,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "fsm_small_case",
+    "calibration_only"
+   ],
+   "tb": true,
+   "top": "example"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_fsm_small_case__example2",
+   "files": [
+    "rtl/example2_state.v"
+   ],
+   "loc": 66,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "fsm_small_case",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "fsm_raw"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_fsm_small_case__example3",
+   "files": [
+    "rtl/example3_state.v"
+   ],
+   "loc": 66,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "fsm_small_case",
+    "calibration_only"
+   ],
+   "tb": true,
+   "top": "example"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_fsm_small_case__example4",
+   "files": [
+    "rtl/example4_state.v"
+   ],
+   "loc": 54,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "fsm_small_case",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "fsm"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_fsm_small_case__example5",
+   "files": [
+    "rtl/example5_state.v"
+   ],
+   "loc": 54,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "fsm_small_case",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "fsm"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_memory__memory_banking",
+   "files": [
+    "rtl/memory_banking_raw.v"
+   ],
+   "loc": 45,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "memory",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "memory_bank"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_memory__memory_compression",
+   "files": [
+    "rtl/memory_compression_raw.v"
+   ],
+   "loc": 44,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "memory",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "memory_compression_opt"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_memory__memory_folding",
+   "files": [
+    "rtl/memory_folding_raw.v"
+   ],
+   "loc": 79,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "memory",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "memory_folding_opt"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_memory__memory_folding2",
+   "files": [
+    "rtl/memory_folding_raw_1.v"
+   ],
+   "loc": 108,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "memory",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "memory_folding_opt"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_memory__memory_sharing",
+   "files": [
+    "rtl/memory_sharing_raw.v"
+   ],
+   "loc": 52,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "memory",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "shared_memory_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_mux__mux_dead_code",
+   "files": [
+    "rtl/mux_dead_code.v"
+   ],
+   "loc": 106,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "example"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_mux__mux_type1",
+   "files": [
+    "rtl/mux_type1_redundancy.v"
+   ],
+   "loc": 35,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "mux_tree"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_mux__mux_type2",
+   "files": [
+    "rtl/mux_type2_redundancy.v"
+   ],
+   "loc": 31,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "mux_tree"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_mux__mux_type3",
+   "files": [
+    "rtl/mux_type3_redundancy.v"
+   ],
+   "loc": 19,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "mux_tree"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_mux__mux_type4",
+   "files": [
+    "rtl/mux_type4_redundancy.v"
+   ],
+   "loc": 26,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "mux_tree"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_mux__mux_type5",
+   "files": [
+    "rtl/mux_type5_redundancy.v"
+   ],
+   "loc": 27,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "mux_tree"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_long_cnn__RFselector",
+   "files": [
+    "rtl/RFselector_raw.v"
+   ],
+   "loc": 67,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "RFselector_raw"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_long_cnn__convLayerSingle",
+   "files": [
+    "rtl/convLayerSingle_raw.v",
+    "rtl/RFselector.v",
+    "rtl/convUnit.v",
+    "rtl/processingElement.v",
+    "rtl/processingElementRaw.v"
+   ],
+   "loc": 790,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "convLayerSingle"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_long_cnn__convUnit",
+   "files": [
+    "rtl/convUnit_raw.v",
+    "rtl/processingElement.v",
+    "rtl/processingElementRaw.v"
+   ],
+   "loc": 600,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "convUnit_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_long_cnn__floatAdd",
+   "files": [
+    "rtl/floatAdd_raw.v"
+   ],
+   "loc": 103,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "floatAdd_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_long_cnn__floatMult",
+   "files": [
+    "rtl/floatMult_raw.v"
+   ],
+   "loc": 68,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "floatMult_raw"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_long_cnn__processingElement",
+   "files": [
+    "rtl/processingElementRaw.v",
+    "rtl/floatAdd_raw.v",
+    "rtl/floatMult_raw.v"
+   ],
+   "loc": 546,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "processingElement_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_long_cpu__ALU",
+   "files": [
+    "rtl/ALURaw.v"
+   ],
+   "loc": 92,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "ALU_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_long_cpu__BranchAndJumpHazard",
+   "files": [
+    "rtl/BranchAndJumpHazardRaw.v"
+   ],
+   "loc": 32,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "BranchAndJumpHazard_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_long_cpu__DataHazard",
+   "files": [
+    "rtl/DataHazardRaw.v"
+   ],
+   "loc": 54,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "DataHazard_raw"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_long_cpu__DataMem",
+   "files": [
+    "rtl/DataMemRaw.v"
+   ],
+   "loc": 66,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "DataMem_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_long_cpu__ImmExtend",
+   "files": [
+    "rtl/ImmExtendRaw.v"
+   ],
+   "loc": 12,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "ImmExtend_raw"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_long_cpu__InstMem",
+   "files": [
+    "rtl/InstMemRaw.v"
+   ],
+   "loc": 209,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "InstMem_raw"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_long_cpu__PC",
+   "files": [
+    "rtl/PCRaw.v"
+   ],
+   "loc": 51,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "PC_raw"
+  },
+  {
+   "clk_ports": [],
+   "design_id": "rtlrewriter_long_cpu__PipelineCPU",
+   "files": [
+    "rtl/PipelineCPURaw.v",
+    "rtl/ALURaw.v",
+    "rtl/BranchAndJumpHazardRaw.v",
+    "rtl/Controller.v",
+    "rtl/DataHazardRaw.v",
+    "rtl/DataMemRaw.v",
+    "rtl/EX_MEM_Reg.v",
+    "rtl/ID_EX_Reg.v",
+    "rtl/IF_ID_Reg.v",
+    "rtl/ImmExtendRaw.v",
+    "rtl/InstMem.v",
+    "rtl/MEM_WB_Reg.v",
+    "rtl/PCRaw.v",
+    "rtl/RegFileRaw.v"
+   ],
+   "loc": 1418,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "PipelineCPU_raw"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_long_cpu__RegFile",
+   "files": [
+    "rtl/RegFileRaw.v"
+   ],
+   "loc": 51,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "RegFile"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_long_fft__Butterfly",
+   "files": [
+    "rtl/ButterflyRaw.v"
+   ],
+   "loc": 115,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "fft",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "butterfly_raw"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_long_huffman__Decoder",
+   "files": [
+    "rtl/DecoderRaw.v",
+    "rtl/HuffmanDecoder.v",
+    "rtl/HuffmanDecoderRaw.v"
+   ],
+   "loc": 1276,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "huffman",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "decoder_raw"
+  },
+  {
+   "clk_ports": [
+    "clk"
+   ],
+   "design_id": "rtlrewriter_long_huffman__HuffmanDecoder",
+   "files": [
+    "rtl/HuffmanDecoderRaw.v"
+   ],
+   "loc": 584,
+   "reference": true,
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "huffman",
+    "calibration_only"
+   ],
+   "tb": false,
+   "top": "HuffmanDecoderRaw"
+  }
+ ],
+ "skipped": [],
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter"
+}

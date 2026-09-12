@@ -1,0 +1,94 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlopt_divider_16bit",
+ "files": [
+  "rtl/divider_16bit.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 24,
+  "loc": 37,
+  "n_cells": 80,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 2,
+  "out_bits": 32,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 16
+   },
+   "B": {
+    "dir": "input",
+    "width": 8
+   },
+   "odd": {
+    "dir": "output",
+    "width": 16
+   },
+   "result": {
+    "dir": "output",
+    "width": 16
+   }
+  },
+  "ports_hash": "e6517b567ff16fb4",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 37,
+ "name": "divider_16bit",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/divider_16bit_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "divider_16bit_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/divider_16bit_ref.v": "b79a6f2770f43a0b2bbbaa96c2760c7daf2162f6380404305122ed30a11109d4",
+  "rtl/divider_16bit.v": "0518e4488fd2b846991150b3b73a32d8377773f43ad146e4de61a109c44d1842"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/divider_16bit/divider_16bit.v",
+   "benchmark/divider_16bit_ref/divider_16bit_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "divider_16bit"
+}

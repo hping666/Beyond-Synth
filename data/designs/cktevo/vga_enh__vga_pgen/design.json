@@ -1,0 +1,329 @@
+{
+ "clk_ports": [
+  "clk_i",
+  "pclk_i"
+ ],
+ "design_id": "cktevo_vga_enh__vga_pgen",
+ "files": [
+  "rtl/vga_pgen.v",
+  "rtl/vga_clkgen.v",
+  "rtl/vga_colproc.v",
+  "rtl/vga_curproc.v",
+  "rtl/vga_fifo.v",
+  "rtl/vga_tgen.v",
+  "rtl/generic_spram.v",
+  "rtl/vga_vtim.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/timescale.v",
+  "rtl/vga_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk_i",
+   "pclk_i"
+  ],
+  "clk_ports_by_name": [
+   "clk_i"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": true,
+   "include": true,
+   "initial": false,
+   "sysfunc": true,
+   "timescale": false
+  },
+  "in_bits": 302,
+  "loc": 2545,
+  "n_cells": 587,
+  "n_ff_bits": 283,
+  "n_files": 8,
+  "n_inputs": 35,
+  "n_outputs": 20,
+  "out_bits": 78,
+  "ports": {
+   "ImDoneFifoQ": {
+    "dir": "input",
+    "width": 1
+   },
+   "Thgate": {
+    "dir": "input",
+    "width": 16
+   },
+   "Thgdel": {
+    "dir": "input",
+    "width": 8
+   },
+   "Thlen": {
+    "dir": "input",
+    "width": 16
+   },
+   "Thsync": {
+    "dir": "input",
+    "width": 8
+   },
+   "Tvgate": {
+    "dir": "input",
+    "width": 16
+   },
+   "Tvgdel": {
+    "dir": "input",
+    "width": 8
+   },
+   "Tvlen": {
+    "dir": "input",
+    "width": 16
+   },
+   "Tvsync": {
+    "dir": "input",
+    "width": 8
+   },
+   "b_o": {
+    "dir": "output",
+    "width": 8
+   },
+   "blank_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "cc0_adr_o": {
+    "dir": "output",
+    "width": 4
+   },
+   "cc0_dat_i": {
+    "dir": "input",
+    "width": 16
+   },
+   "cc1_adr_o": {
+    "dir": "output",
+    "width": 4
+   },
+   "cc1_dat_i": {
+    "dir": "input",
+    "width": 16
+   },
+   "clk_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "clut_ack": {
+    "dir": "input",
+    "width": 1
+   },
+   "clut_adr": {
+    "dir": "output",
+    "width": 9
+   },
+   "clut_q": {
+    "dir": "input",
+    "width": 24
+   },
+   "clut_req": {
+    "dir": "output",
+    "width": 1
+   },
+   "clut_switch": {
+    "dir": "output",
+    "width": 1
+   },
+   "csync_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "ctrl_BlankL": {
+    "dir": "input",
+    "width": 1
+   },
+   "ctrl_CSyncL": {
+    "dir": "input",
+    "width": 1
+   },
+   "ctrl_HSyncL": {
+    "dir": "input",
+    "width": 1
+   },
+   "ctrl_VSyncL": {
+    "dir": "input",
+    "width": 1
+   },
+   "ctrl_cbsw": {
+    "dir": "input",
+    "width": 1
+   },
+   "ctrl_cd": {
+    "dir": "input",
+    "width": 2
+   },
+   "ctrl_dvi_odf": {
+    "dir": "input",
+    "width": 2
+   },
+   "ctrl_pc": {
+    "dir": "input",
+    "width": 1
+   },
+   "ctrl_ven": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor0_en": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor0_res": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor0_xy": {
+    "dir": "input",
+    "width": 32
+   },
+   "cursor1_en": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor1_res": {
+    "dir": "input",
+    "width": 1
+   },
+   "cursor1_xy": {
+    "dir": "input",
+    "width": 32
+   },
+   "cursor_adr": {
+    "dir": "input",
+    "width": 9
+   },
+   "eoh": {
+    "dir": "output",
+    "width": 1
+   },
+   "eov": {
+    "dir": "output",
+    "width": 1
+   },
+   "fb_data_fifo_empty": {
+    "dir": "input",
+    "width": 1
+   },
+   "fb_data_fifo_q": {
+    "dir": "input",
+    "width": 32
+   },
+   "fb_data_fifo_rreq": {
+    "dir": "output",
+    "width": 1
+   },
+   "g_o": {
+    "dir": "output",
+    "width": 8
+   },
+   "hsync_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "line_fifo_d": {
+    "dir": "output",
+    "width": 24
+   },
+   "line_fifo_full": {
+    "dir": "input",
+    "width": 1
+   },
+   "line_fifo_q": {
+    "dir": "input",
+    "width": 24
+   },
+   "line_fifo_rreq": {
+    "dir": "output",
+    "width": 1
+   },
+   "line_fifo_wreq": {
+    "dir": "output",
+    "width": 1
+   },
+   "pclk_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "pclk_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_o": {
+    "dir": "output",
+    "width": 8
+   },
+   "stat_acmp": {
+    "dir": "output",
+    "width": 1
+   },
+   "vsync_o": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "95008a4b11a1bdfd",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 2545,
+ "name": "vga_enh__vga_pgen",
+ "notes": [
+  "closure: 10 modules, 1940 lines (vga_pgen, vga_clkgen, vga_colproc, vga_curproc, vga_fifo, vga_tgen, generic_spram, vga_vtim, altera_ram_sp, xilinx_ram_sp)",
+  "unresolved references in the text (vendor models under `ifdef?): ['C_MEM_SP_BLOCK_V1_0', 'FIFO', 'artisan_ssp', 'avant_atp', 'syn_ram_irou', 'virage_ssp', 'virtualsilicon_spram']"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/generic_spram.v": "dc9a5ca3359a01f2a9e18cf36a61c87dde6f29a2dca2e3bbe805e3c7aa6f9e90",
+  "rtl/timescale.v": "8ecd153830822ef5f1dd0b352067f72d8b08bbc3e8d360cc2b38175cd07f8d33",
+  "rtl/vga_clkgen.v": "aee162bf83938fad43286b1b5a7f7cbf564b6b64612d8d88c0c152338e828be9",
+  "rtl/vga_colproc.v": "1b4e88a5092dd20bb7a67e67e9e3eeec84e5cc6b0fff144cd37b44af12cc1184",
+  "rtl/vga_curproc.v": "be69c519e8a6430f002ff174fbb4b731eb91db9b4a86823cf3d6b05a8db07dec",
+  "rtl/vga_defines.v": "dbf4a77dcaf8dec2030afb8b7c54dc3cc9b2913eb421624cd4e17dc252947cee",
+  "rtl/vga_fifo.v": "6ffe9f2d5095c319cffc502ac6bdb04b9ce4053a591540701b6599eeea570a5b",
+  "rtl/vga_pgen.v": "f956c2280a4cc2485a8beb6c23c4f8eca2b2fdc75703401d13eb302314237ef9",
+  "rtl/vga_tgen.v": "a6c4d3a57a5b49b9968274ff89b4d7db170504de59596989b7797ff0bf92d13b",
+  "rtl/vga_vtim.v": "a92cf86176323db4c204ade5f6691165dc650dcc3240bebbda0751220e96b8e3"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/vga_enh/vga_pgen.v",
+   "benchmark/vga_enh/vga_clkgen.v",
+   "benchmark/vga_enh/vga_colproc.v",
+   "benchmark/vga_enh/vga_curproc.v",
+   "benchmark/vga_enh/vga_fifo.v",
+   "benchmark/vga_enh/vga_tgen.v",
+   "benchmark/vga_enh/generic_spram.v",
+   "benchmark/vga_enh/vga_vtim.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "vga_enh",
+  "multi_clock"
+ ],
+ "tb": null,
+ "top": "vga_pgen"
+}

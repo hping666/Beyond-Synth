@@ -1,0 +1,112 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_mem_ctrl__mc_refresh",
+ "files": [
+  "rtl/mc_refresh.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/mc_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "rst": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 22,
+  "loc": 210,
+  "n_cells": 44,
+  "n_ff_bits": 21,
+  "n_files": 1,
+  "n_inputs": 6,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "cs_need_rfr": {
+    "dir": "input",
+    "width": 8
+   },
+   "ref_int": {
+    "dir": "input",
+    "width": 3
+   },
+   "rfr_ack": {
+    "dir": "input",
+    "width": 1
+   },
+   "rfr_ps_val": {
+    "dir": "input",
+    "width": 8
+   },
+   "rfr_req": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "062236b57aba5467",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 210,
+ "name": "mem_ctrl__mc_refresh",
+ "notes": [
+  "closure: 1 modules, 112 lines (mc_refresh)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/mc_defines.v": "7014771beba02583c37c220642644edbf0b7dd34fb62551af260249969e5ef11",
+  "rtl/mc_refresh.v": "933cebf8517622f512d8df32066d2da67e37157d793ffb3eef1d022caa55496f"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/mem_ctrl/mc_refresh.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "mem_ctrl"
+ ],
+ "tb": null,
+ "top": "mc_refresh"
+}

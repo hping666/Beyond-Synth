@@ -1,0 +1,170 @@
+{
+ "clk_ports": [
+  "clock"
+ ],
+ "design_id": "cktevo_sdc_ctrl__sd_cmd_master",
+ "files": [
+  "rtl/sd_cmd_master.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/sd_defines.h"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clock"
+  ],
+  "clk_ports_by_name": [
+   "clock"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 200,
+  "loc": 152,
+  "n_cells": 161,
+  "n_ff_bits": 206,
+  "n_files": 1,
+  "n_inputs": 13,
+  "n_outputs": 9,
+  "out_bits": 177,
+  "ports": {
+   "argument": {
+    "dir": "input",
+    "width": 32
+   },
+   "busy": {
+    "dir": "input",
+    "width": 1
+   },
+   "clock": {
+    "dir": "input",
+    "width": 1
+   },
+   "clock_posedge": {
+    "dir": "input",
+    "width": 1
+   },
+   "cmd": {
+    "dir": "output",
+    "width": 40
+   },
+   "command": {
+    "dir": "input",
+    "width": 14
+   },
+   "crc_error": {
+    "dir": "input",
+    "width": 1
+   },
+   "finish": {
+    "dir": "input",
+    "width": 1
+   },
+   "go_idle": {
+    "dir": "output",
+    "width": 1
+   },
+   "index_ok": {
+    "dir": "input",
+    "width": 1
+   },
+   "int_status": {
+    "dir": "output",
+    "width": 5
+   },
+   "int_status_rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "response": {
+    "dir": "input",
+    "width": 120
+   },
+   "response_0": {
+    "dir": "output",
+    "width": 32
+   },
+   "response_1": {
+    "dir": "output",
+    "width": 32
+   },
+   "response_2": {
+    "dir": "output",
+    "width": 32
+   },
+   "response_3": {
+    "dir": "output",
+    "width": 32
+   },
+   "setting": {
+    "dir": "output",
+    "width": 2
+   },
+   "start": {
+    "dir": "input",
+    "width": 1
+   },
+   "start_xfr": {
+    "dir": "output",
+    "width": 1
+   },
+   "timeout": {
+    "dir": "input",
+    "width": 25
+   }
+  },
+  "ports_hash": "070a5400ebd97bfa",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 152,
+ "name": "sdc_ctrl__sd_cmd_master",
+ "notes": [
+  "closure: 1 modules, 119 lines (sd_cmd_master)"
+ ],
+ "reference": null,
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/sd_cmd_master.v": "f0893e824ea5c6f75a15e1d08d83064fdaada7ab5d04e45254af85413e100c18",
+  "rtl/sd_defines.h": "3754280b98d936669232b1813f99b5367b215019006a4bb75ce4e9291cf4e695"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/sdc_ctrl/sd_cmd_master.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "sdc_ctrl"
+ ],
+ "tb": null,
+ "top": "sd_cmd_master"
+}

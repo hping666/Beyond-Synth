@@ -1,0 +1,169 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_mem_ctrl__mc_adr_sel",
+ "files": [
+  "rtl/mc_adr_sel.v",
+  "rtl/mc_incn_r.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/mc_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 110,
+  "loc": 392,
+  "n_cells": 93,
+  "n_ff_bits": 86,
+  "n_files": 2,
+  "n_inputs": 17,
+  "n_outputs": 4,
+  "out_bits": 50,
+  "ports": {
+   "bank_adr": {
+    "dir": "output",
+    "width": 2
+   },
+   "cas_": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "cmd_a10": {
+    "dir": "input",
+    "width": 1
+   },
+   "cs_le": {
+    "dir": "input",
+    "width": 1
+   },
+   "csc": {
+    "dir": "input",
+    "width": 32
+   },
+   "lmr_sel": {
+    "dir": "input",
+    "width": 1
+   },
+   "mc_addr": {
+    "dir": "output",
+    "width": 24
+   },
+   "next_adr": {
+    "dir": "input",
+    "width": 1
+   },
+   "page_size": {
+    "dir": "output",
+    "width": 11
+   },
+   "rfr_ack": {
+    "dir": "input",
+    "width": 1
+   },
+   "row_adr": {
+    "dir": "output",
+    "width": 13
+   },
+   "row_sel": {
+    "dir": "input",
+    "width": 1
+   },
+   "tms": {
+    "dir": "input",
+    "width": 32
+   },
+   "wb_ack_o": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_addr_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "wb_stb_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_we_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_write_go": {
+    "dir": "input",
+    "width": 1
+   },
+   "wr_cycle": {
+    "dir": "input",
+    "width": 1
+   },
+   "wr_hold": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "e5cf16659f8f5e10",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 392,
+ "name": "mem_ctrl__mc_adr_sel",
+ "notes": [
+  "closure: 2 modules, 225 lines (mc_adr_sel, mc_incn_r)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/mc_adr_sel.v": "3b43548c24a61515c7313f24b012e7df804a9fbdfa7472e39e7e5f27e8cd8896",
+  "rtl/mc_defines.v": "7014771beba02583c37c220642644edbf0b7dd34fb62551af260249969e5ef11",
+  "rtl/mc_incn_r.v": "8e273c066ad01bdb7696c2dc0b18ae48375700a4e164d8c346ecb86fda38c3d3"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/mem_ctrl/mc_adr_sel.v",
+   "benchmark/mem_ctrl/mc_incn_r.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "mem_ctrl"
+ ],
+ "tb": null,
+ "top": "mc_adr_sel"
+}

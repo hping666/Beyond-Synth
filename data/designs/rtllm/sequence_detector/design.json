@@ -1,0 +1,99 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_sequence_detector",
+ "files": [
+  "rtl/sequence_detector.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 3,
+  "loc": 48,
+  "n_cells": 19,
+  "n_ff_bits": 5,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "data_in": {
+    "dir": "input",
+    "width": 1
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "sequence_detected": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "0d5c8db3ba77d5d8",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 48,
+ "name": "sequence_detector",
+ "notes": [],
+ "reference": null,
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/sequence_detector.v": "a4cc0144891bfeccffdbc9a3725b04d45d6ef3f4e07f028b750f4209b96cd965",
+  "tb/testbench.v": "5e62b9f961945baad2fff327d46c664ce0fc1f1f02adeb02b5560398a1f2f101"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Control/Finite State Machine/sequence_detector/verified_sequence_detector.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "tb_sequence_detector"
+ },
+ "top": "sequence_detector"
+}

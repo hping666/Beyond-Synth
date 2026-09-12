@@ -1,0 +1,115 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlopt_ticket_machine",
+ "files": [
+  "rtl/ticket_machine.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 4,
+  "loc": 135,
+  "n_cells": 45,
+  "n_ff_bits": 6,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 4,
+  "out_bits": 4,
+  "ports": {
+   "bill": {
+    "dir": "output",
+    "width": 1
+   },
+   "clear": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "dispense": {
+    "dir": "output",
+    "width": 1
+   },
+   "ready": {
+    "dir": "output",
+    "width": 1
+   },
+   "return_sig": {
+    "dir": "output",
+    "width": 1
+   },
+   "ten": {
+    "dir": "input",
+    "width": 1
+   },
+   "twenty": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "30d8101864fb9116",
+  "rst_port": "clear",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 135,
+ "name": "ticket_machine",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/ticket_machine_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "ticket_machine_ref"
+ },
+ "rst_port": "clear",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/ticket_machine_ref.v": "18cb49cee245e6449e87a3da1f3c7384c7fe694d9b4a694bf7181a918a2e31a0",
+  "rtl/ticket_machine.v": "990c07b612825a70b3b420454a1493be27928d57d6f71c1d561d83494105caaa"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/ticket_machine/ticket_machine.v",
+   "benchmark/ticket_machine_ref/ticket_machine_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair"
+ ],
+ "tb": null,
+ "top": "ticket_machine"
+}

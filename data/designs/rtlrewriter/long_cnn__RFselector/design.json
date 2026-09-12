@@ -1,0 +1,134 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_long_cnn__RFselector",
+ "files": [
+  "rtl/RFselector_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 5133,
+  "loc": 67,
+  "n_cells": 16428,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 8,
+  "n_outputs": 5,
+  "out_bits": 1684,
+  "ports": {
+   "column": {
+    "dir": "input",
+    "width": 6
+   },
+   "image": {
+    "dir": "input",
+    "width": 1024
+   },
+   "imageA": {
+    "dir": "input",
+    "width": 1024
+   },
+   "imageB": {
+    "dir": "input",
+    "width": 1024
+   },
+   "imageC": {
+    "dir": "input",
+    "width": 1024
+   },
+   "imageD": {
+    "dir": "input",
+    "width": 1024
+   },
+   "imageSel": {
+    "dir": "output",
+    "width": 1024
+   },
+   "receptiveField": {
+    "dir": "output",
+    "width": 600
+   },
+   "receptiveFieldSum1": {
+    "dir": "output",
+    "width": 20
+   },
+   "receptiveFieldSum2": {
+    "dir": "output",
+    "width": 20
+   },
+   "receptiveFieldSumAccumulation": {
+    "dir": "output",
+    "width": 20
+   },
+   "rowNumber": {
+    "dir": "input",
+    "width": 6
+   },
+   "sel": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "35841af80a8e1ef6",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 67,
+ "name": "long_cnn__RFselector",
+ "notes": [
+  "closure of RFselector_raw: ['RFselector_raw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/RFselector.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "RFselector"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/RFselector.v": "9ec7db1c9ccf74e0fffebaae3edab98751ee23843dc9101826540b83fdff507f",
+  "rtl/RFselector_raw.v": "acbc2f14affbacb56922c1d1d01fcadefb00bfd8a9753f6f90de90f029fec670"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cnn/RFselector_raw.v",
+   "long_benchmark/cnn/RFselector.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cnn",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "RFselector_raw"
+}

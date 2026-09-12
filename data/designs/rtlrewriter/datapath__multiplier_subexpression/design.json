@@ -1,0 +1,94 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__multiplier_subexpression",
+ "files": [
+  "rtl/multiplier_subexpression.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 16,
+  "loc": 39,
+  "n_cells": 71,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 1,
+  "out_bits": 16,
+  "ports": {
+   "multiplicand": {
+    "dir": "input",
+    "width": 8
+   },
+   "multiplier": {
+    "dir": "input",
+    "width": 8
+   },
+   "product": {
+    "dir": "output",
+    "width": 16
+   }
+  },
+  "ports_hash": "99238c8165057eb4",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 39,
+ "name": "datapath__multiplier_subexpression",
+ "notes": [
+  "file roles: {\"multiplier_subexpression.v\": \"original\", \"multiplier_subexpression_improve.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/multiplier_subexpression_improve.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "multiplier_with_subexpression_sharing"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/multiplier_subexpression_improve.v": "20adbf9d10e50fa7202634ae448151e6068393aa609d2304112be6975725a227",
+  "rtl/multiplier_subexpression.v": "71bfe940b08d4de2e6b6d5e36c6ddd1889b32b5f8b601076d4f53b2f96e80f18"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/multiplier_subexpression/multiplier_subexpression.v",
+   "short_benchmark/datapath/multiplier_subexpression/multiplier_subexpression_improve.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "basic_array_multiplier"
+}

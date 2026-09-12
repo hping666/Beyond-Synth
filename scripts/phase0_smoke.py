@@ -53,6 +53,10 @@ def main(argv=None):
         return name, m
 
     with ThreadPoolExecutor(max_workers=max(1, a.parallel)) as ex:
+        skipped = [n for n in a.configs if cfg["configs"].get(n, {}).get("hidden")]
+        if skipped:
+            print(f"skipping hidden configurations {skipped}: they are run only by scripts/hidden_worker.py (CLAUDE.md rule 3)")
+        a.configs = [n for n in a.configs if n not in skipped]
         results = dict(ex.map(one, a.configs))
 
     print(f"{'config':6s} {'status':22s} {'area':>10s} {'cells':>6s} {'wns':>9s} {'tns':>9s} {'icg':>4s} {'dc_s':>6s} {'wall':>6s}  error / raw_dir")

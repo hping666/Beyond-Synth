@@ -1,0 +1,122 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_long_cpu__DataHazard",
+ "files": [
+  "rtl/DataHazardRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 23,
+  "loc": 54,
+  "n_cells": 31,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 7,
+  "n_outputs": 3,
+  "out_bits": 5,
+  "ports": {
+   "EX_MEM_RegWrite": {
+    "dir": "input",
+    "width": 1
+   },
+   "EX_MEM_WriteAddr": {
+    "dir": "input",
+    "width": 5
+   },
+   "ForwardA": {
+    "dir": "output",
+    "width": 2
+   },
+   "ForwardB": {
+    "dir": "output",
+    "width": 2
+   },
+   "ID_EX_MemRead": {
+    "dir": "input",
+    "width": 1
+   },
+   "ID_EX_RegWrite": {
+    "dir": "input",
+    "width": 1
+   },
+   "ID_EX_WriteAddr": {
+    "dir": "input",
+    "width": 5
+   },
+   "LW_Stall": {
+    "dir": "output",
+    "width": 1
+   },
+   "rs": {
+    "dir": "input",
+    "width": 5
+   },
+   "rt": {
+    "dir": "input",
+    "width": 5
+   }
+  },
+  "ports_hash": "0e893e01f506a2fd",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 54,
+ "name": "long_cpu__DataHazard",
+ "notes": [
+  "closure of DataHazard_raw: ['DataHazardRaw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/DataHazard.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "DataHazard"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/DataHazard.v": "0e4c46d4a657a5ddf9f031a15f198b1a57886d0b0f0696b618f629e9071e7e4b",
+  "rtl/DataHazardRaw.v": "5e8d8f7a89885340132e19053cb663802ceaa38e269b26ce3e397de7f3861544"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cpu/DataHazardRaw.v",
+   "long_benchmark/cpu/DataHazard.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cpu",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "DataHazard_raw"
+}

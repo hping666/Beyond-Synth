@@ -1,0 +1,111 @@
+{
+ "clk_ports": [
+  "Clk"
+ ],
+ "design_id": "rtllm_LIFObuffer",
+ "files": [
+  "rtl/LIFObuffer.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "Clk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 8,
+  "loc": 51,
+  "n_cells": 313,
+  "n_ff_bits": 57,
+  "n_files": 1,
+  "n_inputs": 5,
+  "n_outputs": 3,
+  "out_bits": 6,
+  "ports": {
+   "Clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "EMPTY": {
+    "dir": "output",
+    "width": 1
+   },
+   "EN": {
+    "dir": "input",
+    "width": 1
+   },
+   "FULL": {
+    "dir": "output",
+    "width": 1
+   },
+   "RW": {
+    "dir": "input",
+    "width": 1
+   },
+   "Rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "dataIn": {
+    "dir": "input",
+    "width": 4
+   },
+   "dataOut": {
+    "dir": "output",
+    "width": 4
+   }
+  },
+  "ports_hash": "67e7fc5ab9030c17",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 51,
+ "name": "LIFObuffer",
+ "notes": [],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/LIFObuffer.v": "4a5d18d894a4474494e5d06b90d237843b601b05d2cb9acaf532c4f7315bf5a6",
+  "tb/testbench.v": "ee713019b9fc692da86e221857e86654d909f3e2c52e0b0813b8fc09550721ce"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Memory/LIFO/LIFObuffer/verified_LIFObuffer.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "LIFObuffer_tb"
+ },
+ "top": "LIFObuffer"
+}

@@ -1,0 +1,98 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__algebraic_simplification",
+ "files": [
+  "rtl/algebraic_simplification_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 16,
+  "loc": 14,
+  "n_cells": 4,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 2,
+  "out_bits": 16,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "s1": {
+    "dir": "output",
+    "width": 8
+   },
+   "s2": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "2fcd4b1f515dc3bc",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 14,
+ "name": "datapath__algebraic_simplification",
+ "notes": [
+  "file roles: {\"algebraic_simplification.v\": \"expert\", \"algebraic_simplification_raw.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/algebraic_simplification.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example_raw"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/algebraic_simplification.v": "7ca8eb1be4504d646890bca18b76a06f40054d5be6fd4e4084cf97f8cb0316e9",
+  "rtl/algebraic_simplification_raw.v": "909e078e8ce4f4a9c6f4f5fe8c95a589d3f05d3d4f93ef0a0aa5437c6b9ea06f"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/algebraic_simplification/algebraic_simplification.v",
+   "short_benchmark/datapath/algebraic_simplification/algebraic_simplification_raw.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example_raw"
+}

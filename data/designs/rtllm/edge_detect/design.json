@@ -1,0 +1,105 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_edge_detect",
+ "files": [
+  "rtl/edge_detect.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 3,
+  "loc": 37,
+  "n_cells": 15,
+  "n_ff_bits": 3,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 2,
+  "out_bits": 2,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "down": {
+    "dir": "output",
+    "width": 1
+   },
+   "rise": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "68dbf708da22c5f5",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 37,
+ "name": "edge_detect",
+ "notes": [
+  "module verified_edge_detect renamed to edge_detect, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/edge_detect.v": "0aae0a36ba32ee2d4b32b3c5480af6536cf4a95a97f2f992d5230c8b4e151f9b",
+  "tb/testbench.v": "f2186de69147c392f2bf65d1763951f1856e98f04cc7168867056fbb00a13a88"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/Others/edge_detect/verified_edge_detect.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "testbench"
+ },
+ "top": "edge_detect"
+}

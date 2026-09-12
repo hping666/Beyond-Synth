@@ -1,0 +1,95 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_freq_divbyfrac",
+ "files": [
+  "rtl/freq_divbyfrac.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 2,
+  "loc": 58,
+  "n_cells": 21,
+  "n_ff_bits": 6,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk_div": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "878a82ed390ca04e",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 58,
+ "name": "freq_divbyfrac",
+ "notes": [],
+ "reference": null,
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/freq_divbyfrac.v": "b252ccc57171c1807f30bcd7ddd9064d66c424108f361e2d050cefce6714edcd",
+  "tb/testbench.v": "b9ce1c1af21970c3f039fc6324a6746c91fd85138de3dc1fa1414285c72bddcf"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/Frequency divider/freq_divbyfrac/verified_freq_divbyfrac.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "freq_divbyfrac_tb"
+ },
+ "top": "freq_divbyfrac"
+}

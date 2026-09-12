@@ -1,0 +1,105 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_pe",
+ "files": [
+  "rtl/pe.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 66,
+  "loc": 27,
+  "n_cells": 3,
+  "n_ff_bits": 32,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 1,
+  "out_bits": 32,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 32
+   },
+   "b": {
+    "dir": "input",
+    "width": 32
+   },
+   "c": {
+    "dir": "output",
+    "width": 32
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "fadb092a4f0826fa",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 27,
+ "name": "pe",
+ "notes": [
+  "module verified_pe renamed to pe, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/pe.v": "38cb324c9d828365eceaafe4abd9496a25efe4c279551245e0c38bf811b5fa66",
+  "tb/testbench.v": "ef3d60f510a67a693aea17e1649c45177fcfdb57054331de4e61e3bac701d028"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/RISC-V/pe/verified_pe.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "test54"
+ },
+ "top": "pe"
+}

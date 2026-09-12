@@ -1,0 +1,101 @@
+{
+ "clk_ports": [
+  "CLK"
+ ],
+ "design_id": "rtllm_fsm",
+ "files": [
+  "rtl/fsm.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "RST": "high"
+  },
+  "clk_ports": [
+   "CLK"
+  ],
+  "clk_ports_by_name": [
+   "CLK"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 3,
+  "loc": 77,
+  "n_cells": 43,
+  "n_ff_bits": 3,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "CLK": {
+    "dir": "input",
+    "width": 1
+   },
+   "IN": {
+    "dir": "input",
+    "width": 1
+   },
+   "MATCH": {
+    "dir": "output",
+    "width": 1
+   },
+   "RST": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "55f83d8e09b3a602",
+  "rst_port": "RST",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 77,
+ "name": "fsm",
+ "notes": [
+  "module verified_fsm renamed to fsm, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "RST",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/fsm.v": "44112874d88cd45ee98bf0ae040a48a903fdfbbab96c2e0fe19bc0cb9d5e2ed5",
+  "tb/testbench.v": "77f50dcd0b5c748cab25508efe0685e1af5bd037e2c0b7299bc75aef6f67f667"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Control/Finite State Machine/fsm/verified_fsm.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "main"
+ },
+ "top": "fsm"
+}

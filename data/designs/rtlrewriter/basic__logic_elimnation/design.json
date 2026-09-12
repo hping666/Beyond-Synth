@@ -1,0 +1,119 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_basic__logic_elimnation",
+ "files": [
+  "rtl/basic1.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 7,
+  "loc": 38,
+  "n_cells": 5,
+  "n_ff_bits": 1,
+  "n_files": 1,
+  "n_inputs": 7,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "additional_condition1": {
+    "dir": "input",
+    "width": 1
+   },
+   "additional_condition2": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "critical": {
+    "dir": "input",
+    "width": 1
+   },
+   "in1": {
+    "dir": "input",
+    "width": 1
+   },
+   "in2": {
+    "dir": "input",
+    "width": 1
+   },
+   "non_critical": {
+    "dir": "input",
+    "width": 1
+   },
+   "out1": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "802554694e09268c",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 38,
+ "name": "basic__logic_elimnation",
+ "notes": [
+  "file roles: {\"basic1.v\": \"original\", \"optimized1.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/optimized1.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "logic_reduce"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/optimized1.v": "42c34b745a481d835f90f9d64ab1ab76959121e709f9ece18d0b975495972f40",
+  "rtl/basic1.v": "44986b9fcce646b59a4b16c3da0674d3c1ba8418f5ce7b03f9bedb194769a92c"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/basic/logic_elimnation/basic1.v",
+   "short_benchmark/basic/logic_elimnation/optimized1.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "basic",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "logic_reduce"
+}

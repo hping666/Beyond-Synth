@@ -1,0 +1,144 @@
+{
+ "clk_ports": [
+  "MRxClk"
+ ],
+ "design_id": "cktevo_ethmac__eth_rxstatem",
+ "files": [
+  "rtl/eth_rxstatem.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "Reset": "high"
+  },
+  "clk_ports": [
+   "MRxClk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 10,
+  "loc": 193,
+  "n_cells": 60,
+  "n_ff_bits": 6,
+  "n_files": 1,
+  "n_inputs": 10,
+  "n_outputs": 5,
+  "out_bits": 6,
+  "ports": {
+   "ByteCntEq0": {
+    "dir": "input",
+    "width": 1
+   },
+   "ByteCntGreat2": {
+    "dir": "input",
+    "width": 1
+   },
+   "ByteCntMaxFrame": {
+    "dir": "input",
+    "width": 1
+   },
+   "IFGCounterEq24": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxDEq5": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxDEqD": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxDV": {
+    "dir": "input",
+    "width": 1
+   },
+   "Reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "StateData": {
+    "dir": "output",
+    "width": 2
+   },
+   "StateDrop": {
+    "dir": "output",
+    "width": 1
+   },
+   "StateIdle": {
+    "dir": "output",
+    "width": 1
+   },
+   "StatePreamble": {
+    "dir": "output",
+    "width": 1
+   },
+   "StateSFD": {
+    "dir": "output",
+    "width": 1
+   },
+   "Transmitting": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "a3fc6cf0df7e37b7",
+  "rst_port": "Reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 193,
+ "name": "ethmac__eth_rxstatem",
+ "notes": [
+  "closure: 1 modules, 106 lines (eth_rxstatem)"
+ ],
+ "reference": null,
+ "rst_port": "Reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_rxstatem.v": "57b569c60106e3a8307963784234e8b5b9520c810d5dd14f512a33ce3af7ed9f",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_rxstatem.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac"
+ ],
+ "tb": null,
+ "top": "eth_rxstatem"
+}

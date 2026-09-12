@@ -1,0 +1,236 @@
+{
+ "clk_ports": [
+  "wb_clk_i"
+ ],
+ "design_id": "cktevo_ethmac__eth_cop",
+ "files": [
+  "rtl/eth_cop.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "wb_rst_i": "high"
+  },
+  "clk_ports": [
+   "wb_clk_i"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": true,
+   "timescale": false
+  },
+  "in_bits": 212,
+  "loc": 398,
+  "n_cells": 298,
+  "n_ff_bits": 176,
+  "n_files": 1,
+  "n_inputs": 20,
+  "n_outputs": 18,
+  "out_bits": 210,
+  "ports": {
+   "m1_wb_ack_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "m1_wb_adr_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "m1_wb_cyc_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "m1_wb_dat_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "m1_wb_dat_o": {
+    "dir": "output",
+    "width": 32
+   },
+   "m1_wb_err_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "m1_wb_sel_i": {
+    "dir": "input",
+    "width": 4
+   },
+   "m1_wb_stb_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "m1_wb_we_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "m2_wb_ack_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "m2_wb_adr_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "m2_wb_cyc_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "m2_wb_dat_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "m2_wb_dat_o": {
+    "dir": "output",
+    "width": 32
+   },
+   "m2_wb_err_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "m2_wb_sel_i": {
+    "dir": "input",
+    "width": 4
+   },
+   "m2_wb_stb_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "m2_wb_we_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "s1_wb_ack_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "s1_wb_adr_o": {
+    "dir": "output",
+    "width": 32
+   },
+   "s1_wb_cyc_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "s1_wb_dat_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "s1_wb_dat_o": {
+    "dir": "output",
+    "width": 32
+   },
+   "s1_wb_err_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "s1_wb_sel_o": {
+    "dir": "output",
+    "width": 4
+   },
+   "s1_wb_stb_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "s1_wb_we_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "s2_wb_ack_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "s2_wb_adr_o": {
+    "dir": "output",
+    "width": 32
+   },
+   "s2_wb_cyc_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "s2_wb_dat_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "s2_wb_dat_o": {
+    "dir": "output",
+    "width": 32
+   },
+   "s2_wb_err_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "s2_wb_sel_o": {
+    "dir": "output",
+    "width": 4
+   },
+   "s2_wb_stb_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "s2_wb_we_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "wb_clk_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_rst_i": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "b53c853ed073756c",
+  "rst_port": "wb_rst_i",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 398,
+ "name": "ethmac__eth_cop",
+ "notes": [
+  "closure: 1 modules, 333 lines (eth_cop)"
+ ],
+ "reference": null,
+ "rst_port": "wb_rst_i",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_cop.v": "e418ca9e0b281e4e42dca98883e8a82849a3a5b47c1591a4e20c3df9481ff4d3",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_cop.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac"
+ ],
+ "tb": null,
+ "top": "eth_cop"
+}

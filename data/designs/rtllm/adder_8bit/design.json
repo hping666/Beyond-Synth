@@ -1,0 +1,98 @@
+{
+ "clk_ports": [],
+ "design_id": "rtllm_adder_8bit",
+ "files": [
+  "rtl/adder_8bit.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 17,
+  "loc": 23,
+  "n_cells": 24,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 2,
+  "out_bits": 9,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "cin": {
+    "dir": "input",
+    "width": 1
+   },
+   "cout": {
+    "dir": "output",
+    "width": 1
+   },
+   "sum": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "7759e44f1467854c",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 23,
+ "name": "adder_8bit",
+ "notes": [
+  "module verified_adder_8bit renamed to adder_8bit, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/adder_8bit.v": "8932df558a09e8f581f215794f978ad7eb60597b4feef429755ae3d0d2642667",
+  "tb/testbench.v": "226c529e5e64eb272acb1ccb5ced70bdcd28e270f64a51b020f50a2adc7fa9f6"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Arithmetic/Adder/adder_8bit/verified_adder_8bit.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "no_clock"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "testbench"
+ },
+ "top": "adder_8bit"
+}

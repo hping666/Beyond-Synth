@@ -53,6 +53,11 @@ configs:
   H3:  {tool: dc, compile: "set_app_var compile_timing_high_effort true; compile_ultra -retime -gate_clock -spg", lib: nangate45, clock: phi_main, synlib: dw, hidden: true}
   H4:  {tool: pt_primepower, input: E4_netlist, lib: nangate45, clock: phi_main, hidden: true}
   H5:  {tool: dc, compile: "compile_ultra -no_autoungroup -gate_clock", lib: nangate45, clock: phi_main, synlib: dw, hidden: true, production_representative: true}
+  # Phase 1 knee-point sweeps on the hidden libraries (spec 01 §3, DECISIONS 2026-09-12): the E4 command on asap7 / sky130hd,
+  # run only on original designs (never candidates or perturbations; enforced in src/eval/service.py) so that the hidden
+  # configurations H2a / H2b keep every record in results/hidden/ (rule 3) while designs.phi_main_ns_<lib> is derived visibly.
+  K_asap7:    {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: asap7, clock: sweep, synlib: dw, phase1_knee_only: true}
+  K_sky130hd: {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: sky130hd, clock: sweep, synlib: dw, phase1_knee_only: true}
   # Yosys scripts: dfflibmap maps flip-flops to library cells before abc (as in COEVO's script), otherwise stat -liberty
   # leaves the registers unmapped and under-counts area; read_verilog / write_verilog are added by src/eval/yosys.py.
   Y:   {tool: yosys_opensta, script: "synth -top {top}; dfflibmap -liberty {lib}; abc -liberty {lib}; opt_clean -purge; stat -liberty {lib}", lib: nangate45, clock: phi_main, reference: true}
@@ -70,6 +75,7 @@ cktevo_sky130_visible:         # visible layer of the Sky130 sub-experiment (Ckt
   synlib: dw
 
 knee:
+  configs: {nangate45: E4, asap7: K_asap7, sky130hd: K_sky130hd}   # configuration used for the sweep on each library (E4 command everywhere)
   periods_ns: {nangate45: [4.0, 2.8, 2.0, 1.4, 1.0, 0.7, 0.5], asap7: [1.0, 0.7, 0.5, 0.35, 0.25, 0.18, 0.13], sky130hd: [10.0, 7.0, 5.0, 3.5, 2.5, 1.8, 1.3]}
   slack_tol: 0.01            # WNS >= -slack_tol * T counts as met
   area_tol: 0.10             # area must not exceed (1 + area_tol) x the loosest-constraint area
@@ -109,6 +115,7 @@ timeouts:                    # minutes
 
 queue:                       # LOCKED (concurrency caps); automatic backoff when seats are exhausted
   dc_seats_max: 50           # license ceiling, not a safe concurrency: seats are site-shared; the daemon backs off on exit code 75
+  dc_concurrency: 12         # added 2026-09-12 (DECISIONS): DC jobs dispatched at once (each may use tools.dc.max_cores = 4 threads on the 64-core host); the seat cap above stays the hard ceiling
   pt_seats_max: 8            # filled 2026-09-12 (DECISIONS): a PT run takes ~5 s, 100 seats licensed
   vcf_seats_max: 4           # filled 2026-09-12 (DECISIONS): SEQ runs single-worker; seat count unknown until the Phase 2 pilot
   local_max: 16              # added 2026-09-12 (DECISIONS): sim / yosys / orfs / llm / shell jobs on the 64-core host
@@ -146,12 +153,18 @@ llm:                         # LOCKED (budgets); the model is filled into `selec
       require_c1_or_d_retained: true
 
 design_sets:                 # counts and splits filled in Phase 1; dev contains only ~20 RTLLM designs
-  suites:
-    drrtl20:   {source: "arXiv:2604.14989 (Dr.RTL) open-sourced designs", dev: [], held: TBD}
-    rtlopt36:  {source: "arXiv:2601.01765 (RTL-OPT)", start_from: suboptimal, reference: optimized, dev: [], held: TBD}
-    cktevo:    {source: "arXiv:2603.08718 (CktEvo)", extraction: module_level, target_count: 30, dev: [], held: TBD, sky130_subset: TBD}
-    rtllm_v2:  {source: "RTLLM v2.0", synthesizable_under_e4: TBD, dev: TBD, held: TBD}
-    rtlrewriter: {source: "arXiv:2409.11414", pairs: 20, llm_samples: 12, role: calibration_only}
+  sources:                   # pinned upstream checkouts (Phase 1.1): raw clones in data/sources/ (gitignored), staged copies in data/designs/<suite>/ (scripts/stage_designs.py)
+    rtllm:       {url: "https://github.com/hkust-zhiyao/RTLLM", commit: 41b26896e33b536940116a975626455eed3de65e, local: /home/hping/RTLLM, license: MIT}
+    drrtl:       {url: "https://github.com/hkust-zhiyao/DR_RTL", commit: 62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b, local: data/sources/Dr_RTL, license: "unspecified (no LICENSE file in the repository)"}
+    rtlopt:      {url: "https://github.com/hkust-zhiyao/RTL-OPT", commit: 25e4bbe052f02fde7f34eb8c3e37a7656e7dce20, local: data/sources/RTL-OPT, license: MIT, note: "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs"}
+    cktevo:      {url: "https://github.com/cure-lab/cktevo", commit: 2f1abe75cc48437378bd8832517048ba64d53149, local: data/sources/cktevo, license: "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)"}
+    rtlrewriter: {url: "https://github.com/yaoxufeng/RTLRewriter-Bench", commit: 96639fe67bc8f020c05978ef5028d75fcf6980f2, local: data/sources/RTLRewriter-Bench, license: "unspecified (no LICENSE file in the repository)"}
+  suites:                    # keys are the design_id prefixes (rtllm_accu, drrtl_tv80, ...)
+    drrtl:     {source: "arXiv:2604.14989 (Dr.RTL) open-sourced designs", count: 20, dev: [], held: TBD}
+    rtlopt:    {source: "arXiv:2601.01765 (RTL-OPT); the public release has 40 pairs (the proposal counted 36)", start_from: suboptimal, reference: optimized, count: 40, dev: [], held: TBD}
+    cktevo:    {source: "arXiv:2603.08718 (CktEvo)", extraction: module_level, target_count: 30, loc_min: 100, closure_loc_max: 3000, max_per_repo: 5, dev: [], held: TBD, sky130_subset: TBD}
+    rtllm:     {source: "RTLLM v2.0", count: 50, synthesizable_under_e4: TBD, dev: TBD, held: TBD}
+    rtlrewriter: {source: "arXiv:2409.11414", pairs: TBD, llm_samples: TBD, role: calibration_only}
 
 scale:                       # Phase 5 main-experiment scale; adjustable after G3 (record in DECISIONS)
   starting_points: 30

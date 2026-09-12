@@ -1,0 +1,107 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlopt_adder",
+ "files": [
+  "rtl/adder.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 67,
+  "loc": 20,
+  "n_cells": 9,
+  "n_ff_bits": 32,
+  "n_files": 1,
+  "n_inputs": 5,
+  "n_outputs": 1,
+  "out_bits": 32,
+  "ports": {
+   "DATA_1": {
+    "dir": "input",
+    "width": 32
+   },
+   "DATA_2": {
+    "dir": "input",
+    "width": 32
+   },
+   "SEL_0": {
+    "dir": "input",
+    "width": 1
+   },
+   "SEL_1": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "reg_0": {
+    "dir": "output",
+    "width": 32
+   }
+  },
+  "ports_hash": "3d12ca81d5244814",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 20,
+ "name": "adder",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/adder_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "adder_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/adder_ref.v": "a4d49979c1a59d83af7deda83039924f21601f98f97abdeaa814e226ab28877f",
+  "rtl/adder.v": "e2ba0e7c653d5c90bb859b035a2ebe2912eb269e055b68a6021cd8138940cd44"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/adder/adder.v",
+   "benchmark/adder_ref/adder_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair"
+ ],
+ "tb": null,
+ "top": "adder"
+}

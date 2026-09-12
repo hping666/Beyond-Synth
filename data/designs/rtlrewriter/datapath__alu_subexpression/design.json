@@ -1,0 +1,142 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__alu_subexpression",
+ "files": [
+  "rtl/alu_subexpression.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 37,
+  "loc": 59,
+  "n_cells": 29,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 6,
+  "n_outputs": 2,
+  "out_bits": 9,
+  "ports": {
+   "input_a": {
+    "dir": "input",
+    "width": 8
+   },
+   "input_b": {
+    "dir": "input",
+    "width": 8
+   },
+   "input_c": {
+    "dir": "input",
+    "width": 8
+   },
+   "input_d": {
+    "dir": "input",
+    "width": 8
+   },
+   "opcode": {
+    "dir": "input",
+    "width": 4
+   },
+   "result": {
+    "dir": "output",
+    "width": 8
+   },
+   "sel": {
+    "dir": "input",
+    "width": 1
+   },
+   "zero_flag": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "fefb14162b417e9d",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 59,
+ "name": "datapath__alu_subexpression",
+ "notes": [
+  "file roles: {\"alu_subexpression.v\": \"original\", \"alu_subexpression_claude3.v\": \"llm\", \"alu_subexpression_gpt4.v\": \"llm\", \"alu_subexpression_optimized.v\": \"expert\", \"alu_subexpression_ours.v\": \"tool\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/alu_subexpression_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/alu_subexpression_claude3.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/alu_subexpression_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/alu_subexpression_ours.v"
+   ],
+   "role": "tool",
+   "top": "example"
+  }
+ ],
+ "sha256": {
+  "reference/alu_subexpression_optimized.v": "1b7fc6d129bbf9280df1667c1d15b6a1e8946159a24dfe39dbae5deb7f032c9e",
+  "rtl/alu_subexpression.v": "9d3dcf0bf2ac0465f94dfa42dfca41fa1548fe94b0468cf72edfe4162af0fb8b",
+  "samples/alu_subexpression_claude3.v": "046419ad1e15480f552ed87b624e43fd283e72ea133ada7c908f150218c7e8ed",
+  "samples/alu_subexpression_gpt4.v": "b959501794b3e702db0fac15dd60ed0a3549be24d5a68e7b0f43095387d29c6a",
+  "samples/alu_subexpression_ours.v": "b8f57d1de4e1a96e3c9c33d140779e3a66e8a156c9427b28d0d49dd253fe9fa2"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/alu_subexpression/alu_subexpression.v",
+   "short_benchmark/datapath/alu_subexpression/alu_subexpression_claude3.v",
+   "short_benchmark/datapath/alu_subexpression/alu_subexpression_gpt4.v",
+   "short_benchmark/datapath/alu_subexpression/alu_subexpression_optimized.v",
+   "short_benchmark/datapath/alu_subexpression/alu_subexpression_ours.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example"
+}

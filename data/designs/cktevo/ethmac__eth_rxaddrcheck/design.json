@@ -1,0 +1,184 @@
+{
+ "clk_ports": [
+  "MRxClk"
+ ],
+ "design_id": "cktevo_ethmac__eth_rxaddrcheck",
+ "files": [
+  "rtl/eth_rxaddrcheck.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "Reset": "high"
+  },
+  "clk_ports": [
+   "MRxClk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 145,
+  "loc": 214,
+  "n_cells": 58,
+  "n_ff_bits": 4,
+  "n_files": 1,
+  "n_inputs": 23,
+  "n_outputs": 2,
+  "out_bits": 2,
+  "ports": {
+   "AddressMiss": {
+    "dir": "output",
+    "width": 1
+   },
+   "Broadcast": {
+    "dir": "input",
+    "width": 1
+   },
+   "ByteCntEq0": {
+    "dir": "input",
+    "width": 1
+   },
+   "ByteCntEq2": {
+    "dir": "input",
+    "width": 1
+   },
+   "ByteCntEq3": {
+    "dir": "input",
+    "width": 1
+   },
+   "ByteCntEq4": {
+    "dir": "input",
+    "width": 1
+   },
+   "ByteCntEq5": {
+    "dir": "input",
+    "width": 1
+   },
+   "ByteCntEq6": {
+    "dir": "input",
+    "width": 1
+   },
+   "ByteCntEq7": {
+    "dir": "input",
+    "width": 1
+   },
+   "ControlFrmAddressOK": {
+    "dir": "input",
+    "width": 1
+   },
+   "CrcHash": {
+    "dir": "input",
+    "width": 6
+   },
+   "CrcHashGood": {
+    "dir": "input",
+    "width": 1
+   },
+   "HASH0": {
+    "dir": "input",
+    "width": 32
+   },
+   "HASH1": {
+    "dir": "input",
+    "width": 32
+   },
+   "MAC": {
+    "dir": "input",
+    "width": 48
+   },
+   "MRxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "Multicast": {
+    "dir": "input",
+    "width": 1
+   },
+   "PassAll": {
+    "dir": "input",
+    "width": 1
+   },
+   "Reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxAbort": {
+    "dir": "output",
+    "width": 1
+   },
+   "RxData": {
+    "dir": "input",
+    "width": 8
+   },
+   "RxEndFrm": {
+    "dir": "input",
+    "width": 1
+   },
+   "StateData": {
+    "dir": "input",
+    "width": 2
+   },
+   "r_Bro": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_Pro": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "25723e8b5c10f2c7",
+  "rst_port": "Reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 214,
+ "name": "ethmac__eth_rxaddrcheck",
+ "notes": [
+  "closure: 1 modules, 140 lines (eth_rxaddrcheck)"
+ ],
+ "reference": null,
+ "rst_port": "Reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_rxaddrcheck.v": "a60dceb8490b805e596d8d3edb2e4047fdff4b549c68f2e7c4ae708585554bab",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_rxaddrcheck.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac"
+ ],
+ "tb": null,
+ "top": "eth_rxaddrcheck"
+}

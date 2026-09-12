@@ -1,0 +1,130 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "drrtl_cpu_pipe",
+ "files": [
+  "rtl/cpu_pipe.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 36,
+  "loc": 927,
+  "n_cells": 466,
+  "n_ff_bits": 276,
+  "n_files": 1,
+  "n_inputs": 6,
+  "n_outputs": 8,
+  "out_bits": 68,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "f_ack": {
+    "dir": "input",
+    "width": 1
+   },
+   "f_adr": {
+    "dir": "output",
+    "width": 16
+   },
+   "f_dti": {
+    "dir": "input",
+    "width": 16
+   },
+   "f_dto": {
+    "dir": "output",
+    "width": 16
+   },
+   "f_stb": {
+    "dir": "output",
+    "width": 1
+   },
+   "f_wre": {
+    "dir": "output",
+    "width": 1
+   },
+   "g_ack": {
+    "dir": "input",
+    "width": 1
+   },
+   "g_adr": {
+    "dir": "output",
+    "width": 16
+   },
+   "g_dti": {
+    "dir": "input",
+    "width": 16
+   },
+   "g_dto": {
+    "dir": "output",
+    "width": 16
+   },
+   "g_stb": {
+    "dir": "output",
+    "width": 1
+   },
+   "g_wre": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "026df8b2bfc55821",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 927,
+ "name": "cpu_pipe",
+ "notes": [],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/cpu_pipe.v": "c702324ee8958bfea35510fd4570b0a9da22c8a3931918f59e0180ebf538f1fe"
+ },
+ "source": {
+  "commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "rtl_dataset/cpu_pipe.v0.v"
+  ],
+  "suite_key": "drrtl",
+  "url": "https://github.com/hkust-zhiyao/DR_RTL"
+ },
+ "suite": "drrtl",
+ "sverilog": false,
+ "tags": [
+  "drrtl"
+ ],
+ "tb": null,
+ "top": "dcpu16_cpu"
+}

@@ -1,0 +1,94 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__loop_tiling",
+ "files": [
+  "rtl/loop_tiling_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 272,
+  "loc": 16,
+  "n_cells": 256,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 1,
+  "out_bits": 16,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 256
+   },
+   "x": {
+    "dir": "input",
+    "width": 16
+   },
+   "y": {
+    "dir": "output",
+    "width": 16
+   }
+  },
+  "ports_hash": "9230ec3cb84871fe",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 16,
+ "name": "datapath__loop_tiling",
+ "notes": [
+  "file roles: {\"loop_tiling.v\": \"expert\", \"loop_tiling_raw.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/loop_tiling.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example_raw"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/loop_tiling.v": "270933e12ba02444674606ad2f880903d40b3a57ab38c71c510d7d895a10494c",
+  "rtl/loop_tiling_raw.v": "048faa88685847c5cb22cafb2a57562180565f5ab51eb9a75d890c9716e24554"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/loop_tiling/loop_tiling.v",
+   "short_benchmark/datapath/loop_tiling/loop_tiling_raw.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example_raw"
+}

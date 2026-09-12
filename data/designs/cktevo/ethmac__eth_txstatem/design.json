@@ -1,0 +1,264 @@
+{
+ "clk_ports": [
+  "MTxClk"
+ ],
+ "design_id": "cktevo_ethmac__eth_txstatem",
+ "files": [
+  "rtl/eth_txstatem.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "Reset": "high"
+  },
+  "clk_ports": [
+   "MTxClk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 51,
+  "loc": 282,
+  "n_cells": 119,
+  "n_ff_bits": 12,
+  "n_files": 1,
+  "n_inputs": 27,
+  "n_outputs": 18,
+  "out_bits": 20,
+  "ports": {
+   "CarrierSense": {
+    "dir": "input",
+    "width": 1
+   },
+   "ColWindow": {
+    "dir": "input",
+    "width": 1
+   },
+   "Collision": {
+    "dir": "input",
+    "width": 1
+   },
+   "CrcEn": {
+    "dir": "input",
+    "width": 1
+   },
+   "DeferIndication": {
+    "dir": "output",
+    "width": 1
+   },
+   "ExcessiveDefer": {
+    "dir": "input",
+    "width": 1
+   },
+   "FullD": {
+    "dir": "input",
+    "width": 1
+   },
+   "IPGR1": {
+    "dir": "input",
+    "width": 7
+   },
+   "IPGR2": {
+    "dir": "input",
+    "width": 7
+   },
+   "IPGT": {
+    "dir": "input",
+    "width": 7
+   },
+   "MTxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "MaxFrame": {
+    "dir": "input",
+    "width": 1
+   },
+   "NibCnt": {
+    "dir": "input",
+    "width": 7
+   },
+   "NibCntEq15": {
+    "dir": "input",
+    "width": 1
+   },
+   "NibCntEq7": {
+    "dir": "input",
+    "width": 1
+   },
+   "NibbleMinFl": {
+    "dir": "input",
+    "width": 1
+   },
+   "NoBckof": {
+    "dir": "input",
+    "width": 1
+   },
+   "Pad": {
+    "dir": "input",
+    "width": 1
+   },
+   "RandomEq0": {
+    "dir": "input",
+    "width": 1
+   },
+   "RandomEqByteCnt": {
+    "dir": "input",
+    "width": 1
+   },
+   "Reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "RetryMax": {
+    "dir": "input",
+    "width": 1
+   },
+   "StartBackoff": {
+    "dir": "output",
+    "width": 1
+   },
+   "StartData": {
+    "dir": "output",
+    "width": 2
+   },
+   "StartDefer": {
+    "dir": "output",
+    "width": 1
+   },
+   "StartFCS": {
+    "dir": "output",
+    "width": 1
+   },
+   "StartIPG": {
+    "dir": "output",
+    "width": 1
+   },
+   "StartJam": {
+    "dir": "output",
+    "width": 1
+   },
+   "StartPreamble": {
+    "dir": "output",
+    "width": 1
+   },
+   "StartTxDone": {
+    "dir": "input",
+    "width": 1
+   },
+   "StateBackOff": {
+    "dir": "output",
+    "width": 1
+   },
+   "StateData": {
+    "dir": "output",
+    "width": 2
+   },
+   "StateDefer": {
+    "dir": "output",
+    "width": 1
+   },
+   "StateFCS": {
+    "dir": "output",
+    "width": 1
+   },
+   "StateIPG": {
+    "dir": "output",
+    "width": 1
+   },
+   "StateIdle": {
+    "dir": "output",
+    "width": 1
+   },
+   "StateJam": {
+    "dir": "output",
+    "width": 1
+   },
+   "StateJam_q": {
+    "dir": "output",
+    "width": 1
+   },
+   "StatePAD": {
+    "dir": "output",
+    "width": 1
+   },
+   "StatePreamble": {
+    "dir": "output",
+    "width": 1
+   },
+   "TooBig": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxEndFrm": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxStartFrm": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxUnderRun": {
+    "dir": "input",
+    "width": 1
+   },
+   "UnderRun": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "7d38ff38aa81cae1",
+  "rst_port": "Reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 282,
+ "name": "ethmac__eth_txstatem",
+ "notes": [
+  "closure: 1 modules, 193 lines (eth_txstatem)"
+ ],
+ "reference": null,
+ "rst_port": "Reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_txstatem.v": "72398f6cfc0f4d58726c74d83ec8d08caee9313fa3d2afa3575375aa5a0538ab",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_txstatem.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac"
+ ],
+ "tb": null,
+ "top": "eth_txstatem"
+}

@@ -1,0 +1,130 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_risc__cache_sys",
+ "files": [
+  "rtl/cache_sys.v",
+  "rtl/arbiter_control.v",
+  "rtl/arbiter_datapath.v",
+  "rtl/cache.v",
+  "rtl/cacheline_adaptor.v",
+  "rtl/l2_cache.v",
+  "rtl/p_i_cache.v",
+  "rtl/perf_counter.v",
+  "rtl/cache_control.v",
+  "rtl/cache_datapath.v",
+  "rtl/line_adapter.v",
+  "rtl/ewb.v",
+  "rtl/l2_cache_control.v",
+  "rtl/l2_cache_datapath.v",
+  "rtl/p_i_cache_control.v",
+  "rtl/p_i_cache_metadata_check.v",
+  "rtl/p_i_cache_reg.v",
+  "rtl/p_line_adapter.v",
+  "rtl/array.v",
+  "rtl/data_array.v",
+  "rtl/l2_array.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/cache_mux_types.v",
+  "rtl/rv32i_mux_types.v",
+  "rtl/rv32i_types.v"
+ ],
+ "inventory": {
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": true,
+   "timescale": false
+  },
+  "loc": 2917,
+  "n_files": 21,
+  "ports": null,
+  "ports_hash": null,
+  "sdc_available": 0,
+  "tb_available": 0,
+  "yosys_error": "yosys exit 1: /home/hping/Beyond-Synth/data/designs/cktevo/risc__cache_sys/rtl/l2_cache_datapath.v:217: Warning: Identifier `\\WRITE_EN_0_MUX.$time' is implicitly declared.\n/home/hping/Beyond-Synth/data/designs/cktevo/risc__cache_sys/rtl/l2_cache_datapath.v:217: ERROR: Don't know how to detect sign and width for AST_AUTOWIRE node!\n",
+  "yosys_ok": 0
+ },
+ "loc": 2917,
+ "name": "risc__cache_sys",
+ "notes": [
+  "closure: 21 modules, 2917 lines (cache_sys, arbiter_control, arbiter_datapath, cache, cacheline_adaptor, l2_cache, p_i_cache, perf_counter, cache_control, cache_datapath, line_adapter, ewb...)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/arbiter_control.v": "76465d15122f11e65e9cdf7c6f5000750660b8e9e011cecac44ef62390e431e9",
+  "rtl/arbiter_datapath.v": "de68b6040d2f5c4f37fe5f67ad2fb086905872fb71f2e996b1eb9f408d5bc306",
+  "rtl/array.v": "dbef0f3e4d2b6e5f538b2804cf46e075110699335614609ee25d7bac061cea34",
+  "rtl/cache.v": "5b4f93001d191fb1ece59b204c44a0b2f4a4cfae5866854fb312e5a267b29e77",
+  "rtl/cache_control.v": "c00313f941911d1baf50498a96c7e49bcbf45948f70a03250e62ea2991ebffb7",
+  "rtl/cache_datapath.v": "7149037abcccf0831f65f5f487f1ef884ba6664015328a0f35bb91495c43b193",
+  "rtl/cache_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/cache_sys.v": "06355175acdea0627ed8808c90897bfa675b9b1286be1b2c4cf3358f083a34f5",
+  "rtl/cacheline_adaptor.v": "42e88766dea844d58d087fca093681cba62657afd5a4e9a38be6cd87da289f79",
+  "rtl/data_array.v": "b2805874e1064c3125f497684551f074abe29cd5c0bd3440cd81c89a18ca7060",
+  "rtl/ewb.v": "813e69f1cd07ed4ce40b1750ac60f6a504c4d4f00d320811322c62b0652bfb75",
+  "rtl/l2_array.v": "0ecd71d9e9632aeac58b6f3cdb6c3326618c42a9ce243b5bf68ddb935ce66576",
+  "rtl/l2_cache.v": "15f9f3b62a783d0e661f0db8aca0ebab6957e07c5044bde6ef829676328ebe8b",
+  "rtl/l2_cache_control.v": "f5f595c467c9b720a696b48c1cb90503ba495dc7c423176f242bd5d486a3328f",
+  "rtl/l2_cache_datapath.v": "1b7bcca9582ef939aa9da349f5b4c4073cc96d31b36b72946c0c1dcf500b677f",
+  "rtl/line_adapter.v": "9ce051143653979652438b19949466a7ab026d823db733c96e966d57f52a2f34",
+  "rtl/p_i_cache.v": "0b05f83ab40923b759152d799197726ea9996242733487434552762957227962",
+  "rtl/p_i_cache_control.v": "07f8b6af57d6b2ee4af4ece34e9b6646a22647dae93bd01dadfc0042c0d9f528",
+  "rtl/p_i_cache_metadata_check.v": "70ae6033e524442b8dbcae93da099dffd612c503d26a5c7d86aa17dff7cf470b",
+  "rtl/p_i_cache_reg.v": "6902107cfef6980cfb8bfa9f4b84ba293ac707527350e1338802fec1bded6209",
+  "rtl/p_line_adapter.v": "f4fdaadf6038097f89ba337344a40c23b23f6d39234b9a5f91c3c42d49371e99",
+  "rtl/perf_counter.v": "ec1dc870e403b8c1f88595185dee86d2e2386cb1830a55d1a11506d2e886ea6b",
+  "rtl/rv32i_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+  "rtl/rv32i_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/risc/cache_sys.v",
+   "benchmark/risc/arbiter_control.v",
+   "benchmark/risc/arbiter_datapath.v",
+   "benchmark/risc/cache.v",
+   "benchmark/risc/cacheline_adaptor.v",
+   "benchmark/risc/l2_cache.v",
+   "benchmark/risc/p_i_cache.v",
+   "benchmark/risc/perf_counter.v",
+   "benchmark/risc/cache_control.v",
+   "benchmark/risc/cache_datapath.v",
+   "benchmark/risc/line_adapter.v",
+   "benchmark/risc/ewb.v",
+   "benchmark/risc/l2_cache_control.v",
+   "benchmark/risc/l2_cache_datapath.v",
+   "benchmark/risc/p_i_cache_control.v",
+   "benchmark/risc/p_i_cache_metadata_check.v",
+   "benchmark/risc/p_i_cache_reg.v",
+   "benchmark/risc/p_line_adapter.v",
+   "benchmark/risc/array.v",
+   "benchmark/risc/data_array.v",
+   "benchmark/risc/l2_array.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "risc",
+  "yosys_failed"
+ ],
+ "tb": null,
+ "top": "cache_sys"
+}

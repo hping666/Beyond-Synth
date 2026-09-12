@@ -1,0 +1,148 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_vga_enh__vga_colproc",
+ "files": [
+  "rtl/vga_colproc.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/timescale.v",
+  "rtl/vga_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 64,
+  "loc": 510,
+  "n_cells": 317,
+  "n_ff_bits": 92,
+  "n_files": 1,
+  "n_inputs": 9,
+  "n_outputs": 7,
+  "out_bits": 35,
+  "ports": {
+   "ColorDepth": {
+    "dir": "input",
+    "width": 2
+   },
+   "PseudoColor": {
+    "dir": "input",
+    "width": 1
+   },
+   "b": {
+    "dir": "output",
+    "width": 8
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "clut_ack": {
+    "dir": "input",
+    "width": 1
+   },
+   "clut_offs": {
+    "dir": "output",
+    "width": 8
+   },
+   "clut_q": {
+    "dir": "input",
+    "width": 24
+   },
+   "clut_req": {
+    "dir": "output",
+    "width": 1
+   },
+   "g": {
+    "dir": "output",
+    "width": 8
+   },
+   "r": {
+    "dir": "output",
+    "width": 8
+   },
+   "rgb_fifo_full": {
+    "dir": "input",
+    "width": 1
+   },
+   "rgb_fifo_wreq": {
+    "dir": "output",
+    "width": 1
+   },
+   "srst": {
+    "dir": "input",
+    "width": 1
+   },
+   "vdat_buffer_di": {
+    "dir": "input",
+    "width": 32
+   },
+   "vdat_buffer_empty": {
+    "dir": "input",
+    "width": 1
+   },
+   "vdat_buffer_rreq": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "49aeaff785b677ab",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 510,
+ "name": "vga_enh__vga_colproc",
+ "notes": [
+  "closure: 1 modules, 440 lines (vga_colproc)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/timescale.v": "8ecd153830822ef5f1dd0b352067f72d8b08bbc3e8d360cc2b38175cd07f8d33",
+  "rtl/vga_colproc.v": "1b4e88a5092dd20bb7a67e67e9e3eeec84e5cc6b0fff144cd37b44af12cc1184",
+  "rtl/vga_defines.v": "dbf4a77dcaf8dec2030afb8b7c54dc3cc9b2913eb421624cd4e17dc252947cee"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/vga_enh/vga_colproc.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "vga_enh"
+ ],
+ "tb": null,
+ "top": "vga_colproc"
+}

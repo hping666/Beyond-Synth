@@ -1,0 +1,94 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_long_cnn__floatAdd",
+ "files": [
+  "rtl/floatAdd_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 32,
+  "loc": 103,
+  "n_cells": 293,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 1,
+  "out_bits": 16,
+  "ports": {
+   "floatA": {
+    "dir": "input",
+    "width": 16
+   },
+   "floatB": {
+    "dir": "input",
+    "width": 16
+   },
+   "sum": {
+    "dir": "output",
+    "width": 16
+   }
+  },
+  "ports_hash": "85e9080b32fe2e64",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 103,
+ "name": "long_cnn__floatAdd",
+ "notes": [
+  "closure of floatAdd_raw: ['floatAdd_raw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/floatAdd.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "floatAdd"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/floatAdd.v": "213311092b2cb9e0442cfad3e2d4986fdd2c91f7661b0c92b393567fe3c168bc",
+  "rtl/floatAdd_raw.v": "b28001ef62af71339fa228bd605b1b5639311d465fabd734afc2442fc50c6e42"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cnn/floatAdd_raw.v",
+   "long_benchmark/cnn/floatAdd.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cnn",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "floatAdd_raw"
+}

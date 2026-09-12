@@ -1,0 +1,134 @@
+{
+ "clk_ports": [
+  "wclk",
+  "rclk"
+ ],
+ "design_id": "rtllm_asyn_fifo",
+ "files": [
+  "rtl/asyn_fifo.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rrstn": "low",
+   "wrstn": "low"
+  },
+  "clk_ports": [
+   "wclk",
+   "rclk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 14,
+  "loc": 147,
+  "n_cells": 50,
+  "n_ff_bits": 68,
+  "n_files": 1,
+  "n_inputs": 7,
+  "n_outputs": 3,
+  "out_bits": 10,
+  "ports": {
+   "rclk": {
+    "dir": "input",
+    "width": 1
+   },
+   "rdata": {
+    "dir": "output",
+    "width": 8
+   },
+   "rempty": {
+    "dir": "output",
+    "width": 1
+   },
+   "rinc": {
+    "dir": "input",
+    "width": 1
+   },
+   "rrstn": {
+    "dir": "input",
+    "width": 1
+   },
+   "wclk": {
+    "dir": "input",
+    "width": 1
+   },
+   "wdata": {
+    "dir": "input",
+    "width": 8
+   },
+   "wfull": {
+    "dir": "output",
+    "width": 1
+   },
+   "winc": {
+    "dir": "input",
+    "width": 1
+   },
+   "wrstn": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "83342e1e491e56ab",
+  "rst_port": "wrstn",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 147,
+ "name": "asyn_fifo",
+ "notes": [
+  "module verified_asyn_fifo renamed to asyn_fifo, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "wrstn",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/asyn_fifo.v": "29485aecfc2e4320d9c177818f2f115f276fb06aae3ead95cae7149a1d8b85c8",
+  "tb/rempty.txt": "d7dfcf7c4aa0b7ee4ff8599fe3f5906265f3b9115e7c236bf9ae0b61736d0adc",
+  "tb/tdata.txt": "8fcbfdc2b1dc5ffd522e6f48ef160cc1e1e5fe34ec7dbff9946e8a89b61b558a",
+  "tb/testbench.v": "fe6b07020d96443909b5c65f7db742d25bb9bf066eebc563bbbe6452376a5183",
+  "tb/wfull.txt": "d2b19da174137eb2de9340c171427f2aaa096215160698afda150c8299dc37d4"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Memory/FIFO/asyn_fifo/verified_asyn_fifo.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "multi_clock"
+ ],
+ "tb": {
+  "data": [
+   "tb/rempty.txt",
+   "tb/tdata.txt",
+   "tb/wfull.txt"
+  ],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "asyn_fifo_tb"
+ },
+ "top": "asyn_fifo"
+}

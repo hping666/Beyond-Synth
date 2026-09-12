@@ -1,0 +1,81 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_long_huffman__Decoder",
+ "files": [
+  "rtl/DecoderRaw.v",
+  "rtl/HuffmanDecoder.v",
+  "rtl/HuffmanDecoderRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "loc": 1276,
+  "n_files": 3,
+  "ports": null,
+  "ports_hash": null,
+  "sdc_available": 0,
+  "tb_available": 0,
+  "yosys_error": "yosys exit 1: rRaw.v:101.17-101.342.\nWarning: wire '\\result6' is assigned in a block at /home/hping/Beyond-Synth/data/designs/rtlrewriter/long_huffman__Decoder/rtl/DecoderRaw.v:102.17-102.295.\n/home/hping/Beyond-Synth/data/designs/rtlrewriter/long_huffman__Decoder/rtl/HuffmanDecoder.v:581: Warning: Yosys has only limited support for tri-state logic at the moment.\n/home/hping/Beyond-Synth/data/designs/rtlrewriter/long_huffman__Decoder/rtl/HuffmanDecoderRaw.v:471: ERROR: Re-definition of module `\\",
+  "yosys_ok": 0
+ },
+ "loc": 1276,
+ "name": "long_huffman__Decoder",
+ "notes": [
+  "closure of decoder_raw: ['DecoderRaw.v', 'HuffmanDecoder.v', 'HuffmanDecoderRaw.v']",
+  "module names defined in several files, chosen by variant: [('lookUpTable', ['HuffmanDecoder.v', 'HuffmanDecoderRaw.v'], 'HuffmanDecoderRaw.v')]"
+ ],
+ "reference": {
+  "files": [
+   "reference/Decoder.v",
+   "reference/HuffmanDecoder.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "decoder"
+ },
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/Decoder.v": "1b055620013f5dcf35919dfe131aaa1d114c1e909bb7256c5e284925f39ae528",
+  "reference/HuffmanDecoder.v": "e169fd08d5ef04506ae70bf7e8270d4818512a5557381616106fc390d8ef32ae",
+  "rtl/DecoderRaw.v": "23e97a5db00061ed0b762a6d202cc6ae0620ff4d527e355fbefd9cdc41e57df7",
+  "rtl/HuffmanDecoder.v": "e169fd08d5ef04506ae70bf7e8270d4818512a5557381616106fc390d8ef32ae",
+  "rtl/HuffmanDecoderRaw.v": "b199fbb08c07ee3002fb8ff075bd1233cbe74f34afcd21c51a3133c0766e704b"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/huffman/DecoderRaw.v",
+   "long_benchmark/huffman/HuffmanDecoder.v",
+   "long_benchmark/huffman/HuffmanDecoderRaw.v",
+   "long_benchmark/huffman/Decoder.v",
+   "long_benchmark/huffman/HuffmanDecoder.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "huffman",
+  "calibration_only",
+  "yosys_failed"
+ ],
+ "tb": null,
+ "top": "decoder_raw"
+}

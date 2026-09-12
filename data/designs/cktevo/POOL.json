@@ -1,0 +1,5316 @@
+{
+ "params": {
+  "closure_loc_max": 3000,
+  "loc_min": 100
+ },
+ "repos": {
+  "ethmac": [
+   {
+    "closure_loc": 57,
+    "closure_modules": [
+     "eth_clockgen"
+    ],
+    "excluded": [
+     "own_loc 57 < 100"
+    ],
+    "file": "eth_clockgen.v",
+    "files": [
+     "eth_clockgen.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_clockgen",
+    "own_loc": 57,
+    "unknown": []
+   },
+   {
+    "closure_loc": 333,
+    "closure_modules": [
+     "eth_cop"
+    ],
+    "excluded": [],
+    "file": "eth_cop.v",
+    "files": [
+     "eth_cop.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "eth_cop",
+    "own_loc": 333,
+    "unknown": []
+   },
+   {
+    "closure_loc": 65,
+    "closure_modules": [
+     "eth_crc"
+    ],
+    "excluded": [
+     "own_loc 65 < 100"
+    ],
+    "file": "eth_crc.v",
+    "files": [
+     "eth_crc.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_crc",
+    "own_loc": 65,
+    "unknown": []
+   },
+   {
+    "closure_loc": 125,
+    "closure_modules": [
+     "eth_fifo"
+    ],
+    "excluded": [],
+    "file": "eth_fifo.v",
+    "files": [
+     "eth_fifo.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_fifo",
+    "own_loc": 125,
+    "unknown": [
+     "altera_dpram_16x32",
+     "xilinx_dist_ram_16x32"
+    ]
+   },
+   {
+    "closure_loc": 780,
+    "closure_modules": [
+     "eth_maccontrol",
+     "eth_receivecontrol",
+     "eth_transmitcontrol"
+    ],
+    "excluded": [],
+    "file": "eth_maccontrol.v",
+    "files": [
+     "eth_maccontrol.v",
+     "eth_receivecontrol.v",
+     "eth_transmitcontrol.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_maccontrol",
+    "own_loc": 182,
+    "unknown": []
+   },
+   {
+    "closure_loc": 309,
+    "closure_modules": [
+     "eth_macstatus"
+    ],
+    "excluded": [],
+    "file": "eth_macstatus.v",
+    "files": [
+     "eth_macstatus.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_macstatus",
+    "own_loc": 309,
+    "unknown": []
+   },
+   {
+    "closure_loc": 568,
+    "closure_modules": [
+     "eth_miim",
+     "eth_clockgen",
+     "eth_outputcontrol",
+     "eth_shiftreg"
+    ],
+    "excluded": [],
+    "file": "eth_miim.v",
+    "files": [
+     "eth_miim.v",
+     "eth_clockgen.v",
+     "eth_outputcontrol.v",
+     "eth_shiftreg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_miim",
+    "own_loc": 361,
+    "unknown": []
+   },
+   {
+    "closure_loc": 75,
+    "closure_modules": [
+     "eth_outputcontrol"
+    ],
+    "excluded": [
+     "own_loc 75 < 100"
+    ],
+    "file": "eth_outputcontrol.v",
+    "files": [
+     "eth_outputcontrol.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_outputcontrol",
+    "own_loc": 75,
+    "unknown": []
+   },
+   {
+    "closure_loc": 58,
+    "closure_modules": [
+     "eth_random"
+    ],
+    "excluded": [
+     "own_loc 58 < 100"
+    ],
+    "file": "eth_random.v",
+    "files": [
+     "eth_random.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_random",
+    "own_loc": 58,
+    "unknown": []
+   },
+   {
+    "closure_loc": 358,
+    "closure_modules": [
+     "eth_receivecontrol"
+    ],
+    "excluded": [],
+    "file": "eth_receivecontrol.v",
+    "files": [
+     "eth_receivecontrol.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_receivecontrol",
+    "own_loc": 358,
+    "unknown": []
+   },
+   {
+    "closure_loc": 32,
+    "closure_modules": [
+     "eth_register"
+    ],
+    "excluded": [
+     "own_loc 32 < 100"
+    ],
+    "file": "eth_register.v",
+    "files": [
+     "eth_register.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_register",
+    "own_loc": 32,
+    "unknown": []
+   },
+   {
+    "closure_loc": 1048,
+    "closure_modules": [
+     "eth_registers",
+     "eth_register"
+    ],
+    "excluded": [],
+    "file": "eth_registers.v",
+    "files": [
+     "eth_registers.v",
+     "eth_register.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_registers",
+    "own_loc": 1016,
+    "unknown": []
+   },
+   {
+    "closure_loc": 140,
+    "closure_modules": [
+     "eth_rxaddrcheck"
+    ],
+    "excluded": [],
+    "file": "eth_rxaddrcheck.v",
+    "files": [
+     "eth_rxaddrcheck.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_rxaddrcheck",
+    "own_loc": 140,
+    "unknown": []
+   },
+   {
+    "closure_loc": 133,
+    "closure_modules": [
+     "eth_rxcounters"
+    ],
+    "excluded": [],
+    "file": "eth_rxcounters.v",
+    "files": [
+     "eth_rxcounters.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_rxcounters",
+    "own_loc": 133,
+    "unknown": []
+   },
+   {
+    "closure_loc": 766,
+    "closure_modules": [
+     "eth_rxethmac",
+     "eth_crc",
+     "eth_rxaddrcheck",
+     "eth_rxcounters",
+     "eth_rxstatem"
+    ],
+    "excluded": [],
+    "file": "eth_rxethmac.v",
+    "files": [
+     "eth_rxethmac.v",
+     "eth_crc.v",
+     "eth_rxaddrcheck.v",
+     "eth_rxcounters.v",
+     "eth_rxstatem.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_rxethmac",
+    "own_loc": 322,
+    "unknown": []
+   },
+   {
+    "closure_loc": 106,
+    "closure_modules": [
+     "eth_rxstatem"
+    ],
+    "excluded": [],
+    "file": "eth_rxstatem.v",
+    "files": [
+     "eth_rxstatem.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_rxstatem",
+    "own_loc": 106,
+    "unknown": []
+   },
+   {
+    "closure_loc": 75,
+    "closure_modules": [
+     "eth_shiftreg"
+    ],
+    "excluded": [
+     "own_loc 75 < 100"
+    ],
+    "file": "eth_shiftreg.v",
+    "files": [
+     "eth_shiftreg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_shiftreg",
+    "own_loc": 75,
+    "unknown": []
+   },
+   {
+    "closure_loc": 223,
+    "closure_modules": [
+     "eth_spram_256x32"
+    ],
+    "excluded": [],
+    "file": "eth_spram_256x32.v",
+    "files": [
+     "eth_spram_256x32.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_spram_256x32",
+    "own_loc": 223,
+    "unknown": [
+     "RAMB4_S8",
+     "altera_spram_256x32"
+    ]
+   },
+   {
+    "closure_loc": 7965,
+    "closure_modules": [
+     "eth_top",
+     "eth_maccontrol",
+     "eth_macstatus",
+     "eth_miim",
+     "eth_registers",
+     "eth_rxethmac",
+     "eth_txethmac",
+     "eth_wishbone",
+     "eth_receivecontrol",
+     "eth_transmitcontrol",
+     "eth_clockgen",
+     "eth_outputcontrol",
+     "eth_shiftreg",
+     "eth_register",
+     "eth_crc",
+     "eth_rxaddrcheck",
+     "eth_rxcounters",
+     "eth_rxstatem",
+     "eth_random",
+     "eth_txcounters",
+     "eth_txstatem",
+     "eth_fifo",
+     "eth_spram_256x32"
+    ],
+    "excluded": [
+     "testbench-like (no ports, or initial block with system tasks)",
+     "closure_loc 7965 > 3000"
+    ],
+    "file": "eth_top.v",
+    "files": [
+     "eth_top.v",
+     "eth_maccontrol.v",
+     "eth_macstatus.v",
+     "eth_miim.v",
+     "eth_registers.v",
+     "eth_rxethmac.v",
+     "eth_txethmac.v",
+     "eth_wishbone.v",
+     "eth_receivecontrol.v",
+     "eth_transmitcontrol.v",
+     "eth_clockgen.v",
+     "eth_outputcontrol.v",
+     "eth_shiftreg.v",
+     "eth_register.v",
+     "eth_crc.v",
+     "eth_rxaddrcheck.v",
+     "eth_rxcounters.v",
+     "eth_rxstatem.v",
+     "eth_random.v",
+     "eth_txcounters.v",
+     "eth_txstatem.v",
+     "eth_fifo.v",
+     "eth_spram_256x32.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": true,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "eth_top",
+    "own_loc": 946,
+    "unknown": [
+     "RAMB4_S8",
+     "altera_dpram_16x32",
+     "altera_spram_256x32",
+     "xilinx_dist_ram_16x32"
+    ]
+   },
+   {
+    "closure_loc": 240,
+    "closure_modules": [
+     "eth_transmitcontrol"
+    ],
+    "excluded": [],
+    "file": "eth_transmitcontrol.v",
+    "files": [
+     "eth_transmitcontrol.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_transmitcontrol",
+    "own_loc": 240,
+    "unknown": []
+   },
+   {
+    "closure_loc": 132,
+    "closure_modules": [
+     "eth_txcounters"
+    ],
+    "excluded": [],
+    "file": "eth_txcounters.v",
+    "files": [
+     "eth_txcounters.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_txcounters",
+    "own_loc": 132,
+    "unknown": []
+   },
+   {
+    "closure_loc": 842,
+    "closure_modules": [
+     "eth_txethmac",
+     "eth_crc",
+     "eth_random",
+     "eth_txcounters",
+     "eth_txstatem"
+    ],
+    "excluded": [],
+    "file": "eth_txethmac.v",
+    "files": [
+     "eth_txethmac.v",
+     "eth_crc.v",
+     "eth_random.v",
+     "eth_txcounters.v",
+     "eth_txstatem.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_txethmac",
+    "own_loc": 394,
+    "unknown": []
+   },
+   {
+    "closure_loc": 193,
+    "closure_modules": [
+     "eth_txstatem"
+    ],
+    "excluded": [],
+    "file": "eth_txstatem.v",
+    "files": [
+     "eth_txstatem.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_txstatem",
+    "own_loc": 193,
+    "unknown": []
+   },
+   {
+    "closure_loc": 2771,
+    "closure_modules": [
+     "eth_wishbone",
+     "eth_fifo",
+     "eth_spram_256x32"
+    ],
+    "excluded": [],
+    "file": "eth_wishbone.v",
+    "files": [
+     "eth_wishbone.v",
+     "eth_fifo.v",
+     "eth_spram_256x32.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "eth_wishbone",
+    "own_loc": 2423,
+    "unknown": [
+     "RAMB4_S8",
+     "altera_dpram_16x32",
+     "altera_spram_256x32",
+     "xilinx_dist_ram_16x32"
+    ]
+   },
+   {
+    "closure_loc": 7951,
+    "closure_modules": [
+     "ethmac",
+     "eth_maccontrol",
+     "eth_macstatus",
+     "eth_miim",
+     "eth_registers",
+     "eth_rxethmac",
+     "eth_txethmac",
+     "eth_wishbone",
+     "eth_receivecontrol",
+     "eth_transmitcontrol",
+     "eth_clockgen",
+     "eth_outputcontrol",
+     "eth_shiftreg",
+     "eth_register",
+     "eth_crc",
+     "eth_rxaddrcheck",
+     "eth_rxcounters",
+     "eth_rxstatem",
+     "eth_random",
+     "eth_txcounters",
+     "eth_txstatem",
+     "eth_fifo",
+     "eth_spram_256x32"
+    ],
+    "excluded": [
+     "closure_loc 7951 > 3000"
+    ],
+    "file": "ethmac.v",
+    "files": [
+     "ethmac.v",
+     "eth_maccontrol.v",
+     "eth_macstatus.v",
+     "eth_miim.v",
+     "eth_registers.v",
+     "eth_rxethmac.v",
+     "eth_txethmac.v",
+     "eth_wishbone.v",
+     "eth_receivecontrol.v",
+     "eth_transmitcontrol.v",
+     "eth_clockgen.v",
+     "eth_outputcontrol.v",
+     "eth_shiftreg.v",
+     "eth_register.v",
+     "eth_crc.v",
+     "eth_rxaddrcheck.v",
+     "eth_rxcounters.v",
+     "eth_rxstatem.v",
+     "eth_random.v",
+     "eth_txcounters.v",
+     "eth_txstatem.v",
+     "eth_fifo.v",
+     "eth_spram_256x32.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "ethmac",
+    "own_loc": 932,
+    "unknown": [
+     "RAMB4_S8",
+     "altera_dpram_16x32",
+     "altera_spram_256x32",
+     "xilinx_dist_ram_16x32"
+    ]
+   }
+  ],
+  "hsm": [
+   {
+    "closure_loc": 10,
+    "closure_modules": [
+     "AddRoundKey"
+    ],
+    "excluded": [
+     "own_loc 10 < 100"
+    ],
+    "file": "AddRoundKey.v",
+    "files": [
+     "AddRoundKey.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "AddRoundKey",
+    "own_loc": 10,
+    "unknown": []
+   },
+   {
+    "closure_loc": 273,
+    "closure_modules": [
+     "G16Inv2SharesDep",
+     "G4Mul2SharesDepMul",
+     "G4ScaleN",
+     "G4Sq",
+     "G4Mul"
+    ],
+    "excluded": [],
+    "file": "G16Inv2SharesDep.v",
+    "files": [
+     "G16Inv2SharesDep.v",
+     "G4Mul2SharesDepMul.v",
+     "G4ScaleN.v",
+     "G4Sq.v",
+     "G4Mul.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G16Inv2SharesDep",
+    "own_loc": 142,
+    "unknown": []
+   },
+   {
+    "closure_loc": 86,
+    "closure_modules": [
+     "G16Mul",
+     "G4Mul",
+     "G4ScaleN"
+    ],
+    "excluded": [
+     "own_loc 53 < 100"
+    ],
+    "file": "G16Mul.v",
+    "files": [
+     "G16Mul.v",
+     "G4Mul.v",
+     "G4ScaleN.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G16Mul",
+    "own_loc": 53,
+    "unknown": []
+   },
+   {
+    "closure_loc": 175,
+    "closure_modules": [
+     "G16Mul2SharesDepMul",
+     "G16Mul",
+     "G4Mul",
+     "G4ScaleN"
+    ],
+    "excluded": [
+     "own_loc 89 < 100"
+    ],
+    "file": "G16Mul2SharesDepMul.v",
+    "files": [
+     "G16Mul2SharesDepMul.v",
+     "G16Mul.v",
+     "G4Mul.v",
+     "G4ScaleN.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G16Mul2SharesDepMul",
+    "own_loc": 89,
+    "unknown": []
+   },
+   {
+    "closure_loc": 145,
+    "closure_modules": [
+     "G16Mul2SharesIndepMul",
+     "G16Mul",
+     "G4Mul",
+     "G4ScaleN"
+    ],
+    "excluded": [
+     "own_loc 59 < 100"
+    ],
+    "file": "G16Mul2SharesIndepMul.v",
+    "files": [
+     "G16Mul2SharesIndepMul.v",
+     "G16Mul.v",
+     "G4Mul.v",
+     "G4ScaleN.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G16Mul2SharesIndepMul",
+    "own_loc": 59,
+    "unknown": []
+   },
+   {
+    "closure_loc": 54,
+    "closure_modules": [
+     "G16SqSc",
+     "G4ScaleN2",
+     "G4Sq"
+    ],
+    "excluded": [
+     "own_loc 36 < 100"
+    ],
+    "file": "G16SqSc.v",
+    "files": [
+     "G16SqSc.v",
+     "G4ScaleN2.v",
+     "G4Sq.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G16SqSc",
+    "own_loc": 36,
+    "unknown": []
+   },
+   {
+    "closure_loc": 688,
+    "closure_modules": [
+     "G256Inv2Shares5Stages",
+     "G16Inv2SharesDep",
+     "G16Mul2SharesDepMul",
+     "G16Mul2SharesIndepMul",
+     "G16SqSc",
+     "G4Mul2SharesDepMul",
+     "G4ScaleN",
+     "G4Sq",
+     "G16Mul",
+     "G4ScaleN2",
+     "G4Mul"
+    ],
+    "excluded": [],
+    "file": "G256Inv2Shares5Stages.v",
+    "files": [
+     "G256Inv2Shares5Stages.v",
+     "G16Inv2SharesDep.v",
+     "G16Mul2SharesDepMul.v",
+     "G16Mul2SharesIndepMul.v",
+     "G16SqSc.v",
+     "G4Mul2SharesDepMul.v",
+     "G4ScaleN.v",
+     "G4Sq.v",
+     "G16Mul.v",
+     "G4ScaleN2.v",
+     "G4Mul.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G256Inv2Shares5Stages",
+    "own_loc": 169,
+    "unknown": []
+   },
+   {
+    "closure_loc": 24,
+    "closure_modules": [
+     "G4Mul"
+    ],
+    "excluded": [
+     "own_loc 24 < 100"
+    ],
+    "file": "G4Mul.v",
+    "files": [
+     "G4Mul.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G4Mul",
+    "own_loc": 24,
+    "unknown": []
+   },
+   {
+    "closure_loc": 113,
+    "closure_modules": [
+     "G4Mul2SharesDepMul",
+     "G4Mul"
+    ],
+    "excluded": [
+     "own_loc 89 < 100"
+    ],
+    "file": "G4Mul2SharesDepMul.v",
+    "files": [
+     "G4Mul2SharesDepMul.v",
+     "G4Mul.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G4Mul2SharesDepMul",
+    "own_loc": 89,
+    "unknown": []
+   },
+   {
+    "closure_loc": 9,
+    "closure_modules": [
+     "G4ScaleN"
+    ],
+    "excluded": [
+     "own_loc 9 < 100"
+    ],
+    "file": "G4ScaleN.v",
+    "files": [
+     "G4ScaleN.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G4ScaleN",
+    "own_loc": 9,
+    "unknown": []
+   },
+   {
+    "closure_loc": 9,
+    "closure_modules": [
+     "G4ScaleN2"
+    ],
+    "excluded": [
+     "own_loc 9 < 100"
+    ],
+    "file": "G4ScaleN2.v",
+    "files": [
+     "G4ScaleN2.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G4ScaleN2",
+    "own_loc": 9,
+    "unknown": []
+   },
+   {
+    "closure_loc": 9,
+    "closure_modules": [
+     "G4Sq"
+    ],
+    "excluded": [
+     "own_loc 9 < 100"
+    ],
+    "file": "G4Sq.v",
+    "files": [
+     "G4Sq.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "G4Sq",
+    "own_loc": 9,
+    "unknown": []
+   },
+   {
+    "closure_loc": 130,
+    "closure_modules": [
+     "MixColumns"
+    ],
+    "excluded": [],
+    "file": "MixColumns.v",
+    "files": [
+     "MixColumns.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "MixColumns",
+    "own_loc": 130,
+    "unknown": []
+   },
+   {
+    "closure_loc": 49,
+    "closure_modules": [
+     "NewBasis"
+    ],
+    "excluded": [
+     "own_loc 49 < 100"
+    ],
+    "file": "NewBasis.v",
+    "files": [
+     "NewBasis.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "NewBasis",
+    "own_loc": 49,
+    "unknown": []
+   },
+   {
+    "closure_loc": 798,
+    "closure_modules": [
+     "SBoxMasked",
+     "G256Inv2Shares5Stages",
+     "NewBasis",
+     "G16Inv2SharesDep",
+     "G16Mul2SharesDepMul",
+     "G16Mul2SharesIndepMul",
+     "G16SqSc",
+     "G4Mul2SharesDepMul",
+     "G4ScaleN",
+     "G4Sq",
+     "G16Mul",
+     "G4ScaleN2",
+     "G4Mul"
+    ],
+    "excluded": [
+     "own_loc 61 < 100"
+    ],
+    "file": "SBoxMasked.v",
+    "files": [
+     "SBoxMasked.v",
+     "G256Inv2Shares5Stages.v",
+     "NewBasis.v",
+     "G16Inv2SharesDep.v",
+     "G16Mul2SharesDepMul.v",
+     "G16Mul2SharesIndepMul.v",
+     "G16SqSc.v",
+     "G4Mul2SharesDepMul.v",
+     "G4ScaleN.v",
+     "G4Sq.v",
+     "G16Mul.v",
+     "G4ScaleN2.v",
+     "G4Mul.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "SBoxMasked",
+    "own_loc": 61,
+    "unknown": []
+   },
+   {
+    "closure_loc": 2499,
+    "closure_modules": [
+     "hsm",
+     "AddRoundKey",
+     "MixColumns",
+     "SBoxMasked",
+     "G256Inv2Shares5Stages",
+     "NewBasis",
+     "G16Inv2SharesDep",
+     "G16Mul2SharesDepMul",
+     "G16Mul2SharesIndepMul",
+     "G16SqSc",
+     "G4Mul2SharesDepMul",
+     "G4ScaleN",
+     "G4Sq",
+     "G16Mul",
+     "G4ScaleN2",
+     "G4Mul"
+    ],
+    "excluded": [],
+    "file": "HSM.v",
+    "files": [
+     "HSM.v",
+     "AddRoundKey.v",
+     "MixColumns.v",
+     "SBoxMasked.v",
+     "G256Inv2Shares5Stages.v",
+     "NewBasis.v",
+     "G16Inv2SharesDep.v",
+     "G16Mul2SharesDepMul.v",
+     "G16Mul2SharesIndepMul.v",
+     "G16SqSc.v",
+     "G4Mul2SharesDepMul.v",
+     "G4ScaleN.v",
+     "G4Sq.v",
+     "G16Mul.v",
+     "G4ScaleN2.v",
+     "G4Mul.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "hsm",
+    "own_loc": 1561,
+    "unknown": []
+   }
+  ],
+  "mem_ctrl": [
+   {
+    "closure_loc": 225,
+    "closure_modules": [
+     "mc_adr_sel",
+     "mc_incn_r"
+    ],
+    "excluded": [],
+    "file": "mc_adr_sel.v",
+    "files": [
+     "mc_adr_sel.v",
+     "mc_incn_r.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_adr_sel",
+    "own_loc": 200,
+    "unknown": []
+   },
+   {
+    "closure_loc": 129,
+    "closure_modules": [
+     "mc_cs_rf"
+    ],
+    "excluded": [],
+    "file": "mc_cs_rf.v",
+    "files": [
+     "mc_cs_rf.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_cs_rf",
+    "own_loc": 129,
+    "unknown": []
+   },
+   {
+    "closure_loc": 31,
+    "closure_modules": [
+     "mc_cs_rf_dummy"
+    ],
+    "excluded": [
+     "own_loc 31 < 100"
+    ],
+    "file": "mc_cs_rf.v",
+    "files": [
+     "mc_cs_rf.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_cs_rf_dummy",
+    "own_loc": 31,
+    "unknown": []
+   },
+   {
+    "closure_loc": 182,
+    "closure_modules": [
+     "mc_dp",
+     "mc_rd_fifo"
+    ],
+    "excluded": [],
+    "file": "mc_dp.v",
+    "files": [
+     "mc_dp.v",
+     "mc_rd_fifo.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_dp",
+    "own_loc": 135,
+    "unknown": []
+   },
+   {
+    "closure_loc": 25,
+    "closure_modules": [
+     "mc_incn_r"
+    ],
+    "excluded": [
+     "own_loc 25 < 100"
+    ],
+    "file": "mc_incn_r.v",
+    "files": [
+     "mc_incn_r.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_incn_r",
+    "own_loc": 25,
+    "unknown": []
+   },
+   {
+    "closure_loc": 249,
+    "closure_modules": [
+     "mc_mem_if"
+    ],
+    "excluded": [],
+    "file": "mc_mem_if.v",
+    "files": [
+     "mc_mem_if.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_mem_if",
+    "own_loc": 249,
+    "unknown": []
+   },
+   {
+    "closure_loc": 113,
+    "closure_modules": [
+     "mc_obct"
+    ],
+    "excluded": [],
+    "file": "mc_obct.v",
+    "files": [
+     "mc_obct.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_obct",
+    "own_loc": 113,
+    "unknown": []
+   },
+   {
+    "closure_loc": 17,
+    "closure_modules": [
+     "mc_obct_dummy"
+    ],
+    "excluded": [
+     "own_loc 17 < 100"
+    ],
+    "file": "mc_obct.v",
+    "files": [
+     "mc_obct.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_obct_dummy",
+    "own_loc": 17,
+    "unknown": []
+   },
+   {
+    "closure_loc": 475,
+    "closure_modules": [
+     "mc_obct_top",
+     "mc_obct",
+     "mc_obct_dummy"
+    ],
+    "excluded": [],
+    "file": "mc_obct_top.v",
+    "files": [
+     "mc_obct_top.v",
+     "mc_obct.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_obct_top",
+    "own_loc": 345,
+    "unknown": []
+   },
+   {
+    "closure_loc": 47,
+    "closure_modules": [
+     "mc_rd_fifo"
+    ],
+    "excluded": [
+     "own_loc 47 < 100"
+    ],
+    "file": "mc_rd_fifo.v",
+    "files": [
+     "mc_rd_fifo.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_rd_fifo",
+    "own_loc": 47,
+    "unknown": []
+   },
+   {
+    "closure_loc": 112,
+    "closure_modules": [
+     "mc_refresh"
+    ],
+    "excluded": [],
+    "file": "mc_refresh.v",
+    "files": [
+     "mc_refresh.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_refresh",
+    "own_loc": 112,
+    "unknown": []
+   },
+   {
+    "closure_loc": 873,
+    "closure_modules": [
+     "mc_rf",
+     "mc_cs_rf",
+     "mc_cs_rf_dummy"
+    ],
+    "excluded": [],
+    "file": "mc_rf.v",
+    "files": [
+     "mc_rf.v",
+     "mc_cs_rf.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_rf",
+    "own_loc": 713,
+    "unknown": []
+   },
+   {
+    "closure_loc": 1608,
+    "closure_modules": [
+     "mc_timing"
+    ],
+    "excluded": [],
+    "file": "mc_timing.v",
+    "files": [
+     "mc_timing.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "mc_timing",
+    "own_loc": 1608,
+    "unknown": []
+   },
+   {
+    "closure_loc": 138,
+    "closure_modules": [
+     "mc_wb_if"
+    ],
+    "excluded": [],
+    "file": "mc_wb_if.v",
+    "files": [
+     "mc_wb_if.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mc_wb_if",
+    "own_loc": 138,
+    "unknown": []
+   },
+   {
+    "closure_loc": 4295,
+    "closure_modules": [
+     "mem_ctrl",
+     "mc_adr_sel",
+     "mc_dp",
+     "mc_mem_if",
+     "mc_obct_top",
+     "mc_refresh",
+     "mc_rf",
+     "mc_timing",
+     "mc_wb_if",
+     "mc_incn_r",
+     "mc_rd_fifo",
+     "mc_obct",
+     "mc_obct_dummy",
+     "mc_cs_rf",
+     "mc_cs_rf_dummy"
+    ],
+    "excluded": [
+     "closure_loc 4295 > 3000"
+    ],
+    "file": "mc_top.v",
+    "files": [
+     "mc_top.v",
+     "mc_adr_sel.v",
+     "mc_dp.v",
+     "mc_mem_if.v",
+     "mc_obct_top.v",
+     "mc_refresh.v",
+     "mc_rf.v",
+     "mc_timing.v",
+     "mc_wb_if.v",
+     "mc_incn_r.v",
+     "mc_rd_fifo.v",
+     "mc_obct.v",
+     "mc_cs_rf.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "mem_ctrl",
+    "own_loc": 433,
+    "unknown": []
+   }
+  ],
+  "nn_engine": [
+   {
+    "closure_loc": 151,
+    "closure_modules": [
+     "FADD711"
+    ],
+    "excluded": [],
+    "file": "FADD711.v",
+    "files": [
+     "FADD711.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "FADD711",
+    "own_loc": 151,
+    "unknown": []
+   },
+   {
+    "closure_loc": 109,
+    "closure_modules": [
+     "FMUL711"
+    ],
+    "excluded": [],
+    "file": "FMUL711.v",
+    "files": [
+     "FMUL711.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "FMUL711",
+    "own_loc": 109,
+    "unknown": []
+   },
+   {
+    "closure_loc": 4040,
+    "closure_modules": [
+     "SpiNNe",
+     "SpikeOutBuff_8x4096",
+     "SumsBuff_128x4096",
+     "rates_256x4096",
+     "spikeLayer8_H7",
+     "thresholds_128x4096",
+     "weights_1024x4096",
+     "ultraRAMx72_TDP",
+     "UltraTDP64x4096_4",
+     "spikeNeuron8_H7",
+     "UltraTDP64x4096_16",
+     "FADD711",
+     "dualDendRC_H7",
+     "FMUL711",
+     "tauRom_H7"
+    ],
+    "excluded": [
+     "closure_loc 4040 > 3000"
+    ],
+    "file": "SpiNNe.v",
+    "files": [
+     "SpiNNe.v",
+     "SpikeOutBuff_8x4096.v",
+     "SumsBuff_128x4096.v",
+     "rates_256x4096.v",
+     "spikeLayer8_H7.v",
+     "thresholds_128x4096.v",
+     "weights_1024x4096.v",
+     "ultraRAMx72_TDP.v",
+     "UltraTDP64x4096_4.v",
+     "spikeNeuron8_H7.v",
+     "UltraTDP64x4096_16.v",
+     "FADD711.v",
+     "dualDendRC_H7.v",
+     "FMUL711.v",
+     "tauRom_H7.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": true,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "SpiNNe",
+    "own_loc": 665,
+    "unknown": [
+     "dendBuff_1024x4096",
+     "errBuff_128x4096",
+     "expTime"
+    ]
+   },
+   {
+    "closure_loc": 27,
+    "closure_modules": [
+     "SpikeOutBuff_8x4096"
+    ],
+    "excluded": [
+     "own_loc 27 < 100"
+    ],
+    "file": "SpikeOutBuff_8x4096.v",
+    "files": [
+     "SpikeOutBuff_8x4096.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "SpikeOutBuff_8x4096",
+    "own_loc": 27,
+    "unknown": []
+   },
+   {
+    "closure_loc": 243,
+    "closure_modules": [
+     "SumsBuff_128x4096",
+     "ultraRAMx72_TDP"
+    ],
+    "excluded": [
+     "own_loc 82 < 100"
+    ],
+    "file": "SumsBuff_128x4096.v",
+    "files": [
+     "SumsBuff_128x4096.v",
+     "ultraRAMx72_TDP.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "SumsBuff_128x4096",
+    "own_loc": 82,
+    "unknown": []
+   },
+   {
+    "closure_loc": 225,
+    "closure_modules": [
+     "UltraTDP64x4096_16",
+     "ultraRAMx72_TDP"
+    ],
+    "excluded": [
+     "own_loc 64 < 100"
+    ],
+    "file": "UltraTDP64x4096_16.v",
+    "files": [
+     "UltraTDP64x4096_16.v",
+     "ultraRAMx72_TDP.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "UltraTDP64x4096_16",
+    "own_loc": 64,
+    "unknown": []
+   },
+   {
+    "closure_loc": 237,
+    "closure_modules": [
+     "UltraTDP64x4096_4",
+     "ultraRAMx72_TDP"
+    ],
+    "excluded": [
+     "own_loc 76 < 100"
+    ],
+    "file": "UltraTDP64x4096_4.v",
+    "files": [
+     "UltraTDP64x4096_4.v",
+     "ultraRAMx72_TDP.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "UltraTDP64x4096_4",
+    "own_loc": 76,
+    "unknown": []
+   },
+   {
+    "closure_loc": 885,
+    "closure_modules": [
+     "dualDendRC_H7",
+     "FMUL711",
+     "tauRom_H7"
+    ],
+    "excluded": [],
+    "file": "dualDendRC_H7.v",
+    "files": [
+     "dualDendRC_H7.v",
+     "FMUL711.v",
+     "tauRom_H7.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": true,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "dualDendRC_H7",
+    "own_loc": 179,
+    "unknown": []
+   },
+   {
+    "closure_loc": 451,
+    "closure_modules": [
+     "rates_256x4096",
+     "UltraTDP64x4096_4",
+     "ultraRAMx72_TDP"
+    ],
+    "excluded": [],
+    "file": "rates_256x4096.v",
+    "files": [
+     "rates_256x4096.v",
+     "UltraTDP64x4096_4.v",
+     "ultraRAMx72_TDP.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "rates_256x4096",
+    "own_loc": 214,
+    "unknown": []
+   },
+   {
+    "closure_loc": 2342,
+    "closure_modules": [
+     "spikeLayer8_H7",
+     "spikeNeuron8_H7",
+     "FADD711",
+     "dualDendRC_H7",
+     "FMUL711",
+     "tauRom_H7"
+    ],
+    "excluded": [],
+    "file": "spikeLayer8_H7.v",
+    "files": [
+     "spikeLayer8_H7.v",
+     "spikeNeuron8_H7.v",
+     "FADD711.v",
+     "dualDendRC_H7.v",
+     "FMUL711.v",
+     "tauRom_H7.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": true,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "spikeLayer8_H7",
+    "own_loc": 977,
+    "unknown": []
+   },
+   {
+    "closure_loc": 1365,
+    "closure_modules": [
+     "spikeNeuron8_H7",
+     "FADD711",
+     "dualDendRC_H7",
+     "FMUL711",
+     "tauRom_H7"
+    ],
+    "excluded": [],
+    "file": "spikeNeuron8_H7.v",
+    "files": [
+     "spikeNeuron8_H7.v",
+     "FADD711.v",
+     "dualDendRC_H7.v",
+     "FMUL711.v",
+     "tauRom_H7.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": true,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "spikeNeuron8_H7",
+    "own_loc": 329,
+    "unknown": []
+   },
+   {
+    "closure_loc": 597,
+    "closure_modules": [
+     "tauRom_H7"
+    ],
+    "excluded": [],
+    "file": "tauRom_H7.v",
+    "files": [
+     "tauRom_H7.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": true,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "tauRom_H7",
+    "own_loc": 597,
+    "unknown": []
+   },
+   {
+    "closure_loc": 275,
+    "closure_modules": [
+     "thresholds_128x4096",
+     "ultraRAMx72_TDP"
+    ],
+    "excluded": [],
+    "file": "thresholds_128x4096.v",
+    "files": [
+     "thresholds_128x4096.v",
+     "ultraRAMx72_TDP.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "thresholds_128x4096",
+    "own_loc": 114,
+    "unknown": []
+   },
+   {
+    "closure_loc": 161,
+    "closure_modules": [
+     "ultraRAMx72_TDP"
+    ],
+    "excluded": [],
+    "file": "ultraRAMx72_TDP.v",
+    "files": [
+     "ultraRAMx72_TDP.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "ultraRAMx72_TDP",
+    "own_loc": 161,
+    "unknown": []
+   },
+   {
+    "closure_loc": 520,
+    "closure_modules": [
+     "weights_1024x4096",
+     "UltraTDP64x4096_16",
+     "ultraRAMx72_TDP"
+    ],
+    "excluded": [],
+    "file": "weights_1024x4096.v",
+    "files": [
+     "weights_1024x4096.v",
+     "UltraTDP64x4096_16.v",
+     "ultraRAMx72_TDP.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "weights_1024x4096",
+    "own_loc": 295,
+    "unknown": []
+   }
+  ],
+  "risc": [
+   {
+    "closure_loc": 23,
+    "closure_modules": [
+     "alu"
+    ],
+    "excluded": [
+     "own_loc 23 < 100"
+    ],
+    "file": "alu.v",
+    "files": [
+     "alu.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "alu",
+    "own_loc": 23,
+    "unknown": []
+   },
+   {
+    "closure_loc": 82,
+    "closure_modules": [
+     "arbiter_control"
+    ],
+    "excluded": [
+     "own_loc 82 < 100"
+    ],
+    "file": "arbiter_control.v",
+    "files": [
+     "arbiter_control.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "arbiter_control",
+    "own_loc": 82,
+    "unknown": []
+   },
+   {
+    "closure_loc": 37,
+    "closure_modules": [
+     "arbiter_datapath"
+    ],
+    "excluded": [
+     "own_loc 37 < 100"
+    ],
+    "file": "arbiter_datapath.v",
+    "files": [
+     "arbiter_datapath.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "arbiter_datapath",
+    "own_loc": 37,
+    "unknown": []
+   },
+   {
+    "closure_loc": 33,
+    "closure_modules": [
+     "array"
+    ],
+    "excluded": [
+     "own_loc 33 < 100"
+    ],
+    "file": "array.v",
+    "files": [
+     "array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "array",
+    "own_loc": 33,
+    "unknown": []
+   },
+   {
+    "closure_loc": 47,
+    "closure_modules": [
+     "bht"
+    ],
+    "excluded": [
+     "own_loc 47 < 100"
+    ],
+    "file": "bht.v",
+    "files": [
+     "bht.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "bht",
+    "own_loc": 47,
+    "unknown": []
+   },
+   {
+    "closure_loc": 453,
+    "closure_modules": [
+     "btb",
+     "btb_array"
+    ],
+    "excluded": [],
+    "file": "btb.v",
+    "files": [
+     "btb.v",
+     "btb_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "btb",
+    "own_loc": 418,
+    "unknown": []
+   },
+   {
+    "closure_loc": 35,
+    "closure_modules": [
+     "btb_array"
+    ],
+    "excluded": [
+     "own_loc 35 < 100"
+    ],
+    "file": "btb_array.v",
+    "files": [
+     "btb_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "btb_array",
+    "own_loc": 35,
+    "unknown": []
+   },
+   {
+    "closure_loc": 379,
+    "closure_modules": [
+     "cache",
+     "cache_control",
+     "cache_datapath",
+     "line_adapter",
+     "array",
+     "data_array"
+    ],
+    "excluded": [
+     "own_loc 87 < 100"
+    ],
+    "file": "cache.v",
+    "files": [
+     "cache.v",
+     "cache_control.v",
+     "cache_datapath.v",
+     "line_adapter.v",
+     "array.v",
+     "data_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "cache",
+    "own_loc": 87,
+    "unknown": []
+   },
+   {
+    "closure_loc": 97,
+    "closure_modules": [
+     "cache_control"
+    ],
+    "excluded": [
+     "own_loc 97 < 100"
+    ],
+    "file": "cache_control.v",
+    "files": [
+     "cache_control.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "cache_control",
+    "own_loc": 97,
+    "unknown": []
+   },
+   {
+    "closure_loc": 175,
+    "closure_modules": [
+     "cache_datapath",
+     "array",
+     "data_array"
+    ],
+    "excluded": [],
+    "file": "cache_datapath.v",
+    "files": [
+     "cache_datapath.v",
+     "array.v",
+     "data_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "cache_datapath",
+    "own_loc": 103,
+    "unknown": []
+   },
+   {
+    "closure_loc": 2917,
+    "closure_modules": [
+     "cache_sys",
+     "arbiter_control",
+     "arbiter_datapath",
+     "cache",
+     "cacheline_adaptor",
+     "l2_cache",
+     "p_i_cache",
+     "perf_counter",
+     "cache_control",
+     "cache_datapath",
+     "line_adapter",
+     "ewb",
+     "l2_cache_control",
+     "l2_cache_datapath",
+     "p_i_cache_control",
+     "p_i_cache_metadata_check",
+     "p_i_cache_reg",
+     "p_line_adapter",
+     "array",
+     "data_array",
+     "l2_array"
+    ],
+    "excluded": [],
+    "file": "cache_sys.v",
+    "files": [
+     "cache_sys.v",
+     "arbiter_control.v",
+     "arbiter_datapath.v",
+     "cache.v",
+     "cacheline_adaptor.v",
+     "l2_cache.v",
+     "p_i_cache.v",
+     "perf_counter.v",
+     "cache_control.v",
+     "cache_datapath.v",
+     "line_adapter.v",
+     "ewb.v",
+     "l2_cache_control.v",
+     "l2_cache_datapath.v",
+     "p_i_cache_control.v",
+     "p_i_cache_metadata_check.v",
+     "p_i_cache_reg.v",
+     "p_line_adapter.v",
+     "array.v",
+     "data_array.v",
+     "l2_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "cache_sys",
+    "own_loc": 167,
+    "unknown": []
+   },
+   {
+    "closure_loc": 175,
+    "closure_modules": [
+     "cacheline_adaptor"
+    ],
+    "excluded": [],
+    "file": "cacheline_adaptor.v",
+    "files": [
+     "cacheline_adaptor.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "cacheline_adaptor",
+    "own_loc": 175,
+    "unknown": []
+   },
+   {
+    "closure_loc": 28,
+    "closure_modules": [
+     "cmp"
+    ],
+    "excluded": [
+     "own_loc 28 < 100"
+    ],
+    "file": "cmp.v",
+    "files": [
+     "cmp.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "cmp",
+    "own_loc": 28,
+    "unknown": []
+   },
+   {
+    "closure_loc": 162,
+    "closure_modules": [
+     "control_rom"
+    ],
+    "excluded": [],
+    "file": "control_rom.v",
+    "files": [
+     "control_rom.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "control_rom",
+    "own_loc": 162,
+    "unknown": []
+   },
+   {
+    "closure_loc": 2010,
+    "closure_modules": [
+     "cpu",
+     "alu",
+     "bht",
+     "btb",
+     "cmp",
+     "ex_mem_reg",
+     "forward_control_unit",
+     "ghr",
+     "id_ex_reg",
+     "if_id_reg",
+     "immediate_gen",
+     "mask_gen",
+     "mem_wb_reg",
+     "pc_register",
+     "perf_counter",
+     "pht",
+     "regfile",
+     "stall_control_unit",
+     "btb_array"
+    ],
+    "excluded": [],
+    "file": "cpu.v",
+    "files": [
+     "cpu.v",
+     "alu.v",
+     "bht.v",
+     "btb.v",
+     "cmp.v",
+     "ex_mem_reg.v",
+     "forward_control_unit.v",
+     "ghr.v",
+     "id_ex_reg.v",
+     "if_id_reg.v",
+     "immediate_gen.v",
+     "mask_gen.v",
+     "mem_wb_reg.v",
+     "pc_reg.v",
+     "perf_counter.v",
+     "pht.v",
+     "regfile.v",
+     "stall_control_unit.v",
+     "btb_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "cpu",
+    "own_loc": 634,
+    "unknown": []
+   },
+   {
+    "closure_loc": 39,
+    "closure_modules": [
+     "data_array"
+    ],
+    "excluded": [
+     "own_loc 39 < 100"
+    ],
+    "file": "data_array.v",
+    "files": [
+     "data_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "data_array",
+    "own_loc": 39,
+    "unknown": []
+   },
+   {
+    "closure_loc": 177,
+    "closure_modules": [
+     "ewb"
+    ],
+    "excluded": [],
+    "file": "ewb.v",
+    "files": [
+     "ewb.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "ewb",
+    "own_loc": 177,
+    "unknown": []
+   },
+   {
+    "closure_loc": 31,
+    "closure_modules": [
+     "ex_mem_reg"
+    ],
+    "excluded": [
+     "own_loc 31 < 100"
+    ],
+    "file": "ex_mem_reg.v",
+    "files": [
+     "ex_mem_reg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "ex_mem_reg",
+    "own_loc": 31,
+    "unknown": []
+   },
+   {
+    "closure_loc": 122,
+    "closure_modules": [
+     "forward_control_unit"
+    ],
+    "excluded": [],
+    "file": "forward_control_unit.v",
+    "files": [
+     "forward_control_unit.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "forward_control_unit",
+    "own_loc": 122,
+    "unknown": []
+   },
+   {
+    "closure_loc": 38,
+    "closure_modules": [
+     "ghr"
+    ],
+    "excluded": [
+     "own_loc 38 < 100"
+    ],
+    "file": "ghr.v",
+    "files": [
+     "ghr.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "ghr",
+    "own_loc": 38,
+    "unknown": []
+   },
+   {
+    "closure_loc": 31,
+    "closure_modules": [
+     "id_ex_reg"
+    ],
+    "excluded": [
+     "own_loc 31 < 100"
+    ],
+    "file": "id_ex_reg.v",
+    "files": [
+     "id_ex_reg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "id_ex_reg",
+    "own_loc": 31,
+    "unknown": []
+   },
+   {
+    "closure_loc": 34,
+    "closure_modules": [
+     "if_id_reg"
+    ],
+    "excluded": [
+     "own_loc 34 < 100"
+    ],
+    "file": "if_id_reg.v",
+    "files": [
+     "if_id_reg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "if_id_reg",
+    "own_loc": 34,
+    "unknown": []
+   },
+   {
+    "closure_loc": 37,
+    "closure_modules": [
+     "immediate_gen"
+    ],
+    "excluded": [
+     "own_loc 37 < 100"
+    ],
+    "file": "immediate_gen.v",
+    "files": [
+     "immediate_gen.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "immediate_gen",
+    "own_loc": 37,
+    "unknown": []
+   },
+   {
+    "closure_loc": 37,
+    "closure_modules": [
+     "l2_array"
+    ],
+    "excluded": [
+     "own_loc 37 < 100"
+    ],
+    "file": "l2_array.v",
+    "files": [
+     "l2_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "l2_array",
+    "own_loc": 37,
+    "unknown": []
+   },
+   {
+    "closure_loc": 1298,
+    "closure_modules": [
+     "l2_cache",
+     "ewb",
+     "l2_cache_control",
+     "l2_cache_datapath",
+     "perf_counter",
+     "l2_array"
+    ],
+    "excluded": [],
+    "file": "l2_cache.v",
+    "files": [
+     "l2_cache.v",
+     "ewb.v",
+     "l2_cache_control.v",
+     "l2_cache_datapath.v",
+     "perf_counter.v",
+     "l2_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "l2_cache",
+    "own_loc": 250,
+    "unknown": []
+   },
+   {
+    "closure_loc": 454,
+    "closure_modules": [
+     "l2_cache_control",
+     "perf_counter"
+    ],
+    "excluded": [],
+    "file": "l2_cache_control.v",
+    "files": [
+     "l2_cache_control.v",
+     "perf_counter.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "l2_cache_control",
+    "own_loc": 420,
+    "unknown": []
+   },
+   {
+    "closure_loc": 417,
+    "closure_modules": [
+     "l2_cache_datapath",
+     "l2_array"
+    ],
+    "excluded": [],
+    "file": "l2_cache_datapath.v",
+    "files": [
+     "l2_cache_datapath.v",
+     "l2_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "l2_cache_datapath",
+    "own_loc": 380,
+    "unknown": []
+   },
+   {
+    "closure_loc": 37,
+    "closure_modules": [
+     "l2_data_array"
+    ],
+    "excluded": [
+     "own_loc 37 < 100"
+    ],
+    "file": "l2_data_array.v",
+    "files": [
+     "l2_data_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "l2_data_array",
+    "own_loc": 37,
+    "unknown": []
+   },
+   {
+    "closure_loc": 20,
+    "closure_modules": [
+     "line_adapter"
+    ],
+    "excluded": [
+     "own_loc 20 < 100"
+    ],
+    "file": "line_adapter.v",
+    "files": [
+     "line_adapter.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "line_adapter",
+    "own_loc": 20,
+    "unknown": []
+   },
+   {
+    "closure_loc": 39,
+    "closure_modules": [
+     "mask_gen"
+    ],
+    "excluded": [
+     "own_loc 39 < 100"
+    ],
+    "file": "mask_gen.v",
+    "files": [
+     "mask_gen.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mask_gen",
+    "own_loc": 39,
+    "unknown": []
+   },
+   {
+    "closure_loc": 31,
+    "closure_modules": [
+     "mem_wb_reg"
+    ],
+    "excluded": [
+     "own_loc 31 < 100"
+    ],
+    "file": "mem_wb_reg.v",
+    "files": [
+     "mem_wb_reg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "mem_wb_reg",
+    "own_loc": 31,
+    "unknown": []
+   },
+   {
+    "closure_loc": 850,
+    "closure_modules": [
+     "p_i_cache",
+     "p_i_cache_control",
+     "p_i_cache_metadata_check",
+     "p_i_cache_reg",
+     "p_line_adapter",
+     "perf_counter",
+     "l2_array"
+    ],
+    "excluded": [],
+    "file": "p_i_cache.v",
+    "files": [
+     "p_i_cache.v",
+     "p_i_cache_control.v",
+     "p_i_cache_metadata_check.v",
+     "p_i_cache_reg.v",
+     "p_line_adapter.v",
+     "perf_counter.v",
+     "l2_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "p_i_cache",
+    "own_loc": 190,
+    "unknown": []
+   },
+   {
+    "closure_loc": 287,
+    "closure_modules": [
+     "p_i_cache_control",
+     "perf_counter"
+    ],
+    "excluded": [],
+    "file": "p_i_cache_control.v",
+    "files": [
+     "p_i_cache_control.v",
+     "perf_counter.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "p_i_cache_control",
+    "own_loc": 253,
+    "unknown": []
+   },
+   {
+    "closure_loc": 328,
+    "closure_modules": [
+     "p_i_cache_metadata_check",
+     "l2_array"
+    ],
+    "excluded": [],
+    "file": "p_i_cache_metadata_check.v",
+    "files": [
+     "p_i_cache_metadata_check.v",
+     "l2_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "p_i_cache_metadata_check",
+    "own_loc": 291,
+    "unknown": []
+   },
+   {
+    "closure_loc": 25,
+    "closure_modules": [
+     "p_i_cache_reg"
+    ],
+    "excluded": [
+     "own_loc 25 < 100"
+    ],
+    "file": "p_i_cache_reg.v",
+    "files": [
+     "p_i_cache_reg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "p_i_cache_reg",
+    "own_loc": 25,
+    "unknown": []
+   },
+   {
+    "closure_loc": 20,
+    "closure_modules": [
+     "p_line_adapter"
+    ],
+    "excluded": [
+     "own_loc 20 < 100"
+    ],
+    "file": "p_line_adapter.v",
+    "files": [
+     "p_line_adapter.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "p_line_adapter",
+    "own_loc": 20,
+    "unknown": []
+   },
+   {
+    "closure_loc": 28,
+    "closure_modules": [
+     "pc_register"
+    ],
+    "excluded": [
+     "own_loc 28 < 100"
+    ],
+    "file": "pc_reg.v",
+    "files": [
+     "pc_reg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "pc_register",
+    "own_loc": 28,
+    "unknown": []
+   },
+   {
+    "closure_loc": 34,
+    "closure_modules": [
+     "perf_counter"
+    ],
+    "excluded": [
+     "own_loc 34 < 100"
+    ],
+    "file": "perf_counter.v",
+    "files": [
+     "perf_counter.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "perf_counter",
+    "own_loc": 34,
+    "unknown": []
+   },
+   {
+    "closure_loc": 50,
+    "closure_modules": [
+     "pht"
+    ],
+    "excluded": [
+     "own_loc 50 < 100"
+    ],
+    "file": "pht.v",
+    "files": [
+     "pht.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "pht",
+    "own_loc": 50,
+    "unknown": []
+   },
+   {
+    "closure_loc": 43,
+    "closure_modules": [
+     "regfile"
+    ],
+    "excluded": [
+     "own_loc 43 < 100"
+    ],
+    "file": "regfile.v",
+    "files": [
+     "regfile.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "regfile",
+    "own_loc": 43,
+    "unknown": []
+   },
+   {
+    "closure_loc": 4962,
+    "closure_modules": [
+     "risc_top",
+     "cache_sys",
+     "cpu",
+     "arbiter_control",
+     "arbiter_datapath",
+     "cache",
+     "cacheline_adaptor",
+     "l2_cache",
+     "p_i_cache",
+     "perf_counter",
+     "alu",
+     "bht",
+     "btb",
+     "cmp",
+     "ex_mem_reg",
+     "forward_control_unit",
+     "ghr",
+     "id_ex_reg",
+     "if_id_reg",
+     "immediate_gen",
+     "mask_gen",
+     "mem_wb_reg",
+     "pc_register",
+     "pht",
+     "regfile",
+     "stall_control_unit",
+     "cache_control",
+     "cache_datapath",
+     "line_adapter",
+     "ewb",
+     "l2_cache_control",
+     "l2_cache_datapath",
+     "p_i_cache_control",
+     "p_i_cache_metadata_check",
+     "p_i_cache_reg",
+     "p_line_adapter",
+     "btb_array",
+     "array",
+     "data_array",
+     "l2_array"
+    ],
+    "excluded": [
+     "own_loc 69 < 100",
+     "closure_loc 4962 > 3000"
+    ],
+    "file": "risc_top.v",
+    "files": [
+     "risc_top.v",
+     "cache_sys.v",
+     "cpu.v",
+     "arbiter_control.v",
+     "arbiter_datapath.v",
+     "cache.v",
+     "cacheline_adaptor.v",
+     "l2_cache.v",
+     "p_i_cache.v",
+     "perf_counter.v",
+     "alu.v",
+     "bht.v",
+     "btb.v",
+     "cmp.v",
+     "ex_mem_reg.v",
+     "forward_control_unit.v",
+     "ghr.v",
+     "id_ex_reg.v",
+     "if_id_reg.v",
+     "immediate_gen.v",
+     "mask_gen.v",
+     "mem_wb_reg.v",
+     "pc_reg.v",
+     "pht.v",
+     "regfile.v",
+     "stall_control_unit.v",
+     "cache_control.v",
+     "cache_datapath.v",
+     "line_adapter.v",
+     "ewb.v",
+     "l2_cache_control.v",
+     "l2_cache_datapath.v",
+     "p_i_cache_control.v",
+     "p_i_cache_metadata_check.v",
+     "p_i_cache_reg.v",
+     "p_line_adapter.v",
+     "btb_array.v",
+     "array.v",
+     "data_array.v",
+     "l2_array.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "risc_top",
+    "own_loc": 69,
+    "unknown": []
+   },
+   {
+    "closure_loc": 307,
+    "closure_modules": [
+     "stall_control_unit"
+    ],
+    "excluded": [],
+    "file": "stall_control_unit.v",
+    "files": [
+     "stall_control_unit.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "stall_control_unit",
+    "own_loc": 307,
+    "unknown": []
+   }
+  ],
+  "sdc_ctrl": [
+   {
+    "closure_loc": 119,
+    "closure_modules": [
+     "sd_cmd_master"
+    ],
+    "excluded": [],
+    "file": "sd_cmd_master.v",
+    "files": [
+     "sd_cmd_master.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "sd_cmd_master",
+    "own_loc": 119,
+    "unknown": []
+   },
+   {
+    "closure_loc": 230,
+    "closure_modules": [
+     "sd_cmd_serial_host",
+     "sd_crc_7"
+    ],
+    "excluded": [],
+    "file": "sd_cmd_serial_host.v",
+    "files": [
+     "sd_cmd_serial_host.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "sd_cmd_serial_host",
+    "own_loc": 204,
+    "unknown": [
+     "define"
+    ]
+   },
+   {
+    "closure_loc": 34,
+    "closure_modules": [
+     "sd_crc_16"
+    ],
+    "excluded": [
+     "own_loc 34 < 100"
+    ],
+    "file": "sd_data_serial_host.v",
+    "files": [
+     "sd_data_serial_host.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "sd_crc_16",
+    "own_loc": 34,
+    "unknown": []
+   },
+   {
+    "closure_loc": 26,
+    "closure_modules": [
+     "sd_crc_7"
+    ],
+    "excluded": [
+     "own_loc 26 < 100"
+    ],
+    "file": "sd_cmd_serial_host.v",
+    "files": [
+     "sd_cmd_serial_host.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "sd_crc_7",
+    "own_loc": 26,
+    "unknown": []
+   },
+   {
+    "closure_loc": 117,
+    "closure_modules": [
+     "sd_data_master"
+    ],
+    "excluded": [],
+    "file": "sd_data_master.v",
+    "files": [
+     "sd_data_master.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "sd_data_master",
+    "own_loc": 117,
+    "unknown": []
+   },
+   {
+    "closure_loc": 277,
+    "closure_modules": [
+     "sd_data_serial_host",
+     "sd_crc_16"
+    ],
+    "excluded": [],
+    "file": "sd_data_serial_host.v",
+    "files": [
+     "sd_data_serial_host.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "sd_data_serial_host",
+    "own_loc": 243,
+    "unknown": []
+   },
+   {
+    "closure_loc": 1380,
+    "closure_modules": [
+     "sdc_controller",
+     "sd_cmd_master",
+     "sd_cmd_serial_host",
+     "sd_data_master",
+     "sd_data_serial_host",
+     "sd_crc_7",
+     "sd_crc_16"
+    ],
+    "excluded": [],
+    "file": "axi_sdc_controller.v",
+    "files": [
+     "axi_sdc_controller.v",
+     "sd_cmd_master.v",
+     "sd_cmd_serial_host.v",
+     "sd_data_master.v",
+     "sd_data_serial_host.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": true,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "sdc_controller",
+    "own_loc": 637,
+    "unknown": [
+     "define"
+    ]
+   }
+  ],
+  "simple_cpu": [
+   {
+    "closure_loc": 27,
+    "closure_modules": [
+     "ALU"
+    ],
+    "excluded": [
+     "own_loc 27 < 100"
+    ],
+    "file": "ALU.v",
+    "files": [
+     "ALU.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "ALU",
+    "own_loc": 27,
+    "unknown": []
+   },
+   {
+    "closure_loc": 7,
+    "closure_modules": [
+     "ALUMUX"
+    ],
+    "excluded": [
+     "own_loc 7 < 100"
+    ],
+    "file": "ALUMUX.v",
+    "files": [
+     "ALUMUX.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "ALUMUX",
+    "own_loc": 7,
+    "unknown": []
+   },
+   {
+    "closure_loc": 25,
+    "closure_modules": [
+     "AddrMUX"
+    ],
+    "excluded": [
+     "own_loc 25 < 100"
+    ],
+    "file": "AddrMUX.v",
+    "files": [
+     "AddrMUX.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "AddrMUX",
+    "own_loc": 25,
+    "unknown": []
+   },
+   {
+    "closure_loc": 38,
+    "closure_modules": [
+     "Controller"
+    ],
+    "excluded": [
+     "own_loc 38 < 100"
+    ],
+    "file": "Controller.v",
+    "files": [
+     "Controller.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "Controller",
+    "own_loc": 38,
+    "unknown": []
+   },
+   {
+    "closure_loc": 19,
+    "closure_modules": [
+     "DMem"
+    ],
+    "excluded": [
+     "own_loc 19 < 100"
+    ],
+    "file": "DMem.v",
+    "files": [
+     "DMem.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "DMem",
+    "own_loc": 19,
+    "unknown": []
+   },
+   {
+    "closure_loc": 15,
+    "closure_modules": [
+     "DataMUX"
+    ],
+    "excluded": [
+     "own_loc 15 < 100"
+    ],
+    "file": "DataMUX.v",
+    "files": [
+     "DataMUX.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "DataMUX",
+    "own_loc": 15,
+    "unknown": []
+   },
+   {
+    "closure_loc": 61,
+    "closure_modules": [
+     "EXMEMReg"
+    ],
+    "excluded": [
+     "own_loc 61 < 100"
+    ],
+    "file": "EXMEMReg.v",
+    "files": [
+     "EXMEMReg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "EXMEMReg",
+    "own_loc": 61,
+    "unknown": []
+   },
+   {
+    "closure_loc": 35,
+    "closure_modules": [
+     "FWD"
+    ],
+    "excluded": [
+     "own_loc 35 < 100"
+    ],
+    "file": "FWD.v",
+    "files": [
+     "FWD.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "FWD",
+    "own_loc": 35,
+    "unknown": []
+   },
+   {
+    "closure_loc": 30,
+    "closure_modules": [
+     "FWDMUX"
+    ],
+    "excluded": [
+     "own_loc 30 < 100"
+    ],
+    "file": "FWDMUX.v",
+    "files": [
+     "FWDMUX.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "FWDMUX",
+    "own_loc": 30,
+    "unknown": []
+   },
+   {
+    "closure_loc": 21,
+    "closure_modules": [
+     "Flush"
+    ],
+    "excluded": [
+     "own_loc 21 < 100"
+    ],
+    "file": "Flush.v",
+    "files": [
+     "Flush.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "Flush",
+    "own_loc": 21,
+    "unknown": []
+   },
+   {
+    "closure_loc": 67,
+    "closure_modules": [
+     "IDEXReg"
+    ],
+    "excluded": [
+     "own_loc 67 < 100"
+    ],
+    "file": "IDEXReg.v",
+    "files": [
+     "IDEXReg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "IDEXReg",
+    "own_loc": 67,
+    "unknown": []
+   },
+   {
+    "closure_loc": 26,
+    "closure_modules": [
+     "IFIDReg"
+    ],
+    "excluded": [
+     "own_loc 26 < 100"
+    ],
+    "file": "IFIDReg.v",
+    "files": [
+     "IFIDReg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "IFIDReg",
+    "own_loc": 26,
+    "unknown": []
+   },
+   {
+    "closure_loc": 44,
+    "closure_modules": [
+     "IMem"
+    ],
+    "excluded": [
+     "own_loc 44 < 100"
+    ],
+    "file": "IMem.v",
+    "files": [
+     "IMem.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "IMem",
+    "own_loc": 44,
+    "unknown": []
+   },
+   {
+    "closure_loc": 42,
+    "closure_modules": [
+     "ImmGen"
+    ],
+    "excluded": [
+     "own_loc 42 < 100"
+    ],
+    "file": "ImmGen.v",
+    "files": [
+     "ImmGen.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "ImmGen",
+    "own_loc": 42,
+    "unknown": []
+   },
+   {
+    "closure_loc": 36,
+    "closure_modules": [
+     "MEMWBReg"
+    ],
+    "excluded": [
+     "own_loc 36 < 100"
+    ],
+    "file": "MEMWBReg.v",
+    "files": [
+     "MEMWBReg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "MEMWBReg",
+    "own_loc": 36,
+    "unknown": []
+   },
+   {
+    "closure_loc": 14,
+    "closure_modules": [
+     "PC"
+    ],
+    "excluded": [
+     "own_loc 14 < 100"
+    ],
+    "file": "PC.v",
+    "files": [
+     "PC.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "PC",
+    "own_loc": 14,
+    "unknown": []
+   },
+   {
+    "closure_loc": 6,
+    "closure_modules": [
+     "PCRelAddrAdder"
+    ],
+    "excluded": [
+     "own_loc 6 < 100"
+    ],
+    "file": "PCRelAddrAdder.v",
+    "files": [
+     "PCRelAddrAdder.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "PCRelAddrAdder",
+    "own_loc": 6,
+    "unknown": []
+   },
+   {
+    "closure_loc": 24,
+    "closure_modules": [
+     "Reg"
+    ],
+    "excluded": [
+     "own_loc 24 < 100"
+    ],
+    "file": "Reg.v",
+    "files": [
+     "Reg.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "Reg",
+    "own_loc": 24,
+    "unknown": []
+   },
+   {
+    "closure_loc": 5,
+    "closure_modules": [
+     "SeqAddrAdder"
+    ],
+    "excluded": [
+     "own_loc 5 < 100"
+    ],
+    "file": "SeqAddrAdder.v",
+    "files": [
+     "SeqAddrAdder.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "SeqAddrAdder",
+    "own_loc": 5,
+    "unknown": []
+   },
+   {
+    "closure_loc": 16,
+    "closure_modules": [
+     "Stall"
+    ],
+    "excluded": [
+     "own_loc 16 < 100"
+    ],
+    "file": "Stall.v",
+    "files": [
+     "Stall.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "Stall",
+    "own_loc": 16,
+    "unknown": []
+   },
+   {
+    "closure_loc": 5,
+    "closure_modules": [
+     "retAddrAdder"
+    ],
+    "excluded": [
+     "own_loc 5 < 100"
+    ],
+    "file": "retAddrAdder.v",
+    "files": [
+     "retAddrAdder.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "retAddrAdder",
+    "own_loc": 5,
+    "unknown": []
+   },
+   {
+    "closure_loc": 85,
+    "closure_modules": [
+     "seg7x16"
+    ],
+    "excluded": [
+     "own_loc 85 < 100"
+    ],
+    "file": "seg7x16.v",
+    "files": [
+     "seg7x16.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "seg7x16",
+    "own_loc": 85,
+    "unknown": []
+   },
+   {
+    "closure_loc": 796,
+    "closure_modules": [
+     "simple_cpu",
+     "ALU",
+     "ALUMUX",
+     "AddrMUX",
+     "Controller",
+     "DMem",
+     "DataMUX",
+     "EXMEMReg",
+     "FWD",
+     "FWDMUX",
+     "Flush",
+     "IDEXReg",
+     "IFIDReg",
+     "IMem",
+     "ImmGen",
+     "MEMWBReg",
+     "PC",
+     "PCRelAddrAdder",
+     "Reg",
+     "SeqAddrAdder",
+     "Stall",
+     "retAddrAdder",
+     "seg7x16"
+    ],
+    "excluded": [],
+    "file": "Computer.v",
+    "files": [
+     "Computer.v",
+     "ALU.v",
+     "ALUMUX.v",
+     "AddrMUX.v",
+     "Controller.v",
+     "DMem.v",
+     "DataMUX.v",
+     "EXMEMReg.v",
+     "FWD.v",
+     "FWDMUX.v",
+     "Flush.v",
+     "IDEXReg.v",
+     "IFIDReg.v",
+     "IMem.v",
+     "ImmGen.v",
+     "MEMWBReg.v",
+     "PC.v",
+     "PCRelAddrAdder.v",
+     "Reg.v",
+     "SeqAddrAdder.v",
+     "Stall.v",
+     "retAddrAdder.v",
+     "seg7x16.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "simple_cpu",
+    "own_loc": 148,
+    "unknown": []
+   }
+  ],
+  "spi": [
+   {
+    "closure_loc": 458,
+    "closure_modules": [
+     "spi",
+     "spi_clgen",
+     "spi_shift_in",
+     "spi_shift_out"
+    ],
+    "excluded": [],
+    "file": "spi_top.v",
+    "files": [
+     "spi_top.v",
+     "spi_clgen.v",
+     "spi_shift_in.v",
+     "spi_shift_out.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "spi",
+    "own_loc": 245,
+    "unknown": []
+   },
+   {
+    "closure_loc": 64,
+    "closure_modules": [
+     "spi_clgen"
+    ],
+    "excluded": [
+     "own_loc 64 < 100"
+    ],
+    "file": "spi_clgen.v",
+    "files": [
+     "spi_clgen.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "spi_clgen",
+    "own_loc": 64,
+    "unknown": []
+   },
+   {
+    "closure_loc": 72,
+    "closure_modules": [
+     "spi_shift_in"
+    ],
+    "excluded": [
+     "own_loc 72 < 100"
+    ],
+    "file": "spi_shift_in.v",
+    "files": [
+     "spi_shift_in.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "spi_shift_in",
+    "own_loc": 72,
+    "unknown": []
+   },
+   {
+    "closure_loc": 77,
+    "closure_modules": [
+     "spi_shift_out"
+    ],
+    "excluded": [
+     "own_loc 77 < 100"
+    ],
+    "file": "spi_shift_out.v",
+    "files": [
+     "spi_shift_out.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "spi_shift_out",
+    "own_loc": 77,
+    "unknown": []
+   }
+  ],
+  "usb": [
+   {
+    "closure_loc": 184,
+    "closure_modules": [
+     "bus_sync",
+     "level_sync",
+     "usbf_gnrl_dfflrd",
+     "usbf_gnrl_dffr"
+    ],
+    "excluded": [
+     "own_loc 79 < 100"
+    ],
+    "file": "usbf_sync_utilities.v",
+    "files": [
+     "usbf_sync_utilities.v",
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "bus_sync",
+    "own_loc": 79,
+    "unknown": []
+   },
+   {
+    "closure_loc": 65,
+    "closure_modules": [
+     "level_sync",
+     "usbf_gnrl_dffr"
+    ],
+    "excluded": [
+     "own_loc 41 < 100"
+    ],
+    "file": "usbf_sync_utilities.v",
+    "files": [
+     "usbf_sync_utilities.v",
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "level_sync",
+    "own_loc": 41,
+    "unknown": []
+   },
+   {
+    "closure_loc": 67,
+    "closure_modules": [
+     "pulse_sync",
+     "usbf_gnrl_dffr"
+    ],
+    "excluded": [
+     "own_loc 43 < 100"
+    ],
+    "file": "usbf_sync_utilities.v",
+    "files": [
+     "usbf_sync_utilities.v",
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "pulse_sync",
+    "own_loc": 43,
+    "unknown": []
+   },
+   {
+    "closure_loc": 89,
+    "closure_modules": [
+     "set_level_sync",
+     "level_sync",
+     "usbf_gnrl_dffr"
+    ],
+    "excluded": [
+     "own_loc 24 < 100"
+    ],
+    "file": "usbf_sync_utilities.v",
+    "files": [
+     "usbf_sync_utilities.v",
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "set_level_sync",
+    "own_loc": 24,
+    "unknown": []
+   },
+   {
+    "closure_loc": 96,
+    "closure_modules": [
+     "set_pulse_sync",
+     "pulse_sync",
+     "usbf_gnrl_dffr"
+    ],
+    "excluded": [
+     "own_loc 29 < 100"
+    ],
+    "file": "usbf_sync_utilities.v",
+    "files": [
+     "usbf_sync_utilities.v",
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "set_pulse_sync",
+    "own_loc": 29,
+    "unknown": []
+   },
+   {
+    "closure_loc": 4955,
+    "closure_modules": [
+     "usb",
+     "usbf_device",
+     "usbf_ulpi_wrapper",
+     "usbf_biu",
+     "usbf_core",
+     "usbf_csr",
+     "usbf_epu",
+     "usbf_mem",
+     "usbf_sync",
+     "usbf_gnrl_dfflrd",
+     "usbf_gnrl_dffr",
+     "usbf_sie_rx",
+     "usbf_sie_tx",
+     "usbf_sie_ep",
+     "usbf_fifo",
+     "bus_sync",
+     "set_level_sync",
+     "set_pulse_sync",
+     "usbf_crc16",
+     "level_sync",
+     "pulse_sync"
+    ],
+    "excluded": [
+     "closure_loc 4955 > 3000"
+    ],
+    "file": "top_usb.v",
+    "files": [
+     "top_usb.v",
+     "usbf_device.v",
+     "usbf_ulpi_wrapper.v",
+     "usbf_biu.v",
+     "usbf_core.v",
+     "usbf_csr.v",
+     "usbf_epu.v",
+     "usbf_mem.v",
+     "usbf_sync.v",
+     "usbf_dffs.v",
+     "usbf_sie_rx.v",
+     "usbf_sie_tx.v",
+     "usbf_sie_ep.v",
+     "usbf_fifo.v",
+     "usbf_sync_utilities.v",
+     "usbf_crc16.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": true,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usb",
+    "own_loc": 139,
+    "unknown": [
+     "GENERIC_RAM"
+    ]
+   },
+   {
+    "closure_loc": 259,
+    "closure_modules": [
+     "usbf_biu",
+     "usbf_gnrl_dfflrd",
+     "usbf_gnrl_dffr"
+    ],
+    "excluded": [],
+    "file": "usbf_biu.v",
+    "files": [
+     "usbf_biu.v",
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_biu",
+    "own_loc": 195,
+    "unknown": []
+   },
+   {
+    "closure_loc": 1685,
+    "closure_modules": [
+     "usbf_core",
+     "usbf_sie_rx",
+     "usbf_sie_tx",
+     "usbf_crc16"
+    ],
+    "excluded": [],
+    "file": "usbf_core.v",
+    "files": [
+     "usbf_core.v",
+     "usbf_sie_rx.v",
+     "usbf_sie_tx.v",
+     "usbf_crc16.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": true,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_core",
+    "own_loc": 862,
+    "unknown": []
+   },
+   {
+    "closure_loc": 45,
+    "closure_modules": [
+     "usbf_crc16"
+    ],
+    "excluded": [
+     "own_loc 45 < 100"
+    ],
+    "file": "usbf_crc16.v",
+    "files": [
+     "usbf_crc16.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_crc16",
+    "own_loc": 45,
+    "unknown": []
+   },
+   {
+    "closure_loc": 873,
+    "closure_modules": [
+     "usbf_csr",
+     "usbf_gnrl_dfflrd"
+    ],
+    "excluded": [],
+    "file": "usbf_csr.v",
+    "files": [
+     "usbf_csr.v",
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_csr",
+    "own_loc": 833,
+    "unknown": []
+   },
+   {
+    "closure_loc": 4407,
+    "closure_modules": [
+     "usbf_device",
+     "usbf_biu",
+     "usbf_core",
+     "usbf_csr",
+     "usbf_epu",
+     "usbf_mem",
+     "usbf_sync",
+     "usbf_gnrl_dfflrd",
+     "usbf_gnrl_dffr",
+     "usbf_sie_rx",
+     "usbf_sie_tx",
+     "usbf_sie_ep",
+     "usbf_fifo",
+     "bus_sync",
+     "set_level_sync",
+     "set_pulse_sync",
+     "usbf_crc16",
+     "level_sync",
+     "pulse_sync"
+    ],
+    "excluded": [
+     "closure_loc 4407 > 3000"
+    ],
+    "file": "usbf_device.v",
+    "files": [
+     "usbf_device.v",
+     "usbf_biu.v",
+     "usbf_core.v",
+     "usbf_csr.v",
+     "usbf_epu.v",
+     "usbf_mem.v",
+     "usbf_sync.v",
+     "usbf_dffs.v",
+     "usbf_sie_rx.v",
+     "usbf_sie_tx.v",
+     "usbf_sie_ep.v",
+     "usbf_fifo.v",
+     "usbf_sync_utilities.v",
+     "usbf_crc16.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": true,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_device",
+    "own_loc": 487,
+    "unknown": [
+     "GENERIC_RAM"
+    ]
+   },
+   {
+    "closure_loc": 271,
+    "closure_modules": [
+     "usbf_epu",
+     "usbf_sie_ep"
+    ],
+    "excluded": [],
+    "file": "usbf_epu.v",
+    "files": [
+     "usbf_epu.v",
+     "usbf_sie_ep.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_epu",
+    "own_loc": 102,
+    "unknown": []
+   },
+   {
+    "closure_loc": 230,
+    "closure_modules": [
+     "usbf_fifo"
+    ],
+    "excluded": [],
+    "file": "usbf_fifo.v",
+    "files": [
+     "usbf_fifo.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_fifo",
+    "own_loc": 230,
+    "unknown": [
+     "GENERIC_RAM"
+    ]
+   },
+   {
+    "closure_loc": 36,
+    "closure_modules": [
+     "usbf_gnrl_dffl"
+    ],
+    "excluded": [
+     "own_loc 36 < 100"
+    ],
+    "file": "usbf_dffs.v",
+    "files": [
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_gnrl_dffl",
+    "own_loc": 36,
+    "unknown": []
+   },
+   {
+    "closure_loc": 39,
+    "closure_modules": [
+     "usbf_gnrl_dfflr"
+    ],
+    "excluded": [
+     "own_loc 39 < 100"
+    ],
+    "file": "usbf_dffs.v",
+    "files": [
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_gnrl_dfflr",
+    "own_loc": 39,
+    "unknown": []
+   },
+   {
+    "closure_loc": 40,
+    "closure_modules": [
+     "usbf_gnrl_dfflrd"
+    ],
+    "excluded": [
+     "own_loc 40 < 100"
+    ],
+    "file": "usbf_dffs.v",
+    "files": [
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_gnrl_dfflrd",
+    "own_loc": 40,
+    "unknown": []
+   },
+   {
+    "closure_loc": 39,
+    "closure_modules": [
+     "usbf_gnrl_dfflrs"
+    ],
+    "excluded": [
+     "own_loc 39 < 100"
+    ],
+    "file": "usbf_dffs.v",
+    "files": [
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_gnrl_dfflrs",
+    "own_loc": 39,
+    "unknown": []
+   },
+   {
+    "closure_loc": 24,
+    "closure_modules": [
+     "usbf_gnrl_dffr"
+    ],
+    "excluded": [
+     "own_loc 24 < 100"
+    ],
+    "file": "usbf_dffs.v",
+    "files": [
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_gnrl_dffr",
+    "own_loc": 24,
+    "unknown": []
+   },
+   {
+    "closure_loc": 24,
+    "closure_modules": [
+     "usbf_gnrl_dffrs"
+    ],
+    "excluded": [
+     "own_loc 24 < 100"
+    ],
+    "file": "usbf_dffs.v",
+    "files": [
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_gnrl_dffrs",
+    "own_loc": 24,
+    "unknown": []
+   },
+   {
+    "closure_loc": 314,
+    "closure_modules": [
+     "usbf_mem",
+     "usbf_fifo"
+    ],
+    "excluded": [
+     "own_loc 84 < 100"
+    ],
+    "file": "usbf_mem.v",
+    "files": [
+     "usbf_mem.v",
+     "usbf_fifo.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_mem",
+    "own_loc": 84,
+    "unknown": [
+     "GENERIC_RAM"
+    ]
+   },
+   {
+    "closure_loc": 169,
+    "closure_modules": [
+     "usbf_sie_ep"
+    ],
+    "excluded": [],
+    "file": "usbf_sie_ep.v",
+    "files": [
+     "usbf_sie_ep.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_sie_ep",
+    "own_loc": 169,
+    "unknown": []
+   },
+   {
+    "closure_loc": 501,
+    "closure_modules": [
+     "usbf_sie_rx",
+     "usbf_crc16"
+    ],
+    "excluded": [],
+    "file": "usbf_sie_rx.v",
+    "files": [
+     "usbf_sie_rx.v",
+     "usbf_crc16.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": true,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_sie_rx",
+    "own_loc": 456,
+    "unknown": []
+   },
+   {
+    "closure_loc": 367,
+    "closure_modules": [
+     "usbf_sie_tx",
+     "usbf_crc16"
+    ],
+    "excluded": [],
+    "file": "usbf_sie_tx.v",
+    "files": [
+     "usbf_sie_tx.v",
+     "usbf_crc16.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": true,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_sie_tx",
+    "own_loc": 322,
+    "unknown": []
+   },
+   {
+    "closure_loc": 622,
+    "closure_modules": [
+     "usbf_sync",
+     "bus_sync",
+     "set_level_sync",
+     "set_pulse_sync",
+     "usbf_gnrl_dfflrd",
+     "level_sync",
+     "pulse_sync",
+     "usbf_gnrl_dffr"
+    ],
+    "excluded": [],
+    "file": "usbf_sync.v",
+    "files": [
+     "usbf_sync.v",
+     "usbf_sync_utilities.v",
+     "usbf_dffs.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_sync",
+    "own_loc": 342,
+    "unknown": []
+   },
+   {
+    "closure_loc": 409,
+    "closure_modules": [
+     "usbf_ulpi_wrapper"
+    ],
+    "excluded": [],
+    "file": "usbf_ulpi_wrapper.v",
+    "files": [
+     "usbf_ulpi_wrapper.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "usbf_ulpi_wrapper",
+    "own_loc": 409,
+    "unknown": []
+   }
+  ],
+  "vga_enh": [
+   {
+    "closure_loc": 53,
+    "closure_modules": [
+     "altera_ram_dp"
+    ],
+    "excluded": [
+     "own_loc 53 < 100"
+    ],
+    "file": "generic_dpram.v",
+    "files": [
+     "generic_dpram.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "altera_ram_dp",
+    "own_loc": 53,
+    "unknown": [
+     "syn_dpram_rowr"
+    ]
+   },
+   {
+    "closure_loc": 37,
+    "closure_modules": [
+     "altera_ram_sp"
+    ],
+    "excluded": [
+     "own_loc 37 < 100"
+    ],
+    "file": "generic_spram.v",
+    "files": [
+     "generic_spram.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "altera_ram_sp",
+    "own_loc": 37,
+    "unknown": [
+     "syn_ram_irou"
+    ]
+   },
+   {
+    "closure_loc": 395,
+    "closure_modules": [
+     "generic_dpram",
+     "altera_ram_dp",
+     "xilinx_ram_dp"
+    ],
+    "excluded": [],
+    "file": "generic_dpram.v",
+    "files": [
+     "generic_dpram.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "generic_dpram",
+    "own_loc": 248,
+    "unknown": [
+     "C_MEM_DP_BLOCK_V1_0",
+     "art_hsdp",
+     "avant_atp",
+     "syn_dpram_rowr",
+     "virage_stp"
+    ]
+   },
+   {
+    "closure_loc": 317,
+    "closure_modules": [
+     "generic_spram",
+     "altera_ram_sp",
+     "xilinx_ram_sp"
+    ],
+    "excluded": [],
+    "file": "generic_spram.v",
+    "files": [
+     "generic_spram.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "generic_spram",
+    "own_loc": 220,
+    "unknown": [
+     "C_MEM_SP_BLOCK_V1_0",
+     "artisan_ssp",
+     "avant_atp",
+     "syn_ram_irou",
+     "virage_ssp",
+     "virtualsilicon_spram"
+    ]
+   },
+   {
+    "closure_loc": 65,
+    "closure_modules": [
+     "vga_clkgen"
+    ],
+    "excluded": [
+     "own_loc 65 < 100"
+    ],
+    "file": "vga_clkgen.v",
+    "files": [
+     "vga_clkgen.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "vga_clkgen",
+    "own_loc": 65,
+    "unknown": []
+   },
+   {
+    "closure_loc": 440,
+    "closure_modules": [
+     "vga_colproc"
+    ],
+    "excluded": [],
+    "file": "vga_colproc.v",
+    "files": [
+     "vga_colproc.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "vga_colproc",
+    "own_loc": 440,
+    "unknown": []
+   },
+   {
+    "closure_loc": 408,
+    "closure_modules": [
+     "vga_csm_pb",
+     "generic_spram",
+     "altera_ram_sp",
+     "xilinx_ram_sp"
+    ],
+    "excluded": [
+     "own_loc 91 < 100"
+    ],
+    "file": "vga_csm_pb.v",
+    "files": [
+     "vga_csm_pb.v",
+     "generic_spram.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "vga_csm_pb",
+    "own_loc": 91,
+    "unknown": [
+     "C_MEM_SP_BLOCK_V1_0",
+     "artisan_ssp",
+     "avant_atp",
+     "syn_ram_irou",
+     "virage_ssp",
+     "virtualsilicon_spram"
+    ]
+   },
+   {
+    "closure_loc": 71,
+    "closure_modules": [
+     "vga_cur_cregs"
+    ],
+    "excluded": [
+     "own_loc 71 < 100"
+    ],
+    "file": "vga_cur_cregs.v",
+    "files": [
+     "vga_cur_cregs.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "vga_cur_cregs",
+    "own_loc": 71,
+    "unknown": []
+   },
+   {
+    "closure_loc": 554,
+    "closure_modules": [
+     "vga_curproc",
+     "generic_spram",
+     "altera_ram_sp",
+     "xilinx_ram_sp"
+    ],
+    "excluded": [],
+    "file": "vga_curproc.v",
+    "files": [
+     "vga_curproc.v",
+     "generic_spram.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "vga_curproc",
+    "own_loc": 237,
+    "unknown": [
+     "C_MEM_SP_BLOCK_V1_0",
+     "artisan_ssp",
+     "avant_atp",
+     "syn_ram_irou",
+     "virage_ssp",
+     "virtualsilicon_spram"
+    ]
+   },
+   {
+    "closure_loc": 3757,
+    "closure_modules": [
+     "vga_enh_top",
+     "vga_csm_pb",
+     "vga_fifo_dc",
+     "vga_pgen",
+     "vga_wb_master",
+     "vga_wb_slave",
+     "generic_spram",
+     "generic_dpram",
+     "vga_clkgen",
+     "vga_colproc",
+     "vga_curproc",
+     "vga_fifo",
+     "vga_tgen",
+     "vga_cur_cregs",
+     "altera_ram_sp",
+     "xilinx_ram_sp",
+     "altera_ram_dp",
+     "xilinx_ram_dp",
+     "vga_vtim"
+    ],
+    "excluded": [
+     "closure_loc 3757 > 3000"
+    ],
+    "file": "vga_enh_top.v",
+    "files": [
+     "vga_enh_top.v",
+     "vga_csm_pb.v",
+     "vga_fifo_dc.v",
+     "vga_pgen.v",
+     "vga_wb_master.v",
+     "vga_wb_slave.v",
+     "generic_spram.v",
+     "generic_dpram.v",
+     "vga_clkgen.v",
+     "vga_colproc.v",
+     "vga_curproc.v",
+     "vga_fifo.v",
+     "vga_tgen.v",
+     "vga_cur_cregs.v",
+     "vga_vtim.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "vga_enh_top",
+    "own_loc": 362,
+    "unknown": [
+     "C_MEM_DP_BLOCK_V1_0",
+     "C_MEM_SP_BLOCK_V1_0",
+     "FIFO",
+     "art_hsdp",
+     "artisan_ssp",
+     "avant_atp",
+     "syn_dpram_rowr",
+     "syn_ram_irou",
+     "virage_ssp",
+     "virage_stp",
+     "virtualsilicon_spram"
+    ]
+   },
+   {
+    "closure_loc": 179,
+    "closure_modules": [
+     "vga_fifo"
+    ],
+    "excluded": [],
+    "file": "vga_fifo.v",
+    "files": [
+     "vga_fifo.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "vga_fifo",
+    "own_loc": 179,
+    "unknown": [
+     "FIFO"
+    ]
+   },
+   {
+    "closure_loc": 542,
+    "closure_modules": [
+     "vga_fifo_dc",
+     "generic_dpram",
+     "altera_ram_dp",
+     "xilinx_ram_dp"
+    ],
+    "excluded": [],
+    "file": "vga_fifo_dc.v",
+    "files": [
+     "vga_fifo_dc.v",
+     "generic_dpram.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "vga_fifo_dc",
+    "own_loc": 147,
+    "unknown": [
+     "C_MEM_DP_BLOCK_V1_0",
+     "art_hsdp",
+     "avant_atp",
+     "syn_dpram_rowr",
+     "virage_stp"
+    ]
+   },
+   {
+    "closure_loc": 1940,
+    "closure_modules": [
+     "vga_pgen",
+     "vga_clkgen",
+     "vga_colproc",
+     "vga_curproc",
+     "vga_fifo",
+     "vga_tgen",
+     "generic_spram",
+     "vga_vtim",
+     "altera_ram_sp",
+     "xilinx_ram_sp"
+    ],
+    "excluded": [],
+    "file": "vga_pgen.v",
+    "files": [
+     "vga_pgen.v",
+     "vga_clkgen.v",
+     "vga_colproc.v",
+     "vga_curproc.v",
+     "vga_fifo.v",
+     "vga_tgen.v",
+     "generic_spram.v",
+     "vga_vtim.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "vga_pgen",
+    "own_loc": 515,
+    "unknown": [
+     "C_MEM_SP_BLOCK_V1_0",
+     "FIFO",
+     "artisan_ssp",
+     "avant_atp",
+     "syn_ram_irou",
+     "virage_ssp",
+     "virtualsilicon_spram"
+    ]
+   },
+   {
+    "closure_loc": 187,
+    "closure_modules": [
+     "vga_tgen",
+     "vga_vtim"
+    ],
+    "excluded": [
+     "own_loc 80 < 100"
+    ],
+    "file": "vga_tgen.v",
+    "files": [
+     "vga_tgen.v",
+     "vga_vtim.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "vga_tgen",
+    "own_loc": 80,
+    "unknown": []
+   },
+   {
+    "closure_loc": 107,
+    "closure_modules": [
+     "vga_vtim"
+    ],
+    "excluded": [],
+    "file": "vga_vtim.v",
+    "files": [
+     "vga_vtim.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "vga_vtim",
+    "own_loc": 107,
+    "unknown": []
+   },
+   {
+    "closure_loc": 553,
+    "closure_modules": [
+     "vga_wb_master",
+     "vga_fifo"
+    ],
+    "excluded": [],
+    "file": "vga_wb_master.v",
+    "files": [
+     "vga_wb_master.v",
+     "vga_fifo.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": true,
+     "timescale": false
+    },
+    "module": "vga_wb_master",
+    "own_loc": 374,
+    "unknown": [
+     "FIFO"
+    ]
+   },
+   {
+    "closure_loc": 448,
+    "closure_modules": [
+     "vga_wb_slave",
+     "vga_cur_cregs"
+    ],
+    "excluded": [],
+    "file": "vga_wb_slave.v",
+    "files": [
+     "vga_wb_slave.v",
+     "vga_cur_cregs.v"
+    ],
+    "flags": {
+     "delay": true,
+     "ifdef": true,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "vga_wb_slave",
+    "own_loc": 377,
+    "unknown": []
+   },
+   {
+    "closure_loc": 94,
+    "closure_modules": [
+     "xilinx_ram_dp"
+    ],
+    "excluded": [
+     "own_loc 94 < 100"
+    ],
+    "file": "generic_dpram.v",
+    "files": [
+     "generic_dpram.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "xilinx_ram_dp",
+    "own_loc": 94,
+    "unknown": [
+     "C_MEM_DP_BLOCK_V1_0"
+    ]
+   },
+   {
+    "closure_loc": 60,
+    "closure_modules": [
+     "xilinx_ram_sp"
+    ],
+    "excluded": [
+     "own_loc 60 < 100"
+    ],
+    "file": "generic_spram.v",
+    "files": [
+     "generic_spram.v"
+    ],
+    "flags": {
+     "delay": false,
+     "ifdef": false,
+     "include": false,
+     "initial": false,
+     "sysfunc": false,
+     "timescale": false
+    },
+    "module": "xilinx_ram_sp",
+    "own_loc": 60,
+    "unknown": [
+     "C_MEM_SP_BLOCK_V1_0"
+    ]
+   }
+  ]
+ }
+}

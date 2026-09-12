@@ -1,0 +1,96 @@
+{
+ "clk_ports": [],
+ "design_id": "rtllm_comparator_4bit",
+ "files": [
+  "rtl/comparator_4bit.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 8,
+  "loc": 21,
+  "n_cells": 5,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 3,
+  "out_bits": 3,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 4
+   },
+   "A_equal": {
+    "dir": "output",
+    "width": 1
+   },
+   "A_greater": {
+    "dir": "output",
+    "width": 1
+   },
+   "A_less": {
+    "dir": "output",
+    "width": 1
+   },
+   "B": {
+    "dir": "input",
+    "width": 4
+   }
+  },
+  "ports_hash": "96c654e79c7870c9",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 21,
+ "name": "comparator_4bit",
+ "notes": [],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/comparator_4bit.v": "abb2225be214b06f6c295b7ca88eb7893d468f0581cda978422792f5780dcefe",
+  "tb/testbench.v": "e4ace357af22532e79cf655830c1a6358d76108634cccd04fc958d4677a92192"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Arithmetic/Comparator/comparator_4bit/verified_comparator_4bit.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "no_clock"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "testbench"
+ },
+ "top": "comparator_4bit"
+}

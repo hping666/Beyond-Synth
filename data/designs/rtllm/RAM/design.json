@@ -1,0 +1,67 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_RAM",
+ "files": [
+  "rtl/RAM.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "loc": 36,
+  "n_files": 1,
+  "ports": null,
+  "ports_hash": null,
+  "sdc_available": 0,
+  "tb_available": 1,
+  "yosys_error": "yosys exit -6: terminate called after throwing an instance of 'std::out_of_range'\n  what():  basic_string::at: __n (which is 4) >= this->size() (which is 4)\n",
+  "yosys_ok": 0
+ },
+ "loc": 36,
+ "name": "RAM",
+ "notes": [
+  "module verified_RAM renamed to RAM, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/RAM.v": "503ee32b1ed1c970f67b5446c96973b9a4611c593bb7506ae3c94e101be1b367",
+  "tb/testbench.v": "7bf2b2180c7a48d39d868cc6219b0bd54e30cb3a57f189f37a12a428ec5f6cd9"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/RISC-V/RAM/verified_RAM.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "yosys_failed"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "tb_RAM"
+ },
+ "top": "RAM"
+}

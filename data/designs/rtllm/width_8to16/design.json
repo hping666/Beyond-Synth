@@ -1,0 +1,109 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_width_8to16",
+ "files": [
+  "rtl/width_8to16.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 11,
+  "loc": 44,
+  "n_cells": 21,
+  "n_ff_bits": 26,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 2,
+  "out_bits": 17,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "data_in": {
+    "dir": "input",
+    "width": 8
+   },
+   "data_out": {
+    "dir": "output",
+    "width": 16
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "valid_in": {
+    "dir": "input",
+    "width": 1
+   },
+   "valid_out": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "8515fc13b8d53f0d",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 44,
+ "name": "width_8to16",
+ "notes": [
+  "module verified_width_8to16 renamed to width_8to16, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/width_8to16.v": "73d5cd890fb9a8309a5d553b5a4fb2adbe61992ed317794743fd533c8219ffd9",
+  "tb/testbench.v": "55ace40c26b5e38451f171a7650a0035c933898c0b17b7f2d5039582b8fc1c12"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/Others/width_8to16/verified_width_8to16.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "testbench"
+ },
+ "top": "width_8to16"
+}

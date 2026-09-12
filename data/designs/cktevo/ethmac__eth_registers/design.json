@@ -1,0 +1,360 @@
+{
+ "clk_ports": [
+  "Clk",
+  "TxClk",
+  "RxClk"
+ ],
+ "design_id": "cktevo_ethmac__eth_registers",
+ "files": [
+  "rtl/eth_registers.v",
+  "rtl/eth_register.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "Reset": "high"
+  },
+  "clk_ports": [
+   "Clk",
+   "TxClk",
+   "RxClk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 112,
+  "loc": 1292,
+  "n_cells": 333,
+  "n_ff_bits": 303,
+  "n_files": 2,
+  "n_inputs": 25,
+  "n_outputs": 42,
+  "out_bits": 290,
+  "ports": {
+   "Address": {
+    "dir": "input",
+    "width": 8
+   },
+   "Busy_IRQ": {
+    "dir": "input",
+    "width": 1
+   },
+   "Busy_stat": {
+    "dir": "input",
+    "width": 1
+   },
+   "Clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "Cs": {
+    "dir": "input",
+    "width": 4
+   },
+   "DataIn": {
+    "dir": "input",
+    "width": 32
+   },
+   "DataOut": {
+    "dir": "output",
+    "width": 32
+   },
+   "LinkFail": {
+    "dir": "input",
+    "width": 1
+   },
+   "NValid_stat": {
+    "dir": "input",
+    "width": 1
+   },
+   "Prsd": {
+    "dir": "input",
+    "width": 16
+   },
+   "RStatStart": {
+    "dir": "input",
+    "width": 1
+   },
+   "Reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "RstTxPauseRq": {
+    "dir": "input",
+    "width": 1
+   },
+   "Rw": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxB_IRQ": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxE_IRQ": {
+    "dir": "input",
+    "width": 1
+   },
+   "SetPauseTimer": {
+    "dir": "input",
+    "width": 1
+   },
+   "StartTxDone": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxB_IRQ": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxCtrlEndFrm": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxE_IRQ": {
+    "dir": "input",
+    "width": 1
+   },
+   "UpdateMIIRX_DATAReg": {
+    "dir": "input",
+    "width": 1
+   },
+   "WCtrlDataStart": {
+    "dir": "input",
+    "width": 1
+   },
+   "dbg_dat": {
+    "dir": "input",
+    "width": 32
+   },
+   "int_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_Bro": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_ClkDiv": {
+    "dir": "output",
+    "width": 8
+   },
+   "r_CollValid": {
+    "dir": "output",
+    "width": 6
+   },
+   "r_CrcEn": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_CtrlData": {
+    "dir": "output",
+    "width": 16
+   },
+   "r_DlyCrcEn": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_ExDfrEn": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_FIAD": {
+    "dir": "output",
+    "width": 5
+   },
+   "r_FullD": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_HASH0": {
+    "dir": "output",
+    "width": 32
+   },
+   "r_HASH1": {
+    "dir": "output",
+    "width": 32
+   },
+   "r_HugEn": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_IFG": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_IPGR1": {
+    "dir": "output",
+    "width": 7
+   },
+   "r_IPGR2": {
+    "dir": "output",
+    "width": 7
+   },
+   "r_IPGT": {
+    "dir": "output",
+    "width": 7
+   },
+   "r_Iam": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_LoopBck": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_MAC": {
+    "dir": "output",
+    "width": 48
+   },
+   "r_MaxFL": {
+    "dir": "output",
+    "width": 16
+   },
+   "r_MaxRet": {
+    "dir": "output",
+    "width": 4
+   },
+   "r_MiiNoPre": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_MinFL": {
+    "dir": "output",
+    "width": 16
+   },
+   "r_NoBckof": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_NoPre": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_Pad": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_PassAll": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_Pro": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_RGAD": {
+    "dir": "output",
+    "width": 5
+   },
+   "r_RStat": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_RecSmall": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_RxEn": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_RxFlow": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_ScanStat": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_TxBDNum": {
+    "dir": "output",
+    "width": 8
+   },
+   "r_TxEn": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_TxFlow": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_TxPauseRq": {
+    "dir": "output",
+    "width": 1
+   },
+   "r_TxPauseTV": {
+    "dir": "output",
+    "width": 16
+   },
+   "r_WCtrlData": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "a185cbeca7113e7c",
+  "rst_port": "Reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 1292,
+ "name": "ethmac__eth_registers",
+ "notes": [
+  "closure: 2 modules, 1048 lines (eth_registers, eth_register)"
+ ],
+ "reference": null,
+ "rst_port": "Reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_register.v": "3d54ff0607545baecf5a6af1c0cdf42191a0df72fb1d17d8025e0de86d70cfa4",
+  "rtl/eth_registers.v": "873de6c0d892e9fa9aea5c029703708e47720368b754a684976869d1b316f2aa",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_registers.v",
+   "benchmark/ethmac/eth_register.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac",
+  "multi_clock"
+ ],
+ "tb": null,
+ "top": "eth_registers"
+}

@@ -1,0 +1,98 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__adder_resource",
+ "files": [
+  "rtl/adder_resource.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 17,
+  "loc": 54,
+  "n_cells": 5,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 1,
+  "out_bits": 8,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "mode": {
+    "dir": "input",
+    "width": 1
+   },
+   "result": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "0db5755aa83e7231",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 54,
+ "name": "datapath__adder_resource",
+ "notes": [
+  "file roles: {\"adder_resource.v\": \"original\", \"adder_resource_improve.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/adder_resource_improve.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "shared_adder"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/adder_resource_improve.v": "8c8f774d805908f53045d96c4f8c54386bcf21e4d4ffd8cbf184012853f3fce1",
+  "rtl/adder_resource.v": "17a551c9985f2352b9185a191c87d807ad97ebae48b253042a66777652ef0dc1"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/adder_resource/adder_resource.v",
+   "short_benchmark/datapath/adder_resource/adder_resource_improve.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "non_shared_adder"
+}

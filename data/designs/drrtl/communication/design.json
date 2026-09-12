@@ -1,0 +1,100 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "drrtl_communication",
+ "files": [
+  "rtl/communication.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "reset_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 69,
+  "loc": 225,
+  "n_cells": 77,
+  "n_ff_bits": 232,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 2,
+  "out_bits": 65,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "data_in": {
+    "dir": "input",
+    "width": 64
+   },
+   "data_out": {
+    "dir": "output",
+    "width": 64
+   },
+   "done": {
+    "dir": "output",
+    "width": 1
+   },
+   "reset_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "sel": {
+    "dir": "input",
+    "width": 3
+   }
+  },
+  "ports_hash": "f79d40dbd1bcb2a1",
+  "rst_port": "reset_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 225,
+ "name": "communication",
+ "notes": [],
+ "reference": null,
+ "rst_port": "reset_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/communication.v": "7d70cd9ab2464606720d36baa462cd6bf461166987b50cb528374b1539d69d41"
+ },
+ "source": {
+  "commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "rtl_dataset/communication.v0.v"
+  ],
+  "suite_key": "drrtl",
+  "url": "https://github.com/hkust-zhiyao/DR_RTL"
+ },
+ "suite": "drrtl",
+ "sverilog": false,
+ "tags": [
+  "drrtl"
+ ],
+ "tb": null,
+ "top": "sync_serial_communication_tx_rx"
+}

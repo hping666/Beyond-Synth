@@ -1,0 +1,100 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_signal_generator",
+ "files": [
+  "rtl/signal_generator.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 2,
+  "loc": 35,
+  "n_cells": 19,
+  "n_ff_bits": 7,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 1,
+  "out_bits": 5,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "wave": {
+    "dir": "output",
+    "width": 5
+   }
+  },
+  "ports_hash": "615659b3c2c3f1b2",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 35,
+ "name": "signal_generator",
+ "notes": [
+  "module verified_signal_generator renamed to signal_generator, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/signal_generator.v": "00a268407d1fd31cf36e8c9b2da47e4587e6550548a47395357c72d77083f431",
+  "tb/testbench.v": "53b6eadedabe49eb0db5d013de4e2efa68c3365d3936aa045fca8a450e004ed8",
+  "tb/tri_gen.txt": "1eb5ce27830b09108fffb49ca9c2a2ce1e6212a89b64557f4d768c039ef8507f"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/Signal generation/signal_generator/verified_signal_generator.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [
+   "tb/tri_gen.txt"
+  ],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "tb_signal_generator"
+ },
+ "top": "signal_generator"
+}

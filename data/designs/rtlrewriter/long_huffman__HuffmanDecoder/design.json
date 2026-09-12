@@ -1,0 +1,118 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_long_huffman__HuffmanDecoder",
+ "files": [
+  "rtl/HuffmanDecoderRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 13,
+  "loc": 584,
+  "n_cells": 55,
+  "n_ff_bits": 35,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 3,
+  "out_bits": 13,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "decodedData": {
+    "dir": "output",
+    "width": 5
+   },
+   "encodedData": {
+    "dir": "input",
+    "width": 10
+   },
+   "load": {
+    "dir": "input",
+    "width": 1
+   },
+   "ready": {
+    "dir": "output",
+    "width": 4
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "symbolLength": {
+    "dir": "output",
+    "width": 4
+   }
+  },
+  "ports_hash": "a6b84df26136c39d",
+  "rst_port": "rst",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 584,
+ "name": "long_huffman__HuffmanDecoder",
+ "notes": [
+  "closure of HuffmanDecoderRaw: ['HuffmanDecoderRaw.v']",
+  "module names defined in several files, chosen by variant: [('lookUpTable', ['HuffmanDecoder.v', 'HuffmanDecoderRaw.v'], 'HuffmanDecoderRaw.v')]"
+ ],
+ "reference": {
+  "files": [
+   "reference/HuffmanDecoder.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "HuffmanDecoder"
+ },
+ "rst_port": "rst",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "reference/HuffmanDecoder.v": "e169fd08d5ef04506ae70bf7e8270d4818512a5557381616106fc390d8ef32ae",
+  "rtl/HuffmanDecoderRaw.v": "b199fbb08c07ee3002fb8ff075bd1233cbe74f34afcd21c51a3133c0766e704b"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/huffman/HuffmanDecoderRaw.v",
+   "long_benchmark/huffman/HuffmanDecoder.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "huffman",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "HuffmanDecoderRaw"
+}

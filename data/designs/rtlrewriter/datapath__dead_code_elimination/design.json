@@ -1,0 +1,102 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__dead_code_elimination",
+ "files": [
+  "rtl/dead_code_elimination_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 32,
+  "loc": 16,
+  "n_cells": 13,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 1,
+  "out_bits": 8,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "c": {
+    "dir": "input",
+    "width": 8
+   },
+   "d": {
+    "dir": "input",
+    "width": 8
+   },
+   "s1": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "54ae453f0febf6f9",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 16,
+ "name": "datapath__dead_code_elimination",
+ "notes": [
+  "file roles: {\"dead_code_elimination.v\": \"expert\", \"dead_code_elimination_raw.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/dead_code_elimination.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example_raw"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/dead_code_elimination.v": "2360498d7760093d4279ecc743d2f6694879f0f243889b673226a2ee0dbd1f5f",
+  "rtl/dead_code_elimination_raw.v": "ca854f66dc4aa881edc3d917ae3efa4012267cf25a80ce0710befe0d8b307922"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/dead_code_elimination/dead_code_elimination.v",
+   "short_benchmark/datapath/dead_code_elimination/dead_code_elimination_raw.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example_raw"
+}

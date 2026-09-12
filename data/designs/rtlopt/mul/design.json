@@ -1,0 +1,99 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlopt_mul",
+ "files": [
+  "rtl/mul.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 17,
+  "loc": 12,
+  "n_cells": 3,
+  "n_ff_bits": 8,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 1,
+  "out_bits": 8,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "z": {
+    "dir": "output",
+    "width": 8
+   }
+  },
+  "ports_hash": "0f5f58f49b5eecac",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 12,
+ "name": "mul",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/mul_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "mul_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/mul_ref.v": "ff692c10b165dd734d3b8bc0c5c61da784db2a7cd3caa45ff9e8592335c94fb2",
+  "rtl/mul.v": "81cb8f11fe1457c1e44216eba357d5a80678178029e03556727cd744935937a9"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/mul/mul.v",
+   "benchmark/mul_ref/mul_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair"
+ ],
+ "tb": null,
+ "top": "mul"
+}

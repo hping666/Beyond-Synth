@@ -1,0 +1,117 @@
+{
+ "clk_ports": [
+  "CLK"
+ ],
+ "design_id": "cktevo_nn_engine__rates_256x4096",
+ "files": [
+  "rtl/rates_256x4096.v",
+  "rtl/UltraTDP64x4096_4.v",
+  "rtl/ultraRAMx72_TDP.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "CLK"
+  ],
+  "clk_ports_by_name": [
+   "CLK"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 43,
+  "loc": 575,
+  "n_cells": 338,
+  "n_ff_bits": 3202,
+  "n_files": 3,
+  "n_inputs": 6,
+  "n_outputs": 2,
+  "out_bits": 200,
+  "ports": {
+   "CLK": {
+    "dir": "input",
+    "width": 1
+   },
+   "rates": {
+    "dir": "output",
+    "width": 192
+   },
+   "rdaddrs": {
+    "dir": "input",
+    "width": 18
+   },
+   "rddata": {
+    "dir": "output",
+    "width": 8
+   },
+   "rden": {
+    "dir": "input",
+    "width": 1
+   },
+   "wraddrs": {
+    "dir": "input",
+    "width": 18
+   },
+   "wrdata": {
+    "dir": "input",
+    "width": 4
+   },
+   "wren": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "7e212d192dbfde6a",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 575,
+ "name": "nn_engine__rates_256x4096",
+ "notes": [
+  "closure: 3 modules, 451 lines (rates_256x4096, UltraTDP64x4096_4, ultraRAMx72_TDP)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/UltraTDP64x4096_4.v": "cb0c20ee1425f95cb52af28820f82a4f2dabb8e6715a4f75df5175ab9d307353",
+  "rtl/rates_256x4096.v": "523c24bc0d216011f1984c3338bccb3ab616d4fcf1cae1dcfa2cc7c1afd0beac",
+  "rtl/ultraRAMx72_TDP.v": "5360fa8e1b204b2ad21edec7fb1845993f2093d398db854c65cab1bd837f31e4"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/nn_engine/rates_256x4096.v",
+   "benchmark/nn_engine/UltraTDP64x4096_4.v",
+   "benchmark/nn_engine/ultraRAMx72_TDP.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "nn_engine"
+ ],
+ "tb": null,
+ "top": "rates_256x4096"
+}

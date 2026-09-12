@@ -1,0 +1,65 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlopt_mux_encode",
+ "files": [
+  "rtl/mux_encode.sv"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "loc": 21,
+  "n_files": 1,
+  "ports": null,
+  "ports_hash": null,
+  "sdc_available": 0,
+  "tb_available": 0,
+  "yosys_error": "yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtlopt/mux_encode/rtl/mux_encode.sv:3: ERROR: syntax error, unexpected '[', expecting ')' or ',' or '='\n",
+  "yosys_ok": 0
+ },
+ "loc": 21,
+ "name": "mux_encode",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/mux_encode_ref.sv"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "mux_encode_ref"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/mux_encode_ref.sv": "151f75149c9f64dc7749cd2a7eb7b2ada35175a52bedb768494ab321a734948d",
+  "rtl/mux_encode.sv": "745c9d4d0f1a92ffcfc932e4d5e46a3bc6fd6bbb78cffe03126bb00d73238b03"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/mux_encode/mux_encode.sv",
+   "benchmark/mux_encode_ref/mux_encode_ref.sv"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": true,
+ "tags": [
+  "rtlopt",
+  "pair",
+  "yosys_failed"
+ ],
+ "tb": null,
+ "top": "mux_encode"
+}

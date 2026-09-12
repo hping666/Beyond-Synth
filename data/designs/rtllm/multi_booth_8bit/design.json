@@ -1,0 +1,112 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtllm_multi_booth_8bit",
+ "files": [
+  "rtl/multi_booth_8bit.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "reset": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 18,
+  "loc": 42,
+  "n_cells": 14,
+  "n_ff_bits": 54,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 2,
+  "out_bits": 17,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 8
+   },
+   "b": {
+    "dir": "input",
+    "width": 8
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "p": {
+    "dir": "output",
+    "width": 16
+   },
+   "rdy": {
+    "dir": "output",
+    "width": 1
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "d3b580d787df7736",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 42,
+ "name": "multi_booth_8bit",
+ "notes": [
+  "module verified_multi_booth_8bit renamed to multi_booth_8bit, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/multi_booth_8bit.v": "5ec0683bc2da6e35301c5183630b40ce963b1b2eb93918717741f8a3a92698ef",
+  "tb/test_data.dat": "c8969417dc5a7dc05f20783c17b00909022d4b0ec050420256961a818208fe9a",
+  "tb/testbench.v": "0d4abbb1fbc0775bd0241e147173979bedabfc01773f11f68d6dd674c29b3cdb"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Arithmetic/Multiplier/multi_booth_8bit/verified_booth4_mul.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [
+   "tb/test_data.dat"
+  ],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "booth4_mul_tb"
+ },
+ "top": "multi_booth_8bit"
+}

@@ -1,0 +1,88 @@
+{
+ "clk_ports": [],
+ "design_id": "rtllm_fixed_point_substractor",
+ "files": [
+  "rtl/fixed_point_substractor.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 64,
+  "loc": 51,
+  "n_cells": 36,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 1,
+  "out_bits": 32,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 32
+   },
+   "b": {
+    "dir": "input",
+    "width": 32
+   },
+   "c": {
+    "dir": "output",
+    "width": 32
+   }
+  },
+  "ports_hash": "bfbec0f25855a772",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 51,
+ "name": "fixed_point_substractor",
+ "notes": [],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/fixed_point_substractor.v": "ec8a083638dbd36009fa8dea9ebcfc6e080c8bd781905576a597edb70857c7ca",
+  "tb/testbench.v": "474170110696301028acea02492eaec591b7d3fbb27863530281860284661a07"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Arithmetic/Other/fixed_point_substractor/verified_fixed_point_substractor.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "no_clock"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "tb_fixed_point_subtractor"
+ },
+ "top": "fixed_point_subtractor"
+}

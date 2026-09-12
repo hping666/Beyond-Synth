@@ -1,0 +1,295 @@
+{
+ "clk_ports": [
+  "MRxClk",
+  "MTxClk"
+ ],
+ "design_id": "cktevo_ethmac__eth_macstatus",
+ "files": [
+  "rtl/eth_macstatus.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/ethmac_defines.v",
+  "rtl/timescale.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "Reset": "high"
+  },
+  "clk_ports": [
+   "MRxClk",
+   "MTxClk"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 94,
+  "loc": 423,
+  "n_cells": 90,
+  "n_ff_bits": 18,
+  "n_files": 1,
+  "n_inputs": 36,
+  "n_outputs": 16,
+  "out_bits": 19,
+  "ports": {
+   "CarrierSense": {
+    "dir": "input",
+    "width": 1
+   },
+   "CarrierSenseLost": {
+    "dir": "output",
+    "width": 1
+   },
+   "CollValid": {
+    "dir": "input",
+    "width": 6
+   },
+   "Collision": {
+    "dir": "input",
+    "width": 1
+   },
+   "DeferIndication": {
+    "dir": "input",
+    "width": 1
+   },
+   "DeferLatched": {
+    "dir": "output",
+    "width": 1
+   },
+   "DribbleNibble": {
+    "dir": "output",
+    "width": 1
+   },
+   "InvalidSymbol": {
+    "dir": "output",
+    "width": 1
+   },
+   "LatchedCrcError": {
+    "dir": "output",
+    "width": 1
+   },
+   "LatchedMRxErr": {
+    "dir": "output",
+    "width": 1
+   },
+   "LateCollLatched": {
+    "dir": "output",
+    "width": 1
+   },
+   "LateCollision": {
+    "dir": "input",
+    "width": 1
+   },
+   "LoadRxStatus": {
+    "dir": "output",
+    "width": 1
+   },
+   "Loopback": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxD": {
+    "dir": "input",
+    "width": 4
+   },
+   "MRxDV": {
+    "dir": "input",
+    "width": 1
+   },
+   "MRxErr": {
+    "dir": "input",
+    "width": 1
+   },
+   "MTxClk": {
+    "dir": "input",
+    "width": 1
+   },
+   "MaxCollisionOccured": {
+    "dir": "input",
+    "width": 1
+   },
+   "ReceiveEnd": {
+    "dir": "output",
+    "width": 1
+   },
+   "ReceivedLengthOK": {
+    "dir": "output",
+    "width": 1
+   },
+   "ReceivedPacketGood": {
+    "dir": "output",
+    "width": 1
+   },
+   "ReceivedPacketTooBig": {
+    "dir": "output",
+    "width": 1
+   },
+   "Reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "RetryCnt": {
+    "dir": "input",
+    "width": 4
+   },
+   "RetryCntLatched": {
+    "dir": "output",
+    "width": 4
+   },
+   "RetryLimit": {
+    "dir": "output",
+    "width": 1
+   },
+   "RstDeferLatched": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxByteCnt": {
+    "dir": "input",
+    "width": 16
+   },
+   "RxByteCntEq0": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxByteCntGreat2": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxByteCntMaxFrame": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxCrcError": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxLateCollision": {
+    "dir": "output",
+    "width": 1
+   },
+   "RxStateData": {
+    "dir": "input",
+    "width": 2
+   },
+   "RxStateIdle": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxStatePreamble": {
+    "dir": "input",
+    "width": 1
+   },
+   "RxStateSFD": {
+    "dir": "input",
+    "width": 1
+   },
+   "ShortFrame": {
+    "dir": "output",
+    "width": 1
+   },
+   "StartTxAbort": {
+    "dir": "input",
+    "width": 1
+   },
+   "StartTxDone": {
+    "dir": "input",
+    "width": 1
+   },
+   "StateData": {
+    "dir": "input",
+    "width": 2
+   },
+   "StatePreamble": {
+    "dir": "input",
+    "width": 1
+   },
+   "Transmitting": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxStartFrm": {
+    "dir": "input",
+    "width": 1
+   },
+   "TxUsedData": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_FullD": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_HugEn": {
+    "dir": "input",
+    "width": 1
+   },
+   "r_MaxFL": {
+    "dir": "input",
+    "width": 16
+   },
+   "r_MinFL": {
+    "dir": "input",
+    "width": 16
+   },
+   "r_RecSmall": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "05e14b610e5164f9",
+  "rst_port": "Reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 423,
+ "name": "ethmac__eth_macstatus",
+ "notes": [
+  "closure: 1 modules, 309 lines (eth_macstatus)"
+ ],
+ "reference": null,
+ "rst_port": "Reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/eth_macstatus.v": "fb1bbb0fd04157f9d78f3f0579f90bfae5f769208cb2355e2677dd6d3bfec13a",
+  "rtl/ethmac_defines.v": "a2fc210e7dad1dd2231afdcd70b075f8b51a190eb52b6021ce356d78e12b5c0a",
+  "rtl/timescale.v": "374cf329495fc0c2706b96261db9f679153b8ab4c857b0578e9f4e5cb464e1ff"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/ethmac/eth_macstatus.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "ethmac",
+  "multi_clock"
+ ],
+ "tb": null,
+ "top": "eth_macstatus"
+}

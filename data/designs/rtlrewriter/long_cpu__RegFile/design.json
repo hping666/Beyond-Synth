@@ -1,0 +1,125 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_long_cpu__RegFile",
+ "files": [
+  "rtl/RegFileRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "reset": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": true,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 50,
+  "loc": 51,
+  "n_cells": 213,
+  "n_ff_bits": 1056,
+  "n_files": 1,
+  "n_inputs": 7,
+  "n_outputs": 2,
+  "out_bits": 64,
+  "ports": {
+   "ReadAddr1": {
+    "dir": "input",
+    "width": 5
+   },
+   "ReadAddr2": {
+    "dir": "input",
+    "width": 5
+   },
+   "ReadData1": {
+    "dir": "output",
+    "width": 32
+   },
+   "ReadData2": {
+    "dir": "output",
+    "width": 32
+   },
+   "RegWrite": {
+    "dir": "input",
+    "width": 1
+   },
+   "WriteAddr": {
+    "dir": "input",
+    "width": 5
+   },
+   "WriteData": {
+    "dir": "input",
+    "width": 32
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "a1fa6cd8a62cb485",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 51,
+ "name": "long_cpu__RegFile",
+ "notes": [
+  "closure of RegFile: ['RegFileRaw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/RegFile.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "RegFile"
+ },
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/RegFile.v": "9f7d0197d4cc70ea2532657b7da55e8790fd12a2686043af97dda21362893d7e",
+  "rtl/RegFileRaw.v": "d13f903500894f9698fd1af8efe3ad347e4f7182a1317a36529ccda7b970fd97"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cpu/RegFileRaw.v",
+   "long_benchmark/cpu/RegFile.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cpu",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "RegFile"
+}

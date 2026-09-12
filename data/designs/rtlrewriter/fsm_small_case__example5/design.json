@@ -1,0 +1,105 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_fsm_small_case__example5",
+ "files": [
+  "rtl/example5_state.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "reset": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 3,
+  "loc": 54,
+  "n_cells": 33,
+  "n_ff_bits": 4,
+  "n_files": 1,
+  "n_inputs": 3,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "Z": {
+    "dir": "output",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "x": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "6ee9b922606e811a",
+  "rst_port": "reset",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 54,
+ "name": "fsm_small_case__example5",
+ "notes": [
+  "file roles: {\"example5_state.v\": \"original\", \"example5_state_optimized.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/example5_state_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "fsm"
+ },
+ "rst_port": "reset",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "reference/example5_state_optimized.v": "f3942962c031a235c1337f3f88f39f5e62e2b46e8f8121de6015939c2a17c2bf",
+  "rtl/example5_state.v": "a4e46842fccad28b748940070b1aa16d83898c42dbae66111aed1966ba900cac"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/fsm_small_case/example5/example5_state.v",
+   "short_benchmark/fsm_small_case/example5/example5_state_optimized.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "fsm_small_case",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "fsm"
+}

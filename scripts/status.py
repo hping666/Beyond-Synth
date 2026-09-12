@@ -51,7 +51,7 @@ def main():
     q = Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
     print("pools:")
     for pool, s in q.stats().items():
-        print(f"  {pool:6s} cap={s['cap']:3d} running={s['running']:3d} waiting={s['waiting']:4d} done={s['done']:5d} "
+        print(f"  {pool:6s} cap={s['cap']:3d} limit={s.get('limit', s['cap']):3d} running={s['running']:3d} waiting={s['waiting']:4d} done={s['done']:5d} "
               f"failed={s['failed']:4d} backoff={s['backoff_remaining_sec']:.0f}s (level {s['backoff_level']})")
     print("budget (budget_ledger vs config):")
     caps = cfg["llm"]["budget_usd"]

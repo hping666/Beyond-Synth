@@ -1,0 +1,131 @@
+{
+ "clk_ports": [
+  "CLK"
+ ],
+ "design_id": "cktevo_nn_engine__ultraRAMx72_TDP",
+ "files": [
+  "rtl/ultraRAMx72_TDP.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "CLK"
+  ],
+  "clk_ports_by_name": [
+   "CLK"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 181,
+  "loc": 169,
+  "n_cells": 41,
+  "n_ff_bits": 722,
+  "n_files": 1,
+  "n_inputs": 11,
+  "n_outputs": 2,
+  "out_bits": 128,
+  "ports": {
+   "CLK": {
+    "dir": "input",
+    "width": 1
+   },
+   "rdaddrsA": {
+    "dir": "input",
+    "width": 12
+   },
+   "rdaddrsB": {
+    "dir": "input",
+    "width": 12
+   },
+   "rddataA": {
+    "dir": "output",
+    "width": 64
+   },
+   "rddataB": {
+    "dir": "output",
+    "width": 64
+   },
+   "rdenA": {
+    "dir": "input",
+    "width": 1
+   },
+   "rdenB": {
+    "dir": "input",
+    "width": 1
+   },
+   "wraddrsA": {
+    "dir": "input",
+    "width": 12
+   },
+   "wraddrsB": {
+    "dir": "input",
+    "width": 12
+   },
+   "wrdataA": {
+    "dir": "input",
+    "width": 64
+   },
+   "wrdataB": {
+    "dir": "input",
+    "width": 64
+   },
+   "wrenA": {
+    "dir": "input",
+    "width": 1
+   },
+   "wrenB": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "95f1f2ab9bea3849",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 169,
+ "name": "nn_engine__ultraRAMx72_TDP",
+ "notes": [
+  "closure: 1 modules, 161 lines (ultraRAMx72_TDP)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/ultraRAMx72_TDP.v": "5360fa8e1b204b2ad21edec7fb1845993f2093d398db854c65cab1bd837f31e4"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/nn_engine/ultraRAMx72_TDP.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "nn_engine"
+ ],
+ "tb": null,
+ "top": "ultraRAMx72_TDP"
+}

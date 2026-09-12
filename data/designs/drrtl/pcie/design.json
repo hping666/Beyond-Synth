@@ -1,0 +1,108 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "drrtl_pcie",
+ "files": [
+  "rtl/pcie.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 14,
+  "loc": 923,
+  "n_cells": 950,
+  "n_ff_bits": 136,
+  "n_files": 1,
+  "n_inputs": 7,
+  "n_outputs": 1,
+  "out_bits": 8,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "d_en": {
+    "dir": "input",
+    "width": 1
+   },
+   "datain": {
+    "dir": "input",
+    "width": 8
+   },
+   "dataout": {
+    "dir": "output",
+    "width": 8
+   },
+   "m_piso": {
+    "dir": "input",
+    "width": 1
+   },
+   "m_sipo": {
+    "dir": "input",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "s_en": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "4e31772c9a7cfe0c",
+  "rst_port": "rst",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 923,
+ "name": "pcie",
+ "notes": [],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/pcie.v": "def5287b76a3aad6179329644fb14c7f7a3aae6a7398c787334561d5a8500573"
+ },
+ "source": {
+  "commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "rtl_dataset/pcie.v0.v"
+  ],
+  "suite_key": "drrtl",
+  "url": "https://github.com/hkust-zhiyao/DR_RTL"
+ },
+ "suite": "drrtl",
+ "sverilog": false,
+ "tags": [
+  "drrtl"
+ ],
+ "tb": null,
+ "top": "top"
+}

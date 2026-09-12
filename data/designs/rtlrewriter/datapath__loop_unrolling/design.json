@@ -1,0 +1,90 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_datapath__loop_unrolling",
+ "files": [
+  "rtl/loop_unrolling_raw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 256,
+  "loc": 14,
+  "n_cells": 0,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 1,
+  "n_outputs": 1,
+  "out_bits": 256,
+  "ports": {
+   "a": {
+    "dir": "input",
+    "width": 256
+   },
+   "s": {
+    "dir": "output",
+    "width": 256
+   }
+  },
+  "ports_hash": "46f81dec1fe43752",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 14,
+ "name": "datapath__loop_unrolling",
+ "notes": [
+  "file roles: {\"loop_unrolling.v\": \"expert\", \"loop_unrolling_raw.v\": \"original\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/loop_unrolling.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example_raw"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/loop_unrolling.v": "9b4425fbef5f981fb0877059cb069d4f2e7f75d93dfff49f5c39ea59012c5ae2",
+  "rtl/loop_unrolling_raw.v": "bb8737ad528933f3b7e2dcbe2ffeaf5fa14c07443b2113c62df8a1b439bba124"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/datapath/loop_unrolling/loop_unrolling.v",
+   "short_benchmark/datapath/loop_unrolling/loop_unrolling_raw.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "datapath",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example_raw"
+}

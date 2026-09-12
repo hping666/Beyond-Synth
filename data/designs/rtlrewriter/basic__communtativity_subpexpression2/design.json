@@ -1,0 +1,166 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
+ "files": [
+  "rtl/basic.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 256,
+  "loc": 14,
+  "n_cells": 22,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 8,
+  "n_outputs": 6,
+  "out_bits": 192,
+  "ports": {
+   "P": {
+    "dir": "input",
+    "width": 32
+   },
+   "Q": {
+    "dir": "input",
+    "width": 32
+   },
+   "R": {
+    "dir": "input",
+    "width": 32
+   },
+   "S": {
+    "dir": "input",
+    "width": 32
+   },
+   "T": {
+    "dir": "input",
+    "width": 32
+   },
+   "X": {
+    "dir": "input",
+    "width": 32
+   },
+   "Y": {
+    "dir": "input",
+    "width": 32
+   },
+   "Z": {
+    "dir": "input",
+    "width": 32
+   },
+   "output1": {
+    "dir": "output",
+    "width": 32
+   },
+   "output2": {
+    "dir": "output",
+    "width": 32
+   },
+   "output3": {
+    "dir": "output",
+    "width": 32
+   },
+   "output4": {
+    "dir": "output",
+    "width": 32
+   },
+   "output5": {
+    "dir": "output",
+    "width": 32
+   },
+   "output6": {
+    "dir": "output",
+    "width": 32
+   }
+  },
+  "ports_hash": "d629774a27e4c2a1",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 14,
+ "name": "basic__communtativity_subpexpression2",
+ "notes": [
+  "file roles: {\"basic.v\": \"original\", \"basic_RTLCoder.v\": \"llm\", \"basic_claude3.v\": \"llm\", \"basic_gpt4.v\": \"llm\", \"basic_optimized.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/basic_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/basic_RTLCoder.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/basic_claude3.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/basic_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  }
+ ],
+ "sha256": {
+  "reference/basic_optimized.v": "035e86608a3bc5074132d8eabba8eabf561651e2573ca88ba049451903b1a5fc",
+  "rtl/basic.v": "d5ef725c8dbc1ce19ac65dfc40fd42bf7465ea8686d8171a67751273c3bbfa9d",
+  "samples/basic_RTLCoder.v": "ca373d526de0b69e3b187046327f141e3ceba3b3cdc0584a961f7bd9c7e0360c",
+  "samples/basic_claude3.v": "df87cf360e40bb4fccf420d195cb0a9dc371492554f53fd5a8d0c6eb3da5fd08",
+  "samples/basic_gpt4.v": "132181632fa87ecef6c286cf246689e6a3889e198aedd3751e49652b9563bafb"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/basic/communtativity_subpexpression2/basic.v",
+   "short_benchmark/basic/communtativity_subpexpression2/basic_RTLCoder.v",
+   "short_benchmark/basic/communtativity_subpexpression2/basic_claude3.v",
+   "short_benchmark/basic/communtativity_subpexpression2/basic_gpt4.v",
+   "short_benchmark/basic/communtativity_subpexpression2/basic_optimized.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "basic",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "example"
+}

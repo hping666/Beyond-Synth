@@ -1,0 +1,98 @@
+{
+ "clk_ports": [],
+ "design_id": "rtlrewriter_long_cpu__BranchAndJumpHazard",
+ "files": [
+  "rtl/BranchAndJumpHazardRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 2,
+  "loc": 32,
+  "n_cells": 19,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 2,
+  "out_bits": 2,
+  "ports": {
+   "ID_EX_Flush": {
+    "dir": "output",
+    "width": 1
+   },
+   "IF_ID_Flush": {
+    "dir": "output",
+    "width": 1
+   },
+   "Jump": {
+    "dir": "input",
+    "width": 1
+   },
+   "no_branch": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "3619dda924e3447b",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 32,
+ "name": "long_cpu__BranchAndJumpHazard",
+ "notes": [
+  "closure of BranchAndJumpHazard_raw: ['BranchAndJumpHazardRaw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/BranchAndJumpHazard.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "BranchAndJumpHazard"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/BranchAndJumpHazard.v": "d16d5387d177958569381a98da27e783c71c5bfb5ccbe441edc4b20332592ec0",
+  "rtl/BranchAndJumpHazardRaw.v": "5d5c46c71e93aa2e6372db9364001238ce91058d7a3442893de3dd483d75a7a3"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/cpu/BranchAndJumpHazardRaw.v",
+   "long_benchmark/cpu/BranchAndJumpHazard.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "cpu",
+  "calibration_only",
+  "no_clock"
+ ],
+ "tb": null,
+ "top": "BranchAndJumpHazard_raw"
+}

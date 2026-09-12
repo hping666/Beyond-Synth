@@ -1,0 +1,135 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_mem_ctrl__mc_obct_top",
+ "files": [
+  "rtl/mc_obct_top.v",
+  "rtl/mc_obct.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/mc_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "rst": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": true,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 29,
+  "loc": 662,
+  "n_cells": 218,
+  "n_ff_bits": 115,
+  "n_files": 2,
+  "n_inputs": 9,
+  "n_outputs": 3,
+  "out_bits": 3,
+  "ports": {
+   "any_bank_open": {
+    "dir": "output",
+    "width": 1
+   },
+   "bank_adr": {
+    "dir": "input",
+    "width": 2
+   },
+   "bank_clr": {
+    "dir": "input",
+    "width": 1
+   },
+   "bank_clr_all": {
+    "dir": "input",
+    "width": 1
+   },
+   "bank_open": {
+    "dir": "output",
+    "width": 1
+   },
+   "bank_set": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "cs": {
+    "dir": "input",
+    "width": 8
+   },
+   "rfr_ack": {
+    "dir": "input",
+    "width": 1
+   },
+   "row_adr": {
+    "dir": "input",
+    "width": 13
+   },
+   "row_same": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "a32dafe780cdcd8b",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 662,
+ "name": "mem_ctrl__mc_obct_top",
+ "notes": [
+  "closure: 3 modules, 475 lines (mc_obct_top, mc_obct, mc_obct_dummy)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/mc_defines.v": "7014771beba02583c37c220642644edbf0b7dd34fb62551af260249969e5ef11",
+  "rtl/mc_obct.v": "e826f3575975a2e6055504b0f0a12899fa8217da7d61765209dbe9707f9a9cc6",
+  "rtl/mc_obct_top.v": "d3d83b1aabff2a3b2f827617a1309016efce2dc30fa109c54f75b23b45ebee85"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/mem_ctrl/mc_obct_top.v",
+   "benchmark/mem_ctrl/mc_obct.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "mem_ctrl"
+ ],
+ "tb": null,
+ "top": "mc_obct_top"
+}

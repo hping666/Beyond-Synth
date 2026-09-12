@@ -1,0 +1,65 @@
+{
+ "clk_ports": [],
+ "design_id": "rtllm_synchronizer",
+ "files": [
+  "rtl/synchronizer.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "loc": 44,
+  "n_files": 1,
+  "ports": null,
+  "ports_hash": null,
+  "sdc_available": 0,
+  "tb_available": 1,
+  "yosys_error": "ERROR: Multiple edge sensitive events found for this signal!",
+  "yosys_ok": 0
+ },
+ "loc": 44,
+ "name": "synchronizer",
+ "notes": [
+  "module verified_synchronizer renamed to synchronizer, the name the testbench instantiates (PLAN 1.2 canonical top)"
+ ],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/synchronizer.v": "a6012e488a0550173d7230261c2b56abd025b22093623ccfa30db8db7d806df3",
+  "tb/testbench.v": "0d20968418301ed61df89fe95dc3b76b9cc8bbc231cf4f03bd31546cfd92a7df"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/Others/synchronizer/verified_synchronizer.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "yosys_failed"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "testbench"
+ },
+ "top": "synchronizer"
+}

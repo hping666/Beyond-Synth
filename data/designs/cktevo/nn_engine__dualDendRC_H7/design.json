@@ -1,0 +1,141 @@
+{
+ "clk_ports": [
+  "CLK"
+ ],
+ "design_id": "cktevo_nn_engine__dualDendRC_H7",
+ "files": [
+  "rtl/dualDendRC_H7.v",
+  "rtl/FMUL711.v",
+  "rtl/tauRom_H7.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "CLK"
+  ],
+  "clk_ports_by_name": [
+   "CLK"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": true,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 44,
+  "loc": 1067,
+  "n_cells": 733,
+  "n_ff_bits": 170,
+  "n_files": 3,
+  "n_inputs": 10,
+  "n_outputs": 4,
+  "out_bits": 34,
+  "ports": {
+   "CLK": {
+    "dir": "input",
+    "width": 1
+   },
+   "RESET": {
+    "dir": "input",
+    "width": 1
+   },
+   "killDend_A": {
+    "dir": "output",
+    "width": 1
+   },
+   "killDend_B": {
+    "dir": "output",
+    "width": 1
+   },
+   "levelOutA": {
+    "dir": "output",
+    "width": 16
+   },
+   "levelOutB": {
+    "dir": "output",
+    "width": 16
+   },
+   "membraneFired": {
+    "dir": "input",
+    "width": 1
+   },
+   "pushSpikesIn": {
+    "dir": "input",
+    "width": 1
+   },
+   "rateA": {
+    "dir": "input",
+    "width": 3
+   },
+   "rateB": {
+    "dir": "input",
+    "width": 3
+   },
+   "spikeInA": {
+    "dir": "input",
+    "width": 1
+   },
+   "spikeInB": {
+    "dir": "input",
+    "width": 1
+   },
+   "weightA": {
+    "dir": "input",
+    "width": 16
+   },
+   "weightB": {
+    "dir": "input",
+    "width": 16
+   }
+  },
+  "ports_hash": "7daeff10003cf228",
+  "rst_port": "RESET",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 1067,
+ "name": "nn_engine__dualDendRC_H7",
+ "notes": [
+  "closure: 3 modules, 885 lines (dualDendRC_H7, FMUL711, tauRom_H7)"
+ ],
+ "reference": null,
+ "rst_port": "RESET",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/FMUL711.v": "13f2c3361d6e6991c923e9803342300095beaf78d0893b7df9a88ba942ee9bd1",
+  "rtl/dualDendRC_H7.v": "6ca134d4fcf2ff4c9a9dc710605938b52a6d1ea64d103bbf0b5964a5187d1447",
+  "rtl/tauRom_H7.v": "420f02a0cf042644531a82c0030f0f2cf902455bd4fd07c2c8977f22be188b2a"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/nn_engine/dualDendRC_H7.v",
+   "benchmark/nn_engine/FMUL711.v",
+   "benchmark/nn_engine/tauRom_H7.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "nn_engine"
+ ],
+ "tb": null,
+ "top": "dualDendRC_H7"
+}

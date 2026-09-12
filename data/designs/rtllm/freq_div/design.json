@@ -1,0 +1,101 @@
+{
+ "clk_ports": [
+  "CLK_in"
+ ],
+ "design_id": "rtllm_freq_div",
+ "files": [
+  "rtl/freq_div.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "RST": "high"
+  },
+  "clk_ports": [
+   "CLK_in"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 2,
+  "loc": 45,
+  "n_cells": 16,
+  "n_ff_bits": 14,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 3,
+  "out_bits": 3,
+  "ports": {
+   "CLK_1": {
+    "dir": "output",
+    "width": 1
+   },
+   "CLK_10": {
+    "dir": "output",
+    "width": 1
+   },
+   "CLK_50": {
+    "dir": "output",
+    "width": 1
+   },
+   "CLK_in": {
+    "dir": "input",
+    "width": 1
+   },
+   "RST": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "2531131fe564a327",
+  "rst_port": "RST",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 45,
+ "name": "freq_div",
+ "notes": [],
+ "reference": null,
+ "rst_port": "RST",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/freq_div.v": "01e245de204b7d8b33f04909e7ed05a4e1f0ec2ef3667dadb7283e9058738950",
+  "tb/testbench.v": "3a24463619481aa88979edeb0721fef154f62d2c9aa09d9c4b56c3a24c0e3300"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Miscellaneous/Frequency divider/freq_div/verified_freq_div.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "test"
+ },
+ "top": "freq_div"
+}

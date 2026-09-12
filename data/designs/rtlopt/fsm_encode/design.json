@@ -1,0 +1,109 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlopt_fsm_encode",
+ "files": [
+  "rtl/fsm_encode.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst_n": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 11,
+  "loc": 85,
+  "n_cells": 36,
+  "n_ff_bits": 33,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 2,
+  "out_bits": 9,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "data_in": {
+    "dir": "input",
+    "width": 8
+   },
+   "data_out": {
+    "dir": "output",
+    "width": 8
+   },
+   "done": {
+    "dir": "output",
+    "width": 1
+   },
+   "rst_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "start": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "1c5078c5364a0f48",
+  "rst_port": "rst_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 85,
+ "name": "fsm_encode",
+ "notes": [],
+ "reference": {
+  "files": [
+   "reference/fsm_encode_ref.v"
+  ],
+  "note": "expert-optimized version (RTL-OPT golden reference)",
+  "top": "fsm_encode_ref"
+ },
+ "rst_port": "rst_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "reference/fsm_encode_ref.v": "f14676f27ed7e7a822c5d8b8a40e83748d3472c8edc973a805f143cc8c6841c3",
+  "rtl/fsm_encode.v": "0e69d9660f00828d82790c6d5ef49fe373800319a0c7c1eb6d524bd9684b5b09"
+ },
+ "source": {
+  "commit": "25e4bbe052f02fde7f34eb8c3e37a7656e7dce20",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": "the paper's anonymous repository (anonymous.4open.science/r/RTL-OPT-20C5) reports repository_expired (HTTP 410, 2026-09-12); this is the authors' public release with 40 pairs",
+  "paths": [
+   "benchmark/fsm_encode/fsm_encode.v",
+   "benchmark/fsm_encode_ref/fsm_encode_ref.v"
+  ],
+  "suite_key": "rtlopt",
+  "url": "https://github.com/hkust-zhiyao/RTL-OPT"
+ },
+ "suite": "rtlopt",
+ "sverilog": false,
+ "tags": [
+  "rtlopt",
+  "pair"
+ ],
+ "tb": null,
+ "top": "fsm_encode"
+}

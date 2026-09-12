@@ -62,3 +62,13 @@ id_ed25519*
 .claude/settings.local.json
 .claude/guard-denied.log
 results/queue/
+
+# raw dataset clones (large; staged designs live in data/designs/)
+data/sources/
+
+# staged design copies are rebuilt from the pinned sources by scripts/stage_designs.py (upstream licenses differ);
+# the metadata (design.json, index.json, SOURCE.md, POOL.json) stays in git
+data/designs/**/rtl/
+data/designs/**/tb/
+data/designs/**/reference/
+data/designs/**/samples/

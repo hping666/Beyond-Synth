@@ -1,0 +1,117 @@
+{
+ "clk_ports": [
+  "clk_in",
+  "clk_out"
+ ],
+ "design_id": "drrtl_FIFO",
+ "files": [
+  "rtl/FIFO.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rst": "low"
+  },
+  "clk_ports": [
+   "clk_in",
+   "clk_out"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 38,
+  "loc": 383,
+  "n_cells": 1224,
+  "n_ff_bits": 4242,
+  "n_files": 1,
+  "n_inputs": 7,
+  "n_outputs": 3,
+  "out_bits": 34,
+  "ports": {
+   "clk_in": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk_out": {
+    "dir": "input",
+    "width": 1
+   },
+   "dataIn": {
+    "dir": "input",
+    "width": 32
+   },
+   "dataOut": {
+    "dir": "output",
+    "width": 32
+   },
+   "empty": {
+    "dir": "output",
+    "width": 1
+   },
+   "flush": {
+    "dir": "input",
+    "width": 1
+   },
+   "full": {
+    "dir": "output",
+    "width": 1
+   },
+   "insert": {
+    "dir": "input",
+    "width": 1
+   },
+   "remove": {
+    "dir": "input",
+    "width": 1
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "0bfd1f52337c6a07",
+  "rst_port": "rst",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 383,
+ "name": "FIFO",
+ "notes": [],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/FIFO.v": "46e49d4e9df9b9e2604e36f847e74cbd349fe4aba317a4bd97baeba64ad42661"
+ },
+ "source": {
+  "commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "rtl_dataset/FIFO.v0.v"
+  ],
+  "suite_key": "drrtl",
+  "url": "https://github.com/hkust-zhiyao/DR_RTL"
+ },
+ "suite": "drrtl",
+ "sverilog": false,
+ "tags": [
+  "drrtl",
+  "multi_clock"
+ ],
+ "tb": null,
+ "top": "fifo"
+}

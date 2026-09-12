@@ -1,0 +1,159 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_basic__add3",
+ "files": [
+  "rtl/add3.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 10,
+  "loc": 16,
+  "n_cells": 18,
+  "n_ff_bits": 10,
+  "n_files": 1,
+  "n_inputs": 10,
+  "n_outputs": 1,
+  "out_bits": 1,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_a": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_b": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_c": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_d": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_e": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_f": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_g": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_h": {
+    "dir": "input",
+    "width": 1
+   },
+   "in_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "sum": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "413f470a8381ff4d",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 16,
+ "name": "basic__add3",
+ "notes": [
+  "file roles: {\"add3.v\": \"original\", \"add3_claude3.v\": \"llm\", \"add3_gpt4.v\": \"llm\", \"add3_optimized.v\": \"expert\", \"add3_ours.v\": \"tool\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/add3_optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "example"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [
+  {
+   "files": [
+    "samples/add3_claude3.v"
+   ],
+   "role": "llm",
+   "top": "add3"
+  },
+  {
+   "files": [
+    "samples/add3_gpt4.v"
+   ],
+   "role": "llm",
+   "top": "example"
+  },
+  {
+   "files": [
+    "samples/add3_ours.v"
+   ],
+   "role": "tool",
+   "top": "example"
+  }
+ ],
+ "sha256": {
+  "reference/add3_optimized.v": "6361616d9b7d78caaa9428fbb1843c681487ecfd98242f86a6ead82aa54d08ce",
+  "rtl/add3.v": "c63cd1710e35cf0e88496635c2e062219dfd844b20b00a4c47553fc394ddf001",
+  "samples/add3_claude3.v": "3f525aece29fccfb8ceabcb1308ae215cdedb0f0df55270483590b6649957663",
+  "samples/add3_gpt4.v": "6d70cd8ec1049e57033cb53adbf9b728ac885f2a41ce665c7c2c5e8d5798aa3c",
+  "samples/add3_ours.v": "6ff756df3279589ce50711d26342e93b5f3f4beba3c8f8e21e1cf3d008a68f32"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/basic/add3/add3.v",
+   "short_benchmark/basic/add3/add3_claude3.v",
+   "short_benchmark/basic/add3/add3_gpt4.v",
+   "short_benchmark/basic/add3/add3_optimized.v",
+   "short_benchmark/basic/add3/add3_ours.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "basic",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "example"
+}

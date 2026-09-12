@@ -1,0 +1,107 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_basic__distributed_ram",
+ "files": [
+  "rtl/basic1.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 30,
+  "loc": 22,
+  "n_cells": 9,
+  "n_ff_bits": 64,
+  "n_files": 1,
+  "n_inputs": 4,
+  "n_outputs": 1,
+  "out_bits": 18,
+  "ports": {
+   "addr": {
+    "dir": "input",
+    "width": 10
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "din": {
+    "dir": "input",
+    "width": 18
+   },
+   "dout": {
+    "dir": "output",
+    "width": 18
+   },
+   "we": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "0495b209072651ed",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 22,
+ "name": "basic__distributed_ram",
+ "notes": [
+  "file roles: {\"basic1.v\": \"original\", \"optimized.v\": \"expert\"}"
+ ],
+ "reference": {
+  "files": [
+   "reference/optimized.v"
+  ],
+  "note": "engineers' rewrite",
+  "top": "memory_distributedram"
+ },
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "reference/optimized.v": "d69f9cd4de2bc1b9a04030887de234ca236e35bd6fc3a56fc72f9e1b44f481b4",
+  "rtl/basic1.v": "be1c4531a7839dac31122e3e9e5b46a2135f635e3d6f0f273ad989c8218feb7b"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "short_benchmark/basic/distributed_ram/basic1.v",
+   "short_benchmark/basic/distributed_ram/optimized.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "short",
+  "basic",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "memory_blockram"
+}

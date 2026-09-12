@@ -1,0 +1,145 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "rtlrewriter_long_fft__Butterfly",
+ "files": [
+  "rtl/ButterflyRaw.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "rstn": "low"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 131,
+  "loc": 115,
+  "n_cells": 58,
+  "n_ff_bits": 565,
+  "n_files": 1,
+  "n_inputs": 9,
+  "n_outputs": 5,
+  "out_bits": 97,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "en": {
+    "dir": "input",
+    "width": 1
+   },
+   "factor_imag": {
+    "dir": "input",
+    "width": 16
+   },
+   "factor_real": {
+    "dir": "input",
+    "width": 16
+   },
+   "rstn": {
+    "dir": "input",
+    "width": 1
+   },
+   "valid": {
+    "dir": "output",
+    "width": 1
+   },
+   "xp_imag": {
+    "dir": "input",
+    "width": 24
+   },
+   "xp_real": {
+    "dir": "input",
+    "width": 24
+   },
+   "xq_imag": {
+    "dir": "input",
+    "width": 24
+   },
+   "xq_real": {
+    "dir": "input",
+    "width": 24
+   },
+   "yp_imag": {
+    "dir": "output",
+    "width": 24
+   },
+   "yp_real": {
+    "dir": "output",
+    "width": 24
+   },
+   "yq_imag": {
+    "dir": "output",
+    "width": 24
+   },
+   "yq_real": {
+    "dir": "output",
+    "width": 24
+   }
+  },
+  "ports_hash": "95a327c891c863b2",
+  "rst_port": "rstn",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 115,
+ "name": "long_fft__Butterfly",
+ "notes": [
+  "closure of butterfly_raw: ['ButterflyRaw.v']"
+ ],
+ "reference": {
+  "files": [
+   "reference/Butterfly.v"
+  ],
+  "note": "engineers' rewrite (long benchmark, module-level pair)",
+  "top": "butterfly"
+ },
+ "rst_port": "rstn",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "reference/Butterfly.v": "bd816d1ea3f913fa0f89924b45b3e7bc2602ebac2e01bac83cdd1fcc8815c47b",
+  "rtl/ButterflyRaw.v": "7272f4cbbbf229c001186dbdb8aba7047c0068e941046551ac8ecd17bdd319f4"
+ },
+ "source": {
+  "commit": "96639fe67bc8f020c05978ef5028d75fcf6980f2",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "long_benchmark/fft/ButterflyRaw.v",
+   "long_benchmark/fft/Butterfly.v"
+  ],
+  "suite_key": "rtlrewriter",
+  "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
+ },
+ "suite": "rtlrewriter",
+ "sverilog": false,
+ "tags": [
+  "rtlrewriter",
+  "long",
+  "fft",
+  "calibration_only"
+ ],
+ "tb": null,
+ "top": "butterfly_raw"
+}

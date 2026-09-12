@@ -1,0 +1,144 @@
+{
+ "clk_ports": [
+  "wb_clk_i"
+ ],
+ "design_id": "drrtl_i2c",
+ "files": [
+  "rtl/i2c.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {
+   "arst_i": "low"
+  },
+  "clk_ports": [
+   "wb_clk_i"
+  ],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": true,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": true
+  },
+  "in_bits": 19,
+  "loc": 915,
+  "n_cells": 373,
+  "n_ff_bits": 128,
+  "n_files": 1,
+  "n_inputs": 10,
+  "n_outputs": 7,
+  "out_bits": 14,
+  "ports": {
+   "arst_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "scl_pad_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "scl_pad_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "scl_padoen_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "sda_pad_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "sda_pad_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "sda_padoen_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "wb_ack_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "wb_adr_i": {
+    "dir": "input",
+    "width": 3
+   },
+   "wb_clk_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_cyc_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_dat_i": {
+    "dir": "input",
+    "width": 8
+   },
+   "wb_dat_o": {
+    "dir": "output",
+    "width": 8
+   },
+   "wb_inta_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "wb_rst_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_stb_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_we_i": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "edafb4214a8bb149",
+  "rst_port": "arst_i",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 915,
+ "name": "i2c",
+ "notes": [
+  "reset sense of wb_rst_i guessed from its name (high); verify in the Phase 1 hand check"
+ ],
+ "reference": null,
+ "rst_port": "arst_i",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/i2c.v": "d33d6e305975743e80297e117fdf404cf78a3c35f7a1318efc42e0deb2dbaaa0"
+ },
+ "source": {
+  "commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "rtl_dataset/i2c.v0.v"
+  ],
+  "suite_key": "drrtl",
+  "url": "https://github.com/hkust-zhiyao/DR_RTL"
+ },
+ "suite": "drrtl",
+ "sverilog": false,
+ "tags": [
+  "drrtl"
+ ],
+ "tb": null,
+ "top": "i2c_master_top"
+}

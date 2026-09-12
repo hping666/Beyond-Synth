@@ -154,3 +154,21 @@ def test_status_script_runs():
     assert out.returncode == 0, out.stderr
     assert "pools:" in out.stdout and "OpenAI API key:" in out.stdout
     assert "sk-" not in out.stdout
+
+
+def test_dispatch_limit_below_the_seat_cap(tmp_path):
+    """config queue.dc_concurrency (DECISIONS 2026-09-12) limits how many DC jobs run at once; the seat cap stays."""
+    cfg = make_cfg()
+    cfg["queue"]["dc_seats_max"] = 50
+    cfg["queue"]["dc_concurrency"] = 1
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    assert q.caps["dc"] == 50 and q.limits["dc"] == 1 and q.limits["local"] == q.caps["local"]
+    j1 = q.submit("shell", {"cmd": "sleep 0.4"}, pool="dc")
+    j2 = q.submit("shell", {"cmd": "sleep 0.4"}, pool="dc")
+    q.tick()
+    assert sorted(q.get(j)["state"] for j in (j1, j2)) == ["queued", "running"] and q.stats()["dc"]["limit"] == 1
+    assert wait_state(q, j2, {"done"}, timeout=15) == "done" and q.get(j1)["state"] == "done"
+    del cfg["queue"]["dc_concurrency"]
+    q2 = Queue(cfg, conn, str(tmp_path / "logs2"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    assert q2.limits["dc"] == 50 and q2.stats()["dc"]["limit"] == 50

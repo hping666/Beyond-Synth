@@ -1,0 +1,142 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "drrtl_tv80",
+ "files": [
+  "rtl/tv80.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 14,
+  "loc": 4616,
+  "n_cells": 32805,
+  "n_ff_bits": 269,
+  "n_files": 1,
+  "n_inputs": 7,
+  "n_outputs": 10,
+  "out_bits": 32,
+  "ports": {
+   "A": {
+    "dir": "output",
+    "width": 16
+   },
+   "busak_n": {
+    "dir": "output",
+    "width": 1
+   },
+   "busrq_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "d_o": {
+    "dir": "output",
+    "width": 8
+   },
+   "di": {
+    "dir": "input",
+    "width": 8
+   },
+   "halt_n": {
+    "dir": "output",
+    "width": 1
+   },
+   "int_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "iorq_n": {
+    "dir": "output",
+    "width": 1
+   },
+   "m1_n": {
+    "dir": "output",
+    "width": 1
+   },
+   "mreq_n": {
+    "dir": "output",
+    "width": 1
+   },
+   "nmi_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "rd_n": {
+    "dir": "output",
+    "width": 1
+   },
+   "reset_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "rfsh_n": {
+    "dir": "output",
+    "width": 1
+   },
+   "wait_n": {
+    "dir": "input",
+    "width": 1
+   },
+   "wr_n": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "ecc2c912a699b73d",
+  "rst_port": "reset_n",
+  "rst_sense": "low",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 4616,
+ "name": "tv80",
+ "notes": [],
+ "reference": null,
+ "rst_port": "reset_n",
+ "rst_sense": "low",
+ "samples": [],
+ "sha256": {
+  "rtl/tv80.v": "e12d23aa198d595f68217912d74f0f47977c73fd59e43b6418a0d7d12b323aa3"
+ },
+ "source": {
+  "commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
+  "commit_verified": true,
+  "license": "unspecified (no LICENSE file in the repository)",
+  "note": null,
+  "paths": [
+   "rtl_dataset/tv80.v0.v"
+  ],
+  "suite_key": "drrtl",
+  "url": "https://github.com/hkust-zhiyao/DR_RTL"
+ },
+ "suite": "drrtl",
+ "sverilog": false,
+ "tags": [
+  "drrtl"
+ ],
+ "tb": null,
+ "top": "tv80s"
+}

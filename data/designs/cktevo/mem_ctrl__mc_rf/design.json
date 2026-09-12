@@ -1,0 +1,207 @@
+{
+ "clk_ports": [
+  "clk"
+ ],
+ "design_id": "cktevo_mem_ctrl__mc_rf",
+ "files": [
+  "rtl/mc_rf.v",
+  "rtl/mc_cs_rf.v"
+ ],
+ "incdirs": [
+  "rtl"
+ ],
+ "includes": [
+  "rtl/mc_defines.v"
+ ],
+ "inventory": {
+  "async_resets": {
+   "rst": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
+  "flags": {
+   "delay": true,
+   "ifdef": true,
+   "include": true,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 106,
+  "loc": 1112,
+  "n_cells": 335,
+  "n_ff_bits": 380,
+  "n_files": 2,
+  "n_inputs": 13,
+  "n_outputs": 17,
+  "out_bits": 233,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "cs": {
+    "dir": "output",
+    "width": 8
+   },
+   "cs_le": {
+    "dir": "input",
+    "width": 1
+   },
+   "cs_le_d": {
+    "dir": "input",
+    "width": 1
+   },
+   "cs_need_rfr": {
+    "dir": "output",
+    "width": 8
+   },
+   "csc": {
+    "dir": "output",
+    "width": 32
+   },
+   "fs": {
+    "dir": "output",
+    "width": 1
+   },
+   "init_ack": {
+    "dir": "input",
+    "width": 1
+   },
+   "init_req": {
+    "dir": "output",
+    "width": 1
+   },
+   "lmr_ack": {
+    "dir": "input",
+    "width": 1
+   },
+   "lmr_req": {
+    "dir": "output",
+    "width": 1
+   },
+   "mc_data_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "mc_sts": {
+    "dir": "input",
+    "width": 1
+   },
+   "mc_vpen": {
+    "dir": "output",
+    "width": 1
+   },
+   "poc": {
+    "dir": "output",
+    "width": 32
+   },
+   "ref_int": {
+    "dir": "output",
+    "width": 3
+   },
+   "rf_dout": {
+    "dir": "output",
+    "width": 32
+   },
+   "rfr_ps_val": {
+    "dir": "output",
+    "width": 8
+   },
+   "rst": {
+    "dir": "input",
+    "width": 1
+   },
+   "sp_csc": {
+    "dir": "output",
+    "width": 32
+   },
+   "sp_tms": {
+    "dir": "output",
+    "width": 32
+   },
+   "spec_req_cs": {
+    "dir": "output",
+    "width": 8
+   },
+   "tms": {
+    "dir": "output",
+    "width": 32
+   },
+   "wb_ack_o": {
+    "dir": "output",
+    "width": 1
+   },
+   "wb_addr_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "wb_cyc_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_data_i": {
+    "dir": "input",
+    "width": 32
+   },
+   "wb_stb_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wb_we_i": {
+    "dir": "input",
+    "width": 1
+   },
+   "wp_err": {
+    "dir": "output",
+    "width": 1
+   }
+  },
+  "ports_hash": "6089b9ed8202f04a",
+  "rst_port": "rst",
+  "rst_sense": "high",
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 0,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 1112,
+ "name": "mem_ctrl__mc_rf",
+ "notes": [
+  "closure: 3 modules, 873 lines (mc_rf, mc_cs_rf, mc_cs_rf_dummy)"
+ ],
+ "reference": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
+ "samples": [],
+ "sha256": {
+  "rtl/mc_cs_rf.v": "06be99d00435cd6b165244e9781b92b9f81f7fa8ff5d78ee972200d35ff30556",
+  "rtl/mc_defines.v": "7014771beba02583c37c220642644edbf0b7dd34fb62551af260249969e5ef11",
+  "rtl/mc_rf.v": "10f442a42a9bc2401e96c2424056188d850cc950c2462ea701b66cdb44d86af9"
+ },
+ "source": {
+  "commit": "2f1abe75cc48437378bd8832517048ba64d53149",
+  "commit_verified": true,
+  "license": "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)",
+  "note": null,
+  "paths": [
+   "benchmark/mem_ctrl/mc_rf.v",
+   "benchmark/mem_ctrl/mc_cs_rf.v"
+  ],
+  "suite_key": "cktevo",
+  "url": "https://github.com/cure-lab/cktevo"
+ },
+ "suite": "cktevo",
+ "sverilog": false,
+ "tags": [
+  "cktevo",
+  "mem_ctrl"
+ ],
+ "tb": null,
+ "top": "mc_rf"
+}

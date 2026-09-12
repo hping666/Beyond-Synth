@@ -1,0 +1,96 @@
+{
+ "clk_ports": [],
+ "design_id": "rtllm_comparator_3bit",
+ "files": [
+  "rtl/comparator_3bit.v"
+ ],
+ "incdirs": [],
+ "includes": [],
+ "inventory": {
+  "async_resets": {},
+  "clk_ports": [],
+  "clk_ports_by_name": [],
+  "flags": {
+   "delay": false,
+   "ifdef": false,
+   "include": false,
+   "initial": false,
+   "sysfunc": false,
+   "timescale": false
+  },
+  "in_bits": 6,
+  "loc": 13,
+  "n_cells": 6,
+  "n_ff_bits": 0,
+  "n_files": 1,
+  "n_inputs": 2,
+  "n_outputs": 3,
+  "out_bits": 3,
+  "ports": {
+   "A": {
+    "dir": "input",
+    "width": 3
+   },
+   "A_equal": {
+    "dir": "output",
+    "width": 1
+   },
+   "A_greater": {
+    "dir": "output",
+    "width": 1
+   },
+   "A_less": {
+    "dir": "output",
+    "width": 1
+   },
+   "B": {
+    "dir": "input",
+    "width": 3
+   }
+  },
+  "ports_hash": "80f6bff18389b54f",
+  "rst_port": null,
+  "rst_sense": null,
+  "sdc_available": 0,
+  "sverilog": false,
+  "tb_available": 1,
+  "yosys_error": null,
+  "yosys_ok": 1
+ },
+ "loc": 13,
+ "name": "comparator_3bit",
+ "notes": [],
+ "reference": null,
+ "rst_port": null,
+ "rst_sense": null,
+ "samples": [],
+ "sha256": {
+  "rtl/comparator_3bit.v": "7f331b457a27a90ef781081ca3338218acbb8f640890f4a1676f9f8e21307407",
+  "tb/testbench.v": "f96e7996fd5f5cd0a2cfc6c7bfdd658d5d4137df8722897820ddfb238c65d06c"
+ },
+ "source": {
+  "commit": "41b26896e33b536940116a975626455eed3de65e",
+  "commit_verified": true,
+  "license": "MIT",
+  "note": null,
+  "paths": [
+   "Arithmetic/Comparator/comparator_3bit/verified_comparator_3bit.v"
+  ],
+  "suite_key": "rtllm",
+  "url": "https://github.com/hkust-zhiyao/RTLLM"
+ },
+ "suite": "rtllm",
+ "sverilog": false,
+ "tags": [
+  "rtllm",
+  "no_clock"
+ ],
+ "tb": {
+  "data": [],
+  "files": [
+   "tb/testbench.v"
+  ],
+  "top": "testbench"
+ },
+ "top": "comparator_3bit"
+}
