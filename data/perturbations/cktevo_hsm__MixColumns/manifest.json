@@ -1,0 +1,313 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "cktevo_hsm__MixColumns",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "MixColumns": {
+      "_zz__zz_io_mcOut1": "romeo_0",
+      "_zz__zz_io_mcOut1_1": "delta_1",
+      "_zz__zz_io_mcOut2": "xray_2",
+      "_zz__zz_io_mcOut2_1": "yankee_3",
+      "_zz__zz_io_mcOut3": "foxtrot_4",
+      "_zz__zz_io_mcOut3_1": "oscar_5",
+      "_zz__zz_io_mcOut4": "juliet_6",
+      "_zz__zz_io_mcOut4_1": "charlie_7",
+      "_zz_io_mcOut1": "alpha_8",
+      "_zz_io_mcOut1_1": "whiskey_9",
+      "_zz_io_mcOut2": "victor_10",
+      "_zz_io_mcOut2_1": "india_11",
+      "_zz_io_mcOut3": "bravo_12",
+      "_zz_io_mcOut3_1": "lima_13",
+      "_zz_io_mcOut4": "uniform_14",
+      "_zz_io_mcOut4_1": "sierra_15",
+      "a0": "quebec_16",
+      "a1": "zulu_17",
+      "a2": "echo_18",
+      "a3": "golf_19",
+      "when_MixColumns_l26": "november_20",
+      "when_MixColumns_l26_1": "hotel_21",
+      "when_MixColumns_l26_2": "tango_22",
+      "when_MixColumns_l26_3": "papa_23",
+      "when_MixColumns_l26_4": "kilo_24",
+      "when_MixColumns_l26_5": "mike_25",
+      "when_MixColumns_l26_6": "romeo_26",
+      "when_MixColumns_l26_7": "delta_27"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P1_rename_0.v",
+   "pert_id": "p63f9e14654dc39",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "MixColumns": {
+      "_zz__zz_io_mcOut1": "quebec_0",
+      "_zz__zz_io_mcOut1_1": "sierra_1",
+      "_zz__zz_io_mcOut2": "romeo_2",
+      "_zz__zz_io_mcOut2_1": "echo_3",
+      "_zz__zz_io_mcOut3": "bravo_4",
+      "_zz__zz_io_mcOut3_1": "foxtrot_5",
+      "_zz__zz_io_mcOut4": "tango_6",
+      "_zz__zz_io_mcOut4_1": "oscar_7",
+      "_zz_io_mcOut1": "alpha_8",
+      "_zz_io_mcOut1_1": "india_9",
+      "_zz_io_mcOut2": "lima_10",
+      "_zz_io_mcOut2_1": "hotel_11",
+      "_zz_io_mcOut3": "uniform_12",
+      "_zz_io_mcOut3_1": "golf_13",
+      "_zz_io_mcOut4": "victor_14",
+      "_zz_io_mcOut4_1": "papa_15",
+      "a0": "charlie_16",
+      "a1": "xray_17",
+      "a2": "whiskey_18",
+      "a3": "mike_19",
+      "when_MixColumns_l26": "yankee_20",
+      "when_MixColumns_l26_1": "delta_21",
+      "when_MixColumns_l26_2": "kilo_22",
+      "when_MixColumns_l26_3": "juliet_23",
+      "when_MixColumns_l26_4": "november_24",
+      "when_MixColumns_l26_5": "zulu_25",
+      "when_MixColumns_l26_6": "quebec_26",
+      "when_MixColumns_l26_7": "sierra_27"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P1_rename_1.v",
+   "pert_id": "p28ba54514edd5c",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "MixColumns": {
+      "_zz__zz_io_mcOut1": "papa_0",
+      "_zz__zz_io_mcOut1_1": "kilo_1",
+      "_zz__zz_io_mcOut2": "sierra_2",
+      "_zz__zz_io_mcOut2_1": "india_3",
+      "_zz__zz_io_mcOut3": "alpha_4",
+      "_zz__zz_io_mcOut3_1": "victor_5",
+      "_zz__zz_io_mcOut4": "romeo_6",
+      "_zz__zz_io_mcOut4_1": "delta_7",
+      "_zz_io_mcOut1": "tango_8",
+      "_zz_io_mcOut1_1": "lima_9",
+      "_zz_io_mcOut2": "yankee_10",
+      "_zz_io_mcOut2_1": "foxtrot_11",
+      "_zz_io_mcOut3": "zulu_12",
+      "_zz_io_mcOut3_1": "juliet_13",
+      "_zz_io_mcOut4": "mike_14",
+      "_zz_io_mcOut4_1": "oscar_15",
+      "a0": "golf_16",
+      "a1": "uniform_17",
+      "a2": "november_18",
+      "a3": "quebec_19",
+      "when_MixColumns_l26": "echo_20",
+      "when_MixColumns_l26_1": "hotel_21",
+      "when_MixColumns_l26_2": "bravo_22",
+      "when_MixColumns_l26_3": "xray_23",
+      "when_MixColumns_l26_4": "charlie_24",
+      "when_MixColumns_l26_5": "whiskey_25",
+      "when_MixColumns_l26_6": "papa_26",
+      "when_MixColumns_l26_7": "kilo_27"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P1_rename_2.v",
+   "pert_id": "pca32f85a1b0772",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "MixColumns": {
+      "_zz__zz_io_mcOut1": "echo_0",
+      "_zz__zz_io_mcOut1_1": "hotel_1",
+      "_zz__zz_io_mcOut2": "india_2",
+      "_zz__zz_io_mcOut2_1": "juliet_3",
+      "_zz__zz_io_mcOut3": "charlie_4",
+      "_zz__zz_io_mcOut3_1": "xray_5",
+      "_zz__zz_io_mcOut4": "victor_6",
+      "_zz__zz_io_mcOut4_1": "whiskey_7",
+      "_zz_io_mcOut1": "zulu_8",
+      "_zz_io_mcOut1_1": "oscar_9",
+      "_zz_io_mcOut2": "romeo_10",
+      "_zz_io_mcOut2_1": "quebec_11",
+      "_zz_io_mcOut3": "lima_12",
+      "_zz_io_mcOut3_1": "tango_13",
+      "_zz_io_mcOut4": "golf_14",
+      "_zz_io_mcOut4_1": "alpha_15",
+      "a0": "sierra_16",
+      "a1": "bravo_17",
+      "a2": "yankee_18",
+      "a3": "mike_19",
+      "when_MixColumns_l26": "kilo_20",
+      "when_MixColumns_l26_1": "november_21",
+      "when_MixColumns_l26_2": "uniform_22",
+      "when_MixColumns_l26_3": "delta_23",
+      "when_MixColumns_l26_4": "papa_24",
+      "when_MixColumns_l26_5": "foxtrot_25",
+      "when_MixColumns_l26_6": "echo_26",
+      "when_MixColumns_l26_7": "hotel_27"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P1_rename_3.v",
+   "pert_id": "p07cb0bbf2a0649",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "MixColumns": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P2_reorder_0.v",
+   "pert_id": "p6eee6c498f6796",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "MixColumns": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P2_reorder_1.v",
+   "pert_id": "pd390159ca2110b",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "MixColumns": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P2_reorder_2.v",
+   "pert_id": "p0b00697982e351",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "MixColumns": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P2_reorder_3.v",
+   "pert_id": "p271f8bee695839",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "partselect"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P3_expr_0.v",
+   "pert_id": "pc806be60c3771b",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P3_expr_1.v",
+   "pert_id": "pfd0e3e1838352a",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "const"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P3_expr_2.v",
+   "pert_id": "pe2d5e1e8b155e9",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P3_expr_3.v",
+   "pert_id": "paaaa9e2fc09da5",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P4_ctrl_0.v",
+   "pert_id": "p778e727109b418",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P4_ctrl_1.v",
+   "pert_id": "p45baa5a56c9e56",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_hsm__MixColumns/P4_ctrl_2.v",
+   "pert_id": "pe77ed6e796e7ef",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/cktevo_hsm__MixColumns/roundtrip.v",
+  "pert_id": "p202036a13eafeb"
+ },
+ "seed": "cktevo_hsm__MixColumns:1",
+ "top": "MixColumns"
+}

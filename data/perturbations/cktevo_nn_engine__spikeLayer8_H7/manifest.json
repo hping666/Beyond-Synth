@@ -1,0 +1,746 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "FADD711": {
+      "AisInf": "juliet_0",
+      "AisNaN": "sierra_1",
+      "AisSubnorm": "mike_2",
+      "AisZero": "echo_3",
+      "BisInf": "romeo_4",
+      "BisNaN": "papa_5",
+      "BisSubnorm": "bravo_6",
+      "BisZero": "golf_7",
+      "EXP": "hotel_8",
+      "GRS": "november_9",
+      "Rsel": "delta_10",
+      "anInputIsInf": "xray_11",
+      "anInputIsNaN": "yankee_12",
+      "divX0": "india_13",
+      "expA": "tango_14",
+      "expAB": "quebec_15",
+      "expB": "uniform_16x",
+      "inexact": "alpha_17",
+      "inputIsInvalid": "whiskey_18",
+      "intrmSign": "foxtrot_19",
+      "intrmSum": "zulu_20",
+      "invalid": "oscar_21",
+      "normAfract": "kilo_22",
+      "normBfract": "charlie_23",
+      "normSum": "lima_24",
+      "overflow": "victor_25",
+      "sign": "juliet_26",
+      "signA": "sierra_27",
+      "signB": "mike_28",
+      "theNaN": "echo_29",
+      "theNaN_del": "romeo_30",
+      "underflow": "papa_31"
+     },
+     "FMUL711": {
+      "AisInf": "alpha_0",
+      "AisNaN": "xray_1",
+      "AisZero": "oscar_2",
+      "BisInf": "quebec_3",
+      "BisNaN": "whiskey_4",
+      "BisZero": "romeo_5",
+      "EXP": "foxtrot_6",
+      "GRS": "golf_7x",
+      "Rsel": "papa_8",
+      "anInputIsInf": "bravo_9",
+      "anInputIsNaN": "echo_10",
+      "divX0": "uniform_11",
+      "expA": "zulu_12",
+      "expAB": "charlie_13",
+      "expB": "victor_14",
+      "fraction": "november_15",
+      "inexact": "lima_16",
+      "inputIsInvalid": "delta_17",
+      "intrmProd": "kilo_18",
+      "invalid": "mike_19",
+      "normProd": "sierra_20",
+      "overflow": "tango_21",
+      "sign": "india_22",
+      "signA": "juliet_23",
+      "signB": "yankee_24",
+      "theNaN": "hotel_25",
+      "theNaN_del": "alpha_26",
+      "underflow": "xray_27"
+     },
+     "dualDendRC_H7": {
+      "TauA": "charlie_0",
+      "TauB": "india_1",
+      "charge": "kilo_2",
+      "chargedA": "xray_3",
+      "chargedB": "victor_4",
+      "discharge": "tango_5",
+      "dischargedA": "oscar_6",
+      "dischargedB": "echo_7",
+      "idle": "november_8x",
+      "percentA": "uniform_9",
+      "percentB": "juliet_10",
+      "resetA": "romeo_11",
+      "resetB": "lima_12",
+      "stateA": "hotel_13",
+      "stateA_q1": "yankee_14",
+      "stateB": "papa_15",
+      "stateB_q1": "alpha_16",
+      "tickA": "golf_17",
+      "tickB": "quebec_18"
+     },
+     "spikeNeuron8_H7": {
+      "R01": "bravo_0",
+      "R0123": "alpha_1",
+      "R01234567": "zulu_2",
+      "R23": "hotel_3",
+      "R45": "golf_4",
+      "R4567": "whiskey_5",
+      "R67": "lima_6",
+      "accumSum": "delta_7",
+      "killAll": "november_8",
+      "killDend_A0": "oscar_9",
+      "killDend_A0B0": "mike_10",
+      "killDend_A0B0A1B1": "tango_11",
+      "killDend_A1": "sierra_12",
+      "killDend_A1B1": "echo_13",
+      "killDend_A2": "romeo_14",
+      "killDend_A2B2": "kilo_15",
+      "killDend_A2B2A3B3": "uniform_16",
+      "killDend_A3": "juliet_17",
+      "killDend_A3B3": "charlie_18",
+      "killDend_B0": "victor_19",
+      "killDend_B1": "yankee_20",
+      "killDend_B2": "foxtrot_21",
+      "killDend_B3": "quebec_22",
+      "threshGateAdj": "xray_23"
+     },
+     "tauRom_H7": {
+      "ROMA": "delta_0"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P1_rename_0.v",
+   "pert_id": "pef4e1998302095",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "FADD711": {
+      "AisInf": "quebec_0",
+      "AisNaN": "golf_1",
+      "AisSubnorm": "tango_2",
+      "AisZero": "zulu_3",
+      "BisInf": "romeo_4",
+      "BisNaN": "whiskey_5",
+      "BisSubnorm": "yankee_6",
+      "BisZero": "lima_7",
+      "EXP": "charlie_8",
+      "GRS": "foxtrot_9",
+      "Rsel": "echo_10",
+      "anInputIsInf": "india_11",
+      "anInputIsNaN": "sierra_12",
+      "divX0": "victor_13",
+      "expA": "oscar_14",
+      "expAB": "uniform_15",
+      "expB": "bravo_16",
+      "inexact": "delta_17",
+      "inputIsInvalid": "hotel_18",
+      "intrmSign": "juliet_19",
+      "intrmSum": "alpha_20",
+      "invalid": "papa_21",
+      "normAfract": "mike_22",
+      "normBfract": "november_23",
+      "normSum": "xray_24",
+      "overflow": "kilo_25",
+      "sign": "quebec_26",
+      "signA": "golf_27",
+      "signB": "tango_28",
+      "theNaN": "zulu_29",
+      "theNaN_del": "romeo_30",
+      "underflow": "whiskey_31"
+     },
+     "FMUL711": {
+      "AisInf": "xray_0",
+      "AisNaN": "november_1",
+      "AisZero": "hotel_2",
+      "BisInf": "oscar_3",
+      "BisNaN": "tango_4",
+      "BisZero": "bravo_5",
+      "EXP": "yankee_6x",
+      "GRS": "uniform_7",
+      "Rsel": "alpha_8",
+      "anInputIsInf": "quebec_9",
+      "anInputIsNaN": "echo_10x",
+      "divX0": "foxtrot_11",
+      "expA": "romeo_12",
+      "expAB": "mike_13",
+      "expB": "india_14",
+      "fraction": "kilo_15",
+      "inexact": "zulu_16",
+      "inputIsInvalid": "delta_17x",
+      "intrmProd": "golf_18",
+      "invalid": "victor_19",
+      "normProd": "charlie_20",
+      "overflow": "sierra_21",
+      "sign": "whiskey_22x",
+      "signA": "lima_23",
+      "signB": "papa_24",
+      "theNaN": "juliet_25",
+      "theNaN_del": "xray_26",
+      "underflow": "november_27"
+     },
+     "dualDendRC_H7": {
+      "TauA": "foxtrot_0",
+      "TauB": "xray_1",
+      "charge": "charlie_2",
+      "chargedA": "zulu_3x",
+      "chargedB": "whiskey_4",
+      "discharge": "mike_5",
+      "dischargedA": "november_6",
+      "dischargedB": "victor_7",
+      "idle": "hotel_8",
+      "percentA": "delta_9x",
+      "percentB": "india_10",
+      "resetA": "yankee_11",
+      "resetB": "alpha_12",
+      "stateA": "uniform_13x",
+      "stateA_q1": "lima_14",
+      "stateB": "oscar_15",
+      "stateB_q1": "juliet_16",
+      "tickA": "tango_17",
+      "tickB": "romeo_18"
+     },
+     "spikeNeuron8_H7": {
+      "R01": "oscar_0",
+      "R0123": "hotel_1",
+      "R01234567": "kilo_2",
+      "R23": "india_3",
+      "R45": "november_4",
+      "R4567": "papa_5",
+      "R67": "juliet_6",
+      "accumSum": "quebec_7",
+      "killAll": "bravo_8",
+      "killDend_A0": "delta_9",
+      "killDend_A0B0": "charlie_10",
+      "killDend_A0B0A1B1": "xray_11",
+      "killDend_A1": "zulu_12",
+      "killDend_A1B1": "uniform_13",
+      "killDend_A2": "echo_14",
+      "killDend_A2B2": "sierra_15",
+      "killDend_A2B2A3B3": "lima_16",
+      "killDend_A3": "golf_17",
+      "killDend_A3B3": "alpha_18",
+      "killDend_B0": "yankee_19",
+      "killDend_B1": "romeo_20",
+      "killDend_B2": "tango_21",
+      "killDend_B3": "whiskey_22",
+      "threshGateAdj": "victor_23"
+     },
+     "tauRom_H7": {
+      "ROMA": "delta_0"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P1_rename_1.v",
+   "pert_id": "pb54271a30373f4",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "FADD711": {
+      "AisInf": "november_0",
+      "AisNaN": "zulu_1",
+      "AisSubnorm": "golf_2",
+      "AisZero": "xray_3",
+      "BisInf": "whiskey_4",
+      "BisNaN": "sierra_5",
+      "BisSubnorm": "victor_6",
+      "BisZero": "yankee_7",
+      "EXP": "bravo_8",
+      "GRS": "lima_9",
+      "Rsel": "delta_10",
+      "anInputIsInf": "romeo_11",
+      "anInputIsNaN": "papa_12",
+      "divX0": "kilo_13",
+      "expA": "hotel_14",
+      "expAB": "echo_15",
+      "expB": "alpha_16",
+      "inexact": "tango_17",
+      "inputIsInvalid": "charlie_18x",
+      "intrmSign": "foxtrot_19",
+      "intrmSum": "quebec_20",
+      "invalid": "india_21",
+      "normAfract": "juliet_22",
+      "normBfract": "uniform_23",
+      "normSum": "mike_24",
+      "overflow": "oscar_25",
+      "sign": "november_26",
+      "signA": "zulu_27",
+      "signB": "golf_28",
+      "theNaN": "xray_29",
+      "theNaN_del": "whiskey_30",
+      "underflow": "sierra_31"
+     },
+     "FMUL711": {
+      "AisInf": "hotel_0",
+      "AisNaN": "quebec_1",
+      "AisZero": "tango_2",
+      "BisInf": "xray_3x",
+      "BisNaN": "uniform_4",
+      "BisZero": "foxtrot_5",
+      "EXP": "delta_6",
+      "GRS": "romeo_7",
+      "Rsel": "bravo_8x",
+      "anInputIsInf": "echo_9",
+      "anInputIsNaN": "november_10",
+      "divX0": "oscar_11",
+      "expA": "juliet_12",
+      "expAB": "victor_13",
+      "expB": "yankee_14",
+      "fraction": "sierra_15",
+      "inexact": "india_16",
+      "inputIsInvalid": "zulu_17",
+      "intrmProd": "kilo_18",
+      "invalid": "alpha_19",
+      "normProd": "mike_20",
+      "overflow": "lima_21",
+      "sign": "whiskey_22",
+      "signA": "golf_23",
+      "signB": "charlie_24",
+      "theNaN": "papa_25",
+      "theNaN_del": "hotel_26",
+      "underflow": "quebec_27"
+     },
+     "dualDendRC_H7": {
+      "TauA": "echo_0",
+      "TauB": "whiskey_1",
+      "charge": "bravo_2",
+      "chargedA": "mike_3",
+      "chargedB": "papa_4",
+      "discharge": "sierra_5x",
+      "dischargedA": "zulu_6",
+      "dischargedB": "foxtrot_7",
+      "idle": "juliet_8",
+      "percentA": "tango_9",
+      "percentB": "yankee_10",
+      "resetA": "quebec_11",
+      "resetB": "alpha_12",
+      "stateA": "xray_13",
+      "stateA_q1": "lima_14x",
+      "stateB": "kilo_15",
+      "stateB_q1": "uniform_16",
+      "tickA": "charlie_17",
+      "tickB": "hotel_18"
+     },
+     "spikeNeuron8_H7": {
+      "R01": "golf_0",
+      "R0123": "delta_1",
+      "R01234567": "india_2",
+      "R23": "victor_3",
+      "R45": "xray_4",
+      "R4567": "whiskey_5",
+      "R67": "echo_6",
+      "accumSum": "alpha_7",
+      "killAll": "uniform_8",
+      "killDend_A0": "foxtrot_9",
+      "killDend_A0B0": "juliet_10",
+      "killDend_A0B0A1B1": "bravo_11",
+      "killDend_A1": "quebec_12",
+      "killDend_A1B1": "mike_13",
+      "killDend_A2": "lima_14",
+      "killDend_A2B2": "zulu_15",
+      "killDend_A2B2A3B3": "sierra_16",
+      "killDend_A3": "oscar_17",
+      "killDend_A3B3": "charlie_18",
+      "killDend_B0": "hotel_19",
+      "killDend_B1": "november_20",
+      "killDend_B2": "romeo_21",
+      "killDend_B3": "papa_22",
+      "threshGateAdj": "yankee_23"
+     },
+     "tauRom_H7": {
+      "ROMA": "romeo_0"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P1_rename_2.v",
+   "pert_id": "p9b6a1a9277a520",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "FADD711": {
+      "AisInf": "delta_0",
+      "AisNaN": "mike_1",
+      "AisSubnorm": "foxtrot_2",
+      "AisZero": "xray_3",
+      "BisInf": "whiskey_4",
+      "BisNaN": "oscar_5",
+      "BisSubnorm": "sierra_6",
+      "BisZero": "echo_7",
+      "EXP": "papa_8",
+      "GRS": "victor_9",
+      "Rsel": "juliet_10",
+      "anInputIsInf": "yankee_11",
+      "anInputIsNaN": "hotel_12",
+      "divX0": "lima_13",
+      "expA": "romeo_14",
+      "expAB": "bravo_15",
+      "expB": "quebec_16",
+      "inexact": "charlie_17x",
+      "inputIsInvalid": "uniform_18",
+      "intrmSign": "tango_19",
+      "intrmSum": "november_20",
+      "invalid": "india_21",
+      "normAfract": "kilo_22",
+      "normBfract": "alpha_23",
+      "normSum": "zulu_24",
+      "overflow": "golf_25",
+      "sign": "delta_26",
+      "signA": "mike_27",
+      "signB": "foxtrot_28",
+      "theNaN": "xray_29",
+      "theNaN_del": "whiskey_30",
+      "underflow": "oscar_31"
+     },
+     "FMUL711": {
+      "AisInf": "india_0",
+      "AisNaN": "charlie_1",
+      "AisZero": "echo_2",
+      "BisInf": "golf_3",
+      "BisNaN": "victor_4",
+      "BisZero": "zulu_5",
+      "EXP": "kilo_6",
+      "GRS": "sierra_7",
+      "Rsel": "alpha_8",
+      "anInputIsInf": "uniform_9",
+      "anInputIsNaN": "quebec_10",
+      "divX0": "foxtrot_11",
+      "expA": "mike_12",
+      "expAB": "delta_13",
+      "expB": "romeo_14x",
+      "fraction": "oscar_15",
+      "inexact": "whiskey_16",
+      "inputIsInvalid": "yankee_17",
+      "intrmProd": "papa_18",
+      "invalid": "bravo_19",
+      "normProd": "tango_20",
+      "overflow": "hotel_21",
+      "sign": "november_22",
+      "signA": "juliet_23",
+      "signB": "lima_24",
+      "theNaN": "xray_25",
+      "theNaN_del": "india_26",
+      "underflow": "charlie_27"
+     },
+     "dualDendRC_H7": {
+      "TauA": "whiskey_0x",
+      "TauB": "lima_1",
+      "charge": "uniform_2",
+      "chargedA": "kilo_3",
+      "chargedB": "tango_4",
+      "discharge": "bravo_5",
+      "dischargedA": "november_6",
+      "dischargedB": "papa_7",
+      "idle": "foxtrot_8",
+      "percentA": "quebec_9",
+      "percentB": "xray_10",
+      "resetA": "romeo_11",
+      "resetB": "delta_12",
+      "stateA": "india_13",
+      "stateA_q1": "juliet_14x",
+      "stateB": "sierra_15",
+      "stateB_q1": "yankee_16",
+      "tickA": "golf_17",
+      "tickB": "victor_18"
+     },
+     "spikeNeuron8_H7": {
+      "R01": "whiskey_0",
+      "R0123": "november_1",
+      "R01234567": "lima_2",
+      "R23": "delta_3",
+      "R45": "hotel_4",
+      "R4567": "mike_5",
+      "R67": "papa_6",
+      "accumSum": "india_7",
+      "killAll": "tango_8",
+      "killDend_A0": "alpha_9",
+      "killDend_A0B0": "oscar_10",
+      "killDend_A0B0A1B1": "kilo_11",
+      "killDend_A1": "yankee_12",
+      "killDend_A1B1": "quebec_13",
+      "killDend_A2": "juliet_14",
+      "killDend_A2B2": "golf_15",
+      "killDend_A2B2A3B3": "xray_16",
+      "killDend_A3": "charlie_17",
+      "killDend_A3B3": "echo_18",
+      "killDend_B0": "zulu_19",
+      "killDend_B1": "foxtrot_20",
+      "killDend_B2": "sierra_21",
+      "killDend_B3": "victor_22",
+      "threshGateAdj": "bravo_23"
+     },
+     "tauRom_H7": {
+      "ROMA": "oscar_0"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P1_rename_3.v",
+   "pert_id": "p28c4b7164174e2",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "FADD711": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "FMUL711": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "dualDendRC_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "spikeLayer8_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "spikeNeuron8_H7": {
+      "always_blocks": 0,
+      "item_runs": 4
+     },
+     "tauRom_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P2_reorder_0.v",
+   "pert_id": "pc991cffa8dc134",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "FADD711": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "FMUL711": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "dualDendRC_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "spikeLayer8_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "spikeNeuron8_H7": {
+      "always_blocks": 0,
+      "item_runs": 4
+     },
+     "tauRom_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P2_reorder_1.v",
+   "pert_id": "pffdcdf676f0c0d",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "FADD711": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "FMUL711": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "dualDendRC_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "spikeLayer8_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "spikeNeuron8_H7": {
+      "always_blocks": 0,
+      "item_runs": 4
+     },
+     "tauRom_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P2_reorder_2.v",
+   "pert_id": "p61bc274901ee95",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "FADD711": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "FMUL711": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "dualDendRC_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "spikeLayer8_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "spikeNeuron8_H7": {
+      "always_blocks": 0,
+      "item_runs": 4
+     },
+     "tauRom_H7": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P2_reorder_3.v",
+   "pert_id": "p08ac48619d3a2a",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P3_expr_0.v",
+   "pert_id": "pc25bcebbe56abd",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P3_expr_1.v",
+   "pert_id": "p47d8a96dec921d",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P3_expr_2.v",
+   "pert_id": "pd9a5c747d638a3",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P3_expr_3.v",
+   "pert_id": "p7c536596c78f9d",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "ternary_to_if",
+     "case_to_if"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P4_ctrl_0.v",
+   "pert_id": "p07798e83d0e54a",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "ternary_to_if",
+     "ternary_to_if"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P4_ctrl_1.v",
+   "pert_id": "pbe175480dd05f7",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "ternary_to_if"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P4_ctrl_2.v",
+   "pert_id": "p8b354afec9ee14",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "ternary_to_if",
+     "if_to_ternary"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/P4_ctrl_3.v",
+   "pert_id": "p34bcb419c2be82",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/cktevo_nn_engine__spikeLayer8_H7/roundtrip.v",
+  "pert_id": "pae8f5c55dd3aaa"
+ },
+ "seed": "cktevo_nn_engine__spikeLayer8_H7:1",
+ "top": "spikeLayer8_H7"
+}

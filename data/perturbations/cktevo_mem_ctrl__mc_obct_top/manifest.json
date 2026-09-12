@@ -1,0 +1,451 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "cktevo_mem_ctrl__mc_obct_top",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "mc_obct": {
+      "b0_last_row": "alpha_0",
+      "b1_last_row": "whiskey_1",
+      "b2_last_row": "xray_2",
+      "b3_last_row": "golf_3",
+      "bank0_open": "oscar_4",
+      "bank1_open": "india_5",
+      "bank2_open": "quebec_6",
+      "bank3_open": "victor_7",
+      "row0_same": "mike_8",
+      "row1_same": "foxtrot_9",
+      "row2_same": "charlie_10",
+      "row3_same": "sierra_11"
+     },
+     "mc_obct_top": {
+      "any_bank_open_0": "yankee_0",
+      "any_bank_open_1": "golf_1",
+      "any_bank_open_2": "papa_2",
+      "any_bank_open_3": "uniform_3",
+      "any_bank_open_4": "sierra_4",
+      "any_bank_open_5": "mike_5",
+      "any_bank_open_6": "echo_6",
+      "any_bank_open_7": "juliet_7",
+      "bank_clr_0": "lima_8",
+      "bank_clr_1": "xray_9",
+      "bank_clr_2": "victor_10",
+      "bank_clr_3": "romeo_11",
+      "bank_clr_4": "foxtrot_12",
+      "bank_clr_5": "alpha_13",
+      "bank_clr_6": "november_14",
+      "bank_clr_7": "oscar_15",
+      "bank_clr_all_0": "delta_16",
+      "bank_clr_all_1": "whiskey_17",
+      "bank_clr_all_2": "kilo_18",
+      "bank_clr_all_3": "zulu_19",
+      "bank_clr_all_4": "india_20",
+      "bank_clr_all_5": "tango_21",
+      "bank_clr_all_6": "charlie_22",
+      "bank_clr_all_7": "quebec_23",
+      "bank_open_0": "hotel_24",
+      "bank_open_1": "bravo_25",
+      "bank_open_2": "yankee_26",
+      "bank_open_3": "golf_27",
+      "bank_open_4": "papa_28",
+      "bank_open_5": "uniform_29",
+      "bank_open_6": "sierra_30",
+      "bank_open_7": "mike_31",
+      "bank_set_0": "echo_32",
+      "bank_set_1": "juliet_33",
+      "bank_set_2": "lima_34",
+      "bank_set_3": "xray_35",
+      "bank_set_4": "victor_36",
+      "bank_set_5": "romeo_37",
+      "bank_set_6": "foxtrot_38",
+      "bank_set_7": "alpha_39",
+      "row_same_0": "november_40",
+      "row_same_1": "oscar_41",
+      "row_same_2": "delta_42",
+      "row_same_3": "whiskey_43",
+      "row_same_4": "kilo_44",
+      "row_same_5": "zulu_45",
+      "row_same_6": "india_46",
+      "row_same_7": "tango_47"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P1_rename_0.v",
+   "pert_id": "p9fe50960a47f3a",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "mc_obct": {
+      "b0_last_row": "hotel_0",
+      "b1_last_row": "kilo_1x",
+      "b2_last_row": "golf_2",
+      "b3_last_row": "mike_3x",
+      "bank0_open": "foxtrot_4",
+      "bank1_open": "india_5",
+      "bank2_open": "xray_6",
+      "bank3_open": "yankee_7",
+      "row0_same": "alpha_8",
+      "row1_same": "sierra_9",
+      "row2_same": "quebec_10",
+      "row3_same": "echo_11"
+     },
+     "mc_obct_top": {
+      "any_bank_open_0": "delta_0",
+      "any_bank_open_1": "kilo_1",
+      "any_bank_open_2": "charlie_2",
+      "any_bank_open_3": "mike_3",
+      "any_bank_open_4": "sierra_4",
+      "any_bank_open_5": "romeo_5",
+      "any_bank_open_6": "quebec_6",
+      "any_bank_open_7": "bravo_7",
+      "bank_clr_0": "zulu_8",
+      "bank_clr_1": "tango_9",
+      "bank_clr_2": "golf_10",
+      "bank_clr_3": "november_11",
+      "bank_clr_4": "alpha_12",
+      "bank_clr_5": "victor_13",
+      "bank_clr_6": "hotel_14",
+      "bank_clr_7": "uniform_15",
+      "bank_clr_all_0": "echo_16",
+      "bank_clr_all_1": "juliet_17",
+      "bank_clr_all_2": "india_18",
+      "bank_clr_all_3": "xray_19",
+      "bank_clr_all_4": "oscar_20",
+      "bank_clr_all_5": "yankee_21",
+      "bank_clr_all_6": "lima_22",
+      "bank_clr_all_7": "whiskey_23",
+      "bank_open_0": "papa_24",
+      "bank_open_1": "foxtrot_25",
+      "bank_open_2": "delta_26",
+      "bank_open_3": "kilo_27",
+      "bank_open_4": "charlie_28",
+      "bank_open_5": "mike_29",
+      "bank_open_6": "sierra_30",
+      "bank_open_7": "romeo_31",
+      "bank_set_0": "quebec_32",
+      "bank_set_1": "bravo_33",
+      "bank_set_2": "zulu_34",
+      "bank_set_3": "tango_35",
+      "bank_set_4": "golf_36",
+      "bank_set_5": "november_37",
+      "bank_set_6": "alpha_38",
+      "bank_set_7": "victor_39",
+      "row_same_0": "hotel_40",
+      "row_same_1": "uniform_41",
+      "row_same_2": "echo_42",
+      "row_same_3": "juliet_43",
+      "row_same_4": "india_44",
+      "row_same_5": "xray_45",
+      "row_same_6": "oscar_46",
+      "row_same_7": "yankee_47"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P1_rename_1.v",
+   "pert_id": "pf3d8173620303c",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "mc_obct": {
+      "b0_last_row": "victor_0",
+      "b1_last_row": "hotel_1",
+      "b2_last_row": "alpha_2",
+      "b3_last_row": "delta_3",
+      "bank0_open": "yankee_4",
+      "bank1_open": "india_5",
+      "bank2_open": "sierra_6",
+      "bank3_open": "tango_7",
+      "row0_same": "charlie_8",
+      "row1_same": "foxtrot_9",
+      "row2_same": "kilo_10x",
+      "row3_same": "mike_11"
+     },
+     "mc_obct_top": {
+      "any_bank_open_0": "sierra_0",
+      "any_bank_open_1": "victor_1",
+      "any_bank_open_2": "foxtrot_2",
+      "any_bank_open_3": "quebec_3",
+      "any_bank_open_4": "golf_4",
+      "any_bank_open_5": "tango_5",
+      "any_bank_open_6": "papa_6",
+      "any_bank_open_7": "oscar_7",
+      "bank_clr_0": "india_8",
+      "bank_clr_1": "uniform_9",
+      "bank_clr_2": "kilo_10",
+      "bank_clr_3": "bravo_11",
+      "bank_clr_4": "yankee_12",
+      "bank_clr_5": "romeo_13",
+      "bank_clr_6": "whiskey_14",
+      "bank_clr_7": "zulu_15",
+      "bank_clr_all_0": "lima_16",
+      "bank_clr_all_1": "hotel_17",
+      "bank_clr_all_2": "charlie_18",
+      "bank_clr_all_3": "xray_19",
+      "bank_clr_all_4": "echo_20",
+      "bank_clr_all_5": "juliet_21",
+      "bank_clr_all_6": "delta_22",
+      "bank_clr_all_7": "mike_23",
+      "bank_open_0": "november_24",
+      "bank_open_1": "alpha_25",
+      "bank_open_2": "sierra_26",
+      "bank_open_3": "victor_27",
+      "bank_open_4": "foxtrot_28",
+      "bank_open_5": "quebec_29",
+      "bank_open_6": "golf_30",
+      "bank_open_7": "tango_31",
+      "bank_set_0": "papa_32",
+      "bank_set_1": "oscar_33",
+      "bank_set_2": "india_34",
+      "bank_set_3": "uniform_35",
+      "bank_set_4": "kilo_36",
+      "bank_set_5": "bravo_37",
+      "bank_set_6": "yankee_38",
+      "bank_set_7": "romeo_39",
+      "row_same_0": "whiskey_40",
+      "row_same_1": "zulu_41",
+      "row_same_2": "lima_42",
+      "row_same_3": "hotel_43",
+      "row_same_4": "charlie_44",
+      "row_same_5": "xray_45",
+      "row_same_6": "echo_46",
+      "row_same_7": "juliet_47"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P1_rename_2.v",
+   "pert_id": "p8e5e9acc304fa3",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "mc_obct": {
+      "b0_last_row": "foxtrot_0",
+      "b1_last_row": "november_1",
+      "b2_last_row": "delta_2",
+      "b3_last_row": "yankee_3",
+      "bank0_open": "alpha_4",
+      "bank1_open": "echo_5",
+      "bank2_open": "kilo_6",
+      "bank3_open": "papa_7",
+      "row0_same": "lima_8x",
+      "row1_same": "hotel_9",
+      "row2_same": "whiskey_10",
+      "row3_same": "zulu_11"
+     },
+     "mc_obct_top": {
+      "any_bank_open_0": "charlie_0",
+      "any_bank_open_1": "oscar_1",
+      "any_bank_open_2": "quebec_2",
+      "any_bank_open_3": "india_3",
+      "any_bank_open_4": "xray_4",
+      "any_bank_open_5": "foxtrot_5",
+      "any_bank_open_6": "hotel_6",
+      "any_bank_open_7": "whiskey_7",
+      "bank_clr_0": "lima_8",
+      "bank_clr_1": "tango_9",
+      "bank_clr_2": "uniform_10",
+      "bank_clr_3": "sierra_11",
+      "bank_clr_4": "yankee_12",
+      "bank_clr_5": "juliet_13",
+      "bank_clr_6": "delta_14",
+      "bank_clr_7": "golf_15",
+      "bank_clr_all_0": "mike_16",
+      "bank_clr_all_1": "bravo_17",
+      "bank_clr_all_2": "alpha_18",
+      "bank_clr_all_3": "november_19",
+      "bank_clr_all_4": "papa_20",
+      "bank_clr_all_5": "kilo_21",
+      "bank_clr_all_6": "victor_22",
+      "bank_clr_all_7": "romeo_23",
+      "bank_open_0": "zulu_24",
+      "bank_open_1": "echo_25",
+      "bank_open_2": "charlie_26",
+      "bank_open_3": "oscar_27",
+      "bank_open_4": "quebec_28",
+      "bank_open_5": "india_29",
+      "bank_open_6": "xray_30",
+      "bank_open_7": "foxtrot_31",
+      "bank_set_0": "hotel_32",
+      "bank_set_1": "whiskey_33",
+      "bank_set_2": "lima_34",
+      "bank_set_3": "tango_35",
+      "bank_set_4": "uniform_36",
+      "bank_set_5": "sierra_37",
+      "bank_set_6": "yankee_38",
+      "bank_set_7": "juliet_39",
+      "row_same_0": "delta_40",
+      "row_same_1": "golf_41",
+      "row_same_2": "mike_42",
+      "row_same_3": "bravo_43",
+      "row_same_4": "alpha_44",
+      "row_same_5": "november_45",
+      "row_same_6": "papa_46",
+      "row_same_7": "kilo_47"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P1_rename_3.v",
+   "pert_id": "p453f665d32538a",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mc_obct": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_obct_dummy": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_obct_top": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P2_reorder_0.v",
+   "pert_id": "p822396f00db52d",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mc_obct": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_obct_dummy": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_obct_top": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P2_reorder_1.v",
+   "pert_id": "pcf7a57e419b9cc",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mc_obct": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_obct_dummy": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_obct_top": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P2_reorder_2.v",
+   "pert_id": "pbd48daa15fd385",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mc_obct": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_obct_dummy": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_obct_top": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P2_reorder_3.v",
+   "pert_id": "pe2409dc909c5a1",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P3_expr_0.v",
+   "pert_id": "p24a25e2b246c69",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P3_expr_1.v",
+   "pert_id": "p7821abebd2e844",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P3_expr_2.v",
+   "pert_id": "pd7b07167c0ff09",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/P3_expr_3.v",
+   "pert_id": "p549b37c111366f",
+   "ptype": "P3_expr"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/cktevo_mem_ctrl__mc_obct_top/roundtrip.v",
+  "pert_id": "p69c6f3764f02c4"
+ },
+ "seed": "cktevo_mem_ctrl__mc_obct_top:1",
+ "top": "mc_obct_top"
+}

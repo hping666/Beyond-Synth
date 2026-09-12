@@ -1,0 +1,408 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "cktevo_ethmac__eth_txethmac",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "eth_crc": {
+      "CrcNext": "quebec_0"
+     },
+     "eth_random": {
+      "Feedback": "tango_0",
+      "Random": "xray_1",
+      "RandomLatched": "foxtrot_2",
+      "x": "juliet_3"
+     },
+     "eth_txcounters": {
+      "ByteCntMax": "charlie_0",
+      "ExcessiveDeferCnt": "juliet_1",
+      "IncrementByteCnt": "papa_2x",
+      "IncrementNibCnt": "golf_3",
+      "ResetByteCnt": "yankee_4",
+      "ResetNibCnt": "xray_5"
+     },
+     "eth_txethmac": {
+      "Data_Crc": "alpha_0",
+      "Enable_Crc": "yankee_1",
+      "ExcessiveDeferOccured": "papa_2",
+      "Initialize_Crc": "charlie_3",
+      "MTxD_d": "hotel_4",
+      "PacketFinished": "mike_5",
+      "PacketFinished_d": "sierra_6",
+      "StartTxRetry": "lima_7",
+      "StatusLatch": "romeo_8",
+      "StopExcessiveDeferOccured": "bravo_9"
+     },
+     "eth_txstatem": {
+      "Rule1": "alpha_0x",
+      "StartIdle": "romeo_1",
+      "StartPAD": "yankee_2"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P1_rename_0.v",
+   "pert_id": "p6b9c6e3c9cba2d",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "eth_crc": {
+      "CrcNext": "november_0"
+     },
+     "eth_random": {
+      "Feedback": "yankee_0",
+      "Random": "uniform_1",
+      "RandomLatched": "zulu_2",
+      "x": "romeo_3"
+     },
+     "eth_txcounters": {
+      "ByteCntMax": "mike_0",
+      "ExcessiveDeferCnt": "xray_1",
+      "IncrementByteCnt": "quebec_2",
+      "IncrementNibCnt": "oscar_3",
+      "ResetByteCnt": "golf_4",
+      "ResetNibCnt": "alpha_5"
+     },
+     "eth_txethmac": {
+      "Data_Crc": "zulu_0",
+      "Enable_Crc": "echo_1",
+      "ExcessiveDeferOccured": "xray_2",
+      "Initialize_Crc": "juliet_3",
+      "MTxD_d": "yankee_4",
+      "PacketFinished": "mike_5",
+      "PacketFinished_d": "tango_6",
+      "StartTxRetry": "golf_7",
+      "StatusLatch": "uniform_8",
+      "StopExcessiveDeferOccured": "november_9"
+     },
+     "eth_txstatem": {
+      "Rule1": "foxtrot_0",
+      "StartIdle": "november_1",
+      "StartPAD": "romeo_2"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P1_rename_1.v",
+   "pert_id": "p8e2ed76177c021",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "eth_crc": {
+      "CrcNext": "yankee_0"
+     },
+     "eth_random": {
+      "Feedback": "kilo_0",
+      "Random": "hotel_1",
+      "RandomLatched": "foxtrot_2",
+      "x": "golf_3"
+     },
+     "eth_txcounters": {
+      "ByteCntMax": "whiskey_0",
+      "ExcessiveDeferCnt": "golf_1",
+      "IncrementByteCnt": "xray_2",
+      "IncrementNibCnt": "zulu_3",
+      "ResetByteCnt": "echo_4",
+      "ResetNibCnt": "romeo_5"
+     },
+     "eth_txethmac": {
+      "Data_Crc": "tango_0",
+      "Enable_Crc": "india_1",
+      "ExcessiveDeferOccured": "quebec_2",
+      "Initialize_Crc": "juliet_3",
+      "MTxD_d": "bravo_4",
+      "PacketFinished": "golf_5",
+      "PacketFinished_d": "charlie_6",
+      "StartTxRetry": "papa_7",
+      "StatusLatch": "mike_8",
+      "StopExcessiveDeferOccured": "foxtrot_9"
+     },
+     "eth_txstatem": {
+      "Rule1": "uniform_0",
+      "StartIdle": "alpha_1",
+      "StartPAD": "yankee_2"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P1_rename_2.v",
+   "pert_id": "pb688424005efa5",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "eth_crc": {
+      "CrcNext": "kilo_0"
+     },
+     "eth_random": {
+      "Feedback": "india_0",
+      "Random": "november_1",
+      "RandomLatched": "papa_2",
+      "x": "foxtrot_3"
+     },
+     "eth_txcounters": {
+      "ByteCntMax": "tango_0",
+      "ExcessiveDeferCnt": "xray_1",
+      "IncrementByteCnt": "bravo_2",
+      "IncrementNibCnt": "india_3",
+      "ResetByteCnt": "quebec_4",
+      "ResetNibCnt": "whiskey_5"
+     },
+     "eth_txethmac": {
+      "Data_Crc": "echo_0",
+      "Enable_Crc": "foxtrot_1",
+      "ExcessiveDeferOccured": "hotel_2",
+      "Initialize_Crc": "mike_3",
+      "MTxD_d": "golf_4",
+      "PacketFinished": "uniform_5",
+      "PacketFinished_d": "romeo_6",
+      "StartTxRetry": "kilo_7",
+      "StatusLatch": "zulu_8",
+      "StopExcessiveDeferOccured": "oscar_9"
+     },
+     "eth_txstatem": {
+      "Rule1": "india_0x",
+      "StartIdle": "bravo_1",
+      "StartPAD": "hotel_2x"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P1_rename_3.v",
+   "pert_id": "p79e8fd3c689e2c",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_crc": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_random": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_txcounters": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_txethmac": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "eth_txstatem": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P2_reorder_0.v",
+   "pert_id": "p4aaa67276c09d9",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_crc": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_random": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_txcounters": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_txethmac": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "eth_txstatem": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P2_reorder_1.v",
+   "pert_id": "pa45688c32e58df",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_crc": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_random": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_txcounters": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_txethmac": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "eth_txstatem": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P2_reorder_2.v",
+   "pert_id": "pe1aaf41ebd94e3",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_crc": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_random": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_txcounters": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_txethmac": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "eth_txstatem": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P2_reorder_3.v",
+   "pert_id": "pa78be62fe60be5",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P3_expr_0.v",
+   "pert_id": "p3c986cbea481a8",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P3_expr_1.v",
+   "pert_id": "p7f802be01e9d0c",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "partselect",
+     "partselect",
+     "const"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P3_expr_2.v",
+   "pert_id": "pfac5fab5f0d1b3",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P3_expr_3.v",
+   "pert_id": "p05cd11c29e29d5",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P4_ctrl_0.v",
+   "pert_id": "p9054f9b4182667",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P4_ctrl_1.v",
+   "pert_id": "p3c3948732e07c1",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P4_ctrl_2.v",
+   "pert_id": "p10b3ec0a93a4a7",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_ethmac__eth_txethmac/P4_ctrl_3.v",
+   "pert_id": "pcd9290f05d3fb1",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/cktevo_ethmac__eth_txethmac/roundtrip.v",
+  "pert_id": "p621d475f0d7eaf"
+ },
+ "seed": "cktevo_ethmac__eth_txethmac:1",
+ "top": "eth_txethmac"
+}

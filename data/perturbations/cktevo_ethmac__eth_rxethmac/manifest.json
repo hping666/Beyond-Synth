@@ -1,0 +1,424 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "cktevo_ethmac__eth_rxethmac",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "eth_crc": {
+      "CrcNext": "xray_0"
+     },
+     "eth_rxaddrcheck": {
+      "BroadcastOK": "lima_0",
+      "ByteHash": "sierra_1",
+      "HashBit": "juliet_2",
+      "IntHash": "uniform_3",
+      "MulticastOK": "oscar_4",
+      "RxAddressInvalid": "whiskey_5",
+      "RxCheckEn": "alpha_6",
+      "UnicastOK": "xray_7"
+     },
+     "eth_rxcounters": {
+      "ByteCntDelayed": "delta_0",
+      "ByteCntMax": "whiskey_1",
+      "IFGCounter": "yankee_2",
+      "IncrementByteCounter": "juliet_3",
+      "IncrementIFGCounter": "tango_4",
+      "ResetByteCounter": "zulu_5",
+      "ResetIFGCounter": "oscar_6"
+     },
+     "eth_rxethmac": {
+      "Data_Crc": "foxtrot_0",
+      "DelayData": "quebec_1",
+      "DribbleRxEndFrm": "lima_2",
+      "Enable_Crc": "yankee_3",
+      "GenerateRxEndFrm": "xray_4",
+      "GenerateRxStartFrm": "delta_5",
+      "GenerateRxValid": "zulu_6",
+      "Initialize_Crc": "india_7",
+      "LatchedByte": "golf_8",
+      "RxData_d": "november_9",
+      "RxEndFrm_d": "mike_10",
+      "RxStartFrm_d": "victor_11",
+      "RxValid_d": "sierra_12"
+     },
+     "eth_rxstatem": {
+      "StartData0": "oscar_0",
+      "StartData1": "hotel_1",
+      "StartDrop": "whiskey_2",
+      "StartIdle": "uniform_3x",
+      "StartPreamble": "xray_4x",
+      "StartSFD": "zulu_5x",
+      "StateData0": "romeo_6",
+      "StateData1": "juliet_7"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P1_rename_0.v",
+   "pert_id": "p4831cfe8aa3482",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "eth_crc": {
+      "CrcNext": "hotel_0"
+     },
+     "eth_rxaddrcheck": {
+      "BroadcastOK": "uniform_0x",
+      "ByteHash": "xray_1",
+      "HashBit": "papa_2",
+      "IntHash": "november_3",
+      "MulticastOK": "kilo_4",
+      "RxAddressInvalid": "zulu_5",
+      "RxCheckEn": "sierra_6",
+      "UnicastOK": "quebec_7"
+     },
+     "eth_rxcounters": {
+      "ByteCntDelayed": "kilo_0",
+      "ByteCntMax": "lima_1",
+      "IFGCounter": "victor_2",
+      "IncrementByteCounter": "uniform_3",
+      "IncrementIFGCounter": "delta_4",
+      "ResetByteCounter": "papa_5",
+      "ResetIFGCounter": "hotel_6"
+     },
+     "eth_rxethmac": {
+      "Data_Crc": "uniform_0",
+      "DelayData": "papa_1",
+      "DribbleRxEndFrm": "romeo_2",
+      "Enable_Crc": "oscar_3",
+      "GenerateRxEndFrm": "hotel_4",
+      "GenerateRxStartFrm": "lima_5",
+      "GenerateRxValid": "juliet_6",
+      "Initialize_Crc": "sierra_7",
+      "LatchedByte": "delta_8",
+      "RxData_d": "echo_9",
+      "RxEndFrm_d": "yankee_10",
+      "RxStartFrm_d": "foxtrot_11",
+      "RxValid_d": "mike_12"
+     },
+     "eth_rxstatem": {
+      "StartData0": "alpha_0",
+      "StartData1": "xray_1x",
+      "StartDrop": "oscar_2",
+      "StartIdle": "november_3x",
+      "StartPreamble": "tango_4",
+      "StartSFD": "zulu_5x",
+      "StateData0": "india_6",
+      "StateData1": "delta_7"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P1_rename_1.v",
+   "pert_id": "p2a9415350a5fa6",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "eth_crc": {
+      "CrcNext": "uniform_0"
+     },
+     "eth_rxaddrcheck": {
+      "BroadcastOK": "golf_0",
+      "ByteHash": "delta_1",
+      "HashBit": "charlie_2",
+      "IntHash": "november_3",
+      "MulticastOK": "sierra_4",
+      "RxAddressInvalid": "uniform_5",
+      "RxCheckEn": "whiskey_6x",
+      "UnicastOK": "xray_7"
+     },
+     "eth_rxcounters": {
+      "ByteCntDelayed": "november_0",
+      "ByteCntMax": "alpha_1",
+      "IFGCounter": "xray_2",
+      "IncrementByteCounter": "yankee_3",
+      "IncrementIFGCounter": "uniform_4x",
+      "ResetByteCounter": "kilo_5",
+      "ResetIFGCounter": "hotel_6"
+     },
+     "eth_rxethmac": {
+      "Data_Crc": "lima_0",
+      "DelayData": "quebec_1",
+      "DribbleRxEndFrm": "oscar_2",
+      "Enable_Crc": "bravo_3",
+      "GenerateRxEndFrm": "uniform_4",
+      "GenerateRxStartFrm": "alpha_5",
+      "GenerateRxValid": "whiskey_6",
+      "Initialize_Crc": "juliet_7",
+      "LatchedByte": "golf_8",
+      "RxData_d": "tango_9",
+      "RxEndFrm_d": "kilo_10",
+      "RxStartFrm_d": "delta_11",
+      "RxValid_d": "victor_12"
+     },
+     "eth_rxstatem": {
+      "StartData0": "lima_0x",
+      "StartData1": "juliet_1",
+      "StartDrop": "charlie_2x",
+      "StartIdle": "whiskey_3",
+      "StartPreamble": "foxtrot_4",
+      "StartSFD": "golf_5",
+      "StateData0": "oscar_6",
+      "StateData1": "kilo_7"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P1_rename_2.v",
+   "pert_id": "pc5cdf6ffe3d526",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "eth_crc": {
+      "CrcNext": "quebec_0"
+     },
+     "eth_rxaddrcheck": {
+      "BroadcastOK": "golf_0",
+      "ByteHash": "november_1",
+      "HashBit": "echo_2",
+      "IntHash": "yankee_3",
+      "MulticastOK": "foxtrot_4x",
+      "RxAddressInvalid": "xray_5",
+      "RxCheckEn": "tango_6",
+      "UnicastOK": "india_7"
+     },
+     "eth_rxcounters": {
+      "ByteCntDelayed": "delta_0",
+      "ByteCntMax": "bravo_1",
+      "IFGCounter": "oscar_2",
+      "IncrementByteCounter": "golf_3",
+      "IncrementIFGCounter": "quebec_4",
+      "ResetByteCounter": "foxtrot_5",
+      "ResetIFGCounter": "hotel_6"
+     },
+     "eth_rxethmac": {
+      "Data_Crc": "hotel_0",
+      "DelayData": "juliet_1",
+      "DribbleRxEndFrm": "tango_2",
+      "Enable_Crc": "romeo_3",
+      "GenerateRxEndFrm": "foxtrot_4",
+      "GenerateRxStartFrm": "sierra_5",
+      "GenerateRxValid": "zulu_6",
+      "Initialize_Crc": "whiskey_7",
+      "LatchedByte": "charlie_8",
+      "RxData_d": "golf_9",
+      "RxEndFrm_d": "alpha_10",
+      "RxStartFrm_d": "november_11",
+      "RxValid_d": "oscar_12"
+     },
+     "eth_rxstatem": {
+      "StartData0": "whiskey_0",
+      "StartData1": "papa_1",
+      "StartDrop": "golf_2",
+      "StartIdle": "xray_3",
+      "StartPreamble": "alpha_4",
+      "StartSFD": "echo_5",
+      "StateData0": "hotel_6x",
+      "StateData1": "charlie_7"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P1_rename_3.v",
+   "pert_id": "pd7a02b7ac28ca1",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_crc": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxaddrcheck": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxcounters": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxethmac": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxstatem": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P2_reorder_0.v",
+   "pert_id": "p6d14ee2318aec0",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_crc": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxaddrcheck": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxcounters": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxethmac": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxstatem": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P2_reorder_1.v",
+   "pert_id": "p3c11356da5faf0",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_crc": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxaddrcheck": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxcounters": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxethmac": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxstatem": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P2_reorder_2.v",
+   "pert_id": "p897531fefed61c",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_crc": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxaddrcheck": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxcounters": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxethmac": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_rxstatem": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P2_reorder_3.v",
+   "pert_id": "p7539424f1f7df3",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P3_expr_0.v",
+   "pert_id": "pfc91dfc66007ae",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "partselect",
+     "const",
+     "const"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P3_expr_1.v",
+   "pert_id": "p840c54f4583070",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P3_expr_2.v",
+   "pert_id": "pdf100a3d1ea819",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P3_expr_3.v",
+   "pert_id": "pa4999aa6b97069",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/P4_ctrl_0.v",
+   "pert_id": "pc59b7235ad3c71",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/cktevo_ethmac__eth_rxethmac/roundtrip.v",
+  "pert_id": "pa27d92fea7a5f4"
+ },
+ "seed": "cktevo_ethmac__eth_rxethmac:1",
+ "top": "eth_rxethmac"
+}
