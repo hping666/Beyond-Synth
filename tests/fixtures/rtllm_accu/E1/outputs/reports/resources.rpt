@@ -3,11 +3,11 @@
 Report : resources
 Design : verified_accu
 Version: W-2024.09-SP5-3
-Date   : Sat Sep 12 07:42:37 2026
+Date   : Sat Sep 12 07:54:40 2026
 ****************************************
 
 Resource Sharing Report for design verified_accu in file
-        /home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431/inputs/rtl/verified_accu.v
+        /home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2/inputs/rtl/verified_accu.v
 
 ===============================================================================
 |          |              |            | Contained     |                      |

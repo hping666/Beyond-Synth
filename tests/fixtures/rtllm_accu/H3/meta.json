@@ -20,7 +20,7 @@
  "config": "H3",
  "config_compile": "compile_ultra -retime -timing_high_effort_script -gate_clock -spg",
  "crit_path": {
-  "arrival": -1.016794,
+  "arrival": 1.016794,
   "endpoint": "data_out_reg[9]",
   "group": "clk",
   "met": true,
@@ -82,9 +82,9 @@
  "dc_seconds": 56.8,
  "design_id": "rtllm_accu",
  "error": null,
- "eval_id": 21,
- "finished_at": "2026-09-12T07:45:18",
- "git_sha": "3636f8f7b970",
+ "eval_id": 35,
+ "finished_at": "2026-09-12T07:57:22",
+ "git_sha": "e3e472a07a8d",
  "hist": {
   "AOI221_X1": 3,
   "AOI222_X1": 1,
@@ -158,7 +158,7 @@
   "icg_count": 1,
   "noncomb_area": 73.150002,
   "period_lib_units": 2.0,
-  "power_default_mw": null,
+  "power_default_mw": 0.10670333900000001,
   "power_saif_mw": null,
   "registers": 13.0,
   "seq_cells": 14.0,
@@ -166,7 +166,7 @@
   "wns_ns": 0.941832
  },
  "mode": "topo",
- "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5/outputs/reports/netlist.v",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5-r2/outputs/reports/netlist.v",
  "path_endpoints": [
   [
    "data_in[0]",
@@ -220,10 +220,16 @@
   ]
  ],
  "pert_id": null,
- "power_default": {},
+ "power_default": {
+  "dynamic": 0.10422921800000001,
+  "internal": 0.080909981,
+  "leakage": 0.002474119,
+  "switching": 0.023319237000000003,
+  "total_mw": 0.10670333900000001
+ },
  "power_saif": {},
- "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5",
- "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5/outputs/reports",
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5-r2",
+ "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5-r2/outputs/reports",
  "resources": {
   "datapath_blocks": 0,
   "dw_modules": [
@@ -266,9 +272,9 @@
   "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
  ],
  "saif_status": "none",
- "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5/inputs/constraint.sdc",
- "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5/inputs/constraint_dc.sdc",
- "started_at": "2026-09-12T07:44:21",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5-r2/inputs/constraint.sdc",
+ "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5-r2/inputs/constraint_dc.sdc",
+ "started_at": "2026-09-12T07:56:25",
  "status": "ok",
  "tool": "dc",
  "tool_version": "W-2024.09-SP5-3",

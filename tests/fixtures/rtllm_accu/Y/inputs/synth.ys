@@ -1,8 +1,8 @@
-read_verilog  /home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r3/inputs/rtl/verified_accu.v
+read_verilog  /home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r4/inputs/rtl/verified_accu.v
 hierarchy -check -top verified_accu
 synth -top verified_accu
 dfflibmap -liberty /home/hping/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
 abc -liberty /home/hping/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
 opt_clean -purge
 stat -liberty /home/hping/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
-write_verilog -noattr /home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r3/outputs/netlist.v
+write_verilog -noattr /home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r4/outputs/netlist.v

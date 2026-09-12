@@ -22,9 +22,9 @@
  "dc_seconds": 0.0,
  "design_id": "rtllm_accu",
  "error": null,
- "eval_id": 26,
- "finished_at": "2026-09-12T07:49:25",
- "git_sha": "3636f8f7b970",
+ "eval_id": 36,
+ "finished_at": "2026-09-12T07:57:23",
+ "git_sha": "e3e472a07a8d",
  "hist": {
   "AND2_X1": 3,
   "AND3_X1": 2,
@@ -53,17 +53,17 @@
   "tns_ns": 0.0,
   "wns_ns": 1.17
  },
- "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r3/outputs/netlist.v",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r4/outputs/netlist.v",
  "pert_id": null,
- "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r3",
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r4",
  "rtl_files": [
   "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
  ],
- "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r3/inputs/constraint.sdc",
- "started_at": "2026-09-12T07:49:25",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r4/inputs/constraint.sdc",
+ "started_at": "2026-09-12T07:57:22",
  "status": "ok",
  "tool": "yosys_opensta",
  "tool_version": "yosys 0.63 / OpenROAD-26Q1-2754",
  "top": "verified_accu",
- "wall_seconds": 0.9
+ "wall_seconds": 0.8
 }

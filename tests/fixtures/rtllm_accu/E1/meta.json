@@ -20,7 +20,7 @@
  "config": "E1",
  "config_compile": "compile",
  "crit_path": {
-  "arrival": -1.277118,
+  "arrival": 1.277118,
   "endpoint": "data_out_reg[9]",
   "group": "clk",
   "met": true,
@@ -142,9 +142,9 @@
  "dc_seconds": 4.4,
  "design_id": "rtllm_accu",
  "error": null,
- "eval_id": 13,
- "finished_at": "2026-09-12T07:42:37",
- "git_sha": "3636f8f7b970",
+ "eval_id": 27,
+ "finished_at": "2026-09-12T07:54:40",
+ "git_sha": "e3e472a07a8d",
  "hist": {
   "AND2_X1": 2,
   "AND3_X1": 1,
@@ -193,7 +193,7 @@
   "icg_count": null,
   "noncomb_area": 69.160002,
   "period_lib_units": 2.0,
-  "power_default_mw": 0.10140904400000002,
+  "power_default_mw": 0.101409073,
   "power_saif_mw": null,
   "registers": 13.0,
   "seq_cells": 13.0,
@@ -201,7 +201,7 @@
   "wns_ns": 0.682844
  },
  "mode": "wireload",
- "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431/outputs/reports/netlist.v",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2/outputs/reports/netlist.v",
  "path_endpoints": [
   [
    "data_in[0]",
@@ -260,11 +260,11 @@
   "internal": 0.079265686,
   "leakage": 0.00242,
   "switching": 0.019723362,
-  "total_mw": 0.10140904400000002
+  "total_mw": 0.101409073
  },
  "power_saif": {},
- "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431",
- "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431/outputs/reports",
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2",
+ "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2/outputs/reports",
  "resources": {
   "datapath_blocks": 0,
   "dw_modules": [],
@@ -282,9 +282,9 @@
   "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
  ],
  "saif_status": "none",
- "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431/inputs/constraint.sdc",
- "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431/inputs/constraint_dc.sdc",
- "started_at": "2026-09-12T07:42:33",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2/inputs/constraint.sdc",
+ "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2/inputs/constraint_dc.sdc",
+ "started_at": "2026-09-12T07:54:36",
  "status": "ok",
  "tool": "dc",
  "tool_version": "W-2024.09-SP5-3",

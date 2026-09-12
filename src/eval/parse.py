@@ -186,7 +186,9 @@ def parse_clock_gating(text):
 
 # ----------------------------------------------------------------------------- report_power
 def parse_power(text):
-    """Total power in mW from `report_power` (DC prints unit suffixes per line)."""
+    """Total power in mW from `report_power`. Wireload mode prints "Total Dynamic Power = 105.8 uW" lines;
+    topographical mode prints only the power-group table whose last row is
+    "Total   79.25 uW   26.54 uW   2.343e+03 nW   108.13 uW" (internal, switching, leakage, total)."""
     scale = {"": 1e3, "m": 1.0, "u": 1e-3, "n": 1e-6, "p": 1e-9}
     out = {}
     for key, name in (("Cell Internal Power", "internal"), ("Net Switching Power", "switching"),
@@ -194,7 +196,16 @@ def parse_power(text):
         m = re.search(re.escape(key) + r"\s*=\s*" + _NUM + r"\s*([munp]?)W", text or "")
         if m:
             out[name] = float(m.group(1)) * scale[m.group(2)]
-    if "dynamic" in out or "leakage" in out:
+    row = re.search(r"^Total\s+" + _NUM + r"\s*([munp]?)W\s+" + _NUM + r"\s*([munp]?)W\s+" + _NUM + r"\s*([munp]?)W\s+"
+                    + _NUM + r"\s*([munp]?)W", text or "", re.M)
+    if row:
+        g = row.groups()
+        out.setdefault("internal", float(g[0]) * scale[g[1]])
+        out.setdefault("switching", float(g[2]) * scale[g[3]])
+        out.setdefault("leakage", float(g[4]) * scale[g[5]])
+        out["total_mw"] = float(g[6]) * scale[g[7]]
+        out.setdefault("dynamic", out["internal"] + out["switching"])
+    elif "dynamic" in out or "leakage" in out:
         out["total_mw"] = out.get("dynamic", 0.0) + out.get("leakage", 0.0)
     return out
 
@@ -228,12 +239,12 @@ def parse_timing(text):
             continue
         m = re.match(r"^\s*data arrival time\s+" + _NUM, line)
         if m:
-            cur["arrival"] = float(m.group(1))
+            cur.setdefault("arrival", float(m.group(1)))  # the slack block repeats it negated: keep the first
             in_points = False
             continue
         m = re.match(r"^\s*data required time\s+" + _NUM, line)
         if m:
-            cur["required"] = float(m.group(1))
+            cur.setdefault("required", float(m.group(1)))
             continue
         m = re.match(r"^\s*slack \((MET|VIOLATED)\)\s+" + _NUM, line)
         if m:

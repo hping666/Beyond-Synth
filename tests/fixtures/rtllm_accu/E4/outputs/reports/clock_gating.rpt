@@ -4,7 +4,7 @@ Report : clock_gating
         -nosplit
 Design : verified_accu
 Version: W-2024.09-SP5-3
-Date   : Sat Sep 12 07:43:27 2026
+Date   : Sat Sep 12 07:55:29 2026
 ****************************************
 
 Information: Identification of clock-gating cells has not been performed. Pre-existing clock-gating cells will not be reported. (PWR-947)

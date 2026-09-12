@@ -4,7 +4,7 @@ Information: Updating design information... (UID-85)
 Report : qor
 Design : verified_accu
 Version: W-2024.09-SP5-3
-Date   : Sat Sep 12 07:45:37 2026
+Date   : Sat Sep 12 07:57:34 2026
 ****************************************
 
 
@@ -64,12 +64,12 @@ Date   : Sat Sep 12 07:45:37 2026
 
   Compile CPU Statistics
   -----------------------------------------
-  Resource Sharing:                0.041321
-  Logic Optimization:              0.137848
-  Mapping Optimization:            0.997498
+  Resource Sharing:                0.039429
+  Logic Optimization:              0.136467
+  Mapping Optimization:            0.996399
   -----------------------------------------
-  Overall Compile Time:            117.694817
-  Overall Compile Wall Clock Time: 117.885254
+  Overall Compile Time:            114.050804
+  Overall Compile Wall Clock Time: 114.193848
 
   --------------------------------------------------------------------
 

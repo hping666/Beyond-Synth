@@ -33,19 +33,19 @@ Please use '-no_save' simv switch to avoid this.
             Inclusivity and Diversity" (Refer to article 000036315 at
                         https://solvnetplus.synopsys.com)
 Initializing...
-Current time:       Sat Sep 12 07:42:36 2026
+Current time:       Sat Sep 12 07:54:39 2026
 Hostname:           cinnamon
 CPU Model:          Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz
-CPU Details:        Cores = 64 : Sockets = 2 : Cache Size = 22528 KB : Freq = 1.00 GHz
+CPU Details:        Cores = 64 : Sockets = 2 : Cache Size = 22528 KB : Freq = 1.47 GHz
 OS:                 Linux 5.4.0-216-generic
-RAM:                503 GB (Free  57 GB)
+RAM:                503 GB (Free  56 GB)
 Swap:                 7 GB (Free   7 GB)
 Work Filesystem:    / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
 Tmp Filesystem:     / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
 Work Disk:          1758 GB (Free 227 GB)
 Tmp Disk:           1758 GB (Free 227 GB)
 
-CPU Load: 0%, Ram Free: 57 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+CPU Load: 2%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
 # Beyond-Synth DC evaluation template: one script for every DC rung and hidden configuration
 # (docs/spec/01-eval-service.md §2). Driven by environment variables set by src/eval/dc.py; the compile
 # command itself comes from config/experiments.yaml (configs.<name>.compile).
@@ -74,7 +74,7 @@ proc envq {name def} {
 set SYN        [envq SYNOPSYS ""]
 /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3
 set VFILES     [envq EVAL_VERILOG ""]
-/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/inputs/rtl/verified_accu.v
+/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae-r2/inputs/rtl/verified_accu.v
 set TOP        [envq EVAL_TOP ""]
 verified_accu
 set VFMT       [envq EVAL_FORMAT verilog]
@@ -86,13 +86,13 @@ set LIB_NAME   [envq EVAL_LIB_NAME ""]
 NangateOpenCellLibrary
 set DONT_USE   [envq EVAL_DONT_USE ""]
 set SDC        [envq EVAL_SDC ""]
-/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/inputs/constraint_dc.sdc
+/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae-r2/inputs/constraint_dc.sdc
 set CLK_NAME   [envq EVAL_CLK_NAME clk]
 clk
 set CLK_PERIOD [envq EVAL_CLK_PERIOD ""]
 2
 set OUT        [envq EVAL_OUT "."]
-/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/outputs/reports
+/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae-r2/outputs/reports
 set COMPILE    [envq EVAL_COMPILE "compile_ultra"]
 compile_ultra -retime -timing_high_effort_script -gate_clock
 set MAX_CORES  [envq EVAL_MAX_CORES 4]
@@ -186,7 +186,7 @@ foreach f $VFILES {
     step analyze_failed { analyze -format $VFMT $f }
 }
 Running PRESTO HDLC
-Compiling source file /home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/inputs/rtl/verified_accu.v
+Compiling source file /home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae-r2/inputs/rtl/verified_accu.v
 Presto compilation completed successfully.
 Loading db file '/hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db'
 Loading db file '/hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/libraries/syn/dw_foundation.sldb'
@@ -198,7 +198,7 @@ Loading db file '/hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/libraries/syn/stan
 Running PRESTO HDLC
 
 Inferred memory devices in process in routine 'verified_accu' in file
-	 /home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/inputs/rtl/verified_accu.v'.
+	 /home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae-r2/inputs/rtl/verified_accu.v'.
 ==================================================================================
 |    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
 ==================================================================================
@@ -223,7 +223,7 @@ Current design is 'verified_accu'.
   Linking design 'verified_accu'
   Using the following designs and libraries:
   --------------------------------------------------------------------------
-  verified_accu               /home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/outputs/dc_work/verified_accu.db
+  verified_accu               /home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae-r2/outputs/dc_work/verified_accu.db
   NangateOpenCellLibrary (library) /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db
   dw_foundation.sldb (library) /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/libraries/syn/dw_foundation.sldb
 
@@ -319,7 +319,7 @@ if {$STATUS eq "ok"} {
 }
 Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)
 Information: Performing leakage power optimization. (PWR-850)
-CPU Load: 0%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+CPU Load: 2%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
 Analyzing: "/hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db"
 Library analysis succeeded.
 Information: Running optimization using a maximum of 4 cores. (OPT-1500)
@@ -369,7 +369,7 @@ Module: DW01_NAND2, Ports: 3, Input: 2, Output: 1, Inout: 0
 Module: DW01_NAND2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
   Building model 'DW01_NAND2'
 Information: Ungrouping 0 of 2 hierarchies before Pass 1 (OPT-775)
-CPU Load: 3%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+CPU Load: 4%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
 Information: State dependent leakage is now switched from on to off.
 
   Beginning Pass 1 Mapping
@@ -380,7 +380,7 @@ Information: Added key list 'DesignWare' to design 'verified_accu'. (DDB-72)
   Processing 'SNPS_CLOCK_GATE_HIGH_verified_accu'
   Mapping integrated clock gating circuitry
 sh: 1: Syntax error: Bad fd number
-CPU Load: 3%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+CPU Load: 4%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
 
   Updating timing information
 Information: Updating design information... (UID-85)
@@ -443,44 +443,44 @@ Information: There is no timing violation in design verified_accu. Delay-based a
 
   Beginning Delay Optimization
   ----------------------------
-    0:00:01     133.8      0.00       0.0       0.0                           2512.8777
-    0:00:01     133.8      0.00       0.0       0.0                           2512.8777
-    0:00:01     133.8      0.00       0.0       0.0                           2512.8777
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     133.8      0.00       0.0       0.0                           2512.8777
+    0:00:02     133.8      0.00       0.0       0.0                           2512.8777
+    0:00:02     133.8      0.00       0.0       0.0                           2512.8777
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
 
   Beginning WLM Backend Optimization
   --------------------------------------
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
-    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
     0:00:02     131.1      0.00       0.0       0.0                           2428.3940
     0:00:02     131.1      0.00       0.0       0.0                           2428.3940
     0:00:02     131.1      0.00       0.0       0.0                           2428.3940
@@ -516,7 +516,7 @@ Information: There is no timing violation in design verified_accu. Delay-based a
     0:00:02     131.1      0.00       0.0       0.0                           2428.3940
     0:00:02     131.1      0.00       0.0       0.0                           2428.3940
     0:00:02     131.1      0.00       0.0       0.0                           2428.3940
-CPU Load: 3%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+CPU Load: 4%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
 Loading db file '/hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db'
 
 
@@ -527,7 +527,7 @@ Note: Symbol # after min delay cost means estimated hold TNS across all active s
   ---------------------
 Information: State dependent leakage is now switched from off to on.
 Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
-CPU Load: 3%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+CPU Load: 4%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
 Information: Total number of MV cells in the design.
 ----------------------------------------------------------------------------------------------------
  MV Cells                                           Total Number                                   
@@ -547,7 +547,7 @@ Unmapped MV Cells
 0 Isolation Cells are unmapped 
 0 Retention Clamp Cells are unmapped 
 ----------------------------------------------------------------------------------------------------
-51
+50
 if {$STATUS eq "ok"} {
     set ncells [sizeof_collection [get_cells -quiet -hier -filter "is_hierarchical == false"]]
     if {$ncells == 0} {
@@ -589,8 +589,8 @@ if {$STATUS eq "ok"} {
     catch { puts $fh "hier_cells=[sizeof_collection [get_cells -quiet -hier -filter {is_hierarchical == true}]]" }
     close $fh
 }
-Writing verilog file '/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/outputs/reports/netlist.v'.
-Writing ddc file '/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/outputs/reports/design.ddc'.
+Writing verilog file '/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae-r2/outputs/reports/netlist.v'.
+Writing ddc file '/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae-r2/outputs/reports/design.ddc'.
 set fh [open $OUT/status.txt w]
 file14
 puts $fh "status=$STATUS"
@@ -605,7 +605,7 @@ exit
 
 Memory usage for this session 185 Mbytes.
 Memory usage for this session including child processes 185 Mbytes.
-CPU usage for this session 54 seconds ( 0.01 hours ).
-Elapsed time for this session 54 seconds ( 0.01 hours ).
+CPU usage for this session 53 seconds ( 0.01 hours ).
+Elapsed time for this session 53 seconds ( 0.01 hours ).
 
 Thank you...
