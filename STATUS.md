@@ -19,7 +19,7 @@ Open items from 0.5: RTL-line mapping of the critical path is not yet implemente
 
 | Gate | Submitted on | Report path | Human decision |
 |---|---|---|---|
-| G0 | 2026-09-12 | reports/phase0.md | pending (questions 1–6 in the report: close G0, license/publication, raw retention, Y caliber, cost model, V4 scope) |
+| G0 | 2026-09-12 | reports/phase0.md | partial: cross-tool publication OK (user asked Viterbi ITS, 2026-09-12); raw retention policy approved and implemented; Y caliber and V4 scope: explanation given, decision pending; formal closure of G0 pending |
 
 ## Environment (filled by Claude Code in Phase 0 after reading eda-knowledge; afterwards updated only when the environment changes)
 

@@ -139,7 +139,38 @@ def evaluate(cfg, conn, design_id, rtl_files, top, config_name, *, clock_ns=None
     if do_ingest and conn is not None and meta["status"] == "ok":
         meta["eval_id"] = _ingest_once(conn, meta)
         (job_dir / "meta.json").write_text(json.dumps(meta, indent=1, sort_keys=True, default=str))
+        meta["pruned"] = prune_scratch(job_dir, cfg)
     return meta
+
+
+SCRATCH_DIRS = ("dc_work", "mw_design")
+
+
+def prune_scratch(job_dir, cfg):
+    """Retention policy (config `retention`, DECISIONS 2026-09-12): after an ok record is ingested, DC's own scratch
+    (`outputs/dc_work`: command.log, default.svf, *.pvl/*.syn/*.mr, alib) and the Milkyway design library are removed;
+    reports, netlist, ddc, applied SDC, logs and meta.json are kept. Failed records are never pruned. Returns the
+    list of directories removed."""
+    import shutil
+    r = cfg.get("retention") or {}
+    if not r.get("prune_dc_work_after_ingest", False):
+        return []
+    meta_path = Path(job_dir) / "meta.json"
+    if not meta_path.exists():
+        return []
+    try:
+        status = json.loads(meta_path.read_text()).get("status")
+    except json.JSONDecodeError:
+        return []
+    if status != "ok":
+        return []
+    removed = []
+    for name in SCRATCH_DIRS:
+        d = Path(job_dir) / "outputs" / name
+        if d.is_dir():
+            shutil.rmtree(d)
+            removed.append(str(d))
+    return removed
 
 
 def _ingest_once(conn, meta):

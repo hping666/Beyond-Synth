@@ -187,4 +187,8 @@ ablations:                   # Phase 6, 30-start subset, 3 seeds
   variants: [no_screen, fixed_es_tau, class_blind_predictor, scalar_feedback, credit_any_gain, no_noise_truncation, no_online_rung_attribution, no_map_prior, fitness_E2, fitness_E1, no_power_dim, no_c1, skeleton_coevo, skeleton_revolution]
 
 reporting:
-  cross_tool_tables_allowed_in_paper: unclear   # Phase 0.8: no license text on the machine (DECISIONS 2026-09-12); cross-tool tables stay in internal reports until the site administrator answers
+  cross_tool_tables_allowed_in_paper: true   # confirmed by the user with Viterbi ITS on 2026-09-12 (DECISIONS): Yosys-vs-DC comparisons may be published
+
+retention:                   # approved by the user 2026-09-12 (DECISIONS): results stay append-only, but DC's own scratch is not a result
+  prune_dc_work_after_ingest: true   # remove outputs/dc_work and outputs/mw_design once meta.json is written and the ok record is ingested
+  keep_scratch_on_failure: true      # failed / eval_failed records keep everything for diagnosis
