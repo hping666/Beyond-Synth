@@ -26,14 +26,16 @@ from src.designs import inventory as I  # noqa: E402
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--suite", nargs="*", default=None)
+    ap.add_argument("--design", nargs="*", default=None, help="restrict to these design_ids")
     ap.add_argument("--no-db", action="store_true", help="do not touch results.sqlite")
     ap.add_argument("--jobs", type=int, default=8)
+    ap.add_argument("--timeout", type=float, default=300, help="Yosys probe seconds per design (gemm needs ~330 s)")
     a = ap.parse_args(argv)
     cfg = C.load()
-    designs = [d for d in K.load_all() if not a.suite or d["suite"] in a.suite]
+    designs = [d for d in K.load_all() if (not a.suite or d["suite"] in a.suite) and (not a.design or d["design_id"] in a.design)]
     work = Path(tempfile.mkdtemp(prefix="bs_inventory_"))
     with ThreadPoolExecutor(max_workers=a.jobs) as ex:
-        invs = list(ex.map(lambda d: I.inventory_design(d, cfg, workdir=work / d["design_id"]), designs))
+        invs = list(ex.map(lambda d: I.inventory_design(d, cfg, workdir=work / d["design_id"], timeout=a.timeout), designs))
     conn = None if a.no_db else db.connect(cfg=cfg)
     rows, per_suite = [], {}
     for d, inv in zip(designs, invs):

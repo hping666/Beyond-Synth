@@ -168,7 +168,7 @@ def test_dispatch_limit_below_the_seat_cap(tmp_path):
     j2 = q.submit("shell", {"cmd": "sleep 0.4"}, pool="dc")
     q.tick()
     assert sorted(q.get(j)["state"] for j in (j1, j2)) == ["queued", "running"] and q.stats()["dc"]["limit"] == 1
-    assert wait_state(q, j2, {"done"}, timeout=15) == "done" and q.get(j1)["state"] == "done"
+    assert wait_state(q, j1, {"done"}, timeout=15) == "done" and wait_state(q, j2, {"done"}, timeout=15) == "done"  # either may start first
     del cfg["queue"]["dc_concurrency"]
     q2 = Queue(cfg, conn, str(tmp_path / "logs2"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
     assert q2.limits["dc"] == 50 and q2.stats()["dc"]["limit"] == 50

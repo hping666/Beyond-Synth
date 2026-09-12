@@ -113,7 +113,13 @@ def phase1(cfg):
               f"{len([d for d in rw if 'short' in d['tags']])} short cases and {len([d for d in rw if 'long' in d['tags']])} long module pairs staged; "
               f"file roles by the rule in src/designs/rtlrewriter.py: {dict(sorted(roles.items()))} "
               "(original = start point, expert = engineers' rewrite, tool = RTLRewriter output, llm = GPT-4 / Claude 3 / RTLCoder / VeriGen samples). "
-              "Hand check of the role table: see data/designs/rtlrewriter/SOURCE.md and each design.json `notes`.", ""]
+              "Role table for the hand check (start = the staged original, reference = expert version, samples = the rest):", "",
+              "| design | start file | reference | samples (role) |", "|---|---|---|---|"]
+        for d in rw:
+            ref = d["reference"]["files"][0].split("/")[-1] if d["reference"] else "-"
+            samples = ", ".join(f"{s['files'][0].split('/')[-1]} ({s['role']})" for s in d.get("samples") or []) or "-"
+            L.append(f"| {d['name']} | {d['files'][0].split('/')[-1]} | {ref} | {samples} |")
+        L.append("")
     # ---- knee
     L += ["## 6. Knee-point constraints (PLAN 1.3)", ""]
     if knee:
