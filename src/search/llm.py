@@ -3,8 +3,9 @@ sampling parameters from config (`llm`), every request and response saved to dis
 token counts and dollar cost recorded in the budget ledger, and a hard stop when a phase's cap is reached.
 
 The API key is read from the environment variable named in config (`llm.api_key_env`) at call time and is never
-written anywhere. Prices per million tokens come from config `llm.prices_usd_per_1m[model] = {input, cached_input,
-output}`; a model without a price entry cannot be called (the ledger would be wrong). The transport is injectable
+written anywhere. Prices per million tokens come from config `llm.prices_usd_per_1m[tier][model] = {input,
+cached_input, cache_write, output}` with tier = standard / flex / batch; a call is billed at the tier the response
+reports (a flex request may be served at standard rates); a model without a price entry cannot be called. The transport is injectable
 so that the accounting is testable without the network."""
 import datetime
 import hashlib
@@ -86,10 +87,17 @@ class LLMClient:
             self._transport = OpenAITransport(self.llm["api_key_env"])
         return self._transport
 
-    def prices_for(self, model):
-        p = (self.llm.get("prices_usd_per_1m") or {}).get(model)
+    @staticmethod
+    def tier_of(service_tier):
+        """Price tier for a requested or reported service tier: flex -> flex, batch -> batch, anything else standard."""
+        s = (service_tier or "default").lower()
+        return "flex" if s == "flex" else "batch" if s == "batch" else "standard"
+
+    def prices_for(self, model, tier="standard"):
+        table = (self.llm.get("prices_usd_per_1m") or {}).get(tier) or {}
+        p = table.get(model)
         if not p or any(C.is_tbd(p.get(k)) or p.get(k) is None for k in ("input", "cached_input", "output")):
-            raise PriceUnknown(f"no price for model {model!r} in config llm.prices_usd_per_1m (input / cached_input / output per 1M tokens)")
+            raise PriceUnknown(f"no {tier} price for model {model!r} in config llm.prices_usd_per_1m (input / cached_input / output per 1M tokens)")
         return p
 
     def check_budget(self):
@@ -102,12 +110,13 @@ class LLMClient:
              service_tier=None, retries=3):
         """prefix: the stable, cacheable part (system + design context); suffix: the variable part.
         -> dict(call_id, text, usage, cost_usd, response_id, status, path)."""
-        prices = self.prices_for(model)
+        requested_tier = service_tier or self.llm.get("service_tier_search") or "default"
+        self.prices_for(model, self.tier_of(requested_tier))  # refuse before the call when the price is unknown
         self.check_budget()
         cache_key = hashlib.sha256(prefix.encode()).hexdigest()[:32]
         kw = {"model": model, "instructions": prefix, "input": suffix, "store": False, "prompt_cache_key": cache_key,
               "max_output_tokens": int(max_output_tokens or self.llm["max_output_tokens"]),
-              "service_tier": service_tier or self.llm.get("service_tier_search") or "default"}
+              "service_tier": requested_tier}
         effort = reasoning_effort or self.llm.get("reasoning_effort")
         if effort:
             kw["reasoning"] = {"effort": effort}
@@ -130,14 +139,16 @@ class LLMClient:
                     raise
                 self.sleep(2.0 * (attempt + 1))
         usage = _usage_dict(resp)
+        used_tier = self.tier_of(getattr(resp, "service_tier", None) or requested_tier)  # flex may fall back to standard
+        prices = self.prices_for(model, used_tier)
         cost = cost_usd(prices, usage)
         text = getattr(resp, "output_text", None) or ""
-        rec = {"call_id": call_id, "tag": tag, "run_id": self.run_id, "phase": self.phase, "model": model, "request": kw,
+        rec = {"call_id": call_id, "tag": tag, "run_id": self.run_id, "phase": self.phase, "model": model, "tier": used_tier, "request": kw,
                "response_id": getattr(resp, "id", None), "status": getattr(resp, "status", None), "text": text, "usage": usage,
                "cost_usd": cost, "seconds": round(time.time() - t0, 2), "at": db.now(), "last_error": str(last_error) if last_error else None}
         path = self.dir / f"{call_id}.json"
         path.write_text(json.dumps(rec, indent=1, default=str))
         db.insert(self.conn, "budget_ledger", {"ts": db.now(), "phase": self.phase, "kind": "llm", "amount": cost, "unit": "usd",
                                                "run_id": self.run_id, "note": f"{model} {call_id} {tag}"[:120]})
-        return {"call_id": call_id, "text": text, "usage": usage, "cost_usd": cost, "response_id": rec["response_id"],
+        return {"call_id": call_id, "text": text, "usage": usage, "cost_usd": cost, "tier": used_tier, "response_id": rec["response_id"],
                 "status": rec["status"], "path": str(path)}
