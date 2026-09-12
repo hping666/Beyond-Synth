@@ -1,25 +1,15 @@
 {
- "designs": 7,
- "generated_at": "2026-09-12T15:59:45",
+ "designs": 4,
+ "generated_at": "2026-09-12T16:16:13",
  "not_applicable": {
-  "P2_reorder": 1,
-  "P3_expr": 1,
-  "P4_ctrl": 2
+  "P3_expr": 3,
+  "P4_ctrl": 3
  },
- "parse_errors": [
-  [
-   "cktevo_sdc_ctrl__sdc_controller",
-   "unsupported: register declared with an initial value (Pyverilog re-prints it as a continuous assignment)"
-  ],
-  [
-   "rtllm_parallel2serial",
-   "unsupported: register declared with an initial value (Pyverilog re-prints it as a continuous assignment)"
-  ]
- ],
+ "parse_errors": [],
  "per_type": {
-  "P1_rename": 19,
-  "P2_reorder": 11,
-  "P3_expr": 10,
+  "P1_rename": 14,
+  "P2_reorder": 10,
+  "P3_expr": 1,
   "P4_ctrl": 4
  }
 }

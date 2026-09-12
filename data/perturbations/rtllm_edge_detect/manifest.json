@@ -2,11 +2,13 @@
  "cfg_hash": "621834f01e87",
  "design_id": "rtllm_edge_detect",
  "error": null,
- "git_sha": "dcb53665726f",
+ "git_sha": "0b4c219d4c68",
  "n_per_type": 4,
  "not_applicable": {
-  "P3_expr": "no expression site"
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
  },
+ "notes": [],
  "perturbations": [
   {
    "details": {
@@ -60,17 +62,6 @@
    "path": "data/perturbations/rtllm_edge_detect/P2_reorder_0.v",
    "pert_id": "pe3d57e506c818c",
    "ptype": "P2_reorder"
-  },
-  {
-   "details": {
-    "ctrl_sites": [
-     "if_to_ternary"
-    ]
-   },
-   "k": 0,
-   "path": "data/perturbations/rtllm_edge_detect/P4_ctrl_0.v",
-   "pert_id": "pe41ff542456dae",
-   "ptype": "P4_ctrl"
   }
  ],
  "roundtrip": {

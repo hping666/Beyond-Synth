@@ -2,11 +2,12 @@
  "cfg_hash": "621834f01e87",
  "design_id": "rtllm_pulse_detect",
  "error": null,
- "git_sha": "dcb53665726f",
+ "git_sha": "0b4c219d4c68",
  "n_per_type": 4,
  "not_applicable": {
   "P3_expr": "no expression site"
  },
+ "notes": [],
  "perturbations": [
   {
    "details": {
@@ -145,7 +146,7 @@
    },
    "k": 0,
    "path": "data/perturbations/rtllm_pulse_detect/P4_ctrl_0.v",
-   "pert_id": "p11838e389619dc",
+   "pert_id": "pc5605ba8b99975",
    "ptype": "P4_ctrl"
   },
   {
@@ -168,7 +169,7 @@
    },
    "k": 2,
    "path": "data/perturbations/rtllm_pulse_detect/P4_ctrl_2.v",
-   "pert_id": "p5d522032129fac",
+   "pert_id": "pcf34b8fab3e0a3",
    "ptype": "P4_ctrl"
   },
   {
@@ -180,7 +181,7 @@
    },
    "k": 3,
    "path": "data/perturbations/rtllm_pulse_detect/P4_ctrl_3.v",
-   "pert_id": "p6bfa2f06bbb4da",
+   "pert_id": "p048bfec8b3e101",
    "ptype": "P4_ctrl"
   }
  ],

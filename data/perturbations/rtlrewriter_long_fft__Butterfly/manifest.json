@@ -2,9 +2,12 @@
  "cfg_hash": "621834f01e87",
  "design_id": "rtlrewriter_long_fft__Butterfly",
  "error": null,
- "git_sha": "dcb53665726f",
+ "git_sha": "0b4c219d4c68",
  "n_per_type": 4,
- "not_applicable": {},
+ "not_applicable": {
+  "P4_ctrl": "no control-structure site"
+ },
+ "notes": [],
  "perturbations": [
   {
    "details": {
@@ -180,17 +183,6 @@
    "path": "data/perturbations/rtlrewriter_long_fft__Butterfly/P3_expr_0.v",
    "pert_id": "p0e89fe8debd76e",
    "ptype": "P3_expr"
-  },
-  {
-   "details": {
-    "ctrl_sites": [
-     "if_to_ternary"
-    ]
-   },
-   "k": 0,
-   "path": "data/perturbations/rtlrewriter_long_fft__Butterfly/P4_ctrl_0.v",
-   "pert_id": "pebff3a59b28ae1",
-   "ptype": "P4_ctrl"
   }
  ],
  "roundtrip": {
