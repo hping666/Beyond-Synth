@@ -15,7 +15,7 @@ tools:                       # measured 2026-09-12 (Phase 0.1, selfcheck 22/22 +
   dc: {version: W-2024.09-SP5-3, shell: dc_shell, max_cores: 4, home: /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3}
   pt: {version: V-2023.12-SP5-4, shell: pt_shell, home: /hdd1/hping/eda/synopsys/prime/V-2023.12-SP5-4}
   primepower: {version: V-2023.12-SP5-4}
-  vcformal: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1, seq_app_ok: true, seq_workers: 1, dpv_app_ok: TBD}
+  vcformal: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1, seq_app_ok: true, seq_workers: 1, dpv_app_ok: true, dpv_license_feature: VC-FORMAL-DPV-ELITE-SH, terminfo: /lib/terminfo}   # DPV verified 2026-09-12 (8-bit multiplier: rewrite proven, bug falsified); the BASE feature fails with FlexNet -5 and the tool falls back to ELITE; console needs the system terminfo
   vcs: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1/vcs-mx, vcd2saif: /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/bin/vcd2saif}   # vcd2saif ships with DC; chain verified 2026-09-12
   yosys: {version: "0.63", bin: /home/hping/OpenROAD-flow-scripts/tools/install/yosys/bin/yosys}
   opensta: {version: OpenROAD-26Q1-2754, bin: /home/hping/OpenROAD-flow-scripts/tools/install/OpenROAD/bin/sta}
@@ -187,4 +187,4 @@ ablations:                   # Phase 6, 30-start subset, 3 seeds
   variants: [no_screen, fixed_es_tau, class_blind_predictor, scalar_feedback, credit_any_gain, no_noise_truncation, no_online_rung_attribution, no_map_prior, fitness_E2, fitness_E1, no_power_dim, no_c1, skeleton_coevo, skeleton_revolution]
 
 reporting:
-  cross_tool_tables_allowed_in_paper: TBD   # decided by the Phase 0 license check
+  cross_tool_tables_allowed_in_paper: unclear   # Phase 0.8: no license text on the machine (DECISIONS 2026-09-12); cross-tool tables stay in internal reports until the site administrator answers

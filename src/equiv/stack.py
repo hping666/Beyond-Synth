@@ -17,7 +17,9 @@ from src.equiv.seq import run_seq
 
 
 def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None, rst_sense=None, d_ports=None,
-                      sverilog=False, incdirs=None, run_v3=True, timeout_sec=None):
+                      sverilog=False, incdirs=None, run_v3=True, run_v4=True, timeout_sec=None):
+    """run_v4: after an inconclusive SEQ, try DPV on combinational modules (no clock port); clocked datapaths
+    need a per-design phase mapping and are left to the Phase 2 pilot."""
     job_dir = Path(job_dir)
     job_dir.mkdir(parents=True, exist_ok=True)
     rec = {"top": top, "v1_status": None, "v1_detail": None, "v2_status": None, "v2_cycles": None, "latency_offset_json": None,
@@ -68,6 +70,16 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
         rec["v3_seconds"] = v3["v3_seconds"]
         rec["counterexample_path"] = v3.get("counterexample_path")
         rec["verdict"] = v3["v3_status"]
+        if v3["v3_status"] == "inconclusive" and run_v4 and not clk and cfg["tools"]["vcformal"].get("dpv_app_ok"):
+            from src.equiv.dpv import run_dpv
+            outs = [n for n, p in d_ports.items() if p["dir"] in ("output", "inout")]
+            v4 = run_dpv(job_dir, d_files, c_files, top, outs, cfg, sverilog=v2.get("sverilog", sverilog), timeout_sec=timeout_sec)
+            rec["v4"] = v4
+            rec["v4_status"] = v4["v4_status"]
+            if v4["v4_status"] in ("proven", "falsified"):
+                rec["verdict"] = v4["v4_status"]
+                if v4["v4_status"] == "falsified":
+                    rec["counterexample_path"] = v4["workdir"]
     else:
         rec.update(v3_status="not_run", verdict="not_run")
     rec["seconds"] = round(time.time() - t0, 1)
