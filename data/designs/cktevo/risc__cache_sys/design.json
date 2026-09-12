@@ -24,7 +24,8 @@
   "rtl/p_line_adapter.v",
   "rtl/array.v",
   "rtl/data_array.v",
-  "rtl/l2_array.v"
+  "rtl/l2_array.v",
+  "rtl/l2_data_array.v"
  ],
  "incdirs": [
   "rtl"
@@ -43,8 +44,8 @@
    "sysfunc": true,
    "timescale": false
   },
-  "loc": 2917,
-  "n_files": 21,
+  "loc": 2954,
+  "n_files": 22,
   "ports": null,
   "ports_hash": null,
   "sdc_available": 0,
@@ -52,10 +53,10 @@
   "yosys_error": "yosys exit 1: /home/hping/Beyond-Synth/data/designs/cktevo/risc__cache_sys/rtl/l2_cache_datapath.v:217: Warning: Identifier `\\WRITE_EN_0_MUX.$time' is implicitly declared.\n/home/hping/Beyond-Synth/data/designs/cktevo/risc__cache_sys/rtl/l2_cache_datapath.v:217: ERROR: Don't know how to detect sign and width for AST_AUTOWIRE node!\n",
   "yosys_ok": 0
  },
- "loc": 2917,
+ "loc": 2954,
  "name": "risc__cache_sys",
  "notes": [
-  "closure: 21 modules, 2917 lines (cache_sys, arbiter_control, arbiter_datapath, cache, cacheline_adaptor, l2_cache, p_i_cache, perf_counter, cache_control, cache_datapath, line_adapter, ewb...)"
+  "closure: 22 modules, 2954 lines (cache_sys, arbiter_control, arbiter_datapath, cache, cacheline_adaptor, l2_cache, p_i_cache, perf_counter, cache_control, cache_datapath, line_adapter, ewb...)"
  ],
  "reference": null,
  "rst_port": "rst",
@@ -77,6 +78,7 @@
   "rtl/l2_cache.v": "15f9f3b62a783d0e661f0db8aca0ebab6957e07c5044bde6ef829676328ebe8b",
   "rtl/l2_cache_control.v": "f5f595c467c9b720a696b48c1cb90503ba495dc7c423176f242bd5d486a3328f",
   "rtl/l2_cache_datapath.v": "1b7bcca9582ef939aa9da349f5b4c4073cc96d31b36b72946c0c1dcf500b677f",
+  "rtl/l2_data_array.v": "5dc37a8cb25031d544fcfc14f150b1bb88475cc63d9fe4de21e74d149531d675",
   "rtl/line_adapter.v": "9ce051143653979652438b19949466a7ab026d823db733c96e966d57f52a2f34",
   "rtl/p_i_cache.v": "0b05f83ab40923b759152d799197726ea9996242733487434552762957227962",
   "rtl/p_i_cache_control.v": "07f8b6af57d6b2ee4af4ece34e9b6646a22647dae93bd01dadfc0042c0d9f528",
@@ -113,7 +115,8 @@
    "benchmark/risc/p_line_adapter.v",
    "benchmark/risc/array.v",
    "benchmark/risc/data_array.v",
-   "benchmark/risc/l2_array.v"
+   "benchmark/risc/l2_array.v",
+   "benchmark/risc/l2_data_array.v"
   ],
   "suite_key": "cktevo",
   "url": "https://github.com/cure-lab/cktevo"

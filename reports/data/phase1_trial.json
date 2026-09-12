@@ -3,176 +3,246 @@
  "config": "E4",
  "designs": [
   {
+   "area_um2": 1114.274031,
+   "cells": 517,
+   "dc_seconds": 70.5,
    "design_id": "cktevo_ethmac__eth_cop",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 398,
-   "pending": true,
+   "registers": 182.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.91907
   },
   {
+   "area_um2": 1686.439961,
+   "cells": 545,
+   "dc_seconds": 63.1,
    "design_id": "cktevo_ethmac__eth_fifo",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 186,
-   "pending": true,
+   "registers": 298.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.47719
   },
   {
+   "area_um2": 1054.956019,
+   "cells": 544,
+   "dc_seconds": 60.6,
    "design_id": "cktevo_ethmac__eth_maccontrol",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 1030,
-   "pending": true,
+   "registers": 103.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac",
     "multi_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.157832
   },
   {
+   "area_um2": 261.744004,
+   "cells": 184,
+   "dc_seconds": 63.5,
    "design_id": "cktevo_ethmac__eth_macstatus",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 423,
-   "pending": true,
+   "registers": 18.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac",
     "multi_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.576398
   },
   {
+   "area_um2": 563.654014,
+   "cells": 220,
+   "dc_seconds": 60.4,
    "design_id": "cktevo_ethmac__eth_miim",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 872,
-   "pending": true,
+   "registers": 75.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.25593
   },
   {
+   "area_um2": 693.196013,
+   "cells": 351,
+   "dc_seconds": 63.3,
    "design_id": "cktevo_ethmac__eth_receivecontrol",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 437,
-   "pending": true,
+   "registers": 72.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac",
     "multi_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.164183
   },
   {
+   "area_um2": 2471.140054,
+   "cells": 1089,
+   "dc_seconds": 68.1,
    "design_id": "cktevo_ethmac__eth_registers",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 1292,
-   "pending": true,
+   "registers": 302.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac",
     "multi_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.712173
   },
   {
+   "area_um2": 213.598003,
+   "cells": 163,
+   "dc_seconds": 64.0,
    "design_id": "cktevo_ethmac__eth_rxaddrcheck",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 214,
-   "pending": true,
+   "registers": 4.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.5749
   },
   {
+   "area_um2": 303.506004,
+   "cells": 190,
+   "dc_seconds": 66.9,
    "design_id": "cktevo_ethmac__eth_rxcounters",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 217,
-   "pending": true,
+   "registers": 25.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.56283
   },
   {
+   "area_um2": 1073.310018,
+   "cells": 551,
+   "dc_seconds": 65.6,
    "design_id": "cktevo_ethmac__eth_rxethmac",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 1204,
-   "pending": true,
+   "registers": 107.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.54093
   },
   {
+   "area_um2": 56.658001,
+   "cells": 29,
+   "dc_seconds": 62.3,
    "design_id": "cktevo_ethmac__eth_rxstatem",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 193,
-   "pending": true,
+   "registers": 6.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.86062
   },
   {
+   "area_um2": 50293.150852,
+   "cells": 16923,
+   "dc_seconds": 161.9,
    "design_id": "cktevo_ethmac__eth_spram_256x32",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 299,
-   "pending": true,
+   "registers": 8200.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.89844
   },
   {
+   "area_um2": 302.176005,
+   "cells": 162,
+   "dc_seconds": 67.3,
    "design_id": "cktevo_ethmac__eth_transmitcontrol",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 324,
-   "pending": true,
+   "registers": 26.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.40596
   },
   {
+   "area_um2": 441.028007,
+   "cells": 261,
+   "dc_seconds": 68.2,
    "design_id": "cktevo_ethmac__eth_txcounters",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 219,
-   "pending": true,
+   "registers": 35.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.19411
   },
   {
    "area_um2": 1188.75402,
@@ -192,29 +262,39 @@
    "wns_ns": 1.14039
   },
   {
+   "area_um2": 162.260003,
+   "cells": 112,
+   "dc_seconds": 63.5,
    "design_id": "cktevo_ethmac__eth_txstatem",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 282,
-   "pending": true,
+   "registers": 12.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.86577
   },
   {
+   "area_um2": 60277.726786,
+   "cells": 20637,
+   "dc_seconds": 171.8,
    "design_id": "cktevo_ethmac__eth_wishbone",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 3161,
-   "pending": true,
+   "registers": 9767.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "ethmac",
     "multi_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.917394
   },
   {
    "area_um2": 426.930004,
@@ -251,41 +331,56 @@
    "wns_ns": 2.53865
   },
   {
+   "area_um2": 172.367995,
+   "cells": 108,
+   "dc_seconds": 63.3,
    "design_id": "cktevo_hsm__MixColumns",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 132,
-   "pending": true,
+   "registers": 0.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "hsm",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.02747
   },
   {
+   "area_um2": 6638.030132,
+   "cells": 3321,
+   "dc_seconds": 80.6,
    "design_id": "cktevo_hsm__hsm",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 2503,
-   "pending": true,
+   "registers": 659.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "hsm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.84549
   },
   {
+   "area_um2": 786.561992,
+   "cells": 442,
+   "dc_seconds": 64.3,
    "design_id": "cktevo_mem_ctrl__mc_adr_sel",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 392,
-   "pending": true,
+   "registers": 86.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "mem_ctrl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.95267
   },
   {
    "area_um2": 471.61799,
@@ -322,29 +417,39 @@
    "wns_ns": 1.83587
   },
   {
+   "area_um2": 641.325983,
+   "cells": 174,
+   "dc_seconds": 65.4,
    "design_id": "cktevo_mem_ctrl__mc_mem_if",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 362,
-   "pending": true,
+   "registers": 130.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "mem_ctrl",
     "multi_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.397215
   },
   {
+   "area_um2": 394.477993,
+   "cells": 162,
+   "dc_seconds": 62.9,
    "design_id": "cktevo_mem_ctrl__mc_obct",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 236,
-   "pending": true,
+   "registers": 56.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "mem_ctrl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.96589
   },
   {
    "area_um2": 809.171985,
@@ -381,16 +486,21 @@
    "wns_ns": 2.72546
   },
   {
+   "area_um2": 2361.548011,
+   "cells": 924,
+   "dc_seconds": 67.0,
    "design_id": "cktevo_mem_ctrl__mc_rf",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 1112,
-   "pending": true,
+   "registers": 348.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "mem_ctrl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.79126
   },
   {
    "area_um2": 1677.396017,
@@ -411,40 +521,55 @@
    "wns_ns": 1.38775
   },
   {
+   "area_um2": 280.630003,
+   "cells": 77,
+   "dc_seconds": 65.1,
    "design_id": "cktevo_mem_ctrl__mc_wb_if",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 252,
-   "pending": true,
+   "registers": 42.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "mem_ctrl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.02887
   },
   {
+   "area_um2": 1334.78799,
+   "cells": 1018,
+   "dc_seconds": 68.8,
    "design_id": "cktevo_nn_engine__FADD711",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 223,
-   "pending": true,
+   "registers": 78.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "nn_engine"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.0122979
   },
   {
+   "area_um2": 679.896,
+   "cells": 371,
+   "dc_seconds": 66.2,
    "design_id": "cktevo_nn_engine__FMUL711",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 182,
-   "pending": true,
+   "registers": 39.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "nn_engine"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.742151
   },
   {
    "area_um2": 185.401997,
@@ -465,10 +590,10 @@
   },
   {
    "design_id": "cktevo_nn_engine__rates_256x4096",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: checklist failed: area_positive, cells_positive, timing_parsed, histogram_nonempty",
+   "e4_synthesizable": 0,
    "loc": 575,
-   "pending": true,
+   "pending": false,
    "suite": "cktevo",
    "tags": [
     "cktevo",
@@ -476,35 +601,45 @@
    ]
   },
   {
+   "area_um2": 61107.381405,
+   "cells": 50724,
+   "dc_seconds": 540.5,
    "design_id": "cktevo_nn_engine__spikeLayer8_H7",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 2705,
-   "pending": true,
+   "registers": 3065.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "nn_engine"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.000587463
   },
   {
+   "area_um2": 7786.617922,
+   "cells": 6486,
+   "dc_seconds": 123.7,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 1674,
-   "pending": true,
+   "registers": 398.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "nn_engine"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.00482869
   },
   {
    "design_id": "cktevo_nn_engine__tauRom_H7",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: checklist failed: area_positive, cells_positive, timing_parsed, histogram_nonempty",
+   "e4_synthesizable": 0,
    "loc": 651,
-   "pending": true,
+   "pending": false,
    "suite": "cktevo",
    "tags": [
     "cktevo",
@@ -512,23 +647,28 @@
    ]
   },
   {
+   "area_um2": 880.459979,
+   "cells": 399,
+   "dc_seconds": 224.4,
    "design_id": "cktevo_nn_engine__thresholds_128x4096",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 340,
-   "pending": true,
+   "registers": 132.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "nn_engine"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.70408
   },
   {
    "design_id": "cktevo_nn_engine__ultraRAMx72_TDP",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: dc_shell exceeded 1200 s",
+   "e4_synthesizable": 0,
    "loc": 169,
-   "pending": true,
+   "pending": false,
    "suite": "cktevo",
    "tags": [
     "cktevo",
@@ -537,10 +677,10 @@
   },
   {
    "design_id": "cktevo_nn_engine__weights_1024x4096",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: checklist failed: area_positive, cells_positive, timing_parsed, histogram_nonempty",
+   "e4_synthesizable": 0,
    "loc": 640,
-   "pending": true,
+   "pending": false,
    "suite": "cktevo",
    "tags": [
     "cktevo",
@@ -548,16 +688,21 @@
    ]
   },
   {
+   "area_um2": 12063.099711,
+   "cells": 4315,
+   "dc_seconds": 83.9,
    "design_id": "cktevo_risc__btb",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 453,
-   "pending": true,
+   "registers": 2008.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "risc"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.888485
   },
   {
    "area_um2": 13762.839685,
@@ -578,10 +723,10 @@
   },
   {
    "design_id": "cktevo_risc__cache_sys",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
-   "loc": 2917,
-   "pending": true,
+   "e4_fail_reason": "eval_failed: command returned 0 (DC reported an error; see the log)",
+   "e4_synthesizable": 0,
+   "loc": 2954,
+   "pending": false,
    "suite": "cktevo",
    "tags": [
     "cktevo",
@@ -642,16 +787,21 @@
    "wns_ns": 1.24497
   },
   {
+   "area_um2": 18451.887814,
+   "cells": 8816,
+   "dc_seconds": 131.8,
    "design_id": "cktevo_risc__ewb",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 177,
-   "pending": true,
+   "registers": 2322.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "risc"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.697847
   },
   {
    "area_um2": 147.896001,
@@ -673,10 +823,10 @@
   },
   {
    "design_id": "cktevo_risc__l2_cache",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
-   "loc": 1298,
-   "pending": true,
+   "e4_fail_reason": "eval_failed: command returned 0 (DC reported an error; see the log)",
+   "e4_synthesizable": 0,
+   "loc": 1335,
+   "pending": false,
    "suite": "cktevo",
    "tags": [
     "cktevo",
@@ -685,23 +835,28 @@
    ]
   },
   {
+   "area_um2": 138.586,
+   "cells": 121,
+   "dc_seconds": 68.7,
    "design_id": "cktevo_risc__l2_cache_control",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 454,
-   "pending": true,
+   "registers": 9.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "risc"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.05406
   },
   {
    "design_id": "cktevo_risc__l2_cache_datapath",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
-   "loc": 417,
-   "pending": true,
+   "e4_fail_reason": "eval_failed: command returned 0 (DC reported an error; see the log)",
+   "e4_synthesizable": 0,
+   "loc": 454,
+   "pending": false,
    "suite": "cktevo",
    "tags": [
     "cktevo",
@@ -711,10 +866,10 @@
   },
   {
    "design_id": "cktevo_risc__p_i_cache",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
-   "loc": 850,
-   "pending": true,
+   "e4_fail_reason": "eval_failed: command returned 0 (DC reported an error; see the log)",
+   "e4_synthesizable": 0,
+   "loc": 887,
+   "pending": false,
    "suite": "cktevo",
    "tags": [
     "cktevo",
@@ -723,22 +878,27 @@
    ]
   },
   {
+   "area_um2": 47.88,
+   "cells": 41,
+   "dc_seconds": 63.0,
    "design_id": "cktevo_risc__p_i_cache_control",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 287,
-   "pending": true,
+   "registers": 2.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "risc"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.11065
   },
   {
    "design_id": "cktevo_risc__p_i_cache_metadata_check",
    "e4_fail_reason": "eval_failed: command returned 0 (DC reported an error; see the log)",
    "e4_synthesizable": 0,
-   "loc": 328,
+   "loc": 365,
    "pending": false,
    "suite": "cktevo",
    "tags": [
@@ -783,28 +943,38 @@
    "wns_ns": 2.07581
   },
   {
+   "area_um2": 2851.519951,
+   "cells": 1401,
+   "dc_seconds": 68.5,
    "design_id": "cktevo_sdc_ctrl__sd_cmd_serial_host",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 263,
-   "pending": true,
+   "registers": 385.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "sdc_ctrl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.87512
   },
   {
+   "area_um2": 433.845995,
+   "cells": 264,
+   "dc_seconds": 64.3,
    "design_id": "cktevo_sdc_ctrl__sd_data_master",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 150,
-   "pending": true,
+   "registers": 43.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "sdc_ctrl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.80659
   },
   {
    "area_um2": 1940.735972,
@@ -842,10 +1012,10 @@
   },
   {
    "design_id": "cktevo_simple_cpu__simple_cpu",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/cktevo_simple_cpu__simple_cpu/E4/e30ca72b915aef03-r2/inputs/rtl/IDEXReg.v:46: Variable 'ctrSignalsOut' is the target of both blocking and nonblocking assignments in the same always block. (VER-134)",
+   "e4_synthesizable": 0,
    "loc": 946,
-   "pending": true,
+   "pending": false,
    "suite": "cktevo",
    "tags": [
     "cktevo",
@@ -871,16 +1041,21 @@
    "wns_ns": 2.91716
   },
   {
+   "area_um2": 258.818006,
+   "cells": 79,
+   "dc_seconds": 63.3,
    "design_id": "cktevo_usb__usbf_biu",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 469,
-   "pending": true,
+   "registers": 35.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "usb"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.12626
   },
   {
    "area_um2": 1594.670031,
@@ -900,235 +1075,330 @@
    "wns_ns": 2.14527
   },
   {
+   "area_um2": 933.926023,
+   "cells": 407,
+   "dc_seconds": 60.6,
    "design_id": "cktevo_usb__usbf_csr",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 1109,
-   "pending": true,
+   "registers": 113.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "usb"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.76504
   },
   {
+   "area_um2": 1019.046021,
+   "cells": 530,
+   "dc_seconds": 63.8,
    "design_id": "cktevo_usb__usbf_epu",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 305,
-   "pending": true,
+   "registers": 112.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "usb"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.33139
   },
   {
+   "area_um2": 269.191996,
+   "cells": 111,
+   "dc_seconds": 63.9,
    "design_id": "cktevo_usb__usbf_fifo",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 248,
-   "pending": true,
+   "registers": 39.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "usb"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.80325
   },
   {
+   "area_um2": 255.360005,
+   "cells": 133,
+   "dc_seconds": 63.7,
    "design_id": "cktevo_usb__usbf_sie_ep",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 179,
-   "pending": true,
+   "registers": 28.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "usb"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.34603
   },
   {
+   "area_um2": 785.498018,
+   "cells": 284,
+   "dc_seconds": 63.7,
    "design_id": "cktevo_usb__usbf_sie_rx",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 521,
-   "pending": true,
+   "registers": 109.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "usb"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.86622
   },
   {
+   "area_um2": 308.028006,
+   "cells": 152,
+   "dc_seconds": 63.2,
    "design_id": "cktevo_usb__usbf_sie_tx",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 387,
-   "pending": true,
+   "registers": 30.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "usb"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.19716
   },
   {
+   "area_um2": 2501.730069,
+   "cells": 562,
+   "dc_seconds": 66.8,
    "design_id": "cktevo_usb__usbf_sync",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 905,
-   "pending": true,
+   "registers": 430.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "usb",
     "multi_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.397215
   },
   {
+   "area_um2": 507.262011,
+   "cells": 196,
+   "dc_seconds": 63.0,
    "design_id": "cktevo_usb__usbf_ulpi_wrapper",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 423,
-   "pending": true,
+   "registers": 67.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "usb"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.30814
   },
   {
+   "area_um2": 3031.069929,
+   "cells": 1000,
+   "dc_seconds": 66.1,
    "design_id": "cktevo_vga_enh__generic_dpram",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 515,
-   "pending": true,
+   "registers": 517.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "vga_enh",
     "multi_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.664857
   },
   {
+   "area_um2": 3207.69393,
+   "cells": 1087,
+   "dc_seconds": 67.3,
    "design_id": "cktevo_vga_enh__generic_spram",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 410,
-   "pending": true,
+   "registers": 518.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "vga_enh"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.65058
   },
   {
+   "area_um2": 711.81599,
+   "cells": 343,
+   "dc_seconds": 68.5,
    "design_id": "cktevo_vga_enh__vga_colproc",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 510,
-   "pending": true,
+   "registers": 92.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "vga_enh"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.8632
   },
   {
+   "area_um2": 94170.381704,
+   "cells": 31038,
+   "dc_seconds": 273.4,
    "design_id": "cktevo_vga_enh__vga_curproc",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 724,
-   "pending": true,
+   "registers": 16584.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "vga_enh"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.01003
   },
   {
+   "area_um2": 526.147993,
+   "cells": 196,
+   "dc_seconds": 61.8,
    "design_id": "cktevo_vga_enh__vga_fifo",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 259,
-   "pending": true,
+   "registers": 76.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "vga_enh"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.2163
   },
   {
+   "area_um2": 12436.563701,
+   "cells": 4208,
+   "dc_seconds": 83.5,
    "design_id": "cktevo_vga_enh__vga_fifo_dc",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 749,
-   "pending": true,
+   "registers": 2117.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "vga_enh",
     "multi_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.367833
   },
   {
+   "area_um2": 3916.849915,
+   "cells": 1579,
+   "dc_seconds": 69.9,
    "design_id": "cktevo_vga_enh__vga_pgen",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 2545,
-   "pending": true,
+   "registers": 611.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "vga_enh",
     "multi_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.186591
   },
   {
+   "area_um2": 340.479994,
+   "cells": 197,
+   "dc_seconds": 62.5,
    "design_id": "cktevo_vga_enh__vga_vtim",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 179,
-   "pending": true,
+   "registers": 40.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "vga_enh"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.55384
   },
   {
+   "area_um2": 4210.513913,
+   "cells": 1644,
+   "dc_seconds": 68.6,
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 730,
-   "pending": true,
+   "registers": 659.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "vga_enh"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.9833
   },
   {
+   "area_um2": 2308.348049,
+   "cells": 791,
+   "dc_seconds": 66.1,
    "design_id": "cktevo_vga_enh__vga_wb_slave",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 605,
-   "pending": true,
+   "registers": 340.0,
    "suite": "cktevo",
    "tags": [
     "cktevo",
     "vga_enh"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.24194
   },
   {
+   "area_um2": 3527.691978,
+   "cells": 2013,
+   "dc_seconds": 69.6,
    "design_id": "drrtl_DSP",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 165,
-   "pending": true,
+   "registers": 200.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.0030179
   },
   {
    "area_um2": 27569.570818,
@@ -1148,16 +1418,21 @@
    "wns_ns": 2.19107
   },
   {
+   "area_um2": 3213.545998,
+   "cells": 2221,
+   "dc_seconds": 87.7,
    "design_id": "drrtl_LSTM",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 135,
-   "pending": true,
+   "registers": 0.0,
    "suite": "drrtl",
    "tags": [
     "drrtl",
     "no_clock"
-   ]
+   ],
+   "tns_ns": -8.35885,
+   "wns_ns": -0.564756
   },
   {
    "area_um2": 1564.877984,
@@ -1176,15 +1451,20 @@
    "wns_ns": 2.22644
   },
   {
+   "area_um2": 833.909993,
+   "cells": 437,
+   "dc_seconds": 65.0,
    "design_id": "drrtl_UART",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 447,
-   "pending": true,
+   "registers": 135.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.08082
   },
   {
    "area_um2": 25155.886372,
@@ -1203,48 +1483,68 @@
    "wns_ns": 2.73177
   },
   {
+   "area_um2": 21825.034203,
+   "cells": 14723,
+   "dc_seconds": 168.4,
    "design_id": "drrtl_arm_cpu1",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 1870,
-   "pending": true,
+   "registers": 1229.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.00162482
   },
   {
+   "area_um2": 8805.398202,
+   "cells": 4830,
+   "dc_seconds": 96.0,
    "design_id": "drrtl_arm_cpu2",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 1450,
-   "pending": true,
+   "registers": 734.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.552558
   },
   {
+   "area_um2": 1687.504045,
+   "cells": 696,
+   "dc_seconds": 70.5,
    "design_id": "drrtl_communication",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 225,
-   "pending": true,
+   "registers": 225.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.34451
   },
   {
+   "area_um2": 169.708001,
+   "cells": 141,
+   "dc_seconds": 63.2,
    "design_id": "drrtl_controller",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 546,
-   "pending": true,
+   "registers": 8.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.80889
   },
   {
    "area_um2": 24500.727418,
@@ -1274,15 +1574,20 @@
    ]
   },
   {
+   "area_um2": 9041.074147,
+   "cells": 4662,
+   "dc_seconds": 90.4,
    "design_id": "drrtl_datapath",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 1065,
-   "pending": true,
+   "registers": 881.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.36746
   },
   {
    "area_um2": 1004.15002,
@@ -1301,81 +1606,116 @@
    "wns_ns": 2.5876
   },
   {
+   "area_um2": 967.442013,
+   "cells": 576,
+   "dc_seconds": 70.9,
    "design_id": "drrtl_pcie",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 923,
-   "pending": true,
+   "registers": 79.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.93217
   },
   {
+   "area_um2": 4117.413915,
+   "cells": 1660,
+   "dc_seconds": 67.1,
    "design_id": "drrtl_router",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 594,
-   "pending": true,
+   "registers": 590.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.33153
   },
   {
+   "area_um2": 904.931987,
+   "cells": 383,
+   "dc_seconds": 62.1,
    "design_id": "drrtl_simple_spi",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 463,
-   "pending": true,
+   "registers": 130.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.61855
   },
   {
+   "area_um2": 58.519999,
+   "cells": 36,
+   "dc_seconds": 64.5,
    "design_id": "drrtl_ticket_machine",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 134,
-   "pending": true,
+   "registers": 6.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.81512
   },
   {
+   "area_um2": 4835.347971,
+   "cells": 3123,
+   "dc_seconds": 77.0,
    "design_id": "drrtl_tv80",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 4616,
-   "pending": true,
+   "registers": 359.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.744006
   },
   {
+   "area_um2": 12145.293873,
+   "cells": 11426,
+   "dc_seconds": 188.2,
    "design_id": "drrtl_vending_machine",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 128,
-   "pending": true,
+   "registers": 4.0,
    "suite": "drrtl",
    "tags": [
     "drrtl"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.0189202
   },
   {
+   "area_um2": 342.874011,
+   "cells": 67,
+   "dc_seconds": 61.0,
    "design_id": "rtllm_JC_counter",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 14,
-   "pending": true,
+   "registers": 64.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.09765
   },
   {
    "area_um2": 23.408001,
@@ -1394,15 +1734,20 @@
    "wns_ns": 3.09085
   },
   {
+   "area_um2": 191.785996,
+   "cells": 84,
+   "dc_seconds": 63.5,
    "design_id": "rtllm_LIFObuffer",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 51,
-   "pending": true,
+   "registers": 25.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.78029
   },
   {
    "area_um2": 550.088007,
@@ -1423,10 +1768,10 @@
   },
   {
    "design_id": "rtllm_ROM",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: checklist failed: area_positive, cells_positive, timing_parsed, histogram_nonempty",
+   "e4_synthesizable": 0,
    "loc": 22,
-   "pending": true,
+   "pending": false,
    "suite": "rtllm",
    "tags": [
     "rtllm",
@@ -1434,51 +1779,71 @@
    ]
   },
   {
+   "area_um2": 131.138003,
+   "cells": 50,
+   "dc_seconds": 66.5,
    "design_id": "rtllm_accu",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 77,
-   "pending": true,
+   "registers": 13.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.3602
   },
   {
+   "area_um2": 68.096001,
+   "cells": 16,
+   "dc_seconds": 63.8,
    "design_id": "rtllm_adder_16bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 123,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtllm",
    "tags": [
     "rtllm",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.894825
   },
   {
+   "area_um2": 170.239999,
+   "cells": 125,
+   "dc_seconds": 65.4,
    "design_id": "rtllm_adder_32bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 181,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtllm",
    "tags": [
     "rtllm",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.303123
   },
   {
+   "area_um2": 34.048,
+   "cells": 8,
+   "dc_seconds": 65.9,
    "design_id": "rtllm_adder_8bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 23,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtllm",
    "tags": [
     "rtllm",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.61997
   },
   {
    "area_um2": 27.93,
@@ -1533,7 +1898,7 @@
   {
    "area_um2": 1095.387989,
    "cells": 345,
-   "dc_seconds": 54.1,
+   "dc_seconds": 63.4,
    "design_id": "rtllm_asyn_fifo",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1582,7 +1947,7 @@
   },
   {
    "design_id": "rtllm_clkgenerator",
-   "e4_fail_reason": "eval_failed: Error: Value for list 'port_pin_list' must have 1 elements. (CMD-036)",
+   "e4_fail_reason": "eval_failed: checklist failed: timing_parsed",
    "e4_synthesizable": 0,
    "loc": 16,
    "pending": false,
@@ -1643,27 +2008,37 @@
    "wns_ns": 3.09628
   },
   {
+   "area_um2": 1709.049991,
+   "cells": 1752,
+   "dc_seconds": 148.0,
    "design_id": "rtllm_div_16bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 38,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtllm",
    "tags": [
     "rtllm",
     "no_clock"
-   ]
+   ],
+   "tns_ns": -41.438164,
+   "wns_ns": -2.11595
   },
   {
+   "area_um2": 17.822001,
+   "cells": 5,
+   "dc_seconds": 61.8,
    "design_id": "rtllm_edge_detect",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 37,
-   "pending": true,
+   "registers": 3.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.10271
   },
   {
    "area_um2": 632.015999,
@@ -1683,16 +2058,21 @@
    "wns_ns": 0.328942
   },
   {
+   "area_um2": 464.967998,
+   "cells": 460,
+   "dc_seconds": 69.7,
    "design_id": "rtllm_fixed_point_substractor",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 51,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtllm",
    "tags": [
     "rtllm",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.311257
   },
   {
    "design_id": "rtllm_float_multi",
@@ -1707,15 +2087,20 @@
    ]
   },
   {
+   "area_um2": 104.538002,
+   "cells": 42,
+   "dc_seconds": 67.1,
    "design_id": "rtllm_freq_div",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 45,
-   "pending": true,
+   "registers": 14.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.09466
   },
   {
    "area_um2": 19.152,
@@ -1751,10 +2136,10 @@
   },
   {
    "design_id": "rtllm_freq_divbyodd",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtllm_freq_divbyodd/E4/d2daeabc1fb9a921-r2/inputs/rtl/freq_divbyodd.v:48: continuous assignment output clk_div must be a net. (VER-261)",
+   "e4_synthesizable": 0,
    "loc": 49,
-   "pending": true,
+   "pending": false,
    "suite": "rtllm",
    "tags": [
     "rtllm"
@@ -1777,15 +2162,20 @@
    "wns_ns": 2.21856
   },
   {
+   "area_um2": 95.494003,
+   "cells": 21,
+   "dc_seconds": 60.4,
    "design_id": "rtllm_instr_reg",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 35,
-   "pending": true,
+   "registers": 16.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.04256
   },
   {
    "area_um2": 724.318015,
@@ -1804,28 +2194,38 @@
    "wns_ns": 0.5081
   },
   {
+   "area_um2": 296.856001,
+   "cells": 160,
+   "dc_seconds": 62.9,
    "design_id": "rtllm_multi_8bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 23,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtllm",
    "tags": [
     "rtllm",
     "sverilog_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.846104
   },
   {
+   "area_um2": 358.568002,
+   "cells": 110,
+   "dc_seconds": 66.0,
    "design_id": "rtllm_multi_booth_8bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 42,
-   "pending": true,
+   "registers": 46.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.47756
   },
   {
    "area_um2": 163.058003,
@@ -1844,15 +2244,20 @@
    "wns_ns": 2.83496
   },
   {
+   "area_um2": 785.764013,
+   "cells": 287,
+   "dc_seconds": 60.0,
    "design_id": "rtllm_multi_pipe_8bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 92,
-   "pending": true,
+   "registers": 86.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.66154
   },
   {
    "area_um2": 46.550001,
@@ -1903,33 +2308,43 @@
    "wns_ns": 2.28762
   },
   {
+   "area_um2": 348.991994,
+   "cells": 194,
+   "dc_seconds": 64.5,
    "design_id": "rtllm_radix2_div",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 83,
-   "pending": true,
+   "registers": 33.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.1524
   },
   {
+   "area_um2": 36.175999,
+   "cells": 8,
+   "dc_seconds": 61.9,
    "design_id": "rtllm_right_shifter",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 15,
-   "pending": true,
+   "registers": 8.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.11187
   },
   {
    "design_id": "rtllm_ring_counter",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtllm_ring_counter/E4/0ecfddc342a78fc7-r2/inputs/rtl/ring_counter.v:19: continuous assignment output out must be a net. (VER-261)",
+   "e4_synthesizable": 0,
    "loc": 23,
-   "pending": true,
+   "pending": false,
    "suite": "rtllm",
    "tags": [
     "rtllm"
@@ -1947,26 +2362,36 @@
    ]
   },
   {
+   "area_um2": 133.532004,
+   "cells": 40,
+   "dc_seconds": 65.2,
    "design_id": "rtllm_serial2parallel",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 45,
-   "pending": true,
+   "registers": 21.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.98063
   },
   {
+   "area_um2": 59.584001,
+   "cells": 29,
+   "dc_seconds": 64.7,
    "design_id": "rtllm_signal_generator",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 35,
-   "pending": true,
+   "registers": 6.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.07409
   },
   {
    "area_um2": 95.227998,
@@ -1985,23 +2410,28 @@
    "wns_ns": 2.3212
   },
   {
+   "area_um2": 453.263994,
+   "cells": 503,
+   "dc_seconds": 65.2,
    "design_id": "rtllm_sub_64bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 18,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtllm",
    "tags": [
     "rtllm",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.0119698
   },
   {
    "design_id": "rtllm_synchronizer",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtllm_synchronizer/E4/0252e2c620aba30c-r2/inputs/rtl/synchronizer.v:21: Cannot test variable 'brstn' because it was not in the event expression or with wrong polarity. (ELAB-300)",
+   "e4_synthesizable": 0,
    "loc": 44,
-   "pending": true,
+   "pending": false,
    "suite": "rtllm",
    "tags": [
     "rtllm",
@@ -2009,15 +2439,20 @@
    ]
   },
   {
+   "area_um2": 129.542003,
+   "cells": 63,
+   "dc_seconds": 60.5,
    "design_id": "rtllm_traffic_light",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 101,
-   "pending": true,
+   "registers": 16.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.79106
   },
   {
    "area_um2": 149.226003,
@@ -2036,40 +2471,55 @@
    "wns_ns": 1.69735
   },
   {
+   "area_um2": 150.556004,
+   "cells": 33,
+   "dc_seconds": 66.8,
    "design_id": "rtllm_width_8to16",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 44,
-   "pending": true,
+   "registers": 26.0,
    "suite": "rtllm",
    "tags": [
     "rtllm"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.02664
   },
   {
+   "area_um2": 93.1,
+   "cells": 34,
+   "dc_seconds": 62.0,
    "design_id": "rtlopt_add_sub",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 14,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.765646
   },
   {
+   "area_um2": 368.941997,
+   "cells": 142,
+   "dc_seconds": 64.2,
    "design_id": "rtlopt_adder",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 20,
-   "pending": true,
+   "registers": 32.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.25222
   },
   {
    "area_um2": 34.048,
@@ -2090,17 +2540,22 @@
    "wns_ns": 1.61997
   },
   {
+   "area_um2": 313.879998,
+   "cells": 200,
+   "dc_seconds": 63.8,
    "design_id": "rtlopt_adder_select",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 14,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.08127
   },
   {
    "area_um2": 106.134001,
@@ -2139,30 +2594,40 @@
    "wns_ns": 0.0127473
   },
   {
+   "area_um2": 172.367999,
+   "cells": 163,
+   "dc_seconds": 62.9,
    "design_id": "rtlopt_alu_8bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 23,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.30033
   },
   {
+   "area_um2": 1139.011999,
+   "cells": 742,
+   "dc_seconds": 74.8,
    "design_id": "rtlopt_calculation",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 22,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.00135636
   },
   {
    "area_um2": 41.762,
@@ -2183,43 +2648,58 @@
    "wns_ns": 1.8103
   },
   {
+   "area_um2": 88.312,
+   "cells": 102,
+   "dc_seconds": 64.3,
    "design_id": "rtlopt_comparator_16bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 14,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.93262
   },
   {
+   "area_um2": 9.576,
+   "cells": 10,
+   "dc_seconds": 62.9,
    "design_id": "rtlopt_comparator_2bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 8,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.23043
   },
   {
+   "area_um2": 21.28,
+   "cells": 23,
+   "dc_seconds": 63.7,
    "design_id": "rtlopt_comparator_4bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 14,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.17708
   },
   {
    "area_um2": 44.422,
@@ -2240,30 +2720,40 @@
    "wns_ns": 2.05144
   },
   {
+   "area_um2": 71.553999,
+   "cells": 87,
+   "dc_seconds": 61.1,
    "design_id": "rtlopt_decoder_6bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 12,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.19611
   },
   {
+   "area_um2": 246.847993,
+   "cells": 312,
+   "dc_seconds": 65.6,
    "design_id": "rtlopt_decoder_8bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 12,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.10589
   },
   {
    "area_um2": 2645.901972,
@@ -2284,17 +2774,22 @@
    "wns_ns": -2.09892
   },
   {
+   "area_um2": 13635.15988,
+   "cells": 13878,
+   "dc_seconds": 588.9,
    "design_id": "rtlopt_divider_32bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 37,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": -388.78009,
+   "wns_ns": -8.80648
   },
   {
    "area_um2": 42.028,
@@ -2315,41 +2810,56 @@
    "wns_ns": 1.7736
   },
   {
+   "area_um2": 398.733995,
+   "cells": 403,
+   "dc_seconds": 73.4,
    "design_id": "rtlopt_divider_8bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 36,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": -0.556462,
+   "wns_ns": -0.0981386
   },
   {
+   "area_um2": 128.744002,
+   "cells": 89,
+   "dc_seconds": 65.2,
    "design_id": "rtlopt_fsm",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 60,
-   "pending": true,
+   "registers": 9.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.98941
   },
   {
+   "area_um2": 318.668006,
+   "cells": 143,
+   "dc_seconds": 63.9,
    "design_id": "rtlopt_fsm_encode",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 85,
-   "pending": true,
+   "registers": 33.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.75245
   },
   {
    "area_um2": 68.628001,
@@ -2369,16 +2879,21 @@
    "wns_ns": 2.88014
   },
   {
+   "area_um2": 614.459993,
+   "cells": 253,
+   "dc_seconds": 66.0,
    "design_id": "rtlopt_mac",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 25,
-   "pending": true,
+   "registers": 64.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.25593
   },
   {
    "area_um2": 265.468001,
@@ -2416,30 +2931,40 @@
    "wns_ns": 1.91328
   },
   {
+   "area_um2": 285.950001,
+   "cells": 157,
+   "dc_seconds": 64.2,
    "design_id": "rtlopt_mul_subexpression",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 37,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.87375
   },
   {
+   "area_um2": 10.906,
+   "cells": 10,
+   "dc_seconds": 61.6,
    "design_id": "rtlopt_mult_if",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 39,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.15609
   },
   {
    "area_um2": 60.648001,
@@ -2460,17 +2985,22 @@
    "wns_ns": 2.12504
   },
   {
+   "area_um2": 235.144004,
+   "cells": 209,
+   "dc_seconds": 64.7,
    "design_id": "rtlopt_mux_4to1_64bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 22,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.66889
   },
   {
    "area_um2": 21.812,
@@ -2491,17 +3021,22 @@
    "wns_ns": 2.19656
   },
   {
+   "area_um2": 74.214001,
+   "cells": 62,
+   "dc_seconds": 64.9,
    "design_id": "rtlopt_mux_encode",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 21,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "yosys_failed"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.05836
   },
   {
    "area_um2": 96.824002,
@@ -2522,16 +3057,21 @@
    "wns_ns": 1.96842
   },
   {
+   "area_um2": 7559.188215,
+   "cells": 2797,
+   "dc_seconds": 77.0,
    "design_id": "rtlopt_register",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 64,
-   "pending": true,
+   "registers": 992.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.20717
   },
   {
    "area_um2": 68.893999,
@@ -2551,29 +3091,39 @@
    "wns_ns": 2.40072
   },
   {
+   "area_um2": 38.835999,
+   "cells": 16,
+   "dc_seconds": 60.1,
    "design_id": "rtlopt_selector",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 17,
-   "pending": true,
+   "registers": 6.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.93903
   },
   {
+   "area_um2": 84.322001,
+   "cells": 49,
+   "dc_seconds": 67.2,
    "design_id": "rtlopt_sub_16bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 12,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.873424
   },
   {
    "area_um2": 243.921997,
@@ -2612,17 +3162,22 @@
    "wns_ns": 2.06151
   },
   {
+   "area_um2": 36.974,
+   "cells": 20,
+   "dc_seconds": 63.5,
    "design_id": "rtlopt_sub_8bit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 25,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlopt",
    "tags": [
     "rtlopt",
     "pair",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.69894
   },
   {
    "area_um2": 58.519999,
@@ -2643,10 +3198,10 @@
   },
   {
    "design_id": "rtlrewriter_algorithm__gemm",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_algorithm__gemm/E4/0e37861a2b48f012-r2/inputs/rtl/gemm_redundancy.v:32: Assigment to 'mult' requires that it be a register. (VER-952)",
+   "e4_synthesizable": 0,
    "loc": 51,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2671,10 +3226,10 @@
   },
   {
    "design_id": "rtlrewriter_algorithm__sort_merge",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_algorithm__sort_merge/E4/10ad4dfc1b68df58-r2/inputs/rtl/sort_merge_redundancy.v:28: The construct 'post-increment assignment operator ++' is not supported in this language. (VER-720)",
+   "e4_synthesizable": 0,
    "loc": 66,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2684,25 +3239,33 @@
    ]
   },
   {
+   "area_um2": 1132.627979,
+   "cells": 660,
+   "dc_seconds": 64.8,
    "design_id": "rtlrewriter_algorithm__spmv",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 78,
-   "pending": true,
+   "registers": 134.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "algorithm",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.90548
   },
   {
+   "area_um2": 313.879998,
+   "cells": 200,
+   "dc_seconds": 63.3,
    "design_id": "rtlrewriter_basic__add1",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 14,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2710,14 +3273,16 @@
     "basic",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.08127
   },
   {
    "design_id": "rtlrewriter_basic__add3",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__add3/E4/27d40d08dc0bccd2-r2/inputs/rtl/add3.v:8: The symbol 'reg_d' is not defined. (VER-956)",
+   "e4_synthesizable": 0,
    "loc": 16,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2727,11 +3292,14 @@
    ]
   },
   {
+   "area_um2": 201.096002,
+   "cells": 50,
+   "dc_seconds": 65.6,
    "design_id": "rtlrewriter_basic__checksum",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 8,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2739,14 +3307,19 @@
     "basic",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.726111
   },
   {
+   "area_um2": 11232.913989,
+   "cells": 7004,
+   "dc_seconds": 96.8,
    "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 14,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2754,7 +3327,9 @@
     "basic",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.000169754
   },
   {
    "area_um2": 8693.14599,
@@ -2777,25 +3352,33 @@
    "wns_ns": -0.0757818
   },
   {
+   "area_um2": 106490.703443,
+   "cells": 35016,
+   "dc_seconds": 563.8,
    "design_id": "rtlrewriter_basic__distributed_ram",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 22,
-   "pending": true,
+   "registers": 18450.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "basic",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.89321
   },
   {
+   "area_um2": 4.522,
+   "cells": 4,
+   "dc_seconds": 63.5,
    "design_id": "rtlrewriter_basic__flatten1",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 24,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2803,7 +3386,9 @@
     "basic",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.26592
   },
   {
    "area_um2": 8.778,
@@ -2826,11 +3411,14 @@
    "wns_ns": 2.22069
   },
   {
+   "area_um2": 7.98,
+   "cells": 7,
+   "dc_seconds": 61.3,
    "design_id": "rtlrewriter_basic__if_prority",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 16,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2838,28 +3426,38 @@
     "basic",
     "calibration_only",
     "yosys_failed"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.15667
   },
   {
+   "area_um2": 7.448,
+   "cells": 2,
+   "dc_seconds": 64.1,
    "design_id": "rtlrewriter_basic__logic_elimnation",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 38,
-   "pending": true,
+   "registers": 1.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "basic",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.04991
   },
   {
+   "area_um2": 723.786,
+   "cells": 472,
+   "dc_seconds": 65.3,
    "design_id": "rtlrewriter_basic__multi_constant_multiplication",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 12,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2867,14 +3465,19 @@
     "basic",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.0700939
   },
   {
+   "area_um2": 732.031992,
+   "cells": 584,
+   "dc_seconds": 65.2,
    "design_id": "rtlrewriter_basic__multi_constant_multiplication2",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 12,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2882,28 +3485,38 @@
     "basic",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.00293946
   },
   {
+   "area_um2": 12.236,
+   "cells": 4,
+   "dc_seconds": 62.8,
    "design_id": "rtlrewriter_basic__register_balancing",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 10,
-   "pending": true,
+   "registers": 2.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "basic",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.03017
   },
   {
+   "area_um2": 22.344,
+   "cells": 22,
+   "dc_seconds": 64.4,
    "design_id": "rtlrewriter_basic__sub-expression-basic",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 13,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2911,7 +3524,9 @@
     "basic",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.16607
   },
   {
    "area_um2": 34.048,
@@ -2935,10 +3550,10 @@
   },
   {
    "design_id": "rtlrewriter_datapath__adder_bit_width",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__adder_bit_width/E4/a464c5c2c2511472-r2/inputs/rtl/adder_bit_width.v:15: Assigment to 'sum' requires that it be a register. (VER-952)",
+   "e4_synthesizable": 0,
    "loc": 18,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2950,10 +3565,10 @@
   },
   {
    "design_id": "rtlrewriter_datapath__adder_resource",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error: Width mismatch on port 'sum' of reference to 'adder' in 'non_shared_adder'. (LINK-3)",
+   "e4_synthesizable": 0,
    "loc": 54,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2964,11 +3579,14 @@
    ]
   },
   {
+   "area_um2": 98.952001,
+   "cells": 26,
+   "dc_seconds": 64.1,
    "design_id": "rtlrewriter_datapath__adder_subexpression",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 27,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -2976,7 +3594,9 @@
     "datapath",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.45126
   },
   {
    "area_um2": 31.388,
@@ -2999,11 +3619,14 @@
    "wns_ns": 1.69913
   },
   {
+   "area_um2": 125.019999,
+   "cells": 97,
+   "dc_seconds": 62.1,
    "design_id": "rtlrewriter_datapath__alu_bit_width",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 37,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3011,7 +3634,9 @@
     "datapath",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.41689
   },
   {
    "design_id": "rtlrewriter_datapath__alu_resource",
@@ -3029,11 +3654,14 @@
    ]
   },
   {
+   "area_um2": 249.508,
+   "cells": 184,
+   "dc_seconds": 65.1,
    "design_id": "rtlrewriter_datapath__alu_subexpression",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 59,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3041,14 +3669,19 @@
     "datapath",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.05767
   },
   {
+   "area_um2": 219.183999,
+   "cells": 154,
+   "dc_seconds": 65.2,
    "design_id": "rtlrewriter_datapath__constant_folding",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 14,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3056,7 +3689,9 @@
     "datapath",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.40126
   },
   {
    "design_id": "rtlrewriter_datapath__constant_propagation",
@@ -3074,11 +3709,14 @@
    ]
   },
   {
+   "area_um2": 16.758,
+   "cells": 18,
+   "dc_seconds": 62.1,
    "design_id": "rtlrewriter_datapath__dead_code_elimination",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 16,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3086,7 +3724,9 @@
     "datapath",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.07066
   },
   {
    "design_id": "rtlrewriter_datapath__loop_fusion",
@@ -3105,10 +3745,10 @@
   },
   {
    "design_id": "rtlrewriter_datapath__loop_jamming",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: checklist failed: area_positive, cells_positive, histogram_nonempty",
+   "e4_synthesizable": 0,
    "loc": 21,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3135,10 +3775,10 @@
   },
   {
    "design_id": "rtlrewriter_datapath__loop_unrolling",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__loop_unrolling/E4/e653e58240950ac0-r2/inputs/rtl/loop_unrolling_raw.v:10: The construct 'post-increment assignment operator ++' is not supported in this language. (VER-720)",
+   "e4_synthesizable": 0,
    "loc": 14,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3150,7 +3790,7 @@
   },
   {
    "design_id": "rtlrewriter_datapath__multiplier_architecture",
-   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__multiplier_architecture/E4/18f5ecf37eedb71a-r2/inputs/rtl/multiplier_architecture.v:14: The construct 'C-style unpacked dimension' is not supported in this language. (VER-720)",
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__multiplier_architecture/E4/18f5ecf37eedb71a-r4/inputs/rtl/multiplier_architecture.v:14: The construct 'C-style unpacked dimension' is not supported in this language. (VER-720)",
    "e4_synthesizable": 0,
    "loc": 49,
    "pending": false,
@@ -3164,11 +3804,14 @@
    ]
   },
   {
+   "area_um2": 301.644002,
+   "cells": 156,
+   "dc_seconds": 59.9,
    "design_id": "rtlrewriter_datapath__multiplier_bitwidth",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 41,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3176,7 +3819,9 @@
     "datapath",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.71136
   },
   {
    "area_um2": 285.950001,
@@ -3199,11 +3844,14 @@
    "wns_ns": 0.87375
   },
   {
+   "area_um2": 42.028,
+   "cells": 19,
+   "dc_seconds": 62.0,
    "design_id": "rtlrewriter_datapath__strength_reduction",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 17,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3211,14 +3859,19 @@
     "datapath",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.91328
   },
   {
+   "area_um2": 1139.011999,
+   "cells": 742,
+   "dc_seconds": 76.5,
    "design_id": "rtlrewriter_datapath__subexpression_elimination",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 22,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3226,7 +3879,9 @@
     "datapath",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.00135636
   },
   {
    "area_um2": 45.752001,
@@ -3248,46 +3903,61 @@
    "wns_ns": 2.84319
   },
   {
+   "area_um2": 25.802001,
+   "cells": 13,
+   "dc_seconds": 63.8,
    "design_id": "rtlrewriter_fsm_small_case__example2",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 66,
-   "pending": true,
+   "registers": 3.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "fsm_small_case",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.27944
   },
   {
+   "area_um2": 28.994,
+   "cells": 16,
+   "dc_seconds": 63.3,
    "design_id": "rtlrewriter_fsm_small_case__example3",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 66,
-   "pending": true,
+   "registers": 3.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "fsm_small_case",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.00006
   },
   {
+   "area_um2": 37.772001,
+   "cells": 21,
+   "dc_seconds": 65.0,
    "design_id": "rtlrewriter_fsm_small_case__example4",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 54,
-   "pending": true,
+   "registers": 4.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "fsm_small_case",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.28192
   },
   {
    "area_um2": 37.772001,
@@ -3329,11 +3999,14 @@
    "wns_ns": 0.0141027
   },
   {
+   "area_um2": 227394.09116,
+   "cells": 136567,
+   "dc_seconds": 1772.4,
    "design_id": "rtlrewriter_long_cnn__convLayerSingle",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 790,
-   "pending": true,
+   "registers": 15046.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3341,14 +4014,19 @@
     "cnn",
     "calibration_only",
     "yosys_failed"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.00251317
   },
   {
+   "area_um2": 3509.870047,
+   "cells": 2377,
+   "dc_seconds": 79.3,
    "design_id": "rtlrewriter_long_cnn__convUnit",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 600,
-   "pending": true,
+   "registers": 170.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3356,14 +4034,19 @@
     "cnn",
     "calibration_only",
     "yosys_failed"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.0055511
   },
   {
+   "area_um2": 735.756002,
+   "cells": 714,
+   "dc_seconds": 72.9,
    "design_id": "rtlrewriter_long_cnn__floatAdd",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 103,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3371,7 +4054,9 @@
     "cnn",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 7.1764e-05
   },
   {
    "area_um2": 610.204005,
@@ -3410,10 +4095,10 @@
   },
   {
    "design_id": "rtlrewriter_long_cpu__ALU",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__ALU/E4/79dcdbab9a13838e-r2/inputs/rtl/ALURaw.v:53: Assigment to 'result1' requires that it be a register. (VER-952)",
+   "e4_synthesizable": 0,
    "loc": 92,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3424,11 +4109,14 @@
    ]
   },
   {
+   "area_um2": 1.596,
+   "cells": 2,
+   "dc_seconds": 63.8,
    "design_id": "rtlrewriter_long_cpu__BranchAndJumpHazard",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 32,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3436,14 +4124,19 @@
     "cpu",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.32108
   },
   {
+   "area_um2": 50.54,
+   "cells": 47,
+   "dc_seconds": 62.6,
    "design_id": "rtlrewriter_long_cpu__DataHazard",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 54,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3451,28 +4144,38 @@
     "cpu",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.09879
   },
   {
+   "area_um2": 106816.825225,
+   "cells": 31336,
+   "dc_seconds": 333.4,
    "design_id": "rtlrewriter_long_cpu__DataMem",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 66,
-   "pending": true,
+   "registers": 16436.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "long",
     "cpu",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.66758
   },
   {
+   "area_um2": 39.9,
+   "cells": 50,
+   "dc_seconds": 62.5,
    "design_id": "rtlrewriter_long_cpu__ImmExtend",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 12,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3480,14 +4183,16 @@
     "cpu",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.97978
   },
   {
    "design_id": "rtlrewriter_long_cpu__InstMem",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__InstMem/E4/431a2660899b0bb4-r2/inputs/rtl/InstMemRaw.v:8: Syntax error at or near token ')'. (VER-294)",
+   "e4_synthesizable": 0,
    "loc": 209,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3530,36 +4235,46 @@
    ]
   },
   {
+   "area_um2": 7555.730215,
+   "cells": 2790,
+   "dc_seconds": 80.4,
    "design_id": "rtlrewriter_long_cpu__RegFile",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 51,
-   "pending": true,
+   "registers": 992.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "long",
     "cpu",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.991703
   },
   {
+   "area_um2": 8616.804142,
+   "cells": 4112,
+   "dc_seconds": 94.5,
    "design_id": "rtlrewriter_long_fft__Butterfly",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 115,
-   "pending": true,
+   "registers": 405.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "long",
     "fft",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 0.00138187
   },
   {
    "design_id": "rtlrewriter_long_huffman__Decoder",
-   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_long_huffman__Decoder/E4/fc4f176cef8b0879-r2/inputs/rtl/DecoderRaw.v:97: Assigment to 'result1' requires that it be a register. (VER-952)",
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_long_huffman__Decoder/E4/1d5de18b248c192b-r2/inputs/rtl/DecoderRaw.v:97: Assigment to 'result1' requires that it be a register. (VER-952)",
    "e4_synthesizable": 0,
    "loc": 1276,
    "pending": false,
@@ -3573,25 +4288,30 @@
    ]
   },
   {
+   "area_um2": 22.876,
+   "cells": 8,
+   "dc_seconds": 65.1,
    "design_id": "rtlrewriter_long_huffman__HuffmanDecoder",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 584,
-   "pending": true,
+   "registers": 2.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "long",
     "huffman",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 3.09497
   },
   {
    "design_id": "rtlrewriter_memory__memory_banking",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_banking/E4/c7e3d8c16cd5e5a7-r2/inputs/rtl/memory_banking_raw.v:35: Net 'mem_bank[63][7]' or a directly connected net is driven by more than one source, and not all drivers are three-state. (ELAB-366)",
+   "e4_synthesizable": 0,
    "loc": 45,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3601,32 +4321,42 @@
    ]
   },
   {
+   "area_um2": 860.775982,
+   "cells": 295,
+   "dc_seconds": 64.6,
    "design_id": "rtlrewriter_memory__memory_compression",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 44,
-   "pending": true,
+   "registers": 136.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "memory",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.7316
   },
   {
+   "area_um2": 231.951996,
+   "cells": 120,
+   "dc_seconds": 61.3,
    "design_id": "rtlrewriter_memory__memory_folding",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 79,
-   "pending": true,
+   "registers": 28.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "memory",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.92028
   },
   {
    "area_um2": 330.371995,
@@ -3648,18 +4378,23 @@
    "wns_ns": 2.92462
   },
   {
+   "area_um2": 1238.229989,
+   "cells": 601,
+   "dc_seconds": 62.4,
    "design_id": "rtlrewriter_memory__memory_sharing",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 52,
-   "pending": true,
+   "registers": 144.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
     "short",
     "memory",
     "calibration_only"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.57313
   },
   {
    "design_id": "rtlrewriter_mux__mux_dead_code",
@@ -3677,11 +4412,14 @@
    ]
   },
   {
+   "area_um2": 1.064,
+   "cells": 1,
+   "dc_seconds": 63.5,
    "design_id": "rtlrewriter_mux__mux_type1",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 35,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3689,14 +4427,19 @@
     "mux",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.36068
   },
   {
+   "area_um2": 1.064,
+   "cells": 1,
+   "dc_seconds": 63.5,
    "design_id": "rtlrewriter_mux__mux_type2",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 31,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3704,14 +4447,16 @@
     "mux",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.34402
   },
   {
    "design_id": "rtlrewriter_mux__mux_type3",
-   "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_fail_reason": "eval_failed: Error: Width mismatch on port 'in1' of reference to 'mux2to1' in 'mux_tree'. (LINK-3)",
+   "e4_synthesizable": 0,
    "loc": 19,
-   "pending": true,
+   "pending": false,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3722,11 +4467,14 @@
    ]
   },
   {
+   "area_um2": 5.054,
+   "cells": 5,
+   "dc_seconds": 61.9,
    "design_id": "rtlrewriter_mux__mux_type4",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 26,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3734,14 +4482,19 @@
     "mux",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.28034
   },
   {
+   "area_um2": 5.054,
+   "cells": 5,
+   "dc_seconds": 63.6,
    "design_id": "rtlrewriter_mux__mux_type5",
    "e4_fail_reason": null,
-   "e4_synthesizable": null,
+   "e4_synthesizable": 1,
    "loc": 27,
-   "pending": true,
+   "registers": 0.0,
    "suite": "rtlrewriter",
    "tags": [
     "rtlrewriter",
@@ -3749,45 +4502,47 @@
     "mux",
     "calibration_only",
     "no_clock"
-   ]
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.28034
   }
  ],
- "generated_at": "2026-09-12T14:52:58",
+ "generated_at": "2026-09-12T15:27:40",
  "per_suite": {
   "cktevo": {
-   "dc_seconds": 1415.7,
+   "dc_seconds": 6088.800000000001,
    "designs": 83,
-   "failed": 1,
-   "ok": 20,
-   "pending": 62
+   "failed": 10,
+   "ok": 73,
+   "pending": 0
   },
   "drrtl": {
-   "dc_seconds": 552.0,
+   "dc_seconds": 1792.6000000000001,
    "designs": 20,
    "failed": 1,
-   "ok": 5,
-   "pending": 14
+   "ok": 19,
+   "pending": 0
   },
   "rtllm": {
-   "dc_seconds": 1360.6999999999998,
+   "dc_seconds": 2800.7999999999993,
    "designs": 50,
-   "failed": 3,
-   "ok": 22,
-   "pending": 25
+   "failed": 7,
+   "ok": 43,
+   "pending": 0
   },
   "rtlopt": {
-   "dc_seconds": 1107.7,
+   "dc_seconds": 3133.599999999999,
    "designs": 40,
    "failed": 0,
-   "ok": 17,
-   "pending": 23
+   "ok": 40,
+   "pending": 0
   },
   "rtlrewriter": {
-   "dc_seconds": 859.2999999999998,
+   "dc_seconds": 5997.0,
    "designs": 72,
-   "failed": 9,
-   "ok": 11,
-   "pending": 52
+   "failed": 20,
+   "ok": 51,
+   "pending": 1
   }
  }
 }

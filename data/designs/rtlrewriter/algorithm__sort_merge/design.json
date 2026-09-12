@@ -70,7 +70,8 @@
  "loc": 66,
  "name": "algorithm__sort_merge",
  "notes": [
-  "file roles: {\"sort_merge.v\": \"expert\", \"sort_merge_redundancy.v\": \"original\"}"
+  "file roles: {\"sort_merge.v\": \"expert\", \"sort_merge_redundancy.v\": \"original\"}",
+  "read as SystemVerilog after DC rejected the Verilog-2001 read: eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_algorithm__sort_merge/E4/10ad4dfc1b68df58-r2/inputs/rtl/sort_merge_redundancy.v:28: The co"
  ],
  "reference": {
   "files": [
@@ -99,12 +100,13 @@
   "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
  },
  "suite": "rtlrewriter",
- "sverilog": false,
+ "sverilog": true,
  "tags": [
   "rtlrewriter",
   "short",
   "algorithm",
-  "calibration_only"
+  "calibration_only",
+  "sverilog_only"
  ],
  "tb": null,
  "top": "MergeSort"

@@ -48,7 +48,8 @@
  "loc": 14,
  "name": "datapath__loop_unrolling",
  "notes": [
-  "file roles: {\"loop_unrolling.v\": \"expert\", \"loop_unrolling_raw.v\": \"original\"}"
+  "file roles: {\"loop_unrolling.v\": \"expert\", \"loop_unrolling_raw.v\": \"original\"}",
+  "read as SystemVerilog after DC rejected the Verilog-2001 read: eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__loop_unrolling/E4/e653e58240950ac0-r2/inputs/rtl/loop_unrolling_raw.v:10: The co"
  ],
  "reference": {
   "files": [
@@ -77,13 +78,14 @@
   "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
  },
  "suite": "rtlrewriter",
- "sverilog": false,
+ "sverilog": true,
  "tags": [
   "rtlrewriter",
   "short",
   "datapath",
   "calibration_only",
-  "no_clock"
+  "no_clock",
+  "sverilog_only"
  ],
  "tb": null,
  "top": "example_raw"

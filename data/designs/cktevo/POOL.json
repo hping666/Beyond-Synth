@@ -2240,7 +2240,7 @@
     "unknown": []
    },
    {
-    "closure_loc": 2917,
+    "closure_loc": 2954,
     "closure_modules": [
      "cache_sys",
      "arbiter_control",
@@ -2262,7 +2262,8 @@
      "p_line_adapter",
      "array",
      "data_array",
-     "l2_array"
+     "l2_array",
+     "l2_data_array"
     ],
     "excluded": [],
     "file": "cache_sys.v",
@@ -2287,7 +2288,8 @@
      "p_line_adapter.v",
      "array.v",
      "data_array.v",
-     "l2_array.v"
+     "l2_array.v",
+     "l2_data_array.v"
     ],
     "flags": {
      "delay": false,
@@ -2640,14 +2642,15 @@
     "unknown": []
    },
    {
-    "closure_loc": 1298,
+    "closure_loc": 1335,
     "closure_modules": [
      "l2_cache",
      "ewb",
      "l2_cache_control",
      "l2_cache_datapath",
      "perf_counter",
-     "l2_array"
+     "l2_array",
+     "l2_data_array"
     ],
     "excluded": [],
     "file": "l2_cache.v",
@@ -2657,7 +2660,8 @@
      "l2_cache_control.v",
      "l2_cache_datapath.v",
      "perf_counter.v",
-     "l2_array.v"
+     "l2_array.v",
+     "l2_data_array.v"
     ],
     "flags": {
      "delay": false,
@@ -2696,16 +2700,18 @@
     "unknown": []
    },
    {
-    "closure_loc": 417,
+    "closure_loc": 454,
     "closure_modules": [
      "l2_cache_datapath",
-     "l2_array"
+     "l2_array",
+     "l2_data_array"
     ],
     "excluded": [],
     "file": "l2_cache_datapath.v",
     "files": [
      "l2_cache_datapath.v",
-     "l2_array.v"
+     "l2_array.v",
+     "l2_data_array.v"
     ],
     "flags": {
      "delay": false,
@@ -2816,7 +2822,7 @@
     "unknown": []
    },
    {
-    "closure_loc": 850,
+    "closure_loc": 887,
     "closure_modules": [
      "p_i_cache",
      "p_i_cache_control",
@@ -2824,7 +2830,8 @@
      "p_i_cache_reg",
      "p_line_adapter",
      "perf_counter",
-     "l2_array"
+     "l2_array",
+     "l2_data_array"
     ],
     "excluded": [],
     "file": "p_i_cache.v",
@@ -2835,7 +2842,8 @@
      "p_i_cache_reg.v",
      "p_line_adapter.v",
      "perf_counter.v",
-     "l2_array.v"
+     "l2_array.v",
+     "l2_data_array.v"
     ],
     "flags": {
      "delay": false,
@@ -2874,16 +2882,18 @@
     "unknown": []
    },
    {
-    "closure_loc": 328,
+    "closure_loc": 365,
     "closure_modules": [
      "p_i_cache_metadata_check",
-     "l2_array"
+     "l2_array",
+     "l2_data_array"
     ],
     "excluded": [],
     "file": "p_i_cache_metadata_check.v",
     "files": [
      "p_i_cache_metadata_check.v",
-     "l2_array.v"
+     "l2_array.v",
+     "l2_data_array.v"
     ],
     "flags": {
      "delay": false,
@@ -3042,7 +3052,7 @@
     "unknown": []
    },
    {
-    "closure_loc": 4962,
+    "closure_loc": 4999,
     "closure_modules": [
      "risc_top",
      "cache_sys",
@@ -3083,11 +3093,12 @@
      "btb_array",
      "array",
      "data_array",
-     "l2_array"
+     "l2_array",
+     "l2_data_array"
     ],
     "excluded": [
      "own_loc 69 < 100",
-     "closure_loc 4962 > 3000"
+     "closure_loc 4999 > 3000"
     ],
     "file": "risc_top.v",
     "files": [
@@ -3130,7 +3141,8 @@
      "btb_array.v",
      "array.v",
      "data_array.v",
-     "l2_array.v"
+     "l2_array.v",
+     "l2_data_array.v"
     ],
     "flags": {
      "delay": false,

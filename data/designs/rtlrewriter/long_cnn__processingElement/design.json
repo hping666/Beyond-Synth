@@ -32,7 +32,8 @@
  "name": "long_cnn__processingElement",
  "notes": [
   "closure of processingElement_raw: ['processingElementRaw.v', 'floatAdd_raw.v', 'floatMult_raw.v']",
-  "module names defined in several files, chosen by variant: [('floatAdd_raw', ['floatAdd_raw.v', 'processingElementRaw.v'], 'floatAdd_raw.v'), ('floatMult_raw', ['floatMult_raw.v', 'processingElementRaw.v'], 'floatMult_raw.v')]"
+  "module names defined in several files, chosen by variant: [('floatAdd_raw', ['floatAdd_raw.v', 'processingElementRaw.v'], 'floatAdd_raw.v'), ('floatMult_raw', ['floatMult_raw.v', 'processingElementRaw.v'], 'floatMult_raw.v')]",
+  "read as SystemVerilog after DC rejected the Verilog-2001 read: eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__processingElement/E4/332f99e3b58eb79f-r2/inputs/rtl/processingElementRaw.v:36: T"
  ],
  "reference": {
   "files": [
@@ -71,13 +72,14 @@
   "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
  },
  "suite": "rtlrewriter",
- "sverilog": false,
+ "sverilog": true,
  "tags": [
   "rtlrewriter",
   "long",
   "cnn",
   "calibration_only",
-  "yosys_failed"
+  "yosys_failed",
+  "sverilog_only"
  ],
  "tb": null,
  "top": "processingElement_raw"

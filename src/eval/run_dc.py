@@ -40,6 +40,7 @@ def main(argv=None):
         return EX_TEMPFAIL
     last_attempt = int(job["attempts"]) >= int(cfg["queue"]["retries"])
     if last_attempt:
+        meta["failed_status"] = meta.get("status")  # analyze_failed / link_failed / timeout ... kept for the reports
         meta["status"] = "eval_failed"
         with open(f"{meta['raw_dir']}/meta.json", "w") as f:
             json.dump(meta, f, indent=1, sort_keys=True, default=str)

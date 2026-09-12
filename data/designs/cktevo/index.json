@@ -788,9 +788,10 @@
     "rtl/p_line_adapter.v",
     "rtl/array.v",
     "rtl/data_array.v",
-    "rtl/l2_array.v"
+    "rtl/l2_array.v",
+    "rtl/l2_data_array.v"
    ],
-   "loc": 2917,
+   "loc": 2954,
    "reference": false,
    "tags": [
     "cktevo",
@@ -909,9 +910,10 @@
     "rtl/l2_cache_control.v",
     "rtl/l2_cache_datapath.v",
     "rtl/perf_counter.v",
-    "rtl/l2_array.v"
+    "rtl/l2_array.v",
+    "rtl/l2_data_array.v"
    ],
-   "loc": 1298,
+   "loc": 1335,
    "reference": false,
    "tags": [
     "cktevo",
@@ -945,9 +947,10 @@
    "design_id": "cktevo_risc__l2_cache_datapath",
    "files": [
     "rtl/l2_cache_datapath.v",
-    "rtl/l2_array.v"
+    "rtl/l2_array.v",
+    "rtl/l2_data_array.v"
    ],
-   "loc": 417,
+   "loc": 454,
    "reference": false,
    "tags": [
     "cktevo",
@@ -968,9 +971,10 @@
     "rtl/p_i_cache_reg.v",
     "rtl/p_line_adapter.v",
     "rtl/perf_counter.v",
-    "rtl/l2_array.v"
+    "rtl/l2_array.v",
+    "rtl/l2_data_array.v"
    ],
-   "loc": 850,
+   "loc": 887,
    "reference": false,
    "tags": [
     "cktevo",
@@ -1004,9 +1008,10 @@
    "design_id": "cktevo_risc__p_i_cache_metadata_check",
    "files": [
     "rtl/p_i_cache_metadata_check.v",
-    "rtl/l2_array.v"
+    "rtl/l2_array.v",
+    "rtl/l2_data_array.v"
    ],
-   "loc": 328,
+   "loc": 365,
    "reference": false,
    "tags": [
     "cktevo",

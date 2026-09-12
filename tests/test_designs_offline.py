@@ -268,7 +268,9 @@ def test_sv_retry_only_for_verilog_reads_stopped_at_sv_constructs(env):
     assert I.needs_sv_retry(d, "analyze_failed: Error: x.v:14: The construct 'C-style unpacked dimension' is not supported")
     assert not I.needs_sv_retry(d, "analyze_failed: Error: x.v:155: bad hierarchical name (ID_EX_Reg). (VER-264)")
     assert not I.needs_sv_retry(d, "eval_failed: no leaf cells after compile") and not I.needs_sv_retry(d, None)
-    assert not I.needs_sv_retry(d, "elaborate_failed: Error: Width mismatch on port 'sum_result' ... not supported")  # not an analyze failure
+    assert not I.needs_sv_retry(d, "elaborate_failed: Error: Width mismatch on port 'sum_result' of reference to 'adder' (LINK-3)")
+    assert not I.needs_sv_retry(d, "eval_failed: Error: x.v:17: The event depends on both edge and nonedge expressions, which synthesis does not support. (ELAB-91)")
+    assert I.needs_sv_retry(d, "eval_failed: Error: x.v:36: Type query about dimension of an unpacked array is not supported (VER-xxx)")  # status prefix lost after the last attempt
     d = I.mark_sverilog(d, "analyze_failed: ++ not supported")
     assert d["sverilog"] and "sverilog_only" in d["tags"] and any("SystemVerilog" in n for n in d["notes"])
     assert not I.needs_sv_retry(d, "analyze_failed: ++ not supported")  # never twice

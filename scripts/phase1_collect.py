@@ -42,7 +42,7 @@ def failure_reason(conn, design_id, config, rows):
             meta = Path(r["raw_dir"]) / "meta.json"
             if meta.exists():
                 m = json.loads(meta.read_text())
-                return f"{m.get('status')}: {(m.get('error') or '')[:300]}".strip(": ")
+                return f"{m.get('failed_status') or m.get('status')}: {(m.get('error') or '')[:300]}".strip(": ")
             return "eval_failed"
     job = conn.execute("SELECT error, state FROM jobs WHERE design_id=? AND config=? AND kind='dc' ORDER BY submitted_at DESC LIMIT 1",
                        (design_id, config)).fetchone()

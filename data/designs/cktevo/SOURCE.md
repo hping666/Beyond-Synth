@@ -55,18 +55,18 @@ Staged copies (`rtl/`, `tb/`, `reference/`, `samples/`) are rebuilt by `scripts/
 | cktevo_nn_engine__weights_1024x4096 | weights_1024x4096 | 640 | CLK | - | - | benchmark/nn_engine/weights_1024x4096.v, benchmark/nn_engine/UltraTDP64x4096_16.v, benchmark/nn_engine/ultraRAMx72_TDP.v |
 | cktevo_risc__btb | btb | 453 | clk | - | - | benchmark/risc/btb.v, benchmark/risc/btb_array.v |
 | cktevo_risc__cache_datapath | cache_datapath | 175 | clk | - | - | benchmark/risc/cache_datapath.v, benchmark/risc/array.v, benchmark/risc/data_array.v |
-| cktevo_risc__cache_sys | cache_sys | 2917 | clk | - | - | benchmark/risc/cache_sys.v, benchmark/risc/arbiter_control.v, benchmark/risc/arbiter_datapath.v ... |
+| cktevo_risc__cache_sys | cache_sys | 2954 | clk | - | - | benchmark/risc/cache_sys.v, benchmark/risc/arbiter_control.v, benchmark/risc/arbiter_datapath.v ... |
 | cktevo_risc__cacheline_adaptor | cacheline_adaptor | 175 | clk | - | - | benchmark/risc/cacheline_adaptor.v |
 | cktevo_risc__control_rom | control_rom | 162 | - | - | - | benchmark/risc/control_rom.v |
 | cktevo_risc__cpu | cpu | 2010 | clk | - | - | benchmark/risc/cpu.v, benchmark/risc/alu.v, benchmark/risc/bht.v ... |
 | cktevo_risc__ewb | ewb | 177 | clk | - | - | benchmark/risc/ewb.v |
 | cktevo_risc__forward_control_unit | forward_control_unit | 122 | - | - | - | benchmark/risc/forward_control_unit.v |
-| cktevo_risc__l2_cache | l2_cache | 1298 | clk | - | - | benchmark/risc/l2_cache.v, benchmark/risc/ewb.v, benchmark/risc/l2_cache_control.v ... |
+| cktevo_risc__l2_cache | l2_cache | 1335 | clk | - | - | benchmark/risc/l2_cache.v, benchmark/risc/ewb.v, benchmark/risc/l2_cache_control.v ... |
 | cktevo_risc__l2_cache_control | l2_cache_control | 454 | clk | - | - | benchmark/risc/l2_cache_control.v, benchmark/risc/perf_counter.v |
-| cktevo_risc__l2_cache_datapath | l2_cache_datapath | 417 | clk | - | - | benchmark/risc/l2_cache_datapath.v, benchmark/risc/l2_array.v |
-| cktevo_risc__p_i_cache | p_i_cache | 850 | clk | - | - | benchmark/risc/p_i_cache.v, benchmark/risc/p_i_cache_control.v, benchmark/risc/p_i_cache_metadata_check.v ... |
+| cktevo_risc__l2_cache_datapath | l2_cache_datapath | 454 | clk | - | - | benchmark/risc/l2_cache_datapath.v, benchmark/risc/l2_array.v, benchmark/risc/l2_data_array.v |
+| cktevo_risc__p_i_cache | p_i_cache | 887 | clk | - | - | benchmark/risc/p_i_cache.v, benchmark/risc/p_i_cache_control.v, benchmark/risc/p_i_cache_metadata_check.v ... |
 | cktevo_risc__p_i_cache_control | p_i_cache_control | 287 | clk | - | - | benchmark/risc/p_i_cache_control.v, benchmark/risc/perf_counter.v |
-| cktevo_risc__p_i_cache_metadata_check | p_i_cache_metadata_check | 328 | clk | - | - | benchmark/risc/p_i_cache_metadata_check.v, benchmark/risc/l2_array.v |
+| cktevo_risc__p_i_cache_metadata_check | p_i_cache_metadata_check | 365 | clk | - | - | benchmark/risc/p_i_cache_metadata_check.v, benchmark/risc/l2_array.v, benchmark/risc/l2_data_array.v |
 | cktevo_risc__stall_control_unit | stall_control_unit | 307 | - | - | - | benchmark/risc/stall_control_unit.v |
 | cktevo_sdc_ctrl__sd_cmd_master | sd_cmd_master | 152 | clock | - | - | benchmark/sdc_ctrl/sd_cmd_master.v |
 | cktevo_sdc_ctrl__sd_cmd_serial_host | sd_cmd_serial_host | 263 | clock | - | - | benchmark/sdc_ctrl/sd_cmd_serial_host.v |

@@ -5,7 +5,8 @@
  "design_id": "cktevo_risc__p_i_cache_metadata_check",
  "files": [
   "rtl/p_i_cache_metadata_check.v",
-  "rtl/l2_array.v"
+  "rtl/l2_array.v",
+  "rtl/l2_data_array.v"
  ],
  "incdirs": [
   "rtl"
@@ -24,8 +25,8 @@
    "sysfunc": true,
    "timescale": false
   },
-  "loc": 328,
-  "n_files": 2,
+  "loc": 365,
+  "n_files": 3,
   "ports": null,
   "ports_hash": null,
   "sdc_available": 0,
@@ -33,10 +34,10 @@
   "yosys_error": "yosys exit 1: /home/hping/Beyond-Synth/data/designs/cktevo/risc__p_i_cache_metadata_check/rtl/p_i_cache_metadata_check.v:166: Warning: Identifier `\\WRITE_EN_0_MUX.$time' is implicitly declared.\n/home/hping/Beyond-Synth/data/designs/cktevo/risc__p_i_cache_metadata_check/rtl/p_i_cache_metadata_check.v:166: ERROR: Don't know how to detect sign and width for AST_AUTOWIRE node!\n",
   "yosys_ok": 0
  },
- "loc": 328,
+ "loc": 365,
  "name": "risc__p_i_cache_metadata_check",
  "notes": [
-  "closure: 2 modules, 328 lines (p_i_cache_metadata_check, l2_array)"
+  "closure: 3 modules, 365 lines (p_i_cache_metadata_check, l2_array, l2_data_array)"
  ],
  "reference": null,
  "rst_port": "rst",
@@ -45,6 +46,7 @@
  "sha256": {
   "rtl/cache_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
   "rtl/l2_array.v": "0ecd71d9e9632aeac58b6f3cdb6c3326618c42a9ce243b5bf68ddb935ce66576",
+  "rtl/l2_data_array.v": "5dc37a8cb25031d544fcfc14f150b1bb88475cc63d9fe4de21e74d149531d675",
   "rtl/p_i_cache_metadata_check.v": "70ae6033e524442b8dbcae93da099dffd612c503d26a5c7d86aa17dff7cf470b",
   "rtl/rv32i_mux_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
   "rtl/rv32i_types.v": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
@@ -56,7 +58,8 @@
   "note": null,
   "paths": [
    "benchmark/risc/p_i_cache_metadata_check.v",
-   "benchmark/risc/l2_array.v"
+   "benchmark/risc/l2_array.v",
+   "benchmark/risc/l2_data_array.v"
   ],
   "suite_key": "cktevo",
   "url": "https://github.com/cure-lab/cktevo"

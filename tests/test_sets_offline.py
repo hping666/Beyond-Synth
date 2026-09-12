@@ -43,3 +43,21 @@ def test_yaml_list_rewrite_only_touches_the_field():
     assert "drrtl:     {source: \"x\", count: 20, dev: [], held: []}" in out
     with pytest.raises(ValueError):
         S.set_yaml_list(text, "nope", "dev", [])
+
+
+def test_write_config_round_trips_and_restores_on_error(tmp_path, monkeypatch):
+    import importlib.util
+    from src import config as C
+    spec = importlib.util.spec_from_file_location("phase1_sets", "scripts/phase1_sets.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    cfg_copy = tmp_path / "experiments.yaml"
+    cfg_copy.write_text(open(C.CONFIG_PATH).read())
+    monkeypatch.setattr(C, "CONFIG_PATH", str(cfg_copy))
+    mod.write_config([("rtllm", "dev", ["rtllm_accu", "rtllm_fsm"]), ("drrtl", "held", ["drrtl_tv80"])])
+    cfg = C.load(str(cfg_copy))
+    assert cfg["design_sets"]["suites"]["rtllm"]["dev"] == ["rtllm_accu", "rtllm_fsm"] and cfg["design_sets"]["suites"]["drrtl"]["held"] == ["drrtl_tv80"]
+    before = cfg_copy.read_text()
+    with pytest.raises(ValueError):
+        mod.write_config([("no_such_suite", "dev", ["x"])])
+    assert cfg_copy.read_text() == before

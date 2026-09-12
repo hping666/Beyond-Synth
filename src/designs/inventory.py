@@ -105,14 +105,15 @@ def upsert_design(conn, row):
     return conn.execute("SELECT * FROM designs WHERE design_id=?", (row["design_id"],)).fetchone()
 
 
-SV_HINTS = ("not supported", "C-style", "++", "--", "unpacked", "SystemVerilog", "logic", "always_ff", "always_comb", "typedef", "enum")
+SV_HINTS = ("The construct '", "C-style unpacked", "post-increment", "pre-increment", "Type query about", "SystemVerilog")
 
 
 def needs_sv_retry(design, reason):
-    """DC read the design as Verilog-2001 and stopped at a SystemVerilog construct: retry once as SystemVerilog.
-    Only for analyze failures of designs not yet marked sverilog; genuine RTL errors (hierarchical names, width
-    mismatches, non-register assignments) are not retried."""
-    if design.get("sverilog") or not reason or not reason.startswith("analyze_failed"):
+    """DC read the design as Verilog-2001 and stopped at a SystemVerilog construct ("The construct '++' is not
+    supported", C-style unpacked dimensions, type queries): retry once as SystemVerilog. Only for read errors of
+    designs not yet marked sverilog; genuine RTL errors (hierarchical names, width mismatches, non-register
+    assignments, unsupported event lists) are not retried."""
+    if design.get("sverilog") or not reason or "Error" not in reason:
         return False
     return any(h in reason for h in SV_HINTS)
 

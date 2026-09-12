@@ -45,12 +45,23 @@ def retag(conn, d, add=(), remove=()):
 
 
 def write_config(edits):
+    """Rewrite the list fields in place and validate: a config that no longer loads would kill every queue runner
+    (DECISIONS 2026-09-12), so the previous text is restored on any error."""
     p = Path(C.CONFIG_PATH)
-    text = p.read_text()
+    before = p.read_text()
+    text = before
     for suite, field, values in edits:
         text = S.set_yaml_list(text, suite, field, values)
     p.write_text(text)
     C.cfg_hash.cache_clear()
+    try:
+        cfg = C.load(str(p))
+        for suite, field, values in edits:
+            assert cfg["design_sets"]["suites"][suite][field] == list(values), (suite, field)
+    except Exception:
+        p.write_text(before)
+        C.cfg_hash.cache_clear()
+        raise
 
 
 def cmd_cktevo(cfg, conn, rows):

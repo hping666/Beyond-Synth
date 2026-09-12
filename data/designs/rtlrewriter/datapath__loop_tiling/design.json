@@ -52,7 +52,8 @@
  "loc": 16,
  "name": "datapath__loop_tiling",
  "notes": [
-  "file roles: {\"loop_tiling.v\": \"expert\", \"loop_tiling_raw.v\": \"original\"}"
+  "file roles: {\"loop_tiling.v\": \"expert\", \"loop_tiling_raw.v\": \"original\"}",
+  "read as SystemVerilog after DC rejected the Verilog-2001 read: eval_failed: Error:  /home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__loop_tiling/E4/accbbdf396d8085d-r2/inputs/rtl/loop_tiling_raw.v:10: The construc"
  ],
  "reference": {
   "files": [
@@ -81,13 +82,14 @@
   "url": "https://github.com/yaoxufeng/RTLRewriter-Bench"
  },
  "suite": "rtlrewriter",
- "sverilog": false,
+ "sverilog": true,
  "tags": [
   "rtlrewriter",
   "short",
   "datapath",
   "calibration_only",
-  "no_clock"
+  "no_clock",
+  "sverilog_only"
  ],
  "tb": null,
  "top": "example_raw"
