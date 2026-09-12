@@ -166,12 +166,91 @@ def phase1(cfg):
     return 0
 
 
+def _quantiles(xs):
+    xs = sorted(xs)
+    if not xs:
+        return None
+    q = lambda f: xs[min(len(xs) - 1, int(round(f * (len(xs) - 1))))]
+    return {"n": len(xs), "min": xs[0], "q25": q(0.25), "median": q(0.5), "q75": q(0.75), "q95": q(0.95), "max": xs[-1], "mean": sum(xs) / len(xs)}
+
+
+def phase2(cfg):
+    """Noise floor (G1), perturbation generator and SEQ gate statistics (part of G2), E4 runtime and DC-hour estimates (G3)."""
+    conn = db.connect(cfg=cfg)
+    perts = load("phase2_perturbations.json")
+    floor = load("phase2_noise_floor.json")
+    rows = {r["design_id"]: dict(r) for r in conn.execute("SELECT * FROM designs")}
+    L = [f"# Phase 2 report — noise floor, SEQ pilot, E4 runtime (Exp0)", "",
+         f"Generated {datetime.datetime.now():%Y-%m-%d %H:%M} by scripts/report_phase.py (git {C.git_sha()}, cfg {C.cfg_hash()}). "
+         "Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.", ""]
+    # ---- generator
+    L += ["## 1. Perturbation generator (PLAN 2.1)", ""]
+    if perts:
+        L += [f"{perts['designs']} designs of the sets; perturbations per type {perts['per_type']}; types not applicable {perts['not_applicable']}; "
+              f"designs Pyverilog cannot parse: {len(perts['parse_errors'])} ({', '.join(d for d, _ in perts['parse_errors'])}).", ""]
+    gate = collections.Counter((r["ptype"], r["seq_status"]) for r in conn.execute("SELECT ptype, seq_status FROM perturbations"))
+    if gate:
+        statuses = sorted({s for _, s in gate})
+        L += ["SEQ gate (V1 -> V2 -> V3; only `proven` enters the floor):", "", "| type | " + " | ".join(statuses) + " | non-equivalence rate |",
+              "|---|" + "---|" * (len(statuses) + 1)]
+        for ptype in sorted({p for p, _ in gate}):
+            counts = {s: gate.get((ptype, s), 0) for s in statuses}
+            total = sum(counts.values())
+            bad = counts.get("falsified", 0) + counts.get("sim_fail", 0) + counts.get("rejected", 0)
+            L.append(f"| {ptype} | " + " | ".join(str(counts[s]) for s in statuses) + f" | {bad / total:.1%} of {total} |")
+        L.append("")
+    # ---- noise floor
+    L += ["## 2. Noise floor sigma_D (PLAN 2.3, visible configurations)", ""]
+    if floor and floor.get("summary"):
+        L += ["| config | metric | designs | median sigma | q75 | max |", "|---|---|---|---|---|---|"]
+        warn = float(cfg["noise"]["sigma_median_warn_pct"]) / 100
+        for config, ms in sorted(floor["summary"].items()):
+            for m, s in sorted(ms.items()):
+                flag = " **(above the G1 warning level)**" if m == "area" and s["median"] > warn else ""
+                L.append(f"| {config} | {m} | {s['n']} | {s['median']:.4f}{flag} | {s['q75']:.4f} | {s['max']:.4f} |")
+        L += ["", f"Minimum reportable gain = {cfg['noise']['k_sigma']} x sigma_D (config noise.k_sigma); per-design values in the noise_floor table and reports/data/phase2_noise_floor.json.", ""]
+    else:
+        L += ["(not collected yet: scripts/phase2_noise.py collect)", ""]
+    # ---- E4 runtime
+    L += ["## 3. E4 runtime (PLAN 2.5)", ""]
+    secs = {}
+    for r in conn.execute("SELECT e.design_id, e.dc_seconds, d.suite, d.split FROM evaluations e JOIN designs d ON d.design_id = e.design_id "
+                          "WHERE e.config='E4' AND e.is_baseline=1 AND e.pert_id IS NULL AND e.cand_id IS NULL AND e.status='ok' "
+                          "AND abs(e.clock_ns - d.phi_main_ns_nangate45) < 1e-6 AND d.split IN ('dev', 'held')"):
+        secs[r["design_id"]] = (float(r["dc_seconds"]), r["suite"])
+    if secs:
+        q = _quantiles([s for s, _ in secs.values()])
+        L += [f"E4 seconds at Phi_main (Nangate45) over {q['n']} set designs: min {q['min']:.0f}, q25 {q['q25']:.0f}, median {q['median']:.0f}, q75 {q['q75']:.0f}, q95 {q['q95']:.0f}, max {q['max']:.0f}, mean {q['mean']:.0f}.", ""]
+        sc = cfg["scale"]
+        per_design = sum(s for s, _ in secs.values()) / len(secs)
+        full_e4_runs = sc["starting_points"] * len(sc["arms"]) * sc["seeds"] * sc["N"] * sc["K"]
+        L += [f"Scale (config `scale`): {sc['starting_points']} starting points x {len(sc['arms'])} arms x {sc['seeds']} seeds x N={sc['N']} x K={sc['K']} = {full_e4_runs} candidate evaluations.",
+              f"- full-E4 scale: {full_e4_runs * per_design / 3600:.0f} DC hours at the mean t_E4 ({per_design:.0f} s); at 12 concurrent runs ≈ {full_e4_runs * per_design / 3600 / 12:.0f} h wall, at 50 seats ≈ {full_e4_runs * per_design / 3600 / 50:.0f} h.",
+              f"- per-design budget rule k_e4_equiv = {sc['budget']['k_e4_equiv']} x t_E4(D): median budget {sc['budget']['k_e4_equiv'] * q['median'] / 3600:.1f} DC hours per run.", ""]
+        by_suite = {}
+        for s, suite in secs.values():
+            by_suite.setdefault(suite, []).append(s)
+        L += ["| suite | designs | median t_E4 (s) | max t_E4 (s) |", "|---|---|---|---|"]
+        for suite, xs in sorted(by_suite.items()):
+            qq = _quantiles(xs)
+            L.append(f"| {suite} | {qq['n']} | {qq['median']:.0f} | {qq['max']:.0f} |")
+        L.append("")
+    else:
+        L += ["(no E4 baseline at Phi_main yet: run scripts/phase2_noise.py submit)", ""]
+    L += ["## 4. SEQ pilot (PLAN 2.4) and t_H3 / t_E4", "", "(filled when the pilot and the hidden light runs are done; hidden timings are reported by the hidden worker as counts and seconds only)", "",
+          "## 5. Next steps", "", "- G1: decide on the truncation if the median area floor exceeds the warning level.", "- G2: SEQ fractions per class from the pilot.", "- G3: screening recommendation from the E4 seconds and the cascade estimate.", ""]
+    out = Path(ROOT) / "reports" / "phase2.md"
+    out.write_text("\n".join(L))
+    print(f"wrote {out}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("phase", choices=["phase1"])
+    ap.add_argument("phase", choices=["phase1", "phase2"])
     a = ap.parse_args(argv)
     cfg = C.load()
-    return {"phase1": phase1}[a.phase](cfg)
+    return {"phase1": phase1, "phase2": phase2}[a.phase](cfg)
 
 
 if __name__ == "__main__":
