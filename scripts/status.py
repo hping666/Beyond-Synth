@@ -26,6 +26,22 @@ def openai_key_configured():
     return out.stdout.strip() == "yes"
 
 
+EDA_PROCS = ("common_shell_exec", "dc_shell", "pt_shell", "svi", "seeqSolve", "workerController", "vcs1fe", "simv",
+             "Milkyway", "AServer", "AMonitor", "NullXServer", "yosys", "openroad")
+
+
+def orphan_eda_processes():
+    """EDA processes adopted by init (PPID 1): leftovers of killed or crashed jobs that keep license seats
+    (eda-knowledge/05-traps.md #9, #24). DC's worker binary is common_shell_exec, not dc_shell."""
+    out = subprocess.run(["ps", "-u", os.environ.get("USER", "hping"), "-o", "pid=,ppid=,etime=,comm="], capture_output=True, text=True)
+    rows = []
+    for line in out.stdout.splitlines():
+        parts = line.split(None, 3)
+        if len(parts) == 4 and parts[1] == "1" and any(parts[3].startswith(p) for p in EDA_PROCS):
+            rows.append((int(parts[0]), parts[2], parts[3]))
+    return rows
+
+
 def main():
     cfg = C.load()
     conn = db.connect(cfg=cfg)
@@ -56,6 +72,10 @@ def main():
     for r in failed:
         print(f"  {r['job_id']} {r['kind']} {r['design_id'] or '-'} {r['config'] or '-'} {r['error']} @ {r['finished_at']}")
     print(f"OpenAI API key: {'configured' if openai_key_configured() else 'NOT configured'} ({SECRETS_FILE})")
+    orphans = orphan_eda_processes()
+    print(f"orphan EDA processes (PPID 1): {len(orphans)}" + ("" if not orphans else "  <- check seats, kill if hung (traps #9/#24)"))
+    for pid_, etime, comm in orphans[:10]:
+        print(f"  pid {pid_} up {etime} {comm}")
     for label, path in (("/ (project, results)", ROOT), ("/hdd1 (EDA tools, work)", "/hdd1")):
         try:
             u = shutil.disk_usage(path)
