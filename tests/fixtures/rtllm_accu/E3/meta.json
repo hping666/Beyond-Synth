@@ -1,7 +1,7 @@
 {
  "cached": false,
  "cand_id": null,
- "cfg_hash": "65020fb68a87",
+ "cfg_hash": "263875fbf89f",
  "check_design_errors": 0,
  "checks": {
   "area_positive": true,
@@ -16,7 +16,7 @@
  },
  "clk_port": "clk",
  "clock_ns": 2.0,
- "compile_seconds": 50.0,
+ "compile_seconds": 54.0,
  "config": "E3",
  "config_compile": "compile_ultra -retime",
  "crit_path": {
@@ -131,12 +131,12 @@
   "startpoint": "data_in[0]"
  },
  "dc_returncode": 0,
- "dc_seconds": 53.7,
+ "dc_seconds": 57.5,
  "design_id": "rtllm_accu",
  "error": null,
- "eval_id": 28,
- "finished_at": "2026-09-12T07:55:29",
- "git_sha": "e3e472a07a8d",
+ "eval_id": 46,
+ "finished_at": "2026-09-12T13:29:09",
+ "git_sha": "359c53fbf7c8",
  "hist": {
   "AND2_X1": 1,
   "AOI21_X1": 2,
@@ -154,7 +154,7 @@
   "XNOR2_X1": 1,
   "XOR2_X1": 1
  },
- "input_hash": "4a7bcb53b3427582",
+ "input_hash": "6d4ce18de039fb09",
  "is_baseline": 1,
  "lib": "nangate45",
  "log_summary": {
@@ -200,7 +200,7 @@
   "wns_ns": 0.710517
  },
  "mode": "wireload",
- "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/4a7bcb53b3427582-r2/outputs/reports/netlist.v",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/6d4ce18de039fb09/outputs/reports/netlist.v",
  "path_endpoints": [
   [
    "data_in[0]",
@@ -262,8 +262,8 @@
   "total_mw": 0.10287824999999999
  },
  "power_saif": {},
- "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/4a7bcb53b3427582-r2",
- "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/4a7bcb53b3427582-r2/outputs/reports",
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/6d4ce18de039fb09",
+ "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/6d4ce18de039fb09/outputs/reports",
  "resources": {
   "datapath_blocks": 0,
   "dw_modules": [
@@ -306,12 +306,13 @@
   "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
  ],
  "saif_status": "none",
- "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/4a7bcb53b3427582-r2/inputs/constraint.sdc",
- "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/4a7bcb53b3427582-r2/inputs/constraint_dc.sdc",
- "started_at": "2026-09-12T07:54:36",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/6d4ce18de039fb09/inputs/constraint.sdc",
+ "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/6d4ce18de039fb09/inputs/constraint_dc.sdc",
+ "started_at": "2026-09-12T13:28:12",
  "status": "ok",
+ "synlib": "dw",
  "tool": "dc",
  "tool_version": "W-2024.09-SP5-3",
  "top": "verified_accu",
- "wall_seconds": 53.7
+ "wall_seconds": 57.5
 }

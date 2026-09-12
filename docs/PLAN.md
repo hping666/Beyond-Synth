@@ -51,7 +51,7 @@ Tasks:
 
 Acceptance (all machine-checkable):
 - `pytest tests/` green, and every decision rule has a positive and a negative test.
-- `tests/fixtures/` holds reference artifacts for that design under E1, E2, E3, E4, E2 + each of the three single flags, H1, H2a (ASAP7), H2b (sky130hd), H3 (-spg), H5, Y, PT and PrimePower, each with `meta.json.status == ok`.
+- `tests/fixtures/` holds reference artifacts for that design under E1, E1d, E2, E3, E4, E2g (E2r = E3), H1, H2a (ASAP7), H2b (sky130hd), H3 (-spg), H5, Y, Ycoevo, PT and PrimePower, each with `meta.json.status == ok`.
 - Two consecutive E4 runs on the same input give bit-identical area, WNS and cell histogram (determinism check).
 - SEQ bidirectional tests pass; DPV runs on at least one arithmetic module.
 - `scripts/status.py` shows the queue, the three seat pools, and the budget.
@@ -91,12 +91,12 @@ Tasks:
 2.2 Run D and all perturbations under E1, E2, E3, E4, H1, H2a, H2b, H5 (H3 only for D and 4 perturbations).
 2.3 Compute σ_D (robust standard deviation and q95, per configuration and metric), write the `noise_floor` table; produce the floor distribution plots and the "minimum reportable gain" table for `reports/phase2.md`.
 2.4 SEQ pilot: before Phase 3, build 50 class-(c) candidates — from the RTL-OPT pipelining pairs, hand-made retiming variants of Dr.RTL designs, and one temporary LLM batch (within $10 of the Phase 3 budget) — and measure proven / falsified / inconclusive fractions and runtimes, split by (b), (c1), (c2). For the V4 clocked-datapath decision (DECISIONS 2026-09-12, spec 03 §1 guardrail 3) also record per SEQ-inconclusive candidate: whether the module is a clocked arithmetic module; whether V2's per-output offsets are constant across all random runs; whether start/valid and done/valid signals are recognisable.
-2.5 E4 runtime: from the runs in 2.2 collect E4 seconds per design; with the scale parameters in `config`, compute DC hours and wall-clock at 50 seats for the full-E4 and the cascade scales.
+2.5 E4 runtime: from the runs in 2.2 collect E4 seconds per design; with the scale parameters in `config`, compute DC hours and wall-clock at 50 seats for the full-E4 and the cascade scales. Also collect t_H3 / t_E4 per design and the agreement rate of E4 and H3 conclusions on the noise-floor set (retained / absorbed / noise per perturbation) for the G3 question whether the main scoring configuration should move to the physical-aware full-effort configuration (DECISIONS 2026-09-12).
 
 Acceptance:
 - The `noise_floor` table covers all designs × configurations × metrics; the E1–E4 fingerprints of every D (cell histogram, log summary, resource report, critical path) are in the `evaluations` table.
 - Bidirectional tests: an artificially enlarged "perturbation" (changed bit width) must be rejected by SEQ; a legal renaming perturbation must be proven and its area delta must fall within the band.
-- The report contains: median and distribution of σ_D; number of non-monotone cases (monotonicity statistics of D itself from E1 to E4); the three SEQ fractions; E4 seconds quantiles; DC hours for both scales.
+- The report contains: median and distribution of σ_D; number of non-monotone cases (monotonicity statistics of D itself from E1 to E4); the three SEQ fractions; E4 seconds quantiles; DC hours for both scales; t_H3 / t_E4 and the E4-vs-H3 agreement rate.
 
 **STOP G1, G2, G3**: the three reports may be merged into `reports/phase2.md`, with separate conclusions.
 
@@ -132,7 +132,7 @@ Acceptance:
 Tasks:
 
 4.1 Use B0 (main skeleton + Y-caliber fitness) to generate 30 proven candidates on each of 10 designs (RTLLM 5 dev + CktEvo 5 held), 300 in total; LLM cap from config.
-4.2 For the 300 candidates + 72 RTL-OPT objects + 40 RTLRewriter objects + 12 samples: run E1–E4, E2 + three single flags, H1, H2a, H2b, H3, H5, PT (H4); supplementary: O0–O2.
+4.2 For the 300 candidates + 72 RTL-OPT objects + 40 RTLRewriter objects + 12 samples: run E1–E4, the attribution rungs E1d / E2r / E2g, H1, H2a, H2b, H3, H5, PT (H4); supplementary: O0–O2 and Ycoevo.
 4.3 Classify all objects with M6; diagnose all objects with M3 (including absorption rung and capability attribution, under the permanent-absorption definition).
 4.4 Map v1: retention rate and gain distribution by rewrite class (with sub-tags) × rung × hidden configuration; retention curves; list of non-monotone cases.
 4.5 Retention predictor: features (class, g_E1, g_E2, E1 fingerprint convergence, register-count change, AST diff size) -> E4 retention; leave-one-design-out cross-validation; report AUROC, precision/recall, miss rate; also the class-blind version.

@@ -4,22 +4,23 @@ Last updated: 2026-09-12 · Phase 0 complete, STOP G0 (reports/phase0.md)
 
 ## Current phase
 
-Phase: 0 (see docs/PLAN.md)
+Phase: 1 (see docs/PLAN.md); Phase 0 closed at G0 on 2026-09-12
 Current task: Phase 0 complete (tasks 0.0–0.8), STOP G0. Summary of the components: 0.3 guard hook (125 tests); 0.4 job queue (`src/jobqueue/`, CLIs in `scripts/queue/`, `scripts/status.py`; 11 tests); 0.5 evaluation service `src/eval/`: project-owned DC template (`templates/dc_eval.tcl`, step-checked, SDC markers, `set_host_options -max_cores 4`), `dc.py` driver, `parse.py`, `sdc.py` (one OpenSTA-native SDC convention, DC copy rewritten and unit-scaled), `yosys.py` (Y / O0–O2), `pt.py` (H4 via flow/sta.py + power.py), `knee.py`, `service.py` (content-addressed `results/raw/<design>/<config>/<hash>/`, cache, `-rN` reruns, ingest), `src/db/ingest.py`, queue runner `src/eval/run_dc.py`. Measured on RTLLM accu (2.0 ns nangate45, 0.5 ns asap7, 5.0 ns sky130hd): all 14 configurations ok (E1–E4, E2r/E2t/E2g, H1, H2a, H2b, H3 `-spg` in topographical mode, H5, Y, H4); E4 `-gate_clock` works (Power Compiler feature present: 1 ICG, 12/13 registers gated); two E4 runs bit-identical (area, WNS, TNS, histogram, critical path); reference artifacts in `tests/fixtures/rtllm_accu/`. Next: 0.6 equivalence stack.
-Stopped at: **STOP G0** — `reports/phase0.md` written 2026-09-12, waiting for human confirmation. Daemon stopped; start it with `.venv/bin/python scripts/queue/daemon.py start` before submitting real jobs.
+Stopped at: G0 closed; Phase 1 not started. Daemon stopped; start it with `.venv/bin/python scripts/queue/daemon.py start` before submitting real jobs.
 0.6 V4: `src/equiv/dpv.py` (project-owned vcf command line: `-batch`, system terminfo, bash-as-/bin/sh namespace, `solveNB`/`proofwait`, lemma per output): multi_8bit rewrite proven / bug falsified in ~50 s each (`tests/test_dpv_eda.py`); the stack runs V4 on combinational modules after an inconclusive SEQ. 0.7: lock-step VCD → vcd2saif → DC `read_saif` 0.0405 mW vs PrimePower (same SAIF) 0.0373 mW vs DC default toggles 0.1081 mW (`tests/test_power_eda.py`). 0.8: no license text on the machine → `unclear` (DECISIONS).
 0.6 so far: `src/equiv/` = ports.py (Yosys JSON interface check, clock/reset inference), rename.py (candidate module suffix `__cand`), harness.py (Verilog-2001 lock-step harness, VCS in a bash-as-/bin/sh mount namespace, trace comparison with constant latency offsets, VCD of both instances, testbench runner), seq.py (VC Formal SEQ via flow/vcf.py, single worker), saif.py (vcd2saif), stack.py (V1→V2→V3 orchestration, verdicts). Bidirectional EDA tests pass on 2026-09-12 (`tests/test_equiv_eda.py`: accu renaming perturbation identical + proven in ~30 s; injected-bug mutant sim_fail + falsified; width change rejected at V1). New trap #28 appended to eda-knowledge (VCS under dash).
 Next steps (by priority):
-1. `reports/phase0.md` (G0 content per CLAUDE.md) and STOP G0
-2. While waiting at G0 (engineering unrelated to the gate): SAIF coverage parsing from `report_saif -hier`, queue runner for `pt` / `yosys` kinds, `src/db/query.py`, `scripts/snapshot.py`, `scripts/db_check.py`, SEQ timeout → inconclusive test on a large design, raw-artifact retention policy
-3. Phase 1 preparation: dataset download plan (Dr.RTL, RTL-OPT, CktEvo, RTLRewriter; RTLLM v2.0 is local), canonical top-name staging for RTLLM (`verified_*` vs testbench names)
+1. Phase 1.1: locate and download the design sets (Dr.RTL 20, RTL-OPT 36 pairs, CktEvo modules, RTLRewriter 20 pairs + 12 samples; RTLLM v2.0 is local at /home/hping/RTLLM), record source / commit / license under `data/designs/<suite>/`
+2. Phase 1.2: inventory (loc, ports, testbench, SDC, canonical top name for RTLLM `verified_*`), E4 trial synthesis through the queue, synthesizability and failure reasons; CktEvo module extraction
+3. Phase 1.3–1.5: knee-point sweeps (7 periods × E4 × 3 libraries) through the queue, `designs` table, dev/held split in config, `cktevo_sky130` tags, `reports/phase1.md`
+Engineering backlog (no gate): SAIF coverage parsing from `report_saif -hier`, queue runners for `pt` / `yosys` kinds, `src/db/query.py`, `scripts/snapshot.py`, `scripts/db_check.py`, SEQ timeout → inconclusive test on a large design.
 Open items from 0.5: RTL-line mapping of the critical path is not yet implemented (records carry pin/cell names of the path; PROPOSAL §4.9 borrows CktEvo/Dr.RTL's path-to-RTL mapping in Phase 3); `results/raw` retention policy still to be decided (each DC job dir ≈ 1–2 MB incl. dc_work).
 
 ## Pending STOP gates
 
 | Gate | Submitted on | Report path | Human decision |
 |---|---|---|---|
-| G0 | 2026-09-12 | reports/phase0.md | partial: cross-tool publication OK (user asked Viterbi ITS, 2026-09-12); raw retention policy approved and implemented; Y caliber and V4 scope: explanation given, decision pending; formal closure of G0 pending |
+| G0 | 2026-09-12 | reports/phase0.md (+ ladder addendum) | **closed 2026-09-12 (human)**: cross-tool publication allowed (Viterbi ITS); raw retention policy approved; V4 scope with three guardrails; ladder redefined after the DC check (E1 standard library, E1d attribution rung, E4 = `compile_ultra -retime -gate_clock`, E2r alias of E3, E2t dropped, H3 topographical full effort); Y = proposal definition with Ycoevo as a mandatory Exp1 supplementary column; fixtures regenerated, tests green |
 
 ## Environment (filled by Claude Code in Phase 0 after reading eda-knowledge; afterwards updated only when the environment changes)
 

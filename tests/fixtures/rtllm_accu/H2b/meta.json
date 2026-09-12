@@ -1,7 +1,7 @@
 {
  "cached": false,
  "cand_id": null,
- "cfg_hash": "65020fb68a87",
+ "cfg_hash": "263875fbf89f",
  "check_design_errors": 0,
  "checks": {
   "area_positive": true,
@@ -18,7 +18,7 @@
  "clock_ns": 5.0,
  "compile_seconds": 63.0,
  "config": "H2b",
- "config_compile": "compile_ultra -retime -timing_high_effort_script -gate_clock",
+ "config_compile": "compile_ultra -retime -gate_clock",
  "crit_path": {
   "arrival": 3.998677,
   "endpoint": "data_out_reg[9]",
@@ -123,12 +123,12 @@
   "startpoint": "data_in[0]"
  },
  "dc_returncode": 0,
- "dc_seconds": 66.7,
+ "dc_seconds": 66.5,
  "design_id": "rtllm_accu",
  "error": null,
- "eval_id": 38,
- "finished_at": "2026-09-12T07:57:30",
- "git_sha": "e3e472a07a8d",
+ "eval_id": 53,
+ "finished_at": "2026-09-12T13:30:14",
+ "git_sha": "359c53fbf7c8",
  "hist": {
   "sky130_fd_sc_hd__a21oi_1": 3,
   "sky130_fd_sc_hd__a222oi_1": 1,
@@ -147,7 +147,7 @@
   "sky130_fd_sc_hd__sdlclkp_1": 1,
   "sky130_fd_sc_hd__xnor2_1": 1
  },
- "input_hash": "bb88888001eed165",
+ "input_hash": "2e9353a792c092f8",
  "is_baseline": 1,
  "lib": "sky130hd",
  "log_summary": {
@@ -158,7 +158,7 @@
    "retime": 1,
    "sharing": 0,
    "ungroup": 2,
-   "warning": 1
+   "warning": 0
   },
   "samples": {
    "clock_gating": [
@@ -177,9 +177,7 @@
     "Information: Ungrouping 0 of 2 hierarchies before Pass 1 (OPT-775)",
     "Information: There is no timing violation in design verified_accu. Delay-based auto_ungroup will not be performed. (OPT-780)"
    ],
-   "warning": [
-    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)"
-   ]
+   "warning": []
   }
  },
  "metrics": {
@@ -205,7 +203,7 @@
   "wns_ns": 0.877295
  },
  "mode": "wireload",
- "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165-r2/outputs/reports/netlist.v",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/2e9353a792c092f8/outputs/reports/netlist.v",
  "path_endpoints": [
   [
    "data_in[0]",
@@ -267,8 +265,8 @@
   "total_mw": 0.187815
  },
  "power_saif": {},
- "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165-r2",
- "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165-r2/outputs/reports",
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/2e9353a792c092f8",
+ "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/2e9353a792c092f8/outputs/reports",
  "resources": {
   "datapath_blocks": 0,
   "dw_modules": [
@@ -311,12 +309,13 @@
   "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
  ],
  "saif_status": "none",
- "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165-r2/inputs/constraint.sdc",
- "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165-r2/inputs/constraint_dc.sdc",
- "started_at": "2026-09-12T07:56:24",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/2e9353a792c092f8/inputs/constraint.sdc",
+ "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/2e9353a792c092f8/inputs/constraint_dc.sdc",
+ "started_at": "2026-09-12T13:29:08",
  "status": "ok",
+ "synlib": "dw",
  "tool": "dc",
  "tool_version": "W-2024.09-SP5-3",
  "top": "verified_accu",
- "wall_seconds": 66.7
+ "wall_seconds": 66.5
 }

@@ -3,12 +3,12 @@
 Report : resources
 Design : verified_accu
 Version: W-2024.09-SP5-3
-Date   : Sat Sep 12 07:57:22 2026
+Date   : Sat Sep 12 13:30:03 2026
 ****************************************
 
 
 Resource Report for this hierarchy in file
-        /home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5-r2/inputs/rtl/verified_accu.v
+        /home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/e6926d4aa823a64a/inputs/rtl/verified_accu.v
 =============================================================================
 | Cell           | Module         | Parameters | Contained Operations       |
 =============================================================================

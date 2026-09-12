@@ -1,7 +1,7 @@
 {
  "cached": false,
  "cand_id": null,
- "cfg_hash": "65020fb68a87",
+ "cfg_hash": "263875fbf89f",
  "checks": {
   "area_positive": true,
   "cells_positive": true,
@@ -22,9 +22,9 @@
  "dc_seconds": 0.0,
  "design_id": "rtllm_accu",
  "error": null,
- "eval_id": 36,
- "finished_at": "2026-09-12T07:57:23",
- "git_sha": "e3e472a07a8d",
+ "eval_id": 47,
+ "finished_at": "2026-09-12T13:29:10",
+ "git_sha": "359c53fbf7c8",
  "hist": {
   "AND2_X1": 3,
   "AND3_X1": 2,
@@ -42,7 +42,7 @@
   "XNOR2_X1": 9,
   "XOR2_X1": 5
  },
- "input_hash": "77ab2e29dcc63698",
+ "input_hash": "12f52ceb1e7fdf1a",
  "is_baseline": 1,
  "lib": "nangate45",
  "metrics": {
@@ -53,17 +53,21 @@
   "tns_ns": 0.0,
   "wns_ns": 1.17
  },
- "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r4/outputs/netlist.v",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/12f52ceb1e7fdf1a/outputs/netlist.v",
  "pert_id": null,
- "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r4",
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/12f52ceb1e7fdf1a",
  "rtl_files": [
   "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
  ],
- "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r4/inputs/constraint.sdc",
- "started_at": "2026-09-12T07:57:22",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/12f52ceb1e7fdf1a/inputs/constraint.sdc",
+ "sdc_overrides": {
+  "io_delay_frac": null,
+  "sta_max_delay": false
+ },
+ "started_at": "2026-09-12T13:29:09",
  "status": "ok",
  "tool": "yosys_opensta",
  "tool_version": "yosys 0.63 / OpenROAD-26Q1-2754",
  "top": "verified_accu",
- "wall_seconds": 0.8
+ "wall_seconds": 0.9
 }

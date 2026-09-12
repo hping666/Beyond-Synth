@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running pt_shell Version V-2023.12-SP5-4 for linux64 -- Aug 07, 2025
-#@ # Date:   Sat Sep 12 07:57:32 2026
+#@ # Date:   Sat Sep 12 13:29:20 2026
 #@ # Run by: hping@cinnamon
 #@ 
 
@@ -970,11 +970,11 @@ source -echo -verbose /hdd1/hping/eda/flow/power.tcl
 #@ }
 #@ # -- End source /hdd1/hping/eda/flow/sdc_compat.tcl
 
-#@ # -- Starting source /home/hping/Beyond-Synth/results/raw/rtllm_accu/H4/38c92f90e55f4b1e/inputs/design.sdc
+#@ # -- Starting source /home/hping/Beyond-Synth/results/raw/rtllm_accu/H4/7faa3dcc665bd17a/inputs/design.sdc
 
 #@ ###################################################################
 #@ 
-#@ # Created by write_sdc on Sat Sep 12 07:55:29 2026
+#@ # Created by write_sdc on Sat Sep 12 13:29:08 2026
 #@ 
 #@ ###################################################################
 #@ set sdc_version 2.1
@@ -1013,7 +1013,7 @@ source -echo -verbose /hdd1/hping/eda/flow/power.tcl
 #@ set_output_delay -clock clk  0.4  [get_ports {data_out[2]}]
 #@ set_output_delay -clock clk  0.4  [get_ports {data_out[1]}]
 #@ set_output_delay -clock clk  0.4  [get_ports {data_out[0]}]
-#@ # -- End source /home/hping/Beyond-Synth/results/raw/rtllm_accu/H4/38c92f90e55f4b1e/inputs/design.sdc
+#@ # -- End source /home/hping/Beyond-Synth/results/raw/rtllm_accu/H4/7faa3dcc665bd17a/inputs/design.sdc
 
 #@ if {$STATUS eq "ok" && [sizeof_collection [all_clocks]] == 0} {
 #@     set STATUS sdc_failed ; set FAILMSG "没有时钟，功耗无法计算"

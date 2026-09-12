@@ -11,7 +11,7 @@ from src.eval.yosys import _sta_metrics, _stat_metrics
 
 ROOT = Path(__file__).resolve().parent.parent
 FIX = ROOT / "tests" / "fixtures" / "rtllm_accu"
-REQUIRED = ["E1", "E2", "E3", "E4", "E2r", "E2t", "E2g", "H1", "H2a", "H2b", "H3", "H5", "Y", "H4"]
+REQUIRED = ["E1", "E1d", "E2", "E3", "E4", "E2g", "H1", "H2a", "H2b", "H3", "H5", "Y", "Ycoevo", "H4"]  # E2r = E3 (alias)
 CONFIGS = sorted(d.name for d in FIX.iterdir() if (d / "meta.json").exists()) if FIX.exists() else []
 
 
@@ -70,15 +70,34 @@ def test_e4_log_summary_sees_retiming_and_clock_gating():
     assert s["counts"] == m["log_summary"]["counts"]
 
 
-def test_yosys_parsers_reproduce_recorded_metrics():
-    if "Y" not in CONFIGS:
-        pytest.skip("no Y fixture")
-    m = meta_of("Y")
-    area, cells, hist = _stat_metrics(read("Y", "outputs/yosys.log"))
+@pytest.mark.parametrize("config", [c for c in ("Y", "Ycoevo") if c in CONFIGS])
+def test_yosys_parsers_reproduce_recorded_metrics(config):
+    m = meta_of(config)
+    area, cells, hist = _stat_metrics(read(config, "outputs/yosys.log"))
     assert area == m["metrics"]["area"] and cells == m["metrics"]["cells"] and hist == m["hist"]
-    sm = _sta_metrics(read("Y", "outputs/opensta.log"), "clk")
+    sm = _sta_metrics(read(config, "outputs/opensta.log"), "clk")
     assert sm["wns_ns"] == pytest.approx(m["metrics"]["wns_ns"]) and sm["tns_ns"] == pytest.approx(m["metrics"]["tns_ns"])
     assert sm["crit_group"] == "clk"
+    sdc = read(config, "inputs/constraint.sdc")
+    if config == "Ycoevo":
+        assert "set_input_delay 0 " in sdc and "set_max_delay" in sdc  # COEVO's OpenSTA setting
+    else:
+        assert "set_input_delay 0.4 " in sdc and "set_max_delay" not in sdc  # the project convention (20% of 2.0 ns)
+
+
+def test_ladder_definition_matches_the_decision():
+    """DECISIONS 2026-09-12: E1 standard library only, E2r alias of E3, E2t gone, no ignored high-effort flag in the ladder."""
+    from src import config as C
+    from src.eval.service import canonical_config
+    cfg = C.load()
+    cs = cfg["configs"]
+    assert cs["E1"]["synlib"] == "standard" and cs["E1d"]["synlib"] == "dw" and cs["E1"]["compile"] == cs["E1d"]["compile"] == "compile"
+    assert canonical_config(cfg, "E2r") == "E3" and "E2t" not in cs
+    for name in ("E1", "E1d", "E2", "E3", "E4", "E2g", "H1", "H2a", "H2b", "H5"):
+        assert "-timing_high_effort_script" not in cs[name]["compile"], name
+    assert cs["E4"]["compile"] == "compile_ultra -retime -gate_clock" and cs["E4"].get("main_scoring")
+    assert "-spg" in cs["H3"]["compile"] and "compile_timing_high_effort" in cs["H3"]["compile"]
+    assert "E2t" not in cfg["exp1"]["configs"] and "E1d" in cfg["exp1"]["configs"] and "Ycoevo" in cfg["exp1"]["supplementary"]
 
 
 def test_h4_signoff_agrees_with_e4_in_sign_and_magnitude():

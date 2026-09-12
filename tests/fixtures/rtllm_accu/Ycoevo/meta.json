@@ -1,0 +1,76 @@
+{
+ "cached": false,
+ "cand_id": null,
+ "cfg_hash": "263875fbf89f",
+ "checks": {
+  "area_positive": true,
+  "cells_positive": true,
+  "histogram_nonempty": true,
+  "netlist_present": true,
+  "no_sta_errors": true,
+  "status_ok": true,
+  "timing_parsed": true
+ },
+ "clk_port": "clk",
+ "clock_ns": 2.0,
+ "config": "Ycoevo",
+ "config_script": "flatten; proc; opt; fsm; opt; memory; opt; opt -full; techmap; opt; dfflibmap -liberty {lib}; abc -liberty {lib}; opt_clean -purge; stat -liberty {lib}",
+ "crit_path": {
+  "endpoint": "_171_",
+  "startpoint": "_166_"
+ },
+ "dc_seconds": 0.0,
+ "design_id": "rtllm_accu",
+ "error": null,
+ "eval_id": 48,
+ "finished_at": "2026-09-12T13:29:11",
+ "git_sha": "359c53fbf7c8",
+ "hist": {
+  "AND2_X1": 3,
+  "AND3_X1": 1,
+  "AND4_X1": 1,
+  "AOI211_X1": 1,
+  "AOI21_X1": 7,
+  "AOI221_X1": 1,
+  "DFFR_X1": 13,
+  "INV_X1": 3,
+  "MUX2_X1": 10,
+  "NAND2_X1": 9,
+  "NAND3_X1": 1,
+  "NOR2_X1": 8,
+  "NOR3_X1": 2,
+  "OAI21_X1": 8,
+  "OR2_X1": 4,
+  "OR3_X1": 2,
+  "XNOR2_X1": 7,
+  "XOR2_X1": 6
+ },
+ "input_hash": "b6237b4598cb5359",
+ "is_baseline": 1,
+ "lib": "nangate45",
+ "metrics": {
+  "area": 158.802,
+  "cells": 87,
+  "crit_delay_ns": 0.53,
+  "registers": 13,
+  "tns_ns": 0.0,
+  "wns_ns": 1.43
+ },
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Ycoevo/b6237b4598cb5359/outputs/netlist.v",
+ "pert_id": null,
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Ycoevo/b6237b4598cb5359",
+ "rtl_files": [
+  "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
+ ],
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Ycoevo/b6237b4598cb5359/inputs/constraint.sdc",
+ "sdc_overrides": {
+  "io_delay_frac": 0.0,
+  "sta_max_delay": true
+ },
+ "started_at": "2026-09-12T13:29:10",
+ "status": "ok",
+ "tool": "yosys_opensta",
+ "tool_version": "yosys 0.63 / OpenROAD-26Q1-2754",
+ "top": "verified_accu",
+ "wall_seconds": 0.8
+}

@@ -1,7 +1,7 @@
 status=ok
 mode=topo
-compile=compile_ultra -retime -timing_high_effort_script -gate_clock -spg
-elapsed=53
+compile=set_app_var compile_timing_high_effort true; compile_ultra -retime -gate_clock -spg
+elapsed=51
 check_errors=0
 saif=none
 error=

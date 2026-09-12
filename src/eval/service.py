@@ -21,8 +21,20 @@ CLOCK_KEYS = {"phi_main": "phi_main_ns_nangate45", "phi_main_asap7": "phi_main_n
               "phi_main_sky130hd": "phi_main_ns_sky130hd"}
 
 
+def canonical_config(cfg, name):
+    """Follow `alias_of` links (E2r -> E3): one DC run serves both roles; records are stored under the target name."""
+    seen = []
+    while "alias_of" in cfg["configs"][name]:
+        seen.append(name)
+        name = cfg["configs"][name]["alias_of"]
+        if name in seen:
+            raise ValueError(f"alias cycle: {seen}")
+    return name
+
+
 def resolve_config(cfg, name, design=None, clock_ns=None):
-    """-> dict(tool, compile/script, lib, clock_ns, mode) for configuration `name`."""
+    """-> dict(tool, compile/script, lib, clock_ns, mode, ...) for configuration `name` (aliases resolved)."""
+    name = canonical_config(cfg, name)
     c = cfg["configs"][name]
     lib = c.get("lib")
     if clock_ns is None:
@@ -40,6 +52,9 @@ def resolve_config(cfg, name, design=None, clock_ns=None):
         out["synlib"] = c.get("synlib", "dw")
     elif c["tool"] in ("yosys_opensta",):
         out["script"] = c["script"]
+        for key in ("read_sv", "io_delay_frac", "sta_max_delay"):
+            if key in c:
+                out[key] = c[key]
     elif c["tool"] == "pt_primepower":
         out["input"] = c.get("input")
     return out
@@ -92,6 +107,7 @@ def job_directory(raw_root, force_rerun=False):
 def evaluate(cfg, conn, design_id, rtl_files, top, config_name, *, clock_ns=None, design=None, clk_port="clk",
              cand_id=None, pert_id=None, is_baseline=0, saif=None, saif_instance=None, sverilog=False,
              incdirs=None, force_rerun=False, do_ingest=True, timeout_sec=None):
+    config_name = canonical_config(cfg, config_name)
     res = resolve_config(cfg, config_name, design, clock_ns)
     extra = {"saif": str(saif) if saif else None, "sverilog": bool(sverilog), "cand_id": cand_id, "pert_id": pert_id}
     source = None
@@ -119,7 +135,8 @@ def evaluate(cfg, conn, design_id, rtl_files, top, config_name, *, clock_ns=None
     elif res["tool"] == "yosys_opensta":
         from src.eval.yosys import run_yosys
         rec = run_yosys(job_dir, rtl_files, top, res["lib"], res["script"], res["clock_ns"], clk_port, cfg,
-                        sverilog=sverilog, incdirs=incdirs, timeout_sec=timeout_sec)
+                        sverilog=sverilog or bool(res.get("read_sv")), incdirs=incdirs, timeout_sec=timeout_sec,
+                        io_delay_frac=res.get("io_delay_frac"), sta_max_delay=bool(res.get("sta_max_delay")))
     elif res["tool"] == "pt_primepower":
         from src.eval.pt import run_pt
         src_reports = Path(source["raw_dir"]) / "outputs" / "reports"

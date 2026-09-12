@@ -20,7 +20,7 @@ from pathlib import Path  # noqa: E402
 
 from src import config as C  # noqa: E402
 
-DEFAULT_CONFIGS = ["E1", "E2", "E3", "E4", "E2r", "E2t", "E2g", "H1", "H2a", "H2b", "H3", "H5", "Y", "H4"]
+DEFAULT_CONFIGS = ["E1", "E1d", "E2", "E3", "E4", "E2g", "H1", "H2a", "H2b", "H3", "H5", "Y", "Ycoevo", "H4"]  # E2r = E3 (alias)
 SKIP_SUFFIXES = (".ddc",)
 MAX_BYTES = 400_000
 

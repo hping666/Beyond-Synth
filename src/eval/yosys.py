@@ -81,7 +81,10 @@ def _sta_metrics(log, clock_name="clk"):
     return out
 
 
-def run_yosys(job_dir, rtl_files, top, lib, script_tpl, clock_ns, clk_port, cfg, *, sverilog=False, incdirs=None, timeout_sec=None):
+def run_yosys(job_dir, rtl_files, top, lib, script_tpl, clock_ns, clk_port, cfg, *, sverilog=False, incdirs=None, timeout_sec=None,
+              io_delay_frac=None, sta_max_delay=False):
+    """io_delay_frac / sta_max_delay: per-configuration overrides of the shared SDC convention (Ycoevo: zero IO delays and
+    COEVO's `set_max_delay` on in->out paths); None / False = the project convention (config: constraints)."""
     job_dir = Path(job_dir)
     inputs, outputs = job_dir / "inputs", job_dir / "outputs"
     inputs.mkdir(parents=True, exist_ok=True)
@@ -97,7 +100,15 @@ def run_yosys(job_dir, rtl_files, top, lib, script_tpl, clock_ns, clk_port, cfg,
         return rec
     staged = stage_inputs(job_dir, rtl_files)
     sdc_path = inputs / "constraint.sdc"
-    sdc_path.write_text(opensta_sdc(top, clk_port, clock_ns, cfg, lib))
+    cfg_sdc = cfg
+    if io_delay_frac is not None:
+        cfg_sdc = dict(cfg)
+        cfg_sdc["constraints"] = dict(cfg["constraints"], io_delay_frac=float(io_delay_frac))
+    sdc_text = opensta_sdc(top, clk_port, clock_ns, cfg_sdc, lib)
+    if sta_max_delay:
+        sdc_text += f"set_max_delay {float(clock_ns):g} -from [all_inputs] -to [all_outputs]\n"
+    sdc_path.write_text(sdc_text)
+    rec["sdc_overrides"] = {"io_delay_frac": io_delay_frac, "sta_max_delay": bool(sta_max_delay)}
     abc_heavy = str(Path(C.ROOT) / cfg["configs"].get("abc_heavy_script", ""))
     script = script_tpl.format(top=top, lib=liberty, abc_heavy_script=abc_heavy)
     netlist = outputs / "netlist.v"

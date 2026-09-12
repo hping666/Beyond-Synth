@@ -2,8 +2,8 @@
  "configs": {
   "E1": {
    "files": 18,
-   "finished_at": "2026-09-12T07:54:40",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:28:16",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 141.246003,
     "cells": 54,
@@ -19,13 +19,35 @@
     "tns_ns": 0.0,
     "wns_ns": 0.682844
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/a4b06f1a295db460",
+   "tool_version": "W-2024.09-SP5-3"
+  },
+  "E1d": {
+   "files": 18,
+   "finished_at": "2026-09-12T13:28:16",
+   "git_sha": "359c53fbf7c8",
+   "metrics": {
+    "area": 141.246003,
+    "cells": 54,
+    "comb_area": 72.086,
+    "comb_cells": 41.0,
+    "crit_delay_ns": 0.877118,
+    "hier_cells": 1.0,
+    "noncomb_area": 69.160002,
+    "period_lib_units": 2.0,
+    "power_default_mw": 0.101409073,
+    "registers": 13.0,
+    "seq_cells": 13.0,
+    "tns_ns": 0.0,
+    "wns_ns": 0.682844
+   },
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1d/bd991b1b23f0b450",
    "tool_version": "W-2024.09-SP5-3"
   },
   "E2": {
    "files": 18,
-   "finished_at": "2026-09-12T07:55:32",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:29:09",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 138.852003,
     "cells": 59,
@@ -41,13 +63,13 @@
     "tns_ns": 0.0,
     "wns_ns": 0.710517
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2/9e318bb85e36aca2-r2",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2/5a5416e65e5d793a",
    "tool_version": "W-2024.09-SP5-3"
   },
   "E2g": {
    "files": 19,
-   "finished_at": "2026-09-12T07:56:24",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:29:08",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 131.138003,
     "cells": 50,
@@ -69,57 +91,13 @@
     "tns_ns": 0.0,
     "wns_ns": 0.760198
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2g/c948ba9c3eaa532a-r2",
-   "tool_version": "W-2024.09-SP5-3"
-  },
-  "E2r": {
-   "files": 18,
-   "finished_at": "2026-09-12T07:55:36",
-   "git_sha": "e3e472a07a8d",
-   "metrics": {
-    "area": 138.852003,
-    "cells": 59,
-    "comb_area": 69.692001,
-    "comb_cells": 46.0,
-    "crit_delay_ns": 0.845323,
-    "hier_cells": 0.0,
-    "noncomb_area": 69.160002,
-    "period_lib_units": 2.0,
-    "power_default_mw": 0.10287824999999999,
-    "registers": 13.0,
-    "seq_cells": 13.0,
-    "tns_ns": 0.0,
-    "wns_ns": 0.710517
-   },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2r/b3cb537039f3b48d-r2",
-   "tool_version": "W-2024.09-SP5-3"
-  },
-  "E2t": {
-   "files": 18,
-   "finished_at": "2026-09-12T07:56:25",
-   "git_sha": "e3e472a07a8d",
-   "metrics": {
-    "area": 138.852003,
-    "cells": 59,
-    "comb_area": 69.692001,
-    "comb_cells": 46.0,
-    "crit_delay_ns": 0.845323,
-    "hier_cells": 0.0,
-    "noncomb_area": 69.160002,
-    "period_lib_units": 2.0,
-    "power_default_mw": 0.10287824999999999,
-    "registers": 13.0,
-    "seq_cells": 13.0,
-    "tns_ns": 0.0,
-    "wns_ns": 0.710517
-   },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2t/2375bdf64d2e61f6-r2",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2g/b18a1494d00ef50d",
    "tool_version": "W-2024.09-SP5-3"
   },
   "E3": {
    "files": 18,
-   "finished_at": "2026-09-12T07:55:29",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:29:09",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 138.852003,
     "cells": 59,
@@ -135,13 +113,13 @@
     "tns_ns": 0.0,
     "wns_ns": 0.710517
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/4a7bcb53b3427582-r2",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E3/6d4ce18de039fb09",
    "tool_version": "W-2024.09-SP5-3"
   },
   "E4": {
    "files": 20,
-   "finished_at": "2026-09-12T07:55:29",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:29:08",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 131.138003,
     "cells": 50,
@@ -163,13 +141,13 @@
     "tns_ns": 0.0,
     "wns_ns": 0.760198
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae-r2",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/090198b7109c883f",
    "tool_version": "W-2024.09-SP5-3"
   },
   "H1": {
    "files": 19,
-   "finished_at": "2026-09-12T07:56:29",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:29:15",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 185.934002,
     "cells": 128,
@@ -191,13 +169,13 @@
     "tns_ns": -4.41134,
     "wns_ns": -0.347826
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H1/5b7587a7c34d180b-r2",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H1/322ffc633e2b6d0a",
    "tool_version": "W-2024.09-SP5-3"
   },
   "H2a": {
    "files": 19,
-   "finished_at": "2026-09-12T07:57:34",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:30:16",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 9.38952,
     "cells": 66,
@@ -219,13 +197,13 @@
     "tns_ns": 0.0,
     "wns_ns": 0.045058999999999995
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa-r2",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/79d84368518cbcc3",
    "tool_version": "W-2024.09-SP5-3"
   },
   "H2b": {
    "files": 19,
-   "finished_at": "2026-09-12T07:57:30",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:30:14",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 655.628795,
     "cells": 53,
@@ -247,13 +225,13 @@
     "tns_ns": 0.0,
     "wns_ns": 0.877295
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165-r2",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/2e9353a792c092f8",
    "tool_version": "W-2024.09-SP5-3"
   },
   "H3": {
    "files": 19,
-   "finished_at": "2026-09-12T07:57:22",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:30:03",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 135.128003,
     "cells": 57,
@@ -275,13 +253,13 @@
     "tns_ns": 0.0,
     "wns_ns": 0.941832
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5-r2",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/e6926d4aa823a64a",
    "tool_version": "W-2024.09-SP5-3"
   },
   "H4": {
    "files": 19,
-   "finished_at": "2026-09-12T07:57:32",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:29:21",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "cells": 51.0,
     "hold_wns_ns": 0.099633,
@@ -291,13 +269,13 @@
     "tns_ns": 0.0,
     "wns_ns": 0.760198
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H4/38c92f90e55f4b1e",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H4/7faa3dcc665bd17a",
    "tool_version": "pt V-2023.12-SP5-4 / primepower V-2023.12-SP5-4"
   },
   "H5": {
    "files": 19,
-   "finished_at": "2026-09-12T07:57:23",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:30:05",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 131.138003,
     "cells": 50,
@@ -319,13 +297,13 @@
     "tns_ns": 0.0,
     "wns_ns": 0.760198
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H5/a2fb785d163fb99b-r2",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H5/af8080c6971b4132",
    "tool_version": "W-2024.09-SP5-3"
   },
   "Y": {
    "files": 8,
-   "finished_at": "2026-09-12T07:57:23",
-   "git_sha": "e3e472a07a8d",
+   "finished_at": "2026-09-12T13:29:10",
+   "git_sha": "359c53fbf7c8",
    "metrics": {
     "area": 155.344,
     "cells": 85,
@@ -334,10 +312,25 @@
     "tns_ns": 0.0,
     "wns_ns": 1.17
    },
-   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r4",
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/12f52ceb1e7fdf1a",
+   "tool_version": "yosys 0.63 / OpenROAD-26Q1-2754"
+  },
+  "Ycoevo": {
+   "files": 8,
+   "finished_at": "2026-09-12T13:29:11",
+   "git_sha": "359c53fbf7c8",
+   "metrics": {
+    "area": 158.802,
+    "cells": 87,
+    "crit_delay_ns": 0.53,
+    "registers": 13,
+    "tns_ns": 0.0,
+    "wns_ns": 1.43
+   },
+   "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Ycoevo/b6237b4598cb5359",
    "tool_version": "yosys 0.63 / OpenROAD-26Q1-2754"
   }
  },
  "design_id": "rtllm_accu",
- "generated_at": "2026-09-12T07:57:35"
+ "generated_at": "2026-09-12T13:30:59"
 }

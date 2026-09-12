@@ -1,7 +1,7 @@
 {
  "cached": false,
  "cand_id": null,
- "cfg_hash": "65020fb68a87",
+ "cfg_hash": "263875fbf89f",
  "check_design_errors": 0,
  "checks": {
   "area_positive": true,
@@ -139,12 +139,12 @@
   "startpoint": "data_in[0]"
  },
  "dc_returncode": 0,
- "dc_seconds": 4.4,
+ "dc_seconds": 4.5,
  "design_id": "rtllm_accu",
  "error": null,
- "eval_id": 27,
- "finished_at": "2026-09-12T07:54:40",
- "git_sha": "e3e472a07a8d",
+ "eval_id": 41,
+ "finished_at": "2026-09-12T13:28:16",
+ "git_sha": "359c53fbf7c8",
  "hist": {
   "AND2_X1": 2,
   "AND3_X1": 1,
@@ -160,7 +160,7 @@
   "XNOR2_X1": 1,
   "XOR2_X1": 3
  },
- "input_hash": "46c64f4db62b7431",
+ "input_hash": "a4b06f1a295db460",
  "is_baseline": 1,
  "lib": "nangate45",
  "log_summary": {
@@ -201,7 +201,7 @@
   "wns_ns": 0.682844
  },
  "mode": "wireload",
- "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2/outputs/reports/netlist.v",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/a4b06f1a295db460/outputs/reports/netlist.v",
  "path_endpoints": [
   [
    "data_in[0]",
@@ -263,8 +263,8 @@
   "total_mw": 0.101409073
  },
  "power_saif": {},
- "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2",
- "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2/outputs/reports",
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/a4b06f1a295db460",
+ "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/a4b06f1a295db460/outputs/reports",
  "resources": {
   "datapath_blocks": 0,
   "dw_modules": [],
@@ -282,12 +282,13 @@
   "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
  ],
  "saif_status": "none",
- "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2/inputs/constraint.sdc",
- "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431-r2/inputs/constraint_dc.sdc",
- "started_at": "2026-09-12T07:54:36",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/a4b06f1a295db460/inputs/constraint.sdc",
+ "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/a4b06f1a295db460/inputs/constraint_dc.sdc",
+ "started_at": "2026-09-12T13:28:12",
  "status": "ok",
+ "synlib": "standard",
  "tool": "dc",
  "tool_version": "W-2024.09-SP5-3",
  "top": "verified_accu",
- "wall_seconds": 4.4
+ "wall_seconds": 4.5
 }

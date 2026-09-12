@@ -35,7 +35,8 @@ def fixture_meta(config):
 
 
 def test_e1_reproduces_fixture(cfg, tmp_path):
-    rec = run_dc(tmp_path / "job", [ACCU], TOP, "nangate45", cfg["configs"]["E1"]["compile"], 2.0, "clk", cfg)
+    rec = run_dc(tmp_path / "job", [ACCU], TOP, "nangate45", cfg["configs"]["E1"]["compile"], 2.0, "clk", cfg,
+                 synlib=cfg["configs"]["E1"]["synlib"])
     assert rec["status"] == "ok", rec.get("error")
     f = fixture_meta("E1")
     for k in ("area", "cells", "wns_ns", "tns_ns"):

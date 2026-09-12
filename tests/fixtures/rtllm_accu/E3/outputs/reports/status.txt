@@ -1,7 +1,7 @@
 status=ok
 mode=wireload
 compile=compile_ultra -retime
-elapsed=50
+elapsed=54
 check_errors=0
 saif=none
 error=

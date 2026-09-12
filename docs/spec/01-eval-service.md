@@ -6,18 +6,20 @@ Responsibility: given (RTL, configuration name, constraint, library), produce on
 
 | Name | Tool | Command semantics | Library | Constraint | Use |
 |---|---|---|---|---|---|
-| E1 | DC | `compile` (default map effort) | Nangate45 | Φ_main | ladder / candidate screening rung |
-| E2 | DC | `compile_ultra` | Nangate45 | Φ_main | ladder / screening rung |
+| E1 | DC | `compile` (default map effort), standard synthetic library only | Nangate45 | Φ_main | ladder / candidate screening rung |
+| E1d | DC | `compile` + DesignWare Foundation | Nangate45 | Φ_main | attribution: DesignWare architecture choice |
+| E2 | DC | `compile_ultra` (DesignWare Foundation added by the command) | Nangate45 | Φ_main | ladder / screening rung |
 | E3 | DC | `compile_ultra -retime` | Nangate45 | Φ_main | ladder |
-| E4 | DC | `compile_ultra -retime -timing_high_effort_script -gate_clock` | Nangate45 | Φ_main | **main scoring configuration** |
-| E2r / E2t / E2g | DC | E2 plus `-retime` / `-timing_high_effort_script` / `-gate_clock` respectively | Nangate45 | Φ_main | single-flag attribution |
+| E4 | DC | `compile_ultra -retime -gate_clock` (wire-load-mode full effort; `-timing_high_effort_script` is a no-op on W-2024.09) | Nangate45 | Φ_main | **main scoring configuration** |
+| E2r / E2g | DC | E2 plus `-retime` (E2r is an alias of E3: one run, two roles) / `-gate_clock` | Nangate45 | Φ_main | single-flag attribution |
 | H1 | DC | E4 | Nangate45 | 0.1 ns | hidden: constraint shift; visible caliber of the Dr.RTL head-to-head |
 | H2a | DC | E4 | ASAP7 | Φ_main(ASAP7) | hidden: technology shift |
 | H2b | DC | E4 | sky130hd | Φ_main(sky130hd) | hidden: technology shift; visible caliber of the Sky130 sub-experiment |
-| H3 | DC | E4 + `-spg` | Nangate45 + physical libs | Φ_main | hidden: physical-aware |
+| H3 | DC | E4 + `-spg` in topographical mode, `compile_timing_high_effort` enabled | Nangate45 + Milkyway | Φ_main | hidden: physical-aware full effort |
 | H4 | PT / PrimePower | read the E4 netlist; `report_timing`; PrimePower reads the same SAIF | Nangate45 | Φ_main | hidden: signoff |
 | H5 | DC | `compile_ultra -no_autoungroup -gate_clock` (no retime) | Nangate45 | Φ_main | hidden: production-representative configuration |
 | Y | Yosys + OpenSTA | `synth -top; abc -liberty; stat`; OpenSTA with the same SDC | Nangate45 | Φ_main | reference caliber (literature) |
+| Ycoevo | Yosys + OpenSTA | COEVO's exact script (`flatten; opt -full; ...`), zero IO delays, `set_max_delay` in→out | Nangate45 | Φ_main | supplementary Exp1 column |
 | O0/O1/O2 | Yosys/ABC | O0 = Y; O1 = `synth -flatten` + `opt -full` + `share -aggressive`; O2 = O1 + heavy ABC script (`resyn2` rounds / `dch` / `&deepsyn`) | Nangate45 | Φ_main | supplementary: open-source ladder |
 | O | ORFS | Yosys + OpenROAD STA after place/CTS | Nangate45 | Φ_main | open-source reproduction layer; P&R spot checks |
 

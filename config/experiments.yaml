@@ -35,32 +35,39 @@ constraints:                 # one SDC convention for every tool (OpenSTA-native
   clock_gating_style: ""     # extra arguments for set_clock_gating_style before a -gate_clock compile; empty = DC defaults
 
 # ---------- evaluation configurations (commands are assembled by src/eval/templates; only semantic parameters here) ----------
+# Ladder as adopted 2026-09-12 (DECISIONS; reports/phase0.md addendum): wire-load mode, nangate45. `synlib` = synthetic
+# library: standard (standard.sldb only, the basic rung) or dw (DesignWare Foundation; compile_ultra adds it by itself when
+# licensed). `-timing_high_effort_script` is a no-op on DC W-2024.09 and is kept out; the timing-high-effort strategy
+# variable exists only in topographical mode and is enabled in H3. E2r is an alias of E3 (same command: one run, two roles).
 configs:
-  E1:  {tool: dc, compile: "compile", lib: nangate45, clock: phi_main}
-  E2:  {tool: dc, compile: "compile_ultra", lib: nangate45, clock: phi_main}
-  E3:  {tool: dc, compile: "compile_ultra -retime", lib: nangate45, clock: phi_main}
-  E4:  {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock", lib: nangate45, clock: phi_main, main_scoring: true}
-  E2r: {tool: dc, compile: "compile_ultra -retime", lib: nangate45, clock: phi_main, single_flag: retime}
-  E2t: {tool: dc, compile: "compile_ultra -timing_high_effort_script", lib: nangate45, clock: phi_main, single_flag: timing_high_effort}
-  E2g: {tool: dc, compile: "compile_ultra -gate_clock", lib: nangate45, clock: phi_main, single_flag: gate_clock}
-  H1:  {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock", lib: nangate45, clock_ns: 0.1, hidden: true}
-  H2a: {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock", lib: asap7, clock: phi_main_asap7, hidden: true}
-  H2b: {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock", lib: sky130hd, clock: phi_main_sky130hd, hidden: true}
-  H3:  {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock -spg", lib: nangate45, clock: phi_main, hidden: true}
+  E1:  {tool: dc, compile: "compile", lib: nangate45, clock: phi_main, synlib: standard}
+  E1d: {tool: dc, compile: "compile", lib: nangate45, clock: phi_main, synlib: dw, single_flag: designware}
+  E2:  {tool: dc, compile: "compile_ultra", lib: nangate45, clock: phi_main, synlib: dw}
+  E3:  {tool: dc, compile: "compile_ultra -retime", lib: nangate45, clock: phi_main, synlib: dw}
+  E4:  {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: nangate45, clock: phi_main, synlib: dw, main_scoring: true}
+  E2r: {alias_of: E3, single_flag: retime}
+  E2g: {tool: dc, compile: "compile_ultra -gate_clock", lib: nangate45, clock: phi_main, synlib: dw, single_flag: gate_clock}
+  H1:  {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: nangate45, clock_ns: 0.1, synlib: dw, hidden: true}
+  H2a: {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: asap7, clock: phi_main_asap7, synlib: dw, hidden: true}
+  H2b: {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: sky130hd, clock: phi_main_sky130hd, synlib: dw, hidden: true}
+  H3:  {tool: dc, compile: "set_app_var compile_timing_high_effort true; compile_ultra -retime -gate_clock -spg", lib: nangate45, clock: phi_main, synlib: dw, hidden: true}
   H4:  {tool: pt_primepower, input: E4_netlist, lib: nangate45, clock: phi_main, hidden: true}
-  H5:  {tool: dc, compile: "compile_ultra -no_autoungroup -gate_clock", lib: nangate45, clock: phi_main, hidden: true, production_representative: true}
+  H5:  {tool: dc, compile: "compile_ultra -no_autoungroup -gate_clock", lib: nangate45, clock: phi_main, synlib: dw, hidden: true, production_representative: true}
   # Yosys scripts: dfflibmap maps flip-flops to library cells before abc (as in COEVO's script), otherwise stat -liberty
-  # leaves the registers unmapped and under-counts area; write_verilog/read_verilog are added by src/eval/yosys.py.
+  # leaves the registers unmapped and under-counts area; read_verilog / write_verilog are added by src/eval/yosys.py.
   Y:   {tool: yosys_opensta, script: "synth -top {top}; dfflibmap -liberty {lib}; abc -liberty {lib}; opt_clean -purge; stat -liberty {lib}", lib: nangate45, clock: phi_main, reference: true}
   O0:  {tool: yosys_opensta, script: "synth -top {top}; dfflibmap -liberty {lib}; abc -liberty {lib}; opt_clean -purge; stat -liberty {lib}", lib: nangate45, clock: phi_main, supplementary: true}
   O1:  {tool: yosys_opensta, script: "synth -top {top} -flatten; opt -full; share -aggressive; dfflibmap -liberty {lib}; abc -liberty {lib}; opt_clean -purge; stat -liberty {lib}", lib: nangate45, clock: phi_main, supplementary: true}
   O2:  {tool: yosys_opensta, script: "synth -top {top} -flatten; opt -full; share -aggressive; dfflibmap -liberty {lib}; abc -liberty {lib} -script {abc_heavy_script}; opt_clean -purge; stat -liberty {lib}", lib: nangate45, clock: phi_main, supplementary: true}
+  # Ycoevo: COEVO's exact evaluation script and OpenSTA setting (coevo/evaluation/ppa.py): flatten + opt -full, zero IO delays,
+  # set_max_delay on in->out paths. Supplementary Exp1 column only (DECISIONS 2026-09-12); Y stays the proposal's definition.
+  Ycoevo: {tool: yosys_opensta, script: "flatten; proc; opt; fsm; opt; memory; opt; opt -full; techmap; opt; dfflibmap -liberty {lib}; abc -liberty {lib}; opt_clean -purge; stat -liberty {lib}", lib: nangate45, clock: phi_main, supplementary: true, read_sv: true, io_delay_frac: 0.0, sta_max_delay: true}
   abc_heavy_script: "src/eval/templates/abc_heavy.script"   # O2: several resyn2 rounds + dch, deterministic (no randomization)
-  O:   {tool: orfs, stage: cts, lib: nangate45, clock: phi_main, repro_layer: true}
 cktevo_sky130_visible:         # visible layer of the Sky130 sub-experiment (CktEvo's commercial-arm setting)
-  compile: "compile_ultra -retime -timing_high_effort_script"
+  compile: "compile_ultra -retime"   # CktEvo publishes "compile_ultra -retime -timing_high_effort_script"; the flag is a no-op on DC W-2024.09, so this equals E3
   lib: sky130hd
   clock: phi_main_sky130hd
+  synlib: dw
 
 knee:
   periods_ns: {nangate45: [4.0, 2.8, 2.0, 1.4, 1.0, 0.7, 0.5], asap7: [1.0, 0.7, 0.5, 0.35, 0.25, 0.18, 0.13], sky130hd: [10.0, 7.0, 5.0, 3.5, 2.5, 1.8, 1.3]}
@@ -178,8 +185,8 @@ diag:
 exp1:                        # Phase 4
   b0_designs: {rtllm_dev: 5, cktevo_held: 5}
   candidates_per_design: 30
-  configs: [E1, E2, E3, E4, E2r, E2t, E2g, H1, H2a, H2b, H3, H5, H4]
-  supplementary: [O0, O1, O2]
+  configs: [E1, E1d, E2, E3, E4, E2r, E2g, H1, H2a, H2b, H3, H5, H4]   # E2r = E3 (alias); E2t dropped (no-op flag)
+  supplementary: [O0, O1, O2, Ycoevo]
   manual_check_per_class: 40
 
 ablations:                   # Phase 6, 30-start subset, 3 seeds

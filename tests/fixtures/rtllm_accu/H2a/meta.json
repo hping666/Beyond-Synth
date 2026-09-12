@@ -1,7 +1,7 @@
 {
  "cached": false,
  "cand_id": null,
- "cfg_hash": "65020fb68a87",
+ "cfg_hash": "263875fbf89f",
  "check_design_errors": 0,
  "checks": {
   "area_positive": true,
@@ -16,9 +16,9 @@
  },
  "clk_port": "clk",
  "clock_ns": 0.5,
- "compile_seconds": 114.0,
+ "compile_seconds": 116.0,
  "config": "H2a",
- "config_compile": "compile_ultra -retime -timing_high_effort_script -gate_clock",
+ "config_compile": "compile_ultra -retime -gate_clock",
  "crit_path": {
   "arrival": 432.5466,
   "endpoint": "data_out_reg[9]",
@@ -123,12 +123,12 @@
   "startpoint": "data_in[1]"
  },
  "dc_returncode": 0,
- "dc_seconds": 118.3,
+ "dc_seconds": 119.7,
  "design_id": "rtllm_accu",
  "error": null,
- "eval_id": 40,
- "finished_at": "2026-09-12T07:57:34",
- "git_sha": "e3e472a07a8d",
+ "eval_id": 54,
+ "finished_at": "2026-09-12T13:30:16",
+ "git_sha": "359c53fbf7c8",
  "hist": {
   "A2O1A1Ixp33_ASAP7_75t_R": 1,
   "AO32x1_ASAP7_75t_R": 4,
@@ -146,7 +146,7 @@
   "TIEHIx1_ASAP7_75t_R": 1,
   "TIELOx1_ASAP7_75t_R": 1
  },
- "input_hash": "6d39a8ccd0ec50aa",
+ "input_hash": "79d84368518cbcc3",
  "is_baseline": 1,
  "lib": "asap7",
  "log_summary": {
@@ -157,7 +157,7 @@
    "retime": 1,
    "sharing": 0,
    "ungroup": 2,
-   "warning": 3
+   "warning": 2
   },
   "samples": {
    "clock_gating": [
@@ -177,7 +177,6 @@
     "Information: There is no timing violation in design verified_accu. Delay-based auto_ungroup will not be performed. (OPT-780)"
    ],
    "warning": [
-    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)",
     "Warning: Only placeholder alibs were found. Proceeding with library analysis. (OPT-1311)"
    ]
   }
@@ -205,7 +204,7 @@
   "wns_ns": 0.045058999999999995
  },
  "mode": "wireload",
- "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa-r2/outputs/reports/netlist.v",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/79d84368518cbcc3/outputs/reports/netlist.v",
  "path_endpoints": [
   [
    "data_in[1]",
@@ -267,8 +266,8 @@
   "total_mw": 0.06061946
  },
  "power_saif": {},
- "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa-r2",
- "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa-r2/outputs/reports",
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/79d84368518cbcc3",
+ "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/79d84368518cbcc3/outputs/reports",
  "resources": {
   "datapath_blocks": 0,
   "dw_modules": [
@@ -311,12 +310,13 @@
   "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
  ],
  "saif_status": "none",
- "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa-r2/inputs/constraint.sdc",
- "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa-r2/inputs/constraint_dc.sdc",
- "started_at": "2026-09-12T07:55:36",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/79d84368518cbcc3/inputs/constraint.sdc",
+ "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/79d84368518cbcc3/inputs/constraint_dc.sdc",
+ "started_at": "2026-09-12T13:28:16",
  "status": "ok",
+ "synlib": "dw",
  "tool": "dc",
  "tool_version": "W-2024.09-SP5-3",
  "top": "verified_accu",
- "wall_seconds": 118.3
+ "wall_seconds": 119.7
 }
