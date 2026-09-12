@@ -81,9 +81,10 @@ def main(argv=None):
             m = GT.manifest_of(d["design_id"])
             if m and not m.get("error"):
                 new_jobs = GT.gate_jobs(d, m, cfg, priority=a.priority)
-                if a.missing:
+                if a.missing:  # no record and no job still queued or running for that perturbation
                     have = GT.recorded_cand_ids(cfg, d["design_id"])
-                    new_jobs = [j for j in new_jobs if j["cand_id"] not in have]
+                    active = {r[0] for r in conn.execute("SELECT cand_id FROM jobs WHERE kind='vcf' AND design_id=? AND state IN ('queued','running','backoff')", (d["design_id"],))}
+                    new_jobs = [j for j in new_jobs if j["cand_id"] not in have and j["cand_id"] not in active]
                 jobs += new_jobs
         print(f"{len(jobs)} gate jobs for {len(designs)} designs" + (" (missing records only)" if a.missing else ""))
         if a.submit:
