@@ -15,7 +15,7 @@ def timeout_for(cfg, loc):
 
 
 def dc_job(cfg, d, config, clock_ns, priority=0):
-    payload = {"design_id": d["design_id"], "rtl": [str(p) for p in K.abs_paths(d, d["files"])], "top": d["top"],
+    payload = {"design_id": d["design_id"], "config": config, "rtl": [str(p) for p in K.abs_paths(d, d["files"])], "top": d["top"],
                "clock_ns": float(clock_ns), "clk_port": " ".join(d["clk_ports"]) or None, "sverilog": bool(d["sverilog"]),
                "incdirs": [str(p) for p in K.abs_paths(d, d["incdirs"])], "is_baseline": 1}
     return {"kind": "dc", "design_id": d["design_id"], "config": config, "priority": int(priority),

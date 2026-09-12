@@ -1,0 +1,45 @@
+"""Bidirectional tests of the design-set assignment rules (src/designs/sets.py)."""
+import pytest
+
+from src.designs import sets as S
+
+
+def d(name, loc, suite="cktevo", path=None):
+    return {"design_id": f"{suite}_{name}", "name": name, "loc": loc, "suite": suite, "source": {"paths": [path or f"x/{name}.v"]}}
+
+
+def test_cktevo_round_robin_respects_caps_and_size_order():
+    pool = [d("a__m1", 900), d("a__m2", 800), d("a__m3", 700), d("b__m1", 500), d("c__m1", 300), d("c__m2", 100)]
+    got = [x["name"] for x in S.select_cktevo_set(pool, target_count=4, max_per_repo=2)]
+    assert got == ["a__m1", "b__m1", "c__m1", "a__m2"]  # round 1 one per repo (largest), round 2 continues alphabetically
+    assert [x["name"] for x in S.select_cktevo_set(pool, 10, 1)] == ["a__m1", "b__m1", "c__m1"]  # cap 1 per repo
+    assert [x["name"] for x in S.select_cktevo_set(pool, 10, 5)] == ["a__m1", "b__m1", "c__m1", "a__m2", "c__m2", "a__m3"]
+    assert S.select_cktevo_set([], 5, 5) == []
+
+
+def test_stratified_sample_is_deterministic_and_proportional():
+    pool = [d(f"ar{i}", 10, "rtllm", f"Arithmetic/x/ar{i}") for i in range(10)] + \
+           [d(f"me{i}", 10, "rtllm", f"Memory/x/me{i}") for i in range(4)] + \
+           [d(f"co{i}", 10, "rtllm", f"Control/x/co{i}") for i in range(6)]
+    a = S.stratified_sample(pool, 10, seed=1)
+    b = S.stratified_sample(pool, 10, seed=1)
+    assert a == b and len(a) == 10
+    cats = {S.category_of(x) for x in a}
+    assert cats == {"Arithmetic", "Memory", "Control"}
+    assert sum(S.category_of(x) == "Arithmetic" for x in a) == 5 and sum(S.category_of(x) == "Control" for x in a) == 3
+    assert S.stratified_sample(pool, 10, seed=2) != a  # the seed matters
+    assert S.stratified_sample(pool, 100, seed=1) == sorted(pool, key=lambda x: x["design_id"])
+    assert S.stratified_sample([], 3, seed=1) == []
+
+
+def test_yaml_list_rewrite_only_touches_the_field():
+    text = ("design_sets:\n  suites:\n    drrtl:     {source: \"x\", count: 20, dev: [], held: TBD}\n"
+            "    rtllm:     {source: \"RTLLM v2.0\", count: 50, synthesizable_under_e4: TBD, dev: TBD, held: TBD}\n")
+    out = S.set_yaml_list(text, "rtllm", "dev", ["rtllm_accu", "rtllm_fsm"])
+    assert "dev: [rtllm_accu, rtllm_fsm], held: TBD}" in out and "drrtl:     {source: \"x\", count: 20, dev: [], held: TBD}" in out
+    out = S.set_yaml_list(out, "rtllm", "held", ["rtllm_pe"])
+    assert "dev: [rtllm_accu, rtllm_fsm], held: [rtllm_pe]}" in out
+    out = S.set_yaml_list(out, "drrtl", "held", [])
+    assert "drrtl:     {source: \"x\", count: 20, dev: [], held: []}" in out
+    with pytest.raises(ValueError):
+        S.set_yaml_list(text, "nope", "dev", [])

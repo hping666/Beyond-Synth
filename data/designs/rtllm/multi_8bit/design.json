@@ -75,6 +75,7 @@
  "sverilog": true,
  "tags": [
   "rtllm",
+  "sverilog_only",
   "no_clock"
  ],
  "tb": {

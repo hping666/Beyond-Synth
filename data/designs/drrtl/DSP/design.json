@@ -173,8 +173,8 @@
   "reset sense of rstA guessed from its name (high); verify in the Phase 1 hand check"
  ],
  "reference": null,
- "rst_port": null,
- "rst_sense": null,
+ "rst_port": "rstA",
+ "rst_sense": "high",
  "samples": [],
  "sha256": {
   "rtl/DSP.v": "ac28786f259d09026279f11a8ebf62c122f00fc112781f08d56c88e1e9abc083",

@@ -61,8 +61,8 @@
  "name": "LSTM",
  "notes": [],
  "reference": null,
- "rst_port": null,
- "rst_sense": null,
+ "rst_port": "rst",
+ "rst_sense": "high",
  "samples": [],
  "sha256": {
   "rtl/LSTM.v": "1b5f5a446a80003d898fbe5ac5d8d99d370236212395cc6b02995336961d7783",

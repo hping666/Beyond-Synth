@@ -27,7 +27,8 @@ def main(argv=None):
         print(f"job {a.job} not found", file=sys.stderr)
         return 1
     p = json.loads(job["payload_json"])
-    meta = evaluate(cfg, conn, p["design_id"], p["rtl"], p["top"], p["config"], clock_ns=p.get("clock_ns"),
+    config = p.get("config") or job["config"]  # payload first, else the job row's selector column
+    meta = evaluate(cfg, conn, p["design_id"], p["rtl"], p["top"], config, clock_ns=p.get("clock_ns"),
                     design=p.get("design"), clk_port=p.get("clk_port", "clk"), cand_id=p.get("cand_id"),
                     pert_id=p.get("pert_id"), is_baseline=p.get("is_baseline", 0), saif=p.get("saif"),
                     saif_instance=p.get("saif_instance"), sverilog=p.get("sverilog", False), incdirs=p.get("incdirs"),

@@ -242,7 +242,8 @@ def test_inventory_application_designs_table_and_job_payloads(env, tmp_path):
     assert conn.execute("SELECT COUNT(*) FROM designs").fetchone()[0] == 1
     # jobs
     j = J.trial_jobs(cfg, [d])[0]
-    assert j["kind"] == "dc" and j["config"] == "E4" and j["payload"]["clk_port"] is None and j["payload"]["is_baseline"] == 1
+    assert j["kind"] == "dc" and j["config"] == "E4" and j["payload"]["config"] == "E4"  # the runner reads the payload's config
+    assert j["payload"]["clk_port"] is None and j["payload"]["is_baseline"] == 1
     assert j["payload"]["clock_ns"] == max(cfg["knee"]["periods_ns"]["nangate45"]) and j["timeout_sec"] == cfg["timeouts"]["dc_small"] * 60
     assert j["payload"]["rtl"] == [str(Path(d["_dir"]) / "rtl/foo.v")] and j["payload"]["top"] == "foo"
     d["clk_ports"], d["tags"] = ["wclk", "rclk"], ["rtlopt", "multi_clock"]

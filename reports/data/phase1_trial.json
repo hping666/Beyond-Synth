@@ -1,0 +1,3434 @@
+{
+ "clock_ns": 4.0,
+ "config": "E4",
+ "designs": [
+  {
+   "design_id": "cktevo_ethmac__eth_cop",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 398,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_fifo",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 186,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_maccontrol",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1030,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_macstatus",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 423,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_miim",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 872,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_receivecontrol",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 437,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_registers",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1292,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_rxaddrcheck",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 214,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_rxcounters",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 217,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_rxethmac",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1204,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_rxstatem",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 193,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_spram_256x32",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 299,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_transmitcontrol",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 324,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_txcounters",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 219,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1273,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_txstatem",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 282,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac"
+   ]
+  },
+  {
+   "design_id": "cktevo_ethmac__eth_wishbone",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 3161,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "ethmac",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_hsm__G16Inv2SharesDep",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 273,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "hsm"
+   ]
+  },
+  {
+   "design_id": "cktevo_hsm__G256Inv2Shares5Stages",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 688,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "hsm"
+   ]
+  },
+  {
+   "design_id": "cktevo_hsm__MixColumns",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 132,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "hsm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_hsm__hsm",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 2503,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "hsm"
+   ]
+  },
+  {
+   "design_id": "cktevo_mem_ctrl__mc_adr_sel",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 392,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_mem_ctrl__mc_cs_rf",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 276,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_mem_ctrl__mc_dp",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 374,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_mem_ctrl__mc_mem_if",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 362,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "mem_ctrl",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_mem_ctrl__mc_obct",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 236,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_mem_ctrl__mc_obct_top",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 662,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_mem_ctrl__mc_refresh",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 210,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_mem_ctrl__mc_rf",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1112,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_mem_ctrl__mc_timing",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1735,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "mem_ctrl",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_mem_ctrl__mc_wb_if",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 252,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "mem_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_nn_engine__FADD711",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 223,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ]
+  },
+  {
+   "design_id": "cktevo_nn_engine__FMUL711",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 182,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ]
+  },
+  {
+   "design_id": "cktevo_nn_engine__dualDendRC_H7",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1067,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ]
+  },
+  {
+   "design_id": "cktevo_nn_engine__rates_256x4096",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 575,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ]
+  },
+  {
+   "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 2705,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ]
+  },
+  {
+   "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1674,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ]
+  },
+  {
+   "design_id": "cktevo_nn_engine__tauRom_H7",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 651,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ]
+  },
+  {
+   "design_id": "cktevo_nn_engine__thresholds_128x4096",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 340,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ]
+  },
+  {
+   "design_id": "cktevo_nn_engine__ultraRAMx72_TDP",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 169,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ]
+  },
+  {
+   "design_id": "cktevo_nn_engine__weights_1024x4096",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 640,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "nn_engine"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__btb",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 453,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__cache_datapath",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 175,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__cache_sys",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 2917,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__cacheline_adaptor",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 175,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__control_rom",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 162,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__cpu",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 2010,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__ewb",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 177,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__forward_control_unit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 122,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__l2_cache",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1298,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__l2_cache_control",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 454,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__l2_cache_datapath",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 417,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__p_i_cache",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 850,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__p_i_cache_control",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 287,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__p_i_cache_metadata_check",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 328,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "cktevo_risc__stall_control_unit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 307,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "risc",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_sdc_ctrl__sd_cmd_master",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 152,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "sdc_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_sdc_ctrl__sd_cmd_serial_host",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 263,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "sdc_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_sdc_ctrl__sd_data_master",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 150,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "sdc_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_sdc_ctrl__sd_data_serial_host",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 311,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "sdc_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_sdc_ctrl__sdc_controller",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1545,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "sdc_ctrl"
+   ]
+  },
+  {
+   "design_id": "cktevo_simple_cpu__simple_cpu",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 946,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "simple_cpu",
+    "yosys_failed"
+   ]
+  },
+  {
+   "area_um2": 887.110019,
+   "cells": 408,
+   "dc_seconds": 54.5,
+   "design_id": "cktevo_spi__spi",
+   "e4_fail_reason": null,
+   "e4_synthesizable": 1,
+   "loc": 483,
+   "registers": 105.0,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "spi"
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.91716
+  },
+  {
+   "design_id": "cktevo_usb__usbf_biu",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 469,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "usb"
+   ]
+  },
+  {
+   "design_id": "cktevo_usb__usbf_core",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1734,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "usb"
+   ]
+  },
+  {
+   "design_id": "cktevo_usb__usbf_csr",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1109,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "usb"
+   ]
+  },
+  {
+   "design_id": "cktevo_usb__usbf_epu",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 305,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "usb"
+   ]
+  },
+  {
+   "design_id": "cktevo_usb__usbf_fifo",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 248,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "usb"
+   ]
+  },
+  {
+   "design_id": "cktevo_usb__usbf_sie_ep",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 179,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "usb"
+   ]
+  },
+  {
+   "design_id": "cktevo_usb__usbf_sie_rx",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 521,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "usb"
+   ]
+  },
+  {
+   "design_id": "cktevo_usb__usbf_sie_tx",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 387,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "usb"
+   ]
+  },
+  {
+   "design_id": "cktevo_usb__usbf_sync",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 905,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "usb",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_usb__usbf_ulpi_wrapper",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 423,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "usb"
+   ]
+  },
+  {
+   "design_id": "cktevo_vga_enh__generic_dpram",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 515,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "vga_enh",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_vga_enh__generic_spram",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 410,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ]
+  },
+  {
+   "design_id": "cktevo_vga_enh__vga_colproc",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 510,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ]
+  },
+  {
+   "design_id": "cktevo_vga_enh__vga_curproc",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 724,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ]
+  },
+  {
+   "design_id": "cktevo_vga_enh__vga_fifo",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 259,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ]
+  },
+  {
+   "design_id": "cktevo_vga_enh__vga_fifo_dc",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 749,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "vga_enh",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_vga_enh__vga_pgen",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 2545,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "vga_enh",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "cktevo_vga_enh__vga_vtim",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 179,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ]
+  },
+  {
+   "design_id": "cktevo_vga_enh__vga_wb_master",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 730,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ]
+  },
+  {
+   "design_id": "cktevo_vga_enh__vga_wb_slave",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 605,
+   "pending": true,
+   "suite": "cktevo",
+   "tags": [
+    "cktevo",
+    "vga_enh"
+   ]
+  },
+  {
+   "design_id": "drrtl_DSP",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 165,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_FIFO",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 383,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl",
+    "multi_clock"
+   ]
+  },
+  {
+   "design_id": "drrtl_LSTM",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 135,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "drrtl_SPI",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 441,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_UART",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 447,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_aes",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 374,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_arm_cpu1",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1870,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_arm_cpu2",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1450,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_communication",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 225,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_controller",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 546,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_cpu_fsm",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 354,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_cpu_pipe",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 927,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_datapath",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1065,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_i2c",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 915,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_pcie",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 923,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_router",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 594,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_simple_spi",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 463,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_ticket_machine",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 134,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_tv80",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 4616,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "drrtl_vending_machine",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 128,
+   "pending": true,
+   "suite": "drrtl",
+   "tags": [
+    "drrtl"
+   ]
+  },
+  {
+   "design_id": "rtllm_JC_counter",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_LFSR",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 15,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_LIFObuffer",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 51,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_RAM",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 36,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "rtllm_ROM",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 22,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_accu",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 77,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_adder_16bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 123,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_adder_32bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 181,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_adder_8bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 23,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_adder_bcd",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 22,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_adder_pipe_64bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 195,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_alu",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 111,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "area_um2": 1095.387989,
+   "cells": 345,
+   "dc_seconds": 54.1,
+   "design_id": "rtllm_asyn_fifo",
+   "e4_fail_reason": null,
+   "e4_synthesizable": 1,
+   "loc": 147,
+   "registers": 176.0,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "multi_clock"
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 2.889924
+  },
+  {
+   "design_id": "rtllm_barrel_shifter",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 45,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_calendar",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 37,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_clkgenerator",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 16,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_comparator_3bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 13,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_comparator_4bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 21,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_counter_12",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 33,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_div_16bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 38,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_edge_detect",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 37,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_fixed_point_adder",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 52,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_fixed_point_substractor",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 51,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_float_multi",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 165,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "rtllm_freq_div",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 45,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_freq_divbyeven",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 27,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_freq_divbyfrac",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 58,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_freq_divbyodd",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 49,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_fsm",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 77,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_instr_reg",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 35,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_multi_16bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 57,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_multi_8bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 23,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "sverilog_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_multi_booth_8bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 42,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_multi_pipe_4bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 53,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_multi_pipe_8bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 92,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_parallel2serial",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 39,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_pe",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 27,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_pulse_detect",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 76,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_radix2_div",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 83,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_right_shifter",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 15,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_ring_counter",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 23,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_sequence_detector",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 48,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_serial2parallel",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 45,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_signal_generator",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 35,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_square_wave",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 24,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_sub_64bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 18,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtllm_synchronizer",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 44,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "rtllm_traffic_light",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 101,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_up_down_counter",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 31,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtllm_width_8to16",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 44,
+   "pending": true,
+   "suite": "rtllm",
+   "tags": [
+    "rtllm"
+   ]
+  },
+  {
+   "design_id": "rtlopt_add_sub",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_adder",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 20,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair"
+   ]
+  },
+  {
+   "area_um2": 34.048,
+   "cells": 8,
+   "dc_seconds": 55.3,
+   "design_id": "rtlopt_adder_carry",
+   "e4_fail_reason": null,
+   "e4_synthesizable": 1,
+   "loc": 48,
+   "registers": 0.0,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ],
+   "tns_ns": 0.0,
+   "wns_ns": 1.61997
+  },
+  {
+   "design_id": "rtlopt_adder_select",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_addr_calcu",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 23,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_alu_64bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 19,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_alu_8bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 23,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_calculation",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 22,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_comparator",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 28,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_comparator_16bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_comparator_2bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 8,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_comparator_4bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_comparator_8bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 23,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_decoder_6bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 12,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_decoder_8bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 12,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_divider_16bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 37,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_divider_32bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 37,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_divider_4bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 36,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_divider_8bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 36,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_fsm",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 60,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair"
+   ]
+  },
+  {
+   "design_id": "rtlopt_fsm_encode",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 85,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair"
+   ]
+  },
+  {
+   "design_id": "rtlopt_gray",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 82,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair"
+   ]
+  },
+  {
+   "design_id": "rtlopt_mac",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 25,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair"
+   ]
+  },
+  {
+   "design_id": "rtlopt_mul",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 12,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair"
+   ]
+  },
+  {
+   "design_id": "rtlopt_mul_const",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 17,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_mul_subexpression",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 37,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_mult_if",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 39,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_mux_4to1_16bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 22,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_mux_4to1_64bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 22,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_mux_dead",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 54,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_mux_encode",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 21,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "rtlopt_mux_large",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 23,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_register",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 64,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair"
+   ]
+  },
+  {
+   "design_id": "rtlopt_saturating_add",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 17,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair"
+   ]
+  },
+  {
+   "design_id": "rtlopt_selector",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 17,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair"
+   ]
+  },
+  {
+   "design_id": "rtlopt_sub_16bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 12,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_sub_32bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 24,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_sub_4bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 25,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_sub_8bit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 25,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlopt_ticket_machine",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 135,
+   "pending": true,
+   "suite": "rtlopt",
+   "tags": [
+    "rtlopt",
+    "pair"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_algorithm__gemm",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 51,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "algorithm",
+    "calibration_only",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_algorithm__md",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 51,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "algorithm",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_algorithm__sort_merge",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 66,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "algorithm",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_algorithm__spmv",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 78,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "algorithm",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__add1",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__add3",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 16,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__checksum",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 8,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__commutativity_subexpression",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__distributed_ram",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 22,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__flatten1",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 24,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__if_else",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 19,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__if_prority",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 16,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__logic_elimnation",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 38,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__multi_constant_multiplication",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 12,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__multi_constant_multiplication2",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 12,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__register_balancing",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 10,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_basic__sub-expression-basic",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 13,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "basic",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__adder_architecture",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 48,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__adder_bit_width",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 18,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__adder_resource",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 54,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__adder_subexpression",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 27,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__algebraic_simplification",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__alu_bit_width",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 37,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__alu_resource",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 37,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__alu_subexpression",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 59,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__constant_folding",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__constant_propagation",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 10,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__dead_code_elimination",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 16,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__loop_fusion",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 18,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__loop_jamming",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 21,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__loop_tiling",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 16,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__loop_unrolling",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 14,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__multiplier_architecture",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 49,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__multiplier_bitwidth",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 41,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__multiplier_subexpression",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 39,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__strength_reduction",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 17,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_datapath__subexpression_elimination",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 22,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "datapath",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_fsm_small_case__example1",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 87,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "fsm_small_case",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_fsm_small_case__example2",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 66,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "fsm_small_case",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_fsm_small_case__example3",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 66,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "fsm_small_case",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_fsm_small_case__example4",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 54,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "fsm_small_case",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_fsm_small_case__example5",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 54,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "fsm_small_case",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cnn__RFselector",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 67,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cnn__convLayerSingle",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 790,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cnn__convUnit",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 600,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cnn__floatAdd",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 103,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cnn__floatMult",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 68,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cnn__processingElement",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 546,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cnn",
+    "calibration_only",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cpu__ALU",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 92,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cpu__BranchAndJumpHazard",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 32,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cpu__DataHazard",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 54,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cpu__DataMem",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 66,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cpu__ImmExtend",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 12,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cpu__InstMem",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 209,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cpu__PC",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 51,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cpu__PipelineCPU",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1418,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_cpu__RegFile",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 51,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "cpu",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_fft__Butterfly",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 115,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "fft",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_huffman__Decoder",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 1276,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "huffman",
+    "calibration_only",
+    "yosys_failed"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_long_huffman__HuffmanDecoder",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 584,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "long",
+    "huffman",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_memory__memory_banking",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 45,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "memory",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_memory__memory_compression",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 44,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "memory",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_memory__memory_folding",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 79,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "memory",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_memory__memory_folding2",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 108,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "memory",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_memory__memory_sharing",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 52,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "memory",
+    "calibration_only"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_mux__mux_dead_code",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 106,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_mux__mux_type1",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 35,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_mux__mux_type2",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 31,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_mux__mux_type3",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 19,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_mux__mux_type4",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 26,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only",
+    "no_clock"
+   ]
+  },
+  {
+   "design_id": "rtlrewriter_mux__mux_type5",
+   "e4_fail_reason": null,
+   "e4_synthesizable": null,
+   "loc": 27,
+   "pending": true,
+   "suite": "rtlrewriter",
+   "tags": [
+    "rtlrewriter",
+    "short",
+    "mux",
+    "calibration_only",
+    "no_clock"
+   ]
+  }
+ ],
+ "generated_at": "2026-09-12T14:41:17",
+ "per_suite": {
+  "cktevo": {
+   "dc_seconds": 54.5,
+   "designs": 83,
+   "failed": 0,
+   "ok": 1,
+   "pending": 82
+  },
+  "drrtl": {
+   "dc_seconds": 0.0,
+   "designs": 20,
+   "failed": 0,
+   "ok": 0,
+   "pending": 20
+  },
+  "rtllm": {
+   "dc_seconds": 54.1,
+   "designs": 50,
+   "failed": 0,
+   "ok": 1,
+   "pending": 49
+  },
+  "rtlopt": {
+   "dc_seconds": 55.3,
+   "designs": 40,
+   "failed": 0,
+   "ok": 1,
+   "pending": 39
+  },
+  "rtlrewriter": {
+   "dc_seconds": 0.0,
+   "designs": 72,
+   "failed": 0,
+   "ok": 0,
+   "pending": 72
+  }
+ }
+}

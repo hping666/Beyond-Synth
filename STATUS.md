@@ -1,20 +1,23 @@
 # STATUS.md — current state (read first at the start of every session; update before the end)
 
-Last updated: 2026-09-12 · Phase 0 complete, STOP G0 (reports/phase0.md)
+Last updated: 2026-09-12 · Phase 1 in progress (1.1 done, 1.2 trial running)
 
 ## Current phase
 
-Phase: 1 (see docs/PLAN.md); Phase 0 closed at G0 on 2026-09-12
-Current task: Phase 0 complete (tasks 0.0–0.8), STOP G0. Summary of the components: 0.3 guard hook (125 tests); 0.4 job queue (`src/jobqueue/`, CLIs in `scripts/queue/`, `scripts/status.py`; 11 tests); 0.5 evaluation service `src/eval/`: project-owned DC template (`templates/dc_eval.tcl`, step-checked, SDC markers, `set_host_options -max_cores 4`), `dc.py` driver, `parse.py`, `sdc.py` (one OpenSTA-native SDC convention, DC copy rewritten and unit-scaled), `yosys.py` (Y / O0–O2), `pt.py` (H4 via flow/sta.py + power.py), `knee.py`, `service.py` (content-addressed `results/raw/<design>/<config>/<hash>/`, cache, `-rN` reruns, ingest), `src/db/ingest.py`, queue runner `src/eval/run_dc.py`. Measured on RTLLM accu (2.0 ns nangate45, 0.5 ns asap7, 5.0 ns sky130hd): all 14 configurations ok (E1–E4, E2r/E2t/E2g, H1, H2a, H2b, H3 `-spg` in topographical mode, H5, Y, H4); E4 `-gate_clock` works (Power Compiler feature present: 1 ICG, 12/13 registers gated); two E4 runs bit-identical (area, WNS, TNS, histogram, critical path); reference artifacts in `tests/fixtures/rtllm_accu/`. Next: 0.6 equivalence stack.
-Stopped at: G0 closed; Phase 1 not started. Daemon stopped; start it with `.venv/bin/python scripts/queue/daemon.py start` before submitting real jobs.
-0.6 V4: `src/equiv/dpv.py` (project-owned vcf command line: `-batch`, system terminfo, bash-as-/bin/sh namespace, `solveNB`/`proofwait`, lemma per output): multi_8bit rewrite proven / bug falsified in ~50 s each (`tests/test_dpv_eda.py`); the stack runs V4 on combinational modules after an inconclusive SEQ. 0.7: lock-step VCD → vcd2saif → DC `read_saif` 0.0405 mW vs PrimePower (same SAIF) 0.0373 mW vs DC default toggles 0.1081 mW (`tests/test_power_eda.py`). 0.8: no license text on the machine → `unclear` (DECISIONS).
-0.6 so far: `src/equiv/` = ports.py (Yosys JSON interface check, clock/reset inference), rename.py (candidate module suffix `__cand`), harness.py (Verilog-2001 lock-step harness, VCS in a bash-as-/bin/sh mount namespace, trace comparison with constant latency offsets, VCD of both instances, testbench runner), seq.py (VC Formal SEQ via flow/vcf.py, single worker), saif.py (vcd2saif), stack.py (V1→V2→V3 orchestration, verdicts). Bidirectional EDA tests pass on 2026-09-12 (`tests/test_equiv_eda.py`: accu renaming perturbation identical + proven in ~30 s; injected-bug mutant sim_fail + falsified; width change rejected at V1). New trap #28 appended to eda-knowledge (VCS under dash).
+Phase: 1 (docs/PLAN.md Phase 1 — design sets and constraints); Phase 0 closed at G0 on 2026-09-12
+Current task: 1.2 E4 trial synthesis of all 265 staged designs running through the queue daemon (submitted 2026-09-12 14:42, 12 concurrent DC runs, ~55 s per small design); next: collect, then 1.3 knee sweeps.
+Done on 2026-09-12 (Phase 1 session):
+- 1.1 sources located and pinned (config `design_sets.sources`, URL + commit + license): RTLLM v2.0 (local checkout /home/hping/RTLLM, MIT), Dr.RTL 20 designs (public repo hkust-zhiyao/DR_RTL, no license file), RTL-OPT (the paper's anonymous repository has expired → the authors' public release hkust-zhiyao/RTL-OPT, MIT, 40 pairs instead of the proposal's 36), CktEvo 10 repositories (cure-lab/cktevo), RTLRewriter-Bench (yaoxufeng); clones in data/sources/ (gitignored). `scripts/stage_designs.py` stages every design into data/designs/<suite>/<name>/ with design.json (top, clocks, reset, files, tb, reference, provenance, sha256): rtllm 50, drrtl 20, rtlopt 40, cktevo 83 (module pool), rtlrewriter 72 (54 short cases + 18 long module pairs) = 265; per suite SOURCE.md / index.json (cktevo: POOL.json with every module and exclusion reason). RTL copies are gitignored (licenses), metadata is in git.
+- 1.2 inventory (`scripts/inventory.py` → design.json, designs table, reports/data/phase1_inventory.json): Yosys probe (`proc; flatten`) identifies clock ports by flip-flop use and async resets with polarity; 13 multi-clock designs (tag `multi_clock`: excluded from sweeps and sets), 15 designs Yosys cannot parse (DC decides synthesizability), 3 SystemVerilog-only; RTLLM tops renamed to the names the testbenches instantiate.
+- Rule-3 gap closed: `evaluate()` refuses hidden configurations unless recorded through the hidden database and writes their raw dirs under the hidden tree; the 23 Phase 0 smoke rows / 27 raw dirs of H1–H5 were moved by `scripts/hidden_worker.py --migrate-phase0`. New visible Phase-1-only knee configurations `K_asap7` / `K_sky130hd` (E4 command on the hidden libraries, original designs only). `queue.dc_concurrency: 12` (seat cap unchanged). Multi-clock SDC (one clock per port). Collector `scripts/phase1_collect.py`, report generator `scripts/report_phase.py phase1`.
+- Tests: 199 offline passed, 14 EDA skipped (`pytest tests/`).
+Stopped at: trial running (daemon pid in results/queue/daemon.pid, log results/queue/daemon.log). When it drains: `scripts/phase1_collect.py trial` → `scripts/report_phase.py phase1` → `scripts/phase1_jobs.py knee --only-e4-ok --submit` (see next steps for the suite scope).
 Next steps (by priority):
-1. Phase 1.1: locate and download the design sets (Dr.RTL 20, RTL-OPT 36 pairs, CktEvo modules, RTLRewriter 20 pairs + 12 samples; RTLLM v2.0 is local at /home/hping/RTLLM), record source / commit / license under `data/designs/<suite>/`
-2. Phase 1.2: inventory (loc, ports, testbench, SDC, canonical top name for RTLLM `verified_*`), E4 trial synthesis through the queue, synthesizability and failure reasons; CktEvo module extraction
-3. Phase 1.3–1.5: knee-point sweeps (7 periods × E4 × 3 libraries) through the queue, `designs` table, dev/held split in config, `cktevo_sky130` tags, `reports/phase1.md`
-Engineering backlog (no gate): SAIF coverage parsing from `report_saif -hier`, queue runners for `pt` / `yosys` kinds, `src/db/query.py`, `scripts/snapshot.py`, `scripts/db_check.py`, SEQ timeout → inconclusive test on a large design.
-Open items from 0.5: RTL-line mapping of the critical path is not yet implemented (records carry pin/cell names of the path; PROPOSAL §4.9 borrows CktEvo/Dr.RTL's path-to-RTL mapping in Phase 3); `results/raw` retention policy still to be decided (each DC job dir ≈ 1–2 MB incl. dc_work).
+1. Collect the trial: synthesizable counts and failure reasons per suite (RTLLM N), fix stageable failures (e.g. missing includes), rerun; select the CktEvo set (30 of the pool, ≤5 per repository, round-robin by size; `scripts/phase1_sets.py cktevo`)
+2. 1.3 knee sweeps: rtllm / drrtl / rtlopt / cktevo set on all three libraries, rtlrewriter (calibration only) on Nangate45 only; `scripts/phase1_collect.py knee`; spot-check 5 curves by hand in reports/phase1.md
+3. 1.4 dev / held split (20 RTLLM dev designs, seeded stratified sample; `scripts/phase1_sets.py split` writes the lists into config), 1.5 `cktevo_sky130` tags (8), reports/phase1.md, STATUS, commit → Phase 2 (noise floor)
+Engineering backlog (no gate): SAIF coverage parsing from `report_saif -hier`, queue runners for `pt` / `yosys` kinds, `src/db/query.py`, `scripts/snapshot.py`, `scripts/db_check.py`, SEQ timeout → inconclusive test on a large design, `tests/test_isolation.py` static scan (spec 06), hidden_worker certification loop (Phase 5), Yosys probe timeout on rtlrewriter gemm (300 s), RTL-line mapping of the critical path (PROPOSAL §4.9, Phase 3).
+Open items from 0.5: RTL-line mapping of the critical path is not yet implemented (records carry pin/cell names of the path); `results/raw` retention policy decided (prune scratch after ingest).
 
 ## Pending STOP gates
 
@@ -43,11 +46,11 @@ Open items from 0.5: RTL-line mapping of the critical path is not yet implemente
 
 | Suite | Source URL | Count | Synthesizable under DC E4 | With testbench | dev / held split | Notes |
 |---|---|---|---|---|---|---|
-| Dr.RTL 20 | | | | | | |
-| RTL-OPT 36 pairs | | | | | | |
-| CktEvo modules | | | | | | |
-| RTLLM v2.0 | | | | | | |
-| RTLRewriter 20 pairs + 12 LLM samples | | | | | | |
+| Dr.RTL 20 | https://github.com/hkust-zhiyao/DR_RTL @ 62b95a57 (no license file) | 20 | trial running (2026-09-12) | 2 (DSP, LSTM) | TBD (held) | FIFO has two clocks (excluded); LSTM is combinational; aes is SystemVerilog |
+| RTL-OPT 40 pairs | https://github.com/hkust-zhiyao/RTL-OPT @ 25e4bbe0 (MIT; anonymous repo of the paper expired) | 40 (start = suboptimal, reference = `_ref`) | trial running | 0 | TBD (held) | 29 combinational; mux_encode needs SystemVerilog (unpacked array port; Yosys cannot read it) |
+| CktEvo modules | https://github.com/cure-lab/cktevo @ 2f1abe75 (OpenCores headers) | pool 83 → set of 30 (PLAN 1.5) | trial running | 0 | TBD (held) | 11 multi-clock modules; 6 Yosys failures (risc `$time`, simple_cpu Yosys crash) |
+| RTLLM v2.0 | https://github.com/hkust-zhiyao/RTLLM @ 41b26896 (MIT), local /home/hping/RTLLM | 50 | trial running | 50 | TBD (dev = 20) | tops renamed to the testbench names; asyn_fifo two clocks; RAM / float_multi / synchronizer fail in Yosys |
+| RTLRewriter 54 short + 18 long | https://github.com/yaoxufeng/RTLRewriter-Bench @ 96639fe6 (no license file) | 72 (roles: original / expert / tool / llm) | trial running | 2 | calibration only | file roles by rule (DECISIONS 2026-09-12); 6 Yosys failures |
 
 ## Budget usage
 

@@ -18,6 +18,7 @@ Responsibility: given (RTL, configuration name, constraint, library), produce on
 | H3 | DC | E4 + `-spg` in topographical mode, `compile_timing_high_effort` enabled | Nangate45 + Milkyway | Φ_main | hidden: physical-aware full effort |
 | H4 | PT / PrimePower | read the E4 netlist; `report_timing`; PrimePower reads the same SAIF | Nangate45 | Φ_main | hidden: signoff |
 | H5 | DC | `compile_ultra -no_autoungroup -gate_clock` (no retime) | Nangate45 | Φ_main | hidden: production-representative configuration |
+| K_asap7 / K_sky130hd | DC | E4 command on ASAP7 / sky130hd | ASAP7 / sky130hd | knee sweep periods | Phase 1 only: knee sweeps of the original designs on the hidden libraries (never candidates or perturbations; DECISIONS 2026-09-12), records stay visible so that Φ_main(lib) can be derived without reading the hidden DB |
 | Y | Yosys + OpenSTA | `synth -top; abc -liberty; stat`; OpenSTA with the same SDC | Nangate45 | Φ_main | reference caliber (literature) |
 | Ycoevo | Yosys + OpenSTA | COEVO's exact script (`flatten; opt -full; ...`), zero IO delays, `set_max_delay` in→out | Nangate45 | Φ_main | supplementary Exp1 column |
 | O0/O1/O2 | Yosys/ABC | O0 = Y; O1 = `synth -flatten` + `opt -full` + `share -aggressive`; O2 = O1 + heavy ABC script (`resyn2` rounds / `dch` / `&deepsyn`) | Nangate45 | Φ_main | supplementary: open-source ladder |
@@ -43,6 +44,7 @@ For each original design D and each library: under E4, sweep `config: knee.perio
 - candidate set = periods with WNS ≥ −knee.slack_tol × T;
 - among them take the tightest T with area(T) ≤ (1 + knee.area_tol) × area(T_loosest);
 - if the candidate set is empty, take the T with minimum TNS and set `knee_fallback = true`.
+- Configurations per library: `knee.configs` (E4 on Nangate45, K_asap7 / K_sky130hd on the hidden libraries); designs tagged `multi_clock` (two or more clock ports found by use in the Phase 1 inventory) are trial-synthesized with one clock per port at the same period (`src/eval/sdc.py`: clk, clk_2, ...) but get no knee sweep and enter no search set (DECISIONS 2026-09-12).
 Output `designs.phi_main_ns[lib]` and the whole curve (`knee_table_json`); attach the curves to the report. All candidates inherit the Φ_main of their D.
 
 ## 4. Power path

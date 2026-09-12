@@ -2800,8 +2800,8 @@
    "out_bits": 152,
    "path": "data/designs/drrtl/DSP",
    "ports_hash": "75f479117645b783",
-   "rst_port": null,
-   "rst_sense": null,
+   "rst_port": "rstA",
+   "rst_sense": "high",
    "sdc_available": 0,
    "source_commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
    "source_url": "https://github.com/hkust-zhiyao/DR_RTL",
@@ -2860,8 +2860,8 @@
    "out_bits": 32,
    "path": "data/designs/drrtl/LSTM",
    "ports_hash": "526b75e98d016075",
-   "rst_port": null,
-   "rst_sense": null,
+   "rst_port": "rst",
+   "rst_sense": "high",
    "sdc_available": 0,
    "source_commit": "62b95a57223e8fb187d8b8ec1dcb3d193ef20c6b",
    "source_url": "https://github.com/hkust-zhiyao/DR_RTL",
@@ -4362,6 +4362,7 @@
    "sverilog": true,
    "tags": [
     "rtllm",
+    "sverilog_only",
     "no_clock"
    ],
    "tb_available": 1,
@@ -6144,15 +6145,15 @@
    ],
    "design_id": "rtlrewriter_algorithm__gemm",
    "flags": [],
-   "in_bits": 35,
+   "in_bits": null,
    "license": "unspecified (no LICENSE file in the repository)",
    "loc": 51,
-   "n_inputs": 5,
-   "n_outputs": 2,
+   "n_inputs": null,
+   "n_outputs": null,
    "name": "algorithm__gemm",
-   "out_bits": 17,
+   "out_bits": null,
    "path": "data/designs/rtlrewriter/algorithm__gemm",
-   "ports_hash": "27ebcf50c0e0d6b3",
+   "ports_hash": null,
    "rst_port": "reset",
    "rst_sense": "high",
    "sdc_available": 0,
@@ -6164,12 +6165,13 @@
     "rtlrewriter",
     "short",
     "algorithm",
-    "calibration_only"
+    "calibration_only",
+    "yosys_failed"
    ],
    "tb_available": 0,
    "top": "gemm",
-   "yosys_error": null,
-   "yosys_ok": 1
+   "yosys_error": "TimeoutExpired: Command '['/home/hping/OpenROAD-flow-scripts/tools/install/yosys/bin/yosys', '-q', '-p', 'read_verilog -sv  /home/hping/Beyond-Synth/data/designs/rtlrewriter/algorithm__gemm/rtl/gemm_redundancy.v; hierarchy -top gemm; proc; flatten; write_json /tmp/bs_inventory_o6n4pqlu/rtlrewriter_algorithm__gemm/design.json']' timed out after 300 seconds",
+   "yosys_ok": 0
   },
   {
    "clk_ports": [
@@ -8504,8 +8506,8 @@
    "yosys_ok": 1
   }
  ],
- "generated_at": "2026-09-12T14:26:39",
- "git_sha": "056670e4d888",
+ "generated_at": "2026-09-12T14:39:13",
+ "git_sha": "38efaf41e587",
  "per_suite": {
   "cktevo": {
    "designs": 83,
@@ -8555,7 +8557,7 @@
    "no_clock": 42,
    "sverilog": 0,
    "tb": 2,
-   "yosys_ok": 67
+   "yosys_ok": 66
   }
  }
 }
