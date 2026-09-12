@@ -1,0 +1,25 @@
+# O2 heavy ABC script (config: configs.O2). Deterministic: no randomized commands.
+# Several resyn2 rounds followed by choice-based mapping (dch) and delay-oriented mapping.
+strash
+balance
+rewrite
+refactor
+balance
+rewrite
+rewrite -z
+balance
+refactor -z
+rewrite -z
+balance
+balance
+rewrite
+refactor
+balance
+rewrite
+rewrite -z
+balance
+refactor -z
+rewrite -z
+balance
+dch -f
+map -a

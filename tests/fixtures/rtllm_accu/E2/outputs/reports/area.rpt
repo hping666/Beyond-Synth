@@ -1,0 +1,30 @@
+ 
+****************************************
+Report : area
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:43:29 2026
+****************************************
+
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db)
+
+Number of ports:                           22
+Number of nets:                            87
+Number of cells:                           60
+Number of combinational cells:             46
+Number of sequential cells:                13
+Number of macros/black boxes:               0
+Number of buf/inv:                          7
+Number of references:                      15
+
+Combinational area:                 69.692001
+Buf/Inv area:                        3.724000
+Noncombinational area:              69.160002
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                   138.852003
+Total area:                 undefined
+1

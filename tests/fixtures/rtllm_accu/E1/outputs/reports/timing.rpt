@@ -1,0 +1,502 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -input_pins
+        -max_paths 10
+        -transition_time
+        -capacitance
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:42:37 2026
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[9]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                Cap     Trans      Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                               0.000000   0.000000
+  clock network delay (ideal)                         0.000000   0.000000
+  input external delay                                0.400000   0.400000 f
+  data_in[0] (in)                 5.676745  0.009507  0.010421   0.410421 f
+  add_57/B[0] (verified_accu_DW01_add_0)              0.000000   0.410421 f
+  add_57/U5/A1 (AND2_X1)                    0.009507  0.009671   0.420092 f
+  add_57/U5/ZN (AND2_X1)          2.974493  0.007423  0.031267   0.451359 f
+  add_57/U1_1/CI (FA_X1)                    0.007423  0.018548   0.469907 f
+  add_57/U1_1/CO (FA_X1)          2.974493  0.014912  0.069303   0.539210 f
+  add_57/U1_2/CI (FA_X1)                    0.014912  0.018548   0.557758 f
+  add_57/U1_2/CO (FA_X1)          2.974493  0.014912  0.072095   0.629853 f
+  add_57/U1_3/CI (FA_X1)                    0.014912  0.018548   0.648401 f
+  add_57/U1_3/CO (FA_X1)          2.974493  0.014912  0.072095   0.720496 f
+  add_57/U1_4/CI (FA_X1)                    0.014912  0.018548   0.739044 f
+  add_57/U1_4/CO (FA_X1)          2.974493  0.014912  0.072095   0.811140 f
+  add_57/U1_5/CI (FA_X1)                    0.014912  0.018548   0.829688 f
+  add_57/U1_5/CO (FA_X1)          2.974493  0.014912  0.072095   0.901783 f
+  add_57/U1_6/CI (FA_X1)                    0.014912  0.018548   0.920331 f
+  add_57/U1_6/CO (FA_X1)          2.974493  0.014912  0.072095   0.992426 f
+  add_57/U1_7/CI (FA_X1)                    0.014912  0.018548   1.010975 f
+  add_57/U1_7/CO (FA_X1)          4.004422  0.016492  0.074888   1.085863 f
+  add_57/U4/A2 (AND2_X1)                    0.016492  0.008748   1.094611 f
+  add_57/U4/ZN (AND2_X1)          2.721193  0.007182  0.036748   1.131358 f
+  add_57/U1/B (XOR2_X1)                     0.007182  0.016969   1.148327 f
+  add_57/U1/Z (XOR2_X1)           1.813578  0.011388  0.054467   1.202794 f
+  add_57/SUM[9] (verified_accu_DW01_add_0)            0.000000   1.202794 f
+  U37/A1 (AOI22_X1)                         0.011388  0.011309   1.214103 f
+  U37/ZN (AOI22_X1)               2.009970  0.027218  0.033533   1.247635 r
+  U36/A (INV_X1)                            0.027218  0.012534   1.260169 r
+  U36/ZN (INV_X1)                 1.362471  0.007365  0.008453   1.268622 f
+  data_out_reg[9]/D (DFFR_X1)               0.007365  0.008496   1.277118 f
+  data arrival time                                              1.277118
+
+  clock clk (rise edge)                               2.000000   2.000000
+  clock network delay (ideal)                         0.000000   2.000000
+  data_out_reg[9]/CK (DFFR_X1)                        0.000000   2.000000 r
+  library setup time                                  -0.040038  1.959962
+  data required time                                             1.959962
+  --------------------------------------------------------------------------
+  data required time                                             1.959962
+  data arrival time                                              -1.277118
+  --------------------------------------------------------------------------
+  slack (MET)                                                    0.682844
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[8]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                Cap     Trans      Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                               0.000000   0.000000
+  clock network delay (ideal)                         0.000000   0.000000
+  input external delay                                0.400000   0.400000 f
+  data_in[0] (in)                 5.676745  0.009507  0.010421   0.410421 f
+  add_57/B[0] (verified_accu_DW01_add_0)              0.000000   0.410421 f
+  add_57/U5/A1 (AND2_X1)                    0.009507  0.009671   0.420092 f
+  add_57/U5/ZN (AND2_X1)          2.974493  0.007423  0.031267   0.451359 f
+  add_57/U1_1/CI (FA_X1)                    0.007423  0.018548   0.469907 f
+  add_57/U1_1/CO (FA_X1)          2.974493  0.014912  0.069303   0.539210 f
+  add_57/U1_2/CI (FA_X1)                    0.014912  0.018548   0.557758 f
+  add_57/U1_2/CO (FA_X1)          2.974493  0.014912  0.072095   0.629853 f
+  add_57/U1_3/CI (FA_X1)                    0.014912  0.018548   0.648401 f
+  add_57/U1_3/CO (FA_X1)          2.974493  0.014912  0.072095   0.720496 f
+  add_57/U1_4/CI (FA_X1)                    0.014912  0.018548   0.739044 f
+  add_57/U1_4/CO (FA_X1)          2.974493  0.014912  0.072095   0.811140 f
+  add_57/U1_5/CI (FA_X1)                    0.014912  0.018548   0.829688 f
+  add_57/U1_5/CO (FA_X1)          2.974493  0.014912  0.072095   0.901783 f
+  add_57/U1_6/CI (FA_X1)                    0.014912  0.018548   0.920331 f
+  add_57/U1_6/CO (FA_X1)          2.974493  0.014912  0.072095   0.992426 f
+  add_57/U1_7/CI (FA_X1)                    0.014912  0.018548   1.010975 f
+  add_57/U1_7/CO (FA_X1)          4.004422  0.016492  0.074888   1.085863 f
+  add_57/U2/B (XOR2_X1)                     0.016492  0.019422   1.105285 f
+  add_57/U2/Z (XOR2_X1)           1.813578  0.011389  0.058368   1.163652 f
+  add_57/SUM[8] (verified_accu_DW01_add_0)            0.000000   1.163652 f
+  U39/A1 (AOI22_X1)                         0.011389  0.011309   1.174961 f
+  U39/ZN (AOI22_X1)               2.009970  0.027218  0.033533   1.208494 r
+  U38/A (INV_X1)                            0.027218  0.012534   1.221028 r
+  U38/ZN (INV_X1)                 1.362471  0.007365  0.008453   1.229481 f
+  data_out_reg[8]/D (DFFR_X1)               0.007365  0.008496   1.237977 f
+  data arrival time                                              1.237977
+
+  clock clk (rise edge)                               2.000000   2.000000
+  clock network delay (ideal)                         0.000000   2.000000
+  data_out_reg[8]/CK (DFFR_X1)                        0.000000   2.000000 r
+  library setup time                                  -0.040038  1.959962
+  data required time                                             1.959962
+  --------------------------------------------------------------------------
+  data required time                                             1.959962
+  data arrival time                                              -1.237977
+  --------------------------------------------------------------------------
+  slack (MET)                                                    0.721985
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[7]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                Cap     Trans      Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                               0.000000   0.000000
+  clock network delay (ideal)                         0.000000   0.000000
+  input external delay                                0.400000   0.400000 f
+  data_in[0] (in)                 5.676745  0.009507  0.010421   0.410421 f
+  add_57/B[0] (verified_accu_DW01_add_0)              0.000000   0.410421 f
+  add_57/U5/A1 (AND2_X1)                    0.009507  0.009671   0.420092 f
+  add_57/U5/ZN (AND2_X1)          2.974493  0.007423  0.031267   0.451359 f
+  add_57/U1_1/CI (FA_X1)                    0.007423  0.018548   0.469907 f
+  add_57/U1_1/CO (FA_X1)          2.974493  0.014912  0.069303   0.539210 f
+  add_57/U1_2/CI (FA_X1)                    0.014912  0.018548   0.557758 f
+  add_57/U1_2/CO (FA_X1)          2.974493  0.014912  0.072095   0.629853 f
+  add_57/U1_3/CI (FA_X1)                    0.014912  0.018548   0.648401 f
+  add_57/U1_3/CO (FA_X1)          2.974493  0.014912  0.072095   0.720496 f
+  add_57/U1_4/CI (FA_X1)                    0.014912  0.018548   0.739044 f
+  add_57/U1_4/CO (FA_X1)          2.974493  0.014912  0.072095   0.811140 f
+  add_57/U1_5/CI (FA_X1)                    0.014912  0.018548   0.829688 f
+  add_57/U1_5/CO (FA_X1)          2.974493  0.014912  0.072095   0.901783 f
+  add_57/U1_6/CI (FA_X1)                    0.014912  0.018548   0.920331 f
+  add_57/U1_6/CO (FA_X1)          2.974493  0.014912  0.072095   0.992426 f
+  add_57/U1_7/CI (FA_X1)                    0.014912  0.018548   1.010975 f
+  add_57/U1_7/S (FA_X1)           1.842636  0.015006  0.087263   1.098237 f
+  add_57/SUM[7] (verified_accu_DW01_add_0)            0.000000   1.098237 f
+  U41/C1 (AOI222_X1)                        0.015006  0.011490   1.109728 f
+  U41/ZN (AOI222_X1)              2.009970  0.049328  0.089184   1.198912 r
+  U40/A (INV_X1)                            0.049328  0.012534   1.211445 r
+  U40/ZN (INV_X1)                 1.362471  0.011025  0.008385   1.219830 f
+  data_out_reg[7]/D (DFFR_X1)               0.011025  0.008496   1.228326 f
+  data arrival time                                              1.228326
+
+  clock clk (rise edge)                               2.000000   2.000000
+  clock network delay (ideal)                         0.000000   2.000000
+  data_out_reg[7]/CK (DFFR_X1)                        0.000000   2.000000 r
+  library setup time                                  -0.041512  1.958488
+  data required time                                             1.958488
+  --------------------------------------------------------------------------
+  data required time                                             1.958488
+  data arrival time                                              -1.228326
+  --------------------------------------------------------------------------
+  slack (MET)                                                    0.730162
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[6]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                Cap     Trans      Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                               0.000000   0.000000
+  clock network delay (ideal)                         0.000000   0.000000
+  input external delay                                0.400000   0.400000 f
+  data_in[0] (in)                 5.676745  0.009507  0.010421   0.410421 f
+  add_57/B[0] (verified_accu_DW01_add_0)              0.000000   0.410421 f
+  add_57/U5/A1 (AND2_X1)                    0.009507  0.009671   0.420092 f
+  add_57/U5/ZN (AND2_X1)          2.974493  0.007423  0.031267   0.451359 f
+  add_57/U1_1/CI (FA_X1)                    0.007423  0.018548   0.469907 f
+  add_57/U1_1/CO (FA_X1)          2.974493  0.014912  0.069303   0.539210 f
+  add_57/U1_2/CI (FA_X1)                    0.014912  0.018548   0.557758 f
+  add_57/U1_2/CO (FA_X1)          2.974493  0.014912  0.072095   0.629853 f
+  add_57/U1_3/CI (FA_X1)                    0.014912  0.018548   0.648401 f
+  add_57/U1_3/CO (FA_X1)          2.974493  0.014912  0.072095   0.720496 f
+  add_57/U1_4/CI (FA_X1)                    0.014912  0.018548   0.739044 f
+  add_57/U1_4/CO (FA_X1)          2.974493  0.014912  0.072095   0.811140 f
+  add_57/U1_5/CI (FA_X1)                    0.014912  0.018548   0.829688 f
+  add_57/U1_5/CO (FA_X1)          2.974493  0.014912  0.072095   0.901783 f
+  add_57/U1_6/CI (FA_X1)                    0.014912  0.018548   0.920331 f
+  add_57/U1_6/S (FA_X1)           1.842636  0.015006  0.087263   1.007594 f
+  add_57/SUM[6] (verified_accu_DW01_add_0)            0.000000   1.007594 f
+  U43/C1 (AOI222_X1)                        0.015006  0.011490   1.019084 f
+  U43/ZN (AOI222_X1)              2.009970  0.049328  0.089184   1.108268 r
+  U42/A (INV_X1)                            0.049328  0.012534   1.120802 r
+  U42/ZN (INV_X1)                 1.362471  0.011025  0.008385   1.129187 f
+  data_out_reg[6]/D (DFFR_X1)               0.011025  0.008496   1.137683 f
+  data arrival time                                              1.137683
+
+  clock clk (rise edge)                               2.000000   2.000000
+  clock network delay (ideal)                         0.000000   2.000000
+  data_out_reg[6]/CK (DFFR_X1)                        0.000000   2.000000 r
+  library setup time                                  -0.041512  1.958488
+  data required time                                             1.958488
+  --------------------------------------------------------------------------
+  data required time                                             1.958488
+  data arrival time                                              -1.137683
+  --------------------------------------------------------------------------
+  slack (MET)                                                    0.820806
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[5]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                Cap     Trans      Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                               0.000000   0.000000
+  clock network delay (ideal)                         0.000000   0.000000
+  input external delay                                0.400000   0.400000 f
+  data_in[0] (in)                 5.676745  0.009507  0.010421   0.410421 f
+  add_57/B[0] (verified_accu_DW01_add_0)              0.000000   0.410421 f
+  add_57/U5/A1 (AND2_X1)                    0.009507  0.009671   0.420092 f
+  add_57/U5/ZN (AND2_X1)          2.974493  0.007423  0.031267   0.451359 f
+  add_57/U1_1/CI (FA_X1)                    0.007423  0.018548   0.469907 f
+  add_57/U1_1/CO (FA_X1)          2.974493  0.014912  0.069303   0.539210 f
+  add_57/U1_2/CI (FA_X1)                    0.014912  0.018548   0.557758 f
+  add_57/U1_2/CO (FA_X1)          2.974493  0.014912  0.072095   0.629853 f
+  add_57/U1_3/CI (FA_X1)                    0.014912  0.018548   0.648401 f
+  add_57/U1_3/CO (FA_X1)          2.974493  0.014912  0.072095   0.720496 f
+  add_57/U1_4/CI (FA_X1)                    0.014912  0.018548   0.739044 f
+  add_57/U1_4/CO (FA_X1)          2.974493  0.014912  0.072095   0.811140 f
+  add_57/U1_5/CI (FA_X1)                    0.014912  0.018548   0.829688 f
+  add_57/U1_5/S (FA_X1)           1.842636  0.015006  0.087263   0.916951 f
+  add_57/SUM[5] (verified_accu_DW01_add_0)            0.000000   0.916951 f
+  U45/C1 (AOI222_X1)                        0.015006  0.011490   0.928441 f
+  U45/ZN (AOI222_X1)              2.009970  0.049328  0.089184   1.017625 r
+  U44/A (INV_X1)                            0.049328  0.012534   1.030158 r
+  U44/ZN (INV_X1)                 1.362471  0.011025  0.008385   1.038543 f
+  data_out_reg[5]/D (DFFR_X1)               0.011025  0.008496   1.047039 f
+  data arrival time                                              1.047039
+
+  clock clk (rise edge)                               2.000000   2.000000
+  clock network delay (ideal)                         0.000000   2.000000
+  data_out_reg[5]/CK (DFFR_X1)                        0.000000   2.000000 r
+  library setup time                                  -0.041512  1.958488
+  data required time                                             1.958488
+  --------------------------------------------------------------------------
+  data required time                                             1.958488
+  data arrival time                                              -1.047039
+  --------------------------------------------------------------------------
+  slack (MET)                                                    0.911449
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[4]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                                Cap     Trans      Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                               0.000000   0.000000
+  clock network delay (ideal)                         0.000000   0.000000
+  input external delay                                0.400000   0.400000 f
+  data_in[0] (in)                 5.676745  0.009507  0.010421   0.410421 f
+  add_57/B[0] (verified_accu_DW01_add_0)              0.000000   0.410421 f
+  add_57/U5/A1 (AND2_X1)                    0.009507  0.009671   0.420092 f
+  add_57/U5/ZN (AND2_X1)          2.974493  0.007423  0.031267   0.451359 f
+  add_57/U1_1/CI (FA_X1)                    0.007423  0.018548   0.469907 f
+  add_57/U1_1/CO (FA_X1)          2.974493  0.014912  0.069303   0.539210 f
+  add_57/U1_2/CI (FA_X1)                    0.014912  0.018548   0.557758 f
+  add_57/U1_2/CO (FA_X1)          2.974493  0.014912  0.072095   0.629853 f
+  add_57/U1_3/CI (FA_X1)                    0.014912  0.018548   0.648401 f
+  add_57/U1_3/CO (FA_X1)          2.974493  0.014912  0.072095   0.720496 f
+  add_57/U1_4/CI (FA_X1)                    0.014912  0.018548   0.739044 f
+  add_57/U1_4/S (FA_X1)           1.842636  0.015006  0.087263   0.826307 f
+  add_57/SUM[4] (verified_accu_DW01_add_0)            0.000000   0.826307 f
+  U47/C1 (AOI222_X1)                        0.015006  0.011490   0.837797 f
+  U47/ZN (AOI222_X1)              2.009970  0.049328  0.089184   0.926981 r
+  U46/A (INV_X1)                            0.049328  0.012534   0.939515 r
+  U46/ZN (INV_X1)                 1.362471  0.011025  0.008385   0.947900 f
+  data_out_reg[4]/D (DFFR_X1)               0.011025  0.008496   0.956396 f
+  data arrival time                                              0.956396
+
+  clock clk (rise edge)                               2.000000   2.000000
+  clock network delay (ideal)                         0.000000   2.000000
+  data_out_reg[4]/CK (DFFR_X1)                        0.000000   2.000000 r
+  library setup time                                  -0.041512  1.958488
+  data required time                                             1.958488
+  --------------------------------------------------------------------------
+  data required time                                             1.958488
+  data arrival time                                              -0.956396
+  --------------------------------------------------------------------------
+  slack (MET)                                                    1.002092
+
+
+  Startpoint: valid_in (input port clocked by clk)
+  Endpoint: data_out_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                           Cap     Trans      Incr       Path
+  ---------------------------------------------------------------------
+  clock clk (rise edge)                          0.000000   0.000000
+  clock network delay (ideal)                    0.000000   0.000000
+  input external delay                           0.400000   0.400000 f
+  valid_in (in)              1.873585  0.005852  0.004172   0.404172 f
+  U49/A2 (NOR2_X1)                     0.005852  0.011683   0.415855 f
+  U49/ZN (NOR2_X1)           10.725893 0.057335  0.072860   0.488715 r
+  U48/A3 (NOR3_X2)                     0.057335  0.031708   0.520423 r
+  U48/ZN (NOR3_X2)           19.239685 0.023730  0.036218   0.556641 f
+  U33/A2 (NOR2_X1)                     0.023730  0.019034   0.575675 f
+  U33/ZN (NOR2_X1)           22.520033 0.111958  0.139869   0.715544 r
+  U34/A2 (NOR2_X1)                     0.111958  0.018319   0.733864 r
+  U34/ZN (NOR2_X1)           18.891310 0.042782  0.060427   0.794290 f
+  U57/A2 (AOI222_X1)                   0.042782  0.017489   0.811779 f
+  U57/ZN (AOI222_X1)         2.009970  0.049328  0.076855   0.888634 r
+  U56/A (INV_X1)                       0.049328  0.012534   0.901168 r
+  U56/ZN (INV_X1)            1.362471  0.011025  0.008385   0.909553 f
+  data_out_reg[0]/D (DFFR_X1)          0.011025  0.008496   0.918049 f
+  data arrival time                                         0.918049
+
+  clock clk (rise edge)                          2.000000   2.000000
+  clock network delay (ideal)                    0.000000   2.000000
+  data_out_reg[0]/CK (DFFR_X1)                   0.000000   2.000000 r
+  library setup time                             -0.041512  1.958488
+  data required time                                        1.958488
+  ---------------------------------------------------------------------
+  data required time                                        1.958488
+  data arrival time                                         -0.918049
+  ---------------------------------------------------------------------
+  slack (MET)                                               1.040440
+
+
+  Startpoint: valid_in (input port clocked by clk)
+  Endpoint: data_out_reg[1]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                           Cap     Trans      Incr       Path
+  ---------------------------------------------------------------------
+  clock clk (rise edge)                          0.000000   0.000000
+  clock network delay (ideal)                    0.000000   0.000000
+  input external delay                           0.400000   0.400000 f
+  valid_in (in)              1.873585  0.005852  0.004172   0.404172 f
+  U49/A2 (NOR2_X1)                     0.005852  0.011683   0.415855 f
+  U49/ZN (NOR2_X1)           10.725893 0.057335  0.072860   0.488715 r
+  U48/A3 (NOR3_X2)                     0.057335  0.031708   0.520423 r
+  U48/ZN (NOR3_X2)           19.239685 0.023730  0.036218   0.556641 f
+  U33/A2 (NOR2_X1)                     0.023730  0.019034   0.575675 f
+  U33/ZN (NOR2_X1)           22.520033 0.111958  0.139869   0.715544 r
+  U34/A2 (NOR2_X1)                     0.111958  0.018319   0.733864 r
+  U34/ZN (NOR2_X1)           18.891310 0.042782  0.060427   0.794290 f
+  U55/A2 (AOI222_X1)                   0.042782  0.017489   0.811779 f
+  U55/ZN (AOI222_X1)         2.009970  0.049328  0.076855   0.888634 r
+  U54/A (INV_X1)                       0.049328  0.012534   0.901168 r
+  U54/ZN (INV_X1)            1.362471  0.011025  0.008385   0.909553 f
+  data_out_reg[1]/D (DFFR_X1)          0.011025  0.008496   0.918049 f
+  data arrival time                                         0.918049
+
+  clock clk (rise edge)                          2.000000   2.000000
+  clock network delay (ideal)                    0.000000   2.000000
+  data_out_reg[1]/CK (DFFR_X1)                   0.000000   2.000000 r
+  library setup time                             -0.041512  1.958488
+  data required time                                        1.958488
+  ---------------------------------------------------------------------
+  data required time                                        1.958488
+  data arrival time                                         -0.918049
+  ---------------------------------------------------------------------
+  slack (MET)                                               1.040440
+
+
+  Startpoint: valid_in (input port clocked by clk)
+  Endpoint: data_out_reg[2]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                           Cap     Trans      Incr       Path
+  ---------------------------------------------------------------------
+  clock clk (rise edge)                          0.000000   0.000000
+  clock network delay (ideal)                    0.000000   0.000000
+  input external delay                           0.400000   0.400000 f
+  valid_in (in)              1.873585  0.005852  0.004172   0.404172 f
+  U49/A2 (NOR2_X1)                     0.005852  0.011683   0.415855 f
+  U49/ZN (NOR2_X1)           10.725893 0.057335  0.072860   0.488715 r
+  U48/A3 (NOR3_X2)                     0.057335  0.031708   0.520423 r
+  U48/ZN (NOR3_X2)           19.239685 0.023730  0.036218   0.556641 f
+  U33/A2 (NOR2_X1)                     0.023730  0.019034   0.575675 f
+  U33/ZN (NOR2_X1)           22.520033 0.111958  0.139869   0.715544 r
+  U34/A2 (NOR2_X1)                     0.111958  0.018319   0.733864 r
+  U34/ZN (NOR2_X1)           18.891310 0.042782  0.060427   0.794290 f
+  U53/A2 (AOI222_X1)                   0.042782  0.017489   0.811779 f
+  U53/ZN (AOI222_X1)         2.009970  0.049328  0.076855   0.888634 r
+  U52/A (INV_X1)                       0.049328  0.012534   0.901168 r
+  U52/ZN (INV_X1)            1.362471  0.011025  0.008385   0.909553 f
+  data_out_reg[2]/D (DFFR_X1)          0.011025  0.008496   0.918049 f
+  data arrival time                                         0.918049
+
+  clock clk (rise edge)                          2.000000   2.000000
+  clock network delay (ideal)                    0.000000   2.000000
+  data_out_reg[2]/CK (DFFR_X1)                   0.000000   2.000000 r
+  library setup time                             -0.041512  1.958488
+  data required time                                        1.958488
+  ---------------------------------------------------------------------
+  data required time                                        1.958488
+  data arrival time                                         -0.918049
+  ---------------------------------------------------------------------
+  slack (MET)                                               1.040440
+
+
+  Startpoint: valid_in (input port clocked by clk)
+  Endpoint: data_out_reg[3]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      5K_hvratio_1_1        NangateOpenCellLibrary
+
+  Point                           Cap     Trans      Incr       Path
+  ---------------------------------------------------------------------
+  clock clk (rise edge)                          0.000000   0.000000
+  clock network delay (ideal)                    0.000000   0.000000
+  input external delay                           0.400000   0.400000 f
+  valid_in (in)              1.873585  0.005852  0.004172   0.404172 f
+  U49/A2 (NOR2_X1)                     0.005852  0.011683   0.415855 f
+  U49/ZN (NOR2_X1)           10.725893 0.057335  0.072860   0.488715 r
+  U48/A3 (NOR3_X2)                     0.057335  0.031708   0.520423 r
+  U48/ZN (NOR3_X2)           19.239685 0.023730  0.036218   0.556641 f
+  U33/A2 (NOR2_X1)                     0.023730  0.019034   0.575675 f
+  U33/ZN (NOR2_X1)           22.520033 0.111958  0.139869   0.715544 r
+  U34/A2 (NOR2_X1)                     0.111958  0.018319   0.733864 r
+  U34/ZN (NOR2_X1)           18.891310 0.042782  0.060427   0.794290 f
+  U51/A2 (AOI222_X1)                   0.042782  0.017489   0.811779 f
+  U51/ZN (AOI222_X1)         2.009970  0.049328  0.076855   0.888634 r
+  U50/A (INV_X1)                       0.049328  0.012534   0.901168 r
+  U50/ZN (INV_X1)            1.362471  0.011025  0.008385   0.909553 f
+  data_out_reg[3]/D (DFFR_X1)          0.011025  0.008496   0.918049 f
+  data arrival time                                         0.918049
+
+  clock clk (rise edge)                          2.000000   2.000000
+  clock network delay (ideal)                    0.000000   2.000000
+  data_out_reg[3]/CK (DFFR_X1)                   0.000000   2.000000 r
+  library setup time                             -0.041512  1.958488
+  data required time                                        1.958488
+  ---------------------------------------------------------------------
+  data required time                                        1.958488
+  data arrival time                                         -0.918049
+  ---------------------------------------------------------------------
+  slack (MET)                                               1.040440
+
+
+1

@@ -1,0 +1,480 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -input_pins
+        -max_paths 10
+        -transition_time
+        -capacitance
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:45:25 2026
+****************************************
+
+Operating Conditions: tt_025C_1v80   Library: sky130_fd_sc_hd__tt_025C_1v80
+Wire Load Model Mode: top
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[9]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      Small                 sky130_fd_sc_hd__tt_025C_1v80
+
+  Point                                    Cap     Trans      Incr       Path
+  ------------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.000000   0.000000
+  clock network delay (ideal)                             0.000000   0.000000
+  input external delay                                    1.000000   1.000000 f
+  data_in[0] (in)                     0.009670  0.063886  0.047888   1.047888 f
+  U40/A (sky130_fd_sc_hd__nand2_1)              0.063886  0.002990   1.050879 f
+  U40/Y (sky130_fd_sc_hd__nand2_1)    0.010391  0.110589  0.109645   1.160523 r
+  U45/A1 (sky130_fd_sc_hd__a222oi_1)            0.110589  0.002984   1.163507 r
+  U45/Y (sky130_fd_sc_hd__a222oi_1)   0.004793  0.086538  0.115751   1.279258 f
+  U47/CIN (sky130_fd_sc_hd__fa_1)               0.086538  0.008312   1.287570 f
+  U47/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.384662   1.672232 f
+  U49/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   1.680544 f
+  U49/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.063587 f
+  U51/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.071899 f
+  U51/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.454942 f
+  U53/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.463254 f
+  U53/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.846297 f
+  U55/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.854609 f
+  U55/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   3.237652 f
+  U57/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   3.245963 f
+  U57/COUT (sky130_fd_sc_hd__fa_1)    0.006764  0.092803  0.398993   3.644957 f
+  U25/A (sky130_fd_sc_hd__and2_0)               0.092803  0.002158   3.647115 f
+  U25/X (sky130_fd_sc_hd__and2_0)     0.004968  0.056070  0.164665   3.811780 f
+  U60/A1 (sky130_fd_sc_hd__o21ai_1)             0.056070  0.002944   3.814724 f
+  U60/Y (sky130_fd_sc_hd__o21ai_1)    0.002807  0.100732  0.128363   3.943088 r
+  U61/B1 (sky130_fd_sc_hd__a21oi_1)             0.100732  0.004868   3.947956 r
+  U61/Y (sky130_fd_sc_hd__a21oi_1)    0.002279  0.043760  0.046769   3.994725 f
+  data_out_reg[9]/D (sky130_fd_sc_hd__dfrtp_1)  0.043760  0.003953   3.998677 f
+  data arrival time                                                  3.998677
+
+  clock clk (rise edge)                                   5.000000   5.000000
+  clock network delay (ideal)                             0.000000   5.000000
+  data_out_reg[9]/CLK (sky130_fd_sc_hd__dfrtp_1)          0.000000   5.000000 r
+  library setup time                                      -0.124028  4.875972
+  data required time                                                 4.875972
+  ------------------------------------------------------------------------------
+  data required time                                                 4.875972
+  data arrival time                                                  -3.998677
+  ------------------------------------------------------------------------------
+  slack (MET)                                                        0.877295
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[7]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      Small                 sky130_fd_sc_hd__tt_025C_1v80
+
+  Point                                    Cap     Trans      Incr       Path
+  ------------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.000000   0.000000
+  clock network delay (ideal)                             0.000000   0.000000
+  input external delay                                    1.000000   1.000000 f
+  data_in[0] (in)                     0.009670  0.063886  0.047888   1.047888 f
+  U40/A (sky130_fd_sc_hd__nand2_1)              0.063886  0.002990   1.050879 f
+  U40/Y (sky130_fd_sc_hd__nand2_1)    0.010391  0.110589  0.109645   1.160523 r
+  U45/A1 (sky130_fd_sc_hd__a222oi_1)            0.110589  0.002984   1.163507 r
+  U45/Y (sky130_fd_sc_hd__a222oi_1)   0.004793  0.086538  0.115751   1.279258 f
+  U47/CIN (sky130_fd_sc_hd__fa_1)               0.086538  0.008312   1.287570 f
+  U47/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.384662   1.672232 f
+  U49/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   1.680544 f
+  U49/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.063587 f
+  U51/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.071899 f
+  U51/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.454942 f
+  U53/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.463254 f
+  U53/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.846297 f
+  U55/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.854609 f
+  U55/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   3.237652 f
+  U57/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   3.245963 f
+  U57/SUM (sky130_fd_sc_hd__fa_1)     0.002491  0.074257  0.429334   3.675298 f
+  U56/B2 (sky130_fd_sc_hd__a22o_1)              0.074257  0.004320   3.679618 f
+  U56/X (sky130_fd_sc_hd__a22o_1)     0.002279  0.038498  0.198595   3.878212 f
+  data_out_reg[7]/D (sky130_fd_sc_hd__dfrtp_1)  0.038498  0.003953   3.882165 f
+  data arrival time                                                  3.882165
+
+  clock clk (rise edge)                                   5.000000   5.000000
+  clock network delay (ideal)                             0.000000   5.000000
+  data_out_reg[7]/CLK (sky130_fd_sc_hd__dfrtp_1)          0.000000   5.000000 r
+  library setup time                                      -0.121726  4.878274
+  data required time                                                 4.878274
+  ------------------------------------------------------------------------------
+  data required time                                                 4.878274
+  data arrival time                                                  -3.882165
+  ------------------------------------------------------------------------------
+  slack (MET)                                                        0.996109
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[8]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      Small                 sky130_fd_sc_hd__tt_025C_1v80
+
+  Point                                    Cap     Trans      Incr       Path
+  ------------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.000000   0.000000
+  clock network delay (ideal)                             0.000000   0.000000
+  input external delay                                    1.000000   1.000000 f
+  data_in[0] (in)                     0.009670  0.063886  0.047888   1.047888 f
+  U40/A (sky130_fd_sc_hd__nand2_1)              0.063886  0.002990   1.050879 f
+  U40/Y (sky130_fd_sc_hd__nand2_1)    0.010391  0.110589  0.109645   1.160523 r
+  U45/A1 (sky130_fd_sc_hd__a222oi_1)            0.110589  0.002984   1.163507 r
+  U45/Y (sky130_fd_sc_hd__a222oi_1)   0.004793  0.086538  0.115751   1.279258 f
+  U47/CIN (sky130_fd_sc_hd__fa_1)               0.086538  0.008312   1.287570 f
+  U47/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.384662   1.672232 f
+  U49/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   1.680544 f
+  U49/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.063587 f
+  U51/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.071899 f
+  U51/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.454942 f
+  U53/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.463254 f
+  U53/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.846297 f
+  U55/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.854609 f
+  U55/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   3.237652 f
+  U57/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   3.245963 f
+  U57/COUT (sky130_fd_sc_hd__fa_1)    0.006764  0.092803  0.398993   3.644957 f
+  U58/A1 (sky130_fd_sc_hd__o21ai_1)             0.092803  0.002965   3.647922 f
+  U58/Y (sky130_fd_sc_hd__o21ai_1)    0.002807  0.100835  0.141941   3.789862 r
+  U59/B1 (sky130_fd_sc_hd__a21oi_1)             0.100835  0.004868   3.794730 r
+  U59/Y (sky130_fd_sc_hd__a21oi_1)    0.002279  0.044079  0.046790   3.841520 f
+  data_out_reg[8]/D (sky130_fd_sc_hd__dfrtp_1)  0.044079  0.003953   3.845472 f
+  data arrival time                                                  3.845472
+
+  clock clk (rise edge)                                   5.000000   5.000000
+  clock network delay (ideal)                             0.000000   5.000000
+  data_out_reg[8]/CLK (sky130_fd_sc_hd__dfrtp_1)          0.000000   5.000000 r
+  library setup time                                      -0.124168  4.875832
+  data required time                                                 4.875832
+  ------------------------------------------------------------------------------
+  data required time                                                 4.875832
+  data arrival time                                                  -3.845472
+  ------------------------------------------------------------------------------
+  slack (MET)                                                        1.030360
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[6]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      Small                 sky130_fd_sc_hd__tt_025C_1v80
+
+  Point                                    Cap     Trans      Incr       Path
+  ------------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.000000   0.000000
+  clock network delay (ideal)                             0.000000   0.000000
+  input external delay                                    1.000000   1.000000 f
+  data_in[0] (in)                     0.009670  0.063886  0.047888   1.047888 f
+  U40/A (sky130_fd_sc_hd__nand2_1)              0.063886  0.002990   1.050879 f
+  U40/Y (sky130_fd_sc_hd__nand2_1)    0.010391  0.110589  0.109645   1.160523 r
+  U45/A1 (sky130_fd_sc_hd__a222oi_1)            0.110589  0.002984   1.163507 r
+  U45/Y (sky130_fd_sc_hd__a222oi_1)   0.004793  0.086538  0.115751   1.279258 f
+  U47/CIN (sky130_fd_sc_hd__fa_1)               0.086538  0.008312   1.287570 f
+  U47/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.384662   1.672232 f
+  U49/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   1.680544 f
+  U49/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.063587 f
+  U51/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.071899 f
+  U51/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.454942 f
+  U53/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.463254 f
+  U53/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.846297 f
+  U55/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.854609 f
+  U55/SUM (sky130_fd_sc_hd__fa_1)     0.002491  0.074257  0.429334   3.283943 f
+  U54/B2 (sky130_fd_sc_hd__a22o_1)              0.074257  0.004320   3.288263 f
+  U54/X (sky130_fd_sc_hd__a22o_1)     0.002279  0.038498  0.198595   3.486858 f
+  data_out_reg[6]/D (sky130_fd_sc_hd__dfrtp_1)  0.038498  0.003953   3.490810 f
+  data arrival time                                                  3.490810
+
+  clock clk (rise edge)                                   5.000000   5.000000
+  clock network delay (ideal)                             0.000000   5.000000
+  data_out_reg[6]/CLK (sky130_fd_sc_hd__dfrtp_1)          0.000000   5.000000 r
+  library setup time                                      -0.121726  4.878274
+  data required time                                                 4.878274
+  ------------------------------------------------------------------------------
+  data required time                                                 4.878274
+  data arrival time                                                  -3.490810
+  ------------------------------------------------------------------------------
+  slack (MET)                                                        1.387464
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[5]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      Small                 sky130_fd_sc_hd__tt_025C_1v80
+
+  Point                                    Cap     Trans      Incr       Path
+  ------------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.000000   0.000000
+  clock network delay (ideal)                             0.000000   0.000000
+  input external delay                                    1.000000   1.000000 f
+  data_in[0] (in)                     0.009670  0.063886  0.047888   1.047888 f
+  U40/A (sky130_fd_sc_hd__nand2_1)              0.063886  0.002990   1.050879 f
+  U40/Y (sky130_fd_sc_hd__nand2_1)    0.010391  0.110589  0.109645   1.160523 r
+  U45/A1 (sky130_fd_sc_hd__a222oi_1)            0.110589  0.002984   1.163507 r
+  U45/Y (sky130_fd_sc_hd__a222oi_1)   0.004793  0.086538  0.115751   1.279258 f
+  U47/CIN (sky130_fd_sc_hd__fa_1)               0.086538  0.008312   1.287570 f
+  U47/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.384662   1.672232 f
+  U49/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   1.680544 f
+  U49/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.063587 f
+  U51/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.071899 f
+  U51/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.454942 f
+  U53/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.463254 f
+  U53/SUM (sky130_fd_sc_hd__fa_1)     0.002491  0.074257  0.429334   2.892588 f
+  U52/B2 (sky130_fd_sc_hd__a22o_1)              0.074257  0.004320   2.896908 f
+  U52/X (sky130_fd_sc_hd__a22o_1)     0.002279  0.038498  0.198595   3.095503 f
+  data_out_reg[5]/D (sky130_fd_sc_hd__dfrtp_1)  0.038498  0.003953   3.099455 f
+  data arrival time                                                  3.099455
+
+  clock clk (rise edge)                                   5.000000   5.000000
+  clock network delay (ideal)                             0.000000   5.000000
+  data_out_reg[5]/CLK (sky130_fd_sc_hd__dfrtp_1)          0.000000   5.000000 r
+  library setup time                                      -0.121726  4.878274
+  data required time                                                 4.878274
+  ------------------------------------------------------------------------------
+  data required time                                                 4.878274
+  data arrival time                                                  -3.099455
+  ------------------------------------------------------------------------------
+  slack (MET)                                                        1.778819
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[4]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      Small                 sky130_fd_sc_hd__tt_025C_1v80
+
+  Point                                    Cap     Trans      Incr       Path
+  ------------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.000000   0.000000
+  clock network delay (ideal)                             0.000000   0.000000
+  input external delay                                    1.000000   1.000000 f
+  data_in[0] (in)                     0.009670  0.063886  0.047888   1.047888 f
+  U40/A (sky130_fd_sc_hd__nand2_1)              0.063886  0.002990   1.050879 f
+  U40/Y (sky130_fd_sc_hd__nand2_1)    0.010391  0.110589  0.109645   1.160523 r
+  U45/A1 (sky130_fd_sc_hd__a222oi_1)            0.110589  0.002984   1.163507 r
+  U45/Y (sky130_fd_sc_hd__a222oi_1)   0.004793  0.086538  0.115751   1.279258 f
+  U47/CIN (sky130_fd_sc_hd__fa_1)               0.086538  0.008312   1.287570 f
+  U47/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.384662   1.672232 f
+  U49/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   1.680544 f
+  U49/COUT (sky130_fd_sc_hd__fa_1)    0.004793  0.082028  0.383043   2.063587 f
+  U51/CIN (sky130_fd_sc_hd__fa_1)               0.082028  0.008312   2.071899 f
+  U51/SUM (sky130_fd_sc_hd__fa_1)     0.002491  0.074257  0.429334   2.501233 f
+  U50/B2 (sky130_fd_sc_hd__a22o_1)              0.074257  0.004320   2.505553 f
+  U50/X (sky130_fd_sc_hd__a22o_1)     0.002279  0.038498  0.198595   2.704148 f
+  data_out_reg[4]/D (sky130_fd_sc_hd__dfrtp_1)  0.038498  0.003953   2.708101 f
+  data arrival time                                                  2.708101
+
+  clock clk (rise edge)                                   5.000000   5.000000
+  clock network delay (ideal)                             0.000000   5.000000
+  data_out_reg[4]/CLK (sky130_fd_sc_hd__dfrtp_1)          0.000000   5.000000 r
+  library setup time                                      -0.121726  4.878274
+  data required time                                                 4.878274
+  ------------------------------------------------------------------------------
+  data required time                                                 4.878274
+  data arrival time                                                  -2.708101
+  ------------------------------------------------------------------------------
+  slack (MET)                                                        2.170173
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[3]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      Small                 sky130_fd_sc_hd__tt_025C_1v80
+
+  Point                                    Cap     Trans      Incr       Path
+  ------------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.000000   0.000000
+  clock network delay (ideal)                             0.000000   0.000000
+  input external delay                                    1.000000   1.000000 r
+  data_in[0] (in)                     0.010178  0.129511  0.082611   1.082611 r
+  U40/A (sky130_fd_sc_hd__nand2_1)              0.129511  0.003136   1.085747 r
+  U40/Y (sky130_fd_sc_hd__nand2_1)    0.009696  0.084923  0.108631   1.194377 f
+  U45/A1 (sky130_fd_sc_hd__a222oi_1)            0.084923  0.002836   1.197213 f
+  U45/Y (sky130_fd_sc_hd__a222oi_1)   0.004913  0.322602  0.360340   1.557553 r
+  U47/CIN (sky130_fd_sc_hd__fa_1)               0.322602  0.008520   1.566073 r
+  U47/COUT (sky130_fd_sc_hd__fa_1)    0.004913  0.075853  0.249091   1.815163 r
+  U49/CIN (sky130_fd_sc_hd__fa_1)               0.075853  0.008520   1.823683 r
+  U49/SUM (sky130_fd_sc_hd__fa_1)     0.002491  0.074257  0.404185   2.227869 f
+  U48/B2 (sky130_fd_sc_hd__a22o_1)              0.074257  0.004320   2.232189 f
+  U48/X (sky130_fd_sc_hd__a22o_1)     0.002279  0.038498  0.198595   2.430783 f
+  data_out_reg[3]/D (sky130_fd_sc_hd__dfrtp_1)  0.038498  0.003953   2.434736 f
+  data arrival time                                                  2.434736
+
+  clock clk (rise edge)                                   5.000000   5.000000
+  clock network delay (ideal)                             0.000000   5.000000
+  data_out_reg[3]/CLK (sky130_fd_sc_hd__dfrtp_1)          0.000000   5.000000 r
+  library setup time                                      -0.121726  4.878274
+  data required time                                                 4.878274
+  ------------------------------------------------------------------------------
+  data required time                                                 4.878274
+  data arrival time                                                  -2.434736
+  ------------------------------------------------------------------------------
+  slack (MET)                                                        2.443538
+
+
+  Startpoint: valid_in (input port clocked by clk)
+  Endpoint: data_out_reg[1]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      Small                 sky130_fd_sc_hd__tt_025C_1v80
+
+  Point                                    Cap     Trans      Incr       Path
+  ------------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.000000   0.000000
+  clock network delay (ideal)                             0.000000   0.000000
+  input external delay                                    1.000000   1.000000 f
+  valid_in (in)                       0.002603  0.026366  0.015638   1.015638 f
+  U32/A (sky130_fd_sc_hd__nor2b_1)              0.026366  0.004514   1.020152 f
+  U32/Y (sky130_fd_sc_hd__nor2b_1)    0.008874  0.191463  0.174480   1.194632 r
+  U33/A (sky130_fd_sc_hd__nor2_1)               0.191463  0.003247   1.197878 r
+  U33/Y (sky130_fd_sc_hd__nor2_1)     0.007306  0.069244  0.098128   1.296006 f
+  U36/A (sky130_fd_sc_hd__nand2_1)              0.069244  0.002990   1.298996 f
+  U36/Y (sky130_fd_sc_hd__nand2_1)    0.006324  0.075069  0.086418   1.385414 r
+  U24/A (sky130_fd_sc_hd__clkinv_1)             0.075069  0.004162   1.389576 r
+  U24/Y (sky130_fd_sc_hd__clkinv_1)   0.019614  0.159192  0.159517   1.549093 f
+  U37/B (sky130_fd_sc_hd__nor2_1)               0.159192  0.002243   1.551336 f
+  U37/Y (sky130_fd_sc_hd__nor2_1)     0.023876  0.430669  0.383702   1.935038 r
+  U27/A (sky130_fd_sc_hd__clkinv_1)             0.430669  0.003099   1.938137 r
+  U27/Y (sky130_fd_sc_hd__clkinv_1)   0.004843  0.113017  0.150016   2.088153 f
+  U42/B1 (sky130_fd_sc_hd__a21oi_1)             0.113017  0.002867   2.091021 f
+  U42/Y (sky130_fd_sc_hd__a21oi_1)    0.002348  0.098757  0.128823   2.219844 r
+  U43/B1 (sky130_fd_sc_hd__o21ai_1)             0.098757  0.004072   2.223916 r
+  U43/Y (sky130_fd_sc_hd__o21ai_1)    0.002305  0.046482  0.069633   2.293549 f
+  U44/B1 (sky130_fd_sc_hd__o21ai_1)             0.046482  0.003998   2.297546 f
+  U44/Y (sky130_fd_sc_hd__o21ai_1)    0.002336  0.092607  0.064619   2.362165 r
+  data_out_reg[1]/D (sky130_fd_sc_hd__dfrtp_1)  0.092607  0.004051   2.366216 r
+  data arrival time                                                  2.366216
+
+  clock clk (rise edge)                                   5.000000   5.000000
+  clock network delay (ideal)                             0.000000   5.000000
+  data_out_reg[1]/CLK (sky130_fd_sc_hd__dfrtp_1)          0.000000   5.000000 r
+  library setup time                                      -0.077700  4.922300
+  data required time                                                 4.922300
+  ------------------------------------------------------------------------------
+  data required time                                                 4.922300
+  data arrival time                                                  -2.366216
+  ------------------------------------------------------------------------------
+  slack (MET)                                                        2.556083
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[2]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      Small                 sky130_fd_sc_hd__tt_025C_1v80
+
+  Point                                    Cap     Trans      Incr       Path
+  ------------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.000000   0.000000
+  clock network delay (ideal)                             0.000000   0.000000
+  input external delay                                    1.000000   1.000000 r
+  data_in[0] (in)                     0.010178  0.129511  0.082611   1.082611 r
+  U40/A (sky130_fd_sc_hd__nand2_1)              0.129511  0.003136   1.085747 r
+  U40/Y (sky130_fd_sc_hd__nand2_1)    0.009696  0.084923  0.108631   1.194377 f
+  U45/A1 (sky130_fd_sc_hd__a222oi_1)            0.084923  0.002836   1.197213 f
+  U45/Y (sky130_fd_sc_hd__a222oi_1)   0.004913  0.322602  0.360340   1.557553 r
+  U47/CIN (sky130_fd_sc_hd__fa_1)               0.322602  0.008520   1.566073 r
+  U47/SUM (sky130_fd_sc_hd__fa_1)     0.002491  0.074257  0.467668   2.033741 f
+  U46/B2 (sky130_fd_sc_hd__a22o_1)              0.074257  0.004320   2.038061 f
+  U46/X (sky130_fd_sc_hd__a22o_1)     0.002279  0.038498  0.198595   2.236656 f
+  data_out_reg[2]/D (sky130_fd_sc_hd__dfrtp_1)  0.038498  0.003953   2.240608 f
+  data arrival time                                                  2.240608
+
+  clock clk (rise edge)                                   5.000000   5.000000
+  clock network delay (ideal)                             0.000000   5.000000
+  data_out_reg[2]/CLK (sky130_fd_sc_hd__dfrtp_1)          0.000000   5.000000 r
+  library setup time                                      -0.121726  4.878274
+  data required time                                                 4.878274
+  ------------------------------------------------------------------------------
+  data required time                                                 4.878274
+  data arrival time                                                  -2.240608
+  ------------------------------------------------------------------------------
+  slack (MET)                                                        2.637666
+
+
+  Startpoint: valid_in (input port clocked by clk)
+  Endpoint: data_out_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  verified_accu      Small                 sky130_fd_sc_hd__tt_025C_1v80
+
+  Point                                    Cap     Trans      Incr       Path
+  ------------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.000000   0.000000
+  clock network delay (ideal)                             0.000000   0.000000
+  input external delay                                    1.000000   1.000000 f
+  valid_in (in)                       0.002603  0.026366  0.015638   1.015638 f
+  U32/A (sky130_fd_sc_hd__nor2b_1)              0.026366  0.004514   1.020152 f
+  U32/Y (sky130_fd_sc_hd__nor2b_1)    0.008874  0.191463  0.174480   1.194632 r
+  U33/A (sky130_fd_sc_hd__nor2_1)               0.191463  0.003247   1.197878 r
+  U33/Y (sky130_fd_sc_hd__nor2_1)     0.007306  0.069244  0.098128   1.296006 f
+  U36/A (sky130_fd_sc_hd__nand2_1)              0.069244  0.002990   1.298996 f
+  U36/Y (sky130_fd_sc_hd__nand2_1)    0.006324  0.075069  0.086418   1.385414 r
+  U24/A (sky130_fd_sc_hd__clkinv_1)             0.075069  0.004162   1.389576 r
+  U24/Y (sky130_fd_sc_hd__clkinv_1)   0.019614  0.159192  0.159517   1.549093 f
+  U37/B (sky130_fd_sc_hd__nor2_1)               0.159192  0.002243   1.551336 f
+  U37/Y (sky130_fd_sc_hd__nor2_1)     0.023876  0.430669  0.383702   1.935038 r
+  U27/A (sky130_fd_sc_hd__clkinv_1)             0.430669  0.003099   1.938137 r
+  U27/Y (sky130_fd_sc_hd__clkinv_1)   0.004843  0.113017  0.150016   2.088153 f
+  U39/B1 (sky130_fd_sc_hd__o2bb2ai_1)           0.113017  0.002926   2.091079 f
+  U39/Y (sky130_fd_sc_hd__o2bb2ai_1)  0.002336  0.099025  0.151446   2.242525 r
+  data_out_reg[0]/D (sky130_fd_sc_hd__dfrtp_1)  0.099025  0.004051   2.246576 r
+  data arrival time                                                  2.246576
+
+  clock clk (rise edge)                                   5.000000   5.000000
+  clock network delay (ideal)                             0.000000   5.000000
+  data_out_reg[0]/CLK (sky130_fd_sc_hd__dfrtp_1)          0.000000   5.000000 r
+  library setup time                                      -0.079199  4.920801
+  data required time                                                 4.920801
+  ------------------------------------------------------------------------------
+  data required time                                                 4.920801
+  data arrival time                                                  -2.246576
+  ------------------------------------------------------------------------------
+  slack (MET)                                                        2.674225
+
+
+1

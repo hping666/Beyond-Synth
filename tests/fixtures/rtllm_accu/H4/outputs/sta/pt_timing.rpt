@@ -1,0 +1,362 @@
+****************************************
+Report : timing
+	-path_type full
+	-delay_type max
+	-nosplit
+	-slack_lesser_than 1000000015047466219876688855040.000000
+	-max_paths 10
+	-sort_by slack
+Design : verified_accu
+Version: V-2023.12-SP5-4
+Date   : Sat Sep 12 07:46:52 2026
+****************************************
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[9] (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                           Incr       Path
+  ----------------------------------------------------------------------
+  clock clk (rise edge)                       0.000000   0.000000
+  clock network delay (ideal)                 0.000000   0.000000
+  input external delay                        0.400000   0.400000 f
+  data_in[0] (in)                             0.011432   0.411432 f
+  U44/ZN (NAND2_X1)                           0.042569   0.454000 r
+  U49/ZN (AOI222_X1)                          0.043118   0.497118 f
+  U51/CO (FA_X1)                              0.092898   0.590017 f
+  U53/CO (FA_X1)                              0.090644   0.680660 f
+  U55/CO (FA_X1)                              0.090643   0.771304 f
+  U57/CO (FA_X1)                              0.090643   0.861947 f
+  U59/CO (FA_X1)                              0.090643   0.952590 f
+  U61/CO (FA_X1)                              0.093012   1.045602 f
+  U62/ZN (INV_X1)                             0.035731   1.081333 r
+  U64/ZN (NOR2_X1)                            0.027126   1.108459 f
+  U66/ZN (AOI221_X1)                          0.080752   1.189212 r
+  data_out_reg[9]/D (DFFR_X1)                 0.008967   1.198179 r
+  data arrival time                                      1.198179
+
+  clock clk (rise edge)                       2.000000   2.000000
+  clock network delay (ideal)                 0.000000   2.000000
+  clock reconvergence pessimism               0.000000   2.000000
+  data_out_reg[9]/CK (DFFR_X1)                           2.000000 r
+  library setup time                          -0.041623  1.958377
+  data required time                                     1.958377
+  ----------------------------------------------------------------------
+  data required time                                     1.958377
+  data arrival time                                      -1.198179
+  ----------------------------------------------------------------------
+  slack (MET)                                            0.760198
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[8] (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                           Incr       Path
+  ----------------------------------------------------------------------
+  clock clk (rise edge)                       0.000000   0.000000
+  clock network delay (ideal)                 0.000000   0.000000
+  input external delay                        0.400000   0.400000 f
+  data_in[0] (in)                             0.011432   0.411432 f
+  U44/ZN (NAND2_X1)                           0.042569   0.454000 r
+  U49/ZN (AOI222_X1)                          0.043118   0.497118 f
+  U51/CO (FA_X1)                              0.092898   0.590017 f
+  U53/CO (FA_X1)                              0.090644   0.680660 f
+  U55/CO (FA_X1)                              0.090643   0.771304 f
+  U57/CO (FA_X1)                              0.090643   0.861947 f
+  U59/CO (FA_X1)                              0.090643   0.952590 f
+  U61/CO (FA_X1)                              0.093012   1.045602 f
+  U63/ZN (AOI221_X1)                          0.083818   1.129420 r
+  data_out_reg[8]/D (DFFR_X1)                 0.008967   1.138387 r
+  data arrival time                                      1.138387
+
+  clock clk (rise edge)                       2.000000   2.000000
+  clock network delay (ideal)                 0.000000   2.000000
+  clock reconvergence pessimism               0.000000   2.000000
+  data_out_reg[8]/CK (DFFR_X1)                           2.000000 r
+  library setup time                          -0.041623  1.958377
+  data required time                                     1.958377
+  ----------------------------------------------------------------------
+  data required time                                     1.958377
+  data arrival time                                      -1.138387
+  ----------------------------------------------------------------------
+  slack (MET)                                            0.819989
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[7] (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                           Incr       Path
+  ----------------------------------------------------------------------
+  clock clk (rise edge)                       0.000000   0.000000
+  clock network delay (ideal)                 0.000000   0.000000
+  input external delay                        0.400000   0.400000 f
+  data_in[0] (in)                             0.011432   0.411432 f
+  U44/ZN (NAND2_X1)                           0.042569   0.454000 r
+  U49/ZN (AOI222_X1)                          0.043118   0.497118 f
+  U51/CO (FA_X1)                              0.092898   0.590017 f
+  U53/CO (FA_X1)                              0.090644   0.680660 f
+  U55/CO (FA_X1)                              0.090643   0.771304 f
+  U57/CO (FA_X1)                              0.090643   0.861947 f
+  U59/CO (FA_X1)                              0.090643   0.952590 f
+  U61/S (FA_X1)                               0.131072   1.083662 r
+  U60/ZN (AOI22_X1)                           0.032024   1.115687 f
+  data_out_reg[7]/D (DFFS_X1)                 0.008757   1.124444 f
+  data arrival time                                      1.124444
+
+  clock clk (rise edge)                       2.000000   2.000000
+  clock network delay (ideal)                 0.000000   2.000000
+  clock reconvergence pessimism               0.000000   2.000000
+  data_out_reg[7]/CK (DFFS_X1)                           2.000000 r
+  library setup time                          -0.046761  1.953239
+  data required time                                     1.953239
+  ----------------------------------------------------------------------
+  data required time                                     1.953239
+  data arrival time                                      -1.124444
+  ----------------------------------------------------------------------
+  slack (MET)                                            0.828795
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[6] (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                           Incr       Path
+  ----------------------------------------------------------------------
+  clock clk (rise edge)                       0.000000   0.000000
+  clock network delay (ideal)                 0.000000   0.000000
+  input external delay                        0.400000   0.400000 f
+  data_in[0] (in)                             0.011432   0.411432 f
+  U44/ZN (NAND2_X1)                           0.042569   0.454000 r
+  U49/ZN (AOI222_X1)                          0.043118   0.497118 f
+  U51/CO (FA_X1)                              0.092898   0.590016 f
+  U53/CO (FA_X1)                              0.090644   0.680660 f
+  U55/CO (FA_X1)                              0.090643   0.771304 f
+  U57/CO (FA_X1)                              0.090643   0.861947 f
+  U59/S (FA_X1)                               0.131072   0.993019 r
+  U58/ZN (AOI22_X1)                           0.032024   1.025043 f
+  data_out_reg[6]/D (DFFS_X1)                 0.008757   1.033801 f
+  data arrival time                                      1.033801
+
+  clock clk (rise edge)                       2.000000   2.000000
+  clock network delay (ideal)                 0.000000   2.000000
+  clock reconvergence pessimism               0.000000   2.000000
+  data_out_reg[6]/CK (DFFS_X1)                           2.000000 r
+  library setup time                          -0.046761  1.953239
+  data required time                                     1.953239
+  ----------------------------------------------------------------------
+  data required time                                     1.953239
+  data arrival time                                      -1.033801
+  ----------------------------------------------------------------------
+  slack (MET)                                            0.919438
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[5] (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                           Incr       Path
+  ----------------------------------------------------------------------
+  clock clk (rise edge)                       0.000000   0.000000
+  clock network delay (ideal)                 0.000000   0.000000
+  input external delay                        0.400000   0.400000 f
+  data_in[0] (in)                             0.011432   0.411432 f
+  U44/ZN (NAND2_X1)                           0.042569   0.454000 r
+  U49/ZN (AOI222_X1)                          0.043118   0.497118 f
+  U51/CO (FA_X1)                              0.092898   0.590017 f
+  U53/CO (FA_X1)                              0.090644   0.680660 f
+  U55/CO (FA_X1)                              0.090643   0.771304 f
+  U57/S (FA_X1)                               0.131072   0.902376 r
+  U56/ZN (AOI22_X1)                           0.032024   0.934400 f
+  data_out_reg[5]/D (DFFS_X1)                 0.008757   0.943158 f
+  data arrival time                                      0.943158
+
+  clock clk (rise edge)                       2.000000   2.000000
+  clock network delay (ideal)                 0.000000   2.000000
+  clock reconvergence pessimism               0.000000   2.000000
+  data_out_reg[5]/CK (DFFS_X1)                           2.000000 r
+  library setup time                          -0.046761  1.953239
+  data required time                                     1.953239
+  ----------------------------------------------------------------------
+  data required time                                     1.953239
+  data arrival time                                      -0.943158
+  ----------------------------------------------------------------------
+  slack (MET)                                            1.010082
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[4] (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                           Incr       Path
+  ----------------------------------------------------------------------
+  clock clk (rise edge)                       0.000000   0.000000
+  clock network delay (ideal)                 0.000000   0.000000
+  input external delay                        0.400000   0.400000 r
+  data_in[0] (in)                             0.017105   0.417105 r
+  U44/ZN (NAND2_X1)                           0.041294   0.458399 f
+  U49/ZN (AOI222_X1)                          0.102708   0.561107 r
+  U51/CO (FA_X1)                              0.081903   0.643011 r
+  U53/CO (FA_X1)                              0.067284   0.710295 r
+  U55/S (FA_X1)                               0.109575   0.819869 f
+  U54/ZN (AOI22_X1)                           0.058586   0.878455 r
+  data_out_reg[4]/D (DFFS_X1)                 0.009188   0.887643 r
+  data arrival time                                      0.887643
+
+  clock clk (rise edge)                       2.000000   2.000000
+  clock network delay (ideal)                 0.000000   2.000000
+  clock reconvergence pessimism               0.000000   2.000000
+  data_out_reg[4]/CK (DFFS_X1)                           2.000000 r
+  library setup time                          -0.034777  1.965223
+  data required time                                     1.965223
+  ----------------------------------------------------------------------
+  data required time                                     1.965223
+  data arrival time                                      -0.887643
+  ----------------------------------------------------------------------
+  slack (MET)                                            1.077579
+
+
+  Startpoint: valid_in (input port clocked by clk)
+  Endpoint: data_out_reg[0] (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                           Incr       Path
+  ----------------------------------------------------------------------
+  clock clk (rise edge)                       0.000000   0.000000
+  clock network delay (ideal)                 0.000000   0.000000
+  input external delay                        0.400000   0.400000 f
+  valid_in (in)                               0.004172   0.404172 f
+  U33/ZN (NOR2_X1)                            0.084328   0.488499 r
+  U34/ZN (NOR2_X1)                            0.034142   0.522642 f
+  U35/ZN (NAND2_X1)                           0.041850   0.564491 r
+  U36/ZN (INV_X1)                             0.043753   0.608244 f
+  U37/ZN (NOR2_X1)                            0.115830   0.724075 r
+  U38/ZN (INV_X1)                             0.048612   0.772686 f
+  U41/ZN (OAI22_X1)                           0.050263   0.822950 r
+  U42/ZN (INV_X1)                             0.021204   0.844154 f
+  data_out_reg[0]/D (DFFS_X1)                 0.008757   0.852911 f
+  data arrival time                                      0.852911
+
+  clock clk (rise edge)                       2.000000   2.000000
+  clock network delay (ideal)                 0.000000   2.000000
+  clock reconvergence pessimism               0.000000   2.000000
+  data_out_reg[0]/CK (DFFS_X1)                           2.000000 r
+  library setup time                          -0.039820  1.960180
+  data required time                                     1.960180
+  ----------------------------------------------------------------------
+  data required time                                     1.960180
+  data arrival time                                      -0.852911
+  ----------------------------------------------------------------------
+  slack (MET)                                            1.107269
+
+
+  Startpoint: valid_in (input port clocked by clk)
+  Endpoint: data_out_reg[1] (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                           Incr       Path
+  ----------------------------------------------------------------------
+  clock clk (rise edge)                       0.000000   0.000000
+  clock network delay (ideal)                 0.000000   0.000000
+  input external delay                        0.400000   0.400000 f
+  valid_in (in)                               0.004172   0.404172 f
+  U33/ZN (NOR2_X1)                            0.084328   0.488499 r
+  U34/ZN (NOR2_X1)                            0.034142   0.522642 f
+  U35/ZN (NAND2_X1)                           0.041850   0.564491 r
+  U36/ZN (INV_X1)                             0.043753   0.608244 f
+  U37/ZN (NOR2_X1)                            0.115830   0.724075 r
+  U38/ZN (INV_X1)                             0.048612   0.772686 f
+  U48/ZN (OAI22_X1)                           0.047267   0.819954 r
+  data_out_reg[1]/D (DFFR_X1)                 0.008967   0.828921 r
+  data arrival time                                      0.828921
+
+  clock clk (rise edge)                       2.000000   2.000000
+  clock network delay (ideal)                 0.000000   2.000000
+  clock reconvergence pessimism               0.000000   2.000000
+  data_out_reg[1]/CK (DFFR_X1)                           2.000000 r
+  library setup time                          -0.038391  1.961609
+  data required time                                     1.961609
+  ----------------------------------------------------------------------
+  data required time                                     1.961609
+  data arrival time                                      -0.828921
+  ----------------------------------------------------------------------
+  slack (MET)                                            1.132689
+
+
+  Startpoint: data_in[0] (input port clocked by clk)
+  Endpoint: data_out_reg[3] (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                           Incr       Path
+  ----------------------------------------------------------------------
+  clock clk (rise edge)                       0.000000   0.000000
+  clock network delay (ideal)                 0.000000   0.000000
+  input external delay                        0.400000   0.400000 r
+  data_in[0] (in)                             0.017105   0.417105 r
+  U44/ZN (NAND2_X1)                           0.041294   0.458399 f
+  U49/ZN (AOI222_X1)                          0.102708   0.561107 r
+  U51/CO (FA_X1)                              0.081903   0.643011 r
+  U53/S (FA_X1)                               0.109991   0.753001 f
+  U52/ZN (AOI22_X1)                           0.058586   0.811588 r
+  data_out_reg[3]/D (DFFS_X1)                 0.009188   0.820776 r
+  data arrival time                                      0.820776
+
+  clock clk (rise edge)                       2.000000   2.000000
+  clock network delay (ideal)                 0.000000   2.000000
+  clock reconvergence pessimism               0.000000   2.000000
+  data_out_reg[3]/CK (DFFS_X1)                           2.000000 r
+  library setup time                          -0.034777  1.965223
+  data required time                                     1.965223
+  ----------------------------------------------------------------------
+  data required time                                     1.965223
+  data arrival time                                      -0.820776
+  ----------------------------------------------------------------------
+  slack (MET)                                            1.144447
+
+
+  Startpoint: valid_in (input port clocked by clk)
+  Endpoint: data_out_reg[2] (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                           Incr       Path
+  ----------------------------------------------------------------------
+  clock clk (rise edge)                       0.000000   0.000000
+  clock network delay (ideal)                 0.000000   0.000000
+  input external delay                        0.400000   0.400000 f
+  valid_in (in)                               0.004172   0.404172 f
+  U33/ZN (NOR2_X1)                            0.084328   0.488499 r
+  U34/ZN (NOR2_X1)                            0.034142   0.522642 f
+  U35/ZN (NAND2_X1)                           0.041850   0.564491 r
+  U36/ZN (INV_X1)                             0.043753   0.608244 f
+  U37/ZN (NOR2_X1)                            0.115830   0.724075 r
+  U50/ZN (AOI22_X1)                           0.051749   0.775824 f
+  data_out_reg[2]/D (DFFS_X1)                 0.008757   0.784581 f
+  data arrival time                                      0.784581
+
+  clock clk (rise edge)                       2.000000   2.000000
+  clock network delay (ideal)                 0.000000   2.000000
+  clock reconvergence pessimism               0.000000   2.000000
+  data_out_reg[2]/CK (DFFS_X1)                           2.000000 r
+  library setup time                          -0.046761  1.953239
+  data required time                                     1.953239
+  ----------------------------------------------------------------------
+  data required time                                     1.953239
+  data arrival time                                      -0.784581
+  ----------------------------------------------------------------------
+  slack (MET)                                            1.168658
+
+Warning: report_timing has satisfied the max_paths criteria. There are 28 further endpoints which have paths of interest with slack less than 1000000015047466219876688855040.000000 that were not considered when generating this report. (UITE-502)
+
+1

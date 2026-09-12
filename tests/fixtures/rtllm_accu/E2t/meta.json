@@ -1,0 +1,317 @@
+{
+ "cached": false,
+ "cand_id": null,
+ "cfg_hash": "65020fb68a87",
+ "check_design_errors": 0,
+ "checks": {
+  "area_positive": true,
+  "cells_positive": true,
+  "clock_present": true,
+  "histogram_nonempty": true,
+  "no_sdc_errors": true,
+  "no_unhandled_errors": true,
+  "reports_present": true,
+  "status_ok": true,
+  "timing_parsed": true
+ },
+ "clk_port": "clk",
+ "clock_ns": 2.0,
+ "compile_seconds": 51.0,
+ "config": "E2t",
+ "config_compile": "compile_ultra -timing_high_effort_script",
+ "crit_path": {
+  "arrival": -1.245323,
+  "endpoint": "data_out_reg[9]",
+  "group": "clk",
+  "met": true,
+  "points": [
+   [
+    "U52/A1",
+    "AND2_X1"
+   ],
+   [
+    "U52/ZN",
+    "AND2_X1"
+   ],
+   [
+    "U53/B1",
+    "OAI222_X1"
+   ],
+   [
+    "U53/ZN",
+    "OAI222_X1"
+   ],
+   [
+    "U54/A",
+    "INV_X1"
+   ],
+   [
+    "U54/ZN",
+    "INV_X1"
+   ],
+   [
+    "intadd_0/U7/CI",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U7/CO",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U6/CI",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U6/CO",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U5/CI",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U5/CO",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U4/CI",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U4/CO",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U3/CI",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U3/CO",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U2/CI",
+    "FA_X1"
+   ],
+   [
+    "intadd_0/U2/CO",
+    "FA_X1"
+   ],
+   [
+    "U77/B1",
+    "OAI21_X1"
+   ],
+   [
+    "U77/ZN",
+    "OAI21_X1"
+   ],
+   [
+    "U82/A",
+    "AOI21_X1"
+   ],
+   [
+    "U82/ZN",
+    "AOI21_X1"
+   ],
+   [
+    "U83/A2",
+    "OAI33_X1"
+   ],
+   [
+    "U83/ZN",
+    "OAI33_X1"
+   ],
+   [
+    "data_out_reg[9]/D",
+    "DFFR_X1"
+   ]
+  ],
+  "required": 1.95584,
+  "slack": 0.710517,
+  "startpoint": "data_in[0]"
+ },
+ "dc_returncode": 0,
+ "dc_seconds": 53.9,
+ "design_id": "rtllm_accu",
+ "error": null,
+ "eval_id": 18,
+ "finished_at": "2026-09-12T07:44:21",
+ "git_sha": "3636f8f7b970",
+ "hist": {
+  "AND2_X1": 1,
+  "AOI21_X1": 2,
+  "AOI22_X1": 10,
+  "DFFR_X1": 13,
+  "FA_X1": 6,
+  "INV_X1": 7,
+  "NAND2_X1": 3,
+  "NOR2_X1": 1,
+  "NOR3_X1": 1,
+  "NOR3_X2": 1,
+  "OAI21_X1": 10,
+  "OAI222_X1": 1,
+  "OAI33_X1": 1,
+  "XNOR2_X1": 1,
+  "XOR2_X1": 1
+ },
+ "input_hash": "2375bdf64d2e61f6",
+ "is_baseline": 1,
+ "lib": "nangate45",
+ "log_summary": {
+  "counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 2,
+   "warning": 1
+  },
+  "samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)",
+    "Information: There is no timing violation in design verified_accu. Delay-based auto_ungroup will not be performed. (OPT-780)"
+   ],
+   "warning": [
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)"
+   ]
+  }
+ },
+ "metrics": {
+  "area": 138.852003,
+  "cells": 59,
+  "comb_area": 69.692001,
+  "comb_cells": 46.0,
+  "crit_delay_ns": 0.845323,
+  "hier_cells": 0.0,
+  "icg_count": null,
+  "noncomb_area": 69.160002,
+  "period_lib_units": 2.0,
+  "power_default_mw": 0.10287824200000001,
+  "power_saif_mw": null,
+  "registers": 13.0,
+  "seq_cells": 13.0,
+  "tns_ns": 0.0,
+  "wns_ns": 0.710517
+ },
+ "mode": "wireload",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2t/2375bdf64d2e61f6/outputs/reports/netlist.v",
+ "path_endpoints": [
+  [
+   "data_in[0]",
+   "data_out_reg[9]",
+   0.710517
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[8]",
+   0.746206
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[7]",
+   0.754852
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[6]",
+   0.845495
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[5]",
+   0.936139
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[4]",
+   1.026782
+  ],
+  [
+   "valid_in",
+   "data_out_reg[2]",
+   1.068596
+  ],
+  [
+   "valid_in",
+   "data_out_reg[3]",
+   1.068596
+  ],
+  [
+   "valid_in",
+   "data_out_reg[1]",
+   1.098158
+  ],
+  [
+   "valid_in",
+   "data_out_reg[0]",
+   1.134431
+  ]
+ ],
+ "pert_id": null,
+ "power_default": {
+  "dynamic": 0.100283142,
+  "internal": 0.079090462,
+  "leakage": 0.0025951,
+  "switching": 0.021192678,
+  "total_mw": 0.10287824200000001
+ },
+ "power_saif": {},
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2t/2375bdf64d2e61f6",
+ "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2t/2375bdf64d2e61f6/outputs/reports",
+ "resources": {
+  "datapath_blocks": 0,
+  "dw_modules": [
+   "DW01_add",
+   "DW01_inc"
+  ],
+  "implementations": [],
+  "resources": [
+   {
+    "module": "Module",
+    "ops": [
+     "Contained",
+     "Operations"
+    ],
+    "params": "Parameters",
+    "resource": "Cell"
+   },
+   {
+    "module": "DW01_inc",
+    "ops": [
+     "add_31",
+     "(verified_accu.v:31)"
+    ],
+    "params": "width=2",
+    "resource": "add_x_1"
+   },
+   {
+    "module": "DW01_add",
+    "ops": [
+     "add_57",
+     "(verified_accu.v:57)"
+    ],
+    "params": "width=10",
+    "resource": "add_x_4"
+   }
+  ],
+  "shared_resources": 3
+ },
+ "rtl_files": [
+  "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
+ ],
+ "saif_status": "none",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2t/2375bdf64d2e61f6/inputs/constraint.sdc",
+ "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E2t/2375bdf64d2e61f6/inputs/constraint_dc.sdc",
+ "started_at": "2026-09-12T07:43:27",
+ "status": "ok",
+ "tool": "dc",
+ "tool_version": "W-2024.09-SP5-3",
+ "top": "verified_accu",
+ "wall_seconds": 53.9
+}

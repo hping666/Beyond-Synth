@@ -1,0 +1,6 @@
+activity=explicit(toggle=0.1,prob=0.5)
+mode=averaged
+total=1.431481726221762e-05
+dynamic=1.202053946930404e-05
+leakage=2.294277705150449e-06
+cells=51

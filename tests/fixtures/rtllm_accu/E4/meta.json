@@ -1,0 +1,320 @@
+{
+ "cached": false,
+ "cand_id": null,
+ "cfg_hash": "65020fb68a87",
+ "check_design_errors": 0,
+ "checks": {
+  "area_positive": true,
+  "cells_positive": true,
+  "clock_present": true,
+  "histogram_nonempty": true,
+  "no_sdc_errors": true,
+  "no_unhandled_errors": true,
+  "reports_present": true,
+  "status_ok": true,
+  "timing_parsed": true
+ },
+ "clk_port": "clk",
+ "clock_ns": 2.0,
+ "compile_seconds": 51.0,
+ "config": "E4",
+ "config_compile": "compile_ultra -retime -timing_high_effort_script -gate_clock",
+ "crit_path": {
+  "arrival": -1.198179,
+  "endpoint": "data_out_reg[9]",
+  "group": "clk",
+  "met": true,
+  "points": [
+   [
+    "U44/A1",
+    "NAND2_X1"
+   ],
+   [
+    "U44/ZN",
+    "NAND2_X1"
+   ],
+   [
+    "U49/B1",
+    "AOI222_X1"
+   ],
+   [
+    "U49/ZN",
+    "AOI222_X1"
+   ],
+   [
+    "U51/CI",
+    "FA_X1"
+   ],
+   [
+    "U51/CO",
+    "FA_X1"
+   ],
+   [
+    "U53/CI",
+    "FA_X1"
+   ],
+   [
+    "U53/CO",
+    "FA_X1"
+   ],
+   [
+    "U55/CI",
+    "FA_X1"
+   ],
+   [
+    "U55/CO",
+    "FA_X1"
+   ],
+   [
+    "U57/CI",
+    "FA_X1"
+   ],
+   [
+    "U57/CO",
+    "FA_X1"
+   ],
+   [
+    "U59/CI",
+    "FA_X1"
+   ],
+   [
+    "U59/CO",
+    "FA_X1"
+   ],
+   [
+    "U61/CI",
+    "FA_X1"
+   ],
+   [
+    "U61/CO",
+    "FA_X1"
+   ],
+   [
+    "U62/A",
+    "INV_X1"
+   ],
+   [
+    "U62/ZN",
+    "INV_X1"
+   ],
+   [
+    "U64/A1",
+    "NOR2_X1"
+   ],
+   [
+    "U64/ZN",
+    "NOR2_X1"
+   ],
+   [
+    "U66/B1",
+    "AOI221_X1"
+   ],
+   [
+    "U66/ZN",
+    "AOI221_X1"
+   ],
+   [
+    "data_out_reg[9]/D",
+    "DFFR_X1"
+   ]
+  ],
+  "required": 1.958377,
+  "slack": 0.760198,
+  "startpoint": "data_in[0]"
+ },
+ "dc_returncode": 0,
+ "dc_seconds": 54.4,
+ "design_id": "rtllm_accu",
+ "error": null,
+ "eval_id": 14,
+ "finished_at": "2026-09-12T07:43:27",
+ "git_sha": "3636f8f7b970",
+ "hist": {
+  "AOI221_X1": 3,
+  "AOI222_X1": 1,
+  "AOI22_X1": 6,
+  "CLKGATETST_X1": 1,
+  "DFFR_X1": 6,
+  "DFFS_X1": 7,
+  "FA_X1": 6,
+  "INV_X1": 8,
+  "NAND2_X1": 2,
+  "NOR2_X1": 4,
+  "NOR3_X1": 1,
+  "OAI22_X1": 2,
+  "XNOR2_X1": 2,
+  "XOR2_X1": 1
+ },
+ "input_hash": "3aa07a292a9cb5ae",
+ "is_baseline": 1,
+ "lib": "nangate45",
+ "log_summary": {
+  "counts": {
+   "clock_gating": 4,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 2,
+   "warning": 1
+  },
+  "samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_accu, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_accu_DW01_add_J1_0, since there are no registers. (PWR-806)",
+    "Information: Performing clock-gating on design verified_accu. (PWR-730)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 2 hierarchies before Pass 1 (OPT-775)",
+    "Information: There is no timing violation in design verified_accu. Delay-based auto_ungroup will not be performed. (OPT-780)"
+   ],
+   "warning": [
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)"
+   ]
+  }
+ },
+ "metrics": {
+  "area": 131.138003,
+  "cells": 50,
+  "cg_gated_regs": 12,
+  "cg_icg_count": 1,
+  "cg_icg_tool_inserted": 1,
+  "cg_total_regs": 13,
+  "cg_ungated_regs": 1,
+  "comb_area": 57.988,
+  "comb_cells": 36.0,
+  "crit_delay_ns": 0.798179,
+  "hier_cells": 1.0,
+  "icg_count": 1,
+  "noncomb_area": 73.150002,
+  "period_lib_units": 2.0,
+  "power_default_mw": 0.108133186,
+  "power_saif_mw": null,
+  "registers": 13.0,
+  "seq_cells": 14.0,
+  "tns_ns": 0.0,
+  "wns_ns": 0.760198
+ },
+ "mode": "wireload",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/outputs/reports/netlist.v",
+ "path_endpoints": [
+  [
+   "data_in[0]",
+   "data_out_reg[9]",
+   0.760198
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[8]",
+   0.819989
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[7]",
+   0.828795
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[6]",
+   0.919438
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[5]",
+   1.010082
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[4]",
+   1.077579
+  ],
+  [
+   "valid_in",
+   "data_out_reg[0]",
+   1.107269
+  ],
+  [
+   "valid_in",
+   "data_out_reg[1]",
+   1.132689
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[3]",
+   1.144447
+  ],
+  [
+   "valid_in",
+   "data_out_reg[2]",
+   1.168658
+  ]
+ ],
+ "pert_id": null,
+ "power_default": {
+  "dynamic": 0.105789986,
+  "internal": 0.07925180799999999,
+  "leakage": 0.0023432,
+  "switching": 0.026538177000000003,
+  "total_mw": 0.108133186
+ },
+ "power_saif": {},
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae",
+ "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/outputs/reports",
+ "resources": {
+  "datapath_blocks": 0,
+  "dw_modules": [
+   "DW01_add",
+   "DW01_inc"
+  ],
+  "implementations": [],
+  "resources": [
+   {
+    "module": "Module",
+    "ops": [
+     "Contained",
+     "Operations"
+    ],
+    "params": "Parameters",
+    "resource": "Cell"
+   },
+   {
+    "module": "DW01_inc",
+    "ops": [
+     "add_31",
+     "(verified_accu.v:31)"
+    ],
+    "params": "width=2",
+    "resource": "add_x_1"
+   },
+   {
+    "module": "DW01_add",
+    "ops": [
+     "add_57",
+     "(verified_accu.v:57)"
+    ],
+    "params": "width=10",
+    "resource": "add_x_4"
+   }
+  ],
+  "shared_resources": 3
+ },
+ "rtl_files": [
+  "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
+ ],
+ "saif_status": "none",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/inputs/constraint.sdc",
+ "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/inputs/constraint_dc.sdc",
+ "started_at": "2026-09-12T07:42:33",
+ "status": "ok",
+ "tool": "dc",
+ "tool_version": "W-2024.09-SP5-3",
+ "top": "verified_accu",
+ "wall_seconds": 54.4
+}

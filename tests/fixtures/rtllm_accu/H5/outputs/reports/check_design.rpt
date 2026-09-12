@@ -1,0 +1,16 @@
+ 
+****************************************
+check_design summary:
+Version:     W-2024.09-SP5-3
+Date:        Sat Sep 12 07:44:30 2026
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Cells                                                               2
+    Cells do not drive (LINT-1)                                     2
+--------------------------------------------------------------------------------
+
+Warning: In design 'verified_accu', cell 'C184' does not drive any nets. (LINT-1)
+Warning: In design 'verified_accu', cell 'C193' does not drive any nets. (LINT-1)
+0

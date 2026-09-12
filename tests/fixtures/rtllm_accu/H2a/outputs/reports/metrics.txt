@@ -1,0 +1,4 @@
+wns=45.059
+leaf_cells=66
+registers=13
+hier_cells=1

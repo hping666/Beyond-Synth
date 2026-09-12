@@ -1,0 +1,44 @@
+ 
+****************************************
+Report : area
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:45:25 2026
+****************************************
+
+Library(s) Used:
+
+    sky130_fd_sc_hd__tt_025C_1v80 (File: /hdd1/hping/eda/libs/sky130hd/sky130_fd_sc_hd__tt_025C_1v80.db)
+
+Number of ports:                           26
+Number of nets:                            74
+Number of cells:                           54
+Number of combinational cells:             39
+Number of sequential cells:                14
+Number of macros/black boxes:               0
+Number of buf/inv:                          6
+Number of references:                      16
+
+Combinational area:                311.548793
+Buf/Inv area:                       22.521599
+Noncombinational area:             344.080002
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                   655.628795
+Total area:                 undefined
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area          Local cell area
+                                  ------------------  --------------------------- 
+Hierarchical cell                 Absolute   Percent  Combi-    Noncombi-  Black-
+                                  Total      Total    national  national   boxes   Design
+--------------------------------  ---------  -------  --------  ---------  ------  ----------------------------------
+verified_accu                      655.6288    100.0  311.5488   325.3120  0.0000  verified_accu
+clk_gate_count_reg                  18.7680      2.9    0.0000    18.7680  0.0000  SNPS_CLOCK_GATE_HIGH_verified_accu
+--------------------------------  ---------  -------  --------  ---------  ------  ----------------------------------
+Total                                                 311.5488   344.0800  0.0000
+
+1

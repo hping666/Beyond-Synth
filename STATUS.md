@@ -5,12 +5,13 @@ Last updated: 2026-09-12 · after bootstrap commit 6578583 (Phase 0.0 done)
 ## Current phase
 
 Phase: 0 (see docs/PLAN.md)
-Current task: Phase 0 tasks 0.0–0.4 done. 0.4 = job queue: `scripts/queue/core.py` (SQLite `jobs` table, pools dc/pt/vcf/local with caps from config, exit-75 license backoff, one retry, timeouts kill the process group, per-attempt logs and done markers, recovery after daemon restart), `scripts/queue/daemon.py` (detached, sources the secrets file and the EDA env once), `scripts/queue/submit.py`, `scripts/status.py`; 11 bidirectional tests in `tests/test_queue.py`; detached end-to-end smoke on 2026-09-12 07:22 (job saw `dc_shell` on PATH and the key configured). Next: 0.5 evaluation service.
-Stopped at: end of task 0.4 (daemon stopped after the smoke; start it with `.venv/bin/python scripts/queue/daemon.py start` before submitting real jobs)
+Current task: Phase 0 tasks 0.0–0.5 done. 0.4 = job queue (`src/jobqueue/`, CLIs in `scripts/queue/`, `scripts/status.py`; 11 tests). 0.5 = evaluation service `src/eval/`: project-owned DC template (`templates/dc_eval.tcl`, step-checked, SDC markers, `set_host_options -max_cores 4`), `dc.py` driver, `parse.py`, `sdc.py` (one OpenSTA-native SDC convention, DC copy rewritten and unit-scaled), `yosys.py` (Y / O0–O2), `pt.py` (H4 via flow/sta.py + power.py), `knee.py`, `service.py` (content-addressed `results/raw/<design>/<config>/<hash>/`, cache, `-rN` reruns, ingest), `src/db/ingest.py`, queue runner `src/eval/run_dc.py`. Measured on RTLLM accu (2.0 ns nangate45, 0.5 ns asap7, 5.0 ns sky130hd): all 14 configurations ok (E1–E4, E2r/E2t/E2g, H1, H2a, H2b, H3 `-spg` in topographical mode, H5, Y, H4); E4 `-gate_clock` works (Power Compiler feature present: 1 ICG, 12/13 registers gated); two E4 runs bit-identical (area, WNS, TNS, histogram, critical path); reference artifacts in `tests/fixtures/rtllm_accu/`. Next: 0.6 equivalence stack.
+Stopped at: end of task 0.5 (daemon stopped; start it with `.venv/bin/python scripts/queue/daemon.py start` before submitting real jobs)
 Next steps (by priority):
-1. 0.5: `src/eval/` evaluation service with project-owned DC Tcl templates for E1–E4, single flags, H1/H2a/H2b/H3/H5, Y, PT/PrimePower; job runners `src.eval.run_dc` / `run_pt` / `run_yosys` for the queue; one small design through every configuration; reference artifacts in `tests/fixtures/`; determinism test; `src/db/ingest.py`
-2. 0.6–0.8: equivalence stack V1–V4 with bidirectional tests (confirm SEQ + DPV licenses), power path (VCS → VCD → vcd2saif → read_saif / PrimePower), license clause check for cross-tool publication
+1. 0.6: equivalence stack `src/equiv/` V1 (VCS compile + port check) → V2 (lock-step simulation + VCD) → V3 (VC Formal SEQ via flow/vcf.py) → V4 (DPV); bidirectional tests (renaming perturbation proven; injected-bug mutant falsified; timeout → inconclusive); confirm the DPV app license on one arithmetic module
+2. 0.7: power path (VCS → VCD → vcd2saif → DC `read_saif` and PrimePower on the same SAIF, same order of magnitude); 0.8: license clause check for cross-tool publication
 3. `reports/phase0.md` and STOP G0
+Open items from 0.5: RTL-line mapping of the critical path is not yet implemented (records carry pin/cell names of the path; PROPOSAL §4.9 borrows CktEvo/Dr.RTL's path-to-RTL mapping in Phase 3); `results/raw` retention policy still to be decided (each DC job dir ≈ 1–2 MB incl. dc_work).
 
 ## Pending STOP gates
 

@@ -14,7 +14,7 @@ sys.path.insert(0, ROOT)
 
 from src import config as C  # noqa: E402
 from src.db import core as db  # noqa: E402
-from scripts.queue.core import Queue, EX_TEMPFAIL, TIMEOUT_RC  # noqa: E402
+from src.jobqueue.core import Queue, EX_TEMPFAIL, TIMEOUT_RC  # noqa: E402
 
 
 def make_cfg(local_max=2, retries=1, backoff=(0.3, 0.6, 2)):

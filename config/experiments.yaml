@@ -22,9 +22,17 @@ tools:                       # measured 2026-09-12 (Phase 0.1, selfcheck 22/22 +
   orfs: {version: git-df27ce67, dir: /home/hping/OpenROAD-flow-scripts}
 
 libs:                        # measured 2026-09-12; all .db compiled from the ORFS Liberty files; only nangate45 has a Milkyway physical library
-  nangate45: {db: /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db, name: NangateOpenCellLibrary, time_scale: 1.0, physical_ref_for_spg: /hdd1/hping/eda/libs/nangate45/mw/nangate45, mw_tf: /hdd1/hping/eda/libs/nangate45/mw/nangate45.tf, main: true}
-  asap7: {db: /hdd1/hping/eda/libs/asap7/RVT_TT.list, name: asap7sc7p5t_INVBUF_RVT_TT_nldm_211120, time_scale: 1000.0, physical_ref_for_spg: null}
-  sky130hd: {db: /hdd1/hping/eda/libs/sky130hd/sky130_fd_sc_hd__tt_025C_1v80.db, name: sky130_fd_sc_hd__tt_025C_1v80, time_scale: 1.0, physical_ref_for_spg: null}
+  nangate45: {db: /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db, name: NangateOpenCellLibrary, time_scale: 1.0, liberty: /home/hping/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib, physical_ref_for_spg: /hdd1/hping/eda/libs/nangate45/mw/nangate45, mw_tf: /hdd1/hping/eda/libs/nangate45/mw/nangate45.tf, main: true}
+  asap7: {db: /hdd1/hping/eda/libs/asap7/RVT_TT.list, name: asap7sc7p5t_INVBUF_RVT_TT_nldm_211120, time_scale: 1000.0, liberty: null, physical_ref_for_spg: null}
+  sky130hd: {db: /hdd1/hping/eda/libs/sky130hd/sky130_fd_sc_hd__tt_025C_1v80.db, name: sky130_fd_sc_hd__tt_025C_1v80, time_scale: 1.0, liberty: /home/hping/OpenROAD-flow-scripts/flow/platforms/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib, physical_ref_for_spg: null}
+
+constraints:                 # one SDC convention for every tool (OpenSTA-native text; the DC copy is rewritten by src/eval/sdc.py); Phase 0.5 decision in DECISIONS
+  clock_name: clk
+  io_delay_frac: 0.2         # input/output delay = 20% of the period (the convention of the earlier DC-vs-ORFS baselines)
+  max_fanout: 20
+  driving_cell: {nangate45: BUF_X1, asap7: BUFx2_ASAP7_75t_R, sky130hd: sky130_fd_sc_hd__buf_1}
+  output_load: null          # no set_load: identical across tools and libraries (library units differ: fF vs pF)
+  clock_gating_style: ""     # extra arguments for set_clock_gating_style before a -gate_clock compile; empty = DC defaults
 
 # ---------- evaluation configurations (commands are assembled by src/eval/templates; only semantic parameters here) ----------
 configs:
@@ -41,10 +49,13 @@ configs:
   H3:  {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock -spg", lib: nangate45, clock: phi_main, hidden: true}
   H4:  {tool: pt_primepower, input: E4_netlist, lib: nangate45, clock: phi_main, hidden: true}
   H5:  {tool: dc, compile: "compile_ultra -no_autoungroup -gate_clock", lib: nangate45, clock: phi_main, hidden: true, production_representative: true}
-  Y:   {tool: yosys_opensta, script: "synth -top {top}; abc -liberty {lib}; stat -liberty {lib}", lib: nangate45, clock: phi_main, reference: true}
-  O0:  {tool: yosys_opensta, script: "synth -top {top}; abc -liberty {lib}; stat", lib: nangate45, clock: phi_main, supplementary: true}
-  O1:  {tool: yosys_opensta, script: "synth -top {top} -flatten; opt -full; share -aggressive; abc -liberty {lib}; stat", lib: nangate45, clock: phi_main, supplementary: true}
-  O2:  {tool: yosys_opensta, script: "synth -top {top} -flatten; opt -full; share -aggressive; abc -liberty {lib} -script {abc_heavy_script}; stat", lib: nangate45, clock: phi_main, supplementary: true}
+  # Yosys scripts: dfflibmap maps flip-flops to library cells before abc (as in COEVO's script), otherwise stat -liberty
+  # leaves the registers unmapped and under-counts area; write_verilog/read_verilog are added by src/eval/yosys.py.
+  Y:   {tool: yosys_opensta, script: "synth -top {top}; dfflibmap -liberty {lib}; abc -liberty {lib}; opt_clean -purge; stat -liberty {lib}", lib: nangate45, clock: phi_main, reference: true}
+  O0:  {tool: yosys_opensta, script: "synth -top {top}; dfflibmap -liberty {lib}; abc -liberty {lib}; opt_clean -purge; stat -liberty {lib}", lib: nangate45, clock: phi_main, supplementary: true}
+  O1:  {tool: yosys_opensta, script: "synth -top {top} -flatten; opt -full; share -aggressive; dfflibmap -liberty {lib}; abc -liberty {lib}; opt_clean -purge; stat -liberty {lib}", lib: nangate45, clock: phi_main, supplementary: true}
+  O2:  {tool: yosys_opensta, script: "synth -top {top} -flatten; opt -full; share -aggressive; dfflibmap -liberty {lib}; abc -liberty {lib} -script {abc_heavy_script}; opt_clean -purge; stat -liberty {lib}", lib: nangate45, clock: phi_main, supplementary: true}
+  abc_heavy_script: "src/eval/templates/abc_heavy.script"   # O2: several resyn2 rounds + dch, deterministic (no randomization)
   O:   {tool: orfs, stage: cts, lib: nangate45, clock: phi_main, repro_layer: true}
 cktevo_sky130_visible:         # visible layer of the Sky130 sub-experiment (CktEvo's commercial-arm setting)
   compile: "compile_ultra -retime -timing_high_effort_script"

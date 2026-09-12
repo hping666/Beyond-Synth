@@ -1,0 +1,7 @@
+status=ok
+mode=wireload
+compile=compile_ultra -retime -timing_high_effort_script -gate_clock
+elapsed=54
+check_errors=0
+saif=none
+error=

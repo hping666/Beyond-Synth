@@ -1,0 +1,44 @@
+ 
+****************************************
+Report : area
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:44:26 2026
+****************************************
+
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db)
+
+Number of ports:                           26
+Number of nets:                           156
+Number of cells:                          131
+Number of combinational cells:            113
+Number of sequential cells:                15
+Number of macros/black boxes:               0
+Number of buf/inv:                         27
+Number of references:                      20
+
+Combinational area:                105.336000
+Buf/Inv area:                       15.428000
+Noncombinational area:              80.598002
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                   185.934002
+Total area:                 undefined
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area          Local cell area
+                                  ------------------  --------------------------- 
+Hierarchical cell                 Absolute   Percent  Combi-    Noncombi-  Black-
+                                  Total      Total    national  national   boxes   Design
+--------------------------------  ---------  -------  --------  ---------  ------  ----------------------------------
+verified_accu                      185.9340    100.0  105.3360    76.6080  0.0000  verified_accu
+clk_gate_count_reg                   3.9900      2.1    0.0000     3.9900  0.0000  SNPS_CLOCK_GATE_HIGH_verified_accu
+--------------------------------  ---------  -------  --------  ---------  ------  ----------------------------------
+Total                                                 105.3360    80.5980  0.0000
+
+1

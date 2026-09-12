@@ -1,0 +1,58 @@
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:45:25 2026
+****************************************
+
+
+Library(s) Used:
+
+    sky130_fd_sc_hd__tt_025C_1v80 (File: /hdd1/hping/eda/libs/sky130hd/sky130_fd_sc_hd__tt_025C_1v80.db)
+
+
+Operating Conditions: tt_025C_1v80   Library: sky130_fd_sc_hd__tt_025C_1v80
+Wire Load Model Mode: top
+
+Design        Wire Load Model            Library
+------------------------------------------------
+verified_accu          Small             sky130_fd_sc_hd__tt_025C_1v80
+
+
+Global Operating Voltage = 1.8  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+Attributes
+----------
+i - Including register clock pin internal power
+
+
+  Cell Internal Power  = 146.650497 uW   (78%)
+  Net Switching Power  = 41.164227 uW   (22%)
+                         ---------
+Total Dynamic Power    = 187.814728 uW  (100%)
+
+Cell Leakage Power     = 300.3263 pW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad           0.000000          0.000000          0.000000          0.000000  (   0.00%)
+memory           0.000000          0.000000          0.000000          0.000000  (   0.00%)
+black_box        0.000000          0.000000          0.000000          0.000000  (   0.00%)
+clock_network    0.112593        1.507108e-02        1.027360e-02          0.127664 (  67.97%) i
+register       1.455425e-02        6.909531e-03          0.171003        2.146395e-02 (  11.43%)
+sequential       0.000000          0.000000          0.000000          0.000000  (   0.00%)
+combinational  1.950316e-02        1.918362e-02          0.119049        3.868690e-02 (  20.60%)
+--------------------------------------------------------------------------------------------------
+Total            0.146651 mW     4.116422e-02 mW       0.300326 nW       0.187815 mW
+1

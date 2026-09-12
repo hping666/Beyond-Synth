@@ -13,8 +13,8 @@ sys.path[0] = ROOT
 
 from src import config as C  # noqa: E402
 from src.db import core as db  # noqa: E402
-from scripts.queue.core import Queue, _alive  # noqa: E402
-from scripts.queue.daemon import SECRETS_FILE, read_pid  # noqa: E402
+from src.jobqueue.core import Queue, _alive  # noqa: E402
+from src.jobqueue.daemon import SECRETS_FILE, read_pid  # noqa: E402
 
 
 def openai_key_configured():

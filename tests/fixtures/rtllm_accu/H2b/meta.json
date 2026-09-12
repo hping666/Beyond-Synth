@@ -1,0 +1,322 @@
+{
+ "cached": false,
+ "cand_id": null,
+ "cfg_hash": "65020fb68a87",
+ "check_design_errors": 0,
+ "checks": {
+  "area_positive": true,
+  "cells_positive": true,
+  "clock_present": true,
+  "histogram_nonempty": true,
+  "no_sdc_errors": true,
+  "no_unhandled_errors": true,
+  "reports_present": true,
+  "status_ok": true,
+  "timing_parsed": true
+ },
+ "clk_port": "clk",
+ "clock_ns": 5.0,
+ "compile_seconds": 60.0,
+ "config": "H2b",
+ "config_compile": "compile_ultra -retime -timing_high_effort_script -gate_clock",
+ "crit_path": {
+  "arrival": -3.998677,
+  "endpoint": "data_out_reg[9]",
+  "group": "clk",
+  "met": true,
+  "points": [
+   [
+    "U40/A",
+    "sky130_fd_sc_hd__nand2_1"
+   ],
+   [
+    "U40/Y",
+    "sky130_fd_sc_hd__nand2_1"
+   ],
+   [
+    "U45/A1",
+    "sky130_fd_sc_hd__a222oi_1"
+   ],
+   [
+    "U45/Y",
+    "sky130_fd_sc_hd__a222oi_1"
+   ],
+   [
+    "U47/CIN",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U47/COUT",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U49/CIN",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U49/COUT",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U51/CIN",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U51/COUT",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U53/CIN",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U53/COUT",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U55/CIN",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U55/COUT",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U57/CIN",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U57/COUT",
+    "sky130_fd_sc_hd__fa_1"
+   ],
+   [
+    "U25/A",
+    "sky130_fd_sc_hd__and2_0"
+   ],
+   [
+    "U25/X",
+    "sky130_fd_sc_hd__and2_0"
+   ],
+   [
+    "U60/A1",
+    "sky130_fd_sc_hd__o21ai_1"
+   ],
+   [
+    "U60/Y",
+    "sky130_fd_sc_hd__o21ai_1"
+   ],
+   [
+    "U61/B1",
+    "sky130_fd_sc_hd__a21oi_1"
+   ],
+   [
+    "U61/Y",
+    "sky130_fd_sc_hd__a21oi_1"
+   ],
+   [
+    "data_out_reg[9]/D",
+    "sky130_fd_sc_hd__dfrtp_1"
+   ]
+  ],
+  "required": 4.875972,
+  "slack": 0.877295,
+  "startpoint": "data_in[0]"
+ },
+ "dc_returncode": 0,
+ "dc_seconds": 64.1,
+ "design_id": "rtllm_accu",
+ "error": null,
+ "eval_id": 23,
+ "finished_at": "2026-09-12T07:45:25",
+ "git_sha": "3636f8f7b970",
+ "hist": {
+  "sky130_fd_sc_hd__a21oi_1": 3,
+  "sky130_fd_sc_hd__a222oi_1": 1,
+  "sky130_fd_sc_hd__a22o_1": 6,
+  "sky130_fd_sc_hd__and2_0": 1,
+  "sky130_fd_sc_hd__clkinv_1": 6,
+  "sky130_fd_sc_hd__conb_1": 1,
+  "sky130_fd_sc_hd__dfrtp_1": 13,
+  "sky130_fd_sc_hd__fa_1": 6,
+  "sky130_fd_sc_hd__nand2_1": 3,
+  "sky130_fd_sc_hd__nor2_1": 3,
+  "sky130_fd_sc_hd__nor2b_1": 1,
+  "sky130_fd_sc_hd__o21ai_1": 4,
+  "sky130_fd_sc_hd__o22ai_1": 1,
+  "sky130_fd_sc_hd__o2bb2ai_1": 2,
+  "sky130_fd_sc_hd__sdlclkp_1": 1,
+  "sky130_fd_sc_hd__xnor2_1": 1
+ },
+ "input_hash": "bb88888001eed165",
+ "is_baseline": 1,
+ "lib": "sky130hd",
+ "log_summary": {
+  "counts": {
+   "clock_gating": 4,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 2,
+   "warning": 1
+  },
+  "samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_accu, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_accu_DW01_add_J1_0, since there are no registers. (PWR-806)",
+    "Information: Performing clock-gating on design verified_accu. (PWR-730)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 2 hierarchies before Pass 1 (OPT-775)",
+    "Information: There is no timing violation in design verified_accu. Delay-based auto_ungroup will not be performed. (OPT-780)"
+   ],
+   "warning": [
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)"
+   ]
+  }
+ },
+ "metrics": {
+  "area": 655.628795,
+  "cells": 53,
+  "cg_gated_regs": 12,
+  "cg_icg_count": 1,
+  "cg_icg_tool_inserted": 1,
+  "cg_total_regs": 13,
+  "cg_ungated_regs": 1,
+  "comb_area": 311.548793,
+  "comb_cells": 39.0,
+  "crit_delay_ns": 2.998677,
+  "hier_cells": 1.0,
+  "icg_count": 1,
+  "noncomb_area": 344.080002,
+  "period_lib_units": 5.0,
+  "power_default_mw": 0.1878150283263,
+  "power_saif_mw": null,
+  "registers": 13.0,
+  "seq_cells": 14.0,
+  "tns_ns": 0.0,
+  "wns_ns": 0.877295
+ },
+ "mode": "wireload",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165/outputs/reports/netlist.v",
+ "path_endpoints": [
+  [
+   "data_in[0]",
+   "data_out_reg[9]",
+   0.877295
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[7]",
+   0.996109
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[8]",
+   1.03036
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[6]",
+   1.387464
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[5]",
+   1.778819
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[4]",
+   2.170173
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[3]",
+   2.443538
+  ],
+  [
+   "valid_in",
+   "data_out_reg[1]",
+   2.556083
+  ],
+  [
+   "data_in[0]",
+   "data_out_reg[2]",
+   2.637666
+  ],
+  [
+   "valid_in",
+   "data_out_reg[0]",
+   2.674225
+  ]
+ ],
+ "pert_id": null,
+ "power_default": {
+  "dynamic": 0.18781472800000001,
+  "internal": 0.146650497,
+  "leakage": 3.003263e-07,
+  "switching": 0.041164227,
+  "total_mw": 0.1878150283263
+ },
+ "power_saif": {},
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165",
+ "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165/outputs/reports",
+ "resources": {
+  "datapath_blocks": 0,
+  "dw_modules": [
+   "DW01_add",
+   "DW01_inc"
+  ],
+  "implementations": [],
+  "resources": [
+   {
+    "module": "Module",
+    "ops": [
+     "Contained",
+     "Operations"
+    ],
+    "params": "Parameters",
+    "resource": "Cell"
+   },
+   {
+    "module": "DW01_inc",
+    "ops": [
+     "add_31",
+     "(verified_accu.v:31)"
+    ],
+    "params": "width=2",
+    "resource": "add_x_1"
+   },
+   {
+    "module": "DW01_add",
+    "ops": [
+     "add_57",
+     "(verified_accu.v:57)"
+    ],
+    "params": "width=10",
+    "resource": "add_x_4"
+   }
+  ],
+  "shared_resources": 3
+ },
+ "rtl_files": [
+  "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
+ ],
+ "saif_status": "none",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165/inputs/constraint.sdc",
+ "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2b/bb88888001eed165/inputs/constraint_dc.sdc",
+ "started_at": "2026-09-12T07:44:21",
+ "status": "ok",
+ "tool": "dc",
+ "tool_version": "W-2024.09-SP5-3",
+ "top": "verified_accu",
+ "wall_seconds": 64.1
+}

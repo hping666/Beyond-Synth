@@ -1,0 +1,69 @@
+{
+ "cached": false,
+ "cand_id": null,
+ "cfg_hash": "65020fb68a87",
+ "checks": {
+  "area_positive": true,
+  "cells_positive": true,
+  "histogram_nonempty": true,
+  "netlist_present": true,
+  "no_sta_errors": true,
+  "status_ok": true,
+  "timing_parsed": true
+ },
+ "clk_port": "clk",
+ "clock_ns": 2.0,
+ "config": "Y",
+ "config_script": "synth -top {top}; dfflibmap -liberty {lib}; abc -liberty {lib}; opt_clean -purge; stat -liberty {lib}",
+ "crit_path": {
+  "endpoint": "_165_",
+  "startpoint": "data_in[1]"
+ },
+ "dc_seconds": 0.0,
+ "design_id": "rtllm_accu",
+ "error": null,
+ "eval_id": 26,
+ "finished_at": "2026-09-12T07:49:25",
+ "git_sha": "3636f8f7b970",
+ "hist": {
+  "AND2_X1": 3,
+  "AND3_X1": 2,
+  "AOI211_X1": 2,
+  "AOI21_X1": 8,
+  "DFFR_X1": 13,
+  "INV_X1": 2,
+  "MUX2_X1": 8,
+  "NAND2_X1": 11,
+  "NOR2_X1": 7,
+  "NOR3_X1": 1,
+  "OAI21_X1": 11,
+  "OR2_X1": 1,
+  "OR3_X1": 2,
+  "XNOR2_X1": 9,
+  "XOR2_X1": 5
+ },
+ "input_hash": "77ab2e29dcc63698",
+ "is_baseline": 1,
+ "lib": "nangate45",
+ "metrics": {
+  "area": 155.344,
+  "cells": 85,
+  "crit_delay_ns": 0.79,
+  "registers": 13,
+  "tns_ns": 0.0,
+  "wns_ns": 1.17
+ },
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r3/outputs/netlist.v",
+ "pert_id": null,
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r3",
+ "rtl_files": [
+  "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
+ ],
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/Y/77ab2e29dcc63698-r3/inputs/constraint.sdc",
+ "started_at": "2026-09-12T07:49:25",
+ "status": "ok",
+ "tool": "yosys_opensta",
+ "tool_version": "yosys 0.63 / OpenROAD-26Q1-2754",
+ "top": "verified_accu",
+ "wall_seconds": 0.9
+}

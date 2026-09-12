@@ -1,0 +1,62 @@
+Loading db file '/hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:42:37 2026
+****************************************
+
+
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db)
+
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+Design        Wire Load Model            Library
+------------------------------------------------
+verified_accu          5K_hvratio_1_1    NangateOpenCellLibrary
+
+
+Global Operating Voltage = 1.1  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+Attributes
+----------
+i - Including register clock pin internal power
+
+
+  Cell Internal Power  = 79.265686 uW   (80%)
+  Net Switching Power  = 19.723362 uW   (20%)
+                         ---------
+Total Dynamic Power    = 98.989044 uW  (100%)
+
+Cell Leakage Power     =   2.4200 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad           0.000000          0.000000          0.000000          0.000000  (   0.00%)
+memory           0.000000          0.000000          0.000000          0.000000  (   0.00%)
+black_box        0.000000          0.000000          0.000000          0.000000  (   0.00%)
+clock_network   42.131958          0.000000          0.000000         42.131958  (  41.55%)  i
+register        18.420341          7.446378        1.101222e+03         26.967943 (  26.59%)
+sequential       0.000000          0.000000          0.000000          0.000000  (   0.00%)
+combinational   18.713387         12.276986        1.318809e+03         32.309174 (  31.86%)
+--------------------------------------------------------------------------------------------------
+Total           79.265686 uW      19.723364 uW     2.420031e+03 nW     101.409073 uW
+1

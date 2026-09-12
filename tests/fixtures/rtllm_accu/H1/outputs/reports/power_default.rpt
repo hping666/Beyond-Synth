@@ -1,0 +1,58 @@
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:44:26 2026
+****************************************
+
+
+Library(s) Used:
+
+    NangateOpenCellLibrary (File: /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db)
+
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary
+Wire Load Model Mode: top
+
+Design        Wire Load Model            Library
+------------------------------------------------
+verified_accu          5K_hvratio_1_1    NangateOpenCellLibrary
+
+
+Global Operating Voltage = 1.1  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+Attributes
+----------
+i - Including register clock pin internal power
+
+
+  Cell Internal Power  = 1.953920 mW   (72%)
+  Net Switching Power  = 752.360352 uW   (28%)
+                         ---------
+Total Dynamic Power    = 2.706281 mW  (100%)
+
+Cell Leakage Power     =   4.0113 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad           0.000000          0.000000          0.000000          0.000000  (   0.00%)
+memory           0.000000          0.000000          0.000000          0.000000  (   0.00%)
+black_box        0.000000          0.000000          0.000000          0.000000  (   0.00%)
+clock_network  1.018812e+03        200.631622         55.936169        1.219499e+03 (  45.00%) i
+register       422.307190         80.947174        1.279605e+03        504.534058 (  18.62%)
+sequential       0.000000          0.000000          0.000000          0.000000  (   0.00%)
+combinational  512.801697        470.781647        2.675788e+03        986.258972 (  36.39%)
+--------------------------------------------------------------------------------------------------
+Total          1.953920e+03 uW     752.360474 uW     4.011330e+03 nW     2.710292e+03 uW
+1

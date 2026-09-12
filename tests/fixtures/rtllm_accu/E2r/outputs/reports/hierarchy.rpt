@@ -1,0 +1,28 @@
+ 
+****************************************
+Report : hierarchy
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:43:33 2026
+****************************************
+
+Attributes:
+    r - licensed design
+
+verified_accu      r
+    AND2_X1           NangateOpenCellLibrary
+    AOI21_X1          NangateOpenCellLibrary
+    AOI22_X1          NangateOpenCellLibrary
+    DFFR_X1           NangateOpenCellLibrary
+    FA_X1             NangateOpenCellLibrary
+    INV_X1            NangateOpenCellLibrary
+    NAND2_X1          NangateOpenCellLibrary
+    NOR2_X1           NangateOpenCellLibrary
+    NOR3_X1           NangateOpenCellLibrary
+    NOR3_X2           NangateOpenCellLibrary
+    OAI21_X1          NangateOpenCellLibrary
+    OAI33_X1          NangateOpenCellLibrary
+    OAI222_X1         NangateOpenCellLibrary
+    XNOR2_X1          NangateOpenCellLibrary
+    XOR2_X1           NangateOpenCellLibrary
+1

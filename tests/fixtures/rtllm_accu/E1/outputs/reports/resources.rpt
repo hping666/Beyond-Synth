@@ -1,0 +1,29 @@
+ 
+****************************************
+Report : resources
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:42:37 2026
+****************************************
+
+Resource Sharing Report for design verified_accu in file
+        /home/hping/Beyond-Synth/results/raw/rtllm_accu/E1/46c64f4db62b7431/inputs/rtl/verified_accu.v
+
+===============================================================================
+|          |              |            | Contained     |                      |
+| Resource | Module       | Parameters | Resources     | Contained Operations |
+===============================================================================
+| r367     | DW01_inc     | width=2    |               | add_31               |
+| r369     | DW01_add     | width=10   |               | add_57               |
+===============================================================================
+
+
+Implementation Report
+===============================================================================
+|                    |                  | Current            | Set            |
+| Cell               | Module           | Implementation     | Implementation |
+===============================================================================
+| add_57             | DW01_add         | rpl                |                |
+===============================================================================
+
+1

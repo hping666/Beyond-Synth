@@ -1,0 +1,3 @@
+wns_max=0.760198
+wns_min=0.099633
+cells=51

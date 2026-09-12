@@ -1,0 +1,84 @@
+Information: Updating design information... (UID-85)
+ 
+****************************************
+Report : qor
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:42:37 2026
+****************************************
+
+
+  Timing Path Group 'clk'
+  -----------------------------------
+  Levels of Logic:          12.000000
+  Critical Path Length:      0.877118
+  Critical Path Slack:       0.682844
+  Critical Path Clk Period:  2.000000
+  Total Negative Slack:      0.000000
+  No. of Violating Paths:    0.000000
+  Worst Hold Violation:      0.000000
+  Total Hold Violation:      0.000000
+  No. of Hold Violations:    0.000000
+  -----------------------------------
+
+
+  Cell Count
+  -----------------------------------
+  Hierarchical Cell Count:          1
+  Hierarchical Port Count:         32
+  Leaf Cell Count:                 54
+  Buf/Inv Cell Count:              11
+  Buf Cell Count:                   0
+  Inv Cell Count:                  11
+  CT Buf/Inv Cell Count:            0
+  Combinational Cell Count:        41
+  Sequential Cell Count:           13
+  Macro Count:                      0
+  -----------------------------------
+
+
+  Area
+  -----------------------------------
+  Combinational Area:       72.086000
+  Noncombinational Area:    69.160002
+  Buf/Inv Area:              5.852000
+  Total Buffer Area:         0.000000
+  Total Inverter Area:       5.852000
+  Macro/Black Box Area:      0.000000
+  Net Area:                  0.000000
+  -----------------------------------
+  Cell Area:               141.246003
+  Design Area:             141.246003
+
+
+  Design Rules
+  -----------------------------------
+  Total Number of Nets:            75
+  Nets With Violations:             0
+  Max Trans Violations:             0
+  Max Cap Violations:               0
+  -----------------------------------
+
+
+  Hostname: cinnamon
+
+  Compile CPU Statistics
+  -----------------------------------------
+  Resource Sharing:                0.065620
+  Logic Optimization:              0.089222
+  Mapping Optimization:            0.103436
+  -----------------------------------------
+  Overall Compile Time:            0.698004
+  Overall Compile Wall Clock Time: 0.700181
+
+  --------------------------------------------------------------------
+
+  Design  WNS: 0.000000  TNS: 0.000000  Number of Violating Paths: 0
+
+
+  Design (Hold)  WNS: 0.000000  TNS: 0.000000  Number of Violating Paths: 0
+
+  --------------------------------------------------------------------
+
+
+1

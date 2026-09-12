@@ -1,0 +1,12 @@
+****************************************
+Report : global_timing
+	-format { narrow }
+Design : verified_accu
+Version: V-2023.12-SP5-4
+Date   : Sat Sep 12 07:46:52 2026
+****************************************
+
+No setup violations found.
+
+No hold violations found.
+1

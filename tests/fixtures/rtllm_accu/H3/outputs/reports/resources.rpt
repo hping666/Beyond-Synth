@@ -1,0 +1,29 @@
+ 
+****************************************
+Report : resources
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:45:18 2026
+****************************************
+
+
+Resource Report for this hierarchy in file
+        /home/hping/Beyond-Synth/results/raw/rtllm_accu/H3/18a47ce230d023f5/inputs/rtl/verified_accu.v
+=============================================================================
+| Cell           | Module         | Parameters | Contained Operations       |
+=============================================================================
+| add_x_1        | DW01_inc       | width=2    | add_31 (verified_accu.v:31) |
+| add_x_4        | DW01_add       | width=10   | add_57 (verified_accu.v:57) |
+=============================================================================
+
+
+Implementation Report
+===============================================================================
+|                    |                  | Current            | Set            |
+| Cell               | Module           | Implementation     | Implementation |
+===============================================================================
+| add_x_1            | DW01_inc         | apparch (area)     |                |
+| add_x_4            | DW01_add         | apparch (area)     |                |
+===============================================================================
+
+1

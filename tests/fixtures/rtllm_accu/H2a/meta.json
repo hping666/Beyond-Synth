@@ -1,0 +1,322 @@
+{
+ "cached": false,
+ "cand_id": null,
+ "cfg_hash": "65020fb68a87",
+ "check_design_errors": 0,
+ "checks": {
+  "area_positive": true,
+  "cells_positive": true,
+  "clock_present": true,
+  "histogram_nonempty": true,
+  "no_sdc_errors": true,
+  "no_unhandled_errors": true,
+  "reports_present": true,
+  "status_ok": true,
+  "timing_parsed": true
+ },
+ "clk_port": "clk",
+ "clock_ns": 0.5,
+ "compile_seconds": 118.0,
+ "config": "H2a",
+ "config_compile": "compile_ultra -retime -timing_high_effort_script -gate_clock",
+ "crit_path": {
+  "arrival": -432.5466,
+  "endpoint": "data_out_reg[9]",
+  "group": "clk",
+  "met": true,
+  "points": [
+   [
+    "U68/A",
+    "INVxp33_ASAP7_75t_R"
+   ],
+   [
+    "U68/Y",
+    "INVxp33_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U21/B",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U21/CON",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U20/CI",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U20/CON",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U16/CI",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U16/CON",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U15/CI",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U15/CON",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U11/CI",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U11/CON",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U10/CI",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U10/CON",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U6/CI",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "add_x_4/U6/CON",
+    "FAx1_ASAP7_75t_R"
+   ],
+   [
+    "U63/B",
+    "NAND2xp33_ASAP7_75t_R"
+   ],
+   [
+    "U63/Y",
+    "NAND2xp33_ASAP7_75t_R"
+   ],
+   [
+    "U64/A",
+    "INVxp33_ASAP7_75t_R"
+   ],
+   [
+    "U64/Y",
+    "INVxp33_ASAP7_75t_R"
+   ],
+   [
+    "U65/A1",
+    "AOI221xp5_ASAP7_75t_R"
+   ],
+   [
+    "U65/Y",
+    "AOI221xp5_ASAP7_75t_R"
+   ],
+   [
+    "data_out_reg[9]/D",
+    "DFFASRHQNx1_ASAP7_75t_R"
+   ]
+  ],
+  "required": 477.605591,
+  "slack": 45.05899,
+  "startpoint": "data_in[1]"
+ },
+ "dc_returncode": 0,
+ "dc_seconds": 123.6,
+ "design_id": "rtllm_accu",
+ "error": null,
+ "eval_id": 24,
+ "finished_at": "2026-09-12T07:45:37",
+ "git_sha": "3636f8f7b970",
+ "hist": {
+  "A2O1A1Ixp33_ASAP7_75t_R": 1,
+  "AO32x1_ASAP7_75t_R": 4,
+  "AOI221xp5_ASAP7_75t_R": 3,
+  "DFFASRHQNx1_ASAP7_75t_R": 13,
+  "FAx1_ASAP7_75t_R": 7,
+  "ICGx1_ASAP7_75t_R": 1,
+  "INVxp33_ASAP7_75t_R": 23,
+  "INVxp67_ASAP7_75t_R": 1,
+  "NAND2xp33_ASAP7_75t_R": 4,
+  "NOR2xp33_ASAP7_75t_R": 2,
+  "NOR3xp33_ASAP7_75t_R": 1,
+  "OAI22xp33_ASAP7_75t_R": 3,
+  "OAI31xp33_ASAP7_75t_R": 1,
+  "TIEHIx1_ASAP7_75t_R": 1,
+  "TIELOx1_ASAP7_75t_R": 1
+ },
+ "input_hash": "6d39a8ccd0ec50aa",
+ "is_baseline": 1,
+ "lib": "asap7",
+ "log_summary": {
+  "counts": {
+   "clock_gating": 4,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 2,
+   "warning": 3
+  },
+  "samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_accu, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_accu_DW01_add_J1_0, since there are no registers. (PWR-806)",
+    "Information: Performing clock-gating on design verified_accu. (PWR-730)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 2 hierarchies before Pass 1 (OPT-775)",
+    "Information: There is no timing violation in design verified_accu. Delay-based auto_ungroup will not be performed. (OPT-780)"
+   ],
+   "warning": [
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)",
+    "Warning: Only placeholder alibs were found. Proceeding with library analysis. (OPT-1311)"
+   ]
+  }
+ },
+ "metrics": {
+  "area": 9.38952,
+  "cells": 66,
+  "cg_gated_regs": 12,
+  "cg_icg_count": 1,
+  "cg_icg_tool_inserted": 1,
+  "cg_total_regs": 13,
+  "cg_ungated_regs": 1,
+  "comb_area": 4.19904,
+  "comb_cells": 52.0,
+  "crit_delay_ns": 0.3325466,
+  "hier_cells": 1.0,
+  "icg_count": 1,
+  "noncomb_area": 5.19048,
+  "period_lib_units": 500.0,
+  "power_default_mw": 0.0606194606,
+  "power_saif_mw": null,
+  "registers": 13.0,
+  "seq_cells": 14.0,
+  "tns_ns": 0.0,
+  "wns_ns": 0.045058999999999995
+ },
+ "mode": "wireload",
+ "netlist": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa/outputs/reports/netlist.v",
+ "path_endpoints": [
+  [
+   "data_in[1]",
+   "data_out_reg[9]",
+   45.05899
+  ],
+  [
+   "data_in[1]",
+   "data_out_reg[7]",
+   59.753662
+  ],
+  [
+   "data_in[1]",
+   "data_out_reg[8]",
+   70.102142
+  ],
+  [
+   "data_in[1]",
+   "data_out_reg[6]",
+   101.392548
+  ],
+  [
+   "data_in[1]",
+   "data_out_reg[5]",
+   124.174957
+  ],
+  [
+   "data_in[1]",
+   "data_out_reg[4]",
+   169.824738
+  ],
+  [
+   "valid_in",
+   "data_out_reg[0]",
+   172.71579
+  ],
+  [
+   "valid_in",
+   "data_out_reg[1]",
+   177.719452
+  ],
+  [
+   "valid_in",
+   "data_out_reg[3]",
+   177.719452
+  ],
+  [
+   "valid_in",
+   "data_out_reg[2]",
+   179.25946
+  ]
+ ],
+ "pert_id": null,
+ "power_default": {
+  "dynamic": 0.06061224,
+  "internal": 0.047128383999999995,
+  "leakage": 7.2206e-06,
+  "switching": 0.013483855000000001,
+  "total_mw": 0.0606194606
+ },
+ "power_saif": {},
+ "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa",
+ "reports_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa/outputs/reports",
+ "resources": {
+  "datapath_blocks": 0,
+  "dw_modules": [
+   "DW01_add",
+   "DW01_inc"
+  ],
+  "implementations": [],
+  "resources": [
+   {
+    "module": "Module",
+    "ops": [
+     "Contained",
+     "Operations"
+    ],
+    "params": "Parameters",
+    "resource": "Cell"
+   },
+   {
+    "module": "DW01_inc",
+    "ops": [
+     "add_31",
+     "(verified_accu.v:31)"
+    ],
+    "params": "width=2",
+    "resource": "add_x_1"
+   },
+   {
+    "module": "DW01_add",
+    "ops": [
+     "add_57",
+     "(verified_accu.v:57)"
+    ],
+    "params": "width=10",
+    "resource": "add_x_4"
+   }
+  ],
+  "shared_resources": 3
+ },
+ "rtl_files": [
+  "/home/hping/RTLLM/Arithmetic/Accumulator/accu/verified_accu.v"
+ ],
+ "saif_status": "none",
+ "sdc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa/inputs/constraint.sdc",
+ "sdc_dc": "/home/hping/Beyond-Synth/results/raw/rtllm_accu/H2a/6d39a8ccd0ec50aa/inputs/constraint_dc.sdc",
+ "started_at": "2026-09-12T07:43:33",
+ "status": "ok",
+ "tool": "dc",
+ "tool_version": "W-2024.09-SP5-3",
+ "top": "verified_accu",
+ "wall_seconds": 123.6
+}

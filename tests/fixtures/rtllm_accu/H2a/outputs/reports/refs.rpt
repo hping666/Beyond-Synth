@@ -1,0 +1,48 @@
+ 
+****************************************
+Report : reference
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:45:37 2026
+****************************************
+
+Attributes:
+    b - black box (unknown)
+   bo - allows boundary optimization
+    d - dont_touch
+   mo - map_only
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    s - synthetic operator
+    u - contains unmapped logic
+
+Reference          Library       Unit Area   Count    Total Area   Attributes
+-----------------------------------------------------------------------------
+A2O1A1Ixp33_ASAP7_75t_R asap7sc7p5t_AO_RVT_TT_nldm_211120     0.087480       1     0.087480
+AO32x1_ASAP7_75t_R asap7sc7p5t_AO_RVT_TT_nldm_211120     0.116640       4     0.466560
+AOI221xp5_ASAP7_75t_R asap7sc7p5t_AO_RVT_TT_nldm_211120     0.102060       3     0.306180
+DFFASRHQNx1_ASAP7_75t_R asap7sc7p5t_SEQ_RVT_TT_nldm_220123     0.379080      13     4.928040 n
+FAx1_ASAP7_75t_R   asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120     0.204120       7     1.428840 r
+INVxp33_ASAP7_75t_R asap7sc7p5t_INVBUF_RVT_TT_nldm_211120     0.043740      23     1.006020
+INVxp67_ASAP7_75t_R asap7sc7p5t_INVBUF_RVT_TT_nldm_211120     0.043740       1     0.043740
+NAND2xp33_ASAP7_75t_R asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120     0.058320       4     0.233280
+NOR2xp33_ASAP7_75t_R asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120     0.058320       2     0.116640
+NOR3xp33_ASAP7_75t_R asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120     0.072900       1     0.072900
+OAI22xp33_ASAP7_75t_R asap7sc7p5t_OA_RVT_TT_nldm_211120     0.087480       3     0.262440
+OAI31xp33_ASAP7_75t_R asap7sc7p5t_OA_RVT_TT_nldm_211120     0.087480       1     0.087480
+SNPS_CLOCK_GATE_HIGH_verified_accu     0.262440       1     0.262440 b, h
+TIEHIx1_ASAP7_75t_R asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120     0.043740       1     0.043740
+TIELOx1_ASAP7_75t_R asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120     0.043740       1     0.043740
+-----------------------------------------------------------------------------
+Total 15 references                                     9.389520
+
+****************************************
+Design: SNPS_CLOCK_GATE_HIGH_verified_accu 
+****************************************
+Reference          Library       Unit Area   Count    Total Area   Attributes
+-----------------------------------------------------------------------------
+ICGx1_ASAP7_75t_R  asap7sc7p5t_SEQ_RVT_TT_nldm_220123     0.262440       1     0.262440 b
+-----------------------------------------------------------------------------
+Total 1 references                                      0.262440
+1

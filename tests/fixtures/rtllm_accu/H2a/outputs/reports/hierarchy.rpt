@@ -1,0 +1,29 @@
+ 
+****************************************
+Report : hierarchy
+Design : verified_accu
+Version: W-2024.09-SP5-3
+Date   : Sat Sep 12 07:45:37 2026
+****************************************
+
+Attributes:
+    r - licensed design
+
+verified_accu      r
+    A2O1A1Ixp33_ASAP7_75t_R                    asap7sc7p5t_AO_RVT_TT_nldm_211120
+    AO32x1_ASAP7_75t_R                         asap7sc7p5t_AO_RVT_TT_nldm_211120
+    AOI221xp5_ASAP7_75t_R                      asap7sc7p5t_AO_RVT_TT_nldm_211120
+    DFFASRHQNx1_ASAP7_75t_R                    asap7sc7p5t_SEQ_RVT_TT_nldm_220123
+    FAx1_ASAP7_75t_R                           asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120
+    INVxp33_ASAP7_75t_R                        asap7sc7p5t_INVBUF_RVT_TT_nldm_211120
+    INVxp67_ASAP7_75t_R                        asap7sc7p5t_INVBUF_RVT_TT_nldm_211120
+    NAND2xp33_ASAP7_75t_R                      asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120
+    NOR2xp33_ASAP7_75t_R                       asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120
+    NOR3xp33_ASAP7_75t_R                       asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120
+    OAI22xp33_ASAP7_75t_R                      asap7sc7p5t_OA_RVT_TT_nldm_211120
+    OAI31xp33_ASAP7_75t_R                      asap7sc7p5t_OA_RVT_TT_nldm_211120
+    SNPS_CLOCK_GATE_HIGH_verified_accu
+        ICGx1_ASAP7_75t_R                      asap7sc7p5t_SEQ_RVT_TT_nldm_220123
+    TIEHIx1_ASAP7_75t_R                        asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120
+    TIELOx1_ASAP7_75t_R                        asap7sc7p5t_SIMPLE_RVT_TT_nldm_211120
+1

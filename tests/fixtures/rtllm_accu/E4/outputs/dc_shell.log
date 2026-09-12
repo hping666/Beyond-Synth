@@ -1,0 +1,611 @@
+/hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/bin/dc_shell: 42: [: T: unexpected operator
+/hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/bin/dc_shell: 46: [: T: unexpected operator
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid this.
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+              Version W-2024.09-SP5-3 for linux64 - Jul 31, 2025 
+
+                    Copyright (c) 1988 - 2025 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+Initializing...
+Current time:       Sat Sep 12 07:42:36 2026
+Hostname:           cinnamon
+CPU Model:          Intel(R) Xeon(R) Gold 5218 CPU @ 2.30GHz
+CPU Details:        Cores = 64 : Sockets = 2 : Cache Size = 22528 KB : Freq = 1.00 GHz
+OS:                 Linux 5.4.0-216-generic
+RAM:                503 GB (Free  57 GB)
+Swap:                 7 GB (Free   7 GB)
+Work Filesystem:    / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
+Tmp Filesystem:     / mounted to /dev/mapper/ubuntu--vg-ubuntu--lv
+Work Disk:          1758 GB (Free 227 GB)
+Tmp Disk:           1758 GB (Free 227 GB)
+
+CPU Load: 0%, Ram Free: 57 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+# Beyond-Synth DC evaluation template: one script for every DC rung and hidden configuration
+# (docs/spec/01-eval-service.md §2). Driven by environment variables set by src/eval/dc.py; the compile
+# command itself comes from config/experiments.yaml (configs.<name>.compile).
+#
+#   EVAL_VERILOG      RTL files (space separated)         EVAL_TOP          top module
+#   EVAL_FORMAT       verilog | sverilog                  EVAL_INCDIRS      `include search dirs
+#   EVAL_LIB_DB       .db files (space separated)         EVAL_LIB_NAME     library name
+#   EVAL_DONT_USE     lib cells to exclude (optional)
+#   EVAL_SDC          Synopsys-ready SDC (already unit scaled; from src/eval/sdc.py)
+#   EVAL_CLK_NAME     clock name in the SDC              EVAL_CLK_PERIOD   expected period in library units
+#   EVAL_OUT          report directory                    EVAL_COMPILE      e.g. "compile_ultra -retime -gate_clock"
+#   EVAL_MAX_CORES    set_host_options -max_cores         EVAL_MAX_FANOUT   set_max_fanout value
+#   EVAL_MODE         wireload | topo (topo = dc_shell -topographical_mode; required for -spg)
+#   EVAL_MW_REF / EVAL_MW_TF   Milkyway reference library / technology file (topo only)
+#   EVAL_CG_STYLE     extra set_clock_gating_style arguments (optional)
+#   EVAL_SAIF / EVAL_SAIF_INSTANCE   switching activity for report_power (optional)
+#   EVAL_FLOW_DIR     directory holding sdc_compat.tcl (the read-only flow/ scripts)
+#
+# DC returns 0 on failure instead of raising (eda-knowledge/05-traps.md #1): every command runs through `step`,
+# which checks both the Tcl exception and the return value. The SDC section is bracketed by markers built from
+# a variable so that the Python side can find errors DC only printed (#2, #3). Nothing here is design specific.
+proc envq {name def} {
+    if {[info exists ::env($name)] && $::env($name) ne ""} { return $::env($name) }
+    return $def
+}
+set SYN        [envq SYNOPSYS ""]
+/hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3
+set VFILES     [envq EVAL_VERILOG ""]
+/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/inputs/rtl/verified_accu.v
+set TOP        [envq EVAL_TOP ""]
+verified_accu
+set VFMT       [envq EVAL_FORMAT verilog]
+verilog
+set INCDIRS    [envq EVAL_INCDIRS ""]
+set LIB_DB     [envq EVAL_LIB_DB ""]
+/hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db
+set LIB_NAME   [envq EVAL_LIB_NAME ""]
+NangateOpenCellLibrary
+set DONT_USE   [envq EVAL_DONT_USE ""]
+set SDC        [envq EVAL_SDC ""]
+/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/inputs/constraint_dc.sdc
+set CLK_NAME   [envq EVAL_CLK_NAME clk]
+clk
+set CLK_PERIOD [envq EVAL_CLK_PERIOD ""]
+2
+set OUT        [envq EVAL_OUT "."]
+/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/outputs/reports
+set COMPILE    [envq EVAL_COMPILE "compile_ultra"]
+compile_ultra -retime -timing_high_effort_script -gate_clock
+set MAX_CORES  [envq EVAL_MAX_CORES 4]
+4
+set MAX_FANOUT [envq EVAL_MAX_FANOUT 20]
+20
+set MODE       [envq EVAL_MODE wireload]
+wireload
+set MW_REF     [envq EVAL_MW_REF ""]
+/hdd1/hping/eda/libs/nangate45/mw/nangate45
+set MW_TF      [envq EVAL_MW_TF ""]
+/hdd1/hping/eda/libs/nangate45/mw/nangate45.tf
+set CG_STYLE   [envq EVAL_CG_STYLE ""]
+set SAIF       [envq EVAL_SAIF ""]
+set SAIF_INST  [envq EVAL_SAIF_INSTANCE ""]
+set FLOWDIR    [envq EVAL_FLOW_DIR /hdd1/hping/eda/flow]
+/hdd1/hping/eda/flow
+file mkdir $OUT
+set STATUS  ok
+ok
+set FAILMSG ""
+set SAIF_STATUS "none"
+none
+set CHECK_ERRORS -1
+-1
+# run one DC command: a Tcl exception is a failure, and so is a return value of 0
+proc step {label script} {
+    global STATUS FAILMSG
+    if {$STATUS ne "ok"} { return 0 }
+    if {[catch {uplevel 1 $script} r]} {
+        set STATUS $label
+        set FAILMSG $r
+        return 0
+    }
+    if {[string is integer -strict $r] && $r == 0} {
+        set STATUS $label
+        set FAILMSG "command returned 0 (DC reported an error; see the log)"
+        return 0
+    }
+    return 1
+}
+# ---------------- reproducibility and reporting settings ----------------
+if {[catch {set_host_options -max_cores $MAX_CORES} e]} {
+    set STATUS setup_failed
+    set FAILMSG "set_host_options: $e"
+}
+catch { set_app_var report_default_significant_digits 6 }
+0
+set_app_var sh_new_variable_message false
+false
+suppress_message {VER-130 VER-936 UID-401 OPT-1206 LINT-52}
+# ---------------- libraries ----------------
+set LIB_DIRS {}
+foreach db $LIB_DB { lappend LIB_DIRS [file dirname $db] }
+set search_path [concat $search_path [lsort -unique $LIB_DIRS]]
+. /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/libraries/syn /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/dw/syn_ver /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/dw/sim_ver /hdd1/hping/eda/libs/nangate45
+if {$INCDIRS ne ""} { set search_path [concat $search_path $INCDIRS] }
+set target_library    $LIB_DB
+/hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db
+set synthetic_library [list $SYN/libraries/syn/dw_foundation.sldb]
+/hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/libraries/syn/dw_foundation.sldb
+set link_library      [concat * $target_library $synthetic_library]
+* /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/libraries/syn/dw_foundation.sldb
+set symbol_library    {}
+# ---------------- topographical mode (needed by -spg) ----------------
+if {$STATUS eq "ok" && $MODE eq "topo"} {
+    if {$MW_REF eq "" || $MW_TF eq ""} {
+        set STATUS constraint_failed
+        set FAILMSG "topo mode needs EVAL_MW_REF and EVAL_MW_TF (only nangate45 has a Milkyway library)"
+    } else {
+        set_app_var mw_reference_library $MW_REF
+        set mwdes $OUT/../mw_design
+        # a stale design library makes create_mw_lib return 0 silently and compile fail later (traps #8)
+        if {[file exists $mwdes]} { file delete -force $mwdes }
+        set _mwok 0
+        if {[catch {set _mwok [create_mw_lib -technology $MW_TF -mw_reference_library $MW_REF -open $mwdes]} e]} {
+            set STATUS constraint_failed
+            set FAILMSG "create_mw_lib failed: $e"
+        } elseif {[string is integer -strict $_mwok] && $_mwok == 0} {
+            set STATUS constraint_failed
+            set FAILMSG "create_mw_lib returned 0 (see the log)"
+        }
+    }
+}
+if {$STATUS eq "ok" && $MODE ne "topo" && [string match "*-spg*" $COMPILE]} {
+    set STATUS constraint_failed
+    set FAILMSG "-spg needs topographical mode"
+}
+# ---------------- read the design ----------------
+foreach f $VFILES {
+    step analyze_failed { analyze -format $VFMT $f }
+}
+Running PRESTO HDLC
+Compiling source file /home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/inputs/rtl/verified_accu.v
+Presto compilation completed successfully.
+Loading db file '/hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db'
+Loading db file '/hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/libraries/syn/dw_foundation.sldb'
+step elaborate_failed { elaborate $TOP }
+Loading db file '/hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/libraries/syn/gtech.db'
+Loading db file '/hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/libraries/syn/standard.sldb'
+  Loading link library 'NangateOpenCellLibrary'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Inferred memory devices in process in routine 'verified_accu' in file
+	 /home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/inputs/rtl/verified_accu.v'.
+==================================================================================
+|    Register Name    |   Type    | Width | Bus | MB |  Set  | Reset | ST | Line |
+==================================================================================
+|      count_reg      | Flip-flop |   2   |  Y  | N  | None  | Async | N  |  23  |
+|    data_out_reg     | Flip-flop |  10   |  Y  | N  | None  | Async | N  |  49  |
+|    valid_out_reg    | Flip-flop |   1   |  N  | N  | None  | Async | N  |  65  |
+==================================================================================
+Presto compilation completed successfully. (verified_accu)
+Module: verified_accu, Ports: 22, Input: 11, Output: 11, Inout: 0
+Module: verified_accu, Registers: 13, Async set/reset: 13, Sync set/reset: 0
+Information: Module verified_accu report end. (ELAB-965)
+Elaborated 1 design.
+Current design is now 'verified_accu'.
+1
+if {$STATUS eq "ok" && [sizeof_collection [get_designs -quiet $TOP]] == 0} {
+    set STATUS elaborate_failed
+    set FAILMSG "no design '$TOP' after elaborate (top name mismatch?)"
+}
+step link_failed { current_design $TOP ; link }
+Current design is 'verified_accu'.
+
+  Linking design 'verified_accu'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  verified_accu               /home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/outputs/dc_work/verified_accu.db
+  NangateOpenCellLibrary (library) /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db
+  dw_foundation.sldb (library) /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/libraries/syn/dw_foundation.sldb
+
+1
+step link_failed { uniquify }
+1
+if {$STATUS eq "ok"} {
+    redirect $OUT/check_design.rpt { catch { check_design -nosplit } }
+    set CHECK_ERRORS 0
+    if {![catch {set fh [open $OUT/check_design.rpt r]}]} {
+        foreach line [split [read $fh] "\n"] {
+            if {[string match "Error*" [string trim $line]]} { incr CHECK_ERRORS }
+        }
+        close $fh
+    }
+}
+if {$STATUS eq "ok"} {
+    foreach c $DONT_USE { catch { set_dont_use [get_lib_cells -quiet "*/$c"] } }
+}
+# ---------------- constraints ----------------
+if {$STATUS eq "ok" && $SDC eq ""} {
+    set STATUS constraint_failed
+    set FAILMSG "no SDC given (EVAL_SDC)"
+}
+if {$STATUS eq "ok" && ![file exists $SDC]} {
+    set STATUS constraint_failed
+    set FAILMSG "SDC file not found: $SDC"
+}
+if {$STATUS eq "ok" && [catch {source $FLOWDIR/sdc_compat.tcl} e]} {
+    set STATUS constraint_failed
+    set FAILMSG "loading sdc_compat.tcl failed: $e"
+}
+set _MK "###SDC"
+###SDC
+if {$STATUS eq "ok"} {
+    echo "${_MK}_BEGIN###"
+    if {[catch {source $SDC} err]} {
+        set STATUS constraint_failed
+        set FAILMSG "SDC failed: $err"
+    }
+    echo "${_MK}_END###"
+}
+###SDC_BEGIN###
+Current design is 'verified_accu'.
+Current design is 'verified_accu'.
+###SDC_END###
+if {$STATUS eq "ok" && [sizeof_collection [all_clocks]] == 0} {
+    set STATUS constraint_failed
+    set FAILMSG "no clock after the SDC"
+}
+if {$STATUS eq "ok" && $CLK_PERIOD ne ""} {
+    if {[catch {set _p [get_attribute [get_clocks $CLK_NAME] period]} e]} {
+        set STATUS constraint_failed
+        set FAILMSG "clock '$CLK_NAME' missing: $e"
+    } elseif {abs($_p - $CLK_PERIOD) > 1e-6 * (1.0 + abs($CLK_PERIOD))} {
+        set STATUS constraint_failed
+        set FAILMSG "clock period $_p differs from the expected $CLK_PERIOD"
+    }
+}
+if {$STATUS eq "ok"} {
+    catch { set_max_fanout $MAX_FANOUT [current_design] }
+    if {[catch {write_sdc $OUT/applied_constraints.sdc}]} {
+        set STATUS constraint_failed
+        set FAILMSG "write_sdc failed"
+    } else {
+        set fh [open $OUT/applied_constraints.sdc r]
+        set dump [read $fh]
+        close $fh
+        set n_in 0
+        if {[catch {set n_in [sizeof_collection [snps_all_inputs_no_clocks]]}]} {
+            catch { set n_in [sizeof_collection [all_inputs]] }
+        }
+        if {$n_in > 0 && ![string match "*set_input_delay*" $dump]} {
+            set STATUS constraint_failed
+            set FAILMSG "applied constraints contain no set_input_delay: the SDC did not execute completely"
+        }
+    }
+}
+Current design is 'verified_accu'.
+# ---------------- compile ----------------
+if {$STATUS eq "ok" && [string match "*-gate_clock*" $COMPILE] && $CG_STYLE ne ""} {
+    if {[catch {eval set_clock_gating_style $CG_STYLE} e]} {
+        set STATUS constraint_failed
+        set FAILMSG "set_clock_gating_style: $e"
+    }
+}
+set ELAPSED 0
+0
+if {$STATUS eq "ok"} {
+    set t0 [clock seconds]
+    step compile_failed { eval $COMPILE }
+    set ELAPSED [expr {[clock seconds] - $t0}]
+}
+Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)
+Information: Performing leakage power optimization. (PWR-850)
+CPU Load: 0%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+Analyzing: "/hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db"
+Library analysis succeeded.
+Information: Running optimization using a maximum of 4 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | W-2024.09-DWBB_202409.5 |     *     |
+| Licensed DW Building Blocks        | W-2024.09-DWBB_202409.5 |     *     |
+============================================================================
+
+====================================================================================================
+| Flow Information                                                                                 |
+----------------------------------------------------------------------------------------------------
+| Flow         | Design Compiler WLM                                                               |
+| Command Line | compile_ultra -timing_high_effort_script -retime -gate_clock                      |
+====================================================================================================
+| Design Information                                      | Value                                  |
+====================================================================================================
+| Number of Scenarios                                     | 0                                      |
+| Leaf Cell Count                                         | 42                                     |
+| Number of User Hierarchies                              | 0                                      |
+| Sequential Cell Count                                   | 13                                     |
+| Macro Count                                             | 0                                      |
+| Pad Count                                               | 0                                      |
+| Number of Power Domains                                 | 0                                      |
+| Number of Path Groups                                   | 2                                      |
+| Number of VT Class                                      | 0                                      |
+| Number of Clocks                                        | 1                                      |
+| Number of Dont Touch Cells                              | 15                                     |
+| Number of Dont Touch Nets                               | 0                                      |
+| Number of Size Only Cells                               | 0                                      |
+| Design with Target Library Subset (with clock_path)     | false  (false )                        |
+| Design with UPF Data                                    | false                                  |
+====================================================================================================
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)
+
+Information: There are 2 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+  Simplifying Design 'verified_accu'
+Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)
+
+Loaded alib file './alib-52/NangateOpenCellLibrary_typical.db.alib'
+Module: DW01_NAND2, Ports: 3, Input: 2, Output: 1, Inout: 0
+Module: DW01_NAND2, Registers: 0, Async set/reset: 0, Sync set/reset: 0
+  Building model 'DW01_NAND2'
+Information: Ungrouping 0 of 2 hierarchies before Pass 1 (OPT-775)
+CPU Load: 3%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'verified_accu'
+Information: Added key list 'DesignWare' to design 'verified_accu'. (DDB-72)
+ Implement Synthetic for 'verified_accu'.
+  Processing 'SNPS_CLOCK_GATE_HIGH_verified_accu'
+  Mapping integrated clock gating circuitry
+sh: 1: Syntax error: Bad fd number
+CPU Load: 3%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_accu, since there are no registers. (PWR-806)
+Information: Skipping clock gating on design verified_accu_DW01_add_J1_0, since there are no registers. (PWR-806)
+Information: Performing clock-gating on design verified_accu. (PWR-730)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: There is no timing violation in design verified_accu. Delay-based auto_ungroup will not be performed. (OPT-780)
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:01     138.9      0.00       0.0       0.0                           2685.1187
+    0:00:01     138.9      0.00       0.0       0.0                           2685.1187
+
+  Beginning Constant Register Removal
+  -----------------------------------
+    0:00:01     138.9      0.00       0.0       0.0                           2685.1187
+    0:00:01     138.9      0.00       0.0       0.0                           2685.1187
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+    0:00:01     133.8      0.00       0.0       0.0                           2512.8777
+    0:00:01     133.8      0.00       0.0       0.0                           2512.8777
+    0:00:01     133.8      0.00       0.0       0.0                           2512.8777
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:01     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+    0:00:02     131.1      0.00       0.0       0.0                           2428.3940
+CPU Load: 3%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+Loading db file '/hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+CPU Load: 3%, Ram Free: 56 GB, Swap Free: 7 GB, Work Disk Free: 227 GB, Tmp Disk Free: 227 GB
+Information: Total number of MV cells in the design.
+----------------------------------------------------------------------------------------------------
+ MV Cells                                           Total Number                                   
+----------------------------------------------------------------------------------------------------
+ Level Shifter:                                     0                                             
+ Enable Level Shifter:                              0                                             
+ Isolation Cell:                                    0                                             
+ Retention Cell:                                    0                                             
+ Retention Clamp Cell:                              0                                             
+ Switch Cell:                                       0                                             
+ Always-On Cell:                                    0                                             
+ Repeater Cell:                                     0                                             
+
+----------------------------------------------------------------------------------------------------
+Unmapped MV Cells 
+----------------------------------------------------------------------------------------------------
+0 Isolation Cells are unmapped 
+0 Retention Clamp Cells are unmapped 
+----------------------------------------------------------------------------------------------------
+51
+if {$STATUS eq "ok"} {
+    set ncells [sizeof_collection [get_cells -quiet -hier -filter "is_hierarchical == false"]]
+    if {$ncells == 0} {
+        set STATUS empty_netlist
+        set FAILMSG "no leaf cells after compile"
+    }
+}
+# ---------------- reports ----------------
+if {$STATUS eq "ok"} {
+    redirect $OUT/qor.rpt        { report_qor -nosplit }
+    redirect $OUT/area.rpt       { report_area -nosplit }
+    redirect $OUT/area_hier.rpt  { report_area -hierarchy -nosplit }
+    redirect $OUT/timing.rpt     { report_timing -max_paths 10 -nworst 1 -input_pins -transition_time -capacitance -nosplit }
+    redirect $OUT/refs.rpt       { report_reference -hierarchy -nosplit }
+    redirect $OUT/resources.rpt  { report_resources -hierarchy -nosplit }
+    redirect $OUT/hierarchy.rpt  { report_hierarchy -nosplit }
+    if {[string match "*-gate_clock*" $COMPILE]} {
+        redirect $OUT/clock_gating.rpt { catch { report_clock_gating -nosplit } }
+    }
+    redirect $OUT/power_default.rpt { report_power -nosplit }
+    if {$SAIF ne ""} {
+        set inst $SAIF_INST
+        if {$inst eq ""} { set inst $TOP }
+        if {[catch {read_saif -input $SAIF -instance $inst -auto_map_names} e]} {
+            set SAIF_STATUS "read_failed: [string map [list \n { }] $e]"
+        } else {
+            set SAIF_STATUS ok
+            redirect $OUT/saif.rpt       { catch { report_saif -nosplit } }
+            redirect $OUT/power_saif.rpt { report_power -nosplit }
+        }
+    }
+    catch { write -format verilog -hierarchy -output $OUT/netlist.v }
+    catch { write -format ddc -hierarchy -output $OUT/design.ddc }
+    catch { write_sdc $OUT/design.sdc }
+    set fh [open $OUT/metrics.txt w]
+    catch { puts $fh "wns=[get_attribute [get_timing_paths -delay_type max] slack]" }
+    catch { puts $fh "leaf_cells=[sizeof_collection [get_cells -quiet -hier -filter {is_hierarchical == false}]]" }
+    catch { puts $fh "registers=[sizeof_collection [all_registers]]" }
+    catch { puts $fh "hier_cells=[sizeof_collection [get_cells -quiet -hier -filter {is_hierarchical == true}]]" }
+    close $fh
+}
+Writing verilog file '/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/outputs/reports/netlist.v'.
+Writing ddc file '/home/hping/Beyond-Synth/results/raw/rtllm_accu/E4/3aa07a292a9cb5ae/outputs/reports/design.ddc'.
+set fh [open $OUT/status.txt w]
+file14
+puts $fh "status=$STATUS"
+puts $fh "mode=$MODE"
+puts $fh "compile=$COMPILE"
+puts $fh "elapsed=$ELAPSED"
+puts $fh "check_errors=$CHECK_ERRORS"
+puts $fh "saif=$SAIF_STATUS"
+puts $fh "error=[string map [list \n { } \r { }] $FAILMSG]"
+close $fh
+exit
+
+Memory usage for this session 185 Mbytes.
+Memory usage for this session including child processes 185 Mbytes.
+CPU usage for this session 54 seconds ( 0.01 hours ).
+Elapsed time for this session 54 seconds ( 0.01 hours ).
+
+Thank you...
