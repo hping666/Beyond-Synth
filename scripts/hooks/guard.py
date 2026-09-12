@@ -45,7 +45,7 @@ HIDDEN_DIR = os.path.join(RESULTS_DIR, "hidden")
 SECRET_DIR = os.path.join(HOME, ".config/beyond-synth")
 DEPLOY_KEY = os.path.join(HOME, ".ssh/id_ed25519_beyond_synth")
 TRAPS = os.path.join(HOME, "eda-knowledge/05-traps.md")
-LOG = os.path.join(PROJECT, ".claude", "guard-denied.log")
+LOG = os.environ.get("BEYOND_SYNTH_GUARD_LOG") or os.path.join(PROJECT, ".claude", "guard-denied.log")  # tests point this at /dev/null
 
 R1 = "/hdd1/hping/eda/flow/ must never be modified (CLAUDE.md rule 1)"
 R3 = "results/hidden/ may only be read by scripts/report_hidden.py (CLAUDE.md rule 3)"

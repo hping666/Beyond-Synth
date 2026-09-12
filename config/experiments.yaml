@@ -11,20 +11,20 @@ project:
   orfs_dir: /home/hping/OpenROAD-flow-scripts
   results_dir: /home/hping/Beyond-Synth/results
 
-tools:                       # TBD: versions and paths from eda-knowledge/01-environment.md and measurement
-  dc: {version: TBD, shell: dc_shell, max_cores: 4}
-  pt: {version: TBD, shell: pt_shell}
-  primepower: {version: TBD}
-  vcformal: {version: TBD, seq_app_ok: TBD, dpv_app_ok: TBD}
-  vcs: {version: TBD, vcd2saif: TBD}
-  yosys: {version: TBD}
-  opensta: {version: TBD}
-  orfs: {version: TBD}
+tools:                       # measured 2026-09-12 (Phase 0.1, selfcheck 22/22 + e2e 11/11); dpv_app_ok and vcd2saif stay TBD until Phase 0.6 / 0.7
+  dc: {version: W-2024.09-SP5-3, shell: dc_shell, max_cores: 4, home: /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3}
+  pt: {version: V-2023.12-SP5-4, shell: pt_shell, home: /hdd1/hping/eda/synopsys/prime/V-2023.12-SP5-4}
+  primepower: {version: V-2023.12-SP5-4}
+  vcformal: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1, seq_app_ok: true, seq_workers: 1, dpv_app_ok: TBD}
+  vcs: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1/vcs-mx, vcd2saif: TBD}
+  yosys: {version: "0.63", bin: /home/hping/OpenROAD-flow-scripts/tools/install/yosys/bin/yosys}
+  opensta: {version: OpenROAD-26Q1-2754, bin: /home/hping/OpenROAD-flow-scripts/tools/install/OpenROAD/bin/sta}
+  orfs: {version: git-df27ce67, dir: /home/hping/OpenROAD-flow-scripts}
 
-libs:
-  nangate45: {db: TBD, physical_ref_for_spg: TBD, main: true}
-  asap7: {db: TBD}
-  sky130hd: {db: TBD}
+libs:                        # measured 2026-09-12; all .db compiled from the ORFS Liberty files; only nangate45 has a Milkyway physical library
+  nangate45: {db: /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db, name: NangateOpenCellLibrary, time_scale: 1.0, physical_ref_for_spg: /hdd1/hping/eda/libs/nangate45/mw/nangate45, mw_tf: /hdd1/hping/eda/libs/nangate45/mw/nangate45.tf, main: true}
+  asap7: {db: /hdd1/hping/eda/libs/asap7/RVT_TT.list, name: asap7sc7p5t_INVBUF_RVT_TT_nldm_211120, time_scale: 1000.0, physical_ref_for_spg: null}
+  sky130hd: {db: /hdd1/hping/eda/libs/sky130hd/sky130_fd_sc_hd__tt_025C_1v80.db, name: sky130_fd_sc_hd__tt_025C_1v80, time_scale: 1.0, physical_ref_for_spg: null}
 
 # ---------- evaluation configurations (commands are assembled by src/eval/templates; only semantic parameters here) ----------
 configs:
@@ -83,9 +83,11 @@ timeouts:                    # minutes
   llm_call_sec: 600
 
 queue:                       # LOCKED (concurrency caps); automatic backoff when seats are exhausted
-  dc_seats_max: 50
-  pt_seats_max: TBD
-  vcf_seats_max: TBD
+  dc_seats_max: 50           # license ceiling, not a safe concurrency: seats are site-shared; the daemon backs off on exit code 75
+  pt_seats_max: 8            # filled 2026-09-12 (DECISIONS): a PT run takes ~5 s, 100 seats licensed
+  vcf_seats_max: 4           # filled 2026-09-12 (DECISIONS): SEQ runs single-worker; seat count unknown until the Phase 2 pilot
+  local_max: 16              # added 2026-09-12 (DECISIONS): sim / yosys / orfs / llm / shell jobs on the 64-core host
+  poll_sec: 5                # daemon tick interval
   backoff: {initial_sec: 60, max_sec: 900, factor: 2}
   retries: 1
 

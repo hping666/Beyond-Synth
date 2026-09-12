@@ -13,7 +13,7 @@ HOME = os.path.expanduser("~")
 
 def run(tool, **tool_input):
     payload = json.dumps({"session_id": "test", "tool_name": tool, "tool_input": tool_input})
-    env = dict(os.environ, CLAUDE_PROJECT_DIR=ROOT)
+    env = dict(os.environ, CLAUDE_PROJECT_DIR=ROOT, BEYOND_SYNTH_GUARD_LOG="/dev/null")  # tests never pollute the audit log
     p = subprocess.run([sys.executable, GUARD], input=payload, capture_output=True, text=True, env=env, timeout=20)
     assert p.returncode == 0, p.stderr
     if not p.stdout.strip():

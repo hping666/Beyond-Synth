@@ -5,12 +5,12 @@ Last updated: 2026-09-12 · after bootstrap commit 6578583 (Phase 0.0 done)
 ## Current phase
 
 Phase: 0 (see docs/PLAN.md)
-Current task: Phase 0 tasks 0.0–0.3 done (bootstrap; eda-knowledge read, selfcheck 22/22 + e2e 11/11, environment section filled; layout + .venv + requirements.txt; .claude/settings.json deny rules + PreToolUse guard hook with 121 bidirectional tests). Next: 0.4 job queue.
-Stopped at: end of task 0.3
+Current task: Phase 0 tasks 0.0–0.4 done. 0.4 = job queue: `scripts/queue/core.py` (SQLite `jobs` table, pools dc/pt/vcf/local with caps from config, exit-75 license backoff, one retry, timeouts kill the process group, per-attempt logs and done markers, recovery after daemon restart), `scripts/queue/daemon.py` (detached, sources the secrets file and the EDA env once), `scripts/queue/submit.py`, `scripts/status.py`; 11 bidirectional tests in `tests/test_queue.py`; detached end-to-end smoke on 2026-09-12 07:22 (job saw `dc_shell` on PATH and the key configured). Next: 0.5 evaluation service.
+Stopped at: end of task 0.4 (daemon stopped after the smoke; start it with `.venv/bin/python scripts/queue/daemon.py start` before submitting real jobs)
 Next steps (by priority):
-1. 0.4: `scripts/queue/` daemon (setsid, SQLite job table, DC/PT/VCF seat pools from config, backoff, logs, resume) and `scripts/status.py`; the daemon sources `~/.config/beyond-synth/env.sh` and `/hdd1/hping/eda/setup/env.sh`
-2. 0.5: `src/eval/` evaluation service with project-owned DC Tcl templates for E1–E4, single flags, H1/H2a/H2b/H3/H5, Y, PT/PrimePower; one small design through every configuration; reference artifacts in `tests/fixtures/`; determinism test
-3. 0.6–0.8: equivalence stack V1–V4 with bidirectional tests (confirm SEQ + DPV licenses), power path (VCS → VCD → vcd2saif → read_saif / PrimePower), license clause check for cross-tool publication; then `reports/phase0.md` and STOP G0
+1. 0.5: `src/eval/` evaluation service with project-owned DC Tcl templates for E1–E4, single flags, H1/H2a/H2b/H3/H5, Y, PT/PrimePower; job runners `src.eval.run_dc` / `run_pt` / `run_yosys` for the queue; one small design through every configuration; reference artifacts in `tests/fixtures/`; determinism test; `src/db/ingest.py`
+2. 0.6–0.8: equivalence stack V1–V4 with bidirectional tests (confirm SEQ + DPV licenses), power path (VCS → VCD → vcd2saif → read_saif / PrimePower), license clause check for cross-tool publication
+3. `reports/phase0.md` and STOP G0
 
 ## Pending STOP gates
 
