@@ -32,6 +32,10 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
     try:
         d_ports = d_ports or PORTS.port_info(d_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=job_dir / "v1_ports_d")
         c_ports = PORTS.port_info(c_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=job_dir / "v1_ports_c")
+    except PORTS.PortTimeout as e:  # no statement about the interface: an error, never a rejection
+        rec.update(v1_status="error", v1_detail=str(e), verdict="error", seconds=round(time.time() - t0, 1))
+        _dump(job_dir, rec)
+        return rec
     except PORTS.PortError as e:
         rec.update(v1_status="rejected", v1_detail=f"candidate does not elaborate: {e}", verdict="rejected", seconds=round(time.time() - t0, 1))
         _dump(job_dir, rec)

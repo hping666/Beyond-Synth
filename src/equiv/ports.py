@@ -15,6 +15,10 @@ class PortError(RuntimeError):
     pass
 
 
+class PortTimeout(PortError):
+    """Yosys did not finish within the time limit: says nothing about the interface (verdict error, not rejected)."""
+
+
 def port_info(rtl_files, top, cfg, sverilog=False, incdirs=None, workdir=None, timeout=300):
     """-> {port: {"dir": "input"|"output"|"inout", "width": int}} of `top` (order preserved)."""
     wd = Path(workdir) if workdir else Path(tempfile.mkdtemp(prefix="bs_ports_"))
@@ -23,7 +27,10 @@ def port_info(rtl_files, top, cfg, sverilog=False, incdirs=None, workdir=None, t
     incs = " ".join(f"-I {Path(d).resolve()}" for d in (incdirs or []))
     files = " ".join(str(Path(f).resolve()) for f in rtl_files)
     script = f"read_verilog {'-sv ' if sverilog else ''}{incs} {files}; hierarchy -top {top}; proc; write_json {out}"
-    p = subprocess.run([cfg["tools"]["yosys"]["bin"], "-q", "-p", script], capture_output=True, text=True, timeout=timeout)
+    try:
+        p = subprocess.run([cfg["tools"]["yosys"]["bin"], "-q", "-p", script], capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        raise PortTimeout(f"yosys timeout after {timeout} s (hierarchy/proc of {top})")
     if p.returncode != 0 or not out.exists():
         err = [l for l in (p.stdout + p.stderr).splitlines() if l.startswith("ERROR")]
         raise PortError(err[0] if err else f"yosys exit {p.returncode}: {(p.stdout + p.stderr)[-500:]}")

@@ -50,6 +50,7 @@ def main(argv=None):
     ap.add_argument("--design", nargs="*", default=None)
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--submit", action="store_true")
+    ap.add_argument("--missing", action="store_true", help="gate: only perturbations without any equivalence record (crashed / never run)")
     ap.add_argument("--priority", type=int, default=0)
     a = ap.parse_args(argv)
     cfg = C.load()
@@ -79,8 +80,12 @@ def main(argv=None):
         for d in designs:
             m = GT.manifest_of(d["design_id"])
             if m and not m.get("error"):
-                jobs += GT.gate_jobs(d, m, cfg, priority=a.priority)
-        print(f"{len(jobs)} gate jobs for {len(designs)} designs")
+                new_jobs = GT.gate_jobs(d, m, cfg, priority=a.priority)
+                if a.missing:
+                    have = GT.recorded_cand_ids(cfg, d["design_id"])
+                    new_jobs = [j for j in new_jobs if j["cand_id"] not in have]
+                jobs += new_jobs
+        print(f"{len(jobs)} gate jobs for {len(designs)} designs" + (" (missing records only)" if a.missing else ""))
         if a.submit:
             q = Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
             for j in jobs:

@@ -37,6 +37,20 @@ def gate_jobs(design, manifest, cfg, priority=0):
     return jobs
 
 
+def recorded_cand_ids(cfg, design_id):
+    """cand_ids that already have an equivalence record (any verdict) under results/raw/<design_id>/EQ/."""
+    raw = Path(C.results_dir(cfg)) / "raw" / design_id / "EQ"
+    ids = set()
+    for eq in raw.glob("*/equiv.json"):
+        try:
+            cid = json.loads(eq.read_text()).get("cand_id")
+        except json.JSONDecodeError:
+            continue
+        if cid:
+            ids.add(cid)
+    return ids
+
+
 def _verdict(rec):
     """The stack's verdict (spec 03 vocabulary): proven / falsified / inconclusive / rejected / sim_fail /
     proven_sim_only / error; only `proven` (SEQ) admits a perturbation into the noise floor."""

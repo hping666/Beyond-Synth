@@ -88,3 +88,21 @@ def test_compare_traces_identical_offset_and_mismatch():
     two = "\n".join(f"{i} {d[i]:x} {d[i]:x} {d[i]:x} {d[i - 1] if i else 0:x}" for i in range(30))
     r = compare_traces(two, ["p", "q"], 8)
     assert r["status"] == "offset" and r["offsets"] == {"p": 0, "q": 1}
+
+
+def test_yosys_timeout_is_an_error_not_a_rejection(tmp_path, monkeypatch):
+    """A V1 probe that runs out of time says nothing about the interface (RFselector gate crash, 2026-09-12)."""
+    import subprocess
+    from src.equiv import stack as ST
+
+    def slow_run(*a, **kw):
+        raise subprocess.TimeoutExpired(cmd="yosys", timeout=1)
+
+    monkeypatch.setattr(PORTS.subprocess, "run", slow_run)
+    with pytest.raises(PORTS.PortTimeout):
+        PORTS.port_info([ACCU], "verified_accu", CFG, workdir=tmp_path / "t", timeout=1)
+    rec = ST.check_equivalence(tmp_path / "job", [ACCU], [ACCU], "verified_accu", CFG, run_v3=False, run_v4=False)
+    assert rec["verdict"] == "error" and rec["v1_status"] == "error" and "timeout" in rec["v1_detail"]
+    monkeypatch.setattr(PORTS.subprocess, "run", lambda *a, **kw: (_ for _ in ()).throw(RuntimeError("boom")))
+    with pytest.raises(RuntimeError):
+        PORTS.port_info([ACCU], "verified_accu", CFG, workdir=tmp_path / "u")  # other failures still propagate
