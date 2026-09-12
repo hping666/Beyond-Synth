@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+"""Minimal `dc` (RPN desk calculator) stand-in. The VCS wrapper script pipes "<t1> 60 * <t2> + p" into dc to
+print elapsed times; Ubuntu 20.04 on this host has no dc package, so VCS logs "dc: command not found" on every
+compile. Supports numbers, + - * / and p (print top of stack); anything else is ignored."""
+import sys
+
+stack = []
+for tok in sys.stdin.read().split():
+    try:
+        stack.append(float(tok))
+        continue
+    except ValueError:
+        pass
+    if tok in "+-*/" and len(stack) >= 2:
+        b, a = stack.pop(), stack.pop()
+        stack.append(a + b if tok == "+" else a - b if tok == "-" else a * b if tok == "*" else (a / b if b else 0.0))
+    elif tok == "p" and stack:
+        v = stack[-1]
+        print(int(v) if float(v).is_integer() else v)

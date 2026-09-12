@@ -39,7 +39,7 @@ TIMEOUT_RC = 124
 POOL_OF_KIND = {"shell": "local", "sim": "local", "yosys": "local", "llm": "local", "orfs": "local",
                 "dc": "dc", "pt": "pt", "vcf": "vcf"}
 RUNNER_OF_KIND = {"dc": "src.eval.run_dc", "pt": "src.eval.run_pt", "yosys": "src.eval.run_yosys",
-                  "orfs": "src.eval.run_orfs", "vcf": "src.equiv.run_vcf", "sim": "src.equiv.run_sim",
+                  "orfs": "src.eval.run_orfs", "vcf": "src.equiv.run_equiv", "sim": "src.equiv.run_equiv",
                   "llm": "src.search.run_llm"}
 KILL_GRACE_SEC = 3.0
 

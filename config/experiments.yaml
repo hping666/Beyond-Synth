@@ -16,7 +16,7 @@ tools:                       # measured 2026-09-12 (Phase 0.1, selfcheck 22/22 +
   pt: {version: V-2023.12-SP5-4, shell: pt_shell, home: /hdd1/hping/eda/synopsys/prime/V-2023.12-SP5-4}
   primepower: {version: V-2023.12-SP5-4}
   vcformal: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1, seq_app_ok: true, seq_workers: 1, dpv_app_ok: TBD}
-  vcs: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1/vcs-mx, vcd2saif: TBD}
+  vcs: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1/vcs-mx, vcd2saif: /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/bin/vcd2saif}   # vcd2saif ships with DC; chain verified 2026-09-12
   yosys: {version: "0.63", bin: /home/hping/OpenROAD-flow-scripts/tools/install/yosys/bin/yosys}
   opensta: {version: OpenROAD-26Q1-2754, bin: /home/hping/OpenROAD-flow-scripts/tools/install/OpenROAD/bin/sta}
   orfs: {version: git-df27ce67, dir: /home/hping/OpenROAD-flow-scripts}
@@ -78,8 +78,15 @@ noise:
   sigma_median_warn_pct: 5.0 # G1: warn above this median and propose an alternative truncation
 
 sim:
+  simulator: vcs             # VCS from the VC Formal tree (tools.vcs.home); iverilog is the fallback
+  vcs_bash_namespace: true   # compile inside a private mount namespace with bash bound over /bin/sh (VCS's rmapats.sh has bashisms; /bin/sh is dash)
   random_cycles: 20000
   reset_cycles: 10
+  seed: 1                    # $random seed of the lock-step harness (deterministic stimulus)
+  clock_period_ns: 10        # functional simulation only (no timing is simulated)
+  max_latency_offset: 8      # V2 searches constant per-output offsets 0..8 cycles (class c2)
+  tb_pass_regex: "Your Design Passed"   # RTLLM self-checking testbenches
+  tb_fail_regex: "===Error===|failures|FAIL"
   protocol_rules: TBD        # valid/ready recognition rules (filled in Phase 1 per design set)
   saif_coverage_min: 0.8
 
