@@ -1,8 +1,8 @@
 {
  "cfg_hash": "621834f01e87",
  "design_id": "cktevo_sdc_ctrl__sdc_controller",
- "error": "parse: ParseError:  line:42: before: \"(\"",
- "git_sha": "dcb53665726f",
+ "error": "unsupported: register declared with an initial value (Pyverilog re-prints it as a continuous assignment)",
+ "git_sha": "f4a438832622",
  "n_per_type": 4,
  "not_applicable": {},
  "perturbations": [],

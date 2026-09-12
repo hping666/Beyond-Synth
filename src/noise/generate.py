@@ -36,7 +36,13 @@ def generate(design, cfg, n_per_type=None, types=None, seed=None, out_root=None)
     manifest = {"design_id": design["design_id"], "top": design["top"], "seed": str(seed), "n_per_type": n,
                 "git_sha": C.git_sha(), "cfg_hash": C.cfg_hash(), "perturbations": [], "not_applicable": {}, "error": None}
     try:
-        ast, directives = V.parse_files(K.abs_paths(design, design["files"]), incdirs=K.abs_paths(design, design["incdirs"]))
+        ast, directives, notes = V.parse_files(K.abs_paths(design, design["files"]), incdirs=K.abs_paths(design, design["incdirs"]),
+                                               workdir=out / "normalised")
+        manifest["notes"] = notes
+    except V.Unsupported as e:
+        manifest["error"] = f"unsupported: {e}"
+        (out / "manifest.json").write_text(json.dumps(manifest, indent=1, sort_keys=True) + "\n")
+        return manifest
     except Exception as e:  # Pyverilog cannot read the design: no AST perturbations for it
         manifest["error"] = f"parse: {type(e).__name__}: {str(e)[:300]}"
         (out / "manifest.json").write_text(json.dumps(manifest, indent=1, sort_keys=True) + "\n")

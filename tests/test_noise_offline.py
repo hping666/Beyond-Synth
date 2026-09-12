@@ -66,7 +66,7 @@ def equivalent(tmp_path, gold_text, gate_text, tag):
 @pytest.fixture
 def parsed(tmp_path):
     src = write(tmp_path, "design.v", DESIGN)
-    ast, directives = V.parse_files([src])
+    ast, directives, _ = V.parse_files([src])
     return ast, directives
 
 
@@ -112,7 +112,7 @@ def test_p1_keeps_ports_instances_and_module_names(parsed):
 
 
 def test_not_applicable_on_designs_without_sites(tmp_path):
-    ast, _ = V.parse_files([write(tmp_path, "n.v", NO_SITES)])
+    ast, _, _ = V.parse_files([write(tmp_path, "n.v", NO_SITES)])
     for ptype in P.TYPES:
         with pytest.raises(P.NotApplicable):
             P.TRANSFORMS[ptype](ast, "seed", 0)
@@ -149,3 +149,20 @@ def test_generate_writes_files_and_manifest(tmp_path, monkeypatch):
     assert not m2["perturbations"] and set(m2["not_applicable"]) == set(P.TYPES)
     (ddir / "rtl" / "top.v").write_text("module top(input a, output y); assign y = a endmodule\n")
     assert G.generate(d, cfg, out_root=tmp_path / "perts3")["error"].startswith("parse:")
+
+
+def test_normalisation_splits_signed_declarations_and_refuses_reg_initialisers(tmp_path):
+    text = ("module top (\n    input clk,\n    input signed [7:0] a, b,\n    output reg signed [7:0] z\n);\n"
+            "    wire signed [15:0] t, u;\n    assign t = a * b + (1<<7);\n    assign u = t;\n"
+            "    always @(posedge clk) z <= u[15:8];\nendmodule\n")
+    norm, notes = V.normalise_text(text)
+    assert "input signed [7:0] a, input signed [7:0] b," in norm and "wire signed [15:0] t; wire signed [15:0] u;" in norm and len(notes) == 2
+    ast, directives, notes2 = V.parse_files([write(tmp_path, "mul.v", text)])
+    out = V.emit(ast, directives)
+    assert out.count("signed") == 5 and notes2 == notes  # every name keeps `signed` after the re-print
+    assert equivalent(tmp_path, text, out, "signed") == "equivalent"
+    plain = "module p(input [3:0] a, b, output [3:0] y); assign y = a & b; endmodule\n"
+    assert V.normalise_text(plain) == (plain, [])  # unsigned multi-name declarations are left alone
+    with pytest.raises(V.Unsupported):
+        V.normalise_text("module r(input clk, output reg q); reg [3:0] data = 'd0; always @(posedge clk) q <= data[0]; endmodule\n")
+    assert V.normalise_text("module w(input a, output y); wire t = a; assign y = t; endmodule\n")[0]  # wire initialisers are legal continuous assignments

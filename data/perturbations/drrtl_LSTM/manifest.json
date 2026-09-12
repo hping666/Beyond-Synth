@@ -2,11 +2,22 @@
  "cfg_hash": "621834f01e87",
  "design_id": "drrtl_LSTM",
  "error": null,
- "git_sha": "dcb53665726f",
+ "git_sha": "f4a438832622",
  "n_per_type": 4,
  "not_applicable": {
   "P4_ctrl": "no control-structure site"
  },
+ "notes": [
+  "split multi-name signed declaration: c_in, h_in",
+  "split multi-name signed declaration: Wf0, Wf1, Wi0, Wi1, Wc0, Wc1, Wo0, Wo1",
+  "split multi-name signed declaration: bf, bi, bc, bo",
+  "split multi-name signed declaration: c_out, h_out",
+  "split multi-name signed declaration: f, i, iw, ct, cw, ot, out, c_act",
+  "split multi-name signed declaration: z1, z2, z3",
+  "split multi-name signed declaration: X, h_in",
+  "split multi-name signed declaration: W0, W1, b",
+  "split multi-name signed declaration: p1, p2"
+ ],
  "perturbations": [
   {
    "details": {
@@ -56,7 +67,7 @@
    },
    "k": 0,
    "path": "data/perturbations/drrtl_LSTM/P1_rename_0.v",
-   "pert_id": "p8a97fcffb9597d",
+   "pert_id": "p3fb964d20e559a",
    "ptype": "P1_rename"
   },
   {
@@ -107,7 +118,7 @@
    },
    "k": 1,
    "path": "data/perturbations/drrtl_LSTM/P1_rename_1.v",
-   "pert_id": "pe5670f855ba190",
+   "pert_id": "p42cac4e7d6818e",
    "ptype": "P1_rename"
   },
   {
@@ -158,7 +169,7 @@
    },
    "k": 2,
    "path": "data/perturbations/drrtl_LSTM/P1_rename_2.v",
-   "pert_id": "pf3fc90f45a4bc9",
+   "pert_id": "pb140c6b30dc98f",
    "ptype": "P1_rename"
   },
   {
@@ -209,7 +220,7 @@
    },
    "k": 3,
    "path": "data/perturbations/drrtl_LSTM/P1_rename_3.v",
-   "pert_id": "p122daf31152a7a",
+   "pert_id": "p38d71624f13ee0",
    "ptype": "P1_rename"
   },
   {
@@ -231,7 +242,7 @@
    },
    "k": 0,
    "path": "data/perturbations/drrtl_LSTM/P2_reorder_0.v",
-   "pert_id": "pd28e595fcbce7e",
+   "pert_id": "p099057ff56a2c1",
    "ptype": "P2_reorder"
   },
   {
@@ -253,7 +264,7 @@
    },
    "k": 1,
    "path": "data/perturbations/drrtl_LSTM/P2_reorder_1.v",
-   "pert_id": "p17ca2b6f1626c6",
+   "pert_id": "p404c6c4a597d13",
    "ptype": "P2_reorder"
   },
   {
@@ -275,7 +286,7 @@
    },
    "k": 2,
    "path": "data/perturbations/drrtl_LSTM/P2_reorder_2.v",
-   "pert_id": "p20331c621f95d0",
+   "pert_id": "p094af80014ecf8",
    "ptype": "P2_reorder"
   },
   {
@@ -297,7 +308,7 @@
    },
    "k": 3,
    "path": "data/perturbations/drrtl_LSTM/P2_reorder_3.v",
-   "pert_id": "p0218dfe4f29bb0",
+   "pert_id": "p4b7ae80b218a1f",
    "ptype": "P2_reorder"
   },
   {
@@ -310,7 +321,7 @@
    },
    "k": 0,
    "path": "data/perturbations/drrtl_LSTM/P3_expr_0.v",
-   "pert_id": "p8e8a5684f8c202",
+   "pert_id": "p705d3b60a7d2a3",
    "ptype": "P3_expr"
   },
   {
@@ -321,7 +332,7 @@
    },
    "k": 1,
    "path": "data/perturbations/drrtl_LSTM/P3_expr_1.v",
-   "pert_id": "p33b05c1532d6a9",
+   "pert_id": "p7e101741ab9e8d",
    "ptype": "P3_expr"
   },
   {
@@ -335,7 +346,7 @@
    },
    "k": 2,
    "path": "data/perturbations/drrtl_LSTM/P3_expr_2.v",
-   "pert_id": "p04ca16118eca31",
+   "pert_id": "p8024be92d2082d",
    "ptype": "P3_expr"
   },
   {
@@ -349,13 +360,13 @@
    },
    "k": 3,
    "path": "data/perturbations/drrtl_LSTM/P3_expr_3.v",
-   "pert_id": "pfacb2492061caf",
+   "pert_id": "p912163dcbbd160",
    "ptype": "P3_expr"
   }
  ],
  "roundtrip": {
   "path": "data/perturbations/drrtl_LSTM/roundtrip.v",
-  "pert_id": "p7abc9d0815c3c9"
+  "pert_id": "p73d7952727420d"
  },
  "seed": "drrtl_LSTM:1",
  "top": "lstm_cell"

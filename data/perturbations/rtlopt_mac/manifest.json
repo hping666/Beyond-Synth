@@ -2,12 +2,16 @@
  "cfg_hash": "621834f01e87",
  "design_id": "rtlopt_mac",
  "error": null,
- "git_sha": "dcb53665726f",
+ "git_sha": "f4a438832622",
  "n_per_type": 4,
  "not_applicable": {
   "P2_reorder": "nothing to reorder",
   "P3_expr": "no expression site"
  },
+ "notes": [
+  "split multi-name signed declaration: a, b",
+  "split multi-name signed declaration: a_reg, b_reg"
+ ],
  "perturbations": [
   {
    "details": {
@@ -22,7 +26,7 @@
    },
    "k": 0,
    "path": "data/perturbations/rtlopt_mac/P1_rename_0.v",
-   "pert_id": "pac23cfa1066cad",
+   "pert_id": "p5bba04d5808e95",
    "ptype": "P1_rename"
   },
   {
@@ -38,7 +42,7 @@
    },
    "k": 1,
    "path": "data/perturbations/rtlopt_mac/P1_rename_1.v",
-   "pert_id": "pa51352b607c9d2",
+   "pert_id": "p0e26ebdbb53653",
    "ptype": "P1_rename"
   },
   {
@@ -54,7 +58,7 @@
    },
    "k": 2,
    "path": "data/perturbations/rtlopt_mac/P1_rename_2.v",
-   "pert_id": "pe8cf02772d95b9",
+   "pert_id": "p2d7cbe930e28d7",
    "ptype": "P1_rename"
   },
   {
@@ -70,7 +74,7 @@
    },
    "k": 3,
    "path": "data/perturbations/rtlopt_mac/P1_rename_3.v",
-   "pert_id": "p86086029568ae6",
+   "pert_id": "p6994931cea88f7",
    "ptype": "P1_rename"
   },
   {
@@ -81,13 +85,13 @@
    },
    "k": 0,
    "path": "data/perturbations/rtlopt_mac/P4_ctrl_0.v",
-   "pert_id": "pa395d1ffae1de4",
+   "pert_id": "p9997343eaf9460",
    "ptype": "P4_ctrl"
   }
  ],
  "roundtrip": {
   "path": "data/perturbations/rtlopt_mac/roundtrip.v",
-  "pert_id": "p9d84f45706c5e2"
+  "pert_id": "p0313d47bb0c7e5"
  },
  "seed": "rtlopt_mac:1",
  "top": "mac"

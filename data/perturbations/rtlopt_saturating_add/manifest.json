@@ -2,9 +2,12 @@
  "cfg_hash": "621834f01e87",
  "design_id": "rtlopt_saturating_add",
  "error": null,
- "git_sha": "dcb53665726f",
+ "git_sha": "f4a438832622",
  "n_per_type": 4,
  "not_applicable": {},
+ "notes": [
+  "split multi-name signed declaration: a, b"
+ ],
  "perturbations": [
   {
    "details": {
@@ -18,7 +21,7 @@
    },
    "k": 0,
    "path": "data/perturbations/rtlopt_saturating_add/P1_rename_0.v",
-   "pert_id": "p0da884f1c03bde",
+   "pert_id": "p8276a4724ee866",
    "ptype": "P1_rename"
   },
   {
@@ -33,7 +36,7 @@
    },
    "k": 1,
    "path": "data/perturbations/rtlopt_saturating_add/P1_rename_1.v",
-   "pert_id": "p35af75b308e4e4",
+   "pert_id": "pd690bf4b8b0a8b",
    "ptype": "P1_rename"
   },
   {
@@ -48,7 +51,7 @@
    },
    "k": 2,
    "path": "data/perturbations/rtlopt_saturating_add/P1_rename_2.v",
-   "pert_id": "pe47e289cd2f928",
+   "pert_id": "p187b6204445e8a",
    "ptype": "P1_rename"
   },
   {
@@ -63,7 +66,7 @@
    },
    "k": 3,
    "path": "data/perturbations/rtlopt_saturating_add/P1_rename_3.v",
-   "pert_id": "pd6b41a8c61feaf",
+   "pert_id": "p8c9501e2a26310",
    "ptype": "P1_rename"
   },
   {
@@ -77,7 +80,7 @@
    },
    "k": 0,
    "path": "data/perturbations/rtlopt_saturating_add/P2_reorder_0.v",
-   "pert_id": "pf42f14e51929cf",
+   "pert_id": "pba94e98fa2075f",
    "ptype": "P2_reorder"
   },
   {
@@ -91,7 +94,7 @@
    },
    "k": 2,
    "path": "data/perturbations/rtlopt_saturating_add/P2_reorder_2.v",
-   "pert_id": "p56cc1a6a80a27b",
+   "pert_id": "pf22fc455f1644f",
    "ptype": "P2_reorder"
   },
   {
@@ -102,7 +105,7 @@
    },
    "k": 0,
    "path": "data/perturbations/rtlopt_saturating_add/P3_expr_0.v",
-   "pert_id": "p2874d20cb124bb",
+   "pert_id": "p9124b80fca7489",
    "ptype": "P3_expr"
   },
   {
@@ -113,13 +116,13 @@
    },
    "k": 0,
    "path": "data/perturbations/rtlopt_saturating_add/P4_ctrl_0.v",
-   "pert_id": "p2917a783d51a39",
+   "pert_id": "pb9eedf030449d4",
    "ptype": "P4_ctrl"
   }
  ],
  "roundtrip": {
   "path": "data/perturbations/rtlopt_saturating_add/roundtrip.v",
-  "pert_id": "p109909fa8c1581"
+  "pert_id": "p52633def0b275e"
  },
  "seed": "rtlopt_saturating_add:1",
  "top": "saturating_add"

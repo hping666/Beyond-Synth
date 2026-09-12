@@ -5,6 +5,7 @@ Pyverilog preprocesses with Icarus (`iverilog -E`), so `include / `define are re
 emitted code is a normalised re-print of the whole design (comments and layout are lost), which is itself a
 surface rewrite common to every perturbation of a design."""
 import random
+import re
 from pathlib import Path
 
 import pyverilog.vparser.ast as A
@@ -21,11 +22,59 @@ task time tran tranif0 tranif1 tri tri0 tri1 triand trior trireg unsigned vector
 xnor xor logic bit byte int always_ff always_comb always_latch""".split())
 
 
-def parse_files(files, incdirs=None, defines=None):
-    """-> (ast, directives) for a list of Verilog files (all modules of the design)."""
-    return parse([str(Path(f).resolve()) for f in files],
-                 preprocess_include=[str(Path(d).resolve()) for d in (incdirs or [])],
-                 preprocess_define=list(defines or []))
+_SIGNED_MULTI = re.compile(r"^(?P<indent>\s*)(?P<head>(?:(?:input|output|inout)\s+)?(?:(?:wire|reg)\s+)?signed\s*(?:\[[^\]]*\]\s*)?)"
+                           r"(?P<names>[A-Za-z_][A-Za-z_0-9]*(?:\s*,\s*[A-Za-z_][A-Za-z_0-9]*)+)\s*(?P<end>[,;])(?P<rest>.*)$", re.M)
+_REG_INIT = re.compile(r"\b(?:reg|integer)\b[^;=]*=\s*[^;]+;")
+
+
+class Unsupported(Exception):
+    """The design uses a construct Pyverilog re-prints with different semantics; no AST perturbations for it."""
+
+
+def normalise_text(text):
+    """Work around two Pyverilog re-print defects seen on the staged designs (DECISIONS 2026-09-12):
+    (1) `input signed [7:0] a, b` loses `signed` on every name but the first -> split into one declaration per
+    name; (2) `reg [3:0] x = 'd0;` is re-printed as `reg x; assign x = 'd0;` (an initial value becomes a
+    continuous assignment) -> raise Unsupported. Returns (text, notes)."""
+    notes = []
+    if _REG_INIT.search(strip_comments_keep(text)):
+        raise Unsupported("register declared with an initial value (Pyverilog re-prints it as a continuous assignment)")
+
+    def split(m):
+        names = [n.strip() for n in m.group("names").split(",")]
+        head = m.group("head").strip()
+        end = m.group("end")
+        if end == ";":
+            body = " ".join(f"{head} {n};" for n in names)
+        else:
+            body = ", ".join(f"{head} {n}" for n in names) + ","
+        notes.append(f"split multi-name signed declaration: {', '.join(names)}")
+        return f"{m.group('indent')}{body}{m.group('rest')}"
+
+    return _SIGNED_MULTI.sub(split, text), notes
+
+
+def strip_comments_keep(text):
+    from src.designs.verilog import strip_comments
+    return strip_comments(text)
+
+
+def parse_files(files, incdirs=None, defines=None, workdir=None):
+    """-> (ast, directives, notes) for a list of Verilog files (all modules of the design), after normalise_text();
+    the normalised copies are written to `workdir` (a temporary directory by default)."""
+    import tempfile
+    wd = Path(workdir) if workdir else Path(tempfile.mkdtemp(prefix="bs_vast_"))
+    wd.mkdir(parents=True, exist_ok=True)
+    staged, notes = [], []
+    for f in files:
+        text, n = normalise_text(Path(f).read_text(errors="replace"))
+        notes += n
+        dst = wd / Path(f).name
+        dst.write_text(text)
+        staged.append(str(dst.resolve()))
+    incs = [str(Path(d).resolve()) for d in (incdirs or [])] + [str(Path(f).resolve().parent) for f in files]
+    ast, directives = parse(staged, preprocess_include=sorted(set(incs)), preprocess_define=list(defines or []))
+    return ast, directives, notes
 
 
 def emit(ast, directives=()):
