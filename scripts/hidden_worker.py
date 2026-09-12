@@ -98,7 +98,7 @@ def _selected(vis, suites=None, designs=None):
 
 
 def _proven(vis, design_id):
-    return [dict(r) for r in vis.execute("SELECT pert_id, ptype, path FROM perturbations WHERE design_id=? AND seq_status='proven' ORDER BY ptype, pert_id", (design_id,))]
+    return [dict(r) for r in vis.execute("SELECT pert_id, ptype, path FROM perturbations WHERE design_id=? AND seq_status IN ('proven', 'proven_rename') ORDER BY ptype, pert_id", (design_id,))]
 
 
 def noise_jobs(cfg, vis, suites=None, designs=None, priority=0):

@@ -5,6 +5,7 @@ records land in results/raw/<design_id>/EQ/<hash>/equiv.json; collect() reads th
 `perturbations` table (seq_status = proven / falsified / inconclusive / error / rejected / sim_fail / pending).
 The generator's non-equivalence rate is itself a reported number."""
 import json
+import re
 from pathlib import Path
 
 from src import config as C
@@ -63,6 +64,25 @@ def _verdict(rec):
     return "unknown"
 
 
+def rename_is_alpha(manifest, entry, root=None):
+    """A P1 perturbation is a pure alpha-renaming when substituting every new name back gives the round trip text
+    byte for byte; together with a SEQ-proven round trip that is a proof of equivalence that does not depend on
+    VC Formal's name-based register matching (which fails for renamed registers without reset, DECISIONS 2026-09-12)."""
+    if entry.get("ptype") != "P1_rename" or not manifest.get("roundtrip"):
+        return False
+    base = Path(root or C.ROOT)
+    try:
+        text = (base / entry["path"]).read_text() if not Path(entry["path"]).is_absolute() else Path(entry["path"]).read_text()
+        rt = (base / manifest["roundtrip"]["path"]).read_text() if not Path(manifest["roundtrip"]["path"]).is_absolute() else Path(manifest["roundtrip"]["path"]).read_text()
+    except OSError:
+        return False
+    back = text
+    for mapping in ((entry.get("details") or {}).get("renamed") or {}).values():
+        for old_name, new_name in mapping.items():
+            back = re.sub(rf"(?<![A-Za-z_0-9$]){re.escape(new_name)}(?![A-Za-z_0-9$])", old_name, back)
+    return back == rt
+
+
 def collect(conn, cfg, designs=None, root=None):
     """Read every equiv.json of the perturbation gate and upsert the perturbations table; -> summary per design."""
     raw = Path(C.results_dir(cfg)) / "raw"
@@ -82,13 +102,18 @@ def collect(conn, cfg, designs=None, root=None):
             if cid:
                 by_cand.setdefault(cid, []).append((eq.stat().st_mtime, rec))
         counts = {}
+        rt_recs = sorted(by_cand.get(m["roundtrip"]["pert_id"], [])) if m.get("roundtrip") else []
+        rt_status = _verdict(rt_recs[-1][1]) if rt_recs else "pending"
         for e in entries:
             recs = sorted(by_cand.get(e["pert_id"], []))
             status = _verdict(recs[-1][1]) if recs else "pending"
-            counts[status] = counts.get(status, 0) + 1
             if e["ptype"] == "P0_roundtrip":
+                counts[status] = counts.get(status, 0) + 1
                 summary.setdefault(d["design_id"], {})["roundtrip"] = status
                 continue
+            if status in ("falsified", "inconclusive", "error") and rt_status == "proven" and rename_is_alpha(m, e, root):
+                status = "proven_rename"  # alpha-renaming of a SEQ-proven round trip (SEQ could not match the renamed state)
+            counts[status] = counts.get(status, 0) + 1
             row = {"pert_id": e["pert_id"], "design_id": d["design_id"], "ptype": e["ptype"], "path": e["path"], "seq_status": status}
             row.update(db.stamp())
             cols = list(row)

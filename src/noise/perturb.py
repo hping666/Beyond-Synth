@@ -305,16 +305,33 @@ def _if_to_ternary(stmt):
     return type(t)(copy.deepcopy(t.left), A.Rvalue(A.Cond(stmt.cond, tv, fv)))
 
 
+def _async_reset_blocks(ast):
+    """Always blocks whose sensitivity list has two or more edge events (clock + asynchronous reset): their reset
+    `if` must stay an `if` (a ternary is not an async reset for Yosys / DC)."""
+    out = []
+    for n in V.walk(ast):
+        if isinstance(n, A.Always) and n.sens_list is not None:
+            edges = [s for s in n.sens_list.list if getattr(s, "type", None) in ("posedge", "negedge")]
+            if len(edges) >= 2:
+                out.append(n)
+    return out
+
+
 def p4_ctrl(ast, seed, k, max_sites=2):
     ast = copy.deepcopy(ast)
     r = V.rng(seed, "P4", k)
+    async_blocks = _async_reset_blocks(ast)
+    in_async = set()
+    for blk in async_blocks:
+        for n in V.walk(blk):
+            in_async.add(id(n))
     cands = []
     for parent, attr, idx, node in sites(ast, lambda n: isinstance(n, (A.CaseStatement, A.BlockingSubstitution, A.NonblockingSubstitution, A.IfStatement)), skip_under=(A.Function, A.Task)):
         if _case_to_if(node) is not None:
             cands.append(("case_to_if", parent, attr, idx, node))
         elif _ternary_to_if(node) is not None:
             cands.append(("ternary_to_if", parent, attr, idx, node))
-        elif _if_to_ternary(node) is not None:
+        elif _if_to_ternary(node) is not None and id(node) not in in_async:
             cands.append(("if_to_ternary", parent, attr, idx, node))
     if not cands:
         raise NotApplicable("no control-structure site")

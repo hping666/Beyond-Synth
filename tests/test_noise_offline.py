@@ -166,3 +166,18 @@ def test_normalisation_splits_signed_declarations_and_refuses_reg_initialisers(t
     with pytest.raises(V.Unsupported):
         V.normalise_text("module r(input clk, output reg q); reg [3:0] data = 'd0; always @(posedge clk) q <= data[0]; endmodule\n")
     assert V.normalise_text("module w(input a, output y); wire t = a; assign y = t; endmodule\n")[0]  # wire initialisers are legal continuous assignments
+
+
+def test_p4_never_turns_an_async_reset_if_into_a_ternary(tmp_path):
+    text = ("module top(input clk, input rst_n, input d, output reg q, output reg r);\n"
+            "  always @(posedge clk or negedge rst_n) begin\n    if (!rst_n) q <= 1'b0; else q <= d;\n  end\n"
+            "  always @(posedge clk) begin\n    if (d) r <= 1'b1; else r <= 1'b0;\n  end\nendmodule\n")
+    ast, directives, _ = V.parse_files([write(tmp_path, "ar.v", text)])
+    kinds = set()
+    for k in range(6):
+        new_ast, details = P.p4_ctrl(ast, "s", k, max_sites=3)
+        out = V.emit(new_ast, directives)
+        assert "if(!rst_n)" in out.replace(" ", "") or "if(!rst_n)" in out  # the async reset stays an if
+        kinds |= set(details["ctrl_sites"])
+        assert equivalent(tmp_path, text, out, f"ar{k}") == "equivalent"
+    assert kinds == {"if_to_ternary"}  # only the synchronous block was rewritten

@@ -52,7 +52,7 @@ def selected(conn, a):
 
 
 def proven_perturbations(conn, design_id):
-    return [dict(r) for r in conn.execute("SELECT pert_id, ptype, path FROM perturbations WHERE design_id=? AND seq_status='proven' ORDER BY ptype, pert_id", (design_id,))]
+    return [dict(r) for r in conn.execute("SELECT pert_id, ptype, path FROM perturbations WHERE design_id=? AND seq_status IN ('proven', 'proven_rename') ORDER BY ptype, pert_id", (design_id,))]
 
 
 def cmd_submit(cfg, conn, a):
