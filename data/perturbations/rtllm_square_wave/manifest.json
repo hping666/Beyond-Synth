@@ -1,0 +1,72 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtllm_square_wave",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "square_wave": {
+      "count": "echo_0"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_square_wave/P1_rename_0.v",
+   "pert_id": "p9e3af0526ff906",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "square_wave": {
+      "count": "zulu_0"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_square_wave/P1_rename_1.v",
+   "pert_id": "p055f4a8027ad64",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "square_wave": {
+      "count": "quebec_0"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_square_wave/P1_rename_2.v",
+   "pert_id": "p3867827498ca9c",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "square_wave": {
+      "count": "oscar_0"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_square_wave/P1_rename_3.v",
+   "pert_id": "p1d43342879f996",
+   "ptype": "P1_rename"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtllm_square_wave/roundtrip.v",
+  "pert_id": "pa76f8ca8416778"
+ },
+ "seed": "rtllm_square_wave:1",
+ "top": "square_wave"
+}

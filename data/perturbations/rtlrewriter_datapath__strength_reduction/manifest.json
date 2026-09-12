@@ -1,0 +1,72 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_datapath__strength_reduction",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "example_raw": {
+      "BW": "kilo_0"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_datapath__strength_reduction/P1_rename_0.v",
+   "pert_id": "p081949a48a4419",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "example_raw": {
+      "BW": "foxtrot_0"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_datapath__strength_reduction/P1_rename_1.v",
+   "pert_id": "p58acfdef73a141",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "example_raw": {
+      "BW": "hotel_0"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlrewriter_datapath__strength_reduction/P1_rename_2.v",
+   "pert_id": "p5221a88def9252",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "example_raw": {
+      "BW": "november_0"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_datapath__strength_reduction/P1_rename_3.v",
+   "pert_id": "p308081b2b6821d",
+   "ptype": "P1_rename"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_datapath__strength_reduction/roundtrip.v",
+  "pert_id": "pdcefe739944639"
+ },
+ "seed": "rtlrewriter_datapath__strength_reduction:1",
+ "top": "example_raw"
+}

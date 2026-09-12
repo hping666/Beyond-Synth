@@ -38,17 +38,15 @@ def gate_jobs(design, manifest, cfg, priority=0):
 
 
 def _verdict(rec):
-    v = rec.get("verdict") or rec.get("status") or ""
-    v3 = (rec.get("v3") or {}).get("status")
-    v2 = (rec.get("v2") or {}).get("status")
-    v1 = (rec.get("v1") or {}).get("status")
-    if v3 in ("proven", "falsified", "inconclusive", "error"):
-        return v3
-    if v1 == "rejected" or v == "rejected":
-        return "rejected"
-    if v2 in ("sim_fail",) or v == "sim_fail":
-        return "sim_fail"
-    return v or "unknown"
+    """The stack's verdict (spec 03 vocabulary): proven / falsified / inconclusive / rejected / sim_fail /
+    proven_sim_only / error; only `proven` (SEQ) admits a perturbation into the noise floor."""
+    v = rec.get("verdict")
+    if v:
+        return str(v)
+    for key in ("v3_status", "v2_status", "v1_status"):
+        if rec.get(key):
+            return str(rec[key])
+    return "unknown"
 
 
 def collect(conn, cfg, designs=None, root=None):

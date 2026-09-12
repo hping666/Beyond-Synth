@@ -1,0 +1,80 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_basic__distributed_ram",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "memory_blockram": {
+      "ADDR_WIDTH": "november_0",
+      "DATA_WIDTH": "tango_1",
+      "ram_block": "juliet_2"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_basic__distributed_ram/P1_rename_0.v",
+   "pert_id": "pd5a55117cbb920",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "memory_blockram": {
+      "ADDR_WIDTH": "kilo_0",
+      "DATA_WIDTH": "india_1",
+      "ram_block": "golf_2"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_basic__distributed_ram/P1_rename_1.v",
+   "pert_id": "p6d666f26cc6eb1",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "memory_blockram": {
+      "ADDR_WIDTH": "sierra_0",
+      "DATA_WIDTH": "bravo_1",
+      "ram_block": "lima_2"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlrewriter_basic__distributed_ram/P1_rename_2.v",
+   "pert_id": "pfce947a0659905",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "memory_blockram": {
+      "ADDR_WIDTH": "xray_0",
+      "DATA_WIDTH": "tango_1",
+      "ram_block": "charlie_2"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_basic__distributed_ram/P1_rename_3.v",
+   "pert_id": "pdf543447b3d580",
+   "ptype": "P1_rename"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_basic__distributed_ram/roundtrip.v",
+  "pert_id": "pf6158eba92a08f"
+ },
+ "seed": "rtlrewriter_basic__distributed_ram:1",
+ "top": "memory_blockram"
+}

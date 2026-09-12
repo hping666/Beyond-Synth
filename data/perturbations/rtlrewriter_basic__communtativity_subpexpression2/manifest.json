@@ -1,0 +1,76 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P1_rename": "no internal names to rename",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "reordered": {
+     "example": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_basic__communtativity_subpexpression2/P2_reorder_0.v",
+   "pert_id": "p8dba7d6ca66ea1",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "example": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_basic__communtativity_subpexpression2/P2_reorder_1.v",
+   "pert_id": "p2d9176154f4917",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "example": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlrewriter_basic__communtativity_subpexpression2/P2_reorder_2.v",
+   "pert_id": "pd955fe76cbdecd",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "example": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_basic__communtativity_subpexpression2/P2_reorder_3.v",
+   "pert_id": "pf25e129093c9e1",
+   "ptype": "P2_reorder"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_basic__communtativity_subpexpression2/roundtrip.v",
+  "pert_id": "p1c61f2d74d4393"
+ },
+ "seed": "rtlrewriter_basic__communtativity_subpexpression2:1",
+ "top": "example"
+}

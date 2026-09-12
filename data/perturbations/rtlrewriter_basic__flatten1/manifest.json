@@ -1,0 +1,117 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_basic__flatten1",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "multiplexer_structured": {
+      "sel1_out": "yankee_0",
+      "sel2_out": "delta_1"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_basic__flatten1/P1_rename_0.v",
+   "pert_id": "p8f3d46b8f61154",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "multiplexer_structured": {
+      "sel1_out": "romeo_0",
+      "sel2_out": "india_1"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_basic__flatten1/P1_rename_1.v",
+   "pert_id": "p238e4aea8eaeb0",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "multiplexer_structured": {
+      "sel1_out": "bravo_0",
+      "sel2_out": "uniform_1"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlrewriter_basic__flatten1/P1_rename_2.v",
+   "pert_id": "p5ec78d75885c86",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "multiplexer_structured": {
+      "sel1_out": "lima_0",
+      "sel2_out": "uniform_1"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_basic__flatten1/P1_rename_3.v",
+   "pert_id": "pac9cabdb9689e1",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "multiplexer_structured": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_basic__flatten1/P2_reorder_0.v",
+   "pert_id": "p8448762494c0e8",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "multiplexer_structured": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_basic__flatten1/P2_reorder_1.v",
+   "pert_id": "p8f216548e88c1a",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "multiplexer_structured": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_basic__flatten1/P2_reorder_3.v",
+   "pert_id": "pf6c8ab5f400a6d",
+   "ptype": "P2_reorder"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_basic__flatten1/roundtrip.v",
+  "pert_id": "paeb53febea2e5c"
+ },
+ "seed": "rtlrewriter_basic__flatten1:1",
+ "top": "multiplexer_structured"
+}

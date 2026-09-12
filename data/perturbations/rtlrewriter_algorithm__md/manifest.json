@@ -1,0 +1,108 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_algorithm__md",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "MolecularDynamics": {
+      "blockSide": "alpha_0",
+      "densityFactor": "hotel_1",
+      "fixedPointFactor": "tango_2",
+      "forces": "oscar_3",
+      "forces_stage2": "golf_4",
+      "forces_stage3": "whiskey_5",
+      "i": "echo_6",
+      "positions": "uniform_7",
+      "positions_stage2": "lima_8",
+      "positions_stage3": "india_9"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_algorithm__md/P1_rename_0.v",
+   "pert_id": "pec9f5d489eee95",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "MolecularDynamics": {
+      "blockSide": "hotel_0",
+      "densityFactor": "romeo_1",
+      "fixedPointFactor": "victor_2",
+      "forces": "tango_3",
+      "forces_stage2": "juliet_4",
+      "forces_stage3": "quebec_5",
+      "i": "delta_6",
+      "positions": "oscar_7",
+      "positions_stage2": "november_8",
+      "positions_stage3": "sierra_9"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_algorithm__md/P1_rename_1.v",
+   "pert_id": "ped3686fd8f49fe",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "MolecularDynamics": {
+      "blockSide": "charlie_0",
+      "densityFactor": "oscar_1",
+      "fixedPointFactor": "bravo_2",
+      "forces": "kilo_3",
+      "forces_stage2": "tango_4",
+      "forces_stage3": "quebec_5",
+      "i": "sierra_6",
+      "positions": "hotel_7",
+      "positions_stage2": "whiskey_8",
+      "positions_stage3": "golf_9"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlrewriter_algorithm__md/P1_rename_2.v",
+   "pert_id": "p449865febe26e0",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "MolecularDynamics": {
+      "blockSide": "romeo_0",
+      "densityFactor": "uniform_1",
+      "fixedPointFactor": "zulu_2",
+      "forces": "kilo_3",
+      "forces_stage2": "juliet_4",
+      "forces_stage3": "whiskey_5",
+      "i": "mike_6",
+      "positions": "hotel_7",
+      "positions_stage2": "sierra_8",
+      "positions_stage3": "yankee_9"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_algorithm__md/P1_rename_3.v",
+   "pert_id": "p1dd0368a1cf5bd",
+   "ptype": "P1_rename"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_algorithm__md/roundtrip.v",
+  "pert_id": "pcac61b2985aa89"
+ },
+ "seed": "rtlrewriter_algorithm__md:1",
+ "top": "MolecularDynamics"
+}

@@ -1,0 +1,141 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_long_cpu__DataHazard",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "DataHazard_raw": {
+      "InternalForwardA": "golf_0",
+      "InternalForwardB": "oscar_1",
+      "InternalLW_Stall": "echo_2"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_long_cpu__DataHazard/P1_rename_0.v",
+   "pert_id": "p10db1a705bd5ec",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DataHazard_raw": {
+      "InternalForwardA": "alpha_0",
+      "InternalForwardB": "zulu_1",
+      "InternalLW_Stall": "xray_2"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_long_cpu__DataHazard/P1_rename_1.v",
+   "pert_id": "pd17df8b16a6751",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DataHazard_raw": {
+      "InternalForwardA": "uniform_0",
+      "InternalForwardB": "whiskey_1",
+      "InternalLW_Stall": "charlie_2"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlrewriter_long_cpu__DataHazard/P1_rename_2.v",
+   "pert_id": "p25c2a6ed895747",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DataHazard_raw": {
+      "InternalForwardA": "whiskey_0",
+      "InternalForwardB": "golf_1",
+      "InternalLW_Stall": "sierra_2"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_long_cpu__DataHazard/P1_rename_3.v",
+   "pert_id": "p197e3cba125b72",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "DataHazard_raw": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_long_cpu__DataHazard/P2_reorder_0.v",
+   "pert_id": "pc53889dd029bcb",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "DataHazard_raw": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_long_cpu__DataHazard/P2_reorder_1.v",
+   "pert_id": "p69ce10360e1fbe",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "DataHazard_raw": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_long_cpu__DataHazard/P2_reorder_3.v",
+   "pert_id": "pac1e694079a81f",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_long_cpu__DataHazard/P3_expr_0.v",
+   "pert_id": "pfb56e102ff2ec0",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_long_cpu__DataHazard/P4_ctrl_0.v",
+   "pert_id": "p465020eb63be58",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_long_cpu__DataHazard/roundtrip.v",
+  "pert_id": "pe35f4f68af151d"
+ },
+ "seed": "rtlrewriter_long_cpu__DataHazard:1",
+ "top": "DataHazard_raw"
+}

@@ -1,0 +1,324 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "drrtl_DSP",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "DSP": {
+      "A0REG": "quebec_0",
+      "A1REG": "kilo_1",
+      "B0REG": "charlie_2",
+      "B1REG": "golf_3",
+      "B_INPUT": "sierra_4",
+      "CARRYINREG": "juliet_5",
+      "CARRYINSEL": "oscar_6",
+      "CARRYOUTREG": "delta_7",
+      "CREG": "mike_8",
+      "DREG": "uniform_9",
+      "MREG": "xray_10",
+      "OPMODEREG": "november_11",
+      "PREG": "bravo_12",
+      "PreASOut": "hotel_13",
+      "RSTTYPE": "echo_14",
+      "X": "foxtrot_15",
+      "Z": "tango_16",
+      "a0RegOut": "romeo_17",
+      "a1RegOut": "lima_18",
+      "b0RegOut": "alpha_19",
+      "b1RegIn": "yankee_20",
+      "b1RegOut": "zulu_21",
+      "bIn": "india_22",
+      "cRegOut": "victor_23",
+      "carryInRegIn": "whiskey_24",
+      "carryInRegOut": "papa_25",
+      "carryOutRegIn": "quebec_26",
+      "dRegOut": "kilo_27",
+      "mulOut": "charlie_28",
+      "opModeRegOut": "golf_29",
+      "pRegIn": "sierra_30"
+     },
+     "RegMux": {
+      "DATAREG": "sierra_0",
+      "N": "juliet_1",
+      "RSTTYPE": "india_2",
+      "data_reg": "oscar_3"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_DSP/P1_rename_0.v",
+   "pert_id": "p06758ff710ea42",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DSP": {
+      "A0REG": "victor_0",
+      "A1REG": "zulu_1",
+      "B0REG": "echo_2",
+      "B1REG": "sierra_3",
+      "B_INPUT": "xray_4",
+      "CARRYINREG": "lima_5",
+      "CARRYINSEL": "papa_6",
+      "CARRYOUTREG": "tango_7",
+      "CREG": "whiskey_8",
+      "DREG": "foxtrot_9",
+      "MREG": "india_10",
+      "OPMODEREG": "oscar_11",
+      "PREG": "alpha_12",
+      "PreASOut": "charlie_13",
+      "RSTTYPE": "mike_14",
+      "X": "kilo_15",
+      "Z": "quebec_16",
+      "a0RegOut": "yankee_17",
+      "a1RegOut": "uniform_18",
+      "b0RegOut": "november_19",
+      "b1RegIn": "bravo_20",
+      "b1RegOut": "golf_21",
+      "bIn": "juliet_22",
+      "cRegOut": "hotel_23",
+      "carryInRegIn": "delta_24",
+      "carryInRegOut": "romeo_25",
+      "carryOutRegIn": "victor_26",
+      "dRegOut": "zulu_27",
+      "mulOut": "echo_28",
+      "opModeRegOut": "sierra_29",
+      "pRegIn": "xray_30"
+     },
+     "RegMux": {
+      "DATAREG": "charlie_0",
+      "N": "india_1",
+      "RSTTYPE": "quebec_2",
+      "data_reg": "tango_3"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_DSP/P1_rename_1.v",
+   "pert_id": "pc325ef6b4979fb",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DSP": {
+      "A0REG": "november_0",
+      "A1REG": "bravo_1",
+      "B0REG": "oscar_2",
+      "B1REG": "india_3",
+      "B_INPUT": "delta_4",
+      "CARRYINREG": "juliet_5",
+      "CARRYINSEL": "romeo_6",
+      "CARRYOUTREG": "sierra_7",
+      "CREG": "victor_8",
+      "DREG": "papa_9",
+      "MREG": "charlie_10",
+      "OPMODEREG": "alpha_11",
+      "PREG": "echo_12",
+      "PreASOut": "golf_13",
+      "RSTTYPE": "xray_14",
+      "X": "zulu_15",
+      "Z": "kilo_16",
+      "a0RegOut": "yankee_17",
+      "a1RegOut": "mike_18",
+      "b0RegOut": "uniform_19",
+      "b1RegIn": "foxtrot_20",
+      "b1RegOut": "quebec_21",
+      "bIn": "lima_22",
+      "cRegOut": "whiskey_23",
+      "carryInRegIn": "tango_24",
+      "carryInRegOut": "hotel_25",
+      "carryOutRegIn": "november_26",
+      "dRegOut": "bravo_27",
+      "mulOut": "oscar_28",
+      "opModeRegOut": "india_29",
+      "pRegIn": "delta_30"
+     },
+     "RegMux": {
+      "DATAREG": "india_0",
+      "N": "oscar_1",
+      "RSTTYPE": "delta_2",
+      "data_reg": "golf_3"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_DSP/P1_rename_2.v",
+   "pert_id": "pa9b9de3f5a16c9",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DSP": {
+      "A0REG": "uniform_0",
+      "A1REG": "delta_1",
+      "B0REG": "oscar_2",
+      "B1REG": "mike_3",
+      "B_INPUT": "kilo_4",
+      "CARRYINREG": "zulu_5",
+      "CARRYINSEL": "papa_6",
+      "CARRYOUTREG": "november_7",
+      "CREG": "yankee_8",
+      "DREG": "hotel_9",
+      "MREG": "lima_10",
+      "OPMODEREG": "victor_11",
+      "PREG": "india_12",
+      "PreASOut": "echo_13",
+      "RSTTYPE": "tango_14",
+      "X": "juliet_15",
+      "Z": "golf_16",
+      "a0RegOut": "bravo_17",
+      "a1RegOut": "xray_18",
+      "b0RegOut": "alpha_19",
+      "b1RegIn": "charlie_20",
+      "b1RegOut": "romeo_21",
+      "bIn": "sierra_22",
+      "cRegOut": "whiskey_23",
+      "carryInRegIn": "foxtrot_24",
+      "carryInRegOut": "quebec_25",
+      "carryOutRegIn": "uniform_26",
+      "dRegOut": "delta_27",
+      "mulOut": "oscar_28",
+      "opModeRegOut": "mike_29",
+      "pRegIn": "kilo_30"
+     },
+     "RegMux": {
+      "DATAREG": "golf_0",
+      "N": "papa_1",
+      "RSTTYPE": "whiskey_2",
+      "data_reg": "oscar_3"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_DSP/P1_rename_3.v",
+   "pert_id": "p6ada50c33b457d",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "DSP": {
+      "always_blocks": 0,
+      "item_runs": 2
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_DSP/P2_reorder_0.v",
+   "pert_id": "p05b52ebb53055d",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "DSP": {
+      "always_blocks": 0,
+      "item_runs": 2
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_DSP/P2_reorder_1.v",
+   "pert_id": "pfb890163018786",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "DSP": {
+      "always_blocks": 0,
+      "item_runs": 2
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_DSP/P2_reorder_2.v",
+   "pert_id": "p997c030f144555",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "DSP": {
+      "always_blocks": 0,
+      "item_runs": 2
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_DSP/P2_reorder_3.v",
+   "pert_id": "p6eb24e5d3e68c6",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_DSP/P3_expr_0.v",
+   "pert_id": "p448b3f74bcdddb",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_DSP/P3_expr_1.v",
+   "pert_id": "pab81d7df1c8ae1",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_DSP/P3_expr_2.v",
+   "pert_id": "p3719b530aaa6c9",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_DSP/P3_expr_3.v",
+   "pert_id": "p711c850952d65e",
+   "ptype": "P3_expr"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/drrtl_DSP/roundtrip.v",
+  "pert_id": "pd731de08eceb8c"
+ },
+ "seed": "drrtl_DSP:1",
+ "top": "DSP"
+}

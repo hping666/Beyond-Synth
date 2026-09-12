@@ -1,0 +1,86 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlopt_mux_dead",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P1_rename": "no internal names to rename",
+  "P3_expr": "no expression site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "reordered": {
+     "mux_dead": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlopt_mux_dead/P2_reorder_0.v",
+   "pert_id": "p350aef968ac506",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mux_dead": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlopt_mux_dead/P2_reorder_1.v",
+   "pert_id": "p3bf1648a4bed7d",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mux_dead": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlopt_mux_dead/P2_reorder_2.v",
+   "pert_id": "pc149d5a0fcaea1",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mux_dead": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlopt_mux_dead/P2_reorder_3.v",
+   "pert_id": "p9d8853c879a2e5",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlopt_mux_dead/P4_ctrl_0.v",
+   "pert_id": "pb6d7a5e9f4dd98",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlopt_mux_dead/roundtrip.v",
+  "pert_id": "p6c60e224962a39"
+ },
+ "seed": "rtlopt_mux_dead:1",
+ "top": "mux_dead"
+}

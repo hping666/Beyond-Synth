@@ -1,0 +1,11 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "drrtl_simple_spi",
+ "error": "parse: ParseError: None: at end of input",
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [],
+ "seed": "drrtl_simple_spi:1",
+ "top": "simple_spi_top"
+}

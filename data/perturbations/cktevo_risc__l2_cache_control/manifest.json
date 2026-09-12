@@ -1,0 +1,11 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "cktevo_risc__l2_cache_control",
+ "error": "parse: ParseError:  line:183: before: \";\"",
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [],
+ "seed": "cktevo_risc__l2_cache_control:1",
+ "top": "l2_cache_control"
+}

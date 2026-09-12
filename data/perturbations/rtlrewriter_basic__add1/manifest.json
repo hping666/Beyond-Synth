@@ -1,0 +1,31 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_basic__add1",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P1_rename": "no internal names to rename",
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_basic__add1/P4_ctrl_0.v",
+   "pert_id": "pefce7ab9c9a0d3",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_basic__add1/roundtrip.v",
+  "pert_id": "p7cbed9089b8fcb"
+ },
+ "seed": "rtlrewriter_basic__add1:1",
+ "top": "example"
+}

@@ -1,0 +1,805 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "drrtl_datapath",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "data_swap": {
+      "BIT_SWAP": "kilo_0",
+      "BYTE_SWAP": "yankee_1",
+      "HALF_WORD_SWAP": "hotel_2",
+      "NO_SWAP": "mike_3",
+      "TYPES": "papa_4x",
+      "WIDTH": "lima_5",
+      "words": "charlie_6"
+     },
+     "datapath": {
+      "ADD_RK_OUT": "hotel_0",
+      "COL": "victor_1",
+      "COL_0": "mike_2",
+      "COL_1": "quebec_3",
+      "COL_2": "papa_4",
+      "COL_3": "alpha_5",
+      "COL_ALL": "foxtrot_6",
+      "COL_DIS": "november_7",
+      "DISABLE": "whiskey_8",
+      "ENABLE": "romeo_9",
+      "EN_COL_0": "bravo_10",
+      "EN_COL_1": "juliet_11",
+      "EN_COL_2": "zulu_12",
+      "EN_COL_3": "xray_13",
+      "EN_KEY_0": "sierra_14",
+      "EN_KEY_1": "delta_15",
+      "EN_KEY_2": "uniform_16",
+      "EN_KEY_3": "india_17",
+      "G_FUNCTION": "lima_18",
+      "INPUT": "tango_19",
+      "IV_BUS": "oscar_20",
+      "IV_CNT": "golf_21",
+      "KEY_0": "echo_22",
+      "KEY_1": "yankee_23",
+      "KEY_2": "kilo_24",
+      "KEY_3": "charlie_25",
+      "KEY_ALL": "hotel_26",
+      "KEY_DIS": "victor_27",
+      "KEY_HOST": "mike_28",
+      "KEY_OUT": "quebec_29",
+      "MIXCOL_IN": "papa_30",
+      "MIXCOL_OUT": "alpha_31",
+      "SHIFT_ROWS": "foxtrot_32",
+      "add_rd": "november_33",
+      "add_rd_key_in": "whiskey_34",
+      "add_rk_out": "romeo_35",
+      "add_rk_sel": "bravo_36",
+      "bkp": "juliet_37",
+      "bkp_1": "zulu_38",
+      "bkp_en": "xray_39",
+      "bkp_mux_out": "sierra_40",
+      "bus_swap": "delta_41",
+      "col": "uniform_42",
+      "col_en": "india_43",
+      "col_en_cnt_unit_pp1": "lima_44",
+      "col_en_cnt_unit_pp2": "tango_45",
+      "col_en_w_bypass": "oscar_46",
+      "col_in": "golf_47",
+      "col_sel_pp1": "echo_48",
+      "col_sel_pp2": "yankee_49",
+      "col_sel_w_bypass": "kilo_50",
+      "enc_dec_sbox": "charlie_51",
+      "iv": "hotel_52",
+      "iv_bkp_mux": "victor_53",
+      "iv_mux_out": "mike_54",
+      "key": "quebec_55",
+      "key1_mux_cnt": "papa_56",
+      "key_en_pp1": "alpha_57",
+      "key_en_sel": "foxtrot_58",
+      "key_host": "november_59",
+      "key_mux_out": "whiskey_60",
+      "key_mux_sel": "romeo_61",
+      "key_out_sel_pp1": "bravo_62",
+      "key_out_sel_pp2": "juliet_63",
+      "key_sel_mux": "zulu_64",
+      "key_sel_pp1": "xray_65",
+      "last_round_pp1": "sierra_66",
+      "last_round_pp2": "delta_67",
+      "rk_out_sel": "uniform_68",
+      "rk_out_sel_pp1": "india_69",
+      "rk_out_sel_pp2": "lima_70",
+      "rk_sel_mux": "tango_71",
+      "rk_sel_pp1": "oscar_72",
+      "rk_sel_pp2": "golf_73",
+      "round_pp1": "echo_74",
+      "sbox_input": "yankee_75",
+      "sbox_pp2": "kilo_76",
+      "sr_dec": "charlie_77",
+      "sr_enc": "hotel_78",
+      "sr_input": "victor_79",
+      "sr_input_0": "mike_80",
+      "sr_input_3": "quebec_81",
+      "xor_input_bkp_iv": "papa_82"
+     },
+     "key_expander": {
+      "KEY_NUM": "victor_0",
+      "KEY_WIDTH": "mike_1",
+      "ROUNDS": "papa_2",
+      "WORD": "lima_3",
+      "g_func": "foxtrot_4",
+      "key": "charlie_5",
+      "rc": "echo_6",
+      "rc_dir": "golf_7",
+      "rc_inv": "india_8",
+      "rot_in": "oscar_9"
+     },
+     "mix_columns": {
+      "NUM_WORDS": "xray_0",
+      "SIZE": "sierra_1",
+      "WORD_SIZE": "yankee_2",
+      "col": "november_3",
+      "sum_p": "romeo_4",
+      "y": "uniform_5"
+     },
+     "sBox": {
+      "SBOX_NUM": "charlie_0"
+     },
+     "sBox_8": {
+      "DEC": "hotel_0x",
+      "ENC": "romeo_1",
+      "base_new": "mike_2x",
+      "base_new_dec": "zulu_3",
+      "base_new_enc": "foxtrot_4x",
+      "base_new_pp": "golf_5",
+      "out_gf_inv8_1": "kilo_6",
+      "out_gf_inv8_stage1": "whiskey_7",
+      "out_gf_pp": "november_8"
+     },
+     "shift_rows": {
+      "BUS_WIDTH": "alpha_0",
+      "ST_COL": "hotel_1",
+      "ST_LINE": "bravo_2",
+      "ST_WORD": "india_3",
+      "state": "foxtrot_4xx",
+      "state_sft_l": "quebec_5",
+      "state_sft_r": "delta_6"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_datapath/P1_rename_0.v",
+   "pert_id": "p7e4d0000cbba8e",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "data_swap": {
+      "BIT_SWAP": "whiskey_0x",
+      "BYTE_SWAP": "alpha_1",
+      "HALF_WORD_SWAP": "hotel_2",
+      "NO_SWAP": "uniform_3",
+      "TYPES": "zulu_4",
+      "WIDTH": "november_5",
+      "words": "echo_6"
+     },
+     "datapath": {
+      "ADD_RK_OUT": "charlie_0",
+      "COL": "uniform_1",
+      "COL_0": "papa_2",
+      "COL_1": "romeo_3",
+      "COL_2": "lima_4",
+      "COL_3": "xray_5",
+      "COL_ALL": "foxtrot_6",
+      "COL_DIS": "india_7",
+      "DISABLE": "yankee_8",
+      "ENABLE": "victor_9",
+      "EN_COL_0": "november_10",
+      "EN_COL_1": "juliet_11",
+      "EN_COL_2": "whiskey_12",
+      "EN_COL_3": "golf_13",
+      "EN_KEY_0": "kilo_14",
+      "EN_KEY_1": "bravo_15",
+      "EN_KEY_2": "quebec_16",
+      "EN_KEY_3": "zulu_17",
+      "G_FUNCTION": "oscar_18",
+      "INPUT": "delta_19",
+      "IV_BUS": "mike_20",
+      "IV_CNT": "echo_21",
+      "KEY_0": "tango_22",
+      "KEY_1": "hotel_23",
+      "KEY_2": "sierra_24",
+      "KEY_3": "alpha_25",
+      "KEY_ALL": "charlie_26",
+      "KEY_DIS": "uniform_27",
+      "KEY_HOST": "papa_28",
+      "KEY_OUT": "romeo_29",
+      "MIXCOL_IN": "lima_30",
+      "MIXCOL_OUT": "xray_31",
+      "SHIFT_ROWS": "foxtrot_32",
+      "add_rd": "india_33",
+      "add_rd_key_in": "yankee_34",
+      "add_rk_out": "victor_35",
+      "add_rk_sel": "november_36",
+      "bkp": "juliet_37",
+      "bkp_1": "whiskey_38",
+      "bkp_en": "golf_39",
+      "bkp_mux_out": "kilo_40",
+      "bus_swap": "bravo_41",
+      "col": "quebec_42",
+      "col_en": "zulu_43",
+      "col_en_cnt_unit_pp1": "oscar_44",
+      "col_en_cnt_unit_pp2": "delta_45",
+      "col_en_w_bypass": "mike_46",
+      "col_in": "echo_47",
+      "col_sel_pp1": "tango_48",
+      "col_sel_pp2": "hotel_49",
+      "col_sel_w_bypass": "sierra_50",
+      "enc_dec_sbox": "alpha_51",
+      "iv": "charlie_52",
+      "iv_bkp_mux": "uniform_53",
+      "iv_mux_out": "papa_54",
+      "key": "romeo_55",
+      "key1_mux_cnt": "lima_56",
+      "key_en_pp1": "xray_57",
+      "key_en_sel": "foxtrot_58",
+      "key_host": "india_59",
+      "key_mux_out": "yankee_60",
+      "key_mux_sel": "victor_61",
+      "key_out_sel_pp1": "november_62",
+      "key_out_sel_pp2": "juliet_63",
+      "key_sel_mux": "whiskey_64",
+      "key_sel_pp1": "golf_65",
+      "last_round_pp1": "kilo_66",
+      "last_round_pp2": "bravo_67",
+      "rk_out_sel": "quebec_68",
+      "rk_out_sel_pp1": "zulu_69",
+      "rk_out_sel_pp2": "oscar_70",
+      "rk_sel_mux": "delta_71",
+      "rk_sel_pp1": "mike_72",
+      "rk_sel_pp2": "echo_73",
+      "round_pp1": "tango_74",
+      "sbox_input": "hotel_75",
+      "sbox_pp2": "sierra_76",
+      "sr_dec": "alpha_77",
+      "sr_enc": "charlie_78",
+      "sr_input": "uniform_79",
+      "sr_input_0": "papa_80",
+      "sr_input_3": "romeo_81",
+      "xor_input_bkp_iv": "lima_82"
+     },
+     "key_expander": {
+      "KEY_NUM": "kilo_0",
+      "KEY_WIDTH": "quebec_1",
+      "ROUNDS": "mike_2",
+      "WORD": "foxtrot_3",
+      "g_func": "xray_4",
+      "key": "delta_5",
+      "rc": "yankee_6",
+      "rc_dir": "victor_7",
+      "rc_inv": "papa_8",
+      "rot_in": "golf_9"
+     },
+     "mix_columns": {
+      "NUM_WORDS": "whiskey_0",
+      "SIZE": "zulu_1",
+      "WORD_SIZE": "india_2",
+      "col": "bravo_3",
+      "sum_p": "papa_4",
+      "y": "echo_5"
+     },
+     "sBox": {
+      "SBOX_NUM": "xray_0"
+     },
+     "sBox_8": {
+      "DEC": "kilo_0x",
+      "ENC": "lima_1",
+      "base_new": "india_2x",
+      "base_new_dec": "foxtrot_3x",
+      "base_new_enc": "yankee_4",
+      "base_new_pp": "bravo_5",
+      "out_gf_inv8_1": "victor_6",
+      "out_gf_inv8_stage1": "mike_7",
+      "out_gf_pp": "zulu_8"
+     },
+     "shift_rows": {
+      "BUS_WIDTH": "lima_0",
+      "ST_COL": "victor_1",
+      "ST_LINE": "quebec_2",
+      "ST_WORD": "echo_3",
+      "state": "papa_4x",
+      "state_sft_l": "zulu_5",
+      "state_sft_r": "november_6"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_datapath/P1_rename_1.v",
+   "pert_id": "pf4676d03b3d9ef",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "data_swap": {
+      "BIT_SWAP": "india_0",
+      "BYTE_SWAP": "whiskey_1",
+      "HALF_WORD_SWAP": "bravo_2",
+      "NO_SWAP": "lima_3",
+      "TYPES": "foxtrot_4",
+      "WIDTH": "hotel_5",
+      "words": "juliet_6x"
+     },
+     "datapath": {
+      "ADD_RK_OUT": "golf_0",
+      "COL": "bravo_1",
+      "COL_0": "mike_2",
+      "COL_1": "foxtrot_3",
+      "COL_2": "whiskey_4",
+      "COL_3": "yankee_5",
+      "COL_ALL": "romeo_6",
+      "COL_DIS": "charlie_7",
+      "DISABLE": "lima_8",
+      "ENABLE": "papa_9",
+      "EN_COL_0": "alpha_10",
+      "EN_COL_1": "quebec_11",
+      "EN_COL_2": "oscar_12",
+      "EN_COL_3": "hotel_13",
+      "EN_KEY_0": "india_14",
+      "EN_KEY_1": "kilo_15",
+      "EN_KEY_2": "delta_16",
+      "EN_KEY_3": "zulu_17",
+      "G_FUNCTION": "november_18",
+      "INPUT": "victor_19",
+      "IV_BUS": "tango_20",
+      "IV_CNT": "uniform_21",
+      "KEY_0": "xray_22",
+      "KEY_1": "sierra_23",
+      "KEY_2": "echo_24",
+      "KEY_3": "juliet_25",
+      "KEY_ALL": "golf_26",
+      "KEY_DIS": "bravo_27",
+      "KEY_HOST": "mike_28",
+      "KEY_OUT": "foxtrot_29",
+      "MIXCOL_IN": "whiskey_30",
+      "MIXCOL_OUT": "yankee_31",
+      "SHIFT_ROWS": "romeo_32",
+      "add_rd": "charlie_33",
+      "add_rd_key_in": "lima_34",
+      "add_rk_out": "papa_35",
+      "add_rk_sel": "alpha_36",
+      "bkp": "quebec_37",
+      "bkp_1": "oscar_38",
+      "bkp_en": "hotel_39",
+      "bkp_mux_out": "india_40",
+      "bus_swap": "kilo_41",
+      "col": "delta_42",
+      "col_en": "zulu_43",
+      "col_en_cnt_unit_pp1": "november_44",
+      "col_en_cnt_unit_pp2": "victor_45",
+      "col_en_w_bypass": "tango_46",
+      "col_in": "uniform_47",
+      "col_sel_pp1": "xray_48",
+      "col_sel_pp2": "sierra_49",
+      "col_sel_w_bypass": "echo_50",
+      "enc_dec_sbox": "juliet_51",
+      "iv": "golf_52",
+      "iv_bkp_mux": "bravo_53",
+      "iv_mux_out": "mike_54",
+      "key": "foxtrot_55",
+      "key1_mux_cnt": "whiskey_56",
+      "key_en_pp1": "yankee_57",
+      "key_en_sel": "romeo_58",
+      "key_host": "charlie_59",
+      "key_mux_out": "lima_60",
+      "key_mux_sel": "papa_61",
+      "key_out_sel_pp1": "alpha_62",
+      "key_out_sel_pp2": "quebec_63",
+      "key_sel_mux": "oscar_64",
+      "key_sel_pp1": "hotel_65",
+      "last_round_pp1": "india_66",
+      "last_round_pp2": "kilo_67",
+      "rk_out_sel": "delta_68",
+      "rk_out_sel_pp1": "zulu_69",
+      "rk_out_sel_pp2": "november_70",
+      "rk_sel_mux": "victor_71",
+      "rk_sel_pp1": "tango_72",
+      "rk_sel_pp2": "uniform_73",
+      "round_pp1": "xray_74",
+      "sbox_input": "sierra_75",
+      "sbox_pp2": "echo_76",
+      "sr_dec": "juliet_77",
+      "sr_enc": "golf_78",
+      "sr_input": "bravo_79",
+      "sr_input_0": "mike_80",
+      "sr_input_3": "foxtrot_81",
+      "xor_input_bkp_iv": "whiskey_82"
+     },
+     "key_expander": {
+      "KEY_NUM": "whiskey_0x",
+      "KEY_WIDTH": "india_1",
+      "ROUNDS": "zulu_2",
+      "WORD": "quebec_3",
+      "g_func": "charlie_4",
+      "key": "romeo_5",
+      "rc": "alpha_6",
+      "rc_dir": "mike_7",
+      "rc_inv": "echo_8",
+      "rot_in": "uniform_9"
+     },
+     "mix_columns": {
+      "NUM_WORDS": "whiskey_0",
+      "SIZE": "papa_1",
+      "WORD_SIZE": "charlie_2",
+      "col": "romeo_3",
+      "sum_p": "victor_4",
+      "y": "bravo_5"
+     },
+     "sBox": {
+      "SBOX_NUM": "november_0"
+     },
+     "sBox_8": {
+      "DEC": "lima_0",
+      "ENC": "hotel_1",
+      "base_new": "foxtrot_2",
+      "base_new_dec": "papa_3",
+      "base_new_enc": "kilo_4",
+      "base_new_pp": "quebec_5",
+      "out_gf_inv8_1": "juliet_6",
+      "out_gf_inv8_stage1": "delta_7",
+      "out_gf_pp": "echo_8x"
+     },
+     "shift_rows": {
+      "BUS_WIDTH": "kilo_0",
+      "ST_COL": "delta_1",
+      "ST_LINE": "quebec_2",
+      "ST_WORD": "uniform_3",
+      "state": "sierra_4",
+      "state_sft_l": "papa_5",
+      "state_sft_r": "oscar_6"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_datapath/P1_rename_2.v",
+   "pert_id": "p1e616cf5424584",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "data_swap": {
+      "BIT_SWAP": "echo_0",
+      "BYTE_SWAP": "kilo_1",
+      "HALF_WORD_SWAP": "foxtrot_2",
+      "NO_SWAP": "charlie_3",
+      "TYPES": "romeo_4",
+      "WIDTH": "uniform_5",
+      "words": "tango_6"
+     },
+     "datapath": {
+      "ADD_RK_OUT": "delta_0",
+      "COL": "uniform_1",
+      "COL_0": "quebec_2",
+      "COL_1": "alpha_3",
+      "COL_2": "zulu_4",
+      "COL_3": "golf_5",
+      "COL_ALL": "charlie_6",
+      "COL_DIS": "whiskey_7",
+      "DISABLE": "victor_8",
+      "ENABLE": "juliet_9",
+      "EN_COL_0": "papa_10",
+      "EN_COL_1": "india_11",
+      "EN_COL_2": "oscar_12",
+      "EN_COL_3": "sierra_13",
+      "EN_KEY_0": "foxtrot_14",
+      "EN_KEY_1": "yankee_15",
+      "EN_KEY_2": "kilo_16",
+      "EN_KEY_3": "tango_17",
+      "G_FUNCTION": "xray_18",
+      "INPUT": "romeo_19",
+      "IV_BUS": "bravo_20",
+      "IV_CNT": "hotel_21",
+      "KEY_0": "echo_22",
+      "KEY_1": "november_23",
+      "KEY_2": "lima_24",
+      "KEY_3": "mike_25",
+      "KEY_ALL": "delta_26",
+      "KEY_DIS": "uniform_27",
+      "KEY_HOST": "quebec_28",
+      "KEY_OUT": "alpha_29",
+      "MIXCOL_IN": "zulu_30",
+      "MIXCOL_OUT": "golf_31",
+      "SHIFT_ROWS": "charlie_32",
+      "add_rd": "whiskey_33",
+      "add_rd_key_in": "victor_34",
+      "add_rk_out": "juliet_35",
+      "add_rk_sel": "papa_36",
+      "bkp": "india_37",
+      "bkp_1": "oscar_38",
+      "bkp_en": "sierra_39",
+      "bkp_mux_out": "foxtrot_40",
+      "bus_swap": "yankee_41",
+      "col": "kilo_42",
+      "col_en": "tango_43",
+      "col_en_cnt_unit_pp1": "xray_44",
+      "col_en_cnt_unit_pp2": "romeo_45",
+      "col_en_w_bypass": "bravo_46",
+      "col_in": "hotel_47",
+      "col_sel_pp1": "echo_48",
+      "col_sel_pp2": "november_49",
+      "col_sel_w_bypass": "lima_50",
+      "enc_dec_sbox": "mike_51",
+      "iv": "delta_52",
+      "iv_bkp_mux": "uniform_53",
+      "iv_mux_out": "quebec_54",
+      "key": "alpha_55",
+      "key1_mux_cnt": "zulu_56",
+      "key_en_pp1": "golf_57",
+      "key_en_sel": "charlie_58",
+      "key_host": "whiskey_59",
+      "key_mux_out": "victor_60",
+      "key_mux_sel": "juliet_61",
+      "key_out_sel_pp1": "papa_62",
+      "key_out_sel_pp2": "india_63",
+      "key_sel_mux": "oscar_64",
+      "key_sel_pp1": "sierra_65",
+      "last_round_pp1": "foxtrot_66",
+      "last_round_pp2": "yankee_67",
+      "rk_out_sel": "kilo_68",
+      "rk_out_sel_pp1": "tango_69",
+      "rk_out_sel_pp2": "xray_70",
+      "rk_sel_mux": "romeo_71",
+      "rk_sel_pp1": "bravo_72",
+      "rk_sel_pp2": "hotel_73",
+      "round_pp1": "echo_74",
+      "sbox_input": "november_75",
+      "sbox_pp2": "lima_76",
+      "sr_dec": "mike_77",
+      "sr_enc": "delta_78",
+      "sr_input": "uniform_79",
+      "sr_input_0": "quebec_80",
+      "sr_input_3": "alpha_81",
+      "xor_input_bkp_iv": "zulu_82"
+     },
+     "key_expander": {
+      "KEY_NUM": "hotel_0",
+      "KEY_WIDTH": "xray_1",
+      "ROUNDS": "kilo_2",
+      "WORD": "quebec_3",
+      "g_func": "lima_4",
+      "key": "romeo_5",
+      "rc": "india_6",
+      "rc_dir": "yankee_7",
+      "rc_inv": "zulu_8",
+      "rot_in": "foxtrot_9"
+     },
+     "mix_columns": {
+      "NUM_WORDS": "uniform_0",
+      "SIZE": "alpha_1",
+      "WORD_SIZE": "oscar_2",
+      "col": "mike_3",
+      "sum_p": "hotel_4",
+      "y": "yankee_5"
+     },
+     "sBox": {
+      "SBOX_NUM": "victor_0"
+     },
+     "sBox_8": {
+      "DEC": "papa_0",
+      "ENC": "hotel_1",
+      "base_new": "romeo_2",
+      "base_new_dec": "lima_3",
+      "base_new_enc": "echo_4",
+      "base_new_pp": "delta_5",
+      "out_gf_inv8_1": "bravo_6",
+      "out_gf_inv8_stage1": "mike_7",
+      "out_gf_pp": "alpha_8"
+     },
+     "shift_rows": {
+      "BUS_WIDTH": "hotel_0x",
+      "ST_COL": "sierra_1",
+      "ST_LINE": "whiskey_2",
+      "ST_WORD": "golf_3",
+      "state": "kilo_4",
+      "state_sft_l": "xray_5",
+      "state_sft_r": "delta_6"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_datapath/P1_rename_3.v",
+   "pert_id": "p3a926466d3fb34",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "datapath": {
+      "always_blocks": 0,
+      "item_runs": 4
+     },
+     "key_expander": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mix_columns": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "sBox_8": {
+      "always_blocks": 1,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_datapath/P2_reorder_0.v",
+   "pert_id": "pbf5a6ea0662d7e",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "datapath": {
+      "always_blocks": 0,
+      "item_runs": 4
+     },
+     "key_expander": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mix_columns": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "sBox_8": {
+      "always_blocks": 1,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_datapath/P2_reorder_1.v",
+   "pert_id": "pa5797c3387d24b",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "datapath": {
+      "always_blocks": 0,
+      "item_runs": 4
+     },
+     "key_expander": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mix_columns": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "sBox_8": {
+      "always_blocks": 1,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_datapath/P2_reorder_2.v",
+   "pert_id": "p566a904132fea1",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "datapath": {
+      "always_blocks": 0,
+      "item_runs": 4
+     },
+     "key_expander": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mix_columns": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "sBox_8": {
+      "always_blocks": 1,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_datapath/P2_reorder_3.v",
+   "pert_id": "p88e975b3a6ecf9",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_datapath/P3_expr_0.v",
+   "pert_id": "p3d726329fb53ed",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "demorgan",
+     "partselect",
+     "demorgan"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_datapath/P3_expr_1.v",
+   "pert_id": "p91098b16ac6d21",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "demorgan",
+     "partselect",
+     "demorgan"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_datapath/P3_expr_2.v",
+   "pert_id": "p3c5633d0c64d10",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "demorgan",
+     "demorgan"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_datapath/P3_expr_3.v",
+   "pert_id": "p018c589181d561",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "ternary_to_if",
+     "ternary_to_if"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_datapath/P4_ctrl_0.v",
+   "pert_id": "p3f94f2412a18f0",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "case_to_if"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_datapath/P4_ctrl_1.v",
+   "pert_id": "p60a936d325a980",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "ternary_to_if"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_datapath/P4_ctrl_2.v",
+   "pert_id": "p7336273473bf5c",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "ternary_to_if"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_datapath/P4_ctrl_3.v",
+   "pert_id": "p9903d67414693e",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/drrtl_datapath/roundtrip.v",
+  "pert_id": "pe1157f498ce4d9"
+ },
+ "seed": "drrtl_datapath:1",
+ "top": "datapath"
+}

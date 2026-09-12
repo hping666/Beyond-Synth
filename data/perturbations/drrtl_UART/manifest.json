@@ -1,0 +1,387 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "drrtl_UART",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "uart_baud_rate": {
+      "baud_count": "xray_0",
+      "delayed_en": "papa_1",
+      "temp_en": "charlie_2"
+     },
+     "uart_rx": {
+      "DATA": "victor_0",
+      "IDLE": "kilo_1",
+      "START": "xray_2",
+      "STOP": "uniform_3",
+      "count_16": "tango_4",
+      "count_16_indication": "charlie_5",
+      "count_8": "november_6",
+      "count_8_indication": "zulu_7",
+      "current_state": "oscar_8",
+      "data_save": "golf_9",
+      "next_state": "foxtrot_10"
+     },
+     "uart_top_design": {
+      "BAUD_DATA": "yankee_0",
+      "ENABLE": "charlie_1",
+      "RX_DATA": "alpha_2",
+      "TX_DATA": "juliet_3",
+      "data_in": "sierra_4",
+      "data_out": "whiskey_5",
+      "enable": "xray_6"
+     },
+     "uart_tx": {
+      "DATA": "charlie_0",
+      "IDLE": "bravo_1",
+      "START": "papa_2",
+      "STOP": "november_3",
+      "count_16": "echo_4",
+      "count_16_indication": "delta_5",
+      "count_8": "uniform_6",
+      "count_8_indication": "whiskey_7",
+      "current_state": "hotel_8",
+      "data_save": "romeo_9",
+      "next_state": "india_10"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_UART/P1_rename_0.v",
+   "pert_id": "p9c726fbae74f74",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "uart_baud_rate": {
+      "baud_count": "quebec_0",
+      "delayed_en": "juliet_1",
+      "temp_en": "india_2"
+     },
+     "uart_rx": {
+      "DATA": "alpha_0",
+      "IDLE": "zulu_1",
+      "START": "uniform_2",
+      "STOP": "hotel_3",
+      "count_16": "lima_4",
+      "count_16_indication": "sierra_5",
+      "count_8": "echo_6",
+      "count_8_indication": "mike_7",
+      "current_state": "november_8",
+      "data_save": "yankee_9",
+      "next_state": "golf_10"
+     },
+     "uart_top_design": {
+      "BAUD_DATA": "tango_0",
+      "ENABLE": "uniform_1",
+      "RX_DATA": "mike_2",
+      "TX_DATA": "oscar_3",
+      "data_in": "whiskey_4",
+      "data_out": "echo_5",
+      "enable": "alpha_6"
+     },
+     "uart_tx": {
+      "DATA": "romeo_0",
+      "IDLE": "kilo_1",
+      "START": "lima_2",
+      "STOP": "whiskey_3",
+      "count_16": "charlie_4",
+      "count_16_indication": "sierra_5x",
+      "count_8": "uniform_6",
+      "count_8_indication": "bravo_7",
+      "current_state": "papa_8",
+      "data_save": "hotel_9",
+      "next_state": "echo_10"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_UART/P1_rename_1.v",
+   "pert_id": "p2777c07d3a44b6",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "uart_baud_rate": {
+      "baud_count": "foxtrot_0",
+      "delayed_en": "sierra_1",
+      "temp_en": "xray_2"
+     },
+     "uart_rx": {
+      "DATA": "uniform_0",
+      "IDLE": "bravo_1",
+      "START": "charlie_2",
+      "STOP": "india_3",
+      "count_16": "papa_4",
+      "count_16_indication": "hotel_5",
+      "count_8": "xray_6",
+      "count_8_indication": "sierra_7",
+      "current_state": "mike_8",
+      "data_save": "echo_9",
+      "next_state": "november_10"
+     },
+     "uart_top_design": {
+      "BAUD_DATA": "tango_0",
+      "ENABLE": "zulu_1",
+      "RX_DATA": "sierra_2",
+      "TX_DATA": "mike_3",
+      "data_in": "alpha_4",
+      "data_out": "papa_5",
+      "enable": "india_6"
+     },
+     "uart_tx": {
+      "DATA": "quebec_0",
+      "IDLE": "lima_1",
+      "START": "foxtrot_2",
+      "STOP": "uniform_3",
+      "count_16": "papa_4x",
+      "count_16_indication": "echo_5",
+      "count_8": "tango_6",
+      "count_8_indication": "mike_7",
+      "current_state": "charlie_8",
+      "data_save": "juliet_9",
+      "next_state": "victor_10"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_UART/P1_rename_2.v",
+   "pert_id": "pfe5e2d43cfc693",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "uart_baud_rate": {
+      "baud_count": "xray_0x",
+      "delayed_en": "bravo_1",
+      "temp_en": "mike_2"
+     },
+     "uart_rx": {
+      "DATA": "november_0",
+      "IDLE": "lima_1",
+      "START": "alpha_2",
+      "STOP": "tango_3",
+      "count_16": "charlie_4",
+      "count_16_indication": "foxtrot_5",
+      "count_8": "juliet_6",
+      "count_8_indication": "kilo_7",
+      "current_state": "xray_8",
+      "data_save": "victor_9",
+      "next_state": "golf_10"
+     },
+     "uart_top_design": {
+      "BAUD_DATA": "xray_0",
+      "ENABLE": "hotel_1",
+      "RX_DATA": "oscar_2",
+      "TX_DATA": "golf_3",
+      "data_in": "whiskey_4",
+      "data_out": "lima_5",
+      "enable": "uniform_6"
+     },
+     "uart_tx": {
+      "DATA": "uniform_0",
+      "IDLE": "oscar_1",
+      "START": "sierra_2",
+      "STOP": "november_3",
+      "count_16": "hotel_4",
+      "count_16_indication": "zulu_5",
+      "count_8": "romeo_6",
+      "count_8_indication": "india_7",
+      "current_state": "mike_8",
+      "data_save": "echo_9",
+      "next_state": "foxtrot_10"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_UART/P1_rename_3.v",
+   "pert_id": "p3646ee7a96f3dc",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "uart_rx": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "uart_top_design": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "uart_tx": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_UART/P2_reorder_0.v",
+   "pert_id": "pf6a394a8b94161",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "uart_rx": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "uart_top_design": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "uart_tx": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_UART/P2_reorder_1.v",
+   "pert_id": "pe9bb937a8b9a6f",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "uart_rx": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "uart_top_design": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "uart_tx": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_UART/P2_reorder_2.v",
+   "pert_id": "pfcce30c2f24395",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "uart_rx": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "uart_top_design": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "uart_tx": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_UART/P2_reorder_3.v",
+   "pert_id": "pc7dbdb3fc3c13f",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_UART/P3_expr_0.v",
+   "pert_id": "p832a4c06ce8ab0",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_UART/P3_expr_1.v",
+   "pert_id": "p466fbef399576c",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_UART/P3_expr_2.v",
+   "pert_id": "p19d53a6ac46f44",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_UART/P4_ctrl_0.v",
+   "pert_id": "pab3329f0b4d042",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_UART/P4_ctrl_1.v",
+   "pert_id": "p9b9fcea9d1eafd",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "case_to_if",
+     "if_to_ternary"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_UART/P4_ctrl_2.v",
+   "pert_id": "p84ebee4b96dd36",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_UART/P4_ctrl_3.v",
+   "pert_id": "p9144ff143b65a7",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/drrtl_UART/roundtrip.v",
+  "pert_id": "p9d4313580fc71d"
+ },
+ "seed": "drrtl_UART:1",
+ "top": "uart_top_design"
+}

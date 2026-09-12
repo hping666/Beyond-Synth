@@ -1,0 +1,163 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlopt_divider_8bit",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "divider_8bit": {
+      "i": "xray_0",
+      "temp": "whiskey_1"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlopt_divider_8bit/P1_rename_0.v",
+   "pert_id": "pae42ccb2a9b6be",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "divider_8bit": {
+      "i": "sierra_0",
+      "temp": "kilo_1"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlopt_divider_8bit/P1_rename_1.v",
+   "pert_id": "p4354bd71edf72e",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "divider_8bit": {
+      "i": "lima_0",
+      "temp": "yankee_1"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlopt_divider_8bit/P1_rename_2.v",
+   "pert_id": "p30af2779f2a42d",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "divider_8bit": {
+      "i": "victor_0",
+      "temp": "uniform_1"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlopt_divider_8bit/P1_rename_3.v",
+   "pert_id": "pfd714bb03f05af",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "divider_8bit": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlopt_divider_8bit/P2_reorder_0.v",
+   "pert_id": "p2f047da3d6fc63",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "divider_8bit": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlopt_divider_8bit/P2_reorder_1.v",
+   "pert_id": "pe2fd1c8e940168",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlopt_divider_8bit/P3_expr_0.v",
+   "pert_id": "pe761dfdacc849f",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlopt_divider_8bit/P3_expr_1.v",
+   "pert_id": "pb303376e41305d",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlopt_divider_8bit/P3_expr_2.v",
+   "pert_id": "p70a7a8423dd33c",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlopt_divider_8bit/P3_expr_3.v",
+   "pert_id": "pcaacdc556d2685",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlopt_divider_8bit/P4_ctrl_0.v",
+   "pert_id": "pe92eaed39e1936",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlopt_divider_8bit/roundtrip.v",
+  "pert_id": "pc399e434f15f38"
+ },
+ "seed": "rtlopt_divider_8bit:1",
+ "top": "divider_8bit"
+}

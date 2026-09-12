@@ -1,0 +1,247 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtllm_multi_pipe_8bit",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "multi_pipe_8bit": {
+      "mul_a_reg": "whiskey_0",
+      "mul_b_reg": "echo_1",
+      "mul_en_out_reg": "charlie_2",
+      "mul_out_reg": "yankee_3",
+      "size": "tango_4",
+      "sum": "november_5",
+      "temp": "zulu_6"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P1_rename_0.v",
+   "pert_id": "p277ccb9013d9ff",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "multi_pipe_8bit": {
+      "mul_a_reg": "romeo_0",
+      "mul_b_reg": "juliet_1",
+      "mul_en_out_reg": "foxtrot_2",
+      "mul_out_reg": "november_3",
+      "size": "papa_4",
+      "sum": "india_5",
+      "temp": "tango_6"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P1_rename_1.v",
+   "pert_id": "p9794ed599b5e21",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "multi_pipe_8bit": {
+      "mul_a_reg": "bravo_0",
+      "mul_b_reg": "lima_1",
+      "mul_en_out_reg": "alpha_2",
+      "mul_out_reg": "uniform_3",
+      "size": "delta_4",
+      "sum": "whiskey_5",
+      "temp": "juliet_6"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P1_rename_2.v",
+   "pert_id": "p045cbf39386260",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "multi_pipe_8bit": {
+      "mul_a_reg": "alpha_0",
+      "mul_b_reg": "yankee_1",
+      "mul_en_out_reg": "romeo_2",
+      "mul_out_reg": "echo_3",
+      "size": "victor_4",
+      "sum": "kilo_5",
+      "temp": "uniform_6"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P1_rename_3.v",
+   "pert_id": "p7791425fbefd41",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "multi_pipe_8bit": {
+      "always_blocks": 0,
+      "item_runs": 2
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P2_reorder_0.v",
+   "pert_id": "p3f1f470df62f31",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "multi_pipe_8bit": {
+      "always_blocks": 0,
+      "item_runs": 2
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P2_reorder_1.v",
+   "pert_id": "pf4858bf5a01c3f",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "multi_pipe_8bit": {
+      "always_blocks": 0,
+      "item_runs": 2
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P2_reorder_2.v",
+   "pert_id": "p1ae10d8c34fc37",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "multi_pipe_8bit": {
+      "always_blocks": 0,
+      "item_runs": 2
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P2_reorder_3.v",
+   "pert_id": "p98f80cac60661c",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P3_expr_0.v",
+   "pert_id": "p2802cc883718c7",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P3_expr_1.v",
+   "pert_id": "pb8ea1222778c1c",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P3_expr_2.v",
+   "pert_id": "p94aed35f196deb",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P3_expr_3.v",
+   "pert_id": "p95a092c97bb33b",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "ternary_to_if"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P4_ctrl_0.v",
+   "pert_id": "p2157bb09db2651",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P4_ctrl_1.v",
+   "pert_id": "p308a5d52ec5974",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "ternary_to_if"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P4_ctrl_2.v",
+   "pert_id": "p376ae67d9ae94b",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "ternary_to_if"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_multi_pipe_8bit/P4_ctrl_3.v",
+   "pert_id": "p22b138d89bb60d",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtllm_multi_pipe_8bit/roundtrip.v",
+  "pert_id": "p7de5f57804ce79"
+ },
+ "seed": "rtllm_multi_pipe_8bit:1",
+ "top": "multi_pipe_8bit"
+}

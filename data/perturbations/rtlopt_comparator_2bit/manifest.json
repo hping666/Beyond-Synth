@@ -1,0 +1,76 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlopt_comparator_2bit",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P1_rename": "no internal names to rename",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "reordered": {
+     "comparator_2bit": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlopt_comparator_2bit/P2_reorder_0.v",
+   "pert_id": "pa532c903d6d041",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "comparator_2bit": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlopt_comparator_2bit/P2_reorder_1.v",
+   "pert_id": "p6231a9058fe546",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "comparator_2bit": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlopt_comparator_2bit/P2_reorder_2.v",
+   "pert_id": "p06c8746f8fb937",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "comparator_2bit": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlopt_comparator_2bit/P2_reorder_3.v",
+   "pert_id": "pb1a0dc7870f39e",
+   "ptype": "P2_reorder"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlopt_comparator_2bit/roundtrip.v",
+  "pert_id": "p0b01e899254af2"
+ },
+ "seed": "rtlopt_comparator_2bit:1",
+ "top": "comparator_2bit"
+}

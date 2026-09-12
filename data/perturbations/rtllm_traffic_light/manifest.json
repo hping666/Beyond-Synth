@@ -1,0 +1,241 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtllm_traffic_light",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "traffic_light": {
+      "cnt": "juliet_0",
+      "idle": "foxtrot_1",
+      "p_green": "echo_2",
+      "p_red": "kilo_3",
+      "p_yellow": "india_4",
+      "s1_red": "quebec_5",
+      "s2_yellow": "alpha_6",
+      "s3_green": "oscar_7",
+      "state": "romeo_8"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_traffic_light/P1_rename_0.v",
+   "pert_id": "p1caff813a16c0b",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "traffic_light": {
+      "cnt": "whiskey_0",
+      "idle": "bravo_1",
+      "p_green": "yankee_2",
+      "p_red": "hotel_3",
+      "p_yellow": "zulu_4",
+      "s1_red": "tango_5",
+      "s2_yellow": "november_6",
+      "s3_green": "echo_7",
+      "state": "sierra_8"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_traffic_light/P1_rename_1.v",
+   "pert_id": "p38a8249ba5fbd3",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "traffic_light": {
+      "cnt": "foxtrot_0",
+      "idle": "xray_1",
+      "p_green": "yankee_2",
+      "p_red": "november_3",
+      "p_yellow": "hotel_4",
+      "s1_red": "oscar_5",
+      "s2_yellow": "papa_6",
+      "s3_green": "golf_7",
+      "state": "india_8"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_traffic_light/P1_rename_2.v",
+   "pert_id": "p6e69d379bb2e54",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "traffic_light": {
+      "cnt": "xray_0",
+      "idle": "romeo_1",
+      "p_green": "victor_2",
+      "p_red": "juliet_3",
+      "p_yellow": "quebec_4",
+      "s1_red": "kilo_5",
+      "s2_yellow": "yankee_6",
+      "s3_green": "lima_7",
+      "state": "tango_8"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_traffic_light/P1_rename_3.v",
+   "pert_id": "pb3c04cd97c88bc",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "traffic_light": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_traffic_light/P2_reorder_0.v",
+   "pert_id": "pcdb00e154e3764",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "traffic_light": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_traffic_light/P2_reorder_1.v",
+   "pert_id": "pf968b6fca08e70",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "traffic_light": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_traffic_light/P2_reorder_2.v",
+   "pert_id": "pb2f7f9ed913443",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "traffic_light": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_traffic_light/P2_reorder_3.v",
+   "pert_id": "p8dda972ce08e91",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_traffic_light/P3_expr_0.v",
+   "pert_id": "pe2468f34d183dc",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_traffic_light/P3_expr_1.v",
+   "pert_id": "p1002acbb4719f9",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_traffic_light/P3_expr_2.v",
+   "pert_id": "p3146442094cf81",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_traffic_light/P3_expr_3.v",
+   "pert_id": "pfcb334cc5af413",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_traffic_light/P4_ctrl_0.v",
+   "pert_id": "pba8566fa68b015",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_traffic_light/P4_ctrl_1.v",
+   "pert_id": "pc2528299a5623b",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_traffic_light/P4_ctrl_3.v",
+   "pert_id": "p2bacecc51eafbd",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtllm_traffic_light/roundtrip.v",
+  "pert_id": "pcf206c6818cadf"
+ },
+ "seed": "rtllm_traffic_light:1",
+ "top": "traffic_light"
+}

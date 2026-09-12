@@ -1,0 +1,54 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtllm_up_down_counter",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P1_rename": "no internal names to rename",
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_up_down_counter/P4_ctrl_0.v",
+   "pert_id": "p263e5f02f629e6",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_up_down_counter/P4_ctrl_1.v",
+   "pert_id": "p0daf9dab33e715",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_up_down_counter/P4_ctrl_2.v",
+   "pert_id": "pe876a79fa76164",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtllm_up_down_counter/roundtrip.v",
+  "pert_id": "pb4024da721d152"
+ },
+ "seed": "rtllm_up_down_counter:1",
+ "top": "up_down_counter"
+}

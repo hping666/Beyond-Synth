@@ -1,0 +1,41 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtllm_JC_counter",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P1_rename": "no internal names to rename",
+  "P2_reorder": "nothing to reorder"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "expr_sites": [
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_JC_counter/P3_expr_0.v",
+   "pert_id": "pd42186431287a3",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_JC_counter/P4_ctrl_0.v",
+   "pert_id": "p3293a573b88778",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtllm_JC_counter/roundtrip.v",
+  "pert_id": "p2a7808d1ef0acd"
+ },
+ "seed": "rtllm_JC_counter:1",
+ "top": "JC_counter"
+}

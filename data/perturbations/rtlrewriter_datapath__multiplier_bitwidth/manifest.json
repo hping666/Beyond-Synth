@@ -1,0 +1,65 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_datapath__multiplier_bitwidth",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "inefficient_multiplier": {
+      "internal_multiplicand": "hotel_0",
+      "internal_multiplier": "charlie_1",
+      "internal_product": "quebec_2"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_datapath__multiplier_bitwidth/P1_rename_0.v",
+   "pert_id": "p4e38dff7a8ab3a",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "inefficient_multiplier": {
+      "internal_multiplicand": "sierra_0",
+      "internal_multiplier": "xray_1",
+      "internal_product": "india_2"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_datapath__multiplier_bitwidth/P1_rename_1.v",
+   "pert_id": "pa0b8e6bf821a92",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "inefficient_multiplier": {
+      "internal_multiplicand": "whiskey_0",
+      "internal_multiplier": "kilo_1",
+      "internal_product": "mike_2"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_datapath__multiplier_bitwidth/P1_rename_3.v",
+   "pert_id": "pf23f1096f884c1",
+   "ptype": "P1_rename"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_datapath__multiplier_bitwidth/roundtrip.v",
+  "pert_id": "p36798406787b42"
+ },
+ "seed": "rtlrewriter_datapath__multiplier_bitwidth:1",
+ "top": "inefficient_multiplier"
+}

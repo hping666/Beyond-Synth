@@ -1,0 +1,117 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtllm_comparator_4bit",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "comparator_4bit": {
+      "cout": "lima_0",
+      "diff": "india_1"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_comparator_4bit/P1_rename_0.v",
+   "pert_id": "p67be98a4502566",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "comparator_4bit": {
+      "cout": "zulu_0",
+      "diff": "oscar_1"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_comparator_4bit/P1_rename_1.v",
+   "pert_id": "p438fa4e9d1b9e6",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "comparator_4bit": {
+      "cout": "sierra_0",
+      "diff": "alpha_1"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_comparator_4bit/P1_rename_2.v",
+   "pert_id": "p3dd1c06afc157a",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "comparator_4bit": {
+      "cout": "yankee_0",
+      "diff": "delta_1"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_comparator_4bit/P1_rename_3.v",
+   "pert_id": "p4f953128dc695d",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "comparator_4bit": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_comparator_4bit/P2_reorder_0.v",
+   "pert_id": "p2d0fa4071270a3",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "comparator_4bit": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_comparator_4bit/P2_reorder_1.v",
+   "pert_id": "pc94f35cda81f0e",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "comparator_4bit": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_comparator_4bit/P2_reorder_3.v",
+   "pert_id": "p2a4bac09362529",
+   "ptype": "P2_reorder"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtllm_comparator_4bit/roundtrip.v",
+  "pert_id": "p6cc5297b099a22"
+ },
+ "seed": "rtllm_comparator_4bit:1",
+ "top": "comparator_4bit"
+}

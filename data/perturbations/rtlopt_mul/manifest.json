@@ -1,0 +1,82 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlopt_mul",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "mul": {
+      "t": "alpha_0"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlopt_mul/P1_rename_0.v",
+   "pert_id": "pf8d8e19208082a",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "mul": {
+      "t": "sierra_0"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlopt_mul/P1_rename_1.v",
+   "pert_id": "p619c93b9ae707e",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "mul": {
+      "t": "charlie_0"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlopt_mul/P1_rename_3.v",
+   "pert_id": "p16932cd470537f",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mul": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlopt_mul/P2_reorder_0.v",
+   "pert_id": "pf67614c6166358",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlopt_mul/P3_expr_0.v",
+   "pert_id": "p0abd6eee837aa6",
+   "ptype": "P3_expr"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlopt_mul/roundtrip.v",
+  "pert_id": "p27c8568dadc866"
+ },
+ "seed": "rtlopt_mul:1",
+ "top": "mul"
+}

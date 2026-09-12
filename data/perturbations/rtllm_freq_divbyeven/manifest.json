@@ -1,0 +1,98 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtllm_freq_divbyeven",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P2_reorder": "nothing to reorder",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "freq_divbyeven": {
+      "NUM_DIV": "quebec_0",
+      "cnt": "foxtrot_1"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_freq_divbyeven/P1_rename_0.v",
+   "pert_id": "pe23a1da4e45a53",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "freq_divbyeven": {
+      "NUM_DIV": "hotel_0",
+      "cnt": "kilo_1"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_freq_divbyeven/P1_rename_1.v",
+   "pert_id": "pb141872255b246",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "freq_divbyeven": {
+      "NUM_DIV": "november_0",
+      "cnt": "romeo_1"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_freq_divbyeven/P1_rename_2.v",
+   "pert_id": "pc22d07b842f764",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "freq_divbyeven": {
+      "NUM_DIV": "foxtrot_0",
+      "cnt": "victor_1"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_freq_divbyeven/P1_rename_3.v",
+   "pert_id": "p4a1e55c1f7e510",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_freq_divbyeven/P3_expr_0.v",
+   "pert_id": "pb4a913ec208809",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_freq_divbyeven/P3_expr_2.v",
+   "pert_id": "pef03ae0500d654",
+   "ptype": "P3_expr"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtllm_freq_divbyeven/roundtrip.v",
+  "pert_id": "p530d77b4fb1623"
+ },
+ "seed": "rtllm_freq_divbyeven:1",
+ "top": "freq_divbyeven"
+}

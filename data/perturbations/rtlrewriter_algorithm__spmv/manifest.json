@@ -1,0 +1,108 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_algorithm__spmv",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "spmv": {
+      "N": "delta_0",
+      "NNZ": "juliet_1",
+      "Si": "golf_2",
+      "i": "yankee_3",
+      "j": "victor_4",
+      "redundant_sum": "lima_5",
+      "state": "hotel_6",
+      "sum": "alpha_7",
+      "tmp_begin": "kilo_8",
+      "tmp_end": "oscar_9"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_algorithm__spmv/P1_rename_0.v",
+   "pert_id": "p28417f0f7efa73",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "spmv": {
+      "N": "echo_0",
+      "NNZ": "charlie_1",
+      "Si": "golf_2",
+      "i": "uniform_3",
+      "j": "kilo_4",
+      "redundant_sum": "bravo_5",
+      "state": "india_6",
+      "sum": "mike_7",
+      "tmp_begin": "victor_8",
+      "tmp_end": "hotel_9"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_algorithm__spmv/P1_rename_1.v",
+   "pert_id": "pee0b3326847678",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "spmv": {
+      "N": "lima_0",
+      "NNZ": "whiskey_1",
+      "Si": "juliet_2",
+      "i": "delta_3",
+      "j": "uniform_4",
+      "redundant_sum": "yankee_5",
+      "state": "oscar_6",
+      "sum": "alpha_7",
+      "tmp_begin": "zulu_8",
+      "tmp_end": "tango_9"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlrewriter_algorithm__spmv/P1_rename_2.v",
+   "pert_id": "p72cdce8025e746",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "spmv": {
+      "N": "quebec_0",
+      "NNZ": "delta_1",
+      "Si": "oscar_2",
+      "i": "uniform_3",
+      "j": "xray_4",
+      "redundant_sum": "zulu_5",
+      "state": "yankee_6",
+      "sum": "alpha_7",
+      "tmp_begin": "papa_8",
+      "tmp_end": "golf_9"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_algorithm__spmv/P1_rename_3.v",
+   "pert_id": "pff33d752e75b7c",
+   "ptype": "P1_rename"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_algorithm__spmv/roundtrip.v",
+  "pert_id": "p9666992a2e83fb"
+ },
+ "seed": "rtlrewriter_algorithm__spmv:1",
+ "top": "spmv"
+}

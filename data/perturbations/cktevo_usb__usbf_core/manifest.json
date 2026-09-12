@@ -1,0 +1,736 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "cktevo_usb__usbf_core",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "usbf_core": {
+      "STATE_RX_DATA": "india_0",
+      "STATE_RX_DATA_IGNORE": "zulu_1",
+      "STATE_RX_DATA_READY": "quebec_2",
+      "STATE_RX_IDLE": "echo_3",
+      "STATE_TX_CHIRP": "xray_4",
+      "STATE_TX_DATA": "romeo_5",
+      "STATE_TX_DATA_COMPLETE": "oscar_6",
+      "STATE_TX_HANDSHAKE": "yankee_7",
+      "STATE_W": "uniform_8",
+      "addr_update_pending_q": "foxtrot_9",
+      "current_addr_q": "november_10",
+      "ep0_dir_in_q": "sierra_11",
+      "ep0_dir_out_q": "tango_12",
+      "ep0_tx_zlp_w": "hotel_13",
+      "ep_data_bit_q": "delta_14",
+      "ep_data_bit_r": "victor_15",
+      "ep_iso_r": "papa_16",
+      "ep_stall_r": "lima_17",
+      "frame_num_w": "kilo_18",
+      "frame_valid_w": "whiskey_19",
+      "i": "mike_20",
+      "j": "juliet_21",
+      "new_data_bit_r": "golf_22",
+      "next_state_r": "charlie_23",
+      "rx_data_complete_w": "alpha_24",
+      "rx_data_valid_w": "bravo_25",
+      "rx_enable_q": "india_26",
+      "rx_handshake_w": "zulu_27",
+      "rx_setup_q": "quebec_28",
+      "rx_space_q": "echo_29",
+      "rx_space_r": "xray_30",
+      "se0_cnt_q": "romeo_31",
+      "state_q": "oscar_32",
+      "status_stage_w": "yankee_33",
+      "token_dev_w": "uniform_34",
+      "token_ep_w": "foxtrot_35",
+      "token_pid_w": "november_36",
+      "token_valid_w": "sierra_37",
+      "tx_accept_w": "tango_38",
+      "tx_data_accept_w": "hotel_39",
+      "tx_data_last_r": "delta_40",
+      "tx_data_r": "victor_41",
+      "tx_data_strb_r": "papa_42",
+      "tx_data_valid_r": "lima_43",
+      "tx_pid_q": "kilo_44",
+      "tx_pid_r": "whiskey_45",
+      "tx_ready_r": "mike_46",
+      "tx_valid_q": "juliet_47",
+      "tx_valid_r": "golf_48",
+      "usb_rst_w": "charlie_49"
+     },
+     "usbf_sie_rx": {
+      "STATE_RX_DATA": "victor_0",
+      "STATE_RX_DATA_COMPLETE": "tango_1",
+      "STATE_RX_IDLE": "sierra_2",
+      "STATE_RX_IGNORED": "whiskey_3",
+      "STATE_RX_SOF2": "mike_4",
+      "STATE_RX_SOF3": "november_5",
+      "STATE_RX_TOKEN2": "romeo_6",
+      "STATE_RX_TOKEN3": "foxtrot_7",
+      "STATE_RX_TOKEN_COMPLETE": "uniform_8x",
+      "STATE_W": "echo_9",
+      "address_match_w": "quebec_10",
+      "crc_byte_w": "yankee_11",
+      "crc_err_q": "oscar_12",
+      "crc_out_w": "charlie_13",
+      "crc_sum_q": "alpha_14",
+      "data_buffer_q": "papa_15",
+      "data_complete_q": "delta_16",
+      "data_crc_q": "kilo_17",
+      "data_q": "lima_18",
+      "data_ready_w": "india_19",
+      "data_valid_q": "hotel_20",
+      "data_w": "bravo_21",
+      "data_zlp_q": "zulu_22",
+      "frame_num_q": "juliet_23",
+      "frame_valid_q": "golf_24",
+      "handshake_valid_q": "xray_25",
+      "input_data_w": "victor_26",
+      "input_ready_w": "tango_27",
+      "last_q": "sierra_28",
+      "mask_q": "whiskey_29",
+      "next_state_r": "mike_30",
+      "rx_active_q": "november_31",
+      "rx_active_w": "romeo_32",
+      "shift_en_w": "foxtrot_33",
+      "state_q": "uniform_34x",
+      "token_dev_q": "echo_35",
+      "token_ep_q": "quebec_36",
+      "token_pid_q": "yankee_37",
+      "token_valid_q": "oscar_38",
+      "valid_q": "charlie_39"
+     },
+     "usbf_sie_tx": {
+      "STATE_TX_CHIRP": "tango_0",
+      "STATE_TX_CRC1": "romeo_1",
+      "STATE_TX_CRC2": "uniform_2",
+      "STATE_TX_DATA": "echo_3x",
+      "STATE_TX_DONE": "delta_4",
+      "STATE_TX_IDLE": "mike_5",
+      "STATE_TX_PID": "victor_6",
+      "STATE_W": "hotel_7",
+      "crc_err_q": "golf_8",
+      "crc_out_w": "charlie_9",
+      "crc_sum_q": "india_10",
+      "data_accept_r": "xray_11",
+      "data_pid_q": "foxtrot_12",
+      "data_q": "whiskey_13",
+      "data_zlp_q": "oscar_14",
+      "input_byte_r": "november_15",
+      "input_last_r": "juliet_16",
+      "input_valid_r": "lima_17x",
+      "last_q": "papa_18",
+      "next_state_r": "alpha_19",
+      "state_q": "zulu_20",
+      "utmi_data_r": "sierra_21",
+      "utmi_txvalid_r": "quebec_22",
+      "valid_q": "yankee_23"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P1_rename_0.v",
+   "pert_id": "p61d923f5a995c3",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "usbf_core": {
+      "STATE_RX_DATA": "oscar_0",
+      "STATE_RX_DATA_IGNORE": "mike_1",
+      "STATE_RX_DATA_READY": "sierra_2",
+      "STATE_RX_IDLE": "echo_3",
+      "STATE_TX_CHIRP": "delta_4",
+      "STATE_TX_DATA": "papa_5",
+      "STATE_TX_DATA_COMPLETE": "uniform_6",
+      "STATE_TX_HANDSHAKE": "whiskey_7",
+      "STATE_W": "india_8",
+      "addr_update_pending_q": "lima_9",
+      "current_addr_q": "foxtrot_10",
+      "ep0_dir_in_q": "zulu_11",
+      "ep0_dir_out_q": "golf_12",
+      "ep0_tx_zlp_w": "kilo_13",
+      "ep_data_bit_q": "victor_14",
+      "ep_data_bit_r": "november_15",
+      "ep_iso_r": "charlie_16",
+      "ep_stall_r": "alpha_17",
+      "frame_num_w": "bravo_18",
+      "frame_valid_w": "romeo_19",
+      "i": "xray_20",
+      "j": "tango_21",
+      "new_data_bit_r": "yankee_22",
+      "next_state_r": "juliet_23",
+      "rx_data_complete_w": "quebec_24",
+      "rx_data_valid_w": "hotel_25",
+      "rx_enable_q": "oscar_26",
+      "rx_handshake_w": "mike_27",
+      "rx_setup_q": "sierra_28",
+      "rx_space_q": "echo_29",
+      "rx_space_r": "delta_30",
+      "se0_cnt_q": "papa_31",
+      "state_q": "uniform_32",
+      "status_stage_w": "whiskey_33",
+      "token_dev_w": "india_34",
+      "token_ep_w": "lima_35",
+      "token_pid_w": "foxtrot_36",
+      "token_valid_w": "zulu_37",
+      "tx_accept_w": "golf_38",
+      "tx_data_accept_w": "kilo_39",
+      "tx_data_last_r": "victor_40",
+      "tx_data_r": "november_41",
+      "tx_data_strb_r": "charlie_42",
+      "tx_data_valid_r": "alpha_43",
+      "tx_pid_q": "bravo_44",
+      "tx_pid_r": "romeo_45",
+      "tx_ready_r": "xray_46",
+      "tx_valid_q": "tango_47",
+      "tx_valid_r": "yankee_48",
+      "usb_rst_w": "juliet_49"
+     },
+     "usbf_sie_rx": {
+      "STATE_RX_DATA": "foxtrot_0",
+      "STATE_RX_DATA_COMPLETE": "victor_1",
+      "STATE_RX_IDLE": "india_2",
+      "STATE_RX_IGNORED": "charlie_3",
+      "STATE_RX_SOF2": "golf_4",
+      "STATE_RX_SOF3": "whiskey_5",
+      "STATE_RX_TOKEN2": "juliet_6",
+      "STATE_RX_TOKEN3": "papa_7",
+      "STATE_RX_TOKEN_COMPLETE": "uniform_8",
+      "STATE_W": "kilo_9",
+      "address_match_w": "yankee_10",
+      "crc_byte_w": "tango_11",
+      "crc_err_q": "romeo_12",
+      "crc_out_w": "november_13",
+      "crc_sum_q": "echo_14",
+      "data_buffer_q": "bravo_15",
+      "data_complete_q": "zulu_16",
+      "data_crc_q": "lima_17",
+      "data_q": "mike_18",
+      "data_ready_w": "xray_19",
+      "data_valid_q": "hotel_20",
+      "data_w": "delta_21",
+      "data_zlp_q": "quebec_22",
+      "frame_num_q": "oscar_23",
+      "frame_valid_q": "alpha_24",
+      "handshake_valid_q": "sierra_25",
+      "input_data_w": "foxtrot_26",
+      "input_ready_w": "victor_27",
+      "last_q": "india_28",
+      "mask_q": "charlie_29",
+      "next_state_r": "golf_30",
+      "rx_active_q": "whiskey_31",
+      "rx_active_w": "juliet_32",
+      "shift_en_w": "papa_33",
+      "state_q": "uniform_34",
+      "token_dev_q": "kilo_35",
+      "token_ep_q": "yankee_36",
+      "token_pid_q": "tango_37",
+      "token_valid_q": "romeo_38",
+      "valid_q": "november_39"
+     },
+     "usbf_sie_tx": {
+      "STATE_TX_CHIRP": "whiskey_0",
+      "STATE_TX_CRC1": "victor_1x",
+      "STATE_TX_CRC2": "romeo_2",
+      "STATE_TX_DATA": "bravo_3",
+      "STATE_TX_DONE": "delta_4x",
+      "STATE_TX_IDLE": "india_5",
+      "STATE_TX_PID": "november_6",
+      "STATE_W": "yankee_7",
+      "crc_err_q": "kilo_8",
+      "crc_out_w": "lima_9x",
+      "crc_sum_q": "juliet_10",
+      "data_accept_r": "oscar_11",
+      "data_pid_q": "tango_12",
+      "data_q": "golf_13",
+      "data_zlp_q": "uniform_14",
+      "input_byte_r": "hotel_15",
+      "input_last_r": "quebec_16",
+      "input_valid_r": "xray_17",
+      "last_q": "zulu_18",
+      "next_state_r": "foxtrot_19",
+      "state_q": "echo_20",
+      "utmi_data_r": "mike_21",
+      "utmi_txvalid_r": "papa_22",
+      "valid_q": "charlie_23"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P1_rename_1.v",
+   "pert_id": "p5590b1c88d4bff",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "usbf_core": {
+      "STATE_RX_DATA": "foxtrot_0",
+      "STATE_RX_DATA_IGNORE": "uniform_1",
+      "STATE_RX_DATA_READY": "golf_2",
+      "STATE_RX_IDLE": "echo_3",
+      "STATE_TX_CHIRP": "papa_4",
+      "STATE_TX_DATA": "november_5",
+      "STATE_TX_DATA_COMPLETE": "sierra_6",
+      "STATE_TX_HANDSHAKE": "romeo_7",
+      "STATE_W": "tango_8",
+      "addr_update_pending_q": "juliet_9",
+      "current_addr_q": "kilo_10",
+      "ep0_dir_in_q": "yankee_11",
+      "ep0_dir_out_q": "xray_12",
+      "ep0_tx_zlp_w": "mike_13",
+      "ep_data_bit_q": "charlie_14",
+      "ep_data_bit_r": "quebec_15",
+      "ep_iso_r": "india_16",
+      "ep_stall_r": "zulu_17",
+      "frame_num_w": "victor_18",
+      "frame_valid_w": "hotel_19",
+      "i": "bravo_20",
+      "j": "whiskey_21",
+      "new_data_bit_r": "lima_22",
+      "next_state_r": "oscar_23",
+      "rx_data_complete_w": "delta_24",
+      "rx_data_valid_w": "alpha_25",
+      "rx_enable_q": "foxtrot_26",
+      "rx_handshake_w": "uniform_27",
+      "rx_setup_q": "golf_28",
+      "rx_space_q": "echo_29",
+      "rx_space_r": "papa_30",
+      "se0_cnt_q": "november_31",
+      "state_q": "sierra_32",
+      "status_stage_w": "romeo_33",
+      "token_dev_w": "tango_34",
+      "token_ep_w": "juliet_35",
+      "token_pid_w": "kilo_36",
+      "token_valid_w": "yankee_37",
+      "tx_accept_w": "xray_38",
+      "tx_data_accept_w": "mike_39",
+      "tx_data_last_r": "charlie_40",
+      "tx_data_r": "quebec_41",
+      "tx_data_strb_r": "india_42",
+      "tx_data_valid_r": "zulu_43",
+      "tx_pid_q": "victor_44",
+      "tx_pid_r": "hotel_45",
+      "tx_ready_r": "bravo_46",
+      "tx_valid_q": "whiskey_47",
+      "tx_valid_r": "lima_48",
+      "usb_rst_w": "oscar_49"
+     },
+     "usbf_sie_rx": {
+      "STATE_RX_DATA": "yankee_0",
+      "STATE_RX_DATA_COMPLETE": "kilo_1",
+      "STATE_RX_IDLE": "india_2",
+      "STATE_RX_IGNORED": "bravo_3",
+      "STATE_RX_SOF2": "lima_4",
+      "STATE_RX_SOF3": "echo_5",
+      "STATE_RX_TOKEN2": "hotel_6",
+      "STATE_RX_TOKEN3": "tango_7",
+      "STATE_RX_TOKEN_COMPLETE": "quebec_8",
+      "STATE_W": "alpha_9",
+      "address_match_w": "november_10",
+      "crc_byte_w": "golf_11",
+      "crc_err_q": "romeo_12",
+      "crc_out_w": "foxtrot_13",
+      "crc_sum_q": "mike_14",
+      "data_buffer_q": "juliet_15",
+      "data_complete_q": "papa_16",
+      "data_crc_q": "delta_17",
+      "data_q": "zulu_18",
+      "data_ready_w": "sierra_19",
+      "data_valid_q": "xray_20",
+      "data_w": "victor_21",
+      "data_zlp_q": "charlie_22",
+      "frame_num_q": "oscar_23x",
+      "frame_valid_q": "whiskey_24",
+      "handshake_valid_q": "uniform_25",
+      "input_data_w": "yankee_26",
+      "input_ready_w": "kilo_27",
+      "last_q": "india_28",
+      "mask_q": "bravo_29",
+      "next_state_r": "lima_30",
+      "rx_active_q": "echo_31",
+      "rx_active_w": "hotel_32",
+      "shift_en_w": "tango_33",
+      "state_q": "quebec_34",
+      "token_dev_q": "alpha_35",
+      "token_ep_q": "november_36",
+      "token_pid_q": "golf_37",
+      "token_valid_q": "romeo_38",
+      "valid_q": "foxtrot_39"
+     },
+     "usbf_sie_tx": {
+      "STATE_TX_CHIRP": "delta_0",
+      "STATE_TX_CRC1": "uniform_1x",
+      "STATE_TX_CRC2": "bravo_2",
+      "STATE_TX_DATA": "zulu_3",
+      "STATE_TX_DONE": "papa_4x",
+      "STATE_TX_IDLE": "echo_5x",
+      "STATE_TX_PID": "juliet_6",
+      "STATE_W": "lima_7",
+      "crc_err_q": "victor_8",
+      "crc_out_w": "foxtrot_9",
+      "crc_sum_q": "alpha_10",
+      "data_accept_r": "quebec_11",
+      "data_pid_q": "charlie_12",
+      "data_q": "india_13",
+      "data_zlp_q": "november_14",
+      "input_byte_r": "whiskey_15",
+      "input_last_r": "kilo_16",
+      "input_valid_r": "golf_17",
+      "last_q": "sierra_18",
+      "next_state_r": "oscar_19",
+      "state_q": "hotel_20",
+      "utmi_data_r": "mike_21",
+      "utmi_txvalid_r": "yankee_22",
+      "valid_q": "romeo_23"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P1_rename_2.v",
+   "pert_id": "p0b956dfb4b5b27",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "usbf_core": {
+      "STATE_RX_DATA": "papa_0",
+      "STATE_RX_DATA_IGNORE": "xray_1",
+      "STATE_RX_DATA_READY": "quebec_2",
+      "STATE_RX_IDLE": "alpha_3",
+      "STATE_TX_CHIRP": "echo_4",
+      "STATE_TX_DATA": "hotel_5",
+      "STATE_TX_DATA_COMPLETE": "oscar_6",
+      "STATE_TX_HANDSHAKE": "zulu_7",
+      "STATE_W": "juliet_8",
+      "addr_update_pending_q": "charlie_9",
+      "current_addr_q": "india_10",
+      "ep0_dir_in_q": "lima_11",
+      "ep0_dir_out_q": "mike_12",
+      "ep0_tx_zlp_w": "victor_13",
+      "ep_data_bit_q": "uniform_14",
+      "ep_data_bit_r": "sierra_15",
+      "ep_iso_r": "november_16",
+      "ep_stall_r": "delta_17",
+      "frame_num_w": "romeo_18",
+      "frame_valid_w": "kilo_19",
+      "i": "golf_20",
+      "j": "foxtrot_21",
+      "new_data_bit_r": "tango_22",
+      "next_state_r": "bravo_23",
+      "rx_data_complete_w": "yankee_24",
+      "rx_data_valid_w": "whiskey_25",
+      "rx_enable_q": "papa_26",
+      "rx_handshake_w": "xray_27",
+      "rx_setup_q": "quebec_28",
+      "rx_space_q": "alpha_29",
+      "rx_space_r": "echo_30",
+      "se0_cnt_q": "hotel_31",
+      "state_q": "oscar_32",
+      "status_stage_w": "zulu_33",
+      "token_dev_w": "juliet_34",
+      "token_ep_w": "charlie_35",
+      "token_pid_w": "india_36",
+      "token_valid_w": "lima_37",
+      "tx_accept_w": "mike_38",
+      "tx_data_accept_w": "victor_39",
+      "tx_data_last_r": "uniform_40",
+      "tx_data_r": "sierra_41",
+      "tx_data_strb_r": "november_42",
+      "tx_data_valid_r": "delta_43",
+      "tx_pid_q": "romeo_44",
+      "tx_pid_r": "kilo_45",
+      "tx_ready_r": "golf_46",
+      "tx_valid_q": "foxtrot_47",
+      "tx_valid_r": "tango_48",
+      "usb_rst_w": "bravo_49"
+     },
+     "usbf_sie_rx": {
+      "STATE_RX_DATA": "hotel_0",
+      "STATE_RX_DATA_COMPLETE": "oscar_1",
+      "STATE_RX_IDLE": "golf_2",
+      "STATE_RX_IGNORED": "juliet_3",
+      "STATE_RX_SOF2": "india_4",
+      "STATE_RX_SOF3": "lima_5",
+      "STATE_RX_TOKEN2": "kilo_6",
+      "STATE_RX_TOKEN3": "whiskey_7",
+      "STATE_RX_TOKEN_COMPLETE": "echo_8",
+      "STATE_W": "zulu_9",
+      "address_match_w": "papa_10",
+      "crc_byte_w": "romeo_11",
+      "crc_err_q": "uniform_12",
+      "crc_out_w": "delta_13",
+      "crc_sum_q": "charlie_14",
+      "data_buffer_q": "quebec_15",
+      "data_complete_q": "victor_16",
+      "data_crc_q": "mike_17",
+      "data_q": "tango_18",
+      "data_ready_w": "alpha_19",
+      "data_valid_q": "november_20",
+      "data_w": "bravo_21",
+      "data_zlp_q": "foxtrot_22",
+      "frame_num_q": "xray_23",
+      "frame_valid_q": "yankee_24x",
+      "handshake_valid_q": "sierra_25",
+      "input_data_w": "hotel_26",
+      "input_ready_w": "oscar_27",
+      "last_q": "golf_28",
+      "mask_q": "juliet_29",
+      "next_state_r": "india_30",
+      "rx_active_q": "lima_31",
+      "rx_active_w": "kilo_32",
+      "shift_en_w": "whiskey_33",
+      "state_q": "echo_34",
+      "token_dev_q": "zulu_35",
+      "token_ep_q": "papa_36",
+      "token_pid_q": "romeo_37",
+      "token_valid_q": "uniform_38",
+      "valid_q": "delta_39"
+     },
+     "usbf_sie_tx": {
+      "STATE_TX_CHIRP": "romeo_0",
+      "STATE_TX_CRC1": "hotel_1",
+      "STATE_TX_CRC2": "sierra_2",
+      "STATE_TX_DATA": "zulu_3",
+      "STATE_TX_DONE": "alpha_4",
+      "STATE_TX_IDLE": "yankee_5",
+      "STATE_TX_PID": "papa_6",
+      "STATE_W": "oscar_7",
+      "crc_err_q": "whiskey_8",
+      "crc_out_w": "mike_9",
+      "crc_sum_q": "india_10x",
+      "data_accept_r": "foxtrot_11",
+      "data_pid_q": "golf_12",
+      "data_q": "quebec_13",
+      "data_zlp_q": "november_14",
+      "input_byte_r": "tango_15",
+      "input_last_r": "delta_16",
+      "input_valid_r": "bravo_17",
+      "last_q": "xray_18",
+      "next_state_r": "uniform_19",
+      "state_q": "victor_20",
+      "utmi_data_r": "charlie_21",
+      "utmi_txvalid_r": "lima_22",
+      "valid_q": "juliet_23"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P1_rename_3.v",
+   "pert_id": "p928345fa62aaa1",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "usbf_core": {
+      "always_blocks": 0,
+      "item_runs": 7
+     },
+     "usbf_crc16": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "usbf_sie_rx": {
+      "always_blocks": 0,
+      "item_runs": 9
+     },
+     "usbf_sie_tx": {
+      "always_blocks": 0,
+      "item_runs": 4
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P2_reorder_0.v",
+   "pert_id": "p33bc5fdf8c4568",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "usbf_core": {
+      "always_blocks": 0,
+      "item_runs": 7
+     },
+     "usbf_crc16": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "usbf_sie_rx": {
+      "always_blocks": 0,
+      "item_runs": 9
+     },
+     "usbf_sie_tx": {
+      "always_blocks": 0,
+      "item_runs": 4
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P2_reorder_1.v",
+   "pert_id": "pb83cdfe7d66bf1",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "usbf_core": {
+      "always_blocks": 0,
+      "item_runs": 7
+     },
+     "usbf_crc16": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "usbf_sie_rx": {
+      "always_blocks": 0,
+      "item_runs": 9
+     },
+     "usbf_sie_tx": {
+      "always_blocks": 0,
+      "item_runs": 4
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P2_reorder_2.v",
+   "pert_id": "p1c7ebe1a7aa284",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "usbf_core": {
+      "always_blocks": 0,
+      "item_runs": 7
+     },
+     "usbf_crc16": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "usbf_sie_rx": {
+      "always_blocks": 0,
+      "item_runs": 9
+     },
+     "usbf_sie_tx": {
+      "always_blocks": 0,
+      "item_runs": 4
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P2_reorder_3.v",
+   "pert_id": "p050eadc236114a",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P3_expr_0.v",
+   "pert_id": "p0202cd474d4609",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P3_expr_1.v",
+   "pert_id": "pe21a176e51bbbc",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P3_expr_2.v",
+   "pert_id": "p60e39ea6a54f90",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P3_expr_3.v",
+   "pert_id": "pd46a6e0050eed7",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "case_to_if",
+     "ternary_to_if"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P4_ctrl_0.v",
+   "pert_id": "p08c6b54447560a",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P4_ctrl_1.v",
+   "pert_id": "p9c6578ab080028",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "case_to_if",
+     "if_to_ternary"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P4_ctrl_2.v",
+   "pert_id": "p82163049e96059",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_usb__usbf_core/P4_ctrl_3.v",
+   "pert_id": "pf539659b774c3b",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/cktevo_usb__usbf_core/roundtrip.v",
+  "pert_id": "p0f8a37f7f62374"
+ },
+ "seed": "cktevo_usb__usbf_core:1",
+ "top": "usbf_core"
+}

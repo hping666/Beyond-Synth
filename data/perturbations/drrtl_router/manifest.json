@@ -1,0 +1,459 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "drrtl_router",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {},
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "router_fifo": {
+      "count": "uniform_0",
+      "empty_d": "bravo_1x",
+      "fifo": "alpha_2",
+      "full_d": "oscar_3",
+      "i": "quebec_4",
+      "incrementer": "november_5",
+      "next_incrementer": "yankee_6",
+      "read_ptr": "xray_7",
+      "temp": "whiskey_8",
+      "write_ptr": "hotel_9"
+     },
+     "router_fsm": {
+      "check_parity_error": "zulu_0",
+      "decode_address": "delta_1",
+      "fifo_full_state": "lima_2",
+      "load_after_full": "uniform_3",
+      "load_data": "echo_4",
+      "load_first_data": "hotel_5",
+      "load_parity": "kilo_6",
+      "next_state": "juliet_7",
+      "present_state": "papa_8",
+      "temp": "november_9",
+      "wait_till_empty": "xray_10"
+     },
+     "router_reg": {
+      "fifo_full_state_byte": "hotel_0",
+      "hold_header_byte": "juliet_1",
+      "internal_parity": "tango_2",
+      "packet_parity_byte": "whiskey_3"
+     },
+     "router_sync": {
+      "count0": "foxtrot_0",
+      "count1": "bravo_1",
+      "count2": "delta_2",
+      "temp": "mike_3",
+      "temp_is_0": "charlie_4",
+      "temp_is_1": "lima_5",
+      "temp_is_2": "india_6"
+     },
+     "router_top": {
+      "a": "quebec_0",
+      "data_out_temp": "alpha_1",
+      "lfd_state_w": "whiskey_2",
+      "w_enb": "echo_3"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_router/P1_rename_0.v",
+   "pert_id": "p88d1e015d362d3",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "router_fifo": {
+      "count": "hotel_0",
+      "empty_d": "papa_1",
+      "fifo": "foxtrot_2",
+      "full_d": "oscar_3",
+      "i": "mike_4",
+      "incrementer": "zulu_5",
+      "next_incrementer": "victor_6",
+      "read_ptr": "alpha_7",
+      "temp": "golf_8",
+      "write_ptr": "tango_9"
+     },
+     "router_fsm": {
+      "check_parity_error": "mike_0",
+      "decode_address": "golf_1",
+      "fifo_full_state": "uniform_2",
+      "load_after_full": "sierra_3",
+      "load_data": "zulu_4",
+      "load_first_data": "papa_5",
+      "load_parity": "romeo_6",
+      "next_state": "kilo_7",
+      "present_state": "hotel_8",
+      "temp": "bravo_9",
+      "wait_till_empty": "tango_10"
+     },
+     "router_reg": {
+      "fifo_full_state_byte": "alpha_0",
+      "hold_header_byte": "xray_1",
+      "internal_parity": "romeo_2",
+      "packet_parity_byte": "oscar_3x"
+     },
+     "router_sync": {
+      "count0": "juliet_0",
+      "count1": "india_1",
+      "count2": "zulu_2",
+      "temp": "mike_3",
+      "temp_is_0": "sierra_4",
+      "temp_is_1": "yankee_5",
+      "temp_is_2": "quebec_6"
+     },
+     "router_top": {
+      "a": "delta_0",
+      "data_out_temp": "oscar_1",
+      "lfd_state_w": "charlie_2",
+      "w_enb": "echo_3"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_router/P1_rename_1.v",
+   "pert_id": "p2f3bc6aa55bdef",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "router_fifo": {
+      "count": "victor_0",
+      "empty_d": "november_1",
+      "fifo": "romeo_2",
+      "full_d": "charlie_3",
+      "i": "hotel_4x",
+      "incrementer": "zulu_5",
+      "next_incrementer": "tango_6",
+      "read_ptr": "mike_7",
+      "temp": "whiskey_8",
+      "write_ptr": "quebec_9"
+     },
+     "router_fsm": {
+      "check_parity_error": "papa_0",
+      "decode_address": "charlie_1",
+      "fifo_full_state": "echo_2",
+      "load_after_full": "oscar_3",
+      "load_data": "hotel_4",
+      "load_first_data": "lima_5",
+      "load_parity": "yankee_6",
+      "next_state": "foxtrot_7",
+      "present_state": "zulu_8",
+      "temp": "golf_9",
+      "wait_till_empty": "india_10"
+     },
+     "router_reg": {
+      "fifo_full_state_byte": "quebec_0",
+      "hold_header_byte": "alpha_1",
+      "internal_parity": "charlie_2",
+      "packet_parity_byte": "whiskey_3"
+     },
+     "router_sync": {
+      "count0": "tango_0",
+      "count1": "quebec_1",
+      "count2": "whiskey_2",
+      "temp": "juliet_3",
+      "temp_is_0": "bravo_4",
+      "temp_is_1": "uniform_5",
+      "temp_is_2": "romeo_6"
+     },
+     "router_top": {
+      "a": "juliet_0",
+      "data_out_temp": "whiskey_1",
+      "lfd_state_w": "delta_2",
+      "w_enb": "alpha_3"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_router/P1_rename_2.v",
+   "pert_id": "pe62485a742eef9",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "router_fifo": {
+      "count": "zulu_0",
+      "empty_d": "whiskey_1",
+      "fifo": "india_2",
+      "full_d": "oscar_3",
+      "i": "sierra_4",
+      "incrementer": "romeo_5",
+      "next_incrementer": "charlie_6x",
+      "read_ptr": "foxtrot_7",
+      "temp": "quebec_8",
+      "write_ptr": "xray_9"
+     },
+     "router_fsm": {
+      "check_parity_error": "india_0",
+      "decode_address": "victor_1x",
+      "fifo_full_state": "hotel_2x",
+      "load_after_full": "sierra_3",
+      "load_data": "mike_4",
+      "load_first_data": "alpha_5",
+      "load_parity": "kilo_6",
+      "next_state": "quebec_7",
+      "present_state": "whiskey_8",
+      "temp": "juliet_9",
+      "wait_till_empty": "uniform_10"
+     },
+     "router_reg": {
+      "fifo_full_state_byte": "india_0x",
+      "hold_header_byte": "alpha_1",
+      "internal_parity": "charlie_2",
+      "packet_parity_byte": "lima_3"
+     },
+     "router_sync": {
+      "count0": "golf_0",
+      "count1": "victor_1",
+      "count2": "xray_2",
+      "temp": "india_3",
+      "temp_is_0": "tango_4",
+      "temp_is_1": "bravo_5",
+      "temp_is_2": "charlie_6"
+     },
+     "router_top": {
+      "a": "delta_0",
+      "data_out_temp": "lima_1",
+      "lfd_state_w": "hotel_2",
+      "w_enb": "foxtrot_3"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_router/P1_rename_3.v",
+   "pert_id": "pb88dd43e896c12",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "router_fsm": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_reg": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_sync": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_top": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_router/P2_reorder_0.v",
+   "pert_id": "p86fd90fa80f2d2",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "router_fsm": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_reg": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_sync": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_top": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_router/P2_reorder_1.v",
+   "pert_id": "p40c5f971c9117e",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "router_fsm": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_reg": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_sync": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_top": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_router/P2_reorder_2.v",
+   "pert_id": "p468ecdcb1287f6",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "router_fsm": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_reg": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_sync": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "router_top": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_router/P2_reorder_3.v",
+   "pert_id": "pc5e011b8d8bccc",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_router/P3_expr_0.v",
+   "pert_id": "pa6ceea2f6d2fc2",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "partselect"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_router/P3_expr_1.v",
+   "pert_id": "p58aace296ed2d4",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "partselect",
+     "const"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_router/P3_expr_2.v",
+   "pert_id": "p781581b13737ed",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect",
+     "const",
+     "const"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_router/P3_expr_3.v",
+   "pert_id": "p141acfa8642976",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary"
+    ]
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_router/P4_ctrl_0.v",
+   "pert_id": "p8c0e7effdc3f0e",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_router/P4_ctrl_1.v",
+   "pert_id": "pa28e44f7c01bd0",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_router/P4_ctrl_2.v",
+   "pert_id": "p3663c127ca6ed3",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "if_to_ternary",
+     "if_to_ternary"
+    ]
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_router/P4_ctrl_3.v",
+   "pert_id": "pd44b9e3104da0c",
+   "ptype": "P4_ctrl"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/drrtl_router/roundtrip.v",
+  "pert_id": "p0ba2fbe488e5b5"
+ },
+ "seed": "drrtl_router:1",
+ "top": "router_top"
+}

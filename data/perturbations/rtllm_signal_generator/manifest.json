@@ -1,0 +1,72 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtllm_signal_generator",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "signal_generator": {
+      "state": "oscar_0"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_signal_generator/P1_rename_0.v",
+   "pert_id": "p48fe4194915ba3",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "signal_generator": {
+      "state": "golf_0"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_signal_generator/P1_rename_1.v",
+   "pert_id": "p6a3c86f55a1df5",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "signal_generator": {
+      "state": "juliet_0"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_signal_generator/P1_rename_2.v",
+   "pert_id": "p0a5f42ec0926c7",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "signal_generator": {
+      "state": "xray_0"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_signal_generator/P1_rename_3.v",
+   "pert_id": "p717814552acedf",
+   "ptype": "P1_rename"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtllm_signal_generator/roundtrip.v",
+  "pert_id": "p0518a1d6e00680"
+ },
+ "seed": "rtllm_signal_generator:1",
+ "top": "signal_generator"
+}
