@@ -37,10 +37,11 @@ from src.db import core as db  # noqa: E402
 EX_TEMPFAIL = 75
 TIMEOUT_RC = 124
 POOL_OF_KIND = {"shell": "local", "sim": "local", "yosys": "local", "llm": "local", "orfs": "local",
-                "dc": "dc", "pt": "pt", "vcf": "vcf"}
+                "dc": "dc", "pt": "pt", "vcf": "vcf", "dc_hidden": "dc"}
 RUNNER_OF_KIND = {"dc": "src.eval.run_dc", "pt": "src.eval.run_pt", "yosys": "src.eval.run_yosys",
                   "orfs": "src.eval.run_orfs", "vcf": "src.equiv.run_equiv", "sim": "src.equiv.run_equiv",
-                  "llm": "src.search.run_llm"}
+                  "llm": "src.search.run_llm",
+                  "dc_hidden": "scripts.hidden_worker"}  # hidden configurations: recorded only by the hidden worker (rule 3)
 KILL_GRACE_SEC = 3.0
 
 
@@ -93,7 +94,7 @@ class Queue:
     # ------------------------------------------------------------------ submission
     def default_timeout(self, kind, payload=None):
         t = self.cfg["timeouts"]
-        table = {"dc": t["dc_medium"] * 60, "pt": t["pt"] * 60, "vcf": t["seq_min"] * 60,
+        table = {"dc": t["dc_medium"] * 60, "dc_hidden": t["dc_medium"] * 60, "pt": t["pt"] * 60, "vcf": t["seq_min"] * 60,
                  "sim": t["sim"] * 60, "llm": t["llm_call_sec"], "yosys": t["sim"] * 60, "orfs": t["dc_large"] * 60}
         return float(table.get(kind, 3600))
 

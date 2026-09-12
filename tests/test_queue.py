@@ -172,3 +172,8 @@ def test_dispatch_limit_below_the_seat_cap(tmp_path):
     del cfg["queue"]["dc_concurrency"]
     q2 = Queue(cfg, conn, str(tmp_path / "logs2"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
     assert q2.limits["dc"] == 50 and q2.stats()["dc"]["limit"] == 50
+
+
+def test_hidden_kind_maps_to_the_dc_pool_and_the_hidden_worker():
+    from src.jobqueue.core import POOL_OF_KIND, RUNNER_OF_KIND
+    assert POOL_OF_KIND["dc_hidden"] == "dc" and RUNNER_OF_KIND["dc_hidden"] == "scripts.hidden_worker"
