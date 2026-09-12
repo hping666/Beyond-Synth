@@ -1,16 +1,16 @@
 # STATUS.md — current state (read first at the start of every session; update before the end)
 
-Last updated: (date · git sha)
+Last updated: 2026-09-12 · after bootstrap commit 6578583 (Phase 0.0 done)
 
 ## Current phase
 
-Phase: 0 / 1 / 2 / 3 / 4 / 5 / 6 (see docs/PLAN.md)
-Current task:
-Stopped at:
+Phase: 0 (see docs/PLAN.md)
+Current task: 0.0 first-time bootstrap: done (git init on main, .gitignore, deploy key, remote, OPENAI_API_KEY verified with one models-list call)
+Stopped at: end of task 0.0; task 0.1 not started
 Next steps (by priority):
-1.
-2.
-3.
+1. 0.1: read eda-knowledge in order, run selfcheck.py and e2e.py, fill the environment section below, define how src/eval/flow_adapter.py wraps the flow/ scripts (note: synth.py has no -retime / -timing_high_effort_script / -gate_clock / -no_autoungroup modes, so E3/E4/E2x/H1/H2/H5 need project-owned DC Tcl templates per spec 01 §2)
+2. 0.2: repository layout, .venv, requirements.txt; record the results-DB git/LFS decision in DECISIONS
+3. 0.3: .claude/settings.json deny rules (rm -rf results, results/hidden reads, exfiltration) and hooks; then 0.4 queue daemon, 0.5 evaluation service
 
 ## Pending STOP gates
 
@@ -30,8 +30,8 @@ Next steps (by priority):
 - Known boundaries (from 06-boundaries.md, relevant to this project):
 - Disk: `/home/hping` free / `/hdd1` free:
 - Python: version; venv path; key package versions (pyverilog, pandas, sqlite):
-- Network: GitHub reachable / OpenAI API reachable:
-- OpenAI API key: configured / not configured (never the value)
+- Network: GitHub reachable (deploy key ~/.ssh/id_ed25519_beyond_synth via ssh alias github-beyond-synth; ssh -T authenticated as hping666/Beyond-Synth on 2026-09-12) / OpenAI API reachable (GET /v1/models HTTP 200 on 2026-09-12; the four candidate models gpt-5.6-luna, gpt-5.4-mini, gpt-5.6-terra, gpt-5.4 and the review model are all visible to the key)
+- OpenAI API key: configured (2026-09-12) in ~/.config/beyond-synth/env.sh (mode 600, outside the project, sourced by ~/.bashrc; the queue daemon must source the same file; non-interactive shells must source it explicitly)
 
 ## Design-set inventory (filled in Phase 1)
 
