@@ -7,7 +7,7 @@ _LINE_COMMENT = re.compile(r"//[^\n]*")
 _BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.S)
 _MODULE = re.compile(r"\bmodule\s+([A-Za-z_][A-Za-z_0-9$]*)")
 _ENDMODULE = re.compile(r"\bendmodule\b")
-_INST = re.compile(r"\b([A-Za-z_][A-Za-z_0-9$]*)\s*(?:#\s*\((?:[^()]|\([^()]*\))*\))?\s+([A-Za-z_][A-Za-z_0-9$]*)\s*\(")
+_INST = re.compile(r"\b([A-Za-z_][A-Za-z_0-9$]*)\s*(?:#\s*\((?:[^()]|\([^()]*\))*\))?\s+([A-Za-z_][A-Za-z_0-9$]*)\s*(?:\[[^\]]*\]\s*)?\(")  # `mod #(..) inst[N:0] (` instance arrays included
 _PORT = re.compile(r"\b(input|output|inout)\b\s*(?:wire|reg|logic|tri|var)?\s*(?:signed|unsigned)?\s*(\[[^\]]*\])?\s*"
                    r"([A-Za-z_][A-Za-z_0-9$]*(?:\s*,\s*(?!input\b|output\b|inout\b)[A-Za-z_][A-Za-z_0-9$]*)*)")
 KEYWORDS = frozenset("""module endmodule input output inout wire reg logic integer real time realtime parameter localparam

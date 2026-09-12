@@ -63,6 +63,8 @@ def test_verilog_helpers_find_modules_instances_ports_and_flags():
     assert not V.flags("module x(input a); assign b = a; endmodule")["initial"]
     assert V.rename_identifier("module verified_accu(); verified_accu2 x; endmodule", "verified_accu", "accu") == "module accu(); verified_accu2 x; endmodule"
     assert V.instantiated_modules("always @(posedge clk) begin if (x) y <= f(z); end endcase if (q) r(") == set()
+    arr = "module m(input clk); l2_data_array #(\n .s_offset(s_offset),\n .s_index(s_index)\n ) data_array[num_ways - 1:0](\n .clk({clk, clk}));\n leaf u1 [3:0] (.x(a));\n reg [7:0] mem [0:15];\n endmodule"
+    assert V.instantiated_modules(V.module_spans(arr)[0][3]) == {"l2_data_array", "leaf"}  # instance arrays (risc cache: missed before)
 
 
 # ----------------------------------------------------------------------------- RTLLM

@@ -9,6 +9,15 @@
  "incdirs": [],
  "includes": [],
  "inventory": {
+  "async_resets": {
+   "reset": "high"
+  },
+  "clk_ports": [
+   "clk"
+  ],
+  "clk_ports_by_name": [
+   "clk"
+  ],
   "flags": {
    "delay": false,
    "ifdef": false,
@@ -17,14 +26,52 @@
    "sysfunc": false,
    "timescale": false
   },
+  "in_bits": 35,
   "loc": 51,
+  "n_cells": 1183,
+  "n_ff_bits": 689,
   "n_files": 1,
-  "ports": null,
-  "ports_hash": null,
+  "n_inputs": 5,
+  "n_outputs": 2,
+  "out_bits": 17,
+  "ports": {
+   "clk": {
+    "dir": "input",
+    "width": 1
+   },
+   "done": {
+    "dir": "output",
+    "width": 1
+   },
+   "m1": {
+    "dir": "input",
+    "width": 16
+   },
+   "m2": {
+    "dir": "input",
+    "width": 16
+   },
+   "prod": {
+    "dir": "output",
+    "width": 16
+   },
+   "reset": {
+    "dir": "input",
+    "width": 1
+   },
+   "start": {
+    "dir": "input",
+    "width": 1
+   }
+  },
+  "ports_hash": "27ebcf50c0e0d6b3",
+  "rst_port": "reset",
+  "rst_sense": "high",
   "sdc_available": 0,
+  "sverilog": false,
   "tb_available": 0,
-  "yosys_error": "TimeoutExpired: Command '['/home/hping/OpenROAD-flow-scripts/tools/install/yosys/bin/yosys', '-q', '-p', 'read_verilog -sv  /home/hping/Beyond-Synth/data/designs/rtlrewriter/algorithm__gemm/rtl/gemm_redundancy.v; hierarchy -top gemm; proc; flatten; write_json /tmp/bs_inventory_o6n4pqlu/rtlrewriter_algorithm__gemm/design.json']' timed out after 300 seconds",
-  "yosys_ok": 0
+  "yosys_error": null,
+  "yosys_ok": 1
  },
  "loc": 51,
  "name": "algorithm__gemm",
@@ -63,8 +110,7 @@
   "rtlrewriter",
   "short",
   "algorithm",
-  "calibration_only",
-  "yosys_failed"
+  "calibration_only"
  ],
  "tb": null,
  "top": "gemm"

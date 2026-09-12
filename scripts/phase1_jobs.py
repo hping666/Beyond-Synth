@@ -32,13 +32,15 @@ def main(argv=None):
     ap.add_argument("what", choices=["trial", "knee"])
     ap.add_argument("--suite", nargs="*", default=None)
     ap.add_argument("--design", nargs="*", default=None, help="restrict to these design_ids")
+    ap.add_argument("--tag", nargs="*", default=None, help="restrict to designs carrying every one of these tags (e.g. cktevo_set)")
     ap.add_argument("--libs", nargs="*", default=None)
     ap.add_argument("--only-e4-ok", action="store_true", help="knee: only designs with designs.e4_synthesizable = 1")
     ap.add_argument("--priority", type=int, default=0)
     ap.add_argument("--submit", action="store_true")
     a = ap.parse_args(argv)
     cfg = C.load()
-    designs = [d for d in K.load_all() if (not a.suite or d["suite"] in a.suite) and (not a.design or d["design_id"] in a.design)]
+    designs = [d for d in K.load_all() if (not a.suite or d["suite"] in a.suite) and (not a.design or d["design_id"] in a.design)
+               and (not a.tag or all(t in d["tags"] for t in a.tag))]
     conn = db.connect(cfg=cfg)
     if a.only_e4_ok:
         ok = {r[0] for r in conn.execute("SELECT design_id FROM designs WHERE e4_synthesizable = 1")}
