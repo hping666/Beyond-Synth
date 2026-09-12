@@ -160,13 +160,14 @@ design_sets:                 # counts and splits filled in Phase 1; dev contains
     cktevo:      {url: "https://github.com/cure-lab/cktevo", commit: 2f1abe75cc48437378bd8832517048ba64d53149, local: data/sources/cktevo, license: "unspecified at repository level (the OpenCores cores carry their own LGPL/GPL headers)"}
     rtlrewriter: {url: "https://github.com/yaoxufeng/RTLRewriter-Bench", commit: 96639fe67bc8f020c05978ef5028d75fcf6980f2, local: data/sources/RTLRewriter-Bench, license: "unspecified (no LICENSE file in the repository)"}
   suites:                    # keys are the design_id prefixes (rtllm_accu, drrtl_tv80, ...)
-  split: {dev_count: 20, seed: 1, dev_suite: rtllm, stratify_by: category}   # PLAN 1.4: dev = seeded stratified sample of the synthesizable single-clock RTLLM designs; everything else held
-  sky130_subset_count: 8      # PLAN 1.5: CktEvo modules tagged cktevo_sky130 (one per repository first, by size)
     drrtl:     {source: "arXiv:2604.14989 (Dr.RTL) open-sourced designs", count: 20, dev: [], held: TBD}
     rtlopt:    {source: "arXiv:2601.01765 (RTL-OPT); the public release has 40 pairs (the proposal counted 36)", start_from: suboptimal, reference: optimized, count: 40, dev: [], held: TBD}
     cktevo:    {source: "arXiv:2603.08718 (CktEvo)", extraction: module_level, target_count: 30, loc_min: 100, closure_loc_max: 3000, max_per_repo: 5, dev: [], held: TBD, sky130_subset: TBD}
     rtllm:     {source: "RTLLM v2.0", count: 50, synthesizable_under_e4: TBD, dev: TBD, held: TBD}
     rtlrewriter: {source: "arXiv:2409.11414", pairs: TBD, llm_samples: TBD, role: calibration_only}
+
+  split: {dev_count: 20, seed: 1, dev_suite: rtllm, stratify_by: category}   # PLAN 1.4: dev = seeded stratified sample of the synthesizable single-clock RTLLM designs; everything else held
+  sky130_subset_count: 8      # PLAN 1.5: CktEvo modules tagged cktevo_sky130 (one per repository first, by size)
 
 scale:                       # Phase 5 main-experiment scale; adjustable after G3 (record in DECISIONS)
   starting_points: 30
