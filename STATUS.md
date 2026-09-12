@@ -5,7 +5,7 @@ Last updated: 2026-09-12 · Phase 1 in progress (1.1, 1.2, 1.4, 1.5 done; 1.3 kn
 ## Current phase
 
 Phase: 1 (docs/PLAN.md Phase 1 — design sets and constraints); Phase 0 closed at G0 on 2026-09-12
-Current task: 1.3 knee-point sweeps running through the queue daemon (wave 1 submitted 2026-09-12 15:27: rtllm / drrtl / rtlopt on all three libraries + rtlrewriter on Nangate45, 2 457 jobs; wave 2 15:50: the CktEvo set, 630 jobs; 12 concurrent DC runs, several hours). Phase 2.1 engineering (perturbation generator) runs in parallel.
+Current task: 1.3 knee-point sweeps running through the queue daemon; Phase 2.1 SEQ gate of 1 398 perturbations + 164 round trips running in the vcf pool (4 seats); Phase 2 engineering done ahead of the data: hidden worker (`dc_hidden` kind, `--submit-noise`, `--noise-floor`), visible noise driver (`scripts/phase2_noise.py`), noise statistics, Phase 2 report generator, LLM client (`src/search/llm.py`). Sweeps running through the queue daemon (wave 1 submitted 2026-09-12 15:27: rtllm / drrtl / rtlopt on all three libraries + rtlrewriter on Nangate45, 2 457 jobs; wave 2 15:50: the CktEvo set, 630 jobs; 12 concurrent DC runs, several hours). Phase 2.1 engineering (perturbation generator) runs in parallel.
 Done on 2026-09-12 (Phase 1 session):
 - 1.1 sources located and pinned (config `design_sets.sources`): RTLLM v2.0 (local checkout, MIT), Dr.RTL 20 (hkust-zhiyao/DR_RTL, no license file), RTL-OPT (anonymous repo of the paper expired → hkust-zhiyao/RTL-OPT, MIT, 40 pairs), CktEvo (cure-lab/cktevo), RTLRewriter-Bench (yaoxufeng). Staged by `scripts/stage_designs.py` into data/designs/<suite>/<name>/ (design.json + gitignored copies; SOURCE.md / index.json / POOL.json): rtllm 50, drrtl 20, rtlopt 40, cktevo pool 83, rtlrewriter 72 = 265.
 - 1.2 inventory (`scripts/inventory.py`, reports/data/phase1_inventory.json): Yosys probe identifies clocks by flip-flop use; 13 multi-clock designs, 15 Yosys parse failures, 3 SystemVerilog-only. E4 trial at 4.0 ns Nangate45 (`scripts/phase1_collect.py trial`, reports/data/phase1_trial.json): synthesizable rtllm 43/50, drrtl 19/20, rtlopt 40/40, cktevo 78/83, rtlrewriter 54/72; failures are design errors (mixed blocking/non-blocking, assign to reg, undefined symbols, SystemVerilog constructs that DC rejects even in SV mode) or memory models (empty netlist / timeout); reasons per design in the trial JSON and reports/phase1.md.
@@ -68,7 +68,9 @@ Open items from 0.5: RTL-line mapping of the critical path is not yet implemente
 
 ## Open questions / known risks
 
--
+- LLM prices: the budget ledger needs USD prices per 1M tokens (input / cached input / output) for gpt-5.6-luna, gpt-5.4-mini, gpt-5.6-terra, gpt-5.4 in config `llm.prices_usd_per_1m`; the client refuses to call a model without a price (tests/test_llm_client_offline.py). Values to be supplied by the user before the Phase 2.4 LLM batch.
+- PLAN 2.4 lists "hand-made retiming variants of Dr.RTL designs" among the SEQ-pilot candidates: the operator must not write candidate RTL (CLAUDE.md), so the pilot will use the RTL-OPT pairs whose flip-flop count changes (only 4: fsm, fsm_encode, mac, saturating_add) plus the LLM batch, unless the user supplies hand-made variants.
+- Config edits while a batch runs change `cfg_hash` for later jobs (cache misses only) and a syntax error kills every runner: validate in the same command, edit between batches when possible (DECISIONS 2026-09-12).
 
 ## Decision summary (details in docs/DECISIONS.md)
 
