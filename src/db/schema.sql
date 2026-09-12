@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS candidates (
   v1_status TEXT, v2_status TEXT, v2_cycles INTEGER, latency_offset_json TEXT,
   v3_status TEXT, v3_seconds REAL, v4_status TEXT, counterexample_path TEXT,
   in_archive INTEGER NOT NULL DEFAULT 0, accepted INTEGER NOT NULL DEFAULT 0,
+  proven_by TEXT CHECK (proven_by IN ('seq', 'dpv') OR proven_by IS NULL),
   created_at TEXT NOT NULL, git_sha TEXT NOT NULL, cfg_hash TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS ix_candidates_run ON candidates (run_id, gen);
 

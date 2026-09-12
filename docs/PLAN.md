@@ -90,7 +90,7 @@ Tasks:
 2.1 Perturbation generator `src/noise/` (`docs/spec/02-noise-floor.md`): 4 perturbations per type (8 for the 10 map designs); each perturbation is first proven equivalent to D by SEQ; non-equivalent perturbations are discarded and counted (the generator's bug rate is itself reported).
 2.2 Run D and all perturbations under E1, E2, E3, E4, H1, H2a, H2b, H5 (H3 only for D and 4 perturbations).
 2.3 Compute σ_D (robust standard deviation and q95, per configuration and metric), write the `noise_floor` table; produce the floor distribution plots and the "minimum reportable gain" table for `reports/phase2.md`.
-2.4 SEQ pilot: before Phase 3, build 50 class-(c) candidates — from the RTL-OPT pipelining pairs, hand-made retiming variants of Dr.RTL designs, and one temporary LLM batch (within $10 of the Phase 3 budget) — and measure proven / falsified / inconclusive fractions and runtimes, split by (b), (c1), (c2).
+2.4 SEQ pilot: before Phase 3, build 50 class-(c) candidates — from the RTL-OPT pipelining pairs, hand-made retiming variants of Dr.RTL designs, and one temporary LLM batch (within $10 of the Phase 3 budget) — and measure proven / falsified / inconclusive fractions and runtimes, split by (b), (c1), (c2). For the V4 clocked-datapath decision (DECISIONS 2026-09-12, spec 03 §1 guardrail 3) also record per SEQ-inconclusive candidate: whether the module is a clocked arithmetic module; whether V2's per-output offsets are constant across all random runs; whether start/valid and done/valid signals are recognisable.
 2.5 E4 runtime: from the runs in 2.2 collect E4 seconds per design; with the scale parameters in `config`, compute DC hours and wall-clock at 50 seats for the full-E4 and the cascade scales.
 
 Acceptance:

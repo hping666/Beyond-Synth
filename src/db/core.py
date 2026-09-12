@@ -26,9 +26,18 @@ def stamp():
     return {"created_at": now(), "git_sha": C.git_sha(), "cfg_hash": C.cfg_hash()}
 
 
+MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CREATE IF NOT EXISTS does not alter tables
+    ("candidates", "proven_by", "ALTER TABLE candidates ADD COLUMN proven_by TEXT CHECK (proven_by IN ('seq', 'dpv') OR proven_by IS NULL)"),
+]
+
+
 def init_schema(conn):
     with open(SCHEMA) as f:
         conn.executescript(f.read())
+    for table, column, ddl in MIGRATIONS:
+        cols = {r[1] for r in conn.execute(f"PRAGMA table_info({table})")}
+        if column not in cols:
+            conn.execute(ddl)
 
 
 def connect(path=None, cfg=None):

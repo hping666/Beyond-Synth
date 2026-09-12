@@ -14,17 +14,19 @@ from pathlib import Path
 from src.equiv import ports as PORTS
 from src.equiv.harness import run_lockstep
 from src.equiv.seq import run_seq
+from src.equiv.verdict import decide, v4_acceptance
 
 
 def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None, rst_sense=None, d_ports=None,
-                      sverilog=False, incdirs=None, run_v3=True, run_v4=True, timeout_sec=None):
-    """run_v4: after an inconclusive SEQ, try DPV on combinational modules (no clock port); clocked datapaths
-    need a per-design phase mapping and are left to the Phase 2 pilot."""
+                      sverilog=False, incdirs=None, run_v3=True, run_v4=True, timeout_sec=None, design_id=None):
+    """run_v4: after an inconclusive SEQ, try DPV on combinational modules (no clock port) under the guardrails of
+    DECISIONS 2026-09-12 (V3 falsified is final; a DPV proven needs all outputs, no assumes and a passed per-module
+    vacuity check, cached by design_id). Clocked datapaths wait for the Phase 2 pilot."""
     job_dir = Path(job_dir)
     job_dir.mkdir(parents=True, exist_ok=True)
     rec = {"top": top, "v1_status": None, "v1_detail": None, "v2_status": None, "v2_cycles": None, "latency_offset_json": None,
            "v3_status": None, "v3_seconds": None, "v4_status": "not_run", "counterexample_path": None, "vcd_path": None,
-           "verdict": None, "seconds": None}
+           "verdict": None, "proven_by": None, "seconds": None}
     t0 = time.time()
     # ---- V1: interface ----
     try:
@@ -61,27 +63,35 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
         _dump(job_dir, rec)
         return rec
     # ---- V3: SEQ ----
+    v4_accepted = False
+    sv_used = v2.get("sverilog", sverilog)
     if v2["status"] == "offset":
-        rec.update(v3_status="proven_sim_only", verdict="proven_sim_only")
+        rec["v3_status"] = "proven_sim_only"
     elif run_v3:
-        v3 = run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, sverilog=v2.get("sverilog", sverilog), timeout_sec=timeout_sec)
+        v3 = run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, sverilog=sv_used, timeout_sec=timeout_sec)
         rec["v3"] = v3
         rec["v3_status"] = v3["v3_status"]
         rec["v3_seconds"] = v3["v3_seconds"]
         rec["counterexample_path"] = v3.get("counterexample_path")
-        rec["verdict"] = v3["v3_status"]
+        # ---- V4: DPV, only after an inconclusive V3 (guardrail 1), combinational modules only (guardrail 3) ----
         if v3["v3_status"] == "inconclusive" and run_v4 and not clk and cfg["tools"]["vcformal"].get("dpv_app_ok"):
-            from src.equiv.dpv import run_dpv
+            from src.equiv.dpv import run_dpv, vacuity_check
             outs = [n for n, p in d_ports.items() if p["dir"] in ("output", "inout")]
-            v4 = run_dpv(job_dir, d_files, c_files, top, outs, cfg, sverilog=v2.get("sverilog", sverilog), timeout_sec=timeout_sec)
+            v4 = run_dpv(job_dir, d_files, c_files, top, outs, cfg, sverilog=sv_used, timeout_sec=timeout_sec)
             rec["v4"] = v4
             rec["v4_status"] = v4["v4_status"]
-            if v4["v4_status"] in ("proven", "falsified"):
-                rec["verdict"] = v4["v4_status"]
-                if v4["v4_status"] == "falsified":
-                    rec["counterexample_path"] = v4["workdir"]
+            if v4["v4_status"] == "proven":
+                vac = vacuity_check(job_dir, d_files, top, d_ports, cfg, design_id=design_id, sverilog=sv_used, timeout_sec=timeout_sec)
+                rec["v4_vacuity"] = vac
+                v4_accepted, failed = v4_acceptance(v4, outs, vac)
+                rec["v4_acceptance"] = {"accepted": v4_accepted, "failed_conditions": failed}
+                if not v4_accepted:
+                    rec["v4_status"] = "proven_unaccepted"   # guardrail 2: recorded, never counted as proven
+            elif v4["v4_status"] == "falsified":
+                rec["counterexample_path"] = v4["workdir"]
     else:
-        rec.update(v3_status="not_run", verdict="not_run")
+        rec["v3_status"] = "not_run"
+    rec["verdict"], rec["proven_by"] = decide(rec["v1_status"], rec["v2_status"], rec["v3_status"], rec.get("v4_status"), v4_accepted)
     rec["seconds"] = round(time.time() - t0, 1)
     _dump(job_dir, rec)
     return rec

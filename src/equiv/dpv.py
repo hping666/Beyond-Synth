@@ -11,6 +11,8 @@ VCS front end, inputs mapped by name at phase 1, one lemma per output `spec.<out
 compose, run_solver, then getlemmas by status. Combinational modules use phase 1; a clocked module is created
 with -clock/-reset and compared at the caller's phase.
 """
+import hashlib
+import json
 import re
 import subprocess
 import sys
@@ -18,6 +20,61 @@ import time
 from pathlib import Path
 
 STATUSES = ("proven", "falsified", "inconclusive", "error", "not_run", "vacuous", "cond_proven", "cond_falsified", "killed")
+
+
+def vacuity_check(job_dir, d_files, top, ports, cfg, *, design_id=None, sverilog=True, timeout_sec=None, max_mutants=4,
+                  sim_cycles=500, max_time_sec=300):
+    """Guardrail 2(iii) (DECISIONS 2026-09-12): before a DPV `proven` may be accepted for a module, DPV must falsify at
+    least one injected-error variant of that module. Variants come from src/equiv/mutants.py; a variant counts only
+    if lock-step simulation shows it differs from the original (a mutation in dead code proves nothing). The result
+    is cached per (design_id, content of D) under results/raw/<design_id>/DPV_VACUITY/."""
+    from src import config as C
+    from src.equiv.harness import run_lockstep
+    from src.equiv.mutants import generate_mutants
+    d_files = [str(Path(f).resolve()) for f in d_files]
+    cache = None
+    if design_id:
+        h = hashlib.sha256(b"".join(Path(f).read_bytes() for f in d_files) + top.encode()).hexdigest()[:16]
+        cache = Path(C.results_dir(cfg)) / "raw" / design_id / "DPV_VACUITY" / f"{h}.json"
+        if cache.exists():
+            rec = json.loads(cache.read_text())
+            rec["cached"] = True
+            return rec
+    outs = [n for n, p in ports.items() if p["dir"] in ("output", "inout")]
+    idx = next((i for i, f in enumerate(d_files) if re.search(rf"^\s*module\s+{re.escape(top)}\b", Path(f).read_text(errors="replace"), re.M)), 0)
+    text = Path(d_files[idx]).read_text(errors="replace")
+    cfg_sim = dict(cfg)
+    cfg_sim["sim"] = dict(cfg["sim"], random_cycles=int(sim_cycles))
+    wd = Path(job_dir) / "v4_vacuity"
+    wd.mkdir(parents=True, exist_ok=True)
+    rec = {"status": "failed", "mutant": None, "tried": [], "design_id": design_id, "top": top, "cached": False}
+    for name, mutated in generate_mutants(text)[:max_mutants]:
+        mfile = wd / f"mutant_{len(rec['tried'])}{Path(d_files[idx]).suffix}"
+        mfile.write_text(mutated)
+        m_files = [str(mfile) if i == idx else f for i, f in enumerate(d_files)]
+        sim = run_lockstep(wd / f"sim_{len(rec['tried'])}", d_files, m_files, top, ports, None, None, None, cfg_sim,
+                           sverilog=sverilog, timeout_sec=timeout_sec)
+        entry = {"mutant": name, "sim_status": sim.get("status"), "dpv_status": None}
+        if sim.get("status") != "mismatch":
+            rec["tried"].append(entry)
+            continue
+        dpv = run_dpv(wd / f"dpv_{len(rec['tried'])}", d_files, m_files, top, outs, cfg, sverilog=sverilog,
+                      timeout_sec=timeout_sec, max_time_sec=max_time_sec)
+        entry["dpv_status"] = dpv["v4_status"]
+        entry["dpv_workdir"] = dpv["workdir"]
+        rec["tried"].append(entry)
+        if dpv["v4_status"] == "falsified":
+            rec.update(status="ok", mutant=name, dpv_workdir=dpv["workdir"])
+            break
+        if dpv["v4_status"] == "proven":  # DPV calls a simulation-distinguished variant equal: the setup is vacuous
+            rec.update(status="failed", error=f"DPV proved a variant that simulation distinguishes ({name})")
+            break
+    if rec["status"] != "ok" and not rec.get("error"):
+        rec["error"] = "no injected-error variant was falsified by DPV" if rec["tried"] else "no mutation site in the module body"
+    if cache:
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_text(json.dumps(rec, indent=1, sort_keys=True, default=str))
+    return rec
 
 
 def _vcf(cfg):
@@ -111,9 +168,10 @@ def run_dpv(job_dir, d_files, c_files, top, outputs, cfg, *, clk=None, rst=None,
         lemmas.setdefault(m.group(2), m.group(1))
     plain = re.sub(r"\x1b\[[0-9;]*m", "", full)
     errors = [l.strip() for l in plain.splitlines() if re.match(r"^\s*(\[Error\]|Error-\[|Error:|(?:vcf> )?ERROR:)", l)]
+    script_text = tcl.read_text()
     rec = {"v4_status": "error", "lemmas": lemmas, "seconds": round(time.time() - t0, 1), "workdir": str(wd), "returncode": rc,
            "timed_out": timed_out, "errors": errors[:8], "steps_done": list(dict.fromkeys(re.findall(r"DPV_STEP (\w+)", full))),
-           "outputs": list(outputs)}
+           "outputs": list(outputs), "assume_count": len(re.findall(r"^\s*assume\b", script_text, re.M))}
     checked_out = re.findall(r"License feature checked out: (VC-FORMAL-DPV[A-Z0-9_-]*|Hector)", plain)
     rec["licenses_checked_out"] = sorted(set(checked_out))
     lic = re.search(r"Unable to check out license feature \(([A-Z0-9_-]+)\)[^\n]*?status:\s*(-?\d+)", plain)

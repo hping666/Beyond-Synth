@@ -50,3 +50,15 @@ def test_dpv_injected_bug(cfg, tmp_path):
     outcome = _check(rec, "falsified")
     print(f"\nDPV injected bug: {outcome} ({rec.get('error') or 'lemma falsified'})")
     assert rec["v4_status"] != "proven"  # a bug must never come out as proven, whatever the license state
+    assert rec["assume_count"] == 0
+
+
+def test_vacuity_check_falsifies_an_automatic_mutant(cfg, tmp_path):
+    """Guardrail 2(iii): the per-module non-vacuity check finds a simulation-distinguished mutant that DPV falsifies."""
+    from src.equiv import ports as P
+    from src.equiv.dpv import vacuity_check
+    ports = P.port_info([MULT], TOP, cfg, sverilog=True, workdir=tmp_path / "ports")
+    rec = vacuity_check(tmp_path / "job", [MULT], TOP, ports, cfg, sverilog=True, max_time_sec=300)
+    assert rec["status"] == "ok", rec
+    assert rec["mutant"] and rec["tried"][-1]["sim_status"] == "mismatch" and rec["tried"][-1]["dpv_status"] == "falsified"
+    print(f"\nvacuity check: mutant {rec['mutant']} falsified after {len(rec['tried'])} attempt(s)")
