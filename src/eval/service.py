@@ -53,6 +53,7 @@ def resolve_config(cfg, name, design=None, clock_ns=None):
         out["compile"] = c["compile"]
         out["mode"] = "topo" if "-spg" in c["compile"] else "wireload"
         out["synlib"] = c.get("synlib", "dw")
+        out["dont_use"] = list((cfg["libs"].get(lib) or {}).get("dont_use") or [])  # library-level excluded cells (part of the hash)
     elif c["tool"] in ("yosys_opensta",):
         out["script"] = c["script"]
         for key in ("read_sv", "io_delay_frac", "sta_max_delay"):
@@ -160,7 +161,7 @@ def evaluate(cfg, conn, design_id, rtl_files, top, config_name, *, clock_ns=None
     if res["tool"] == "dc":
         rec = run_dc(job_dir, rtl_files, top, res["lib"], res["compile"], res["clock_ns"], clk_port, cfg, mode=res["mode"],
                      saif=saif, saif_instance=saif_instance, sverilog=sverilog, incdirs=incdirs, timeout_sec=timeout_sec,
-                     synlib=res.get("synlib", "dw"))
+                     synlib=res.get("synlib", "dw"), dont_use=res.get("dont_use") or None)
     elif res["tool"] == "yosys_opensta":
         from src.eval.yosys import run_yosys
         rec = run_yosys(job_dir, rtl_files, top, res["lib"], res["script"], res["clock_ns"], clk_port, cfg,

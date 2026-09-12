@@ -74,3 +74,25 @@ def test_knee_configs_reject_candidates_and_need_an_explicit_clock(setup):
         assert cfg["configs"][name]["compile"] == cfg["configs"]["E4"]["compile"] and not cfg["configs"][name].get("hidden")
         assert name not in cfg["exp1"]["configs"] and name not in cfg["exp1"].get("supplementary", []) and name not in cfg["noise"]["configs"]
     assert cfg["knee"]["configs"] == {"nangate45": "E4", "asap7": "K_asap7", "sky130hd": "K_sky130hd"}
+
+
+def test_library_dont_use_cells_reach_dc(setup, monkeypatch):
+    """sky130hd multi-power-domain cells are excluded (DC MV-090 without UPF, DECISIONS 2026-09-12); Nangate45 has none."""
+    from src.eval import dc as DC
+    cfg, rtl, vis, hid = setup
+    assert SV.resolve_config(cfg, "K_sky130hd", None, 5.0)["dont_use"] == cfg["libs"]["sky130hd"]["dont_use"]
+    assert SV.resolve_config(cfg, "E4", None, 2.0)["dont_use"] == []
+    seen = {}
+
+    def fake_run(argv, cwd=None, env=None, **kw):
+        seen["env"] = dict(env)
+        raise RuntimeError("stop here")
+
+    monkeypatch.setattr(SV, "run_dc", DC.run_dc)
+    monkeypatch.setattr(DC.subprocess, "run", fake_run)
+    with pytest.raises(RuntimeError):
+        SV.evaluate(cfg, vis, "d1", [rtl], "d", "K_sky130hd", clock_ns=5.0, do_ingest=False)
+    assert seen["env"]["EVAL_DONT_USE"] == "sky130_fd_sc_hd__lpflow_* sky130_fd_sc_hd__probe_p_8 sky130_fd_sc_hd__probec_p_8"
+    with pytest.raises(RuntimeError):
+        SV.evaluate(cfg, vis, "d1", [rtl], "d", "E4", clock_ns=2.0, do_ingest=False)
+    assert seen["env"]["EVAL_DONT_USE"] == ""
