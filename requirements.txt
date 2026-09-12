@@ -1,0 +1,9 @@
+# Beyond-Synth Python dependencies (Phase 0.2). Install: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+# Python 3.13 (miniconda base python3 on cinnamon); versions pinned to what was installed on 2026-09-12.
+pyverilog==1.3.0
+pandas==3.0.5
+pyarrow==25.0.1
+PyYAML==6.0.3
+scikit-learn==1.9.1
+openai==3.13.0
+pytest==9.1.1
