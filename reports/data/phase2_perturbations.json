@@ -1,0 +1,78 @@
+{
+ "designs": 179,
+ "generated_at": "2026-09-12T15:47:20",
+ "not_applicable": {
+  "P1_rename": 23,
+  "P2_reorder": 38,
+  "P3_expr": 93,
+  "P4_ctrl": 68
+ },
+ "parse_errors": [
+  [
+   "cktevo_hsm__G16Inv2SharesDep",
+   "parse: ParseError:  line:241: before: \"input\""
+  ],
+  [
+   "cktevo_hsm__G256Inv2Shares5Stages",
+   "parse: ParseError:  line:594: before: \"input\""
+  ],
+  [
+   "cktevo_hsm__hsm",
+   "parse: ParseError:  line:2408: before: \"input\""
+  ],
+  [
+   "cktevo_nn_engine__thresholds_128x4096",
+   "parse: ParseError:  line:143: before: \"(\""
+  ],
+  [
+   "cktevo_risc__btb",
+   "parse: ParseError: Syntax Error"
+  ],
+  [
+   "cktevo_risc__cpu",
+   "parse: ParseError:  line:115: before: \"[\""
+  ],
+  [
+   "cktevo_risc__l2_cache_control",
+   "parse: ParseError:  line:183: before: \";\""
+  ],
+  [
+   "cktevo_risc__stall_control_unit",
+   "parse: ParseError: Syntax Error"
+  ],
+  [
+   "cktevo_sdc_ctrl__sdc_controller",
+   "parse: ParseError:  line:42: before: \"(\""
+  ],
+  [
+   "drrtl_aes",
+   "parse: ParseError:  line:18: before: \"]\""
+  ],
+  [
+   "drrtl_simple_spi",
+   "parse: ParseError: None: at end of input"
+  ],
+  [
+   "rtllm_adder_32bit",
+   "parse: ParseError:  line:28: before: \",\""
+  ],
+  [
+   "rtllm_multi_8bit",
+   "parse: ParseError:  line:15: before: \"i\""
+  ],
+  [
+   "rtlrewriter_datapath__loop_tiling",
+   "parse: ParseError:  line:10: before: \"+\""
+  ],
+  [
+   "rtlrewriter_datapath__multiplier_architecture",
+   "parse: ParseError:  line:14: before: \"]\""
+  ]
+ ],
+ "per_type": {
+  "P1_rename": 556,
+  "P2_reorder": 389,
+  "P3_expr": 229,
+  "P4_ctrl": 224
+ }
+}

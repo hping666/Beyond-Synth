@@ -1,0 +1,96 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_memory__memory_folding2",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "memory_folding_opt": {
+      "BW": "november_0",
+      "MW": "zulu_1",
+      "i": "papa_2",
+      "mem1": "delta_3",
+      "mem2": "sierra_4",
+      "mem3": "hotel_5",
+      "state": "xray_6"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_memory__memory_folding2/P1_rename_0.v",
+   "pert_id": "p5107fcd34ee7ed",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "memory_folding_opt": {
+      "BW": "whiskey_0",
+      "MW": "xray_1",
+      "i": "sierra_2",
+      "mem1": "mike_3",
+      "mem2": "papa_4",
+      "mem3": "november_5",
+      "state": "foxtrot_6"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_memory__memory_folding2/P1_rename_1.v",
+   "pert_id": "pc611d62c3bd36c",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "memory_folding_opt": {
+      "BW": "tango_0",
+      "MW": "golf_1",
+      "i": "foxtrot_2",
+      "mem1": "delta_3",
+      "mem2": "victor_4",
+      "mem3": "echo_5",
+      "state": "xray_6"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlrewriter_memory__memory_folding2/P1_rename_2.v",
+   "pert_id": "p52d818608dd5f4",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "memory_folding_opt": {
+      "BW": "victor_0",
+      "MW": "yankee_1",
+      "i": "alpha_2",
+      "mem1": "november_3",
+      "mem2": "golf_4",
+      "mem3": "quebec_5",
+      "state": "foxtrot_6"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_memory__memory_folding2/P1_rename_3.v",
+   "pert_id": "p1fea4d6717c312",
+   "ptype": "P1_rename"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_memory__memory_folding2/roundtrip.v",
+  "pert_id": "p7b8797a924c2b4"
+ },
+ "seed": "rtlrewriter_memory__memory_folding2:1",
+ "top": "memory_folding_opt"
+}

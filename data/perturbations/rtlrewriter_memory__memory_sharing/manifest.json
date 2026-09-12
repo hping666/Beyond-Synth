@@ -1,0 +1,80 @@
+{
+ "cfg_hash": "621834f01e87",
+ "design_id": "rtlrewriter_memory__memory_sharing",
+ "error": null,
+ "git_sha": "dcb53665726f",
+ "n_per_type": 4,
+ "not_applicable": {
+  "P2_reorder": "nothing to reorder",
+  "P3_expr": "no expression site",
+  "P4_ctrl": "no control-structure site"
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "shared_memory_raw": {
+      "i": "golf_0",
+      "mem1": "alpha_1",
+      "mem2": "hotel_2"
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtlrewriter_memory__memory_sharing/P1_rename_0.v",
+   "pert_id": "p61e6442969bdc0",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "shared_memory_raw": {
+      "i": "echo_0",
+      "mem1": "zulu_1",
+      "mem2": "xray_2"
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtlrewriter_memory__memory_sharing/P1_rename_1.v",
+   "pert_id": "p63e5097cf9f5f3",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "shared_memory_raw": {
+      "i": "papa_0",
+      "mem1": "november_1",
+      "mem2": "uniform_2"
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtlrewriter_memory__memory_sharing/P1_rename_2.v",
+   "pert_id": "pcce7c777a8ec52",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "shared_memory_raw": {
+      "i": "whiskey_0",
+      "mem1": "tango_1",
+      "mem2": "quebec_2"
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtlrewriter_memory__memory_sharing/P1_rename_3.v",
+   "pert_id": "p1d8c804fcca07c",
+   "ptype": "P1_rename"
+  }
+ ],
+ "roundtrip": {
+  "path": "data/perturbations/rtlrewriter_memory__memory_sharing/roundtrip.v",
+  "pert_id": "pa4e27b2f26e1cf"
+ },
+ "seed": "rtlrewriter_memory__memory_sharing:1",
+ "top": "shared_memory_raw"
+}
