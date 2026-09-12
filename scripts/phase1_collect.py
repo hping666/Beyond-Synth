@@ -143,10 +143,24 @@ def collect_knee(cfg, conn):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("what", choices=["trial", "knee"])
+    ap.add_argument("--sv-retry", action="store_true", help="trial: mark designs whose Verilog read stopped at a SystemVerilog construct as sverilog and print them for resubmission")
     a = ap.parse_args(argv)
     cfg = C.load()
     conn = db.connect(cfg=cfg)
-    return collect_trial(cfg, conn) if a.what == "trial" else collect_knee(cfg, conn)
+    if a.what == "knee":
+        return collect_knee(cfg, conn)
+    rc = collect_trial(cfg, conn)
+    if a.sv_retry:
+        from src.designs import inventory as I
+        retry = []
+        for d in K.load_all():
+            r = conn.execute("SELECT e4_synthesizable, e4_fail_reason, tags FROM designs WHERE design_id=?", (d["design_id"],)).fetchone()
+            if r and r["e4_synthesizable"] == 0 and I.needs_sv_retry(d, r["e4_fail_reason"]):
+                I.mark_sverilog(d, r["e4_fail_reason"])
+                conn.execute("UPDATE designs SET tags=?, e4_synthesizable=NULL, e4_fail_reason=NULL WHERE design_id=?", (json.dumps(d["tags"]), d["design_id"]))
+                retry.append(d["design_id"])
+        print(f"sverilog retry: {len(retry)} design(s) marked: {' '.join(retry)}")
+    return rc
 
 
 if __name__ == "__main__":

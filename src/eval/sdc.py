@@ -34,10 +34,14 @@ def opensta_sdc(top, clk_port, period_ns, cfg, lib):
             lines.append(f"create_clock -name {name} -period {float(period_ns):g} [get_ports {p}]")
     else:
         lines.append(f"create_clock -name {clk} -period {float(period_ns):g}")
+    # a design without non-clock inputs (RTLLM clkgenerator) must not apply input constraints to an empty list (CMD-036);
+    # `llength` is the OpenSTA form, dc_sdc() rewrites it to `sizeof_collection` for DC / PrimeTime
     lines += ["set non_clk [all_inputs -no_clocks]",
-              f"set_input_delay {io:g} -clock {clk} $non_clk",
+              "if {[llength $non_clk] > 0} {",
+              f"  set_input_delay {io:g} -clock {clk} $non_clk",
+              f"  set_driving_cell -lib_cell {drv} $non_clk",
+              "}",
               f"set_output_delay {io:g} -clock {clk} [all_outputs]",
-              f"set_driving_cell -lib_cell {drv} $non_clk",
               f"set_max_fanout {int(c['max_fanout'])} [current_design]"]
     if c.get("output_load"):
         lines.append(f"set_load {float(c['output_load']):g} [all_outputs]")
@@ -49,7 +53,7 @@ _TIME_ARGS = re.compile(r"((?:-period|set_input_delay|set_output_delay|-max_dela
 
 def dc_sdc(text, time_scale=1.0):
     """Rewrite an OpenSTA-native SDC for Synopsys tools (sdc_compat.tcl must be sourced first)."""
-    out = text.replace("all_inputs -no_clocks", "snps_all_inputs_no_clocks")
+    out = text.replace("all_inputs -no_clocks", "snps_all_inputs_no_clocks").replace("[llength $non_clk]", "[sizeof_collection $non_clk]")
     if abs(float(time_scale) - 1.0) > 1e-9:
         out = _TIME_ARGS.sub(lambda m: m.group(1) + f"{float(m.group(2)) * float(time_scale):g}", out)
     return "# rewritten for Synopsys tools by src/eval/sdc.py (time_scale=%g)\n" % float(time_scale) + out

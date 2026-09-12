@@ -103,3 +103,23 @@ def upsert_design(conn, row):
     conn.execute(f"INSERT INTO designs ({', '.join(cols)}) VALUES ({', '.join('?' for _ in cols)}) "
                  f"ON CONFLICT(design_id) DO UPDATE SET {upd}", tuple(row.values()))
     return conn.execute("SELECT * FROM designs WHERE design_id=?", (row["design_id"],)).fetchone()
+
+
+SV_HINTS = ("not supported", "C-style", "++", "--", "unpacked", "SystemVerilog", "logic", "always_ff", "always_comb", "typedef", "enum")
+
+
+def needs_sv_retry(design, reason):
+    """DC read the design as Verilog-2001 and stopped at a SystemVerilog construct: retry once as SystemVerilog.
+    Only for analyze failures of designs not yet marked sverilog; genuine RTL errors (hierarchical names, width
+    mismatches, non-register assignments) are not retried."""
+    if design.get("sverilog") or not reason or not reason.startswith("analyze_failed"):
+        return False
+    return any(h in reason for h in SV_HINTS)
+
+
+def mark_sverilog(d, reason):
+    d["sverilog"] = True
+    if "sverilog_only" not in d["tags"]:
+        d["tags"].append("sverilog_only")
+    d["notes"].append(f"read as SystemVerilog after DC rejected the Verilog-2001 read: {reason[:160]}")
+    return K.write_design(d)

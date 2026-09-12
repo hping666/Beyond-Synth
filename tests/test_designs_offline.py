@@ -254,3 +254,20 @@ def test_inventory_application_designs_table_and_job_payloads(env, tmp_path):
     assert len(ks) == len(cfg["knee"]["periods_ns"]["asap7"]) and {k["config"] for k in ks} == {"K_asap7"}
     assert [k["payload"]["clock_ns"] for k in ks] == [float(p) for p in cfg["knee"]["periods_ns"]["asap7"]]
     assert J.timeout_for(cfg, 4000) == cfg["timeouts"]["dc_large"] * 60 and J.timeout_for(cfg, 1000) == cfg["timeouts"]["dc_medium"] * 60
+
+
+def test_sv_retry_only_for_verilog_reads_stopped_at_sv_constructs(env):
+    cfg, src = env
+    b = src / "rtlopt/benchmark"
+    w(b / "foo/foo.v", module("foo", COMB))
+    w(b / "foo_ref/foo_ref.v", module("foo_ref", COMB))
+    d = S.stage_rtlopt(cfg, log=quiet)[0][0]
+    assert I.needs_sv_retry(d, "analyze_failed: Error: x.v:10: The construct 'post-increment assignment operator ++' is not supported. (VER-708)")
+    assert I.needs_sv_retry(d, "analyze_failed: Error: x.v:14: The construct 'C-style unpacked dimension' is not supported")
+    assert not I.needs_sv_retry(d, "analyze_failed: Error: x.v:155: bad hierarchical name (ID_EX_Reg). (VER-264)")
+    assert not I.needs_sv_retry(d, "eval_failed: no leaf cells after compile") and not I.needs_sv_retry(d, None)
+    assert not I.needs_sv_retry(d, "elaborate_failed: Error: Width mismatch on port 'sum_result' ... not supported")  # not an analyze failure
+    d = I.mark_sverilog(d, "analyze_failed: ++ not supported")
+    assert d["sverilog"] and "sverilog_only" in d["tags"] and any("SystemVerilog" in n for n in d["notes"])
+    assert not I.needs_sv_retry(d, "analyze_failed: ++ not supported")  # never twice
+    assert K.load_design(d["_dir"])["sverilog"]
