@@ -1,0 +1,59 @@
+# ---- results: append-only raw artifacts never enter git (CLAUDE.md bootstrap; PLAN §1) ----
+results/raw/
+results/llm/
+results/candidates/
+results/hidden/
+# results DB and snapshots: excluded until the git-vs-LFS decision is recorded in docs/DECISIONS.md (PLAN 0.2)
+results/db/
+results/snapshots/
+
+# ---- data: large downloaded artifacts stay out of git ----
+data/**/*.zip
+data/**/*.tar
+data/**/*.tar.gz
+data/**/*.tgz
+
+# ---- EDA artifacts: Synopsys files and library data never enter git ----
+*.db
+*.lib
+*.lib.gz
+*.ddc
+*.svf
+*.saif
+*.vcd
+*.fsdb
+*.vpd
+*.mr
+*.syn
+*.pvl
+*.tf
+*.spef
+*.def
+*.gds
+*.gds.gz
+command.log
+default.svf
+.synopsys_dc.setup
+Milkyway*/
+alib-52/
+simv
+simv.daidir/
+csrc/
+ucli.key
+work/
+
+# ---- Python ----
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# ---- secrets ----
+.env
+*.pem
+id_ed25519*
+
+# ---- editors / OS ----
+*.swp
+.DS_Store

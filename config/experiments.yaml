@@ -1,0 +1,170 @@
+# config/experiments.yaml — the single source of all parameters. Code reads this file; numbers are never hard-coded.
+# Fields marked TBD are filled by Claude Code in Phase 0/1 after reading eda-knowledge and measuring, with the basis recorded in docs/DECISIONS.md.
+# Fields marked LOCKED must not be modified by Claude Code (budgets and guardrails).
+
+project:
+  root: /home/hping/Beyond-Synth
+  git_remote: https://github.com/hping666/Beyond-Synth
+  eda_knowledge: /home/hping/eda-knowledge
+  eda_env: /hdd1/hping/eda/setup/env.sh
+  flow_dir: /hdd1/hping/eda/flow
+  orfs_dir: /home/hping/OpenROAD-flow-scripts
+  results_dir: /home/hping/Beyond-Synth/results
+
+tools:                       # TBD: versions and paths from eda-knowledge/01-environment.md and measurement
+  dc: {version: TBD, shell: dc_shell, max_cores: 4}
+  pt: {version: TBD, shell: pt_shell}
+  primepower: {version: TBD}
+  vcformal: {version: TBD, seq_app_ok: TBD, dpv_app_ok: TBD}
+  vcs: {version: TBD, vcd2saif: TBD}
+  yosys: {version: TBD}
+  opensta: {version: TBD}
+  orfs: {version: TBD}
+
+libs:
+  nangate45: {db: TBD, physical_ref_for_spg: TBD, main: true}
+  asap7: {db: TBD}
+  sky130hd: {db: TBD}
+
+# ---------- evaluation configurations (commands are assembled by src/eval/templates; only semantic parameters here) ----------
+configs:
+  E1:  {tool: dc, compile: "compile", lib: nangate45, clock: phi_main}
+  E2:  {tool: dc, compile: "compile_ultra", lib: nangate45, clock: phi_main}
+  E3:  {tool: dc, compile: "compile_ultra -retime", lib: nangate45, clock: phi_main}
+  E4:  {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock", lib: nangate45, clock: phi_main, main_scoring: true}
+  E2r: {tool: dc, compile: "compile_ultra -retime", lib: nangate45, clock: phi_main, single_flag: retime}
+  E2t: {tool: dc, compile: "compile_ultra -timing_high_effort_script", lib: nangate45, clock: phi_main, single_flag: timing_high_effort}
+  E2g: {tool: dc, compile: "compile_ultra -gate_clock", lib: nangate45, clock: phi_main, single_flag: gate_clock}
+  H1:  {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock", lib: nangate45, clock_ns: 0.1, hidden: true}
+  H2a: {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock", lib: asap7, clock: phi_main_asap7, hidden: true}
+  H2b: {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock", lib: sky130hd, clock: phi_main_sky130hd, hidden: true}
+  H3:  {tool: dc, compile: "compile_ultra -retime -timing_high_effort_script -gate_clock -spg", lib: nangate45, clock: phi_main, hidden: true}
+  H4:  {tool: pt_primepower, input: E4_netlist, lib: nangate45, clock: phi_main, hidden: true}
+  H5:  {tool: dc, compile: "compile_ultra -no_autoungroup -gate_clock", lib: nangate45, clock: phi_main, hidden: true, production_representative: true}
+  Y:   {tool: yosys_opensta, script: "synth -top {top}; abc -liberty {lib}; stat -liberty {lib}", lib: nangate45, clock: phi_main, reference: true}
+  O0:  {tool: yosys_opensta, script: "synth -top {top}; abc -liberty {lib}; stat", lib: nangate45, clock: phi_main, supplementary: true}
+  O1:  {tool: yosys_opensta, script: "synth -top {top} -flatten; opt -full; share -aggressive; abc -liberty {lib}; stat", lib: nangate45, clock: phi_main, supplementary: true}
+  O2:  {tool: yosys_opensta, script: "synth -top {top} -flatten; opt -full; share -aggressive; abc -liberty {lib} -script {abc_heavy_script}; stat", lib: nangate45, clock: phi_main, supplementary: true}
+  O:   {tool: orfs, stage: cts, lib: nangate45, clock: phi_main, repro_layer: true}
+cktevo_sky130_visible:         # visible layer of the Sky130 sub-experiment (CktEvo's commercial-arm setting)
+  compile: "compile_ultra -retime -timing_high_effort_script"
+  lib: sky130hd
+  clock: phi_main_sky130hd
+
+knee:
+  periods_ns: {nangate45: [4.0, 2.8, 2.0, 1.4, 1.0, 0.7, 0.5], asap7: [1.0, 0.7, 0.5, 0.35, 0.25, 0.18, 0.13], sky130hd: [10.0, 7.0, 5.0, 3.5, 2.5, 1.8, 1.3]}
+  slack_tol: 0.01            # WNS >= -slack_tol * T counts as met
+  area_tol: 0.10             # area must not exceed (1 + area_tol) x the loosest-constraint area
+
+noise:
+  n_per_type: 4              # 8 for the 10 map designs
+  n_per_type_map_designs: 8
+  types: [P1_rename, P2_reorder, P3_expr, P4_ctrl]
+  configs: [E1, E2, E3, E4, H1, H2a, H2b, H5]
+  configs_light: [H3]        # only D and one perturbation per type
+  k_sigma: 2.0
+  k_sigma_sensitivity: [1.0, 2.0, 3.0]
+  sigma_median_warn_pct: 5.0 # G1: warn above this median and propose an alternative truncation
+
+sim:
+  random_cycles: 20000
+  reset_cycles: 10
+  protocol_rules: TBD        # valid/ready recognition rules (filled in Phase 1 per design set)
+  saif_coverage_min: 0.8
+
+timeouts:                    # minutes
+  dc_small: 20
+  dc_medium: 60
+  dc_large: 180
+  pt: 30
+  seq_min: 30
+  dpv_min: 30
+  sim: 30
+  llm_call_sec: 600
+
+queue:                       # LOCKED (concurrency caps); automatic backoff when seats are exhausted
+  dc_seats_max: 50
+  pt_seats_max: TBD
+  vcf_seats_max: TBD
+  backoff: {initial_sec: 60, max_sec: 900, factor: 2}
+  retries: 1
+
+llm:                         # LOCKED (budgets); the model is filled into `selected` after the Phase 3 calibration
+  provider: openai
+  api_key_env: OPENAI_API_KEY
+  candidates: [gpt-5.6-luna, gpt-5.4-mini, gpt-5.6-terra, gpt-5.4]
+  selected: TBD_after_phase3
+  review_model: gpt-5.6-luna           # M6 review, log summaries (Batch)
+  service_tier_search: flex
+  service_tier_offline: batch
+  reasoning_effort: medium
+  max_output_tokens: 3000
+  temperature: 0.7
+  budget_usd:
+    total: 1000
+    phase3_calibration: 60
+    phase4_generation: 40
+    phase5_main: 600
+    phase6_ablation: 200
+    reserve: 100
+  hard_stop_fraction: 0.95           # stop when phase spend reaches 95% of its cap
+  calibration:
+    designs: 5                       # RTLLM 1, RTL-OPT 2, Dr.RTL 2
+    seeds: 2
+    K: 6
+    N: 5
+    decision:
+      primary_metric: retained_candidates_per_usd
+      floor_best_gain_ratio: 0.70    # best retained gain per design >= 70% of the strongest model
+      require_c1_or_d_retained: true
+
+design_sets:                 # counts and splits filled in Phase 1; dev contains only ~20 RTLLM designs
+  suites:
+    drrtl20:   {source: "arXiv:2604.14989 (Dr.RTL) open-sourced designs", dev: [], held: TBD}
+    rtlopt36:  {source: "arXiv:2601.01765 (RTL-OPT)", start_from: suboptimal, reference: optimized, dev: [], held: TBD}
+    cktevo:    {source: "arXiv:2603.08718 (CktEvo)", extraction: module_level, target_count: 30, dev: [], held: TBD, sky130_subset: TBD}
+    rtllm_v2:  {source: "RTLLM v2.0", synthesizable_under_e4: TBD, dev: TBD, held: TBD}
+    rtlrewriter: {source: "arXiv:2409.11414", pairs: 20, llm_samples: 12, role: calibration_only}
+
+scale:                       # Phase 5 main-experiment scale; adjustable after G3 (record in DECISIONS)
+  starting_points: 30
+  arms: [B0, B1_E4, B2, M, M_noscreen, DrRTL_reimpl]
+  seeds: 3
+  N: 5
+  K: 12
+  budget:
+    k_e4_equiv: 60           # per-design DC-hour budget = k_e4_equiv x t_E4(D)
+  equal_llm_calls_aux: {arms: [M, B2], seeds: 1, calls: 60}
+  drrtl_original_reference: {designs: 5, executor: user_manual_claude_code}
+  cktevo_sky130_subexp: {modules: 8, arms: [M, B2], seeds: 1}
+
+search:
+  archive_size: 5
+  stall_gens: 3
+  feedback_depth: 3
+  recal_gens: 3
+  audit_frac: 0.10
+  bandit: {c_ucb: 1.0, softmax_temp: 0.5, arms: [a, b, c1, d, free]}
+screen:
+  candidates_es: [E1, E2, Y]
+  auroc_min: 0.75
+  e4_cheap_sec: 120
+  miss_max: 0.15
+  miss_min: 0.05
+diag:
+  fp_jaccard: 0.95           # may be changed after Phase 4 calibration (record in DECISIONS)
+  classes: [a, b, c1, c2, d]
+
+exp1:                        # Phase 4
+  b0_designs: {rtllm_dev: 5, cktevo_held: 5}
+  candidates_per_design: 30
+  configs: [E1, E2, E3, E4, E2r, E2t, E2g, H1, H2a, H2b, H3, H5, H4]
+  supplementary: [O0, O1, O2]
+  manual_check_per_class: 40
+
+ablations:                   # Phase 6, 30-start subset, 3 seeds
+  subset_size: 30
+  variants: [no_screen, fixed_es_tau, class_blind_predictor, scalar_feedback, credit_any_gain, no_noise_truncation, no_online_rung_attribution, no_map_prior, fitness_E2, fitness_E1, no_power_dim, no_c1, skeleton_coevo, skeleton_revolution]
+
+reporting:
+  cross_tool_tables_allowed_in_paper: TBD   # decided by the Phase 0 license check

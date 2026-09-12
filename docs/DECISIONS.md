@@ -1,0 +1,11 @@
+# docs/DECISIONS.md — Decision log
+
+Format: date · decision · basis · affected files/config · decided by (human / Claude Code)
+
+- 2026-09-12 · Main library Nangate45; hidden libraries ASAP7 + sky130hd; Sky130 additionally serves as the visible caliber of the CktEvo sub-experiment · PROPOSAL §2 and PLAN Phase 5 · config/experiments.yaml · human
+- 2026-09-12 · Main skeleton = parallel-candidate hill climbing + small archive; COEVO / REvolution only as skeleton-independence supplementary experiments · PROPOSAL §4.9 · src/search/skeletons · human
+- 2026-09-12 · All arms use the same OpenAI model, chosen by the Phase 3 calibration; the original Dr.RTL runs only as a reference row · PLAN Phase 3/5 · human
+- 2026-09-12 · The project only calls the scripts in /hdd1/hping/eda/flow/ and never modifies them; any unavoidable change requires re-running selfcheck.py and e2e.py · CLAUDE.md hard rule 1 · human
+- 2026-09-12 · STOP gates G0–G5 always "write the report, stop, wait for confirmation" · CLAUDE.md · human
+- 2026-09-12 · All project files are written in English · CLAUDE.md · human
+- 2026-09-12 · Provisional: `results/db/` and `results/snapshots/` are excluded from git by `.gitignore` until the git-vs-LFS decision for the results database is made in Phase 0.2 · PLAN 0.2 · .gitignore · Claude Code

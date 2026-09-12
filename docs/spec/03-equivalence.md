@@ -1,0 +1,43 @@
+# spec 03 — Equivalence stack `src/equiv/`
+
+Responsibility: decide whether candidate C is sequentially equivalent to the original design D, outputting `proven / falsified / inconclusive / rejected(V1) / sim_fail(V2)` plus latency-offset information. Only `proven` candidates may enter the population and the headline cells of the map.
+
+## 1. Four levels
+
+**V1 compile and interface check**: compile C with VCS (or `vlogan`); take the port list and widths with Yosys `read_verilog; hierarchy -top` and compare with D — any difference in port names, directions or widths -> `rejected`. Lint warnings are recorded only.
+
+**V2 lock-step simulation**: an automatically generated harness instantiates D and C together, applies the same stimulus sequence, and compares all outputs cycle by cycle:
+- stimulus: if a testbench exists, run it first (self-check failure -> `sim_fail`), then add `config: sim.random_cycles` cycles of constrained random stimulus (reset sequence follows D's reset polarity; valid/ready-type signals are driven by the protocol-recognition rules in config);
+- output comparison yields one of two conclusions: identical every cycle; or a constant offset k_o per output such that C's output equals D's delayed by k_o cycles (in steady state), recorded in `latency_offset_json`; otherwise `sim_fail`;
+- the same simulation dumps the VCD for the power path (spec 01 §4).
+
+**V3 VC Formal SEQ**: sequential equivalence proof with D as spec and C as implementation, no register mapping required; for class (c2), set output latency constraints from the V2 offsets (if the SEQ app supports it; otherwise (c2) stops at V2, is marked `proven_sim_only`, and never enters the headline). Result `proven / falsified / inconclusive`; timeout `config: timeouts.seq_min` (30 minutes at sub-module level by default). Counterexamples (falsified) keep their waveforms for diagnosis.
+
+**V4 VC Formal DPV**: only for V3-inconclusive modules dominated by arithmetic datapaths (multiply/divide, floating point, accumulation trees); still undecided stays `inconclusive`.
+
+## 2. Class policy
+
+- (a)(b)(c1)(d): V3 proven -> enters the population and the headline.
+- (c2) (latency or interface timing changed): enters the population only when the interface is a handshake protocol and the testbench is latency-agnostic (protocol-recognition rules in config); reported separately, never in the headline.
+- `inconclusive`: does not enter the population; fraction reported per class; the map gives both the proven subset and the undecided subset.
+- `falsified`: discarded, counterexample waveform archived; falsified rate per class (expected, following Metamorphosis, to be highest for timing-control-flow classes).
+
+## 3. Bidirectional verification (mandatory)
+
+- Positive: samples from the proven perturbation set of spec 02 must be proven; RTL-OPT suboptimal/optimized pairs (verified with Formality in the paper) must be proven.
+- Negative: mutants with injected bugs (flip a comparison operator, change a constant, remove a reset branch) must be falsified; V2 must catch most of them under random stimulus (report the caught fraction as V2's sensitivity baseline).
+- Timeout case: an artificially enlarged design must return `inconclusive` after the timeout instead of hanging.
+
+## 4. Records
+
+`candidates` table: `v1_status, v2_status, v2_cycles, latency_offset_json, v3_status, v3_seconds, v4_status, counterexample_path`.
+
+## 5. Fallback
+
+If the VC Formal SEQ app license is unavailable: class (a) uses Formality (or ABC `cec`) combinational equivalence; other classes use eqy / SymbiYosys miter + k-induction with results `proven / bounded(k) / inconclusive`, where bounded never enters the headline. Activating the fallback must be recorded in DECISIONS and stated in the paper.
+
+## 6. Notes
+
+- The exact VC Formal commands and app settings follow the on-machine documentation and `eda-knowledge`; run one design first and store the script as a template.
+- Resets in SEQ: the reset sequences of D and C must match; the initial-state assumptions of the harness and of SEQ are written in the template comments.
+- All equivalence jobs use the VC Formal seat pool, not the DC pool.
