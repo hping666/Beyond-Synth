@@ -1,12 +1,12 @@
 # STATUS.md — current state (read first at the start of every session; update before the end)
 
-Last updated: 2026-09-12 · after bootstrap commit 6578583 (Phase 0.0 done)
+Last updated: 2026-09-12 · Phase 0 complete, STOP G0 (reports/phase0.md)
 
 ## Current phase
 
 Phase: 0 (see docs/PLAN.md)
 Current task: Phase 0 tasks 0.0–0.5 done. 0.4 = job queue (`src/jobqueue/`, CLIs in `scripts/queue/`, `scripts/status.py`; 11 tests). 0.5 = evaluation service `src/eval/`: project-owned DC template (`templates/dc_eval.tcl`, step-checked, SDC markers, `set_host_options -max_cores 4`), `dc.py` driver, `parse.py`, `sdc.py` (one OpenSTA-native SDC convention, DC copy rewritten and unit-scaled), `yosys.py` (Y / O0–O2), `pt.py` (H4 via flow/sta.py + power.py), `knee.py`, `service.py` (content-addressed `results/raw/<design>/<config>/<hash>/`, cache, `-rN` reruns, ingest), `src/db/ingest.py`, queue runner `src/eval/run_dc.py`. Measured on RTLLM accu (2.0 ns nangate45, 0.5 ns asap7, 5.0 ns sky130hd): all 14 configurations ok (E1–E4, E2r/E2t/E2g, H1, H2a, H2b, H3 `-spg` in topographical mode, H5, Y, H4); E4 `-gate_clock` works (Power Compiler feature present: 1 ICG, 12/13 registers gated); two E4 runs bit-identical (area, WNS, TNS, histogram, critical path); reference artifacts in `tests/fixtures/rtllm_accu/`. Next: 0.6 equivalence stack.
-Stopped at: Phase 0 tasks 0.0–0.8 done; the G0 report is the next deliverable. Daemon stopped; start it with `.venv/bin/python scripts/queue/daemon.py start` before submitting real jobs.
+Stopped at: **STOP G0** — `reports/phase0.md` written 2026-09-12, waiting for human confirmation. Daemon stopped; start it with `.venv/bin/python scripts/queue/daemon.py start` before submitting real jobs.
 0.6 V4: `src/equiv/dpv.py` (project-owned vcf command line: `-batch`, system terminfo, bash-as-/bin/sh namespace, `solveNB`/`proofwait`, lemma per output): multi_8bit rewrite proven / bug falsified in ~50 s each (`tests/test_dpv_eda.py`); the stack runs V4 on combinational modules after an inconclusive SEQ. 0.7: lock-step VCD → vcd2saif → DC `read_saif` 0.0405 mW vs PrimePower (same SAIF) 0.0373 mW vs DC default toggles 0.1081 mW (`tests/test_power_eda.py`). 0.8: no license text on the machine → `unclear` (DECISIONS).
 0.6 so far: `src/equiv/` = ports.py (Yosys JSON interface check, clock/reset inference), rename.py (candidate module suffix `__cand`), harness.py (Verilog-2001 lock-step harness, VCS in a bash-as-/bin/sh mount namespace, trace comparison with constant latency offsets, VCD of both instances, testbench runner), seq.py (VC Formal SEQ via flow/vcf.py, single worker), saif.py (vcd2saif), stack.py (V1→V2→V3 orchestration, verdicts). Bidirectional EDA tests pass on 2026-09-12 (`tests/test_equiv_eda.py`: accu renaming perturbation identical + proven in ~30 s; injected-bug mutant sim_fail + falsified; width change rejected at V1). New trap #28 appended to eda-knowledge (VCS under dash).
 Next steps (by priority):
@@ -19,6 +19,7 @@ Open items from 0.5: RTL-line mapping of the critical path is not yet implemente
 
 | Gate | Submitted on | Report path | Human decision |
 |---|---|---|---|
+| G0 | 2026-09-12 | reports/phase0.md | pending (questions 1–6 in the report: close G0, license/publication, raw retention, Y caliber, cost model, V4 scope) |
 
 ## Environment (filled by Claude Code in Phase 0 after reading eda-knowledge; afterwards updated only when the environment changes)
 
