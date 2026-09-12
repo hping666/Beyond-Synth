@@ -12,9 +12,9 @@ from src.db import core as db
 from src.search import llm as L
 
 
-def fake_response(inp=1000, cached=400, out=200, reasoning=50, text="module x; endmodule"):
+def fake_response(inp=1000, cached=400, out=200, reasoning=50, writes=100, text="module x; endmodule"):
     usage = SimpleNamespace(input_tokens=inp, output_tokens=out, total_tokens=inp + out,
-                            input_tokens_details=SimpleNamespace(cached_tokens=cached, cache_write_tokens=0),
+                            input_tokens_details=SimpleNamespace(cached_tokens=cached, cache_write_tokens=writes),
                             output_tokens_details=SimpleNamespace(reasoning_tokens=reasoning))
     return SimpleNamespace(id="resp_1", status="completed", output_text=text, usage=usage)
 
@@ -35,7 +35,7 @@ class FakeTransport:
 def env(tmp_path):
     cfg = copy.deepcopy(C.load())
     cfg["project"]["results_dir"] = str(tmp_path / "results")
-    cfg["llm"]["prices_usd_per_1m"] = {"m1": {"input": 2.0, "cached_input": 0.5, "output": 8.0}, "m_tbd": {"input": "TBD", "cached_input": 0.5, "output": 8.0}}
+    cfg["llm"]["prices_usd_per_1m"] = {"m1": {"input": 2.0, "cached_input": 0.5, "cache_write": 2.5, "output": 8.0}, "m_tbd": {"input": "TBD", "cached_input": 0.5, "output": 8.0}}
     cfg["llm"]["budget_usd"]["phase3_calibration"] = 0.01
     conn = db.connect(path=str(tmp_path / "r.sqlite"))
     return cfg, conn
@@ -46,8 +46,11 @@ def test_call_saves_request_counts_tokens_and_bills_the_ledger(env):
     tr = FakeTransport()
     c = L.LLMClient(cfg, conn, "phase3_calibration", "run_t", transport=tr, sleep=lambda s: None)
     r = c.call("m1", "STABLE PREFIX", "variable suffix", tag="gen1")
-    assert r["text"].startswith("module") and r["usage"] == {"input_tokens": 1000, "cached_tokens": 400, "output_tokens": 200, "reasoning_tokens": 50}
-    assert abs(r["cost_usd"] - ((600 * 2.0 + 400 * 0.5 + 200 * 8.0) / 1e6)) < 1e-12  # cached tokens at the cached rate
+    assert r["text"].startswith("module") and r["usage"] == {"input_tokens": 1000, "cached_tokens": 400, "cache_write_tokens": 100, "output_tokens": 200, "reasoning_tokens": 50}
+    assert abs(r["cost_usd"] - ((500 * 2.0 + 400 * 0.5 + 100 * 2.5 + 200 * 8.0) / 1e6)) < 1e-12  # cached and cache-write tokens at their own rates
+    assert abs(L.cost_usd({"input": 1.0, "cached_input": 0.1, "output": 4.0}, {"input_tokens": 10, "cached_tokens": 0, "cache_write_tokens": 5, "output_tokens": 0}) - 10 / 1e6) < 1e-15  # no cache-write price -> writes billed at 0
+    real = C.load()["llm"]["prices_usd_per_1m"]
+    assert all(set(v) >= {"input", "cached_input", "output"} for v in real.values()) and set(real) >= set(C.load()["llm"]["candidates"])
     kw = tr.calls[0]
     assert kw["instructions"] == "STABLE PREFIX" and kw["input"] == "variable suffix" and kw["store"] is False and kw["prompt_cache_key"]
     assert kw["max_output_tokens"] == cfg["llm"]["max_output_tokens"] and kw["reasoning"] == {"effort": cfg["llm"]["reasoning_effort"]} and "temperature" not in kw

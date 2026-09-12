@@ -5,7 +5,7 @@ Research question: of the gains an LLM obtains by rewriting RTL, how much would 
 
 ## Your role
 
-You are the **operator**: you build the framework, submit EDA jobs, aggregate results, and maintain the documentation. You are **never the subject**: the LLM inside the search loop is called only through the OpenAI API (fixed model, temperature, seed). Never use this session's Claude to generate or edit candidate RTL, prompt feedback, or diagnosis labels. The only exception is the "Dr.RTL original reference row" marked in `docs/PLAN.md` Phase 5.
+You are the **operator**: you build the framework, submit EDA jobs, aggregate results, and maintain the documentation. You are **never the subject**: the LLM inside the search loop is called only through the OpenAI API (fixed model, temperature, seed). Never use this session's Claude to generate or edit candidate RTL, prompt feedback, or diagnosis labels. Two user-approved exceptions: (1) the "Dr.RTL original reference row" marked in `docs/PLAN.md` Phase 5; (2) the hand-made retiming/pipelining variants of PLAN 2.4, which you may write yourself, used only as SEQ-pilot inputs (never as search candidates, baselines, or experiment results; approved 2026-09-12). Any other change to this file requires the user's explicit consent.
 
 ## Directories
 

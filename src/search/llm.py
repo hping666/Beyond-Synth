@@ -31,20 +31,25 @@ def spent_usd(conn, phase):
 
 
 def cost_usd(prices, usage):
-    """usage: {input_tokens, cached_tokens, output_tokens}; cached tokens are billed at the cached rate."""
+    """usage: {input_tokens, cached_tokens, cache_write_tokens, output_tokens}; cached tokens are billed at the cached
+    rate, cache writes at the cache-write rate (the input rate for models without a separate one), the rest at the input rate."""
     cached = int(usage.get("cached_tokens") or 0)
-    fresh = max(0, int(usage.get("input_tokens") or 0) - cached)
-    return (fresh * float(prices["input"]) + cached * float(prices["cached_input"]) + int(usage.get("output_tokens") or 0) * float(prices["output"])) / 1e6
+    writes = int(usage.get("cache_write_tokens") or 0)
+    fresh = max(0, int(usage.get("input_tokens") or 0) - cached - writes)
+    write_rate = prices["input"] if prices.get("cache_write") is None else prices["cache_write"]  # no surcharge -> input rate
+    return (fresh * float(prices["input"]) + cached * float(prices["cached_input"]) + writes * float(write_rate)
+            + int(usage.get("output_tokens") or 0) * float(prices["output"])) / 1e6
 
 
 def _usage_dict(resp):
     u = getattr(resp, "usage", None)
     if u is None:
-        return {"input_tokens": 0, "cached_tokens": 0, "output_tokens": 0, "reasoning_tokens": 0}
+        return {"input_tokens": 0, "cached_tokens": 0, "cache_write_tokens": 0, "output_tokens": 0, "reasoning_tokens": 0}
     det_in = getattr(u, "input_tokens_details", None)
     det_out = getattr(u, "output_tokens_details", None)
     return {"input_tokens": int(getattr(u, "input_tokens", 0) or 0),
             "cached_tokens": int(getattr(det_in, "cached_tokens", 0) or 0) if det_in else 0,
+            "cache_write_tokens": int(getattr(det_in, "cache_write_tokens", 0) or 0) if det_in else 0,
             "output_tokens": int(getattr(u, "output_tokens", 0) or 0),
             "reasoning_tokens": int(getattr(det_out, "reasoning_tokens", 0) or 0) if det_out else 0}
 
