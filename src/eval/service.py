@@ -37,6 +37,7 @@ def resolve_config(cfg, name, design=None, clock_ns=None):
     if c["tool"] == "dc":
         out["compile"] = c["compile"]
         out["mode"] = "topo" if "-spg" in c["compile"] else "wireload"
+        out["synlib"] = c.get("synlib", "dw")
     elif c["tool"] in ("yosys_opensta",):
         out["script"] = c["script"]
     elif c["tool"] == "pt_primepower":
@@ -113,7 +114,8 @@ def evaluate(cfg, conn, design_id, rtl_files, top, config_name, *, clock_ns=None
     started = datetime.datetime.now().isoformat(timespec="seconds")
     if res["tool"] == "dc":
         rec = run_dc(job_dir, rtl_files, top, res["lib"], res["compile"], res["clock_ns"], clk_port, cfg, mode=res["mode"],
-                     saif=saif, saif_instance=saif_instance, sverilog=sverilog, incdirs=incdirs, timeout_sec=timeout_sec)
+                     saif=saif, saif_instance=saif_instance, sverilog=sverilog, incdirs=incdirs, timeout_sec=timeout_sec,
+                     synlib=res.get("synlib", "dw"))
     elif res["tool"] == "yosys_opensta":
         from src.eval.yosys import run_yosys
         rec = run_yosys(job_dir, rtl_files, top, res["lib"], res["script"], res["clock_ns"], clk_port, cfg,

@@ -49,8 +49,9 @@ def stage_inputs(job_dir, rtl_files):
 
 def run_dc(job_dir, rtl_files, top, lib, compile_cmd, clock_ns, clk_port, cfg, *, mode=None, saif=None,
            saif_instance=None, sverilog=False, incdirs=None, dont_use=None, timeout_sec=None, max_cores=None,
-           sdc_override=None):
-    """sdc_override: a ready Synopsys SDC used instead of the generated one (negative tests only)."""
+           sdc_override=None, synlib="dw"):
+    """sdc_override: a ready Synopsys SDC used instead of the generated one (negative tests only).
+    synlib: 'dw' (DesignWare Foundation) or 'standard' (only the standard synthetic library; basic rung)."""
     job_dir = Path(job_dir)
     inputs, outputs = job_dir / "inputs", job_dir / "outputs"
     reports, dc_work = outputs / "reports", outputs / "dc_work"
@@ -60,8 +61,8 @@ def run_dc(job_dir, rtl_files, top, lib, compile_cmd, clock_ns, clk_port, cfg, *
     mode = mode or ("topo" if "-spg" in compile_cmd else "wireload")
     time_scale = float(lib_cfg.get("time_scale", 1.0))
     rec = {"tool": "dc", "tool_version": tools["dc"]["version"], "config_compile": compile_cmd, "lib": lib,
-           "clock_ns": float(clock_ns), "mode": mode, "status": "unknown", "error": None, "checks": {},
-           "metrics": {}, "dc_seconds": None, "wall_seconds": None}
+           "clock_ns": float(clock_ns), "mode": mode, "synlib": synlib or "dw", "status": "unknown", "error": None,
+           "checks": {}, "metrics": {}, "dc_seconds": None, "wall_seconds": None}
 
     dbs = resolve_dbs(lib_cfg["db"])
     missing = [str(p) for p in dbs if not p.exists()]
@@ -102,6 +103,7 @@ def run_dc(job_dir, rtl_files, top, lib, compile_cmd, clock_ns, clk_port, cfg, *
         "EVAL_MW_REF": str(lib_cfg.get("physical_ref_for_spg") or ""),
         "EVAL_MW_TF": str(lib_cfg.get("mw_tf") or ""),
         "EVAL_CG_STYLE": str(cfg["constraints"].get("clock_gating_style") or ""),
+        "EVAL_SYNLIB": synlib or "dw",
         "EVAL_SAIF": str(saif) if saif else "",
         "EVAL_SAIF_INSTANCE": saif_instance or "",
         "EVAL_FLOW_DIR": cfg["project"]["flow_dir"],

@@ -1,0 +1,2843 @@
+[
+ {
+  "clk_port": null,
+  "clock_ns": 3.0,
+  "config": "E1",
+  "dc_seconds": 121.9,
+  "design": "div_16bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 206,
+   "AND2_X2": 9,
+   "AND3_X1": 47,
+   "AND3_X2": 4,
+   "AND4_X1": 3,
+   "AND4_X2": 1,
+   "AOI211_X1": 18,
+   "AOI21_X1": 59,
+   "AOI221_X1": 21,
+   "AOI22_X1": 8,
+   "BUF_X1": 62,
+   "BUF_X2": 15,
+   "BUF_X4": 3,
+   "CLKBUF_X1": 77,
+   "CLKBUF_X3": 5,
+   "INV_X1": 624,
+   "INV_X2": 10,
+   "INV_X32": 1,
+   "INV_X4": 1,
+   "MUX2_X1": 89,
+   "MUX2_X2": 13,
+   "NAND2_X1": 553,
+   "NAND2_X2": 2,
+   "NAND3_X1": 179,
+   "NAND4_X1": 58,
+   "NOR2_X1": 99,
+   "NOR3_X1": 25,
+   "NOR4_X1": 7,
+   "OAI211_X1": 96,
+   "OAI21_X1": 143,
+   "OAI221_X1": 16,
+   "OAI222_X1": 2,
+   "OAI22_X1": 17,
+   "OAI33_X1": 8,
+   "OR2_X1": 43,
+   "OR2_X2": 8,
+   "XNOR2_X1": 44,
+   "XNOR2_X2": 1,
+   "XOR2_X1": 68
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 0,
+   "warning": 2
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [],
+   "warning": [
+    "Warning: Creating virtual clock named 'clk' with no sources. (UID-348)",
+    "Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)"
+   ]
+  },
+  "metrics": {
+   "area": 2534.979997,
+   "cells": 2645,
+   "comb_area": 2534.979997,
+   "comb_cells": 2645.0,
+   "crit_delay_ns": 4.431041,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 0.0,
+   "period_lib_units": 3.0,
+   "power_default_mw": 1.011211,
+   "power_saif_mw": null,
+   "registers": 0.0,
+   "seq_cells": 0.0,
+   "tns_ns": -50.231213,
+   "wns_ns": -2.63104
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_div_16bit/E1/460b0f92e670f53f",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [],
+   "implementations": [],
+   "shared_resources": 0
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": null,
+  "clock_ns": 3.0,
+  "config": "E2",
+  "dc_seconds": 136.9,
+  "design": "div_16bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 117,
+   "AND2_X2": 6,
+   "AND3_X1": 19,
+   "AND3_X2": 4,
+   "AND4_X1": 2,
+   "AND4_X2": 4,
+   "AOI211_X1": 2,
+   "AOI21_X1": 44,
+   "AOI21_X2": 2,
+   "AOI22_X1": 3,
+   "AOI22_X2": 1,
+   "BUF_X1": 37,
+   "BUF_X2": 20,
+   "BUF_X4": 1,
+   "BUF_X8": 1,
+   "CLKBUF_X1": 9,
+   "CLKBUF_X2": 1,
+   "INV_X1": 255,
+   "INV_X2": 4,
+   "INV_X4": 4,
+   "MUX2_X1": 70,
+   "MUX2_X2": 2,
+   "NAND2_X1": 371,
+   "NAND2_X2": 3,
+   "NAND3_X1": 19,
+   "NAND3_X2": 1,
+   "NAND4_X1": 16,
+   "NOR2_X1": 182,
+   "NOR2_X2": 17,
+   "NOR3_X1": 3,
+   "OAI211_X1": 26,
+   "OAI211_X2": 2,
+   "OAI21_X1": 92,
+   "OAI21_X2": 7,
+   "OAI22_X1": 2,
+   "OR2_X1": 119,
+   "OR2_X2": 8,
+   "OR3_X1": 5,
+   "OR3_X2": 1,
+   "XNOR2_X1": 66,
+   "XNOR2_X2": 2,
+   "XOR2_X1": 67
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 2
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: Creating virtual clock named 'clk' with no sources. (UID-348)",
+    "Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)"
+   ]
+  },
+  "metrics": {
+   "area": 1608.50199,
+   "cells": 1617,
+   "comb_area": 1608.50199,
+   "comb_cells": 1617.0,
+   "crit_delay_ns": 4.549502,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 0.0,
+   "period_lib_units": 3.0,
+   "power_default_mw": 0.67856366,
+   "power_saif_mw": null,
+   "registers": 0.0,
+   "seq_cells": 0.0,
+   "tns_ns": -56.212898,
+   "wns_ns": -2.7495
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_div_16bit/E2/8a7e5a18f9e000b2",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 17
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": null,
+  "clock_ns": 3.0,
+  "config": "E3",
+  "dc_seconds": 133.1,
+  "design": "div_16bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 117,
+   "AND2_X2": 6,
+   "AND3_X1": 19,
+   "AND3_X2": 4,
+   "AND4_X1": 2,
+   "AND4_X2": 4,
+   "AOI211_X1": 2,
+   "AOI21_X1": 44,
+   "AOI21_X2": 2,
+   "AOI22_X1": 3,
+   "AOI22_X2": 1,
+   "BUF_X1": 37,
+   "BUF_X2": 20,
+   "BUF_X4": 1,
+   "BUF_X8": 1,
+   "CLKBUF_X1": 9,
+   "CLKBUF_X2": 1,
+   "INV_X1": 255,
+   "INV_X2": 4,
+   "INV_X4": 4,
+   "MUX2_X1": 70,
+   "MUX2_X2": 2,
+   "NAND2_X1": 371,
+   "NAND2_X2": 3,
+   "NAND3_X1": 19,
+   "NAND3_X2": 1,
+   "NAND4_X1": 16,
+   "NOR2_X1": 182,
+   "NOR2_X2": 17,
+   "NOR3_X1": 3,
+   "OAI211_X1": 26,
+   "OAI211_X2": 2,
+   "OAI21_X1": 92,
+   "OAI21_X2": 7,
+   "OAI22_X1": 2,
+   "OR2_X1": 119,
+   "OR2_X2": 8,
+   "OR3_X1": 5,
+   "OR3_X2": 1,
+   "XNOR2_X1": 66,
+   "XNOR2_X2": 2,
+   "XOR2_X1": 67
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 2
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: Creating virtual clock named 'clk' with no sources. (UID-348)",
+    "Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)"
+   ]
+  },
+  "metrics": {
+   "area": 1608.50199,
+   "cells": 1617,
+   "comb_area": 1608.50199,
+   "comb_cells": 1617.0,
+   "crit_delay_ns": 4.549502,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 0.0,
+   "period_lib_units": 3.0,
+   "power_default_mw": 0.67856366,
+   "power_saif_mw": null,
+   "registers": 0.0,
+   "seq_cells": 0.0,
+   "tns_ns": -56.212898,
+   "wns_ns": -2.7495
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_div_16bit/E3/9c2ff453798494b8",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 17
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": null,
+  "clock_ns": 3.0,
+  "config": "E4",
+  "dc_seconds": 135.3,
+  "design": "div_16bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 117,
+   "AND2_X2": 6,
+   "AND3_X1": 19,
+   "AND3_X2": 4,
+   "AND4_X1": 2,
+   "AND4_X2": 4,
+   "AOI211_X1": 2,
+   "AOI21_X1": 44,
+   "AOI21_X2": 2,
+   "AOI22_X1": 3,
+   "AOI22_X2": 1,
+   "BUF_X1": 37,
+   "BUF_X2": 20,
+   "BUF_X4": 1,
+   "BUF_X8": 1,
+   "CLKBUF_X1": 9,
+   "CLKBUF_X2": 1,
+   "INV_X1": 255,
+   "INV_X2": 4,
+   "INV_X4": 4,
+   "MUX2_X1": 70,
+   "MUX2_X2": 2,
+   "NAND2_X1": 371,
+   "NAND2_X2": 3,
+   "NAND3_X1": 19,
+   "NAND3_X2": 1,
+   "NAND4_X1": 16,
+   "NOR2_X1": 182,
+   "NOR2_X2": 17,
+   "NOR3_X1": 3,
+   "OAI211_X1": 26,
+   "OAI211_X2": 2,
+   "OAI21_X1": 92,
+   "OAI21_X2": 7,
+   "OAI22_X1": 2,
+   "OR2_X1": 119,
+   "OR2_X2": 8,
+   "OR3_X1": 5,
+   "OR3_X2": 1,
+   "XNOR2_X1": 66,
+   "XNOR2_X2": 2,
+   "XOR2_X1": 67
+  },
+  "log_counts": {
+   "clock_gating": 3,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 3
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design verified_div_16bit, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_div_16bit_DP_OP_160J1_122_9896_J1_0, since there are no registers. (PWR-806)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: Creating virtual clock named 'clk' with no sources. (UID-348)",
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)",
+    "Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)"
+   ]
+  },
+  "metrics": {
+   "area": 1608.50199,
+   "cells": 1617,
+   "cg_gated_regs": 0,
+   "cg_icg_count": 0,
+   "cg_icg_tool_inserted": 0,
+   "cg_total_regs": 0,
+   "cg_ungated_regs": 0,
+   "comb_area": 1608.50199,
+   "comb_cells": 1617.0,
+   "crit_delay_ns": 4.549502,
+   "hier_cells": 0.0,
+   "icg_count": 0,
+   "noncomb_area": 0.0,
+   "period_lib_units": 3.0,
+   "power_default_mw": 0.67856366,
+   "power_saif_mw": null,
+   "registers": 0.0,
+   "seq_cells": 0.0,
+   "tns_ns": -56.212898,
+   "wns_ns": -2.7495
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_div_16bit/E4/ce1e33d73903b21e",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 17
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": null,
+  "clock_ns": 3.0,
+  "config": "E2r",
+  "dc_seconds": 132.1,
+  "design": "div_16bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 117,
+   "AND2_X2": 6,
+   "AND3_X1": 19,
+   "AND3_X2": 4,
+   "AND4_X1": 2,
+   "AND4_X2": 4,
+   "AOI211_X1": 2,
+   "AOI21_X1": 44,
+   "AOI21_X2": 2,
+   "AOI22_X1": 3,
+   "AOI22_X2": 1,
+   "BUF_X1": 37,
+   "BUF_X2": 20,
+   "BUF_X4": 1,
+   "BUF_X8": 1,
+   "CLKBUF_X1": 9,
+   "CLKBUF_X2": 1,
+   "INV_X1": 255,
+   "INV_X2": 4,
+   "INV_X4": 4,
+   "MUX2_X1": 70,
+   "MUX2_X2": 2,
+   "NAND2_X1": 371,
+   "NAND2_X2": 3,
+   "NAND3_X1": 19,
+   "NAND3_X2": 1,
+   "NAND4_X1": 16,
+   "NOR2_X1": 182,
+   "NOR2_X2": 17,
+   "NOR3_X1": 3,
+   "OAI211_X1": 26,
+   "OAI211_X2": 2,
+   "OAI21_X1": 92,
+   "OAI21_X2": 7,
+   "OAI22_X1": 2,
+   "OR2_X1": 119,
+   "OR2_X2": 8,
+   "OR3_X1": 5,
+   "OR3_X2": 1,
+   "XNOR2_X1": 66,
+   "XNOR2_X2": 2,
+   "XOR2_X1": 67
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 2
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: Creating virtual clock named 'clk' with no sources. (UID-348)",
+    "Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)"
+   ]
+  },
+  "metrics": {
+   "area": 1608.50199,
+   "cells": 1617,
+   "comb_area": 1608.50199,
+   "comb_cells": 1617.0,
+   "crit_delay_ns": 4.549502,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 0.0,
+   "period_lib_units": 3.0,
+   "power_default_mw": 0.67856366,
+   "power_saif_mw": null,
+   "registers": 0.0,
+   "seq_cells": 0.0,
+   "tns_ns": -56.212898,
+   "wns_ns": -2.7495
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_div_16bit/E2r/0425a77a5bcd08a3",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 17
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": null,
+  "clock_ns": 3.0,
+  "config": "E2t",
+  "dc_seconds": 135.7,
+  "design": "div_16bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 117,
+   "AND2_X2": 6,
+   "AND3_X1": 19,
+   "AND3_X2": 4,
+   "AND4_X1": 2,
+   "AND4_X2": 4,
+   "AOI211_X1": 2,
+   "AOI21_X1": 44,
+   "AOI21_X2": 2,
+   "AOI22_X1": 3,
+   "AOI22_X2": 1,
+   "BUF_X1": 37,
+   "BUF_X2": 20,
+   "BUF_X4": 1,
+   "BUF_X8": 1,
+   "CLKBUF_X1": 9,
+   "CLKBUF_X2": 1,
+   "INV_X1": 255,
+   "INV_X2": 4,
+   "INV_X4": 4,
+   "MUX2_X1": 70,
+   "MUX2_X2": 2,
+   "NAND2_X1": 371,
+   "NAND2_X2": 3,
+   "NAND3_X1": 19,
+   "NAND3_X2": 1,
+   "NAND4_X1": 16,
+   "NOR2_X1": 182,
+   "NOR2_X2": 17,
+   "NOR3_X1": 3,
+   "OAI211_X1": 26,
+   "OAI211_X2": 2,
+   "OAI21_X1": 92,
+   "OAI21_X2": 7,
+   "OAI22_X1": 2,
+   "OR2_X1": 119,
+   "OR2_X2": 8,
+   "OR3_X1": 5,
+   "OR3_X2": 1,
+   "XNOR2_X1": 66,
+   "XNOR2_X2": 2,
+   "XOR2_X1": 67
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 3
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: Creating virtual clock named 'clk' with no sources. (UID-348)",
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)",
+    "Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)"
+   ]
+  },
+  "metrics": {
+   "area": 1608.50199,
+   "cells": 1617,
+   "comb_area": 1608.50199,
+   "comb_cells": 1617.0,
+   "crit_delay_ns": 4.549502,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 0.0,
+   "period_lib_units": 3.0,
+   "power_default_mw": 0.67856366,
+   "power_saif_mw": null,
+   "registers": 0.0,
+   "seq_cells": 0.0,
+   "tns_ns": -56.212898,
+   "wns_ns": -2.7495
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_div_16bit/E2t/5a22865c31baf767",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 17
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": null,
+  "clock_ns": 3.0,
+  "config": "E2g",
+  "dc_seconds": 126.3,
+  "design": "div_16bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 117,
+   "AND2_X2": 6,
+   "AND3_X1": 19,
+   "AND3_X2": 4,
+   "AND4_X1": 2,
+   "AND4_X2": 4,
+   "AOI211_X1": 2,
+   "AOI21_X1": 44,
+   "AOI21_X2": 2,
+   "AOI22_X1": 3,
+   "AOI22_X2": 1,
+   "BUF_X1": 37,
+   "BUF_X2": 20,
+   "BUF_X4": 1,
+   "BUF_X8": 1,
+   "CLKBUF_X1": 9,
+   "CLKBUF_X2": 1,
+   "INV_X1": 255,
+   "INV_X2": 4,
+   "INV_X4": 4,
+   "MUX2_X1": 70,
+   "MUX2_X2": 2,
+   "NAND2_X1": 371,
+   "NAND2_X2": 3,
+   "NAND3_X1": 19,
+   "NAND3_X2": 1,
+   "NAND4_X1": 16,
+   "NOR2_X1": 182,
+   "NOR2_X2": 17,
+   "NOR3_X1": 3,
+   "OAI211_X1": 26,
+   "OAI211_X2": 2,
+   "OAI21_X1": 92,
+   "OAI21_X2": 7,
+   "OAI22_X1": 2,
+   "OR2_X1": 119,
+   "OR2_X2": 8,
+   "OR3_X1": 5,
+   "OR3_X2": 1,
+   "XNOR2_X1": 66,
+   "XNOR2_X2": 2,
+   "XOR2_X1": 67
+  },
+  "log_counts": {
+   "clock_gating": 3,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 2
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design verified_div_16bit, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_div_16bit_DP_OP_160J1_122_9896_J1_0, since there are no registers. (PWR-806)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: Creating virtual clock named 'clk' with no sources. (UID-348)",
+    "Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)"
+   ]
+  },
+  "metrics": {
+   "area": 1608.50199,
+   "cells": 1617,
+   "cg_gated_regs": 0,
+   "cg_icg_count": 0,
+   "cg_icg_tool_inserted": 0,
+   "cg_total_regs": 0,
+   "cg_ungated_regs": 0,
+   "comb_area": 1608.50199,
+   "comb_cells": 1617.0,
+   "crit_delay_ns": 4.549502,
+   "hier_cells": 0.0,
+   "icg_count": 0,
+   "noncomb_area": 0.0,
+   "period_lib_units": 3.0,
+   "power_default_mw": 0.67856366,
+   "power_saif_mw": null,
+   "registers": 0.0,
+   "seq_cells": 0.0,
+   "tns_ns": -56.212898,
+   "wns_ns": -2.7495
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_div_16bit/E2g/efe5f8f059a1a0b3",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 17
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": null,
+  "clock_ns": 3.0,
+  "config": "H5",
+  "dc_seconds": 137.4,
+  "design": "div_16bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 144,
+   "AND2_X2": 9,
+   "AND3_X1": 17,
+   "AND3_X2": 2,
+   "AND4_X1": 3,
+   "AND4_X2": 4,
+   "AOI211_X1": 2,
+   "AOI21_X1": 50,
+   "AOI22_X1": 4,
+   "BUF_X1": 48,
+   "BUF_X2": 17,
+   "BUF_X8": 1,
+   "CLKBUF_X1": 16,
+   "CLKBUF_X2": 1,
+   "INV_X1": 280,
+   "INV_X2": 4,
+   "INV_X4": 1,
+   "MUX2_X1": 66,
+   "MUX2_X2": 9,
+   "NAND2_X1": 348,
+   "NAND3_X1": 17,
+   "NAND4_X1": 9,
+   "NAND4_X2": 3,
+   "NOR2_X1": 179,
+   "NOR2_X2": 10,
+   "NOR3_X1": 2,
+   "OAI211_X1": 33,
+   "OAI211_X2": 2,
+   "OAI21_X1": 99,
+   "OAI21_X2": 6,
+   "OAI22_X1": 3,
+   "OR2_X1": 121,
+   "OR2_X2": 7,
+   "OR3_X1": 5,
+   "OR3_X2": 4,
+   "OR4_X2": 1,
+   "XNOR2_X1": 78,
+   "XNOR2_X2": 1,
+   "XOR2_X1": 58
+  },
+  "log_counts": {
+   "clock_gating": 3,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 0,
+   "warning": 2
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design verified_div_16bit, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_div_16bit_DP_OP_160J1_122_9896_J1_0, since there are no registers. (PWR-806)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [],
+   "warning": [
+    "Warning: Creating virtual clock named 'clk' with no sources. (UID-348)",
+    "Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)"
+   ]
+  },
+  "metrics": {
+   "area": 1651.061991,
+   "cells": 1664,
+   "cg_gated_regs": 0,
+   "cg_icg_count": 0,
+   "cg_icg_tool_inserted": 0,
+   "cg_total_regs": 0,
+   "cg_ungated_regs": 0,
+   "comb_area": 1651.061991,
+   "comb_cells": 1664.0,
+   "crit_delay_ns": 4.444233,
+   "hier_cells": 0.0,
+   "icg_count": 0,
+   "noncomb_area": 0.0,
+   "period_lib_units": 3.0,
+   "power_default_mw": 0.699518188,
+   "power_saif_mw": null,
+   "registers": 0.0,
+   "seq_cells": 0.0,
+   "tns_ns": -53.498852,
+   "wns_ns": -2.64423
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_div_16bit/H5/9d600cc343b4a507",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 17
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E1",
+  "dc_seconds": 6.5,
+  "design": "multi_pipe_8bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 14,
+   "AND3_X1": 2,
+   "AOI21_X1": 8,
+   "BUF_X1": 10,
+   "CLKBUF_X1": 1,
+   "DFFR_X1": 84,
+   "DFF_X1": 8,
+   "FA_X1": 8,
+   "HA_X1": 3,
+   "INV_X1": 72,
+   "INV_X2": 24,
+   "NAND2_X1": 47,
+   "NAND3_X1": 2,
+   "NOR2_X1": 87,
+   "NOR3_X1": 1,
+   "OAI21_X1": 49,
+   "OAI22_X1": 8,
+   "OR2_X1": 16,
+   "XNOR2_X1": 23,
+   "XOR2_X1": 53
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 0,
+   "warning": 3
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [],
+   "warning": [
+    "Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)",
+    "Warning: Verilog writer has added 2 nets to module verified_multi_pipe_8bit using SYNOPSYS_UNCONNECTED_ as prefix.  Please use the change_names command to make the correct changes before invoking the verilog writer.  (VO-11)",
+    "Warning: Changed instance name mul_en_out_reg to mul_en_out_reg_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)"
+   ]
+  },
+  "metrics": {
+   "area": 928.606008,
+   "cells": 520,
+   "comb_area": 445.549995,
+   "comb_cells": 428.0,
+   "crit_delay_ns": 0.943859,
+   "hier_cells": 3.0,
+   "icg_count": null,
+   "noncomb_area": 483.056013,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.802040894,
+   "power_saif_mw": null,
+   "registers": 92.0,
+   "seq_cells": 92.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.019973
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_multi_pipe_8bit/E1/c21c83f6df549619",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [],
+   "implementations": [
+    {
+     "cell": "add_69",
+     "impl": "rpl",
+     "module": "DW01_add"
+    }
+   ],
+   "shared_resources": 0
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E2",
+  "dc_seconds": 60.3,
+  "design": "multi_pipe_8bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 39,
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 8,
+   "BUF_X1": 4,
+   "CLKBUF_X1": 6,
+   "DFFR_X1": 83,
+   "DFFS_X1": 1,
+   "DFF_X1": 8,
+   "FA_X1": 31,
+   "INV_X1": 35,
+   "NAND2_X1": 87,
+   "NAND3_X1": 13,
+   "NAND4_X1": 1,
+   "NOR2_X1": 13,
+   "OAI211_X1": 2,
+   "OAI21_X1": 8,
+   "OR2_X1": 5,
+   "XNOR2_X1": 3,
+   "XOR2_X1": 34
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 17
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: Changed instance name mul_en_out_reg to mul_en_out_reg_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[15] to mul_out_reg[15]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[14] to mul_out_reg[14]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[13] to mul_out_reg[13]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[12] to mul_out_reg[12]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[11] to mul_out_reg[11]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[10] to mul_out_reg[10]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[9] to mul_out_reg[9]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)"
+   ]
+  },
+  "metrics": {
+   "area": 873.278012,
+   "cells": 388,
+   "comb_area": 390.221999,
+   "comb_cells": 296.0,
+   "crit_delay_ns": 0.957339,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 483.056013,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.7843930050000001,
+   "power_saif_mw": null,
+   "registers": 92.0,
+   "seq_cells": 92.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.0019176
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_multi_pipe_8bit/E2/88763091d024375c",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 5
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E3",
+  "dc_seconds": 59.5,
+  "design": "multi_pipe_8bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 34,
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 8,
+   "CLKBUF_X1": 4,
+   "DFFR_X1": 80,
+   "DFFS_X1": 6,
+   "DFF_X1": 8,
+   "FA_X1": 32,
+   "INV_X1": 29,
+   "NAND2_X1": 84,
+   "NAND3_X1": 11,
+   "NAND4_X1": 1,
+   "NOR2_X1": 11,
+   "OAI21_X1": 7,
+   "XNOR2_X1": 2,
+   "XOR2_X1": 33
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 14
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: Changed instance name mul_en_out_reg to mul_en_out_reg_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[12] to mul_out_reg[12]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[11] to mul_out_reg[11]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[10] to mul_out_reg[10]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[9] to mul_out_reg[9]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[8] to mul_out_reg[8]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[7] to mul_out_reg[7]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[6] to mul_out_reg[6]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)"
+   ]
+  },
+  "metrics": {
+   "area": 856.520012,
+   "cells": 357,
+   "comb_area": 362.823999,
+   "comb_cells": 263.0,
+   "crit_delay_ns": 0.960543,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 493.696013,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.791679443,
+   "power_saif_mw": null,
+   "registers": 94.0,
+   "seq_cells": 94.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00604278
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_multi_pipe_8bit/E3/c926b7f8f2f6627d",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 5
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E4",
+  "dc_seconds": 56.9,
+  "design": "multi_pipe_8bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 44,
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 3,
+   "CLKBUF_X1": 4,
+   "CLKGATETST_X1": 1,
+   "DFFR_X1": 82,
+   "DFFS_X1": 7,
+   "DFF_X1": 8,
+   "FA_X1": 40,
+   "INV_X1": 25,
+   "NAND2_X1": 57,
+   "NAND3_X1": 3,
+   "NAND4_X1": 1,
+   "NOR2_X1": 8,
+   "OAI21_X1": 4,
+   "XNOR2_X1": 2,
+   "XOR2_X1": 17
+  },
+  "log_counts": {
+   "clock_gating": 5,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 14
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_multi_pipe_8bit, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_multi_pipe_8bit_DP_OP_32J1_122_9865_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_multi_pipe_8bit_DW01_add_J1_3, since there are no registers. (PWR-806)",
+    "Information: Performing clock-gating on design verified_multi_pipe_8bit. (PWR-730)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 2 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)",
+    "Warning: Changed instance name mul_en_out_reg to mul_en_out_reg_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[11] to mul_out_reg[11]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[10] to mul_out_reg[10]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[9] to mul_out_reg[9]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[8] to mul_out_reg[8]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[7] to mul_out_reg[7]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[6] to mul_out_reg[6]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)"
+   ]
+  },
+  "metrics": {
+   "area": 851.200014,
+   "cells": 313,
+   "cg_gated_regs": 8,
+   "cg_icg_count": 1,
+   "cg_icg_tool_inserted": 1,
+   "cg_total_regs": 97,
+   "cg_ungated_regs": 89,
+   "comb_area": 337.554,
+   "comb_cells": 215.0,
+   "crit_delay_ns": 0.960537,
+   "hier_cells": 1.0,
+   "icg_count": 1,
+   "noncomb_area": 513.646014,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.804674316,
+   "power_saif_mw": null,
+   "registers": 97.0,
+   "seq_cells": 98.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00604892
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_multi_pipe_8bit/E4/cac462618a3f8022",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 5
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E2r",
+  "dc_seconds": 56.7,
+  "design": "multi_pipe_8bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 34,
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 8,
+   "CLKBUF_X1": 4,
+   "DFFR_X1": 80,
+   "DFFS_X1": 6,
+   "DFF_X1": 8,
+   "FA_X1": 32,
+   "INV_X1": 29,
+   "NAND2_X1": 84,
+   "NAND3_X1": 11,
+   "NAND4_X1": 1,
+   "NOR2_X1": 11,
+   "OAI21_X1": 7,
+   "XNOR2_X1": 2,
+   "XOR2_X1": 33
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 14
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: Changed instance name mul_en_out_reg to mul_en_out_reg_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[12] to mul_out_reg[12]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[11] to mul_out_reg[11]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[10] to mul_out_reg[10]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[9] to mul_out_reg[9]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[8] to mul_out_reg[8]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[7] to mul_out_reg[7]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[6] to mul_out_reg[6]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)"
+   ]
+  },
+  "metrics": {
+   "area": 856.520012,
+   "cells": 357,
+   "comb_area": 362.823999,
+   "comb_cells": 263.0,
+   "crit_delay_ns": 0.960543,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 493.696013,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.791679443,
+   "power_saif_mw": null,
+   "registers": 94.0,
+   "seq_cells": 94.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00604278
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_multi_pipe_8bit/E2r/9d096f37d1ead2e3",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 5
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E2t",
+  "dc_seconds": 65.3,
+  "design": "multi_pipe_8bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 39,
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 8,
+   "BUF_X1": 4,
+   "CLKBUF_X1": 6,
+   "DFFR_X1": 83,
+   "DFFS_X1": 1,
+   "DFF_X1": 8,
+   "FA_X1": 31,
+   "INV_X1": 35,
+   "NAND2_X1": 87,
+   "NAND3_X1": 13,
+   "NAND4_X1": 1,
+   "NOR2_X1": 13,
+   "OAI211_X1": 2,
+   "OAI21_X1": 8,
+   "OR2_X1": 5,
+   "XNOR2_X1": 3,
+   "XOR2_X1": 34
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 18
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)",
+    "Warning: Changed instance name mul_en_out_reg to mul_en_out_reg_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[15] to mul_out_reg[15]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[14] to mul_out_reg[14]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[13] to mul_out_reg[13]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[12] to mul_out_reg[12]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[11] to mul_out_reg[11]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[10] to mul_out_reg[10]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)"
+   ]
+  },
+  "metrics": {
+   "area": 873.278012,
+   "cells": 388,
+   "comb_area": 390.221999,
+   "comb_cells": 296.0,
+   "crit_delay_ns": 0.957339,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 483.056013,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.7843930050000001,
+   "power_saif_mw": null,
+   "registers": 92.0,
+   "seq_cells": 92.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.0019176
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_multi_pipe_8bit/E2t/5bd3005eee7749b6",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 5
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E2g",
+  "dc_seconds": 60.1,
+  "design": "multi_pipe_8bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 46,
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 3,
+   "BUF_X1": 7,
+   "CLKBUF_X1": 7,
+   "CLKGATETST_X1": 1,
+   "DFFR_X1": 81,
+   "DFFS_X1": 3,
+   "DFF_X1": 8,
+   "FA_X1": 31,
+   "INV_X1": 24,
+   "NAND2_X1": 85,
+   "NAND3_X1": 29,
+   "NAND4_X1": 1,
+   "NOR2_X1": 9,
+   "OAI21_X1": 5,
+   "OR2_X1": 1,
+   "XNOR2_X1": 4,
+   "XOR2_X1": 33
+  },
+  "log_counts": {
+   "clock_gating": 5,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 17
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_multi_pipe_8bit, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_multi_pipe_8bit_DP_OP_32J1_122_9865_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_multi_pipe_8bit_DW01_add_J1_3, since there are no registers. (PWR-806)",
+    "Information: Performing clock-gating on design verified_multi_pipe_8bit. (PWR-730)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 2 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: Changed instance name mul_en_out_reg to mul_en_out_reg_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[15] to mul_out_reg[15]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[14] to mul_out_reg[14]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[13] to mul_out_reg[13]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[12] to mul_out_reg[12]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[11] to mul_out_reg[11]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[10] to mul_out_reg[10]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[9] to mul_out_reg[9]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)"
+   ]
+  },
+  "metrics": {
+   "area": 877.534011,
+   "cells": 385,
+   "cg_gated_regs": 8,
+   "cg_icg_count": 1,
+   "cg_icg_tool_inserted": 1,
+   "cg_total_regs": 92,
+   "cg_ungated_regs": 84,
+   "comb_area": 390.487998,
+   "comb_cells": 292.0,
+   "crit_delay_ns": 0.955952,
+   "hier_cells": 1.0,
+   "icg_count": 1,
+   "noncomb_area": 487.046013,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.7848151860000001,
+   "power_saif_mw": null,
+   "registers": 92.0,
+   "seq_cells": 93.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00330514
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_multi_pipe_8bit/E2g/056436f5ccb9b07a",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 5
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "H5",
+  "dc_seconds": 65.0,
+  "design": "multi_pipe_8bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 46,
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 3,
+   "BUF_X1": 7,
+   "CLKBUF_X1": 7,
+   "CLKGATETST_X1": 1,
+   "DFFR_X1": 81,
+   "DFFS_X1": 3,
+   "DFF_X1": 8,
+   "FA_X1": 31,
+   "INV_X1": 24,
+   "NAND2_X1": 85,
+   "NAND3_X1": 29,
+   "NAND4_X1": 1,
+   "NOR2_X1": 9,
+   "OAI21_X1": 5,
+   "OR2_X1": 1,
+   "XNOR2_X1": 4,
+   "XOR2_X1": 33
+  },
+  "log_counts": {
+   "clock_gating": 5,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 0,
+   "warning": 17
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_multi_pipe_8bit, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_multi_pipe_8bit_DP_OP_32J1_122_9865_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_multi_pipe_8bit_DW01_add_J1_3, since there are no registers. (PWR-806)",
+    "Information: Performing clock-gating on design verified_multi_pipe_8bit. (PWR-730)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [],
+   "warning": [
+    "Warning: Changed instance name mul_en_out_reg to mul_en_out_reg_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[15] to mul_out_reg[15]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[14] to mul_out_reg[14]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[13] to mul_out_reg[13]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[12] to mul_out_reg[12]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[11] to mul_out_reg[11]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[10] to mul_out_reg[10]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)",
+    "Warning: Changed instance name mul_out_reg[9] to mul_out_reg[9]_inst in module verified_multi_pipe_8bit. Please use the change_names command to make the correct changes before invoking the verilog writer.   (VO-1)"
+   ]
+  },
+  "metrics": {
+   "area": 877.534011,
+   "cells": 385,
+   "cg_gated_regs": 8,
+   "cg_icg_count": 1,
+   "cg_icg_tool_inserted": 1,
+   "cg_total_regs": 92,
+   "cg_ungated_regs": 84,
+   "comb_area": 390.487998,
+   "comb_cells": 292.0,
+   "crit_delay_ns": 0.955952,
+   "hier_cells": 1.0,
+   "icg_count": 1,
+   "noncomb_area": 487.046013,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.784815125,
+   "power_saif_mw": null,
+   "registers": 92.0,
+   "seq_cells": 93.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00330514
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_multi_pipe_8bit/H5/7c83959a028e73eb",
+  "resources": {
+   "datapath_blocks": 1,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 5
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 0.9,
+  "config": "E1",
+  "dc_seconds": 7.0,
+  "design": "adder_pipe_64bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 1,
+   "AOI21_X1": 38,
+   "BUF_X1": 47,
+   "CLKBUF_X1": 18,
+   "DFFR_X1": 360,
+   "FA_X1": 2,
+   "INV_X1": 73,
+   "MUX2_X1": 66,
+   "NAND2_X1": 139,
+   "NAND3_X1": 8,
+   "NOR2_X1": 49,
+   "NOR2_X2": 4,
+   "OAI21_X1": 38,
+   "OR2_X1": 19,
+   "XNOR2_X1": 27,
+   "XOR2_X1": 40
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 0,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [],
+   "warning": []
+  },
+  "metrics": {
+   "area": 2510.242054,
+   "cells": 929,
+   "comb_area": 595.041992,
+   "comb_cells": 569.0,
+   "crit_delay_ns": 0.676199,
+   "hier_cells": 4.0,
+   "icg_count": null,
+   "noncomb_area": 1915.200062,
+   "period_lib_units": 0.9,
+   "power_default_mw": 3.229834,
+   "power_saif_mw": null,
+   "registers": 360.0,
+   "seq_cells": 360.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00268358
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_adder_pipe_64bit/E1/de588be70e7b39a7",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [],
+   "implementations": [],
+   "shared_resources": 0
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 0.9,
+  "config": "E2",
+  "dc_seconds": 61.3,
+  "design": "adder_pipe_64bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 27,
+   "AOI21_X1": 23,
+   "BUF_X1": 3,
+   "CLKBUF_X1": 20,
+   "DFFR_X1": 360,
+   "FA_X1": 5,
+   "INV_X1": 71,
+   "MUX2_X1": 38,
+   "NAND2_X1": 206,
+   "NAND3_X1": 5,
+   "NOR2_X1": 43,
+   "NOR2_X2": 1,
+   "OAI211_X1": 5,
+   "OAI21_X1": 30,
+   "OR2_X1": 64,
+   "OR3_X1": 3,
+   "XNOR2_X1": 27,
+   "XOR2_X1": 34
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": []
+  },
+  "metrics": {
+   "area": 2529.926055,
+   "cells": 965,
+   "comb_area": 614.725993,
+   "comb_cells": 605.0,
+   "crit_delay_ns": 0.685492,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 1915.200062,
+   "period_lib_units": 0.9,
+   "power_default_mw": 3.228168,
+   "power_saif_mw": null,
+   "registers": 360.0,
+   "seq_cells": 360.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00148076
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_adder_pipe_64bit/E2/f0557d660c904e43",
+  "resources": {
+   "datapath_blocks": 3,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 2
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 0.9,
+  "config": "E3",
+  "dc_seconds": 59.8,
+  "design": "adder_pipe_64bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 1,
+   "AOI21_X1": 31,
+   "BUF_X1": 13,
+   "CLKBUF_X1": 33,
+   "DFFR_X1": 345,
+   "DFFS_X1": 23,
+   "FA_X1": 5,
+   "INV_X1": 66,
+   "MUX2_X1": 38,
+   "NAND2_X1": 184,
+   "NAND3_X1": 3,
+   "NOR2_X1": 47,
+   "OAI21_X1": 37,
+   "OR2_X1": 49,
+   "XNOR2_X1": 27,
+   "XOR2_X1": 34
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": []
+  },
+  "metrics": {
+   "area": 2532.054056,
+   "cells": 936,
+   "comb_area": 574.293993,
+   "comb_cells": 568.0,
+   "crit_delay_ns": 0.685816,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 1957.760063,
+   "period_lib_units": 0.9,
+   "power_default_mw": 3.2996640000000004,
+   "power_saif_mw": null,
+   "registers": 368.0,
+   "seq_cells": 368.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00293243
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_adder_pipe_64bit/E3/d563fe42032efb50",
+  "resources": {
+   "datapath_blocks": 3,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 2
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 0.9,
+  "config": "E4",
+  "dc_seconds": 61.9,
+  "design": "adder_pipe_64bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 16,
+   "AOI21_X1": 22,
+   "BUF_X1": 1,
+   "CLKBUF_X1": 23,
+   "CLKGATETST_X1": 4,
+   "DFFR_X1": 349,
+   "DFFS_X1": 11,
+   "FA_X1": 11,
+   "INV_X1": 58,
+   "NAND2_X1": 125,
+   "NAND3_X1": 1,
+   "NAND4_X1": 1,
+   "NOR2_X1": 38,
+   "OAI211_X1": 4,
+   "OAI21_X1": 28,
+   "OR2_X1": 36,
+   "OR3_X1": 1,
+   "XNOR2_X1": 27,
+   "XOR2_X1": 25
+  },
+  "log_counts": {
+   "clock_gating": 10,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 1
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_adder_64bit_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DP_OP_18J1_124_742_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DP_OP_17J1_123_742_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DP_OP_16J1_122_742_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DW01_add_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_adder_64bit_1, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_adder_64bit_2, since there are no registers. (PWR-806)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 5 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)"
+   ]
+  },
+  "metrics": {
+   "area": 2358.622058,
+   "cells": 781,
+   "cg_gated_regs": 68,
+   "cg_icg_count": 4,
+   "cg_icg_tool_inserted": 4,
+   "cg_total_regs": 360,
+   "cg_ungated_regs": 292,
+   "comb_area": 427.461996,
+   "comb_cells": 417.0,
+   "crit_delay_ns": 0.680076,
+   "hier_cells": 4.0,
+   "icg_count": 4,
+   "noncomb_area": 1931.160062,
+   "period_lib_units": 0.9,
+   "power_default_mw": 2.9357420000000003,
+   "power_saif_mw": null,
+   "registers": 360.0,
+   "seq_cells": 364.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00650948
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_adder_pipe_64bit/E4/53b2f39c2da0cebc",
+  "resources": {
+   "datapath_blocks": 3,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 2
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 0.9,
+  "config": "E2r",
+  "dc_seconds": 61.4,
+  "design": "adder_pipe_64bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 1,
+   "AOI21_X1": 31,
+   "BUF_X1": 13,
+   "CLKBUF_X1": 33,
+   "DFFR_X1": 345,
+   "DFFS_X1": 23,
+   "FA_X1": 5,
+   "INV_X1": 66,
+   "MUX2_X1": 38,
+   "NAND2_X1": 184,
+   "NAND3_X1": 3,
+   "NOR2_X1": 47,
+   "OAI21_X1": 37,
+   "OR2_X1": 49,
+   "XNOR2_X1": 27,
+   "XOR2_X1": 34
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": []
+  },
+  "metrics": {
+   "area": 2532.054056,
+   "cells": 936,
+   "comb_area": 574.293993,
+   "comb_cells": 568.0,
+   "crit_delay_ns": 0.685816,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 1957.760063,
+   "period_lib_units": 0.9,
+   "power_default_mw": 3.2996640000000004,
+   "power_saif_mw": null,
+   "registers": 368.0,
+   "seq_cells": 368.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00293243
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_adder_pipe_64bit/E2r/a6526cf3b07233e5",
+  "resources": {
+   "datapath_blocks": 3,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 2
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 0.9,
+  "config": "E2t",
+  "dc_seconds": 61.6,
+  "design": "adder_pipe_64bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 27,
+   "AOI21_X1": 23,
+   "BUF_X1": 3,
+   "CLKBUF_X1": 20,
+   "DFFR_X1": 360,
+   "FA_X1": 5,
+   "INV_X1": 71,
+   "MUX2_X1": 38,
+   "NAND2_X1": 206,
+   "NAND3_X1": 5,
+   "NOR2_X1": 43,
+   "NOR2_X2": 1,
+   "OAI211_X1": 5,
+   "OAI21_X1": 30,
+   "OR2_X1": 64,
+   "OR3_X1": 3,
+   "XNOR2_X1": 27,
+   "XOR2_X1": 34
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 1
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": [
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)"
+   ]
+  },
+  "metrics": {
+   "area": 2529.926055,
+   "cells": 965,
+   "comb_area": 614.725993,
+   "comb_cells": 605.0,
+   "crit_delay_ns": 0.685492,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 1915.200062,
+   "period_lib_units": 0.9,
+   "power_default_mw": 3.228168,
+   "power_saif_mw": null,
+   "registers": 360.0,
+   "seq_cells": 360.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00148076
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_adder_pipe_64bit/E2t/3f855f52e595195a",
+  "resources": {
+   "datapath_blocks": 3,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 2
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 0.9,
+  "config": "E2g",
+  "dc_seconds": 59.4,
+  "design": "adder_pipe_64bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 25,
+   "AND3_X1": 2,
+   "AOI21_X1": 18,
+   "BUF_X1": 4,
+   "CLKBUF_X1": 23,
+   "CLKGATETST_X1": 4,
+   "DFFR_X1": 359,
+   "DFFS_X1": 1,
+   "FA_X1": 11,
+   "INV_X1": 68,
+   "NAND2_X1": 127,
+   "NOR2_X1": 39,
+   "OAI211_X1": 4,
+   "OAI21_X1": 30,
+   "OR2_X1": 41,
+   "OR3_X1": 2,
+   "XNOR2_X1": 27,
+   "XOR2_X1": 25
+  },
+  "log_counts": {
+   "clock_gating": 10,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 1,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_adder_64bit_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DP_OP_18J1_124_742_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DP_OP_17J1_123_742_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DP_OP_16J1_122_742_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DW01_add_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_adder_64bit_1, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_adder_64bit_2, since there are no registers. (PWR-806)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 5 hierarchies before Pass 1 (OPT-775)"
+   ],
+   "warning": []
+  },
+  "metrics": {
+   "area": 2383.094058,
+   "cells": 810,
+   "cg_gated_regs": 68,
+   "cg_icg_count": 4,
+   "cg_icg_tool_inserted": 4,
+   "cg_total_regs": 360,
+   "cg_ungated_regs": 292,
+   "comb_area": 451.933996,
+   "comb_cells": 446.0,
+   "crit_delay_ns": 0.861985,
+   "hier_cells": 4.0,
+   "icg_count": 4,
+   "noncomb_area": 1931.160062,
+   "period_lib_units": 0.9,
+   "power_default_mw": 2.9548449999999997,
+   "power_saif_mw": null,
+   "registers": 360.0,
+   "seq_cells": 364.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00460035
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_adder_pipe_64bit/E2g/e6225fa683821495",
+  "resources": {
+   "datapath_blocks": 3,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 2
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 0.9,
+  "config": "H5",
+  "dc_seconds": 58.6,
+  "design": "adder_pipe_64bit",
+  "error": null,
+  "hist": {
+   "AND2_X1": 23,
+   "AND3_X1": 3,
+   "AOI21_X1": 19,
+   "BUF_X1": 5,
+   "CLKBUF_X1": 23,
+   "CLKGATETST_X1": 4,
+   "DFFR_X1": 359,
+   "DFFS_X1": 1,
+   "FA_X1": 11,
+   "INV_X1": 66,
+   "NAND2_X1": 128,
+   "NOR2_X1": 39,
+   "NOR2_X2": 1,
+   "OAI211_X1": 3,
+   "OAI21_X1": 29,
+   "OR2_X1": 38,
+   "OR3_X1": 2,
+   "XNOR2_X1": 27,
+   "XOR2_X1": 25
+  },
+  "log_counts": {
+   "clock_gating": 10,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 0,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_adder_64bit_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DP_OP_18J1_124_742_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DP_OP_17J1_123_742_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DP_OP_16J1_122_742_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design verified_adder_64bit_DW01_add_J1_0, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_adder_64bit_1, since there are no registers. (PWR-806)",
+    "Information: Skipping clock gating on design SNPS_CLOCK_GATE_HIGH_verified_adder_64bit_2, since there are no registers. (PWR-806)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [],
+   "warning": []
+  },
+  "metrics": {
+   "area": 2379.636058,
+   "cells": 806,
+   "cg_gated_regs": 68,
+   "cg_icg_count": 4,
+   "cg_icg_tool_inserted": 4,
+   "cg_total_regs": 360,
+   "cg_ungated_regs": 292,
+   "comb_area": 448.475996,
+   "comb_cells": 442.0,
+   "crit_delay_ns": 0.682941,
+   "hier_cells": 4.0,
+   "icg_count": 4,
+   "noncomb_area": 1931.160062,
+   "period_lib_units": 0.9,
+   "power_default_mw": 2.952524,
+   "power_saif_mw": null,
+   "registers": 360.0,
+   "seq_cells": 364.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.00364447
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_adder_pipe_64bit/H5/52d7aab01622ec4f",
+  "resources": {
+   "datapath_blocks": 3,
+   "dw_modules": [
+    "DW01_add"
+   ],
+   "implementations": [],
+   "shared_resources": 2
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E1",
+  "dc_seconds": 4.6,
+  "design": "traffic_light",
+  "error": null,
+  "hist": {
+   "AND2_X1": 3,
+   "AOI221_X1": 2,
+   "AOI22_X1": 1,
+   "DFFR_X1": 14,
+   "DFFS_X1": 2,
+   "INV_X1": 14,
+   "NAND2_X1": 3,
+   "NAND3_X1": 4,
+   "NAND4_X1": 2,
+   "NOR2_X1": 12,
+   "NOR3_X1": 1,
+   "NOR4_X1": 1,
+   "OAI211_X1": 1,
+   "OAI21_X1": 8,
+   "OAI22_X1": 1,
+   "XOR2_X1": 3
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 0,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [],
+   "warning": []
+  },
+  "metrics": {
+   "area": 137.522003,
+   "cells": 72,
+   "comb_area": 52.402,
+   "comb_cells": 56.0,
+   "crit_delay_ns": 0.650672,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 85.120003,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.143952866,
+   "power_saif_mw": null,
+   "registers": 16.0,
+   "seq_cells": 16.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.316613
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/E1/d543cf0029edbcea",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [],
+   "implementations": [],
+   "shared_resources": 0
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E2",
+  "dc_seconds": 56.9,
+  "design": "traffic_light",
+  "error": null,
+  "hist": {
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 1,
+   "DFFR_X1": 14,
+   "DFFS_X1": 2,
+   "INV_X1": 10,
+   "NAND2_X1": 7,
+   "NOR2_X1": 11,
+   "NOR3_X1": 1,
+   "NOR4_X1": 1,
+   "OAI211_X1": 4,
+   "OAI21_X1": 2,
+   "OAI221_X1": 2,
+   "OAI22_X1": 1
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 2,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)",
+    "Information: There is no timing violation in design verified_traffic_light. Delay-based auto_ungroup will not be performed. (OPT-780)"
+   ],
+   "warning": []
+  },
+  "metrics": {
+   "area": 129.542003,
+   "cells": 63,
+   "comb_area": 44.422,
+   "comb_cells": 47.0,
+   "crit_delay_ns": 0.622519,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 85.120003,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.140059845,
+   "power_saif_mw": null,
+   "registers": 16.0,
+   "seq_cells": 16.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.34159
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/E2/ff4f33b07911ba96",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [
+    "DW01_dec",
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 3
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E3",
+  "dc_seconds": 58.2,
+  "design": "traffic_light",
+  "error": null,
+  "hist": {
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 1,
+   "DFFR_X1": 14,
+   "DFFS_X1": 2,
+   "INV_X1": 10,
+   "NAND2_X1": 7,
+   "NOR2_X1": 11,
+   "NOR3_X1": 1,
+   "NOR4_X1": 1,
+   "OAI211_X1": 4,
+   "OAI21_X1": 2,
+   "OAI221_X1": 2,
+   "OAI22_X1": 1
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 2,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)",
+    "Information: There is no timing violation in design verified_traffic_light. Delay-based auto_ungroup will not be performed. (OPT-780)"
+   ],
+   "warning": []
+  },
+  "metrics": {
+   "area": 129.542003,
+   "cells": 63,
+   "comb_area": 44.422,
+   "comb_cells": 47.0,
+   "crit_delay_ns": 0.622519,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 85.120003,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.140059845,
+   "power_saif_mw": null,
+   "registers": 16.0,
+   "seq_cells": 16.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.34159
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/E3/d0edf0d0c8cb6bd8",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [
+    "DW01_dec",
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 3
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E4",
+  "dc_seconds": 57.7,
+  "design": "traffic_light",
+  "error": null,
+  "hist": {
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 1,
+   "DFFR_X1": 14,
+   "DFFS_X1": 2,
+   "INV_X1": 10,
+   "NAND2_X1": 7,
+   "NOR2_X1": 11,
+   "NOR3_X1": 1,
+   "NOR4_X1": 1,
+   "OAI211_X1": 4,
+   "OAI21_X1": 2,
+   "OAI221_X1": 2,
+   "OAI22_X1": 1
+  },
+  "log_counts": {
+   "clock_gating": 3,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 2,
+   "warning": 1
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design verified_traffic_light_DW01_dec_J1_0, since there are no registers. (PWR-806)",
+    "Information: Performing clock-gating on design verified_traffic_light. (PWR-730)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)",
+    "Information: There is no timing violation in design verified_traffic_light. Delay-based auto_ungroup will not be performed. (OPT-780)"
+   ],
+   "warning": [
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)"
+   ]
+  },
+  "metrics": {
+   "area": 129.542003,
+   "cells": 63,
+   "cg_gated_regs": 0,
+   "cg_icg_count": 0,
+   "cg_icg_tool_inserted": 0,
+   "cg_total_regs": 16,
+   "cg_ungated_regs": 16,
+   "comb_area": 44.422,
+   "comb_cells": 47.0,
+   "crit_delay_ns": 0.622519,
+   "hier_cells": 0.0,
+   "icg_count": 0,
+   "noncomb_area": 85.120003,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.140059845,
+   "power_saif_mw": null,
+   "registers": 16.0,
+   "seq_cells": 16.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.34159
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/E4/682604aecd99aee1",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [
+    "DW01_dec",
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 3
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E2r",
+  "dc_seconds": 56.4,
+  "design": "traffic_light",
+  "error": null,
+  "hist": {
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 1,
+   "DFFR_X1": 14,
+   "DFFS_X1": 2,
+   "INV_X1": 10,
+   "NAND2_X1": 7,
+   "NOR2_X1": 11,
+   "NOR3_X1": 1,
+   "NOR4_X1": 1,
+   "OAI211_X1": 4,
+   "OAI21_X1": 2,
+   "OAI221_X1": 2,
+   "OAI22_X1": 1
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 1,
+   "sharing": 0,
+   "ungroup": 2,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [
+    "Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"
+   ],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)",
+    "Information: There is no timing violation in design verified_traffic_light. Delay-based auto_ungroup will not be performed. (OPT-780)"
+   ],
+   "warning": []
+  },
+  "metrics": {
+   "area": 129.542003,
+   "cells": 63,
+   "comb_area": 44.422,
+   "comb_cells": 47.0,
+   "crit_delay_ns": 0.622519,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 85.120003,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.140059845,
+   "power_saif_mw": null,
+   "registers": 16.0,
+   "seq_cells": 16.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.34159
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/E2r/97529f6921ab177b",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [
+    "DW01_dec",
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 3
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E2t",
+  "dc_seconds": 55.5,
+  "design": "traffic_light",
+  "error": null,
+  "hist": {
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 1,
+   "DFFR_X1": 14,
+   "DFFS_X1": 2,
+   "INV_X1": 10,
+   "NAND2_X1": 7,
+   "NOR2_X1": 11,
+   "NOR3_X1": 1,
+   "NOR4_X1": 1,
+   "OAI211_X1": 4,
+   "OAI21_X1": 2,
+   "OAI221_X1": 2,
+   "OAI22_X1": 1
+  },
+  "log_counts": {
+   "clock_gating": 0,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 2,
+   "warning": 1
+  },
+  "log_samples": {
+   "clock_gating": [],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)",
+    "Information: There is no timing violation in design verified_traffic_light. Delay-based auto_ungroup will not be performed. (OPT-780)"
+   ],
+   "warning": [
+    "Warning: The -timing_high_effort_script option is ignored.  (OPT-1342)"
+   ]
+  },
+  "metrics": {
+   "area": 129.542003,
+   "cells": 63,
+   "comb_area": 44.422,
+   "comb_cells": 47.0,
+   "crit_delay_ns": 0.622519,
+   "hier_cells": 0.0,
+   "icg_count": null,
+   "noncomb_area": 85.120003,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.140059845,
+   "power_saif_mw": null,
+   "registers": 16.0,
+   "seq_cells": 16.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.34159
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/E2t/1a562b663c7fb1f5",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [
+    "DW01_dec",
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 3
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "E2g",
+  "dc_seconds": 57.1,
+  "design": "traffic_light",
+  "error": null,
+  "hist": {
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 1,
+   "DFFR_X1": 14,
+   "DFFS_X1": 2,
+   "INV_X1": 10,
+   "NAND2_X1": 7,
+   "NOR2_X1": 11,
+   "NOR3_X1": 1,
+   "NOR4_X1": 1,
+   "OAI211_X1": 4,
+   "OAI21_X1": 2,
+   "OAI221_X1": 2,
+   "OAI22_X1": 1
+  },
+  "log_counts": {
+   "clock_gating": 3,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 2,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design verified_traffic_light_DW01_dec_J1_0, since there are no registers. (PWR-806)",
+    "Information: Performing clock-gating on design verified_traffic_light. (PWR-730)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [
+    "Information: Ungrouping 0 of 1 hierarchies before Pass 1 (OPT-775)",
+    "Information: There is no timing violation in design verified_traffic_light. Delay-based auto_ungroup will not be performed. (OPT-780)"
+   ],
+   "warning": []
+  },
+  "metrics": {
+   "area": 129.542003,
+   "cells": 63,
+   "cg_gated_regs": 0,
+   "cg_icg_count": 0,
+   "cg_icg_tool_inserted": 0,
+   "cg_total_regs": 16,
+   "cg_ungated_regs": 16,
+   "comb_area": 44.422,
+   "comb_cells": 47.0,
+   "crit_delay_ns": 0.622519,
+   "hier_cells": 0.0,
+   "icg_count": 0,
+   "noncomb_area": 85.120003,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.140059845,
+   "power_saif_mw": null,
+   "registers": 16.0,
+   "seq_cells": 16.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.34159
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/E2g/2aab4829454e197f",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [
+    "DW01_dec",
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 3
+  },
+  "status": "ok",
+  "sverilog": false
+ },
+ {
+  "clk_port": "clk",
+  "clock_ns": 1.0,
+  "config": "H5",
+  "dc_seconds": 53.8,
+  "design": "traffic_light",
+  "error": null,
+  "hist": {
+   "AOI21_X1": 4,
+   "AOI221_X1": 3,
+   "AOI22_X1": 1,
+   "DFFR_X1": 14,
+   "DFFS_X1": 2,
+   "INV_X1": 10,
+   "NAND2_X1": 7,
+   "NOR2_X1": 11,
+   "NOR3_X1": 1,
+   "NOR4_X1": 1,
+   "OAI211_X1": 4,
+   "OAI21_X1": 2,
+   "OAI221_X1": 2,
+   "OAI22_X1": 1
+  },
+  "log_counts": {
+   "clock_gating": 3,
+   "datapath": 0,
+   "error": 0,
+   "retime": 0,
+   "sharing": 0,
+   "ungroup": 0,
+   "warning": 0
+  },
+  "log_samples": {
+   "clock_gating": [
+    "Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)",
+    "Information: Skipping clock gating on design verified_traffic_light_DW01_dec_J1_0, since there are no registers. (PWR-806)",
+    "Information: Performing clock-gating on design verified_traffic_light. (PWR-730)"
+   ],
+   "datapath": [],
+   "error": [],
+   "retime": [],
+   "sharing": [],
+   "ungroup": [],
+   "warning": []
+  },
+  "metrics": {
+   "area": 129.542003,
+   "cells": 63,
+   "cg_gated_regs": 0,
+   "cg_icg_count": 0,
+   "cg_icg_tool_inserted": 0,
+   "cg_total_regs": 16,
+   "cg_ungated_regs": 16,
+   "comb_area": 44.422,
+   "comb_cells": 47.0,
+   "crit_delay_ns": 0.622519,
+   "hier_cells": 0.0,
+   "icg_count": 0,
+   "noncomb_area": 85.120003,
+   "period_lib_units": 1.0,
+   "power_default_mw": 0.140059845,
+   "power_saif_mw": null,
+   "registers": 16.0,
+   "seq_cells": 16.0,
+   "tns_ns": 0.0,
+   "wns_ns": 0.34159
+  },
+  "raw_dir": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/H5/073b6c74cbd792ec",
+  "resources": {
+   "datapath_blocks": 0,
+   "dw_modules": [
+    "DW01_dec",
+    "DW_cmp"
+   ],
+   "implementations": [],
+   "shared_resources": 3
+  },
+  "status": "ok",
+  "sverilog": false
+ }
+]

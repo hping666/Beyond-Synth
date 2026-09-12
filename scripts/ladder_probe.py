@@ -50,7 +50,13 @@ def main(argv=None):
     cfg = C.load()
     for spec in a.extra_config:
         name, compile_cmd = spec.split("=", 1)
-        cfg["configs"][name] = {"tool": "dc", "compile": compile_cmd, "lib": "nangate45", "clock": "phi_main", "probe_only": True}
+        entry = {"tool": "dc", "compile": compile_cmd, "lib": "nangate45", "clock": "phi_main", "probe_only": True}
+        if "|synlib=" in compile_cmd:  # NAME=<compile>|synlib=standard
+            entry["compile"], synlib = compile_cmd.split("|synlib=", 1)
+            entry["synlib"] = synlib.strip()
+        cfg["configs"][name] = entry
+        if name not in a.configs:
+            a.configs.append(name)
     jobs = []
     for spec in a.designs:
         parts = spec.split(":")

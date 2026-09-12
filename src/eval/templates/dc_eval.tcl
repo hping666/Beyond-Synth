@@ -86,7 +86,14 @@ foreach db $LIB_DB { lappend LIB_DIRS [file dirname $db] }
 set search_path [concat $search_path [lsort -unique $LIB_DIRS]]
 if {$INCDIRS ne ""} { set search_path [concat $search_path $INCDIRS] }
 set target_library    $LIB_DB
-set synthetic_library [list $SYN/libraries/syn/dw_foundation.sldb]
+# EVAL_SYNLIB: dw (default) = DesignWare Foundation architectures (compile_ultra adds it by itself when licensed);
+#              standard = only the always-present standard synthetic library (the "basic" rung E1)
+set SYNLIB [envq EVAL_SYNLIB dw]
+if {$SYNLIB eq "standard"} {
+    set synthetic_library [list $SYN/libraries/syn/standard.sldb]
+} else {
+    set synthetic_library [list $SYN/libraries/syn/dw_foundation.sldb]
+}
 set link_library      [concat * $target_library $synthetic_library]
 set symbol_library    {}
 

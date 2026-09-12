@@ -81,6 +81,27 @@ None in Phase 0 (no experimental data). Knee-point curves start in Phase 1.
 5. Phase-2/3 cost model: `dc_seconds` counts the whole `dc_shell` wall time; the E4 floor of ~55 s per run even for tiny designs makes the per-design DC budget `k_e4_equiv × t_E4(D)` well defined. No change proposed; noted for the E4-runtime measurement of Phase 2.
 6. V4 scope: DPV is wired for combinational modules after an inconclusive SEQ; clocked datapath modules need a phase mapping (decided in the Phase 2 SEQ pilot). Acceptable?
 
+## Addendum (G0 follow-up, 2026-09-12): is the E1–E4 ladder real on this DC?
+
+Sources: the man pages of `compile` / `compile_ultra` and the `compile_*` variables shipped with W-2024.09-SP5-3, plus a probe of four RTLLM designs under timing pressure (`scripts/ladder_probe.py`, data in `reports/data/phase0_ladder_probe_{1,2}.json`; wire-load mode, nangate45; E1s = `compile` with the standard synthetic library only; XT = `compile_timing_high_effort` variable + `-retime -gate_clock`).
+
+| Design (clock) | E1s | E1 | E2 | E2t | E3 | E2g | E4 | H5 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| div_16bit (3.0 ns, combinational divider) area | 2372 | 2535 | 1609 | =E2 | =E2 | =E2 | =E2 | 1651 |
+| multi_pipe_8bit (1.0 ns) area / regs / ICG | 960 / 92 | 929 / 92 | 873 / 92 | =E2 | 857 / 94 | 878 / 92 / 1 | 851 / 97 / 1 | 878 / 92 / 1 |
+| adder_pipe_64bit (0.9 ns) area / regs / ICG | 2562 / 360 | 2510 / 360 | 2530 / 360 | =E2 | 2532 / 368 | 2383 / 360 / 4 | 2359 / 360 / 4 | 2380 / 360 / 4 |
+| traffic_light (1.0 ns, FSM) area | 136.5 | 137.5 | 129.5 | =E2 | =E2 | =E2 | =E2 | =E2 |
+
+Findings:
+- `-timing_high_effort_script` (and `-area_high_effort_script`) are documented as "available for backward compatibility with existing scripts and ignored for optimization purposes"; E2t is bit-identical to E2 on all four designs. The replacement, the `compile_timing_high_effort` variable, is not an application variable in wire-load mode ("not supported in WLM mode. Ignoring", OPT-1346, XT identical to E4) and exists only in topographical mode; `compile_high_effort_area` is DC NXT only. In the wire-load ladder of this version there is no timing-high-effort capability to enable.
+- E1 → E2 is the large step everywhere (−6% to −37% area; datapath blocks appear; DesignWare Foundation auto-added; ungrouping; boundary optimisation; area strategy).
+- E2 → E3 (`-retime`) acts only on near-critical pipelined designs (register counts change, area ±2%) and not on combinational or slack-rich designs; H1's 0.1 ns constraint or a knee-point constraint is what makes E3 differ from E2.
+- `-gate_clock` is the dominant E3 → E4 effect where enable registers exist (adder_pipe_64bit −6%, 4 ICGs); Power Compiler licence present.
+- `compile` with DesignWare Foundation (the E1 of the smoke) differs from `compile` with only the standard synthetic library by 3–6% on every design, in both directions (for the divider DW makes `compile` worse); the DesignWare architecture choice is therefore a capability of its own.
+- H5 (`-no_autoungroup -gate_clock`) differs from E2/E4 on three of four designs.
+
+Recommendation (decision for the human, DECISIONS 2026-09-12): E1 = `compile` with the standard synthetic library only; E2 = `compile_ultra`; E3 = `compile_ultra -retime`; E4 = `compile_ultra -retime -gate_clock`; attribution rungs E1d (`compile` + dw_foundation), E2r, E2g; E2t dropped; H3 = E4 `-spg` in topographical mode, optionally with `compile_timing_high_effort true` as the physical-aware full-effort configuration. CktEvo's commercial setting `compile_ultra -retime -timing_high_effort_script` equals E3 on this version.
+
 ## Next steps
 
 - Phase 1: dataset acquisition (Dr.RTL 20, RTL-OPT 36 pairs, CktEvo modules, RTLRewriter; RTLLM v2.0 is local), inventory with canonical top names, E4 synthesizability, knee-point sweeps per library (`src/eval/knee.py`), dev/held split, `designs` table, `reports/phase1.md`.
