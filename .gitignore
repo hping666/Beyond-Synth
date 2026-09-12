@@ -72,3 +72,6 @@ data/designs/**/rtl/
 data/designs/**/tb/
 data/designs/**/reference/
 data/designs/**/samples/
+
+# generated perturbations contain the (variously licensed) design RTL; manifests stay in git
+data/perturbations/**/*.v
