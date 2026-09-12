@@ -57,3 +57,7 @@ id_ed25519*
 # ---- editors / OS ----
 *.swp
 .DS_Store
+
+# ---- Claude Code: local overrides and guard log never enter git ----
+.claude/settings.local.json
+.claude/guard-denied.log

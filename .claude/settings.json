@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./results/hidden/**)",
+      "Edit(./results/hidden/**)",
+      "Write(./results/hidden/**)",
+      "Read(~/.config/beyond-synth/**)",
+      "Edit(~/.config/beyond-synth/**)",
+      "Write(~/.config/beyond-synth/**)",
+      "Read(~/.ssh/id_ed25519_beyond_synth)",
+      "Edit(//hdd1/hping/eda/flow/**)",
+      "Write(//hdd1/hping/eda/flow/**)",
+      "Bash(rm -rf results*)",
+      "Bash(rm -rf ./results*)",
+      "Bash(rm -rf /home/hping/Beyond-Synth/results*)",
+      "Bash(rm -fr results*)",
+      "Bash(rm -r results*)",
+      "Bash(scp *)",
+      "Bash(nc *)",
+      "Bash(ncat *)",
+      "Bash(socat *)",
+      "Bash(printenv)",
+      "Bash(env)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Read|Edit|Write|MultiEdit|NotebookEdit|Grep|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PROJECT_DIR:-/home/hping/Beyond-Synth}/scripts/hooks/guard.py\"",
+            "timeout": 10,
+            "statusMessage": "guard.py: checking critical paths"
+          }
+        ]
+      }
+    ]
+  }
+}
