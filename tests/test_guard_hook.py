@@ -71,6 +71,8 @@ ALLOWED_BASH = [
     "wget -q https://example.org/file.tar.gz -O /tmp/f.tgz",
     "python3 - <<'EOF'\nprint('hi')\nEOF",
     "python3 - <<'EOF'\nimport json\nd = json.load(open('results/db/summary.json'))\nprint(len(d))\nEOF",
+    "python3 - <<'EOF'\nimport sys\nsys.path.insert(0, '/hdd1/hping/eda/flow')\nimport vcf\n(wd / 'probe.tcl').write_text('exit')\nEOF",
+    ".venv/bin/python - <<'PYEOF'\nfrom pathlib import Path\nPath('/tmp/x/t.tcl').write_text('x')\nprint(open('/hdd1/hping/eda/flow/synth.tcl').read()[:10])\nPYEOF",
     "echo 'eda-knowledge/05-traps.md' >> /home/hping/eda-knowledge/05-traps.md",
     "tail -3 /home/hping/eda-knowledge/05-traps.md",
     "grep -n 'DCSH-1' /home/hping/eda-knowledge/05-traps.md",
@@ -108,6 +110,8 @@ DENIED_BASH = [
     "rm /hdd1/hping/eda/flow/vcf.py",
     "touch /hdd1/hping/eda/flow/x",
     "python3 - <<'EOF'\nopen('/hdd1/hping/eda/flow/synth.tcl','w').write('x')\nEOF",
+    "python3 - <<'EOF'\nfrom pathlib import Path\nPath('/hdd1/hping/eda/flow/new.py').write_text('x')\nEOF",
+    "python3 -c \"import shutil; shutil.copy('mine.tcl', '/hdd1/hping/eda/flow/synth.tcl')\"",
     "ls /hdd1/hping/eda/flow/*.py | xargs rm",
     # rule 10: traps append-only
     "sed -i '1d' /home/hping/eda-knowledge/05-traps.md",

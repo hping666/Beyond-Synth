@@ -236,7 +236,7 @@ if {$STATUS eq "ok"} {
             set SAIF_STATUS "read_failed: [string map [list \n { }] $e]"
         } else {
             set SAIF_STATUS ok
-            redirect $OUT/saif.rpt       { catch { report_saif -nosplit } }
+            redirect $OUT/saif.rpt       { catch { report_saif -hier } }   ;# report_saif has no -nosplit option
             redirect $OUT/power_saif.rpt { report_power -nosplit }
         }
     }
