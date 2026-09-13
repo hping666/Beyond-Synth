@@ -189,9 +189,24 @@ def phase2(cfg):
          "Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.", ""]
     # ---- generator
     L += ["## 1. Perturbation generator (PLAN 2.1)", ""]
-    if perts:
-        L += [f"{perts['designs']} designs of the sets; perturbations per type {perts['per_type']}; types not applicable {perts['not_applicable']}; "
-              f"designs Pyverilog cannot parse: {len(perts['parse_errors'])} ({', '.join(d for d, _ in perts['parse_errors'])}).", ""]
+    manifests = []
+    for mp in sorted((Path(ROOT) / "data" / "perturbations").glob("*/manifest.json")):
+        try:
+            manifests.append(json.loads(mp.read_text()))
+        except json.JSONDecodeError:
+            continue
+    if manifests:
+        per_type, not_app = collections.Counter(), collections.Counter()
+        errors = []
+        for m in manifests:
+            if m.get("error"):
+                errors.append(m["design_id"])
+            for e in m.get("perturbations") or []:
+                per_type[e["ptype"]] += 1
+            for pt in (m.get("not_applicable") or {}):
+                not_app[pt] += 1
+        L += [f"{len(manifests)} designs with a generator manifest (sets + RTLRewriter); perturbations per type {dict(sorted(per_type.items()))}; "
+              f"designs where a type is not applicable {dict(sorted(not_app.items()))}; designs Pyverilog cannot parse: {len(errors)} ({', '.join(errors)}).", ""]
     gate = collections.Counter((r["ptype"], r["seq_status"]) for r in conn.execute("SELECT ptype, seq_status FROM perturbations"))
     if gate:
         statuses = sorted({s for _, s in gate})
@@ -224,15 +239,15 @@ def phase2(cfg):
     fa = S.floor_analysis(conn, set_designs, configs, proven, k)
     if fa:
         L += ["### 2a. Floor distribution on the set designs (dev + held)", "",
-              "| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q90 of abs delta | pooled q95 | pooled q99 | pooled max | proposed t_D median / q95 / max | designs above pooled min |",
+              "| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q90 of abs delta | pooled q95 | pooled q99 | pooled max | rule-A t_D median / q95 / max | designs above the q90 minimum |",
               "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for (config, m), a in sorted(fa.items()):
             tp = a["t_proposed"] or {}
             L.append(f"| {config} | {m} | {a['designs']} | {a['zero_robust']} | {a['zero_std']} | {a['max_abs_gt']['1pct']} | {a['max_abs_gt']['5pct']} | "
                      f"{a['pooled']['q90']:.4f} | {a['pooled']['q95']:.4f} | {a['pooled']['q99']:.4f} | {a['pooled']['max']:.4f} | "
                      f"{tp.get('median', 0):.4f} / {tp.get('q95', 0):.4f} / {tp.get('max', 0):.4f} | {tp.get('above_pooled_min', 0)} |")
-        L += ["", f"Proposed threshold (G1 alternative): t_D = max({k:.0f} x sigma_robust, max |delta| over D's own proven perturbations, pooled q95 of |delta| over all perturbation records of the configuration); "
-              "the pooled q95 is the minimum for designs whose perturbations never change the netlist. The spec's 2 x sigma_robust stays in the table for the sensitivity report.", ""]
+        L += ["", f"Rule A (G1 alternative, see the conclusions): t_D = max({k:.0f} x sigma_robust, max |delta| over D's own proven perturbations including the re-print, pooled q90 of |delta| over all perturbation records of the configuration); "
+              "the pooled quantile is the minimum for designs whose perturbations never change the netlist (rule B uses the pooled q95 instead). The spec's 2 x sigma_robust stays in the table above for the sensitivity report.", ""]
     rates = S.ptype_change_rates(conn, set_designs, configs, proven)
     if rates:
         pts = sorted({pt for _, pt in rates})
@@ -252,9 +267,6 @@ def phase2(cfg):
         for (a, b), e in mono["steps"].items():
             L.append(f"| {a} -> {b} | {e['area_up']} | {e['wns_down']} |")
         L += ["", "WNS is compared at Φ_main (the E4 knee): once a rung meets timing, area recovery legitimately trades slack, so a WNS drop between two rungs that both meet timing is not a regression.", ""]
-    concl = Path(ROOT) / "reports" / "phase2_conclusions.md"
-    if concl.exists():
-        L += [concl.read_text().rstrip("\n"), ""]
     # ---- E4 runtime
     L += ["## 3. E4 runtime (PLAN 2.5)", ""]
     secs = {}
@@ -338,6 +350,9 @@ def phase2(cfg):
     else:
         L += ["t_H3 / t_E4 and the E4-vs-H3 agreement rate come from the hidden worker as counts and seconds only (scripts/hidden_worker.py --g3-summary after the H3 noise runs).", ""]
     L += ["## 5. Next steps", "", "- G1: decide on the truncation if the median area floor exceeds the warning level.", "- G2: SEQ fractions per class from the pilot.", "- G3: screening recommendation from the E4 seconds and the cascade estimate.", ""]
+    concl = Path(ROOT) / "reports" / "phase2_conclusions.md"
+    if concl.exists():
+        L += [concl.read_text().rstrip("\n"), ""]
     out = Path(ROOT) / "reports" / "phase2.md"
     out.write_text("\n".join(L))
     print(f"wrote {out}")

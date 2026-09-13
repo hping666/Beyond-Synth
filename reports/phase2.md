@@ -1,10 +1,10 @@
 # Phase 2 report — noise floor, SEQ pilot, E4 runtime (Exp0)
 
-Generated 2026-09-13 11:25 by scripts/report_phase.py (git 65c08ba781fa, cfg 443559992d75). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
+Generated 2026-09-13 11:26 by scripts/report_phase.py (git eea8ca78ae5f, cfg 443559992d75). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
 
 ## 1. Perturbation generator (PLAN 2.1)
 
-4 designs of the sets; perturbations per type {'P1_rename': 14, 'P2_reorder': 10, 'P3_expr': 1, 'P4_ctrl': 4}; types not applicable {'P3_expr': 3, 'P4_ctrl': 3}; designs Pyverilog cannot parse: 0 ().
+179 designs with a generator manifest (sets + RTLRewriter); perturbations per type {'P1_rename': 552, 'P2_reorder': 387, 'P3_expr': 225, 'P4_ctrl': 221}; designs where a type is not applicable {'P1_rename': 23, 'P2_reorder': 38, 'P3_expr': 93, 'P4_ctrl': 70}; designs Pyverilog cannot parse: 16 (cktevo_hsm__G16Inv2SharesDep, cktevo_hsm__G256Inv2Shares5Stages, cktevo_hsm__hsm, cktevo_nn_engine__thresholds_128x4096, cktevo_risc__btb, cktevo_risc__cpu, cktevo_risc__l2_cache_control, cktevo_risc__stall_control_unit, cktevo_sdc_ctrl__sdc_controller, drrtl_aes, drrtl_simple_spi, rtllm_adder_32bit, rtllm_multi_8bit, rtllm_parallel2serial, rtlrewriter_datapath__loop_tiling, rtlrewriter_datapath__multiplier_architecture).
 
 SEQ gate (V1 -> V2 -> V3; only `proven` enters the floor):
 
@@ -41,26 +41,26 @@ Minimum reportable gain = 2.0 x sigma_D (config noise.k_sigma); per-design value
 
 ### 2a. Floor distribution on the set designs (dev + held)
 
-| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q90 of abs delta | pooled q95 | pooled q99 | pooled max | proposed t_D median / q95 / max | designs above pooled min |
+| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q90 of abs delta | pooled q95 | pooled q99 | pooled max | rule-A t_D median / q95 / max | designs above the q90 minimum |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| E1 | area | 99 | 86 | 64 | 18 | 2 | 0.0069 | 0.0143 | 0.0594 | 0.0669 | 0.0143 / 0.0263 / 0.0669 | 11 |
-| E1 | power_saif | 99 | 76 | 51 | 28 | 11 | 0.0171 | 0.0441 | 0.1235 | 0.3943 | 0.0441 / 0.0898 / 0.3943 | 12 |
-| E1 | tns | 99 | 91 | 89 | 9 | 7 | 0.0000 | 1.6394 | 38.4399 | 153.9485 | 1.6394 / 3.6914 / 153.9485 | 6 |
-| E1 | wns | 99 | 90 | 67 | 17 | 5 | 0.0048 | 0.0296 | 0.0605 | 0.1033 | 0.0296 / 0.0496 / 0.1033 | 11 |
-| E2 | area | 99 | 94 | 69 | 17 | 6 | 0.0028 | 0.0128 | 0.0805 | 0.1625 | 0.0128 / 0.0516 / 0.1625 | 14 |
-| E2 | power_saif | 99 | 91 | 55 | 26 | 10 | 0.0148 | 0.0619 | 0.1501 | 0.3648 | 0.0619 / 0.1258 / 0.3648 | 10 |
+| E1 | area | 99 | 86 | 64 | 18 | 2 | 0.0069 | 0.0143 | 0.0594 | 0.0669 | 0.0069 / 0.0263 / 0.0669 | 21 |
+| E1 | power_saif | 99 | 76 | 51 | 28 | 11 | 0.0171 | 0.0441 | 0.1235 | 0.3943 | 0.0171 / 0.0898 / 0.3943 | 21 |
+| E1 | tns | 99 | 91 | 89 | 9 | 7 | 0.0000 | 1.6394 | 38.4399 | 153.9485 | 0.0000 / 3.6914 / 153.9485 | 10 |
+| E1 | wns | 99 | 90 | 67 | 17 | 5 | 0.0048 | 0.0296 | 0.0605 | 0.1033 | 0.0048 / 0.0496 / 0.1033 | 21 |
+| E2 | area | 99 | 94 | 69 | 17 | 6 | 0.0028 | 0.0128 | 0.0805 | 0.1625 | 0.0028 / 0.0516 / 0.1625 | 24 |
+| E2 | power_saif | 99 | 91 | 55 | 26 | 10 | 0.0148 | 0.0619 | 0.1501 | 0.3648 | 0.0148 / 0.1258 / 0.3648 | 24 |
 | E2 | tns | 99 | 99 | 94 | 5 | 5 | 0.0000 | 0.0000 | 0.0773 | 8.2259 | 0.0000 / 0.0060 / 8.2259 | 5 |
-| E2 | wns | 99 | 94 | 67 | 17 | 9 | 0.0018 | 0.0108 | 0.1364 | 0.1460 | 0.0108 / 0.0743 / 0.1460 | 16 |
-| E3 | area | 99 | 94 | 68 | 25 | 13 | 0.0094 | 0.0465 | 0.1457 | 0.2605 | 0.0465 / 0.1366 / 0.2605 | 13 |
-| E3 | power_saif | 99 | 91 | 55 | 27 | 15 | 0.0245 | 0.0637 | 0.2110 | 0.5771 | 0.0637 / 0.1880 / 0.5771 | 13 |
+| E2 | wns | 99 | 94 | 67 | 17 | 9 | 0.0018 | 0.0108 | 0.1364 | 0.1460 | 0.0018 / 0.0743 / 0.1460 | 28 |
+| E3 | area | 99 | 94 | 68 | 25 | 13 | 0.0094 | 0.0465 | 0.1457 | 0.2605 | 0.0094 / 0.1366 / 0.2605 | 25 |
+| E3 | power_saif | 99 | 91 | 55 | 27 | 15 | 0.0245 | 0.0637 | 0.2110 | 0.5771 | 0.0245 / 0.1880 / 0.5771 | 23 |
 | E3 | tns | 99 | 99 | 97 | 1 | 1 | 0.0000 | 0.0000 | 0.0000 | 2.1978 | 0.0000 / 0.0000 / 2.1978 | 2 |
-| E3 | wns | 99 | 94 | 67 | 19 | 7 | 0.0030 | 0.0122 | 0.1364 | 0.1460 | 0.0122 / 0.0522 / 0.1460 | 16 |
-| E4 | area | 99 | 95 | 72 | 18 | 9 | 0.0029 | 0.0465 | 0.1865 | 0.1866 | 0.0465 / 0.1009 / 0.1866 | 10 |
-| E4 | power_saif | 99 | 90 | 57 | 25 | 16 | 0.0141 | 0.1003 | 0.3243 | 0.6425 | 0.1003 / 0.2228 / 0.6425 | 11 |
+| E3 | wns | 99 | 94 | 67 | 19 | 7 | 0.0030 | 0.0122 | 0.1364 | 0.1460 | 0.0030 / 0.0522 / 0.1460 | 25 |
+| E4 | area | 99 | 95 | 72 | 18 | 9 | 0.0029 | 0.0465 | 0.1865 | 0.1866 | 0.0029 / 0.1009 / 0.1866 | 21 |
+| E4 | power_saif | 99 | 90 | 57 | 25 | 16 | 0.0141 | 0.1003 | 0.3243 | 0.6425 | 0.0141 / 0.2228 / 0.6425 | 21 |
 | E4 | tns | 99 | 99 | 97 | 2 | 1 | 0.0000 | 0.0000 | 0.0000 | 0.3120 | 0.0000 / 0.0000 / 0.3120 | 2 |
-| E4 | wns | 99 | 95 | 71 | 13 | 6 | 0.0007 | 0.0154 | 0.0821 | 0.1460 | 0.0154 / 0.0522 / 0.1460 | 11 |
+| E4 | wns | 99 | 95 | 71 | 13 | 6 | 0.0007 | 0.0154 | 0.0821 | 0.1460 | 0.0007 / 0.0522 / 0.1460 | 22 |
 
-Proposed threshold (G1 alternative): t_D = max(2 x sigma_robust, max |delta| over D's own proven perturbations, pooled q95 of |delta| over all perturbation records of the configuration); the pooled q95 is the minimum for designs whose perturbations never change the netlist. The spec's 2 x sigma_robust stays in the table for the sensitivity report.
+Rule A (G1 alternative, see the conclusions): t_D = max(2 x sigma_robust, max |delta| over D's own proven perturbations including the re-print, pooled q90 of |delta| over all perturbation records of the configuration); the pooled quantile is the minimum for designs whose perturbations never change the netlist (rule B uses the pooled q95 instead). The spec's 2 x sigma_robust stays in the table above for the sensitivity report.
 
 ### 2b. Perturbation types that change the netlist (area or cell count of D differs)
 
@@ -81,53 +81,6 @@ Proposed threshold (G1 alternative): t_D = max(2 x sigma_robust, max |delta| ove
 | E1 -> E4 | 10 | 44 |
 
 WNS is compared at Φ_main (the E4 knee): once a rung meets timing, area recovery legitimately trades slack, so a WNS drop between two rungs that both meet timing is not a regression.
-
-## 6. Conclusions for the STOP gates (operator's reading of the data above; the decisions are the user's)
-
-### G2 — SEQ pilot (PLAN 2.4): done
-
-Facts (131 candidates × 2 random seeds; §4 and reports/data/phase2_pilot.json):
-
-- Class (b), latency-preserving restructurings: 41 of 43 SEQ-proven (95 %), 1 rejected at V1, 1 inconclusive; median V3 time 28 s.
-- Class (c1), retimings at equal latency: 38 of 43 proven (88 %), 3 sim_fail (the LLM changed the function), 1 rejected, 1 inconclusive (the Dr.RTL DSP multiplier retiming, SEQ timeout at 1 530 s for both seeds); median 29 s.
-- Class (c2), one extra pipeline stage: 11 proven (the model did not actually add latency) + 29 `proven_sim_only` (constant one-cycle offsets on every output over 20 000 random cycles for both seeds, SEQ falsifies without a latency mapping) + 1 sim_fail; median 31 s. Per-output offsets were identical across the two seeds for all 124 candidates with a measurable offset.
-- The two RTL-OPT pairs with a changed flip-flop count that failed are not protocol failures: mac_ref changes the function (V2 mismatch from cycle 3) and saturating_add_ref keeps two never-set registers whose free initial state SEQ exploits.
-
-Decisions requested:
-
-1. **Class (c2) certificate.** SEQ as run (name-based state matching, no latency mapping) cannot prove a candidate that adds a pipeline stage. Options: (a) keep `proven_sim_only` as a separate, weaker evidence class (lock-step equivalence under a constant per-output offset, two seeds) and report it apart from `proven` in every table — recommended for Phase 3–4, it costs nothing and keeps the protocol honest; (b) add a SEQ latency mapping (per-output offsets from V2 fed to the SEQ setup) as an engineering task before Phase 5, so that (c2) candidates can be promoted to `proven`; (c) exclude (c2) from retained-gain claims. Recommendation: (a) now, (b) attempted on the 29 pilot candidates before Phase 5, (c) only if (b) fails.
-2. **Registers without reset.** SEQ treats their initial state as free, which falsifies correct rewrites (renamed registers — handled by the `proven_rename` rule — and dead-code registers as in saturating_add). Options: assume the all-zero initial state for every register without a reset (a documented protocol assumption, applied to D and candidate alike) or keep the free initial state and accept the false falsifications. Recommendation: the all-zero assumption, recorded in spec 03, because the same assumption is what the lock-step simulation makes.
-3. **Guardrail 3 / V4.** Neither SEQ-inconclusive candidate meets all three conditions for automatic phase derivation; V4 stays disabled in Phase 3 (no decision needed unless the user wants it earlier).
-
-### G1 — noise floor (PLAN 2.3)
-
-Facts (§2, §2a–2c; every number includes the round-trip P0 runs):
-
-- Floors exist for 99 of the 128 set designs (77 %; 144 designs with the RTLRewriter calibration suite). 29 set designs have none: 13 that Pyverilog cannot parse (no perturbations generated), 14 whose perturbations exist but none is SEQ-proven (the re-print is rejected by VCS or its round trip is not proven: LSTM, arm_cpu1/2, i2c, tv80, communication, usbf_core/csr/sie_rx, MixColumns, vga_wb_slave, alu, router, …), 2 with a single proven perturbation. Behind the floors: 8 designs with 2–3 perturbations, 28 with 4–7, 63 with 8 or more.
-- **The median σ_robust is 0 in every configuration and metric.** Under E4, 88 % of the perturbation records leave area and cell count of D unchanged: the re-print P0 changes the E4 result on 3 of 98 designs, a P1 rename in 5 % of its records, a P2 reorder in 32 %, P3 expression rewrites in 10 %, P4 control rewrites in 14 % (under E1, plain `compile`, renames change 29 %: the basic rung is name- and order-sensitive). With more than half of the deviations exactly 0 the MAD collapses, so the spec's threshold 2 σ_robust would be 0 for 95 of the 99 designs (E4 area): any nonzero change would count as retained. The G1 question as posed (median above 5 %) is inverted; the actual problem is a point mass at zero with a heavy tail.
-- **The tail is real.** Under E4, 18 of 99 designs have a perturbation that moves area by more than 1 %, 9 by more than 5 % (maximum 18.7 %); for SAIF power 25 and 16 designs (maximum 64 %). Per design (E4 area): 72 quiet (every deviation ≤ 0.1 %), 21 spread (a minority of the perturbations shift the result: eth_txethmac 11.5 %, eth_miim 10.1 %, barrel_shifter 13.6 % from one P2 reorder), 6 offset (every non-trivial perturbation shifted together). The re-print alone moves three designs, all from the CktEvo mem_ctrl repository (mc_rf +18.7 % area and +64 % power, mc_dp +7.7 %, mc_adr_sel −0.4 %); RTL-OPT comparator_4bit (+16 %) is an offset of another kind: a 14-line design where any renaming or reordering flips DC's structural choice. Pooled over all perturbation records of the set designs under E4: q90 |δ_area| = 0.29 %, q95 = 4.7 %, q99 = 18.7 %; power q90 = 1.4 %, q95 = 10.0 %; WNS q90 = 0.07 % of the period, q95 = 1.5 %.
-- Monotonicity of D across the rungs (127 designs): area grows from E2 to E3 in 34 designs (retiming duplicates registers: eth_cop 177 → 302 flip-flops, +42 % area) and from E3 to E4 in 5; from E1 to E4 in 10. WNS at Φ_main falls from E1 to E2 in 47 designs (area recovery once timing is met). The rungs are capability sets, not a monotone chain.
-
-Decisions requested:
-
-1. **Threshold rule.** (A) t_D = max(2 σ_robust, the largest |δ| among D's own proven perturbations including the re-print, the pooled q90 of the configuration and metric): distribution-free per design, catches the offset designs, and gives the quiet designs a small but nonzero floor (under E4: 0.29 % area, 1.4 % power, 0.07 % of the period for WNS; §2a lists every configuration). (B) the same rule with the pooled q95 as the minimum (4.7 % area, 10 % power under E4): conservative to the point that most LLM area gains (2–5 %) would vanish. (C) the spec's 2 σ_robust plus the absolute cell-count unit: unusable, zero for 96 % of the designs. Recommendation: (A), with σ_robust and the 1/2/3 σ sensitivity still reported, and the quiet / spread / offset class of every design stored with its floor so that a retained gain on an offset design is flagged in the map.
-2. **Designs without a floor** (29 set designs). Either exclude them from the search sets (held shrinks from 108 to about 80) or keep them with the pooled minimum as floor and a flag; for the Exp1 map designs a measured floor should be required. Recommendation: keep with the pooled minimum and the flag.
-3. **Sample size.** 36 of the 99 floors rest on at most 7 perturbations. Generating 8 per type (the plan's number for the map designs) for the Exp1 map designs and the spread / offset designs costs about 3 DC hours plus 4 VC Formal hours. Recommendation: for the map designs only, before Phase 4.
-4. **Rung attribution (Phase 3).** Because area is not monotone from E1 to E4, "absorbed at rung r" must compare the candidate with D under the same rung and never assume that a higher rung dominates a lower one (a check for spec 04).
-
-### G3 — E4 runtime (PLAN 2.5)
-
-Facts (§3; t_H3 and the agreement rate from the hidden worker, §4):
-
-- E4 at Φ_main over 128 set designs: median 79 s, mean 100 s, q95 185 s, max 693 s; about 60 s of every run is DC start-up and library loading, so E4 is "cheap" (below 120 s) for 115 of the 128 designs.
-- Full-E4 Phase 5 scale (32 400 candidate evaluations): 903 DC hours = 18 h at 50 seats, 37 h at 24 concurrent runs (the setting used today), 75 h at 12. The per-design budget rule (60 × t_E4) gives a median budget of 1.3 DC hours per run.
-- DC screening rungs at Φ_main are not cheaper where it matters: E1 averages 35 s over all designs but 272 s on the 13 designs whose E4 exceeds 120 s (plain `compile` at a tight period is slow on large designs; three designs even time out under E1), and E2 (104 s) costs as much as E4. A cascade that screens every candidate with E1 and promotes 25 % costs 60 % of full-E4 but pays with screening misses; the hybrid that screens only the expensive designs saves nothing (101–111 % of full-E4).
-- t_H3 / t_E4 and the E4-vs-H3 agreement of the floor conclusions: see §4 (filled by `scripts/hidden_worker.py --g3-summary` when the H3 runs have drained).
-
-Decisions requested:
-
-1. **Screening.** Recommendation: screening does not enter the main method as a DC-rung cascade. E4 itself is the cheap rung for 90 % of the designs, and the DC rungs below it are not cheaper on the designs where E4 is expensive. The only screen with a real cost advantage is Y (Yosys, seconds per candidate); its predictive value (AUROC ≥ 0.75, config `screen.auroc_min`) is measured in Phase 3/4, and the M vs M_noscreen arms stay to quantify it — with `screen.candidates_es` reduced to [Y].
-2. **Main scoring configuration.** E4 stays the scoring configuration unless the H3 summary shows both a small runtime ratio (≤ 2×) and a low agreement rate (< 90 %) — in which case moving the scoring to H3 (physical-aware, full effort) would be the safer choice at an affordable cost. To be finalised from §4.
 
 ## 3. E4 runtime (PLAN 2.5)
 
@@ -181,3 +134,50 @@ t_H3 / t_E4 and the E4-vs-H3 agreement rate come from the hidden worker as count
 - G1: decide on the truncation if the median area floor exceeds the warning level.
 - G2: SEQ fractions per class from the pilot.
 - G3: screening recommendation from the E4 seconds and the cascade estimate.
+
+## 6. Conclusions for the STOP gates (operator's reading of the data above; the decisions are the user's)
+
+### G1 — noise floor (PLAN 2.3)
+
+Facts (§2, §2a–2c; every number includes the round-trip P0 runs):
+
+- Floors exist for 99 of the 128 set designs (77 %; 144 designs with the RTLRewriter calibration suite). 29 set designs have none: 13 that Pyverilog cannot parse (no perturbations generated), 14 whose perturbations exist but none is SEQ-proven (the re-print is rejected by VCS or its round trip is not proven: LSTM, arm_cpu1/2, i2c, tv80, communication, usbf_core/csr/sie_rx, MixColumns, vga_wb_slave, alu, router, …), 2 with a single proven perturbation. Behind the floors: 8 designs with 2–3 perturbations, 28 with 4–7, 63 with 8 or more.
+- **The median σ_robust is 0 in every configuration and metric.** Under E4, 88 % of the perturbation records leave area and cell count of D unchanged: the re-print P0 changes the E4 result on 3 of 98 designs, a P1 rename in 5 % of its records, a P2 reorder in 32 %, P3 expression rewrites in 10 %, P4 control rewrites in 14 % (under E1, plain `compile`, renames change 29 %: the basic rung is name- and order-sensitive). With more than half of the deviations exactly 0 the MAD collapses, so the spec's threshold 2 σ_robust would be 0 for 95 of the 99 designs (E4 area): any nonzero change would count as retained. The G1 question as posed (median above 5 %) is inverted; the actual problem is a point mass at zero with a heavy tail.
+- **The tail is real.** Under E4, 18 of 99 designs have a perturbation that moves area by more than 1 %, 9 by more than 5 % (maximum 18.7 %); for SAIF power 25 and 16 designs (maximum 64 %). Per design (E4 area): 72 quiet (every deviation ≤ 0.1 %), 21 spread (a minority of the perturbations shift the result: eth_txethmac 11.5 %, eth_miim 10.1 %, barrel_shifter 13.6 % from one P2 reorder), 6 offset (every non-trivial perturbation shifted together). The re-print alone moves three designs, all from the CktEvo mem_ctrl repository (mc_rf +18.7 % area and +64 % power, mc_dp +7.7 %, mc_adr_sel −0.4 %); RTL-OPT comparator_4bit (+16 %) is an offset of another kind: a 14-line design where any renaming or reordering flips DC's structural choice. Pooled over all perturbation records of the set designs under E4: q90 |δ_area| = 0.29 %, q95 = 4.7 %, q99 = 18.7 %; power q90 = 1.4 %, q95 = 10.0 %; WNS q90 = 0.07 % of the period, q95 = 1.5 %.
+- Monotonicity of D across the rungs (127 designs): area grows from E2 to E3 in 34 designs (retiming duplicates registers: eth_cop 177 → 302 flip-flops, +42 % area) and from E3 to E4 in 5; from E1 to E4 in 10. WNS at Φ_main falls from E1 to E2 in 47 designs (area recovery once timing is met). The rungs are capability sets, not a monotone chain.
+
+Decisions requested:
+
+1. **Threshold rule.** (A) t_D = max(2 σ_robust, the largest |δ| among D's own proven perturbations including the re-print, the pooled q90 of the configuration and metric): distribution-free per design, catches the offset designs, and gives the quiet designs a small but nonzero floor (under E4: 0.29 % area, 1.4 % power, 0.07 % of the period for WNS; §2a lists every configuration). (B) the same rule with the pooled q95 as the minimum (4.7 % area, 10 % power under E4): conservative to the point that most LLM area gains (2–5 %) would vanish. (C) the spec's 2 σ_robust plus the absolute cell-count unit: unusable, zero for 96 % of the designs. Under rule A, 21 of the 99 designs get a floor above the minimum (E4 area: median t_D = 0.29 %, q95 = 10 %, max = 18.7 %), the other 78 the minimum itself. Recommendation: (A), with σ_robust and the 1/2/3 σ sensitivity still reported, and the quiet / spread / offset class of every design stored with its floor so that a retained gain on an offset design is flagged in the map.
+2. **Designs without a floor** (29 set designs). Either exclude them from the search sets (held shrinks from 108 to about 80) or keep them with the pooled minimum as floor and a flag; for the Exp1 map designs a measured floor should be required. Recommendation: keep with the pooled minimum and the flag.
+3. **Sample size.** 36 of the 99 floors rest on at most 7 perturbations. Generating 8 per type (the plan's number for the map designs) for the Exp1 map designs and the spread / offset designs costs about 3 DC hours plus 4 VC Formal hours. Recommendation: for the map designs only, before Phase 4.
+4. **Rung attribution (Phase 3).** Because area is not monotone from E1 to E4, "absorbed at rung r" must compare the candidate with D under the same rung and never assume that a higher rung dominates a lower one (a check for spec 04).
+
+### G2 — SEQ pilot (PLAN 2.4): done
+
+Facts (131 candidates × 2 random seeds; §4 and reports/data/phase2_pilot.json):
+
+- Class (b), latency-preserving restructurings: 41 of 43 SEQ-proven (95 %), 1 rejected at V1, 1 inconclusive; median V3 time 28 s.
+- Class (c1), retimings at equal latency: 38 of 43 proven (88 %), 3 sim_fail (the LLM changed the function), 1 rejected, 1 inconclusive (the Dr.RTL DSP multiplier retiming, SEQ timeout at 1 530 s for both seeds); median 29 s.
+- Class (c2), one extra pipeline stage: 11 proven (the model did not actually add latency) + 29 `proven_sim_only` (constant one-cycle offsets on every output over 20 000 random cycles for both seeds, SEQ falsifies without a latency mapping) + 1 sim_fail; median 31 s. Per-output offsets were identical across the two seeds for all 124 candidates with a measurable offset.
+- The two RTL-OPT pairs with a changed flip-flop count that failed are not protocol failures: mac_ref changes the function (V2 mismatch from cycle 3) and saturating_add_ref keeps two never-set registers whose free initial state SEQ exploits.
+
+Decisions requested:
+
+1. **Class (c2) certificate.** SEQ as run (name-based state matching, no latency mapping) cannot prove a candidate that adds a pipeline stage. Options: (a) keep `proven_sim_only` as a separate, weaker evidence class (lock-step equivalence under a constant per-output offset, two seeds) and report it apart from `proven` in every table — recommended for Phase 3–4, it costs nothing and keeps the protocol honest; (b) add a SEQ latency mapping (per-output offsets from V2 fed to the SEQ setup) as an engineering task before Phase 5, so that (c2) candidates can be promoted to `proven`; (c) exclude (c2) from retained-gain claims. Recommendation: (a) now, (b) attempted on the 29 pilot candidates before Phase 5, (c) only if (b) fails.
+2. **Registers without reset.** SEQ treats their initial state as free, which falsifies correct rewrites (renamed registers — handled by the `proven_rename` rule — and dead-code registers as in saturating_add). Options: assume the all-zero initial state for every register without a reset (a documented protocol assumption, applied to D and candidate alike) or keep the free initial state and accept the false falsifications. Recommendation: the all-zero assumption, recorded in spec 03, because the same assumption is what the lock-step simulation makes.
+3. **Guardrail 3 / V4.** Neither SEQ-inconclusive candidate meets all three conditions for automatic phase derivation; V4 stays disabled in Phase 3 (no decision needed unless the user wants it earlier).
+
+### G3 — E4 runtime (PLAN 2.5)
+
+Facts (§3; t_H3 and the agreement rate from the hidden worker, §4):
+
+- E4 at Φ_main over 128 set designs: median 79 s, mean 100 s, q95 185 s, max 693 s; about 60 s of every run is DC start-up and library loading, so E4 is "cheap" (below 120 s) for 115 of the 128 designs.
+- Full-E4 Phase 5 scale (32 400 candidate evaluations): 903 DC hours = 18 h at 50 seats, 37 h at 24 concurrent runs (the setting used today), 75 h at 12. The per-design budget rule (60 × t_E4) gives a median budget of 1.3 DC hours per run.
+- DC screening rungs at Φ_main are not cheaper where it matters: E1 averages 35 s over all designs but 272 s on the 13 designs whose E4 exceeds 120 s (plain `compile` at a tight period is slow on large designs; three designs even time out under E1), and E2 (104 s) costs as much as E4. A cascade that screens every candidate with E1 and promotes 25 % costs 60 % of full-E4 but pays with screening misses; the hybrid that screens only the expensive designs saves nothing (101–111 % of full-E4).
+- t_H3 / t_E4 and the E4-vs-H3 agreement of the floor conclusions: see §4 (filled by `scripts/hidden_worker.py --g3-summary` when the H3 runs have drained).
+
+Decisions requested:
+
+1. **Screening.** Recommendation: screening does not enter the main method as a DC-rung cascade. E4 itself is the cheap rung for 90 % of the designs, and the DC rungs below it are not cheaper on the designs where E4 is expensive. The only screen with a real cost advantage is Y (Yosys, seconds per candidate); its predictive value (AUROC ≥ 0.75, config `screen.auroc_min`) is measured in Phase 3/4, and the M vs M_noscreen arms stay to quantify it — with `screen.candidates_es` reduced to [Y].
+2. **Main scoring configuration.** E4 stays the scoring configuration unless the H3 summary shows both a small runtime ratio (≤ 2×) and a low agreement rate (< 90 %) — in which case moving the scoring to H3 (physical-aware, full effort) would be the safer choice at an affordable cost. To be finalised from §4.

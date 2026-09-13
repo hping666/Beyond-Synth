@@ -117,7 +117,7 @@ def test_g1_analysis_helpers_both_directions(tmp_path):
     assert a["records"] == 5 and abs(a["frac_zero"] - 0.8) < 1e-9 and a["designs"] == 2
     assert a["zero_robust"] == 2 and a["zero_std"] == 1           # A: MAD of [0, .1, 0] is 0 but std > 0; B: all zero
     assert abs(a["pooled"]["max"] - 0.1) < 1e-9 and a["max_abs_gt"] == {"1pct": 1, "5pct": 1}
-    assert abs(a["t_proposed"]["max"] - 0.1) < 1e-9 and a["t_proposed"]["above_pooled_min"] == 1  # A above the pooled q95, B at it
+    assert abs(a["t_proposed"]["max"] - 0.1) < 1e-9 and a["t_proposed"]["above_pooled_min"] == 1  # A above the pooled q90, B at it
     rates = S.ptype_change_rates(conn, designs, ["E4"], proven)
     assert rates[("E4", "P1_rename")] == {"n": 3, "changed": 0} and rates[("E4", "P2_reorder")] == {"n": 2, "changed": 1}
     mono = S.monotonicity(conn, designs, ["E1", "E4"])

@@ -139,7 +139,7 @@ def proven_by_design(conn):
 def floor_analysis(conn, designs, configs, proven, k, eps=1e-6):
     """designs: [{design_id, phi}] -> per (config, metric): designs with a floor (n >= 2), how many have a zero robust /
     plain sigma, the pooled quantiles of |delta| over every perturbation record, and the distribution of the proposed
-    threshold t_D = max(k * sigma_robust, max|delta|_D, pooled q95) with the number of designs above the pooled minimum."""
+    threshold (rule A) t_D = max(k * sigma_robust, max|delta|_D, pooled q90) with the number of designs above the pooled minimum."""
     pooled, per_design = {}, {}
     for d in designs:
         did, phi = d["design_id"], d["phi"]
@@ -158,15 +158,15 @@ def floor_analysis(conn, designs, configs, proven, k, eps=1e-6):
                     per_design[(config, m, did)] = (s["sigma_robust"], s["sigma_std"], s["max_abs"])
     out = {}
     for (config, m), v in pooled.items():
-        q95 = quantile(v, 0.95)
+        q90, q95 = quantile(v, 0.90), quantile(v, 0.95)
         rows = [(sr, ss, mx) for (c, mm, _), (sr, ss, mx) in per_design.items() if c == config and mm == m]
-        ts = sorted(max(k * sr, mx, q95) for sr, ss, mx in rows)
+        ts = sorted(max(k * sr, mx, q90) for sr, ss, mx in rows)
         out[(config, m)] = {"records": len(v), "frac_zero": sum(1 for x in v if x == 0) / len(v),
-                            "pooled": {"q90": quantile(v, 0.90), "q95": q95, "q99": quantile(v, 0.99), "max": max(v)},
+                            "pooled": {"q90": q90, "q95": q95, "q99": quantile(v, 0.99), "max": max(v)},
                             "designs": len(rows), "zero_robust": sum(1 for sr, _, _ in rows if sr == 0), "zero_std": sum(1 for _, ss, _ in rows if ss == 0),
                             "max_abs_gt": {"1pct": sum(1 for _, _, mx in rows if mx > 0.01), "5pct": sum(1 for _, _, mx in rows if mx > 0.05)},
                             "t_proposed": ({"median": quantile(ts, 0.5), "q75": quantile(ts, 0.75), "q95": quantile(ts, 0.95), "max": ts[-1],
-                                            "above_pooled_min": sum(1 for x in ts if x > q95 + 1e-12)} if ts else None)}
+                                            "above_pooled_min": sum(1 for x in ts if x > q90 + 1e-12)} if ts else None)}
     return out
 
 
