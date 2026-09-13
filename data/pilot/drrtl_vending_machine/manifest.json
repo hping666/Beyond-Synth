@@ -1,0 +1,22 @@
+{
+ "design_id": "drrtl_vending_machine",
+ "top": "vending_machine",
+ "author": "operator (CLAUDE.md exception 2, 2026-09-12)",
+ "variants": [
+  {
+   "file": "b_onehot_state_encoding.v",
+   "class": "b",
+   "note": "binary -> one-hot state encoding"
+  },
+  {
+   "file": "c1_output_retimed.v",
+   "class": "c1",
+   "note": "Moore output sell_signal computed from next_state and registered (latency unchanged)"
+  },
+  {
+   "file": "c2_registered_discount.v",
+   "class": "c2",
+   "note": "total_discount registered: that output one cycle later, sell_signal unchanged (per-output offset)"
+  }
+ ]
+}

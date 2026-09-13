@@ -1,0 +1,17 @@
+{
+ "design_id": "drrtl_ticket_machine",
+ "top": "ticket_machine",
+ "author": "operator (CLAUDE.md exception 2, 2026-09-12)",
+ "variants": [
+  {
+   "file": "b_binary_state_encoding.v",
+   "class": "b",
+   "note": "one-hot -> binary state encoding"
+  },
+  {
+   "file": "c1_outputs_from_duplicated_state_register.v",
+   "class": "c1",
+   "note": "Moore outputs decoded from a duplicated state register (register duplication, latency unchanged)"
+  }
+ ]
+}
