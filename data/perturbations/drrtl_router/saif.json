@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_router/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_router/EQ/ca1cc85f1d4113cb",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "drrtl_router",
  "missing": [],

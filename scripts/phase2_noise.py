@@ -67,13 +67,16 @@ def cmd_submit(cfg, conn, a):
         perts = proven_perturbations(conn, d["design_id"])
         sf = SF.load_saif(d["design_id"]) or {}
         d_saif = (sf.get("design") or {})
+        if a.ptype:
+            perts = [p for p in perts if p["ptype"] in a.ptype]
         for config in configs:
-            jb = J.dc_job(cfg, d, config, phi, a.priority)
-            if d_saif.get("saif"):
-                jb["payload"].update(saif=d_saif["saif"], saif_instance=d_saif["instance"])
-            else:
-                no_saif += 1
-            jobs.append(jb)
+            if not a.ptype:  # a type filter adds perturbations to an existing batch: D was already run
+                jb = J.dc_job(cfg, d, config, phi, a.priority)
+                if d_saif.get("saif"):
+                    jb["payload"].update(saif=d_saif["saif"], saif_instance=d_saif["instance"])
+                else:
+                    no_saif += 1
+                jobs.append(jb)
             for p in perts:
                 j = J.dc_job(cfg, d, config, phi, a.priority)
                 j["payload"].update(rtl=[str(Path(ROOT) / p["path"])], incdirs=[], is_baseline=0, pert_id=p["pert_id"])
@@ -141,6 +144,7 @@ def main(argv=None):
     ap.add_argument("--suite", nargs="*", default=None)
     ap.add_argument("--design", nargs="*", default=None)
     ap.add_argument("--configs", nargs="*", default=None)
+    ap.add_argument("--ptype", nargs="*", default=None, help="only these perturbation types, without the D baseline (adds to an existing batch)")
     ap.add_argument("--submit", action="store_true")
     ap.add_argument("--priority", type=int, default=0)
     a = ap.parse_args(argv)

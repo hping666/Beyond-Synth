@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/4586c98edb51542e",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlopt_gray",
  "missing": [],
@@ -12,73 +12,79 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/p1f79e001b92ab0.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/eec3fc9b19a6e44c",
-   "status": "ok"
+   "status": "exists"
   },
   "p2b023bc09d5461": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/p2b023bc09d5461.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/9be7c29dd464d353",
-   "status": "ok"
+   "status": "exists"
   },
   "p3b220bdc4c8909": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/p3b220bdc4c8909.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/c7429a119ee049ae",
-   "status": "ok"
+   "status": "exists"
   },
   "p646fe2c1c17c36": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/p646fe2c1c17c36.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/d52d25933aaac05e",
-   "status": "ok"
+   "status": "exists"
   },
   "p66e1c516be807a": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/p66e1c516be807a.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/4edbabc4576864ea",
-   "status": "ok"
+   "status": "exists"
   },
   "p67a7bdd3b39465": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/p67a7bdd3b39465.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/eac0a940ddf329b4",
-   "status": "ok"
+   "status": "exists"
   },
   "p79bb3cb07666c7": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/p79bb3cb07666c7.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/c267e2e9315de45e",
-   "status": "ok"
+   "status": "exists"
   },
   "p7d7855f1f00e7a": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/p7d7855f1f00e7a.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/7232813bf685e069",
-   "status": "ok"
+   "status": "exists"
   },
   "p84380425183822": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/p84380425183822.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/5467823249210adb",
-   "status": "ok"
+   "status": "exists"
   },
   "p9381fc61f5dd93": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/p9381fc61f5dd93.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/f82159b89205c64b",
-   "status": "ok"
+   "status": "exists"
   },
   "pa3e913e4a60c1a": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/pa3e913e4a60c1a.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/48344a1343dbf4a9",
+   "status": "exists"
+  },
+  "pd60a401457dd38": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/pd60a401457dd38.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/4586c98edb51542e",
    "status": "ok"
   },
   "pfefd49efe03163": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_gray/saif/pfefd49efe03163.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/EQ/5eb38357d9dfdbc7",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

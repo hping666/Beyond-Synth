@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/27771a2302643335",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "drrtl_vending_machine",
  "missing": [],
@@ -12,67 +12,73 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/p00a632b7e74b19.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/efb71a3e7c08f03e",
-   "status": "ok"
+   "status": "exists"
   },
   "p16b7cfe3a539a5": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/p16b7cfe3a539a5.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/7fd58399e0d5bcce",
-   "status": "ok"
+   "status": "exists"
   },
   "p18c09b5e4e52af": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/p18c09b5e4e52af.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/030953e1b9dbee16",
+   "status": "exists"
+  },
+  "p6ff6f4710dabd6": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/p6ff6f4710dabd6.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/27771a2302643335",
    "status": "ok"
   },
   "p7f7bc647359606": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/p7f7bc647359606.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/6299f7253a39b195",
-   "status": "ok"
+   "status": "exists"
   },
   "pb1997098b003f4": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/pb1997098b003f4.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/4577f061f8857bc7",
-   "status": "ok"
+   "status": "exists"
   },
   "pb391124ee147b3": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/pb391124ee147b3.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/c1fe08256547fe3d",
-   "status": "ok"
+   "status": "exists"
   },
   "pc22f34326bec4c": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/pc22f34326bec4c.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/e248463954e43721",
-   "status": "ok"
+   "status": "exists"
   },
   "pd2acfcc1673e4b": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/pd2acfcc1673e4b.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/9789504b6d26cb6a",
-   "status": "ok"
+   "status": "exists"
   },
   "pd64d3af2f1872d": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/pd64d3af2f1872d.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/49b5ca751f67eef7",
-   "status": "ok"
+   "status": "exists"
   },
   "pd79f973576f1b1": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/pd79f973576f1b1.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/ea9bd5ac9024ad41",
-   "status": "ok"
+   "status": "exists"
   },
   "pd7aebf0c3400a0": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_vending_machine/saif/pd7aebf0c3400a0.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_vending_machine/EQ/921bad48a511a1df",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

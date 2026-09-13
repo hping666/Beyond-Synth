@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_communication/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_communication/EQ/136d03fb029be7fe",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "drrtl_communication",
  "missing": [],

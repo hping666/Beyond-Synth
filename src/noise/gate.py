@@ -110,10 +110,8 @@ def collect(conn, cfg, designs=None, root=None):
             recs = sorted(by_cand.get(e["pert_id"], []))
             status = _verdict(recs[-1][1]) if recs else "pending"
             if e["ptype"] == "P0_roundtrip":
-                counts[status] = counts.get(status, 0) + 1
-                summary.setdefault(d["design_id"], {})["roundtrip"] = status
-                continue
-            if status in ("falsified", "inconclusive", "error") and rt_status == "proven" and rename_is_alpha(m, e, root):
+                summary.setdefault(d["design_id"], {})["roundtrip"] = status  # the re-print is recorded like any perturbation (DECISIONS 2026-09-13)
+            elif status in ("falsified", "inconclusive", "error") and rt_status == "proven" and rename_is_alpha(m, e, root):
                 status = "proven_rename"  # alpha-renaming of a SEQ-proven round trip (SEQ could not match the renamed state)
             counts[status] = counts.get(status, 0) + 1
             row = {"pert_id": e["pert_id"], "design_id": d["design_id"], "ptype": e["ptype"], "path": e["path"], "seq_status": status}

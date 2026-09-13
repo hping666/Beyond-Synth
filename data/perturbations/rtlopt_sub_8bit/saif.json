@@ -3,52 +3,58 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_8bit/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_8bit/EQ/88911591fb06424a",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlopt_sub_8bit",
  "missing": [],
  "perturbations": {
+  "p2419d8b69ce9b6": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_8bit/saif/p2419d8b69ce9b6.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_8bit/EQ/88911591fb06424a",
+   "status": "ok"
+  },
   "p36130068f92713": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_8bit/saif/p36130068f92713.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_8bit/EQ/7b59f55a39a1d341",
-   "status": "ok"
+   "status": "exists"
   },
   "p5035d38204d786": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_8bit/saif/p5035d38204d786.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_8bit/EQ/1a024682ad784338",
-   "status": "ok"
+   "status": "exists"
   },
   "p77961774562cca": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_8bit/saif/p77961774562cca.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_8bit/EQ/8e7d015576ad7849",
-   "status": "ok"
+   "status": "exists"
   },
   "p77c2cc13b75481": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_8bit/saif/p77c2cc13b75481.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_8bit/EQ/8a1499d2e8338e08",
-   "status": "ok"
+   "status": "exists"
   },
   "p9c076d976f789d": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_8bit/saif/p9c076d976f789d.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_8bit/EQ/492ebfd5de1a1d0e",
-   "status": "ok"
+   "status": "exists"
   },
   "pbfb090a3652331": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_8bit/saif/pbfb090a3652331.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_8bit/EQ/ac615fd2e52d4f3f",
-   "status": "ok"
+   "status": "exists"
   },
   "pf2526e2ff3fb65": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_8bit/saif/pf2526e2ff3fb65.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_8bit/EQ/0c8cab6df9889219",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

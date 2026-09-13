@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_datapath__multiplier_subexpression/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__multiplier_subexpression/EQ/6b5497a07702ed23",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlrewriter_datapath__multiplier_subexpression",
  "missing": [],
@@ -12,24 +12,30 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_datapath__multiplier_subexpression/saif/p04f32fc7001be7.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__multiplier_subexpression/EQ/b9e87ea3650d094b",
-   "status": "ok"
+   "status": "exists"
   },
   "p252043e194305f": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_datapath__multiplier_subexpression/saif/p252043e194305f.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__multiplier_subexpression/EQ/7cc5536addbce983",
-   "status": "ok"
+   "status": "exists"
   },
   "p8d06230a9d4aa8": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_datapath__multiplier_subexpression/saif/p8d06230a9d4aa8.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__multiplier_subexpression/EQ/94fcd42058fde886",
-   "status": "ok"
+   "status": "exists"
   },
   "p9abd7808dee22f": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_datapath__multiplier_subexpression/saif/p9abd7808dee22f.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__multiplier_subexpression/EQ/faba130c2f37b900",
+   "status": "exists"
+  },
+  "pf92b8eb89186b7": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_datapath__multiplier_subexpression/saif/pf92b8eb89186b7.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__multiplier_subexpression/EQ/6b5497a07702ed23",
    "status": "ok"
   }
  }

@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__multi_constant_multiplication/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication/EQ/da7de2c99e4ba93a",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlrewriter_basic__multi_constant_multiplication",
  "missing": [],
@@ -12,18 +12,24 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__multi_constant_multiplication/saif/p22e2b7ec9e5ad2.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication/EQ/2057e7611b923b6f",
-   "status": "ok"
+   "status": "exists"
   },
   "p26a0f39ac2fefa": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__multi_constant_multiplication/saif/p26a0f39ac2fefa.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication/EQ/a3cb5dd8a34849e2",
-   "status": "ok"
+   "status": "exists"
   },
   "p5f8e3e8d13eb8f": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__multi_constant_multiplication/saif/p5f8e3e8d13eb8f.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication/EQ/6a1cbc17042e9d02",
+   "status": "exists"
+  },
+  "p87075df1e714ee": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__multi_constant_multiplication/saif/p87075df1e714ee.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication/EQ/da7de2c99e4ba93a",
    "status": "ok"
   }
  }

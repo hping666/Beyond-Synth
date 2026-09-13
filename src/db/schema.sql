@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS designs (
 
 CREATE TABLE IF NOT EXISTS perturbations (
   pert_id TEXT PRIMARY KEY,
-  design_id TEXT NOT NULL, ptype TEXT NOT NULL CHECK (ptype IN ('P1_rename', 'P2_reorder', 'P3_expr', 'P4_ctrl')),
+  design_id TEXT NOT NULL, ptype TEXT NOT NULL CHECK (ptype IN ('P0_roundtrip', 'P1_rename', 'P2_reorder', 'P3_expr', 'P4_ctrl')),
   path TEXT NOT NULL, seq_status TEXT,
   created_at TEXT NOT NULL, git_sha TEXT NOT NULL, cfg_hash TEXT NOT NULL);
 

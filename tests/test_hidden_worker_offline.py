@@ -90,6 +90,9 @@ def test_noise_jobs_and_hidden_floor(env, tmp_path, monkeypatch):
     assert len(by_cfg["H3"]) == 3  # D + one perturbation per type (P1, P2)
     assert all(j["kind"] == "dc_hidden" and j["payload"]["design"]["phi_main_ns_asap7"] == 0.5 for j in jobs)
     assert [j["payload"]["is_baseline"] for j in by_cfg["H1"]] == [1, 0, 0, 0] and by_cfg["H2a"][0]["payload"]["clock_ns"] == 0.5
+    only = mod.noise_jobs(cfg, vis, ptypes=["P2_reorder"])
+    assert only and all(j["payload"]["is_baseline"] == 0 and j["payload"]["pert_id"] == "p3" for j in only)  # a type filter: no D job, only that type
+    assert mod.noise_jobs(cfg, vis, ptypes=["P9_none"]) == []
     # hidden floor: baseline + perturbation rows in the hidden DB only
     def ev(pert, area):
         row = {"design_id": "rtllm_acc", "pert_id": pert, "is_baseline": int(pert is None), "config": "H1", "lib": "nangate45", "clock_ns": 0.1,

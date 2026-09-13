@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_counter_12/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_counter_12/EQ/453c4330ea4d856c",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtllm_counter_12",
  "missing": [],
@@ -12,12 +12,18 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_counter_12/saif/p52d3ba3381e5f3.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_counter_12/EQ/62691a9fcf72860a",
-   "status": "ok"
+   "status": "exists"
   },
   "pa8dd0057f3cf85": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_counter_12/saif/pa8dd0057f3cf85.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_counter_12/EQ/71df2f349db0d033",
+   "status": "exists"
+  },
+  "pc9fc309df2c662": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_counter_12/saif/pc9fc309df2c662.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_counter_12/EQ/453c4330ea4d856c",
    "status": "ok"
   }
  }

@@ -3,40 +3,46 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_mac/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_mac/EQ/16c394e10e1d02dd",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlopt_mac",
  "missing": [],
  "perturbations": {
+  "p0313d47bb0c7e5": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_mac/saif/p0313d47bb0c7e5.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_mac/EQ/16c394e10e1d02dd",
+   "status": "ok"
+  },
   "p0e26ebdbb53653": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_mac/saif/p0e26ebdbb53653.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_mac/EQ/8e297d87991e12e5",
-   "status": "ok"
+   "status": "exists"
   },
   "p2d7cbe930e28d7": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_mac/saif/p2d7cbe930e28d7.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_mac/EQ/622fcc1aa2539f04",
-   "status": "ok"
+   "status": "exists"
   },
   "p5bba04d5808e95": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_mac/saif/p5bba04d5808e95.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_mac/EQ/970b30175e7abe56",
-   "status": "ok"
+   "status": "exists"
   },
   "p6994931cea88f7": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_mac/saif/p6994931cea88f7.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_mac/EQ/16b8b2434672c9e6",
-   "status": "ok"
+   "status": "exists"
   },
   "p9997343eaf9460": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_mac/saif/p9997343eaf9460.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_mac/EQ/79e3f22ae5062554",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

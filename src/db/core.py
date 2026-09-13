@@ -7,6 +7,7 @@ Writes of evaluation records go through ingest.py (Phase 0.5); this module only 
 """
 import datetime
 import os
+import re
 import sqlite3
 
 from src import config as C
@@ -31,7 +32,39 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
 ]
 
 
+def _table_ddl(name):
+    """The CREATE TABLE statement of one table from schema.sql."""
+    with open(SCHEMA) as f:
+        m = re.search(rf"CREATE TABLE IF NOT EXISTS {name} \(.*?\);", f.read(), re.S)
+    return m.group(0)
+
+
+def _rebuild_perturbations_if_old(conn):
+    """2026-09-13: the round trip (ptype P0_roundtrip) joined the perturbations table; SQLite cannot alter a CHECK
+    constraint, so a table created with the old constraint is rebuilt once (rows copied, then the old table dropped)."""
+    row = conn.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='perturbations'").fetchone()
+    if not row or "P0_roundtrip" in row[0]:
+        return False
+    conn.execute("BEGIN IMMEDIATE")
+    try:
+        row = conn.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='perturbations'").fetchone()
+        if "P0_roundtrip" in row[0]:  # another connection rebuilt it while we waited for the lock
+            conn.execute("COMMIT")
+            return False
+        conn.execute("ALTER TABLE perturbations RENAME TO perturbations_old")
+        conn.execute(_table_ddl("perturbations"))
+        conn.execute("INSERT INTO perturbations (pert_id, design_id, ptype, path, seq_status, created_at, git_sha, cfg_hash) "
+                     "SELECT pert_id, design_id, ptype, path, seq_status, created_at, git_sha, cfg_hash FROM perturbations_old")
+        conn.execute("DROP TABLE perturbations_old")
+        conn.execute("COMMIT")
+        return True
+    except Exception:
+        conn.execute("ROLLBACK")
+        raise
+
+
 def init_schema(conn):
+    _rebuild_perturbations_if_old(conn)
     with open(SCHEMA) as f:
         conn.executescript(f.read())
     for table, column, ddl in MIGRATIONS:

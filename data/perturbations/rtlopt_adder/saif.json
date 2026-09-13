@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_adder/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_adder/EQ/9e34c2ef7088b429",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlopt_adder",
  "missing": [],
@@ -12,31 +12,37 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_adder/saif/p1b0c24c3472e16.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_adder/EQ/cbde016bd91ac727",
+   "status": "exists"
+  },
+  "p1d5b25f632fcef": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_adder/saif/p1d5b25f632fcef.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_adder/EQ/9e34c2ef7088b429",
    "status": "ok"
   },
   "p3fff5ecd0e9162": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_adder/saif/p3fff5ecd0e9162.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_adder/EQ/99c015e97b4310ef",
-   "status": "ok"
+   "status": "exists"
   },
   "p60cdac4fea1878": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_adder/saif/p60cdac4fea1878.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_adder/EQ/4f1fd0fcdaf727c0",
-   "status": "ok"
+   "status": "exists"
   },
   "p746ebff4e21206": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_adder/saif/p746ebff4e21206.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_adder/EQ/acc9ef73ca062af4",
-   "status": "ok"
+   "status": "exists"
   },
   "p94725efff536f9": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_adder/saif/p94725efff536f9.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_adder/EQ/da39a07f9e3c2b38",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_add_sub/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_add_sub/EQ/533a72a3903da7d3",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlopt_add_sub",
  "missing": [],
@@ -12,6 +12,12 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_add_sub/saif/p3a879997e589b2.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_add_sub/EQ/ba303f0650c6d367",
+   "status": "exists"
+  },
+  "p5482a155c2bdef": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_add_sub/saif/p5482a155c2bdef.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_add_sub/EQ/533a72a3903da7d3",
    "status": "ok"
   }
  }

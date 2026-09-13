@@ -3,9 +3,16 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__checksum/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__checksum/EQ/7250efcaf347df82",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlrewriter_basic__checksum",
  "missing": [],
- "perturbations": {}
+ "perturbations": {
+  "pfd3822495b59f2": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__checksum/saif/pfd3822495b59f2.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__checksum/EQ/7250efcaf347df82",
+   "status": "ok"
+  }
+ }
 }

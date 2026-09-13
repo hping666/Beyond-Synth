@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_freq_div/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_freq_div/EQ/2dc7d22df882dad6",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtllm_freq_div",
  "missing": [],
@@ -12,37 +12,43 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_freq_div/saif/p20ca23d60e7c74.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_freq_div/EQ/ea92fcaecfb6218f",
-   "status": "ok"
+   "status": "exists"
   },
   "p2b62597fd0f12e": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_freq_div/saif/p2b62597fd0f12e.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_freq_div/EQ/76dd3dec1d4beee5",
-   "status": "ok"
+   "status": "exists"
   },
   "p4cc4f8f25c9bd0": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_freq_div/saif/p4cc4f8f25c9bd0.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_freq_div/EQ/a82acf8e2eaee07e",
+   "status": "exists"
+  },
+  "p66a76ffe701f9b": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_freq_div/saif/p66a76ffe701f9b.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_freq_div/EQ/2dc7d22df882dad6",
    "status": "ok"
   },
   "p6b9d5863b1fb49": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_freq_div/saif/p6b9d5863b1fb49.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_freq_div/EQ/4dd09d76eea2b23d",
-   "status": "ok"
+   "status": "exists"
   },
   "pd2e2b4c73369ca": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_freq_div/saif/pd2e2b4c73369ca.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_freq_div/EQ/d5e952397b66079b",
-   "status": "ok"
+   "status": "exists"
   },
   "pf3fbbfe5788f0a": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_freq_div/saif/pf3fbbfe5788f0a.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_freq_div/EQ/97e4c50a8307b4a5",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

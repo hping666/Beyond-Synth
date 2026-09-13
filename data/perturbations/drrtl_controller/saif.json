@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/6d2c86404d5f3991",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "drrtl_controller",
  "missing": [],
@@ -12,73 +12,79 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/p07c5105657e928.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/fcc890607a581cec",
-   "status": "ok"
+   "status": "exists"
   },
   "p14da18197819ac": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/p14da18197819ac.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/1d18f1e6b9af3ff4",
-   "status": "ok"
+   "status": "exists"
   },
   "p475edbb6c3985e": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/p475edbb6c3985e.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/11fe06943f6e7782",
-   "status": "ok"
+   "status": "exists"
   },
   "p562000b45c3d9a": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/p562000b45c3d9a.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/64db499e6f5532d9",
-   "status": "ok"
+   "status": "exists"
   },
   "p61d3eeb53ff140": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/p61d3eeb53ff140.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/9dbc06c61d885cab",
-   "status": "ok"
+   "status": "exists"
   },
   "p8d9e1d95ea2cee": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/p8d9e1d95ea2cee.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/711df0a4f9c02b58",
-   "status": "ok"
+   "status": "exists"
   },
   "pa9684175d7c739": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/pa9684175d7c739.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/3ae3472056dbddcc",
-   "status": "ok"
+   "status": "exists"
   },
   "pad1a802db1a35b": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/pad1a802db1a35b.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/510d0252d7c726fe",
+   "status": "exists"
+  },
+  "pc75179564cdba7": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/pc75179564cdba7.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/6d2c86404d5f3991",
    "status": "ok"
   },
   "pe2eecfa830af39": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/pe2eecfa830af39.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/eccbaf7faa7c8e39",
-   "status": "ok"
+   "status": "exists"
   },
   "pe7b8eb4eaee335": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/pe7b8eb4eaee335.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/af7d4b262201fb82",
-   "status": "ok"
+   "status": "exists"
   },
   "pf2c8358ec7efc1": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/pf2c8358ec7efc1.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/450aaa1684fbbdb3",
-   "status": "ok"
+   "status": "exists"
   },
   "pfce6d67c787c04": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_controller/saif/pfce6d67c787c04.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_controller/EQ/e939b179fbb01c14",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

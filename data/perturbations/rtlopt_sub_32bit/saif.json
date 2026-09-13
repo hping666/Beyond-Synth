@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_32bit/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_32bit/EQ/7a9e92f96d5740b8",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlopt_sub_32bit",
  "missing": [],
@@ -12,37 +12,43 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_32bit/saif/p31cb1cc7ef73ef.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_32bit/EQ/64083fb5029f59fb",
-   "status": "ok"
+   "status": "exists"
   },
   "p3ce719a19533ad": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_32bit/saif/p3ce719a19533ad.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_32bit/EQ/de425a1431ea2a30",
-   "status": "ok"
+   "status": "exists"
   },
   "p4496e1676deb0b": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_32bit/saif/p4496e1676deb0b.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_32bit/EQ/e8a3c95b595ba493",
-   "status": "ok"
+   "status": "exists"
   },
   "p473cebfe6028cb": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_32bit/saif/p473cebfe6028cb.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_32bit/EQ/944dccee781ba370",
+   "status": "exists"
+  },
+  "p82fa261bd28d18": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_32bit/saif/p82fa261bd28d18.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_32bit/EQ/7a9e92f96d5740b8",
    "status": "ok"
   },
   "p9d0cc6526f3dbb": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_32bit/saif/p9d0cc6526f3dbb.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_32bit/EQ/3146689ab7288ca6",
-   "status": "ok"
+   "status": "exists"
   },
   "pb05a43250b7348": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_32bit/saif/pb05a43250b7348.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_32bit/EQ/aaed6a9c5b064bae",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_decoder_6bit/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_decoder_6bit/EQ/9aa8656b3a8d4c6a",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlopt_decoder_6bit",
  "missing": [],
@@ -12,25 +12,31 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_decoder_6bit/saif/p58f908f24b9b45.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_decoder_6bit/EQ/bf22dee82289f53b",
-   "status": "ok"
+   "status": "exists"
   },
   "p923cbdec417cf2": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_decoder_6bit/saif/p923cbdec417cf2.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_decoder_6bit/EQ/2c189c9fe27afeb3",
+   "status": "exists"
+  },
+  "pa24786ec7c9c65": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_decoder_6bit/saif/pa24786ec7c9c65.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_decoder_6bit/EQ/9aa8656b3a8d4c6a",
    "status": "ok"
   },
   "pb2a55efe223e09": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_decoder_6bit/saif/pb2a55efe223e09.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_decoder_6bit/EQ/7be822af49d76d5a",
-   "status": "ok"
+   "status": "exists"
   },
   "pf8254ff6552029": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_decoder_6bit/saif/pf8254ff6552029.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_decoder_6bit/EQ/fc8eb2f9bba755bd",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

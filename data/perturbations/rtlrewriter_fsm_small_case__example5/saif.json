@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_fsm_small_case__example5/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_fsm_small_case__example5/EQ/1c0872c9138e534e",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlrewriter_fsm_small_case__example5",
  "missing": [],
@@ -12,31 +12,37 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_fsm_small_case__example5/saif/p137f0eb9533b3e.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_fsm_small_case__example5/EQ/cb22dad19d45d3ca",
-   "status": "ok"
+   "status": "exists"
   },
   "p4133b38c22ac02": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_fsm_small_case__example5/saif/p4133b38c22ac02.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_fsm_small_case__example5/EQ/f93322b315f2531c",
+   "status": "exists"
+  },
+  "p42359ce8e999ce": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_fsm_small_case__example5/saif/p42359ce8e999ce.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_fsm_small_case__example5/EQ/1c0872c9138e534e",
    "status": "ok"
   },
   "p4b221d7039600d": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_fsm_small_case__example5/saif/p4b221d7039600d.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_fsm_small_case__example5/EQ/4299696229cd3de1",
-   "status": "ok"
+   "status": "exists"
   },
   "pc424302e9e4bf1": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_fsm_small_case__example5/saif/pc424302e9e4bf1.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_fsm_small_case__example5/EQ/1095e7e0fb1b8542",
-   "status": "ok"
+   "status": "exists"
   },
   "pc8204d29eb985f": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_fsm_small_case__example5/saif/pc8204d29eb985f.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_fsm_small_case__example5/EQ/655e88e9743f8193",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

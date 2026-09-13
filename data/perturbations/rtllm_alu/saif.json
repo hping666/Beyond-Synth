@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_alu/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_alu/EQ/b7f700519c85c81a",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtllm_alu",
  "missing": [],

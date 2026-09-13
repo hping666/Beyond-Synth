@@ -40,7 +40,9 @@ def test_alpha_rename_accepted_only_with_a_proven_round_trip(tmp_path):
     assert GT.rename_is_alpha(manifest, manifest["perturbations"][0], root)
     (root / "s_top" / "P1_rename_0.v").write_text(p1)
     s = GT.collect(conn, cfg, [design], root)
-    assert s["s_top"]["roundtrip"] == "proven" and s["s_top"]["counts"] == {"proven": 1, "proven_rename": 1}
+    assert s["s_top"]["roundtrip"] == "proven" and s["s_top"]["counts"] == {"proven": 1, "proven_rename": 1}  # the proven entry is the round trip itself
+    rows = {r[0]: (r[1], r[2]) for r in conn.execute("SELECT pert_id, ptype, seq_status FROM perturbations WHERE design_id='s_top'")}
+    assert rows["p0"] == ("P0_roundtrip", "proven")  # P0 is in the table and therefore part of the noise runs
     assert conn.execute("SELECT seq_status FROM perturbations WHERE pert_id='p1'").fetchone()[0] == "proven_rename"
 
 

@@ -3,7 +3,7 @@
   "instance": "bs_lockstep/u_d",
   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_selector/saif/D.saif",
   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_selector/EQ/b516a22bb61d6f34",
-  "status": "ok"
+  "status": "exists"
  },
  "design_id": "rtlopt_selector",
  "missing": [],
@@ -12,31 +12,37 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_selector/saif/p0f16bd8cd88527.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_selector/EQ/97182e31973b0f81",
-   "status": "ok"
+   "status": "exists"
   },
   "p0f4a75a90e16ef": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_selector/saif/p0f4a75a90e16ef.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_selector/EQ/2ed29302be8fb0ba",
-   "status": "ok"
+   "status": "exists"
   },
   "p2e3043beafd0f8": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_selector/saif/p2e3043beafd0f8.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_selector/EQ/1b1c0c3680bfe585",
+   "status": "exists"
+  },
+  "p7586a61956dbc7": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_selector/saif/p7586a61956dbc7.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_selector/EQ/b516a22bb61d6f34",
    "status": "ok"
   },
   "p7609e17919f2ed": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_selector/saif/p7609e17919f2ed.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_selector/EQ/16c37c9981902a82",
-   "status": "ok"
+   "status": "exists"
   },
   "p997b5f064cda50": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_selector/saif/p997b5f064cda50.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_selector/EQ/a4d9bae2f2f3ec96",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }
