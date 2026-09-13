@@ -10,18 +10,18 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
-      "area": 0.007405878786018417,
-      "power_saif": 0.01056795320203083,
+      "area": 0.004557461726653736,
+      "power_saif": 0.008540936597187075,
       "tns": 2.737930128000001,
       "wns": 0.020789228999999996
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -32,7 +32,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -43,35 +43,35 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0014495325236027075,
+      "power_saif": 0.0005910730667030419,
       "tns": 0.0,
       "wns": 0.0
      }
     }
    },
    "phi": 0.7,
-   "proven": 10
+   "proven": 11
   },
   "cktevo_ethmac__eth_miim": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 14,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
-      "area": 0.004989265657302479,
-      "power_saif": 0.018236367450397747,
-      "tns": 1.0183282577999995,
-      "wns": 0.03980187960000001
+      "area": 0.004726671688821692,
+      "power_saif": 0.008730647755584773,
+      "tns": 0.8103891599999996,
+      "wns": 0.036175440000000045
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 14,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -82,7 +82,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 14,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -93,7 +93,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 14,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -104,24 +104,24 @@
     }
    },
    "phi": 0.5,
-   "proven": 14
+   "proven": 15
   },
   "cktevo_ethmac__eth_rxethmac": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0013688525408424232,
+      "power_saif": 0.0006997975184352914,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -132,7 +132,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -143,7 +143,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -154,24 +154,24 @@
     }
    },
    "phi": 1.0,
-   "proven": 13
+   "proven": 14
   },
   "cktevo_ethmac__eth_txethmac": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
-      "area": 0.0005525903749944988,
-      "power_saif": 0.0013264193213968507,
+      "area": 0.0005525903749943808,
+      "power_saif": 0.0011059731536267779,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -182,7 +182,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -193,7 +193,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -204,7 +204,7 @@
     }
    },
    "phi": 2.0,
-   "proven": 13
+   "proven": 14
   },
   "cktevo_hsm__G16Inv2SharesDep": {
    "configs": {
@@ -314,61 +314,11 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 13,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 13,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 13,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 13,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 1.0,
-   "proven": 13
-  },
-  "cktevo_mem_ctrl__mc_dp": {
-   "configs": {
-    "E1": {
-     "baseline": true,
      "perturbations": 14,
      "rows": 4,
      "sigma": {
-      "area": 0.0005673503831811109,
-      "power_saif": 0.002964257886140877,
+      "area": 0.0,
+      "power_saif": 0.0,
       "tns": 0.0,
       "wns": 0.0
      }
@@ -410,22 +360,22 @@
    "phi": 1.0,
    "proven": 14
   },
-  "cktevo_mem_ctrl__mc_obct_top": {
+  "cktevo_mem_ctrl__mc_dp": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0007020090421992265,
+      "power_saif": 0.0002343470771022609,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -436,7 +386,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -447,7 +397,57 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 15,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 1.0,
+   "proven": 15
+  },
+  "cktevo_mem_ctrl__mc_obct_top": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 13,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0005452168802292361,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 13,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 13,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -458,63 +458,63 @@
     }
    },
    "phi": 0.7,
-   "proven": 12
+   "proven": 13
   },
   "cktevo_mem_ctrl__mc_rf": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
-      "area": 0.005001939078444482,
-      "power_saif": 0.011581471228514906,
+      "area": 0.004305466819706606,
+      "power_saif": 0.008178036766012746,
       "tns": 0.0,
-      "wns": 0.0053401913424
+      "wns": 0.0049456820724
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
-      "area": 0.0002973525855627393,
+      "area": 0.0005947051711254683,
       "power_saif": 0.0006554632940144271,
       "tns": 0.0,
-      "wns": 4.878813000000051e-05
+      "wns": 1.5652020000000874e-05
      }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
-      "area": 0.013492199104360678,
-      "power_saif": 0.18919379299400335,
+      "area": 0.0006608424253921093,
+      "power_saif": 0.10304625910927406,
       "tns": 0.0,
-      "wns": 0.0013341282000000005
+      "wns": 0.0026682564
      }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
-      "area": 8.307743993775908e-05,
-      "power_saif": 0.32409791706443686,
+      "area": 0.0,
+      "power_saif": 0.021839444959530805,
       "tns": 0.0,
       "wns": 0.0
      }
     }
    },
    "phi": 0.7,
-   "proven": 12
+   "proven": 13
   },
   "cktevo_nn_engine__dualDendRC_H7": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -525,7 +525,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -536,7 +536,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -547,7 +547,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -558,74 +558,74 @@
     }
    },
    "phi": 0.5,
-   "proven": 13
+   "proven": 14
   },
   "cktevo_nn_engine__spikeLayer8_H7": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
-      "area": 0.014877388514652874,
-      "power_saif": 0.018603929376312167,
-      "tns": 46.25197426604999,
-      "wns": 0.04343795610000001
+      "area": 0.013196130068785812,
+      "power_saif": 0.009301964688156084,
+      "tns": 26.250985467524995,
+      "wns": 0.024385619475
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
-      "area": 0.000635743330086699,
-      "power_saif": 0.0005729764097351727,
+      "area": 0.0003178716650433495,
+      "power_saif": 0.00028648820486758633,
       "tns": 0.0,
-      "wns": 1.2637015230000005e-05
+      "wns": 6.3185076150000025e-06
      }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
-      "area": 0.0022312805977269716,
-      "power_saif": 0.0017027445118802068,
+      "area": 0.0011156402988634858,
+      "power_saif": 0.0008513722559401034,
       "tns": 0.0,
-      "wns": 1.086945951e-05
+      "wns": 5.434729755e-06
      }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
-      "area": 0.0025621377654875136,
-      "power_saif": 0.0009837312221411623,
+      "area": 0.0012810688827437568,
+      "power_saif": 0.0004918656110705811,
       "tns": 0.0,
-      "wns": 2.98692009e-05
+      "wns": 1.493460045e-05
      }
     }
    },
    "phi": 4.0,
-   "proven": 15
+   "proven": 16
   },
   "cktevo_nn_engine__spikeNeuron8_H7": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
-      "area": 0.0026132111137141755,
-      "power_saif": 0.006023435518485264,
+      "area": 0.00156224637109912,
+      "power_saif": 0.0034862302788138105,
       "tns": 2.43051402405,
-      "wns": 0.023216517969277494
+      "wns": 0.020936333404638748
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -636,7 +636,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -647,7 +647,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -658,7 +658,7 @@
     }
    },
    "phi": 4.0,
-   "proven": 13
+   "proven": 14
   },
   "cktevo_nn_engine__thresholds_128x4096": {
    "configs": {
@@ -896,18 +896,18 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
-      "area": 0.0011531760199532792,
-      "power_saif": 0.0015691911357970133,
-      "tns": 0.009920712,
-      "wns": 0.009920563739999999
+      "area": 0.0009609800166278422,
+      "power_saif": 0.001389262263655401,
+      "tns": 0.004960356,
+      "wns": 0.0049602818699999995
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -918,7 +918,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -929,7 +929,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -940,7 +940,7 @@
     }
    },
    "phi": 0.7,
-   "proven": 13
+   "proven": 14
   },
   "cktevo_usb__usbf_core": {
    "configs": {
@@ -1024,40 +1024,40 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
-      "area": 0.0004832874013661342,
-      "power_saif": 0.000514348444473063,
-      "tns": 8.118963711600008,
+      "area": 0.0002498628759413213,
+      "power_saif": 0.0003012405917770579,
+      "tns": 4.060533760500003,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
-      "area": 0.00019180601155964589,
-      "power_saif": 0.0005809526284748396,
+      "area": 9.909976723107892e-05,
+      "power_saif": 0.00029591039494600096,
       "tns": 0.0,
-      "wns": 2.3771415359999996e-05
+      "wns": 1.5199615199999999e-05
      }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
-      "area": 0.022280350380795677,
-      "power_saif": 0.029213702585110215,
+      "area": 0.011140175190397839,
+      "power_saif": 0.01461120331896068,
       "tns": 0.0,
-      "wns": 5.744037180000001e-06
+      "wns": 2.8720185900000005e-06
      }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1068,24 +1068,24 @@
     }
    },
    "phi": 1.0,
-   "proven": 13
+   "proven": 14
   },
   "cktevo_vga_enh__vga_wb_master": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
-      "area": 0.001954463572460128,
-      "power_saif": 0.0009932057721886577,
+      "area": 0.0,
+      "power_saif": 0.0008500053961426285,
       "tns": 0.0,
-      "wns": 5.5989330000000005e-05
+      "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1096,7 +1096,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1107,7 +1107,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1118,7 +1118,7 @@
     }
    },
    "phi": 0.7,
-   "proven": 16
+   "proven": 17
   },
   "cktevo_vga_enh__vga_wb_slave": {
    "configs": {
@@ -1150,18 +1150,18 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0006080105493413708,
+      "power_saif": 0.0,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1172,7 +1172,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1183,7 +1183,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1194,7 +1194,7 @@
     }
    },
    "phi": 1.4,
-   "proven": 12
+   "proven": 13
   },
   "drrtl_LSTM": {
    "configs": {
@@ -1226,18 +1226,18 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
-      "area": 0.0011559328375227225,
-      "power_saif": 0.09128560222408555,
-      "tns": 1.4826000002072347e-06,
+      "area": 0.000693559094127811,
+      "power_saif": 0.006758950022499769,
+      "tns": 2.9652000004144693e-06,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1248,7 +1248,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1259,7 +1259,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1270,13 +1270,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 16
+   "proven": 17
   },
   "drrtl_UART": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1287,7 +1287,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1298,7 +1298,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1309,7 +1309,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1320,7 +1320,7 @@
     }
    },
    "phi": 0.7,
-   "proven": 15
+   "proven": 16
   },
   "drrtl_aes": {
    "configs": {
@@ -1430,7 +1430,7 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1441,7 +1441,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1452,7 +1452,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1463,7 +1463,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1474,24 +1474,24 @@
     }
    },
    "phi": 0.7,
-   "proven": 12
+   "proven": 13
   },
   "drrtl_cpu_fsm": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0002976188411028222,
+      "power_saif": 1.9250895284061363e-06,
       "tns": 0.0,
-      "wns": 1.9062000000001614e-07
+      "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1502,7 +1502,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1513,7 +1513,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1524,46 +1524,46 @@
     }
    },
    "phi": 1.4,
-   "proven": 16
+   "proven": 17
   },
   "drrtl_datapath": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
-      "area": 0.0017770104268066112,
-      "power_saif": 0.000806739977065715,
+      "area": 0.0016050417407069688,
+      "power_saif": 0.0005049605225575994,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
-      "area": 0.0021169824556165257,
-      "power_saif": 8.741811689009361e-05,
+      "area": 0.0,
+      "power_saif": 0.0,
       "tns": 0.0,
-      "wns": 0.000625568244
+      "wns": 0.0
      }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
-      "area": 0.0016609105157352816,
-      "power_saif": 0.00013117592786106056,
+      "area": 0.0,
+      "power_saif": 0.0,
       "tns": 0.0,
-      "wns": 0.0007184939055000003
+      "wns": 0.0
      }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1574,7 +1574,7 @@
     }
    },
    "phi": 2.0,
-   "proven": 16
+   "proven": 17
   },
   "drrtl_i2c": {
    "configs": {
@@ -1606,18 +1606,18 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
-      "area": 0.00021681778023589115,
-      "power_saif": 0.000510140304217641,
+      "area": 0.0,
+      "power_saif": 0.0,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1628,7 +1628,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1639,7 +1639,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 16,
+     "perturbations": 17,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1650,7 +1650,7 @@
     }
    },
    "phi": 1.0,
-   "proven": 16
+   "proven": 17
   },
   "drrtl_router": {
    "configs": {
@@ -1708,7 +1708,7 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1719,7 +1719,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1730,7 +1730,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1741,7 +1741,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1752,7 +1752,7 @@
     }
    },
    "phi": 0.5,
-   "proven": 11
+   "proven": 12
   },
   "drrtl_tv80": {
    "configs": {
@@ -1784,7 +1784,7 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1795,7 +1795,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1806,7 +1806,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1817,7 +1817,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1828,13 +1828,13 @@
     }
    },
    "phi": 2.8,
-   "proven": 11
+   "proven": 12
   },
   "rtllm_JC_counter": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 2,
+     "perturbations": 3,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1845,7 +1845,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 2,
+     "perturbations": 3,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1856,7 +1856,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 2,
+     "perturbations": 3,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1867,7 +1867,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 2,
+     "perturbations": 3,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1878,13 +1878,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 2
+   "proven": 3
   },
   "rtllm_LFSR": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1895,7 +1895,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1906,7 +1906,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1917,7 +1917,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1928,13 +1928,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 6
+   "proven": 7
   },
   "rtllm_LIFObuffer": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1945,7 +1945,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1956,7 +1956,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1967,7 +1967,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1978,13 +1978,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 10
+   "proven": 11
   },
   "rtllm_accu": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -1995,7 +1995,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2006,7 +2006,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2017,7 +2017,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 10,
+     "perturbations": 11,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2028,13 +2028,13 @@
     }
    },
    "phi": 1.4,
-   "proven": 10
+   "proven": 11
   },
   "rtllm_adder_16bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 9,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2045,7 +2045,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 9,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2056,7 +2056,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 9,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2067,7 +2067,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 9,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2078,7 +2078,7 @@
     }
    },
    "phi": 2.8,
-   "proven": 9
+   "proven": 10
   },
   "rtllm_adder_32bit": {
    "configs": {
@@ -2110,57 +2110,57 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.00013676768900058167,
+      "power_saif": 6.838384450029084e-05,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0009029315371045671,
+      "power_saif": 0.00045146576855228357,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0009029315371045671,
+      "power_saif": 0.00045146576855228357,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0014641539035023861,
+      "power_saif": 0.0007320769517511931,
       "tns": 0.0,
       "wns": 0.0
      }
     }
    },
    "phi": 1.4,
-   "proven": 7
+   "proven": 8
   },
   "rtllm_adder_bcd": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 9,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2171,7 +2171,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 9,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2182,7 +2182,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 9,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2193,7 +2193,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 9,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2204,24 +2204,24 @@
     }
    },
    "phi": 1.4,
-   "proven": 9
+   "proven": 10
   },
   "rtllm_adder_pipe_64bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0008046138315340074,
+      "power_saif": 0.0005331652048573094,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2232,7 +2232,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2243,18 +2243,18 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
-      "area": 0.0011557018417806865,
-      "power_saif": 0.0011395371472770258,
+      "area": 0.0009906013126646225,
+      "power_saif": 0.0010278204992471382,
       "tns": 0.0,
       "wns": 0.00035310152280000005
      }
     }
    },
    "phi": 0.7,
-   "proven": 12
+   "proven": 13
   },
   "rtllm_alu": {
    "configs": {
@@ -2286,7 +2286,7 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2297,79 +2297,79 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
-      "area": 0.006282203389830466,
-      "power_saif": 0.052565715855839516,
+      "area": 0.0,
+      "power_saif": 0.0,
       "tns": 0.0,
-      "wns": 0.0006840716399999984
+      "wns": 0.0
      }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
-      "area": 0.006282203389830466,
-      "power_saif": 0.052565715855839516,
+      "area": 0.0,
+      "power_saif": 0.0,
       "tns": 0.0,
-      "wns": 0.0006840716399999984
+      "wns": 0.0
      }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
-      "area": 0.006282203389830466,
-      "power_saif": 0.052565715855839516,
+      "area": 0.0,
+      "power_saif": 0.0,
       "tns": 0.0,
-      "wns": 0.0006840716399999984
+      "wns": 0.0
      }
     }
    },
    "phi": 0.5,
-   "proven": 8
+   "proven": 9
   },
   "rtllm_calendar": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0025529277886443048,
+      "power_saif": 0.0,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
-      "area": 0.00756428556919816,
-      "power_saif": 0.12107719058387066,
+      "area": 0.0,
+      "power_saif": 0.0,
       "tns": 0.0,
-      "wns": 0.0011019106799999997
+      "wns": 0.0
      }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
-      "area": 0.017848318649191577,
-      "power_saif": 0.10675402176057561,
+      "area": 0.0,
+      "power_saif": 0.0,
       "tns": 0.0,
-      "wns": 0.00018494375999999978
+      "wns": 0.0
      }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2380,9 +2380,109 @@
     }
    },
    "phi": 0.7,
-   "proven": 6
+   "proven": 7
   },
   "rtllm_comparator_3bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.002598324266898979,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.00019553748481090902,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.00019553748481090902,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.00019553748481090902,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 4
+  },
+  "rtllm_comparator_4bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.7,
+   "proven": 8
+  },
+  "rtllm_counter_12": {
    "configs": {
     "E1": {
      "baseline": true,
@@ -2432,11 +2532,11 @@
    "phi": 0.5,
    "proven": 3
   },
-  "rtllm_comparator_4bit": {
+  "rtllm_div_16bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2447,7 +2547,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2458,7 +2558,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2469,7 +2569,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 10,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2479,14 +2579,14 @@
      }
     }
    },
-   "phi": 0.7,
-   "proven": 7
+   "phi": 4.0,
+   "proven": 10
   },
-  "rtllm_counter_12": {
+  "rtllm_edge_detect": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 2,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2497,7 +2597,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 2,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2508,7 +2608,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 2,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2519,7 +2619,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 2,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2530,9 +2630,59 @@
     }
    },
    "phi": 0.5,
-   "proven": 2
+   "proven": 5
   },
-  "rtllm_div_16bit": {
+  "rtllm_fixed_point_adder": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 8
+  },
+  "rtllm_fixed_point_substractor": {
    "configs": {
     "E1": {
      "baseline": true,
@@ -2582,172 +2732,22 @@
    "phi": 4.0,
    "proven": 9
   },
-  "rtllm_edge_detect": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 4
-  },
-  "rtllm_fixed_point_adder": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 7,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 7,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 7,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 7,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 4.0,
-   "proven": 7
-  },
-  "rtllm_fixed_point_substractor": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 4.0,
-   "proven": 8
-  },
   "rtllm_freq_div": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 5.2868418646507004e-05,
+      "power_saif": 0.0,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2758,7 +2758,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2769,7 +2769,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2780,13 +2780,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 6
+   "proven": 7
   },
   "rtllm_freq_divbyeven": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2797,7 +2797,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2808,7 +2808,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2819,7 +2819,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2830,13 +2830,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 6
+   "proven": 7
   },
   "rtllm_freq_divbyfrac": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2847,7 +2847,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2858,7 +2858,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2869,7 +2869,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2880,13 +2880,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 8
+   "proven": 9
   },
   "rtllm_fsm": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2897,7 +2897,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2908,7 +2908,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2919,7 +2919,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2930,13 +2930,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 11
+   "proven": 12
   },
   "rtllm_instr_reg": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2947,7 +2947,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2958,7 +2958,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2969,7 +2969,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2980,13 +2980,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 11
+   "proven": 12
   },
   "rtllm_multi_16bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -2997,7 +2997,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3008,7 +3008,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3019,7 +3019,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3030,7 +3030,7 @@
     }
    },
    "phi": 4.0,
-   "proven": 12
+   "proven": 13
   },
   "rtllm_multi_8bit": {
    "configs": {
@@ -3062,18 +3062,18 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.00014416795342349166,
+      "power_saif": 0.0002883359068469833,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3084,7 +3084,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3095,7 +3095,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3106,13 +3106,13 @@
     }
    },
    "phi": 1.0,
-   "proven": 4
+   "proven": 5
   },
   "rtllm_multi_pipe_4bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3123,7 +3123,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3134,7 +3134,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3145,7 +3145,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 11,
+     "perturbations": 12,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3156,13 +3156,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 11
+   "proven": 12
   },
   "rtllm_multi_pipe_8bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3173,7 +3173,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3184,7 +3184,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3195,7 +3195,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3206,7 +3206,7 @@
     }
    },
    "phi": 1.0,
-   "proven": 13
+   "proven": 14
   },
   "rtllm_parallel2serial": {
    "configs": {
@@ -3238,7 +3238,7 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3249,7 +3249,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3260,7 +3260,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3271,7 +3271,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3282,13 +3282,13 @@
     }
    },
    "phi": 2.0,
-   "proven": 4
+   "proven": 5
   },
   "rtllm_pulse_detect": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3299,7 +3299,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3310,7 +3310,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3321,7 +3321,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3332,13 +3332,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 12
+   "proven": 13
   },
   "rtllm_radix2_div": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 14,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3349,7 +3349,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 14,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3360,7 +3360,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 14,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3371,7 +3371,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 14,
+     "perturbations": 15,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3382,39 +3382,39 @@
     }
    },
    "phi": 1.4,
-   "proven": 14
+   "proven": 15
   },
   "rtllm_right_shifter": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 0,
+     "perturbations": 1,
      "rows": 0
     },
     "E2": {
      "baseline": true,
-     "perturbations": 0,
+     "perturbations": 1,
      "rows": 0
     },
     "E3": {
      "baseline": true,
-     "perturbations": 0,
+     "perturbations": 1,
      "rows": 0
     },
     "E4": {
      "baseline": true,
-     "perturbations": 0,
+     "perturbations": 1,
      "rows": 0
     }
    },
    "phi": 0.5,
-   "proven": 0
+   "proven": 1
   },
   "rtllm_serial2parallel": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3425,7 +3425,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3436,7 +3436,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3447,7 +3447,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 12,
+     "perturbations": 13,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3458,13 +3458,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 12
+   "proven": 13
   },
   "rtllm_signal_generator": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3475,7 +3475,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3486,7 +3486,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3497,7 +3497,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3508,13 +3508,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 4
+   "proven": 5
   },
   "rtllm_square_wave": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3525,7 +3525,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3536,7 +3536,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3547,7 +3547,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3558,39 +3558,63 @@
     }
    },
    "phi": 1.0,
-   "proven": 4
+   "proven": 5
   },
   "rtllm_sub_64bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     }
    },
    "phi": 2.8,
-   "proven": 1
+   "proven": 2
   },
   "rtllm_traffic_light": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3601,7 +3625,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3612,7 +3636,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3623,7 +3647,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 15,
+     "perturbations": 16,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3634,13 +3658,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 15
+   "proven": 16
   },
   "rtllm_up_down_counter": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3651,7 +3675,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3662,7 +3686,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3673,7 +3697,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3684,24 +3708,24 @@
     }
    },
    "phi": 2.8,
-   "proven": 3
+   "proven": 4
   },
   "rtllm_width_8to16": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 1.0932459857232257e-07,
+      "power_saif": 5.466229928616128e-08,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3712,7 +3736,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3723,7 +3747,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 13,
+     "perturbations": 14,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3734,50 +3758,74 @@
     }
    },
    "phi": 0.5,
-   "proven": 13
+   "proven": 14
   },
   "rtlopt_add_sub": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     }
    },
    "phi": 2.8,
-   "proven": 1
+   "proven": 2
   },
   "rtlopt_adder": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0051340713273816925,
+      "area": 0.001273711362146113,
+      "power_saif": 0.012697931728539462,
       "tns": 0.0,
-      "wns": 8.154300000003011e-07
+      "wns": 0.007633555282500001
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3788,7 +3836,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3799,7 +3847,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -3810,885 +3858,9 @@
     }
    },
    "phi": 4.0,
-   "proven": 5
+   "proven": 6
   },
   "rtlopt_adder_carry": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 1.4,
-   "proven": 8
-  },
-  "rtlopt_adder_select": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 1,
-     "rows": 0
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 1,
-     "rows": 0
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 1,
-     "rows": 0
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 1,
-     "rows": 0
-    }
-   },
-   "phi": 4.0,
-   "proven": 1
-  },
-  "rtlopt_addr_calcu": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 10,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 10,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 10,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 10,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 2.0,
-   "proven": 10
-  },
-  "rtlopt_alu_64bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 2.0,
-   "proven": 5
-  },
-  "rtlopt_alu_8bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 2.0,
-   "proven": 4
-  },
-  "rtlopt_calculation": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 4.0,
-   "proven": 8
-  },
-  "rtlopt_comparator": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 1.0,
-   "proven": 5
-  },
-  "rtlopt_comparator_16bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 1.0,
-   "proven": 3
-  },
-  "rtlopt_comparator_2bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 4
-  },
-  "rtlopt_comparator_4bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 2.6690927409322237e-05,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 2.6690927409322237e-05,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 2.6690927409322237e-05,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 3
-  },
-  "rtlopt_comparator_8bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 2,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 2,
-     "rows": 4,
-     "sigma": {
-      "area": 0.048828143712574885,
-      "power_saif": 0.01354041919187119,
-      "tns": 0.0,
-      "wns": 0.013382053499999994
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 2,
-     "rows": 4,
-     "sigma": {
-      "area": 0.048828143712574885,
-      "power_saif": 0.01354041919187119,
-      "tns": 0.0,
-      "wns": 0.013382053499999994
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 2,
-     "rows": 4,
-     "sigma": {
-      "area": 0.048828143712574885,
-      "power_saif": 0.01354041919187119,
-      "tns": 0.0,
-      "wns": 0.013382053499999994
-     }
-    }
-   },
-   "phi": 0.7,
-   "proven": 2
-  },
-  "rtlopt_decoder_6bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 4
-  },
-  "rtlopt_decoder_8bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 3
-  },
-  "rtlopt_divider_16bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 4.0,
-   "proven": 8
-  },
-  "rtlopt_divider_32bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 7,
-     "rows": 4,
-     "sigma": {
-      "area": 0.008800777650741904,
-      "power_saif": 0.006561445562397194,
-      "tns": 0.4610163232499822,
-      "wns": 0.005945225999999444
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 7,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 7,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 7,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 4.0,
-   "proven": 7
-  },
-  "rtlopt_divider_4bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 1.0,
-   "proven": 11
-  },
-  "rtlopt_divider_8bit": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 4.0,
-   "proven": 11
-  },
-  "rtlopt_fsm": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 13,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 13,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 13,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 13,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 1.0,
-   "proven": 13
-  },
-  "rtlopt_fsm_encode": {
    "configs": {
     "E1": {
      "baseline": true,
@@ -4738,7 +3910,1157 @@
    "phi": 1.4,
    "proven": 9
   },
+  "rtlopt_adder_select": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 2
+  },
+  "rtlopt_addr_calcu": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 11,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 11,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 11,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 11,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 2.0,
+   "proven": 11
+  },
+  "rtlopt_alu_64bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 2.0,
+   "proven": 6
+  },
+  "rtlopt_alu_8bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 2.0,
+   "proven": 5
+  },
+  "rtlopt_calculation": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 9
+  },
+  "rtlopt_comparator": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0081461538461539,
+      "power_saif": 0.006621010220642031,
+      "tns": 0.0,
+      "wns": 0.003231245156999999
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 1.0,
+   "proven": 6
+  },
+  "rtlopt_comparator_16bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 1.0,
+   "proven": 4
+  },
+  "rtlopt_comparator_2bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 5
+  },
+  "rtlopt_comparator_4bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.046331249999999935,
+      "power_saif": 0.07449561846492962,
+      "tns": 0.0,
+      "wns": 0.012452920787999996
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.046331249999999935,
+      "power_saif": 0.07449561846492962,
+      "tns": 0.0,
+      "wns": 0.012452920787999996
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.046331249999999935,
+      "power_saif": 0.07449561846492962,
+      "tns": 0.0,
+      "wns": 0.012452920787999996
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 4
+  },
+  "rtlopt_comparator_8bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 3,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 3,
+     "rows": 4,
+     "sigma": {
+      "area": 0.008877844311377187,
+      "power_saif": 0.007792761392926517,
+      "tns": 0.0,
+      "wns": 0.0002971553999999915
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 3,
+     "rows": 4,
+     "sigma": {
+      "area": 0.008877844311377187,
+      "power_saif": 0.007792761392926517,
+      "tns": 0.0,
+      "wns": 0.0002971553999999915
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 3,
+     "rows": 4,
+     "sigma": {
+      "area": 0.008877844311377187,
+      "power_saif": 0.007792761392926517,
+      "tns": 0.0,
+      "wns": 0.0002971553999999915
+     }
+    }
+   },
+   "phi": 0.7,
+   "proven": 3
+  },
+  "rtlopt_decoder_6bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 5
+  },
+  "rtlopt_decoder_8bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 4,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 4
+  },
+  "rtlopt_divider_16bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 9
+  },
+  "rtlopt_divider_32bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.005081997013096108,
+      "power_saif": 0.003280722781198597,
+      "tns": 0.2305081616249911,
+      "wns": 0.002972612999999722
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 8
+  },
+  "rtlopt_divider_4bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 12,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 12,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 12,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 12,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 1.0,
+   "proven": 12
+  },
+  "rtlopt_divider_8bit": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 12,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 12,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 12,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 12,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 12
+  },
+  "rtlopt_fsm": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 14,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 14,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 14,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 14,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 1.0,
+   "proven": 14
+  },
+  "rtlopt_fsm_encode": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 1.4,
+   "proven": 10
+  },
   "rtlopt_gray": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 13,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 13,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 13,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 13,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 13
+  },
+  "rtlopt_mac": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 2.0,
+   "proven": 6
+  },
+  "rtlopt_mul": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 6,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 2.0,
+   "proven": 6
+  },
+  "rtlopt_mul_const": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 1.0,
+   "proven": 5
+  },
+  "rtlopt_mul_subexpression": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 2.8,
+   "proven": 5
+  },
+  "rtlopt_mult_if": {
    "configs": {
     "E1": {
      "baseline": true,
@@ -4788,261 +5110,11 @@
    "phi": 0.5,
    "proven": 12
   },
-  "rtlopt_mac": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 2.0,
-   "proven": 5
-  },
-  "rtlopt_mul": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 5,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 2.0,
-   "proven": 5
-  },
-  "rtlopt_mul_const": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 1.0,
-   "proven": 4
-  },
-  "rtlopt_mul_subexpression": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 2.8,
-   "proven": 4
-  },
-  "rtlopt_mult_if": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 11,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 11
-  },
   "rtlopt_mux_4to1_16bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5053,7 +5125,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5064,7 +5136,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5075,7 +5147,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5086,13 +5158,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 8
+   "proven": 9
   },
   "rtlopt_mux_4to1_64bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5103,7 +5175,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5114,7 +5186,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5125,7 +5197,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5136,13 +5208,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 8
+   "proven": 9
   },
   "rtlopt_mux_dead": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5153,7 +5225,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5164,7 +5236,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5175,7 +5247,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5186,39 +5258,63 @@
     }
    },
    "phi": 0.5,
-   "proven": 5
+   "proven": 6
   },
   "rtlopt_mux_large": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     }
    },
    "phi": 0.7,
-   "proven": 1
+   "proven": 2
   },
   "rtlopt_register": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5229,7 +5325,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5240,7 +5336,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5251,7 +5347,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5262,24 +5358,24 @@
     }
    },
    "phi": 1.0,
-   "proven": 8
+   "proven": 9
   },
   "rtlopt_saturating_add": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 3.756603808511614e-05,
+      "power_saif": 0.0,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5290,7 +5386,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5301,7 +5397,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5312,13 +5408,13 @@
     }
    },
    "phi": 1.0,
-   "proven": 8
+   "proven": 9
   },
   "rtlopt_selector": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5329,7 +5425,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5340,7 +5436,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5351,7 +5447,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5362,13 +5458,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 5
+   "proven": 6
   },
   "rtlopt_sub_16bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5379,7 +5475,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5390,7 +5486,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5401,7 +5497,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5412,13 +5508,13 @@
     }
    },
    "phi": 2.8,
-   "proven": 4
+   "proven": 5
   },
   "rtlopt_sub_32bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5429,7 +5525,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5440,7 +5536,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5451,7 +5547,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5462,13 +5558,13 @@
     }
    },
    "phi": 1.4,
-   "proven": 6
+   "proven": 7
   },
   "rtlopt_sub_4bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5479,7 +5575,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5490,7 +5586,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5501,7 +5597,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5512,13 +5608,13 @@
     }
    },
    "phi": 0.7,
-   "proven": 7
+   "proven": 8
   },
   "rtlopt_sub_8bit": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5529,7 +5625,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5540,7 +5636,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5551,7 +5647,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5562,7 +5658,7 @@
     }
    },
    "phi": 1.4,
-   "proven": 7
+   "proven": 8
   },
   "rtlopt_ticket_machine": {
    "configs": {
@@ -5638,13 +5734,13 @@
     }
    },
    "phi": 4.0,
-   "proven": 4
+   "proven": 5
   },
   "rtlrewriter_algorithm__spmv": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5655,7 +5751,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5666,7 +5762,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5677,7 +5773,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5688,171 +5784,31 @@
     }
    },
    "phi": 2.8,
-   "proven": 4
+   "proven": 5
   },
   "rtlrewriter_basic__add1": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 1,
-     "rows": 0
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 1,
-     "rows": 0
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 1,
-     "rows": 0
-    }
-   },
-   "phi": 4.0,
-   "proven": 1
-  },
-  "rtlrewriter_basic__checksum": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    }
-   },
-   "phi": 2.8,
-   "proven": 0
-  },
-  "rtlrewriter_basic__communtativity_subpexpression2": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
+     "perturbations": 2,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0003741816057849864,
+      "power_saif": 0.0,
       "tns": 0.0,
       "wns": 0.0
      }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 2,
      "rows": 4,
      "sigma": {
-      "area": 0.007829211896478686,
-      "power_saif": 0.008251316525063631,
+      "area": 0.0,
+      "power_saif": 0.0,
       "tns": 0.0,
-      "wns": 8.563034287499999e-05
+      "wns": 0.0
      }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.005898240221404783,
-      "power_saif": 0.012006458279505973,
-      "tns": 0.0,
-      "wns": 5.739626445e-05
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.005898240221404783,
-      "power_saif": 0.012006458279505973,
-      "tns": 0.0,
-      "wns": 5.739626445e-05
-     }
-    }
-   },
-   "phi": 4.0,
-   "proven": 4
-  },
-  "rtlrewriter_basic__commutativity_subexpression": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.015313289389507453,
-      "power_saif": 0.0205077305713792,
-      "tns": 0.6117001889249983,
-      "wns": 0.013747408500000025
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.00514901914322955,
-      "power_saif": 0.014051706590512192,
-      "tns": 0.053298914025,
-      "wns": 0.010198054833749998
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.00514901914322955,
-      "power_saif": 0.014051706590512192,
-      "tns": 0.053298914025,
-      "wns": 0.010198054833749998
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.00514901914322955,
-      "power_saif": 0.014051706590512192,
-      "tns": 0.053298914025,
-      "wns": 0.010198054833749998
-     }
-    }
-   },
-   "phi": 4.0,
-   "proven": 4
-  },
-  "rtlrewriter_basic__distributed_ram": {
-   "configs": {
-    "E1": {
-     "baseline": false,
-     "perturbations": 0,
-     "rows": 0
-    },
-    "E2": {
-     "baseline": false,
-     "perturbations": 3,
-     "rows": 0
     },
     "E3": {
      "baseline": true,
@@ -5867,7 +5823,171 @@
     },
     "E4": {
      "baseline": true,
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 2
+  },
+  "rtlrewriter_basic__checksum": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 1,
+     "rows": 0
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 1,
+     "rows": 0
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 1,
+     "rows": 0
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 1,
+     "rows": 0
+    }
+   },
+   "phi": 2.8,
+   "proven": 1
+  },
+  "rtlrewriter_basic__communtativity_subpexpression2": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0007483632115699715,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.013376366700745537,
+      "power_saif": 0.016502633050127263,
+      "tns": 0.0,
+      "wns": 1.5022815150000003e-05
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.011796480442809567,
+      "power_saif": 0.021376934725220002,
+      "tns": 0.0,
+      "wns": 1.5022815150000003e-05
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.011796480442809567,
+      "power_saif": 0.021376934725220002,
+      "tns": 0.0,
+      "wns": 1.5022815150000003e-05
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 5
+  },
+  "rtlrewriter_basic__commutativity_subexpression": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.002132192678705905,
+      "power_saif": 0.008117463254632076,
+      "tns": 0.01737533070000001,
+      "wns": 0.008089992224999999
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.002132192678705905,
+      "power_saif": 0.008117463254632076,
+      "tns": 0.01737533070000001,
+      "wns": 0.008089992224999999
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.002132192678705905,
+      "power_saif": 0.008117463254632076,
+      "tns": 0.01737533070000001,
+      "wns": 0.008089992224999999
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 5
+  },
+  "rtlrewriter_basic__distributed_ram": {
+   "configs": {
+    "E1": {
+     "baseline": false,
+     "perturbations": 0,
+     "rows": 0
+    },
+    "E2": {
+     "baseline": false,
      "perturbations": 4,
+     "rows": 0
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 3,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5878,13 +5998,13 @@
     }
    },
    "phi": 1.0,
-   "proven": 4
+   "proven": 5
   },
   "rtlrewriter_basic__flatten1": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5895,7 +6015,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5906,7 +6026,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5917,7 +6037,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5928,39 +6048,63 @@
     }
    },
    "phi": 0.5,
-   "proven": 7
+   "proven": 8
   },
   "rtlrewriter_basic__if_else": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E2": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 1,
-     "rows": 0
+     "perturbations": 2,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
     }
    },
    "phi": 0.5,
-   "proven": 1
+   "proven": 2
   },
   "rtlrewriter_basic__logic_elimnation": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5971,7 +6115,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5982,7 +6126,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -5993,7 +6137,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6004,13 +6148,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 7
+   "proven": 8
   },
   "rtlrewriter_basic__multi_constant_multiplication": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6021,7 +6165,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6032,7 +6176,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6043,7 +6187,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6054,13 +6198,13 @@
     }
    },
    "phi": 2.8,
-   "proven": 3
+   "proven": 4
   },
   "rtlrewriter_basic__multi_constant_multiplication2": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6071,46 +6215,46 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
+      "area": 0.0019748251822419524,
+      "power_saif": 0.004530275944116784,
       "tns": 0.0,
-      "wns": 0.0
+      "wns": 0.005746626434999999
      }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
+      "area": 0.0019748251822419524,
+      "power_saif": 0.004530275944116784,
       "tns": 0.0,
-      "wns": 0.0
+      "wns": 0.005746626434999999
      }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 3,
+     "perturbations": 4,
      "rows": 4,
      "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
+      "area": 0.0019748251822419524,
+      "power_saif": 0.004530275944116784,
       "tns": 0.0,
-      "wns": 0.0
+      "wns": 0.005746626434999999
      }
     }
    },
    "phi": 2.8,
-   "proven": 3
+   "proven": 4
   },
   "rtlrewriter_basic__register_balancing": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6121,7 +6265,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6132,7 +6276,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6143,7 +6287,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6154,13 +6298,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 8
+   "proven": 9
   },
   "rtlrewriter_basic__sub-expression-basic": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6171,46 +6315,46 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0029033568428111266,
+      "power_saif": 0.005806713685622253,
       "tns": 0.0,
-      "wns": 0.0001390678800000074
+      "wns": 0.0
      }
     },
     "E3": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0029033568428111266,
+      "power_saif": 0.005806713685622253,
       "tns": 0.0,
-      "wns": 0.0001390678800000074
+      "wns": 0.0
      }
     },
     "E4": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0029033568428111266,
+      "power_saif": 0.005806713685622253,
       "tns": 0.0,
-      "wns": 0.0001390678800000074
+      "wns": 0.0
      }
     }
    },
    "phi": 0.5,
-   "proven": 4
+   "proven": 5
   },
   "rtlrewriter_datapath__adder_architecture": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6221,7 +6365,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6232,7 +6376,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6243,7 +6387,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 5,
+     "perturbations": 6,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6254,13 +6398,13 @@
     }
    },
    "phi": 1.4,
-   "proven": 5
+   "proven": 6
   },
   "rtlrewriter_datapath__adder_subexpression": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6271,7 +6415,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6282,7 +6426,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6293,7 +6437,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6304,13 +6448,13 @@
     }
    },
    "phi": 2.0,
-   "proven": 8
+   "proven": 9
   },
   "rtlrewriter_datapath__algebraic_simplification": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6321,7 +6465,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6332,7 +6476,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6343,7 +6487,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6354,13 +6498,13 @@
     }
    },
    "phi": 1.4,
-   "proven": 8
+   "proven": 9
   },
   "rtlrewriter_datapath__alu_bit_width": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6371,7 +6515,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6382,7 +6526,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6393,7 +6537,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6404,13 +6548,13 @@
     }
    },
    "phi": 2.0,
-   "proven": 6
+   "proven": 7
   },
   "rtlrewriter_datapath__alu_subexpression": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6421,7 +6565,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6432,7 +6576,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6443,7 +6587,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6454,13 +6598,13 @@
     }
    },
    "phi": 2.0,
-   "proven": 7
+   "proven": 8
   },
   "rtlrewriter_datapath__constant_folding": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6471,7 +6615,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6482,7 +6626,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6493,7 +6637,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 7,
+     "perturbations": 8,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6504,13 +6648,13 @@
     }
    },
    "phi": 2.0,
-   "proven": 7
+   "proven": 8
   },
   "rtlrewriter_datapath__dead_code_elimination": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6521,7 +6665,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6532,7 +6676,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6543,7 +6687,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6554,7 +6698,7 @@
     }
    },
    "phi": 0.7,
-   "proven": 8
+   "proven": 9
   },
   "rtlrewriter_datapath__loop_tiling": {
    "configs": {
@@ -6612,61 +6756,11 @@
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 3,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 2.8,
-   "proven": 3
-  },
-  "rtlrewriter_datapath__multiplier_subexpression": {
-   "configs": {
-    "E1": {
-     "baseline": true,
      "perturbations": 4,
      "rows": 4,
      "sigma": {
       "area": 0.0,
-      "power_saif": 0.0,
+      "power_saif": 8.002535894734939e-07,
       "tns": 0.0,
       "wns": 0.0
      }
@@ -6708,11 +6802,11 @@
    "phi": 2.8,
    "proven": 4
   },
-  "rtlrewriter_datapath__strength_reduction": {
+  "rtlrewriter_datapath__multiplier_subexpression": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6723,7 +6817,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6734,7 +6828,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6745,7 +6839,57 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 4,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 2.8,
+   "proven": 5
+  },
+  "rtlrewriter_datapath__strength_reduction": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6756,13 +6900,13 @@
     }
    },
    "phi": 1.0,
-   "proven": 4
+   "proven": 5
   },
   "rtlrewriter_datapath__subexpression_elimination": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6773,7 +6917,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6784,7 +6928,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6795,7 +6939,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6806,13 +6950,13 @@
     }
    },
    "phi": 4.0,
-   "proven": 8
+   "proven": 9
   },
   "rtlrewriter_fsm_small_case__example1": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6823,7 +6967,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6834,7 +6978,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6845,7 +6989,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6856,13 +7000,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 8
+   "proven": 9
   },
   "rtlrewriter_fsm_small_case__example2": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6873,7 +7017,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6884,7 +7028,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6895,7 +7039,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 6,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6906,13 +7050,13 @@
     }
    },
    "phi": 0.5,
-   "proven": 6
+   "proven": 7
   },
   "rtlrewriter_fsm_small_case__example3": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6923,7 +7067,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6934,7 +7078,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6945,7 +7089,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 9,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -6956,9 +7100,59 @@
     }
    },
    "phi": 0.5,
-   "proven": 8
+   "proven": 9
   },
   "rtlrewriter_fsm_small_case__example4": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 7,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 7,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 7,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 7,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 7
+  },
+  "rtlrewriter_fsm_small_case__example5": {
    "configs": {
     "E1": {
      "baseline": true,
@@ -7008,7 +7202,559 @@
    "phi": 0.5,
    "proven": 6
   },
-  "rtlrewriter_fsm_small_case__example5": {
+  "rtlrewriter_long_cnn__RFselector": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 0,
+     "rows": 0
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 0,
+     "rows": 0
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 0,
+     "rows": 0
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 0,
+     "rows": 0
+    }
+   },
+   "phi": 4.0,
+   "proven": 0
+  },
+  "rtlrewriter_long_cnn__floatAdd": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 10
+  },
+  "rtlrewriter_long_cnn__floatMult": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 4.0,
+   "proven": 10
+  },
+  "rtlrewriter_long_cpu__BranchAndJumpHazard": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 9
+  },
+  "rtlrewriter_long_cpu__DataHazard": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 10
+  },
+  "rtlrewriter_long_cpu__DataMem": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 8,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 9,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 1.0,
+   "proven": 10
+  },
+  "rtlrewriter_long_cpu__ImmExtend": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 10
+  },
+  "rtlrewriter_long_cpu__PC": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 10
+  },
+  "rtlrewriter_long_cpu__RegFile": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 1.4,
+   "proven": 10
+  },
+  "rtlrewriter_long_fft__Butterfly": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 2.8,
+   "proven": 10
+  },
+  "rtlrewriter_long_huffman__HuffmanDecoder": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 0,
+     "rows": 0
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 0,
+     "rows": 0
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 0,
+     "rows": 0
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 0,
+     "rows": 0
+    }
+   },
+   "phi": 0.5,
+   "proven": 0
+  },
+  "rtlrewriter_memory__memory_compression": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 7,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 7,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 7,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 7,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 7
+  },
+  "rtlrewriter_memory__memory_folding": {
    "configs": {
     "E1": {
      "baseline": true,
@@ -7058,37 +7804,11 @@
    "phi": 0.5,
    "proven": 5
   },
-  "rtlrewriter_long_cnn__RFselector": {
+  "rtlrewriter_memory__memory_folding2": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    }
-   },
-   "phi": 4.0,
-   "proven": 0
-  },
-  "rtlrewriter_long_cnn__floatAdd": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 9,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -7099,7 +7819,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 9,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -7110,7 +7830,7 @@
     },
     "E3": {
      "baseline": true,
-     "perturbations": 9,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -7121,107 +7841,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 4.0,
-   "proven": 9
-  },
-  "rtlrewriter_long_cnn__floatMult": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 4.0,
-   "proven": 9
-  },
-  "rtlrewriter_long_cpu__BranchAndJumpHazard": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 8,
+     "perturbations": 5,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -7232,9 +7852,59 @@
     }
    },
    "phi": 0.5,
-   "proven": 8
+   "proven": 5
   },
-  "rtlrewriter_long_cpu__DataHazard": {
+  "rtlrewriter_memory__memory_sharing": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 5,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.7,
+   "proven": 5
+  },
+  "rtlrewriter_mux__mux_type1": {
    "configs": {
     "E1": {
      "baseline": true,
@@ -7284,11 +7954,11 @@
    "phi": 0.5,
    "proven": 9
   },
-  "rtlrewriter_long_cpu__DataMem": {
+  "rtlrewriter_mux__mux_type2": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -7299,7 +7969,7 @@
     },
     "E2": {
      "baseline": true,
-     "perturbations": 8,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -7321,57 +7991,7 @@
     },
     "E4": {
      "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 1.0,
-   "proven": 8
-  },
-  "rtlrewriter_long_cpu__ImmExtend": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 9,
+     "perturbations": 7,
      "rows": 4,
      "sigma": {
       "area": 0.0,
@@ -7382,538 +8002,12 @@
     }
    },
    "phi": 0.5,
-   "proven": 9
-  },
-  "rtlrewriter_long_cpu__PC": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 9
-  },
-  "rtlrewriter_long_cpu__RegFile": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 1.4,
-   "proven": 9
-  },
-  "rtlrewriter_long_fft__Butterfly": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 9,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 2.8,
-   "proven": 9
-  },
-  "rtlrewriter_long_huffman__HuffmanDecoder": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 0,
-     "rows": 0
-    }
-   },
-   "phi": 0.5,
-   "proven": 0
-  },
-  "rtlrewriter_memory__memory_compression": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 6,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 1.3227328934305835e-07,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 6,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 6,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 6,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 6
-  },
-  "rtlrewriter_memory__memory_folding": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 4
-  },
-  "rtlrewriter_memory__memory_folding2": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 4
-  },
-  "rtlrewriter_memory__memory_sharing": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0020042800156589227,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.001012245992546561,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 4,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0015018095499379405,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.7,
-   "proven": 4
-  },
-  "rtlrewriter_mux__mux_type1": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 8
-  },
-  "rtlrewriter_mux__mux_type2": {
-   "configs": {
-    "E1": {
-     "baseline": true,
-     "perturbations": 6,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 6,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 6,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 6,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 6
+   "proven": 7
   },
   "rtlrewriter_mux__mux_type4": {
    "configs": {
     "E1": {
      "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E2": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E3": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    },
-    "E4": {
-     "baseline": true,
-     "perturbations": 8,
-     "rows": 4,
-     "sigma": {
-      "area": 0.0,
-      "power_saif": 0.0,
-      "tns": 0.0,
-      "wns": 0.0
-     }
-    }
-   },
-   "phi": 0.5,
-   "proven": 8
-  },
-  "rtlrewriter_mux__mux_type5": {
-   "configs": {
-    "E1": {
-     "baseline": true,
      "perturbations": 9,
      "rows": 4,
      "sigma": {
@@ -7959,36 +8053,83 @@
    },
    "phi": 0.5,
    "proven": 9
+  },
+  "rtlrewriter_mux__mux_type5": {
+   "configs": {
+    "E1": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E2": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E3": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    },
+    "E4": {
+     "baseline": true,
+     "perturbations": 10,
+     "rows": 4,
+     "sigma": {
+      "area": 0.0,
+      "power_saif": 0.0,
+      "tns": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "phi": 0.5,
+   "proven": 10
   }
  },
- "generated_at": "2026-09-13T10:00:15",
+ "generated_at": "2026-09-13T11:24:00",
  "per_config": {
   "E1": {
    "area": [
-    0.007405878786018417,
-    0.004989265657302479,
+    0.004557461726653736,
+    0.004726671688821692,
     0.0,
-    0.0005525903749944988,
+    0.0005525903749943808,
     0.0,
-    0.0005673503831811109,
     0.0,
-    0.005001939078444482,
     0.0,
-    0.014877388514652874,
-    0.0026132111137141755,
+    0.004305466819706606,
     0.0,
-    0.0011531760199532792,
-    0.0004832874013661342,
-    0.001954463572460128,
+    0.013196130068785812,
+    0.00156224637109912,
     0.0,
-    0.0011559328375227225,
+    0.0009609800166278422,
+    0.0002498628759413213,
     0.0,
     0.0,
+    0.000693559094127811,
     0.0,
-    0.0017770104268066112,
-    0.00021681778023589115,
     0.0,
     0.0,
+    0.0016050417407069688,
     0.0,
     0.0,
     0.0,
@@ -8029,20 +8170,22 @@
     0.0,
     0.0,
     0.0,
+    0.001273711362146113,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.0081461538461539,
     0.0,
     0.0,
     0.0,
-    0.008800777650741904,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.005081997013096108,
     0.0,
     0.0,
     0.0,
@@ -8062,7 +8205,14 @@
     0.0,
     0.0,
     0.0,
-    0.015313289389507453,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -8104,57 +8254,54 @@
     0.0
    ],
    "power_saif": [
-    0.01056795320203083,
-    0.018236367450397747,
-    0.0013688525408424232,
-    0.0013264193213968507,
+    0.008540936597187075,
+    0.008730647755584773,
+    0.0006997975184352914,
+    0.0011059731536267779,
     0.0,
-    0.002964257886140877,
-    0.0007020090421992265,
-    0.011581471228514906,
+    0.0002343470771022609,
+    0.0005452168802292361,
+    0.008178036766012746,
     0.0,
-    0.018603929376312167,
-    0.006023435518485264,
+    0.009301964688156084,
+    0.0034862302788138105,
     0.0,
-    0.0015691911357970133,
-    0.000514348444473063,
-    0.0009932057721886577,
-    0.0006080105493413708,
-    0.09128560222408555,
+    0.001389262263655401,
+    0.0003012405917770579,
+    0.0008500053961426285,
     0.0,
+    0.006758950022499769,
     0.0,
-    0.0002976188411028222,
-    0.000806739977065715,
-    0.000510140304217641,
     0.0,
+    1.9250895284061363e-06,
+    0.0005049605225575994,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.00013676768900058167,
     0.0,
-    0.0008046138315340074,
     0.0,
-    0.0025529277886443048,
+    6.838384450029084e-05,
     0.0,
+    0.0005331652048573094,
     0.0,
     0.0,
+    0.002598324266898979,
     0.0,
     0.0,
     0.0,
     0.0,
-    5.2868418646507004e-05,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.00014416795342349166,
     0.0,
     0.0,
     0.0,
+    0.0002883359068469833,
     0.0,
     0.0,
     0.0,
@@ -8162,27 +8309,28 @@
     0.0,
     0.0,
     0.0,
-    1.0932459857232257e-07,
-    0.0051340713273816925,
     0.0,
     0.0,
     0.0,
     0.0,
+    5.466229928616128e-08,
     0.0,
+    0.012697931728539462,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.006621010220642031,
     0.0,
     0.0,
-    0.006561445562397194,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.003280722781198597,
     0.0,
     0.0,
     0.0,
@@ -8192,7 +8340,6 @@
     0.0,
     0.0,
     0.0,
-    3.756603808511614e-05,
     0.0,
     0.0,
     0.0,
@@ -8200,8 +8347,6 @@
     0.0,
     0.0,
     0.0,
-    0.0003741816057849864,
-    0.0205077305713792,
     0.0,
     0.0,
     0.0,
@@ -8210,6 +8355,7 @@
     0.0,
     0.0,
     0.0,
+    0.0007483632115699715,
     0.0,
     0.0,
     0.0,
@@ -8225,6 +8371,7 @@
     0.0,
     0.0,
     0.0,
+    8.002535894734939e-07,
     0.0,
     0.0,
     0.0,
@@ -8233,7 +8380,16 @@
     0.0,
     0.0,
     0.0,
-    1.3227328934305835e-07,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -8244,7 +8400,7 @@
    ],
    "tns": [
     2.737930128000001,
-    1.0183282577999995,
+    0.8103891599999996,
     0.0,
     0.0,
     0.0,
@@ -8252,14 +8408,14 @@
     0.0,
     0.0,
     0.0,
-    46.25197426604999,
+    26.250985467524995,
     2.43051402405,
     0.0,
-    0.009920712,
-    8.118963711600008,
+    0.004960356,
+    4.060533760500003,
     0.0,
     0.0,
-    1.4826000002072347e-06,
+    2.9652000004144693e-06,
     0.0,
     0.0,
     0.0,
@@ -8316,10 +8472,10 @@
     0.0,
     0.0,
     0.0,
-    0.4610163232499822,
     0.0,
     0.0,
     0.0,
+    0.2305081616249911,
     0.0,
     0.0,
     0.0,
@@ -8340,7 +8496,13 @@
     0.0,
     0.0,
     0.0,
-    0.6117001889249983,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -8383,25 +8545,23 @@
    ],
    "wns": [
     0.020789228999999996,
-    0.03980187960000001,
+    0.036175440000000045,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.0053401913424,
+    0.0049456820724,
     0.0,
-    0.04343795610000001,
-    0.023216517969277494,
+    0.024385619475,
+    0.020936333404638748,
     0.0,
-    0.009920563739999999,
+    0.0049602818699999995,
     0.0,
-    5.5989330000000005e-05,
     0.0,
     0.0,
     0.0,
     0.0,
-    1.9062000000001614e-07,
     0.0,
     0.0,
     0.0,
@@ -8441,25 +8601,26 @@
     0.0,
     0.0,
     0.0,
-    8.154300000003011e-07,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.007633555282500001,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.003231245156999999,
     0.0,
     0.0,
     0.0,
-    0.005945225999999444,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.002972612999999722,
     0.0,
     0.0,
     0.0,
@@ -8479,7 +8640,14 @@
     0.0,
     0.0,
     0.0,
-    0.013747408500000025,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -8530,20 +8698,19 @@
     0.0,
     0.0,
     0.0,
-    0.0002973525855627393,
+    0.0005947051711254683,
     0.0,
-    0.000635743330086699,
+    0.0003178716650433495,
     0.0,
     0.0,
     0.0,
-    0.00019180601155964589,
+    9.909976723107892e-05,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.0021169824556165257,
     0.0,
     0.0,
     0.0,
@@ -8555,8 +8722,6 @@
     0.0,
     0.0,
     0.0,
-    0.006282203389830466,
-    0.00756428556919816,
     0.0,
     0.0,
     0.0,
@@ -8592,12 +8757,13 @@
     0.0,
     0.0,
     0.0,
-    0.048828143712574885,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.046331249999999935,
+    0.008877844311377187,
     0.0,
     0.0,
     0.0,
@@ -8619,12 +8785,20 @@
     0.0,
     0.0,
     0.0,
-    0.007829211896478686,
-    0.00514901914322955,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.013376366700745537,
+    0.002132192678705905,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0019748251822419524,
     0.0,
     0.0,
     0.0,
@@ -8671,18 +8845,17 @@
     0.0,
     0.0006554632940144271,
     0.00020450047496124477,
-    0.0005729764097351727,
+    0.00028648820486758633,
     0.0,
     0.0,
     0.0,
-    0.0005809526284748396,
+    0.00029591039494600096,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    8.741811689009361e-05,
     0.0,
     0.0,
     0.0,
@@ -8691,14 +8864,13 @@
     0.0,
     0.0,
     0.0,
-    0.0009029315371045671,
     0.0,
+    0.00045146576855228357,
     0.0,
-    0.052565715855839516,
-    0.12107719058387066,
     0.0,
     0.0,
     0.0,
+    0.00019553748481090902,
     0.0,
     0.0,
     0.0,
@@ -8730,13 +8902,13 @@
     0.0,
     0.0,
     0.0,
-    2.6690927409322237e-05,
-    0.01354041919187119,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.07449561846492962,
+    0.007792761392926517,
     0.0,
     0.0,
     0.0,
@@ -8758,21 +8930,22 @@
     0.0,
     0.0,
     0.0,
-    0.008251316525063631,
-    0.014051706590512192,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.0029033568428111266,
     0.0,
     0.0,
+    0.016502633050127263,
+    0.008117463254632076,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.004530275944116784,
     0.0,
+    0.005806713685622253,
     0.0,
     0.0,
     0.0,
@@ -8794,7 +8967,14 @@
     0.0,
     0.0,
     0.0,
-    0.0020042800156589227,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -8898,7 +9078,13 @@
     0.0,
     0.0,
     0.0,
-    0.053298914025,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.01737533070000001,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -8947,20 +9133,19 @@
     0.0,
     0.0,
     0.0,
-    4.878813000000051e-05,
+    1.5652020000000874e-05,
     0.0,
-    1.2637015230000005e-05,
+    6.3185076150000025e-06,
     0.0,
     0.0,
     0.0,
-    2.3771415359999996e-05,
+    1.5199615199999999e-05,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.000625568244,
     0.0,
     0.0,
     0.0,
@@ -8972,8 +9157,6 @@
     0.0,
     0.0,
     0.0,
-    0.0006840716399999984,
-    0.0011019106799999997,
     0.0,
     0.0,
     0.0,
@@ -9009,12 +9192,13 @@
     0.0,
     0.0,
     0.0,
-    0.013382053499999994,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.012452920787999996,
+    0.0002971553999999915,
     0.0,
     0.0,
     0.0,
@@ -9036,14 +9220,22 @@
     0.0,
     0.0,
     0.0,
-    8.563034287499999e-05,
-    0.010198054833749998,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.0001390678800000074,
+    0.0,
+    0.0,
+    1.5022815150000003e-05,
+    0.008089992224999999,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.005746626434999999,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -9088,20 +9280,19 @@
     0.0,
     0.0,
     0.0,
-    0.013492199104360678,
+    0.0006608424253921093,
     0.0,
-    0.0022312805977269716,
+    0.0011156402988634858,
     0.0,
     0.0,
     0.0,
-    0.022280350380795677,
+    0.011140175190397839,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.0016609105157352816,
     0.0,
     0.0,
     0.0,
@@ -9113,8 +9304,6 @@
     0.0,
     0.0,
     0.0,
-    0.006282203389830466,
-    0.017848318649191577,
     0.0,
     0.0,
     0.0,
@@ -9150,12 +9339,13 @@
     0.0,
     0.0,
     0.0,
-    0.048828143712574885,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.046331249999999935,
+    0.008877844311377187,
     0.0,
     0.0,
     0.0,
@@ -9177,13 +9367,21 @@
     0.0,
     0.0,
     0.0,
-    0.005898240221404783,
-    0.00514901914322955,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.0,
+    0.0,
+    0.011796480442809567,
+    0.002132192678705905,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0019748251822419524,
     0.0,
     0.0,
     0.0,
@@ -9228,20 +9426,19 @@
     0.0,
     0.0,
     0.0,
-    0.18919379299400335,
+    0.10304625910927406,
     0.00020450047496124477,
-    0.0017027445118802068,
+    0.0008513722559401034,
     0.0,
     0.0,
     0.0,
-    0.029213702585110215,
+    0.01461120331896068,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.00013117592786106056,
     0.0,
     0.0,
     0.0,
@@ -9250,14 +9447,13 @@
     0.0,
     0.0,
     0.0,
-    0.0009029315371045671,
     0.0,
+    0.00045146576855228357,
     0.0,
-    0.052565715855839516,
-    0.10675402176057561,
     0.0,
     0.0,
     0.0,
+    0.00019553748481090902,
     0.0,
     0.0,
     0.0,
@@ -9289,13 +9485,13 @@
     0.0,
     0.0,
     0.0,
-    2.6690927409322237e-05,
-    0.01354041919187119,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.07449561846492962,
+    0.007792761392926517,
     0.0,
     0.0,
     0.0,
@@ -9317,22 +9513,23 @@
     0.0,
     0.0,
     0.0,
-    0.012006458279505973,
-    0.014051706590512192,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.0029033568428111266,
     0.0,
+    0.021376934725220002,
+    0.008117463254632076,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.004530275944116784,
     0.0,
+    0.005806713685622253,
     0.0,
     0.0,
     0.0,
@@ -9354,7 +9551,14 @@
     0.0,
     0.0,
     0.0,
-    0.001012245992546561,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -9458,7 +9662,13 @@
     0.0,
     0.0,
     0.0,
-    0.053298914025,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.01737533070000001,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -9508,20 +9718,19 @@
     0.0,
     0.0,
     0.0,
-    0.0013341282000000005,
+    0.0026682564,
     0.0,
-    1.086945951e-05,
+    5.434729755e-06,
     0.0,
     0.0,
     0.0,
-    5.744037180000001e-06,
+    2.8720185900000005e-06,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.0007184939055000003,
     0.0,
     0.0,
     0.0,
@@ -9533,8 +9742,6 @@
     0.0,
     0.0,
     0.0,
-    0.0006840716399999984,
-    0.00018494375999999978,
     0.0,
     0.0,
     0.0,
@@ -9570,12 +9777,13 @@
     0.0,
     0.0,
     0.0,
-    0.013382053499999994,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.012452920787999996,
+    0.0002971553999999915,
     0.0,
     0.0,
     0.0,
@@ -9597,15 +9805,23 @@
     0.0,
     0.0,
     0.0,
-    5.739626445e-05,
-    0.010198054833749998,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.0001390678800000074,
+    0.0,
+    1.5022815150000003e-05,
+    0.008089992224999999,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.005746626434999999,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -9650,10 +9866,9 @@
     0.0,
     0.0,
     0.0,
-    8.307743993775908e-05,
     0.0,
-    0.0025621377654875136,
     0.0,
+    0.0012810688827437568,
     0.0,
     0.0,
     0.0,
@@ -9674,9 +9889,8 @@
     0.0,
     0.0,
     0.0,
-    0.0011557018417806865,
-    0.006282203389830466,
     0.0,
+    0.0009906013126646225,
     0.0,
     0.0,
     0.0,
@@ -9712,11 +9926,12 @@
     0.0,
     0.0,
     0.0,
-    0.048828143712574885,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.046331249999999935,
+    0.008877844311377187,
     0.0,
     0.0,
     0.0,
@@ -9739,13 +9954,20 @@
     0.0,
     0.0,
     0.0,
-    0.005898240221404783,
-    0.00514901914322955,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.0,
+    0.011796480442809567,
+    0.002132192678705905,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0019748251822419524,
     0.0,
     0.0,
     0.0,
@@ -9783,16 +10005,16 @@
     0.0
    ],
    "power_saif": [
-    0.0014495325236027075,
+    0.0005910730667030419,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
-    0.32409791706443686,
+    0.021839444959530805,
     9.092181982863757e-05,
-    0.0009837312221411623,
+    0.0004918656110705811,
     0.0,
     0.0,
     0.0,
@@ -9812,12 +10034,12 @@
     0.0,
     0.0,
     0.0,
-    0.0014641539035023861,
+    0.0007320769517511931,
     0.0,
-    0.0011395371472770258,
-    0.052565715855839516,
+    0.0010278204992471382,
     0.0,
     0.0,
+    0.00019553748481090902,
     0.0,
     0.0,
     0.0,
@@ -9851,11 +10073,11 @@
     0.0,
     0.0,
     0.0,
-    2.6690927409322237e-05,
-    0.01354041919187119,
     0.0,
     0.0,
     0.0,
+    0.07449561846492962,
+    0.007792761392926517,
     0.0,
     0.0,
     0.0,
@@ -9879,20 +10101,21 @@
     0.0,
     0.0,
     0.0,
-    0.012006458279505973,
-    0.014051706590512192,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.021376934725220002,
+    0.008117463254632076,
     0.0,
-    0.0029033568428111266,
     0.0,
     0.0,
     0.0,
     0.0,
+    0.004530275944116784,
     0.0,
+    0.005806713685622253,
     0.0,
     0.0,
     0.0,
@@ -9916,7 +10139,12 @@
     0.0,
     0.0,
     0.0,
-    0.0015018095499379405,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -10020,7 +10248,13 @@
     0.0,
     0.0,
     0.0,
-    0.053298914025,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.01737533070000001,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -10072,7 +10306,7 @@
     0.0,
     0.0,
     0.0,
-    2.98692009e-05,
+    1.493460045e-05,
     0.0,
     0.0,
     0.0,
@@ -10095,7 +10329,6 @@
     0.0,
     0.0,
     0.00035310152280000005,
-    0.0006840716399999984,
     0.0,
     0.0,
     0.0,
@@ -10132,10 +10365,11 @@
     0.0,
     0.0,
     0.0,
-    0.013382053499999994,
     0.0,
     0.0,
     0.0,
+    0.012452920787999996,
+    0.0002971553999999915,
     0.0,
     0.0,
     0.0,
@@ -10159,15 +10393,21 @@
     0.0,
     0.0,
     0.0,
-    5.739626445e-05,
-    0.010198054833749998,
     0.0,
     0.0,
     0.0,
     0.0,
     0.0,
+    1.5022815150000003e-05,
+    0.008089992224999999,
     0.0,
-    0.0001390678800000074,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.005746626434999999,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -10207,105 +10447,105 @@
  "summary": {
   "E1": {
    "area": {
-    "max": 0.015313289389507453,
+    "max": 0.013196130068785812,
     "median": 0.0,
-    "n": 137,
+    "n": 143,
     "q75": 0.0
    },
    "power_saif": {
-    "max": 0.09128560222408555,
+    "max": 0.012697931728539462,
     "median": 0.0,
-    "n": 137,
+    "n": 143,
     "q75": 0.0
    },
    "tns": {
-    "max": 46.25197426604999,
+    "max": 26.250985467524995,
     "median": 0.0,
-    "n": 137,
+    "n": 143,
     "q75": 0.0
    },
    "wns": {
-    "max": 0.04343795610000001,
+    "max": 0.036175440000000045,
     "median": 0.0,
-    "n": 137,
+    "n": 143,
     "q75": 0.0
    }
   },
   "E2": {
    "area": {
-    "max": 0.048828143712574885,
+    "max": 0.046331249999999935,
     "median": 0.0,
-    "n": 137,
+    "n": 143,
     "q75": 0.0
    },
    "power_saif": {
-    "max": 0.12107719058387066,
+    "max": 0.07449561846492962,
     "median": 0.0,
-    "n": 137,
+    "n": 143,
     "q75": 0.0
    },
    "tns": {
-    "max": 0.053298914025,
+    "max": 0.01737533070000001,
     "median": 0.0,
-    "n": 137,
+    "n": 143,
     "q75": 0.0
    },
    "wns": {
-    "max": 0.013382053499999994,
+    "max": 0.012452920787999996,
     "median": 0.0,
-    "n": 137,
+    "n": 143,
     "q75": 0.0
    }
   },
   "E3": {
    "area": {
-    "max": 0.048828143712574885,
+    "max": 0.046331249999999935,
     "median": 0.0,
-    "n": 138,
+    "n": 144,
     "q75": 0.0
    },
    "power_saif": {
-    "max": 0.18919379299400335,
+    "max": 0.10304625910927406,
     "median": 0.0,
-    "n": 138,
+    "n": 144,
     "q75": 0.0
    },
    "tns": {
-    "max": 0.053298914025,
+    "max": 0.01737533070000001,
     "median": 0.0,
-    "n": 138,
+    "n": 144,
     "q75": 0.0
    },
    "wns": {
-    "max": 0.013382053499999994,
+    "max": 0.012452920787999996,
     "median": 0.0,
-    "n": 138,
+    "n": 144,
     "q75": 0.0
    }
   },
   "E4": {
    "area": {
-    "max": 0.048828143712574885,
+    "max": 0.046331249999999935,
     "median": 0.0,
-    "n": 138,
+    "n": 144,
     "q75": 0.0
    },
    "power_saif": {
-    "max": 0.32409791706443686,
+    "max": 0.07449561846492962,
     "median": 0.0,
-    "n": 138,
+    "n": 144,
     "q75": 0.0
    },
    "tns": {
-    "max": 0.053298914025,
+    "max": 0.01737533070000001,
     "median": 0.0,
-    "n": 138,
+    "n": 144,
     "q75": 0.0
    },
    "wns": {
-    "max": 0.013382053499999994,
+    "max": 0.012452920787999996,
     "median": 0.0,
-    "n": 138,
+    "n": 144,
     "q75": 0.0
    }
   }

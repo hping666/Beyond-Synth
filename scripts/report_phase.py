@@ -224,12 +224,12 @@ def phase2(cfg):
     fa = S.floor_analysis(conn, set_designs, configs, proven, k)
     if fa:
         L += ["### 2a. Floor distribution on the set designs (dev + held)", "",
-              "| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q95 of abs delta | pooled q99 | pooled max | proposed t_D median / q95 / max | designs above pooled min |",
-              "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+              "| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q90 of abs delta | pooled q95 | pooled q99 | pooled max | proposed t_D median / q95 / max | designs above pooled min |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for (config, m), a in sorted(fa.items()):
             tp = a["t_proposed"] or {}
             L.append(f"| {config} | {m} | {a['designs']} | {a['zero_robust']} | {a['zero_std']} | {a['max_abs_gt']['1pct']} | {a['max_abs_gt']['5pct']} | "
-                     f"{a['pooled']['q95']:.4f} | {a['pooled']['q99']:.4f} | {a['pooled']['max']:.4f} | "
+                     f"{a['pooled']['q90']:.4f} | {a['pooled']['q95']:.4f} | {a['pooled']['q99']:.4f} | {a['pooled']['max']:.4f} | "
                      f"{tp.get('median', 0):.4f} / {tp.get('q95', 0):.4f} / {tp.get('max', 0):.4f} | {tp.get('above_pooled_min', 0)} |")
         L += ["", f"Proposed threshold (G1 alternative): t_D = max({k:.0f} x sigma_robust, max |delta| over D's own proven perturbations, pooled q95 of |delta| over all perturbation records of the configuration); "
               "the pooled q95 is the minimum for designs whose perturbations never change the netlist. The spec's 2 x sigma_robust stays in the table for the sensitivity report.", ""]
