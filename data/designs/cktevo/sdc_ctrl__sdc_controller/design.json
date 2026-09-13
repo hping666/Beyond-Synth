@@ -281,7 +281,8 @@
  "tags": [
   "cktevo",
   "sdc_ctrl",
-  "cktevo_set"
+  "cktevo_set",
+  "cktevo_sky130"
  ],
  "tb": null,
  "top": "sdc_controller"

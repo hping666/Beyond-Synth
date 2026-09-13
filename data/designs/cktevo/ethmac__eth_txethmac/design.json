@@ -246,7 +246,8 @@
  "tags": [
   "cktevo",
   "ethmac",
-  "cktevo_set"
+  "cktevo_set",
+  "cktevo_sky130"
  ],
  "tb": null,
  "top": "eth_txethmac"

@@ -1100,7 +1100,8 @@
  "tags": [
   "cktevo",
   "nn_engine",
-  "cktevo_set"
+  "cktevo_set",
+  "cktevo_sky130"
  ],
  "tb": null,
  "top": "spikeLayer8_H7"

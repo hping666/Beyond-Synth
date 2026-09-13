@@ -201,7 +201,8 @@
  "tags": [
   "cktevo",
   "mem_ctrl",
-  "cktevo_set"
+  "cktevo_set",
+  "cktevo_sky130"
  ],
  "tb": null,
  "top": "mc_rf"

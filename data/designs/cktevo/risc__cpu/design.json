@@ -192,7 +192,8 @@
  "tags": [
   "cktevo",
   "risc",
-  "cktevo_set"
+  "cktevo_set",
+  "cktevo_sky130"
  ],
  "tb": null,
  "top": "cpu"

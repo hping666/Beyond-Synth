@@ -210,7 +210,8 @@
  "tags": [
   "cktevo",
   "hsm",
-  "cktevo_set"
+  "cktevo_set",
+  "cktevo_sky130"
  ],
  "tb": null,
  "top": "hsm"

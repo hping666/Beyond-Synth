@@ -5,7 +5,7 @@
   {
    "area_um2": 1114.274031,
    "cells": 517,
-   "dc_seconds": 70.5,
+   "dc_seconds": 77.4,
    "design_id": "cktevo_ethmac__eth_cop",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -14,7 +14,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "ethmac"
+    "ethmac",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.91907
@@ -75,7 +76,7 @@
   {
    "area_um2": 563.654014,
    "cells": 220,
-   "dc_seconds": 60.4,
+   "dc_seconds": 75.4,
    "design_id": "cktevo_ethmac__eth_miim",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -84,7 +85,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "ethmac"
+    "ethmac",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.25593
@@ -162,7 +164,7 @@
   {
    "area_um2": 1073.310018,
    "cells": 551,
-   "dc_seconds": 65.6,
+   "dc_seconds": 76.3,
    "design_id": "cktevo_ethmac__eth_rxethmac",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -171,7 +173,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "ethmac"
+    "ethmac",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.54093
@@ -247,7 +250,7 @@
   {
    "area_um2": 1188.75402,
    "cells": 611,
-   "dc_seconds": 67.0,
+   "dc_seconds": 73.2,
    "design_id": "cktevo_ethmac__eth_txethmac",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -256,7 +259,9 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "ethmac"
+    "ethmac",
+    "cktevo_set",
+    "cktevo_sky130"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.14039
@@ -299,7 +304,7 @@
   {
    "area_um2": 426.930004,
    "cells": 188,
-   "dc_seconds": 63.7,
+   "dc_seconds": 72.7,
    "design_id": "cktevo_hsm__G16Inv2SharesDep",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -308,7 +313,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "hsm"
+    "hsm",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.72609
@@ -316,7 +322,7 @@
   {
    "area_um2": 1400.224007,
    "cells": 690,
-   "dc_seconds": 65.7,
+   "dc_seconds": 74.9,
    "design_id": "cktevo_hsm__G256Inv2Shares5Stages",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -325,7 +331,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "hsm"
+    "hsm",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.53865
@@ -333,7 +340,7 @@
   {
    "area_um2": 172.367995,
    "cells": 108,
-   "dc_seconds": 63.3,
+   "dc_seconds": 74.7,
    "design_id": "cktevo_hsm__MixColumns",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -343,7 +350,8 @@
    "tags": [
     "cktevo",
     "hsm",
-    "no_clock"
+    "no_clock",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.02747
@@ -351,7 +359,7 @@
   {
    "area_um2": 6638.030132,
    "cells": 3321,
-   "dc_seconds": 80.6,
+   "dc_seconds": 92.9,
    "design_id": "cktevo_hsm__hsm",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -360,7 +368,9 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "hsm"
+    "hsm",
+    "cktevo_set",
+    "cktevo_sky130"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.84549
@@ -368,7 +378,7 @@
   {
    "area_um2": 786.561992,
    "cells": 442,
-   "dc_seconds": 64.3,
+   "dc_seconds": 74.9,
    "design_id": "cktevo_mem_ctrl__mc_adr_sel",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -377,7 +387,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "mem_ctrl"
+    "mem_ctrl",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.95267
@@ -402,7 +413,7 @@
   {
    "area_um2": 1376.28397,
    "cells": 538,
-   "dc_seconds": 63.4,
+   "dc_seconds": 71.9,
    "design_id": "cktevo_mem_ctrl__mc_dp",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -411,7 +422,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "mem_ctrl"
+    "mem_ctrl",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.83587
@@ -454,7 +466,7 @@
   {
    "area_um2": 809.171985,
    "cells": 326,
-   "dc_seconds": 64.0,
+   "dc_seconds": 71.8,
    "design_id": "cktevo_mem_ctrl__mc_obct_top",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -463,7 +475,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "mem_ctrl"
+    "mem_ctrl",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.61508
@@ -488,7 +501,7 @@
   {
    "area_um2": 2361.548011,
    "cells": 924,
-   "dc_seconds": 67.0,
+   "dc_seconds": 78.2,
    "design_id": "cktevo_mem_ctrl__mc_rf",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -497,7 +510,9 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "mem_ctrl"
+    "mem_ctrl",
+    "cktevo_set",
+    "cktevo_sky130"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.79126
@@ -574,7 +589,7 @@
   {
    "area_um2": 185.401997,
    "cells": 104,
-   "dc_seconds": 61.8,
+   "dc_seconds": 69.1,
    "design_id": "cktevo_nn_engine__dualDendRC_H7",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -583,7 +598,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "nn_engine"
+    "nn_engine",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.28349
@@ -603,7 +619,7 @@
   {
    "area_um2": 61107.381405,
    "cells": 50724,
-   "dc_seconds": 540.5,
+   "dc_seconds": 639.7,
    "design_id": "cktevo_nn_engine__spikeLayer8_H7",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -612,7 +628,9 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "nn_engine"
+    "nn_engine",
+    "cktevo_set",
+    "cktevo_sky130"
    ],
    "tns_ns": 0.0,
    "wns_ns": 0.000587463
@@ -620,7 +638,7 @@
   {
    "area_um2": 7786.617922,
    "cells": 6486,
-   "dc_seconds": 123.7,
+   "dc_seconds": 137.3,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -629,7 +647,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "nn_engine"
+    "nn_engine",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 0.00482869
@@ -649,7 +668,7 @@
   {
    "area_um2": 880.459979,
    "cells": 399,
-   "dc_seconds": 224.4,
+   "dc_seconds": 243.1,
    "design_id": "cktevo_nn_engine__thresholds_128x4096",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -658,7 +677,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "nn_engine"
+    "nn_engine",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.70408
@@ -690,7 +710,7 @@
   {
    "area_um2": 12063.099711,
    "cells": 4315,
-   "dc_seconds": 83.9,
+   "dc_seconds": 96.9,
    "design_id": "cktevo_risc__btb",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -699,7 +719,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "risc"
+    "risc",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 0.888485
@@ -777,7 +798,7 @@
   {
    "area_um2": 848.00798,
    "cells": 399,
-   "dc_seconds": 100.3,
+   "dc_seconds": 117.4,
    "design_id": "cktevo_risc__cpu",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -786,7 +807,9 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "risc"
+    "risc",
+    "cktevo_set",
+    "cktevo_sky130"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.24497
@@ -847,7 +870,7 @@
   {
    "area_um2": 138.586,
    "cells": 121,
-   "dc_seconds": 68.7,
+   "dc_seconds": 71.1,
    "design_id": "cktevo_risc__l2_cache_control",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -856,7 +879,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "risc"
+    "risc",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.05406
@@ -935,7 +959,7 @@
   {
    "area_um2": 139.118,
    "cells": 133,
-   "dc_seconds": 59.8,
+   "dc_seconds": 67.1,
    "design_id": "cktevo_risc__stall_control_unit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -945,7 +969,8 @@
    "tags": [
     "cktevo",
     "risc",
-    "no_clock"
+    "no_clock",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.6887
@@ -970,7 +995,7 @@
   {
    "area_um2": 2851.519951,
    "cells": 1401,
-   "dc_seconds": 68.5,
+   "dc_seconds": 76.1,
    "design_id": "cktevo_sdc_ctrl__sd_cmd_serial_host",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -979,7 +1004,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "sdc_ctrl"
+    "sdc_ctrl",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.87512
@@ -1004,7 +1030,7 @@
   {
    "area_um2": 1940.735972,
    "cells": 1195,
-   "dc_seconds": 65.8,
+   "dc_seconds": 82.2,
    "design_id": "cktevo_sdc_ctrl__sd_data_serial_host",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1013,7 +1039,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "sdc_ctrl"
+    "sdc_ctrl",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.20199
@@ -1021,7 +1048,7 @@
   {
    "area_um2": 33111.147254,
    "cells": 12495,
-   "dc_seconds": 138.9,
+   "dc_seconds": 146.3,
    "design_id": "cktevo_sdc_ctrl__sdc_controller",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1030,7 +1057,9 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "sdc_ctrl"
+    "sdc_ctrl",
+    "cktevo_set",
+    "cktevo_sky130"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.92492
@@ -1051,7 +1080,7 @@
   {
    "area_um2": 887.110019,
    "cells": 408,
-   "dc_seconds": 54.5,
+   "dc_seconds": 72.7,
    "design_id": "cktevo_spi__spi",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1060,7 +1089,9 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "spi"
+    "spi",
+    "cktevo_set",
+    "cktevo_sky130"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.91716
@@ -1085,7 +1116,7 @@
   {
    "area_um2": 1594.670031,
    "cells": 734,
-   "dc_seconds": 65.1,
+   "dc_seconds": 75.9,
    "design_id": "cktevo_usb__usbf_core",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1094,7 +1125,9 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "usb"
+    "usb",
+    "cktevo_set",
+    "cktevo_sky130"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.14527
@@ -1102,7 +1135,7 @@
   {
    "area_um2": 933.926023,
    "cells": 407,
-   "dc_seconds": 60.6,
+   "dc_seconds": 74.6,
    "design_id": "cktevo_usb__usbf_csr",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1111,7 +1144,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "usb"
+    "usb",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.76504
@@ -1170,7 +1204,7 @@
   {
    "area_um2": 785.498018,
    "cells": 284,
-   "dc_seconds": 63.7,
+   "dc_seconds": 75.9,
    "design_id": "cktevo_usb__usbf_sie_rx",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1179,7 +1213,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "usb"
+    "usb",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.86622
@@ -1291,7 +1326,7 @@
   {
    "area_um2": 94170.381704,
    "cells": 31038,
-   "dc_seconds": 273.4,
+   "dc_seconds": 291.6,
    "design_id": "cktevo_vga_enh__vga_curproc",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1300,7 +1335,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "vga_enh"
+    "vga_enh",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.01003
@@ -1378,7 +1414,7 @@
   {
    "area_um2": 4210.513913,
    "cells": 1644,
-   "dc_seconds": 68.6,
+   "dc_seconds": 77.9,
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1387,7 +1423,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "vga_enh"
+    "vga_enh",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 1.9833
@@ -1395,7 +1432,7 @@
   {
    "area_um2": 2308.348049,
    "cells": 791,
-   "dc_seconds": 66.1,
+   "dc_seconds": 76.5,
    "design_id": "cktevo_vga_enh__vga_wb_slave",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1404,7 +1441,8 @@
    "suite": "cktevo",
    "tags": [
     "cktevo",
-    "vga_enh"
+    "vga_enh",
+    "cktevo_set"
    ],
    "tns_ns": 0.0,
    "wns_ns": 2.24194
@@ -1445,7 +1483,7 @@
   {
    "area_um2": 3213.545998,
    "cells": 2221,
-   "dc_seconds": 87.7,
+   "dc_seconds": 95.5,
    "design_id": "drrtl_LSTM",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1462,7 +1500,7 @@
   {
    "area_um2": 1564.877984,
    "cells": 711,
-   "dc_seconds": 64.0,
+   "dc_seconds": 74.4,
    "design_id": "drrtl_SPI",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1494,7 +1532,7 @@
   {
    "area_um2": 25155.886372,
    "cells": 17997,
-   "dc_seconds": 201.7,
+   "dc_seconds": 249.1,
    "design_id": "drrtl_aes",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1510,7 +1548,7 @@
   {
    "area_um2": 21825.034203,
    "cells": 14723,
-   "dc_seconds": 168.4,
+   "dc_seconds": 188.1,
    "design_id": "drrtl_arm_cpu1",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1526,7 +1564,7 @@
   {
    "area_um2": 8805.398202,
    "cells": 4830,
-   "dc_seconds": 96.0,
+   "dc_seconds": 105.5,
    "design_id": "drrtl_arm_cpu2",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1542,7 +1580,7 @@
   {
    "area_um2": 1687.504045,
    "cells": 696,
-   "dc_seconds": 70.5,
+   "dc_seconds": 75.6,
    "design_id": "drrtl_communication",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1558,7 +1596,7 @@
   {
    "area_um2": 169.708001,
    "cells": 141,
-   "dc_seconds": 63.2,
+   "dc_seconds": 72.1,
    "design_id": "drrtl_controller",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1633,7 +1671,7 @@
   {
    "area_um2": 967.442013,
    "cells": 576,
-   "dc_seconds": 70.9,
+   "dc_seconds": 75.4,
    "design_id": "drrtl_pcie",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1681,7 +1719,7 @@
   {
    "area_um2": 58.519999,
    "cells": 36,
-   "dc_seconds": 64.5,
+   "dc_seconds": 71.0,
    "design_id": "drrtl_ticket_machine",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1745,7 +1783,7 @@
   {
    "area_um2": 23.408001,
    "cells": 6,
-   "dc_seconds": 65.9,
+   "dc_seconds": 71.9,
    "design_id": "rtllm_LFSR",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1761,7 +1799,7 @@
   {
    "area_um2": 191.785996,
    "cells": 84,
-   "dc_seconds": 63.5,
+   "dc_seconds": 71.2,
    "design_id": "rtllm_LIFObuffer",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1806,7 +1844,7 @@
   {
    "area_um2": 131.138003,
    "cells": 50,
-   "dc_seconds": 66.5,
+   "dc_seconds": 71.8,
    "design_id": "rtllm_accu",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1839,7 +1877,7 @@
   {
    "area_um2": 170.239999,
    "cells": 125,
-   "dc_seconds": 65.4,
+   "dc_seconds": 71.9,
    "design_id": "rtllm_adder_32bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1856,7 +1894,7 @@
   {
    "area_um2": 34.048,
    "cells": 8,
-   "dc_seconds": 65.9,
+   "dc_seconds": 73.9,
    "design_id": "rtllm_adder_8bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1873,7 +1911,7 @@
   {
    "area_um2": 27.93,
    "cells": 18,
-   "dc_seconds": 60.3,
+   "dc_seconds": 71.7,
    "design_id": "rtllm_adder_bcd",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1890,7 +1928,7 @@
   {
    "area_um2": 2216.312064,
    "cells": 447,
-   "dc_seconds": 64.5,
+   "dc_seconds": 65.5,
    "design_id": "rtllm_adder_pipe_64bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -1985,7 +2023,7 @@
   {
    "area_um2": 13.034,
    "cells": 15,
-   "dc_seconds": 63.7,
+   "dc_seconds": 71.3,
    "design_id": "rtllm_comparator_3bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2002,7 +2040,7 @@
   {
    "area_um2": 18.886,
    "cells": 23,
-   "dc_seconds": 58.8,
+   "dc_seconds": 69.7,
    "design_id": "rtllm_comparator_4bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2019,7 +2057,7 @@
   {
    "area_um2": 30.590001,
    "cells": 10,
-   "dc_seconds": 59.1,
+   "dc_seconds": 68.9,
    "design_id": "rtllm_counter_12",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2052,7 +2090,7 @@
   {
    "area_um2": 17.822001,
    "cells": 5,
-   "dc_seconds": 61.8,
+   "dc_seconds": 72.3,
    "design_id": "rtllm_edge_detect",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2068,7 +2106,7 @@
   {
    "area_um2": 632.015999,
    "cells": 627,
-   "dc_seconds": 61.7,
+   "dc_seconds": 76.5,
    "design_id": "rtllm_fixed_point_adder",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2114,7 +2152,7 @@
   {
    "area_um2": 104.538002,
    "cells": 42,
-   "dc_seconds": 67.1,
+   "dc_seconds": 70.0,
    "design_id": "rtllm_freq_div",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2130,7 +2168,7 @@
   {
    "area_um2": 19.152,
    "cells": 6,
-   "dc_seconds": 60.6,
+   "dc_seconds": 66.1,
    "design_id": "rtllm_freq_divbyeven",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2146,7 +2184,7 @@
   {
    "area_um2": 44.954001,
    "cells": 19,
-   "dc_seconds": 62.3,
+   "dc_seconds": 70.0,
    "design_id": "rtllm_freq_divbyfrac",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2173,7 +2211,7 @@
   {
    "area_um2": 34.580001,
    "cells": 17,
-   "dc_seconds": 63.0,
+   "dc_seconds": 74.7,
    "design_id": "rtllm_fsm",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2189,7 +2227,7 @@
   {
    "area_um2": 95.494003,
    "cells": 21,
-   "dc_seconds": 60.4,
+   "dc_seconds": 72.2,
    "design_id": "rtllm_instr_reg",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2205,7 +2243,7 @@
   {
    "area_um2": 724.318015,
    "cells": 294,
-   "dc_seconds": 65.2,
+   "dc_seconds": 74.7,
    "design_id": "rtllm_multi_16bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2221,7 +2259,7 @@
   {
    "area_um2": 296.856001,
    "cells": 160,
-   "dc_seconds": 62.9,
+   "dc_seconds": 72.5,
    "design_id": "rtllm_multi_8bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2239,7 +2277,7 @@
   {
    "area_um2": 358.568002,
    "cells": 110,
-   "dc_seconds": 66.0,
+   "dc_seconds": 68.9,
    "design_id": "rtllm_multi_booth_8bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2255,7 +2293,7 @@
   {
    "area_um2": 163.058003,
    "cells": 61,
-   "dc_seconds": 65.5,
+   "dc_seconds": 73.8,
    "design_id": "rtllm_multi_pipe_4bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2271,7 +2309,7 @@
   {
    "area_um2": 785.764013,
    "cells": 287,
-   "dc_seconds": 60.0,
+   "dc_seconds": 78.0,
    "design_id": "rtllm_multi_pipe_8bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2287,7 +2325,7 @@
   {
    "area_um2": 46.550001,
    "cells": 13,
-   "dc_seconds": 60.1,
+   "dc_seconds": 71.7,
    "design_id": "rtllm_parallel2serial",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2303,7 +2341,7 @@
   {
    "area_um2": 2258.606008,
    "cells": 1328,
-   "dc_seconds": 66.1,
+   "dc_seconds": 82.8,
    "design_id": "rtllm_pe",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2319,7 +2357,7 @@
   {
    "area_um2": 14.63,
    "cells": 7,
-   "dc_seconds": 63.6,
+   "dc_seconds": 74.8,
    "design_id": "rtllm_pulse_detect",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2335,7 +2373,7 @@
   {
    "area_um2": 348.991994,
    "cells": 194,
-   "dc_seconds": 64.5,
+   "dc_seconds": 71.5,
    "design_id": "rtllm_radix2_div",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2351,7 +2389,7 @@
   {
    "area_um2": 36.175999,
    "cells": 8,
-   "dc_seconds": 61.9,
+   "dc_seconds": 70.7,
    "design_id": "rtllm_right_shifter",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2389,7 +2427,7 @@
   {
    "area_um2": 133.532004,
    "cells": 40,
-   "dc_seconds": 65.2,
+   "dc_seconds": 75.8,
    "design_id": "rtllm_serial2parallel",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2405,7 +2443,7 @@
   {
    "area_um2": 59.584001,
    "cells": 29,
-   "dc_seconds": 64.7,
+   "dc_seconds": 76.1,
    "design_id": "rtllm_signal_generator",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2421,7 +2459,7 @@
   {
    "area_um2": 95.227998,
    "cells": 61,
-   "dc_seconds": 59.2,
+   "dc_seconds": 71.1,
    "design_id": "rtllm_square_wave",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2437,7 +2475,7 @@
   {
    "area_um2": 453.263994,
    "cells": 503,
-   "dc_seconds": 65.2,
+   "dc_seconds": 70.7,
    "design_id": "rtllm_sub_64bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2466,7 +2504,7 @@
   {
    "area_um2": 129.542003,
    "cells": 63,
-   "dc_seconds": 60.5,
+   "dc_seconds": 74.8,
    "design_id": "rtllm_traffic_light",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2482,7 +2520,7 @@
   {
    "area_um2": 149.226003,
    "cells": 34,
-   "dc_seconds": 60.8,
+   "dc_seconds": 75.1,
    "design_id": "rtllm_up_down_counter",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2498,7 +2536,7 @@
   {
    "area_um2": 150.556004,
    "cells": 33,
-   "dc_seconds": 66.8,
+   "dc_seconds": 72.5,
    "design_id": "rtllm_width_8to16",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2514,7 +2552,7 @@
   {
    "area_um2": 93.1,
    "cells": 34,
-   "dc_seconds": 62.0,
+   "dc_seconds": 72.8,
    "design_id": "rtlopt_add_sub",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2532,7 +2570,7 @@
   {
    "area_um2": 368.941997,
    "cells": 142,
-   "dc_seconds": 64.2,
+   "dc_seconds": 74.3,
    "design_id": "rtlopt_adder",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2549,7 +2587,7 @@
   {
    "area_um2": 34.048,
    "cells": 8,
-   "dc_seconds": 55.3,
+   "dc_seconds": 72.5,
    "design_id": "rtlopt_adder_carry",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2567,7 +2605,7 @@
   {
    "area_um2": 313.879998,
    "cells": 200,
-   "dc_seconds": 63.8,
+   "dc_seconds": 75.5,
    "design_id": "rtlopt_adder_select",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2585,7 +2623,7 @@
   {
    "area_um2": 106.134001,
    "cells": 46,
-   "dc_seconds": 64.1,
+   "dc_seconds": 70.7,
    "design_id": "rtlopt_addr_calcu",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2603,7 +2641,7 @@
   {
    "area_um2": 1611.959996,
    "cells": 1645,
-   "dc_seconds": 69.0,
+   "dc_seconds": 85.5,
    "design_id": "rtlopt_alu_64bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2621,7 +2659,7 @@
   {
    "area_um2": 172.367999,
    "cells": 163,
-   "dc_seconds": 62.9,
+   "dc_seconds": 72.5,
    "design_id": "rtlopt_alu_8bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2639,7 +2677,7 @@
   {
    "area_um2": 1139.011999,
    "cells": 742,
-   "dc_seconds": 74.8,
+   "dc_seconds": 85.0,
    "design_id": "rtlopt_calculation",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2657,7 +2695,7 @@
   {
    "area_um2": 41.762,
    "cells": 45,
-   "dc_seconds": 58.7,
+   "dc_seconds": 70.7,
    "design_id": "rtlopt_comparator",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2675,7 +2713,7 @@
   {
    "area_um2": 88.312,
    "cells": 102,
-   "dc_seconds": 64.3,
+   "dc_seconds": 69.1,
    "design_id": "rtlopt_comparator_16bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2693,7 +2731,7 @@
   {
    "area_um2": 9.576,
    "cells": 10,
-   "dc_seconds": 62.9,
+   "dc_seconds": 70.0,
    "design_id": "rtlopt_comparator_2bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2711,7 +2749,7 @@
   {
    "area_um2": 21.28,
    "cells": 23,
-   "dc_seconds": 63.7,
+   "dc_seconds": 74.9,
    "design_id": "rtlopt_comparator_4bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2729,7 +2767,7 @@
   {
    "area_um2": 44.422,
    "cells": 46,
-   "dc_seconds": 63.8,
+   "dc_seconds": 68.6,
    "design_id": "rtlopt_comparator_8bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2747,7 +2785,7 @@
   {
    "area_um2": 71.553999,
    "cells": 87,
-   "dc_seconds": 61.1,
+   "dc_seconds": 70.2,
    "design_id": "rtlopt_decoder_6bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2765,7 +2803,7 @@
   {
    "area_um2": 246.847993,
    "cells": 312,
-   "dc_seconds": 65.6,
+   "dc_seconds": 73.6,
    "design_id": "rtlopt_decoder_8bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2783,7 +2821,7 @@
   {
    "area_um2": 2645.901972,
    "cells": 2681,
-   "dc_seconds": 108.3,
+   "dc_seconds": 122.3,
    "design_id": "rtlopt_divider_16bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2801,7 +2839,7 @@
   {
    "area_um2": 13635.15988,
    "cells": 13878,
-   "dc_seconds": 588.9,
+   "dc_seconds": 637.4,
    "design_id": "rtlopt_divider_32bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2819,7 +2857,7 @@
   {
    "area_um2": 42.028,
    "cells": 41,
-   "dc_seconds": 64.4,
+   "dc_seconds": 72.8,
    "design_id": "rtlopt_divider_4bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2837,7 +2875,7 @@
   {
    "area_um2": 398.733995,
    "cells": 403,
-   "dc_seconds": 73.4,
+   "dc_seconds": 82.6,
    "design_id": "rtlopt_divider_8bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2855,7 +2893,7 @@
   {
    "area_um2": 128.744002,
    "cells": 89,
-   "dc_seconds": 65.2,
+   "dc_seconds": 74.1,
    "design_id": "rtlopt_fsm",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2872,7 +2910,7 @@
   {
    "area_um2": 318.668006,
    "cells": 143,
-   "dc_seconds": 63.9,
+   "dc_seconds": 74.5,
    "design_id": "rtlopt_fsm_encode",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2889,7 +2927,7 @@
   {
    "area_um2": 68.628001,
    "cells": 50,
-   "dc_seconds": 64.0,
+   "dc_seconds": 72.8,
    "design_id": "rtlopt_gray",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2906,7 +2944,7 @@
   {
    "area_um2": 614.459993,
    "cells": 253,
-   "dc_seconds": 66.0,
+   "dc_seconds": 72.1,
    "design_id": "rtlopt_mac",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2923,7 +2961,7 @@
   {
    "area_um2": 265.468001,
    "cells": 162,
-   "dc_seconds": 60.9,
+   "dc_seconds": 74.2,
    "design_id": "rtlopt_mul",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2940,7 +2978,7 @@
   {
    "area_um2": 42.028,
    "cells": 19,
-   "dc_seconds": 60.8,
+   "dc_seconds": 67.3,
    "design_id": "rtlopt_mul_const",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2958,7 +2996,7 @@
   {
    "area_um2": 285.950001,
    "cells": 157,
-   "dc_seconds": 64.2,
+   "dc_seconds": 72.9,
    "design_id": "rtlopt_mul_subexpression",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2976,7 +3014,7 @@
   {
    "area_um2": 10.906,
    "cells": 10,
-   "dc_seconds": 61.6,
+   "dc_seconds": 69.7,
    "design_id": "rtlopt_mult_if",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -2994,7 +3032,7 @@
   {
    "area_um2": 60.648001,
    "cells": 53,
-   "dc_seconds": 59.0,
+   "dc_seconds": 75.3,
    "design_id": "rtlopt_mux_4to1_16bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3012,7 +3050,7 @@
   {
    "area_um2": 235.144004,
    "cells": 209,
-   "dc_seconds": 64.7,
+   "dc_seconds": 80.6,
    "design_id": "rtlopt_mux_4to1_64bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3030,7 +3068,7 @@
   {
    "area_um2": 21.812,
    "cells": 25,
-   "dc_seconds": 63.7,
+   "dc_seconds": 74.7,
    "design_id": "rtlopt_mux_dead",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3048,7 +3086,7 @@
   {
    "area_um2": 74.214001,
    "cells": 62,
-   "dc_seconds": 64.9,
+   "dc_seconds": 72.6,
    "design_id": "rtlopt_mux_encode",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3066,7 +3104,7 @@
   {
    "area_um2": 96.824002,
    "cells": 81,
-   "dc_seconds": 60.6,
+   "dc_seconds": 69.2,
    "design_id": "rtlopt_mux_large",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3084,7 +3122,7 @@
   {
    "area_um2": 7559.188215,
    "cells": 2797,
-   "dc_seconds": 77.0,
+   "dc_seconds": 89.3,
    "design_id": "rtlopt_register",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3101,7 +3139,7 @@
   {
    "area_um2": 68.893999,
    "cells": 23,
-   "dc_seconds": 62.6,
+   "dc_seconds": 71.5,
    "design_id": "rtlopt_saturating_add",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3118,7 +3156,7 @@
   {
    "area_um2": 38.835999,
    "cells": 16,
-   "dc_seconds": 60.1,
+   "dc_seconds": 72.0,
    "design_id": "rtlopt_selector",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3135,7 +3173,7 @@
   {
    "area_um2": 84.322001,
    "cells": 49,
-   "dc_seconds": 67.2,
+   "dc_seconds": 73.7,
    "design_id": "rtlopt_sub_16bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3153,7 +3191,7 @@
   {
    "area_um2": 243.921997,
    "cells": 232,
-   "dc_seconds": 64.7,
+   "dc_seconds": 77.5,
    "design_id": "rtlopt_sub_32bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3171,7 +3209,7 @@
   {
    "area_um2": 17.822,
    "cells": 12,
-   "dc_seconds": 66.6,
+   "dc_seconds": 69.1,
    "design_id": "rtlopt_sub_4bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3189,7 +3227,7 @@
   {
    "area_um2": 36.974,
    "cells": 20,
-   "dc_seconds": 63.5,
+   "dc_seconds": 71.0,
    "design_id": "rtlopt_sub_8bit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3207,7 +3245,7 @@
   {
    "area_um2": 58.519999,
    "cells": 36,
-   "dc_seconds": 61.2,
+   "dc_seconds": 78.7,
    "design_id": "rtlopt_ticket_machine",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3272,7 +3310,7 @@
   {
    "area_um2": 1132.627979,
    "cells": 660,
-   "dc_seconds": 64.8,
+   "dc_seconds": 77.4,
    "design_id": "rtlrewriter_algorithm__spmv",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3291,7 +3329,7 @@
   {
    "area_um2": 313.879998,
    "cells": 200,
-   "dc_seconds": 63.3,
+   "dc_seconds": 73.2,
    "design_id": "rtlrewriter_basic__add1",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3325,7 +3363,7 @@
   {
    "area_um2": 201.096002,
    "cells": 50,
-   "dc_seconds": 65.6,
+   "dc_seconds": 74.6,
    "design_id": "rtlrewriter_basic__checksum",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3345,7 +3383,7 @@
   {
    "area_um2": 11232.913989,
    "cells": 7004,
-   "dc_seconds": 96.8,
+   "dc_seconds": 116.2,
    "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3365,7 +3403,7 @@
   {
    "area_um2": 8693.14599,
    "cells": 5568,
-   "dc_seconds": 99.9,
+   "dc_seconds": 114.7,
    "design_id": "rtlrewriter_basic__commutativity_subexpression",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3385,7 +3423,7 @@
   {
    "area_um2": 106490.703443,
    "cells": 35016,
-   "dc_seconds": 563.8,
+   "dc_seconds": 677.0,
    "design_id": "rtlrewriter_basic__distributed_ram",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3404,7 +3442,7 @@
   {
    "area_um2": 4.522,
    "cells": 4,
-   "dc_seconds": 63.5,
+   "dc_seconds": 72.1,
    "design_id": "rtlrewriter_basic__flatten1",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3424,7 +3462,7 @@
   {
    "area_um2": 8.778,
    "cells": 8,
-   "dc_seconds": 61.1,
+   "dc_seconds": 73.9,
    "design_id": "rtlrewriter_basic__if_else",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3444,7 +3482,7 @@
   {
    "area_um2": 7.98,
    "cells": 7,
-   "dc_seconds": 61.3,
+   "dc_seconds": 73.4,
    "design_id": "rtlrewriter_basic__if_prority",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3464,7 +3502,7 @@
   {
    "area_um2": 7.448,
    "cells": 2,
-   "dc_seconds": 64.1,
+   "dc_seconds": 73.4,
    "design_id": "rtlrewriter_basic__logic_elimnation",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3483,7 +3521,7 @@
   {
    "area_um2": 723.786,
    "cells": 472,
-   "dc_seconds": 65.3,
+   "dc_seconds": 78.8,
    "design_id": "rtlrewriter_basic__multi_constant_multiplication",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3503,7 +3541,7 @@
   {
    "area_um2": 732.031992,
    "cells": 584,
-   "dc_seconds": 65.2,
+   "dc_seconds": 76.0,
    "design_id": "rtlrewriter_basic__multi_constant_multiplication2",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3523,7 +3561,7 @@
   {
    "area_um2": 12.236,
    "cells": 4,
-   "dc_seconds": 62.8,
+   "dc_seconds": 71.8,
    "design_id": "rtlrewriter_basic__register_balancing",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3542,7 +3580,7 @@
   {
    "area_um2": 22.344,
    "cells": 22,
-   "dc_seconds": 64.4,
+   "dc_seconds": 71.1,
    "design_id": "rtlrewriter_basic__sub-expression-basic",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3562,7 +3600,7 @@
   {
    "area_um2": 34.048,
    "cells": 8,
-   "dc_seconds": 62.7,
+   "dc_seconds": 73.9,
    "design_id": "rtlrewriter_datapath__adder_architecture",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3612,7 +3650,7 @@
   {
    "area_um2": 98.952001,
    "cells": 26,
-   "dc_seconds": 64.1,
+   "dc_seconds": 74.1,
    "design_id": "rtlrewriter_datapath__adder_subexpression",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3632,7 +3670,7 @@
   {
    "area_um2": 31.388,
    "cells": 10,
-   "dc_seconds": 61.2,
+   "dc_seconds": 73.4,
    "design_id": "rtlrewriter_datapath__algebraic_simplification",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3652,7 +3690,7 @@
   {
    "area_um2": 125.019999,
    "cells": 97,
-   "dc_seconds": 62.1,
+   "dc_seconds": 72.0,
    "design_id": "rtlrewriter_datapath__alu_bit_width",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3687,7 +3725,7 @@
   {
    "area_um2": 249.508,
    "cells": 184,
-   "dc_seconds": 65.1,
+   "dc_seconds": 72.3,
    "design_id": "rtlrewriter_datapath__alu_subexpression",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3707,7 +3745,7 @@
   {
    "area_um2": 219.183999,
    "cells": 154,
-   "dc_seconds": 65.2,
+   "dc_seconds": 69.2,
    "design_id": "rtlrewriter_datapath__constant_folding",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3742,7 +3780,7 @@
   {
    "area_um2": 16.758,
    "cells": 18,
-   "dc_seconds": 62.1,
+   "dc_seconds": 74.6,
    "design_id": "rtlrewriter_datapath__dead_code_elimination",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3851,7 +3889,7 @@
   {
    "area_um2": 301.644002,
    "cells": 156,
-   "dc_seconds": 59.9,
+   "dc_seconds": 74.4,
    "design_id": "rtlrewriter_datapath__multiplier_bitwidth",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3871,7 +3909,7 @@
   {
    "area_um2": 285.950001,
    "cells": 157,
-   "dc_seconds": 64.6,
+   "dc_seconds": 71.6,
    "design_id": "rtlrewriter_datapath__multiplier_subexpression",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3891,7 +3929,7 @@
   {
    "area_um2": 42.028,
    "cells": 19,
-   "dc_seconds": 62.0,
+   "dc_seconds": 71.4,
    "design_id": "rtlrewriter_datapath__strength_reduction",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3911,7 +3949,7 @@
   {
    "area_um2": 1139.011999,
    "cells": 742,
-   "dc_seconds": 76.5,
+   "dc_seconds": 83.6,
    "design_id": "rtlrewriter_datapath__subexpression_elimination",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3931,7 +3969,7 @@
   {
    "area_um2": 45.752001,
    "cells": 31,
-   "dc_seconds": 58.9,
+   "dc_seconds": 71.3,
    "design_id": "rtlrewriter_fsm_small_case__example1",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3950,7 +3988,7 @@
   {
    "area_um2": 25.802001,
    "cells": 13,
-   "dc_seconds": 63.8,
+   "dc_seconds": 72.4,
    "design_id": "rtlrewriter_fsm_small_case__example2",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3969,7 +4007,7 @@
   {
    "area_um2": 28.994,
    "cells": 16,
-   "dc_seconds": 63.3,
+   "dc_seconds": 73.3,
    "design_id": "rtlrewriter_fsm_small_case__example3",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -3988,7 +4026,7 @@
   {
    "area_um2": 37.772001,
    "cells": 21,
-   "dc_seconds": 65.0,
+   "dc_seconds": 71.9,
    "design_id": "rtlrewriter_fsm_small_case__example4",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4007,7 +4045,7 @@
   {
    "area_um2": 37.772001,
    "cells": 21,
-   "dc_seconds": 63.7,
+   "dc_seconds": 76.3,
    "design_id": "rtlrewriter_fsm_small_case__example5",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4026,7 +4064,7 @@
   {
    "area_um2": 15301.383932,
    "cells": 14077,
-   "dc_seconds": 195.2,
+   "dc_seconds": 236.6,
    "design_id": "rtlrewriter_long_cnn__RFselector",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4046,7 +4084,7 @@
   {
    "area_um2": 227394.09116,
    "cells": 136567,
-   "dc_seconds": 1772.4,
+   "dc_seconds": 1985.5,
    "design_id": "rtlrewriter_long_cnn__convLayerSingle",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4066,7 +4104,7 @@
   {
    "area_um2": 3509.870047,
    "cells": 2377,
-   "dc_seconds": 79.3,
+   "dc_seconds": 98.3,
    "design_id": "rtlrewriter_long_cnn__convUnit",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4086,7 +4124,7 @@
   {
    "area_um2": 735.756002,
    "cells": 714,
-   "dc_seconds": 72.9,
+   "dc_seconds": 82.0,
    "design_id": "rtlrewriter_long_cnn__floatAdd",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4106,7 +4144,7 @@
   {
    "area_um2": 610.204005,
    "cells": 414,
-   "dc_seconds": 66.8,
+   "dc_seconds": 80.2,
    "design_id": "rtlrewriter_long_cnn__floatMult",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4157,7 +4195,7 @@
   {
    "area_um2": 1.596,
    "cells": 2,
-   "dc_seconds": 63.8,
+   "dc_seconds": 70.4,
    "design_id": "rtlrewriter_long_cpu__BranchAndJumpHazard",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4177,7 +4215,7 @@
   {
    "area_um2": 50.54,
    "cells": 47,
-   "dc_seconds": 62.6,
+   "dc_seconds": 75.7,
    "design_id": "rtlrewriter_long_cpu__DataHazard",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4197,7 +4235,7 @@
   {
    "area_um2": 106816.825225,
    "cells": 31336,
-   "dc_seconds": 333.4,
+   "dc_seconds": 368.0,
    "design_id": "rtlrewriter_long_cpu__DataMem",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4216,7 +4254,7 @@
   {
    "area_um2": 39.9,
    "cells": 50,
-   "dc_seconds": 62.5,
+   "dc_seconds": 71.5,
    "design_id": "rtlrewriter_long_cpu__ImmExtend",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4250,7 +4288,7 @@
   {
    "area_um2": 347.928011,
    "cells": 70,
-   "dc_seconds": 63.3,
+   "dc_seconds": 74.9,
    "design_id": "rtlrewriter_long_cpu__PC",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4283,7 +4321,7 @@
   {
    "area_um2": 7555.730215,
    "cells": 2790,
-   "dc_seconds": 80.4,
+   "dc_seconds": 87.7,
    "design_id": "rtlrewriter_long_cpu__RegFile",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4302,7 +4340,7 @@
   {
    "area_um2": 8616.804142,
    "cells": 4112,
-   "dc_seconds": 94.5,
+   "dc_seconds": 105.2,
    "design_id": "rtlrewriter_long_fft__Butterfly",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4336,7 +4374,7 @@
   {
    "area_um2": 22.876,
    "cells": 8,
-   "dc_seconds": 65.1,
+   "dc_seconds": 72.6,
    "design_id": "rtlrewriter_long_huffman__HuffmanDecoder",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4369,7 +4407,7 @@
   {
    "area_um2": 860.775982,
    "cells": 295,
-   "dc_seconds": 64.6,
+   "dc_seconds": 72.5,
    "design_id": "rtlrewriter_memory__memory_compression",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4388,7 +4426,7 @@
   {
    "area_um2": 231.951996,
    "cells": 120,
-   "dc_seconds": 61.3,
+   "dc_seconds": 73.3,
    "design_id": "rtlrewriter_memory__memory_folding",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4407,7 +4445,7 @@
   {
    "area_um2": 330.371995,
    "cells": 179,
-   "dc_seconds": 61.9,
+   "dc_seconds": 75.7,
    "design_id": "rtlrewriter_memory__memory_folding2",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4426,7 +4464,7 @@
   {
    "area_um2": 1238.229989,
    "cells": 601,
-   "dc_seconds": 62.4,
+   "dc_seconds": 74.9,
    "design_id": "rtlrewriter_memory__memory_sharing",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4460,7 +4498,7 @@
   {
    "area_um2": 1.064,
    "cells": 1,
-   "dc_seconds": 63.5,
+   "dc_seconds": 72.2,
    "design_id": "rtlrewriter_mux__mux_type1",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4480,7 +4518,7 @@
   {
    "area_um2": 1.064,
    "cells": 1,
-   "dc_seconds": 63.5,
+   "dc_seconds": 73.3,
    "design_id": "rtlrewriter_mux__mux_type2",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4515,7 +4553,7 @@
   {
    "area_um2": 5.054,
    "cells": 5,
-   "dc_seconds": 61.9,
+   "dc_seconds": 73.8,
    "design_id": "rtlrewriter_mux__mux_type4",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4535,7 +4573,7 @@
   {
    "area_um2": 5.054,
    "cells": 5,
-   "dc_seconds": 63.6,
+   "dc_seconds": 71.9,
    "design_id": "rtlrewriter_mux__mux_type5",
    "e4_fail_reason": null,
    "e4_synthesizable": 1,
@@ -4553,38 +4591,38 @@
    "wns_ns": 2.28034
   }
  ],
- "generated_at": "2026-09-12T15:39:48",
+ "generated_at": "2026-09-13T02:42:53",
  "per_suite": {
   "cktevo": {
-   "dc_seconds": 7015.700000000002,
+   "dc_seconds": 7437.600000000001,
    "designs": 83,
    "failed": 5,
    "ok": 78,
    "pending": 0
   },
   "drrtl": {
-   "dc_seconds": 1799.2,
+   "dc_seconds": 1919.0,
    "designs": 20,
    "failed": 1,
    "ok": 19,
    "pending": 0
   },
   "rtllm": {
-   "dc_seconds": 2809.8999999999996,
+   "dc_seconds": 3126.3,
    "designs": 50,
    "failed": 7,
    "ok": 43,
    "pending": 0
   },
   "rtlopt": {
-   "dc_seconds": 3133.599999999999,
+   "dc_seconds": 3573.7999999999993,
    "designs": 40,
    "failed": 0,
    "ok": 40,
    "pending": 0
   },
   "rtlrewriter": {
-   "dc_seconds": 7152.3,
+   "dc_seconds": 8050.8,
    "designs": 72,
    "failed": 18,
    "ok": 54,

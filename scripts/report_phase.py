@@ -148,6 +148,9 @@ def phase1(cfg):
                     cells.append("-" if pt is None else f"{pt['area']:.0f} / {pt['wns']:.2f}" + ("*" if t["phi"] == p else ""))
                 L.append(f"| {rec['design_id']} | " + " | ".join(cells) + " |")
             L.append("")
+        hand = DATA / "phase1_handcheck.md"
+        if hand.exists():
+            L += [hand.read_text().strip(), ""]
     else:
         L += ["(not collected yet: scripts/phase1_collect.py knee)", ""]
     # ---- designs table completeness
