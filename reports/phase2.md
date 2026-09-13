@@ -1,6 +1,6 @@
 # Phase 2 report — noise floor, SEQ pilot, E4 runtime (Exp0)
 
-Generated 2026-09-13 11:26 by scripts/report_phase.py (git eea8ca78ae5f, cfg 443559992d75). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
+Generated 2026-09-13 12:19 by scripts/report_phase.py (git 337a5d5d9ba6, cfg 443559992d75). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
 
 ## 1. Perturbation generator (PLAN 2.1)
 
@@ -127,7 +127,11 @@ Guardrail-3 facts for the 2 SEQ-inconclusive candidates (clocked arithmetic / of
 - drrtl_DSP c1_a_register_moved_to_stage0.v: arithmetic=True, offsets_constant=True, start-like=[], done-like=[]
 - rtllm_multi_pipe_8bit b_0_c5a7dd97e61a549.v: arithmetic=True, offsets_constant=True, start-like=['mul_en_in', 'mul_en_out'], done-like=[]
 
-t_H3 / t_E4 and the E4-vs-H3 agreement rate come from the hidden worker as counts and seconds only (scripts/hidden_worker.py --g3-summary after the H3 noise runs).
+t_H3 / t_E4 (baseline runs of the same design at Φ_main, 178 designs; hidden worker, counts and seconds only): median 0.97, quartiles 0.93–1.02, range 0.43–1.84; total 5.0 DC hours under E4 vs 4.7 under H3.
+
+E4-vs-H3 agreement of the four-way floor conclusion (retained / trade-off / harmful / noise at 2 σ_D of each configuration) per perturbation with records under both: 402 of 496 (81.0 %). Confusion counts: E4=harmful|H3=harmful: 5, E4=harmful|H3=noise: 5, E4=harmful|H3=retained: 3, E4=harmful|H3=trade-off: 7, E4=noise|H3=harmful: 11, E4=noise|H3=noise: 387, E4=noise|H3=retained: 13, E4=noise|H3=trade-off: 19, E4=retained|H3=harmful: 4, E4=retained|H3=noise: 6, E4=retained|H3=retained: 1, E4=retained|H3=trade-off: 3, E4=trade-off|H3=harmful: 11, E4=trade-off|H3=noise: 4, E4=trade-off|H3=retained: 8, E4=trade-off|H3=trade-off: 9.
+
+Whether the perturbation changed the netlist at all (|delta area| > 0.1 %): both unchanged 439, both changed 33 (same direction in 21), changed under E4 only 8, under H3 only 16.
 
 ## 5. Next steps
 
@@ -175,9 +179,10 @@ Facts (§3; t_H3 and the agreement rate from the hidden worker, §4):
 - E4 at Φ_main over 128 set designs: median 79 s, mean 100 s, q95 185 s, max 693 s; about 60 s of every run is DC start-up and library loading, so E4 is "cheap" (below 120 s) for 115 of the 128 designs.
 - Full-E4 Phase 5 scale (32 400 candidate evaluations): 903 DC hours = 18 h at 50 seats, 37 h at 24 concurrent runs (the setting used today), 75 h at 12. The per-design budget rule (60 × t_E4) gives a median budget of 1.3 DC hours per run.
 - DC screening rungs at Φ_main are not cheaper where it matters: E1 averages 35 s over all designs but 272 s on the 13 designs whose E4 exceeds 120 s (plain `compile` at a tight period is slow on large designs; three designs even time out under E1), and E2 (104 s) costs as much as E4. A cascade that screens every candidate with E1 and promotes 25 % costs 60 % of full-E4 but pays with screening misses; the hybrid that screens only the expensive designs saves nothing (101–111 % of full-E4).
-- t_H3 / t_E4 and the E4-vs-H3 agreement of the floor conclusions: see §4 (filled by `scripts/hidden_worker.py --g3-summary` when the H3 runs have drained).
+- t_H3 / t_E4 over 178 designs (baseline runs at Φ_main, both measured under the same 24-way load): median 0.97, quartiles 0.93–1.02, range 0.43–1.84; the physical-aware full-effort configuration costs the same as E4 (§4).
+- E4 vs H3 on the noise-floor set (496 perturbations with records under both): they agree on whether a perturbation changes the netlist at all in 472 cases (95 %; 439 both unchanged, 33 both changed, 21 of those in the same direction), disagree in 24 (8 change under E4 only, 16 under H3 only). The four-way floor conclusion at 2 σ_D of each configuration agrees in 81 %, but that figure is dominated by the zero floors (any nonzero deviation counts as beyond the floor when σ_robust = 0), so the change agreement is the meaningful number until the threshold rule of G1 is decided.
 
 Decisions requested:
 
 1. **Screening.** Recommendation: screening does not enter the main method as a DC-rung cascade. E4 itself is the cheap rung for 90 % of the designs, and the DC rungs below it are not cheaper on the designs where E4 is expensive. The only screen with a real cost advantage is Y (Yosys, seconds per candidate); its predictive value (AUROC ≥ 0.75, config `screen.auroc_min`) is measured in Phase 3/4, and the M vs M_noscreen arms stay to quantify it — with `screen.candidates_es` reduced to [Y].
-2. **Main scoring configuration.** E4 stays the scoring configuration unless the H3 summary shows both a small runtime ratio (≤ 2×) and a low agreement rate (< 90 %) — in which case moving the scoring to H3 (physical-aware, full effort) would be the safer choice at an affordable cost. To be finalised from §4.
+2. **Main scoring configuration.** Cost is no argument either way (t_H3 ≈ t_E4), and on the noise-floor set the two configurations agree on 95 % of the perturbations. Recommendation: keep E4 as the scoring configuration (the ladder's top rung, on which the floors and the rung attribution are built) and keep H3 hidden as the physical-aware certification; revisit after Exp1 (Phase 4), where real candidates instead of perturbations are evaluated under both. Moving the scoring to H3 would thin the hidden layer to H1 / H2 / H5 without a cost or agreement reason.

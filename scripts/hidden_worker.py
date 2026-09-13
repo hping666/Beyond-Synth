@@ -187,6 +187,9 @@ def noise_floor(cfg, suites=None, designs=None, vis=None, hid=None):
     return written
 
 
+CHANGE_EPS = 0.001  # |delta area| above which the perturbation changed the netlist (G3 change agreement)
+
+
 def _delta(metric, base, rec, clock_ns):
     col = S.COLUMNS[metric]
     d = S.deviations(metric, base.get(col), [rec.get(col)], clock_ns)
@@ -202,8 +205,8 @@ def g3_summary(cfg, suites=None, designs=None, vis=None, hid=None):
     hid = hid or db.connect(path=hidden_db_path(cfg))
     k = float(cfg["noise"]["k_sigma"])
     ratios, e4_secs, h3_secs = [], 0.0, 0.0
-    pairs = agree = 0
-    confusion = {}
+    pairs = agree = same_sign = 0
+    confusion, change = {}, {}
     for d, r in _selected(vis, suites, designs):
         did = d["design_id"]
         phi = r.get("phi_main_ns_nangate45")
@@ -221,19 +224,28 @@ def g3_summary(cfg, suites=None, designs=None, vis=None, hid=None):
         sig_e4 = {x["metric"]: x["sigma_robust"] for x in vis.execute("SELECT metric, sigma_robust FROM noise_floor WHERE design_id=? AND config='E4'", (did,))}
         sig_h3 = {x["metric"]: x["sigma_robust"] for x in hid.execute("SELECT metric, sigma_robust FROM noise_floor WHERE design_id=? AND config='H3'", (did,))}
         for pid in sorted(set(perts_e4) & set(perts_h3)):
-            c_e4 = S.conclusion({m: _delta(m, base_e4, perts_e4[pid], phi) for m in S.METRICS}, sig_e4, k)
-            c_h3 = S.conclusion({m: _delta(m, base_h3, perts_h3[pid], phi) for m in S.METRICS}, sig_h3, k)
+            d_e4 = {m: _delta(m, base_e4, perts_e4[pid], phi) for m in S.METRICS}
+            d_h3 = {m: _delta(m, base_h3, perts_h3[pid], phi) for m in S.METRICS}
+            c_e4 = S.conclusion(d_e4, sig_e4, k)
+            c_h3 = S.conclusion(d_h3, sig_h3, k)
             if c_e4 is None or c_h3 is None:
                 continue
             pairs += 1
             agree += int(c_e4 == c_h3)
             key = f"E4={c_e4}|H3={c_h3}"
             confusion[key] = confusion.get(key, 0) + 1
+            if d_e4.get("area") is not None and d_h3.get("area") is not None:  # netlist changed by the perturbation (|delta area| > 0.1 %)?
+                ce, ch = abs(d_e4["area"]) > CHANGE_EPS, abs(d_h3["area"]) > CHANGE_EPS
+                ck = "both changed" if ce and ch else "both unchanged" if not ce and not ch else "E4 only" if ce else "H3 only"
+                change[ck] = change.get(ck, 0) + 1
+                if ce and ch:
+                    same_sign += int((d_e4["area"] > 0) == (d_h3["area"] > 0))
     out = {"k_sigma": k, "n_designs_with_ratio": len(ratios),
            "t_ratio": {"min": min(ratios) if ratios else None, "q25": S.quantile(ratios, 0.25), "median": S.quantile(ratios, 0.5),
                        "q75": S.quantile(ratios, 0.75), "max": max(ratios) if ratios else None},
            "e4_seconds_total": e4_secs, "h3_seconds_total": h3_secs,
-           "pairs": pairs, "agree": agree, "agreement_rate": (agree / pairs) if pairs else None, "confusion": confusion}
+           "pairs": pairs, "agree": agree, "agreement_rate": (agree / pairs) if pairs else None, "confusion": confusion,
+           "area_change": change, "both_changed_same_direction": same_sign}
     return out
 
 

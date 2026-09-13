@@ -347,6 +347,11 @@ def phase2(cfg):
             conf = ", ".join(f"{k}: {v}" for k, v in sorted(g3s["confusion"].items()))
             L += [f"E4-vs-H3 agreement of the four-way floor conclusion (retained / trade-off / harmful / noise at {g3s['k_sigma']:.0f} σ_D of each configuration) "
                   f"per perturbation with records under both: {g3s['agree']} of {g3s['pairs']} ({100 * g3s['agreement_rate']:.1f} %). Confusion counts: {conf}.", ""]
+            ch = g3s.get("area_change") or {}
+            if ch:
+                both = ch.get("both changed", 0)
+                L += [f"Whether the perturbation changed the netlist at all (|delta area| > 0.1 %): both unchanged {ch.get('both unchanged', 0)}, both changed {both} "
+                      f"(same direction in {g3s.get('both_changed_same_direction', 0)}), changed under E4 only {ch.get('E4 only', 0)}, under H3 only {ch.get('H3 only', 0)}.", ""]
     else:
         L += ["t_H3 / t_E4 and the E4-vs-H3 agreement rate come from the hidden worker as counts and seconds only (scripts/hidden_worker.py --g3-summary after the H3 noise runs).", ""]
     L += ["## 5. Next steps", "", "- G1: decide on the truncation if the median area floor exceeds the warning level.", "- G2: SEQ fractions per class from the pilot.", "- G3: screening recommendation from the E4 seconds and the cascade estimate.", ""]

@@ -155,6 +155,7 @@ def test_g3_summary_counts_and_seconds_only(env, tmp_path, monkeypatch):
     assert out["e4_seconds_total"] == 10.0 and out["h3_seconds_total"] == 25.0
     assert out["pairs"] == 3 and out["agree"] == 2 and abs(out["agreement_rate"] - 2 / 3) < 1e-9
     assert out["confusion"] == {"E4=noise|H3=noise": 2, "E4=noise|H3=harmful": 1}
+    assert out["area_change"] == {"both changed": 3} and out["both_changed_same_direction"] == 3  # p1 +1 %, p2 -1 %, p3 +0.5 % / +30 %
     txt = json.dumps(out)
     assert "rtllm_acc" not in txt and "130" not in txt  # aggregates only: no design ids, no hidden metric values
     # without hidden records nothing is reported

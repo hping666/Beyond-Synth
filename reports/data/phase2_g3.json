@@ -1,0 +1,41 @@
+{
+ "agree": 402,
+ "agreement_rate": 0.8104838709677419,
+ "area_change": {
+  "E4 only": 8,
+  "H3 only": 16,
+  "both changed": 33,
+  "both unchanged": 439
+ },
+ "both_changed_same_direction": 21,
+ "confusion": {
+  "E4=harmful|H3=harmful": 5,
+  "E4=harmful|H3=noise": 5,
+  "E4=harmful|H3=retained": 3,
+  "E4=harmful|H3=trade-off": 7,
+  "E4=noise|H3=harmful": 11,
+  "E4=noise|H3=noise": 387,
+  "E4=noise|H3=retained": 13,
+  "E4=noise|H3=trade-off": 19,
+  "E4=retained|H3=harmful": 4,
+  "E4=retained|H3=noise": 6,
+  "E4=retained|H3=retained": 1,
+  "E4=retained|H3=trade-off": 3,
+  "E4=trade-off|H3=harmful": 11,
+  "E4=trade-off|H3=noise": 4,
+  "E4=trade-off|H3=retained": 8,
+  "E4=trade-off|H3=trade-off": 9
+ },
+ "e4_seconds_total": 18152.499999999993,
+ "h3_seconds_total": 16836.199999999997,
+ "k_sigma": 2.0,
+ "n_designs_with_ratio": 178,
+ "pairs": 496,
+ "t_ratio": {
+  "max": 1.8424242424242423,
+  "median": 0.9747909559167837,
+  "min": 0.4335141474857059,
+  "q25": 0.9321812609859117,
+  "q75": 1.0155782124063235
+ }
+}
