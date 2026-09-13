@@ -1,0 +1,97 @@
+{
+ "design_id": "rtllm_serial2parallel",
+ "top": "serial2parallel",
+ "author": "LLM gpt-5.6-luna run pilot_luna1",
+ "variants": [
+  {
+   "file": "c1_0_c7728b135a4c187.v",
+   "class": "c1",
+   "note": "Split the internal 8-bit shift register into eight equivalent one-bit registers while preserving all port timing and values.",
+   "call_id": "c00097_175922",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 512,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 1153,
+    "reasoning_tokens": 500
+   },
+   "cost_usd": 0.000743
+  },
+  {
+   "file": "c1_1_c6d2485d85bf2c6.v",
+   "class": "c1",
+   "note": "Merged the independent sequential processes into one equivalent clocked process without changing register timing or port behavior.",
+   "call_id": "c00098_175930",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 512,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 867,
+    "reasoning_tokens": 516
+   },
+   "cost_usd": 0.0005714
+  },
+  {
+   "file": "c2_0_cd7df390a12f494.v",
+   "class": "c2",
+   "note": "Added one output pipeline stage to delay both outputs by exactly one clock cycle.",
+   "call_id": "c00099_175937",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 504,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 884,
+    "reasoning_tokens": 389
+   },
+   "cost_usd": 0.0005807999999999999
+  },
+  {
+   "file": "c2_1_cd82422c718ab94.v",
+   "class": "c2",
+   "note": "Added one output pipeline stage so both outputs are delayed by exactly one clock cycle.",
+   "call_id": "c00100_175944",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 504,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 850,
+    "reasoning_tokens": 355
+   },
+   "cost_usd": 0.0005604
+  },
+  {
+   "file": "b_0_ce868a298a1a255.v",
+   "class": "b",
+   "note": "Merged the three sequential blocks into one clocked process while preserving the original cycle-by-cycle behavior and latency.",
+   "call_id": "c00101_175950",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 508,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 713,
+    "reasoning_tokens": 352
+   },
+   "cost_usd": 0.00047860000000000003
+  },
+  {
+   "file": "b_1_ce868a298a1a255.v",
+   "class": "b",
+   "note": "Merged the three sequential always blocks into one while preserving the original cycle-by-cycle behavior and latency.",
+   "call_id": "c00102_175956",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 508,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 629,
+    "reasoning_tokens": 270
+   },
+   "cost_usd": 0.0004282
+  }
+ ]
+}

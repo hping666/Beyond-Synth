@@ -1,0 +1,97 @@
+{
+ "design_id": "rtllm_pulse_detect",
+ "top": "pulse_detect",
+ "author": "LLM gpt-5.6-luna run pilot_luna1",
+ "variants": [
+  {
+   "file": "c1_0_cd1607ebe765249.v",
+   "class": "c1",
+   "note": "Split the two-bit state register into two independently reset and clocked bit registers while preserving all port timing and behavior.",
+   "call_id": "c00085_175741",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 672,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 1404,
+    "reasoning_tokens": 875
+   },
+   "cost_usd": 0.0009096
+  },
+  {
+   "file": "c1_1_ccb0d9fb037b6d6.v",
+   "class": "c1",
+   "note": "Duplicated the state register while preserving the original state-transition and output timing.",
+   "call_id": "c00086_175752",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 672,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 1243,
+    "reasoning_tokens": 762
+   },
+   "cost_usd": 0.000813
+  },
+  {
+   "file": "c2_0_c9bff4725f59053.v",
+   "class": "c2",
+   "note": "Added one registered pipeline stage to delay data_out by exactly one clock cycle.",
+   "call_id": "c00087_175801",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 664,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 999,
+    "reasoning_tokens": 516
+   },
+   "cost_usd": 0.0006657999999999999
+  },
+  {
+   "file": "c2_1_c9bff4725f59053.v",
+   "class": "c2",
+   "note": "Added one registered output pipeline stage while preserving the original FSM and output logic.",
+   "call_id": "c00088_175808",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 664,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 999,
+    "reasoning_tokens": 516
+   },
+   "cost_usd": 0.0006657999999999999
+  },
+  {
+   "file": "b_0_c5d8b50909e6bf4.v",
+   "class": "b",
+   "note": "Merged the next-state and output combinational logic into one block and simplified the state transitions with equivalent conditional expressions.",
+   "call_id": "c00089_175815",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 668,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 643,
+    "reasoning_tokens": 297
+   },
+   "cost_usd": 0.0004526
+  },
+  {
+   "file": "b_1_c2cae0a745918b6.v",
+   "class": "b",
+   "note": "Merged the next-state and combinational output logic into a single always block while preserving the original state encoding, timing, and cycle-by-cycle behavior.",
+   "call_id": "c00090_175822",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 668,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 871,
+    "reasoning_tokens": 435
+   },
+   "cost_usd": 0.0005894
+  }
+ ]
+}

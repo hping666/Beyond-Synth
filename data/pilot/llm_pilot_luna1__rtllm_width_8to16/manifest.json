@@ -1,0 +1,97 @@
+{
+ "design_id": "rtllm_width_8to16",
+ "top": "width_8to16",
+ "author": "LLM gpt-5.6-luna run pilot_luna1",
+ "variants": [
+  {
+   "file": "c1_0_c09146029999a79.v",
+   "class": "c1",
+   "note": "Merged the data and flag registers into a single packed state register while preserving all port timing and values.",
+   "call_id": "c00115_180204",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 533,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 969,
+    "reasoning_tokens": 649
+   },
+   "cost_usd": 0.0006347
+  },
+  {
+   "file": "c1_1_c0c791ba6c4e945.v",
+   "class": "c1",
+   "note": "Merged the register-update processes into a single equivalent sequential process while preserving all cycle-by-cycle port behavior.",
+   "call_id": "c00116_180212",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 533,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 863,
+    "reasoning_tokens": 516
+   },
+   "cost_usd": 0.0005711
+  },
+  {
+   "file": "c2_0_c6d923ea9ab9575.v",
+   "class": "c2",
+   "note": "Added one registered output pipeline stage to delay valid_out and data_out by exactly one clock cycle.",
+   "call_id": "c00117_180219",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 525,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 875,
+    "reasoning_tokens": 398
+   },
+   "cost_usd": 0.0005775
+  },
+  {
+   "file": "c2_1_cfe9827efe43d38.v",
+   "class": "c2",
+   "note": "Added one output pipeline stage to delay valid_out and data_out by exactly one clock cycle.",
+   "call_id": "c00118_180226",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 525,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 992,
+    "reasoning_tokens": 516
+   },
+   "cost_usd": 0.0006477
+  },
+  {
+   "file": "b_0_ca02f8506d3c0ad.v",
+   "class": "b",
+   "note": "Merged the four sequential processes into one clocked process while preserving the original state, timing, and nonblocking-assignment behavior.",
+   "call_id": "c00119_180233",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 529,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 427,
+    "reasoning_tokens": 140
+   },
+   "cost_usd": 0.00030910000000000003
+  },
+  {
+   "file": "b_1_cd1c4b65fca98ad.v",
+   "class": "b",
+   "note": "Merged the four sequential processes into one always block while preserving the original cycle-by-cycle behavior and latency.",
+   "call_id": "c00120_180237",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 529,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 512,
+    "reasoning_tokens": 232
+   },
+   "cost_usd": 0.0003601
+  }
+ ]
+}
