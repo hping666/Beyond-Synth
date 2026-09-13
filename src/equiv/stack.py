@@ -14,6 +14,8 @@ from pathlib import Path
 from src.equiv import ports as PORTS
 from src.equiv.harness import run_lockstep
 from src.equiv.seq import run_seq
+
+MIN_STAGE_SEC = 20.0  # a stage is not started with less budget than this; the record says why
 from src.equiv.verdict import decide, v4_acceptance
 
 
@@ -30,10 +32,17 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
            "v3_status": None, "v3_seconds": None, "v4_status": "not_run", "counterexample_path": None, "vcd_path": None,
            "verdict": None, "proven_by": None, "seconds": None}
     t0 = time.time()
+
+    def remaining():
+        """Time left of the whole budget (None = unlimited); every stage is bounded by it so that the record
+        (inconclusive / error) is written before the queue's own timeout kills the job."""
+        return None if timeout_sec is None else max(0.0, float(timeout_sec) - (time.time() - t0))
+
     # ---- V1: interface ----
     try:
-        d_ports = d_ports or PORTS.port_info(d_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=job_dir / "v1_ports_d")
-        c_ports = PORTS.port_info(c_files, c_top or top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=job_dir / "v1_ports_c")
+        v1_to = min(300.0, remaining()) if timeout_sec is not None else 300.0
+        d_ports = d_ports or PORTS.port_info(d_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=job_dir / "v1_ports_d", timeout=v1_to)
+        c_ports = PORTS.port_info(c_files, c_top or top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=job_dir / "v1_ports_c", timeout=v1_to)
     except PORTS.PortTimeout as e:  # no statement about the interface: an error, never a rejection
         rec.update(v1_status="error", v1_detail=str(e), verdict="error", seconds=round(time.time() - t0, 1))
         _dump(job_dir, rec)
@@ -52,7 +61,11 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
         clk, rst, rst_sense = PORTS.infer_control_ports(d_ports)
     rec.update(clk=clk, rst=rst, rst_sense=rst_sense, ports=d_ports)
     # ---- V2: lock-step simulation ----
-    v2 = run_lockstep(job_dir, d_files, c_files, top, d_ports, clk, rst, rst_sense, cfg, sverilog=sverilog, incdirs=incdirs, timeout_sec=timeout_sec, sim_seed=sim_seed, c_top=c_top)
+    if timeout_sec is not None and remaining() < MIN_STAGE_SEC:
+        rec.update(v2_status="error", verdict="error", v2_detail="out of time before V2", seconds=round(time.time() - t0, 1))
+        _dump(job_dir, rec)
+        return rec
+    v2 = run_lockstep(job_dir, d_files, c_files, top, d_ports, clk, rst, rst_sense, cfg, sverilog=sverilog, incdirs=incdirs, timeout_sec=remaining(), sim_seed=sim_seed, c_top=c_top)
     rec["sim_seed"] = sim_seed if sim_seed is not None else cfg["sim"]["seed"]
     rec["c_top"] = c_top or top
     rec["v2"] = {k: v for k, v in v2.items() if k not in ("inputs", "outputs")}
@@ -76,7 +89,10 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
     if v2["status"] == "offset":
         rec["v3_status"] = "proven_sim_only"
     elif run_v3:
-        v3 = run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, impl_top=c_top, sverilog=sv_used, timeout_sec=timeout_sec)
+        if timeout_sec is not None and remaining() < MIN_STAGE_SEC:
+            v3 = {"v3_status": "inconclusive", "v3_seconds": 0.0, "error": "out of time before V3 (V1 + V2 used the budget)", "counterexample_path": None}
+        else:
+            v3 = run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, impl_top=c_top, sverilog=sv_used, timeout_sec=remaining())
         rec["v3"] = v3
         rec["v3_status"] = v3["v3_status"]
         rec["v3_seconds"] = v3["v3_seconds"]
@@ -85,11 +101,11 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
         if v3["v3_status"] == "inconclusive" and run_v4 and not clk and cfg["tools"]["vcformal"].get("dpv_app_ok"):
             from src.equiv.dpv import run_dpv, vacuity_check
             outs = [n for n, p in d_ports.items() if p["dir"] in ("output", "inout")]
-            v4 = run_dpv(job_dir, d_files, c_files, top, outs, cfg, sverilog=sv_used, timeout_sec=timeout_sec)
+            v4 = run_dpv(job_dir, d_files, c_files, top, outs, cfg, sverilog=sv_used, timeout_sec=remaining())
             rec["v4"] = v4
             rec["v4_status"] = v4["v4_status"]
             if v4["v4_status"] == "proven":
-                vac = vacuity_check(job_dir, d_files, top, d_ports, cfg, design_id=design_id, sverilog=sv_used, timeout_sec=timeout_sec)
+                vac = vacuity_check(job_dir, d_files, top, d_ports, cfg, design_id=design_id, sverilog=sv_used, timeout_sec=remaining())
                 rec["v4_vacuity"] = vac
                 v4_accepted, failed = v4_acceptance(v4, outs, vac)
                 rec["v4_acceptance"] = {"accepted": v4_accepted, "failed_conditions": failed}

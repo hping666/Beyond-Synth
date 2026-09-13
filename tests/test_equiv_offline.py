@@ -138,3 +138,30 @@ def test_candidate_top_with_a_different_name(tmp_path, monkeypatch):
     assert rec["v1_status"] == "ok" and rec["c_top"] == "accu_alt" and seen == {"c_top": "accu_alt", "impl_top": "accu_alt"}
     rec2 = ST.check_equivalence(tmp_path / "job2", [ACCU], [alt], "verified_accu", CFG, run_v4=False)  # without c_top: V1 cannot find the module
     assert rec2["v1_status"] == "rejected" and "does not elaborate" in rec2["v1_detail"]
+
+
+def test_stages_share_one_deadline(tmp_path, monkeypatch):
+    """V2 / V3 get the remaining budget, and a stage is not started when less than MIN_STAGE_SEC is left (the record
+    then says inconclusive / error instead of the queue killing the job without a record)."""
+    import time
+    from src.equiv import stack as ST
+    seen = {}
+
+    def slow_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg, **kw):
+        seen["v2_timeout"] = kw.get("timeout_sec")
+        time.sleep(1.2)
+        return {"status": "identical", "offsets": {}, "cycles": 1, "vcd": None}
+
+    def fake_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, **kw):
+        seen["v3_timeout"] = kw.get("timeout_sec")
+        return {"v3_status": "proven", "v3_seconds": 1.0, "counterexample_path": None, "flow_status": "equivalent"}
+
+    monkeypatch.setattr(ST, "run_lockstep", slow_lockstep)
+    monkeypatch.setattr(ST, "run_seq", fake_seq)
+    rec = ST.check_equivalence(tmp_path / "a", [ACCU], [ACCU], "verified_accu", CFG, run_v4=False, timeout_sec=600.0)
+    assert rec["verdict"] == "proven" and 500 < seen["v2_timeout"] <= 600 and seen["v3_timeout"] < seen["v2_timeout"]
+    monkeypatch.setattr(ST, "MIN_STAGE_SEC", 5.0)
+    rec = ST.check_equivalence(tmp_path / "b", [ACCU], [ACCU], "verified_accu", CFG, run_v4=False, timeout_sec=6.0)
+    assert rec["v2_status"] == "identical" and rec["v3_status"] == "inconclusive" and "out of time" in (rec.get("v3") or {}).get("error", "")
+    rec = ST.check_equivalence(tmp_path / "c", [ACCU], [ACCU], "verified_accu", CFG, run_v4=False, timeout_sec=None)
+    assert rec["verdict"] == "proven" and seen["v2_timeout"] is None  # unlimited stays unlimited
