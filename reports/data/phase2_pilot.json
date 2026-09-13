@@ -156,8 +156,8 @@
    "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [
-    29.23,
-    28.4
+    29.05,
+    28.88
    ],
    "verdicts": [
     "proven",
@@ -168,22 +168,6 @@
    "class": "c1",
    "design_id": "drrtl_vending_machine",
    "file": "c1_output_retimed.v",
-   "offsets": [
-    null,
-    null
-   ],
-   "offsets_constant": null,
-   "source": "hand_made",
-   "v3_seconds": [],
-   "verdicts": [
-    "rejected",
-    "rejected"
-   ]
-  },
-  {
-   "class": "c2",
-   "design_id": "drrtl_vending_machine",
-   "file": "c2_registered_discount.v",
    "offsets": [
     {
      "sell_signal": 0,
@@ -197,12 +181,36 @@
    "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [
-    31.02,
-    30.71
+    29.55,
+    30.09
+   ],
+   "verdicts": [
+    "proven",
+    "proven"
+   ]
+  },
+  {
+   "class": "c2",
+   "design_id": "drrtl_vending_machine",
+   "file": "c2_registered_discount.v",
+   "offsets": [
+    {
+     "sell_signal": 0,
+     "total_discount": 0
+    },
+    {
+     "sell_signal": 0,
+     "total_discount": 1
+    }
+   ],
+   "offsets_constant": false,
+   "source": "hand_made",
+   "v3_seconds": [
+    32.12
    ],
    "verdicts": [
     "falsified",
-    "falsified"
+    "proven_sim_only"
    ]
   },
   {
@@ -295,7 +303,7 @@
    ]
   }
  ],
- "generated_at": "2026-09-12T17:38:03",
+ "generated_at": "2026-09-12T17:44:40",
  "guardrail3": [],
  "per_class": {
   "b": {
@@ -305,8 +313,8 @@
     26.65,
     29.31,
     29.34,
-    29.23,
-    28.4
+    29.05,
+    28.88
    ],
    "verdicts": {
     "proven": 3
@@ -316,19 +324,19 @@
    "n": 3,
    "v3_seconds": [
     28.89,
-    29.16
+    29.16,
+    29.55,
+    30.09
    ],
    "verdicts": {
     "pending": 1,
-    "proven": 1,
-    "rejected": 1
+    "proven": 2
    }
   },
   "c2": {
    "n": 2,
    "v3_seconds": [
-    31.02,
-    30.71
+    32.12
    ],
    "verdicts": {
     "falsified": 1,

@@ -143,14 +143,70 @@ def collect(cfg, entries):
         yield entry, per_class, guardrail
 
 
+def llm_batch(cfg, a):
+    """Temporary LLM batch for the pilot (PLAN 2.4): class instructions c1 / c2 / b on dev designs only (rule 4),
+    answers stored as candidates under data/pilot/llm_<run>/ manifests so that `gate` and `collect` treat them like
+    the hand-made variants. Spend is tracked in the Phase 3 calibration ledger and capped by --max-usd."""
+    from src.db import core as db
+    from src.search import candidates as CA
+    from src.search import llm as L
+    conn = db.connect(cfg=cfg)
+    model = a.model or "gpt-5.6-luna"
+    run_id = a.run_id or f"pilot_llm_{datetime.datetime.now():%Y%m%d_%H%M%S}"
+    system_text = (Path(ROOT) / "src" / "search" / "prompts" / "pilot_system.md").read_text()
+    classes = json.loads((Path(ROOT) / "src" / "search" / "prompts" / "pilot_classes.json").read_text())
+    rows = {r["design_id"]: dict(r) for r in conn.execute("SELECT design_id, split FROM designs")}
+    designs = [d for d in K.load_all() if rows.get(d["design_id"], {}).get("split") == "dev" and (not a.design or d["design_id"] in a.design)]
+    if not designs:
+        print("no dev designs selected (rule 4: the pilot batch runs on dev designs only)")
+        return 2
+    client = L.LLMClient(cfg, conn, "phase3_calibration", run_id)
+    spent, made, bad = 0.0, 0, []
+    for d in designs:
+        prefix = CA.prompt_prefix(d, system_text)
+        out_dir = PILOT_DIR / f"llm_{run_id}__{d['design_id']}"
+        manifest = {"design_id": d["design_id"], "top": d["top"], "author": f"LLM {model} run {run_id}", "variants": []}
+        for cls in a.classes:
+            for k in range(a.n):
+                if spent >= a.max_usd:
+                    break
+                r = client.call(model, prefix, f"Instruction ({cls}): {classes[cls]}\nAnswer with the JSON object only.", tag=f"{d['design_id']}:{cls}:{k}")
+                spent += r["cost_usd"]
+                try:
+                    rtl, note = CA.parse_answer(r["text"])
+                    CA.check_top(rtl, d["top"])
+                except CA.BadAnswer as e:
+                    bad.append((d["design_id"], cls, k, str(e)[:80]))
+                    continue
+                out_dir.mkdir(parents=True, exist_ok=True)
+                cid = CA.cand_id_of(rtl)
+                fname = f"{cls}_{k}_{cid}.v"
+                (out_dir / fname).write_text(rtl if rtl.endswith("\n") else rtl + "\n")
+                manifest["variants"].append({"file": fname, "class": cls, "note": note[:200], "call_id": r["call_id"], "model": model, "usage": r["usage"], "cost_usd": r["cost_usd"]})
+                made += 1
+        if manifest["variants"]:
+            (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=1) + "\n")
+    print(f"run {run_id}: {made} candidates from {len(designs)} dev designs with {model}; spent {spent:.4f} USD; unusable answers {len(bad)}")
+    for b in bad:
+        print("  bad:", b)
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["pairs", "gate", "collect"])
+    ap.add_argument("what", choices=["pairs", "gate", "collect", "llm"])
+    ap.add_argument("--model", default=None, help="llm: model for the temporary batch (default: the cheapest candidate in config)")
+    ap.add_argument("--classes", nargs="*", default=["c1", "c2", "b"])
+    ap.add_argument("--n", type=int, default=1, help="llm: answers per design and class")
+    ap.add_argument("--max-usd", type=float, default=10.0, help="llm: stop when the pilot's own spend reaches this (PLAN 2.4: within 10 USD)")
+    ap.add_argument("--run-id", default=None)
     ap.add_argument("--design", nargs="*", default=None)
     ap.add_argument("--submit", action="store_true")
     ap.add_argument("--priority", type=int, default=0)
     a = ap.parse_args(argv)
     cfg = C.load()
+    if a.what == "llm":
+        return llm_batch(cfg, a)
     if a.what == "pairs":
         pairs = rtlopt_pairs(cfg)
         print(f"{len(pairs)} RTL-OPT pairs with a different flip-flop count: {[p['design_id'] for p in pairs]}")

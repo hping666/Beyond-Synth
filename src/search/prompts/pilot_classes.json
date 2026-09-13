@@ -1,0 +1,5 @@
+{
+  "c1": "Apply a retiming-style transformation: move, split, merge or duplicate registers across combinational logic so that the cycle-by-cycle behaviour at every port stays identical (same values in every clock cycle after reset). Do not change the latency of any output.",
+  "c2": "Add exactly one pipeline stage so that every output is delayed by exactly one clock cycle relative to the original design, and nothing else changes (the same input sequence produces the same output sequence, shifted by one cycle).",
+  "b": "Restructure the design without changing its cycle-by-cycle behaviour and without changing the latency: for example re-encode the state machine, merge or split always blocks, share or precompute logic, or reduce bit widths where provably safe."
+}
