@@ -115,7 +115,7 @@ timeouts:                    # minutes
 
 queue:                       # LOCKED (concurrency caps); automatic backoff when seats are exhausted
   dc_seats_max: 50           # license ceiling, not a safe concurrency: seats are site-shared; the daemon backs off on exit code 75
-  dc_concurrency: 12         # added 2026-09-12 (DECISIONS): DC jobs dispatched at once (each may use tools.dc.max_cores = 4 threads on the 64-core host); the seat cap above stays the hard ceiling
+  dc_concurrency: 24         # 2026-09-12: 12 (DECISIONS); raised to 24 on 2026-09-13 with the user's approval (measured ≈1.1 cores per DC run, 64-core host); the seat cap above stays the hard ceiling
   pt_seats_max: 8            # filled 2026-09-12 (DECISIONS): a PT run takes ~5 s, 100 seats licensed
   vcf_seats_max: 4           # filled 2026-09-12 (DECISIONS): SEQ runs single-worker; seat count unknown until the Phase 2 pilot
   local_max: 16              # added 2026-09-12 (DECISIONS): sim / yosys / orfs / llm / shell jobs on the 64-core host
