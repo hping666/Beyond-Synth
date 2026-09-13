@@ -1,0 +1,761 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "mult_if_ref": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:1.1-23.10"
+      },
+      "ports": {
+        "A": {
+          "direction": "input",
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9 ]
+        },
+        "C": {
+          "direction": "input",
+          "bits": [ 10, 11, 12, 13, 14 ]
+        },
+        "CTRL_is_late_arriving": {
+          "direction": "input",
+          "bits": [ 15 ]
+        },
+        "Z": {
+          "direction": "output",
+          "bits": [ 16 ]
+        }
+      },
+      "cells": {
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11$3": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11.18-11.30"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 11 ],
+            "Y": [ 17 ]
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15$6": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15.34-15.63"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 15 ],
+            "Y": [ 18 ]
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:17$8": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:17.18-17.30"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 14 ],
+            "Y": [ 19 ]
+          }
+        },
+        "$logic_and$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15$7": {
+          "hide_name": 1,
+          "type": "$logic_and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15.18-15.63"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 13 ],
+            "B": [ 18 ],
+            "Y": [ 20 ]
+          }
+        },
+        "$procmux$10": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:17.18-17.30|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:17.14-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 6 ],
+            "B": [ 7 ],
+            "S": [ 14 ],
+            "Y": [ 21 ]
+          }
+        },
+        "$procmux$13": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15.18-15.63|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15.14-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 21 ],
+            "B": [ "x" ],
+            "S": [ 20 ],
+            "Y": [ 22 ]
+          }
+        },
+        "$procmux$16": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:13.18-13.30|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:13.14-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 22 ],
+            "B": [ "x" ],
+            "S": [ 12 ],
+            "Y": [ 23 ]
+          }
+        },
+        "$procmux$19": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11.18-11.30|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11.14-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x" ],
+            "B": [ 23 ],
+            "S": [ 11 ],
+            "Y": [ 24 ]
+          }
+        },
+        "$procmux$22": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.13-9.25|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.9-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 24 ],
+            "B": [ "x" ],
+            "S": [ 10 ],
+            "Y": [ 25 ]
+          }
+        },
+        "$procmux$25": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15.18-15.63|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15.14-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 25 ],
+            "B": [ 5 ],
+            "S": [ 20 ],
+            "Y": [ 26 ]
+          }
+        },
+        "$procmux$28": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:13.18-13.30|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:13.14-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 26 ],
+            "B": [ "x" ],
+            "S": [ 12 ],
+            "Y": [ 27 ]
+          }
+        },
+        "$procmux$31": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11.18-11.30|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11.14-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x" ],
+            "B": [ 27 ],
+            "S": [ 11 ],
+            "Y": [ 28 ]
+          }
+        },
+        "$procmux$34": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.13-9.25|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.9-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 28 ],
+            "B": [ "x" ],
+            "S": [ 10 ],
+            "Y": [ 29 ]
+          }
+        },
+        "$procmux$37": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:13.18-13.30|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:13.14-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 29 ],
+            "B": [ 4 ],
+            "S": [ 12 ],
+            "Y": [ 30 ]
+          }
+        },
+        "$procmux$40": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11.18-11.30|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11.14-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x" ],
+            "B": [ 30 ],
+            "S": [ 11 ],
+            "Y": [ 31 ]
+          }
+        },
+        "$procmux$43": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.13-9.25|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.9-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 31 ],
+            "B": [ "x" ],
+            "S": [ 10 ],
+            "Y": [ 32 ]
+          }
+        },
+        "$procmux$46": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11.18-11.30|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11.14-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 32 ],
+            "S": [ 11 ],
+            "Y": [ 33 ]
+          }
+        },
+        "$procmux$49": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.13-9.25|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.9-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 33 ],
+            "B": [ "x" ],
+            "S": [ 10 ],
+            "Y": [ 34 ]
+          }
+        },
+        "$procmux$52": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.13-9.25|/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.9-20.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 34 ],
+            "B": [ 2 ],
+            "S": [ 10 ],
+            "Y": [ 16 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\Z[0:0]": {
+          "hide_name": 1,
+          "bits": [ 16 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:8.5-21.8"
+          }
+        },
+        "$1\\Z[0:0]": {
+          "hide_name": 1,
+          "bits": [ 16 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:8.5-21.8"
+          }
+        },
+        "$2\\Z[0:0]": {
+          "hide_name": 1,
+          "bits": [ 34 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:8.5-21.8"
+          }
+        },
+        "$3\\Z[0:0]": {
+          "hide_name": 1,
+          "bits": [ 32 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:8.5-21.8"
+          }
+        },
+        "$4\\Z[0:0]": {
+          "hide_name": 1,
+          "bits": [ 29 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:8.5-21.8"
+          }
+        },
+        "$5\\Z[0:0]": {
+          "hide_name": 1,
+          "bits": [ 25 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:8.5-21.8"
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11$3_Y": {
+          "hide_name": 1,
+          "bits": [ 17 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:11.18-11.30"
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:13$4_Y": {
+          "hide_name": 1,
+          "bits": [ 12 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:13.18-13.30"
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15$5_Y": {
+          "hide_name": 1,
+          "bits": [ 13 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15.18-15.30"
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15$6_Y": {
+          "hide_name": 1,
+          "bits": [ 18 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15.34-15.63"
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:17$8_Y": {
+          "hide_name": 1,
+          "bits": [ 19 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:17.18-17.30"
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9$2_Y": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:9.13-9.25"
+          }
+        },
+        "$logic_and$/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15$7_Y": {
+          "hide_name": 1,
+          "bits": [ 20 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:15.18-15.63"
+          }
+        },
+        "$procmux$10_Y": {
+          "hide_name": 1,
+          "bits": [ 21 ],
+          "attributes": {
+          }
+        },
+        "$procmux$11_CMP": {
+          "hide_name": 1,
+          "bits": [ 19 ],
+          "attributes": {
+          }
+        },
+        "$procmux$13_Y": {
+          "hide_name": 1,
+          "bits": [ 22 ],
+          "attributes": {
+          }
+        },
+        "$procmux$14_CMP": {
+          "hide_name": 1,
+          "bits": [ 20 ],
+          "attributes": {
+          }
+        },
+        "$procmux$16_Y": {
+          "hide_name": 1,
+          "bits": [ 23 ],
+          "attributes": {
+          }
+        },
+        "$procmux$17_CMP": {
+          "hide_name": 1,
+          "bits": [ 12 ],
+          "attributes": {
+          }
+        },
+        "$procmux$19_Y": {
+          "hide_name": 1,
+          "bits": [ 24 ],
+          "attributes": {
+          }
+        },
+        "$procmux$20_CMP": {
+          "hide_name": 1,
+          "bits": [ 17 ],
+          "attributes": {
+          }
+        },
+        "$procmux$22_Y": {
+          "hide_name": 1,
+          "bits": [ 25 ],
+          "attributes": {
+          }
+        },
+        "$procmux$23_CMP": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+          }
+        },
+        "$procmux$25_Y": {
+          "hide_name": 1,
+          "bits": [ 26 ],
+          "attributes": {
+          }
+        },
+        "$procmux$26_CMP": {
+          "hide_name": 1,
+          "bits": [ 20 ],
+          "attributes": {
+          }
+        },
+        "$procmux$28_Y": {
+          "hide_name": 1,
+          "bits": [ 27 ],
+          "attributes": {
+          }
+        },
+        "$procmux$29_CMP": {
+          "hide_name": 1,
+          "bits": [ 12 ],
+          "attributes": {
+          }
+        },
+        "$procmux$31_Y": {
+          "hide_name": 1,
+          "bits": [ 28 ],
+          "attributes": {
+          }
+        },
+        "$procmux$32_CMP": {
+          "hide_name": 1,
+          "bits": [ 17 ],
+          "attributes": {
+          }
+        },
+        "$procmux$34_Y": {
+          "hide_name": 1,
+          "bits": [ 29 ],
+          "attributes": {
+          }
+        },
+        "$procmux$35_CMP": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+          }
+        },
+        "$procmux$37_Y": {
+          "hide_name": 1,
+          "bits": [ 30 ],
+          "attributes": {
+          }
+        },
+        "$procmux$38_CMP": {
+          "hide_name": 1,
+          "bits": [ 12 ],
+          "attributes": {
+          }
+        },
+        "$procmux$40_Y": {
+          "hide_name": 1,
+          "bits": [ 31 ],
+          "attributes": {
+          }
+        },
+        "$procmux$41_CMP": {
+          "hide_name": 1,
+          "bits": [ 17 ],
+          "attributes": {
+          }
+        },
+        "$procmux$43_Y": {
+          "hide_name": 1,
+          "bits": [ 32 ],
+          "attributes": {
+          }
+        },
+        "$procmux$44_CMP": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+          }
+        },
+        "$procmux$46_Y": {
+          "hide_name": 1,
+          "bits": [ 33 ],
+          "attributes": {
+          }
+        },
+        "$procmux$47_CMP": {
+          "hide_name": 1,
+          "bits": [ 17 ],
+          "attributes": {
+          }
+        },
+        "$procmux$49_Y": {
+          "hide_name": 1,
+          "bits": [ 34 ],
+          "attributes": {
+          }
+        },
+        "$procmux$50_CMP": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+          }
+        },
+        "$procmux$52_Y": {
+          "hide_name": 1,
+          "bits": [ 16 ],
+          "attributes": {
+          }
+        },
+        "$procmux$53_CMP": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+          }
+        },
+        "A": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:2.17-2.18"
+          }
+        },
+        "C": {
+          "hide_name": 0,
+          "bits": [ 10, 11, 12, 13, 14 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:3.17-3.18"
+          }
+        },
+        "CTRL_is_late_arriving": {
+          "hide_name": 0,
+          "bits": [ 15 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:4.11-4.32"
+          }
+        },
+        "Z": {
+          "hide_name": 0,
+          "bits": [ 16 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mult_if/reference/mult_if_ref.v:5.16-5.17"
+          }
+        }
+      }
+    }
+  }
+}

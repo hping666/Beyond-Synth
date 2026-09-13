@@ -1,0 +1,2 @@
+/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:27: Warning: Identifier `\sum_result' is implicitly declared.
+Warning: Resizing cell port mux_dead_ref.add_module.sum_result from 1 bits to 8 bits.

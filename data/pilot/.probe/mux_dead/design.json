@@ -1,0 +1,838 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "mux_dead_ref": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:1.1-61.10"
+      },
+      "ports": {
+        "x": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "sel": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "a": {
+          "direction": "input",
+          "bits": [ 4, 5, 6, 7, 8, 9, 10, 11 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 12, 13, 14, 15, 16, 17, 18, 19 ]
+        },
+        "result": {
+          "direction": "output",
+          "bits": [ 20, 21, 22, 23, 24, 25, 26, 27 ]
+        }
+      },
+      "cells": {
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:55$3": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:55.22-55.46"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 28 ],
+            "B": [ 29, 30, 31, 32, 33, 34, 35, 36 ],
+            "Y": [ 37, 38, 39, 40, 41, 42, 43, 44 ]
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:55$4": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:55.22-55.59"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 37, 38, 39, 40, 41, 42, 43, 44 ],
+            "B": [ 45, 46, 47, 48, 49, 50, 51, 52 ],
+            "Y": [ 53, 54, 55, 56, 57, 58, 59, 60 ]
+          }
+        },
+        "$flatten\\add_module.$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:78$8": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:78.23-78.28"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+            "B": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+            "Y": [ 28, 61, 62, 63, 64, 65, 66, 67 ]
+          }
+        },
+        "$flatten\\alu_module.$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69$5": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69.25-69.30"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+            "B": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+            "Y": [ 68, 69, 70, 71, 72, 73, 74, 75 ]
+          }
+        },
+        "$flatten\\alu_module.$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69$7": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69.25-69.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 68, 69, 70, 71, 72, 73, 74, 75 ],
+            "B": [ 76, 77, 78, 79, 80, 81, 82, 83 ],
+            "Y": [ 45, 46, 47, 48, 49, 50, 51, 52 ]
+          }
+        },
+        "$flatten\\alu_module.$sub$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69$6": {
+          "hide_name": 1,
+          "type": "$sub",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69.34-69.39"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+            "B": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+            "Y": [ 76, 77, 78, 79, 80, 81, 82, 83 ]
+          }
+        },
+        "$flatten\\and_module.$and$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:96$10": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:96.23-96.28"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+            "B": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+            "Y": [ 84, 85, 86, 87, 88, 89, 90, 91 ]
+          }
+        },
+        "$flatten\\or_module.$or$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:105$11": {
+          "hide_name": 1,
+          "type": "$or",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:105.22-105.27"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+            "B": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+            "Y": [ 92, 93, 94, 95, 96, 97, 98, 99 ]
+          }
+        },
+        "$flatten\\subtract_module.$sub$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:87$9": {
+          "hide_name": 1,
+          "type": "$sub",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:87.24-87.29"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+            "B": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+            "Y": [ 29, 30, 31, 32, 33, 34, 35, 36 ]
+          }
+        },
+        "$or$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:44$2": {
+          "hide_name": 1,
+          "type": "$or",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:44.13-44.20"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2 ],
+            "B": [ 3 ],
+            "Y": [ 100 ]
+          }
+        },
+        "$procmux$14": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:54.13-54.14|/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:54.9-58.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 92, 93, 94, 95, 96, 97, 98, 99 ],
+            "B": [ 53, 54, 55, 56, 57, 58, 59, 60 ],
+            "S": [ 2 ],
+            "Y": [ 101, 102, 103, 104, 105, 106, 107, 108 ]
+          }
+        },
+        "$procmux$17": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:43.9-43.10|/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:43.5-59.8"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 101, 102, 103, 104, 105, 106, 107, 108 ],
+            "B": [ "x", "x", "x", "x", "x", "x", "x", "x" ],
+            "S": [ 2 ],
+            "Y": [ 109, 110, 111, 112, 113, 114, 115, 116 ]
+          }
+        },
+        "$procmux$21": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:44.13-44.20|/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:44.9-51.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 92, 93, 94, 95, 96, 97, 98, 99 ],
+            "B": [ 84, 85, 86, 87, 88, 89, 90, 91 ],
+            "S": [ 100 ],
+            "Y": [ 117, 118, 119, 120, 121, 122, 123, 124 ]
+          }
+        },
+        "$procmux$23": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:43.9-43.10|/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:43.5-59.8"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x", "x", "x" ],
+            "B": [ 117, 118, 119, 120, 121, 122, 123, 124 ],
+            "S": [ 2 ],
+            "Y": [ 125, 126, 127, 128, 129, 130, 131, 132 ]
+          }
+        },
+        "$procmux$26": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:43.9-43.10|/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:43.5-59.8"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 109, 110, 111, 112, 113, 114, 115, 116 ],
+            "B": [ 125, 126, 127, 128, 129, 130, 131, 132 ],
+            "S": [ 2 ],
+            "Y": [ 20, 21, 22, 23, 24, 25, 26, 27 ]
+          }
+        },
+        "add_module": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:24.7-28.2",
+            "module": "adder",
+            "module_src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:73.1-79.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "alu_module": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:36.5-40.2",
+            "module": "alu",
+            "module_src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:64.1-70.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "and_module": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:12.13-16.2",
+            "module": "and_bitwise",
+            "module_src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:91.1-97.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "or_module": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:18.12-22.2",
+            "module": "or_bitwise",
+            "module_src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:100.1-106.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        },
+        "subtract_module": {
+          "hide_name": 0,
+          "type": "$scopeinfo",
+          "parameters": {
+            "TYPE": "module"
+          },
+          "attributes": {
+            "cell_module_not_derived": "00000000000000000000000000000001",
+            "cell_src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:30.12-34.2",
+            "module": "subtractor",
+            "module_src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:82.1-88.10"
+          },
+          "port_directions": {
+          },
+          "connections": {
+          }
+        }
+      },
+      "netnames": {
+        "$0\\result[7:0]": {
+          "hide_name": 1,
+          "bits": [ 20, 21, 22, 23, 24, 25, 26, 27 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:42.1-60.4"
+          }
+        },
+        "$1\\result[7:0]": {
+          "hide_name": 1,
+          "bits": [ 20, 21, 22, 23, 24, 25, 26, 27 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:42.1-60.4"
+          }
+        },
+        "$2\\result[7:0]": {
+          "hide_name": 1,
+          "bits": [ 125, 126, 127, 128, 129, 130, 131, 132 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:42.1-60.4"
+          }
+        },
+        "$3\\result[7:0]": {
+          "hide_name": 1,
+          "bits": [ 109, 110, 111, 112, 113, 114, 115, 116 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:42.1-60.4"
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:55$3_Y": {
+          "hide_name": 1,
+          "bits": [ 37, 38, 39, 40, 41, 42, 43, 44 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:55.22-55.46"
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:55$4_Y": {
+          "hide_name": 1,
+          "bits": [ 53, 54, 55, 56, 57, 58, 59, 60 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:55.22-55.59"
+          }
+        },
+        "$auto$hierarchy.cc:1522:execute$12": {
+          "hide_name": 1,
+          "bits": [ 61, 62, 63, 64, 65, 66, 67 ],
+          "attributes": {
+          }
+        },
+        "$flatten\\add_module.$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:78$8_Y": {
+          "hide_name": 1,
+          "bits": [ 28, 61, 62, 63, 64, 65, 66, 67 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:78.23-78.28"
+          }
+        },
+        "$flatten\\alu_module.$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69$5_Y": {
+          "hide_name": 1,
+          "bits": [ 68, 69, 70, 71, 72, 73, 74, 75 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69.25-69.30"
+          }
+        },
+        "$flatten\\alu_module.$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69$7_Y": {
+          "hide_name": 1,
+          "bits": [ 45, 46, 47, 48, 49, 50, 51, 52 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69.25-69.40"
+          }
+        },
+        "$flatten\\alu_module.$sub$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69$6_Y": {
+          "hide_name": 1,
+          "bits": [ 76, 77, 78, 79, 80, 81, 82, 83 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:69.34-69.39"
+          }
+        },
+        "$flatten\\and_module.$and$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:96$10_Y": {
+          "hide_name": 1,
+          "bits": [ 84, 85, 86, 87, 88, 89, 90, 91 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:96.23-96.28"
+          }
+        },
+        "$flatten\\or_module.$or$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:105$11_Y": {
+          "hide_name": 1,
+          "bits": [ 92, 93, 94, 95, 96, 97, 98, 99 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:105.22-105.27"
+          }
+        },
+        "$flatten\\subtract_module.$sub$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:87$9_Y": {
+          "hide_name": 1,
+          "bits": [ 29, 30, 31, 32, 33, 34, 35, 36 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:87.24-87.29"
+          }
+        },
+        "$or$/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:44$2_Y": {
+          "hide_name": 1,
+          "bits": [ 100 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:44.13-44.20"
+          }
+        },
+        "$procmux$14_Y": {
+          "hide_name": 1,
+          "bits": [ 101, 102, 103, 104, 105, 106, 107, 108 ],
+          "attributes": {
+          }
+        },
+        "$procmux$15_CMP": {
+          "hide_name": 1,
+          "bits": [ 2 ],
+          "attributes": {
+          }
+        },
+        "$procmux$17_Y": {
+          "hide_name": 1,
+          "bits": [ 109, 110, 111, 112, 113, 114, 115, 116 ],
+          "attributes": {
+          }
+        },
+        "$procmux$18_CMP": {
+          "hide_name": 1,
+          "bits": [ 2 ],
+          "attributes": {
+          }
+        },
+        "$procmux$21_Y": {
+          "hide_name": 1,
+          "bits": [ 117, 118, 119, 120, 121, 122, 123, 124 ],
+          "attributes": {
+          }
+        },
+        "$procmux$22_CMP": {
+          "hide_name": 1,
+          "bits": [ 100 ],
+          "attributes": {
+          }
+        },
+        "$procmux$23_Y": {
+          "hide_name": 1,
+          "bits": [ 125, 126, 127, 128, 129, 130, 131, 132 ],
+          "attributes": {
+          }
+        },
+        "$procmux$24_CMP": {
+          "hide_name": 1,
+          "bits": [ 2 ],
+          "attributes": {
+          }
+        },
+        "$procmux$26_Y": {
+          "hide_name": 1,
+          "bits": [ 20, 21, 22, 23, 24, 25, 26, 27 ],
+          "attributes": {
+          }
+        },
+        "$procmux$27_CMP": {
+          "hide_name": 1,
+          "bits": [ 2 ],
+          "attributes": {
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:4.17-4.18"
+          }
+        },
+        "add_module.a": {
+          "hide_name": 0,
+          "bits": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+          "attributes": {
+            "hdlname": "add_module a",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:74.15-74.16"
+          }
+        },
+        "add_module.b": {
+          "hide_name": 0,
+          "bits": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+          "attributes": {
+            "hdlname": "add_module b",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:75.15-75.16"
+          }
+        },
+        "add_module.sum_result": {
+          "hide_name": 0,
+          "bits": [ 28, 61, 62, 63, 64, 65, 66, 67 ],
+          "attributes": {
+            "hdlname": "add_module sum_result",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:76.16-76.26"
+          }
+        },
+        "alu_module.a": {
+          "hide_name": 0,
+          "bits": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+          "attributes": {
+            "hdlname": "alu_module a",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:65.17-65.18"
+          }
+        },
+        "alu_module.alu_result": {
+          "hide_name": 0,
+          "bits": [ 45, 46, 47, 48, 49, 50, 51, 52 ],
+          "attributes": {
+            "hdlname": "alu_module alu_result",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:67.18-67.28"
+          }
+        },
+        "alu_module.b": {
+          "hide_name": 0,
+          "bits": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+          "attributes": {
+            "hdlname": "alu_module b",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:66.17-66.18"
+          }
+        },
+        "alu_result": {
+          "hide_name": 0,
+          "bits": [ 45, 46, 47, 48, 49, 50, 51, 52 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:10.61-10.71"
+          }
+        },
+        "and_module.a": {
+          "hide_name": 0,
+          "bits": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+          "attributes": {
+            "hdlname": "and_module a",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:92.15-92.16"
+          }
+        },
+        "and_module.and_result": {
+          "hide_name": 0,
+          "bits": [ 84, 85, 86, 87, 88, 89, 90, 91 ],
+          "attributes": {
+            "hdlname": "and_module and_result",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:94.16-94.26"
+          }
+        },
+        "and_module.b": {
+          "hide_name": 0,
+          "bits": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+          "attributes": {
+            "hdlname": "and_module b",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:93.15-93.16"
+          }
+        },
+        "and_result": {
+          "hide_name": 0,
+          "bits": [ 84, 85, 86, 87, 88, 89, 90, 91 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:10.38-10.48"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:5.17-5.18"
+          }
+        },
+        "diff_result": {
+          "hide_name": 0,
+          "bits": [ 29, 30, 31, 32, 33, 34, 35, 36 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:10.25-10.36"
+          }
+        },
+        "or_module.a": {
+          "hide_name": 0,
+          "bits": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+          "attributes": {
+            "hdlname": "or_module a",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:101.15-101.16"
+          }
+        },
+        "or_module.b": {
+          "hide_name": 0,
+          "bits": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+          "attributes": {
+            "hdlname": "or_module b",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:102.15-102.16"
+          }
+        },
+        "or_module.or_result": {
+          "hide_name": 0,
+          "bits": [ 92, 93, 94, 95, 96, 97, 98, 99 ],
+          "attributes": {
+            "hdlname": "or_module or_result",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:103.16-103.25"
+          }
+        },
+        "or_result": {
+          "hide_name": 0,
+          "bits": [ 92, 93, 94, 95, 96, 97, 98, 99 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:10.50-10.59"
+          }
+        },
+        "result": {
+          "hide_name": 0,
+          "bits": [ 20, 21, 22, 23, 24, 25, 26, 27 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:6.22-6.28"
+          }
+        },
+        "sel": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:3.11-3.14"
+          }
+        },
+        "subtract_module.a": {
+          "hide_name": 0,
+          "bits": [ 4, 5, 6, 7, 8, 9, 10, 11 ],
+          "attributes": {
+            "hdlname": "subtract_module a",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:83.15-83.16"
+          }
+        },
+        "subtract_module.b": {
+          "hide_name": 0,
+          "bits": [ 12, 13, 14, 15, 16, 17, 18, 19 ],
+          "attributes": {
+            "hdlname": "subtract_module b",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:84.15-84.16"
+          }
+        },
+        "subtract_module.diff_result": {
+          "hide_name": 0,
+          "bits": [ 29, 30, 31, 32, 33, 34, 35, 36 ],
+          "attributes": {
+            "hdlname": "subtract_module diff_result",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:85.16-85.27"
+          }
+        },
+        "sum_resullt": {
+          "hide_name": 0,
+          "bits": [ 133, 134, 135, 136, 137, 138, 139, 140 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:10.12-10.23"
+          }
+        },
+        "sum_result": {
+          "hide_name": 0,
+          "bits": [ 28 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:27.17-27.27"
+          }
+        },
+        "x": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mux_dead/reference/mux_dead_ref.v:2.11-2.12"
+          }
+        }
+      }
+    }
+  }
+}

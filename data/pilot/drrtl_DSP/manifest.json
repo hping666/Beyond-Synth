@@ -1,0 +1,27 @@
+{
+ "design_id": "drrtl_DSP",
+ "top": "DSP",
+ "author": "operator (CLAUDE.md exception 2, 2026-09-12)",
+ "variants": [
+  {
+   "file": "c1_a_register_moved_to_stage0.v",
+   "class": "c1",
+   "note": "A-path pipeline register moved from a1 to a0 (same CE/rst, latency unchanged)"
+  },
+  {
+   "file": "x_b_register_moved_to_stage0.v",
+   "class": "control_nonequiv",
+   "note": "B register moved before the pre-adder: pre-add path latency changes -> expected not equivalent (negative control)"
+  },
+  {
+   "file": "c2_extra_multiplier_stage.v",
+   "class": "c2",
+   "note": "second register stage on the multiplier output: M and the X=M path one cycle later"
+  },
+  {
+   "file": "b_mux_as_case.v",
+   "class": "b",
+   "note": "X/Z operand muxes rewritten as case statements in a combinational block"
+  }
+ ]
+}

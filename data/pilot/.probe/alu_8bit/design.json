@@ -1,0 +1,1127 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "alu_8bit_ref": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:1.1-49.10"
+      },
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 10, 11, 12, 13, 14, 15, 16, 17 ]
+        },
+        "Oper": {
+          "direction": "input",
+          "bits": [ 18, 19, 20 ]
+        },
+        "sum": {
+          "direction": "output",
+          "bits": [ 21, 22, 23, 24, 25, 26, 27, 28 ]
+        }
+      },
+      "cells": {
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:10$1": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:10.27-10.38"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 29, 30, 31, 32, 33, 34, 35, 36 ],
+            "B": [ 37, 38, 39, 40, 41, 42, 43, 44 ],
+            "Y": [ 45, 46, 47, 48, 49, 50, 51, 52, 53 ]
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:10$2": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000001001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:10.27-10.46"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 45, 46, 47, 48, 49, 50, 51, 52, 53 ],
+            "B": [ 54 ],
+            "Y": [ 55, 56, 57, 58, 59, 60, 61, 62, 63 ]
+          }
+        },
+        "$and$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:42$7": {
+          "hide_name": 1,
+          "type": "$and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:42.33-42.38"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+            "B": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+            "Y": [ 64, 65, 66, 67, 68, 69, 70, 71 ]
+          }
+        },
+        "$not$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:22$4": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:22.20-22.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+            "Y": [ 72, 73, 74, 75, 76, 77, 78, 79 ]
+          }
+        },
+        "$not$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:27$5": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:27.20-27.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+            "Y": [ 80, 81, 82, 83, 84, 85, 86, 87 ]
+          }
+        },
+        "$or$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:41$6": {
+          "hide_name": 1,
+          "type": "$or",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:41.33-41.38"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+            "B": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+            "Y": [ 88, 89, 90, 91, 92, 93, 94, 95 ]
+          }
+        },
+        "$procmux$15": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.16-37.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0" ],
+            "B": [ 63 ],
+            "S": [ 96 ],
+            "Y": [ 97 ]
+          }
+        },
+        "$procmux$16_ANY": {
+          "hide_name": 1,
+          "type": "$reduce_or",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.16-37.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 98, 99, 100 ],
+            "Y": [ 96 ]
+          }
+        },
+        "$procmux$16_CMP0": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.16-37.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "Y": [ 98 ]
+          }
+        },
+        "$procmux$16_CMP1": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.16-37.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "1", "0", "0" ],
+            "Y": [ 99 ]
+          }
+        },
+        "$procmux$16_CMP2": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.16-37.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "0", "1", "0" ],
+            "Y": [ 100 ]
+          }
+        },
+        "$procmux$18": {
+          "hide_name": 1,
+          "type": "$pmux",
+          "parameters": {
+            "S_WIDTH": "00000000000000000000000000000101",
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:43.46-43.46|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+            "B": [ 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 64, 65, 66, 67, 68, 69, 70, 71, 88, 89, 90, 91, 92, 93, 94, 95, 55, 56, 57, 58, 59, 60, 61, 62 ],
+            "S": [ 117, 118, 119, 120, 121 ],
+            "Y": [ 21, 22, 23, 24, 25, 26, 27, 28 ]
+          }
+        },
+        "$procmux$19_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:43.46-43.46|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "0", "1", "1" ],
+            "Y": [ 117 ]
+          }
+        },
+        "$procmux$20_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:42.46-42.46|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "1", "0", "1" ],
+            "Y": [ 118 ]
+          }
+        },
+        "$procmux$21_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:41.46-41.46|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "0", "0", "1" ],
+            "Y": [ 119 ]
+          }
+        },
+        "$procmux$22_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:40.12-40.12|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "1", "1", "0" ],
+            "Y": [ 120 ]
+          }
+        },
+        "$procmux$23_ANY": {
+          "hide_name": 1,
+          "type": "$reduce_or",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.16-37.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 122, 123, 124 ],
+            "Y": [ 121 ]
+          }
+        },
+        "$procmux$23_CMP0": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.16-37.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "Y": [ 122 ]
+          }
+        },
+        "$procmux$23_CMP1": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.16-37.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "1", "0", "0" ],
+            "Y": [ 123 ]
+          }
+        },
+        "$procmux$23_CMP2": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.16-37.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:37.5-46.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "0", "1", "0" ],
+            "Y": [ 124 ]
+          }
+        },
+        "$procmux$25": {
+          "hide_name": 1,
+          "type": "$pmux",
+          "parameters": {
+            "S_WIDTH": "00000000000000000000000000000010",
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:24.12-24.12|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0" ],
+            "B": [ "1", "1" ],
+            "S": [ 125, 126 ],
+            "Y": [ 54 ]
+          }
+        },
+        "$procmux$26_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:24.12-24.12|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "0", "1", "0" ],
+            "Y": [ 125 ]
+          }
+        },
+        "$procmux$27_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:19.12-19.12|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "1", "0", "0" ],
+            "Y": [ 126 ]
+          }
+        },
+        "$procmux$29": {
+          "hide_name": 1,
+          "type": "$pmux",
+          "parameters": {
+            "S_WIDTH": "00000000000000000000000000000011",
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:24.12-24.12|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+            "B": [ 80, 81, 82, 83, 84, 85, 86, 87, 72, 73, 74, 75, 76, 77, 78, 79, 10, 11, 12, 13, 14, 15, 16, 17 ],
+            "S": [ 127, 128, 129 ],
+            "Y": [ 37, 38, 39, 40, 41, 42, 43, 44 ]
+          }
+        },
+        "$procmux$30_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:24.12-24.12|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "0", "1", "0" ],
+            "Y": [ 127 ]
+          }
+        },
+        "$procmux$31_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:19.12-19.12|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "1", "0", "0" ],
+            "Y": [ 128 ]
+          }
+        },
+        "$procmux$32_CMP0": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.16-14.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "Y": [ 129 ]
+          }
+        },
+        "$procmux$34": {
+          "hide_name": 1,
+          "type": "$pmux",
+          "parameters": {
+            "S_WIDTH": "00000000000000000000000000000011",
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:24.12-24.12|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0", "0", "0", "0", "0", "0", "0", "0" ],
+            "B": [ 10, 11, 12, 13, 14, 15, 16, 17, 2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9 ],
+            "S": [ 130, 131, 132 ],
+            "Y": [ 29, 30, 31, 32, 33, 34, 35, 36 ]
+          }
+        },
+        "$procmux$35_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:24.12-24.12|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "0", "1", "0" ],
+            "Y": [ 130 ]
+          }
+        },
+        "$procmux$36_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:19.12-19.12|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "B": [ "1", "0", "0" ],
+            "Y": [ 131 ]
+          }
+        },
+        "$procmux$37_CMP0": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.16-14.16|/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:14.5-35.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 18, 19, 20 ],
+            "Y": [ 132 ]
+          }
+        },
+        "$xnor$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:44$9": {
+          "hide_name": 1,
+          "type": "$xnor",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:44.33-44.39"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+            "B": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+            "Y": [ 101, 102, 103, 104, 105, 106, 107, 108 ]
+          }
+        },
+        "$xor$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:43$8": {
+          "hide_name": 1,
+          "type": "$xor",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:43.33-43.38"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+            "B": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+            "Y": [ 109, 110, 111, 112, 113, 114, 115, 116 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\c_out[0:0]": {
+          "hide_name": 1,
+          "bits": [ 97 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:12.1-47.4"
+          }
+        },
+        "$0\\carry[0:0]": {
+          "hide_name": 1,
+          "bits": [ 54 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:12.1-47.4"
+          }
+        },
+        "$0\\op_a[7:0]": {
+          "hide_name": 1,
+          "bits": [ 29, 30, 31, 32, 33, 34, 35, 36 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:12.1-47.4"
+          }
+        },
+        "$0\\op_b[7:0]": {
+          "hide_name": 1,
+          "bits": [ 37, 38, 39, 40, 41, 42, 43, 44 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:12.1-47.4"
+          }
+        },
+        "$0\\sum[7:0]": {
+          "hide_name": 1,
+          "bits": [ 21, 22, 23, 24, 25, 26, 27, 28 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:12.1-47.4"
+          }
+        },
+        "$1\\c_out[0:0]": {
+          "hide_name": 1,
+          "bits": [ 97 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:12.1-47.4"
+          }
+        },
+        "$1\\carry[0:0]": {
+          "hide_name": 1,
+          "bits": [ 54 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:12.1-47.4"
+          }
+        },
+        "$1\\op_a[7:0]": {
+          "hide_name": 1,
+          "bits": [ 29, 30, 31, 32, 33, 34, 35, 36 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:12.1-47.4"
+          }
+        },
+        "$1\\op_b[7:0]": {
+          "hide_name": 1,
+          "bits": [ 37, 38, 39, 40, 41, 42, 43, 44 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:12.1-47.4"
+          }
+        },
+        "$1\\sum[7:0]": {
+          "hide_name": 1,
+          "bits": [ 21, 22, 23, 24, 25, 26, 27, 28 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:12.1-47.4"
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:10$1_Y": {
+          "hide_name": 1,
+          "bits": [ 45, 46, 47, 48, 49, 50, 51, 52, 53 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:10.27-10.38"
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:10$2_Y": {
+          "hide_name": 1,
+          "bits": [ 55, 56, 57, 58, 59, 60, 61, 62, 63 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:10.27-10.46"
+          }
+        },
+        "$and$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:42$7_Y": {
+          "hide_name": 1,
+          "bits": [ 64, 65, 66, 67, 68, 69, 70, 71 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:42.33-42.38"
+          }
+        },
+        "$not$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:22$4_Y": {
+          "hide_name": 1,
+          "bits": [ 72, 73, 74, 75, 76, 77, 78, 79 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:22.20-22.22"
+          }
+        },
+        "$not$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:27$5_Y": {
+          "hide_name": 1,
+          "bits": [ 80, 81, 82, 83, 84, 85, 86, 87 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:27.20-27.22"
+          }
+        },
+        "$or$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:41$6_Y": {
+          "hide_name": 1,
+          "bits": [ 88, 89, 90, 91, 92, 93, 94, 95 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:41.33-41.38"
+          }
+        },
+        "$procmux$15_Y": {
+          "hide_name": 1,
+          "bits": [ 97 ],
+          "attributes": {
+          }
+        },
+        "$procmux$16_CMP": {
+          "hide_name": 1,
+          "bits": [ 98, 99, 100 ],
+          "attributes": {
+          }
+        },
+        "$procmux$16_CTRL": {
+          "hide_name": 1,
+          "bits": [ 96 ],
+          "attributes": {
+          }
+        },
+        "$procmux$18_Y": {
+          "hide_name": 1,
+          "bits": [ 21, 22, 23, 24, 25, 26, 27, 28 ],
+          "attributes": {
+          }
+        },
+        "$procmux$19_CMP": {
+          "hide_name": 1,
+          "bits": [ 117 ],
+          "attributes": {
+          }
+        },
+        "$procmux$20_CMP": {
+          "hide_name": 1,
+          "bits": [ 118 ],
+          "attributes": {
+          }
+        },
+        "$procmux$21_CMP": {
+          "hide_name": 1,
+          "bits": [ 119 ],
+          "attributes": {
+          }
+        },
+        "$procmux$22_CMP": {
+          "hide_name": 1,
+          "bits": [ 120 ],
+          "attributes": {
+          }
+        },
+        "$procmux$23_CMP": {
+          "hide_name": 1,
+          "bits": [ 122, 123, 124 ],
+          "attributes": {
+          }
+        },
+        "$procmux$23_CTRL": {
+          "hide_name": 1,
+          "bits": [ 121 ],
+          "attributes": {
+          }
+        },
+        "$procmux$25_Y": {
+          "hide_name": 1,
+          "bits": [ 54 ],
+          "attributes": {
+          }
+        },
+        "$procmux$26_CMP": {
+          "hide_name": 1,
+          "bits": [ 125 ],
+          "attributes": {
+          }
+        },
+        "$procmux$27_CMP": {
+          "hide_name": 1,
+          "bits": [ 126 ],
+          "attributes": {
+          }
+        },
+        "$procmux$29_Y": {
+          "hide_name": 1,
+          "bits": [ 37, 38, 39, 40, 41, 42, 43, 44 ],
+          "attributes": {
+          }
+        },
+        "$procmux$30_CMP": {
+          "hide_name": 1,
+          "bits": [ 127 ],
+          "attributes": {
+          }
+        },
+        "$procmux$31_CMP": {
+          "hide_name": 1,
+          "bits": [ 128 ],
+          "attributes": {
+          }
+        },
+        "$procmux$32_CMP": {
+          "hide_name": 1,
+          "bits": [ 129 ],
+          "attributes": {
+          }
+        },
+        "$procmux$34_Y": {
+          "hide_name": 1,
+          "bits": [ 29, 30, 31, 32, 33, 34, 35, 36 ],
+          "attributes": {
+          }
+        },
+        "$procmux$35_CMP": {
+          "hide_name": 1,
+          "bits": [ 130 ],
+          "attributes": {
+          }
+        },
+        "$procmux$36_CMP": {
+          "hide_name": 1,
+          "bits": [ 131 ],
+          "attributes": {
+          }
+        },
+        "$procmux$37_CMP": {
+          "hide_name": 1,
+          "bits": [ 132 ],
+          "attributes": {
+          }
+        },
+        "$xnor$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:44$9_Y": {
+          "hide_name": 1,
+          "bits": [ 101, 102, 103, 104, 105, 106, 107, 108 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:44.33-44.39"
+          }
+        },
+        "$xor$/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:43$8_Y": {
+          "hide_name": 1,
+          "bits": [ 109, 110, 111, 112, 113, 114, 115, 116 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:43.33-43.38"
+          }
+        },
+        "Oper": {
+          "hide_name": 0,
+          "bits": [ 18, 19, 20 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:3.17-3.21"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:2.17-2.18"
+          }
+        },
+        "adder_result": {
+          "hide_name": 0,
+          "bits": [ 55, 56, 57, 58, 59, 60, 61, 62, 63 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:10.12-10.24"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:2.20-2.21"
+          }
+        },
+        "c_out": {
+          "hide_name": 0,
+          "bits": [ 97 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:7.5-7.10"
+          }
+        },
+        "carry": {
+          "hide_name": 0,
+          "bits": [ 54 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:9.5-9.10"
+          }
+        },
+        "op_a": {
+          "hide_name": 0,
+          "bits": [ 29, 30, 31, 32, 33, 34, 35, 36 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:8.11-8.15"
+          }
+        },
+        "op_b": {
+          "hide_name": 0,
+          "bits": [ 37, 38, 39, 40, 41, 42, 43, 44 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:8.17-8.21"
+          }
+        },
+        "sum": {
+          "hide_name": 0,
+          "bits": [ 21, 22, 23, 24, 25, 26, 27, 28 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/alu_8bit/reference/alu_8bit_ref.v:5.22-5.25"
+          }
+        }
+      }
+    }
+  }
+}

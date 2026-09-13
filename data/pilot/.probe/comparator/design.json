@@ -1,0 +1,539 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "comparator_ref": {
+      "attributes": {
+        "dynports": "00000000000000000000000000000001",
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:1.1-25.10"
+      },
+      "parameter_default_values": {
+        "N": "00000000000000000000000000001000"
+      },
+      "ports": {
+        "SEL": {
+          "direction": "input",
+          "bits": [ 2, 3, 4 ]
+        },
+        "value1": {
+          "direction": "input",
+          "bits": [ 5, 6, 7, 8, 9, 10, 11, 12 ]
+        },
+        "value2": {
+          "direction": "input",
+          "bits": [ 13, 14, 15, 16, 17, 18, 19, 20 ]
+        },
+        "OUT": {
+          "direction": "output",
+          "bits": [ 21 ]
+        }
+      },
+      "cells": {
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:15$2": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:15.24-15.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 5, 6, 7, 8, 9, 10, 11, 12 ],
+            "B": [ 13, 14, 15, 16, 17, 18, 19, 20 ],
+            "Y": [ 22 ]
+          }
+        },
+        "$ge$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:17$4": {
+          "hide_name": 1,
+          "type": "$ge",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:17.24-17.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 5, 6, 7, 8, 9, 10, 11, 12 ],
+            "B": [ 13, 14, 15, 16, 17, 18, 19, 20 ],
+            "Y": [ 23 ]
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:20$7": {
+          "hide_name": 1,
+          "type": "$gt",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:20.24-20.39"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 5, 6, 7, 8, 9, 10, 11, 12 ],
+            "B": [ 13, 14, 15, 16, 17, 18, 19, 20 ],
+            "Y": [ 24 ]
+          }
+        },
+        "$le$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:18$5": {
+          "hide_name": 1,
+          "type": "$le",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:18.24-18.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 5, 6, 7, 8, 9, 10, 11, 12 ],
+            "B": [ 13, 14, 15, 16, 17, 18, 19, 20 ],
+            "Y": [ 25 ]
+          }
+        },
+        "$lt$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:19$6": {
+          "hide_name": 1,
+          "type": "$lt",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:19.24-19.39"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 5, 6, 7, 8, 9, 10, 11, 12 ],
+            "B": [ 13, 14, 15, 16, 17, 18, 19, 20 ],
+            "Y": [ 26 ]
+          }
+        },
+        "$ne$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:16$3": {
+          "hide_name": 1,
+          "type": "$ne",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:16.24-16.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 5, 6, 7, 8, 9, 10, 11, 12 ],
+            "B": [ 13, 14, 15, 16, 17, 18, 19, 20 ],
+            "Y": [ 27 ]
+          }
+        },
+        "$procmux$10_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:18.42-18.42|/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:12.5-22.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ "0", "1", "1" ],
+            "Y": [ 28 ]
+          }
+        },
+        "$procmux$11_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:17.42-17.42|/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:12.5-22.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ "1", "0", "1" ],
+            "Y": [ 29 ]
+          }
+        },
+        "$procmux$12_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:16.42-16.42|/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:12.5-22.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ "0", "0", "1" ],
+            "Y": [ 30 ]
+          }
+        },
+        "$procmux$13_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:15.42-15.42|/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:12.5-22.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ "1", "1", "0" ],
+            "Y": [ 31 ]
+          }
+        },
+        "$procmux$14_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:14.28-14.28|/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:12.5-22.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ "0", "1", "0" ],
+            "Y": [ 32 ]
+          }
+        },
+        "$procmux$15_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:13.28-13.28|/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:12.5-22.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ "1", "0", "0" ],
+            "Y": [ 33 ]
+          }
+        },
+        "$procmux$16_CMP0": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:12.15-12.15|/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:12.5-22.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "Y": [ 34 ]
+          }
+        },
+        "$procmux$8": {
+          "hide_name": 1,
+          "type": "$pmux",
+          "parameters": {
+            "S_WIDTH": "00000000000000000000000000001000",
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:19.41-19.41|/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:12.5-22.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x" ],
+            "B": [ 24, 26, 25, 23, 27, 22, "1", "0" ],
+            "S": [ 35, 28, 29, 30, 31, 32, 33, 34 ],
+            "Y": [ 21 ]
+          }
+        },
+        "$procmux$9_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:19.41-19.41|/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:12.5-22.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ "1", "1", "1" ],
+            "Y": [ 35 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\OUT[0:0]": {
+          "hide_name": 1,
+          "bits": [ 21 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:11.1-23.4"
+          }
+        },
+        "$1\\OUT[0:0]": {
+          "hide_name": 1,
+          "bits": [ 21 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:11.1-23.4"
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:15$2_Y": {
+          "hide_name": 1,
+          "bits": [ 22 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:15.24-15.40"
+          }
+        },
+        "$ge$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:17$4_Y": {
+          "hide_name": 1,
+          "bits": [ 23 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:17.24-17.40"
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:20$7_Y": {
+          "hide_name": 1,
+          "bits": [ 24 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:20.24-20.39"
+          }
+        },
+        "$le$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:18$5_Y": {
+          "hide_name": 1,
+          "bits": [ 25 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:18.24-18.40"
+          }
+        },
+        "$lt$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:19$6_Y": {
+          "hide_name": 1,
+          "bits": [ 26 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:19.24-19.39"
+          }
+        },
+        "$ne$/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:16$3_Y": {
+          "hide_name": 1,
+          "bits": [ 27 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:16.24-16.40"
+          }
+        },
+        "$procmux$10_CMP": {
+          "hide_name": 1,
+          "bits": [ 28 ],
+          "attributes": {
+          }
+        },
+        "$procmux$11_CMP": {
+          "hide_name": 1,
+          "bits": [ 29 ],
+          "attributes": {
+          }
+        },
+        "$procmux$12_CMP": {
+          "hide_name": 1,
+          "bits": [ 30 ],
+          "attributes": {
+          }
+        },
+        "$procmux$13_CMP": {
+          "hide_name": 1,
+          "bits": [ 31 ],
+          "attributes": {
+          }
+        },
+        "$procmux$14_CMP": {
+          "hide_name": 1,
+          "bits": [ 32 ],
+          "attributes": {
+          }
+        },
+        "$procmux$15_CMP": {
+          "hide_name": 1,
+          "bits": [ 33 ],
+          "attributes": {
+          }
+        },
+        "$procmux$16_CMP": {
+          "hide_name": 1,
+          "bits": [ 34 ],
+          "attributes": {
+          }
+        },
+        "$procmux$8_Y": {
+          "hide_name": 1,
+          "bits": [ 21 ],
+          "attributes": {
+          }
+        },
+        "$procmux$9_CMP": {
+          "hide_name": 1,
+          "bits": [ 35 ],
+          "attributes": {
+          }
+        },
+        "OUT": {
+          "hide_name": 0,
+          "bits": [ 21 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:7.16-7.19"
+          }
+        },
+        "SEL": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:4.17-4.20"
+          }
+        },
+        "value1": {
+          "hide_name": 0,
+          "bits": [ 5, 6, 7, 8, 9, 10, 11, 12 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:5.19-5.25"
+          }
+        },
+        "value2": {
+          "hide_name": 0,
+          "bits": [ 13, 14, 15, 16, 17, 18, 19, 20 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/comparator/reference/comparator_ref.v:6.19-6.25"
+          }
+        }
+      }
+    }
+  }
+}

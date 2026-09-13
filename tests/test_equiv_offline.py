@@ -106,3 +106,12 @@ def test_yosys_timeout_is_an_error_not_a_rejection(tmp_path, monkeypatch):
     monkeypatch.setattr(PORTS.subprocess, "run", lambda *a, **kw: (_ for _ in ()).throw(RuntimeError("boom")))
     with pytest.raises(RuntimeError):
         PORTS.port_info([ACCU], "verified_accu", CFG, workdir=tmp_path / "u")  # other failures still propagate
+
+
+def test_harness_seed_defaults_to_config_and_can_be_overridden(tmp_path):
+    ports = PORTS.port_info([ACCU], "verified_accu", CFG, workdir=tmp_path / "p")
+    from src.equiv.harness import write_harness
+    write_harness(tmp_path / "h1.v", "verified_accu", "verified_accu__cand", ports, "clk", "rst_n", "low", CFG, tmp_path / "t1", tmp_path / "v1")
+    write_harness(tmp_path / "h2.v", "verified_accu", "verified_accu__cand", ports, "clk", "rst_n", "low", CFG, tmp_path / "t2", tmp_path / "v2", seed=7)
+    assert f"parameter integer SEED = {int(CFG['sim']['seed'])};" in (tmp_path / "h1.v").read_text()
+    assert "parameter integer SEED = 7;" in (tmp_path / "h2.v").read_text()

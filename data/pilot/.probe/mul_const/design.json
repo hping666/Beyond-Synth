@@ -1,0 +1,191 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "mul_const_ref": {
+      "attributes": {
+        "dynports": "00000000000000000000000000000001",
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:1.1-17.10"
+      },
+      "parameter_default_values": {
+        "BW": "00000000000000000000000000001000"
+      },
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9 ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [ 10, 11, 12, 13, 14, 15, 16, 17 ]
+        },
+        "c": {
+          "direction": "input",
+          "bits": [ 18, 19, 20, 21, 22, 23, 24, 25 ]
+        },
+        "s1": {
+          "direction": "output",
+          "bits": [ "0", "0", 2, 3, 4, 5, 6, 7 ]
+        },
+        "s2": {
+          "direction": "output",
+          "bits": [ 26, 27, 28, 29, 30, 31, 32, 33 ]
+        },
+        "s3": {
+          "direction": "output",
+          "bits": [ 34, 35, 36, 37, 38, 39, 40, 41 ]
+        }
+      },
+      "cells": {
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:14$4": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:14.11-14.23"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0", "0", 10, 11, 12, 13, 14, 15 ],
+            "B": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+            "Y": [ 26, 27, 28, 29, 30, 31, 32, 33 ]
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:15$6": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000001000",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000001000",
+            "Y_WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:15.11-15.23"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0", "0", "0", 18, 19, 20, 21, 22 ],
+            "B": [ 18, 19, 20, 21, 22, 23, 24, 25 ],
+            "Y": [ 34, 35, 36, 37, 38, 39, 40, 41 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\s1[7:0]": {
+          "hide_name": 1,
+          "bits": [ "0", "0", 2, 3, 4, 5, 6, 7 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:12.4-16.7"
+          }
+        },
+        "$0\\s2[7:0]": {
+          "hide_name": 1,
+          "bits": [ 26, 27, 28, 29, 30, 31, 32, 33 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:12.4-16.7"
+          }
+        },
+        "$0\\s3[7:0]": {
+          "hide_name": 1,
+          "bits": [ 34, 35, 36, 37, 38, 39, 40, 41 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:12.4-16.7"
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:14$4_Y": {
+          "hide_name": 1,
+          "bits": [ 26, 27, 28, 29, 30, 31, 32, 33 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:14.11-14.23"
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:15$6_Y": {
+          "hide_name": 1,
+          "bits": [ 34, 35, 36, 37, 38, 39, 40, 41 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:15.11-15.23"
+          }
+        },
+        "$shl$/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:13$2_Y": {
+          "hide_name": 1,
+          "bits": [ "0", "0", 2, 3, 4, 5, 6, 7 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:13.11-13.17"
+          }
+        },
+        "$shl$/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:14$3_Y": {
+          "hide_name": 1,
+          "bits": [ "0", "0", 10, 11, 12, 13, 14, 15 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:14.12-14.18"
+          }
+        },
+        "$shl$/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:15$5_Y": {
+          "hide_name": 1,
+          "bits": [ "0", "0", "0", 18, 19, 20, 21, 22 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:15.12-15.18"
+          }
+        },
+        "a": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4, 5, 6, 7, 8, 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:4.19-4.20"
+          }
+        },
+        "b": {
+          "hide_name": 0,
+          "bits": [ 10, 11, 12, 13, 14, 15, 16, 17 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:5.19-5.20"
+          }
+        },
+        "c": {
+          "hide_name": 0,
+          "bits": [ 18, 19, 20, 21, 22, 23, 24, 25 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:6.19-6.20"
+          }
+        },
+        "s1": {
+          "hide_name": 0,
+          "bits": [ "0", "0", 2, 3, 4, 5, 6, 7 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:7.24-7.26"
+          }
+        },
+        "s2": {
+          "hide_name": 0,
+          "bits": [ 26, 27, 28, 29, 30, 31, 32, 33 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:8.24-8.26"
+          }
+        },
+        "s3": {
+          "hide_name": 0,
+          "bits": [ 34, 35, 36, 37, 38, 39, 40, 41 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtlopt/mul_const/reference/mul_const_ref.v:9.24-9.26"
+          }
+        }
+      }
+    }
+  }
+}

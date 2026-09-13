@@ -1,0 +1,308 @@
+{
+ "generated_at": "2026-09-12T17:22:01",
+ "pairs": [
+  {
+   "design_id": "rtlopt_fsm",
+   "ff_start": 9,
+   "ff_ref": 4,
+   "cells_start": 31,
+   "cells_ref": 31
+  },
+  {
+   "design_id": "rtlopt_fsm_encode",
+   "ff_start": 33,
+   "ff_ref": 28,
+   "cells_start": 36,
+   "cells_ref": 37
+  },
+  {
+   "design_id": "rtlopt_mac",
+   "ff_start": 64,
+   "ff_ref": 32,
+   "cells_start": 8,
+   "cells_ref": 5
+  },
+  {
+   "design_id": "rtlopt_saturating_add",
+   "ff_start": 10,
+   "ff_ref": 8,
+   "cells_start": 14,
+   "cells_ref": 12
+  }
+ ],
+ "all": [
+  {
+   "design_id": "rtlopt_add_sub",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 3,
+   "cells_ref": 8
+  },
+  {
+   "design_id": "rtlopt_adder",
+   "ff_start": 32,
+   "ff_ref": 32,
+   "cells_start": 9,
+   "cells_ref": 4
+  },
+  {
+   "design_id": "rtlopt_adder_carry",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 56,
+   "cells_ref": 64
+  },
+  {
+   "design_id": "rtlopt_adder_select",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 3,
+   "cells_ref": 3
+  },
+  {
+   "design_id": "rtlopt_addr_calcu",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 7,
+   "cells_ref": 4
+  },
+  {
+   "design_id": "rtlopt_alu_64bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 15,
+   "cells_ref": 26
+  },
+  {
+   "design_id": "rtlopt_alu_8bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 15,
+   "cells_ref": 33
+  },
+  {
+   "design_id": "rtlopt_calculation",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 13,
+   "cells_ref": 8
+  },
+  {
+   "design_id": "rtlopt_comparator",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 17,
+   "cells_ref": 15
+  },
+  {
+   "design_id": "rtlopt_comparator_16bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 3,
+   "cells_ref": 573
+  },
+  {
+   "design_id": "rtlopt_comparator_2bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 13,
+   "cells_ref": 3
+  },
+  {
+   "design_id": "rtlopt_comparator_4bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 45,
+   "cells_ref": 3
+  },
+  {
+   "design_id": "rtlopt_comparator_8bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 157,
+   "cells_ref": 3
+  },
+  {
+   "design_id": "rtlopt_decoder_6bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 1,
+   "cells_ref": 128
+  },
+  {
+   "design_id": "rtlopt_decoder_8bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 1,
+   "cells_ref": 512
+  },
+  {
+   "design_id": "rtlopt_divider_16bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 80,
+   "cells_ref": 64
+  },
+  {
+   "design_id": "rtlopt_divider_32bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 160,
+   "cells_ref": 128
+  },
+  {
+   "design_id": "rtlopt_divider_4bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 20,
+   "cells_ref": 16
+  },
+  {
+   "design_id": "rtlopt_divider_8bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 40,
+   "cells_ref": 32
+  },
+  {
+   "design_id": "rtlopt_fsm",
+   "ff_start": 9,
+   "ff_ref": 4,
+   "cells_start": 31,
+   "cells_ref": 31
+  },
+  {
+   "design_id": "rtlopt_fsm_encode",
+   "ff_start": 33,
+   "ff_ref": 28,
+   "cells_start": 36,
+   "cells_ref": 37
+  },
+  {
+   "design_id": "rtlopt_gray",
+   "ff_start": 4,
+   "ff_ref": 4,
+   "cells_start": 34,
+   "cells_ref": 34
+  },
+  {
+   "design_id": "rtlopt_mac",
+   "ff_start": 64,
+   "ff_ref": 32,
+   "cells_start": 8,
+   "cells_ref": 5
+  },
+  {
+   "design_id": "rtlopt_mul",
+   "ff_start": 8,
+   "ff_ref": 8,
+   "cells_start": 3,
+   "cells_ref": 3
+  },
+  {
+   "design_id": "rtlopt_mul_const",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 3,
+   "cells_ref": 2
+  },
+  {
+   "design_id": "rtlopt_mul_subexpression",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 71,
+   "cells_ref": 15
+  },
+  {
+   "design_id": "rtlopt_mult_if",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 20,
+   "cells_ref": 19
+  },
+  {
+   "design_id": "rtlopt_mux_4to1_16bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 11,
+   "cells_ref": 5
+  },
+  {
+   "design_id": "rtlopt_mux_4to1_64bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 11,
+   "cells_ref": 5
+  },
+  {
+   "design_id": "rtlopt_mux_dead",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 5,
+   "cells_ref": 20
+  },
+  {
+   "design_id": "rtlopt_mux_large",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 10,
+   "cells_ref": 19
+  },
+  {
+   "design_id": "rtlopt_register",
+   "ff_start": 1056,
+   "ff_ref": 1056,
+   "cells_start": 210,
+   "cells_ref": 213
+  },
+  {
+   "design_id": "rtlopt_saturating_add",
+   "ff_start": 10,
+   "ff_ref": 8,
+   "cells_start": 14,
+   "cells_ref": 12
+  },
+  {
+   "design_id": "rtlopt_selector",
+   "ff_start": 7,
+   "ff_ref": 7,
+   "cells_start": 3,
+   "cells_ref": 3
+  },
+  {
+   "design_id": "rtlopt_sub_16bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 2,
+   "cells_ref": 128
+  },
+  {
+   "design_id": "rtlopt_sub_32bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 256,
+   "cells_ref": 2
+  },
+  {
+   "design_id": "rtlopt_sub_4bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 32,
+   "cells_ref": 2
+  },
+  {
+   "design_id": "rtlopt_sub_8bit",
+   "ff_start": 0,
+   "ff_ref": 0,
+   "cells_start": 64,
+   "cells_ref": 2
+  },
+  {
+   "design_id": "rtlopt_ticket_machine",
+   "ff_start": 6,
+   "ff_ref": 6,
+   "cells_start": 45,
+   "cells_ref": 45
+  }
+ ]
+}

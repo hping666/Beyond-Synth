@@ -25,7 +25,9 @@ def _rand_expr(width):
     return f"{{{parts}}}" if n > 1 else "$random(seed)"
 
 
-def write_harness(path, top_d, top_c, ports, clk, rst, rst_sense, cfg, trace_path, vcd_path):
+def write_harness(path, top_d, top_c, ports, clk, rst, rst_sense, cfg, trace_path, vcd_path, seed=None):
+    """seed: random-stimulus seed; the config default (sim.seed) unless the caller varies it (SEQ pilot: offsets must
+    be constant across random runs, DECISIONS 2026-09-12 guardrail 3)."""
     s = cfg["sim"]
     half = float(s["clock_period_ns"]) / 2.0
     ins = [n for n, p in ports.items() if p["dir"] == "input" and n not in (clk, rst)]
@@ -33,7 +35,7 @@ def write_harness(path, top_d, top_c, ports, clk, rst, rst_sense, cfg, trace_pat
     L = ["`timescale 1ns/1ps", f"module {HARNESS};",
          f"  parameter integer CYCLES = {int(s['random_cycles'])};",
          f"  parameter integer RESET_CYCLES = {int(s['reset_cycles'])};",
-         f"  parameter integer SEED = {int(s['seed'])};",
+         f"  parameter integer SEED = {int(seed if seed is not None else s['seed'])};",
          "  reg clk = 1'b0;"]
     if rst:
         L.append("  reg rst;")
@@ -178,7 +180,7 @@ def vcs_run(workdir, cfg, timeout=1800, plusargs=()):
     return p.returncode, p.stdout + p.stderr
 
 
-def run_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg, *, sverilog=False, incdirs=None, timeout_sec=None):
+def run_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg, *, sverilog=False, incdirs=None, timeout_sec=None, sim_seed=None):
     """-> dict(status, offsets, cycles, first_mismatch, vcd, trace, sverilog, compile_log_path)."""
     job_dir = Path(job_dir)
     wd = job_dir / "v2_sim"
@@ -191,7 +193,7 @@ def run_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg
         c_sources.append(dst)
     trace, vcd = wd / "trace.txt", wd / "sim.vcd"
     harness = wd / "harness.v"
-    ins, outs = write_harness(harness, top, top + SUFFIX, ports, clk, rst, rst_sense, cfg, trace, vcd)
+    ins, outs = write_harness(harness, top, top + SUFFIX, ports, clk, rst, rst_sense, cfg, trace, vcd, seed=sim_seed)
     timeout = float(timeout_sec or cfg["timeouts"]["sim"] * 60)
     t0 = time.time()
     ok, clog, sv = vcs_compile(wd, [harness] + [str(f) for f in d_files] + [str(p) for p in c_sources], cfg,
