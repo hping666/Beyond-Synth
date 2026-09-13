@@ -60,17 +60,32 @@ def cmd_submit(cfg, conn, a):
     for c in configs:
         if cfg["configs"][c].get("hidden"):
             raise SystemExit(f"{c} is hidden: run it through scripts/hidden_worker.py (CLAUDE.md rule 3)")
-    jobs = []
+    from src.noise import saif as SF
+    jobs, no_saif = [], 0
     for d, r in selected(conn, a):
         phi = float(phi_of(r))
         perts = proven_perturbations(conn, d["design_id"])
+        sf = SF.load_saif(d["design_id"]) or {}
+        d_saif = (sf.get("design") or {})
         for config in configs:
-            jobs.append(J.dc_job(cfg, d, config, phi, a.priority))
+            jb = J.dc_job(cfg, d, config, phi, a.priority)
+            if d_saif.get("saif"):
+                jb["payload"].update(saif=d_saif["saif"], saif_instance=d_saif["instance"])
+            else:
+                no_saif += 1
+            jobs.append(jb)
             for p in perts:
                 j = J.dc_job(cfg, d, config, phi, a.priority)
                 j["payload"].update(rtl=[str(Path(ROOT) / p["path"])], incdirs=[], is_baseline=0, pert_id=p["pert_id"])
+                ps = (sf.get("perturbations") or {}).get(p["pert_id"]) or {}
+                if ps.get("saif"):
+                    j["payload"].update(saif=ps["saif"], saif_instance=ps["instance"])
+                else:
+                    no_saif += 1
                 j["cand_id"] = None
                 jobs.append(j)
+    if no_saif:
+        print(f"warning: {no_saif} jobs without SAIF (run scripts/phase2_saif.py build first for power_saif)")
     print(f"{len(jobs)} noise jobs ({', '.join(configs)}) for {len(selected(conn, a))} designs")
     out = Path(C.results_dir(cfg)) / "queue" / "jobs" / f"phase2_noise_{datetime.datetime.now():%Y%m%d_%H%M%S}.yaml"
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -94,17 +109,11 @@ def cmd_collect(cfg, conn, a):
         proven = {p["pert_id"] for p in proven_perturbations(conn, d["design_id"])}
         entry = {"phi": phi, "proven": len(proven), "configs": {}}
         for config in configs:
-            base = conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL "
-                                "AND status='ok' AND abs(clock_ns-?)<? ORDER BY eval_id DESC LIMIT 1", (d["design_id"], config, phi, EPS)).fetchone()
-            perts = [dict(x) for x in conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config=? AND pert_id IS NOT NULL AND status='ok' "
-                                                   "AND abs(clock_ns-?)<? ORDER BY eval_id", (d["design_id"], config, phi, EPS)) if x["pert_id"] in proven]
-            latest = {}
-            for x in perts:
-                latest[x["pert_id"]] = x
+            base, latest = S.pick_records(conn, d["design_id"], config, proven, phi, EPS)
             if base is None or len(latest) < 2:
                 entry["configs"][config] = {"baseline": base is not None, "perturbations": len(latest), "rows": 0}
                 continue
-            rows = S.floor_rows(d["design_id"], config, dict(base), list(latest.values()), phi)
+            rows = S.floor_rows(d["design_id"], config, base, list(latest.values()), phi)
             n_rows += S.upsert_floor(conn, rows)
             entry["configs"][config] = {"baseline": True, "perturbations": len(latest), "rows": len(rows),
                                         "sigma": {row["metric"]: row["sigma_robust"] for row in rows}}

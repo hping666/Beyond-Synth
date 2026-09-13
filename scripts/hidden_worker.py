@@ -115,6 +115,9 @@ def noise_jobs(cfg, vis, suites=None, designs=None, priority=0):
     for d, r in _selected(vis, suites, designs):
         design = {k: r.get(k) for k in ("phi_main_ns_nangate45", "phi_main_ns_asap7", "phi_main_ns_sky130hd")}
         perts = _proven(vis, d["design_id"])
+        from src.noise import saif as SF
+        sf = SF.load_saif(d["design_id"]) or {}
+        d_saif = sf.get("design") or {}
         first_per_type = {}
         for p in perts:
             first_per_type.setdefault(p["ptype"], p)
@@ -129,11 +132,16 @@ def noise_jobs(cfg, vis, suites=None, designs=None, priority=0):
             base = J.dc_job(cfg, d, config, cdef.get("clock_ns") or design[f"phi_main_ns_{lib}"], priority)
             base["kind"] = "dc_hidden"
             base["payload"]["design"] = design
+            if d_saif.get("saif"):
+                base["payload"].update(saif=d_saif["saif"], saif_instance=d_saif["instance"])
             jobs.append(base)
             for p in chosen:
                 j = J.dc_job(cfg, d, config, cdef.get("clock_ns") or design[f"phi_main_ns_{lib}"], priority)
                 j["kind"] = "dc_hidden"
                 j["payload"].update(rtl=[str(Path(C.ROOT) / p["path"])], incdirs=[], is_baseline=0, pert_id=p["pert_id"], design=design)
+                ps = (sf.get("perturbations") or {}).get(p["pert_id"]) or {}
+                if ps.get("saif"):
+                    j["payload"].update(saif=ps["saif"], saif_instance=ps["instance"])
                 jobs.append(j)
     return jobs
 
@@ -164,18 +172,13 @@ def noise_floor(cfg, suites=None, designs=None, vis=None, hid=None):
     for d, r in _selected(vis, suites, designs):
         proven = {p["pert_id"] for p in _proven(vis, d["design_id"])}
         for config in configs:
-            base = hid.execute("SELECT * FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL "
-                               "AND status='ok' ORDER BY eval_id DESC LIMIT 1", (d["design_id"], config)).fetchone()
+            base, _ = S.pick_records(hid, d["design_id"], config, proven)
             if base is None:
                 continue
-            latest = {}
-            for x in hid.execute("SELECT * FROM evaluations WHERE design_id=? AND config=? AND pert_id IS NOT NULL AND status='ok' "
-                                 "AND abs(clock_ns-?)<1e-6 ORDER BY eval_id", (d["design_id"], config, base["clock_ns"])):
-                if x["pert_id"] in proven:
-                    latest[x["pert_id"]] = dict(x)
+            _, latest = S.pick_records(hid, d["design_id"], config, proven, base["clock_ns"])
             if len(latest) < 2:
                 continue
-            rows = S.floor_rows(d["design_id"], config, dict(base), list(latest.values()), base["clock_ns"])
+            rows = S.floor_rows(d["design_id"], config, base, list(latest.values()), base["clock_ns"])
             written[config] = written.get(config, 0) + S.upsert_floor(hid, rows)
     return written
 

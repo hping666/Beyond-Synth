@@ -75,3 +75,7 @@ data/designs/**/samples/
 
 # generated perturbations contain the (variously licensed) design RTL; manifests stay in git
 data/perturbations/**/*.v
+
+# Pyverilog (PLY) parser tables regenerated at run time
+parser.out
+parsetab.py

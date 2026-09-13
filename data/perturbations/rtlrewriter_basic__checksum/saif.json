@@ -1,0 +1,11 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__checksum/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__checksum/EQ/7250efcaf347df82",
+  "status": "ok"
+ },
+ "design_id": "rtlrewriter_basic__checksum",
+ "missing": [],
+ "perturbations": {}
+}

@@ -1,0 +1,54 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_4bit/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_4bit/EQ/92eb0b61c64c3520",
+  "status": "ok"
+ },
+ "design_id": "rtlopt_sub_4bit",
+ "missing": [],
+ "perturbations": {
+  "p101ddec54e3988": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_4bit/saif/p101ddec54e3988.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_4bit/EQ/294b88dfdb130459",
+   "status": "ok"
+  },
+  "p19a61590eccd87": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_4bit/saif/p19a61590eccd87.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_4bit/EQ/58611c7714e7dc09",
+   "status": "ok"
+  },
+  "p1cdfbdbf28513a": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_4bit/saif/p1cdfbdbf28513a.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_4bit/EQ/c15d9b7053c59930",
+   "status": "ok"
+  },
+  "p660521cd09d56f": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_4bit/saif/p660521cd09d56f.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_4bit/EQ/ef56d6ece09cdce6",
+   "status": "ok"
+  },
+  "p679ca247000f2a": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_4bit/saif/p679ca247000f2a.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_4bit/EQ/b4d48ea9ae49f675",
+   "status": "ok"
+  },
+  "pcd971eb827649a": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_4bit/saif/pcd971eb827649a.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_4bit/EQ/fd5399be89a5015f",
+   "status": "ok"
+  },
+  "pdf0f172f5f3c75": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_4bit/saif/pdf0f172f5f3c75.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_4bit/EQ/dfd2080ea959814b",
+   "status": "ok"
+  }
+ }
+}

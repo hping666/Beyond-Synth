@@ -1,0 +1,36 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_comparator_2bit/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_2bit/EQ/868ed20153fc88ca",
+  "status": "ok"
+ },
+ "design_id": "rtlopt_comparator_2bit",
+ "missing": [],
+ "perturbations": {
+  "p06c8746f8fb937": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_comparator_2bit/saif/p06c8746f8fb937.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_2bit/EQ/f3e596c4bfa3de31",
+   "status": "ok"
+  },
+  "p6231a9058fe546": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_comparator_2bit/saif/p6231a9058fe546.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_2bit/EQ/83282a44be9c9531",
+   "status": "ok"
+  },
+  "pa532c903d6d041": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_comparator_2bit/saif/pa532c903d6d041.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_2bit/EQ/240d3b027bd10df3",
+   "status": "ok"
+  },
+  "pb1a0dc7870f39e": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_comparator_2bit/saif/pb1a0dc7870f39e.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_2bit/EQ/37d096e4c1ba109d",
+   "status": "ok"
+  }
+ }
+}

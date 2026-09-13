@@ -1,0 +1,102 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/1364754179d66443",
+  "status": "ok"
+ },
+ "design_id": "rtllm_traffic_light",
+ "missing": [],
+ "perturbations": {
+  "p1002acbb4719f9": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/p1002acbb4719f9.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/760b71d15a639b53",
+   "status": "ok"
+  },
+  "p1caff813a16c0b": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/p1caff813a16c0b.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/2bc12b11dc9ace6b",
+   "status": "ok"
+  },
+  "p2bacecc51eafbd": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/p2bacecc51eafbd.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/fc31aaa0f53adcb9",
+   "status": "ok"
+  },
+  "p3146442094cf81": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/p3146442094cf81.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/4ab47b169d0f2a02",
+   "status": "ok"
+  },
+  "p38a8249ba5fbd3": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/p38a8249ba5fbd3.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/8a376512f4caadc3",
+   "status": "ok"
+  },
+  "p6e69d379bb2e54": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/p6e69d379bb2e54.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/aa0a71a601a8879f",
+   "status": "ok"
+  },
+  "p8dda972ce08e91": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/p8dda972ce08e91.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/fc43e891065824a0",
+   "status": "ok"
+  },
+  "pb2f7f9ed913443": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/pb2f7f9ed913443.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/33b1bdb0b7bfe067",
+   "status": "ok"
+  },
+  "pb3c04cd97c88bc": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/pb3c04cd97c88bc.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/3b3959ad5a7a0ae9",
+   "status": "ok"
+  },
+  "pba8566fa68b015": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/pba8566fa68b015.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/cd2a10e043e3a549",
+   "status": "ok"
+  },
+  "pc2528299a5623b": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/pc2528299a5623b.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/81fbd37fd2d8f2db",
+   "status": "ok"
+  },
+  "pcdb00e154e3764": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/pcdb00e154e3764.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/f7c94bf74b0c062c",
+   "status": "ok"
+  },
+  "pe2468f34d183dc": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/pe2468f34d183dc.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/24a300b9ee91cc2f",
+   "status": "ok"
+  },
+  "pf968b6fca08e70": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/pf968b6fca08e70.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/c9e1aeef4903cb62",
+   "status": "ok"
+  },
+  "pfcb334cc5af413": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/pfcb334cc5af413.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/2bbbc8dcecc74ace",
+   "status": "ok"
+  }
+ }
+}

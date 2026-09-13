@@ -1,0 +1,13 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": null,
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_huffman__HuffmanDecoder/EQ/5e4d412e8228cf1f",
+  "status": "no_vcd"
+ },
+ "design_id": "rtlrewriter_long_huffman__HuffmanDecoder",
+ "missing": [
+  "design"
+ ],
+ "perturbations": {}
+}

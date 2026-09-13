@@ -1,0 +1,48 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_compression/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_compression/EQ/ae3426acfc84f711",
+  "status": "ok"
+ },
+ "design_id": "rtlrewriter_memory__memory_compression",
+ "missing": [],
+ "perturbations": {
+  "p18a33aad213ab3": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_compression/saif/p18a33aad213ab3.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_compression/EQ/ef915f13a6d88c25",
+   "status": "ok"
+  },
+  "p2b21be41efe89d": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_compression/saif/p2b21be41efe89d.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_compression/EQ/5e53293ca398acde",
+   "status": "ok"
+  },
+  "p3aefbf9389cfa3": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_compression/saif/p3aefbf9389cfa3.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_compression/EQ/b969ad9e135e9b9c",
+   "status": "ok"
+  },
+  "p808674f2dc6afa": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_compression/saif/p808674f2dc6afa.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_compression/EQ/a853ab06ce7cfbbd",
+   "status": "ok"
+  },
+  "pab7912a3a1661f": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_compression/saif/pab7912a3a1661f.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_compression/EQ/daeb677f29f149da",
+   "status": "ok"
+  },
+  "pb7a5ea1ea2cfa6": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_compression/saif/pb7a5ea1ea2cfa6.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_compression/EQ/6398dc09e6e3ffd7",
+   "status": "ok"
+  }
+ }
+}

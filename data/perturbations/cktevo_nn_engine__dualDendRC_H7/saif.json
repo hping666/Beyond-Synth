@@ -1,0 +1,90 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/3ff37cbcf17d1c49",
+  "status": "ok"
+ },
+ "design_id": "cktevo_nn_engine__dualDendRC_H7",
+ "missing": [],
+ "perturbations": {
+  "p0a06073f28f0fa": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/p0a06073f28f0fa.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/0892c5144b9eeb5e",
+   "status": "ok"
+  },
+  "p1ecdc23dd95b1c": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/p1ecdc23dd95b1c.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/f302e70bef210a19",
+   "status": "ok"
+  },
+  "p5c6ff9967fb0bc": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/p5c6ff9967fb0bc.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/b6687299614cc47a",
+   "status": "ok"
+  },
+  "p5ce2cbfc3b57cc": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/p5ce2cbfc3b57cc.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/7d454f105994d6ed",
+   "status": "ok"
+  },
+  "p79fdff7fc6dfa2": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/p79fdff7fc6dfa2.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/729549b94f1efc27",
+   "status": "ok"
+  },
+  "pb998686da060ce": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/pb998686da060ce.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/3cbaa9d2906bd6d4",
+   "status": "ok"
+  },
+  "pc275fc58d34c0b": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/pc275fc58d34c0b.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/4927291029e9ea07",
+   "status": "ok"
+  },
+  "pc455291b8f5960": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/pc455291b8f5960.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/02571ad2380e83ac",
+   "status": "ok"
+  },
+  "pc9206f2eba80c7": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/pc9206f2eba80c7.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/a4482fe45b43771f",
+   "status": "ok"
+  },
+  "pd5ba90b5519dc8": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/pd5ba90b5519dc8.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/4484a214de8d1d6f",
+   "status": "ok"
+  },
+  "pda70b058002c42": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/pda70b058002c42.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/bb00aa6a1bdfa086",
+   "status": "ok"
+  },
+  "pdb9e5418196fab": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/pdb9e5418196fab.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/c27020d7b6331f7c",
+   "status": "ok"
+  },
+  "pfb102fe0f0d98f": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/pfb102fe0f0d98f.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/bf4b7afe9bb3c967",
+   "status": "ok"
+  }
+ }
+}

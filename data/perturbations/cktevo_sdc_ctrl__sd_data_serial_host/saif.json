@@ -1,0 +1,18 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_sdc_ctrl__sd_data_serial_host/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_sdc_ctrl__sd_data_serial_host/EQ/644905d17955cc2c",
+  "status": "ok"
+ },
+ "design_id": "cktevo_sdc_ctrl__sd_data_serial_host",
+ "missing": [],
+ "perturbations": {
+  "p2e6b002c3b78be": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_sdc_ctrl__sd_data_serial_host/saif/p2e6b002c3b78be.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_sdc_ctrl__sd_data_serial_host/EQ/bdd05c2fd53b542f",
+   "status": "ok"
+  }
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_folding2/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_folding2/EQ/2da5f3b875b3a4a0",
+  "status": "ok"
+ },
+ "design_id": "rtlrewriter_memory__memory_folding2",
+ "missing": [],
+ "perturbations": {
+  "p1fea4d6717c312": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_folding2/saif/p1fea4d6717c312.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_folding2/EQ/36cbcb4d8a130f62",
+   "status": "ok"
+  },
+  "p5107fcd34ee7ed": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_folding2/saif/p5107fcd34ee7ed.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_folding2/EQ/4d256ca89a548835",
+   "status": "ok"
+  },
+  "p52d818608dd5f4": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_folding2/saif/p52d818608dd5f4.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_folding2/EQ/8cbc8f49840e147f",
+   "status": "ok"
+  },
+  "pc611d62c3bd36c": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_folding2/saif/pc611d62c3bd36c.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_folding2/EQ/583f07e13ff88c32",
+   "status": "ok"
+  }
+ }
+}

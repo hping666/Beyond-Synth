@@ -1,0 +1,60 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/32f4948d36b283aa",
+  "status": "ok"
+ },
+ "design_id": "rtlrewriter_long_cpu__DataMem",
+ "missing": [],
+ "perturbations": {
+  "p1a7cc062295147": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/p1a7cc062295147.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/a285b76c61b9f68f",
+   "status": "ok"
+  },
+  "p1f3249b1ad875a": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/p1f3249b1ad875a.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/2802a9e4f8ac5011",
+   "status": "ok"
+  },
+  "p6488708de01be8": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/p6488708de01be8.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/83d3fcd0c4f92574",
+   "status": "ok"
+  },
+  "p820a88b1f7a011": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/p820a88b1f7a011.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/c6f9710a95d2532e",
+   "status": "ok"
+  },
+  "p97076600d6dcfb": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/p97076600d6dcfb.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/6bc5cd34de08993b",
+   "status": "ok"
+  },
+  "pad675556a493cb": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/pad675556a493cb.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/ad3402e4ff9d61fa",
+   "status": "ok"
+  },
+  "pb8307ed270f114": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/pb8307ed270f114.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/173f8411aa61b27f",
+   "status": "ok"
+  },
+  "pc4ac2f360f6926": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/pc4ac2f360f6926.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/7a0bbb1aff7a5ff2",
+   "status": "ok"
+  }
+ }
+}

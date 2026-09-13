@@ -1,0 +1,18 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_sub_64bit/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_sub_64bit/EQ/eacc34b5cafeaeaf",
+  "status": "ok"
+ },
+ "design_id": "rtllm_sub_64bit",
+ "missing": [],
+ "perturbations": {
+  "p94b205629566fa": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_sub_64bit/saif/p94b205629566fa.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_sub_64bit/EQ/dd06492f8e6bb8b8",
+   "status": "ok"
+  }
+ }
+}

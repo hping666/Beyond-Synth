@@ -1,0 +1,108 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/9ac50a03d7533f5a",
+  "status": "ok"
+ },
+ "design_id": "cktevo_vga_enh__vga_wb_master",
+ "missing": [],
+ "perturbations": {
+  "p23d99776184b93": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/p23d99776184b93.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/9eb877b655a5323f",
+   "status": "ok"
+  },
+  "p3d0fbcacfa53b6": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/p3d0fbcacfa53b6.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/6931699fe3b95a0f",
+   "status": "ok"
+  },
+  "p3fdf8b610b5490": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/p3fdf8b610b5490.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/51dc9ec4d6f1741d",
+   "status": "ok"
+  },
+  "p5030b76a26194b": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/p5030b76a26194b.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/b077571a66b7b36a",
+   "status": "ok"
+  },
+  "p560c4456a1d42a": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/p560c4456a1d42a.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/c9c14dccc6c24e13",
+   "status": "ok"
+  },
+  "p6d87e0f677aaae": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/p6d87e0f677aaae.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/0c5ab17ae99a362e",
+   "status": "ok"
+  },
+  "p9272201a2b689b": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/p9272201a2b689b.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/7dfcbcbe704f8a17",
+   "status": "ok"
+  },
+  "p9ce97ac4cbdbe5": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/p9ce97ac4cbdbe5.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/f44c60ec79fd628c",
+   "status": "ok"
+  },
+  "pa2214ccec5ade8": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/pa2214ccec5ade8.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/76d6485d814a8480",
+   "status": "ok"
+  },
+  "pa8460219ec8564": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/pa8460219ec8564.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/f4dabbf486e28417",
+   "status": "ok"
+  },
+  "pb4f274e13df65c": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/pb4f274e13df65c.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/d75c36d8dfb858c9",
+   "status": "ok"
+  },
+  "pbacd3603b926cf": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/pbacd3603b926cf.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/dfd7e72bde4956f4",
+   "status": "ok"
+  },
+  "pda11a1db321a95": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/pda11a1db321a95.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/b2e6cf28476a7179",
+   "status": "ok"
+  },
+  "pdbe5071ddee3b9": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/pdbe5071ddee3b9.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/07f2073aef67c320",
+   "status": "ok"
+  },
+  "pf365070653ff2a": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/pf365070653ff2a.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/571e7a193b2346eb",
+   "status": "ok"
+  },
+  "pf3dd5f288acbea": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_master/saif/pf3dd5f288acbea.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/EQ/5d05bb2a194fa20f",
+   "status": "ok"
+  }
+ }
+}

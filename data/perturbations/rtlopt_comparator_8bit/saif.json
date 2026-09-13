@@ -1,0 +1,24 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_comparator_8bit/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_8bit/EQ/a0b7d556f2b624d0",
+  "status": "ok"
+ },
+ "design_id": "rtlopt_comparator_8bit",
+ "missing": [],
+ "perturbations": {
+  "p37db1b63e4cb6f": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_comparator_8bit/saif/p37db1b63e4cb6f.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_8bit/EQ/4bf63ed2fadc8c18",
+   "status": "ok"
+  },
+  "p7f7216c7cd02f3": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_comparator_8bit/saif/p7f7216c7cd02f3.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_8bit/EQ/ba1506ec1c74ede8",
+   "status": "ok"
+  }
+ }
+}

@@ -53,6 +53,22 @@ def summarize(deltas):
             "q95_abs": quantile(absd, 0.95), "max_abs": max(absd), "n": len(deltas)}
 
 
+def pick_records(conn, design_id, config, proven, clock_ns=None, eps=1e-6):
+    """The baseline record and the {pert_id: record} of the proven perturbations to compute sigma_D from: status ok,
+    at clock_ns when given; a record with SAIF power (power_saif_mw not null) is preferred over one without, the
+    latest among equals (the noise runs were first submitted without SAIF, spec 02 §4 needs power_saif)."""
+    clk = "" if clock_ns is None else " AND abs(clock_ns-?)<?"
+    args = () if clock_ns is None else (float(clock_ns), eps)
+    base = conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL "
+                        f"AND status='ok'{clk} ORDER BY (power_saif_mw IS NOT NULL) DESC, eval_id DESC LIMIT 1", (design_id, config, *args)).fetchone()
+    latest = {}
+    for x in conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config=? AND pert_id IS NOT NULL AND status='ok'"
+                          f"{clk} ORDER BY (power_saif_mw IS NOT NULL), eval_id", (design_id, config, *args)):
+        if x["pert_id"] in proven:
+            latest[x["pert_id"]] = dict(x)  # the last row wins: SAIF-backed, then latest
+    return (dict(base) if base is not None else None), latest
+
+
 def floor_rows(design_id, config, baseline, pert_records, clock_ns):
     """baseline / pert_records: dicts with the evaluations columns; -> [noise_floor row dicts]."""
     rows = []

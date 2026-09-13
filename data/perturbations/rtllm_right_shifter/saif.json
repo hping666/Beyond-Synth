@@ -1,0 +1,11 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_right_shifter/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_right_shifter/EQ/4fffc2b48bde71ef",
+  "status": "ok"
+ },
+ "design_id": "rtllm_right_shifter",
+ "missing": [],
+ "perturbations": {}
+}

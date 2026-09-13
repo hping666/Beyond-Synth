@@ -1,0 +1,13 @@
+{
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": null,
+  "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_arm_cpu1/EQ/0729c9683d029731",
+  "status": "no_vcd"
+ },
+ "design_id": "drrtl_arm_cpu1",
+ "missing": [
+  "design"
+ ],
+ "perturbations": {}
+}
