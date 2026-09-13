@@ -165,3 +165,21 @@ def test_stages_share_one_deadline(tmp_path, monkeypatch):
     assert rec["v2_status"] == "identical" and rec["v3_status"] == "inconclusive" and "out of time" in (rec.get("v3") or {}).get("error", "")
     rec = ST.check_equivalence(tmp_path / "c", [ACCU], [ACCU], "verified_accu", CFG, run_v4=False, timeout_sec=None)
     assert rec["verdict"] == "proven" and seen["v2_timeout"] is None  # unlimited stays unlimited
+
+
+def test_seq_solver_limit_stays_inside_the_process_budget(tmp_path, monkeypatch):
+    from src.equiv import seq as SQ
+    seen = {}
+
+    class FakeVcf:
+        def seq_equiv(self, *a, **kw):
+            seen.update(kw)
+            return {"status": "inconclusive", "runtime_s": 1.0}
+
+    monkeypatch.setattr(SQ, "_vcf", lambda cfg: FakeVcf())
+    SQ.run_seq(tmp_path, [ACCU], [ACCU], "verified_accu", "clk", "rst_n", "low", CFG, timeout_sec=1530.0)
+    assert seen["max_time"] == "20M" and seen["timeout"] == 1530.0  # 80 % of the budget in whole minutes
+    SQ.run_seq(tmp_path, [ACCU], [ACCU], "verified_accu", "clk", "rst_n", "low", CFG)
+    assert seen["max_time"] == f"{int(CFG['timeouts']['seq_min'])}M"
+    SQ.run_seq(tmp_path, [ACCU], [ACCU], "verified_accu", "clk", "rst_n", "low", CFG, timeout_sec=30.0)
+    assert seen["max_time"] == "1M"  # never below one minute

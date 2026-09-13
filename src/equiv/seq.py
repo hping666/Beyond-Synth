@@ -25,8 +25,13 @@ def run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, *, impl_to
     wd = Path(job_dir) / "v3_seq"
     seq_min = int(cfg["timeouts"]["seq_min"])
     t0 = time.time()
+    if max_time is None:
+        # the solver's own limit stays well inside the process budget so that SEQ returns `inconclusive` by itself
+        # instead of being killed by the process (or queue) timeout without a record (divider_32bit, 2026-09-13)
+        minutes = max(1, int(float(timeout_sec) * 0.8 // 60)) if timeout_sec else seq_min
+        max_time = f"{minutes}M"
     r = vcf.seq_equiv([str(f) for f in d_files], [str(f) for f in c_files], top, impl_top=impl_top or top, clk=clk, rst=rst,
-                      rst_sense=rst_sense or "high", workdir=str(wd), max_time=max_time or f"{seq_min}M",
+                      rst_sense=rst_sense or "high", workdir=str(wd), max_time=max_time,
                       timeout=float(timeout_sec or seq_min * 60 + 300), sverilog=sverilog,
                       workers=int(cfg["tools"]["vcformal"].get("seq_workers", 1)))
     status = STATUS_MAP.get(r.get("status"), "error")
