@@ -80,7 +80,9 @@ def rename_is_alpha(manifest, entry, root=None):
     for mapping in ((entry.get("details") or {}).get("renamed") or {}).values():
         for old_name, new_name in mapping.items():
             back = re.sub(rf"(?<![A-Za-z_0-9$]){re.escape(new_name)}(?![A-Za-z_0-9$])", old_name, back)
-    return back == rt
+    # the re-printer wraps lines by identifier length, so only the token stream is compared (whitespace-insensitive)
+    squash = lambda s: re.sub(r"\s+", " ", s).strip()
+    return squash(back) == squash(rt)
 
 
 def collect(conn, cfg, designs=None, root=None):

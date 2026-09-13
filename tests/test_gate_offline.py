@@ -36,6 +36,9 @@ def test_alpha_rename_accepted_only_with_a_proven_round_trip(tmp_path):
     p1 = RT.replace("wire t;", "wire alpha_0;").replace("assign t = a;", "assign alpha_0 = a;").replace("assign y = t;", "assign y = alpha_0;")
     cfg, conn, design, root, manifest = setup(tmp_path, p1)
     assert GT.rename_is_alpha(manifest, manifest["perturbations"][0], root)
+    (root / "s_top" / "P1_rename_0.v").write_text(p1.replace("assign y = alpha_0;", "assign y =\n    alpha_0;"))  # different line wrapping only
+    assert GT.rename_is_alpha(manifest, manifest["perturbations"][0], root)
+    (root / "s_top" / "P1_rename_0.v").write_text(p1)
     s = GT.collect(conn, cfg, [design], root)
     assert s["s_top"]["roundtrip"] == "proven" and s["s_top"]["counts"] == {"proven": 1, "proven_rename": 1}
     assert conn.execute("SELECT seq_status FROM perturbations WHERE pert_id='p1'").fetchone()[0] == "proven_rename"
