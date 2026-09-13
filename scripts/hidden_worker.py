@@ -35,6 +35,12 @@ from src.eval.service import HiddenConfigError, evaluate  # noqa: E402
 from src.noise import stats as S  # noqa: E402
 
 EX_TEMPFAIL = 75
+RUNNER_TIMEOUT_FRACTION = 0.85  # the tool's own timeout fires before the queue kills the job, so the record says timeout / inconclusive
+
+
+def runner_timeout(job):
+    return float(job["timeout_sec"]) * RUNNER_TIMEOUT_FRACTION if job["timeout_sec"] else None
+
 
 
 def hidden_db_path(cfg):
@@ -60,7 +66,7 @@ def run_job(cfg, job_id, vis=None, hid=None):
                         clk_port=p.get("clk_port", "clk"), cand_id=p.get("cand_id"), pert_id=p.get("pert_id"),
                         is_baseline=p.get("is_baseline", 0), saif=p.get("saif"), saif_instance=p.get("saif_instance"),
                         sverilog=p.get("sverilog", False), incdirs=p.get("incdirs"), force_rerun=p.get("force_rerun", False),
-                        timeout_sec=job["timeout_sec"], source_conn=vis)
+                        timeout_sec=runner_timeout(job), source_conn=vis)
     except HiddenConfigError as e:
         print(f"refused: {e}", file=sys.stderr)
         return 1

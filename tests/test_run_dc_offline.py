@@ -26,3 +26,9 @@ def test_runner_reads_config_from_payload_or_job_row(tmp_path, monkeypatch):
     assert seen == [("d1", "E4", None, 1), ("d2", "K_asap7", "a b", 0)]
     assert R.main(["--job", "jnope"]) == 1
     assert json.loads(conn.execute("SELECT payload_json FROM jobs WHERE job_id=?", (j1,)).fetchone()[0])["config"] == "E4"
+
+
+def test_runner_timeout_keeps_a_margin_below_the_queue_timeout():
+    assert R.runner_timeout({"timeout_sec": 1000.0}) == 850.0 and R.runner_timeout({"timeout_sec": None}) is None
+    from src.equiv import run_equiv as RE
+    assert RE.runner_timeout({"timeout_sec": 1800.0}) == 1530.0

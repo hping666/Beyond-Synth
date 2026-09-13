@@ -22,6 +22,12 @@ from src.eval import parse as P
 from src.eval.service import job_directory
 
 EX_TEMPFAIL = 75
+RUNNER_TIMEOUT_FRACTION = 0.85  # the tool's own timeout fires before the queue kills the job, so the record says timeout / inconclusive
+
+
+def runner_timeout(job):
+    return float(job["timeout_sec"]) * RUNNER_TIMEOUT_FRACTION if job["timeout_sec"] else None
+
 
 
 def equiv_hash(d_files, c_files, top, cfg, extra):
@@ -75,7 +81,7 @@ def main(argv=None):
         job_dir.mkdir(parents=True, exist_ok=True)
         rec = check_equivalence(job_dir, p["d_rtl"], p["c_rtl"], p["top"], cfg, clk=p.get("clk"), rst=p.get("rst"),
                                 rst_sense=p.get("rst_sense"), sverilog=p.get("sverilog", False), incdirs=p.get("incdirs"),
-                                run_v3=stages_full, timeout_sec=job["timeout_sec"], design_id=p["design_id"], sim_seed=p.get("sim_seed"), c_top=p.get("c_top"))
+                                run_v3=stages_full, timeout_sec=runner_timeout(job), design_id=p["design_id"], sim_seed=p.get("sim_seed"), c_top=p.get("c_top"))
         rec.update(design_id=p["design_id"], cand_id=p.get("cand_id"), input_hash=h, raw_dir=str(job_dir),
                    git_sha=C.git_sha(), cfg_hash=C.cfg_hash(), job_id=a.job, kind=job["kind"])
         (job_dir / "equiv.json").write_text(json.dumps(rec, indent=1, sort_keys=True, default=str))
