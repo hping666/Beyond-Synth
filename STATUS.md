@@ -1,18 +1,20 @@
 # STATUS.md — current state (read first at the start of every session; update before the end)
 
-Last updated: 2026-09-12 · Phase 1 in progress (1.1, 1.2, 1.4, 1.5 done; 1.3 knee sweeps running)
+Last updated: 2026-09-12 evening · Phase 1 in progress (1.1, 1.2, 1.4, 1.5 done; 1.3 knee sweeps running overnight); Phase 2.1 gate and 2.4 pilot running
 
 ## Current phase
 
 Phase: 1 (docs/PLAN.md Phase 1 — design sets and constraints); Phase 0 closed at G0 on 2026-09-12
-Current task: 1.3 knee-point sweeps running through the queue daemon; Phase 2.1 SEQ gate of 1 398 perturbations + 164 round trips running in the vcf pool (4 seats); Phase 2 engineering done ahead of the data: hidden worker (`dc_hidden` kind, `--submit-noise`, `--noise-floor`), visible noise driver (`scripts/phase2_noise.py`), noise statistics, Phase 2 report generator, LLM client (`src/search/llm.py`). Sweeps running through the queue daemon (wave 1 submitted 2026-09-12 15:27: rtllm / drrtl / rtlopt on all three libraries + rtlrewriter on Nangate45, 2 457 jobs; wave 2 15:50: the CktEvo set, 630 jobs; 12 concurrent DC runs, several hours). Phase 2.1 engineering (perturbation generator) runs in parallel.
+Current task: 1.3 knee-point sweeps running through the queue daemon (wave 1 15:27 + wave 2 15:50, ≈3 100 DC jobs; 12 concurrent; ≈300 jobs/h → drain expected in the small hours of 2026-09-13). In parallel in the vcf pool (4 seats): Phase 2.1 SEQ gate of the perturbations (≈1 600 jobs) and the Phase 2.4 SEQ pilot (hand-made variants + RTL-OPT pairs, two seeds each).
+Resume procedure when the DC pool has drained: `scripts/phase1_collect.py knee` → `scripts/phase1_sets.py sky130` → `scripts/report_phase.py phase1` → hand-check 5 curves in reports/phase1.md → STATUS → commit (Phase 1 closes). When the vcf pool has drained: `scripts/phase2_perturb.py collect` → `scripts/phase2_noise.py submit --submit` (E1–E4 at Φ) and `scripts/hidden_worker.py --submit-noise` (hidden configurations) → after those DC runs `scripts/phase2_noise.py collect`, `scripts/hidden_worker.py --noise-floor`, `scripts/phase2_pilot.py collect`, `scripts/report_phase.py phase2` (G1–G3).
 Done on 2026-09-12 (Phase 1 session):
 - 1.1 sources located and pinned (config `design_sets.sources`): RTLLM v2.0 (local checkout, MIT), Dr.RTL 20 (hkust-zhiyao/DR_RTL, no license file), RTL-OPT (anonymous repo of the paper expired → hkust-zhiyao/RTL-OPT, MIT, 40 pairs), CktEvo (cure-lab/cktevo), RTLRewriter-Bench (yaoxufeng). Staged by `scripts/stage_designs.py` into data/designs/<suite>/<name>/ (design.json + gitignored copies; SOURCE.md / index.json / POOL.json): rtllm 50, drrtl 20, rtlopt 40, cktevo pool 83, rtlrewriter 72 = 265.
 - 1.2 inventory (`scripts/inventory.py`, reports/data/phase1_inventory.json): Yosys probe identifies clocks by flip-flop use; 13 multi-clock designs, 15 Yosys parse failures, 3 SystemVerilog-only. E4 trial at 4.0 ns Nangate45 (`scripts/phase1_collect.py trial`, reports/data/phase1_trial.json): synthesizable rtllm 43/50, drrtl 19/20, rtlopt 40/40, cktevo 78/83, rtlrewriter 54/72; failures are design errors (mixed blocking/non-blocking, assign to reg, undefined symbols, SystemVerilog constructs that DC rejects even in SV mode) or memory models (empty netlist / timeout); reasons per design in the trial JSON and reports/phase1.md.
 - 1.5 CktEvo set: 30 modules (≤5 per repository, round-robin by size; tag `cktevo_set`, config `design_sets.suites.cktevo.held`). 1.4 split: dev = 20 RTLLM designs (seeded stratified sample, config `design_sets.suites.rtllm.dev`), held = 21 rtllm + 18 drrtl + 39 rtlopt + 30 cktevo (`split` column, config held lists); rtlrewriter calibration-only (no split). Eligibility = E4 ok, single clock, Yosys-readable.
 - Rule-3 gap closed (hidden configurations routed to the hidden DB / raw tree; Phase 0 H-rows migrated); K_asap7 / K_sky130hd knee configurations; `queue.dc_concurrency: 12`; multi-clock SDC; SDC guard for zero-input designs; config-edit lesson recorded (DECISIONS).
 - Phase 2.1 started: `src/noise/` perturbation generator (Pyverilog: P1 rename, P2 reorder, P3 expressions, P4 control) with bidirectional tests (Yosys equivalence on a synthetic design; NotApplicable paths); accu smoke: 10 perturbations + round trip.
-- Tests: 215 offline passed, 14 EDA skipped.
+- Phase 2 / 3 groundwork done ahead of the data: hidden worker (`dc_hidden` kind, `--submit-noise`, `--noise-floor`), visible noise driver, noise statistics, Phase 2 report generator, LLM client with per-tier prices (user-supplied 2026-09-12) and budget ledger, M6 rule classifier, M3 diagnoser, SEQ-pilot driver and hand-made variants (CLAUDE.md exception 2), lock-step sampling moved before the posedge, `proven_rename` gate rule, sky130hd dont-use cells.
+- Tests: 243 offline passed, 14 EDA skipped (`tests/test_equiv_eda.py` re-run green after the harness change).
 Stopped at: knee sweeps running (daemon pid in results/queue/daemon.pid). When they drain: `scripts/phase1_collect.py knee` → `scripts/phase1_sets.py sky130` → `scripts/report_phase.py phase1` → hand-check 5 curves → STATUS → commit → Phase 2.
 Next steps (by priority):
 1. Knee collection (Φ_main per library, fallback counts, spot-check curves), `cktevo_sky130` subset (8), reports/phase1.md, close Phase 1
@@ -68,8 +70,9 @@ Open items from 0.5: RTL-line mapping of the critical path is not yet implemente
 
 ## Open questions / known risks
 
-- LLM prices: the budget ledger needs USD prices per 1M tokens (input / cached input / output) for gpt-5.6-luna, gpt-5.4-mini, gpt-5.6-terra, gpt-5.4 in config `llm.prices_usd_per_1m`; the client refuses to call a model without a price (tests/test_llm_client_offline.py). Values to be supplied by the user before the Phase 2.4 LLM batch.
-- PLAN 2.4 lists "hand-made retiming variants of Dr.RTL designs" among the SEQ-pilot candidates: the operator must not write candidate RTL (CLAUDE.md), so the pilot will use the RTL-OPT pairs whose flip-flop count changes (only 4: fsm, fsm_encode, mac, saturating_add) plus the LLM batch, unless the user supplies hand-made variants.
+- (resolved 2026-09-12) LLM prices per tier supplied by the user and written into config; hand-made pilot variants allowed by CLAUDE.md exception 2.
+- SEQ and registers without reset: VC Formal SEQ treats their initial state as free, so renamed registers (handled by the `proven_rename` rule) and RTL-OPT saturating_add's dead flag registers are falsified although simulation cannot distinguish the designs; G2 decision: assume a reset-sequence / all-zero initial state in SEQ or keep the conservative verdict.
+- V2 offsets: a candidate whose latency change is not a uniform per-output delay (DSP with an extra multiplier stage feeding only some paths) shows as sim_fail, not offset; class (c2) certification covers only uniform per-output delays.
 - Config edits while a batch runs change `cfg_hash` for later jobs (cache misses only) and a syntax error kills every runner: validate in the same command, edit between batches when possible (DECISIONS 2026-09-12).
 
 ## Decision summary (details in docs/DECISIONS.md)
