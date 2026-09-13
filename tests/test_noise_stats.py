@@ -82,3 +82,43 @@ def test_conclusion_four_way_both_directions():
     assert S.conclusion({"tns": None, "area": None}, sig, k) is None
     assert S.conclusion({"cells": -0.5}, sig, k) is None               # no sigma for that metric
     assert S.conclusion({}, sig, k) is None
+
+
+def test_g1_analysis_helpers_both_directions(tmp_path):
+    """floor_analysis / ptype_change_rates / monotonicity on a two-design, two-rung database: a perturbation that
+    leaves the netlist unchanged counts as unchanged, one that changes it counts; the pooled quantiles and the proposed
+    threshold come out as expected; a design whose area grows from E1 to E4 is counted as non-monotone."""
+    from src.db import core as db
+    conn = db.connect(path=str(tmp_path / "r.sqlite"))
+    for pid, did, pt in (("a1", "A", "P1_rename"), ("a2", "A", "P2_reorder"), ("a3", "A", "P2_reorder"), ("b1", "B", "P1_rename"), ("b2", "B", "P1_rename")):
+        db.insert(conn, "perturbations", {"pert_id": pid, "design_id": did, "ptype": pt, "path": "x", "seq_status": "proven"})
+    n = [0]
+
+    def ev(did, config, pert, area, cells=10):
+        n[0] += 1
+        db.insert(conn, "evaluations", {"design_id": did, "pert_id": pert, "is_baseline": int(pert is None), "config": config, "lib": "n", "clock_ns": 1.0,
+                                        "area_um2": area, "cells": cells, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0, "status": "ok", "raw_dir": f"/x/{n[0]}", "hist_json": "{}"})
+    # design A: E1 area 100, E4 area 110 (non-monotone); perturbations a1 unchanged, a2 +10 %, a3 unchanged under E4
+    ev("A", "E1", None, 100.0)
+    ev("A", "E4", None, 110.0)
+    ev("A", "E4", "a1", 110.0)
+    ev("A", "E4", "a2", 121.0, cells=12)
+    ev("A", "E4", "a3", 110.0)
+    # design B: monotone (100 -> 90); both perturbations unchanged
+    ev("B", "E1", None, 100.0)
+    ev("B", "E4", None, 90.0)
+    ev("B", "E4", "b1", 90.0)
+    ev("B", "E4", "b2", 90.0)
+    designs = [{"design_id": "A", "phi": 1.0}, {"design_id": "B", "phi": 1.0}]
+    proven = S.proven_by_design(conn)
+    assert proven == {"A": {"a1", "a2", "a3"}, "B": {"b1", "b2"}}
+    fa = S.floor_analysis(conn, designs, ["E4"], proven, k=2.0)
+    a = fa[("E4", "area")]
+    assert a["records"] == 5 and abs(a["frac_zero"] - 0.8) < 1e-9 and a["designs"] == 2
+    assert a["zero_robust"] == 2 and a["zero_std"] == 1           # A: MAD of [0, .1, 0] is 0 but std > 0; B: all zero
+    assert abs(a["pooled"]["max"] - 0.1) < 1e-9 and a["max_abs_gt"] == {"1pct": 1, "5pct": 1}
+    assert abs(a["t_proposed"]["max"] - 0.1) < 1e-9 and a["t_proposed"]["above_pooled_min"] == 1  # A above the pooled q95, B at it
+    rates = S.ptype_change_rates(conn, designs, ["E4"], proven)
+    assert rates[("E4", "P1_rename")] == {"n": 3, "changed": 0} and rates[("E4", "P2_reorder")] == {"n": 2, "changed": 1}
+    mono = S.monotonicity(conn, designs, ["E1", "E4"])
+    assert mono["n"] == 2 and mono["steps"][("E1", "E4")] == {"area_up": 1, "wns_down": 0}

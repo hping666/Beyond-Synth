@@ -22,6 +22,7 @@ from pathlib import Path  # noqa: E402
 from src import config as C  # noqa: E402
 from src.db import core as db  # noqa: E402
 from src.designs import catalog as K  # noqa: E402
+from src.noise import stats as S  # noqa: E402
 
 DATA = Path(ROOT) / "reports" / "data"
 
@@ -214,6 +215,46 @@ def phase2(cfg):
         L += ["", f"Minimum reportable gain = {cfg['noise']['k_sigma']} x sigma_D (config noise.k_sigma); per-design values in the noise_floor table and reports/data/phase2_noise_floor.json.", ""]
     else:
         L += ["(not collected yet: scripts/phase2_noise.py collect)", ""]
+    # ---- G1 analysis: how the floors are distributed, which perturbation types change the netlist, monotonicity of D
+    k = float(cfg["noise"]["k_sigma"])
+    configs = (floor or {}).get("configs") or [c for c in cfg["noise"]["configs"] if not cfg["configs"][c].get("hidden")]
+    set_designs = [{"design_id": r["design_id"], "phi": float(r["phi_main_ns_nangate45"])} for r in conn.execute(
+        "SELECT design_id, phi_main_ns_nangate45 FROM designs WHERE split IN ('dev', 'held') AND phi_main_ns_nangate45 IS NOT NULL ORDER BY design_id")]
+    proven = S.proven_by_design(conn)
+    fa = S.floor_analysis(conn, set_designs, configs, proven, k)
+    if fa:
+        L += ["### 2a. Floor distribution on the set designs (dev + held)", "",
+              "| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q95 of abs delta | pooled q99 | pooled max | proposed t_D median / q95 / max | designs above pooled min |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        for (config, m), a in sorted(fa.items()):
+            tp = a["t_proposed"] or {}
+            L.append(f"| {config} | {m} | {a['designs']} | {a['zero_robust']} | {a['zero_std']} | {a['max_abs_gt']['1pct']} | {a['max_abs_gt']['5pct']} | "
+                     f"{a['pooled']['q95']:.4f} | {a['pooled']['q99']:.4f} | {a['pooled']['max']:.4f} | "
+                     f"{tp.get('median', 0):.4f} / {tp.get('q95', 0):.4f} / {tp.get('max', 0):.4f} | {tp.get('above_pooled_min', 0)} |")
+        L += ["", f"Proposed threshold (G1 alternative): t_D = max({k:.0f} x sigma_robust, max |delta| over D's own proven perturbations, pooled q95 of |delta| over all perturbation records of the configuration); "
+              "the pooled q95 is the minimum for designs whose perturbations never change the netlist. The spec's 2 x sigma_robust stays in the table for the sensitivity report.", ""]
+    rates = S.ptype_change_rates(conn, set_designs, configs, proven)
+    if rates:
+        pts = sorted({pt for _, pt in rates})
+        L += ["### 2b. Perturbation types that change the netlist (area or cell count of D differs)", "",
+              "| config | " + " | ".join(pts) + " |", "|---|" + "---|" * len(pts)]
+        for config in configs:
+            cells = []
+            for pt in pts:
+                e = rates.get((config, pt))
+                cells.append(f"{e['changed']} / {e['n']} ({100 * e['changed'] / e['n']:.0f} %)" if e and e["n"] else "-")
+            L.append(f"| {config} | " + " | ".join(cells) + " |")
+        L.append("")
+    mono = S.monotonicity(conn, set_designs, configs)
+    if mono["n"]:
+        L += [f"### 2c. Monotonicity of D across the rungs ({mono['n']} set designs with every rung at Φ_main)", "",
+              "| step | designs whose area grows | designs whose WNS drops |", "|---|---|---|"]
+        for (a, b), e in mono["steps"].items():
+            L.append(f"| {a} -> {b} | {e['area_up']} | {e['wns_down']} |")
+        L += ["", "WNS is compared at Φ_main (the E4 knee): once a rung meets timing, area recovery legitimately trades slack, so a WNS drop between two rungs that both meet timing is not a regression.", ""]
+    concl = Path(ROOT) / "reports" / "phase2_conclusions.md"
+    if concl.exists():
+        L += [concl.read_text().rstrip("\n"), ""]
     # ---- E4 runtime
     L += ["## 3. E4 runtime (PLAN 2.5)", ""]
     secs = {}
@@ -230,6 +271,33 @@ def phase2(cfg):
         L += [f"Scale (config `scale`): {sc['starting_points']} starting points x {len(sc['arms'])} arms x {sc['seeds']} seeds x N={sc['N']} x K={sc['K']} = {full_e4_runs} candidate evaluations.",
               f"- full-E4 scale: {full_e4_runs * per_design / 3600:.0f} DC hours at the mean t_E4 ({per_design:.0f} s); at 12 concurrent runs ≈ {full_e4_runs * per_design / 3600 / 12:.0f} h wall, at 50 seats ≈ {full_e4_runs * per_design / 3600 / 50:.0f} h.",
               f"- per-design budget rule k_e4_equiv = {sc['budget']['k_e4_equiv']} x t_E4(D): median budget {sc['budget']['k_e4_equiv'] * q['median'] / 3600:.1f} DC hours per run.", ""]
+        # cascade scale: screening rung ES (E1 or E2 at Φ_main, times from the noise baselines) on every candidate, a fraction p promoted to E4
+        t_es = {}
+        for es in ("E1", "E2"):
+            for r in conn.execute("SELECT e.design_id, e.dc_seconds FROM evaluations e JOIN designs d ON d.design_id = e.design_id "
+                                  "WHERE e.config=? AND e.is_baseline=1 AND e.pert_id IS NULL AND e.cand_id IS NULL AND e.status='ok' "
+                                  "AND abs(e.clock_ns - d.phi_main_ns_nangate45) < 1e-6 AND d.split IN ('dev', 'held') ORDER BY e.eval_id", (es,)):
+                t_es.setdefault(es, {})[r["design_id"]] = float(r["dc_seconds"])
+        cheap = float(cfg["screen"]["e4_cheap_sec"])
+        big = {d: s for d, (s, _) in secs.items() if s >= cheap}
+        L += [f"Screening economics (config `screen`): E4 is 'cheap' below {cheap:.0f} s; {len(big)} of {len(secs)} set designs are above that "
+              f"(their mean t_E4 = {(sum(big.values()) / len(big)) if big else 0:.0f} s). Mean screening-rung seconds at Φ_main over the designs with both: "
+              + ", ".join(f"{es} {sum(v for d, v in t_es[es].items() if d in secs) / max(1, sum(1 for d in t_es[es] if d in secs)):.0f} s" for es in sorted(t_es))
+              + "; over the non-cheap designs alone: " + ", ".join(f"{es} {sum(v for d, v in t_es[es].items() if d in big) / max(1, sum(1 for d in t_es[es] if d in big)):.0f} s" for es in sorted(t_es))
+              + f" against t_E4 {(sum(big.values()) / len(big)) if big else 0:.0f} s (a DC screening rung at Φ_main is not cheaper than E4 where E4 is expensive).", "",
+              "| cascade (ES on every candidate, p promoted to E4) | all designs, DC hours | wall at 50 seats | hybrid: cheap designs straight to E4, only non-cheap designs screened |", "|---|---|---|---|"]
+        for es in sorted(t_es):
+            common = [d for d in secs if d in t_es[es]]
+            if not common:
+                continue
+            for p in (0.1, 0.25, 0.5):
+                per = sum(t_es[es][d] + p * secs[d][0] for d in common) / len(common)
+                per_hybrid = sum((t_es[es][d] + p * secs[d][0]) if d in big else secs[d][0] for d in common) / len(common)
+                hours = full_e4_runs * per / 3600
+                hours_hybrid = full_e4_runs * per_hybrid / 3600
+                full = full_e4_runs * per_design / 3600
+                L.append(f"| ES = {es}, p = {p:.2f} | {hours:.0f} ({100 * hours / full:.0f} % of full-E4) | {hours / 50:.0f} h | {hours_hybrid:.0f} ({100 * hours_hybrid / full:.0f} %) |")
+        L.append("")
         by_suite = {}
         for s, suite in secs.values():
             by_suite.setdefault(suite, []).append(s)

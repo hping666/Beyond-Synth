@@ -126,3 +126,88 @@ def upsert_floor(conn, rows):
                      f"sigma_std=excluded.sigma_std, q95_abs=excluded.q95_abs, max_abs=excluded.max_abs, n=excluded.n, "
                      f"abs_unit_value=excluded.abs_unit_value, git_sha=excluded.git_sha, created_at=excluded.created_at", tuple(row.values()))
     return len(rows)
+
+
+# ----------------------------------------------------------------------------- G1 analysis helpers (report)
+def proven_by_design(conn):
+    out = {}
+    for r in conn.execute("SELECT design_id, pert_id FROM perturbations WHERE seq_status IN ('proven', 'proven_rename')"):
+        out.setdefault(r["design_id"], set()).add(r["pert_id"])
+    return out
+
+
+def floor_analysis(conn, designs, configs, proven, k, eps=1e-6):
+    """designs: [{design_id, phi}] -> per (config, metric): designs with a floor (n >= 2), how many have a zero robust /
+    plain sigma, the pooled quantiles of |delta| over every perturbation record, and the distribution of the proposed
+    threshold t_D = max(k * sigma_robust, max|delta|_D, pooled q95) with the number of designs above the pooled minimum."""
+    pooled, per_design = {}, {}
+    for d in designs:
+        did, phi = d["design_id"], d["phi"]
+        for config in configs:
+            base, latest = pick_records(conn, did, config, proven.get(did, set()), phi, eps)
+            if base is None or not latest:
+                continue
+            for m in METRICS:
+                col = COLUMNS[m]
+                dl = deviations(m, base.get(col), [x.get(col) for x in latest.values()], phi)
+                if not dl:
+                    continue
+                pooled.setdefault((config, m), []).extend(abs(x) for x in dl)
+                s = summarize(dl)
+                if s:
+                    per_design[(config, m, did)] = (s["sigma_robust"], s["sigma_std"], s["max_abs"])
+    out = {}
+    for (config, m), v in pooled.items():
+        q95 = quantile(v, 0.95)
+        rows = [(sr, ss, mx) for (c, mm, _), (sr, ss, mx) in per_design.items() if c == config and mm == m]
+        ts = sorted(max(k * sr, mx, q95) for sr, ss, mx in rows)
+        out[(config, m)] = {"records": len(v), "frac_zero": sum(1 for x in v if x == 0) / len(v),
+                            "pooled": {"q90": quantile(v, 0.90), "q95": q95, "q99": quantile(v, 0.99), "max": max(v)},
+                            "designs": len(rows), "zero_robust": sum(1 for sr, _, _ in rows if sr == 0), "zero_std": sum(1 for _, ss, _ in rows if ss == 0),
+                            "max_abs_gt": {"1pct": sum(1 for _, _, mx in rows if mx > 0.01), "5pct": sum(1 for _, _, mx in rows if mx > 0.05)},
+                            "t_proposed": ({"median": quantile(ts, 0.5), "q75": quantile(ts, 0.75), "q95": quantile(ts, 0.95), "max": ts[-1],
+                                            "above_pooled_min": sum(1 for x in ts if x > q95 + 1e-12)} if ts else None)}
+    return out
+
+
+def ptype_change_rates(conn, designs, configs, proven, eps=1e-6):
+    """-> per (config, ptype): records and how many changed the area or the cell count of D (the netlist is not identical)."""
+    ptype_of = {r["pert_id"]: r["ptype"] for r in conn.execute("SELECT pert_id, ptype FROM perturbations")}
+    out = {}
+    for d in designs:
+        did, phi = d["design_id"], d["phi"]
+        for config in configs:
+            base, latest = pick_records(conn, did, config, proven.get(did, set()), phi, eps)
+            if base is None:
+                continue
+            for pid, rec in latest.items():
+                e = out.setdefault((config, ptype_of.get(pid, "?")), {"n": 0, "changed": 0})
+                e["n"] += 1
+                if rec.get("area_um2") is None or base.get("area_um2") is None:
+                    continue
+                if abs(float(rec["area_um2"]) - float(base["area_um2"])) > 1e-6 or rec.get("cells") != base.get("cells"):
+                    e["changed"] += 1
+    return out
+
+
+def monotonicity(conn, designs, configs, eps=1e-6):
+    """Baseline D across the rungs in `configs` order: per consecutive step (and first -> last) how many designs gain area
+    or lose WNS; -> {'n': designs with every rung, 'steps': {(a, b): {'area_up': .., 'wns_down': ..}}}."""
+    steps = list(zip(configs, configs[1:])) + ([(configs[0], configs[-1])] if len(configs) > 2 else [])
+    res = {s: {"area_up": 0, "wns_down": 0} for s in steps}
+    n = 0
+    for d in designs:
+        v = {}
+        for c in configs:
+            b, _ = pick_records(conn, d["design_id"], c, set(), d["phi"], eps)
+            if b:
+                v[c] = b
+        if len(v) < len(configs):
+            continue
+        n += 1
+        for a, b in steps:
+            if v[b].get("area_um2") is not None and v[a].get("area_um2") is not None and float(v[b]["area_um2"]) > float(v[a]["area_um2"]) * (1 + 1e-4):
+                res[(a, b)]["area_up"] += 1
+            if (v[b].get("wns_ns") or 0) < (v[a].get("wns_ns") or 0) - 1e-6:
+                res[(a, b)]["wns_down"] += 1
+    return {"n": n, "steps": res}
