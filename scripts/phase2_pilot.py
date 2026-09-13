@@ -47,9 +47,10 @@ def pilot_entries(designs=None):
         if designs and man["design_id"] not in designs:
             continue
         d = K.load_design(man["design_id"])
+        source = "llm" if str(man.get("author", "")).startswith("LLM") else "hand_made"
         for v in man["variants"]:
             path = m.parent / v["file"]
-            out.append((d, dict(v, path=str(path), cand_id=cand_id_of(path), source="hand_made", top=man.get("top") or d["top"])))
+            out.append((d, dict(v, path=str(path), cand_id=cand_id_of(path), source=source, top=man.get("top") or d["top"])))
     pairs_file = PILOT_DIR / "rtlopt_pairs.json"
     if pairs_file.exists():
         for rec in json.loads(pairs_file.read_text())["pairs"]:

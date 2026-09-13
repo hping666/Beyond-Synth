@@ -18,16 +18,39 @@
    },
    "design_id": "drrtl_DSP",
    "file": "c1_a_register_moved_to_stage0.v",
+   "guardrail3": {
+    "clocked_arithmetic": true,
+    "done_like_ports": [],
+    "offsets_constant": true,
+    "start_like_ports": []
+   },
    "offsets": [
-    null,
-    null
+    {
+     "BCOut": 0,
+     "M": 0,
+     "P": 0,
+     "PCOut": 0,
+     "carryOut": 0,
+     "carryOutF": 0
+    },
+    {
+     "BCOut": 0,
+     "M": 0,
+     "P": 0,
+     "PCOut": 0,
+     "carryOut": 0,
+     "carryOutF": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    1800.11,
+    1800.13
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "inconclusive",
+    "inconclusive"
    ]
   },
   {
@@ -129,8 +152,8 @@
    "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [
-    28.63,
-    28.43
+    28.16,
+    28.02
    ],
    "verdicts": [
     "proven",
@@ -363,8 +386,8 @@
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "sim_fail",
+    "sim_fail"
    ]
   },
   {
@@ -393,68 +416,84 @@
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "sim_fail",
+    "sim_fail"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.0952,
      "ff_c": 63,
      "ff_d": 57,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 57 -> 63 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_LIFObuffer",
    "file": "c2_0_c50c2cbe60aac44.v",
    "offsets": [
-    null,
-    null
+    {
+     "EMPTY": 1,
+     "FULL": 1,
+     "dataOut": 1
+    },
+    {
+     "EMPTY": 1,
+     "FULL": 1,
+     "dataOut": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.0952,
      "ff_c": 63,
      "ff_d": 57,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 57 -> 63 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_LIFObuffer",
    "file": "c2_1_c1fcb2672517aca.v",
    "offsets": [
-    null,
-    null
+    {
+     "EMPTY": 1,
+     "FULL": 1,
+     "dataOut": 1
+    },
+    {
+     "EMPTY": 1,
+     "FULL": 1,
+     "dataOut": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -476,15 +515,26 @@
    "design_id": "rtllm_LIFObuffer",
    "file": "b_0_c0a2675c61668eb.v",
    "offsets": [
-    null,
-    null
+    {
+     "EMPTY": 0,
+     "FULL": 0,
+     "dataOut": 0
+    },
+    {
+     "EMPTY": 0,
+     "FULL": 0,
+     "dataOut": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.79,
+    28.37
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -506,15 +556,26 @@
    "design_id": "rtllm_LIFObuffer",
    "file": "b_1_ce95d63979b2e25.v",
    "offsets": [
-    null,
-    null
+    {
+     "EMPTY": 0,
+     "FULL": 0,
+     "dataOut": 0
+    },
+    {
+     "EMPTY": 0,
+     "FULL": 0,
+     "dataOut": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.72,
+    28.7
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -536,15 +597,24 @@
    "design_id": "rtllm_accu",
    "file": "c1_0_c922408331c1804.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "valid_out": 0
+    },
+    {
+     "data_out": 0,
+     "valid_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    26.89,
+    27.63
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -566,75 +636,96 @@
    "design_id": "rtllm_accu",
    "file": "c1_1_c690562ff6b5e39.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "valid_out": 0
+    },
+    {
+     "data_out": 0,
+     "valid_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.84,
+    27.79
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1273,
      "ff_c": 34,
      "ff_d": 23,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 23 -> 34 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_accu",
    "file": "c2_0_cc2c1068875da8e.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 1,
+     "valid_out": 1
+    },
+    {
+     "data_out": 1,
+     "valid_out": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1429,
      "ff_c": 34,
      "ff_d": 23,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 23 -> 34 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_accu",
    "file": "c2_1_c9b5bf0f196134d.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 1,
+     "valid_out": 1
+    },
+    {
+     "data_out": 1,
+     "valid_out": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -656,15 +747,24 @@
    "design_id": "rtllm_accu",
    "file": "b_0_c5a5befd0675ae7.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "valid_out": 0
+    },
+    {
+     "data_out": 0,
+     "valid_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.47,
+    28.13
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -686,15 +786,24 @@
    "design_id": "rtllm_accu",
    "file": "b_1_c0ecb7cb99b6ac6.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "valid_out": 0
+    },
+    {
+     "data_out": 0,
+     "valid_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.02,
+    27.46
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -716,15 +825,24 @@
    "design_id": "rtllm_adder_16bit",
    "file": "c1_0_c48965af8203753.v",
    "offsets": [
-    null,
-    null
+    {
+     "Co": 0,
+     "y": 0
+    },
+    {
+     "Co": 0,
+     "y": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.08,
+    30.91
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -746,15 +864,24 @@
    "design_id": "rtllm_adder_16bit",
    "file": "c1_1_c48965af8203753.v",
    "offsets": [
-    null,
-    null
+    {
+     "Co": 0,
+     "y": 0
+    },
+    {
+     "Co": 0,
+     "y": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.08,
+    30.91
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -776,15 +903,24 @@
    "design_id": "rtllm_adder_16bit",
    "file": "c2_0_cd7e5229d8e133d.v",
    "offsets": [
-    null,
-    null
+    {
+     "Co": 0,
+     "y": 0
+    },
+    {
+     "Co": 0,
+     "y": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.97,
+    31.42
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -806,15 +942,24 @@
    "design_id": "rtllm_adder_16bit",
    "file": "b_0_c1793482ee33fb6.v",
    "offsets": [
-    null,
-    null
+    {
+     "Co": 0,
+     "y": 0
+    },
+    {
+     "Co": 0,
+     "y": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.59,
+    29.55
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -837,15 +982,24 @@
    "design_id": "rtllm_adder_16bit",
    "file": "b_1_c1041a10fb6327b.v",
    "offsets": [
-    null,
-    null
+    {
+     "Co": 0,
+     "y": 0
+    },
+    {
+     "Co": 0,
+     "y": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    29.33,
+    28.97
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -867,15 +1021,24 @@
    "design_id": "rtllm_adder_bcd",
    "file": "c1_0_ca72e80979e97f8.v",
    "offsets": [
-    null,
-    null
+    {
+     "Cout": 0,
+     "Sum": 0
+    },
+    {
+     "Cout": 0,
+     "Sum": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.56,
+    30.57
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -897,15 +1060,24 @@
    "design_id": "rtllm_adder_bcd",
    "file": "c1_1_cf92c74895af86c.v",
    "offsets": [
-    null,
-    null
+    {
+     "Cout": 0,
+     "Sum": 0
+    },
+    {
+     "Cout": 0,
+     "Sum": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.61,
+    31.49
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -927,15 +1099,24 @@
    "design_id": "rtllm_adder_bcd",
    "file": "c2_0_cb8b6fb9415dd95.v",
    "offsets": [
-    null,
-    null
+    {
+     "Cout": 0,
+     "Sum": 0
+    },
+    {
+     "Cout": 0,
+     "Sum": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.74,
+    30.61
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -957,15 +1138,24 @@
    "design_id": "rtllm_adder_bcd",
    "file": "c2_1_c0aca174fa97b5a.v",
    "offsets": [
-    null,
-    null
+    {
+     "Cout": 0,
+     "Sum": 0
+    },
+    {
+     "Cout": 0,
+     "Sum": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.5,
+    30.86
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -987,15 +1177,24 @@
    "design_id": "rtllm_adder_bcd",
    "file": "b_0_cd3a5916bd9a88c.v",
    "offsets": [
-    null,
-    null
+    {
+     "Cout": 0,
+     "Sum": 0
+    },
+    {
+     "Cout": 0,
+     "Sum": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.14,
+    31.39
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1017,15 +1216,24 @@
    "design_id": "rtllm_adder_bcd",
    "file": "b_1_c67960fa08a146b.v",
    "offsets": [
-    null,
-    null
+    {
+     "Cout": 0,
+     "Sum": 0
+    },
+    {
+     "Cout": 0,
+     "Sum": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.63,
+    30.72
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1047,15 +1255,26 @@
    "design_id": "rtllm_comparator_3bit",
    "file": "c1_0_c7f331b457a27a9.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.03,
+    30.72
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1077,15 +1296,26 @@
    "design_id": "rtllm_comparator_3bit",
    "file": "c1_1_c7f331b457a27a9.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.03,
+    30.72
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1107,15 +1337,26 @@
    "design_id": "rtllm_comparator_3bit",
    "file": "c2_0_c7f331b457a27a9.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.03,
+    30.72
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1137,15 +1378,26 @@
    "design_id": "rtllm_comparator_3bit",
    "file": "c2_1_c7f331b457a27a9.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.03,
+    30.72
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1167,15 +1419,26 @@
    "design_id": "rtllm_comparator_3bit",
    "file": "b_0_c2db74a51fe74b7.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.56,
+    30.59
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1197,15 +1460,26 @@
    "design_id": "rtllm_comparator_3bit",
    "file": "b_1_c12bbe87aabc3b0.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.13,
+    30.8
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1227,15 +1501,26 @@
    "design_id": "rtllm_comparator_4bit",
    "file": "c1_0_c76f313ae9a432f.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.57,
+    30.97
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1257,15 +1542,26 @@
    "design_id": "rtllm_comparator_4bit",
    "file": "c1_1_c76f313ae9a432f.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.57,
+    30.97
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1287,15 +1583,26 @@
    "design_id": "rtllm_comparator_4bit",
    "file": "c2_0_cf2351c95da883f.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.57,
+    30.97
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1317,15 +1624,26 @@
    "design_id": "rtllm_comparator_4bit",
    "file": "c2_1_cf2351c95da883f.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.57,
+    30.97
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1347,15 +1665,26 @@
    "design_id": "rtllm_comparator_4bit",
    "file": "b_0_c30c18f0ba9c5ea.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.02,
+    30.89
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1377,15 +1706,26 @@
    "design_id": "rtllm_comparator_4bit",
    "file": "b_1_c5fadd4f4b25e0c.v",
    "offsets": [
-    null,
-    null
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    },
+    {
+     "A_equal": 0,
+     "A_greater": 0,
+     "A_less": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    29.01,
+    28.59
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1407,15 +1747,22 @@
    "design_id": "rtllm_counter_12",
    "file": "c1_0_c561175a7239228.v",
    "offsets": [
-    null,
-    null
+    {
+     "out": 0
+    },
+    {
+     "out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.41,
+    27.94
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1437,75 +1784,90 @@
    "design_id": "rtllm_counter_12",
    "file": "c1_1_c561175a7239228.v",
    "offsets": [
-    null,
-    null
+    {
+     "out": 0
+    },
+    {
+     "out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.41,
+    27.94
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.2843,
      "ff_c": 8,
      "ff_d": 4,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 4 -> 8 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_counter_12",
    "file": "c2_0_c2378489f63201a.v",
    "offsets": [
-    null,
-    null
+    {
+     "out": 1
+    },
+    {
+     "out": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.2843,
      "ff_c": 8,
      "ff_d": 4,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 4 -> 8 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_counter_12",
    "file": "c2_1_cf7392fbebd1071.v",
    "offsets": [
-    null,
-    null
+    {
+     "out": 1
+    },
+    {
+     "out": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -1527,15 +1889,22 @@
    "design_id": "rtllm_counter_12",
    "file": "b_0_ceadf04747a6962.v",
    "offsets": [
-    null,
-    null
+    {
+     "out": 0
+    },
+    {
+     "out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.17,
+    27.75
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1557,15 +1926,22 @@
    "design_id": "rtllm_counter_12",
    "file": "b_1_ceadf04747a6962.v",
    "offsets": [
-    null,
-    null
+    {
+     "out": 0
+    },
+    {
+     "out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.17,
+    27.75
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1587,15 +1963,24 @@
    "design_id": "rtllm_div_16bit",
    "file": "c1_0_cc6501b4573d3b8.v",
    "offsets": [
-    null,
-    null
+    {
+     "odd": 0,
+     "result": 0
+    },
+    {
+     "odd": 0,
+     "result": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.02,
+    30.62
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1617,15 +2002,24 @@
    "design_id": "rtllm_div_16bit",
    "file": "c1_1_cec9b11584c927a.v",
    "offsets": [
-    null,
-    null
+    {
+     "odd": 0,
+     "result": 0
+    },
+    {
+     "odd": 0,
+     "result": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.84,
+    31.1
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1647,15 +2041,24 @@
    "design_id": "rtllm_div_16bit",
    "file": "c2_0_c4fdea07ec1cffe.v",
    "offsets": [
-    null,
-    null
+    {
+     "odd": 0,
+     "result": 0
+    },
+    {
+     "odd": 0,
+     "result": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.31,
+    31.08
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1677,15 +2080,24 @@
    "design_id": "rtllm_div_16bit",
    "file": "c2_1_c4fdea07ec1cffe.v",
    "offsets": [
-    null,
-    null
+    {
+     "odd": 0,
+     "result": 0
+    },
+    {
+     "odd": 0,
+     "result": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.31,
+    31.08
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1707,15 +2119,24 @@
    "design_id": "rtllm_div_16bit",
    "file": "b_0_c0c5095678202ef.v",
    "offsets": [
-    null,
-    null
+    {
+     "odd": 0,
+     "result": 0
+    },
+    {
+     "odd": 0,
+     "result": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.08,
+    30.71
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1737,15 +2158,24 @@
    "design_id": "rtllm_div_16bit",
    "file": "b_1_cc6501b4573d3b8.v",
    "offsets": [
-    null,
-    null
+    {
+     "odd": 0,
+     "result": 0
+    },
+    {
+     "odd": 0,
+     "result": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.02,
+    30.62
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1767,15 +2197,24 @@
    "design_id": "rtllm_edge_detect",
    "file": "c1_0_c7bc045aad85b28.v",
    "offsets": [
-    null,
-    null
+    {
+     "down": 0,
+     "rise": 0
+    },
+    {
+     "down": 0,
+     "rise": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.79,
+    27.64
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1797,75 +2236,96 @@
    "design_id": "rtllm_edge_detect",
    "file": "c1_1_c95eae3f5491707.v",
    "offsets": [
-    null,
-    null
+    {
+     "down": 0,
+     "rise": 0
+    },
+    {
+     "down": 0,
+     "rise": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.99,
+    27.69
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.4139,
      "ff_c": 5,
      "ff_d": 3,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 3 -> 5 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_edge_detect",
    "file": "c2_0_ce2a4de224df35f.v",
    "offsets": [
-    null,
-    null
+    {
+     "down": 1,
+     "rise": 1
+    },
+    {
+     "down": 1,
+     "rise": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1677,
      "ff_c": 5,
      "ff_d": 3,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 3 -> 5 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_edge_detect",
    "file": "c2_1_c71747ae3ed9ce7.v",
    "offsets": [
-    null,
-    null
+    {
+     "down": 1,
+     "rise": 1
+    },
+    {
+     "down": 1,
+     "rise": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -1887,15 +2347,24 @@
    "design_id": "rtllm_edge_detect",
    "file": "b_0_c7bc045aad85b28.v",
    "offsets": [
-    null,
-    null
+    {
+     "down": 0,
+     "rise": 0
+    },
+    {
+     "down": 0,
+     "rise": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.79,
+    27.64
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1917,15 +2386,24 @@
    "design_id": "rtllm_edge_detect",
    "file": "b_1_c5ff5bbecd176de.v",
    "offsets": [
-    null,
-    null
+    {
+     "down": 0,
+     "rise": 0
+    },
+    {
+     "down": 0,
+     "rise": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    29.48,
+    28.03
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1947,15 +2425,22 @@
    "design_id": "rtllm_fixed_point_adder",
    "file": "c1_0_cffd3aed3b67809.v",
    "offsets": [
-    null,
-    null
+    {
+     "c": 0
+    },
+    {
+     "c": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.69,
+    30.86
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -1973,8 +2458,8 @@
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "rejected",
+    "rejected"
    ]
   },
   {
@@ -1996,15 +2481,22 @@
    "design_id": "rtllm_fixed_point_adder",
    "file": "c2_0_cea5c8c9dee916e.v",
    "offsets": [
-    null,
-    null
+    {
+     "c": 0
+    },
+    {
+     "c": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.13,
+    30.94
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2026,15 +2518,22 @@
    "design_id": "rtllm_fixed_point_adder",
    "file": "c2_1_cff89e75013a7fe.v",
    "offsets": [
-    null,
-    null
+    {
+     "c": 0
+    },
+    {
+     "c": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.66,
+    31.4
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2052,8 +2551,8 @@
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "rejected",
+    "rejected"
    ]
   },
   {
@@ -2075,15 +2574,22 @@
    "design_id": "rtllm_fixed_point_adder",
    "file": "b_1_ca24acf93dba449.v",
    "offsets": [
-    null,
-    null
+    {
+     "c": 0
+    },
+    {
+     "c": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.19,
+    30.57
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2105,15 +2611,22 @@
    "design_id": "rtllm_fsm",
    "file": "c1_0_c192316ab0332a1.v",
    "offsets": [
-    null,
-    null
+    {
+     "MATCH": 0
+    },
+    {
+     "MATCH": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.92,
+    28.77
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2135,75 +2648,90 @@
    "design_id": "rtllm_fsm",
    "file": "c1_1_c7b0bd4a1b97309.v",
    "offsets": [
-    null,
-    null
+    {
+     "MATCH": 0
+    },
+    {
+     "MATCH": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.61,
+    28.53
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.0616,
      "ff_c": 4,
      "ff_d": 3,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 3 -> 4 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_fsm",
    "file": "c2_0_c06bfeef28af554.v",
    "offsets": [
-    null,
-    null
+    {
+     "MATCH": 1
+    },
+    {
+     "MATCH": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.0616,
      "ff_c": 4,
      "ff_d": 3,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 3 -> 4 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_fsm",
    "file": "c2_1_c256e5c2227b8c3.v",
    "offsets": [
-    null,
-    null
+    {
+     "MATCH": 1
+    },
+    {
+     "MATCH": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -2225,15 +2753,22 @@
    "design_id": "rtllm_fsm",
    "file": "b_0_cbc26e9ac5e2709.v",
    "offsets": [
-    null,
-    null
+    {
+     "MATCH": 0
+    },
+    {
+     "MATCH": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.71,
+    28.14
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2255,15 +2790,22 @@
    "design_id": "rtllm_fsm",
    "file": "b_1_c2c9b6c1d571dab.v",
    "offsets": [
-    null,
-    null
+    {
+     "MATCH": 0
+    },
+    {
+     "MATCH": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    29.53,
+    28.88
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2285,15 +2827,26 @@
    "design_id": "rtllm_instr_reg",
    "file": "c1_0_ce5a304de8d069a.v",
    "offsets": [
-    null,
-    null
+    {
+     "ad1": 0,
+     "ad2": 0,
+     "ins": 0
+    },
+    {
+     "ad1": 0,
+     "ad2": 0,
+     "ins": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.5,
+    29.0
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2315,75 +2868,102 @@
    "design_id": "rtllm_instr_reg",
    "file": "c1_1_cd55518633d0cd6.v",
    "offsets": [
-    null,
-    null
+    {
+     "ad1": 0,
+     "ad2": 0,
+     "ins": 0
+    },
+    {
+     "ad1": 0,
+     "ad2": 0,
+     "ins": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.68,
+    30.39
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1961,
      "ff_c": 32,
      "ff_d": 16,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 16 -> 32 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_instr_reg",
    "file": "c2_0_cc35d7685fda65a.v",
    "offsets": [
-    null,
-    null
+    {
+     "ad1": 1,
+     "ad2": 1,
+     "ins": 1
+    },
+    {
+     "ad1": 1,
+     "ad2": 1,
+     "ins": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1961,
      "ff_c": 32,
      "ff_d": 16,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 16 -> 32 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_instr_reg",
    "file": "c2_1_c834e6ac7e01b96.v",
    "offsets": [
-    null,
-    null
+    {
+     "ad1": 1,
+     "ad2": 1,
+     "ins": 1
+    },
+    {
+     "ad1": 1,
+     "ad2": 1,
+     "ins": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -2405,15 +2985,26 @@
    "design_id": "rtllm_instr_reg",
    "file": "b_0_cdd14732f1e42d5.v",
    "offsets": [
-    null,
-    null
+    {
+     "ad1": 0,
+     "ad2": 0,
+     "ins": 0
+    },
+    {
+     "ad1": 0,
+     "ad2": 0,
+     "ins": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    26.19,
+    27.69
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2435,15 +3026,26 @@
    "design_id": "rtllm_instr_reg",
    "file": "b_1_cf0d916570e0588.v",
    "offsets": [
-    null,
-    null
+    {
+     "ad1": 0,
+     "ad2": 0,
+     "ins": 0
+    },
+    {
+     "ad1": 0,
+     "ad2": 0,
+     "ins": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.77,
+    28.4
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2465,15 +3067,24 @@
    "design_id": "rtllm_multi_16bit",
    "file": "c1_0_c60ffb10604a334.v",
    "offsets": [
-    null,
-    null
+    {
+     "done": 0,
+     "yout": 0
+    },
+    {
+     "done": 0,
+     "yout": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.09,
+    30.56
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2502,68 +3113,80 @@
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "sim_fail",
+    "sim_fail"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1046,
      "ff_c": 103,
      "ff_d": 70,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 70 -> 103 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_multi_16bit",
    "file": "c2_0_c1559b9a58f3638.v",
    "offsets": [
-    null,
-    null
+    {
+     "done": 0,
+     "yout": 1
+    },
+    {
+     "done": 0,
+     "yout": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1046,
      "ff_c": 103,
      "ff_d": 70,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 70 -> 103 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_multi_16bit",
    "file": "c2_1_c481b8667716abc.v",
    "offsets": [
-    null,
-    null
+    {
+     "done": 0,
+     "yout": 1
+    },
+    {
+     "done": 0,
+     "yout": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -2585,15 +3208,24 @@
    "design_id": "rtllm_multi_16bit",
    "file": "b_0_c603a565280ef8e.v",
    "offsets": [
-    null,
-    null
+    {
+     "done": 0,
+     "yout": 0
+    },
+    {
+     "done": 0,
+     "yout": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.94,
+    27.98
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2615,15 +3247,24 @@
    "design_id": "rtllm_multi_16bit",
    "file": "b_1_c603a565280ef8e.v",
    "offsets": [
-    null,
-    null
+    {
+     "done": 0,
+     "yout": 0
+    },
+    {
+     "done": 0,
+     "yout": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.94,
+    27.98
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2645,15 +3286,24 @@
    "design_id": "rtllm_multi_pipe_8bit",
    "file": "c1_0_c19528d5646d70f.v",
    "offsets": [
-    null,
-    null
+    {
+     "mul_en_out": 0,
+     "mul_out": 0
+    },
+    {
+     "mul_en_out": 0,
+     "mul_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    29.08,
+    28.61
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2675,75 +3325,96 @@
    "design_id": "rtllm_multi_pipe_8bit",
    "file": "c1_1_cae9936833f3df9.v",
    "offsets": [
-    null,
-    null
+    {
+     "mul_en_out": 0,
+     "mul_out": 0
+    },
+    {
+     "mul_en_out": 0,
+     "mul_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    68.58,
+    69.57
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.0371,
      "ff_c": 133,
      "ff_d": 116,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 116 -> 133 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_multi_pipe_8bit",
    "file": "c2_0_cca82aa4ca2a958.v",
    "offsets": [
-    null,
-    null
+    {
+     "mul_en_out": 1,
+     "mul_out": 1
+    },
+    {
+     "mul_en_out": 1,
+     "mul_out": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.0469,
      "ff_c": 133,
      "ff_d": 116,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 116 -> 133 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_multi_pipe_8bit",
    "file": "c2_1_cffea0490c609e7.v",
    "offsets": [
-    null,
-    null
+    {
+     "mul_en_out": 1,
+     "mul_out": 1
+    },
+    {
+     "mul_en_out": 1,
+     "mul_out": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -2764,16 +3435,34 @@
    },
    "design_id": "rtllm_multi_pipe_8bit",
    "file": "b_0_c5a7dd97e61a549.v",
+   "guardrail3": {
+    "clocked_arithmetic": true,
+    "done_like_ports": [],
+    "offsets_constant": true,
+    "start_like_ports": [
+     "mul_en_in",
+     "mul_en_out"
+    ]
+   },
    "offsets": [
-    null,
-    null
+    {
+     "mul_en_out": 0,
+     "mul_out": 0
+    },
+    {
+     "mul_en_out": 0,
+     "mul_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    1530.11,
+    1800.12
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "inconclusive",
+    "inconclusive"
    ]
   },
   {
@@ -2796,15 +3485,24 @@
    "design_id": "rtllm_multi_pipe_8bit",
    "file": "b_1_c358dd346151215.v",
    "offsets": [
-    null,
-    null
+    {
+     "mul_en_out": 0,
+     "mul_out": 0
+    },
+    {
+     "mul_en_out": 0,
+     "mul_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.15,
+    27.53
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2826,15 +3524,22 @@
    "design_id": "rtllm_pulse_detect",
    "file": "c1_0_cd1607ebe765249.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0
+    },
+    {
+     "data_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.52,
+    29.26
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2856,75 +3561,90 @@
    "design_id": "rtllm_pulse_detect",
    "file": "c1_1_ccb0d9fb037b6d6.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0
+    },
+    {
+     "data_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.58,
+    27.87
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.0789,
      "ff_c": 3,
      "ff_d": 2,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 2 -> 3 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_pulse_detect",
    "file": "c2_0_c9bff4725f59053.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 1
+    },
+    {
+     "data_out": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.0789,
      "ff_c": 3,
      "ff_d": 2,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 2 -> 3 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_pulse_detect",
    "file": "c2_1_c9bff4725f59053.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 1
+    },
+    {
+     "data_out": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -2946,15 +3666,22 @@
    "design_id": "rtllm_pulse_detect",
    "file": "b_0_c5d8b50909e6bf4.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0
+    },
+    {
+     "data_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.61,
+    27.95
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -2976,15 +3703,22 @@
    "design_id": "rtllm_pulse_detect",
    "file": "b_1_c2cae0a745918b6.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0
+    },
+    {
+     "data_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.26,
+    28.17
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3006,15 +3740,22 @@
    "design_id": "rtllm_right_shifter",
    "file": "c1_0_c89f007aab5525a.v",
    "offsets": [
-    null,
-    null
+    {
+     "q": 0
+    },
+    {
+     "q": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.84,
+    26.38
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3036,75 +3777,90 @@
    "design_id": "rtllm_right_shifter",
    "file": "c1_1_c0f9b5bfe7a699f.v",
    "offsets": [
-    null,
-    null
+    {
+     "q": 0
+    },
+    {
+     "q": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.95,
+    27.68
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1892,
      "ff_c": 16,
      "ff_d": 8,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 8 -> 16 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_right_shifter",
    "file": "c2_0_cb680b88049fd3f.v",
    "offsets": [
-    null,
-    null
+    {
+     "q": 1
+    },
+    {
+     "q": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1471,
      "ff_c": 16,
      "ff_d": 8,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 8 -> 16 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_right_shifter",
    "file": "c2_1_c4353ba7d44d993.v",
    "offsets": [
-    null,
-    null
+    {
+     "q": 1
+    },
+    {
+     "q": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -3126,15 +3882,22 @@
    "design_id": "rtllm_right_shifter",
    "file": "b_0_cc35a9fdac6f387.v",
    "offsets": [
-    null,
-    null
+    {
+     "q": 0
+    },
+    {
+     "q": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.24,
+    27.63
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3156,15 +3919,22 @@
    "design_id": "rtllm_right_shifter",
    "file": "b_1_c89f007aab5525a.v",
    "offsets": [
-    null,
-    null
+    {
+     "q": 0
+    },
+    {
+     "q": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.84,
+    26.38
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3186,15 +3956,24 @@
    "design_id": "rtllm_serial2parallel",
    "file": "c1_0_c7728b135a4c187.v",
    "offsets": [
-    null,
-    null
+    {
+     "dout_parallel": 0,
+     "dout_valid": 0
+    },
+    {
+     "dout_parallel": 0,
+     "dout_valid": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.97,
+    28.76
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3216,75 +3995,96 @@
    "design_id": "rtllm_serial2parallel",
    "file": "c1_1_c6d2485d85bf2c6.v",
    "offsets": [
-    null,
-    null
+    {
+     "dout_parallel": 0,
+     "dout_valid": 0
+    },
+    {
+     "dout_parallel": 0,
+     "dout_valid": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.01,
+    27.74
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1396,
      "ff_c": 30,
      "ff_d": 21,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 21 -> 30 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_serial2parallel",
    "file": "c2_0_cd7df390a12f494.v",
    "offsets": [
-    null,
-    null
+    {
+     "dout_parallel": 1,
+     "dout_valid": 1
+    },
+    {
+     "dout_parallel": 1,
+     "dout_valid": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1396,
      "ff_c": 30,
      "ff_d": 21,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 21 -> 30 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_serial2parallel",
    "file": "c2_1_cd82422c718ab94.v",
    "offsets": [
-    null,
-    null
+    {
+     "dout_parallel": 1,
+     "dout_valid": 1
+    },
+    {
+     "dout_parallel": 1,
+     "dout_valid": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -3306,15 +4106,24 @@
    "design_id": "rtllm_serial2parallel",
    "file": "b_0_ce868a298a1a255.v",
    "offsets": [
-    null,
-    null
+    {
+     "dout_parallel": 0,
+     "dout_valid": 0
+    },
+    {
+     "dout_parallel": 0,
+     "dout_valid": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.72,
+    27.62
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3336,15 +4145,24 @@
    "design_id": "rtllm_serial2parallel",
    "file": "b_1_ce868a298a1a255.v",
    "offsets": [
-    null,
-    null
+    {
+     "dout_parallel": 0,
+     "dout_valid": 0
+    },
+    {
+     "dout_parallel": 0,
+     "dout_valid": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.72,
+    27.62
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3366,15 +4184,22 @@
    "design_id": "rtllm_signal_generator",
    "file": "c1_0_c8a1fe58855ce82.v",
    "offsets": [
-    null,
-    null
+    {
+     "wave": 0
+    },
+    {
+     "wave": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.46,
+    29.3
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3396,75 +4221,90 @@
    "design_id": "rtllm_signal_generator",
    "file": "c1_1_c9cf335452c5f45.v",
    "offsets": [
-    null,
-    null
+    {
+     "wave": 0
+    },
+    {
+     "wave": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.68,
+    29.5
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.124,
      "ff_c": 12,
      "ff_d": 7,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 7 -> 12 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_signal_generator",
    "file": "c2_0_cf8f5953f8d47af.v",
    "offsets": [
-    null,
-    null
+    {
+     "wave": 1
+    },
+    {
+     "wave": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.124,
      "ff_c": 12,
      "ff_d": 7,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 7 -> 12 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_signal_generator",
    "file": "c2_1_cf7a34d3731e09b.v",
    "offsets": [
-    null,
-    null
+    {
+     "wave": 1
+    },
+    {
+     "wave": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -3486,15 +4326,22 @@
    "design_id": "rtllm_signal_generator",
    "file": "b_0_c4ec59e28daec55.v",
    "offsets": [
-    null,
-    null
+    {
+     "wave": 0
+    },
+    {
+     "wave": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.89,
+    28.59
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3516,15 +4363,22 @@
    "design_id": "rtllm_signal_generator",
    "file": "b_1_c03428b28d31a8f.v",
    "offsets": [
-    null,
-    null
+    {
+     "wave": 0
+    },
+    {
+     "wave": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    29.05,
+    29.03
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3546,75 +4400,108 @@
    "design_id": "rtllm_traffic_light",
    "file": "c1_1_cb63052e9019e3c.v",
    "offsets": [
-    null,
-    null
+    {
+     "clock": 0,
+     "green": 0,
+     "red": 0,
+     "yellow": 0
+    },
+    {
+     "clock": 0,
+     "green": 0,
+     "red": 0,
+     "yellow": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.32,
+    28.0
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1156,
      "ff_c": 27,
      "ff_d": 16,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 16 -> 27 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_traffic_light",
    "file": "c2_0_cc5fb2f478dca5f.v",
    "offsets": [
-    null,
-    null
+    {
+     "clock": 1,
+     "green": 1,
+     "red": 1,
+     "yellow": 1
+    },
+    {
+     "clock": 1,
+     "green": 1,
+     "red": 1,
+     "yellow": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1247,
      "ff_c": 27,
      "ff_d": 16,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 16 -> 27 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_traffic_light",
    "file": "c2_1_c0edad66a142465.v",
    "offsets": [
-    null,
-    null
+    {
+     "clock": 1,
+     "green": 1,
+     "red": 1,
+     "yellow": 1
+    },
+    {
+     "clock": 1,
+     "green": 1,
+     "red": 1,
+     "yellow": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -3636,15 +4523,28 @@
    "design_id": "rtllm_traffic_light",
    "file": "b_0_c691fd3b288821a.v",
    "offsets": [
-    null,
-    null
+    {
+     "clock": 0,
+     "green": 0,
+     "red": 0,
+     "yellow": 0
+    },
+    {
+     "clock": 0,
+     "green": 0,
+     "red": 0,
+     "yellow": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.04,
+    27.59
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3666,15 +4566,28 @@
    "design_id": "rtllm_traffic_light",
    "file": "b_1_c6835c7e91b9724.v",
    "offsets": [
-    null,
-    null
+    {
+     "clock": 0,
+     "green": 0,
+     "red": 0,
+     "yellow": 0
+    },
+    {
+     "clock": 0,
+     "green": 0,
+     "red": 0,
+     "yellow": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.12,
+    28.43
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3696,15 +4609,24 @@
    "design_id": "rtllm_width_8to16",
    "file": "c1_0_c09146029999a79.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "valid_out": 0
+    },
+    {
+     "data_out": 0,
+     "valid_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.72,
+    28.7
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3726,75 +4648,96 @@
    "design_id": "rtllm_width_8to16",
    "file": "c1_1_c0c791ba6c4e945.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "valid_out": 0
+    },
+    {
+     "data_out": 0,
+     "valid_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.55,
+    27.01
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1744,
      "ff_c": 43,
      "ff_d": 26,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 26 -> 43 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_width_8to16",
    "file": "c2_0_c6d923ea9ab9575.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 1,
+     "valid_out": 1
+    },
+    {
+     "data_out": 1,
+     "valid_out": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
    "class": "c2",
    "class_rule": {
-    "class_rule": "c1",
-    "confidence": 0.5,
+    "class_rule": "c2",
+    "confidence": 0.95,
     "features": {
      "diff_ratio": 0.1744,
      "ff_c": 43,
      "ff_d": 26,
-     "max_offset": 0
+     "max_offset": 1
     },
-    "needs_review": true,
+    "needs_review": false,
     "rules": [
-     "flip-flop bits 26 -> 43 with identical latency (no offset)"
+     "lock-step offset 1 > 0"
     ]
    },
    "design_id": "rtllm_width_8to16",
    "file": "c2_1_cfe9827efe43d38.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 1,
+     "valid_out": 1
+    },
+    {
+     "data_out": 1,
+     "valid_out": 1
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven_sim_only",
+    "proven_sim_only"
    ]
   },
   {
@@ -3816,15 +4759,24 @@
    "design_id": "rtllm_width_8to16",
    "file": "b_0_ca02f8506d3c0ad.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "valid_out": 0
+    },
+    {
+     "data_out": 0,
+     "valid_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.9,
+    27.68
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3846,15 +4798,24 @@
    "design_id": "rtllm_width_8to16",
    "file": "b_1_cd1c4b65fca98ad.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "valid_out": 0
+    },
+    {
+     "data_out": 0,
+     "valid_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.76,
+    27.52
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -3876,15 +4837,24 @@
    "design_id": "rtllm_accu",
    "file": "c1_0_c91d2d4d4458ee1.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "valid_out": 0
+    },
+    {
+     "data_out": 0,
+     "valid_out": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    27.97,
+    28.33
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -4033,43 +5003,241 @@
    ]
   }
  ],
- "generated_at": "2026-09-12T18:04:29",
- "guardrail3": [],
+ "generated_at": "2026-09-12T19:05:11",
+ "guardrail3": [
+  {
+   "clocked_arithmetic": true,
+   "design_id": "drrtl_DSP",
+   "done_like_ports": [],
+   "file": "c1_a_register_moved_to_stage0.v",
+   "offsets_constant": true,
+   "start_like_ports": []
+  },
+  {
+   "clocked_arithmetic": true,
+   "design_id": "rtllm_multi_pipe_8bit",
+   "done_like_ports": [],
+   "file": "b_0_c5a7dd97e61a549.v",
+   "offsets_constant": true,
+   "start_like_ports": [
+    "mul_en_in",
+    "mul_en_out"
+   ]
+  }
+ ],
  "per_class": {
   "b": {
    "n": 43,
    "v3_seconds": [
-    28.63,
-    28.43,
+    28.16,
+    28.02,
     29.31,
     29.34,
     29.05,
-    29.76
+    29.76,
+    27.79,
+    28.37,
+    28.72,
+    28.7,
+    27.47,
+    28.13,
+    27.02,
+    27.46,
+    28.59,
+    29.55,
+    29.33,
+    28.97,
+    31.14,
+    31.39,
+    30.63,
+    30.72,
+    30.56,
+    30.59,
+    30.13,
+    30.8,
+    31.02,
+    30.89,
+    29.01,
+    28.59,
+    28.17,
+    27.75,
+    28.17,
+    27.75,
+    31.08,
+    30.71,
+    31.02,
+    30.62,
+    27.79,
+    27.64,
+    29.48,
+    28.03,
+    31.19,
+    30.57,
+    27.71,
+    28.14,
+    29.53,
+    28.88,
+    26.19,
+    27.69,
+    27.77,
+    28.4,
+    27.94,
+    27.98,
+    27.94,
+    27.98,
+    1530.11,
+    1800.12,
+    28.15,
+    27.53,
+    28.61,
+    27.95,
+    27.26,
+    28.17,
+    27.24,
+    27.63,
+    27.84,
+    26.38,
+    27.72,
+    27.62,
+    27.72,
+    27.62,
+    28.89,
+    28.59,
+    29.05,
+    29.03,
+    28.04,
+    27.59,
+    27.12,
+    28.43,
+    27.9,
+    27.68,
+    27.76,
+    27.52
    ],
    "verdicts": {
-    "pending": 40,
-    "proven": 3
+    "inconclusive": 1,
+    "proven": 41,
+    "rejected": 1
    }
   },
   "c1": {
    "n": 43,
    "v3_seconds": [
+    1800.11,
+    1800.13,
     28.89,
     29.16,
     30.59,
-    28.78
+    28.78,
+    26.89,
+    27.63,
+    27.84,
+    27.79,
+    31.08,
+    30.91,
+    31.08,
+    30.91,
+    30.56,
+    30.57,
+    30.61,
+    31.49,
+    31.03,
+    30.72,
+    31.03,
+    30.72,
+    30.57,
+    30.97,
+    30.57,
+    30.97,
+    27.41,
+    27.94,
+    27.41,
+    27.94,
+    31.02,
+    30.62,
+    30.84,
+    31.1,
+    27.79,
+    27.64,
+    27.99,
+    27.69,
+    30.69,
+    30.86,
+    28.92,
+    28.77,
+    28.61,
+    28.53,
+    28.5,
+    29.0,
+    28.68,
+    30.39,
+    31.09,
+    30.56,
+    29.08,
+    28.61,
+    68.58,
+    69.57,
+    28.52,
+    29.26,
+    28.58,
+    27.87,
+    27.84,
+    26.38,
+    27.95,
+    27.68,
+    28.97,
+    28.76,
+    27.01,
+    27.74,
+    28.46,
+    29.3,
+    28.68,
+    29.5,
+    28.32,
+    28.0,
+    28.72,
+    28.7,
+    27.55,
+    27.01,
+    27.97,
+    28.33
    ],
    "verdicts": {
-    "pending": 41,
-    "proven": 2
+    "inconclusive": 1,
+    "proven": 38,
+    "rejected": 1,
+    "sim_fail": 3
    }
   },
   "c2": {
    "n": 41,
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.97,
+    31.42,
+    30.74,
+    30.61,
+    30.5,
+    30.86,
+    31.03,
+    30.72,
+    31.03,
+    30.72,
+    30.57,
+    30.97,
+    30.57,
+    30.97,
+    31.31,
+    31.08,
+    31.31,
+    31.08,
+    31.13,
+    30.94,
+    30.66,
+    31.4
+   ],
    "verdicts": {
-    "pending": 39,
-    "proven_sim_only": 1,
+    "proven": 11,
+    "proven_sim_only": 29,
     "sim_fail": 1
    }
   },
