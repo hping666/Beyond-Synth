@@ -192,6 +192,26 @@ def llm_batch(cfg, a):
     return 0
 
 
+def classify_entry(cfg, entries, entry):
+    """M6 rule class of one pilot candidate (spec 04 §A): compares the requested class with the tool-derived one."""
+    from src.classify import rules as R
+    d, v = next((d, v) for d, v in entries if d["design_id"] == entry["design_id"] and v["file"] == entry["file"])
+    recs = records(cfg, d["design_id"])
+    rec = recs.get(f"{v['cand_id']}_s{SEEDS[0]}") or {}
+    offsets = json.loads(rec["latency_offset_json"]) if rec.get("latency_offset_json") else None
+    try:
+        feat = R.features([str(x) for x in K.abs_paths(d, d["files"])], [v["path"]], d["top"], cfg, sverilog=d["sverilog"],
+                          incdirs=[str(x) for x in K.abs_paths(d, d["incdirs"])], workdir=PILOT_DIR / ".classify" / v["cand_id"], offsets=offsets,
+                          c_top=(v.get("top") if v.get("top") != d["top"] else None))
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {str(e)[:120]}"}
+    if v.get("top") and v["top"] != d["top"]:
+        feat["note"] = "candidate top differs; flip-flop count of the candidate probed under its own top"
+    out = R.classify(feat)
+    out["features"] = {k: feat[k] for k in ("ff_d", "ff_c", "diff_ratio", "max_offset")}
+    return out
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("what", choices=["pairs", "gate", "collect", "llm"])
@@ -200,6 +220,7 @@ def main(argv=None):
     ap.add_argument("--n", type=int, default=1, help="llm: answers per design and class")
     ap.add_argument("--max-usd", type=float, default=10.0, help="llm: stop when the pilot's own spend reaches this (PLAN 2.4: within 10 USD)")
     ap.add_argument("--run-id", default=None)
+    ap.add_argument("--classify", action="store_true", help="collect: also run the M6 rule classifier (Yosys probes) on every candidate")
     ap.add_argument("--design", nargs="*", default=None)
     ap.add_argument("--submit", action="store_true")
     ap.add_argument("--priority", type=int, default=0)
@@ -225,6 +246,8 @@ def main(argv=None):
         return 0
     rows, per_class, guardrail = [], {}, []
     for entry, per_class, guardrail in collect(cfg, entries):
+        if a.classify:
+            entry["class_rule"] = classify_entry(cfg, entries, entry)
         rows.append(entry)
         print(f"{entry['design_id']:28s} {entry['class']:8s} {entry['file']:45s} verdicts={entry['verdicts']} offsets_constant={entry['offsets_constant']} v3s={entry['v3_seconds']}")
     for cls, s in sorted(per_class.items()):

@@ -237,7 +237,24 @@ def phase2(cfg):
         L.append("")
     else:
         L += ["(no E4 baseline at Phi_main yet: run scripts/phase2_noise.py submit)", ""]
-    L += ["## 4. SEQ pilot (PLAN 2.4) and t_H3 / t_E4", "", "(filled when the pilot and the hidden light runs are done; hidden timings are reported by the hidden worker as counts and seconds only)", "",
+    L += ["## 4. SEQ pilot (PLAN 2.4) and t_H3 / t_E4", ""]
+    pilot = load("phase2_pilot.json")
+    if pilot:
+        L += [f"Candidates: hand-made variants (CLAUDE.md exception 2), RTL-OPT pairs with a changed flip-flop count, and the LLM batch; every candidate ran V1 -> V2 -> V3 with random seeds {pilot['seeds']}.", "",
+              "| requested class | n | verdicts (seed 1) | median V3 seconds |", "|---|---|---|---|"]
+        for cls, s in sorted(pilot["per_class"].items()):
+            secs = sorted(s["v3_seconds"])
+            L.append(f"| {cls} | {s['n']} | {s['verdicts']} | {secs[len(secs) // 2] if secs else '-'} |")
+        agree = [c for c in pilot["candidates"] if isinstance(c.get("class_rule"), dict) and c["class_rule"].get("class_rule")]
+        if agree:
+            same = sum(1 for c in agree if c["class_rule"]["class_rule"] == c["class"])
+            L += ["", f"M6 rule class vs requested class: {same} of {len(agree)} agree (LLM answers often deliver another class than instructed; the rule class is what the protocol uses)."]
+        g3 = pilot.get("guardrail3") or []
+        L += ["", f"Guardrail-3 facts for the {len(g3)} SEQ-inconclusive candidates (clocked arithmetic / offsets constant across seeds / start-done signals):", ""]
+        L += [f"- {x['design_id']} {x['file']}: arithmetic={x['clocked_arithmetic']}, offsets_constant={x['offsets_constant']}, start-like={x['start_like_ports']}, done-like={x['done_like_ports']}" for x in g3[:40]] + [""]
+    else:
+        L += ["(pilot not collected yet: scripts/phase2_pilot.py collect --classify)", ""]
+    L += ["t_H3 / t_E4 and the E4-vs-H3 agreement rate come from the hidden worker as counts and seconds only (after the hidden noise runs).", "",
           "## 5. Next steps", "", "- G1: decide on the truncation if the median area floor exceeds the warning level.", "- G2: SEQ fractions per class from the pilot.", "- G3: screening recommendation from the E4 seconds and the cascade estimate.", ""]
     out = Path(ROOT) / "reports" / "phase2.md"
     out.write_text("\n".join(L))

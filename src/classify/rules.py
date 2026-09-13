@@ -45,11 +45,11 @@ def seq_targets(text):
     return targets
 
 
-def features(d_files, c_files, top, cfg, *, sverilog=False, incdirs=None, workdir=None, offsets=None):
+def features(d_files, c_files, top, cfg, *, sverilog=False, incdirs=None, workdir=None, offsets=None, c_top=None):
     d_text = "\n".join(open(f, errors="replace").read() for f in d_files)
     c_text = "\n".join(open(f, errors="replace").read() for f in c_files)
     fd = YP.probe(d_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=(workdir / "d") if workdir else None)
-    fc = YP.probe(c_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=(workdir / "c") if workdir else None)
+    fc = YP.probe(c_files, c_top or top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=(workdir / "c") if workdir else None)
     return {"ff_d": fd["n_ff_bits"], "ff_c": fc["n_ff_bits"], "cells_d": fd["n_cells"], "cells_c": fc["n_cells"],
             "regs_d": sorted(register_names(d_text)), "regs_c": sorted(register_names(c_text)),
             "targets_d": sorted(seq_targets(d_text)), "targets_c": sorted(seq_targets(c_text)),
