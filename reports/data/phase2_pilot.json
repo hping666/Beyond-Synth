@@ -2,6 +2,20 @@
  "candidates": [
   {
    "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0017,
+     "ff_c": 196,
+     "ff_d": 196,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
    "design_id": "drrtl_DSP",
    "file": "c1_a_register_moved_to_stage0.v",
    "offsets": [
@@ -18,6 +32,20 @@
   },
   {
    "class": "control_nonequiv",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0017,
+     "ff_c": 196,
+     "ff_d": 196,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
    "design_id": "drrtl_DSP",
    "file": "x_b_register_moved_to_stage0.v",
    "offsets": [
@@ -34,6 +62,20 @@
   },
   {
    "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.013,
+     "ff_c": 232,
+     "ff_d": 196,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 196 -> 232 with identical latency (no offset)"
+    ]
+   },
    "design_id": "drrtl_DSP",
    "file": "c2_extra_multiplier_stage.v",
    "offsets": [
@@ -50,6 +92,20 @@
   },
   {
    "class": "b",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.0582,
+     "ff_c": 196,
+     "ff_d": 196,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
    "design_id": "drrtl_DSP",
    "file": "b_mux_as_case.v",
    "offsets": [
@@ -73,8 +129,8 @@
    "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [
-    26.98,
-    26.65
+    28.63,
+    28.43
    ],
    "verdicts": [
     "proven",
@@ -83,6 +139,20 @@
   },
   {
    "class": "b",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0179,
+     "ff_c": 3,
+     "ff_d": 6,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 6 -> 3 with identical latency (no offset)"
+    ]
+   },
    "design_id": "drrtl_ticket_machine",
    "file": "b_binary_state_encoding.v",
    "offsets": [
@@ -112,6 +182,20 @@
   },
   {
    "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0324,
+     "ff_c": 12,
+     "ff_d": 6,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 6 -> 12 with identical latency (no offset)"
+    ]
+   },
    "design_id": "drrtl_ticket_machine",
    "file": "c1_outputs_from_duplicated_state_register.v",
    "offsets": [
@@ -141,6 +225,20 @@
   },
   {
    "class": "b",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0325,
+     "ff_c": 11,
+     "ff_d": 4,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 4 -> 11 with identical latency (no offset)"
+    ]
+   },
    "design_id": "drrtl_vending_machine",
    "file": "b_onehot_state_encoding.v",
    "offsets": [
@@ -157,7 +255,7 @@
    "source": "hand_made",
    "v3_seconds": [
     29.05,
-    28.88
+    29.76
    ],
    "verdicts": [
     "proven",
@@ -166,6 +264,20 @@
   },
   {
    "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1194,
+     "ff_c": 5,
+     "ff_d": 4,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 4 -> 5 with identical latency (no offset)"
+    ]
+   },
    "design_id": "drrtl_vending_machine",
    "file": "c1_output_retimed.v",
    "offsets": [
@@ -181,8 +293,8 @@
    "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [
-    29.55,
-    30.09
+    30.59,
+    28.78
    ],
    "verdicts": [
     "proven",
@@ -191,30 +303,3606 @@
   },
   {
    "class": "c2",
+   "class_rule": {
+    "class_rule": "c2",
+    "confidence": 0.95,
+    "features": {
+     "diff_ratio": 0.0501,
+     "ff_c": 1028,
+     "ff_d": 4,
+     "max_offset": 1
+    },
+    "needs_review": false,
+    "rules": [
+     "lock-step offset 1 > 0"
+    ]
+   },
    "design_id": "drrtl_vending_machine",
    "file": "c2_registered_discount.v",
    "offsets": [
     {
      "sell_signal": 0,
-     "total_discount": 0
+     "total_discount": 1
     },
     {
      "sell_signal": 0,
      "total_discount": 1
     }
    ],
-   "offsets_constant": false,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [
-    32.12
-   ],
+   "v3_seconds": [],
    "verdicts": [
-    "falsified",
+    "proven_sim_only",
     "proven_sim_only"
    ]
   },
   {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.0351,
+     "ff_c": 57,
+     "ff_d": 57,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_LIFObuffer",
+   "file": "c1_0_cfdfbe3b4498875.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "d",
+    "confidence": 0.6,
+    "features": {
+     "diff_ratio": 0.5332,
+     "ff_c": 75,
+     "ff_d": 57,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "sequential structure changed and the text differs widely (ratio 0.5332)"
+    ]
+   },
+   "design_id": "rtllm_LIFObuffer",
+   "file": "c1_1_c6429c640a6d99b.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0952,
+     "ff_c": 63,
+     "ff_d": 57,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 57 -> 63 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_LIFObuffer",
+   "file": "c2_0_c50c2cbe60aac44.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0952,
+     "ff_c": 63,
+     "ff_d": 57,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 57 -> 63 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_LIFObuffer",
+   "file": "c2_1_c1fcb2672517aca.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1537,
+     "ff_c": 25,
+     "ff_d": 57,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 57 -> 25 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_LIFObuffer",
+   "file": "b_0_c0a2675c61668eb.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0588,
+     "ff_c": 57,
+     "ff_d": 57,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_LIFObuffer",
+   "file": "b_1_ce95d63979b2e25.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1493,
+     "ff_c": 13,
+     "ff_d": 23,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 23 -> 13 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_accu",
+   "file": "c1_0_c922408331c1804.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1493,
+     "ff_c": 13,
+     "ff_d": 23,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 23 -> 13 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_accu",
+   "file": "c1_1_c690562ff6b5e39.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1273,
+     "ff_c": 34,
+     "ff_d": 23,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 23 -> 34 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_accu",
+   "file": "c2_0_cc2c1068875da8e.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1429,
+     "ff_c": 34,
+     "ff_d": 23,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 23 -> 34 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_accu",
+   "file": "c2_1_c9b5bf0f196134d.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.3772,
+     "ff_c": 23,
+     "ff_d": 23,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_accu",
+   "file": "b_0_c5a5befd0675ae7.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.3229,
+     "ff_c": 23,
+     "ff_d": 23,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_accu",
+   "file": "b_1_c0ecb7cb99b6ac6.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_adder_16bit",
+   "file": "c1_0_c48965af8203753.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_adder_16bit",
+   "file": "c1_1_c48965af8203753.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_adder_16bit",
+   "file": "c2_0_cd7e5229d8e133d.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0668,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_adder_16bit",
+   "file": "b_0_c1793482ee33fb6.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.6,
+    "features": {
+     "diff_ratio": 0.5399,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged",
+     "but the text differs widely (ratio 0.5399) -> review for (d)"
+    ]
+   },
+   "design_id": "rtllm_adder_16bit",
+   "file": "b_1_c1041a10fb6327b.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.2157,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_adder_bcd",
+   "file": "c1_0_ca72e80979e97f8.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0185,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_adder_bcd",
+   "file": "c1_1_cf92c74895af86c.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_adder_bcd",
+   "file": "c2_0_cb8b6fb9415dd95.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0185,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_adder_bcd",
+   "file": "c2_1_c0aca174fa97b5a.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0926,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_adder_bcd",
+   "file": "b_0_cd3a5916bd9a88c.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.2217,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_adder_bcd",
+   "file": "b_1_c67960fa08a146b.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_3bit",
+   "file": "c1_0_c7f331b457a27a9.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_3bit",
+   "file": "c1_1_c7f331b457a27a9.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_3bit",
+   "file": "c2_0_c7f331b457a27a9.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_3bit",
+   "file": "c2_1_c7f331b457a27a9.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.3718,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_3bit",
+   "file": "b_0_c2db74a51fe74b7.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.1475,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_3bit",
+   "file": "b_1_c12bbe87aabc3b0.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_4bit",
+   "file": "c1_0_c76f313ae9a432f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_4bit",
+   "file": "c1_1_c76f313ae9a432f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_4bit",
+   "file": "c2_0_cf2351c95da883f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_4bit",
+   "file": "c2_1_cf2351c95da883f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.2159,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_4bit",
+   "file": "b_0_c30c18f0ba9c5ea.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.2806,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_comparator_4bit",
+   "file": "b_1_c5fadd4f4b25e0c.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.3939,
+     "ff_c": 4,
+     "ff_d": 4,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_counter_12",
+   "file": "c1_0_c561175a7239228.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.3939,
+     "ff_c": 4,
+     "ff_d": 4,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_counter_12",
+   "file": "c1_1_c561175a7239228.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.2843,
+     "ff_c": 8,
+     "ff_d": 4,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 4 -> 8 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_counter_12",
+   "file": "c2_0_c2378489f63201a.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.2843,
+     "ff_c": 8,
+     "ff_d": 4,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 4 -> 8 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_counter_12",
+   "file": "c2_1_cf7392fbebd1071.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.2195,
+     "ff_c": 4,
+     "ff_d": 4,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_counter_12",
+   "file": "b_0_ceadf04747a6962.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.2195,
+     "ff_c": 4,
+     "ff_d": 4,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_counter_12",
+   "file": "b_1_ceadf04747a6962.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0511,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_div_16bit",
+   "file": "c1_0_cc6501b4573d3b8.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.1202,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_div_16bit",
+   "file": "c1_1_cec9b11584c927a.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_div_16bit",
+   "file": "c2_0_c4fdea07ec1cffe.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_div_16bit",
+   "file": "c2_1_c4fdea07ec1cffe.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0249,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_div_16bit",
+   "file": "b_0_c0c5095678202ef.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0511,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_div_16bit",
+   "file": "b_1_cc6501b4573d3b8.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.1536,
+     "ff_c": 3,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_edge_detect",
+   "file": "c1_0_c7bc045aad85b28.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.4437,
+     "ff_c": 3,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_edge_detect",
+   "file": "c1_1_c95eae3f5491707.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.4139,
+     "ff_c": 5,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 3 -> 5 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_edge_detect",
+   "file": "c2_0_ce2a4de224df35f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1677,
+     "ff_c": 5,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 3 -> 5 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_edge_detect",
+   "file": "c2_1_c71747ae3ed9ce7.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.1536,
+     "ff_c": 3,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_edge_detect",
+   "file": "b_0_c7bc045aad85b28.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.316,
+     "ff_c": 3,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_edge_detect",
+   "file": "b_1_c5ff5bbecd176de.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.1719,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_fixed_point_adder",
+   "file": "c1_0_cffd3aed3b67809.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "error": "PortError: yosys exit 1: /home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_fixed_point_adder/c1_1_c8db97d127dc108.v:1: ERR"
+   },
+   "design_id": "rtllm_fixed_point_adder",
+   "file": "c1_1_c8db97d127dc108.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_fixed_point_adder",
+   "file": "c2_0_cea5c8c9dee916e.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_fixed_point_adder",
+   "file": "c2_1_cff89e75013a7fe.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "error": "PortError: yosys exit 1: /home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_fixed_point_adder/b_0_cbd9b9bc18a0c78.v:1: ERRO"
+   },
+   "design_id": "rtllm_fixed_point_adder",
+   "file": "b_0_cbd9b9bc18a0c78.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0491,
+     "ff_c": 0,
+     "ff_d": 0,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_fixed_point_adder",
+   "file": "b_1_ca24acf93dba449.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0369,
+     "ff_c": 6,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 3 -> 6 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_fsm",
+   "file": "c1_0_c192316ab0332a1.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0438,
+     "ff_c": 6,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 3 -> 6 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_fsm",
+   "file": "c1_1_c7b0bd4a1b97309.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0616,
+     "ff_c": 4,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 3 -> 4 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_fsm",
+   "file": "c2_0_c06bfeef28af554.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0616,
+     "ff_c": 4,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 3 -> 4 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_fsm",
+   "file": "c2_1_c256e5c2227b8c3.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0135,
+     "ff_c": 3,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_fsm",
+   "file": "b_0_cbc26e9ac5e2709.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0264,
+     "ff_c": 3,
+     "ff_d": 3,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_fsm",
+   "file": "b_1_c2c9b6c1d571dab.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.2387,
+     "ff_c": 16,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_instr_reg",
+   "file": "c1_0_ce5a304de8d069a.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.2622,
+     "ff_c": 16,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_instr_reg",
+   "file": "c1_1_cd55518633d0cd6.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1961,
+     "ff_c": 32,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 16 -> 32 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_instr_reg",
+   "file": "c2_0_cc35d7685fda65a.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1961,
+     "ff_c": 32,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 16 -> 32 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_instr_reg",
+   "file": "c2_1_c834e6ac7e01b96.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.1254,
+     "ff_c": 16,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_instr_reg",
+   "file": "b_0_cdd14732f1e42d5.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.1028,
+     "ff_c": 16,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_instr_reg",
+   "file": "b_1_cf0d916570e0588.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.078,
+     "ff_c": 70,
+     "ff_d": 70,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_multi_16bit",
+   "file": "c1_0_c60ffb10604a334.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.0955,
+     "ff_c": 70,
+     "ff_d": 70,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_multi_16bit",
+   "file": "c1_1_cdbbb89fd343a3f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1046,
+     "ff_c": 103,
+     "ff_d": 70,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 70 -> 103 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_multi_16bit",
+   "file": "c2_0_c1559b9a58f3638.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1046,
+     "ff_c": 103,
+     "ff_d": 70,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 70 -> 103 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_multi_16bit",
+   "file": "c2_1_c481b8667716abc.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.1654,
+     "ff_c": 70,
+     "ff_d": 70,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_multi_16bit",
+   "file": "b_0_c603a565280ef8e.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.1654,
+     "ff_c": 70,
+     "ff_d": 70,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_multi_16bit",
+   "file": "b_1_c603a565280ef8e.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0904,
+     "ff_c": 180,
+     "ff_d": 116,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 116 -> 180 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_multi_pipe_8bit",
+   "file": "c1_0_c19528d5646d70f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0405,
+     "ff_c": 84,
+     "ff_d": 116,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 116 -> 84 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_multi_pipe_8bit",
+   "file": "c1_1_cae9936833f3df9.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0371,
+     "ff_c": 133,
+     "ff_d": 116,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 116 -> 133 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_multi_pipe_8bit",
+   "file": "c2_0_cca82aa4ca2a958.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0469,
+     "ff_c": 133,
+     "ff_d": 116,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 116 -> 133 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_multi_pipe_8bit",
+   "file": "c2_1_cffea0490c609e7.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "d",
+    "confidence": 0.6,
+    "features": {
+     "diff_ratio": 0.546,
+     "ff_c": 68,
+     "ff_d": 116,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "sequential structure changed and the text differs widely (ratio 0.546)"
+    ]
+   },
+   "design_id": "rtllm_multi_pipe_8bit",
+   "file": "b_0_c5a7dd97e61a549.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.6,
+    "features": {
+     "diff_ratio": 0.5172,
+     "ff_c": 116,
+     "ff_d": 116,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged",
+     "but the text differs widely (ratio 0.5172) -> review for (d)"
+    ]
+   },
+   "design_id": "rtllm_multi_pipe_8bit",
+   "file": "b_1_c358dd346151215.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.1102,
+     "ff_c": 2,
+     "ff_d": 2,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_pulse_detect",
+   "file": "c1_0_cd1607ebe765249.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0848,
+     "ff_c": 4,
+     "ff_d": 2,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 2 -> 4 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_pulse_detect",
+   "file": "c1_1_ccb0d9fb037b6d6.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0789,
+     "ff_c": 3,
+     "ff_d": 2,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 2 -> 3 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_pulse_detect",
+   "file": "c2_0_c9bff4725f59053.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0789,
+     "ff_c": 3,
+     "ff_d": 2,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 2 -> 3 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_pulse_detect",
+   "file": "c2_1_c9bff4725f59053.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.3668,
+     "ff_c": 2,
+     "ff_d": 2,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_pulse_detect",
+   "file": "b_0_c5d8b50909e6bf4.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.0167,
+     "ff_c": 2,
+     "ff_d": 2,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_pulse_detect",
+   "file": "b_1_c2cae0a745918b6.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.1933,
+     "ff_c": 8,
+     "ff_d": 8,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_right_shifter",
+   "file": "c1_0_c89f007aab5525a.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.2097,
+     "ff_c": 8,
+     "ff_d": 8,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_right_shifter",
+   "file": "c1_1_c0f9b5bfe7a699f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1892,
+     "ff_c": 16,
+     "ff_d": 8,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 8 -> 16 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_right_shifter",
+   "file": "c2_0_cb680b88049fd3f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1471,
+     "ff_c": 16,
+     "ff_d": 8,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 8 -> 16 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_right_shifter",
+   "file": "c2_1_c4353ba7d44d993.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.1966,
+     "ff_c": 8,
+     "ff_d": 8,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_right_shifter",
+   "file": "b_0_cc35a9fdac6f387.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.1933,
+     "ff_c": 8,
+     "ff_d": 8,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_right_shifter",
+   "file": "b_1_c89f007aab5525a.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "b",
+    "confidence": 0.7,
+    "features": {
+     "diff_ratio": 0.2761,
+     "ff_c": 21,
+     "ff_d": 21,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "register names or clocked targets changed, flip-flop count and latency unchanged"
+    ]
+   },
+   "design_id": "rtllm_serial2parallel",
+   "file": "c1_0_c7728b135a4c187.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.2,
+     "ff_c": 21,
+     "ff_d": 21,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_serial2parallel",
+   "file": "c1_1_c6d2485d85bf2c6.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1396,
+     "ff_c": 30,
+     "ff_d": 21,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 21 -> 30 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_serial2parallel",
+   "file": "c2_0_cd7df390a12f494.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1396,
+     "ff_c": 30,
+     "ff_d": 21,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 21 -> 30 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_serial2parallel",
+   "file": "c2_1_cd82422c718ab94.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.2111,
+     "ff_c": 21,
+     "ff_d": 21,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_serial2parallel",
+   "file": "b_0_ce868a298a1a255.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.2111,
+     "ff_c": 21,
+     "ff_d": 21,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_serial2parallel",
+   "file": "b_1_ce868a298a1a255.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1529,
+     "ff_c": 12,
+     "ff_d": 7,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 7 -> 12 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_signal_generator",
+   "file": "c1_0_c8a1fe58855ce82.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "d",
+    "confidence": 0.6,
+    "features": {
+     "diff_ratio": 0.5162,
+     "ff_c": 9,
+     "ff_d": 7,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "sequential structure changed and the text differs widely (ratio 0.5162)"
+    ]
+   },
+   "design_id": "rtllm_signal_generator",
+   "file": "c1_1_c9cf335452c5f45.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.124,
+     "ff_c": 12,
+     "ff_d": 7,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 7 -> 12 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_signal_generator",
+   "file": "c2_0_cf8f5953f8d47af.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.124,
+     "ff_c": 12,
+     "ff_d": 7,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 7 -> 12 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_signal_generator",
+   "file": "c2_1_cf7a34d3731e09b.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0685,
+     "ff_c": 6,
+     "ff_d": 7,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 7 -> 6 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_signal_generator",
+   "file": "b_0_c4ec59e28daec55.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1296,
+     "ff_c": 6,
+     "ff_d": 7,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 7 -> 6 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_signal_generator",
+   "file": "b_1_c03428b28d31a8f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0691,
+     "ff_c": 18,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 16 -> 18 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_traffic_light",
+   "file": "c1_1_cb63052e9019e3c.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1156,
+     "ff_c": 27,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 16 -> 27 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_traffic_light",
+   "file": "c2_0_cc5fb2f478dca5f.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1247,
+     "ff_c": 27,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 16 -> 27 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_traffic_light",
+   "file": "c2_1_c0edad66a142465.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.1047,
+     "ff_c": 16,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_traffic_light",
+   "file": "b_0_c691fd3b288821a.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.1047,
+     "ff_c": 16,
+     "ff_d": 16,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_traffic_light",
+   "file": "b_1_c6835c7e91b9724.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "d",
+    "confidence": 0.6,
+    "features": {
+     "diff_ratio": 0.5111,
+     "ff_c": 26,
+     "ff_d": 26,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "sequential structure changed and the text differs widely (ratio 0.5111)"
+    ]
+   },
+   "design_id": "rtllm_width_8to16",
+   "file": "c1_0_c09146029999a79.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.3333,
+     "ff_c": 26,
+     "ff_d": 26,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_width_8to16",
+   "file": "c1_1_c0c791ba6c4e945.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1744,
+     "ff_c": 43,
+     "ff_d": 26,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 26 -> 43 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_width_8to16",
+   "file": "c2_0_c6d923ea9ab9575.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1744,
+     "ff_c": 43,
+     "ff_d": 26,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 26 -> 43 with identical latency (no offset)"
+    ]
+   },
+   "design_id": "rtllm_width_8to16",
+   "file": "c2_1_cfe9827efe43d38.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.3333,
+     "ff_c": 26,
+     "ff_d": 26,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_width_8to16",
+   "file": "b_0_ca02f8506d3c0ad.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.3333,
+     "ff_c": 26,
+     "ff_d": 26,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_width_8to16",
+   "file": "b_1_cd1c4b65fca98ad.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "class_rule": {
+    "class_rule": "a",
+    "confidence": 0.85,
+    "features": {
+     "diff_ratio": 0.298,
+     "ff_c": 23,
+     "ff_d": 23,
+     "max_offset": 0
+    },
+    "needs_review": false,
+    "rules": [
+     "flip-flop count, register names and clocked targets unchanged"
+    ]
+   },
+   "design_id": "rtllm_accu",
+   "file": "c1_0_c91d2d4d4458ee1.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
    "class": "c_pair",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.125,
+     "ff_c": 4,
+     "ff_d": 9,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 9 -> 4 with identical latency (no offset)"
+    ]
+   },
    "design_id": "rtlopt_fsm",
    "file": "reference/fsm_ref.v",
    "offsets": [
@@ -240,6 +3928,20 @@
   },
   {
    "class": "c_pair",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.0379,
+     "ff_c": 28,
+     "ff_d": 33,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 33 -> 28 with identical latency (no offset)"
+    ]
+   },
    "design_id": "rtlopt_fsm_encode",
    "file": "reference/fsm_encode_ref.v",
    "offsets": [
@@ -265,6 +3967,20 @@
   },
   {
    "class": "c_pair",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.3143,
+     "ff_c": 32,
+     "ff_d": 64,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 64 -> 32 with identical latency (no offset)"
+    ]
+   },
    "design_id": "rtlopt_mac",
    "file": "reference/mac_ref.v",
    "offsets": [
@@ -281,6 +3997,20 @@
   },
   {
    "class": "c_pair",
+   "class_rule": {
+    "class_rule": "c1",
+    "confidence": 0.5,
+    "features": {
+     "diff_ratio": 0.1131,
+     "ff_c": 8,
+     "ff_d": 10,
+     "max_offset": 0
+    },
+    "needs_review": true,
+    "rules": [
+     "flip-flop bits 10 -> 8 with identical latency (no offset)"
+    ]
+   },
    "design_id": "rtlopt_saturating_add",
    "file": "reference/saturating_add_ref.v",
    "offsets": [
@@ -303,43 +4033,43 @@
    ]
   }
  ],
- "generated_at": "2026-09-12T17:44:40",
+ "generated_at": "2026-09-12T18:04:29",
  "guardrail3": [],
  "per_class": {
   "b": {
-   "n": 3,
+   "n": 43,
    "v3_seconds": [
-    26.98,
-    26.65,
+    28.63,
+    28.43,
     29.31,
     29.34,
     29.05,
-    28.88
+    29.76
    ],
    "verdicts": {
+    "pending": 40,
     "proven": 3
    }
   },
   "c1": {
-   "n": 3,
+   "n": 43,
    "v3_seconds": [
     28.89,
     29.16,
-    29.55,
-    30.09
+    30.59,
+    28.78
    ],
    "verdicts": {
-    "pending": 1,
+    "pending": 41,
     "proven": 2
    }
   },
   "c2": {
-   "n": 2,
-   "v3_seconds": [
-    32.12
-   ],
+   "n": 41,
+   "v3_seconds": [],
    "verdicts": {
-    "falsified": 1,
+    "pending": 39,
+    "proven_sim_only": 1,
     "sim_fail": 1
    }
   },

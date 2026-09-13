@@ -1,0 +1,753 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "serial2parallel": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:2.1-45.10"
+      },
+      "ports": {
+        "clk": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "rst_n": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "din_serial": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "din_valid": {
+          "direction": "input",
+          "bits": [ 5 ]
+        },
+        "dout_parallel": {
+          "direction": "output",
+          "bits": [ 6, 7, 8, 9, 10, 11, 12, 13 ]
+        },
+        "dout_valid": {
+          "direction": "output",
+          "bits": [ 14 ]
+        }
+      },
+      "cells": {
+        "$add$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18$4": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000100",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000100000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18.27-18.35"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 15, 16, 17, 18 ],
+            "B": [ "1" ],
+            "Y": [ 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50 ]
+          }
+        },
+        "$auto$proc_dff.cc:220:proc_dff$24": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "Y": [ 51 ]
+          }
+        },
+        "$auto$proc_dff.cc:220:proc_dff$29": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "Y": [ 52 ]
+          }
+        },
+        "$auto$proc_dff.cc:220:proc_dff$34": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "Y": [ 53 ]
+          }
+        },
+        "$auto$proc_dff.cc:220:proc_dff$39": {
+          "hide_name": 1,
+          "type": "$not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "Y": [ 54 ]
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18$3": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000100",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000100",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18.12-18.23"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 15, 16, 17, 18 ],
+            "B": [ "0", "0", "0", "1" ],
+            "Y": [ 55 ]
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:36$12": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000100",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000100",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:36.11-36.22"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 15, 16, 17, 18 ],
+            "B": [ "0", "0", "0", "1" ],
+            "Y": [ 56 ]
+          }
+        },
+        "$le$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:26$8": {
+          "hide_name": 1,
+          "type": "$le",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000100",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000100",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:26.24-26.35"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 15, 16, 17, 18 ],
+            "B": [ "1", "1", "1", "0" ],
+            "Y": [ 57 ]
+          }
+        },
+        "$logic_and$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:26$9": {
+          "hide_name": 1,
+          "type": "$logic_and",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:26.11-26.35"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 5 ],
+            "B": [ 57 ],
+            "Y": [ 58 ]
+          }
+        },
+        "$logic_not$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:15$2": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:15.6-15.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "Y": [ 59 ]
+          }
+        },
+        "$logic_not$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:24$7": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:24.6-24.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "Y": [ 60 ]
+          }
+        },
+        "$logic_not$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:32$11": {
+          "hide_name": 1,
+          "type": "$logic_not",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:32.6-32.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "Y": [ 61 ]
+          }
+        },
+        "$procdff$28": {
+          "hide_name": 1,
+          "type": "$adff",
+          "parameters": {
+            "ARST_POLARITY": "00000000000000000000000000000000",
+            "ARST_VALUE": "00000000",
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:31.2-43.5"
+          },
+          "port_directions": {
+            "ARST": "input",
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "ARST": [ 3 ],
+            "CLK": [ 2 ],
+            "D": [ 62, 63, 64, 65, 66, 67, 68, 69 ],
+            "Q": [ 6, 7, 8, 9, 10, 11, 12, 13 ]
+          }
+        },
+        "$procdff$33": {
+          "hide_name": 1,
+          "type": "$adff",
+          "parameters": {
+            "ARST_POLARITY": "00000000000000000000000000000000",
+            "ARST_VALUE": "0",
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:31.2-43.5"
+          },
+          "port_directions": {
+            "ARST": "input",
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "ARST": [ 3 ],
+            "CLK": [ 2 ],
+            "D": [ 70 ],
+            "Q": [ 14 ]
+          }
+        },
+        "$procdff$38": {
+          "hide_name": 1,
+          "type": "$adff",
+          "parameters": {
+            "ARST_POLARITY": "00000000000000000000000000000000",
+            "ARST_VALUE": "00000000",
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:23.2-29.5"
+          },
+          "port_directions": {
+            "ARST": "input",
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "ARST": [ 3 ],
+            "CLK": [ 2 ],
+            "D": [ 71, 72, 73, 74, 75, 76, 77, 78 ],
+            "Q": [ 79, 80, 81, 82, 83, 84, 85, 86 ]
+          }
+        },
+        "$procdff$43": {
+          "hide_name": 1,
+          "type": "$adff",
+          "parameters": {
+            "ARST_POLARITY": "00000000000000000000000000000000",
+            "ARST_VALUE": "0000",
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000000100"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:14.2-21.5"
+          },
+          "port_directions": {
+            "ARST": "input",
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "ARST": [ 3 ],
+            "CLK": [ 2 ],
+            "D": [ 87, 88, 89, 90 ],
+            "Q": [ 15, 16, 17, 18 ]
+          }
+        },
+        "$procmux$14": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:36.11-36.22|/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:36.8-42.6"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0" ],
+            "B": [ "1" ],
+            "S": [ 56 ],
+            "Y": [ 70 ]
+          }
+        },
+        "$procmux$17": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:36.11-36.22|/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:36.8-42.6"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 6, 7, 8, 9, 10, 11, 12, 13 ],
+            "B": [ 79, 80, 81, 82, 83, 84, 85, 86 ],
+            "S": [ 56 ],
+            "Y": [ 62, 63, 64, 65, 66, 67, 68, 69 ]
+          }
+        },
+        "$procmux$19": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000001000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:26.11-26.35|/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:26.8-27.41"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 79, 80, 81, 82, 83, 84, 85, 86 ],
+            "B": [ 4, 79, 80, 81, 82, 83, 84, 85 ],
+            "S": [ 58 ],
+            "Y": [ 71, 72, 73, 74, 75, 76, 77, 78 ]
+          }
+        },
+        "$procmux$22": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000100"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:17.11-17.20|/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:17.8-20.13"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0", "0", "0", "0" ],
+            "B": [ 91, 92, 93, 94 ],
+            "S": [ 5 ],
+            "Y": [ 87, 88, 89, 90 ]
+          }
+        },
+        "$ternary$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18$5": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000100000"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18.11-18.35"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50 ],
+            "B": [ "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0" ],
+            "S": [ 55 ],
+            "Y": [ 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\cnt[3:0]": {
+          "hide_name": 1,
+          "bits": [ 87, 88, 89, 90 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:14.2-21.5"
+          }
+        },
+        "$0\\din_tmp[7:0]": {
+          "hide_name": 1,
+          "bits": [ 71, 72, 73, 74, 75, 76, 77, 78 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:23.2-29.5"
+          }
+        },
+        "$0\\dout_parallel[7:0]": {
+          "hide_name": 1,
+          "bits": [ 62, 63, 64, 65, 66, 67, 68, 69 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:31.2-43.5"
+          }
+        },
+        "$0\\dout_valid[0:0]": {
+          "hide_name": 1,
+          "bits": [ 70 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:31.2-43.5"
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18$4_Y": {
+          "hide_name": 1,
+          "bits": [ 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18.27-18.35"
+          }
+        },
+        "$auto$rtlil.cc:3339:Not$25": {
+          "hide_name": 1,
+          "bits": [ 51 ],
+          "attributes": {
+          }
+        },
+        "$auto$rtlil.cc:3339:Not$30": {
+          "hide_name": 1,
+          "bits": [ 52 ],
+          "attributes": {
+          }
+        },
+        "$auto$rtlil.cc:3339:Not$35": {
+          "hide_name": 1,
+          "bits": [ 53 ],
+          "attributes": {
+          }
+        },
+        "$auto$rtlil.cc:3339:Not$40": {
+          "hide_name": 1,
+          "bits": [ 54 ],
+          "attributes": {
+          }
+        },
+        "$auto$rtlil.cc:3343:ReduceOr$27": {
+          "hide_name": 1,
+          "bits": [ 51 ],
+          "attributes": {
+          }
+        },
+        "$auto$rtlil.cc:3343:ReduceOr$32": {
+          "hide_name": 1,
+          "bits": [ 52 ],
+          "attributes": {
+          }
+        },
+        "$auto$rtlil.cc:3343:ReduceOr$37": {
+          "hide_name": 1,
+          "bits": [ 53 ],
+          "attributes": {
+          }
+        },
+        "$auto$rtlil.cc:3343:ReduceOr$42": {
+          "hide_name": 1,
+          "bits": [ 54 ],
+          "attributes": {
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18$3_Y": {
+          "hide_name": 1,
+          "bits": [ 55 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18.12-18.23"
+          }
+        },
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:36$12_Y": {
+          "hide_name": 1,
+          "bits": [ 56 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:36.11-36.22"
+          }
+        },
+        "$le$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:26$8_Y": {
+          "hide_name": 1,
+          "bits": [ 57 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:26.24-26.35"
+          }
+        },
+        "$logic_and$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:26$9_Y": {
+          "hide_name": 1,
+          "bits": [ 58 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:26.11-26.35"
+          }
+        },
+        "$logic_not$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:15$2_Y": {
+          "hide_name": 1,
+          "bits": [ 59 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:15.6-15.12"
+          }
+        },
+        "$logic_not$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:24$7_Y": {
+          "hide_name": 1,
+          "bits": [ 60 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:24.6-24.12"
+          }
+        },
+        "$logic_not$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:32$11_Y": {
+          "hide_name": 1,
+          "bits": [ 61 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:32.6-32.12"
+          }
+        },
+        "$procmux$14_Y": {
+          "hide_name": 1,
+          "bits": [ 70 ],
+          "attributes": {
+          }
+        },
+        "$procmux$15_CMP": {
+          "hide_name": 1,
+          "bits": [ 56 ],
+          "attributes": {
+          }
+        },
+        "$procmux$17_Y": {
+          "hide_name": 1,
+          "bits": [ 62, 63, 64, 65, 66, 67, 68, 69 ],
+          "attributes": {
+          }
+        },
+        "$procmux$18_CMP": {
+          "hide_name": 1,
+          "bits": [ 56 ],
+          "attributes": {
+          }
+        },
+        "$procmux$19_Y": {
+          "hide_name": 1,
+          "bits": [ 71, 72, 73, 74, 75, 76, 77, 78 ],
+          "attributes": {
+          }
+        },
+        "$procmux$20_CMP": {
+          "hide_name": 1,
+          "bits": [ 58 ],
+          "attributes": {
+          }
+        },
+        "$procmux$22_Y": {
+          "hide_name": 1,
+          "bits": [ 87, 88, 89, 90 ],
+          "attributes": {
+          }
+        },
+        "$procmux$23_CMP": {
+          "hide_name": 1,
+          "bits": [ 5 ],
+          "attributes": {
+          }
+        },
+        "$ternary$/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18$5_Y": {
+          "hide_name": 1,
+          "bits": [ 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:18.11-18.35"
+          }
+        },
+        "clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:3.8-3.11"
+          }
+        },
+        "cnt": {
+          "hide_name": 0,
+          "bits": [ 15, 16, 17, 18 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:12.10-12.13"
+          }
+        },
+        "din_serial": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:5.8-5.18"
+          }
+        },
+        "din_tmp": {
+          "hide_name": 0,
+          "bits": [ 79, 80, 81, 82, 83, 84, 85, 86 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:11.10-11.17"
+          }
+        },
+        "din_valid": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:6.8-6.17"
+          }
+        },
+        "dout_parallel": {
+          "hide_name": 0,
+          "bits": [ 6, 7, 8, 9, 10, 11, 12, 13 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:7.18-7.31"
+          }
+        },
+        "dout_valid": {
+          "hide_name": 0,
+          "bits": [ 14 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:8.13-8.23"
+          }
+        },
+        "rst_n": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/serial2parallel/rtl/serial2parallel.v:4.8-4.13"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "comparator_4bit": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:1.1-13.10"
+      },
+      "ports": {
+        "A": {
+          "direction": "input",
+          "bits": [ 2, 3, 4, 5 ]
+        },
+        "B": {
+          "direction": "input",
+          "bits": [ 6, 7, 8, 9 ]
+        },
+        "A_greater": {
+          "direction": "output",
+          "bits": [ 10 ]
+        },
+        "A_equal": {
+          "direction": "output",
+          "bits": [ 11 ]
+        },
+        "A_less": {
+          "direction": "output",
+          "bits": [ 12 ]
+        }
+      },
+      "cells": {
+        "$eq$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:10$2": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000100",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000100",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:10.25-10.31"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5 ],
+            "B": [ 6, 7, 8, 9 ],
+            "Y": [ 11 ]
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:9$1": {
+          "hide_name": 1,
+          "type": "$gt",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000100",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000100",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:9.25-9.30"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5 ],
+            "B": [ 6, 7, 8, 9 ],
+            "Y": [ 10 ]
+          }
+        },
+        "$lt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:11$3": {
+          "hide_name": 1,
+          "type": "$lt",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000100",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000100",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:11.25-11.30"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5 ],
+            "B": [ 6, 7, 8, 9 ],
+            "Y": [ 12 ]
+          }
+        }
+      },
+      "netnames": {
+        "$eq$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:10$2_Y": {
+          "hide_name": 1,
+          "bits": [ 11 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:10.25-10.31"
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:9$1_Y": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:9.25-9.30"
+          }
+        },
+        "$lt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:11$3_Y": {
+          "hide_name": 1,
+          "bits": [ 12 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:11.25-11.30"
+          }
+        },
+        "A": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4, 5 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:2.17-2.18"
+          }
+        },
+        "A_equal": {
+          "hide_name": 0,
+          "bits": [ 11 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:5.12-5.19"
+          }
+        },
+        "A_greater": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:4.12-4.21"
+          }
+        },
+        "A_less": {
+          "hide_name": 0,
+          "bits": [ 12 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:6.12-6.18"
+          }
+        },
+        "B": {
+          "hide_name": 0,
+          "bits": [ 6, 7, 8, 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_4bit/b_1_c5fadd4f4b25e0c.v:3.17-3.18"
+          }
+        }
+      }
+    }
+  }
+}

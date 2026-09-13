@@ -45,3 +45,11 @@ If the VC Formal SEQ app license is unavailable: class (a) uses Formality (or AB
 - The exact VC Formal commands and app settings follow the on-machine documentation and `eda-knowledge`; run one design first and store the script as a template.
 - Resets in SEQ: the reset sequences of D and C must match; the initial-state assumptions of the harness and of SEQ are written in the template comments.
 - All equivalence jobs use the VC Formal seat pool, not the DC pool.
+
+## 8. Implementation notes (2026-09-12)
+
+- V2 sampling: inputs change at the negedge, outputs are sampled just before the following posedge (`src/equiv/harness.py`), so that a register inserted in front of an output appears as a constant one-cycle offset; sampling after the edge hid such registers (DECISIONS 2026-09-12).
+- Candidate top name: `check_equivalence(..., c_top=)` and the `c_top` payload field let V1/V2/V3 handle candidates whose module is not named like D's (RTL-OPT `<name>_ref`); the ports must still match exactly.
+- Random seed: `sim_seed` (payload / `check_equivalence`) overrides `sim.seed`; the SEQ pilot runs every candidate with two seeds to measure whether per-output offsets are constant across random runs (guardrail 3).
+- Registers without reset: VC Formal SEQ treats their initial state as free; pure renamings of such designs are accepted by the `proven_rename` rule of the perturbation gate (inverse renaming reproduces the SEQ-proven round trip), and the G2 report discusses an initial-state assumption for candidates.
+- Vocabulary additions: `proven_rename` (perturbation gate only), `error` (a V1 Yosys timeout: no statement about the interface), `proven_sim_only` (constant per-output offsets, SEQ falsified without latency mapping; class c2).

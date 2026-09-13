@@ -1,0 +1,1739 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "ticket_machine": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:1.1-138.10"
+      },
+      "parameter_default_values": {
+        "OFF": "0",
+        "ON": "1"
+      },
+      "ports": {
+        "clk": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "clear": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "ten": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "twenty": {
+          "direction": "input",
+          "bits": [ 5 ]
+        },
+        "ready": {
+          "direction": "output",
+          "bits": [ 6 ]
+        },
+        "dispense": {
+          "direction": "output",
+          "bits": [ 7 ]
+        },
+        "return_sig": {
+          "direction": "output",
+          "bits": [ 8 ]
+        },
+        "bill": {
+          "direction": "output",
+          "bits": [ 9 ]
+        }
+      },
+      "cells": {
+        "$procdff$132": {
+          "hide_name": 1,
+          "type": "$dff",
+          "parameters": {
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:21.5-29.8"
+          },
+          "port_directions": {
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "CLK": [ 2 ],
+            "D": [ 10, 11, 12, 13, 14, 15 ],
+            "Q": [ 16, 17, 18, 19, 20, 21 ]
+          }
+        },
+        "$procdff$133": {
+          "hide_name": 1,
+          "type": "$dff",
+          "parameters": {
+            "CLK_POLARITY": "1",
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:21.5-29.8"
+          },
+          "port_directions": {
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "CLK": [ 2 ],
+            "D": [ 22, 23, 24, 25, 26, 27 ],
+            "Q": [ 28, 29, 30, 31, 32, 33 ]
+          }
+        },
+        "$procmux$104": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:46.16-46.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.9-82.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0" ],
+            "B": [ "1" ],
+            "S": [ 34 ],
+            "Y": [ 8 ]
+          }
+        },
+        "$procmux$105_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:46.16-46.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.9-82.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 28, 29, 30, 31, 32, 33 ],
+            "B": [ "0", "0", "1", "0", "0", "0" ],
+            "Y": [ 34 ]
+          }
+        },
+        "$procmux$11": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:116.21-116.24|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:116.17-121.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 35, 36, 37, 38, 39, 40 ],
+            "B": [ "x", "x", "x", "x", "x", "x" ],
+            "S": [ 4 ],
+            "Y": [ 41, 42, 43, 44, 45, 46 ]
+          }
+        },
+        "$procmux$111": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:39.16-39.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.9-82.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0" ],
+            "B": [ "1" ],
+            "S": [ 47 ],
+            "Y": [ 7 ]
+          }
+        },
+        "$procmux$112_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:39.16-39.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.9-82.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 28, 29, 30, 31, 32, 33 ],
+            "B": [ "0", "1", "0", "0", "0", "0" ],
+            "Y": [ 47 ]
+          }
+        },
+        "$procmux$114": {
+          "hide_name": 1,
+          "type": "$pmux",
+          "parameters": {
+            "S_WIDTH": "00000000000000000000000000000011",
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:67.16-67.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.9-82.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0" ],
+            "B": [ "1", "1", "1" ],
+            "S": [ 48, 49, 50 ],
+            "Y": [ 9 ]
+          }
+        },
+        "$procmux$115_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:67.16-67.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.9-82.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 28, 29, 30, 31, 32, 33 ],
+            "B": [ "0", "0", "0", "0", "0", "1" ],
+            "Y": [ 48 ]
+          }
+        },
+        "$procmux$116_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:60.16-60.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.9-82.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 28, 29, 30, 31, 32, 33 ],
+            "B": [ "0", "0", "0", "0", "1", "0" ],
+            "Y": [ 49 ]
+          }
+        },
+        "$procmux$117_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:53.16-53.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.9-82.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 28, 29, 30, 31, 32, 33 ],
+            "B": [ "0", "0", "0", "1", "0", "0" ],
+            "Y": [ 50 ]
+          }
+        },
+        "$procmux$124": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.24-33.24|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.9-82.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0" ],
+            "B": [ "1" ],
+            "S": [ 51 ],
+            "Y": [ 6 ]
+          }
+        },
+        "$procmux$125_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.24-33.24|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:33.9-82.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 28, 29, 30, 31, 32, 33 ],
+            "B": [ "1", "0", "0", "0", "0", "0" ],
+            "Y": [ 51 ]
+          }
+        },
+        "$procmux$127": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:22.13-22.18|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:22.9-28.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 52, 53, 54, 55, 56, 57 ],
+            "B": [ "1", "0", "0", "0", "0", "0" ],
+            "S": [ 3 ],
+            "Y": [ 22, 23, 24, 25, 26, 27 ]
+          }
+        },
+        "$procmux$13": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:113.16-113.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x" ],
+            "B": [ 41, 42, 43, 44, 45, 46 ],
+            "S": [ 58 ],
+            "Y": [ 59, 60, 61, 62, 63, 64 ]
+          }
+        },
+        "$procmux$130": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:22.13-22.18|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:22.9-28.12"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 52, 53, 54, 55, 56, 57 ],
+            "B": [ "1", "0", "0", "0", "0", "0" ],
+            "S": [ 3 ],
+            "Y": [ 10, 11, 12, 13, 14, 15 ]
+          }
+        },
+        "$procmux$14_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:113.16-113.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "0", "0", "0", "0", "0", "1" ],
+            "Y": [ 58 ]
+          }
+        },
+        "$procmux$19": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:116.21-116.24|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:116.17-121.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 59, 60, 61, 62, 63, 64 ],
+            "B": [ "0", "1", "0", "0", "0", "0" ],
+            "S": [ 4 ],
+            "Y": [ 65, 66, 67, 68, 69, 70 ]
+          }
+        },
+        "$procmux$21": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:113.16-113.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x" ],
+            "B": [ 65, 66, 67, 68, 69, 70 ],
+            "S": [ 71 ],
+            "Y": [ 72, 73, 74, 75, 76, 77 ]
+          }
+        },
+        "$procmux$22_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:113.16-113.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "0", "0", "0", "0", "0", "1" ],
+            "Y": [ 71 ]
+          }
+        },
+        "$procmux$28": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:109.26-109.32|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:109.22-112.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0", "0", "0", "0", "1", "0" ],
+            "B": [ "0", "1", "0", "0", "0", "0" ],
+            "S": [ 5 ],
+            "Y": [ 78, 79, 80, 81, 82, 83 ]
+          }
+        },
+        "$procmux$31": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:107.21-107.24|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:107.17-112.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 78, 79, 80, 81, 82, 83 ],
+            "B": [ "x", "x", "x", "x", "x", "x" ],
+            "S": [ 4 ],
+            "Y": [ 84, 85, 86, 87, 88, 89 ]
+          }
+        },
+        "$procmux$33": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:104.16-104.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x" ],
+            "B": [ 84, 85, 86, 87, 88, 89 ],
+            "S": [ 90 ],
+            "Y": [ 91, 92, 93, 94, 95, 96 ]
+          }
+        },
+        "$procmux$34_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:104.16-104.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "0", "0", "0", "0", "1", "0" ],
+            "Y": [ 90 ]
+          }
+        },
+        "$procmux$40": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:107.21-107.24|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:107.17-112.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 91, 92, 93, 94, 95, 96 ],
+            "B": [ "0", "0", "0", "0", "0", "1" ],
+            "S": [ 4 ],
+            "Y": [ 97, 98, 99, 100, 101, 102 ]
+          }
+        },
+        "$procmux$42": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:104.16-104.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x" ],
+            "B": [ 97, 98, 99, 100, 101, 102 ],
+            "S": [ 103 ],
+            "Y": [ 104, 105, 106, 107, 108, 109 ]
+          }
+        },
+        "$procmux$43_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:104.16-104.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "0", "0", "0", "0", "1", "0" ],
+            "Y": [ 103 ]
+          }
+        },
+        "$procmux$50": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:100.26-100.32|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:100.22-103.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0", "0", "0", "1", "0", "0" ],
+            "B": [ "0", "0", "0", "0", "0", "1" ],
+            "S": [ 5 ],
+            "Y": [ 110, 111, 112, 113, 114, 115 ]
+          }
+        },
+        "$procmux$53": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:98.21-98.24|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:98.17-103.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 110, 111, 112, 113, 114, 115 ],
+            "B": [ "x", "x", "x", "x", "x", "x" ],
+            "S": [ 4 ],
+            "Y": [ 116, 117, 118, 119, 120, 121 ]
+          }
+        },
+        "$procmux$55": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:95.16-95.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x" ],
+            "B": [ 116, 117, 118, 119, 120, 121 ],
+            "S": [ 122 ],
+            "Y": [ 123, 124, 125, 126, 127, 128 ]
+          }
+        },
+        "$procmux$56_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:95.16-95.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "0", "0", "0", "1", "0", "0" ],
+            "Y": [ 122 ]
+          }
+        },
+        "$procmux$63": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:98.21-98.24|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:98.17-103.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 123, 124, 125, 126, 127, 128 ],
+            "B": [ "0", "0", "0", "0", "1", "0" ],
+            "S": [ 4 ],
+            "Y": [ 129, 130, 131, 132, 133, 134 ]
+          }
+        },
+        "$procmux$65": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:95.16-95.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x" ],
+            "B": [ 129, 130, 131, 132, 133, 134 ],
+            "S": [ 135 ],
+            "Y": [ 136, 137, 138, 139, 140, 141 ]
+          }
+        },
+        "$procmux$66_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:95.16-95.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "0", "0", "0", "1", "0", "0" ],
+            "Y": [ 135 ]
+          }
+        },
+        "$procmux$74": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:91.26-91.32|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:91.22-94.37"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "1", "0", "0", "0", "0", "0" ],
+            "B": [ "0", "0", "0", "0", "1", "0" ],
+            "S": [ 5 ],
+            "Y": [ 142, 143, 144, 145, 146, 147 ]
+          }
+        },
+        "$procmux$77": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:89.21-89.24|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:89.17-94.37"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 142, 143, 144, 145, 146, 147 ],
+            "B": [ "x", "x", "x", "x", "x", "x" ],
+            "S": [ 4 ],
+            "Y": [ 148, 149, 150, 151, 152, 153 ]
+          }
+        },
+        "$procmux$79": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.21-87.21|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x" ],
+            "B": [ 148, 149, 150, 151, 152, 153 ],
+            "S": [ 154 ],
+            "Y": [ 155, 156, 157, 158, 159, 160 ]
+          }
+        },
+        "$procmux$8": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:118.26-118.32|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:118.22-121.40"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0", "0", "0", "0", "0", "1" ],
+            "B": [ "0", "0", "1", "0", "0", "0" ],
+            "S": [ 5 ],
+            "Y": [ 35, 36, 37, 38, 39, 40 ]
+          }
+        },
+        "$procmux$80_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.21-87.21|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "1", "0", "0", "0", "0", "0" ],
+            "Y": [ 154 ]
+          }
+        },
+        "$procmux$88": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:89.21-89.24|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:89.17-94.37"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 155, 156, 157, 158, 159, 160 ],
+            "B": [ "0", "0", "0", "1", "0", "0" ],
+            "S": [ 4 ],
+            "Y": [ 161, 162, 163, 164, 165, 166 ]
+          }
+        },
+        "$procmux$90": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.21-87.21|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "x", "x", "x", "x", "x", "x" ],
+            "B": [ 161, 162, 163, 164, 165, 166 ],
+            "S": [ 167 ],
+            "Y": [ 168, 169, 170, 171, 172, 173 ]
+          }
+        },
+        "$procmux$91_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.21-87.21|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "1", "0", "0", "0", "0", "0" ],
+            "Y": [ 167 ]
+          }
+        },
+        "$procmux$95": {
+          "hide_name": 1,
+          "type": "$pmux",
+          "parameters": {
+            "S_WIDTH": "00000000000000000000000000000100",
+            "WIDTH": "00000000000000000000000000000110"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:113.16-113.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "1", "0", "0", "0", "0", "0" ],
+            "B": [ 72, 73, 74, 75, 76, 77, 104, 105, 106, 107, 108, 109, 136, 137, 138, 139, 140, 141, 168, 169, 170, 171, 172, 173 ],
+            "S": [ 174, 175, 176, 177 ],
+            "Y": [ 52, 53, 54, 55, 56, 57 ]
+          }
+        },
+        "$procmux$96_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:113.16-113.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "0", "0", "0", "0", "0", "1" ],
+            "Y": [ 174 ]
+          }
+        },
+        "$procmux$97_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:104.16-104.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "0", "0", "0", "0", "1", "0" ],
+            "Y": [ 175 ]
+          }
+        },
+        "$procmux$98_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:95.16-95.16|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "0", "0", "0", "1", "0", "0" ],
+            "Y": [ 176 ]
+          }
+        },
+        "$procmux$99_CMP0": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000110",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000110",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "full_case": "00000000000000000000000000000001",
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.21-87.21|/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:87.9-135.16"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20, 21 ],
+            "B": [ "1", "0", "0", "0", "0", "0" ],
+            "Y": [ 177 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\NextState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 52, 53, 54, 55, 56, 57 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:86.5-136.8"
+          }
+        },
+        "$0\\OutState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 22, 23, 24, 25, 26, 27 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:21.5-29.8"
+          }
+        },
+        "$0\\State[5:0]": {
+          "hide_name": 1,
+          "bits": [ 10, 11, 12, 13, 14, 15 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:21.5-29.8"
+          }
+        },
+        "$0\\bill[0:0]": {
+          "hide_name": 1,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:32.5-83.8"
+          }
+        },
+        "$0\\dispense[0:0]": {
+          "hide_name": 1,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:32.5-83.8"
+          }
+        },
+        "$0\\ready[0:0]": {
+          "hide_name": 1,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:32.5-83.8"
+          }
+        },
+        "$0\\return_sig[0:0]": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:32.5-83.8"
+          }
+        },
+        "$1\\NextState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 52, 53, 54, 55, 56, 57 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:86.5-136.8"
+          }
+        },
+        "$1\\bill[0:0]": {
+          "hide_name": 1,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:32.5-83.8"
+          }
+        },
+        "$1\\dispense[0:0]": {
+          "hide_name": 1,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:32.5-83.8"
+          }
+        },
+        "$1\\ready[0:0]": {
+          "hide_name": 1,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:32.5-83.8"
+          }
+        },
+        "$1\\return_sig[0:0]": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:32.5-83.8"
+          }
+        },
+        "$2\\NextState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 168, 169, 170, 171, 172, 173 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:86.5-136.8"
+          }
+        },
+        "$3\\NextState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 155, 156, 157, 158, 159, 160 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:86.5-136.8"
+          }
+        },
+        "$4\\NextState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 136, 137, 138, 139, 140, 141 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:86.5-136.8"
+          }
+        },
+        "$5\\NextState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 123, 124, 125, 126, 127, 128 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:86.5-136.8"
+          }
+        },
+        "$6\\NextState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 104, 105, 106, 107, 108, 109 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:86.5-136.8"
+          }
+        },
+        "$7\\NextState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 91, 92, 93, 94, 95, 96 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:86.5-136.8"
+          }
+        },
+        "$8\\NextState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 72, 73, 74, 75, 76, 77 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:86.5-136.8"
+          }
+        },
+        "$9\\NextState[5:0]": {
+          "hide_name": 1,
+          "bits": [ 59, 60, 61, 62, 63, 64 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:86.5-136.8"
+          }
+        },
+        "$procmux$104_Y": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+          }
+        },
+        "$procmux$105_CMP": {
+          "hide_name": 1,
+          "bits": [ 34 ],
+          "attributes": {
+          }
+        },
+        "$procmux$111_Y": {
+          "hide_name": 1,
+          "bits": [ 7 ],
+          "attributes": {
+          }
+        },
+        "$procmux$112_CMP": {
+          "hide_name": 1,
+          "bits": [ 47 ],
+          "attributes": {
+          }
+        },
+        "$procmux$114_Y": {
+          "hide_name": 1,
+          "bits": [ 9 ],
+          "attributes": {
+          }
+        },
+        "$procmux$115_CMP": {
+          "hide_name": 1,
+          "bits": [ 48 ],
+          "attributes": {
+          }
+        },
+        "$procmux$116_CMP": {
+          "hide_name": 1,
+          "bits": [ 49 ],
+          "attributes": {
+          }
+        },
+        "$procmux$117_CMP": {
+          "hide_name": 1,
+          "bits": [ 50 ],
+          "attributes": {
+          }
+        },
+        "$procmux$11_Y": {
+          "hide_name": 1,
+          "bits": [ 41, 42, 43, 44, 45, 46 ],
+          "attributes": {
+          }
+        },
+        "$procmux$124_Y": {
+          "hide_name": 1,
+          "bits": [ 6 ],
+          "attributes": {
+          }
+        },
+        "$procmux$125_CMP": {
+          "hide_name": 1,
+          "bits": [ 51 ],
+          "attributes": {
+          }
+        },
+        "$procmux$127_Y": {
+          "hide_name": 1,
+          "bits": [ 22, 23, 24, 25, 26, 27 ],
+          "attributes": {
+          }
+        },
+        "$procmux$128_CMP": {
+          "hide_name": 1,
+          "bits": [ 3 ],
+          "attributes": {
+          }
+        },
+        "$procmux$12_CMP": {
+          "hide_name": 1,
+          "bits": [ 4 ],
+          "attributes": {
+          }
+        },
+        "$procmux$130_Y": {
+          "hide_name": 1,
+          "bits": [ 10, 11, 12, 13, 14, 15 ],
+          "attributes": {
+          }
+        },
+        "$procmux$131_CMP": {
+          "hide_name": 1,
+          "bits": [ 3 ],
+          "attributes": {
+          }
+        },
+        "$procmux$13_Y": {
+          "hide_name": 1,
+          "bits": [ 59, 60, 61, 62, 63, 64 ],
+          "attributes": {
+          }
+        },
+        "$procmux$14_CMP": {
+          "hide_name": 1,
+          "bits": [ 58 ],
+          "attributes": {
+          }
+        },
+        "$procmux$19_Y": {
+          "hide_name": 1,
+          "bits": [ 65, 66, 67, 68, 69, 70 ],
+          "attributes": {
+          }
+        },
+        "$procmux$20_CMP": {
+          "hide_name": 1,
+          "bits": [ 4 ],
+          "attributes": {
+          }
+        },
+        "$procmux$21_Y": {
+          "hide_name": 1,
+          "bits": [ 72, 73, 74, 75, 76, 77 ],
+          "attributes": {
+          }
+        },
+        "$procmux$22_CMP": {
+          "hide_name": 1,
+          "bits": [ 71 ],
+          "attributes": {
+          }
+        },
+        "$procmux$28_Y": {
+          "hide_name": 1,
+          "bits": [ 78, 79, 80, 81, 82, 83 ],
+          "attributes": {
+          }
+        },
+        "$procmux$29_CMP": {
+          "hide_name": 1,
+          "bits": [ 5 ],
+          "attributes": {
+          }
+        },
+        "$procmux$31_Y": {
+          "hide_name": 1,
+          "bits": [ 84, 85, 86, 87, 88, 89 ],
+          "attributes": {
+          }
+        },
+        "$procmux$32_CMP": {
+          "hide_name": 1,
+          "bits": [ 4 ],
+          "attributes": {
+          }
+        },
+        "$procmux$33_Y": {
+          "hide_name": 1,
+          "bits": [ 91, 92, 93, 94, 95, 96 ],
+          "attributes": {
+          }
+        },
+        "$procmux$34_CMP": {
+          "hide_name": 1,
+          "bits": [ 90 ],
+          "attributes": {
+          }
+        },
+        "$procmux$40_Y": {
+          "hide_name": 1,
+          "bits": [ 97, 98, 99, 100, 101, 102 ],
+          "attributes": {
+          }
+        },
+        "$procmux$41_CMP": {
+          "hide_name": 1,
+          "bits": [ 4 ],
+          "attributes": {
+          }
+        },
+        "$procmux$42_Y": {
+          "hide_name": 1,
+          "bits": [ 104, 105, 106, 107, 108, 109 ],
+          "attributes": {
+          }
+        },
+        "$procmux$43_CMP": {
+          "hide_name": 1,
+          "bits": [ 103 ],
+          "attributes": {
+          }
+        },
+        "$procmux$50_Y": {
+          "hide_name": 1,
+          "bits": [ 110, 111, 112, 113, 114, 115 ],
+          "attributes": {
+          }
+        },
+        "$procmux$51_CMP": {
+          "hide_name": 1,
+          "bits": [ 5 ],
+          "attributes": {
+          }
+        },
+        "$procmux$53_Y": {
+          "hide_name": 1,
+          "bits": [ 116, 117, 118, 119, 120, 121 ],
+          "attributes": {
+          }
+        },
+        "$procmux$54_CMP": {
+          "hide_name": 1,
+          "bits": [ 4 ],
+          "attributes": {
+          }
+        },
+        "$procmux$55_Y": {
+          "hide_name": 1,
+          "bits": [ 123, 124, 125, 126, 127, 128 ],
+          "attributes": {
+          }
+        },
+        "$procmux$56_CMP": {
+          "hide_name": 1,
+          "bits": [ 122 ],
+          "attributes": {
+          }
+        },
+        "$procmux$63_Y": {
+          "hide_name": 1,
+          "bits": [ 129, 130, 131, 132, 133, 134 ],
+          "attributes": {
+          }
+        },
+        "$procmux$64_CMP": {
+          "hide_name": 1,
+          "bits": [ 4 ],
+          "attributes": {
+          }
+        },
+        "$procmux$65_Y": {
+          "hide_name": 1,
+          "bits": [ 136, 137, 138, 139, 140, 141 ],
+          "attributes": {
+          }
+        },
+        "$procmux$66_CMP": {
+          "hide_name": 1,
+          "bits": [ 135 ],
+          "attributes": {
+          }
+        },
+        "$procmux$74_Y": {
+          "hide_name": 1,
+          "bits": [ 142, 143, 144, 145, 146, 147 ],
+          "attributes": {
+          }
+        },
+        "$procmux$75_CMP": {
+          "hide_name": 1,
+          "bits": [ 5 ],
+          "attributes": {
+          }
+        },
+        "$procmux$77_Y": {
+          "hide_name": 1,
+          "bits": [ 148, 149, 150, 151, 152, 153 ],
+          "attributes": {
+          }
+        },
+        "$procmux$78_CMP": {
+          "hide_name": 1,
+          "bits": [ 4 ],
+          "attributes": {
+          }
+        },
+        "$procmux$79_Y": {
+          "hide_name": 1,
+          "bits": [ 155, 156, 157, 158, 159, 160 ],
+          "attributes": {
+          }
+        },
+        "$procmux$80_CMP": {
+          "hide_name": 1,
+          "bits": [ 154 ],
+          "attributes": {
+          }
+        },
+        "$procmux$88_Y": {
+          "hide_name": 1,
+          "bits": [ 161, 162, 163, 164, 165, 166 ],
+          "attributes": {
+          }
+        },
+        "$procmux$89_CMP": {
+          "hide_name": 1,
+          "bits": [ 4 ],
+          "attributes": {
+          }
+        },
+        "$procmux$8_Y": {
+          "hide_name": 1,
+          "bits": [ 35, 36, 37, 38, 39, 40 ],
+          "attributes": {
+          }
+        },
+        "$procmux$90_Y": {
+          "hide_name": 1,
+          "bits": [ 168, 169, 170, 171, 172, 173 ],
+          "attributes": {
+          }
+        },
+        "$procmux$91_CMP": {
+          "hide_name": 1,
+          "bits": [ 167 ],
+          "attributes": {
+          }
+        },
+        "$procmux$95_Y": {
+          "hide_name": 1,
+          "bits": [ 52, 53, 54, 55, 56, 57 ],
+          "attributes": {
+          }
+        },
+        "$procmux$96_CMP": {
+          "hide_name": 1,
+          "bits": [ 174 ],
+          "attributes": {
+          }
+        },
+        "$procmux$97_CMP": {
+          "hide_name": 1,
+          "bits": [ 175 ],
+          "attributes": {
+          }
+        },
+        "$procmux$98_CMP": {
+          "hide_name": 1,
+          "bits": [ 176 ],
+          "attributes": {
+          }
+        },
+        "$procmux$99_CMP": {
+          "hide_name": 1,
+          "bits": [ 177 ],
+          "attributes": {
+          }
+        },
+        "$procmux$9_CMP": {
+          "hide_name": 1,
+          "bits": [ 5 ],
+          "attributes": {
+          }
+        },
+        "NextState": {
+          "hide_name": 0,
+          "bits": [ 52, 53, 54, 55, 56, 57 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:17.22-17.31"
+          }
+        },
+        "OutState": {
+          "hide_name": 0,
+          "bits": [ 28, 29, 30, 31, 32, 33 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:20.15-20.23"
+          }
+        },
+        "State": {
+          "hide_name": 0,
+          "bits": [ 16, 17, 18, 19, 20, 21 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:17.15-17.20"
+          }
+        },
+        "bill": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:6.45-6.49"
+          }
+        },
+        "clear": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:5.17-5.22"
+          }
+        },
+        "clk": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:5.12-5.15"
+          }
+        },
+        "dispense": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:6.23-6.31"
+          }
+        },
+        "ready": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:6.16-6.21"
+          }
+        },
+        "return_sig": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:6.33-6.43"
+          }
+        },
+        "ten": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:5.24-5.27"
+          }
+        },
+        "twenty": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/drrtl_ticket_machine/c1_outputs_from_duplicated_state_register.v:5.29-5.35"
+          }
+        }
+      }
+    }
+  }
+}

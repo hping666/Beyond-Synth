@@ -1,0 +1,1 @@
+/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_fixed_point_adder/c1_1_c8db97d127dc108.v:1: ERROR: In pure Verilog (not SystemVerilog), parameter/localparam with an initializer must use the parameter/localparam keyword

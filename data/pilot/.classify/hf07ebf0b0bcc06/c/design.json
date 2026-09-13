@@ -1,0 +1,172 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "comparator_3bit": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:1.1-16.10"
+      },
+      "ports": {
+        "A": {
+          "direction": "input",
+          "bits": [ 2, 3, 4 ]
+        },
+        "B": {
+          "direction": "input",
+          "bits": [ 5, 6, 7 ]
+        },
+        "A_greater": {
+          "direction": "output",
+          "bits": [ 8 ]
+        },
+        "A_equal": {
+          "direction": "output",
+          "bits": [ 9 ]
+        },
+        "A_less": {
+          "direction": "output",
+          "bits": [ 10 ]
+        }
+      },
+      "cells": {
+        "$eq$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11$2": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11.36-11.42"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ 5, 6, 7 ],
+            "Y": [ 9 ]
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11$3": {
+          "hide_name": 1,
+          "type": "$gt",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11.27-11.32"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ 5, 6, 7 ],
+            "Y": [ 8 ]
+          }
+        },
+        "$lt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11$1": {
+          "hide_name": 1,
+          "type": "$lt",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11.46-11.51"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ 5, 6, 7 ],
+            "Y": [ 10 ]
+          }
+        }
+      },
+      "netnames": {
+        "$eq$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11$2_Y": {
+          "hide_name": 1,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11.36-11.42"
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11$3_Y": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11.27-11.32"
+          }
+        },
+        "$lt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11$1_Y": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:11.46-11.51"
+          }
+        },
+        "A": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:2.17-2.18"
+          }
+        },
+        "A_equal": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:5.12-5.19"
+          }
+        },
+        "A_greater": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:4.12-4.21"
+          }
+        },
+        "A_less": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:6.12-6.18"
+          }
+        },
+        "B": {
+          "hide_name": 0,
+          "bits": [ 5, 6, 7 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:3.17-3.18"
+          }
+        },
+        "comparison": {
+          "hide_name": 0,
+          "bits": [ 10, 9, 8 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_comparator_3bit/b_0_c2db74a51fe74b7.v:9.16-9.26"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "comparator_3bit": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:1.1-13.10"
+      },
+      "ports": {
+        "A": {
+          "direction": "input",
+          "bits": [ 2, 3, 4 ]
+        },
+        "B": {
+          "direction": "input",
+          "bits": [ 5, 6, 7 ]
+        },
+        "A_greater": {
+          "direction": "output",
+          "bits": [ 8 ]
+        },
+        "A_equal": {
+          "direction": "output",
+          "bits": [ 9 ]
+        },
+        "A_less": {
+          "direction": "output",
+          "bits": [ 10 ]
+        }
+      },
+      "cells": {
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:10$3": {
+          "hide_name": 1,
+          "type": "$eq",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:10.23-10.29"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ 5, 6, 7 ],
+            "Y": [ 11 ]
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:9$1": {
+          "hide_name": 1,
+          "type": "$gt",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:9.25-9.30"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ 5, 6, 7 ],
+            "Y": [ 12 ]
+          }
+        },
+        "$lt$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:11$5": {
+          "hide_name": 1,
+          "type": "$lt",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000011",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000011",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:11.22-11.27"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4 ],
+            "B": [ 5, 6, 7 ],
+            "Y": [ 13 ]
+          }
+        },
+        "$ternary$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:10$4": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:10.22-10.44"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0" ],
+            "B": [ "1" ],
+            "S": [ 11 ],
+            "Y": [ 9 ]
+          }
+        },
+        "$ternary$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:11$6": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:11.21-11.42"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0" ],
+            "B": [ "1" ],
+            "S": [ 13 ],
+            "Y": [ 10 ]
+          }
+        },
+        "$ternary$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:9$2": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:9.24-9.45"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ "0" ],
+            "B": [ "1" ],
+            "S": [ 12 ],
+            "Y": [ 8 ]
+          }
+        }
+      },
+      "netnames": {
+        "$eq$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:10$3_Y": {
+          "hide_name": 1,
+          "bits": [ 11 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:10.23-10.29"
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:9$1_Y": {
+          "hide_name": 1,
+          "bits": [ 12 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:9.25-9.30"
+          }
+        },
+        "$lt$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:11$5_Y": {
+          "hide_name": 1,
+          "bits": [ 13 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:11.22-11.27"
+          }
+        },
+        "$ternary$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:10$4_Y": {
+          "hide_name": 1,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:10.22-10.44"
+          }
+        },
+        "$ternary$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:11$6_Y": {
+          "hide_name": 1,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:11.21-11.42"
+          }
+        },
+        "$ternary$/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:9$2_Y": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:9.24-9.45"
+          }
+        },
+        "A": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:2.17-2.18"
+          }
+        },
+        "A_equal": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:5.12-5.19"
+          }
+        },
+        "A_greater": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:4.12-4.21"
+          }
+        },
+        "A_less": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:6.12-6.18"
+          }
+        },
+        "B": {
+          "hide_name": 0,
+          "bits": [ 5, 6, 7 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/designs/rtllm/comparator_3bit/rtl/comparator_3bit.v:3.17-3.18"
+          }
+        }
+      }
+    }
+  }
+}

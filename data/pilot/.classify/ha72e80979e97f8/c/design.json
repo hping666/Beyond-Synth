@@ -1,0 +1,270 @@
+{
+  "creator": "Yosys 0.63 (git sha1 d3e297fcd, g++ 11.5.0-10ubuntu1~20~ppa3 -fPIC -O3) [the-openroad-project/yosys]",
+  "modules": {
+    "adder_bcd": {
+      "attributes": {
+        "top": "00000000000000000000000000000001",
+        "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:1.1-15.10"
+      },
+      "ports": {
+        "A": {
+          "direction": "input",
+          "bits": [ 2, 3, 4, 5 ]
+        },
+        "B": {
+          "direction": "input",
+          "bits": [ 6, 7, 8, 9 ]
+        },
+        "Cin": {
+          "direction": "input",
+          "bits": [ 10 ]
+        },
+        "Sum": {
+          "direction": "output",
+          "bits": [ 11, 12, 13, 14 ]
+        },
+        "Cout": {
+          "direction": "output",
+          "bits": [ 15 ]
+        }
+      },
+      "cells": {
+        "$add$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:11$1": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000100",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000100",
+            "Y_WIDTH": "00000000000000000000000000000101"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:11.25-11.30"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 2, 3, 4, 5 ],
+            "B": [ 6, 7, 8, 9 ],
+            "Y": [ 16, 17, 18, 19, 20 ]
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:11$2": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000101",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000001",
+            "Y_WIDTH": "00000000000000000000000000000101"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:11.25-11.36"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 16, 17, 18, 19, 20 ],
+            "B": [ 10 ],
+            "Y": [ 21, 22, 23, 24, 25 ]
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12$4": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000101",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000101",
+            "Y_WIDTH": "00000000000000000000000000000101"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12.50-12.67"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 21, 22, 23, 24, 25 ],
+            "B": [ "0", "1", "1", "0", "0" ],
+            "Y": [ 26, 27, 28, 29, 30 ]
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12$3": {
+          "hide_name": 1,
+          "type": "$gt",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000101",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000101",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12.28-12.45"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 21, 22, 23, 24, 25 ],
+            "B": [ "1", "0", "0", "1", "0" ],
+            "Y": [ 31 ]
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:14$6": {
+          "hide_name": 1,
+          "type": "$gt",
+          "parameters": {
+            "A_SIGNED": "00000000000000000000000000000000",
+            "A_WIDTH": "00000000000000000000000000000101",
+            "B_SIGNED": "00000000000000000000000000000000",
+            "B_WIDTH": "00000000000000000000000000000101",
+            "Y_WIDTH": "00000000000000000000000000000001"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:14.20-14.37"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 21, 22, 23, 24, 25 ],
+            "B": [ "1", "0", "0", "1", "0" ],
+            "Y": [ 15 ]
+          }
+        },
+        "$ternary$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12$5": {
+          "hide_name": 1,
+          "type": "$mux",
+          "parameters": {
+            "WIDTH": "00000000000000000000000000000101"
+          },
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12.27-12.81"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "S": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 21, 22, 23, 24, 25 ],
+            "B": [ 26, 27, 28, 29, 30 ],
+            "S": [ 31 ],
+            "Y": [ 11, 12, 13, 14, 32 ]
+          }
+        }
+      },
+      "netnames": {
+        "$add$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:11$1_Y": {
+          "hide_name": 1,
+          "bits": [ 16, 17, 18, 19, 20 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:11.25-11.30"
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:11$2_Y": {
+          "hide_name": 1,
+          "bits": [ 21, 22, 23, 24, 25 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:11.25-11.36"
+          }
+        },
+        "$add$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12$4_Y": {
+          "hide_name": 1,
+          "bits": [ 26, 27, 28, 29, 30 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12.50-12.67"
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12$3_Y": {
+          "hide_name": 1,
+          "bits": [ 31 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12.28-12.45"
+          }
+        },
+        "$gt$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:14$6_Y": {
+          "hide_name": 1,
+          "bits": [ 15 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:14.20-14.37"
+          }
+        },
+        "$ternary$/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12$5_Y": {
+          "hide_name": 1,
+          "bits": [ 11, 12, 13, 14, 32 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:12.27-12.81"
+          }
+        },
+        "A": {
+          "hide_name": 0,
+          "bits": [ 2, 3, 4, 5 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:2.18-2.19"
+          }
+        },
+        "B": {
+          "hide_name": 0,
+          "bits": [ 6, 7, 8, 9 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:3.18-3.19"
+          }
+        },
+        "Cin": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:4.12-4.15"
+          }
+        },
+        "Cout": {
+          "hide_name": 0,
+          "bits": [ 15 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:6.12-6.16"
+          }
+        },
+        "Sum": {
+          "hide_name": 0,
+          "bits": [ 11, 12, 13, 14 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:5.18-5.21"
+          }
+        },
+        "adjusted_sum": {
+          "hide_name": 0,
+          "bits": [ 11, 12, 13, 14, 32 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:9.16-9.28"
+          }
+        },
+        "binary_sum": {
+          "hide_name": 0,
+          "bits": [ 21, 22, 23, 24, 25 ],
+          "attributes": {
+            "src": "/home/hping/Beyond-Synth/data/pilot/llm_pilot_luna1__rtllm_adder_bcd/c1_0_ca72e80979e97f8.v:8.16-8.26"
+          }
+        }
+      }
+    }
+  }
+}
