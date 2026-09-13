@@ -180,7 +180,7 @@ def vcs_run(workdir, cfg, timeout=1800, plusargs=()):
     return p.returncode, p.stdout + p.stderr
 
 
-def run_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg, *, sverilog=False, incdirs=None, timeout_sec=None, sim_seed=None):
+def run_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg, *, sverilog=False, incdirs=None, timeout_sec=None, sim_seed=None, c_top=None):
     """-> dict(status, offsets, cycles, first_mismatch, vcd, trace, sverilog, compile_log_path)."""
     job_dir = Path(job_dir)
     wd = job_dir / "v2_sim"
@@ -193,7 +193,7 @@ def run_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg
         c_sources.append(dst)
     trace, vcd = wd / "trace.txt", wd / "sim.vcd"
     harness = wd / "harness.v"
-    ins, outs = write_harness(harness, top, top + SUFFIX, ports, clk, rst, rst_sense, cfg, trace, vcd, seed=sim_seed)
+    ins, outs = write_harness(harness, top, (c_top or top) + SUFFIX, ports, clk, rst, rst_sense, cfg, trace, vcd, seed=sim_seed)
     timeout = float(timeout_sec or cfg["timeouts"]["sim"] * 60)
     t0 = time.time()
     ok, clog, sv = vcs_compile(wd, [harness] + [str(f) for f in d_files] + [str(p) for p in c_sources], cfg,

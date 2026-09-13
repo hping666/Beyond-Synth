@@ -18,8 +18,10 @@ from src.equiv.verdict import decide, v4_acceptance
 
 
 def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None, rst_sense=None, d_ports=None,
-                      sverilog=False, incdirs=None, run_v3=True, run_v4=True, timeout_sec=None, design_id=None, sim_seed=None):
-    """run_v4: after an inconclusive SEQ, try DPV on combinational modules (no clock port) under the guardrails of
+                      sverilog=False, incdirs=None, run_v3=True, run_v4=True, timeout_sec=None, design_id=None, sim_seed=None,
+                      c_top=None):
+    """c_top: the candidate's top module when it is not named like D's (RTL-OPT `<name>_ref`); ports must still match.
+    run_v4: after an inconclusive SEQ, try DPV on combinational modules (no clock port) under the guardrails of
     DECISIONS 2026-09-12 (V3 falsified is final; a DPV proven needs all outputs, no assumes and a passed per-module
     vacuity check, cached by design_id). Clocked datapaths wait for the Phase 2 pilot."""
     job_dir = Path(job_dir)
@@ -31,7 +33,7 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
     # ---- V1: interface ----
     try:
         d_ports = d_ports or PORTS.port_info(d_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=job_dir / "v1_ports_d")
-        c_ports = PORTS.port_info(c_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=job_dir / "v1_ports_c")
+        c_ports = PORTS.port_info(c_files, c_top or top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=job_dir / "v1_ports_c")
     except PORTS.PortTimeout as e:  # no statement about the interface: an error, never a rejection
         rec.update(v1_status="error", v1_detail=str(e), verdict="error", seconds=round(time.time() - t0, 1))
         _dump(job_dir, rec)
@@ -50,8 +52,9 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
         clk, rst, rst_sense = PORTS.infer_control_ports(d_ports)
     rec.update(clk=clk, rst=rst, rst_sense=rst_sense, ports=d_ports)
     # ---- V2: lock-step simulation ----
-    v2 = run_lockstep(job_dir, d_files, c_files, top, d_ports, clk, rst, rst_sense, cfg, sverilog=sverilog, incdirs=incdirs, timeout_sec=timeout_sec, sim_seed=sim_seed)
+    v2 = run_lockstep(job_dir, d_files, c_files, top, d_ports, clk, rst, rst_sense, cfg, sverilog=sverilog, incdirs=incdirs, timeout_sec=timeout_sec, sim_seed=sim_seed, c_top=c_top)
     rec["sim_seed"] = sim_seed if sim_seed is not None else cfg["sim"]["seed"]
+    rec["c_top"] = c_top or top
     rec["v2"] = {k: v for k, v in v2.items() if k not in ("inputs", "outputs")}
     rec["v2_cycles"] = v2.get("cycles")
     rec["vcd_path"] = v2.get("vcd")
@@ -73,7 +76,7 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
     if v2["status"] == "offset":
         rec["v3_status"] = "proven_sim_only"
     elif run_v3:
-        v3 = run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, sverilog=sv_used, timeout_sec=timeout_sec)
+        v3 = run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, impl_top=c_top, sverilog=sv_used, timeout_sec=timeout_sec)
         rec["v3"] = v3
         rec["v3_status"] = v3["v3_status"]
         rec["v3_seconds"] = v3["v3_seconds"]

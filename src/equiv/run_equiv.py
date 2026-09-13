@@ -64,7 +64,7 @@ def main(argv=None):
     p = json.loads(job["payload_json"])
     stages_full = job["kind"] == "vcf"
     extra = {"stages": "full" if stages_full else "v1v2", "clk": p.get("clk"), "rst": p.get("rst"),
-             "rst_sense": p.get("rst_sense"), "sverilog": p.get("sverilog", False), "sim_seed": p.get("sim_seed")}
+             "rst_sense": p.get("rst_sense"), "sverilog": p.get("sverilog", False), "sim_seed": p.get("sim_seed"), "c_top": p.get("c_top")}
     h = equiv_hash(p["d_rtl"], p["c_rtl"], p["top"], cfg, extra)
     root = Path(C.results_dir(cfg)) / "raw" / p["design_id"] / "EQ" / h
     job_dir, cached = job_directory(root, force_rerun=p.get("force_rerun", False))
@@ -75,7 +75,7 @@ def main(argv=None):
         job_dir.mkdir(parents=True, exist_ok=True)
         rec = check_equivalence(job_dir, p["d_rtl"], p["c_rtl"], p["top"], cfg, clk=p.get("clk"), rst=p.get("rst"),
                                 rst_sense=p.get("rst_sense"), sverilog=p.get("sverilog", False), incdirs=p.get("incdirs"),
-                                run_v3=stages_full, timeout_sec=job["timeout_sec"], design_id=p["design_id"], sim_seed=p.get("sim_seed"))
+                                run_v3=stages_full, timeout_sec=job["timeout_sec"], design_id=p["design_id"], sim_seed=p.get("sim_seed"), c_top=p.get("c_top"))
         rec.update(design_id=p["design_id"], cand_id=p.get("cand_id"), input_hash=h, raw_dir=str(job_dir),
                    git_sha=C.git_sha(), cfg_hash=C.cfg_hash(), job_id=a.job, kind=job["kind"])
         (job_dir / "equiv.json").write_text(json.dumps(rec, indent=1, sort_keys=True, default=str))

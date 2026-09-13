@@ -95,7 +95,7 @@ def gate_jobs(cfg, entries, priority=0):
                        "rst_sense": d.get("rst_sense"), "sverilog": bool(d["sverilog"]), "incdirs": [str(p) for p in K.abs_paths(d, d["incdirs"])],
                        "sim_seed": seed, "note": f"pilot {v['class']} {v['file']} seed {seed}"}
             if v.get("top") and v["top"] != d["top"]:
-                payload["note"] += f" (candidate top {v['top']}: renamed by the harness)"
+                payload["c_top"] = v["top"]
             jobs.append({"kind": "vcf", "design_id": d["design_id"], "cand_id": payload["cand_id"], "config": "PILOT", "priority": priority, "payload": payload})
     return jobs
 

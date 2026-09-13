@@ -115,3 +115,26 @@ def test_harness_seed_defaults_to_config_and_can_be_overridden(tmp_path):
     write_harness(tmp_path / "h2.v", "verified_accu", "verified_accu__cand", ports, "clk", "rst_n", "low", CFG, tmp_path / "t2", tmp_path / "v2", seed=7)
     assert f"parameter integer SEED = {int(CFG['sim']['seed'])};" in (tmp_path / "h1.v").read_text()
     assert "parameter integer SEED = 7;" in (tmp_path / "h2.v").read_text()
+
+
+def test_candidate_top_with_a_different_name(tmp_path, monkeypatch):
+    """RTL-OPT references are named <name>_ref: V1 reads the candidate's own top, V2 instantiates it, V3 gets impl_top."""
+    from src.equiv import stack as ST
+    alt = tmp_path / "accu_alt.v"
+    alt.write_text(open(ACCU).read().replace("module verified_accu", "module accu_alt"))
+    seen = {}
+
+    def fake_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg, **kw):
+        seen["c_top"] = kw.get("c_top")
+        return {"status": "identical", "offsets": {}, "cycles": 1, "vcd": None}
+
+    def fake_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, **kw):
+        seen["impl_top"] = kw.get("impl_top")
+        return {"v3_status": "proven", "v3_seconds": 1.0, "counterexample_path": None, "flow_status": "equivalent"}
+
+    monkeypatch.setattr(ST, "run_lockstep", fake_lockstep)
+    monkeypatch.setattr(ST, "run_seq", fake_seq)
+    rec = ST.check_equivalence(tmp_path / "job", [ACCU], [alt], "verified_accu", CFG, run_v4=False, c_top="accu_alt")
+    assert rec["v1_status"] == "ok" and rec["c_top"] == "accu_alt" and seen == {"c_top": "accu_alt", "impl_top": "accu_alt"}
+    rec2 = ST.check_equivalence(tmp_path / "job2", [ACCU], [alt], "verified_accu", CFG, run_v4=False)  # without c_top: V1 cannot find the module
+    assert rec2["v1_status"] == "rejected" and "does not elaborate" in rec2["v1_detail"]

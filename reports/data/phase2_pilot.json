@@ -1,0 +1,277 @@
+{
+ "candidates": [
+  {
+   "class": "c1",
+   "design_id": "drrtl_DSP",
+   "file": "c1_a_register_moved_to_stage0.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "control_nonequiv",
+   "design_id": "drrtl_DSP",
+   "file": "x_b_register_moved_to_stage0.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "sim_fail",
+    "sim_fail"
+   ]
+  },
+  {
+   "class": "c2",
+   "design_id": "drrtl_DSP",
+   "file": "c2_extra_multiplier_stage.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "sim_fail",
+    "sim_fail"
+   ]
+  },
+  {
+   "class": "b",
+   "design_id": "drrtl_DSP",
+   "file": "b_mux_as_case.v",
+   "offsets": [
+    {
+     "BCOut": 0,
+     "M": 0,
+     "P": 0,
+     "PCOut": 0,
+     "carryOut": 0,
+     "carryOutF": 0
+    },
+    {
+     "BCOut": 0,
+     "M": 0,
+     "P": 0,
+     "PCOut": 0,
+     "carryOut": 0,
+     "carryOutF": 0
+    }
+   ],
+   "offsets_constant": true,
+   "source": "hand_made",
+   "v3_seconds": [
+    26.98,
+    26.65
+   ],
+   "verdicts": [
+    "proven",
+    "proven"
+   ]
+  },
+  {
+   "class": "b",
+   "design_id": "drrtl_ticket_machine",
+   "file": "b_binary_state_encoding.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "design_id": "drrtl_ticket_machine",
+   "file": "c1_outputs_from_duplicated_state_register.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "b",
+   "design_id": "drrtl_vending_machine",
+   "file": "b_onehot_state_encoding.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c1",
+   "design_id": "drrtl_vending_machine",
+   "file": "c1_output_retimed.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c2",
+   "design_id": "drrtl_vending_machine",
+   "file": "c2_registered_discount.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "hand_made",
+   "v3_seconds": [],
+   "verdicts": [
+    "pending",
+    "pending"
+   ]
+  },
+  {
+   "class": "c_pair",
+   "design_id": "rtlopt_fsm",
+   "file": "reference/fsm_ref.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "rtlopt_pair",
+   "v3_seconds": [],
+   "verdicts": [
+    "rejected",
+    "rejected"
+   ]
+  },
+  {
+   "class": "c_pair",
+   "design_id": "rtlopt_fsm_encode",
+   "file": "reference/fsm_encode_ref.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "rtlopt_pair",
+   "v3_seconds": [],
+   "verdicts": [
+    "rejected",
+    "rejected"
+   ]
+  },
+  {
+   "class": "c_pair",
+   "design_id": "rtlopt_mac",
+   "file": "reference/mac_ref.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "rtlopt_pair",
+   "v3_seconds": [],
+   "verdicts": [
+    "rejected",
+    "rejected"
+   ]
+  },
+  {
+   "class": "c_pair",
+   "design_id": "rtlopt_saturating_add",
+   "file": "reference/saturating_add_ref.v",
+   "offsets": [
+    null,
+    null
+   ],
+   "offsets_constant": null,
+   "source": "rtlopt_pair",
+   "v3_seconds": [],
+   "verdicts": [
+    "rejected",
+    "rejected"
+   ]
+  }
+ ],
+ "generated_at": "2026-09-12T17:24:42",
+ "guardrail3": [],
+ "per_class": {
+  "b": {
+   "n": 3,
+   "v3_seconds": [
+    26.98,
+    26.65
+   ],
+   "verdicts": {
+    "pending": 2,
+    "proven": 1
+   }
+  },
+  "c1": {
+   "n": 3,
+   "v3_seconds": [],
+   "verdicts": {
+    "pending": 3
+   }
+  },
+  "c2": {
+   "n": 2,
+   "v3_seconds": [],
+   "verdicts": {
+    "pending": 1,
+    "sim_fail": 1
+   }
+  },
+  "c_pair": {
+   "n": 4,
+   "v3_seconds": [],
+   "verdicts": {
+    "rejected": 4
+   }
+  },
+  "control_nonequiv": {
+   "n": 1,
+   "v3_seconds": [],
+   "verdicts": {
+    "sim_fail": 1
+   }
+  }
+ },
+ "seeds": [
+  1,
+  2
+ ]
+}
