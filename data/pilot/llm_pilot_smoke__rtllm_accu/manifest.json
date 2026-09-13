@@ -1,0 +1,22 @@
+{
+ "design_id": "rtllm_accu",
+ "top": "accu",
+ "author": "LLM gpt-5.6-luna run pilot_smoke",
+ "variants": [
+  {
+   "file": "c1_0_c91d2d4d4458ee1.v",
+   "class": "c1",
+   "note": "Merged the equivalent register-update processes into a single sequential block while preserving all port timing and values.",
+   "call_id": "c00001_174652",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 705,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 887,
+    "reasoning_tokens": 489
+   },
+   "cost_usd": 0.0006027
+  }
+ ]
+}

@@ -1,0 +1,97 @@
+{
+ "design_id": "rtllm_adder_bcd",
+ "top": "adder_bcd",
+ "author": "LLM gpt-5.6-luna run pilot_luna1",
+ "variants": [
+  {
+   "file": "c1_0_ca72e80979e97f8.v",
+   "class": "c1",
+   "note": "No retiming is possible because the original design is purely combinational, so equivalent combinational logic was preserved without changing latency.",
+   "call_id": "c00019_175035",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 539,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 458,
+    "reasoning_tokens": 276
+   },
+   "cost_usd": 0.0003287
+  },
+  {
+   "file": "c1_1_cf92c74895af86c.v",
+   "class": "c1",
+   "note": "No registers or clocked logic are present, so the retiming-style transformation preserves the original combinational behavior and latency.",
+   "call_id": "c00020_175039",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 539,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 341,
+    "reasoning_tokens": 98
+   },
+   "cost_usd": 0.0002585
+  },
+  {
+   "file": "c2_0_cb8b6fb9415dd95.v",
+   "class": "c2",
+   "note": "No transformation was applied because the unchanged port list contains no clock input, so a synthesizable one-cycle pipeline cannot be added.",
+   "call_id": "c00021_175042",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 531,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 443,
+    "reasoning_tokens": 243
+   },
+   "cost_usd": 0.00031890000000000005
+  },
+  {
+   "file": "c2_1_c0aca174fa97b5a.v",
+   "class": "c2",
+   "note": "A one-cycle pipeline cannot be added while preserving the exact port list because the module has no clock input.",
+   "call_id": "c00022_175045",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 531,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 536,
+    "reasoning_tokens": 336
+   },
+   "cost_usd": 0.0003747
+  },
+  {
+   "file": "b_0_cd3a5916bd9a88c.v",
+   "class": "b",
+   "note": "Restructured the correction condition into shared precomputed combinational logic without changing latency or behavior.",
+   "call_id": "c00023_175052",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 535,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 749,
+    "reasoning_tokens": 508
+   },
+   "cost_usd": 0.0005029
+  },
+  {
+   "file": "b_1_c67960fa08a146b.v",
+   "class": "b",
+   "note": "Restructured the combinational BCD correction logic by sharing the threshold decision and precomputing the adjusted sum without changing latency or behavior.",
+   "call_id": "c00024_175059",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 535,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 454,
+    "reasoning_tokens": 274
+   },
+   "cost_usd": 0.00032589999999999995
+  }
+ ]
+}

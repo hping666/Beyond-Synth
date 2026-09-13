@@ -1,0 +1,97 @@
+{
+ "design_id": "rtllm_fixed_point_adder",
+ "top": "fixed_point_adder",
+ "author": "LLM gpt-5.6-luna run pilot_luna1",
+ "variants": [
+  {
+   "file": "c1_0_cffd3aed3b67809.v",
+   "class": "c1",
+   "note": "Split the combinational result register into magnitude and sign components and merge them at the output without changing latency or cycle-level behavior.",
+   "call_id": "c00055_175310",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 701,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 1539,
+    "reasoning_tokens": 1034
+   },
+   "cost_usd": 0.0009935
+  },
+  {
+   "file": "c1_1_c8db97d127dc108.v",
+   "class": "c1",
+   "note": "Split the zero-latency combinational result register into separate magnitude and sign registers without changing output latency or behavior.",
+   "call_id": "c00056_175322",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 701,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 1591,
+    "reasoning_tokens": 983
+   },
+   "cost_usd": 0.0010247
+  },
+  {
+   "file": "c2_0_cea5c8c9dee916e.v",
+   "class": "c2",
+   "note": "A clock input is absent from the fixed port list, so an exact one-clock pipeline stage cannot be added without changing the interface.",
+   "call_id": "c00057_175333",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 693,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 886,
+    "reasoning_tokens": 389
+   },
+   "cost_usd": 0.0006009
+  },
+  {
+   "file": "c2_1_cff89e75013a7fe.v",
+   "class": "c2",
+   "note": "A one-clock pipeline stage cannot be added exactly because the unchanged port list contains no clock input.",
+   "call_id": "c00058_175339",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 693,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 914,
+    "reasoning_tokens": 428
+   },
+   "cost_usd": 0.0006176999999999999
+  },
+  {
+   "file": "b_0_cbd9b9bc18a0c78.v",
+   "class": "b",
+   "note": "Restructured the combinational magnitude and sign computation using shared temporary logic while preserving the original latency and behavior.",
+   "call_id": "c00059_175346",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 697,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 1312,
+    "reasoning_tokens": 681
+   },
+   "cost_usd": 0.0008569
+  },
+  {
+   "file": "b_1_ca24acf93dba449.v",
+   "class": "b",
+   "note": "Restructured the combinational process to use Verilog-2001 implicit sensitivity while preserving the original arithmetic, priority, latency, and port behavior.",
+   "call_id": "c00060_175356",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 697,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 1051,
+    "reasoning_tokens": 516
+   },
+   "cost_usd": 0.0007003000000000001
+  }
+ ]
+}

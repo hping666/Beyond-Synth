@@ -1,0 +1,97 @@
+{
+ "design_id": "rtllm_instr_reg",
+ "top": "instr_reg",
+ "author": "LLM gpt-5.6-luna run pilot_luna1",
+ "variants": [
+  {
+   "file": "c1_0_ce5a304de8d069a.v",
+   "class": "c1",
+   "note": "Merged the two instruction registers into one packed register while preserving all port timing and values.",
+   "call_id": "c00067_175454",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 524,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 524,
+    "reasoning_tokens": 277
+   },
+   "cost_usd": 0.00036679999999999997
+  },
+  {
+   "file": "c1_1_cd55518633d0cd6.v",
+   "class": "c1",
+   "note": "Split the original instruction register into independently registered output fields while preserving all output timing and values.",
+   "call_id": "c00068_175459",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 524,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 564,
+    "reasoning_tokens": 273
+   },
+   "cost_usd": 0.00039079999999999996
+  },
+  {
+   "file": "c2_0_cc35d7685fda65a.v",
+   "class": "c2",
+   "note": "Added one registered output pipeline stage so all outputs are delayed by exactly one clock cycle.",
+   "call_id": "c00069_175503",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 516,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 759,
+    "reasoning_tokens": 355
+   },
+   "cost_usd": 0.000507
+  },
+  {
+   "file": "c2_1_c834e6ac7e01b96.v",
+   "class": "c2",
+   "note": "Added one registered output pipeline stage so all outputs are delayed by exactly one clock cycle.",
+   "call_id": "c00070_175508",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 516,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 628,
+    "reasoning_tokens": 223
+   },
+   "cost_usd": 0.00042840000000000006
+  },
+  {
+   "file": "b_0_cdd14732f1e42d5.v",
+   "class": "b",
+   "note": "Removed the unused state register and replaced redundant conditional self-assignments with a fetch case statement while preserving timing and behavior.",
+   "call_id": "c00071_175512",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 520,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 353,
+    "reasoning_tokens": 73
+   },
+   "cost_usd": 0.00026379999999999996
+  },
+  {
+   "file": "b_1_cf0d916570e0588.v",
+   "class": "b",
+   "note": "Removed the unused state register and redundant self-assignments while preserving the original registers, timing, and fetch behavior.",
+   "call_id": "c00072_175515",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 520,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 369,
+    "reasoning_tokens": 114
+   },
+   "cost_usd": 0.0002734
+  }
+ ]
+}

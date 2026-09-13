@@ -1,0 +1,46 @@
+`timescale 1ns/1ns
+module edge_detect(
+    input clk,
+    input rst_n,
+    input a,
+    
+    output reg rise,
+    output reg down
+);
+    reg a0;
+    reg rise_d;
+    reg down_d;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (~rst_n) begin
+            rise_d <= 1'b0;
+            down_d <= 1'b0;
+            rise <= 1'b0;
+            down <= 1'b0;
+        end
+        else begin
+            rise <= rise_d;
+            down <= down_d;
+
+            if (a & ~a0) begin
+                rise_d <= 1'b1;
+                down_d <= 1'b0;
+            end
+            else if (~a & a0) begin
+                rise_d <= 1'b0;
+                down_d <= 1'b1;
+            end
+            else begin
+                rise_d <= 1'b0;
+                down_d <= 1'b0;
+            end
+        end
+    end
+
+    always @(posedge clk or negedge rst_n) begin
+        if (~rst_n)
+            a0 <= 1'b0;
+        else
+            a0 <= a;
+    end
+endmodule

@@ -1,0 +1,82 @@
+{
+ "design_id": "rtllm_adder_16bit",
+ "top": "adder_16bit",
+ "author": "LLM gpt-5.6-luna run pilot_luna1",
+ "variants": [
+  {
+   "file": "c1_0_c48965af8203753.v",
+   "class": "c1",
+   "note": "Retiming is a no-op because the design contains no registers or clocked state, so the combinational structure and latency are preserved.",
+   "call_id": "c00013_174950",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 951,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 964,
+    "reasoning_tokens": 55
+   },
+   "cost_usd": 0.0006735
+  },
+  {
+   "file": "c1_1_c48965af8203753.v",
+   "class": "c1",
+   "note": "No retiming is applied because the design contains no registers, so the original zero-cycle combinational behavior and output latency are preserved.",
+   "call_id": "c00014_174956",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 951,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 1121,
+    "reasoning_tokens": 213
+   },
+   "cost_usd": 0.0007677000000000001
+  },
+  {
+   "file": "c2_0_cd7e5229d8e133d.v",
+   "class": "c2",
+   "note": "A clock port is absent from the fixed port list, so an exactly one-cycle synthesizable pipeline stage cannot be added without changing the interface.",
+   "call_id": "c00015_175003",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 943,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 1077,
+    "reasoning_tokens": 344
+   },
+   "cost_usd": 0.0007405
+  },
+  {
+   "file": "b_0_c1793482ee33fb6.v",
+   "class": "b",
+   "note": "Restructured the one-bit adder logic into equivalent XOR and majority carry expressions while preserving the hierarchical ripple-carry structure and zero-cycle latency.",
+   "call_id": "c00017_175018",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 947,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 1033,
+    "reasoning_tokens": 197
+   },
+   "cost_usd": 0.0007145
+  },
+  {
+   "file": "b_1_c1041a10fb6327b.v",
+   "class": "b",
+   "note": "Restructured the hierarchical ripple adders as width-preserving combinational arithmetic assignments while retaining all module interfaces and latency.",
+   "call_id": "c00018_175025",
+   "model": "gpt-5.6-luna",
+   "usage": {
+    "input_tokens": 947,
+    "cached_tokens": 0,
+    "cache_write_tokens": 0,
+    "output_tokens": 950,
+    "reasoning_tokens": 516
+   },
+   "cost_usd": 0.0006647000000000001
+  }
+ ]
+}
