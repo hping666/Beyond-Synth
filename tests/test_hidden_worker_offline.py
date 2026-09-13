@@ -104,3 +104,57 @@ def test_noise_jobs_and_hidden_floor(env, tmp_path, monkeypatch):
     r = hid.execute("SELECT sigma_robust, n FROM noise_floor WHERE metric='area'").fetchone()
     assert r["n"] == 2 and abs(r["sigma_robust"] - 1.4826 * 0.01) < 1e-9
     assert vis.execute("SELECT COUNT(*) FROM noise_floor").fetchone()[0] == 0
+
+
+def test_g3_summary_counts_and_seconds_only(env, tmp_path, monkeypatch):
+    """Both directions: the ratio and the agreement come out right for records under both configurations; a design
+    without an H3 baseline contributes nothing; the output carries no per-design hidden value."""
+    cfg, vis, hid, mod, rtl = env
+    from src.designs import catalog as K
+    from src.noise import stats as S
+    monkeypatch.setattr(K, "DESIGNS_DIR", tmp_path / "designs")
+    for name in ("acc", "bcc"):
+        ddir = tmp_path / "designs" / "rtllm" / name
+        (ddir / "rtl").mkdir(parents=True)
+        (ddir / "rtl" / f"{name}.v").write_text(rtl.read_text())
+        d = {"design_id": f"rtllm_{name}", "suite": "rtllm", "name": name, "top": "d", "files": [f"rtl/{name}.v"], "clk_ports": ["clk"], "rst_port": None,
+             "rst_sense": None, "sverilog": False, "incdirs": [], "tb": None, "reference": None, "source": {"url": "u", "commit": "c", "license": "l", "paths": []},
+             "sha256": {f"rtl/{name}.v": K.sha256_of(ddir / "rtl" / f"{name}.v")}, "loc": 1, "tags": ["rtllm"], "notes": [], "_dir": str(ddir)}
+        K.write_design(d)
+        vis.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) "
+                    "VALUES (?,'rtllm',?,'x',1,1,'dev',2.0,'t','g','c')", (f"rtllm_{name}", name))
+        for pid in ("p1", "p2", "p3"):
+            vis.execute("INSERT INTO perturbations (pert_id, design_id, ptype, path, seq_status, created_at, git_sha, cfg_hash) VALUES (?,?,?,?,?,?,?,?)",
+                        (f"{name}_{pid}", f"rtllm_{name}", "P1_rename", "x", "proven", "t", "g", "c"))
+    n = [0]
+
+    def ev(conn, did, config, pert, area, secs):
+        n[0] += 1
+        db.insert(conn, "evaluations", {"design_id": did, "pert_id": pert, "is_baseline": int(pert is None), "config": config, "lib": "nangate45",
+                                        "clock_ns": 2.0, "area_um2": area, "cells": 10, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0,
+                                        "dc_seconds": secs, "status": "ok", "raw_dir": f"/x/{n[0]}", "hist_json": "{}"})
+    # acc: E4 (visible) and H3 (hidden) records; p3 is far off under H3 only
+    ev(vis, "rtllm_acc", "E4", None, 100.0, 10.0)
+    for pid, a in (("acc_p1", 101.0), ("acc_p2", 99.0), ("acc_p3", 100.5)):
+        ev(vis, "rtllm_acc", "E4", pid, a, 10.0)
+    ev(hid, "rtllm_acc", "H3", None, 100.0, 25.0)
+    for pid, a in (("acc_p1", 101.0), ("acc_p2", 99.0), ("acc_p3", 130.0)):
+        ev(hid, "rtllm_acc", "H3", pid, a, 25.0)
+    # bcc: only E4 records -> contributes nothing
+    ev(vis, "rtllm_bcc", "E4", None, 100.0, 10.0)
+    ev(vis, "rtllm_bcc", "E4", "bcc_p1", 101.0, 10.0)
+    # floors: E4 in the visible database, H3 in the hidden one
+    base, latest = S.pick_records(vis, "rtllm_acc", "E4", {"acc_p1", "acc_p2", "acc_p3"}, 2.0)
+    S.upsert_floor(vis, S.floor_rows("rtllm_acc", "E4", base, list(latest.values()), 2.0))
+    assert mod.noise_floor(cfg, vis=vis, hid=hid) == {"H3": 4}  # area, wns, tns, power_saif rows
+    out = mod.g3_summary(cfg, vis=vis, hid=hid)
+    assert out["n_designs_with_ratio"] == 1 and abs(out["t_ratio"]["median"] - 2.5) < 1e-9
+    assert out["e4_seconds_total"] == 10.0 and out["h3_seconds_total"] == 25.0
+    assert out["pairs"] == 3 and out["agree"] == 2 and abs(out["agreement_rate"] - 2 / 3) < 1e-9
+    assert out["confusion"] == {"E4=noise|H3=noise": 2, "E4=noise|H3=harmful": 1}
+    txt = json.dumps(out)
+    assert "rtllm_acc" not in txt and "130" not in txt  # aggregates only: no design ids, no hidden metric values
+    # without hidden records nothing is reported
+    hid.execute("DELETE FROM evaluations")
+    empty = mod.g3_summary(cfg, vis=vis, hid=hid)
+    assert empty["n_designs_with_ratio"] == 0 and empty["pairs"] == 0 and empty["agreement_rate"] is None

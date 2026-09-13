@@ -257,8 +257,19 @@ def phase2(cfg):
         L += [f"- {x['design_id']} {x['file']}: arithmetic={x['clocked_arithmetic']}, offsets_constant={x['offsets_constant']}, start-like={x['start_like_ports']}, done-like={x['done_like_ports']}" for x in g3[:40]] + [""]
     else:
         L += ["(pilot not collected yet: scripts/phase2_pilot.py collect --classify)", ""]
-    L += ["t_H3 / t_E4 and the E4-vs-H3 agreement rate come from the hidden worker as counts and seconds only (after the hidden noise runs).", "",
-          "## 5. Next steps", "", "- G1: decide on the truncation if the median area floor exceeds the warning level.", "- G2: SEQ fractions per class from the pilot.", "- G3: screening recommendation from the E4 seconds and the cascade estimate.", ""]
+    g3s = load("phase2_g3.json")
+    if g3s and g3s.get("n_designs_with_ratio"):
+        tr = g3s["t_ratio"]
+        L += [f"t_H3 / t_E4 (baseline runs of the same design at Φ_main, {g3s['n_designs_with_ratio']} designs; hidden worker, counts and seconds only): "
+              f"median {tr['median']:.2f}, quartiles {tr['q25']:.2f}–{tr['q75']:.2f}, range {tr['min']:.2f}–{tr['max']:.2f}; "
+              f"total {g3s['e4_seconds_total'] / 3600:.1f} DC hours under E4 vs {g3s['h3_seconds_total'] / 3600:.1f} under H3.", ""]
+        if g3s.get("pairs"):
+            conf = ", ".join(f"{k}: {v}" for k, v in sorted(g3s["confusion"].items()))
+            L += [f"E4-vs-H3 agreement of the four-way floor conclusion (retained / trade-off / harmful / noise at {g3s['k_sigma']:.0f} σ_D of each configuration) "
+                  f"per perturbation with records under both: {g3s['agree']} of {g3s['pairs']} ({100 * g3s['agreement_rate']:.1f} %). Confusion counts: {conf}.", ""]
+    else:
+        L += ["t_H3 / t_E4 and the E4-vs-H3 agreement rate come from the hidden worker as counts and seconds only (scripts/hidden_worker.py --g3-summary after the H3 noise runs).", ""]
+    L += ["## 5. Next steps", "", "- G1: decide on the truncation if the median area floor exceeds the warning level.", "- G2: SEQ fractions per class from the pilot.", "- G3: screening recommendation from the E4 seconds and the cascade estimate.", ""]
     out = Path(ROOT) / "reports" / "phase2.md"
     out.write_text("\n".join(L))
     print(f"wrote {out}")

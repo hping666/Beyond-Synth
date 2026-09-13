@@ -183,6 +183,56 @@ def noise_floor(cfg, suites=None, designs=None, vis=None, hid=None):
     return written
 
 
+def _delta(metric, base, rec, clock_ns):
+    col = S.COLUMNS[metric]
+    d = S.deviations(metric, base.get(col), [rec.get(col)], clock_ns)
+    return d[0] if d else None
+
+
+def g3_summary(cfg, suites=None, designs=None, vis=None, hid=None):
+    """G3 (PLAN 2.5): t_H3 / t_E4 of the baseline runs and the agreement of the E4 and H3 floor conclusions
+    (src/noise/stats.conclusion at noise.k_sigma) per perturbation, as counts and seconds only: no per-design
+    hidden value leaves this function (CLAUDE.md rule 3). Needs the visible floor (phase2_noise.py collect) and
+    the hidden floor (--noise-floor) to exist."""
+    vis = vis or db.connect(cfg=cfg)
+    hid = hid or db.connect(path=hidden_db_path(cfg))
+    k = float(cfg["noise"]["k_sigma"])
+    ratios, e4_secs, h3_secs = [], 0.0, 0.0
+    pairs = agree = 0
+    confusion = {}
+    for d, r in _selected(vis, suites, designs):
+        did = d["design_id"]
+        phi = r.get("phi_main_ns_nangate45")
+        if phi is None:
+            continue
+        proven = {p["pert_id"] for p in _proven(vis, did)}
+        base_e4, perts_e4 = S.pick_records(vis, did, "E4", proven, phi)
+        base_h3, perts_h3 = S.pick_records(hid, did, "H3", proven, phi)
+        if base_e4 is None or base_h3 is None:
+            continue
+        if base_e4.get("dc_seconds") and base_h3.get("dc_seconds"):
+            ratios.append(float(base_h3["dc_seconds"]) / float(base_e4["dc_seconds"]))
+            e4_secs += float(base_e4["dc_seconds"])
+            h3_secs += float(base_h3["dc_seconds"])
+        sig_e4 = {x["metric"]: x["sigma_robust"] for x in vis.execute("SELECT metric, sigma_robust FROM noise_floor WHERE design_id=? AND config='E4'", (did,))}
+        sig_h3 = {x["metric"]: x["sigma_robust"] for x in hid.execute("SELECT metric, sigma_robust FROM noise_floor WHERE design_id=? AND config='H3'", (did,))}
+        for pid in sorted(set(perts_e4) & set(perts_h3)):
+            c_e4 = S.conclusion({m: _delta(m, base_e4, perts_e4[pid], phi) for m in S.METRICS}, sig_e4, k)
+            c_h3 = S.conclusion({m: _delta(m, base_h3, perts_h3[pid], phi) for m in S.METRICS}, sig_h3, k)
+            if c_e4 is None or c_h3 is None:
+                continue
+            pairs += 1
+            agree += int(c_e4 == c_h3)
+            key = f"E4={c_e4}|H3={c_h3}"
+            confusion[key] = confusion.get(key, 0) + 1
+    out = {"k_sigma": k, "n_designs_with_ratio": len(ratios),
+           "t_ratio": {"min": min(ratios) if ratios else None, "q25": S.quantile(ratios, 0.25), "median": S.quantile(ratios, 0.5),
+                       "q75": S.quantile(ratios, 0.75), "max": max(ratios) if ratios else None},
+           "e4_seconds_total": e4_secs, "h3_seconds_total": h3_secs,
+           "pairs": pairs, "agree": agree, "agreement_rate": (agree / pairs) if pairs else None, "confusion": confusion}
+    return out
+
+
 # ----------------------------------------------------------------------------- Phase 0 migration (done)
 def _fix_meta(job_dir):
     m = Path(job_dir) / "meta.json"
@@ -244,6 +294,7 @@ def main(argv=None):
     ap.add_argument("--job")
     ap.add_argument("--submit-noise", action="store_true")
     ap.add_argument("--noise-floor", action="store_true")
+    ap.add_argument("--g3-summary", action="store_true")
     ap.add_argument("--migrate-phase0", action="store_true")
     ap.add_argument("--suite", nargs="*", default=None)
     ap.add_argument("--design", nargs="*", default=None)
@@ -258,6 +309,13 @@ def main(argv=None):
     if a.noise_floor:
         written = noise_floor(cfg, a.suite, a.design)
         print("hidden noise_floor rows written per configuration:", written)
+        return 0
+    if a.g3_summary:
+        out = g3_summary(cfg, a.suite, a.design)
+        p = Path(C.ROOT) / "reports" / "data" / "phase2_g3.json"
+        p.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n")
+        print(json.dumps(out, sort_keys=True))
+        print(f"wrote {p} (aggregates only)")
         return 0
     if a.migrate_phase0:
         return migrate_phase0(cfg)

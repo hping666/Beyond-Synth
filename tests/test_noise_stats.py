@@ -65,3 +65,20 @@ def test_pick_records_prefers_saif_backed_records_then_latest(tmp_path):
     base2, _ = S.pick_records(conn, "d", "E4", set(), 2.0)
     assert base2["area_um2"] == 102.0
     assert S.pick_records(conn, "d", "E1", set(), 1.0) == (None, {})
+
+
+def test_conclusion_four_way_both_directions():
+    """Signs: lower area / power and higher slack are gains; thresholds at k*sigma; unjudgeable inputs give None."""
+    sig = {"area": 0.01, "wns": 0.02, "power_saif": 0.05}
+    k = 2.0
+    assert S.conclusion({"area": -0.05}, sig, k) == "retained"          # area down 5 % > 2 %
+    assert S.conclusion({"area": +0.05}, sig, k) == "harmful"
+    assert S.conclusion({"area": -0.015}, sig, k) == "noise"            # within 2 sigma
+    assert S.conclusion({"area": -0.02}, sig, k) == "noise"             # exactly at the threshold is not beyond it
+    assert S.conclusion({"wns": +0.05}, sig, k) == "retained"           # more slack
+    assert S.conclusion({"wns": -0.05}, sig, k) == "harmful"
+    assert S.conclusion({"area": -0.05, "wns": -0.05}, sig, k) == "trade-off"
+    assert S.conclusion({"area": -0.05, "power_saif": +0.02}, sig, k) == "retained"  # power within 2 sigma (0.10)
+    assert S.conclusion({"tns": None, "area": None}, sig, k) is None
+    assert S.conclusion({"cells": -0.5}, sig, k) is None               # no sigma for that metric
+    assert S.conclusion({}, sig, k) is None

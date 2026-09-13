@@ -53,6 +53,37 @@ def summarize(deltas):
             "q95_abs": quantile(absd, 0.95), "max_abs": max(absd), "n": len(deltas)}
 
 
+GAIN_SIGN = {"area": -1.0, "power_saif": -1.0, "wns": 1.0, "tns": 1.0}  # gain g = sign * delta (lower area / power, higher slack)
+
+
+def conclusion(deltas, sigmas, k):
+    """Four-way conclusion of one candidate (or perturbation) against the floor (PROPOSAL §C1, spec 02 §4):
+    deltas / sigmas: {metric: value}; metrics without both are ignored. 'retained' = some gain > k*sigma and none
+    < -k*sigma; 'trade-off' = some > and some <; 'harmful' = some < and none >; 'noise' otherwise; None when no metric
+    can be judged."""
+    up = down = judged = 0
+    for m, d in deltas.items():
+        s = sigmas.get(m)
+        if d is None or s is None:
+            continue
+        judged += 1
+        g = GAIN_SIGN.get(m, -1.0) * float(d)
+        thr = float(k) * float(s)
+        if g > thr:
+            up += 1
+        elif g < -thr:
+            down += 1
+    if not judged:
+        return None
+    if up and not down:
+        return "retained"
+    if up and down:
+        return "trade-off"
+    if down:
+        return "harmful"
+    return "noise"
+
+
 def pick_records(conn, design_id, config, proven, clock_ns=None, eps=1e-6):
     """The baseline record and the {pert_id: record} of the proven perturbations to compute sigma_D from: status ok,
     at clock_ns when given; a record with SAIF power (power_saif_mw not null) is preferred over one without, the
