@@ -45,8 +45,8 @@
    "offsets_constant": true,
    "source": "hand_made",
    "v3_seconds": [
-    1800.11,
-    1800.13
+    1530.11,
+    1530.12
    ],
    "verdicts": [
     "inconclusive",
@@ -383,7 +383,7 @@
     null
    ],
    "offsets_constant": null,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "sim_fail",
@@ -413,7 +413,7 @@
     null
    ],
    "offsets_constant": null,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "sim_fail",
@@ -451,7 +451,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -489,7 +489,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -527,7 +527,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.79,
     28.37
@@ -568,7 +568,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.72,
     28.7
@@ -607,7 +607,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     26.89,
     27.63
@@ -646,7 +646,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.84,
     27.79
@@ -685,7 +685,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -721,7 +721,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -757,7 +757,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.47,
     28.13
@@ -796,7 +796,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.02,
     27.46
@@ -835,7 +835,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.08,
     30.91
@@ -874,7 +874,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.08,
     30.91
@@ -913,7 +913,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.97,
     31.42
@@ -952,7 +952,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.59,
     29.55
@@ -992,7 +992,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     29.33,
     28.97
@@ -1031,7 +1031,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.56,
     30.57
@@ -1070,7 +1070,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.61,
     31.49
@@ -1109,7 +1109,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.74,
     30.61
@@ -1148,7 +1148,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.5,
     30.86
@@ -1187,7 +1187,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.14,
     31.39
@@ -1226,7 +1226,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.63,
     30.72
@@ -1267,7 +1267,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.03,
     30.72
@@ -1308,7 +1308,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.03,
     30.72
@@ -1349,7 +1349,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.03,
     30.72
@@ -1390,7 +1390,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.03,
     30.72
@@ -1431,7 +1431,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.56,
     30.59
@@ -1472,7 +1472,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.13,
     30.8
@@ -1513,7 +1513,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.57,
     30.97
@@ -1554,7 +1554,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.57,
     30.97
@@ -1595,7 +1595,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.57,
     30.97
@@ -1636,7 +1636,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.57,
     30.97
@@ -1677,7 +1677,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.02,
     30.89
@@ -1718,7 +1718,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     29.01,
     28.59
@@ -1755,7 +1755,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.41,
     27.94
@@ -1792,7 +1792,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.41,
     27.94
@@ -1829,7 +1829,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -1863,7 +1863,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -1897,7 +1897,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.17,
     27.75
@@ -1934,7 +1934,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.17,
     27.75
@@ -1973,7 +1973,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.02,
     30.62
@@ -2012,7 +2012,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.84,
     31.1
@@ -2051,7 +2051,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.31,
     31.08
@@ -2090,7 +2090,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.31,
     31.08
@@ -2129,7 +2129,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.08,
     30.71
@@ -2168,7 +2168,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.02,
     30.62
@@ -2207,7 +2207,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.79,
     27.64
@@ -2246,7 +2246,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.99,
     27.69
@@ -2285,7 +2285,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -2321,7 +2321,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -2357,7 +2357,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.79,
     27.64
@@ -2396,7 +2396,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     29.48,
     28.03
@@ -2433,7 +2433,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.69,
     30.86
@@ -2455,7 +2455,7 @@
     null
    ],
    "offsets_constant": null,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "rejected",
@@ -2489,7 +2489,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.13,
     30.94
@@ -2526,7 +2526,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     30.66,
     31.4
@@ -2548,7 +2548,7 @@
     null
    ],
    "offsets_constant": null,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "rejected",
@@ -2582,7 +2582,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.19,
     30.57
@@ -2619,7 +2619,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.92,
     28.77
@@ -2656,7 +2656,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.61,
     28.53
@@ -2693,7 +2693,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -2727,7 +2727,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -2761,7 +2761,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.71,
     28.14
@@ -2798,7 +2798,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     29.53,
     28.88
@@ -2839,7 +2839,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.5,
     29.0
@@ -2880,7 +2880,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.68,
     30.39
@@ -2921,7 +2921,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -2959,7 +2959,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -2997,7 +2997,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     26.19,
     27.69
@@ -3038,7 +3038,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.77,
     28.4
@@ -3077,7 +3077,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     31.09,
     30.56
@@ -3110,7 +3110,7 @@
     null
    ],
    "offsets_constant": null,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "sim_fail",
@@ -3146,7 +3146,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -3182,7 +3182,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -3218,7 +3218,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.94,
     27.98
@@ -3257,7 +3257,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.94,
     27.98
@@ -3296,7 +3296,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     29.08,
     28.61
@@ -3335,7 +3335,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     68.58,
     69.57
@@ -3374,7 +3374,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -3410,7 +3410,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -3455,7 +3455,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     1530.11,
     1800.12
@@ -3495,7 +3495,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.15,
     27.53
@@ -3532,7 +3532,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.52,
     29.26
@@ -3569,7 +3569,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.58,
     27.87
@@ -3606,7 +3606,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -3640,7 +3640,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -3674,7 +3674,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.61,
     27.95
@@ -3711,7 +3711,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.26,
     28.17
@@ -3748,7 +3748,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.84,
     26.38
@@ -3785,7 +3785,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.95,
     27.68
@@ -3822,7 +3822,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -3856,7 +3856,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -3890,7 +3890,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.24,
     27.63
@@ -3927,7 +3927,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.84,
     26.38
@@ -3966,7 +3966,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.97,
     28.76
@@ -4005,7 +4005,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.01,
     27.74
@@ -4044,7 +4044,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -4080,7 +4080,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -4116,7 +4116,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.72,
     27.62
@@ -4155,7 +4155,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.72,
     27.62
@@ -4192,7 +4192,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.46,
     29.3
@@ -4229,7 +4229,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.68,
     29.5
@@ -4266,7 +4266,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -4300,7 +4300,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -4334,7 +4334,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.89,
     28.59
@@ -4371,7 +4371,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     29.05,
     29.03
@@ -4414,7 +4414,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.32,
     28.0
@@ -4457,7 +4457,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -4497,7 +4497,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -4537,7 +4537,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.04,
     27.59
@@ -4580,7 +4580,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.12,
     28.43
@@ -4619,7 +4619,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     28.72,
     28.7
@@ -4658,7 +4658,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.55,
     27.01
@@ -4697,7 +4697,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -4733,7 +4733,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [],
    "verdicts": [
     "proven_sim_only",
@@ -4769,7 +4769,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.9,
     27.68
@@ -4808,7 +4808,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.76,
     27.52
@@ -4847,7 +4847,7 @@
     }
    ],
    "offsets_constant": true,
-   "source": "hand_made",
+   "source": "llm",
    "v3_seconds": [
     27.97,
     28.33
@@ -5003,7 +5003,7 @@
    ]
   }
  ],
- "generated_at": "2026-09-12T19:05:11",
+ "generated_at": "2026-09-12T19:27:28",
  "guardrail3": [
   {
    "clocked_arithmetic": true,
@@ -5123,8 +5123,8 @@
   "c1": {
    "n": 43,
    "v3_seconds": [
-    1800.11,
-    1800.13,
+    1530.11,
+    1530.12,
     28.89,
     29.16,
     30.59,
