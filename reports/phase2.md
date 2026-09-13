@@ -1,6 +1,6 @@
 # Phase 2 report — noise floor, SEQ pilot, E4 runtime (Exp0)
 
-Generated 2026-09-12 19:27 by scripts/report_phase.py (git 55d02adc2117, cfg 0eb167e58d08). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
+Generated 2026-09-13 01:54 by scripts/report_phase.py (git 5cf641ff3fe4, cfg 0eb167e58d08). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
 
 ## 1. Perturbation generator (PLAN 2.1)
 
@@ -8,12 +8,12 @@ Generated 2026-09-12 19:27 by scripts/report_phase.py (git 55d02adc2117, cfg 0eb
 
 SEQ gate (V1 -> V2 -> V3; only `proven` enters the floor):
 
-| type | falsified | pending | proven | proven_rename | rejected | sim_fail | non-equivalence rate |
-|---|---|---|---|---|---|---|---|
-| P1_rename | 1 | 495 | 60 | 8 | 6 | 1 | 1.4% of 571 |
-| P2_reorder | 0 | 344 | 45 | 0 | 5 | 0 | 1.3% of 394 |
-| P3_expr | 0 | 219 | 11 | 0 | 5 | 0 | 2.1% of 235 |
-| P4_ctrl | 0 | 199 | 21 | 0 | 5 | 0 | 2.2% of 225 |
+| type | error | falsified | inconclusive | pending | proven | proven_rename | rejected | sim_fail | non-equivalence rate |
+|---|---|---|---|---|---|---|---|---|---|
+| P1_rename | 1 | 16 | 0 | 21 | 392 | 91 | 45 | 5 | 11.6% of 571 |
+| P2_reorder | 0 | 7 | 3 | 8 | 328 | 0 | 43 | 5 | 14.0% of 394 |
+| P3_expr | 0 | 8 | 6 | 10 | 163 | 0 | 44 | 4 | 23.8% of 235 |
+| P4_ctrl | 0 | 6 | 2 | 6 | 145 | 0 | 61 | 8 | 32.9% of 228 |
 
 ## 2. Noise floor sigma_D (PLAN 2.3, visible configurations)
 
@@ -21,15 +21,15 @@ SEQ gate (V1 -> V2 -> V3; only `proven` enters the floor):
 
 ## 3. E4 runtime (PLAN 2.5)
 
-E4 seconds at Phi_main (Nangate45) over 128 set designs: min 54, q25 69, median 72, q75 75, q95 186, max 637, mean 89.
+E4 seconds at Phi_main (Nangate45) over 128 set designs: min 60, q25 71, median 73, q75 77, q95 186, max 640, mean 92.
 
 Scale (config `scale`): 30 starting points x 6 arms x 3 seeds x N=5 x K=12 = 32400 candidate evaluations.
-- full-E4 scale: 804 DC hours at the mean t_E4 (89 s); at 12 concurrent runs ≈ 67 h wall, at 50 seats ≈ 16 h.
+- full-E4 scale: 832 DC hours at the mean t_E4 (92 s); at 12 concurrent runs ≈ 69 h wall, at 50 seats ≈ 17 h.
 - per-design budget rule k_e4_equiv = 60 x t_E4(D): median budget 1.2 DC hours per run.
 
 | suite | designs | median t_E4 (s) | max t_E4 (s) |
 |---|---|---|---|
-| cktevo | 30 | 66 | 540 |
+| cktevo | 30 | 75 | 640 |
 | drrtl | 18 | 77 | 314 |
 | rtllm | 41 | 72 | 148 |
 | rtlopt | 39 | 73 | 637 |
