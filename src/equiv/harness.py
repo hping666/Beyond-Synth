@@ -77,10 +77,15 @@ def write_harness(path, top_d, top_c, ports, clk, rst, rst_sense, cfg, trace_pat
         L.append("    repeat (RESET_CYCLES) @(negedge clk);")
     fmt = " ".join("%h %h" for _ in outs)
     args = ", ".join(f"d_{n}, c_{n}" for n in outs)
+    # Inputs change at the negedge; outputs are sampled just before the following posedge (SEQ's cycle model):
+    # combinational outputs already show the new inputs, registered outputs still hold the state from the last
+    # edge, so a register added in front of an output appears as a one-cycle offset instead of being invisible
+    # (DECISIONS 2026-09-12, SEQ-pilot finding on vending_machine c2).
     L += ["    for (cyc = 0; cyc < CYCLES; cyc = cyc + 1) begin",
           "      @(negedge clk);",
-          f'      $fwrite(fd, "%0d {fmt}\\n", cyc{", " + args if args else ""});',
           "      randomize_inputs;",
+          f"      #({half:g} - 0.1);",
+          f'      $fwrite(fd, "%0d {fmt}\\n", cyc{", " + args if args else ""});',
           "    end",
           "    @(negedge clk);",
           "    $fclose(fd);",

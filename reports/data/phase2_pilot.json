@@ -86,15 +86,28 @@
    "design_id": "drrtl_ticket_machine",
    "file": "b_binary_state_encoding.v",
    "offsets": [
-    null,
-    null
+    {
+     "bill": 0,
+     "dispense": 0,
+     "ready": 0,
+     "return_sig": 0
+    },
+    {
+     "bill": 0,
+     "dispense": 0,
+     "ready": 0,
+     "return_sig": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    29.31,
+    29.34
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -102,15 +115,28 @@
    "design_id": "drrtl_ticket_machine",
    "file": "c1_outputs_from_duplicated_state_register.v",
    "offsets": [
-    null,
-    null
+    {
+     "bill": 0,
+     "dispense": 0,
+     "ready": 0,
+     "return_sig": 0
+    },
+    {
+     "bill": 0,
+     "dispense": 0,
+     "ready": 0,
+     "return_sig": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.89,
+    29.16
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -118,15 +144,24 @@
    "design_id": "drrtl_vending_machine",
    "file": "b_onehot_state_encoding.v",
    "offsets": [
-    null,
-    null
+    {
+     "sell_signal": 0,
+     "total_discount": 0
+    },
+    {
+     "sell_signal": 0,
+     "total_discount": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    29.23,
+    28.4
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -141,8 +176,8 @@
    "source": "hand_made",
    "v3_seconds": [],
    "verdicts": [
-    "pending",
-    "pending"
+    "rejected",
+    "rejected"
    ]
   },
   {
@@ -150,15 +185,24 @@
    "design_id": "drrtl_vending_machine",
    "file": "c2_registered_discount.v",
    "offsets": [
-    null,
-    null
+    {
+     "sell_signal": 0,
+     "total_discount": 0
+    },
+    {
+     "sell_signal": 0,
+     "total_discount": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "hand_made",
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.02,
+    30.71
+   ],
    "verdicts": [
-    "pending",
-    "pending"
+    "falsified",
+    "falsified"
    ]
   },
   {
@@ -166,15 +210,24 @@
    "design_id": "rtlopt_fsm",
    "file": "reference/fsm_ref.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "done": 0
+    },
+    {
+     "data_out": 0,
+     "done": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "rtlopt_pair",
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.83,
+    29.34
+   ],
    "verdicts": [
-    "rejected",
-    "rejected"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -182,15 +235,24 @@
    "design_id": "rtlopt_fsm_encode",
    "file": "reference/fsm_encode_ref.v",
    "offsets": [
-    null,
-    null
+    {
+     "data_out": 0,
+     "done": 0
+    },
+    {
+     "data_out": 0,
+     "done": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "rtlopt_pair",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.45,
+    29.77
+   ],
    "verdicts": [
-    "rejected",
-    "rejected"
+    "proven",
+    "proven"
    ]
   },
   {
@@ -205,8 +267,8 @@
    "source": "rtlopt_pair",
    "v3_seconds": [],
    "verdicts": [
-    "rejected",
-    "rejected"
+    "sim_fail",
+    "sim_fail"
    ]
   },
   {
@@ -214,52 +276,79 @@
    "design_id": "rtlopt_saturating_add",
    "file": "reference/saturating_add_ref.v",
    "offsets": [
-    null,
-    null
+    {
+     "z": 0
+    },
+    {
+     "z": 0
+    }
    ],
-   "offsets_constant": null,
+   "offsets_constant": true,
    "source": "rtlopt_pair",
-   "v3_seconds": [],
+   "v3_seconds": [
+    30.55,
+    30.26
+   ],
    "verdicts": [
-    "rejected",
-    "rejected"
+    "falsified",
+    "falsified"
    ]
   }
  ],
- "generated_at": "2026-09-12T17:24:42",
+ "generated_at": "2026-09-12T17:38:03",
  "guardrail3": [],
  "per_class": {
   "b": {
    "n": 3,
    "v3_seconds": [
     26.98,
-    26.65
+    26.65,
+    29.31,
+    29.34,
+    29.23,
+    28.4
    ],
    "verdicts": {
-    "pending": 2,
-    "proven": 1
+    "proven": 3
    }
   },
   "c1": {
    "n": 3,
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.89,
+    29.16
+   ],
    "verdicts": {
-    "pending": 3
+    "pending": 1,
+    "proven": 1,
+    "rejected": 1
    }
   },
   "c2": {
    "n": 2,
-   "v3_seconds": [],
+   "v3_seconds": [
+    31.02,
+    30.71
+   ],
    "verdicts": {
-    "pending": 1,
+    "falsified": 1,
     "sim_fail": 1
    }
   },
   "c_pair": {
    "n": 4,
-   "v3_seconds": [],
+   "v3_seconds": [
+    28.83,
+    29.34,
+    30.45,
+    29.77,
+    30.55,
+    30.26
+   ],
    "verdicts": {
-    "rejected": 4
+    "falsified": 1,
+    "proven": 2,
+    "sim_fail": 1
    }
   },
   "control_nonequiv": {

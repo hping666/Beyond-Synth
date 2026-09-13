@@ -33,6 +33,7 @@ module vending_machine(
 
     output sell_signal;
     reg sell_reg;
+    reg sell_next;
     assign sell_signal = sell_reg;
     output reg [K*DATA_WIDTH-1:0] total_discount;
 
@@ -61,7 +62,6 @@ module vending_machine(
     end
 
 
-    reg sell_next;
     // Combinatorial logic for next state and output
     always @(*) begin
         case (state)
