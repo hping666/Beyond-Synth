@@ -274,4 +274,9 @@ class Queue:
                 "SELECT * FROM jobs WHERE state IN ('queued','backoff') AND pool=? "
                 "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, free)).fetchall()
             for job in rows:
-                self._spawn(job)
+                try:
+                    self._spawn(job)
+                except Exception as e:  # one unspawnable job (unknown kind in an old daemon, bad payload) must not block the pool
+                    self._set(job["job_id"], state="failed", exit_code=None, error=f"cannot spawn: {type(e).__name__}: {e}"[:200],
+                              finished_at=db.now())
+                    self.log(f"{job['job_id']} FAILED before start ({type(e).__name__}: {e})")

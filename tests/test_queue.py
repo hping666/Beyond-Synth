@@ -177,3 +177,14 @@ def test_dispatch_limit_below_the_seat_cap(tmp_path):
 def test_hidden_kind_maps_to_the_dc_pool_and_the_hidden_worker():
     from src.jobqueue.core import POOL_OF_KIND, RUNNER_OF_KIND
     assert POOL_OF_KIND["dc_hidden"] == "dc" and RUNNER_OF_KIND["dc_hidden"] == "scripts.hidden_worker"
+
+
+def test_unspawnable_job_fails_alone_and_the_pool_keeps_dispatching(q, monkeypatch):
+    """A daemon running older code met a job kind it did not know (dc_hidden, 2026-09-13) and stopped dispatching everything."""
+    from src.jobqueue import core as QC
+    bad = q.submit("shell", {"cmd": "echo never"}, pool="local")
+    q.conn.execute("UPDATE jobs SET kind='mystery' WHERE job_id=?", (bad,))
+    good = q.submit("shell", {"cmd": "echo fine"}, pool="local")
+    q.tick()
+    assert q.get(bad)["state"] == "failed" and "cannot spawn" in q.get(bad)["error"]
+    assert wait_state(q, good, {"done"}) == "done"
