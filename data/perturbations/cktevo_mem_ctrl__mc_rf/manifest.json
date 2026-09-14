@@ -1,10 +1,11 @@
 {
- "cfg_hash": "621834f01e87",
+ "cfg_hash": "d7183387d0f9",
  "design_id": "cktevo_mem_ctrl__mc_rf",
  "error": null,
- "git_sha": "dcb53665726f",
- "n_per_type": 4,
+ "git_sha": "9b38fe000d36",
+ "n_per_type": 8,
  "not_applicable": {},
+ "notes": [],
  "perturbations": [
   {
    "details": {
@@ -436,6 +437,434 @@
   },
   {
    "details": {
+    "renamed": {
+     "mc_cs_rf": {
+      "addr_r": "alpha_0",
+      "cs_d": "charlie_1",
+      "init_req_we": "quebec_2",
+      "inited": "lima_3",
+      "lmr_req_we": "whiskey_4",
+      "reg_select": "zulu_5",
+      "rst_r1": "foxtrot_6",
+      "rst_r2": "bravo_7",
+      "sel": "oscar_8",
+      "this_cs": "tango_9",
+      "wp": "india_10x"
+     },
+     "mc_cs_rf_dummy": {
+      "this_cs": "delta_0"
+     },
+     "mc_rf": {
+      "cs0": "mike_0",
+      "cs1": "whiskey_1",
+      "cs2": "november_2",
+      "cs3": "oscar_3",
+      "cs4": "romeo_4",
+      "cs5": "kilo_5",
+      "cs6": "uniform_6",
+      "cs7": "lima_7",
+      "csc0": "yankee_8",
+      "csc1": "golf_9",
+      "csc2": "india_10",
+      "csc3": "delta_11",
+      "csc4": "zulu_12",
+      "csc5": "victor_13",
+      "csc6": "foxtrot_14",
+      "csc7": "bravo_15",
+      "csc_mask_r": "sierra_16",
+      "csr": "tango_17",
+      "csr_r": "charlie_18",
+      "csr_r2": "hotel_19",
+      "init_ack0": "juliet_20",
+      "init_ack1": "alpha_21",
+      "init_ack2": "papa_22",
+      "init_ack3": "echo_23",
+      "init_ack4": "quebec_24",
+      "init_ack5": "xray_25",
+      "init_ack6": "mike_26",
+      "init_ack7": "whiskey_27",
+      "init_ack_fe": "november_28",
+      "init_ack_r": "oscar_29",
+      "init_req0": "romeo_30",
+      "init_req1": "kilo_31",
+      "init_req2": "uniform_32",
+      "init_req3": "lima_33",
+      "init_req4": "yankee_34",
+      "init_req5": "golf_35",
+      "init_req6": "india_36",
+      "init_req7": "delta_37",
+      "lmr_ack0": "zulu_38",
+      "lmr_ack1": "victor_39",
+      "lmr_ack2": "foxtrot_40",
+      "lmr_ack3": "bravo_41",
+      "lmr_ack4": "sierra_42",
+      "lmr_ack5": "tango_43",
+      "lmr_ack6": "charlie_44",
+      "lmr_ack7": "hotel_45",
+      "lmr_ack_fe": "juliet_46",
+      "lmr_ack_r": "alpha_47",
+      "lmr_req0": "papa_48",
+      "lmr_req1": "echo_49",
+      "lmr_req2": "quebec_50",
+      "lmr_req3": "xray_51",
+      "lmr_req4": "mike_52",
+      "lmr_req5": "whiskey_53",
+      "lmr_req6": "november_54",
+      "lmr_req7": "oscar_55",
+      "rst_r1": "romeo_56",
+      "rst_r2": "kilo_57",
+      "rst_r3": "uniform_58",
+      "spec_req_cs_d": "lima_59",
+      "spec_req_cs_t": "yankee_60",
+      "sreq_cs_le": "golf_61",
+      "tms0": "india_62",
+      "tms1": "delta_63",
+      "tms2": "zulu_64",
+      "tms3": "victor_65",
+      "tms4": "foxtrot_66",
+      "tms5": "bravo_67",
+      "tms6": "sierra_68",
+      "tms7": "tango_69",
+      "wb_addr_r": "charlie_70",
+      "wp_err0": "hotel_71",
+      "wp_err1": "juliet_72",
+      "wp_err2": "alpha_73",
+      "wp_err3": "papa_74",
+      "wp_err4": "echo_75",
+      "wp_err5": "quebec_76",
+      "wp_err6": "xray_77",
+      "wp_err7": "mike_78"
+     }
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P1_rename_4.v",
+   "pert_id": "pfc25ed86c7490c",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "mc_cs_rf": {
+      "addr_r": "kilo_0",
+      "cs_d": "golf_1",
+      "init_req_we": "papa_2",
+      "inited": "bravo_3",
+      "lmr_req_we": "hotel_4",
+      "reg_select": "delta_5",
+      "rst_r1": "mike_6",
+      "rst_r2": "charlie_7x",
+      "sel": "uniform_8",
+      "this_cs": "sierra_9",
+      "wp": "echo_10"
+     },
+     "mc_cs_rf_dummy": {
+      "this_cs": "xray_0"
+     },
+     "mc_rf": {
+      "cs0": "november_0",
+      "cs1": "india_1",
+      "cs2": "bravo_2",
+      "cs3": "romeo_3",
+      "cs4": "papa_4",
+      "cs5": "foxtrot_5",
+      "cs6": "uniform_6",
+      "cs7": "charlie_7",
+      "csc0": "mike_8",
+      "csc1": "echo_9",
+      "csc2": "zulu_10",
+      "csc3": "juliet_11",
+      "csc4": "delta_12",
+      "csc5": "yankee_13",
+      "csc6": "oscar_14",
+      "csc7": "quebec_15",
+      "csc_mask_r": "kilo_16",
+      "csr": "victor_17",
+      "csr_r": "lima_18",
+      "csr_r2": "golf_19",
+      "init_ack0": "tango_20",
+      "init_ack1": "whiskey_21",
+      "init_ack2": "hotel_22",
+      "init_ack3": "alpha_23",
+      "init_ack4": "xray_24",
+      "init_ack5": "sierra_25",
+      "init_ack6": "november_26",
+      "init_ack7": "india_27",
+      "init_ack_fe": "bravo_28",
+      "init_ack_r": "romeo_29",
+      "init_req0": "papa_30",
+      "init_req1": "foxtrot_31",
+      "init_req2": "uniform_32",
+      "init_req3": "charlie_33",
+      "init_req4": "mike_34",
+      "init_req5": "echo_35",
+      "init_req6": "zulu_36",
+      "init_req7": "juliet_37",
+      "lmr_ack0": "delta_38",
+      "lmr_ack1": "yankee_39",
+      "lmr_ack2": "oscar_40",
+      "lmr_ack3": "quebec_41",
+      "lmr_ack4": "kilo_42",
+      "lmr_ack5": "victor_43",
+      "lmr_ack6": "lima_44",
+      "lmr_ack7": "golf_45",
+      "lmr_ack_fe": "tango_46",
+      "lmr_ack_r": "whiskey_47",
+      "lmr_req0": "hotel_48",
+      "lmr_req1": "alpha_49",
+      "lmr_req2": "xray_50",
+      "lmr_req3": "sierra_51",
+      "lmr_req4": "november_52",
+      "lmr_req5": "india_53",
+      "lmr_req6": "bravo_54",
+      "lmr_req7": "romeo_55",
+      "rst_r1": "papa_56",
+      "rst_r2": "foxtrot_57",
+      "rst_r3": "uniform_58",
+      "spec_req_cs_d": "charlie_59",
+      "spec_req_cs_t": "mike_60",
+      "sreq_cs_le": "echo_61",
+      "tms0": "zulu_62",
+      "tms1": "juliet_63",
+      "tms2": "delta_64",
+      "tms3": "yankee_65",
+      "tms4": "oscar_66",
+      "tms5": "quebec_67",
+      "tms6": "kilo_68",
+      "tms7": "victor_69",
+      "wb_addr_r": "lima_70",
+      "wp_err0": "golf_71",
+      "wp_err1": "tango_72",
+      "wp_err2": "whiskey_73",
+      "wp_err3": "hotel_74",
+      "wp_err4": "alpha_75",
+      "wp_err5": "xray_76",
+      "wp_err6": "sierra_77",
+      "wp_err7": "november_78"
+     }
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P1_rename_5.v",
+   "pert_id": "pac4071438ad5f2",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "mc_cs_rf": {
+      "addr_r": "romeo_0",
+      "cs_d": "quebec_1",
+      "init_req_we": "juliet_2",
+      "inited": "tango_3",
+      "lmr_req_we": "bravo_4",
+      "reg_select": "papa_5",
+      "rst_r1": "delta_6",
+      "rst_r2": "lima_7",
+      "sel": "zulu_8",
+      "this_cs": "echo_9x",
+      "wp": "foxtrot_10"
+     },
+     "mc_cs_rf_dummy": {
+      "this_cs": "india_0"
+     },
+     "mc_rf": {
+      "cs0": "bravo_0",
+      "cs1": "juliet_1",
+      "cs2": "november_2",
+      "cs3": "sierra_3",
+      "cs4": "foxtrot_4",
+      "cs5": "whiskey_5",
+      "cs6": "zulu_6",
+      "cs7": "quebec_7",
+      "csc0": "kilo_8",
+      "csc1": "echo_9",
+      "csc2": "romeo_10",
+      "csc3": "uniform_11",
+      "csc4": "charlie_12",
+      "csc5": "papa_13",
+      "csc6": "delta_14",
+      "csc7": "alpha_15",
+      "csc_mask_r": "lima_16",
+      "csr": "hotel_17",
+      "csr_r": "victor_18",
+      "csr_r2": "india_19",
+      "init_ack0": "golf_20",
+      "init_ack1": "mike_21",
+      "init_ack2": "xray_22",
+      "init_ack3": "oscar_23",
+      "init_ack4": "tango_24",
+      "init_ack5": "yankee_25",
+      "init_ack6": "bravo_26",
+      "init_ack7": "juliet_27",
+      "init_ack_fe": "november_28",
+      "init_ack_r": "sierra_29",
+      "init_req0": "foxtrot_30",
+      "init_req1": "whiskey_31",
+      "init_req2": "zulu_32",
+      "init_req3": "quebec_33",
+      "init_req4": "kilo_34",
+      "init_req5": "echo_35",
+      "init_req6": "romeo_36",
+      "init_req7": "uniform_37",
+      "lmr_ack0": "charlie_38",
+      "lmr_ack1": "papa_39",
+      "lmr_ack2": "delta_40",
+      "lmr_ack3": "alpha_41",
+      "lmr_ack4": "lima_42",
+      "lmr_ack5": "hotel_43",
+      "lmr_ack6": "victor_44",
+      "lmr_ack7": "india_45",
+      "lmr_ack_fe": "golf_46",
+      "lmr_ack_r": "mike_47",
+      "lmr_req0": "xray_48",
+      "lmr_req1": "oscar_49",
+      "lmr_req2": "tango_50",
+      "lmr_req3": "yankee_51",
+      "lmr_req4": "bravo_52",
+      "lmr_req5": "juliet_53",
+      "lmr_req6": "november_54",
+      "lmr_req7": "sierra_55",
+      "rst_r1": "foxtrot_56",
+      "rst_r2": "whiskey_57",
+      "rst_r3": "zulu_58",
+      "spec_req_cs_d": "quebec_59",
+      "spec_req_cs_t": "kilo_60",
+      "sreq_cs_le": "echo_61",
+      "tms0": "romeo_62",
+      "tms1": "uniform_63",
+      "tms2": "charlie_64",
+      "tms3": "papa_65",
+      "tms4": "delta_66",
+      "tms5": "alpha_67",
+      "tms6": "lima_68",
+      "tms7": "hotel_69",
+      "wb_addr_r": "victor_70",
+      "wp_err0": "india_71",
+      "wp_err1": "golf_72",
+      "wp_err2": "mike_73",
+      "wp_err3": "xray_74",
+      "wp_err4": "oscar_75",
+      "wp_err5": "tango_76",
+      "wp_err6": "yankee_77",
+      "wp_err7": "bravo_78"
+     }
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P1_rename_6.v",
+   "pert_id": "p66e2167baae5eb",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "mc_cs_rf": {
+      "addr_r": "mike_0",
+      "cs_d": "charlie_1",
+      "init_req_we": "quebec_2",
+      "inited": "foxtrot_3",
+      "lmr_req_we": "bravo_4",
+      "reg_select": "november_5",
+      "rst_r1": "oscar_6",
+      "rst_r2": "romeo_7",
+      "sel": "victor_8",
+      "this_cs": "papa_9",
+      "wp": "golf_10"
+     },
+     "mc_cs_rf_dummy": {
+      "this_cs": "lima_0"
+     },
+     "mc_rf": {
+      "cs0": "zulu_0",
+      "cs1": "echo_1",
+      "cs2": "papa_2",
+      "cs3": "golf_3",
+      "cs4": "whiskey_4",
+      "cs5": "quebec_5",
+      "cs6": "bravo_6",
+      "cs7": "kilo_7",
+      "csc0": "foxtrot_8",
+      "csc1": "victor_9",
+      "csc2": "romeo_10",
+      "csc3": "oscar_11",
+      "csc4": "xray_12",
+      "csc5": "uniform_13",
+      "csc6": "lima_14",
+      "csc7": "november_15",
+      "csc_mask_r": "hotel_16",
+      "csr": "yankee_17",
+      "csr_r": "india_18",
+      "csr_r2": "mike_19",
+      "init_ack0": "sierra_20",
+      "init_ack1": "tango_21",
+      "init_ack2": "juliet_22",
+      "init_ack3": "delta_23",
+      "init_ack4": "alpha_24",
+      "init_ack5": "charlie_25",
+      "init_ack6": "zulu_26",
+      "init_ack7": "echo_27",
+      "init_ack_fe": "papa_28",
+      "init_ack_r": "golf_29",
+      "init_req0": "whiskey_30",
+      "init_req1": "quebec_31",
+      "init_req2": "bravo_32",
+      "init_req3": "kilo_33",
+      "init_req4": "foxtrot_34",
+      "init_req5": "victor_35",
+      "init_req6": "romeo_36",
+      "init_req7": "oscar_37",
+      "lmr_ack0": "xray_38",
+      "lmr_ack1": "uniform_39",
+      "lmr_ack2": "lima_40",
+      "lmr_ack3": "november_41",
+      "lmr_ack4": "hotel_42",
+      "lmr_ack5": "yankee_43",
+      "lmr_ack6": "india_44",
+      "lmr_ack7": "mike_45",
+      "lmr_ack_fe": "sierra_46",
+      "lmr_ack_r": "tango_47",
+      "lmr_req0": "juliet_48",
+      "lmr_req1": "delta_49",
+      "lmr_req2": "alpha_50",
+      "lmr_req3": "charlie_51",
+      "lmr_req4": "zulu_52",
+      "lmr_req5": "echo_53",
+      "lmr_req6": "papa_54",
+      "lmr_req7": "golf_55",
+      "rst_r1": "whiskey_56",
+      "rst_r2": "quebec_57",
+      "rst_r3": "bravo_58",
+      "spec_req_cs_d": "kilo_59",
+      "spec_req_cs_t": "foxtrot_60",
+      "sreq_cs_le": "victor_61",
+      "tms0": "romeo_62",
+      "tms1": "oscar_63",
+      "tms2": "xray_64",
+      "tms3": "uniform_65",
+      "tms4": "lima_66",
+      "tms5": "november_67",
+      "tms6": "hotel_68",
+      "tms7": "yankee_69",
+      "wb_addr_r": "india_70",
+      "wp_err0": "mike_71",
+      "wp_err1": "sierra_72",
+      "wp_err2": "tango_73",
+      "wp_err3": "juliet_74",
+      "wp_err4": "delta_75",
+      "wp_err5": "alpha_76",
+      "wp_err6": "charlie_77",
+      "wp_err7": "zulu_78"
+     }
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P1_rename_7.v",
+   "pert_id": "p87b354f426088b",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
     "reordered": {
      "mc_cs_rf": {
       "always_blocks": 0,
@@ -524,6 +953,94 @@
   },
   {
    "details": {
+    "reordered": {
+     "mc_cs_rf": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "mc_cs_rf_dummy": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_rf": {
+      "always_blocks": 0,
+      "item_runs": 3
+     }
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P2_reorder_4.v",
+   "pert_id": "p4db98bcff80f01",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mc_cs_rf": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "mc_cs_rf_dummy": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_rf": {
+      "always_blocks": 0,
+      "item_runs": 3
+     }
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P2_reorder_5.v",
+   "pert_id": "pd22f4c0e361b04",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mc_cs_rf": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "mc_cs_rf_dummy": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_rf": {
+      "always_blocks": 0,
+      "item_runs": 3
+     }
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P2_reorder_6.v",
+   "pert_id": "p7eb67fb79d34d6",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "mc_cs_rf": {
+      "always_blocks": 0,
+      "item_runs": 2
+     },
+     "mc_cs_rf_dummy": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "mc_rf": {
+      "always_blocks": 0,
+      "item_runs": 3
+     }
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P2_reorder_7.v",
+   "pert_id": "pc13d47ca62531e",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
     "expr_sites": [
      "const",
      "const"
@@ -573,49 +1090,87 @@
   },
   {
    "details": {
-    "ctrl_sites": [
-     "if_to_ternary",
-     "if_to_ternary"
+    "expr_sites": [
+     "const",
+     "const",
+     "const"
     ]
    },
-   "k": 0,
-   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P4_ctrl_0.v",
-   "pert_id": "p3fb85a77ce53d9",
-   "ptype": "P4_ctrl"
+   "k": 4,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P3_expr_4.v",
+   "pert_id": "p6ffdd40a17779b",
+   "ptype": "P3_expr"
   },
   {
    "details": {
-    "ctrl_sites": [
-     "if_to_ternary"
+    "expr_sites": [
+     "const"
     ]
    },
-   "k": 1,
-   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P4_ctrl_1.v",
-   "pert_id": "pa38730b31b8533",
-   "ptype": "P4_ctrl"
+   "k": 5,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P3_expr_5.v",
+   "pert_id": "pabc9dc57d667f6",
+   "ptype": "P3_expr"
   },
   {
    "details": {
-    "ctrl_sites": [
-     "if_to_ternary",
-     "if_to_ternary"
+    "expr_sites": [
+     "const",
+     "const",
+     "partselect",
+     "const"
     ]
    },
-   "k": 2,
-   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P4_ctrl_2.v",
-   "pert_id": "pc35da0d8bae2d0",
-   "ptype": "P4_ctrl"
+   "k": 6,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P3_expr_6.v",
+   "pert_id": "p5be15c6505f4e5",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "const",
+     "const",
+     "const"
+    ]
+   },
+   "k": 7,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P3_expr_7.v",
+   "pert_id": "pf2e93b39b31812",
+   "ptype": "P3_expr"
   },
   {
    "details": {
     "ctrl_sites": [
      "ternary_to_if",
-     "if_to_ternary"
+     "ternary_to_if"
     ]
    },
-   "k": 3,
-   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P4_ctrl_3.v",
-   "pert_id": "pdb1fcfb6181f28",
+   "k": 0,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P4_ctrl_0.v",
+   "pert_id": "p715cb2e5ed2fc9",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "ternary_to_if"
+    ]
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P4_ctrl_1.v",
+   "pert_id": "pfa5923a0bc8131",
+   "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "ctrl_sites": [
+     "ternary_to_if"
+    ]
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_mem_ctrl__mc_rf/P4_ctrl_6.v",
+   "pert_id": "p150d8065883457",
    "ptype": "P4_ctrl"
   }
  ],

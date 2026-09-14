@@ -32,9 +32,11 @@ def test_rename_perturbation_identical_and_proven(cfg, tmp_path):
     assert rec["latency_offset_json"] == '{"data_out": 0, "valid_out": 0}'
     assert rec["v3_status"] == "proven" and rec["verdict"] == "proven", rec.get("v3")
     assert rec["v3"]["proven"] and rec["v3"]["falsified"] == 0
-    assert rec["vcd_path"] and Path(rec["vcd_path"]).stat().st_size > 0
-    s = vcd_to_saif(rec["vcd_path"], tmp_path / "job" / "d.saif", "bs_lockstep/u_d", cfg)
-    assert s["status"] == "ok" and "(INSTANCE u_d" in Path(s["saif"]).read_text()
+    # DECISIONS 2026-09-14: the VCD became scratch once both SAIFs exist (vcd_to_scratch); a proven record keeps no VCD
+    assert rec["saif_d"] and Path(rec["saif_d"]).stat().st_size > 0 and rec["saif_c"] and Path(rec["saif_c"]).stat().st_size > 0
+    assert rec["vcd_deleted"] is True and rec["vcd_path"] is None
+    assert rec["v3"]["zero_init"] is True
+    assert "(INSTANCE u_d" in Path(rec["saif_d"]).read_text() and "(INSTANCE u_c" in Path(rec["saif_c"]).read_text()
 
 
 def test_mutant_mismatches_and_is_falsified(cfg, tmp_path):

@@ -263,6 +263,130 @@
    "path": "data/perturbations/rtllm_alu/P4_ctrl_2.v",
    "pert_id": "p5938779b66c735",
    "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "renamed": {
+     "ADD": "juliet_0",
+     "ADDU": "kilo_1",
+     "AND": "zulu_2",
+     "JR": "tango_3",
+     "LUI": "romeo_4",
+     "NOR": "alpha_5",
+     "OR": "victor_6",
+     "SLL": "golf_7",
+     "SLLV": "whiskey_8",
+     "SLT": "delta_9",
+     "SLTU": "yankee_10",
+     "SRA": "foxtrot_11",
+     "SRAV": "quebec_12",
+     "SRL": "uniform_13",
+     "SRLV": "oscar_14",
+     "SUB": "papa_15",
+     "SUBU": "bravo_16",
+     "XOR": "echo_17",
+     "a_signed": "xray_18",
+     "b_signed": "lima_19",
+     "res": "sierra_20"
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_alu/P1_text_0.v",
+   "pert_id": "p896a9e5f0fe247",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "ADD": "kilo_0",
+     "ADDU": "whiskey_1",
+     "AND": "mike_2",
+     "JR": "delta_3",
+     "LUI": "juliet_4",
+     "NOR": "romeo_5",
+     "OR": "zulu_6",
+     "SLL": "foxtrot_7",
+     "SLLV": "quebec_8",
+     "SLT": "november_9",
+     "SLTU": "lima_10",
+     "SRA": "sierra_11",
+     "SRAV": "yankee_12",
+     "SRL": "victor_13",
+     "SRLV": "xray_14",
+     "SUB": "bravo_15",
+     "SUBU": "charlie_16",
+     "XOR": "echo_17",
+     "a_signed": "papa_18",
+     "b_signed": "hotel_19",
+     "res": "uniform_20"
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_alu/P1_text_1.v",
+   "pert_id": "pba56b9a1ea021c",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "ADD": "oscar_0",
+     "ADDU": "juliet_1",
+     "AND": "victor_2",
+     "JR": "bravo_3",
+     "LUI": "foxtrot_4",
+     "NOR": "golf_5",
+     "OR": "yankee_6",
+     "SLL": "sierra_7",
+     "SLLV": "charlie_8",
+     "SLT": "kilo_9",
+     "SLTU": "uniform_10",
+     "SRA": "november_11",
+     "SRAV": "romeo_12",
+     "SRL": "hotel_13",
+     "SRLV": "quebec_14",
+     "SUB": "india_15",
+     "SUBU": "papa_16",
+     "XOR": "echo_17",
+     "a_signed": "alpha_18",
+     "b_signed": "delta_19",
+     "res": "xray_20"
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_alu/P1_text_2.v",
+   "pert_id": "p157c65be918253",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "ADD": "tango_0",
+     "ADDU": "bravo_1",
+     "AND": "yankee_2",
+     "JR": "alpha_3",
+     "LUI": "india_4",
+     "NOR": "charlie_5",
+     "OR": "november_6",
+     "SLL": "mike_7",
+     "SLLV": "romeo_8",
+     "SLT": "uniform_9",
+     "SLTU": "zulu_10",
+     "SRA": "lima_11",
+     "SRAV": "victor_12",
+     "SRL": "papa_13",
+     "SRLV": "echo_14",
+     "SUB": "delta_15",
+     "SUBU": "foxtrot_16",
+     "XOR": "oscar_17",
+     "a_signed": "golf_18",
+     "b_signed": "kilo_19",
+     "res": "hotel_20"
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_alu/P1_text_3.v",
+   "pert_id": "p57925e39d4f48a",
+   "ptype": "P1_text"
   }
  ],
  "roundtrip": {
@@ -270,5 +394,10 @@
   "pert_id": "pa822f62befca22"
  },
  "seed": "rtllm_alu:1",
+ "text_p1": {
+  "cfg_hash": "d7183387d0f9",
+  "git_sha": "9b38fe000d36",
+  "n": 4
+ },
  "top": "alu"
 }

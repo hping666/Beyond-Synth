@@ -32,7 +32,7 @@ def gate_jobs(design, manifest, cfg, priority=0):
         entries.append({"pert_id": manifest["roundtrip"]["pert_id"], "path": manifest["roundtrip"]["path"], "ptype": "P0_roundtrip"})
     entries += manifest.get("perturbations") or []
     for e in entries:
-        payload = dict(common, cand_id=e["pert_id"], c_rtl=[str(Path(C.ROOT) / e["path"])], note=f"perturbation {e['ptype']}")
+        payload = dict(common, cand_id=e["pert_id"], c_rtl=[str(Path(C.ROOT) / p) for p in (e.get("paths") or [e["path"]])], note=f"perturbation {e['ptype']}")
         jobs.append({"kind": "vcf", "design_id": design["design_id"], "cand_id": e["pert_id"], "config": "EQ",
                      "priority": int(priority), "payload": payload})
     return jobs

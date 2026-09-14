@@ -1,10 +1,13 @@
 {
- "cfg_hash": "621834f01e87",
+ "cfg_hash": "d7183387d0f9",
  "design_id": "cktevo_ethmac__eth_miim",
  "error": null,
- "git_sha": "dcb53665726f",
- "n_per_type": 4,
- "not_applicable": {},
+ "git_sha": "9b38fe000d36",
+ "n_per_type": 8,
+ "not_applicable": {
+  "P4_ctrl": "no control-structure site"
+ },
+ "notes": [],
  "perturbations": [
   {
    "details": {
@@ -232,6 +235,230 @@
   },
   {
    "details": {
+    "renamed": {
+     "eth_clockgen": {
+      "CountEq0": "romeo_0x",
+      "Counter": "november_1",
+      "CounterPreset": "uniform_2",
+      "TempDivider": "alpha_3"
+     },
+     "eth_miim": {
+      "EndBusy": "romeo_0",
+      "EndBusy_d": "mike_1",
+      "EndOp": "delta_2",
+      "InProgress_q1": "echo_3",
+      "InProgress_q2": "tango_4",
+      "InProgress_q3": "yankee_5",
+      "LatchByte0_d": "lima_6",
+      "LatchByte0_d2": "victor_7",
+      "LatchByte1_d": "whiskey_8",
+      "LatchByte1_d2": "sierra_9",
+      "RStatStart_q1": "golf_10",
+      "RStatStart_q2": "charlie_11",
+      "RStat_q1": "bravo_12",
+      "RStat_q2": "foxtrot_13",
+      "RStat_q3": "india_14",
+      "ReadStatusOp": "xray_15",
+      "ScanStat_q1": "alpha_16",
+      "ScanStat_q2": "oscar_17",
+      "ScanStatusOp": "uniform_18",
+      "StartOp": "november_19",
+      "SyncStatMdcEn": "zulu_20",
+      "WCtrlDataStart_q": "kilo_21",
+      "WCtrlDataStart_q1": "papa_22",
+      "WCtrlDataStart_q2": "quebec_23",
+      "WCtrlData_q1": "hotel_24",
+      "WCtrlData_q2": "juliet_25",
+      "WCtrlData_q3": "romeo_26",
+      "WriteDataOp": "mike_27"
+     },
+     "eth_outputcontrol": {
+      "MdoEn_2d": "india_0",
+      "MdoEn_d": "golf_1",
+      "Mdo_2d": "delta_2x",
+      "Mdo_d": "xray_3",
+      "SerialEn": "echo_4"
+     },
+     "eth_shiftreg": {
+      "ShiftReg": "hotel_0"
+     }
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P1_rename_4.v",
+   "pert_id": "p0a14b26d89f5db",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "eth_clockgen": {
+      "CountEq0": "echo_0",
+      "Counter": "delta_1",
+      "CounterPreset": "yankee_2",
+      "TempDivider": "oscar_3"
+     },
+     "eth_miim": {
+      "EndBusy": "sierra_0",
+      "EndBusy_d": "lima_1",
+      "EndOp": "oscar_2",
+      "InProgress_q1": "papa_3",
+      "InProgress_q2": "romeo_4",
+      "InProgress_q3": "hotel_5",
+      "LatchByte0_d": "quebec_6",
+      "LatchByte0_d2": "zulu_7",
+      "LatchByte1_d": "charlie_8",
+      "LatchByte1_d2": "uniform_9",
+      "RStatStart_q1": "tango_10",
+      "RStatStart_q2": "bravo_11",
+      "RStat_q1": "india_12",
+      "RStat_q2": "alpha_13",
+      "RStat_q3": "whiskey_14",
+      "ReadStatusOp": "delta_15",
+      "ScanStat_q1": "mike_16",
+      "ScanStat_q2": "november_17",
+      "ScanStatusOp": "echo_18",
+      "StartOp": "victor_19",
+      "SyncStatMdcEn": "xray_20",
+      "WCtrlDataStart_q": "yankee_21",
+      "WCtrlDataStart_q1": "golf_22",
+      "WCtrlDataStart_q2": "kilo_23",
+      "WCtrlData_q1": "juliet_24",
+      "WCtrlData_q2": "foxtrot_25",
+      "WCtrlData_q3": "sierra_26",
+      "WriteDataOp": "lima_27"
+     },
+     "eth_outputcontrol": {
+      "MdoEn_2d": "delta_0",
+      "MdoEn_d": "lima_1x",
+      "Mdo_2d": "foxtrot_2",
+      "Mdo_d": "mike_3",
+      "SerialEn": "golf_4"
+     },
+     "eth_shiftreg": {
+      "ShiftReg": "golf_0"
+     }
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P1_rename_5.v",
+   "pert_id": "p89c94ca067eb60",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "eth_clockgen": {
+      "CountEq0": "foxtrot_0",
+      "Counter": "uniform_1",
+      "CounterPreset": "lima_2",
+      "TempDivider": "papa_3"
+     },
+     "eth_miim": {
+      "EndBusy": "papa_0",
+      "EndBusy_d": "hotel_1",
+      "EndOp": "charlie_2",
+      "InProgress_q1": "yankee_3",
+      "InProgress_q2": "uniform_4",
+      "InProgress_q3": "delta_5",
+      "LatchByte0_d": "sierra_6",
+      "LatchByte0_d2": "kilo_7",
+      "LatchByte1_d": "oscar_8",
+      "LatchByte1_d2": "tango_9",
+      "RStatStart_q1": "alpha_10",
+      "RStatStart_q2": "mike_11",
+      "RStat_q1": "whiskey_12",
+      "RStat_q2": "india_13",
+      "RStat_q3": "bravo_14",
+      "ReadStatusOp": "foxtrot_15",
+      "ScanStat_q1": "golf_16",
+      "ScanStat_q2": "quebec_17",
+      "ScanStatusOp": "victor_18",
+      "StartOp": "echo_19",
+      "SyncStatMdcEn": "lima_20",
+      "WCtrlDataStart_q": "zulu_21",
+      "WCtrlDataStart_q1": "november_22",
+      "WCtrlDataStart_q2": "romeo_23",
+      "WCtrlData_q1": "juliet_24",
+      "WCtrlData_q2": "xray_25",
+      "WCtrlData_q3": "papa_26",
+      "WriteDataOp": "hotel_27"
+     },
+     "eth_outputcontrol": {
+      "MdoEn_2d": "romeo_0",
+      "MdoEn_d": "echo_1",
+      "Mdo_2d": "xray_2",
+      "Mdo_d": "foxtrot_3",
+      "SerialEn": "golf_4"
+     },
+     "eth_shiftreg": {
+      "ShiftReg": "delta_0"
+     }
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P1_rename_6.v",
+   "pert_id": "p657c3e59e6aa2a",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "eth_clockgen": {
+      "CountEq0": "xray_0",
+      "Counter": "kilo_1",
+      "CounterPreset": "sierra_2x",
+      "TempDivider": "delta_3"
+     },
+     "eth_miim": {
+      "EndBusy": "whiskey_0",
+      "EndBusy_d": "delta_1",
+      "EndOp": "sierra_2",
+      "InProgress_q1": "bravo_3",
+      "InProgress_q2": "echo_4",
+      "InProgress_q3": "foxtrot_5",
+      "LatchByte0_d": "oscar_6",
+      "LatchByte0_d2": "mike_7",
+      "LatchByte1_d": "papa_8",
+      "LatchByte1_d2": "hotel_9",
+      "RStatStart_q1": "juliet_10",
+      "RStatStart_q2": "golf_11",
+      "RStat_q1": "kilo_12",
+      "RStat_q2": "charlie_13",
+      "RStat_q3": "india_14",
+      "ReadStatusOp": "zulu_15",
+      "ScanStat_q1": "alpha_16",
+      "ScanStat_q2": "victor_17",
+      "ScanStatusOp": "tango_18",
+      "StartOp": "yankee_19",
+      "SyncStatMdcEn": "uniform_20",
+      "WCtrlDataStart_q": "romeo_21",
+      "WCtrlDataStart_q1": "xray_22",
+      "WCtrlDataStart_q2": "quebec_23",
+      "WCtrlData_q1": "lima_24",
+      "WCtrlData_q2": "november_25",
+      "WCtrlData_q3": "whiskey_26",
+      "WriteDataOp": "delta_27"
+     },
+     "eth_outputcontrol": {
+      "MdoEn_2d": "quebec_0",
+      "MdoEn_d": "golf_1",
+      "Mdo_2d": "uniform_2",
+      "Mdo_d": "romeo_3",
+      "SerialEn": "kilo_4"
+     },
+     "eth_shiftreg": {
+      "ShiftReg": "charlie_0"
+     }
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P1_rename_7.v",
+   "pert_id": "pe392840bc39a14",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
     "reordered": {
      "eth_clockgen": {
       "always_blocks": 0,
@@ -336,6 +563,110 @@
   },
   {
    "details": {
+    "reordered": {
+     "eth_clockgen": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_miim": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_outputcontrol": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_shiftreg": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P2_reorder_4.v",
+   "pert_id": "p0949e9afde23d6",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_clockgen": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_miim": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_outputcontrol": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_shiftreg": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P2_reorder_5.v",
+   "pert_id": "pa121a0c39d24da",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_clockgen": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_miim": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_outputcontrol": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_shiftreg": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P2_reorder_6.v",
+   "pert_id": "p9bc5d4456bdcd7",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "eth_clockgen": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_miim": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_outputcontrol": {
+      "always_blocks": 0,
+      "item_runs": 1
+     },
+     "eth_shiftreg": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P2_reorder_7.v",
+   "pert_id": "paf1ca1b7a86c3e",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
     "expr_sites": [
      "const",
      "const",
@@ -386,26 +717,41 @@
   },
   {
    "details": {
-    "ctrl_sites": [
-     "if_to_ternary"
+    "expr_sites": [
+     "const",
+     "const",
+     "const"
     ]
    },
-   "k": 0,
-   "path": "data/perturbations/cktevo_ethmac__eth_miim/P4_ctrl_0.v",
-   "pert_id": "p077957a73a586d",
-   "ptype": "P4_ctrl"
+   "k": 4,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P3_expr_4.v",
+   "pert_id": "p5283e3d67e1625",
+   "ptype": "P3_expr"
   },
   {
    "details": {
-    "ctrl_sites": [
-     "if_to_ternary",
-     "if_to_ternary"
+    "expr_sites": [
+     "const",
+     "const",
+     "const"
     ]
    },
-   "k": 2,
-   "path": "data/perturbations/cktevo_ethmac__eth_miim/P4_ctrl_2.v",
-   "pert_id": "pa48572ca8a8ad6",
-   "ptype": "P4_ctrl"
+   "k": 5,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P3_expr_5.v",
+   "pert_id": "p75a8121d2b5821",
+   "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "expr_sites": [
+     "partselect",
+     "partselect"
+    ]
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_ethmac__eth_miim/P3_expr_6.v",
+   "pert_id": "p8fb7f36669b209",
+   "ptype": "P3_expr"
   }
  ],
  "roundtrip": {

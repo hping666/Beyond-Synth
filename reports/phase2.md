@@ -1,6 +1,6 @@
 # Phase 2 report — noise floor, SEQ pilot, E4 runtime (Exp0)
 
-Generated 2026-09-13 19:54 by scripts/report_phase.py (git 4f3d10499f7b, cfg 443559992d75). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
+Generated 2026-09-14 03:51 by scripts/report_phase.py (git 9b38fe000d36, cfg d7183387d0f9). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
 
 ## 1. Perturbation generator (PLAN 2.1)
 
@@ -37,7 +37,37 @@ SEQ gate (V1 -> V2 -> V3; only `proven` enters the floor):
 | E4 | tns | 144 | 0.0000 | 0.0000 | 0.0174 |
 | E4 | wns | 144 | 0.0000 | 0.0000 | 0.0125 |
 
-Minimum reportable gain = 2.0 x sigma_D (config noise.k_sigma); per-design values in the noise_floor table and reports/data/phase2_noise_floor.json.
+Minimum reportable gain under the spec's original rule = 2.0 x sigma_D (config noise.k_sigma); per-design values in the noise_floor table and reports/data/phase2_noise_floor.json.
+
+**Rule A** (DECISIONS 2026-09-14): t_D = max(2.0 x sigma_robust, the design's own max |delta| incl. P0, pooled q90); designs without a measured floor carry the pooled minimum (floor_source = pooled).
+
+| config | metric | designs | pooled minimum | median t_D | q75 | max |
+|---|---|---|---|---|---|---|
+| E1 | area | 143 | 0.0069 | 0.0069 | 0.0069 | 0.0669 |
+| E1 | power_saif | 143 | 0.0171 | 0.0171 | 0.0171 | 0.3943 |
+| E1 | tns | 143 | 0.0000 | 0.0000 | 0.0000 | 153.9485 |
+| E1 | wns | 143 | 0.0048 | 0.0048 | 0.0048 | 0.1033 |
+| E2 | area | 143 | 0.0028 | 0.0028 | 0.0028 | 0.1625 |
+| E2 | power_saif | 143 | 0.0148 | 0.0148 | 0.0148 | 0.3648 |
+| E2 | tns | 143 | 0.0000 | 0.0000 | 0.0000 | 8.2259 |
+| E2 | wns | 143 | 0.0018 | 0.0018 | 0.0018 | 0.1460 |
+| E3 | area | 144 | 0.0094 | 0.0094 | 0.0094 | 0.2605 |
+| E3 | power_saif | 144 | 0.0245 | 0.0245 | 0.0245 | 0.5771 |
+| E3 | tns | 144 | 0.0000 | 0.0000 | 0.0000 | 2.1978 |
+| E3 | wns | 144 | 0.0030 | 0.0030 | 0.0030 | 0.1460 |
+| E4 | area | 144 | 0.0029 | 0.0029 | 0.0029 | 0.1866 |
+| E4 | power_saif | 144 | 0.0141 | 0.0141 | 0.0141 | 0.6425 |
+| E4 | tns | 144 | 0.0000 | 0.0000 | 0.0000 | 0.3120 |
+| E4 | wns | 144 | 0.0007 | 0.0007 | 0.0007 | 0.1460 |
+
+Floor classes per configuration (quiet / spread / offset; pooled = no measured floor, the pooled minimum applies; none = not a set design):
+
+| config | quiet | spread | offset | pooled | none |
+|---|---|---|---|---|---|
+| E1 | 106 | 33 | 4 | 29 | 7 |
+| E2 | 108 | 34 | 1 | 29 | 7 |
+| E3 | 108 | 35 | 1 | 29 | 6 |
+| E4 | 110 | 30 | 4 | 29 | 6 |
 
 ### 2a. Floor distribution on the set designs (dev + held)
 

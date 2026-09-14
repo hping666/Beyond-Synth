@@ -37,3 +37,29 @@ def knee_jobs(cfg, designs, libs=None, priority=0, skip_tags=("multi_clock",)):
             for period in cfg["knee"]["periods_ns"][lib]:
                 out.append(dc_job(cfg, d, config, period, priority))
     return out
+
+
+def knee_ext_jobs(cfg, designs, need, priority=0):
+    """DECISIONS 2026-09-14 (additional task 1): two tighter periods (config knee.periods_ext_ns) for the designs whose
+    Phi_main sits at the tightest swept period of a library; need: {lib: [design_id]}."""
+    out = []
+    by_id = {d["design_id"]: d for d in designs}
+    for lib, ids in need.items():
+        config = cfg["knee"]["configs"][lib]
+        for did in ids:
+            d = by_id.get(did)
+            if d is None or "multi_clock" in d["tags"]:
+                continue
+            for period in cfg["knee"].get("periods_ext_ns", {}).get(lib, []):
+                out.append(dc_job(cfg, d, config, float(period), priority))
+    return out
+
+
+def designs_at_tightest_period(cfg, conn):
+    """{lib: [design_id]} whose current Phi_main equals the tightest period of knee.periods_ns on that library."""
+    col = {"nangate45": "phi_main_ns_nangate45", "asap7": "phi_main_ns_asap7", "sky130hd": "phi_main_ns_sky130hd"}
+    need = {}
+    for lib, periods in cfg["knee"]["periods_ns"].items():
+        tight = min(float(p) for p in periods)
+        need[lib] = [r[0] for r in conn.execute(f"SELECT design_id FROM designs WHERE abs({col[lib]} - ?) < 1e-9 ORDER BY design_id", (tight,))]
+    return need

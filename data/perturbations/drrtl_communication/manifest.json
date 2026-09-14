@@ -295,6 +295,78 @@
    "path": "data/perturbations/drrtl_communication/P4_ctrl_3.v",
    "pert_id": "pf172f25bd45bf0",
    "ptype": "P4_ctrl"
+  },
+  {
+   "details": {
+    "renamed": {
+     "bit_count": "foxtrot_0",
+     "count": "sierra_1",
+     "data_reg": "hotel_2",
+     "reg_count": "tango_3",
+     "serial_clk_in": "charlie_4",
+     "temp_reg_count": "quebec_5",
+     "tx_done": "november_6",
+     "tx_out": "zulu_7"
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_communication/P1_text_0.v",
+   "pert_id": "p5e1da66ab13d2d",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "bit_count": "romeo_0",
+     "count": "mike_1",
+     "data_reg": "papa_2",
+     "reg_count": "hotel_3",
+     "serial_clk_in": "india_4",
+     "temp_reg_count": "kilo_5",
+     "tx_done": "whiskey_6",
+     "tx_out": "zulu_7"
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_communication/P1_text_1.v",
+   "pert_id": "p545a1c09040a2e",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "bit_count": "lima_0",
+     "count": "zulu_1",
+     "data_reg": "juliet_2",
+     "reg_count": "xray_3",
+     "serial_clk_in": "foxtrot_4",
+     "temp_reg_count": "papa_5",
+     "tx_done": "golf_6",
+     "tx_out": "november_7"
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_communication/P1_text_2.v",
+   "pert_id": "pffccc5a64940d8",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "bit_count": "juliet_0",
+     "count": "xray_1",
+     "data_reg": "india_2",
+     "reg_count": "whiskey_3",
+     "serial_clk_in": "golf_4",
+     "temp_reg_count": "zulu_5",
+     "tx_done": "november_6",
+     "tx_out": "mike_7"
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_communication/P1_text_3.v",
+   "pert_id": "pc1586b7951d49d",
+   "ptype": "P1_text"
   }
  ],
  "roundtrip": {
@@ -302,5 +374,10 @@
   "pert_id": "p5c5ec9ead7e334"
  },
  "seed": "drrtl_communication:1",
+ "text_p1": {
+  "cfg_hash": "d7183387d0f9",
+  "git_sha": "9b38fe000d36",
+  "n": 4
+ },
  "top": "sync_serial_communication_tx_rx"
 }

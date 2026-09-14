@@ -31,14 +31,16 @@ class Unsupported(Exception):
     """The design uses a construct Pyverilog re-prints with different semantics; no AST perturbations for it."""
 
 
-def normalise_text(text):
+def normalise_text(text, strict=True):
     """Work around two Pyverilog re-print defects seen on the staged designs (DECISIONS 2026-09-12):
     (1) `input signed [7:0] a, b` loses `signed` on every name but the first -> split into one declaration per
     name; (2) `reg [3:0] x = 'd0;` is re-printed as `reg x; assign x = 'd0;` (an initial value becomes a
     continuous assignment) -> raise Unsupported. Returns (text, notes)."""
     notes = []
     if _REG_INIT.search(strip_comments_keep(text)):
-        raise Unsupported("register declared with an initial value (Pyverilog re-prints it as a continuous assignment)")
+        if strict:
+            raise Unsupported("register declared with an initial value (Pyverilog re-prints it as a continuous assignment)")
+        notes.append("register initialiser kept (non-strict parse: the text is not re-printed)")
 
     def split(m):
         names = [n.strip() for n in m.group("names").split(",")]
@@ -59,7 +61,7 @@ def strip_comments_keep(text):
     return strip_comments(text)
 
 
-def parse_files(files, incdirs=None, defines=None, workdir=None):
+def parse_files(files, incdirs=None, defines=None, workdir=None, strict=True):
     """-> (ast, directives, notes) for a list of Verilog files (all modules of the design), after normalise_text();
     the normalised copies are written to `workdir` (a temporary directory by default)."""
     import tempfile
@@ -67,7 +69,7 @@ def parse_files(files, incdirs=None, defines=None, workdir=None):
     wd.mkdir(parents=True, exist_ok=True)
     staged, notes = [], []
     for f in files:
-        text, n = normalise_text(Path(f).read_text(errors="replace"))
+        text, n = normalise_text(Path(f).read_text(errors="replace"), strict=strict)
         notes += n
         dst = wd / Path(f).name
         dst.write_text(text)

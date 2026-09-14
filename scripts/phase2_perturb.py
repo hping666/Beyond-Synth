@@ -52,6 +52,8 @@ def main(argv=None):
     ap.add_argument("--submit", action="store_true")
     ap.add_argument("--missing", action="store_true", help="gate: only perturbations without any equivalence record (crashed / never run)")
     ap.add_argument("--priority", type=int, default=0)
+    ap.add_argument("--n-per-type", type=int, default=None, help="generate: perturbations per type (config noise.n_per_type by default; 8 for spread / offset and map designs)")
+    ap.add_argument("--text-p1", action="store_true", help="generate: text-level P1 renamings appended to the manifest (designs whose re-print is unusable)")
     a = ap.parse_args(argv)
     cfg = C.load()
     conn = db.connect(cfg=cfg)
@@ -59,8 +61,8 @@ def main(argv=None):
     if a.what == "generate":
         totals, na, errors = {}, {}, []
         for d in designs:
-            m = G.generate(d, cfg)
-            if m["error"]:
+            m = G.generate_text_p1(d, cfg, n_per_type=a.n_per_type) if a.text_p1 else G.generate(d, cfg, n_per_type=a.n_per_type)
+            if m["error"] and not (a.text_p1 and m.get("text_p1", {}).get("n")):
                 errors.append((d["design_id"], m["error"]))
             for p in m["perturbations"]:
                 totals[p["ptype"]] = totals.get(p["ptype"], 0) + 1
@@ -79,7 +81,7 @@ def main(argv=None):
         jobs = []
         for d in designs:
             m = GT.manifest_of(d["design_id"])
-            if m and not m.get("error"):
+            if m and (not m.get("error") or m.get("perturbations")):  # a text-P1 manifest may carry the AST generator's error and still have entries
                 new_jobs = GT.gate_jobs(d, m, cfg, priority=a.priority)
                 if a.missing:  # no record and no job still queued or running for that perturbation
                     have = GT.recorded_cand_ids(cfg, d["design_id"])

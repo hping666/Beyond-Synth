@@ -362,6 +362,154 @@
    "path": "data/perturbations/drrtl_LSTM/P3_expr_3.v",
    "pert_id": "p912163dcbbd160",
    "ptype": "P3_expr"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DATA_WIDTH": "foxtrot_0",
+     "FRACT_WIDTH": "echo_1",
+     "Wc0": "kilo_2",
+     "Wc1": "uniform_3",
+     "Wf0": "lima_4",
+     "Wf1": "quebec_5",
+     "Wi0": "sierra_6",
+     "Wi1": "india_7",
+     "Wo0": "juliet_8",
+     "Wo1": "zulu_9",
+     "bc": "charlie_10",
+     "bf": "hotel_11",
+     "bi": "golf_12",
+     "bo": "xray_13",
+     "c_act": "bravo_14",
+     "ct": "victor_15",
+     "cw": "romeo_16",
+     "f": "alpha_17",
+     "i": "tango_18",
+     "iw": "yankee_19",
+     "ot": "whiskey_20",
+     "p1": "oscar_21",
+     "p2": "delta_22",
+     "s1": "papa_23",
+     "z1": "november_24",
+     "z2": "mike_25",
+     "z3": "foxtrot_26"
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_LSTM/P1_text_0.v",
+   "pert_id": "pc326ebe8204e49",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DATA_WIDTH": "charlie_0",
+     "FRACT_WIDTH": "mike_1",
+     "Wc0": "kilo_2",
+     "Wc1": "juliet_3",
+     "Wf0": "india_4",
+     "Wf1": "oscar_5",
+     "Wi0": "foxtrot_6",
+     "Wi1": "sierra_7",
+     "Wo0": "yankee_8",
+     "Wo1": "golf_9",
+     "bc": "echo_10",
+     "bf": "zulu_11",
+     "bi": "november_12",
+     "bo": "bravo_13",
+     "c_act": "lima_14",
+     "ct": "xray_15",
+     "cw": "papa_16",
+     "f": "quebec_17",
+     "i": "alpha_18",
+     "iw": "tango_19",
+     "ot": "hotel_20",
+     "p1": "romeo_21",
+     "p2": "whiskey_22",
+     "s1": "delta_23",
+     "z1": "victor_24",
+     "z2": "uniform_25",
+     "z3": "charlie_26"
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_LSTM/P1_text_1.v",
+   "pert_id": "pd9638479c47a6a",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DATA_WIDTH": "xray_0",
+     "FRACT_WIDTH": "victor_1",
+     "Wc0": "lima_2",
+     "Wc1": "zulu_3",
+     "Wf0": "papa_4",
+     "Wf1": "foxtrot_5",
+     "Wi0": "november_6",
+     "Wi1": "juliet_7",
+     "Wo0": "hotel_8",
+     "Wo1": "whiskey_9",
+     "bc": "echo_10",
+     "bf": "india_11",
+     "bi": "alpha_12",
+     "bo": "bravo_13",
+     "c_act": "uniform_14",
+     "ct": "yankee_15",
+     "cw": "golf_16",
+     "f": "delta_17",
+     "i": "sierra_18",
+     "iw": "quebec_19",
+     "ot": "oscar_20",
+     "p1": "kilo_21",
+     "p2": "charlie_22",
+     "s1": "tango_23",
+     "z1": "romeo_24",
+     "z2": "mike_25",
+     "z3": "xray_26"
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_LSTM/P1_text_2.v",
+   "pert_id": "p6962573c56f9e7",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DATA_WIDTH": "quebec_0",
+     "FRACT_WIDTH": "hotel_1",
+     "Wc0": "kilo_2",
+     "Wc1": "whiskey_3",
+     "Wf0": "oscar_4",
+     "Wf1": "romeo_5",
+     "Wi0": "xray_6",
+     "Wi1": "india_7",
+     "Wo0": "juliet_8",
+     "Wo1": "bravo_9",
+     "bc": "lima_10",
+     "bf": "alpha_11",
+     "bi": "zulu_12",
+     "bo": "foxtrot_13",
+     "c_act": "november_14",
+     "ct": "victor_15",
+     "cw": "mike_16",
+     "f": "echo_17",
+     "i": "tango_18",
+     "iw": "uniform_19",
+     "ot": "golf_20",
+     "p1": "papa_21",
+     "p2": "charlie_22",
+     "s1": "yankee_23",
+     "z1": "delta_24",
+     "z2": "sierra_25",
+     "z3": "quebec_26"
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_LSTM/P1_text_3.v",
+   "pert_id": "p1c52adbd4413fc",
+   "ptype": "P1_text"
   }
  ],
  "roundtrip": {
@@ -369,5 +517,10 @@
   "pert_id": "p73d7952727420d"
  },
  "seed": "drrtl_LSTM:1",
+ "text_p1": {
+  "cfg_hash": "d7183387d0f9",
+  "git_sha": "9b38fe000d36",
+  "n": 4
+ },
  "top": "lstm_cell"
 }

@@ -72,3 +72,58 @@ def generate(design, cfg, n_per_type=None, types=None, seed=None, out_root=None)
                                               "path": _rel(path), "details": details})
     (out / "manifest.json").write_text(json.dumps(manifest, indent=1, sort_keys=True, default=str) + "\n")
     return manifest
+
+
+def generate_text_p1(design, cfg, n_per_type=None, seed=None, out_root=None):
+    """DECISIONS 2026-09-14 G1.2: text-level P1 renamings (src/noise/rename_text.py) appended to the design's manifest
+    (ptype P1_text, files P1_text_<k>.v); existing entries are kept. -> manifest dict."""
+    from src.noise import rename_text as RT
+    noise = cfg["noise"]
+    n = int(n_per_type or noise["n_per_type"])
+    seed = seed if seed is not None else f"{design['design_id']}:{noise.get('seed', 1)}"
+    out = Path(out_root or PERT_DIR) / design["design_id"]
+    out.mkdir(parents=True, exist_ok=True)
+    mp = out / "manifest.json"
+    manifest = json.loads(mp.read_text()) if mp.exists() else {"design_id": design["design_id"], "top": design["top"], "seed": str(seed), "n_per_type": n,
+                                                                "perturbations": [], "not_applicable": {}, "error": None}
+    manifest["perturbations"] = [e for e in manifest.get("perturbations") or [] if e.get("ptype") != RT.PTYPE]
+    files = K.abs_paths(design, design["files"])
+    try:
+        ast, _directives, _notes = V.parse_files(files, incdirs=K.abs_paths(design, design["incdirs"]), workdir=out / "normalised_text", strict=False)  # the text is never re-printed
+        variants = RT.text_variants(files, ast, seed, n)
+    except P.NotApplicable as e:
+        manifest["not_applicable"][RT.PTYPE] = str(e)
+        variants = []
+    except Exception as e:
+        manifest["not_applicable"][RT.PTYPE] = f"text renamer error: {type(e).__name__}: {str(e)[:200]}"
+        variants = []
+    seen = set()
+    for k, mapping, texts in variants:
+        # one file per variant when the design is a single file; multi-file designs get a directory per variant
+        if len(texts) == 1:
+            text = next(iter(texts.values()))
+            if text in seen:
+                continue
+            seen.add(text)
+            path = out / f"P1_text_{k}.v"
+            path.write_text(text)
+            manifest["perturbations"].append({"pert_id": pert_id_for(text), "ptype": RT.PTYPE, "k": k, "path": _rel(path), "details": {"renamed": mapping}})
+        else:
+            vdir = out / f"P1_text_{k}"
+            vdir.mkdir(exist_ok=True)
+            joined = "\n".join(texts[f] for f in sorted(texts))
+            if joined in seen:
+                continue
+            seen.add(joined)
+            paths = []
+            for f, text in texts.items():
+                p = vdir / Path(f).name
+                p.write_text(text)
+                paths.append(_rel(p))
+            manifest["perturbations"].append({"pert_id": pert_id_for(joined), "ptype": RT.PTYPE, "k": k, "path": paths[0], "paths": paths, "details": {"renamed": mapping}})
+    n_text = len([e for e in manifest["perturbations"] if e["ptype"] == RT.PTYPE])
+    if n_text:
+        manifest["not_applicable"].pop(RT.PTYPE, None)
+    manifest["text_p1"] = {"n": n_text, "git_sha": C.git_sha(), "cfg_hash": C.cfg_hash()}
+    mp.write_text(json.dumps(manifest, indent=1, sort_keys=True, default=str) + "\n")
+    return manifest

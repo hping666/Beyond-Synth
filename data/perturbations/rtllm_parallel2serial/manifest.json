@@ -5,7 +5,65 @@
  "git_sha": "f4a438832622",
  "n_per_type": 4,
  "not_applicable": {},
- "perturbations": [],
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "cnt": "zulu_0",
+     "data": "echo_1",
+     "valid": "india_2"
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/rtllm_parallel2serial/P1_text_0.v",
+   "pert_id": "pe31e9ecbd19e8b",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "cnt": "golf_0",
+     "data": "lima_1",
+     "valid": "quebec_2"
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/rtllm_parallel2serial/P1_text_1.v",
+   "pert_id": "p562fa28acf9170",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "cnt": "india_0",
+     "data": "juliet_1",
+     "valid": "xray_2"
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/rtllm_parallel2serial/P1_text_2.v",
+   "pert_id": "p0864bbb40f8d2e",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "cnt": "charlie_0",
+     "data": "echo_1",
+     "valid": "romeo_2"
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/rtllm_parallel2serial/P1_text_3.v",
+   "pert_id": "p8fa90685107f06",
+   "ptype": "P1_text"
+  }
+ ],
  "seed": "rtllm_parallel2serial:1",
+ "text_p1": {
+  "cfg_hash": "d7183387d0f9",
+  "git_sha": "9b38fe000d36",
+  "n": 4
+ },
  "top": "parallel2serial"
 }

@@ -65,3 +65,15 @@ def test_write_config_round_trips_and_restores_on_error(tmp_path, monkeypatch):
     with pytest.raises(ValueError):
         mod.write_config([("no_such_suite", "dev", ["x"])])
     assert cfg_copy.read_text() == before
+
+
+def test_knee_ext_jobs_only_for_designs_at_the_tightest_period():
+    """DECISIONS 2026-09-14: the two tighter periods are submitted only for designs whose Phi_main is the tightest swept
+    period of that library; multi-clock designs are skipped; nothing for a library without an extension."""
+    from src import config as C
+    from src.designs import jobs as J
+    cfg = C.load()
+    designs = [{"design_id": "a", "suite": "rtllm", "top": "a", "files": ["a.v"], "incdirs": [], "clk_ports": ["clk"], "tags": [], "loc": 10, "sverilog": False, "_dir": "/x"},
+               {"design_id": "m", "suite": "rtllm", "top": "m", "files": ["m.v"], "incdirs": [], "clk_ports": ["clk", "clk2"], "tags": ["multi_clock"], "loc": 10, "sverilog": False, "_dir": "/x"}]
+    jobs = J.knee_ext_jobs(cfg, designs, {"nangate45": ["a", "m"], "asap7": ["a"], "sky130hd": []})
+    assert sorted((j["design_id"], j["config"], j["payload"]["clock_ns"]) for j in jobs) == [("a", "E4", 0.25), ("a", "E4", 0.35), ("a", "K_asap7", 0.065), ("a", "K_asap7", 0.09)]

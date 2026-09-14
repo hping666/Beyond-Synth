@@ -185,6 +185,15 @@ def vcs_run(workdir, cfg, timeout=1800, plusargs=()):
     return p.returncode, p.stdout + p.stderr
 
 
+def init_args(cfg):
+    """DECISIONS 2026-09-14 (G2.2): registers without a reset start at zero in the lock-step simulation, identically for D
+    and the candidate: VCS `+vcs+initreg+random` at compile time enables register initialisation, `+vcs+initreg+0` at run
+    time sets every such register to 0 (verified 2026-09-14 on a counter without reset). -> (compile_extra, run_plusargs)."""
+    if (cfg.get("equiv") or {}).get("init_state_zero_no_reset", False):
+        return (["+vcs+initreg+random"], ["+vcs+initreg+0"])
+    return ([], [])
+
+
 def run_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg, *, sverilog=False, incdirs=None, timeout_sec=None, sim_seed=None, c_top=None):
     """-> dict(status, offsets, cycles, first_mismatch, vcd, trace, sverilog, compile_log_path)."""
     job_dir = Path(job_dir)
@@ -201,7 +210,8 @@ def run_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg
     ins, outs = write_harness(harness, top, (c_top or top) + SUFFIX, ports, clk, rst, rst_sense, cfg, trace, vcd, seed=sim_seed)
     timeout = float(timeout_sec or cfg["timeouts"]["sim"] * 60)
     t0 = time.time()
-    ok, clog, sv = vcs_compile(wd, [harness] + [str(f) for f in d_files] + [str(p) for p in c_sources], cfg,
+    init_compile, init_run = init_args(cfg)
+    ok, clog, sv = vcs_compile(wd, [harness] + [str(f) for f in d_files] + [str(p) for p in c_sources], cfg, extra=init_compile,
                                sverilog=sverilog, incdirs=incdirs, timeout=timeout, top=HARNESS)
     (wd / "vcs_console.log").write_text(clog)
     rec = {"status": "unknown", "offsets": {}, "cycles": 0, "first_mismatch": None, "mismatches": {}, "vcd": None,
@@ -211,7 +221,7 @@ def run_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg
         rec.update(status="compile_failed", error=(errs[0] if errs else "vcs compile failed")[:300], seconds=round(time.time() - t0, 1))
         return rec
     try:
-        rc, slog = vcs_run(wd, cfg, timeout=timeout)
+        rc, slog = vcs_run(wd, cfg, timeout=timeout, plusargs=init_run)
     except subprocess.TimeoutExpired:
         rec.update(status="timeout", error=f"simulation exceeded {timeout:.0f} s", seconds=round(time.time() - t0, 1))
         return rec
@@ -231,12 +241,13 @@ def run_testbench(workdir, tb_files, rtl_files, cfg, *, tb_top=None, sverilog=Fa
     wd = Path(workdir)
     wd.mkdir(parents=True, exist_ok=True)
     timeout = float(timeout_sec or cfg["timeouts"]["sim"] * 60)
-    ok, clog, sv = vcs_compile(wd, list(tb_files) + list(rtl_files), cfg, sverilog=sverilog, incdirs=incdirs, timeout=timeout, top=tb_top)
+    init_compile, init_run = init_args(cfg)  # the design's own testbench runs under the same initial-state assumption
+    ok, clog, sv = vcs_compile(wd, list(tb_files) + list(rtl_files), cfg, sverilog=sverilog, incdirs=incdirs, timeout=timeout, top=tb_top, extra=init_compile)
     (wd / "vcs_console.log").write_text(clog)
     if not ok:
         return {"status": "compile_failed", "sverilog": sv, "log": clog[-1500:]}
     try:
-        rc, slog = vcs_run(wd, cfg, timeout=timeout)
+        rc, slog = vcs_run(wd, cfg, timeout=timeout, plusargs=init_run)
     except subprocess.TimeoutExpired:
         return {"status": "timeout", "sverilog": sv}
     passed = re.search(cfg["sim"]["tb_pass_regex"], slog) is not None

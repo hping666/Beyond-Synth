@@ -29,7 +29,7 @@ from src.jobqueue.core import Queue  # noqa: E402
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["trial", "knee"])
+    ap.add_argument("what", choices=["trial", "knee", "knee-ext"])
     ap.add_argument("--suite", nargs="*", default=None)
     ap.add_argument("--design", nargs="*", default=None, help="restrict to these design_ids")
     ap.add_argument("--tag", nargs="*", default=None, help="restrict to designs carrying every one of these tags (e.g. cktevo_set)")
@@ -45,7 +45,14 @@ def main(argv=None):
     if a.only_e4_ok:
         ok = {r[0] for r in conn.execute("SELECT design_id FROM designs WHERE e4_synthesizable = 1")}
         designs = [d for d in designs if d["design_id"] in ok]
-    jobs = J.trial_jobs(cfg, designs, priority=a.priority) if a.what == "trial" else J.knee_jobs(cfg, designs, libs=a.libs, priority=a.priority)
+    if a.what == "knee-ext":  # DECISIONS 2026-09-14: tighter periods only where Phi_main is the tightest swept period
+        need = J.designs_at_tightest_period(cfg, conn)
+        if a.libs:
+            need = {lib: ids for lib, ids in need.items() if lib in a.libs}
+        print({lib: len(ids) for lib, ids in need.items()})
+        jobs = J.knee_ext_jobs(cfg, designs, need, priority=a.priority)
+    else:
+        jobs = J.trial_jobs(cfg, designs, priority=a.priority) if a.what == "trial" else J.knee_jobs(cfg, designs, libs=a.libs, priority=a.priority)
     out = Path(C.results_dir(cfg)) / "queue" / "jobs" / f"phase1_{a.what}_{datetime.datetime.now():%Y%m%d_%H%M%S}.yaml"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(yaml.safe_dump({"jobs": jobs}, sort_keys=False))

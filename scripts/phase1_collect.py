@@ -98,7 +98,7 @@ def collect_knee(cfg, conn):
         rec = {"design_id": d["design_id"], "suite": d["suite"], "libs": {}}
         table = {}
         for lib, config in knee["configs"].items():
-            periods = [float(p) for p in knee["periods_ns"][lib]]
+            periods = [float(p) for p in knee["periods_ns"][lib]] + [float(p) for p in knee.get("periods_ext_ns", {}).get(lib, [])]  # the extension points count when they exist
             rows = [r for r in baseline_rows(conn, d["design_id"], config) if r["status"] == "ok"]
             pts = []
             for T in periods:
@@ -106,7 +106,7 @@ def collect_knee(cfg, conn):
                 if hits:
                     r = hits[-1]
                     pts.append({"T": T, "area": r["area_um2"], "wns": r["wns_ns"], "tns": r["tns_ns"], "cells": r["cells"], "dc_seconds": r["dc_seconds"]})
-            entry = {"points": pts, "complete": len(pts) == len(periods), "phi": None, "fallback": None}
+            entry = {"points": pts, "complete": len([p for p in pts if p["T"] in [float(x) for x in knee["periods_ns"][lib]]]) == len(knee["periods_ns"][lib]), "phi": None, "fallback": None}
             if pts:
                 try:
                     phi, fb = choose_knee(pts, knee["slack_tol"], knee["area_tol"])

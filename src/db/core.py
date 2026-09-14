@@ -47,12 +47,12 @@ def _rebuild_perturbations_if_old(conn):
     """2026-09-13: the round trip (ptype P0_roundtrip) joined the perturbations table; SQLite cannot alter a CHECK
     constraint, so a table created with the old constraint is rebuilt once (rows copied, then the old table dropped)."""
     row = conn.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='perturbations'").fetchone()
-    if not row or "P0_roundtrip" in row[0]:
+    if not row or ("P0_roundtrip" in row[0] and "P1_text" in row[0]):
         return False
     conn.execute("BEGIN IMMEDIATE")
     try:
         row = conn.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='perturbations'").fetchone()
-        if "P0_roundtrip" in row[0]:  # another connection rebuilt it while we waited for the lock
+        if "P0_roundtrip" in row[0] and "P1_text" in row[0]:  # another connection rebuilt it while we waited for the lock
             conn.execute("COMMIT")
             return False
         conn.execute("ALTER TABLE perturbations RENAME TO perturbations_old")

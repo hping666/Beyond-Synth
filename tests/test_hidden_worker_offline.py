@@ -162,3 +162,41 @@ def test_g3_summary_counts_and_seconds_only(env, tmp_path, monkeypatch):
     hid.execute("DELETE FROM evaluations")
     empty = mod.g3_summary(cfg, vis=vis, hid=hid)
     assert empty["n_designs_with_ratio"] == 0 and empty["pairs"] == 0 and empty["agreement_rate"] is None
+
+
+def test_coverage_counts_only(env, tmp_path, monkeypatch):
+    """Coverage: a floored design with D and every proven perturbation under a full configuration is complete; a missing
+    perturbation makes it incomplete; a missing D is listed; nothing but counts and ids is returned."""
+    cfg, vis, hid, mod, rtl = env
+    from src.designs import catalog as K
+    from src.noise import stats as S
+    monkeypatch.setattr(K, "DESIGNS_DIR", tmp_path / "designs")
+    ddir = tmp_path / "designs" / "rtllm" / "acc"
+    (ddir / "rtl").mkdir(parents=True)
+    (ddir / "rtl" / "acc.v").write_text(rtl.read_text())
+    d = {"design_id": "rtllm_acc", "suite": "rtllm", "name": "acc", "top": "d", "files": ["rtl/acc.v"], "clk_ports": ["clk"], "rst_port": None,
+         "rst_sense": None, "sverilog": False, "incdirs": [], "tb": None, "reference": None, "source": {"url": "u", "commit": "c", "license": "l", "paths": []},
+         "sha256": {"rtl/acc.v": K.sha256_of(ddir / "rtl" / "acc.v")}, "loc": 1, "tags": ["rtllm"], "notes": [], "_dir": str(ddir)}
+    K.write_design(d)
+    vis.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, phi_main_ns_asap7, created_at, git_sha, cfg_hash) "
+                "VALUES ('rtllm_acc','rtllm','acc','x',1,1,'dev',2.0,0.5,'t','g','c')")
+    for pid in ("p1", "p2"):
+        db.insert(vis, "perturbations", {"pert_id": pid, "design_id": "rtllm_acc", "ptype": "P1_rename", "path": "x", "seq_status": "proven"})
+    S.upsert_floor(vis, [{"design_id": "rtllm_acc", "config": "E4", "metric": "area", "sigma_robust": 0.0, "sigma_std": 0.0, "q95_abs": 0.0, "max_abs": 0.0, "n": 2,
+                          "abs_unit_value": None, "t_d": 0.003, "floor_class": "quiet", "floor_source": "measured", "pooled_min": 0.003}])
+    n = [0]
+
+    def ev(config, pert):
+        n[0] += 1
+        db.insert(hid, "evaluations", {"design_id": "rtllm_acc", "pert_id": pert, "is_baseline": int(pert is None), "config": config, "lib": "nangate45",
+                                       "clock_ns": 0.1 if config == "H1" else 2.0, "area_um2": 1.0, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": f"/h/{n[0]}", "hist_json": "{}"})
+    ev("H1", None)
+    ev("H1", "p1")
+    ev("H1", "p2")      # H1 complete
+    ev("H5", None)
+    ev("H5", "p1")      # H5 misses p2
+    cov = mod.coverage(cfg, vis=vis, hid=hid)
+    assert cov["H1"]["complete"] == 1 and cov["H1"]["incomplete"] == [] and cov["H1"]["missing_D"] == []
+    assert cov["H5"]["complete"] == 0 and cov["H5"]["incomplete"] == ["rtllm_acc"] and cov["H5"]["n_missing_perturbations"] == 1
+    assert cov["H2a"]["missing_D"] == ["rtllm_acc"] and "H2b" not in cov  # no sky130 knee -> H2b not expected
+    assert "1.0" not in json.dumps(cov)  # no metric values leave the function

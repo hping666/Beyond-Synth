@@ -8,6 +8,8 @@ import sys
 import time
 from pathlib import Path
 
+from src.equiv.seq_tcl import seq_equiv as seq_equiv_project
+
 STATUS_MAP = {"equivalent": "proven", "not_equivalent": "falsified", "inconclusive": "inconclusive",
               "timeout": "inconclusive", "no_properties": "error", "error": "error"}
 
@@ -30,12 +32,15 @@ def run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, *, impl_to
         # instead of being killed by the process (or queue) timeout without a record (divider_32bit, 2026-09-13)
         minutes = max(1, int(float(timeout_sec) * 0.8 // 60)) if timeout_sec else seq_min
         max_time = f"{minutes}M"
-    r = vcf.seq_equiv([str(f) for f in d_files], [str(f) for f in c_files], top, impl_top=impl_top or top, clk=clk, rst=rst,
-                      rst_sense=rst_sense or "high", workdir=str(wd), max_time=max_time,
-                      timeout=float(timeout_sec or seq_min * 60 + 300), sverilog=sverilog,
-                      workers=int(cfg["tools"]["vcformal"].get("seq_workers", 1)))
+    zero_init = bool((cfg.get("equiv") or {}).get("init_state_zero_no_reset", False))
+    runner = seq_equiv_project if zero_init else vcf.seq_equiv   # DECISIONS 2026-09-14 G2.2: the project-owned script adds the zero-init line
+    kw = {"zero_init": True} if zero_init else {}
+    r = runner([str(f) for f in d_files], [str(f) for f in c_files], top, impl_top=impl_top or top, clk=clk, rst=rst,
+               rst_sense=rst_sense or "high", workdir=str(wd), max_time=max_time,
+               timeout=float(timeout_sec or seq_min * 60 + 300), sverilog=sverilog,
+               workers=int(cfg["tools"]["vcformal"].get("seq_workers", 1)), **kw)
     status = STATUS_MAP.get(r.get("status"), "error")
-    out = {"v3_status": status, "v3_seconds": r.get("runtime_s", round(time.time() - t0, 1)), "flow_status": r.get("status"),
+    out = {"v3_status": status, "v3_seconds": r.get("runtime_s", round(time.time() - t0, 1)), "flow_status": r.get("status"), "zero_init": zero_init,
            "error": r.get("error"), "proven": r.get("proven"), "falsified": r.get("failed"), "inconclusive": r.get("inconclusive"),
            "total": r.get("total"), "regs_mapped": r.get("regs_mapped"), "regs_unmapped": r.get("regs_unmapped"),
            "properties": r.get("properties"), "workdir": str(wd)}

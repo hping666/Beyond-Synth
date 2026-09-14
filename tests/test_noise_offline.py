@@ -181,3 +181,43 @@ def test_p4_never_turns_an_async_reset_if_into_a_ternary(tmp_path):
         kinds |= set(details["ctrl_sites"])
         assert equivalent(tmp_path, text, out, f"ar{k}") == "equivalent"
     assert kinds == {"if_to_ternary"}  # only the synchronous block was rewritten
+
+
+def test_text_level_p1_renamer_renames_internals_only(tmp_path):
+    """DECISIONS 2026-09-14 G1.2: the text renamer changes internal identifiers everywhere they occur, never ports, module
+    or instance names, named port connections, escaped identifiers or keywords; the result stays equivalent (Yosys self-test)."""
+    from src.noise import rename_text as RT
+    from src.noise import vast as V
+    src = tmp_path / "top.v"
+    src.write_text("""module leaf(input a, input b, output y);
+  wire t; assign t = a & b; assign y = t;
+endmodule
+module top(input clk, input a, input b, output reg q, output y2);
+  wire t;               // same name as leaf's internal t
+  reg [1:0] cnt;
+  wire \\weird.name ;
+  assign \\weird.name = a;
+  leaf u0(.a(a), .b(b), .y(t));    // named connections: .a .b .y stay
+  always @(posedge clk) begin cnt <= cnt + 2'd1; q <= t ^ cnt[0]; end
+  assign y2 = \\weird.name ;
+endmodule
+""")
+    ast, directives, notes = V.parse_files([str(src)], workdir=tmp_path / "w")
+    table = RT.identifier_table(ast)
+    assert set(table) == {"t", "cnt"}   # ports, module / instance names excluded; the escaped name is not in the table (Pyverilog keeps it apart)
+    variants = RT.text_variants([str(src)], ast, "seed", 2)
+    assert len(variants) == 2 and variants[0][1] != variants[1][1] and set(variants[0][1]) == {"t", "cnt"}
+    k, mapping, texts = variants[0]
+    new = texts[str(src)]
+    assert "wire t;" not in new and f"wire {mapping['t']};" in new and f"reg [1:0] {mapping['cnt']};" in new
+    assert ".y(" + mapping["t"] + ")" in new and ".a(a)" in new and "leaf u0(" in new and "module top(" in new
+    assert "\\weird.name" in new and "posedge clk" in new and "output reg q" in new
+    assert new.count(mapping["cnt"]) == 4 and "cnt" not in new.replace(mapping["cnt"], "")  # declaration, cnt <= cnt + 1, cnt[0]
+    # equivalence of the renamed text (licence-free self-test on the synthetic design)
+    from src.equiv.yosys_equiv import yosys_equiv
+    out = tmp_path / "renamed.v"
+    out.write_text(new)
+    assert yosys_equiv([str(src)], [str(out)], "top", C.load(), workdir=tmp_path / "yeq") == "equivalent"
+    broken = out.with_name("broken.v")
+    broken.write_text(new.replace("^ " + mapping["cnt"] + "[0]", "| " + mapping["cnt"] + "[0]"))   # a real change must not pass
+    assert yosys_equiv([str(src)], [str(broken)], "top", C.load(), workdir=tmp_path / "yeq2") != "equivalent"

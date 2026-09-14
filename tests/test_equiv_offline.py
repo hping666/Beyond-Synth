@@ -177,9 +177,31 @@ def test_seq_solver_limit_stays_inside_the_process_budget(tmp_path, monkeypatch)
             return {"status": "inconclusive", "runtime_s": 1.0}
 
     monkeypatch.setattr(SQ, "_vcf", lambda cfg: FakeVcf())
+    monkeypatch.setattr(SQ, "seq_equiv_project", FakeVcf().seq_equiv)  # the zero-init runner (DECISIONS 2026-09-14) takes the same limits
     SQ.run_seq(tmp_path, [ACCU], [ACCU], "verified_accu", "clk", "rst_n", "low", CFG, timeout_sec=1530.0)
     assert seen["max_time"] == "20M" and seen["timeout"] == 1530.0  # 80 % of the budget in whole minutes
     SQ.run_seq(tmp_path, [ACCU], [ACCU], "verified_accu", "clk", "rst_n", "low", CFG)
     assert seen["max_time"] == f"{int(CFG['timeouts']['seq_min'])}M"
     SQ.run_seq(tmp_path, [ACCU], [ACCU], "verified_accu", "clk", "rst_n", "low", CFG, timeout_sec=30.0)
     assert seen["max_time"] == "1M"  # never below one minute
+
+
+def test_zero_init_arguments_follow_the_config():
+    """DECISIONS 2026-09-14 G2.2: with equiv.init_state_zero_no_reset the lock-step simulation compiles with
+    +vcs+initreg+random and runs with +vcs+initreg+0; without the flag nothing is added."""
+    from src.equiv.harness import init_args
+    assert init_args({"equiv": {"init_state_zero_no_reset": True}}) == (["+vcs+initreg+random"], ["+vcs+initreg+0"])
+    assert init_args({"equiv": {"init_state_zero_no_reset": False}}) == ([], [])
+    assert init_args({}) == ([], [])
+
+
+def test_project_seq_script_adds_the_zero_init_line_only_when_asked():
+    """The project-owned SEQ Tcl equals the flow's sequence plus `sim_set_state -uninitialized -apply 0` before the reset
+    state is saved when zero_init is on; nothing else changes (DECISIONS 2026-09-14 G2.2)."""
+    from src.equiv.seq_tcl import seq_tcl
+    on = seq_tcl(["/d.v"], ["/c.v"], "top", "top", "clk", "rst_n", "low", "20M", 1, "verilog", True).splitlines()
+    off = seq_tcl(["/d.v"], ["/c.v"], "top", "top", "clk", "rst_n", "low", "20M", 1, "verilog", False).splitlines()
+    assert "sim_set_state -uninitialized -apply 0" in on and "sim_set_state -uninitialized -apply 0" not in off
+    assert [l for l in on if not l.startswith("sim_set_state")] == off
+    assert on.index("sim_run -stable") < on.index("sim_set_state -uninitialized -apply 0") < on.index("sim_save_reset") < on.index("seq_config -map_uninit -map_x zero")
+    assert "create_reset spec.rst_n -sense low" in off and off[-1] == "exit"

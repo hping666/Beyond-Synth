@@ -227,7 +227,22 @@ def phase2(cfg):
             for m, s in sorted(ms.items()):
                 flag = " **(above the G1 warning level)**" if m == "area" and s["median"] > warn else ""
                 L.append(f"| {config} | {m} | {s['n']} | {s['median']:.4f}{flag} | {s['q75']:.4f} | {s['max']:.4f} |")
-        L += ["", f"Minimum reportable gain = {cfg['noise']['k_sigma']} x sigma_D (config noise.k_sigma); per-design values in the noise_floor table and reports/data/phase2_noise_floor.json.", ""]
+        L += ["", f"Minimum reportable gain under the spec's original rule = {cfg['noise']['k_sigma']} x sigma_D (config noise.k_sigma); per-design values in the noise_floor table and reports/data/phase2_noise_floor.json.", ""]
+        if floor.get("summary_t_d"):
+            L += [f"**Rule A** (DECISIONS 2026-09-14): t_D = max({cfg['noise']['k_sigma']} x sigma_robust, the design's own max |delta| incl. P0, pooled q{int(100 * float(cfg['noise'].get('pooled_quantile', 0.9)))}); designs without a measured floor carry the pooled minimum (floor_source = pooled).", "",
+                  "| config | metric | designs | pooled minimum | median t_D | q75 | max |", "|---|---|---|---|---|---|---|"]
+            for config, ms in sorted(floor["summary_t_d"].items()):
+                for m, s in sorted(ms.items()):
+                    pm = (floor.get("pooled_min") or {}).get(config, {}).get(m)
+                    L.append(f"| {config} | {m} | {s['n']} | {pm:.4f} | {s['median']:.4f} | {s['q75']:.4f} | {s['max']:.4f} |" if pm is not None else
+                             f"| {config} | {m} | {s['n']} | - | {s['median']:.4f} | {s['q75']:.4f} | {s['max']:.4f} |")
+            L.append("")
+        if floor.get("floor_classes"):
+            L += ["Floor classes per configuration (quiet / spread / offset; pooled = no measured floor, the pooled minimum applies; none = not a set design):", "",
+                  "| config | " + " | ".join(("quiet", "spread", "offset", "pooled", "none")) + " |", "|---|---|---|---|---|---|"]
+            for config, cl in sorted(floor["floor_classes"].items()):
+                L.append(f"| {config} | " + " | ".join(str(cl.get(k, 0)) for k in ("quiet", "spread", "offset", "pooled", "none")) + " |")
+            L.append("")
     else:
         L += ["(not collected yet: scripts/phase2_noise.py collect)", ""]
     # ---- G1 analysis: how the floors are distributed, which perturbation types change the netlist, monotonicity of D

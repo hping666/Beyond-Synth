@@ -266,6 +266,44 @@ def g3_summary(cfg, suites=None, designs=None, vis=None, hid=None):
     return out
 
 
+def coverage(cfg, vis=None, hid=None):
+    """Hidden-layer coverage check (DECISIONS 2026-09-14, additional task 3; counts and design ids only): for every set
+    design with a measured visible E4 floor, per hidden configuration, whether D and every SEQ-proven perturbation (one per
+    type under the light configurations) have an ok record in the hidden database. -> {config: {complete, incomplete: [ids], missing_D: [ids], n_missing_perturbations}}"""
+    vis = vis or db.connect(cfg=cfg)
+    hid = hid or db.connect(path=hidden_db_path(cfg))
+    full = [c for c in cfg["noise"]["configs"] if cfg["configs"][c].get("hidden")]
+    light = [c for c in cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")]
+    floored = {r[0] for r in vis.execute("SELECT DISTINCT design_id FROM noise_floor WHERE config='E4' AND metric='area' AND floor_source='measured'")}
+    out = {}
+    for d, r in _selected(vis):
+        if d["design_id"] not in floored:
+            continue
+        perts = _proven(vis, d["design_id"])
+        first_per_type = {}
+        for p in perts:
+            first_per_type.setdefault(p["ptype"], p)
+        for config in full + light:
+            lib = cfg["configs"][config].get("lib")
+            if "clock_ns" not in cfg["configs"][config] and r.get(f"phi_main_ns_{lib}") is None:
+                continue  # no knee on that library: not expected to exist
+            e = out.setdefault(config, {"complete": 0, "incomplete": [], "missing_D": [], "n_missing_perturbations": 0, "expected": 0})
+            e["expected"] += 1
+            base, _ = S.pick_records(hid, d["design_id"], config, set())
+            if base is None:
+                e["missing_D"].append(d["design_id"])
+                continue
+            _, latest = S.pick_records(hid, d["design_id"], config, {p["pert_id"] for p in perts}, base["clock_ns"])
+            wanted = perts if config in full else list(first_per_type.values())
+            missing = [p["pert_id"] for p in wanted if p["pert_id"] not in latest]
+            if missing:
+                e["incomplete"].append(d["design_id"])
+                e["n_missing_perturbations"] += len(missing)
+            else:
+                e["complete"] += 1
+    return out
+
+
 # ----------------------------------------------------------------------------- Phase 0 migration (done)
 def _fix_meta(job_dir):
     m = Path(job_dir) / "meta.json"
@@ -328,6 +366,7 @@ def main(argv=None):
     ap.add_argument("--submit-noise", action="store_true")
     ap.add_argument("--noise-floor", action="store_true")
     ap.add_argument("--g3-summary", action="store_true")
+    ap.add_argument("--coverage", action="store_true")
     ap.add_argument("--migrate-phase0", action="store_true")
     ap.add_argument("--suite", nargs="*", default=None)
     ap.add_argument("--design", nargs="*", default=None)
@@ -343,6 +382,16 @@ def main(argv=None):
     if a.noise_floor:
         written = noise_floor(cfg, a.suite, a.design)
         print("hidden noise_floor rows written per configuration:", written)
+        return 0
+    if a.coverage:
+        cov = coverage(cfg)
+        p = Path(C.ROOT) / "reports" / "data" / "phase2_hidden_coverage.json"
+        p.write_text(json.dumps(cov, indent=1, sort_keys=True) + "\n")
+        for config, e in sorted(cov.items()):
+            print(f"{config}: expected {e['expected']}, complete {e['complete']}, incomplete {len(e['incomplete'])} (missing perturbation records {e['n_missing_perturbations']}), missing D {len(e['missing_D'])}")
+            if e["incomplete"] or e["missing_D"]:
+                print("   incomplete:", ", ".join(e["incomplete"][:20]), "" if len(e["incomplete"]) <= 20 else "...", "| missing D:", ", ".join(e["missing_D"][:20]))
+        print(f"wrote {p} (counts and design ids only)")
         return 0
     if a.g3_summary:
         out = g3_summary(cfg, a.suite, a.design)
