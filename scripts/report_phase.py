@@ -379,12 +379,62 @@ def phase2(cfg):
     return 0
 
 
+def phase3(cfg):
+    """LLM calibration (PLAN 3.4 / 3.5): per-model table, confusion matrices, retention with the materiality row, best gains,
+    efficiency, time-to-verdict, the decision rule, and the diagnoser's label distribution."""
+    data = load("phase3_calibration.json")
+    L = [f"# Phase 3 report — LLM calibration (residual-guided evolution, minimal skeleton)", "",
+         f"Generated {datetime.datetime.now():%Y-%m-%d %H:%M} by scripts/report_phase.py (git {C.git_sha()}, cfg {C.cfg_hash()}). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).", ""]
+    if not data:
+        L += ["(not collected yet: scripts/phase3_calibrate.py collect)", ""]
+    else:
+        cal = cfg["llm"]["calibration"]
+        L += ["## 1. Setup", "", f"Models {cfg['llm']['candidates']}; designs (dev split only, DECISIONS 2026-09-14) × {cal['seeds']} seeds; K = {cal['K']} generations × N = {cal['N']} candidates per run; "
+              f"arm M without synthesis-rung screening and without a map prior; pipeline V1 → V2 (zero initial state) → V3 SEQ (class-aware caps) → E4 → diagnosis (rule-A floors). Budget caliber: equal LLM calls.", "",
+              "## 2. Per-model results", "",
+              "| model | runs | candidates | unusable answers | V1 ok | V3 proven | proven_sim_only (apart) | inconclusive | retained (rule A) | retained (materiality row) | LLM calls / retained | USD / retained | DC h / retained | USD | DC h | VCF h |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        for mo, v in sorted(data["models"].items()):
+            ret = v["retained"]
+            cpr = v["llm_calls_per_retained"]
+            L.append(f"| {mo} | {v['runs']} | {v['cands']} | {v['unusable']} | {v['v1_ok']} | {v['v3_proven']} | {v['proven_sim_only']} | {v['inconclusive']} | {ret} | {v['retained_material']} | "
+                     f"{'-' if cpr is None else f'{cpr:.1f}'} | {(v['usd'] / ret) if ret else float('nan'):.3f} | {(v['dc_h'] / ret) if ret else float('nan'):.2f} | {v['usd']:.2f} | {v['dc_h']:.2f} | {v['vcf_h']:.2f} |")
+        L.append("")
+        L += ["## 3. Classes: produced distribution and requested → produced confusion", ""]
+        for mo, v in sorted(data["models"].items()):
+            conf = ", ".join(f"{k}: {n}" for k, n in sorted(v["confusion"].items()))
+            L += [f"- **{mo}**: produced classes {dict(sorted(v['classes'].items()))}; confusion {conf}; labels {dict(sorted(v['labels'].items()))}; "
+                  f"inconclusive rate by class {{{', '.join(f'{c}: {100 * r:.0f} %' for c, r in sorted(v['inconclusive_rate_by_class'].items()))}}}"]
+        L += ["", "## 4. Best retained area gain per design (offset designs flagged)", "", "| model | " + " | ".join(sorted({d for v in data["models"].values() for d in v["best_gain"]})) + " |"]
+        designs = sorted({d for v in data["models"].values() for d in v["best_gain"]})
+        L.append("|---|" + "---|" * len(designs))
+        for mo, v in sorted(data["models"].items()):
+            cells = []
+            for d in designs:
+                b = v["best_gain"].get(d)
+                cells.append("-" if not b else f"{100 * b['area']:.2f} %" + (" (offset design)" if b.get("offset_design") else ""))
+            L.append(f"| {mo} | " + " | ".join(cells) + " |")
+        L += ["", "## 5. Time to verdict (seconds from the LLM answer to the equivalence verdict) and response to absorbed feedback", ""]
+        for mo, v in sorted(data["models"].items()):
+            ttv = "; ".join(f"{c}: n={t['n']} median {t['median']:.0f} q95 {t['q95']:.0f} max {t['max']:.0f}" for c, t in sorted(v["time_to_verdict"].items()))
+            resp = v["absorbed_response"]
+            L.append(f"- **{mo}**: {ttv or 'no verdicts'}; children of absorbed parents that were not absorbed again: {resp[0]} of {resp[1]}")
+        dec = data["decision"]
+        L += ["", "## 6. Decision rule (config llm.calibration.decision)", "",
+              f"Primary metric {dec['primary_metric']}: scores {dict((k, round(v, 3)) for k, v in dec['scores'].items())}; best area gain per model {dict((k, round(100 * v, 2)) for k, v in dec['best_gain_by_model'].items())} %; "
+              f"eligible (best gain ≥ {cfg['llm']['calibration']['decision']['floor_best_gain_ratio']} × strongest, a retained (c1) or (d)): {dec['eligible']}; **recommended: {dec['recommended']}** — {dec['note']}", ""]
+    out = Path(ROOT) / "reports" / "phase3.md"
+    out.write_text("\n".join(L))
+    print(f"wrote {out}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("phase", choices=["phase1", "phase2"])
+    ap.add_argument("phase", choices=["phase1", "phase2", "phase3"])
     a = ap.parse_args(argv)
     cfg = C.load()
-    return {"phase1": phase1, "phase2": phase2}[a.phase](cfg)
+    return {"phase1": phase1, "phase2": phase2, "phase3": phase3}[a.phase](cfg)
 
 
 if __name__ == "__main__":
