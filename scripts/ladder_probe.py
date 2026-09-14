@@ -39,7 +39,7 @@ def find_design(name):
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--designs", nargs="+", required=True)
-    ap.add_argument("--configs", nargs="+", default=["E1", "E1d", "E2", "E3", "E4", "E2r", "E2g"])
+    ap.add_argument("--configs", nargs="+", default=["E1", "E1d", "E2", "E3", "E4", "E2g"])
     ap.add_argument("--parallel", type=int, default=4)
     ap.add_argument("--ingest", action="store_true", help="also write ok records to results.sqlite (default: raw only)")
     ap.add_argument("--json", default=None, help="write all records to this JSON file")

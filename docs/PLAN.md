@@ -104,21 +104,21 @@ Acceptance:
 
 ## Phase 3 — LLM calibration
 
-**Inputs**: floors and baselines from Phase 2; the skeleton of `docs/spec/05-search.md` (minimal version: no screening, full E4).
+**Inputs**: floors (rule A, floor classes) and baselines from Phase 2; the skeleton of `docs/spec/05-search.md` (residual-guided evolution, minimal version: no synthesis-rung screening, full E4, prescreen with the static prior).
 **Outputs**: choice of main model; first measured run of the diagnoser; first-generation data for "rung selection".
 
 Tasks:
 
-3.1 Implement the minimal main skeleton (parallel-candidate hill climbing + archive, no screening, full E4), the prompt templates, and the LLM client (OpenAI API, Flex, cache-friendly prefix, `max_output_tokens` and `reasoning.effort` from config, every request saved to disk).
-3.2 Implement the rule part of the M6 classifier and the M3 diagnoser (`docs/spec/04-classifier-diagnoser.md`); LLM review uses the cheap model.
+3.1 Implement the minimal main skeleton (parallel-candidate hill climbing + archive, no synthesis-rung screening, full E4, asynchronous generations with resumption), the prompt templates, and the LLM client (OpenAI API, Flex, cache-friendly prefix, `max_output_tokens` and `reasoning.effort` from config, every request saved to disk). Budget caliber = equal LLM calls (DECISIONS 2026-09-14).
+3.2 Implement the rule part of the M6 classifier and the M3 diagnoser (`docs/spec/04-classifier-diagnoser.md`, including `absorbed_identical`, `duplicate`, `fragile` and the same-rung attribution test); LLM review uses the cheap model. First measured run of the diagnoser with the new labels.
 3.3 For each of the four candidate models in config, run K=6 × N=5 on 5 designs × 2 seeds (300 candidates per model), all through the equivalence stack and E4.
-3.4 Per model, report: V1/V3 pass rates, class distribution (whether (c1)/(d) appear), E4 retention fraction, best retained gain per design, response rate to "absorbed" diagnoses, dollars and DC hours per retained candidate, wall-clock per generation.
+3.4 Per model, report: V1/V3 pass rates, class distribution (whether (c1)/(d) appear) and the requested-class → produced-class confusion matrix, E4 retention fraction (headline and the materiality sensitivity row; `proven_sim_only` apart), best retained gain per design (offset designs flagged), response rate to "absorbed" diagnoses, LLM calls, dollars, DC hours and VC Formal hours per retained candidate, time-to-verdict distributions and inconclusive rates per class, wall-clock per generation.
 3.5 Recommend a model by the decision rule in config; also sample 40 of the 300 × 4 diagnoses for manual verification (in `reports/phase3.md`).
 
 Acceptance:
 - LLM spend ≤ the Phase 3 cap in config; every request has a saved record with token counts.
 - The four-model comparison table is complete; the diagnoser's manual agreement rate is reported.
-- The predictive power of `E1 / E2 / Y for E4 retention` (AUROC) is computed once on these 1200 candidates as a prior for the Phase 4 predictor.
+- The predictive power of `Y for E4 retention` (AUROC) is computed once on these 1200 candidates (E1 / E2 only as a report column); if AUROC(Y) < `screen.auroc_min` the M_noscreen arm is dropped and its budget reallocated to starting points (DECISIONS 2026-09-14 G3.1).
 
 **STOP G4**.
 
@@ -150,7 +150,9 @@ Acceptance:
 
 ---
 
-## Phase 5 — Exp2: ladder search comparison (C2) + hidden layer (C3)
+## Phase 5 — Exp2: residual-guided evolution comparison (C2) + hidden layer (C3)
+
+Deferred to the start of Phase 5 (DECISIONS 2026-09-14): whether H1/H3/H5 run on all E4-evaluated candidates rather than accepted candidates plus a 10 % sample. Phase 5 reports the requested-class → produced-class confusion matrix.
 
 **Inputs**: conclusions of G3–G5 (screening on/off, main model, predictor); scale parameters in `config`.
 **Outputs**: retained-gain-vs-DC-hour curves; speculation rates; Dr.RTL re-implementation arm and original reference; Sky130 sub-experiment.
@@ -189,15 +191,17 @@ Acceptance:
 
 ## Appendix A: Arm definitions
 
-| Arm | Fitness | Screening | Feedback | Credit | Notes |
+| Arm | Fitness | Synthesis-rung screening | Feedback | Credit | Notes |
 |---|---|---|---|---|---|
 | B0 | Y caliber | none | scalar | any positive gain | EvolVE-style; accepted candidates also run E4 and the hidden layer |
 | B1@E4 | E4 | none | scalar + static complement prompt | any positive gain | strongest "intuitive" baseline |
 | B2 | E4 | none | scalar | any positive gain | naive commercial-in-the-loop |
-| M | E4 retained gain (noise-truncated) | yes (auto rung) | five-way diagnosis + map prior | only retained / trade-off improvement | this paper |
-| M-noscreen | same as M | none | same as M | same as M | isolates the screening contribution |
+| M | E4 retained gain (rule-A floor, zero inside the floor) | none; classifier prescreen (`prescreen`) | synthesizer verdict (absorbed / absorbed_identical / duplicate / noise / harmful with locus / retained / fragile) + map prior | retained / trade-off improvement only, credited by the produced class | this paper: residual-guided evolution (DECISIONS 2026-09-14) |
+| M-noscreen | same as M | Y rung with automatic τ, only if AUROC(Y) ≥ `screen.auroc_min` | same as M | same as M | isolates the contribution of a synthesis-rung screen; dropped (budget to starting points) when Y does not qualify |
 | Dr.RTL-reimpl | E4 | none | Dr.RTL prompts + skill learning | — | re-implementation with the same model |
+
+Budget caliber for every arm: equal LLM calls (`scale.budget.llm_calls_per_run`); DC and VC Formal hours are reported. Pipeline order for every arm: V1 → testbench → V2 (SAIF) → V3 SEQ → E4 → diagnosis.
 
 ## Appendix B: Metric definitions
 
-Retained gain g = PPA(E4(D)) − PPA(E4(C)), three components; retained = some component > 2σ_D(E4) and no component < −2σ_D(E4); trade-off = some component > 2σ and some component < −2σ; speculation rate = fraction of visible-layer accepted candidates whose gain under some hidden configuration is ≤ 2σ_D(H) or negative; recovered expert-gain fraction = M's retained gain on an RTL-OPT suboptimal start / the retained gain of that pair's optimized version; retained candidates per DC hour = number of retained candidates / DC hours consumed by the run.
+Retained gain g = PPA(E4(D)) − PPA(E4(C)), three components; retained = some component > t_D(E4) and no component < −t_D(E4), with t_D the rule-A threshold of spec 02 §4 (every headline number is also reported under the fixed materiality threshold area 1 % / power 2 % / WNS 1 % of the period); on spread / offset designs the gain must in addition exceed the acceptance envelope (else `fragile`); trade-off = some component > t_D and some component < −t_D; speculation rate = fraction of visible-layer accepted candidates whose gain under some hidden configuration is ≤ 2σ_D(H) or negative; recovered expert-gain fraction = M's retained gain on an RTL-OPT suboptimal start / the retained gain of that pair's optimized version; retained candidates per DC hour = number of retained candidates / DC hours consumed by the run.

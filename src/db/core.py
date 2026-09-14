@@ -29,6 +29,10 @@ def stamp():
 
 MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CREATE IF NOT EXISTS does not alter tables
     ("candidates", "proven_by", "ALTER TABLE candidates ADD COLUMN proven_by TEXT CHECK (proven_by IN ('seq', 'dpv') OR proven_by IS NULL)"),
+    ("noise_floor", "t_d", "ALTER TABLE noise_floor ADD COLUMN t_d REAL"),                 # rule A threshold (DECISIONS 2026-09-14)
+    ("noise_floor", "floor_class", "ALTER TABLE noise_floor ADD COLUMN floor_class TEXT"),   # quiet | spread | offset
+    ("noise_floor", "floor_source", "ALTER TABLE noise_floor ADD COLUMN floor_source TEXT"), # measured | pooled
+    ("noise_floor", "pooled_min", "ALTER TABLE noise_floor ADD COLUMN pooled_min REAL"),
 ]
 
 

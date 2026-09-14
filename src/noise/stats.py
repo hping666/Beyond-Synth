@@ -44,6 +44,9 @@ def quantile(xs, q):
     return s[lo] + (s[hi] - s[lo]) * (pos - lo)
 
 
+quantile_ = quantile
+
+
 def summarize(deltas):
     """-> dict(sigma_robust, sigma_std, q95_abs, max_abs, n) or None when fewer than 2 deviations exist."""
     if len(deltas) < 2:
@@ -100,9 +103,29 @@ def pick_records(conn, design_id, config, proven, clock_ns=None, eps=1e-6):
     return (dict(base) if base is not None else None), latest
 
 
-def floor_rows(design_id, config, baseline, pert_records, clock_ns):
-    """baseline / pert_records: dicts with the evaluations columns; -> [noise_floor row dicts]."""
+def floor_class(area_deltas, quiet_max_abs=0.001):
+    """quiet: every |delta| <= quiet_max_abs; offset: the median |delta| is above it and the MAD is ~0 (every perturbation
+    shifted together, e.g. the re-print alone changes DC's result); spread otherwise (DECISIONS 2026-09-14 G1.1)."""
+    if not area_deltas:
+        return None
+    if max(abs(x) for x in area_deltas) <= quiet_max_abs:
+        return "quiet"
+    if abs(statistics.median(area_deltas)) > quiet_max_abs and mad(area_deltas) <= 1e-6:
+        return "offset"
+    return "spread"
+
+
+def rule_a_threshold(sigma_robust, max_abs, pooled_min, k_sigma):
+    """t_D = max(k_sigma * sigma_robust, max |delta| of D's own proven perturbations (incl. P0), pooled quantile)."""
+    return max(float(k_sigma) * float(sigma_robust or 0.0), float(max_abs or 0.0), float(pooled_min or 0.0))
+
+
+def floor_rows(design_id, config, baseline, pert_records, clock_ns, pooled_min=None, k_sigma=2.0, quiet_max_abs=0.001):
+    """baseline / pert_records: dicts with the evaluations columns; pooled_min: {metric: pooled quantile of |delta|};
+    -> [noise_floor row dicts] with the rule-A threshold t_d, the floor class and floor_source = measured."""
     rows = []
+    pooled_min = pooled_min or {}
+    cls = floor_class(deviations("area", baseline.get(COLUMNS["area"]), [r.get(COLUMNS["area"]) for r in pert_records]), quiet_max_abs)
     for metric, col in COLUMNS.items():
         base = baseline.get(col)
         vals = [r.get(col) for r in pert_records]
@@ -112,8 +135,38 @@ def floor_rows(design_id, config, baseline, pert_records, clock_ns):
         unit = None
         if metric == "area" and baseline.get("cells"):
             unit = s["sigma_robust"] * float(baseline["cells"])  # absolute threshold in cells for small designs
-        rows.append({"design_id": design_id, "config": config, "metric": metric, **s, "abs_unit_value": unit})
+        rows.append({"design_id": design_id, "config": config, "metric": metric, **s, "abs_unit_value": unit,
+                     "t_d": rule_a_threshold(s["sigma_robust"], s["max_abs"], pooled_min.get(metric), k_sigma),
+                     "floor_class": cls, "floor_source": "measured", "pooled_min": pooled_min.get(metric)})
     return rows
+
+
+def pooled_rows(design_id, config, pooled_min):
+    """Rows for a design without a measured floor: the pooled minimum is its threshold (floor_source = pooled, n = 0)."""
+    return [{"design_id": design_id, "config": config, "metric": m, "sigma_robust": None, "sigma_std": None, "q95_abs": None,
+             "max_abs": None, "n": 0, "abs_unit_value": None, "t_d": float(v), "floor_class": None, "floor_source": "pooled", "pooled_min": float(v)}
+            for m, v in (pooled_min or {}).items() if v is not None]
+
+
+def pooled_minimum(conn, designs, config, proven, quantile=0.90, eps=1e-6):
+    """{metric: quantile of |delta|} over every perturbation record of the given designs (design dicts with design_id
+    and phi) under `config`: the minimum floor of rule A."""
+    pooled = {}
+    for d in designs:
+        base, latest = pick_records(conn, d["design_id"], config, proven.get(d["design_id"], set()), d["phi"], eps)
+        if base is None or not latest:
+            continue
+        for m, col in COLUMNS.items():
+            pooled.setdefault(m, []).extend(abs(x) for x in deviations(m, base.get(col), [r.get(col) for r in latest.values()], d["phi"]))
+    return {m: quantile_(v, quantile) for m, v in pooled.items() if v}
+
+
+def latest_floor(conn, design_id, config):
+    """{metric: row} of the most recently written floor rows (the primary key includes cfg_hash)."""
+    out = {}
+    for r in conn.execute("SELECT * FROM noise_floor WHERE design_id=? AND config=? ORDER BY created_at DESC, rowid DESC", (design_id, config)):
+        out.setdefault(r["metric"], dict(r))
+    return out
 
 
 def upsert_floor(conn, rows):
@@ -124,7 +177,8 @@ def upsert_floor(conn, rows):
         conn.execute(f"INSERT INTO noise_floor ({', '.join(cols)}) VALUES ({', '.join('?' for _ in cols)}) "
                      f"ON CONFLICT(design_id, config, metric, cfg_hash) DO UPDATE SET sigma_robust=excluded.sigma_robust, "
                      f"sigma_std=excluded.sigma_std, q95_abs=excluded.q95_abs, max_abs=excluded.max_abs, n=excluded.n, "
-                     f"abs_unit_value=excluded.abs_unit_value, git_sha=excluded.git_sha, created_at=excluded.created_at", tuple(row.values()))
+                     f"abs_unit_value=excluded.abs_unit_value, t_d=excluded.t_d, floor_class=excluded.floor_class, floor_source=excluded.floor_source, "
+                     f"pooled_min=excluded.pooled_min, git_sha=excluded.git_sha, created_at=excluded.created_at", tuple(row.values()))
     return len(rows)
 
 

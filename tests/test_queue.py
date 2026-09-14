@@ -157,10 +157,11 @@ def test_status_script_runs():
 
 
 def test_dispatch_limit_below_the_seat_cap(tmp_path):
-    """config queue.dc_concurrency (DECISIONS 2026-09-12) limits how many DC jobs run at once; the seat cap stays."""
+    """config queue.dc_seats_target (DECISIONS 2026-09-14; formerly dc_concurrency) limits how many DC jobs run at once; the seat cap stays."""
     cfg = make_cfg()
     cfg["queue"]["dc_seats_max"] = 50
-    cfg["queue"]["dc_concurrency"] = 1
+    cfg["queue"].pop("dc_concurrency", None)
+    cfg["queue"]["dc_seats_target"] = 1
     conn = db.connect(path=str(tmp_path / "results.sqlite"))
     q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
     assert q.caps["dc"] == 50 and q.limits["dc"] == 1 and q.limits["local"] == q.caps["local"]
@@ -169,9 +170,11 @@ def test_dispatch_limit_below_the_seat_cap(tmp_path):
     q.tick()
     assert sorted(q.get(j)["state"] for j in (j1, j2)) == ["queued", "running"] and q.stats()["dc"]["limit"] == 1
     assert wait_state(q, j1, {"done"}, timeout=15) == "done" and wait_state(q, j2, {"done"}, timeout=15) == "done"  # either may start first
-    del cfg["queue"]["dc_concurrency"]
+    del cfg["queue"]["dc_seats_target"]
     q2 = Queue(cfg, conn, str(tmp_path / "logs2"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
     assert q2.limits["dc"] == 50 and q2.stats()["dc"]["limit"] == 50
+    cfg["queue"]["dc_concurrency"] = 2  # the old key still works
+    assert Queue(cfg, conn, str(tmp_path / "logs3"), env={"PATH": os.environ["PATH"]}, log=lambda m: None).limits["dc"] == 2
 
 
 def test_hidden_kind_maps_to_the_dc_pool_and_the_hidden_worker():

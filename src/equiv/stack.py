@@ -13,6 +13,7 @@ from pathlib import Path
 
 from src.equiv import ports as PORTS
 from src.equiv.harness import run_lockstep
+from src.equiv.saif import finalize_vcd
 from src.equiv.seq import run_seq
 
 MIN_STAGE_SEC = 20.0  # a stage is not started with less budget than this; the record says why
@@ -117,6 +118,7 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
         rec["v3_status"] = "not_run"
     rec["verdict"], rec["proven_by"] = decide(rec["v1_status"], rec["v2_status"], rec["v3_status"], rec.get("v4_status"), v4_accepted)
     rec["seconds"] = round(time.time() - t0, 1)
+    finalize_vcd(job_dir, rec, cfg)   # SAIFs next to the record, VCD to scratch (DECISIONS 2026-09-14)
     _dump(job_dir, rec)
     return rec
 

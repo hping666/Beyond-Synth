@@ -172,7 +172,23 @@ def noise_floor(cfg, suites=None, designs=None, vis=None, hid=None):
     vis = vis or db.connect(cfg=cfg)
     hid = hid or db.connect(path=hidden_db_path(cfg))
     configs = [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")]
+    nz = cfg["noise"]
+    k, q, quiet = float(nz["k_sigma"]), float(nz.get("pooled_quantile", 0.90)), float(nz.get("quiet_max_abs", 0.001))
     written = {}
+    sets = [(d, r) for d, r in _selected(vis) if r.get("split") in ("dev", "held")]
+    proven_all = S.proven_by_design(vis)
+    # rule A: pooled minimum per hidden configuration over the set designs' records at their own baseline period
+    pooled = {}
+    for config in configs:
+        pool = {}
+        for d, r in sets:
+            base, _ = S.pick_records(hid, d["design_id"], config, proven_all.get(d["design_id"], set()))
+            if base is None:
+                continue
+            _, latest = S.pick_records(hid, d["design_id"], config, proven_all.get(d["design_id"], set()), base["clock_ns"])
+            for m, col in S.COLUMNS.items():
+                pool.setdefault(m, []).extend(abs(x) for x in S.deviations(m, base.get(col), [x.get(col) for x in latest.values()], base["clock_ns"]))
+        pooled[config] = {m: S.quantile(v, q) for m, v in pool.items() if v}
     for d, r in _selected(vis, suites, designs):
         proven = {p["pert_id"] for p in _proven(vis, d["design_id"])}
         for config in configs:
@@ -181,8 +197,9 @@ def noise_floor(cfg, suites=None, designs=None, vis=None, hid=None):
                 continue
             _, latest = S.pick_records(hid, d["design_id"], config, proven, base["clock_ns"])
             if len(latest) < 2:
-                continue
-            rows = S.floor_rows(d["design_id"], config, base, list(latest.values()), base["clock_ns"])
+                rows = S.pooled_rows(d["design_id"], config, pooled.get(config)) if (nz.get("pooled_floor_for_missing") and r.get("split") in ("dev", "held")) else []
+            else:
+                rows = S.floor_rows(d["design_id"], config, base, list(latest.values()), base["clock_ns"], pooled.get(config), k, quiet)
             written[config] = written.get(config, 0) + S.upsert_floor(hid, rows)
     return written
 
@@ -221,8 +238,8 @@ def g3_summary(cfg, suites=None, designs=None, vis=None, hid=None):
             ratios.append(float(base_h3["dc_seconds"]) / float(base_e4["dc_seconds"]))
             e4_secs += float(base_e4["dc_seconds"])
             h3_secs += float(base_h3["dc_seconds"])
-        sig_e4 = {x["metric"]: x["sigma_robust"] for x in vis.execute("SELECT metric, sigma_robust FROM noise_floor WHERE design_id=? AND config='E4'", (did,))}
-        sig_h3 = {x["metric"]: x["sigma_robust"] for x in hid.execute("SELECT metric, sigma_robust FROM noise_floor WHERE design_id=? AND config='H3'", (did,))}
+        sig_e4 = {m: x["sigma_robust"] for m, x in S.latest_floor(vis, did, "E4").items() if x.get("sigma_robust") is not None}
+        sig_h3 = {m: x["sigma_robust"] for m, x in S.latest_floor(hid, did, "H3").items() if x.get("sigma_robust") is not None}
         for pid in sorted(set(perts_e4) & set(perts_h3)):
             d_e4 = {m: _delta(m, base_e4, perts_e4[pid], phi) for m in S.METRICS}
             d_h3 = {m: _delta(m, base_h3, perts_h3[pid], phi) for m in S.METRICS}

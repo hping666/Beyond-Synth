@@ -23,7 +23,7 @@ def cand(**changes):
 
 def test_labels_follow_the_decision_order():
     assert m3.diagnose(BASE, cand(), SIGMA, T, v3_status="inconclusive")["label"] == "nonequiv"
-    assert m3.diagnose(BASE, cand(), SIGMA, T)["label"] == "absorbed"  # identical fingerprint
+    assert m3.diagnose(BASE, cand(), SIGMA, T)["label"] == "absorbed_identical"  # identical fingerprint (DECISIONS 2026-09-14 C2.4)
     r = m3.diagnose(BASE, cand(area=90.0, hist={"DFF_X1": 10, "NAND2_X1": 12, "XOR2_X1": 5}), SIGMA, T)
     assert r["label"] == "retained" and r["evidence"]["gains"]["area"] == 0.1 and r["rung"] == "E4"
     r = m3.diagnose(BASE, cand(area=101.5, hist={"DFF_X1": 10, "NAND2_X1": 21, "XOR2_X1": 5, "AOI21_X1": 3}), SIGMA, T)
@@ -37,7 +37,7 @@ def test_labels_follow_the_decision_order():
 
 
 def test_rung_attribution_from_lower_rungs():
-    c = cand()
+    c = cand(area=100.4, hist={"DFF_X1": 10, "NAND2_X1": 20, "XOR2_X1": 5, "INV_X1": 1})  # converged at E4 (within sigma, Jaccard >= 0.95) but not identical
     lower = {"E1": (BASE, cand(area=110.0, hist={"DFF_X1": 10, "NAND2_X1": 40}), 0.01), "E2": (BASE, cand(), 0.01)}
     r = m3.diagnose(BASE, c, SIGMA, T, lower_rungs=lower, prior={"capability_of_rung": {"E2": "resource_sharing"}})
     assert r["label"] == "absorbed" and r["rung"] == "E2" and r["capability"] == "resource_sharing" and r["attribution"] == "measured"
@@ -58,3 +58,47 @@ def test_fingerprint_helpers_and_feedback():
     assert m3.credit(d, False) == 1 and m3.credit({"label": "absorbed"}, True) == 0 and m3.credit({"label": "tradeoff"}, True) == 1 and m3.credit({"label": "tradeoff"}, False) == 0
     assert m3.screened_out_block("E1", True) == {"diagnosis": "screened_out", "rung": "E1", "fp_converged": True}
     assert "retained" in m3.to_json(d)
+
+
+def test_new_labels_absorbed_identical_duplicate_fragile_and_rule_a_bands():
+    """DECISIONS 2026-09-14 C2.4 / G1.1: identical E4 netlist -> absorbed_identical; identical to an earlier candidate ->
+    duplicate; a retained gain on a spread / offset design that does not beat the candidate's own perturbation envelope ->
+    fragile; the rule-A thresholds replace k*sigma as the band; an offset design is flagged."""
+    r = m3.diagnose(BASE, cand(), SIGMA, T)
+    assert r["label"] == "absorbed_identical" and r["attribution"] == "identical"
+    c1 = cand(area=90.0, hist={"DFF_X1": 10, "NAND2_X1": 12, "XOR2_X1": 5})
+    r = m3.diagnose(BASE, c1, SIGMA, T, run_fingerprints={"cand_A": c1})
+    assert r["label"] == "duplicate" and r["duplicate_of"] == "cand_A"
+    r = m3.diagnose(BASE, c1, SIGMA, T, run_fingerprints={"cand_A": cand(area=95.0)})
+    assert r["label"] == "retained"  # a different earlier candidate is no duplicate
+    # rule-A thresholds: an area gain of 10 % is retained at t_D = 5 % but noise-or-absorbed at t_D = 12 %
+    assert m3.diagnose(BASE, c1, SIGMA, T, thresholds={"area": 0.05, "wns": 0.01, "power": 0.02})["label"] == "retained"
+    assert m3.diagnose(BASE, c1, SIGMA, T, thresholds={"area": 0.12, "wns": 0.01, "power": 0.02})["label"] == "noise"
+    # spread / offset designs: the envelope decides between retained and fragile
+    r = m3.diagnose(BASE, c1, SIGMA, T, floor_class="offset")
+    assert r["label"] == "retained" and r.get("envelope_required") is True and r["offset_design"] is True
+    r = m3.diagnose(BASE, c1, SIGMA, T, floor_class="spread", envelope=[{"area": 0.02}, {"area": 0.11}])
+    assert r["label"] == "fragile" and r["evidence"]["envelope_max"]["area"] == 0.11 and m3.credit(r, True) == 0
+    r = m3.diagnose(BASE, c1, SIGMA, T, floor_class="spread", envelope=[{"area": 0.02}, {"area": 0.03}])
+    assert r["label"] == "retained" and r["offset_design"] is False and m3.credit(r, False) == 1
+    assert m3.diagnose(BASE, c1, SIGMA, T, floor_class="quiet")["label"] == "retained"  # quiet designs need no envelope
+
+
+def test_rung_attribution_compares_under_the_same_rung():
+    """DECISIONS 2026-09-14 G1.4: the candidate is compared with D under each rung; a higher rung never dominates a lower
+    one. (i) equal to D at E2 but not at E1 -> absorbed@E2 even though E1 differs; (ii) better than D at E1 and worse at E3
+    but identical at E4 -> absorbed_identical, never retained or harmful from a lower rung."""
+    base_e1 = cand(area=130.0, hist={"DFF_X1": 10, "NAND2_X1": 40})   # D's own E1 result (a weaker rung: larger area)
+    base_e2 = cand(area=110.0, hist={"DFF_X1": 10, "NAND2_X1": 25})
+    c_e1 = cand(area=131.0, hist={"DFF_X1": 10, "NAND2_X1": 38, "AOI21_X1": 4})   # not converged with D@E1
+    c_e2 = cand(area=110.0, hist={"DFF_X1": 10, "NAND2_X1": 25})                   # converged with D@E2
+    c_e4 = cand(area=100.5, hist={"DFF_X1": 10, "NAND2_X1": 20, "XOR2_X1": 5, "INV_X1": 1})  # within the band at E4, fingerprint moved
+    lower = {"E1": (base_e1, c_e1, 0.01), "E2": (base_e2, c_e2, 0.01)}
+    r = m3.diagnose(BASE, c_e4, SIGMA, T, lower_rungs=lower, prior={"capability_of_rung": {"E2": "resource_sharing"}})
+    assert r["label"] == "absorbed" and r["rung"] == "E2" and r["attribution"] == "measured" and r["capability"] == "resource_sharing"
+    # the same E2 records compared against D's E4 record would not converge (area 110 vs 100): the rung must use its own baseline
+    assert m3.converged(BASE, c_e2, 0.01, 0.95)[0] is False and m3.converged(base_e2, c_e2, 0.01, 0.95)[0] is True
+    better_e1 = cand(area=80.0, hist={"DFF_X1": 10, "NAND2_X1": 10})   # far better than D at E1 ...
+    worse_e3 = cand(area=150.0, hist={"DFF_X1": 12, "NAND2_X1": 50})   # ... and far worse at E3
+    r = m3.diagnose(BASE, cand(), SIGMA, T, lower_rungs={"E1": (base_e1, better_e1, 0.01), "E3": (base_e2, worse_e3, 0.01)})
+    assert r["label"] == "absorbed_identical"  # identical at E4: the lower rungs neither promote nor demote the verdict

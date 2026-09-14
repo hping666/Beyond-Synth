@@ -53,15 +53,64 @@ def test_build_prune_and_missing(tmp_path, monkeypatch):
     assert S.load_saif("s_top")["design"]["source_record"] == str(r0)
     assert S.build_for_design({"design_id": "s_top"}, proven, cfg, convert=fake_convert)["perturbations"]["p1"]["status"] == "exists" and len(calls) == 3  # idempotent
     # pruning: nothing without the flags; the VCS build only with prune_eq_build_after_saif and only where a SAIF exists;
-    # the VCD only with prune_eq_vcd_after_saif (off by default until the user decides)
+    # the VCD only with prune_eq_vcd_after_saif, power ingested from that SAIF, and the record not kept (DECISIONS 2026-09-14)
     cfg["retention"].update(prune_eq_build_after_saif=False, prune_eq_vcd_after_saif=False)
-    assert S.prune_eq_scratch(cfg, "s_top") == 0 and (r1 / "v2_sim" / "csrc").exists() and (r1 / "v2_sim" / "sim.vcd").exists()
+    assert S.prune_eq_scratch(cfg, "s_top", conn) == 0 and (r1 / "v2_sim" / "csrc").exists() and (r1 / "v2_sim" / "sim.vcd").exists()
     cfg["retention"].update(prune_eq_build_after_saif=True, prune_eq_vcd_after_saif=False)
-    freed = S.prune_eq_scratch(cfg, "s_top")
+    freed = S.prune_eq_scratch(cfg, "s_top", conn)
     assert freed == 150 * 3 and not (r1 / "v2_sim" / "csrc").exists() and not (r1 / "v2_sim" / "simv").exists()
     assert (r1 / "v2_sim" / "sim.vcd").exists() and (r0 / "v2_sim" / "sim.vcd").exists() and (r2 / "v2_sim" / "sim.vcd").exists()
     r4 = tmp_path / "results" / "raw" / "s_top" / "EQ" / "p4"
     assert (r4 / "v2_sim" / "csrc").exists()  # no SAIF from p4 (no VCD) -> its build is kept
-    cfg["retention"].update(prune_eq_vcd_after_saif=True)
-    assert S.prune_eq_scratch(cfg, "s_top") == 1006 * 3 and not (r1 / "v2_sim" / "sim.vcd").exists() and not (r0 / "v2_sim" / "sim.vcd").exists()
-    assert (r1 / "equiv.json").exists() and S.prune_eq_scratch(cfg, "s_top") == 0  # records stay; idempotent
+    cfg["retention"].update(prune_eq_vcd_after_saif=True, vcd_keep_verdicts=["sim_fail", "falsified"], vcd_keep_sample_frac=0.0)
+    assert S.prune_eq_scratch(cfg, "s_top", conn) == 0  # SAIFs exist but no power was ingested yet -> every VCD stays
+    n = [0]
+
+    def ev(pert, is_base):
+        n[0] += 1
+        db.insert(conn, "evaluations", {"design_id": "s_top", "pert_id": pert, "is_baseline": is_base, "config": "E4", "lib": "n", "clock_ns": 1.0,
+                                        "area_um2": 1.0, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 0.5, "status": "ok", "raw_dir": f"/y/{n[0]}", "hist_json": "{}"})
+    ev(None, 1)      # D's power from the round-trip SAIF
+    ev("p1", 0)      # p1's power
+    (r2 / "equiv.json").write_text(json.dumps({"cand_id": "p2", "verdict": "falsified", "vcd_path": str(r2 / "v2_sim" / "sim.vcd")}))
+    ev("p2", 0)
+    freed = S.prune_eq_scratch(cfg, "s_top", conn)
+    assert freed == 1006 * 2 and not (r0 / "v2_sim" / "sim.vcd").exists() and not (r1 / "v2_sim" / "sim.vcd").exists()
+    assert (r2 / "v2_sim" / "sim.vcd").exists()  # falsified: kept for diagnosis
+    assert (r1 / "equiv.json").exists() and S.prune_eq_scratch(cfg, "s_top", conn) == 0  # records stay; idempotent
+    cfg["retention"].update(vcd_keep_sample_frac=1.0)
+    from src.equiv import saif as ES
+    assert ES.keep_vcd(cfg, r1, "proven") is True and ES.keep_vcd({"retention": {"vcd_keep_sample_frac": 0.0}}, r1, "proven") is False
+
+
+def test_finalize_vcd_writes_saifs_and_deletes_the_vcd(tmp_path):
+    """The stack's own SAIF step: both instances converted, the VCD deleted unless the verdict or the sample keeps it."""
+    from src.equiv import saif as ES
+    cfg = {"retention": {"vcd_to_scratch": True, "vcd_keep_verdicts": ["sim_fail", "falsified"], "vcd_keep_sample_frac": 0.0}}
+    calls = []
+
+    def fake(vcd, saif, instance, cfg_):
+        calls.append(instance)
+        Path(saif).write_text("SAIF")
+        return {"status": "ok", "saif": str(saif), "instance": instance}
+    job = tmp_path / "rec"
+    (job / "v2_sim").mkdir(parents=True)
+    vcd = job / "v2_sim" / "sim.vcd"
+    vcd.write_bytes(b"x" * 10)
+    rec = {"vcd_path": str(vcd), "verdict": "proven"}
+    ES.finalize_vcd(job, rec, cfg, convert=fake)
+    assert calls == [ES.D_INSTANCE, ES.C_INSTANCE] and rec["saif_d"].endswith("saif_d.saif") and rec["saif_c"].endswith("saif_c.saif")
+    assert rec["vcd_path"] is None and rec["vcd_deleted"] is True and not vcd.exists()
+    vcd.write_bytes(b"x" * 10)
+    rec = {"vcd_path": str(vcd), "verdict": "falsified"}
+    ES.finalize_vcd(job, rec, cfg, convert=fake)
+    assert rec["vcd_deleted"] is False and vcd.exists() and rec["vcd_path"] == str(vcd)  # kept for diagnosis
+    rec = {"vcd_path": str(vcd), "verdict": "proven"}
+    ES.finalize_vcd(job, rec, {"retention": {"vcd_to_scratch": False}}, convert=fake)
+    assert "saif_d" not in rec and vcd.exists()  # switched off: nothing happens
+
+    def failing(vcd, saif, instance, cfg_):
+        return {"status": "failed", "saif": None, "instance": instance}
+    rec = {"vcd_path": str(vcd), "verdict": "proven"}
+    ES.finalize_vcd(job, rec, cfg, convert=failing)
+    assert rec["vcd_deleted"] is False and vcd.exists()  # a failed conversion never deletes the VCD

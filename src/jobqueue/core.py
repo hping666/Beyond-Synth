@@ -74,7 +74,10 @@ class Queue:
                      "vcf": int(q["vcf_seats_max"]), "local": int(q["local_max"])}
         # dispatch limits: an optional `<pool>_concurrency` below the seat cap (config queue.dc_concurrency, DECISIONS
         # 2026-09-12: 12 DC jobs at once on the 64-core host); the caps stay the hard ceiling
-        self.concurrency = {pool: q.get(f"{pool}_concurrency") for pool in self.caps}
+        # dispatch targets below the seat caps: `<pool>_seats_target` (DECISIONS 2026-09-14: 24 for Phases 3-4, 50 only for bulk
+        # Phase 5-6 runs on the user's confirmation); the older `<pool>_concurrency` key is honoured for compatibility
+        self.concurrency = {pool: (q.get(f"{pool}_seats_target") if q.get(f"{pool}_seats_target") is not None else q.get(f"{pool}_concurrency"))
+                            for pool in self.caps}
         self.backoff_cfg = q["backoff"]
         self.retries = int(q["retries"])
         self.env = dict(env) if env is not None else dict(os.environ)

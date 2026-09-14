@@ -12,10 +12,10 @@ project:
   results_dir: /home/hping/Beyond-Synth/results
 
 tools:                       # measured 2026-09-12 (Phase 0.1, selfcheck 22/22 + e2e 11/11); dpv_app_ok and vcd2saif stay TBD until Phase 0.6 / 0.7
-  dc: {version: W-2024.09-SP5-3, shell: dc_shell, max_cores: 4, home: /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3}
+  dc: {version: W-2024.09-SP5-3, shell: dc_shell, max_cores: 4, seats: 50, home: /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3}   # seats: 50 per feature (eda-knowledge 01, DECISIONS 2026-09-14)
   pt: {version: V-2023.12-SP5-4, shell: pt_shell, home: /hdd1/hping/eda/synopsys/prime/V-2023.12-SP5-4}
   primepower: {version: V-2023.12-SP5-4}
-  vcformal: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1, seq_app_ok: true, seq_workers: 1, dpv_app_ok: true, dpv_license_feature: VC-FORMAL-DPV-ELITE-SH, terminfo: /lib/terminfo}   # DPV verified 2026-09-12 (8-bit multiplier: rewrite proven, bug falsified); the BASE feature fails with FlexNet -5 and the tool falls back to ELITE; console needs the system terminfo
+  vcformal: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1, seq_app_ok: true, seq_workers: 1, seats: 50, dpv_app_ok: true, dpv_license_feature: VC-FORMAL-DPV-ELITE-SH, terminfo: /lib/terminfo}   # DPV verified 2026-09-12 (8-bit multiplier: rewrite proven, bug falsified); the BASE feature fails with FlexNet -5 and the tool falls back to ELITE; console needs the system terminfo
   vcs: {version: Y-2026.03-SP1-1, home: /hdd1/hping/eda/synopsys/vc_formal/Y-2026.03-SP1-1/vcs-mx, vcd2saif: /hdd1/hping/eda/synopsys/syn/W-2024.09-SP5-3/bin/vcd2saif}   # vcd2saif ships with DC; chain verified 2026-09-12
   yosys: {version: "0.63", bin: /home/hping/OpenROAD-flow-scripts/tools/install/yosys/bin/yosys}
   opensta: {version: OpenROAD-26Q1-2754, bin: /home/hping/OpenROAD-flow-scripts/tools/install/OpenROAD/bin/sta}
@@ -77,18 +77,27 @@ cktevo_sky130_visible:         # visible layer of the Sky130 sub-experiment (Ckt
 knee:
   configs: {nangate45: E4, asap7: K_asap7, sky130hd: K_sky130hd}   # configuration used for the sweep on each library (E4 command everywhere)
   periods_ns: {nangate45: [4.0, 2.8, 2.0, 1.4, 1.0, 0.7, 0.5], asap7: [1.0, 0.7, 0.5, 0.35, 0.25, 0.18, 0.13], sky130hd: [10.0, 7.0, 5.0, 3.5, 2.5, 1.8, 1.3]}
+  periods_ext_ns: {nangate45: [0.35, 0.25], asap7: [0.09, 0.065], sky130hd: [0.9, 0.65]}   # 2026-09-14 (DECISIONS): two tighter periods, only for designs whose Phi_main is the tightest swept period
   slack_tol: 0.01            # WNS >= -slack_tol * T counts as met
   area_tol: 0.10             # area must not exceed (1 + area_tol) x the loosest-constraint area
 
 noise:
-  n_per_type: 4              # 8 for the 10 map designs
+  n_per_type: 4              # 8 for the Exp1 map designs and for every spread / offset design (DECISIONS 2026-09-14, G1.3)
   n_per_type_map_designs: 8
+  n_per_type_spread_offset: 8
+  text_p1_for_unproven: true # G1.2: designs whose AST perturbations exist but none is proven get text-level P1 renamings (src/noise/rename_text.py)
   types: [P1_rename, P2_reorder, P3_expr, P4_ctrl]
   configs: [E1, E2, E3, E4, H1, H2a, H2b, H5]
   configs_light: [H3]        # only D and one perturbation per type
   k_sigma: 2.0
   k_sigma_sensitivity: [1.0, 2.0, 3.0]
   sigma_median_warn_pct: 5.0 # G1: warn above this median and propose an alternative truncation
+  floor_rule: A              # DECISIONS 2026-09-14 (G1.1): t_D = max(k_sigma x sigma_robust, max |delta| over D's own proven perturbations incl. P0, pooled quantile of |delta| of the configuration and metric)
+  pooled_quantile: 0.90
+  quiet_max_abs: 0.001       # floor class: quiet = every |delta| <= 0.1 %; offset = median |delta| > 0.1 % with MAD <= 1e-6 (every perturbation shifted together); spread otherwise
+  floor_classes: [quiet, spread, offset]
+  pooled_floor_for_missing: true   # G1.2: designs without a measured floor use the pooled minimum with floor_source = pooled; Exp1 map designs must have a measured floor
+  materiality: {area: 0.01, power_saif: 0.02, wns: 0.01}   # fixed-threshold sensitivity row for every headline number (WNS as a fraction of the period)
 
 sim:
   simulator: vcs             # VCS from the VC Formal tree (tools.vcs.home); iverilog is the fallback
@@ -103,6 +112,12 @@ sim:
   protocol_rules: TBD        # valid/ready recognition rules (filled in Phase 1 per design set)
   saif_coverage_min: 0.8
 
+equiv:                       # DECISIONS 2026-09-14 (G2, C2.5)
+  init_state_zero_no_reset: true   # G2.2: registers without a reset start at zero in V2 and V3, identically for D and the candidate (spec 03 §6)
+  v4: {enabled: true, clockless_only: true}   # G2.3: DPV only on modules without a clock port, with the three guardrails of spec 03 §1
+  seq_cap_min_by_class: {a: 60, b: 60, c1: 240, c2: 240, d: 240}   # C2.5: class-aware safety caps for candidates (minutes); cap -> inconclusive, reported, never discarded; perturbations keep timeouts.seq_min
+  c2_headline: false         # G2.1: proven_sim_only is reported apart from proven and never enters headline numbers
+
 timeouts:                    # minutes
   dc_small: 20
   dc_medium: 60
@@ -114,10 +129,11 @@ timeouts:                    # minutes
   llm_call_sec: 600
 
 queue:                       # LOCKED (concurrency caps); automatic backoff when seats are exhausted
-  dc_seats_max: 50           # license ceiling, not a safe concurrency: seats are site-shared; the daemon backs off on exit code 75
-  dc_concurrency: 24         # 2026-09-12: 12 (DECISIONS); raised to 24 on 2026-09-13 with the user's approval (measured ≈1.1 cores per DC run, 64-core host); the seat cap above stays the hard ceiling
+  dc_seats_max: 50           # license ceiling (50 seats measured, DECISIONS 2026-09-14); seats are site-shared; the daemon backs off on exit code 75
+  dc_seats_target: 24        # dispatch target for Phases 3-4 (DECISIONS 2026-09-14: 50 only for bulk Phase 5-6 runs on the user's confirmation; never back to 12)
   pt_seats_max: 8            # filled 2026-09-12 (DECISIONS): a PT run takes ~5 s, 100 seats licensed
-  vcf_seats_max: 4           # filled 2026-09-12 (DECISIONS): SEQ runs single-worker; seat count unknown until the Phase 2 pilot
+  vcf_seats_max: 50          # 50 seats per SEQ feature, not shared with DC (eda-knowledge 01; DECISIONS 2026-09-14; was a 4-seat placeholder)
+  vcf_seats_target: 24       # dispatch target for Phases 3-4 (single-worker SEQ runs, ~1 core each)
   local_max: 16              # added 2026-09-12 (DECISIONS): sim / yosys / orfs / llm / shell jobs on the 64-core host
   poll_sec: 5                # daemon tick interval
   backoff: {initial_sec: 60, max_sec: 900, factor: 2}
@@ -191,9 +207,11 @@ scale:                       # Phase 5 main-experiment scale; adjustable after G
   seeds: 3
   N: 5
   K: 12
-  budget:
-    k_e4_equiv: 60           # per-design DC-hour budget = k_e4_equiv x t_E4(D)
-  equal_llm_calls_aux: {arms: [M, B2], seeds: 1, calls: 60}
+  budget:                    # DECISIONS 2026-09-14 (C2.7): equal LLM calls is the primary caliber; DC / VC Formal hours are reported, not budgeted
+    primary: equal_llm_calls
+    llm_calls_per_run: 60    # = K x N
+    k_e4_equiv: 60           # DC-hour equivalent per design (k_e4_equiv x t_E4(D)), reporting only
+    efficiency_metric: llm_calls_per_retained_candidate
   drrtl_original_reference: {designs: 5, executor: user_manual_claude_code}
   cktevo_sky130_subexp: {modules: 8, arms: [M, B2], seeds: 1}
 
@@ -203,21 +221,31 @@ search:
   feedback_depth: 3
   recal_gens: 3
   audit_frac: 0.10
-  bandit: {c_ucb: 1.0, softmax_temp: 0.5, arms: [a, b, c1, d, free]}
-screen:
-  candidates_es: [E1, E2, Y]
+  bandit: {c_ucb: 1.0, softmax_temp: 0.5, arms: [a, b, c1, d, free], init_from_map_prior: true}
+  credit: {labels: [retained, tradeoff], by_class: produced}   # C2.1(c): credited by the produced class (M6), not the requested one
+  acceptance_envelope: {floor_classes: [spread, offset], n_perturbations: 3, n_min: 2, rung: E4}   # C2.1(d): on spread / offset designs the gain must exceed the envelope of surface perturbations of the candidate itself
+  async_generations: true    # C2.6: the next generation is built from the verdicts available; late verdicts update archive, credit and lineage feedback (spec 05 §7)
+screen:                      # "screening" = synthesis-rung screening; not part of the main method (DECISIONS 2026-09-14, G3.1)
+  candidates_es: [Y]         # Y's AUROC for E4 retention is measured in Phases 3/4
   auroc_min: 0.75
+  noscreen_arm: {drop_if_auroc_below_min: true, reallocate_to: starting_points}   # if AUROC(Y) < auroc_min the M_noscreen arm is dropped
   e4_cheap_sec: 120
   miss_max: 0.15
   miss_min: 0.05
+prescreen:                   # DECISIONS 2026-09-14 (C2.3): classifier-based prescreen, a separate mechanism from screening
+  p_min: 0.9                 # produced class with map-prior absorption probability >= p_min ...
+  audit_frac: 0.10           # ... is not evaluated with probability 1 - audit_frac and gets immediate feedback with the prior
 diag:
   fp_jaccard: 0.95           # may be changed after Phase 4 calibration (record in DECISIONS)
   classes: [a, b, c1, c2, d]
+  labels: [retained, absorbed, absorbed_identical, duplicate, noise, harmful, tradeoff, fragile, nonequiv, screened_out]   # C2.4 (DECISIONS 2026-09-14)
+  absorbed_identical_seq_audit_frac: 0.10   # absorbed_identical needs no simulation or proof for the verdict; 10 % are audited with SEQ
+  threshold_rule: noise.floor_rule          # B.2 bands use the rule-A t_D per metric
 
 exp1:                        # Phase 4
   b0_designs: {rtllm_dev: 5, cktevo_held: 5}
   candidates_per_design: 30
-  configs: [E1, E1d, E2, E3, E4, E2r, E2g, H1, H2a, H2b, H3, H5, H4]   # E2r = E3 (alias); E2t dropped (no-op flag)
+  configs: [E1, E1d, E2, E3, E4, E2g, H1, H2a, H2b, H3, H5, H4]   # E2r removed from every list (same command as E3; DECISIONS 2026-09-14); E2t dropped (no-op flag)
   supplementary: [O0, O1, O2, Ycoevo]
   manual_check_per_class: 40
 
@@ -231,5 +259,8 @@ reporting:
 retention:                   # approved by the user 2026-09-12 (DECISIONS): results stay append-only, but the tools' own scratch is not a result
   prune_dc_work_after_ingest: true   # remove outputs/dc_work and outputs/mw_design once meta.json is written and the ok record is ingested
   prune_eq_build_after_saif: true    # 2026-09-13 (DECISIONS): the VCS build (csrc/, simv, simv.daidir/) of an equivalence record is scratch once its SAIF exists
-  prune_eq_vcd_after_saif: false     # 2026-09-13: the lock-step VCDs stay until the user decides at G1 (reproducible from the recorded seed; ~42 GB)
+  prune_eq_vcd_after_saif: true      # DECISIONS 2026-09-14 (operations 1): the VCD of a record is deleted once its SAIF exists and power was ingested with status ok
+  vcd_keep_verdicts: [sim_fail, falsified]   # their VCDs are kept for diagnosis
+  vcd_keep_sample_frac: 0.02        # plus a deterministic 2 % sample (by record hash)
+  vcd_to_scratch: true              # future runs: vcd2saif right after the lock-step simulation, the VCD deleted unless kept by the rules above
   keep_scratch_on_failure: true      # failed / eval_failed records keep everything for diagnosis

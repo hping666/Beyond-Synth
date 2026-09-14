@@ -47,7 +47,7 @@ def main(argv=None):
         return 0
     freed = 0
     for d in designs:
-        freed += S.prune_eq_scratch(cfg, d["design_id"])
+        freed += S.prune_eq_scratch(cfg, d["design_id"], conn)
     print(f"pruned {freed / 1e9:.1f} GB of equivalence scratch (VCDs with SAIF, VCS builds) for {len(designs)} designs")
     return 0
 

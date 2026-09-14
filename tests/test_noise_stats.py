@@ -122,3 +122,46 @@ def test_g1_analysis_helpers_both_directions(tmp_path):
     assert rates[("E4", "P1_rename")] == {"n": 3, "changed": 0} and rates[("E4", "P2_reorder")] == {"n": 2, "changed": 1}
     mono = S.monotonicity(conn, designs, ["E1", "E4"])
     assert mono["n"] == 2 and mono["steps"][("E1", "E4")] == {"area_up": 1, "wns_down": 0}
+
+
+def test_rule_a_threshold_floor_class_and_pooled_rows(tmp_path):
+    """Rule A (DECISIONS 2026-09-14): t_D is the largest of k*sigma_robust, the design's own max |delta| and the pooled
+    minimum; the floor class separates quiet / spread / offset; a design without a measured floor gets pooled rows."""
+    assert S.floor_class([0.0, 0.0005, -0.0002]) == "quiet"
+    assert S.floor_class([0.187, 0.187, 0.1868]) == "offset"       # every perturbation shifted together
+    assert S.floor_class([0.0, 0.0, 0.05, 0.0]) == "spread"        # a minority moves
+    assert S.floor_class([0.02, 0.05, 0.03]) == "spread"           # shifted but with spread
+    assert S.floor_class([]) is None
+    assert S.rule_a_threshold(0.0, 0.05, 0.0029, 2.0) == 0.05      # the design's own max wins
+    assert S.rule_a_threshold(0.0, 0.0, 0.0029, 2.0) == 0.0029     # quiet design: the pooled minimum
+    assert abs(S.rule_a_threshold(0.04, 0.05, 0.0029, 2.0) - 0.08) < 1e-12   # 2 sigma wins
+    base = {"area_um2": 100.0, "cells": 50, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0}
+    perts = [{"area_um2": 100.0, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0}, {"area_um2": 105.0, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.1},
+             {"area_um2": 100.0, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0}]
+    rows = {r["metric"]: r for r in S.floor_rows("d", "E4", base, perts, 1.0, {"area": 0.0029, "power_saif": 0.014}, 2.0, 0.001)}
+    assert rows["area"]["floor_class"] == "spread" and rows["area"]["floor_source"] == "measured"
+    assert abs(rows["area"]["t_d"] - 0.05) < 1e-12 and rows["area"]["pooled_min"] == 0.0029 and rows["area"]["sigma_robust"] == 0.0
+    assert abs(rows["power_saif"]["t_d"] - 0.1) < 1e-9 and rows["wns"]["t_d"] == 0.0  # no pooled minimum given for wns
+    pr = {r["metric"]: r for r in S.pooled_rows("e", "E4", {"area": 0.0029, "power_saif": 0.014, "wns": None})}
+    assert set(pr) == {"area", "power_saif"} and pr["area"]["floor_source"] == "pooled" and pr["area"]["n"] == 0 and pr["area"]["t_d"] == 0.0029
+    # pooled minimum and the latest-floor lookup on a database
+    from src.db import core as db
+    conn = db.connect(path=str(tmp_path / "r.sqlite"))
+    for pid in ("p1", "p2"):
+        db.insert(conn, "perturbations", {"pert_id": pid, "design_id": "d", "ptype": "P1_rename", "path": "x", "seq_status": "proven"})
+    n = [0]
+
+    def ev(pert, area):
+        n[0] += 1
+        db.insert(conn, "evaluations", {"design_id": "d", "pert_id": pert, "is_baseline": int(pert is None), "config": "E4", "lib": "n", "clock_ns": 1.0,
+                                        "area_um2": area, "cells": 10, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0, "status": "ok", "raw_dir": f"/x/{n[0]}", "hist_json": "{}"})
+    ev(None, 100.0)
+    ev("p1", 100.0)
+    ev("p2", 110.0)
+    pooled = S.pooled_minimum(conn, [{"design_id": "d", "phi": 1.0}], "E4", S.proven_by_design(conn), 0.5)
+    assert abs(pooled["area"] - 0.05) < 1e-12 and pooled["wns"] == 0.0
+    S.upsert_floor(conn, S.floor_rows("d", "E4", {"area_um2": 100.0, "cells": 10, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0},
+                                      [{"area_um2": 100.0, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0}, {"area_um2": 110.0, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0}], 1.0, pooled))
+    lf = S.latest_floor(conn, "d", "E4")
+    # deltas [0, 0.1]: median 0.05, MAD 0.05 -> sigma_robust 0.07413, 2 sigma = 0.14826 > max 0.1 -> rule A takes 2 sigma
+    assert abs(lf["area"]["t_d"] - 2 * 1.4826 * 0.05) < 1e-9 and lf["area"]["floor_class"] == "spread" and lf["area"]["floor_source"] == "measured"

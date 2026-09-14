@@ -10,12 +10,10 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from src import config as C
-from src.equiv.saif import vcd_to_saif
+from src.equiv.saif import C_INSTANCE, D_INSTANCE, keep_vcd, vcd_to_saif
 from src.noise import gate as GT
 from src.noise import generate as G
 
-D_INSTANCE = "bs_lockstep/u_d"
-C_INSTANCE = "bs_lockstep/u_c"
 EQ_SCRATCH = ("csrc", "simv.daidir")
 EQ_SCRATCH_FILES = ("simv", "sim.vcd", "ucli.key")
 
@@ -57,8 +55,12 @@ def build_for_design(design, proven, cfg, out_root=None, convert=vcd_to_saif):
     for key, cid, instance, path in entries:
         rec = recs.get(cid)
         vcd = rec.get("vcd_path") if rec else None
+        local = (rec or {}).get("saif_d" if instance == D_INSTANCE else "saif_c")  # written by the stack itself since 2026-09-14
         if path.exists() and path.stat().st_size > 0:
             info = {"saif": str(path), "instance": instance, "source_record": rec.get("_dir") if rec else None, "status": "exists"}
+        elif local and Path(local).exists() and Path(local).stat().st_size > 0:
+            shutil.copyfile(local, path)
+            info = {"saif": str(path), "instance": instance, "source_record": rec["_dir"], "status": "copied"}
         elif vcd and Path(vcd).exists():
             r = convert(vcd, path, instance, cfg)
             info = {"saif": r.get("saif"), "instance": instance, "source_record": rec["_dir"], "status": r["status"]}
@@ -78,15 +80,36 @@ def load_saif(design_id, root=None):
     return json.loads(p.read_text()) if p.exists() else None
 
 
-def prune_eq_scratch(cfg, design_id):
+def power_ingested(conn, design_id, cand_id, roundtrip_id):
+    """True when an ok evaluation with SAIF power exists for the record's role: D (the round-trip record) or the perturbation."""
+    if conn is None:
+        return False
+    if cand_id == roundtrip_id:
+        q = "SELECT 1 FROM evaluations WHERE design_id=? AND is_baseline=1 AND status='ok' AND power_saif_mw IS NOT NULL LIMIT 1"
+        return conn.execute(q, (design_id,)).fetchone() is not None
+    q = "SELECT 1 FROM evaluations WHERE design_id=? AND pert_id=? AND status='ok' AND power_saif_mw IS NOT NULL LIMIT 1"
+    return conn.execute(q, (design_id, cand_id)).fetchone() is not None
+
+
+def prune_eq_scratch(cfg, design_id, conn=None):
     """Remove the scratch of the equivalence records of one design whose SAIF exists: the VCS build (csrc/, simv,
-    simv.daidir/) under retention.prune_eq_build_after_saif, the lock-step VCD only under
-    retention.prune_eq_vcd_after_saif (off until the user decides). -> bytes freed."""
+    simv.daidir/) under retention.prune_eq_build_after_saif; the lock-step VCD under retention.prune_eq_vcd_after_saif
+    only when power was ingested from that SAIF (status ok, needs conn) and the record is not kept by keep_vcd
+    (sim_fail / falsified verdicts, 2 % sample; DECISIONS 2026-09-14). -> bytes freed."""
     ret = cfg.get("retention") or {}
     prune_build = bool(ret.get("prune_eq_build_after_saif", False))
     prune_vcd = bool(ret.get("prune_eq_vcd_after_saif", False))
     if not (prune_build or prune_vcd):
         return 0
+    m = GT.manifest_of(design_id)
+    roundtrip_id = (m or {}).get("roundtrip", {}).get("pert_id")
+    verdict_of = {}
+    for eq in (Path(C.results_dir(cfg)) / "raw" / design_id / "EQ").glob("*/equiv.json"):
+        try:
+            r = json.loads(eq.read_text())
+        except json.JSONDecodeError:
+            continue
+        verdict_of[str(eq.parent)] = (r.get("verdict"), r.get("cand_id"))
     have = set()
     s = load_saif(design_id)
     if s:
@@ -107,9 +130,11 @@ def prune_eq_scratch(cfg, design_id):
                 if p.is_dir():
                     freed += sum(f.stat().st_size for f in p.rglob("*") if f.is_file())
                     shutil.rmtree(p, ignore_errors=True)
+        verdict, cid = verdict_of.get(str(d), (None, None))
+        vcd_ok = prune_vcd and power_ingested(conn, design_id, cid, roundtrip_id) and not keep_vcd(cfg, d, verdict)
         for name in EQ_SCRATCH_FILES:
             p = sim / name
-            if p.is_file() and ((name == "sim.vcd" and prune_vcd) or (name != "sim.vcd" and prune_build)):
+            if p.is_file() and ((name == "sim.vcd" and vcd_ok) or (name != "sim.vcd" and prune_build)):
                 freed += p.stat().st_size
                 p.unlink()
     return freed

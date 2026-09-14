@@ -35,6 +35,7 @@ CREATE INDEX IF NOT EXISTS ix_evaluations_cand ON evaluations (cand_id);
 CREATE TABLE IF NOT EXISTS noise_floor (
   design_id TEXT NOT NULL, config TEXT NOT NULL, metric TEXT NOT NULL,
   sigma_robust REAL, sigma_std REAL, q95_abs REAL, max_abs REAL, n INTEGER, abs_unit_value REAL,
+  t_d REAL, floor_class TEXT, floor_source TEXT, pooled_min REAL,   -- rule A (DECISIONS 2026-09-14)
   created_at TEXT NOT NULL, git_sha TEXT NOT NULL, cfg_hash TEXT NOT NULL,
   PRIMARY KEY (design_id, config, metric, cfg_hash));
 

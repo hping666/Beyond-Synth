@@ -1,19 +1,23 @@
-# spec 05 — Ladder search `src/search/`
+# spec 05 — Residual-guided evolution `src/search/` (C2)
+
+C2 is named **residual-guided evolution** (DECISIONS 2026-09-14). Its four mechanisms: (a) fitness = retained gain with the rule-A floor of spec 02, zero inside the floor; (b) feedback = the synthesizer's verdict (absorbed with capability attribution, absorbed_identical, duplicate, noise, harmful with locus including `blocks_synthesis`, retained, fragile) instead of a scalar; (c) operator selection = a class bandit initialised from the map prior, credited only for retained or trade-off improvements and credited by the produced class from M6, not the requested class; (d) acceptance = on spread / offset designs a candidate's gain must exceed the envelope of 2–3 surface perturbations of the candidate itself at E4. Synthesis-rung screening is not part of the main method (G3.1); the word "screening" is reserved for it. The pipeline order is conventional: V1 → testbench → V2 (SAIF) → V3 SEQ → E4 → diagnosis.
 
 ## 1. Main skeleton: parallel-candidate hill climbing + small archive
 
-State: archive A (three-objective Pareto front, at most `search.archive_size`=5, holding proven candidates already evaluated at E4); class bandit (five arms: (a), (b), (c1), (d), free); budget B (DC hours); predictor P; screening rung E_s; audit records.
+State: archive A (three-objective Pareto front, at most `search.archive_size`=5, holding proven candidates already evaluated at E4); class bandit (five arms: (a), (b), (c1), (d), free; initialised from the map prior); budget B = `scale.budget.llm_calls_per_run` LLM calls (DC and VC Formal hours are recorded, not budgeted); the prescreen prior; audit records; the convergence classes of the run (fingerprints of every E4-evaluated candidate).
 
 Per generation:
 1. Parent selection: sample from A by crowding distance; after `search.stall_gens` generations without retained improvement -> switch parent / restart (another element of A, or D).
 2. Generation: the bandit draws N classes (UCB-softmax, config), one prompt per class, the LLM generates N candidates in parallel; each candidate carries the feedback blocks of its parent lineage (the most recent `search.feedback_depth`).
-3. Equivalence stack V1–V3 (V4 as needed); non-proven candidates are recorded and discarded.
-4. M6 classification.
-5. Screening (if enabled): evaluate at E_s; P gives p; p ≥ τ promotes; among the rest a random `search.audit_frac`=0.1 is promoted (marked audit); the remainder are recorded as `screened_out` with a reduced feedback block.
-6. E4 evaluation of promoted candidates; M3 diagnosis; feedback blocks written; bandit credit.
-7. Calibration: E4 results of audited candidates update the per-design P (online logistic regression or per-class Bayesian counts) and the miss-rate estimate; re-select E_s every `search.recal_gens` generations.
-8. Archive update (Pareto front); budget deduction (this generation's DC seconds); stop when the budget is exhausted or K generations are reached.
+3. M6 classification (produced class).
+4. Prescreen (`config: prescreen`): a candidate whose produced class has a map-prior absorption probability ≥ `prescreen.p_min` is not evaluated with probability 1 − `prescreen.audit_frac` and receives immediate feedback with the prior (label `prescreened`, audited candidates continue).
+5. Equivalence stack V1 → testbench → V2 → V3 (V4 for clockless modules); class-aware SEQ caps (spec 03); non-proven candidates are recorded and discarded from the population, `inconclusive` ones are reported.
+6. E4 evaluation; M3 diagnosis (spec 04 §B.2, including `absorbed_identical`, `duplicate`, `fragile`); feedback blocks written; bandit credit by the produced class.
+7. Acceptance check on spread / offset designs: `search.acceptance_envelope.n_perturbations` surface perturbations of the candidate are generated and run at E4; the candidate's gain must exceed their envelope, otherwise `fragile`.
+8. Archive update (Pareto front); budget deduction (LLM calls); stop when the calls are exhausted or K generations are reached.
 9. Accepted candidates (those that ever entered the archive) are submitted to the hidden-layer queue (handled by `hidden_worker`; the search process never reads the results).
+
+Generations are **asynchronous** (§7): the next generation is built from the verdicts available at the time; late verdicts update the archive, the bandit credit and the lineage feedback when they arrive.
 
 ## 2. Prompt structure (cache-friendly)
 
@@ -22,27 +26,25 @@ Variable suffix: parent RTL (if not D) -> feedback blocks of the parent lineage 
 Static complement text (B1 only): an explicit list of "the synthesizer does this, do not do it" rewrites and "do this" directions; fixed content, no candidate-level evidence.
 Template files: `src/search/prompts/*.md`, versioned; changes are recorded in DECISIONS.
 
-## 3. Screening policy (automatic rung control)
+## 3. Prescreen, and synthesis-rung screening as an experiment only
 
-**Rung selection (choose E_s)**: the first generation of every design is not screened; all candidates run E1, E2, E4 (Y optional). From this generation plus the noise-floor data, compute the AUROC of E1, E2 (, Y) for E4 retention; pick the cheapest rung with AUROC ≥ `screen.auroc_min` as E_s; if none qualifies -> screening off for this design; if the mean E4 runtime < `screen.e4_cheap_sec` -> screening off. Re-estimate from audit data every `search.recal_gens` generations; switching rungs is allowed.
+**Prescreen (classifier-based, part of the main method; DECISIONS 2026-09-14 C2.3)**: after M6, the produced class's map-prior absorption probability decides whether the candidate is evaluated at all (§1 step 4); the audited fraction measures the prescreen's miss rate, which is reported per design.
 
-**Threshold control (τ)**: this generation's E4 quota q = remaining budget / remaining generations / t_E4; τ is the p-quantile that promotes exactly q candidates; if the audit miss rate > `screen.miss_max`, lower τ one step (promote more); if < `screen.miss_min`, raise it.
-
-**Predictor P**: initialized from the model trained in Phase 4 (features: class, three-component g_Es, E_s fingerprint convergence, register-count change, AST diff size, design features); updated online with this design's audit and promotion results (per class, Bayesian). A class-blind version is used for ablation.
+**Synthesis-rung screening (not in the main method; DECISIONS 2026-09-14 G3.1)**: E4 is cheap for 90 % of the designs and no DC rung is cheaper where E4 is expensive (Phase 2 §3). The only candidate screening rung is Y (`screen.candidates_es = [Y]`). Its AUROC for E4 retention is measured in Phases 3 / 4 from the E4-evaluated candidates; if AUROC < `screen.auroc_min` the M_noscreen arm is dropped and its budget reallocated to starting points (`screen.noscreen_arm`). If Y qualifies, the earlier rung-control rules (τ from the E4 quota, audit miss-rate correction, per-design predictor) apply to the M_noscreen comparison only.
 
 ## 4. Budget accounting
 
-Per-design budget B = `scale.budget.k_e4_equiv` × t_E4(D) (t_E4 from Phase 2); deductions: E_s, E4, sampled single-flag runs; SEQ is not counted in DC hours but is tracked separately (VC Formal hours); LLM dollars are tracked separately and bounded by the phase cap. The `runs` table records cumulative consumption per generation. The auxiliary equal-LLM-calls group uses a fixed number of calls instead of B.
+The primary caliber is **equal LLM calls** (`scale.budget.primary`, `scale.budget.llm_calls_per_run` = K × N; DECISIONS 2026-09-14 C2.7). DC hours (E4, sampled single-flag runs, the acceptance-envelope runs), VC Formal hours and LLM dollars are recorded per generation in the `runs` table and reported; the DC-hour equivalent `scale.budget.k_e4_equiv` × t_E4(D) is a reporting quantity only. Efficiency metric = LLM calls per retained candidate. LLM dollars stay bounded by the phase cap.
 
 ## 5. Implementation differences between arms
 
-| Arm | Fitness source | Screening | Feedback block | Bandit credit |
+| Arm | Fitness source | Synthesis-rung screening | Feedback block | Bandit credit |
 |---|---|---|---|---|
 | B0 | three-component gain at Y caliber (no truncation) | none | scalar (Y numbers) | any positive gain |
 | B1@E4 | three-component E4 gain (no truncation) | none | scalar + static complement text | any positive gain |
 | B2 | three-component E4 gain (no truncation) | none | scalar (E4 numbers) | any positive gain |
-| M | E4 retained gain (2σ truncation) | automatic rung | five-way diagnosis + prior | only retained / trade-off improvement |
-| M-noscreen | same as M | off | same as M | same as M |
+| M | E4 retained gain (rule-A floor) | none (prescreen only) | synthesizer verdict + prior | retained / trade-off improvement, by produced class |
+| M-noscreen (conditional) | same as M | Y rung, only if AUROC(Y) ≥ `screen.auroc_min` | same as M | same as M |
 | Dr.RTL-reimpl | E4 scalar | none | Dr.RTL's top-k path feedback + in-run skill learning (implemented as in its paper) | — |
 
 Accepted candidates of B0/B1/B2 are also sent to E4 (B0) and the hidden layer so that all arms are compared under the same configurations.
@@ -51,13 +53,19 @@ Accepted candidates of B0/B1/B2 are also sent to E4 (B0) and the hidden layer so
 
 `src/search/skeletons/`: `hillclimb.py` (main), `coevo.py`, `revolution.py`. The latter two are adapted for RTL-to-RTL (correctness as a binary gate; COEVO's three-objective non-dominated sorting; REvolution's Fail population removed), with the same interface: `propose()`, `select()`, `update()`. M and B2 run once on each skeleton (30-start subset).
 
-## 7. Run outputs
+## 7. Run outputs and asynchronous generations
 
-One row in `runs`; one row per candidate in `candidates`; one row per candidate in `screening` (if enabled); one row per E4 candidate in `diagnoses`; all requests/responses under `results/llm/<run_id>/`; all candidate RTL under `results/candidates/<run_id>/`; per-generation `gen_summary.json` (archive, bandit probabilities, τ, E_s, consumption).
+One row in `runs`; one row per candidate in `candidates`; one row per candidate in `screening` (M-noscreen only); one row per E4 candidate in `diagnoses`; all requests/responses under `results/llm/<run_id>/`; all candidate RTL under `results/candidates/<run_id>/`; per-generation `gen_summary.json` (archive, bandit probabilities, prescreen decisions, consumption, pending verdicts).
+
+**Asynchronous generations (DECISIONS 2026-09-14 C2.6).** A generation is *issued* when its N candidates are submitted to the equivalence and E4 queues; it is *built* from the verdicts available when the next generation is due (the LLM calls of generation g+1 are made as soon as the bandit has the credits of the verdicts that arrived, never waiting for the class-aware SEQ caps). A verdict that arrives after its generation was built (late verdict) updates the archive (Pareto insertion), the bandit credit of its produced class and the lineage feedback of its descendants when it arrives; a late `retained` candidate becomes a parent from the next selection on. `gen_summary.json` records, per generation, the set of pending candidate ids and the timestamp at which it was built.
+
+**Resumption semantics.** State is persisted after every build (`gen_summary.json`) and after every verdict (the `candidates` / `diagnoses` rows). On resume: (1) load the last built generation; (2) re-read every candidate row: verdicts that arrived while the process was down are applied in `finished_at` order exactly as late verdicts; (3) candidates still pending are re-attached to their queue jobs (never re-submitted unless the job is failed); (4) the LLM calls of an issued-but-unbuilt generation are not repeated: their saved responses are reloaded from `results/llm/<run_id>/`. A resumed run must reproduce the same archive and credits as an uninterrupted one given the same verdict arrival order (test in §8).
 
 ## 8. Tests
 
-- Negative: a pure-renaming candidate must be stopped at E_s (when screening is on) or diagnosed `absorbed@E1`; the RTL-OPT optimized version as a candidate must be promoted and `retained`.
+- Negative: a pure-renaming candidate must be diagnosed `absorbed_identical` (or `absorbed@E1` when its fingerprint differs); the RTL-OPT optimized version as a candidate must be `retained`.
+- Rung attribution: a candidate that converges with D at E2 but not at E1 is `absorbed@E2`; one whose E1 result is better than D's E1 result but whose E4 result equals D's is `absorbed` (never `retained` from a lower rung).
+- Asynchronous generations: with a simulated verdict stream, a late `retained` verdict enters the archive and credits the bandit; the resumed run matches the uninterrupted run.
 - Budget: with simulated t_E4 and a fixed candidate stream, confirm stop on exhaustion and correct quota/τ computation.
 - Bandit: probabilities drift toward the high-reward arm under synthetic rewards.
 - Resumption: kill the process mid-run; resuming from `gen_summary.json` yields identical results.

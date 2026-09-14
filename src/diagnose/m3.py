@@ -67,16 +67,35 @@ def log_diff(base, cand):
     return {k: [cb.get(k), cc.get(k)] for k in keys if cb.get(k) != cc.get(k)}
 
 
-def diagnose(base, cand, sigma, clock_ns, *, v3_status="proven", k_sigma=2.0, fp_jaccard=0.95, lower_rungs=None, prior=None):
-    """sigma: {metric: sigma_robust} for the E4 floor of this design (area, wns, power, all relative).
-    lower_rungs: {rung: (base_rec, cand_rec, sigma_area)} for E_s / E2 / E3 / single-flag runs, lowest first.
-    -> dict(label, rung, capability, attribution, gains, band, evidence)"""
-    out = {"label": None, "rung": None, "capability": None, "attribution": None, "sublabel": None}
+def identical_fingerprint(a, b):
+    """The two records synthesised to the same netlist for our purposes: equal cell histogram, area and cell count."""
+    ma, mb = a.get("metrics") or a, b.get("metrics") or b
+    area_a, area_b = ma.get("area", ma.get("area_um2")), mb.get("area", mb.get("area_um2"))
+    cells_a, cells_b = ma.get("cells", ma.get("leaf_cells")), mb.get("cells", mb.get("leaf_cells"))
+    if area_a is None or area_b is None or abs(float(area_a) - float(area_b)) > 1e-6:
+        return False
+    if cells_a is not None and cells_b is not None and cells_a != cells_b:
+        return False
+    return (a.get("hist") or {}) == (b.get("hist") or {})
+
+
+def diagnose(base, cand, sigma, clock_ns, *, v3_status="proven", k_sigma=2.0, fp_jaccard=0.95, lower_rungs=None, prior=None,
+             thresholds=None, floor_class=None, run_fingerprints=None, envelope=None):
+    """sigma: {metric: sigma_robust} for the E4 floor of this design (area, wns, power, all relative); thresholds: the
+    rule-A t_D per metric (DECISIONS 2026-09-14; when given it replaces k_sigma * sigma as the band).
+    lower_rungs: {rung: (base_rec, cand_rec, sigma_area)} for E_s / E2 / E3 / single-flag runs, lowest first; every
+    comparison is made between the candidate and D under that same rung, never against a higher rung (G1.4).
+    run_fingerprints: {cand_id: record} of the earlier E4-evaluated candidates of the run (duplicate detection).
+    floor_class / envelope: on a spread or offset design a retained candidate must beat the envelope of its own surface
+    perturbations at E4 (list of gain dicts, C2.1(d)); otherwise the label is fragile.
+    -> dict(label, rung, capability, attribution, sublabel, offset_design, duplicate_of, evidence)"""
+    out = {"label": None, "rung": None, "capability": None, "attribution": None, "sublabel": None,
+           "offset_design": floor_class == "offset", "duplicate_of": None}
     if v3_status != "proven":
         out.update(label="nonequiv", evidence={"v3_status": v3_status})
         return out
     g = relative_gains(base, cand, clock_ns)
-    band = {m: float(k_sigma) * float(sigma.get(m) or 0.0) for m in g}
+    band = {m: (float(thresholds[m]) if thresholds and thresholds.get(m) is not None else float(k_sigma) * float(sigma.get(m) or 0.0)) for m in g}
     up = [m for m in g if g[m] > band[m]]
     down = [m for m in g if g[m] < -band[m]]
     conv, fp = converged(base, cand, sigma.get("area"), fp_jaccard)
@@ -85,10 +104,25 @@ def diagnose(base, cand, sigma, clock_ns, *, v3_status="proven", k_sigma=2.0, fp
     extra_regs = (mc.get("registers") or 0) - (mb.get("registers") or 0)
     evidence = {"gains": {m: round(v, 5) for m, v in g.items()}, "band": {m: round(v, 5) for m, v in band.items()}, **fp,
                 "log_diff": ld, "missing_resources": rd["missing_resources"], "extra_regs": extra_regs,
-                "icg": [mb.get("icg_count"), mc.get("icg_count")]}
+                "icg": [mb.get("icg_count"), mc.get("icg_count")], "floor_class": floor_class}
     out["evidence"] = evidence
+    if identical_fingerprint(base, cand):
+        out.update(label="absorbed_identical", rung="E4", attribution="identical")
+        return out
+    for cid, rec in (run_fingerprints or {}).items():
+        if identical_fingerprint(rec, cand):
+            out.update(label="duplicate", duplicate_of=cid)
+            return out
     if up and not down:
         out.update(label="retained", rung="E4")
+        if floor_class in ("spread", "offset"):
+            if envelope is None:
+                out["envelope_required"] = True  # the search runs the candidate's own perturbations before accepting
+            else:
+                env_max = {m: max((e.get(m, 0.0) for e in envelope), default=0.0) for m in up}
+                evidence["envelope_max"] = {m: round(v, 5) for m, v in env_max.items()}
+                if any(g[m] <= env_max[m] for m in up):
+                    out.update(label="fragile", sublabel="gain inside the candidate's own perturbation envelope")
     elif conv:
         rung, capability, attribution = "after_Es", None, "prior"
         for r, (b_r, c_r, s_r) in (lower_rungs or {}).items():
@@ -127,7 +161,8 @@ def screened_out_block(rung, fp_converged):
 
 
 def credit(diag, pareto_improves_parent):
-    """§B.4: the class bandit is credited only for retained, or tradeoff with a Pareto improvement over the parent."""
+    """§B.4: the class bandit is credited only for retained, or tradeoff with a Pareto improvement over the parent; the
+    credit goes to the produced class (the caller passes class_final), never to fragile / duplicate / absorbed_identical."""
     return 1 if diag["label"] == "retained" or (diag["label"] == "tradeoff" and pareto_improves_parent) else 0
 
 

@@ -27,7 +27,7 @@ def main(path):
     by = defaultdict(dict)
     for r in rows:
         by[r["design"]][r["config"]] = r
-    order = ["E1", "E2", "E2t", "XT", "E3", "E2r", "E2g", "E4", "H5"]
+    order = ["E1", "E2", "E2t", "XT", "E3", "E2g", "E4", "H5"]  # E2r removed (DECISIONS 2026-09-14)
     for design, cfgs in by.items():
         clk = next(iter(cfgs.values()))["clock_ns"]
         print(f"\n### {design} (clock {clk} ns)\n")

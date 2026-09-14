@@ -107,6 +107,14 @@ def cmd_collect(cfg, conn, a):
     configs = visible_noise_configs(cfg)
     report = {"generated_at": datetime.datetime.now().isoformat(timespec="seconds"), "configs": configs, "designs": {}, "per_config": {}}
     n_rows = 0
+    # rule A (DECISIONS 2026-09-14): the pooled minimum per configuration and metric is computed over every set design's
+    # perturbation records first; designs without a measured floor get pooled rows (floor_source = pooled)
+    nz = cfg["noise"]
+    k, q, quiet = float(nz["k_sigma"]), float(nz.get("pooled_quantile", 0.90)), float(nz.get("quiet_max_abs", 0.001))
+    all_sets = [(d, r) for d, r in selected(conn, argparse.Namespace(suite=None, design=None)) if r.get("split") in ("dev", "held")]
+    proven_all = S.proven_by_design(conn)
+    pooled = {config: S.pooled_minimum(conn, [{"design_id": d["design_id"], "phi": float(phi_of(r))} for d, r in all_sets], config, proven_all, q, EPS) for config in configs}
+    report["pooled_min"] = pooled
     for d, r in selected(conn, a):
         phi = float(phi_of(r))
         proven = {p["pert_id"] for p in proven_perturbations(conn, d["design_id"])}
@@ -114,19 +122,33 @@ def cmd_collect(cfg, conn, a):
         for config in configs:
             base, latest = S.pick_records(conn, d["design_id"], config, proven, phi, EPS)
             if base is None or len(latest) < 2:
-                entry["configs"][config] = {"baseline": base is not None, "perturbations": len(latest), "rows": 0}
+                rows = S.pooled_rows(d["design_id"], config, pooled[config]) if (nz.get("pooled_floor_for_missing") and r.get("split") in ("dev", "held")) else []
+                n_rows += S.upsert_floor(conn, rows)
+                entry["configs"][config] = {"baseline": base is not None, "perturbations": len(latest), "rows": len(rows), "floor_source": "pooled" if rows else None,
+                                            "t_d": {row["metric"]: row["t_d"] for row in rows}}
                 continue
-            rows = S.floor_rows(d["design_id"], config, base, list(latest.values()), phi)
+            rows = S.floor_rows(d["design_id"], config, base, list(latest.values()), phi, pooled[config], k, quiet)
             n_rows += S.upsert_floor(conn, rows)
-            entry["configs"][config] = {"baseline": True, "perturbations": len(latest), "rows": len(rows),
-                                        "sigma": {row["metric"]: row["sigma_robust"] for row in rows}}
+            entry["configs"][config] = {"baseline": True, "perturbations": len(latest), "rows": len(rows), "floor_source": "measured",
+                                        "floor_class": rows[0]["floor_class"] if rows else None,
+                                        "sigma": {row["metric"]: row["sigma_robust"] for row in rows}, "t_d": {row["metric"]: row["t_d"] for row in rows}}
             for row in rows:
                 report["per_config"].setdefault(config, {}).setdefault(row["metric"], []).append(row["sigma_robust"])
+                report.setdefault("per_config_t_d", {}).setdefault(config, {}).setdefault(row["metric"], []).append(row["t_d"])
         report["designs"][d["design_id"]] = entry
     summary = {}
     for config, metrics in report["per_config"].items():
         summary[config] = {m: {"n": len(v), "median": statistics.median(v), "q75": S.quantile(v, 0.75), "max": max(v)} for m, v in metrics.items() if v}
     report["summary"] = summary
+    report["summary_t_d"] = {config: {m: {"n": len(v), "median": statistics.median(v), "q75": S.quantile(v, 0.75), "max": max(v)} for m, v in metrics.items() if v}
+                             for config, metrics in report.get("per_config_t_d", {}).items()}
+    classes = {}
+    for did, e in report["designs"].items():
+        for config, c in e["configs"].items():
+            key = c.get("floor_class") or ("pooled" if c.get("floor_source") == "pooled" else "none")
+            classes.setdefault(config, {}).setdefault(key, 0)
+            classes[config][key] += 1
+    report["floor_classes"] = classes
     out = Path(ROOT) / "reports" / "data" / "phase2_noise_floor.json"
     out.write_text(json.dumps(report, indent=1, sort_keys=True, default=str) + "\n")
     warn = float(cfg["noise"]["sigma_median_warn_pct"]) / 100.0
