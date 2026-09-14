@@ -1,41 +1,42 @@
 # Phase 2 report — noise floor, SEQ pilot, E4 runtime (Exp0)
 
-Generated 2026-09-14 03:51 by scripts/report_phase.py (git 9b38fe000d36, cfg d7183387d0f9). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
+Generated 2026-09-14 13:38 by scripts/report_phase.py (git 8105ea0e031c, cfg 5c4f19739d23). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
 
 ## 1. Perturbation generator (PLAN 2.1)
 
-179 designs with a generator manifest (sets + RTLRewriter); perturbations per type {'P1_rename': 552, 'P2_reorder': 387, 'P3_expr': 225, 'P4_ctrl': 221}; designs where a type is not applicable {'P1_rename': 23, 'P2_reorder': 38, 'P3_expr': 93, 'P4_ctrl': 70}; designs Pyverilog cannot parse: 16 (cktevo_hsm__G16Inv2SharesDep, cktevo_hsm__G256Inv2Shares5Stages, cktevo_hsm__hsm, cktevo_nn_engine__thresholds_128x4096, cktevo_risc__btb, cktevo_risc__cpu, cktevo_risc__l2_cache_control, cktevo_risc__stall_control_unit, cktevo_sdc_ctrl__sdc_controller, drrtl_aes, drrtl_simple_spi, rtllm_adder_32bit, rtllm_multi_8bit, rtllm_parallel2serial, rtlrewriter_datapath__loop_tiling, rtlrewriter_datapath__multiplier_architecture).
+179 designs with a generator manifest (sets + RTLRewriter); perturbations per type {'P1_rename': 643, 'P1_text': 56, 'P2_reorder': 467, 'P3_expr': 286, 'P4_ctrl': 238}; designs where a type is not applicable {'P1_rename': 23, 'P2_reorder': 38, 'P3_expr': 93, 'P4_ctrl': 73}; designs Pyverilog cannot parse: 16 (cktevo_hsm__G16Inv2SharesDep, cktevo_hsm__G256Inv2Shares5Stages, cktevo_hsm__hsm, cktevo_nn_engine__thresholds_128x4096, cktevo_risc__btb, cktevo_risc__cpu, cktevo_risc__l2_cache_control, cktevo_risc__stall_control_unit, cktevo_sdc_ctrl__sdc_controller, drrtl_aes, drrtl_simple_spi, rtllm_adder_32bit, rtllm_multi_8bit, rtllm_parallel2serial, rtlrewriter_datapath__loop_tiling, rtlrewriter_datapath__multiplier_architecture).
 
 SEQ gate (V1 -> V2 -> V3; only `proven` enters the floor):
 
 | type | error | falsified | inconclusive | pending | proven | proven_rename | rejected | sim_fail | non-equivalence rate |
 |---|---|---|---|---|---|---|---|---|---|
 | P0_roundtrip | 1 | 2 | 2 | 0 | 145 | 0 | 11 | 1 | 8.6% of 162 |
-| P1_rename | 4 | 16 | 0 | 17 | 392 | 92 | 45 | 5 | 11.6% of 571 |
-| P2_reorder | 0 | 7 | 3 | 8 | 328 | 0 | 43 | 5 | 14.0% of 394 |
-| P3_expr | 0 | 8 | 6 | 10 | 163 | 0 | 44 | 4 | 23.8% of 235 |
-| P4_ctrl | 1 | 6 | 2 | 5 | 145 | 0 | 61 | 8 | 32.9% of 228 |
+| P1_rename | 4 | 16 | 4 | 17 | 448 | 123 | 45 | 5 | 10.0% of 662 |
+| P1_text | 1 | 8 | 12 | 0 | 23 | 0 | 12 | 0 | 35.7% of 56 |
+| P2_reorder | 0 | 7 | 4 | 8 | 407 | 0 | 43 | 5 | 11.6% of 474 |
+| P3_expr | 0 | 8 | 7 | 10 | 223 | 0 | 44 | 4 | 18.9% of 296 |
+| P4_ctrl | 1 | 6 | 2 | 5 | 178 | 0 | 61 | 10 | 29.3% of 263 |
 
 ## 2. Noise floor sigma_D (PLAN 2.3, visible configurations)
 
 | config | metric | designs | median sigma | q75 | max |
 |---|---|---|---|---|---|
-| E1 | area | 143 | 0.0000 | 0.0000 | 0.0132 |
-| E1 | power_saif | 143 | 0.0000 | 0.0000 | 0.0127 |
-| E1 | tns | 143 | 0.0000 | 0.0000 | 26.2510 |
-| E1 | wns | 143 | 0.0000 | 0.0000 | 0.0362 |
-| E2 | area | 143 | 0.0000 | 0.0000 | 0.0463 |
-| E2 | power_saif | 143 | 0.0000 | 0.0000 | 0.0745 |
-| E2 | tns | 143 | 0.0000 | 0.0000 | 0.0174 |
-| E2 | wns | 143 | 0.0000 | 0.0000 | 0.0125 |
-| E3 | area | 144 | 0.0000 | 0.0000 | 0.0463 |
-| E3 | power_saif | 144 | 0.0000 | 0.0000 | 0.1030 |
-| E3 | tns | 144 | 0.0000 | 0.0000 | 0.0174 |
-| E3 | wns | 144 | 0.0000 | 0.0000 | 0.0125 |
-| E4 | area | 144 | 0.0000 | 0.0000 | 0.0463 |
-| E4 | power_saif | 144 | 0.0000 | 0.0000 | 0.0745 |
-| E4 | tns | 144 | 0.0000 | 0.0000 | 0.0174 |
-| E4 | wns | 144 | 0.0000 | 0.0000 | 0.0125 |
+| E1 | area | 147 | 0.0000 | 0.0000 | 0.0154 |
+| E1 | power_saif | 144 | 0.0000 | 0.0000 | 0.0884 |
+| E1 | tns | 147 | 0.0000 | 0.0000 | 52.5020 |
+| E1 | wns | 147 | 0.0000 | 0.0000 | 0.0488 |
+| E2 | area | 147 | 0.0000 | 0.0000 | 0.0463 |
+| E2 | power_saif | 144 | 0.0000 | 0.0000 | 0.1369 |
+| E2 | tns | 147 | 0.0000 | 0.0000 | 0.0174 |
+| E2 | wns | 147 | 0.0000 | 0.0000 | 0.0941 |
+| E3 | area | 148 | 0.0000 | 0.0000 | 0.0463 |
+| E3 | power_saif | 145 | 0.0000 | 0.0000 | 0.1369 |
+| E3 | tns | 148 | 0.0000 | 0.0000 | 0.0174 |
+| E3 | wns | 148 | 0.0000 | 0.0000 | 0.0941 |
+| E4 | area | 148 | 0.0000 | 0.0000 | 0.0463 |
+| E4 | power_saif | 114 | 0.0000 | 0.0000 | 0.1369 |
+| E4 | tns | 148 | 0.0000 | 0.0000 | 0.0174 |
+| E4 | wns | 148 | 0.0000 | 0.0000 | 0.0941 |
 
 Minimum reportable gain under the spec's original rule = 2.0 x sigma_D (config noise.k_sigma); per-design values in the noise_floor table and reports/data/phase2_noise_floor.json.
 
@@ -43,93 +44,93 @@ Minimum reportable gain under the spec's original rule = 2.0 x sigma_D (config n
 
 | config | metric | designs | pooled minimum | median t_D | q75 | max |
 |---|---|---|---|---|---|---|
-| E1 | area | 143 | 0.0069 | 0.0069 | 0.0069 | 0.0669 |
-| E1 | power_saif | 143 | 0.0171 | 0.0171 | 0.0171 | 0.3943 |
-| E1 | tns | 143 | 0.0000 | 0.0000 | 0.0000 | 153.9485 |
-| E1 | wns | 143 | 0.0048 | 0.0048 | 0.0048 | 0.1033 |
-| E2 | area | 143 | 0.0028 | 0.0028 | 0.0028 | 0.1625 |
-| E2 | power_saif | 143 | 0.0148 | 0.0148 | 0.0148 | 0.3648 |
-| E2 | tns | 143 | 0.0000 | 0.0000 | 0.0000 | 8.2259 |
-| E2 | wns | 143 | 0.0018 | 0.0018 | 0.0018 | 0.1460 |
-| E3 | area | 144 | 0.0094 | 0.0094 | 0.0094 | 0.2605 |
-| E3 | power_saif | 144 | 0.0245 | 0.0245 | 0.0245 | 0.5771 |
-| E3 | tns | 144 | 0.0000 | 0.0000 | 0.0000 | 2.1978 |
-| E3 | wns | 144 | 0.0030 | 0.0030 | 0.0030 | 0.1460 |
-| E4 | area | 144 | 0.0029 | 0.0029 | 0.0029 | 0.1866 |
-| E4 | power_saif | 144 | 0.0141 | 0.0141 | 0.0141 | 0.6425 |
-| E4 | tns | 144 | 0.0000 | 0.0000 | 0.0000 | 0.3120 |
-| E4 | wns | 144 | 0.0007 | 0.0007 | 0.0007 | 0.1460 |
+| E1 | area | 147 | 0.0104 | 0.0104 | 0.0104 | 0.0700 |
+| E1 | power_saif | 144 | 0.0382 | 0.0382 | 0.0382 | 0.7446 |
+| E1 | tns | 147 | 0.7524 | 0.7524 | 0.7524 | 153.9485 |
+| E1 | wns | 147 | 0.0166 | 0.0166 | 0.0166 | 0.1153 |
+| E2 | area | 147 | 0.0070 | 0.0070 | 0.0070 | 0.1625 |
+| E2 | power_saif | 144 | 0.0464 | 0.0464 | 0.0464 | 3.2826 |
+| E2 | tns | 147 | 0.0000 | 0.0000 | 0.0000 | 8.2259 |
+| E2 | wns | 147 | 0.0057 | 0.0057 | 0.0057 | 0.1882 |
+| E3 | area | 148 | 0.0208 | 0.0208 | 0.0208 | 0.2716 |
+| E3 | power_saif | 145 | 0.0390 | 0.0390 | 0.0390 | 0.5830 |
+| E3 | tns | 148 | 0.0000 | 0.0000 | 0.0000 | 2.1978 |
+| E3 | wns | 148 | 0.0095 | 0.0095 | 0.0095 | 0.1882 |
+| E4 | area | 148 | 0.0143 | 0.0143 | 0.0143 | 0.1866 |
+| E4 | power_saif | 114 | 0.0592 | 0.0592 | 0.0592 | 0.6653 |
+| E4 | tns | 148 | 0.0000 | 0.0000 | 0.0000 | 0.3120 |
+| E4 | wns | 148 | 0.0036 | 0.0036 | 0.0036 | 0.1882 |
 
 Floor classes per configuration (quiet / spread / offset; pooled = no measured floor, the pooled minimum applies; none = not a set design):
 
 | config | quiet | spread | offset | pooled | none |
 |---|---|---|---|---|---|
-| E1 | 106 | 33 | 4 | 29 | 7 |
-| E2 | 108 | 34 | 1 | 29 | 7 |
-| E3 | 108 | 35 | 1 | 29 | 6 |
-| E4 | 110 | 30 | 4 | 29 | 6 |
+| E1 | 106 | 37 | 4 | 25 | 7 |
+| E2 | 111 | 34 | 2 | 25 | 7 |
+| E3 | 111 | 35 | 2 | 25 | 6 |
+| E4 | 114 | 29 | 5 | 25 | 6 |
 
 ### 2a. Floor distribution on the set designs (dev + held)
 
 | config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q90 of abs delta | pooled q95 | pooled q99 | pooled max | rule-A t_D median / q95 / max | designs above the q90 minimum |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| E1 | area | 99 | 86 | 64 | 18 | 2 | 0.0069 | 0.0143 | 0.0594 | 0.0669 | 0.0069 / 0.0263 / 0.0669 | 21 |
-| E1 | power_saif | 99 | 76 | 51 | 28 | 11 | 0.0171 | 0.0441 | 0.1235 | 0.3943 | 0.0171 / 0.0898 / 0.3943 | 21 |
-| E1 | tns | 99 | 91 | 89 | 9 | 7 | 0.0000 | 1.6394 | 38.4399 | 153.9485 | 0.0000 / 3.6914 / 153.9485 | 10 |
-| E1 | wns | 99 | 90 | 67 | 17 | 5 | 0.0048 | 0.0296 | 0.0605 | 0.1033 | 0.0048 / 0.0496 / 0.1033 | 21 |
-| E2 | area | 99 | 94 | 69 | 17 | 6 | 0.0028 | 0.0128 | 0.0805 | 0.1625 | 0.0028 / 0.0516 / 0.1625 | 24 |
-| E2 | power_saif | 99 | 91 | 55 | 26 | 10 | 0.0148 | 0.0619 | 0.1501 | 0.3648 | 0.0148 / 0.1258 / 0.3648 | 24 |
-| E2 | tns | 99 | 99 | 94 | 5 | 5 | 0.0000 | 0.0000 | 0.0773 | 8.2259 | 0.0000 / 0.0060 / 8.2259 | 5 |
-| E2 | wns | 99 | 94 | 67 | 17 | 9 | 0.0018 | 0.0108 | 0.1364 | 0.1460 | 0.0018 / 0.0743 / 0.1460 | 28 |
-| E3 | area | 99 | 94 | 68 | 25 | 13 | 0.0094 | 0.0465 | 0.1457 | 0.2605 | 0.0094 / 0.1366 / 0.2605 | 25 |
-| E3 | power_saif | 99 | 91 | 55 | 27 | 15 | 0.0245 | 0.0637 | 0.2110 | 0.5771 | 0.0245 / 0.1880 / 0.5771 | 23 |
-| E3 | tns | 99 | 99 | 97 | 1 | 1 | 0.0000 | 0.0000 | 0.0000 | 2.1978 | 0.0000 / 0.0000 / 2.1978 | 2 |
-| E3 | wns | 99 | 94 | 67 | 19 | 7 | 0.0030 | 0.0122 | 0.1364 | 0.1460 | 0.0030 / 0.0522 / 0.1460 | 25 |
-| E4 | area | 99 | 95 | 72 | 18 | 9 | 0.0029 | 0.0465 | 0.1865 | 0.1866 | 0.0029 / 0.1009 / 0.1866 | 21 |
-| E4 | power_saif | 99 | 90 | 57 | 25 | 16 | 0.0141 | 0.1003 | 0.3243 | 0.6425 | 0.0141 / 0.2228 / 0.6425 | 21 |
-| E4 | tns | 99 | 99 | 97 | 2 | 1 | 0.0000 | 0.0000 | 0.0000 | 0.3120 | 0.0000 / 0.0000 / 0.3120 | 2 |
-| E4 | wns | 99 | 95 | 71 | 13 | 6 | 0.0007 | 0.0154 | 0.0821 | 0.1460 | 0.0007 / 0.0522 / 0.1460 | 22 |
+| E1 | area | 103 | 86 | 65 | 22 | 3 | 0.0104 | 0.0280 | 0.0594 | 0.0700 | 0.0104 / 0.0340 / 0.0700 | 21 |
+| E1 | power_saif | 100 | 76 | 50 | 33 | 16 | 0.0382 | 0.0653 | 0.2322 | 0.7446 | 0.0382 / 0.1640 / 0.7446 | 18 |
+| E1 | tns | 103 | 95 | 88 | 15 | 14 | 0.7524 | 3.9600 | 38.4399 | 153.9485 | 0.7524 / 4.9819 / 153.9485 | 12 |
+| E1 | wns | 103 | 93 | 69 | 21 | 8 | 0.0166 | 0.0372 | 0.0699 | 0.1153 | 0.0166 / 0.0913 / 0.1153 | 19 |
+| E2 | area | 103 | 97 | 72 | 19 | 8 | 0.0070 | 0.0391 | 0.0805 | 0.1625 | 0.0070 / 0.0708 / 0.1625 | 20 |
+| E2 | power_saif | 100 | 82 | 56 | 29 | 15 | 0.0464 | 0.0735 | 0.1977 | 3.2826 | 0.0464 / 0.1536 / 3.2826 | 17 |
+| E2 | tns | 103 | 103 | 97 | 6 | 6 | 0.0000 | 0.0000 | 0.8206 | 8.2259 | 0.0000 / 0.0540 / 8.2259 | 6 |
+| E2 | wns | 103 | 95 | 71 | 19 | 9 | 0.0057 | 0.0379 | 0.1364 | 0.1460 | 0.0057 / 0.0738 / 0.1882 | 24 |
+| E3 | area | 103 | 97 | 71 | 26 | 17 | 0.0208 | 0.0576 | 0.1457 | 0.2716 | 0.0208 / 0.1447 / 0.2716 | 20 |
+| E3 | power_saif | 100 | 83 | 56 | 29 | 21 | 0.0390 | 0.1022 | 0.2428 | 0.5830 | 0.0390 / 0.2437 / 0.5830 | 23 |
+| E3 | tns | 103 | 103 | 101 | 1 | 1 | 0.0000 | 0.0000 | 0.0007 | 2.1978 | 0.0000 / 0.0000 / 2.1978 | 2 |
+| E3 | wns | 103 | 95 | 71 | 20 | 7 | 0.0095 | 0.0245 | 0.1364 | 0.1460 | 0.0095 / 0.0522 / 0.1882 | 20 |
+| E4 | area | 103 | 98 | 76 | 18 | 10 | 0.0143 | 0.0774 | 0.1866 | 0.1866 | 0.0143 / 0.1038 / 0.1866 | 17 |
+| E4 | power_saif | 84 | 67 | 46 | 24 | 17 | 0.0592 | 0.1283 | 0.6425 | 0.6653 | 0.0592 / 0.2411 / 0.6653 | 16 |
+| E4 | tns | 103 | 103 | 100 | 3 | 1 | 0.0000 | 0.0000 | 0.0000 | 0.3120 | 0.0000 / 0.0000 / 0.3120 | 3 |
+| E4 | wns | 103 | 96 | 76 | 13 | 6 | 0.0036 | 0.0524 | 0.0821 | 0.1460 | 0.0036 / 0.0521 / 0.1882 | 19 |
 
 Rule A (G1 alternative, see the conclusions): t_D = max(2 x sigma_robust, max |delta| over D's own proven perturbations including the re-print, pooled q90 of |delta| over all perturbation records of the configuration); the pooled quantile is the minimum for designs whose perturbations never change the netlist (rule B uses the pooled q95 instead). The spec's 2 x sigma_robust stays in the table above for the sensitivity report.
 
 ### 2b. Perturbation types that change the netlist (area or cell count of D differs)
 
-| config | P0_roundtrip | P1_rename | P2_reorder | P3_expr | P4_ctrl |
-|---|---|---|---|---|---|
-| E1 | 7 / 98 (7 %) | 97 / 329 (29 %) | 70 / 243 (29 %) | 26 / 141 (18 %) | 15 / 123 (12 %) |
-| E2 | 3 / 98 (3 %) | 19 / 329 (6 %) | 89 / 243 (37 %) | 18 / 141 (13 %) | 15 / 123 (12 %) |
-| E3 | 3 / 98 (3 %) | 18 / 329 (5 %) | 95 / 243 (39 %) | 16 / 141 (11 %) | 15 / 123 (12 %) |
-| E4 | 3 / 98 (3 %) | 18 / 329 (5 %) | 77 / 243 (32 %) | 14 / 141 (10 %) | 17 / 123 (14 %) |
+| config | P0_roundtrip | P1_rename | P1_text | P2_reorder | P3_expr | P4_ctrl |
+|---|---|---|---|---|---|---|
+| E1 | 7 / 98 (7 %) | 157 / 416 (38 %) | 8 / 16 (50 %) | 124 / 322 (39 %) | 46 / 201 (23 %) | 22 / 156 (14 %) |
+| E2 | 3 / 98 (3 %) | 42 / 416 (10 %) | 0 / 16 (0 %) | 160 / 322 (50 %) | 32 / 201 (16 %) | 23 / 156 (15 %) |
+| E3 | 3 / 98 (3 %) | 40 / 416 (10 %) | 0 / 16 (0 %) | 166 / 322 (52 %) | 30 / 201 (15 %) | 23 / 156 (15 %) |
+| E4 | 3 / 98 (3 %) | 36 / 416 (9 %) | 0 / 16 (0 %) | 144 / 322 (45 %) | 26 / 201 (13 %) | 25 / 156 (16 %) |
 
 ### 2c. Monotonicity of D across the rungs (127 set designs with every rung at Φ_main)
 
 | step | designs whose area grows | designs whose WNS drops |
 |---|---|---|
-| E1 -> E2 | 15 | 47 |
-| E2 -> E3 | 34 | 17 |
-| E3 -> E4 | 5 | 19 |
-| E1 -> E4 | 10 | 44 |
+| E1 -> E2 | 15 | 46 |
+| E2 -> E3 | 36 | 18 |
+| E3 -> E4 | 5 | 20 |
+| E1 -> E4 | 10 | 43 |
 
 WNS is compared at Φ_main (the E4 knee): once a rung meets timing, area recovery legitimately trades slack, so a WNS drop between two rungs that both meet timing is not a regression.
 
 ## 3. E4 runtime (PLAN 2.5)
 
-E4 seconds at Phi_main (Nangate45) over 128 set designs: min 62, q25 76, median 79, q75 85, q95 185, max 693, mean 100.
+E4 seconds at Phi_main (Nangate45) over 128 set designs: min 62, q25 76, median 80, q75 94, q95 185, max 693, mean 102.
 
 Scale (config `scale`): 30 starting points x 6 arms x 3 seeds x N=5 x K=12 = 32400 candidate evaluations.
-- full-E4 scale: 903 DC hours at the mean t_E4 (100 s); at 12 concurrent runs ≈ 75 h wall, at 50 seats ≈ 18 h.
+- full-E4 scale: 920 DC hours at the mean t_E4 (102 s); at 12 concurrent runs ≈ 77 h wall, at 50 seats ≈ 18 h.
 - per-design budget rule k_e4_equiv = 60 x t_E4(D): median budget 1.3 DC hours per run.
 
-Screening economics (config `screen`): E4 is 'cheap' below 120 s; 13 of 128 set designs are above that (their mean t_E4 = 278 s). Mean screening-rung seconds at Φ_main over the designs with both: E1 35 s, E2 104 s; over the non-cheap designs alone: E1 272 s, E2 309 s against t_E4 278 s (a DC screening rung at Φ_main is not cheaper than E4 where E4 is expensive).
+Screening economics (config `screen`): E4 is 'cheap' below 120 s; 13 of 128 set designs are above that (their mean t_E4 = 278 s). Mean screening-rung seconds at Φ_main over the designs with both: E1 36 s, E2 108 s; over the non-cheap designs alone: E1 272 s, E2 309 s against t_E4 278 s (a DC screening rung at Φ_main is not cheaper than E4 where E4 is expensive).
 
 | cascade (ES on every candidate, p promoted to E4) | all designs, DC hours | wall at 50 seats | hybrid: cheap designs straight to E4, only non-cheap designs screened |
 |---|---|---|---|
-| ES = E1, p = 0.10 | 406 (45 % of full-E4) | 8 h | 909 (101 %) |
-| ES = E1, p = 0.25 | 540 (60 % of full-E4) | 11 h | 945 (105 %) |
-| ES = E1, p = 0.50 | 764 (85 % of full-E4) | 15 h | 1005 (111 %) |
-| ES = E2, p = 0.10 | 1025 (113 % of full-E4) | 20 h | 957 (106 %) |
-| ES = E2, p = 0.25 | 1160 (128 % of full-E4) | 23 h | 995 (110 %) |
-| ES = E2, p = 0.50 | 1386 (153 % of full-E4) | 28 h | 1058 (117 %) |
+| ES = E1, p = 0.10 | 411 (45 % of full-E4) | 8 h | 926 (101 %) |
+| ES = E1, p = 0.25 | 547 (59 % of full-E4) | 11 h | 962 (105 %) |
+| ES = E1, p = 0.50 | 775 (84 % of full-E4) | 15 h | 1022 (111 %) |
+| ES = E2, p = 0.10 | 1064 (116 % of full-E4) | 21 h | 973 (106 %) |
+| ES = E2, p = 0.25 | 1202 (131 % of full-E4) | 24 h | 1011 (110 %) |
+| ES = E2, p = 0.50 | 1432 (156 % of full-E4) | 29 h | 1075 (117 %) |
 
 | suite | designs | median t_E4 (s) | max t_E4 (s) |
 |---|---|---|---|

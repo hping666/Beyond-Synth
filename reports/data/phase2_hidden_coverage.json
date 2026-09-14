@@ -1,7 +1,7 @@
 {
  "H1": {
-  "complete": 142,
-  "expected": 144,
+  "complete": 146,
+  "expected": 148,
   "incomplete": [
    "rtlrewriter_basic__distributed_ram",
    "rtlrewriter_long_cpu__DataMem"
@@ -10,22 +10,22 @@
   "n_missing_perturbations": 5
  },
  "H2a": {
-  "complete": 97,
-  "expected": 97,
+  "complete": 101,
+  "expected": 101,
   "incomplete": [],
   "missing_D": [],
   "n_missing_perturbations": 0
  },
  "H2b": {
-  "complete": 98,
-  "expected": 98,
+  "complete": 102,
+  "expected": 102,
   "incomplete": [],
   "missing_D": [],
   "n_missing_perturbations": 0
  },
  "H3": {
-  "complete": 143,
-  "expected": 144,
+  "complete": 147,
+  "expected": 148,
   "incomplete": [
    "rtlrewriter_basic__distributed_ram"
   ],
@@ -33,8 +33,8 @@
   "n_missing_perturbations": 1
  },
  "H5": {
-  "complete": 142,
-  "expected": 144,
+  "complete": 146,
+  "expected": 148,
   "incomplete": [
    "rtlopt_divider_32bit",
    "rtlrewriter_long_cpu__DataMem"

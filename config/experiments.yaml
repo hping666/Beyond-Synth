@@ -134,7 +134,7 @@ queue:                       # LOCKED (concurrency caps); automatic backoff when
   pt_seats_max: 8            # filled 2026-09-12 (DECISIONS): a PT run takes ~5 s, 100 seats licensed
   vcf_seats_max: 50          # 50 seats per SEQ feature, not shared with DC (eda-knowledge 01; DECISIONS 2026-09-14; was a 4-seat placeholder)
   vcf_seats_target: 24       # dispatch target for Phases 3-4 (single-worker SEQ runs, ~1 core each)
-  per_design_max: {vcf: 8}   # 2026-09-14 (DECISIONS): fairness, not a cap: at most this many jobs of one design at once in a pool, so that hours-long SEQ runs of one design (multi_pipe_8bit, class caps 4 h) cannot hold every seat
+  per_design_max: {vcf: 16}  # 2026-09-14 (DECISIONS): fairness, not a cap: at most this many jobs of one design at once in a pool (8 while the other calibration runs needed seats, 16 once they were nearly done), so that hours-long SEQ runs of one design (multi_pipe_8bit, class caps 4 h) cannot hold every seat
   local_max: 16              # added 2026-09-12 (DECISIONS): sim / yosys / orfs / llm / shell jobs on the 64-core host
   poll_sec: 5                # daemon tick interval
   backoff: {initial_sec: 60, max_sec: 900, factor: 2}
