@@ -236,40 +236,52 @@ def cmd_verify(cfg, conn):
 
 
 def label_sensitivity(cfg, conn):
-    """Per model, the label distribution of every E4-evaluated candidate (a) as diagnosed at run time (stored), (b)
-    re-diagnosed offline under the current rule-A floors, (c) under the fixed materiality thresholds (area 1 %, power 2 %,
-    WNS 1 % of the period). No tool runs: the stored E4 records are re-read. Floors move when the perturbation sets grow
-    (DECISIONS 2026-09-14), so the report shows all three."""
+    """Per model, the verdict distribution of every E4-evaluated candidate (a) as diagnosed at run time (stored), (b)
+    re-diagnosed under the current rule-A floors (design-weighted pooled minimum, adopted 2026-09-14), (c) under rule A
+    with the rejected record-weighted pooled minimum, (d) under the fixed materiality thresholds. No tool runs: the stored
+    E4 records are re-read. Archived in reports/data/phase3_label_sensitivity.json for the paper's protocol section."""
     from src.diagnose import m3
     from src.search.driver import record_from_row
     mat = cfg["noise"]["materiality"]
-    out = {}
-    floors, bases = {}, {}
+    nz = cfg["noise"]
+    k, q = float(nz["k_sigma"]), float(nz.get("pooled_quantile", 0.9))
+    # the record-weighted pooled minimum over the set designs (the rejected variant), for the comparison column
+    set_list = [{"design_id": r["design_id"], "phi": float(r["phi_main_ns_nangate45"])} for r in conn.execute(
+        "SELECT design_id, phi_main_ns_nangate45 FROM designs WHERE split IN ('dev','held') AND phi_main_ns_nangate45 IS NOT NULL")]
+    proven_all = S.proven_by_design(conn)
+    pooled_record = S.pooled_minimum(conn, set_list, "E4", proven_all, q, 1e-6, "record")
+    pooled_design = S.pooled_minimum(conn, set_list, "E4", proven_all, q, 1e-6, "design")
+    out, floors, bases = {}, {}, {}
+    variants = ("stored", "design_weighted", "record_weighted", "materiality")
     for c in conn.execute("SELECT c.cand_id, c.design_id, c.label, c.class_final, r.llm_model FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                           "WHERE r.exp='phase3' AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL"):
         did = c["design_id"]
         if did not in floors:
             fl = S.latest_floor(conn, did, "E4")
-            floors[did] = ({"area": (fl.get("area") or {}).get("t_d"), "wns": (fl.get("wns") or {}).get("t_d"), "power": (fl.get("power_saif") or {}).get("t_d")},
-                           {"area": (fl.get("area") or {}).get("sigma_robust") or 0.0, "wns": (fl.get("wns") or {}).get("sigma_robust") or 0.0, "power": (fl.get("power_saif") or {}).get("sigma_robust") or 0.0},
-                           next((r.get("floor_class") for r in fl.values() if r.get("floor_class")), None))
+            sig = {"area": (fl.get("area") or {}).get("sigma_robust") or 0.0, "wns": (fl.get("wns") or {}).get("sigma_robust") or 0.0, "power": (fl.get("power_saif") or {}).get("sigma_robust") or 0.0}
+            mx = {"area": (fl.get("area") or {}).get("max_abs") or 0.0, "wns": (fl.get("wns") or {}).get("max_abs") or 0.0, "power": (fl.get("power_saif") or {}).get("max_abs") or 0.0}
+            th_design = {m: S.rule_a_threshold(sig[m], mx[m], pooled_design.get({"power": "power_saif"}.get(m, m)), k) for m in sig}
+            th_record = {m: S.rule_a_threshold(sig[m], mx[m], pooled_record.get({"power": "power_saif"}.get(m, m)), k) for m in sig}
+            cls = next((r.get("floor_class") for r in fl.values() if r.get("floor_class")), None)
+            floors[did] = (th_design, th_record, sig, cls)
             phi = float(conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (did,)).fetchone()[0])
             b = conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config='E4' AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY (power_saif_mw IS NOT NULL) DESC, eval_id DESC LIMIT 1", (did, phi)).fetchone()
             bases[did] = (record_from_row(b) if b else None, phi)
         base, phi = bases[did]
         row = conn.execute("SELECT * FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' ORDER BY eval_id DESC LIMIT 1", (c["cand_id"],)).fetchone()
-        m = out.setdefault(c["llm_model"], {"stored": {}, "current_floor": {}, "materiality": {}, "n": 0})
+        m = out.setdefault(c["llm_model"], {v: {} for v in variants} | {"n": 0})
         if base is None or row is None:
             continue
         m["n"] += 1
         m["stored"][c["label"]] = m["stored"].get(c["label"], 0) + 1
         cand = record_from_row(row)
-        th, sig, cls = floors[did]
-        d1 = m3.diagnose(base, cand, sig, phi, thresholds=th, floor_class=cls, k_sigma=float(cfg["noise"]["k_sigma"]), fp_jaccard=float(cfg["diag"]["fp_jaccard"]))
-        m["current_floor"][d1["label"]] = m["current_floor"].get(d1["label"], 0) + 1
-        d2 = m3.diagnose(base, cand, sig, phi, thresholds={"area": mat["area"], "wns": mat["wns"], "power": mat["power_saif"]}, k_sigma=float(cfg["noise"]["k_sigma"]), fp_jaccard=float(cfg["diag"]["fp_jaccard"]))
-        m["materiality"][d2["label"]] = m["materiality"].get(d2["label"], 0) + 1
-    out["_floors_now"] = {did: {"t_d": f[0], "class": f[2]} for did, f in floors.items()}
+        th_d, th_r, sig, cls = floors[did]
+        for name, th in (("design_weighted", th_d), ("record_weighted", th_r), ("materiality", {"area": mat["area"], "wns": mat["wns"], "power": mat["power_saif"]})):
+            dg = m3.diagnose(base, cand, sig, phi, thresholds=th, floor_class=cls, k_sigma=k, fp_jaccard=float(cfg["diag"]["fp_jaccard"]))
+            m[name][dg["label"]] = m[name].get(dg["label"], 0) + 1
+    out["_floors"] = {did: {"design_weighted_t_d": f[0], "record_weighted_t_d": f[1], "class": f[3]} for did, f in floors.items()}
+    out["_pooled_min"] = {"design_weighted": pooled_design, "record_weighted": pooled_record, "materiality": mat}
+    (Path(C.ROOT) / "reports" / "data" / "phase3_label_sensitivity.json").write_text(json.dumps(out, indent=1, sort_keys=True, default=str) + "\n")
     return out
 
 

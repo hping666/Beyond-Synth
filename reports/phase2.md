@@ -1,6 +1,6 @@
 # Phase 2 report — noise floor, SEQ pilot, E4 runtime (Exp0)
 
-Generated 2026-09-14 13:38 by scripts/report_phase.py (git 8105ea0e031c, cfg 5c4f19739d23). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
+Generated 2026-09-14 14:11 by scripts/report_phase.py (git 8a20578da17c, cfg 332d14a3c38a). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
 
 ## 1. Perturbation generator (PLAN 2.1)
 
@@ -44,22 +44,22 @@ Minimum reportable gain under the spec's original rule = 2.0 x sigma_D (config n
 
 | config | metric | designs | pooled minimum | median t_D | q75 | max |
 |---|---|---|---|---|---|---|
-| E1 | area | 147 | 0.0104 | 0.0104 | 0.0104 | 0.0700 |
-| E1 | power_saif | 144 | 0.0382 | 0.0382 | 0.0382 | 0.7446 |
-| E1 | tns | 147 | 0.7524 | 0.7524 | 0.7524 | 153.9485 |
-| E1 | wns | 147 | 0.0166 | 0.0166 | 0.0166 | 0.1153 |
-| E2 | area | 147 | 0.0070 | 0.0070 | 0.0070 | 0.1625 |
-| E2 | power_saif | 144 | 0.0464 | 0.0464 | 0.0464 | 3.2826 |
+| E1 | area | 147 | 0.0045 | 0.0045 | 0.0045 | 0.0700 |
+| E1 | power_saif | 144 | 0.0128 | 0.0128 | 0.0128 | 0.7446 |
+| E1 | tns | 147 | 0.0000 | 0.0000 | 0.0000 | 153.9485 |
+| E1 | wns | 147 | 0.0052 | 0.0052 | 0.0052 | 0.1153 |
+| E2 | area | 147 | 0.0011 | 0.0011 | 0.0011 | 0.1625 |
+| E2 | power_saif | 144 | 0.0086 | 0.0086 | 0.0101 | 3.2826 |
 | E2 | tns | 147 | 0.0000 | 0.0000 | 0.0000 | 8.2259 |
-| E2 | wns | 147 | 0.0057 | 0.0057 | 0.0057 | 0.1882 |
-| E3 | area | 148 | 0.0208 | 0.0208 | 0.0208 | 0.2716 |
-| E3 | power_saif | 145 | 0.0390 | 0.0390 | 0.0390 | 0.5830 |
+| E2 | wns | 147 | 0.0003 | 0.0003 | 0.0004 | 0.1882 |
+| E3 | area | 148 | 0.0019 | 0.0019 | 0.0019 | 0.2716 |
+| E3 | power_saif | 145 | 0.0115 | 0.0115 | 0.0115 | 0.5830 |
 | E3 | tns | 148 | 0.0000 | 0.0000 | 0.0000 | 2.1978 |
-| E3 | wns | 148 | 0.0095 | 0.0095 | 0.0095 | 0.1882 |
-| E4 | area | 148 | 0.0143 | 0.0143 | 0.0143 | 0.1866 |
-| E4 | power_saif | 114 | 0.0592 | 0.0592 | 0.0592 | 0.6653 |
+| E3 | wns | 148 | 0.0005 | 0.0005 | 0.0005 | 0.1882 |
+| E4 | area | 148 | 0.0028 | 0.0028 | 0.0028 | 0.1866 |
+| E4 | power_saif | 114 | 0.0222 | 0.0222 | 0.0222 | 0.6653 |
 | E4 | tns | 148 | 0.0000 | 0.0000 | 0.0000 | 0.3120 |
-| E4 | wns | 148 | 0.0036 | 0.0036 | 0.0036 | 0.1882 |
+| E4 | wns | 148 | 0.0004 | 0.0004 | 0.0004 | 0.1882 |
 
 Floor classes per configuration (quiet / spread / offset; pooled = no measured floor, the pooled minimum applies; none = not a set design):
 
@@ -72,26 +72,26 @@ Floor classes per configuration (quiet / spread / offset; pooled = no measured f
 
 ### 2a. Floor distribution on the set designs (dev + held)
 
-| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q90 of abs delta | pooled q95 | pooled q99 | pooled max | rule-A t_D median / q95 / max | designs above the q90 minimum |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| E1 | area | 103 | 86 | 65 | 22 | 3 | 0.0104 | 0.0280 | 0.0594 | 0.0700 | 0.0104 / 0.0340 / 0.0700 | 21 |
-| E1 | power_saif | 100 | 76 | 50 | 33 | 16 | 0.0382 | 0.0653 | 0.2322 | 0.7446 | 0.0382 / 0.1640 / 0.7446 | 18 |
-| E1 | tns | 103 | 95 | 88 | 15 | 14 | 0.7524 | 3.9600 | 38.4399 | 153.9485 | 0.7524 / 4.9819 / 153.9485 | 12 |
-| E1 | wns | 103 | 93 | 69 | 21 | 8 | 0.0166 | 0.0372 | 0.0699 | 0.1153 | 0.0166 / 0.0913 / 0.1153 | 19 |
-| E2 | area | 103 | 97 | 72 | 19 | 8 | 0.0070 | 0.0391 | 0.0805 | 0.1625 | 0.0070 / 0.0708 / 0.1625 | 20 |
-| E2 | power_saif | 100 | 82 | 56 | 29 | 15 | 0.0464 | 0.0735 | 0.1977 | 3.2826 | 0.0464 / 0.1536 / 3.2826 | 17 |
-| E2 | tns | 103 | 103 | 97 | 6 | 6 | 0.0000 | 0.0000 | 0.8206 | 8.2259 | 0.0000 / 0.0540 / 8.2259 | 6 |
-| E2 | wns | 103 | 95 | 71 | 19 | 9 | 0.0057 | 0.0379 | 0.1364 | 0.1460 | 0.0057 / 0.0738 / 0.1882 | 24 |
-| E3 | area | 103 | 97 | 71 | 26 | 17 | 0.0208 | 0.0576 | 0.1457 | 0.2716 | 0.0208 / 0.1447 / 0.2716 | 20 |
-| E3 | power_saif | 100 | 83 | 56 | 29 | 21 | 0.0390 | 0.1022 | 0.2428 | 0.5830 | 0.0390 / 0.2437 / 0.5830 | 23 |
-| E3 | tns | 103 | 103 | 101 | 1 | 1 | 0.0000 | 0.0000 | 0.0007 | 2.1978 | 0.0000 / 0.0000 / 2.1978 | 2 |
-| E3 | wns | 103 | 95 | 71 | 20 | 7 | 0.0095 | 0.0245 | 0.1364 | 0.1460 | 0.0095 / 0.0522 / 0.1882 | 20 |
-| E4 | area | 103 | 98 | 76 | 18 | 10 | 0.0143 | 0.0774 | 0.1866 | 0.1866 | 0.0143 / 0.1038 / 0.1866 | 17 |
-| E4 | power_saif | 84 | 67 | 46 | 24 | 17 | 0.0592 | 0.1283 | 0.6425 | 0.6653 | 0.0592 / 0.2411 / 0.6653 | 16 |
-| E4 | tns | 103 | 103 | 100 | 3 | 1 | 0.0000 | 0.0000 | 0.0000 | 0.3120 | 0.0000 / 0.0000 / 0.3120 | 3 |
-| E4 | wns | 103 | 96 | 76 | 13 | 6 | 0.0036 | 0.0524 | 0.0821 | 0.1460 | 0.0036 / 0.0521 / 0.1882 | 19 |
+| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q90 (design-weighted, rule A) | pooled q90 (record-weighted, rejected) | pooled q95 | pooled q99 | pooled max | rule-A t_D median / q95 / max | designs above the minimum |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| E1 | area | 103 | 86 | 65 | 22 | 3 | 0.0045 | 0.0104 | 0.0280 | 0.0594 | 0.0700 | 0.0045 / 0.0340 / 0.0700 | 26 |
+| E1 | power_saif | 100 | 76 | 50 | 33 | 16 | 0.0128 | 0.0382 | 0.0653 | 0.2322 | 0.7446 | 0.0128 / 0.1640 / 0.7446 | 29 |
+| E1 | tns | 103 | 95 | 88 | 15 | 14 | 0.0000 | 0.7524 | 3.9600 | 38.4399 | 153.9485 | 0.0000 / 4.9819 / 153.9485 | 16 |
+| E1 | wns | 103 | 93 | 69 | 21 | 8 | 0.0052 | 0.0166 | 0.0372 | 0.0699 | 0.1153 | 0.0052 / 0.0913 / 0.1153 | 25 |
+| E2 | area | 103 | 97 | 72 | 19 | 8 | 0.0011 | 0.0070 | 0.0391 | 0.0805 | 0.1625 | 0.0011 / 0.0708 / 0.1625 | 28 |
+| E2 | power_saif | 100 | 82 | 56 | 29 | 15 | 0.0086 | 0.0464 | 0.0735 | 0.1977 | 3.2826 | 0.0086 / 0.1536 / 3.2826 | 29 |
+| E2 | tns | 103 | 103 | 97 | 6 | 6 | 0.0000 | 0.0000 | 0.0000 | 0.8206 | 8.2259 | 0.0000 / 0.0540 / 8.2259 | 6 |
+| E2 | wns | 103 | 95 | 71 | 19 | 9 | 0.0003 | 0.0057 | 0.0379 | 0.1364 | 0.1460 | 0.0003 / 0.0738 / 0.1882 | 31 |
+| E3 | area | 103 | 97 | 71 | 26 | 17 | 0.0019 | 0.0208 | 0.0576 | 0.1457 | 0.2716 | 0.0019 / 0.1447 / 0.2716 | 28 |
+| E3 | power_saif | 100 | 83 | 56 | 29 | 21 | 0.0115 | 0.0390 | 0.1022 | 0.2428 | 0.5830 | 0.0115 / 0.2437 / 0.5830 | 28 |
+| E3 | tns | 103 | 103 | 101 | 1 | 1 | 0.0000 | 0.0000 | 0.0000 | 0.0007 | 2.1978 | 0.0000 / 0.0000 / 2.1978 | 2 |
+| E3 | wns | 103 | 95 | 71 | 20 | 7 | 0.0005 | 0.0095 | 0.0245 | 0.1364 | 0.1460 | 0.0005 / 0.0522 / 0.1882 | 30 |
+| E4 | area | 103 | 98 | 76 | 18 | 10 | 0.0028 | 0.0143 | 0.0774 | 0.1866 | 0.1866 | 0.0028 / 0.1038 / 0.1866 | 22 |
+| E4 | power_saif | 84 | 67 | 46 | 24 | 17 | 0.0222 | 0.0592 | 0.1283 | 0.6425 | 0.6653 | 0.0222 / 0.2411 / 0.6653 | 19 |
+| E4 | tns | 103 | 103 | 100 | 3 | 1 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.3120 | 0.0000 / 0.0000 / 0.3120 | 3 |
+| E4 | wns | 103 | 96 | 76 | 13 | 6 | 0.0004 | 0.0036 | 0.0524 | 0.0821 | 0.1460 | 0.0004 / 0.0521 / 0.1882 | 24 |
 
-Rule A (G1 alternative, see the conclusions): t_D = max(2 x sigma_robust, max |delta| over D's own proven perturbations including the re-print, pooled q90 of |delta| over all perturbation records of the configuration); the pooled quantile is the minimum for designs whose perturbations never change the netlist (rule B uses the pooled q95 instead). The spec's 2 x sigma_robust stays in the table above for the sensitivity report.
+Rule A (adopted 2026-09-14): t_D = max(2 x sigma_robust, max |delta| over D's own proven perturbations including the re-print, the design-weighted pooled q90 of |delta| of the configuration); every design weighs equally in the pooled quantile so that the minimum floor does not depend on how many perturbations a design received (the record-weighted q90 is shown as the rejected sensitivity variant: it rose from 0.29 % to 1.43 % area when the spread / offset designs got twice their perturbations). The spec's 2 x sigma_robust stays in the table above for the sensitivity report.
 
 ### 2b. Perturbation types that change the netlist (area or cell count of D differs)
 

@@ -148,17 +148,51 @@ def pooled_rows(design_id, config, pooled_min):
             for m, v in (pooled_min or {}).items() if v is not None]
 
 
-def pooled_minimum(conn, designs, config, proven, quantile=0.90, eps=1e-6):
-    """{metric: quantile of |delta|} over every perturbation record of the given designs (design dicts with design_id
-    and phi) under `config`: the minimum floor of rule A."""
+def weighted_quantile(pairs, q):
+    """pairs: [(value, weight)] -> the smallest value whose cumulative weight reaches q of the total (None when empty)."""
+    pairs = sorted((float(v), float(w)) for v, w in pairs if w > 0)
+    if not pairs:
+        return None
+    total = sum(w for _, w in pairs)
+    acc = 0.0
+    for v, w in pairs:
+        acc += w
+        if acc >= q * total - 1e-12:
+            return v
+    return pairs[-1][0]
+
+
+def pooled_abs(conn, designs, config, proven, eps=1e-6):
+    """{metric: [(|delta|, design_id)]} over every perturbation record of the given designs under `config`."""
     pooled = {}
     for d in designs:
         base, latest = pick_records(conn, d["design_id"], config, proven.get(d["design_id"], set()), d["phi"], eps)
         if base is None or not latest:
             continue
         for m, col in COLUMNS.items():
-            pooled.setdefault(m, []).extend(abs(x) for x in deviations(m, base.get(col), [r.get(col) for r in latest.values()], d["phi"]))
-    return {m: quantile_(v, quantile) for m, v in pooled.items() if v}
+            pooled.setdefault(m, []).extend((abs(x), d["design_id"]) for x in deviations(m, base.get(col), [r.get(col) for r in latest.values()], d["phi"]))
+    return pooled
+
+
+def pooled_quantile(pooled_pairs, quantile, weighting="design"):
+    """The pooled quantile of |delta| with every design weighted equally (`design`, DECISIONS 2026-09-14: the minimum
+    floor must not depend on how many perturbations each design got) or every record equally (`record`, the rejected
+    variant kept for the sensitivity report)."""
+    if not pooled_pairs:
+        return None
+    if weighting == "record":
+        return quantile_([v for v, _ in pooled_pairs], quantile)
+    counts = {}
+    for _, did in pooled_pairs:
+        counts[did] = counts.get(did, 0) + 1
+    return weighted_quantile([(v, 1.0 / counts[did]) for v, did in pooled_pairs], quantile)
+
+
+def pooled_minimum(conn, designs, config, proven, quantile=0.90, eps=1e-6, weighting="design"):
+    """{metric: pooled quantile of |delta|} over the perturbation records of the given designs (design dicts with
+    design_id and phi) under `config`: the minimum floor of rule A (design-weighted by default)."""
+    pooled = pooled_abs(conn, designs, config, proven, eps)
+    return {m: pooled_quantile(v, quantile, weighting) for m, v in pooled.items() if v}
 
 
 def latest_floor(conn, design_id, config):
@@ -190,7 +224,7 @@ def proven_by_design(conn):
     return out
 
 
-def floor_analysis(conn, designs, configs, proven, k, eps=1e-6):
+def floor_analysis(conn, designs, configs, proven, k, eps=1e-6, pooled_q=0.90, weighting="design"):
     """designs: [{design_id, phi}] -> per (config, metric): designs with a floor (n >= 2), how many have a zero robust /
     plain sigma, the pooled quantiles of |delta| over every perturbation record, and the distribution of the proposed
     threshold (rule A) t_D = max(k * sigma_robust, max|delta|_D, pooled q90) with the number of designs above the pooled minimum."""
@@ -206,17 +240,19 @@ def floor_analysis(conn, designs, configs, proven, k, eps=1e-6):
                 dl = deviations(m, base.get(col), [x.get(col) for x in latest.values()], phi)
                 if not dl:
                     continue
-                pooled.setdefault((config, m), []).extend(abs(x) for x in dl)
+                pooled.setdefault((config, m), []).extend((abs(x), did) for x in dl)
                 s = summarize(dl)
                 if s:
                     per_design[(config, m, did)] = (s["sigma_robust"], s["sigma_std"], s["max_abs"])
     out = {}
     for (config, m), v in pooled.items():
-        q90, q95 = quantile(v, 0.90), quantile(v, 0.95)
+        vals = [x for x, _ in v]
+        q90r, q95 = quantile_(vals, 0.90), quantile_(vals, 0.95)
+        q90 = pooled_quantile(v, pooled_q, weighting)      # rule A's minimum (design-weighted by default)
         rows = [(sr, ss, mx) for (c, mm, _), (sr, ss, mx) in per_design.items() if c == config and mm == m]
         ts = sorted(max(k * sr, mx, q90) for sr, ss, mx in rows)
-        out[(config, m)] = {"records": len(v), "frac_zero": sum(1 for x in v if x == 0) / len(v),
-                            "pooled": {"q90": q90, "q95": q95, "q99": quantile(v, 0.99), "max": max(v)},
+        out[(config, m)] = {"records": len(vals), "frac_zero": sum(1 for x in vals if x == 0) / len(vals),
+                            "pooled": {"q90": q90, "q90_record_weighted": q90r, "q95": q95, "q99": quantile_(vals, 0.99), "max": max(vals)},
                             "designs": len(rows), "zero_robust": sum(1 for sr, _, _ in rows if sr == 0), "zero_std": sum(1 for _, ss, _ in rows if ss == 0),
                             "max_abs_gt": {"1pct": sum(1 for _, _, mx in rows if mx > 0.01), "5pct": sum(1 for _, _, mx in rows if mx > 0.05)},
                             "t_proposed": ({"median": quantile(ts, 0.5), "q75": quantile(ts, 0.75), "q95": quantile(ts, 0.95), "max": ts[-1],

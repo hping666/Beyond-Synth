@@ -124,8 +124,12 @@ def cmd_collect(cfg, conn, a):
     k, q, quiet = float(nz["k_sigma"]), float(nz.get("pooled_quantile", 0.90)), float(nz.get("quiet_max_abs", 0.001))
     all_sets = [(d, r) for d, r in selected(conn, argparse.Namespace(suite=None, design=None)) if r.get("split") in ("dev", "held")]
     proven_all = S.proven_by_design(conn)
-    pooled = {config: S.pooled_minimum(conn, [{"design_id": d["design_id"], "phi": float(phi_of(r))} for d, r in all_sets], config, proven_all, q, EPS) for config in configs}
+    weighting = nz.get("pooled_weighting", "design")
+    set_list = [{"design_id": d["design_id"], "phi": float(phi_of(r))} for d, r in all_sets]
+    pooled = {config: S.pooled_minimum(conn, set_list, config, proven_all, q, EPS, weighting) for config in configs}
     report["pooled_min"] = pooled
+    report["pooled_min_record_weighted"] = {config: S.pooled_minimum(conn, set_list, config, proven_all, q, EPS, "record") for config in configs}  # sensitivity only
+    report["pooled_weighting"] = weighting
     for d, r in selected(conn, a):
         phi = float(phi_of(r))
         proven = {p["pert_id"] for p in proven_perturbations(conn, d["design_id"])}

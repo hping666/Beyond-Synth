@@ -117,7 +117,9 @@ def test_g1_analysis_helpers_both_directions(tmp_path):
     assert a["records"] == 5 and abs(a["frac_zero"] - 0.8) < 1e-9 and a["designs"] == 2
     assert a["zero_robust"] == 2 and a["zero_std"] == 1           # A: MAD of [0, .1, 0] is 0 but std > 0; B: all zero
     assert abs(a["pooled"]["max"] - 0.1) < 1e-9 and a["max_abs_gt"] == {"1pct": 1, "5pct": 1}
-    assert abs(a["t_proposed"]["max"] - 0.1) < 1e-9 and a["t_proposed"]["above_pooled_min"] == 1  # A above the pooled q90, B at it
+    # design-weighted pooled q90 (rule A): A's three records weigh 1/3 each, B's two 1/2 each -> the 90th percentile lands on A's 0.1 record
+    assert abs(a["pooled"]["q90"] - 0.1) < 1e-9 and abs(a["pooled"]["q90_record_weighted"] - 0.06) < 1e-9   # record-weighted (rejected): interpolated 0.06
+    assert abs(a["t_proposed"]["max"] - 0.1) < 1e-9 and a["t_proposed"]["above_pooled_min"] == 0  # both designs sit at the pooled minimum
     rates = S.ptype_change_rates(conn, designs, ["E4"], proven)
     assert rates[("E4", "P1_rename")] == {"n": 3, "changed": 0} and rates[("E4", "P2_reorder")] == {"n": 2, "changed": 1}
     mono = S.monotonicity(conn, designs, ["E1", "E4"])
@@ -158,10 +160,23 @@ def test_rule_a_threshold_floor_class_and_pooled_rows(tmp_path):
     ev(None, 100.0)
     ev("p1", 100.0)
     ev("p2", 110.0)
-    pooled = S.pooled_minimum(conn, [{"design_id": "d", "phi": 1.0}], "E4", S.proven_by_design(conn), 0.5)
-    assert abs(pooled["area"] - 0.05) < 1e-12 and pooled["wns"] == 0.0
+    pooled = S.pooled_minimum(conn, [{"design_id": "d", "phi": 1.0}], "E4", S.proven_by_design(conn), 0.5, weighting="record")
+    assert abs(pooled["area"] - 0.05) < 1e-12 and pooled["wns"] == 0.0      # record-weighted: interpolated median of [0, 0.1]
+    assert S.pooled_minimum(conn, [{"design_id": "d", "phi": 1.0}], "E4", S.proven_by_design(conn), 0.5)["area"] == 0.0   # design-weighted: the value at 50 % cumulative weight
     S.upsert_floor(conn, S.floor_rows("d", "E4", {"area_um2": 100.0, "cells": 10, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0},
                                       [{"area_um2": 100.0, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0}, {"area_um2": 110.0, "wns_ns": 0.0, "tns_ns": 0.0, "power_saif_mw": 1.0}], 1.0, pooled))
     lf = S.latest_floor(conn, "d", "E4")
     # deltas [0, 0.1]: median 0.05, MAD 0.05 -> sigma_robust 0.07413, 2 sigma = 0.14826 > max 0.1 -> rule A takes 2 sigma
     assert abs(lf["area"]["t_d"] - 2 * 1.4826 * 0.05) < 1e-9 and lf["area"]["floor_class"] == "spread" and lf["area"]["floor_source"] == "measured"
+
+
+def test_pooled_quantile_is_design_weighted(tmp_path):
+    """DECISIONS 2026-09-14 (human): the pooled minimum must not depend on how many perturbations each design got.
+    One noisy design with 30 records must not move the design-weighted quantile; the record-weighted variant does."""
+    quiet = [(0.0, f"q{i}")for i in range(12) for _ in range(4)]          # 12 quiet designs, 4 records each
+    noisy = [(0.05, "n")] * 30                                          # one noisy design with 30 records
+    assert S.pooled_quantile(quiet + noisy, 0.90, "record") == 0.05      # 30 of 78 records are noisy: the record quantile is dominated
+    assert S.pooled_quantile(quiet + noisy, 0.90, "design") == 0.0       # one design of 13 weighs 7.7 %: below the 90th percentile
+    assert S.pooled_quantile(quiet + noisy, 0.95, "design") == 0.05      # ... and above the 92nd
+    assert S.pooled_quantile([], 0.9) is None and S.weighted_quantile([(1.0, 1.0)], 0.5) == 1.0
+    assert S.weighted_quantile([(0.0, 1.0), (1.0, 1.0)], 0.5) == 0.0 and S.weighted_quantile([(0.0, 1.0), (1.0, 3.0)], 0.5) == 1.0

@@ -201,8 +201,8 @@ def noise_floor(cfg, suites=None, designs=None, vis=None, hid=None):
                 continue
             _, latest = S.pick_records(hid, d["design_id"], config, proven_all.get(d["design_id"], set()), base["clock_ns"])
             for m, col in S.COLUMNS.items():
-                pool.setdefault(m, []).extend(abs(x) for x in S.deviations(m, base.get(col), [x.get(col) for x in latest.values()], base["clock_ns"]))
-        pooled[config] = {m: S.quantile(v, q) for m, v in pool.items() if v}
+                pool.setdefault(m, []).extend((abs(x), d["design_id"]) for x in S.deviations(m, base.get(col), [x.get(col) for x in latest.values()], base["clock_ns"]))
+        pooled[config] = {m: S.pooled_quantile(v, q, nz.get("pooled_weighting", "design")) for m, v in pool.items() if v}
     for d, r in _selected(vis, suites, designs):
         proven = {p["pert_id"] for p in _proven(vis, d["design_id"])}
         for config in configs:

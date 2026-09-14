@@ -1,0 +1,205 @@
+{
+ "_floors": {
+  "rtllm_LIFObuffer": {
+   "class": "quiet",
+   "design_weighted_t_d": {
+    "area": 0.0027938146505548643,
+    "power": 0.022227533067402338,
+    "wns": 0.00039774100000000007
+   },
+   "record_weighted_t_d": {
+    "area": 0.014335534220772453,
+    "power": 0.059187718228726045,
+    "wns": 0.0035878081714285723
+   }
+  },
+  "rtllm_adder_16bit": {
+   "class": "quiet",
+   "design_weighted_t_d": {
+    "area": 0.0027938146505548643,
+    "power": 0.022227533067402338,
+    "wns": 0.00039774100000000007
+   },
+   "record_weighted_t_d": {
+    "area": 0.014335534220772453,
+    "power": 0.059187718228726045,
+    "wns": 0.0035878081714285723
+   }
+  },
+  "rtllm_multi_pipe_8bit": {
+   "class": "quiet",
+   "design_weighted_t_d": {
+    "area": 0.0027938146505548643,
+    "power": 0.022227533067402338,
+    "wns": 0.00039774100000000007
+   },
+   "record_weighted_t_d": {
+    "area": 0.014335534220772453,
+    "power": 0.059187718228726045,
+    "wns": 0.0035878081714285723
+   }
+  },
+  "rtllm_serial2parallel": {
+   "class": "quiet",
+   "design_weighted_t_d": {
+    "area": 0.0027938146505548643,
+    "power": 0.022227533067402338,
+    "wns": 0.00039774100000000007
+   },
+   "record_weighted_t_d": {
+    "area": 0.014335534220772453,
+    "power": 0.059187718228726045,
+    "wns": 0.0035878081714285723
+   }
+  },
+  "rtllm_traffic_light": {
+   "class": "quiet",
+   "design_weighted_t_d": {
+    "area": 0.0027938146505548643,
+    "power": 0.022227533067402338,
+    "wns": 0.00039774100000000007
+   },
+   "record_weighted_t_d": {
+    "area": 0.014335534220772453,
+    "power": 0.059187718228726045,
+    "wns": 0.0035878081714285723
+   }
+  }
+ },
+ "_pooled_min": {
+  "design_weighted": {
+   "area": 0.0027938146505548643,
+   "power_saif": 0.022227533067402338,
+   "tns": 0.0,
+   "wns": 0.00039774100000000007
+  },
+  "materiality": {
+   "area": 0.01,
+   "power_saif": 0.02,
+   "wns": 0.01
+  },
+  "record_weighted": {
+   "area": 0.014335534220772453,
+   "power_saif": 0.059187718228726045,
+   "tns": 0.0,
+   "wns": 0.0035878081714285723
+  }
+ },
+ "gpt-5.4": {
+  "design_weighted": {
+   "absorbed_identical": 39,
+   "harmful": 3,
+   "retained": 96,
+   "tradeoff": 70
+  },
+  "materiality": {
+   "absorbed_identical": 39,
+   "harmful": 4,
+   "retained": 112,
+   "tradeoff": 53
+  },
+  "n": 208,
+  "record_weighted": {
+   "absorbed_identical": 39,
+   "harmful": 4,
+   "noise": 1,
+   "retained": 104,
+   "tradeoff": 60
+  },
+  "stored": {
+   "absorbed_identical": 39,
+   "duplicate": 36,
+   "harmful": 3,
+   "retained": 69,
+   "tradeoff": 61
+  }
+ },
+ "gpt-5.4-mini": {
+  "design_weighted": {
+   "absorbed_identical": 55,
+   "harmful": 5,
+   "retained": 85,
+   "tradeoff": 40
+  },
+  "materiality": {
+   "absorbed_identical": 55,
+   "harmful": 10,
+   "retained": 89,
+   "tradeoff": 31
+  },
+  "n": 185,
+  "record_weighted": {
+   "absorbed_identical": 55,
+   "harmful": 7,
+   "retained": 90,
+   "tradeoff": 33
+  },
+  "stored": {
+   "absorbed_identical": 55,
+   "duplicate": 47,
+   "harmful": 5,
+   "retained": 40,
+   "tradeoff": 38
+  }
+ },
+ "gpt-5.6-luna": {
+  "design_weighted": {
+   "absorbed_identical": 36,
+   "harmful": 6,
+   "retained": 117,
+   "tradeoff": 68
+  },
+  "materiality": {
+   "absorbed_identical": 36,
+   "harmful": 16,
+   "noise": 1,
+   "retained": 122,
+   "tradeoff": 52
+  },
+  "n": 227,
+  "record_weighted": {
+   "absorbed_identical": 36,
+   "harmful": 10,
+   "noise": 1,
+   "retained": 124,
+   "tradeoff": 56
+  },
+  "stored": {
+   "absorbed_identical": 36,
+   "duplicate": 74,
+   "harmful": 6,
+   "retained": 59,
+   "tradeoff": 52
+  }
+ },
+ "gpt-5.6-terra": {
+  "design_weighted": {
+   "absorbed_identical": 40,
+   "harmful": 1,
+   "retained": 105,
+   "tradeoff": 56
+  },
+  "materiality": {
+   "absorbed_identical": 40,
+   "harmful": 6,
+   "noise": 2,
+   "retained": 106,
+   "tradeoff": 48
+  },
+  "n": 202,
+  "record_weighted": {
+   "absorbed_identical": 40,
+   "harmful": 3,
+   "noise": 1,
+   "retained": 107,
+   "tradeoff": 51
+  },
+  "stored": {
+   "absorbed_identical": 40,
+   "duplicate": 60,
+   "harmful": 1,
+   "retained": 60,
+   "tradeoff": 41
+  }
+ }
+}

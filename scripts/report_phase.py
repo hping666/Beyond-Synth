@@ -251,18 +251,18 @@ def phase2(cfg):
     set_designs = [{"design_id": r["design_id"], "phi": float(r["phi_main_ns_nangate45"])} for r in conn.execute(
         "SELECT design_id, phi_main_ns_nangate45 FROM designs WHERE split IN ('dev', 'held') AND phi_main_ns_nangate45 IS NOT NULL ORDER BY design_id")]
     proven = S.proven_by_design(conn)
-    fa = S.floor_analysis(conn, set_designs, configs, proven, k)
+    fa = S.floor_analysis(conn, set_designs, configs, proven, k, pooled_q=float(cfg["noise"].get("pooled_quantile", 0.9)), weighting=cfg["noise"].get("pooled_weighting", "design"))
     if fa:
         L += ["### 2a. Floor distribution on the set designs (dev + held)", "",
-              "| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q90 of abs delta | pooled q95 | pooled q99 | pooled max | rule-A t_D median / q95 / max | designs above the q90 minimum |",
-              "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+              "| config | metric | designs with floor | sigma_robust = 0 | sigma_std = 0 | max abs delta > 1 % | > 5 % | pooled q90 (design-weighted, rule A) | pooled q90 (record-weighted, rejected) | pooled q95 | pooled q99 | pooled max | rule-A t_D median / q95 / max | designs above the minimum |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for (config, m), a in sorted(fa.items()):
             tp = a["t_proposed"] or {}
             L.append(f"| {config} | {m} | {a['designs']} | {a['zero_robust']} | {a['zero_std']} | {a['max_abs_gt']['1pct']} | {a['max_abs_gt']['5pct']} | "
-                     f"{a['pooled']['q90']:.4f} | {a['pooled']['q95']:.4f} | {a['pooled']['q99']:.4f} | {a['pooled']['max']:.4f} | "
+                     f"{a['pooled']['q90']:.4f} | {a['pooled']['q90_record_weighted']:.4f} | {a['pooled']['q95']:.4f} | {a['pooled']['q99']:.4f} | {a['pooled']['max']:.4f} | "
                      f"{tp.get('median', 0):.4f} / {tp.get('q95', 0):.4f} / {tp.get('max', 0):.4f} | {tp.get('above_pooled_min', 0)} |")
-        L += ["", f"Rule A (G1 alternative, see the conclusions): t_D = max({k:.0f} x sigma_robust, max |delta| over D's own proven perturbations including the re-print, pooled q90 of |delta| over all perturbation records of the configuration); "
-              "the pooled quantile is the minimum for designs whose perturbations never change the netlist (rule B uses the pooled q95 instead). The spec's 2 x sigma_robust stays in the table above for the sensitivity report.", ""]
+        L += ["", f"Rule A (adopted 2026-09-14): t_D = max({k:.0f} x sigma_robust, max |delta| over D's own proven perturbations including the re-print, the design-weighted pooled q90 of |delta| of the configuration); "
+              "every design weighs equally in the pooled quantile so that the minimum floor does not depend on how many perturbations a design received (the record-weighted q90 is shown as the rejected sensitivity variant: it rose from 0.29 % to 1.43 % area when the spread / offset designs got twice their perturbations). The spec's 2 x sigma_robust stays in the table above for the sensitivity report.", ""]
     rates = S.ptype_change_rates(conn, set_designs, configs, proven)
     if rates:
         pts = sorted({pt for _, pt in rates})
@@ -421,16 +421,19 @@ def phase3(cfg):
             L.append(f"- **{mo}**: {ttv or 'no verdicts'}; children of absorbed parents that were not absorbed again: {resp[0]} of {resp[1]}")
         ls = data.get("label_sensitivity") or {}
         if ls:
-            L += ["", "## 5a. Label sensitivity: run-time floors vs the current rule-A floors vs the fixed materiality thresholds", "",
-                  "Every E4-evaluated candidate re-diagnosed offline (no tool runs). The floors of the calibration designs moved after the runs started because the perturbation sets of the spread / offset designs grew (rule A's pooled minimum is record-weighted); the stored labels are the ones the search acted on.", "",
-                  "| model | E4-evaluated | stored: retained / tradeoff / absorbed_identical / noise / harmful | current floors: retained / tradeoff / absorbed_identical / noise / harmful | materiality: retained / tradeoff / absorbed_identical / noise / harmful |", "|---|---|---|---|---|"]
+            pm = ls.get("_pooled_min") or {}
+            L += ["", "## 5a. Verdict sensitivity: stored (run-time) floors vs rule A design-weighted (adopted) vs record-weighted (rejected) vs materiality", "",
+                  "Every E4-evaluated candidate re-diagnosed offline (no tool runs; archived in reports/data/phase3_label_sensitivity.json). "
+                  f"Pooled E4 minima: design-weighted area {100 * (pm.get('design_weighted') or {}).get('area', 0):.2f} % / power {100 * (pm.get('design_weighted') or {}).get('power_saif', 0):.2f} %; "
+                  f"record-weighted area {100 * (pm.get('record_weighted') or {}).get('area', 0):.2f} % / power {100 * (pm.get('record_weighted') or {}).get('power_saif', 0):.2f} % (DECISIONS 2026-09-14: the record-weighted minimum follows the number of perturbations per design and was rejected).", "",
+                  "| model | E4-evaluated | stored: retained / tradeoff / absorbed_identical / noise / harmful | design-weighted: same | record-weighted: same | materiality: same |", "|---|---|---|---|---|---|"]
             keys = ("retained", "tradeoff", "absorbed_identical", "noise", "harmful")
             for mo, v in sorted((k, v) for k, v in ls.items() if not k.startswith("_")):
-                cells = [" / ".join(str(v[which].get(k, 0)) for k in keys) for which in ("stored", "current_floor", "materiality")]
-                L.append(f"| {mo} | {v['n']} | {cells[0]} | {cells[1]} | {cells[2]} |")
-            fl = ls.get("_floors_now") or {}
-            L += ["", "Current rule-A t_D per calibration design (area / WNS as a fraction of the period / power): " + "; ".join(
-                f"{d}: {100 * (f['t_d'].get('area') or 0):.2f} % / {100 * (f['t_d'].get('wns') or 0):.2f} % / {100 * (f['t_d'].get('power') or 0):.2f} % ({f['class']})" for d, f in sorted(fl.items())), ""]
+                cells = [" / ".join(str(v[which].get(k, 0)) for k in keys) for which in ("stored", "design_weighted", "record_weighted", "materiality")]
+                L.append(f"| {mo} | {v['n']} | " + " | ".join(cells) + " |")
+            fl = ls.get("_floors") or {}
+            L += ["", "Rule-A t_D per calibration design under the adopted design-weighted minimum (area / WNS as a fraction of the period / power): " + "; ".join(
+                f"{d}: {100 * (f['design_weighted_t_d'].get('area') or 0):.2f} % / {100 * (f['design_weighted_t_d'].get('wns') or 0):.2f} % / {100 * (f['design_weighted_t_d'].get('power') or 0):.2f} % ({f['class']})" for d, f in sorted(fl.items())), ""]
         ya = data.get("y_auroc") or {}
         if ya.get("auroc_area") is not None:
             L += ["", "## 5b. Y (Yosys + OpenSTA) as a screen for E4 retention", "",
