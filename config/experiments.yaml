@@ -227,6 +227,7 @@ search:
   async_generations: true    # C2.6: the next generation is built from the verdicts available; late verdicts update archive, credit and lineage feedback (spec 05 §7)
   gen_wait_sec: 1800         # a generation is due when every candidate of the current one has a verdict, or this long after it was issued
   poll_sec: 30               # the run driver's polling interval for queue verdicts
+  job_priority: 4            # equivalence / E4 / envelope jobs issued by a run go before the noise batches (priorities 0-2)
   envelope_types: [P1_text]  # C2.1(d): the acceptance envelope uses text-level renamings of the candidate (no SEQ needed: renamings are equivalent by construction)
 screen:                      # "screening" = synthesis-rung screening; not part of the main method (DECISIONS 2026-09-14, G3.1)
   candidates_es: [Y]         # Y's AUROC for E4 retention is measured in Phases 3/4
