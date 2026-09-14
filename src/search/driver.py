@@ -72,8 +72,7 @@ class SearchRun:
         self.prior = None   # Phase 3: no map prior yet (Phase 4 output)
         self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior)
         self.d_text = "\n\n".join(Path(self.design["_dir"], f).read_text(errors="replace") for f in self.design["files"])
-        sc = cfg["search"]
-        self.K, self.N = int(self.row["gens_total"]) if "gens_total" in self.row and self.row.get("gens_total") else None, None
+        self.priority = int(cfg["search"].get("job_priority", 4))
         self.load_state()
 
     # ------------------------------------------------------------------ creation / resumption
@@ -228,7 +227,7 @@ class SearchRun:
                    "clk": (self.design.get("clk_ports") or [None])[0], "rst": self.design.get("rst_port"), "rst_sense": self.design.get("rst_sense"),
                    "sverilog": self.design.get("sverilog", False), "incdirs": [str(p) for p in K.abs_paths(self.design, self.design["incdirs"])],
                    "note": f"search {self.run_id} g{gen} {cls_final}"}
-        jid = self._q().submit("vcf", payload, design_id=self.row["design_id"], cand_id=cid, config="EQ", priority=2, timeout_sec=cap * 60 + 900)
+        jid = self._q().submit("vcf", payload, design_id=self.row["design_id"], cand_id=cid, config="EQ", priority=self.priority, timeout_sec=cap * 60 + 900)
         entry["eq_job_id"] = jid
         self.conn.execute("UPDATE candidates SET eq_job_id=? WHERE cand_id=?", (jid, cid))
         st["cands"][cid] = entry
@@ -251,6 +250,7 @@ class SearchRun:
                     self.finish_nonequiv(cid, {"verdict": "error", "v1_status": "error"}, "no equivalence record (job failed)")
                     continue
                 c["eq_record"] = rec_dir
+                c["v3_seconds"], c["eq_seconds"] = rec.get("v3_seconds"), rec.get("seconds")
                 c["time_to_verdict_s"] = round(self.clock() - float(c["issued_at"]), 1)
                 self.conn.execute("UPDATE candidates SET v1_status=?, v2_status=?, v2_cycles=?, latency_offset_json=?, v3_status=?, v3_seconds=?, v4_status=?, "
                                   "counterexample_path=?, verdict=?, time_to_verdict_s=?, proven_by=? WHERE cand_id=?",
@@ -284,12 +284,12 @@ class SearchRun:
         return changed
 
     def submit_e4(self, cid, c, rec):
-        j = J.dc_job(self.cfg, self.design, "E4", self.phi, 2)
+        j = J.dc_job(self.cfg, self.design, "E4", self.phi, self.priority)
         saif = rec.get("saif_c")
         j["payload"].update(rtl=[c["path"]], incdirs=[], is_baseline=0, cand_id=cid)
         if saif and Path(saif).exists():
             j["payload"].update(saif=saif, saif_instance="bs_lockstep/u_c")
-        jid = self._q().submit(j["kind"], j["payload"], design_id=self.row["design_id"], cand_id=cid, config="E4", priority=2, timeout_sec=j["timeout_sec"])
+        jid = self._q().submit(j["kind"], j["payload"], design_id=self.row["design_id"], cand_id=cid, config="E4", priority=self.priority, timeout_sec=j["timeout_sec"])
         c["e4_job_id"], c["state"] = jid, "e4_pending"
         self.conn.execute("UPDATE candidates SET e4_job_id=? WHERE cand_id=?", (jid, cid))
         self.state["pending"][cid] = "e4"
@@ -329,9 +329,9 @@ class SearchRun:
             p = self.dir / f"env_{cid}" / f"P1_text_{k}.v"
             p.parent.mkdir(parents=True, exist_ok=True)
             p.write_text(next(iter(texts.values())))
-            j = J.dc_job(self.cfg, self.design, "E4", self.phi, 2)
+            j = J.dc_job(self.cfg, self.design, "E4", self.phi, self.priority)
             j["payload"].update(rtl=[str(p)], incdirs=[], is_baseline=0, cand_id=f"{cid}_env{k}")
-            jobs.append(self._q().submit(j["kind"], j["payload"], design_id=self.row["design_id"], cand_id=f"{cid}_env{k}", config="E4", priority=2, timeout_sec=j["timeout_sec"]))
+            jobs.append(self._q().submit(j["kind"], j["payload"], design_id=self.row["design_id"], cand_id=f"{cid}_env{k}", config="E4", priority=self.priority, timeout_sec=j["timeout_sec"]))
         c["envelope_jobs"], c["state"] = jobs, "envelope_pending"
         self.state["pending"][cid] = "envelope"
         if not jobs:
