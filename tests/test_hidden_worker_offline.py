@@ -90,6 +90,14 @@ def test_noise_jobs_and_hidden_floor(env, tmp_path, monkeypatch):
     assert len(by_cfg["H3"]) == 3  # D + one perturbation per type (P1, P2)
     assert all(j["kind"] == "dc_hidden" and j["payload"]["design"]["phi_main_ns_asap7"] == 0.5 for j in jobs)
     assert [j["payload"]["is_baseline"] for j in by_cfg["H1"]] == [1, 0, 0, 0] and by_cfg["H2a"][0]["payload"]["clock_ns"] == 0.5
+    # --missing: a D and a perturbation already recorded under H1 at 0.1 ns are not resubmitted; the rest is
+    db.insert(hid, "evaluations", {"design_id": "rtllm_acc", "pert_id": None, "is_baseline": 1, "config": "H1", "lib": "nangate45", "clock_ns": 0.1,
+                                   "area_um2": 1.0, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": "/h/miss1", "hist_json": "{}"})
+    db.insert(hid, "evaluations", {"design_id": "rtllm_acc", "pert_id": "p1", "is_baseline": 0, "config": "H1", "lib": "nangate45", "clock_ns": 0.1,
+                                   "area_um2": 1.0, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": "/h/miss2", "hist_json": "{}"})
+    miss = mod.noise_jobs(cfg, vis, missing=True, hid=hid)
+    h1 = [j for j in miss if j["config"] == "H1"]
+    assert len(h1) == 2 and all(j["payload"]["pert_id"] in ("p2", "p3") for j in h1) and len([j for j in miss if j["config"] == "H5"]) == 4
     only = mod.noise_jobs(cfg, vis, ptypes=["P2_reorder"])
     assert only and all(j["payload"]["is_baseline"] == 0 and j["payload"]["pert_id"] == "p3" for j in only)  # a type filter: no D job, only that type
     assert mod.noise_jobs(cfg, vis, ptypes=["P9_none"]) == []

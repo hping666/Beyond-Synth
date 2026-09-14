@@ -107,11 +107,22 @@ def _proven(vis, design_id):
     return [dict(r) for r in vis.execute("SELECT pert_id, ptype, path FROM perturbations WHERE design_id=? AND seq_status IN ('proven', 'proven_rename') ORDER BY ptype, pert_id", (design_id,))]
 
 
-def noise_jobs(cfg, vis, suites=None, designs=None, priority=0, ptypes=None):
+def noise_jobs(cfg, vis, suites=None, designs=None, priority=0, ptypes=None, missing=False, hid=None):
     """[(job dict)] for the hidden noise configurations; the knee periods travel in payload.design. ptypes: only these
-    perturbation types and no D baseline (adds perturbations to an existing batch)."""
+    perturbation types and no D baseline (adds perturbations to an existing batch). missing: skip D / perturbation runs
+    that already have an ok record in the hidden database at the configuration's period."""
     full = [c for c in cfg["noise"]["configs"] if cfg["configs"][c].get("hidden")]
     light = [c for c in cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")]
+    hid = hid or (db.connect(path=hidden_db_path(cfg)) if missing else None)
+
+    def have(design_id, config, clock_ns, pert_id):
+        if not missing:
+            return False
+        if pert_id is None:
+            q = "SELECT 1 FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1"
+            return hid.execute(q, (design_id, config, float(clock_ns))).fetchone() is not None
+        q = "SELECT 1 FROM evaluations WHERE design_id=? AND config=? AND pert_id=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1"
+        return hid.execute(q, (design_id, config, pert_id, float(clock_ns))).fetchone() is not None
     jobs = []
     for d, r in _selected(vis, suites, designs):
         design = {k: r.get(k) for k in ("phi_main_ns_nangate45", "phi_main_ns_asap7", "phi_main_ns_sky130hd")}
@@ -132,7 +143,8 @@ def noise_jobs(cfg, vis, suites=None, designs=None, priority=0, ptypes=None):
             if config in light and lib == "nangate45" and not cfg["libs"][lib].get("physical_ref_for_spg"):
                 continue
             chosen = perts if config in full else list(first_per_type.values())
-            if not ptypes:
+            clock_ns = cdef.get("clock_ns") or design[f"phi_main_ns_{lib}"]
+            if not ptypes and not have(d["design_id"], config, clock_ns, None):
                 base = J.dc_job(cfg, d, config, cdef.get("clock_ns") or design[f"phi_main_ns_{lib}"], priority)
                 base["kind"] = "dc_hidden"
                 base["payload"]["design"] = design
@@ -140,6 +152,8 @@ def noise_jobs(cfg, vis, suites=None, designs=None, priority=0, ptypes=None):
                     base["payload"].update(saif=d_saif["saif"], saif_instance=d_saif["instance"])
                 jobs.append(base)
             for p in chosen:
+                if have(d["design_id"], config, clock_ns, p["pert_id"]):
+                    continue
                 j = J.dc_job(cfg, d, config, cdef.get("clock_ns") or design[f"phi_main_ns_{lib}"], priority)
                 j["kind"] = "dc_hidden"
                 j["payload"].update(rtl=[str(Path(C.ROOT) / p["path"])], incdirs=[], is_baseline=0, pert_id=p["pert_id"], design=design)
@@ -150,10 +164,10 @@ def noise_jobs(cfg, vis, suites=None, designs=None, priority=0, ptypes=None):
     return jobs
 
 
-def submit_noise(cfg, suites, designs, priority, dry_run, ptypes=None):
+def submit_noise(cfg, suites, designs, priority, dry_run, ptypes=None, missing=False):
     from src.jobqueue.core import Queue
     vis = db.connect(cfg=cfg)
-    jobs = noise_jobs(cfg, vis, suites, designs, priority, ptypes)
+    jobs = noise_jobs(cfg, vis, suites, designs, priority, ptypes, missing=missing)
     by_cfg = {}
     for j in jobs:
         by_cfg[j["config"]] = by_cfg.get(j["config"], 0) + 1
@@ -373,12 +387,13 @@ def main(argv=None):
     ap.add_argument("--priority", type=int, default=0)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--ptype", nargs="*", default=None)
+    ap.add_argument("--missing", action="store_true", help="submit-noise: only D / perturbation runs without an ok hidden record at the configuration's period")
     a = ap.parse_args(argv)
     cfg = C.load()
     if a.job:
         return run_job(cfg, a.job)
     if a.submit_noise:
-        return submit_noise(cfg, a.suite, a.design, a.priority, a.dry_run, a.ptype)
+        return submit_noise(cfg, a.suite, a.design, a.priority, a.dry_run, a.ptype, a.missing)
     if a.noise_floor:
         written = noise_floor(cfg, a.suite, a.design)
         print("hidden noise_floor rows written per configuration:", written)

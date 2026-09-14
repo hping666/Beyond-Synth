@@ -69,8 +69,17 @@ def cmd_submit(cfg, conn, a):
         d_saif = (sf.get("design") or {})
         if a.ptype:
             perts = [p for p in perts if p["ptype"] in a.ptype]
+
+        def have(config, pert_id):
+            if not a.missing:
+                return False
+            if pert_id is None:
+                q = "SELECT 1 FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL AND status='ok' AND abs(clock_ns-?)<? LIMIT 1"
+                return conn.execute(q, (d["design_id"], config, phi, EPS)).fetchone() is not None
+            q = "SELECT 1 FROM evaluations WHERE design_id=? AND config=? AND pert_id=? AND status='ok' AND abs(clock_ns-?)<? LIMIT 1"
+            return conn.execute(q, (d["design_id"], config, pert_id, phi, EPS)).fetchone() is not None
         for config in configs:
-            if not a.ptype:  # a type filter adds perturbations to an existing batch: D was already run
+            if not a.ptype and not have(config, None):  # a type filter adds perturbations to an existing batch: D was already run
                 jb = J.dc_job(cfg, d, config, phi, a.priority)
                 if d_saif.get("saif"):
                     jb["payload"].update(saif=d_saif["saif"], saif_instance=d_saif["instance"])
@@ -78,6 +87,8 @@ def cmd_submit(cfg, conn, a):
                     no_saif += 1
                 jobs.append(jb)
             for p in perts:
+                if have(config, p["pert_id"]):
+                    continue
                 j = J.dc_job(cfg, d, config, phi, a.priority)
                 j["payload"].update(rtl=[str(Path(ROOT) / p["path"])], incdirs=[], is_baseline=0, pert_id=p["pert_id"])
                 ps = (sf.get("perturbations") or {}).get(p["pert_id"]) or {}
@@ -167,6 +178,7 @@ def main(argv=None):
     ap.add_argument("--design", nargs="*", default=None)
     ap.add_argument("--configs", nargs="*", default=None)
     ap.add_argument("--ptype", nargs="*", default=None, help="only these perturbation types, without the D baseline (adds to an existing batch)")
+    ap.add_argument("--missing", action="store_true", help="only D / perturbation runs without an ok record at Phi_main (adds to an existing batch)")
     ap.add_argument("--submit", action="store_true")
     ap.add_argument("--priority", type=int, default=0)
     a = ap.parse_args(argv)
