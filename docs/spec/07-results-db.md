@@ -18,7 +18,7 @@ design_id, config, metric, sigma_robust, sigma_std, q95_abs, max_abs, n, abs_uni
 run_id, exp (phase3|phase4|phase5|ablation), arm, skeleton, design_id, seed, llm_model, prompt_version, screening_enabled, e_s, budget_llm_calls (primary caliber), llm_calls, budget_dc_hours (reporting), spent_dc_hours, spent_vcf_hours, spent_usd, gens_done, status, started_at, finished_at
 
 ## candidates
-cand_id (content hash), run_id, design_id, gen, parent_id, arm, class_requested, class_rule, class_llm, class_final (the produced class), subtags_json, confidence, prompt_hash, llm_model, tokens_in, tokens_cached, tokens_out, cost_usd, rtl_path, prescreened (0|1), v1_status, v2_status, v2_cycles, latency_offset_json, v3_status, v3_seconds, seq_cap_min, time_to_verdict_s, v4_status, counterexample_path, proven_by, in_archive (0|1), accepted (0|1)
+cand_id (content hash of the RTL salted with the run id, unique per run; DECISIONS 2026-09-14), content_hash (unsalted RTL hash, for identical rewrites across runs), run_id, design_id, gen, parent_id, arm, class_requested, class_rule, class_llm, class_final (the produced class), subtags_json, confidence, prompt_hash, llm_model, tokens_in, tokens_cached, tokens_out, cost_usd, rtl_path, prescreened (0|1), v1_status, v2_status, v2_cycles, latency_offset_json, v3_status, v3_seconds, seq_cap_min, time_to_verdict_s, v4_status, counterexample_path, proven_by, in_archive (0|1), accepted (0|1)
 
 ## screening
 cand_id, e_s, g_es_json, fp_converged_es, p_retained, tau, promoted (0|1), audited (0|1)

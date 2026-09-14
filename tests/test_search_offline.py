@@ -127,8 +127,13 @@ def env(tmp_path, monkeypatch):
 
 
 def finish_eq(conn, cfg, tmp_path, cand_id, design_id="rtllm_d", verdict="proven"):
-    """The test plays the equivalence runner: a record under results/raw/<design>/EQ and the job marked done."""
-    d = Path(cfg["project"]["results_dir"]) / "raw" / design_id / "EQ" / cand_id
+    """The test plays the equivalence runner: a record under the content-addressed directory the runner would use
+    (results/raw/<design>/EQ/<hash>) and the job marked done."""
+    from src.equiv.run_equiv import equiv_hash
+    jid0 = conn.execute("SELECT eq_job_id FROM candidates WHERE cand_id=?", (cand_id,)).fetchone()[0]
+    p = json.loads(conn.execute("SELECT payload_json FROM jobs WHERE job_id=?", (jid0,)).fetchone()[0])
+    extra = {"stages": "full", "clk": p.get("clk"), "rst": p.get("rst"), "rst_sense": p.get("rst_sense"), "sverilog": p.get("sverilog", False), "sim_seed": p.get("sim_seed"), "c_top": p.get("c_top")}
+    d = Path(cfg["project"]["results_dir"]) / "raw" / design_id / "EQ" / equiv_hash(p["d_rtl"], p["c_rtl"], p["top"], cfg, extra)
     d.mkdir(parents=True, exist_ok=True)
     (d / "equiv.json").write_text(json.dumps({"cand_id": cand_id, "verdict": verdict, "v1_status": "ok", "v2_status": "identical", "v2_cycles": 100,
                                               "latency_offset_json": "{}", "v3_status": verdict, "v3_seconds": 5.0, "v4_status": "not_run", "seconds": 8.0, "proven_by": "seq" if verdict == "proven" else None}))
@@ -228,3 +233,10 @@ def test_auroc_helper():
     spec.loader.exec_module(mod)
     assert mod.auroc([0.9, 0.8], [0.1, 0.2]) == 1.0 and mod.auroc([0.1], [0.9]) == 0.0 and mod.auroc([0.5], [0.5]) == 0.5
     assert abs(mod.auroc([0.9, 0.3], [0.5, 0.1]) - 0.75) < 1e-12 and mod.auroc([], [0.1]) is None
+
+
+def test_candidate_ids_are_per_run_and_keep_the_content_hash():
+    from src.search import candidates as CA
+    rtl = "module d(input a, output y); assign y = a; endmodule\n"
+    assert CA.cand_id_of(rtl) == CA.cand_id_of(rtl) and CA.cand_id_of(rtl, "run1") != CA.cand_id_of(rtl, "run2") != CA.cand_id_of(rtl)
+    assert CA.cand_id_of(rtl, "run1") == CA.cand_id_of(rtl, "run1")

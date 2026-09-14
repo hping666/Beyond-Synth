@@ -44,6 +44,7 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
     ("candidates", "label", "ALTER TABLE candidates ADD COLUMN label TEXT"),
     ("candidates", "note", "ALTER TABLE candidates ADD COLUMN note TEXT"),
     ("candidates", "call_id", "ALTER TABLE candidates ADD COLUMN call_id TEXT"),
+    ("candidates", "content_hash", "ALTER TABLE candidates ADD COLUMN content_hash TEXT"),   # unsalted RTL hash (cand_id is per run since 2026-09-14)
     ("diagnoses", "offset_design", "ALTER TABLE diagnoses ADD COLUMN offset_design INTEGER"),
     ("diagnoses", "duplicate_of", "ALTER TABLE diagnoses ADD COLUMN duplicate_of TEXT"),
     ("diagnoses", "envelope_json", "ALTER TABLE diagnoses ADD COLUMN envelope_json TEXT"),

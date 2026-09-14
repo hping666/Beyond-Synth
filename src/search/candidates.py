@@ -40,15 +40,18 @@ def check_top(rtl, top):
     return names
 
 
-def cand_id_of(rtl):
-    return "c" + hashlib.sha256(rtl.encode()).hexdigest()[:14]
+def cand_id_of(rtl, salt=None):
+    """Content hash of the RTL; with a salt (the run id) the id is unique per run, so that the same rewrite found by two runs
+    gets two candidate rows (the unsalted hash is kept as candidates.content_hash for cross-run duplicate analysis)."""
+    h = hashlib.sha256((f"{salt}\n" if salt else "").encode() + rtl.encode()).hexdigest()[:14]
+    return "c" + h
 
 
-def store(run_id, design, rtl, meta, root=None):
+def store(run_id, design, rtl, meta, root=None, cand_id=None):
     """-> (cand_id, path); meta is written next to the RTL as <cand_id>.json."""
     d = Path(root or CAND_DIR) / run_id
     d.mkdir(parents=True, exist_ok=True)
-    cid = cand_id_of(rtl)
+    cid = cand_id or cand_id_of(rtl)
     path = d / f"{cid}.v"
     path.write_text(rtl if rtl.endswith("\n") else rtl + "\n")
     (d / f"{cid}.json").write_text(json.dumps({"cand_id": cid, "design_id": design["design_id"], "top": design["top"], **meta}, indent=1, sort_keys=True, default=str) + "\n")

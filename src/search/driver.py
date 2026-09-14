@@ -121,14 +121,35 @@ class SearchRun:
         return r["state"] if r else "missing"
 
     def eq_record(self, cand_id):
+        """The equivalence record of a candidate: by the content-addressed directory of its job payload (the runner reuses
+        an earlier record when another run produced the same RTL, so the record may carry that run's cand_id), else by
+        cand_id."""
+        c = self.state["cands"].get(cand_id) or {}
+        root = Path(C.results_dir(self.cfg)) / "raw" / self.row["design_id"] / "EQ"
         best = None
-        for eq in (Path(C.results_dir(self.cfg)) / "raw" / self.row["design_id"] / "EQ").glob("*/equiv.json"):
+        payload = c.get("eq_payload")
+        if payload:
+            from src.equiv.run_equiv import equiv_hash
+            extra = {"stages": "full", "clk": payload.get("clk"), "rst": payload.get("rst"), "rst_sense": payload.get("rst_sense"),
+                     "sverilog": payload.get("sverilog", False), "sim_seed": payload.get("sim_seed"), "c_top": payload.get("c_top")}
             try:
-                rec = json.loads(eq.read_text())
-            except json.JSONDecodeError:
-                continue
-            if rec.get("cand_id") == cand_id and (best is None or eq.stat().st_mtime > best[0]):
-                best = (eq.stat().st_mtime, rec, str(eq.parent))
+                h = equiv_hash(payload["d_rtl"], payload["c_rtl"], payload["top"], self.cfg, extra)
+            except OSError:
+                h = None
+            if h:
+                for eq in sorted(root.glob(f"{h}*/equiv.json"), key=lambda p: p.stat().st_mtime):
+                    try:
+                        best = (eq.stat().st_mtime, json.loads(eq.read_text()), str(eq.parent))
+                    except json.JSONDecodeError:
+                        continue
+        if best is None:
+            for eq in root.glob("*/equiv.json"):
+                try:
+                    rec = json.loads(eq.read_text())
+                except json.JSONDecodeError:
+                    continue
+                if rec.get("cand_id") == cand_id and (best is None or eq.stat().st_mtime > best[0]):
+                    best = (eq.stat().st_mtime, rec, str(eq.parent))
         return (best[1], best[2]) if best else (None, None)
 
     def e4_row(self, cand_id):
@@ -182,7 +203,8 @@ class SearchRun:
                 (self.dir / f"unusable_g{gen}_{i}.json").write_text(json.dumps(meta, indent=1, default=str))
                 self.bandit.credit(cls, 0)   # an unusable answer is the requested class's failure
                 continue
-            cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note})
+            cid = CA.cand_id_of(rtl, self.run_id)   # per-run id; the unsalted content hash is stored alongside (DECISIONS 2026-09-14)
+            _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, cand_id=cid)
             issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng))
         st["gen"] = gen
         st["issued_at"] = self.clock()
@@ -212,6 +234,7 @@ class SearchRun:
         entry = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_rule": cls_final,
                  "class_final": cls_final, "prescreen": pre, "seq_cap_min": cap, "issued_at": self.clock(), "state": "eq_pending", "note": note}
         row = {"cand_id": cid, "run_id": self.run_id, "design_id": self.row["design_id"], "gen": gen, "parent_id": parent_id, "arm": self.row["arm"],
+               "content_hash": CA.cand_id_of(rtl),
                "class_requested": cls_requested, "class_rule": cls_final, "class_final": cls_final, "confidence": cls_rule.get("confidence"),
                "subtags_json": json.dumps(cls_rule.get("rules") or cls_rule), "prompt_hash": None, "llm_model": self.row["llm_model"],
                "tokens_in": (call["usage"] or {}).get("input_tokens"), "tokens_cached": (call["usage"] or {}).get("cached_tokens"),
@@ -228,7 +251,7 @@ class SearchRun:
                    "sverilog": self.design.get("sverilog", False), "incdirs": [str(p) for p in K.abs_paths(self.design, self.design["incdirs"])],
                    "note": f"search {self.run_id} g{gen} {cls_final}"}
         jid = self._q().submit("vcf", payload, design_id=self.row["design_id"], cand_id=cid, config="EQ", priority=self.priority, timeout_sec=cap * 60 + 900)
-        entry["eq_job_id"] = jid
+        entry["eq_job_id"], entry["eq_payload"] = jid, payload
         self.conn.execute("UPDATE candidates SET eq_job_id=? WHERE cand_id=?", (jid, cid))
         st["cands"][cid] = entry
         st["pending"][cid] = "eq"
