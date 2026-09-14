@@ -444,6 +444,9 @@ def phase3(cfg):
         L += ["", "## 6. Decision rule (config llm.calibration.decision)", "",
               f"Primary metric {dec['primary_metric']}: scores {dict((k, round(v, 3)) for k, v in dec['scores'].items())}; best area gain per model {dict((k, round(100 * v, 2)) for k, v in dec['best_gain_by_model'].items())} %; "
               f"eligible (best gain ≥ {cfg['llm']['calibration']['decision']['floor_best_gain_ratio']} × strongest, a retained (c1) or (d)): {dec['eligible']}; **recommended: {dec['recommended']}** — {dec['note']}", ""]
+    concl = Path(ROOT) / "reports" / "phase3_conclusions.md"
+    if concl.exists():
+        L += ["", concl.read_text().rstrip("\n"), ""]
     out = Path(ROOT) / "reports" / "phase3.md"
     out.write_text("\n".join(L))
     print(f"wrote {out}")

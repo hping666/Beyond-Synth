@@ -1,6 +1,6 @@
 # Phase 3 report — LLM calibration (residual-guided evolution, minimal skeleton)
 
-Generated 2026-09-14 14:11 by scripts/report_phase.py (git 8a20578da17c, cfg 332d14a3c38a). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).
+Generated 2026-09-14 15:39 by scripts/report_phase.py (git 48bcaaba37f0, cfg 332d14a3c38a). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).
 
 ## 1. Setup
 
@@ -60,3 +60,29 @@ AUROC of the Y area gain for E4 retention over 197 retained vs 528 other diagnos
 ## 6. Decision rule (config llm.calibration.decision)
 
 Primary metric retained_candidates_per_usd: scores {'gpt-5.4': 4.27, 'gpt-5.4-mini': 4.92, 'gpt-5.6-luna': 114.082, 'gpt-5.6-terra': 11.773}; best area gain per model {'gpt-5.4': 44.96, 'gpt-5.4-mini': 26.74, 'gpt-5.6-luna': 42.05, 'gpt-5.6-terra': 44.96} %; eligible (best gain ≥ 0.7 × strongest, a retained (c1) or (d)): ['gpt-5.6-luna', 'gpt-5.6-terra', 'gpt-5.4']; **recommended: gpt-5.6-luna** — recommendation by config llm.calibration.decision; the user confirms at G4 (config llm.selected stays TBD until then)
+
+
+## 7. Conclusions for G4 (operator's reading; the decisions are the user's)
+
+Status of the data: 32 of the 40 runs are complete; the 8 runs on multi_pipe_8bit have issued all 30 calls each and wait for 120 SEQ verdicts (classes (c1) / (d) of an 8-bit pipelined multiplier take 45–170 min each and often reach the class cap; the temporary 50-seat VC Formal pool drains them at ≈13 per hour, finishing around midnight). The background chain then re-runs the Y evaluations, the collect, the sample cross-check and this report; the numbers below carry every verdict available at 15:40 on 2026-09-14 and the model ranking cannot change by a factor that matters (the primary metric differs by an order of magnitude between the leader and the runners-up).
+
+Facts (300 calls per model, K = 6 × N = 5 per run, 5 dev designs × 2 seeds, rule-A floors at run time, `proven_sim_only` apart — none occurred):
+
+- **Usable answers**: luna, terra and gpt-5.4 answered every call within 20 000 output tokens; gpt-5.4-mini lost 31 of 300 answers to run-away reasoning (10 000+ reasoning tokens, no RTL). The first two launches were superseded by this very effect (`max_output_tokens` 3 000 → 10 000 → 20 000, DECISIONS 2026-09-14).
+- **Pass rates**: V1 ok / V3 proven of the usable candidates — luna 274 / 227 of 300, terra 242 / 203 of 303, gpt-5.4 241 / 208 of 300, mini 253 / 187 of 269; SEQ inconclusive only on multi_pipe_8bit (luna 4, mini 6).
+- **Retained (rule A, stored floors)**: gpt-5.4 69, terra 60, luna 59, mini 40; under the adopted design-weighted floors (§5a) 96 / 105 / 117 / 85, under the materiality thresholds 112 / 108 / 123 / 92. Every model produced retained (c1) or (d) rewrites.
+- **Cost**: luna 0.52 USD for 300 calls (5.1 calls per retained candidate, 114 retained per USD), terra 5.10 USD (5.0 calls, 11.8 per USD), gpt-5.4 16.16 USD (4.3 calls, 4.3 per USD), mini 8.13 USD (7.5 calls, 4.9 per USD). DC hours per model 5.2–6.6; VC Formal hours 2.0 (terra), 2.0 (gpt-5.4), 12.4 (luna), 26.0 (mini) — the last two spent their SEQ time on multi_pipe_8bit (c1)/(d) candidates.
+- **Best retained area gain per design**: traffic_light 45.0 % (gpt-5.4, terra; luna 42.1 %), serial2parallel 19.3 % (luna, gpt-5.4, mini), LIFObuffer 15.2 % (luna), multi_pipe_8bit 17.0 % (mini) / 15.1 % (luna) so far.
+- **Classes**: the LLM rarely produces the class it was asked for (requested → produced agreement 19–21 %: `free` becomes (d) or (a), `b` is mostly delivered as (a), `c1` as (d)); the produced class from M6 is what the bandit is credited with (C2.1(c)).
+- **Feedback response** (share of answers whose E4 netlist is identical to D's): gpt-5.4: generation 1 17 % absorbed_identical (8/47), generations 2–6 15 % (31/201); gpt-5.4-mini: generation 1 26 % absorbed_identical (12/46), generations 2–6 20 % (43/217); gpt-5.6-luna: generation 1 14 % absorbed_identical (7/50), generations 2–6 12 % (29/233); gpt-5.6-terra: generation 1 23 % absorbed_identical (10/44), generations 2–6 14 % (30/211).
+- **Time to verdict** (LLM answer → SEQ verdict, seconds): medians 88–113 s for terra, 206–390 s for luna and gpt-5.4, 270–1 890 s for mini; the q95 tails (10 000–18 000 s) are the multi_pipe_8bit (c1)/(d) candidates waiting for seats and for the solver.
+- **Y as a screen**: AUROC of the Y area gain for E4 retention = 0.748 over 197 retained vs 528 other diagnosed candidates (threshold 0.75; best-of-three components 0.58).
+- **Diagnoser check** (PLAN 3.5): 40 sampled diagnoses (stratified over the labels) cross-checked against the raw DC area reports, the recomputed gains, the fingerprint equality behind `absorbed_identical`, the fingerprint / text identity behind `duplicate` and the stack verdicts behind `nonequiv`: 40 of 40 consistent (`phase3_calibrate.py verify`; reports/data/phase3_manual_verify.json). This is a consistency check of the labels against the evidence, not a human reading of every netlist.
+- **Operations**: 3 runs crashed on a global candidate-id collision (identical rewrites from different runs) and 1 on a resume race; ids are now per run and the resume is idempotent (DECISIONS 2026-09-14); the crashed generations' rows are `aborted` (8 rows).
+
+Decisions requested:
+
+1. **Main model.** The decision rule (`llm.calibration.decision`: retained candidates per USD, best gain ≥ 70 % of the strongest, a retained (c1) or (d)) picks **gpt-5.6-luna** by an order of magnitude (114 per USD vs 11.8 terra, 4.9 mini, 4.3 gpt-5.4) with the same best gains (42 % vs 45 % on traffic_light, equal elsewhere) and the same retained count under the adopted floors. Recommendation: luna as the main model (`llm.selected`), terra as the second model for the 30-design re-run of the main arm (PROPOSAL §4.9), mini excluded (truncation, 7.5 calls per retained). Cost consequence for Phase 5 at equal LLM calls (32 400 calls): ≈ 60 USD with luna, ≈ 550 USD with terra, ≈ 1 750 USD with gpt-5.4.
+2. **Y screen.** AUROC 0.748 is at the threshold; recommendation: keep the M_noscreen arm decision open until the final numbers (multi_pipe verdicts) and, if it stays below 0.75, drop the arm as decided (G3.1) — the difference is immaterial either way.
+3. **Class instruction.** Because the produced class rarely matches the requested one, the bandit's arms are effectively "prompt styles" rather than classes; the map prior of Phase 4 should be indexed by the produced class (already the credit rule). No change requested, a note for the paper.
+4. **Floors during a run.** A run reads its floors at start; floors were recomputed twice during the calibration. Proposal: freeze the floor table per phase (a `floor_version` stamped on every run and diagnosis) so that later recollections never change a run's verdicts silently; re-diagnosis stays an offline sensitivity analysis.
