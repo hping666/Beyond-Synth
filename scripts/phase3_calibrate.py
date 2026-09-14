@@ -80,6 +80,68 @@ def submit_runs(cfg, conn, designs, models, seeds, K, N, exp, do_submit, note=""
     return runs
 
 
+def auroc(scores_pos, scores_neg):
+    """Area under the ROC curve of a score that should be higher for positives (ties count half); None when a class is empty."""
+    if not scores_pos or not scores_neg:
+        return None
+    wins = 0.0
+    for p in scores_pos:
+        for n in scores_neg:
+            wins += 1.0 if p > n else 0.5 if p == n else 0.0
+    return wins / (len(scores_pos) * len(scores_neg))
+
+
+def y_jobs(cfg, conn, do_submit):
+    """Y (Yosys + OpenSTA) evaluations of every E4-evaluated Phase 3 candidate and of D at Phi_main, for AUROC(Y -> E4
+    retention) (PLAN 3 acceptance; DECISIONS 2026-09-14 G3.1). Missing records only; `yosys` jobs on the local pool."""
+    from src.designs import catalog as K
+    from src.designs import jobs as J
+    from src.jobqueue.core import Queue
+    designs = {d["design_id"]: d for d in K.load_all()}
+    q = Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
+    jobs = []
+    seen_design = set()
+    for c in conn.execute("SELECT c.cand_id, c.design_id, c.rtl_path FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND c.e4_job_id IS NOT NULL"):
+        d = designs[c["design_id"]]
+        phi = float(conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()[0])
+        if c["design_id"] not in seen_design:
+            seen_design.add(c["design_id"])
+            if conn.execute("SELECT 1 FROM evaluations WHERE design_id=? AND config='Y' AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["design_id"], phi)).fetchone() is None:
+                j = J.dc_job(cfg, d, "Y", phi, 3)
+                j["kind"] = "yosys"
+                jobs.append(j)
+        if conn.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config='Y' AND status='ok' LIMIT 1", (c["design_id"], c["cand_id"])).fetchone():
+            continue
+        j = J.dc_job(cfg, d, "Y", phi, 3)
+        j["kind"] = "yosys"
+        j["payload"].update(rtl=[c["rtl_path"]], incdirs=[], is_baseline=0, cand_id=c["cand_id"])
+        j["cand_id"] = c["cand_id"]
+        jobs.append(j)
+    print(f"{len(jobs)} Y jobs (candidates of the Phase 3 runs and their baselines, missing records only)")
+    if do_submit:
+        for j in jobs:
+            q.submit(j["kind"], j["payload"], design_id=j["design_id"], cand_id=j.get("cand_id"), config="Y", priority=j["priority"], timeout_sec=j["timeout_sec"])
+        print(f"submitted {len(jobs)} yosys jobs")
+    return jobs
+
+
+def y_auroc(cfg, conn):
+    """AUROC of the Y area gain (and of the best-of-three-components Y gain) for E4 retention over the diagnosed candidates."""
+    pos, neg, pos3, neg3 = [], [], [], []
+    for c in conn.execute("SELECT c.cand_id, c.design_id, c.label FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND c.label IN ('retained','absorbed','absorbed_identical','noise','harmful','tradeoff','fragile','duplicate')"):
+        phi = float(conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()[0])
+        base = conn.execute("SELECT area_um2, wns_ns, power_default_mw FROM evaluations WHERE design_id=? AND config='Y' AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (c["design_id"], phi)).fetchone()
+        cand = conn.execute("SELECT area_um2, wns_ns, power_default_mw FROM evaluations WHERE design_id=? AND cand_id=? AND config='Y' AND status='ok' ORDER BY eval_id DESC LIMIT 1", (c["design_id"], c["cand_id"])).fetchone()
+        if base is None or cand is None or not base["area_um2"]:
+            continue
+        g_area = (float(base["area_um2"]) - float(cand["area_um2"])) / float(base["area_um2"])
+        g_wns = ((float(cand["wns_ns"] or 0) - float(base["wns_ns"] or 0)) / phi) if phi else 0.0
+        g_pow = ((float(base["power_default_mw"]) - float(cand["power_default_mw"])) / float(base["power_default_mw"])) if base["power_default_mw"] and cand["power_default_mw"] else 0.0
+        (pos if c["label"] == "retained" else neg).append(g_area)
+        (pos3 if c["label"] == "retained" else neg3).append(max(g_area, g_wns, g_pow))
+    return {"n_retained": len(pos), "n_other": len(neg), "auroc_area": auroc(pos, neg), "auroc_best_component": auroc(pos3, neg3)}
+
+
 def cmd_status(cfg, conn):
     for r in conn.execute("SELECT run_id, design_id, llm_model, seed, status, gens_done, llm_calls, spent_usd, spent_dc_hours FROM runs WHERE exp IN ('phase3','smoke') ORDER BY started_at"):
         n = conn.execute("SELECT COUNT(*), SUM(label='retained'), SUM(label IS NULL) FROM candidates WHERE run_id=?", (r["run_id"],)).fetchone()
@@ -160,6 +222,7 @@ def cmd_collect(cfg, conn):
     out["decision"] = {"primary_metric": dec["primary_metric"], "scores": scored, "best_gain_by_model": best_gain_by_model, "eligible": eligible,
                        "recommended": max(eligible, key=lambda mo: scored[mo]) if eligible else None,
                        "note": "recommendation by config llm.calibration.decision; the user confirms at G4 (config llm.selected stays TBD until then)"}
+    out["y_auroc"] = y_auroc(cfg, conn)
     p = Path(C.ROOT) / "reports" / "data" / "phase3_calibration.json"
     p.write_text(json.dumps(out, indent=1, sort_keys=True, default=str) + "\n")
     for mo, v in sorted(out["models"].items()):
@@ -172,7 +235,7 @@ def cmd_collect(cfg, conn):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect"])
+    ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect", "yruns"])
     ap.add_argument("--models", nargs="*", default=None)
     ap.add_argument("--model", default=None)
     ap.add_argument("--design", nargs="*", default=None)
@@ -191,6 +254,9 @@ def main(argv=None):
         return cmd_status(cfg, conn)
     if a.what == "collect":
         return cmd_collect(cfg, conn)
+    if a.what == "yruns":
+        y_jobs(cfg, conn, a.submit)
+        return 0
     if a.what == "smoke":
         designs = a.design or calibration_designs(cfg, conn)[:1]
         submit_runs(cfg, conn, designs, [a.model or cfg["llm"]["candidates"][0]], a.seeds or [1], a.K or 1, a.N or 2, "smoke", a.submit, note="smoke")

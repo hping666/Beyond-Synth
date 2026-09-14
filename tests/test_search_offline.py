@@ -219,3 +219,12 @@ def test_identical_text_and_prescreen_labels_without_evaluation(env, monkeypatch
     assert sorted(labels.values()) == ["absorbed_identical", "prescreened"]
     assert conn.execute("SELECT COUNT(*) FROM jobs").fetchone()[0] == 0       # nothing was submitted for either
     assert run.step() == "done"
+
+
+def test_auroc_helper():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("p3", str(Path(C.ROOT) / "scripts" / "phase3_calibrate.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    assert mod.auroc([0.9, 0.8], [0.1, 0.2]) == 1.0 and mod.auroc([0.1], [0.9]) == 0.0 and mod.auroc([0.5], [0.5]) == 0.5
+    assert abs(mod.auroc([0.9, 0.3], [0.5, 0.1]) - 0.75) < 1e-12 and mod.auroc([], [0.1]) is None

@@ -419,6 +419,12 @@ def phase3(cfg):
             ttv = "; ".join(f"{c}: n={t['n']} median {t['median']:.0f} q95 {t['q95']:.0f} max {t['max']:.0f}" for c, t in sorted(v["time_to_verdict"].items()))
             resp = v["absorbed_response"]
             L.append(f"- **{mo}**: {ttv or 'no verdicts'}; children of absorbed parents that were not absorbed again: {resp[0]} of {resp[1]}")
+        ya = data.get("y_auroc") or {}
+        if ya.get("auroc_area") is not None:
+            L += ["", "## 5b. Y (Yosys + OpenSTA) as a screen for E4 retention", "",
+                  f"AUROC of the Y area gain for E4 retention over {ya['n_retained']} retained vs {ya['n_other']} other diagnosed candidates: {ya['auroc_area']:.3f}; "
+                  f"best-of-three-components gain: {ya['auroc_best_component']:.3f}; threshold `screen.auroc_min` = {cfg['screen']['auroc_min']} "
+                  f"({'Y qualifies as the M_noscreen screen' if ya['auroc_area'] >= float(cfg['screen']['auroc_min']) else 'Y does not qualify: the M_noscreen arm is dropped and its budget goes to starting points (DECISIONS 2026-09-14 G3.1)'}).", ""]
         dec = data["decision"]
         L += ["", "## 6. Decision rule (config llm.calibration.decision)", "",
               f"Primary metric {dec['primary_metric']}: scores {dict((k, round(v, 3)) for k, v in dec['scores'].items())}; best area gain per model {dict((k, round(100 * v, 2)) for k, v in dec['best_gain_by_model'].items())} %; "
