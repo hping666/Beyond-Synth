@@ -1,6 +1,6 @@
 # Phase 2 report — noise floor, SEQ pilot, E4 runtime (Exp0)
 
-Generated 2026-09-13 12:19 by scripts/report_phase.py (git 337a5d5d9ba6, cfg 443559992d75). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
+Generated 2026-09-13 19:54 by scripts/report_phase.py (git 4f3d10499f7b, cfg 443559992d75). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
 
 ## 1. Perturbation generator (PLAN 2.1)
 
