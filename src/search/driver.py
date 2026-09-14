@@ -74,6 +74,7 @@ class SearchRun:
         self.d_text = "\n\n".join(Path(self.design["_dir"], f).read_text(errors="replace") for f in self.design["files"])
         self.priority = int(cfg["search"].get("job_priority", 4))
         self.load_state()
+        self.mark_orphans()
 
     # ------------------------------------------------------------------ creation / resumption
     @classmethod
@@ -94,6 +95,16 @@ class SearchRun:
     @classmethod
     def resume(cls, cfg, conn, run_id, queue=None, transport=None):
         return cls(cfg, conn, run_id, queue=queue, transport=transport)
+
+    def mark_orphans(self):
+        """Candidate rows of this run that the state file does not know belong to a generation whose issue died before
+        the state was saved (crash / kill): labelled `aborted`, never evaluated further, excluded from the tables."""
+        known = set(self.state["cands"]) | {k for k in self.state["cands"]} | set(self.state["feedback"])
+        rows = [r[0] for r in self.conn.execute("SELECT cand_id FROM candidates WHERE run_id=? AND label IS NULL", (self.run_id,))]
+        orphans = [cid for cid in rows if cid not in known and not any(cid.startswith(k + "_dup") for k in known)]
+        for cid in orphans:
+            self.conn.execute("UPDATE candidates SET label='aborted', note=COALESCE(note,'') || ' [aborted: issued by an attempt that died before persisting its state]' WHERE cand_id=?", (cid,))
+        return orphans
 
     def load_state(self):
         if self.state_path.exists():
@@ -207,17 +218,17 @@ class SearchRun:
                 continue
             cid = CA.cand_id_of(rtl, self.run_id)   # per-run id; the unsalted content hash is stored alongside (DECISIONS 2026-09-14)
             _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, cand_id=cid)
-            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng))
+            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i))
         st["gen"] = gen
         st["issued_at"] = self.clock()
         self.conn.execute("UPDATE runs SET llm_calls=?, gens_done=?, status='running' WHERE run_id=?", (st["calls"], gen, self.run_id))
         self.write_gen_summary(gen)
         return issued
 
-    def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng):
+    def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng, index=0):
         st = self.state
         if cid in st["cands"]:   # the same RTL came out twice: a duplicate of the earlier candidate, no evaluation
-            self.record_label(cid + f"_dup{gen}", None, "duplicate", {"duplicate_of": cid}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
+            self.record_label(f"{cid}_dup{gen}_{index}", None, "duplicate", {"duplicate_of": cid}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
             return cid
         if rtl.strip() == self.d_text.strip():
             st["cands"][cid] = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_final": "a", "state": "final", "issued_at": self.clock()}
@@ -309,6 +320,11 @@ class SearchRun:
         return changed
 
     def submit_e4(self, cid, c, rec):
+        prev = self.conn.execute("SELECT e4_job_id FROM candidates WHERE cand_id=?", (cid,)).fetchone()
+        if prev is not None and prev[0]:   # a previous attempt submitted the E4 job before dying: reuse it
+            c["e4_job_id"], c["state"] = prev[0], "e4_pending"
+            self.state["pending"][cid] = "e4"
+            return
         j = J.dc_job(self.cfg, self.design, "E4", self.phi, self.priority)
         saif = rec.get("saif_c")
         j["payload"].update(rtl=[c["path"]], incdirs=[], is_baseline=0, cand_id=cid)
@@ -384,6 +400,21 @@ class SearchRun:
         self.apply_diagnosis(cid, c, diag, cand_rec=cand)
 
     def apply_diagnosis(self, cid, c, diag, cand_rec):
+        existing = self.conn.execute("SELECT * FROM diagnoses WHERE cand_id=?", (cid,)).fetchone()
+        if existing is not None:   # written by a previous attempt that died before persisting its state: sync the state, insert nothing
+            existing = dict(existing)
+            ev = json.loads(existing.get("evidence_json") or "{}")
+            gains = ev.get("gains") or {}
+            label, credit, cls_final = existing["label"], int(existing.get("credit") or 0), existing.get("credited_class") or c.get("class_final")
+            self.bandit.credit(cls_final, credit)
+            self.state["feedback"][cid] = json.loads(existing.get("feedback_json") or "{}")
+            c.update(state="final", label=label, gains=gains, credit=credit)
+            self.state["pending"].pop(cid, None)
+            if label == "retained":
+                self.archive.add({"cand_id": cid, "gains": gains, "gen": c["gen"], "label": label})
+                self.state["retained"] += 1
+                self.state["last_retained_gen"], self.state["stall"] = c["gen"], 0
+            return
         label = diag["label"]
         gains = (diag.get("evidence") or {}).get("gains") or {}
         parent = self.state["cands"].get(c.get("parent_id")) if c.get("parent_id") else None

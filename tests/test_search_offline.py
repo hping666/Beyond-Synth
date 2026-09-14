@@ -240,3 +240,32 @@ def test_candidate_ids_are_per_run_and_keep_the_content_hash():
     rtl = "module d(input a, output y); assign y = a; endmodule\n"
     assert CA.cand_id_of(rtl) == CA.cand_id_of(rtl) and CA.cand_id_of(rtl, "run1") != CA.cand_id_of(rtl, "run2") != CA.cand_id_of(rtl)
     assert CA.cand_id_of(rtl, "run1") == CA.cand_id_of(rtl, "run1")
+
+
+def test_resume_is_idempotent_after_a_crash_between_diagnosis_and_state_save(env):
+    """A previous attempt diagnosed a candidate (diagnoses row exists) and submitted E4 jobs but died before saving the
+    state: the resumed run syncs from the rows instead of inserting twice; two identical answers in one generation give
+    two distinct duplicate rows; candidate rows unknown to the state are marked aborted."""
+    cfg, conn, q, tmp_path = env
+    from src.search.driver import SearchRun
+    tr = FakeTransport()
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=7, model="gpt-5.6-luna", K=2, N=3, queue=q, transport=tr)
+    run.step()
+    snapshot = run.state_path.read_text()                     # the state as persisted after generation 1
+    pending = [cid for cid, c in run.state["cands"].items() if c.get("state") != "final"]
+    finish_eq(conn, cfg, tmp_path, pending[0], verdict="proven")
+    run.step()                                                # E4 submitted (state saved)
+    saved_after_e4 = run.state_path.read_text()
+    finish_e4(conn, pending[0], 90.0)
+    run.step()                                                # diagnosed: diagnoses row exists, state saved ...
+    run.state_path.write_text(saved_after_e4)                 # ... but pretend the process died before that save
+    db.insert(conn, "candidates", {"cand_id": "corphan", "run_id": run.run_id, "design_id": "rtllm_d", "gen": 2, "arm": "M", "llm_model": "gpt-5.6-luna", "rtl_path": "/x"})
+    run2 = SearchRun.resume(cfg, conn, run.run_id, queue=q, transport=tr)
+    assert conn.execute("SELECT label FROM candidates WHERE cand_id='corphan'").fetchone()[0] == "aborted"
+    run2.step()                                               # no UNIQUE error: the diagnosis row is reused, the archive and the credit rebuilt
+    assert conn.execute("SELECT COUNT(*) FROM diagnoses WHERE cand_id=?", (pending[0],)).fetchone()[0] == 1
+    assert run2.state["cands"][pending[0]]["label"] == "retained" and run2.archive.members[0]["cand_id"] == pending[0] and run2.bandit.reward["b"] == 1.0
+    # identical answers twice in one generation: call 2 and call 3 of the fake are the same RTL; a second run's generation
+    # gets distinct duplicate ids (dup<gen>_<index>)
+    dups = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? AND label='duplicate'", (run.run_id,))]
+    assert dups and all("_dup" in d for d in dups) and len(dups) == len(set(dups))
