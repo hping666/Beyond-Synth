@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS screening (
 
 CREATE TABLE IF NOT EXISTS diagnoses (
   cand_id TEXT PRIMARY KEY,
-  label TEXT NOT NULL CHECK (label IN ('retained', 'absorbed', 'noise', 'harmful', 'tradeoff', 'nonequiv', 'screened_out')),
+  label TEXT NOT NULL CHECK (label IN ('retained', 'absorbed', 'absorbed_identical', 'duplicate', 'noise', 'harmful', 'tradeoff', 'fragile', 'nonequiv', 'prescreened', 'screened_out')),   -- DECISIONS 2026-09-14 C2.4
   rung TEXT, capability TEXT,
   attribution TEXT CHECK (attribution IN ('measured', 'prior') OR attribution IS NULL),
   fp_jaccard REAL, evidence_json TEXT, feedback_json TEXT, credit INTEGER,

@@ -18,11 +18,13 @@ def _vcf():
     return vcf
 
 
-def seq_tcl(spec_files, impl_files, spec_top, impl_top, clk, rst, rst_sense, max_time, workers, fmt, zero_init):
-    """The Tcl script text (identical to the flow's except for the optional zero-initialisation line)."""
+def seq_tcl(spec_files, impl_files, spec_top, impl_top, clk, rst, rst_sense, max_time, workers, fmt, zero_init, incdirs=()):
+    """The Tcl script text (identical to the flow's except for the optional zero-initialisation line and the include
+    directories of designs with `include` files, passed to analyze as VCS options)."""
+    inc = (" -vcs {" + " ".join(f"+incdir+{d}" for d in incdirs) + "}") if incdirs else ""
     lines = ["set_fml_appmode SEQ", f"set_fml_var fml_max_time {max_time}", f"set_grid_usage -type rsh={workers}",
-             f"analyze -format {fmt} -library spec {{{' '.join(spec_files)}}}",
-             f"analyze -format {fmt} -library impl {{{' '.join(impl_files)}}}",
+             f"analyze -format {fmt}{inc} -library spec {{{' '.join(spec_files)}}}",
+             f"analyze -format {fmt}{inc} -library impl {{{' '.join(impl_files)}}}",
              f"elaborate_seq -spectop {spec_top} -impltop {impl_top}", "map_by_name", f"create_clock spec.{clk} -period 100"]
     if rst:
         lines.append(f"create_reset spec.{rst} -sense {rst_sense}")
@@ -34,7 +36,7 @@ def seq_tcl(spec_files, impl_files, spec_top, impl_top, clk, rst, rst_sense, max
 
 
 def seq_equiv(spec_files, impl_files, spec_top, impl_top=None, clk="clk", rst=None, rst_sense="high", workdir=None,
-              max_time="20M", timeout=3600, sverilog=False, workers=1, zero_init=True):
+              max_time="20M", timeout=3600, sverilog=False, workers=1, zero_init=True, incdirs=None):
     """Same contract as flow/vcf.py::seq_equiv (-> dict with status equivalent / not_equivalent / inconclusive / timeout /
     error, counts, regs_mapped / regs_unmapped, properties, workdir, runtime_s), with the zero-init line when zero_init."""
     vcf = _vcf()
@@ -48,7 +50,8 @@ def seq_equiv(spec_files, impl_files, spec_top, impl_top=None, clk="clk", rst=No
     wd.mkdir(parents=True, exist_ok=True)
     fmt = "sverilog" if sverilog else "verilog"
     tcl = wd / "seq.tcl"
-    tcl.write_text(seq_tcl(spec_files, impl_files, spec_top, impl_top, clk, rst, rst_sense, max_time, workers, fmt, zero_init))
+    tcl.write_text(seq_tcl(spec_files, impl_files, spec_top, impl_top, clk, rst, rst_sense, max_time, workers, fmt, zero_init,
+                           [str(Path(d).resolve()) for d in (incdirs or [])]))
     vcf._check_workdir(wd)
     t0 = time.time()
     try:

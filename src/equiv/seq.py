@@ -22,7 +22,7 @@ def _vcf(cfg):
     return vcf
 
 
-def run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, *, impl_top=None, sverilog=False, timeout_sec=None, max_time=None):
+def run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, *, impl_top=None, sverilog=False, timeout_sec=None, max_time=None, incdirs=None):
     vcf = _vcf(cfg)
     wd = Path(job_dir) / "v3_seq"
     seq_min = int(cfg["timeouts"]["seq_min"])
@@ -34,7 +34,7 @@ def run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, *, impl_to
         max_time = f"{minutes}M"
     zero_init = bool((cfg.get("equiv") or {}).get("init_state_zero_no_reset", False))
     runner = seq_equiv_project if zero_init else vcf.seq_equiv   # DECISIONS 2026-09-14 G2.2: the project-owned script adds the zero-init line
-    kw = {"zero_init": True} if zero_init else {}
+    kw = {"zero_init": True, "incdirs": incdirs} if zero_init else {}   # the flow's own runner has no include option
     r = runner([str(f) for f in d_files], [str(f) for f in c_files], top, impl_top=impl_top or top, clk=clk, rst=rst,
                rst_sense=rst_sense or "high", workdir=str(wd), max_time=max_time,
                timeout=float(timeout_sec or seq_min * 60 + 300), sverilog=sverilog,

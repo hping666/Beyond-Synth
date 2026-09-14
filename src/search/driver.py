@@ -1,0 +1,453 @@
+"""Residual-guided evolution, one run per design (docs/spec/05-search.md §1, §7; DECISIONS 2026-09-14): parallel-candidate
+hill climbing with a small Pareto archive, a class bandit credited by the produced class, a classifier prescreen, the
+conventional pipeline V1 → V2 → V3 → E4 → diagnosis through the queue, asynchronous generations and resumption from the
+database plus a state file. No synthesis-rung screening. The driver only submits jobs and reads records; it never
+touches the hidden database."""
+import json
+import random
+import time
+from pathlib import Path
+
+from src import config as C
+from src.classify import rules as M6
+from src.db import core as db
+from src.designs import catalog as K
+from src.designs import jobs as J
+from src.diagnose import m3
+from src.noise import stats as S
+from src.search import candidates as CA
+from src.search import llm as L
+from src.search import prompts as PR
+from src.search.archive import Archive
+from src.search.bandit import ClassBandit
+from src.search.prescreen import decide as prescreen_decide
+
+EQ_KEEP = ("v1_status", "v2_status", "v2_cycles", "latency_offset_json", "v3_status", "v3_seconds", "v4_status", "counterexample_path", "verdict", "seconds")
+BUDGET_PHASE = {"phase3": "phase3_calibration", "smoke": "phase3_calibration", "phase4": "phase4_generation", "phase5": "phase5_main", "ablation": "phase6_ablation"}
+FINAL_LABELS = {"retained", "absorbed", "absorbed_identical", "duplicate", "noise", "harmful", "tradeoff", "fragile", "nonequiv", "prescreened"}
+
+
+def record_from_row(row):
+    """An evaluations row -> the record dict the diagnoser reads (metrics, hist, resources, path_endpoints, log_summary)."""
+    r = dict(row)
+    def js(k):
+        try:
+            return json.loads(r.get(k) or "{}")
+        except (ValueError, TypeError):
+            return {}
+    ls = js("log_summary_json")
+    counts = ls.get("counts") if isinstance(ls.get("counts"), dict) else ls
+    metrics = {"area": r.get("area_um2"), "area_um2": r.get("area_um2"), "cells": r.get("cells"), "wns_ns": r.get("wns_ns"), "tns_ns": r.get("tns_ns"),
+               "power_saif_mw": r.get("power_saif_mw"), "power_default_mw": r.get("power_default_mw"),
+               "registers": (counts or {}).get("registers") or ls.get("registers"), "icg_count": (counts or {}).get("icg_count") or ls.get("icg_count")}
+    cp = js("crit_path_json")
+    return {"metrics": metrics, "hist": js("hist_json"), "resources": js("resources_json"), "log_summary": ls,
+            "path_endpoints": cp.get("endpoints") or cp.get("path_endpoints") or [], "raw_dir": r.get("raw_dir"), "dc_seconds": r.get("dc_seconds")}
+
+
+class SearchRun:
+    def __init__(self, cfg, conn, run_id, queue=None, transport=None, clock=time.time):
+        self.cfg, self.conn, self.run_id = cfg, conn, run_id
+        self.clock = clock
+        self.row = dict(conn.execute("SELECT * FROM runs WHERE run_id=?", (run_id,)).fetchone())
+        self.design = next(d for d in K.load_all() if d["design_id"] == self.row["design_id"])
+        drow = conn.execute("SELECT * FROM designs WHERE design_id=?", (self.row["design_id"],)).fetchone()
+        self.phi = float(drow["phi_main_ns_nangate45"])
+        self.dir = Path(C.ROOT) / "results" / "candidates" / run_id
+        self.dir.mkdir(parents=True, exist_ok=True)
+        self.state_path = self.dir / "state.json"
+        self.queue = queue
+        self.client = L.LLMClient(cfg, conn, BUDGET_PHASE.get(self.row["exp"], self.row["exp"]), run_id, transport=transport)
+        self.system, self.classes, self.prompt_version = PR.load_templates()
+        self.floor = S.latest_floor(conn, self.row["design_id"], "E4")
+        self.floor_class = next((r.get("floor_class") for r in self.floor.values() if r.get("floor_class")), None)
+        self.thresholds = {"area": (self.floor.get("area") or {}).get("t_d"), "wns": (self.floor.get("wns") or {}).get("t_d"), "power": (self.floor.get("power_saif") or {}).get("t_d")}
+        self.sigma = {"area": (self.floor.get("area") or {}).get("sigma_robust") or 0.0, "wns": (self.floor.get("wns") or {}).get("sigma_robust") or 0.0,
+                      "power": (self.floor.get("power_saif") or {}).get("sigma_robust") or 0.0}
+        base = conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config='E4' AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL AND status='ok' "
+                            "AND abs(clock_ns-?)<1e-6 ORDER BY (power_saif_mw IS NOT NULL) DESC, eval_id DESC LIMIT 1", (self.row["design_id"], self.phi)).fetchone()
+        if base is None:
+            raise RuntimeError(f"{self.row['design_id']}: no E4 baseline at Phi_main {self.phi}; run scripts/phase2_noise.py first")
+        self.base_row, self.base = base, record_from_row(base)
+        self.prior = None   # Phase 3: no map prior yet (Phase 4 output)
+        self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior)
+        self.d_text = "\n\n".join(Path(self.design["_dir"], f).read_text(errors="replace") for f in self.design["files"])
+        sc = cfg["search"]
+        self.K, self.N = int(self.row["gens_total"]) if "gens_total" in self.row and self.row.get("gens_total") else None, None
+        self.load_state()
+
+    # ------------------------------------------------------------------ creation / resumption
+    @classmethod
+    def create(cls, cfg, conn, *, exp, arm, design_id, seed, model, K, N, queue=None, transport=None, note=""):
+        run_id = f"r{db.now().replace('-', '').replace(':', '').replace('T', '_')}_{design_id[-12:]}_{model[-6:]}_s{seed}".replace(".", "")
+        sc = cfg["search"]
+        budget_calls = min(int(K) * int(N), int(cfg["scale"]["budget"]["llm_calls_per_run"]))
+        db.insert(conn, "runs", {"run_id": run_id, "exp": exp, "arm": arm, "skeleton": "hillclimb", "design_id": design_id, "seed": int(seed), "llm_model": model,
+                                 "prompt_version": str(PR.load_templates()[2]), "screening_enabled": 0, "e_s": None, "budget_dc_hours": None,
+                                 "budget_llm_calls": budget_calls, "status": "created", "started_at": db.now()})
+        run = cls(cfg, conn, run_id, queue=queue, transport=transport)
+        run.state.update(K=int(K), N=int(N), budget_calls=budget_calls, note=note)
+        run.bandit = ClassBandit(sc["bandit"]["arms"], sc["bandit"]["c_ucb"], sc["bandit"]["softmax_temp"], prior=None)
+        run.archive = Archive(sc["archive_size"])
+        run.save_state()
+        return run
+
+    @classmethod
+    def resume(cls, cfg, conn, run_id, queue=None, transport=None):
+        return cls(cfg, conn, run_id, queue=queue, transport=transport)
+
+    def load_state(self):
+        if self.state_path.exists():
+            st = json.loads(self.state_path.read_text())
+        else:
+            st = {"gen": 0, "issued_at": None, "pending": {}, "cands": {}, "feedback": {}, "fingerprints": {}, "retained": 0, "calls": 0, "K": None, "N": None, "budget_calls": None, "done": False, "stall": 0, "last_retained_gen": 0}
+        self.state = st
+        sc = self.cfg["search"]
+        self.bandit = ClassBandit.from_json(st["bandit"]) if st.get("bandit") else ClassBandit(sc["bandit"]["arms"], sc["bandit"]["c_ucb"], sc["bandit"]["softmax_temp"])
+        self.archive = Archive.from_json(st["archive"]) if st.get("archive") else Archive(sc["archive_size"])
+
+    def save_state(self):
+        self.state["bandit"], self.state["archive"] = self.bandit.to_json(), self.archive.to_json()
+        self.state_path.write_text(json.dumps(self.state, indent=1, sort_keys=True, default=str))
+
+    # ------------------------------------------------------------------ helpers
+    def _q(self):
+        if self.queue is None:
+            from src.jobqueue.core import Queue
+            self.queue = Queue(self.cfg, self.conn, str(Path(C.results_dir(self.cfg)) / "queue" / "logs"), env={})
+        return self.queue
+
+    def job_state(self, job_id):
+        r = self.conn.execute("SELECT state FROM jobs WHERE job_id=?", (job_id,)).fetchone()
+        return r["state"] if r else "missing"
+
+    def eq_record(self, cand_id):
+        best = None
+        for eq in (Path(C.results_dir(self.cfg)) / "raw" / self.row["design_id"] / "EQ").glob("*/equiv.json"):
+            try:
+                rec = json.loads(eq.read_text())
+            except json.JSONDecodeError:
+                continue
+            if rec.get("cand_id") == cand_id and (best is None or eq.stat().st_mtime > best[0]):
+                best = (eq.stat().st_mtime, rec, str(eq.parent))
+        return (best[1], best[2]) if best else (None, None)
+
+    def e4_row(self, cand_id):
+        return self.conn.execute("SELECT * FROM evaluations WHERE design_id=? AND cand_id=? AND config='E4' AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1",
+                                 (self.row["design_id"], cand_id, self.phi)).fetchone()
+
+    def seq_cap_min(self, cls):
+        caps = self.cfg.get("equiv", {}).get("seq_cap_min_by_class") or {}
+        return int(caps.get(cls, self.cfg["timeouts"]["seq_min"]))
+
+    def lineage_feedback(self, parent_id):
+        depth = int(self.cfg["search"]["feedback_depth"])
+        blocks, cid = [], parent_id
+        while cid and len(blocks) < depth:
+            fb = self.state["feedback"].get(cid)
+            if fb:
+                blocks.append(fb)
+            cid = (self.state["cands"].get(cid) or {}).get("parent_id")
+        if not blocks:  # a fresh start from D: the most recent verdicts of this run still inform the model
+            recent = sorted((c for c in self.state["cands"].values() if c["cand_id"] in self.state["feedback"]), key=lambda c: -c.get("gen", 0))
+            blocks = [self.state["feedback"][c["cand_id"]] for c in recent[:depth]]
+        return blocks
+
+    # ------------------------------------------------------------------ generation
+    def build_generation(self):
+        st = self.state
+        gen = st["gen"] + 1
+        rng = random.Random(f"{self.run_id}|gen{gen}|seed{self.row['seed']}")
+        parent = self.archive.select_parent(rng)
+        if st["stall"] >= int(self.cfg["search"]["stall_gens"]) and self.archive.members:
+            others = [m for m in self.archive.members if not parent or m["cand_id"] != parent["cand_id"]]
+            parent = rng.choice(others) if others else None   # restart from another member (or D)
+            st["stall"] = 0
+        parent_id = parent["cand_id"] if parent else None
+        parent_rtl = Path(st["cands"][parent_id]["path"]).read_text() if parent_id else None
+        n = min(int(st["N"]), int(st["budget_calls"]) - int(st["calls"]))
+        classes = self.bandit.draw(rng, n)
+        blocks = self.lineage_feedback(parent_id)
+        issued = []
+        for i, cls in enumerate(classes):
+            instr = self.classes.get(cls, self.classes.get("free"))
+            sfx = PR.suffix(instr, cls, parent_rtl, blocks, self.design["top"])
+            r = self.client.call(self.row["llm_model"], self.prefix, sfx, tag=f"{self.run_id}:g{gen}:{cls}:{i}")
+            st["calls"] += 1
+            meta = {"run_id": self.run_id, "gen": gen, "parent_id": parent_id, "class_requested": cls, "call_id": r["call_id"], "cost_usd": r["cost_usd"], "usage": r["usage"]}
+            try:
+                rtl, note = CA.parse_answer(r["text"])
+                CA.check_top(rtl, self.design["top"])
+            except CA.BadAnswer as e:
+                meta.update(unusable=str(e))
+                (self.dir / f"unusable_g{gen}_{i}.json").write_text(json.dumps(meta, indent=1, default=str))
+                self.bandit.credit(cls, 0)   # an unusable answer is the requested class's failure
+                continue
+            cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note})
+            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng))
+        st["gen"] = gen
+        st["issued_at"] = self.clock()
+        self.conn.execute("UPDATE runs SET llm_calls=?, gens_done=?, status='running' WHERE run_id=?", (st["calls"], gen, self.run_id))
+        self.write_gen_summary(gen)
+        return issued
+
+    def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng):
+        st = self.state
+        if cid in st["cands"]:   # the same RTL came out twice: a duplicate of the earlier candidate, no evaluation
+            self.record_label(cid + f"_dup{gen}", None, "duplicate", {"duplicate_of": cid}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
+            return cid
+        if rtl.strip() == self.d_text.strip():
+            st["cands"][cid] = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_final": "a", "state": "final", "issued_at": self.clock()}
+            self.record_label(cid, None, "absorbed_identical", {"identical_text": True}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call, cls_final="a")
+            return cid
+        d_files = [str(p) for p in K.abs_paths(self.design, self.design["files"])]
+        try:
+            feat = M6.features(d_files, [str(path)], self.design["top"], self.cfg, sverilog=self.design.get("sverilog", False),
+                               incdirs=[str(p) for p in K.abs_paths(self.design, self.design["incdirs"])], workdir=self.dir / f"m6_{cid}")
+            cls_rule = M6.classify(feat)
+            cls_final = cls_rule["class_rule"]
+        except Exception as e:  # the classifier could not read the candidate: the requested class stands, flagged
+            cls_rule, cls_final = {"class_rule": None, "error": f"{type(e).__name__}: {e}"[:200]}, cls_requested
+        pre = prescreen_decide(self.prior, cls_final, self.cfg["prescreen"]["p_min"], self.cfg["prescreen"]["audit_frac"], rng)
+        cap = self.seq_cap_min(cls_final if cls_final in ("a", "b", "c1", "c2", "d") else "d")
+        entry = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_rule": cls_final,
+                 "class_final": cls_final, "prescreen": pre, "seq_cap_min": cap, "issued_at": self.clock(), "state": "eq_pending", "note": note}
+        row = {"cand_id": cid, "run_id": self.run_id, "design_id": self.row["design_id"], "gen": gen, "parent_id": parent_id, "arm": self.row["arm"],
+               "class_requested": cls_requested, "class_rule": cls_final, "class_final": cls_final, "confidence": cls_rule.get("confidence"),
+               "subtags_json": json.dumps(cls_rule.get("rules") or cls_rule), "prompt_hash": None, "llm_model": self.row["llm_model"],
+               "tokens_in": (call["usage"] or {}).get("input_tokens"), "tokens_cached": (call["usage"] or {}).get("cached_tokens"),
+               "tokens_out": (call["usage"] or {}).get("output_tokens"), "cost_usd": call["cost_usd"], "rtl_path": str(path), "prescreened": int(pre == "prescreened"),
+               "seq_cap_min": cap, "note": note, "call_id": call["call_id"]}
+        db.insert(self.conn, "candidates", row)
+        if pre == "prescreened":
+            entry["state"] = "final"
+            st["cands"][cid] = entry
+            self.record_label(cid, None, "prescreened", {"prior": (self.prior or {}).get(cls_final)}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call, cls_final=cls_final, insert_row=False)
+            return cid
+        payload = {"design_id": self.row["design_id"], "cand_id": cid, "d_rtl": d_files, "c_rtl": [str(path)], "top": self.design["top"],
+                   "clk": (self.design.get("clk_ports") or [None])[0], "rst": self.design.get("rst_port"), "rst_sense": self.design.get("rst_sense"),
+                   "sverilog": self.design.get("sverilog", False), "incdirs": [str(p) for p in K.abs_paths(self.design, self.design["incdirs"])],
+                   "note": f"search {self.run_id} g{gen} {cls_final}"}
+        jid = self._q().submit("vcf", payload, design_id=self.row["design_id"], cand_id=cid, config="EQ", priority=2, timeout_sec=cap * 60 + 900)
+        entry["eq_job_id"] = jid
+        self.conn.execute("UPDATE candidates SET eq_job_id=? WHERE cand_id=?", (jid, cid))
+        st["cands"][cid] = entry
+        st["pending"][cid] = "eq"
+        return cid
+
+    # ------------------------------------------------------------------ verdict processing
+    def process_verdicts(self):
+        """Apply every verdict that has arrived (any generation): equivalence -> E4 job; E4 -> diagnosis; envelope -> final label."""
+        changed = False
+        for cid, stage in list(self.state["pending"].items()):
+            c = self.state["cands"][cid]
+            if stage == "eq":
+                js = self.job_state(c["eq_job_id"])
+                if js not in ("done", "failed"):
+                    continue
+                rec, rec_dir = self.eq_record(cid)
+                changed = True
+                if rec is None:
+                    self.finish_nonequiv(cid, {"verdict": "error", "v1_status": "error"}, "no equivalence record (job failed)")
+                    continue
+                c["eq_record"] = rec_dir
+                c["time_to_verdict_s"] = round(self.clock() - float(c["issued_at"]), 1)
+                self.conn.execute("UPDATE candidates SET v1_status=?, v2_status=?, v2_cycles=?, latency_offset_json=?, v3_status=?, v3_seconds=?, v4_status=?, "
+                                  "counterexample_path=?, verdict=?, time_to_verdict_s=?, proven_by=? WHERE cand_id=?",
+                                  tuple(rec.get(k) for k in EQ_KEEP[:8]) + (rec.get("verdict"), c["time_to_verdict_s"], rec.get("proven_by"), cid))
+                offsets = json.loads(rec.get("latency_offset_json") or "{}")
+                if rec.get("verdict") in ("proven", "proven_sim_only") and any(int(v) > 0 for v in offsets.values()):
+                    c["class_final"] = "c2"
+                    self.conn.execute("UPDATE candidates SET class_final='c2' WHERE cand_id=?", (cid,))
+                if rec.get("verdict") in ("proven", "proven_sim_only"):
+                    self.submit_e4(cid, c, rec)
+                else:
+                    self.finish_nonequiv(cid, rec, None)
+            elif stage == "e4":
+                js = self.job_state(c["e4_job_id"])
+                if js not in ("done", "failed"):
+                    continue
+                changed = True
+                row = self.e4_row(cid)
+                if row is None:
+                    c["state"], c["e4_failed"] = "final", True
+                    self.state["pending"].pop(cid, None)
+                    self.conn.execute("UPDATE candidates SET note=COALESCE(note,'') || ' [E4 evaluation failed]' WHERE cand_id=?", (cid,))
+                    continue
+                self.diagnose_candidate(cid, c, row)
+            elif stage == "envelope":
+                jobs = c.get("envelope_jobs") or []
+                if any(self.job_state(j) not in ("done", "failed") for j in jobs):
+                    continue
+                changed = True
+                self.finish_envelope(cid, c)
+        return changed
+
+    def submit_e4(self, cid, c, rec):
+        j = J.dc_job(self.cfg, self.design, "E4", self.phi, 2)
+        saif = rec.get("saif_c")
+        j["payload"].update(rtl=[c["path"]], incdirs=[], is_baseline=0, cand_id=cid)
+        if saif and Path(saif).exists():
+            j["payload"].update(saif=saif, saif_instance="bs_lockstep/u_c")
+        jid = self._q().submit(j["kind"], j["payload"], design_id=self.row["design_id"], cand_id=cid, config="E4", priority=2, timeout_sec=j["timeout_sec"])
+        c["e4_job_id"], c["state"] = jid, "e4_pending"
+        self.conn.execute("UPDATE candidates SET e4_job_id=? WHERE cand_id=?", (jid, cid))
+        self.state["pending"][cid] = "e4"
+
+    def finish_nonequiv(self, cid, rec, note):
+        c = self.state["cands"][cid]
+        diag = m3.diagnose(self.base, self.base, self.sigma, self.phi, v3_status=rec.get("verdict") or "error")
+        self.apply_diagnosis(cid, c, diag, cand_rec=None)
+
+    def diagnose_candidate(self, cid, c, row):
+        cand = record_from_row(row)
+        c["e4_raw_dir"], c["dc_seconds"] = cand.get("raw_dir"), cand.get("dc_seconds")
+        fps = {k: v for k, v in self.state["fingerprints"].items() if k != cid}
+        diag = m3.diagnose(self.base, cand, self.sigma, self.phi, v3_status="proven", k_sigma=float(self.cfg["noise"]["k_sigma"]),
+                           fp_jaccard=float(self.cfg["diag"]["fp_jaccard"]), thresholds=self.thresholds, floor_class=self.floor_class,
+                           run_fingerprints=fps, envelope=c.get("envelope_gains"))
+        self.state["fingerprints"][cid] = {"metrics": {"area": cand["metrics"]["area"], "cells": cand["metrics"]["cells"]}, "hist": cand["hist"]}
+        if diag.get("envelope_required") and not c.get("envelope_jobs"):
+            self.submit_envelope(cid, c)
+            c["diag_pending"] = diag
+            return
+        self.apply_diagnosis(cid, c, diag, cand_rec=cand)
+
+    def submit_envelope(self, cid, c):
+        """C2.1(d): text-level renamings of the candidate itself at E4; their gains bound what counts as retained."""
+        from src.noise import rename_text as RT
+        from src.noise import vast as V
+        n = int(self.cfg["search"]["acceptance_envelope"]["n_perturbations"])
+        try:
+            ast, _d, _n = V.parse_files([c["path"]], workdir=self.dir / f"env_{cid}" / "parse", strict=False)
+            variants = RT.text_variants([c["path"]], ast, f"{self.run_id}:{cid}", n)
+        except Exception as e:
+            c["envelope_error"] = f"{type(e).__name__}: {e}"[:200]
+            variants = []
+        jobs = []
+        for k, mapping, texts in variants:
+            p = self.dir / f"env_{cid}" / f"P1_text_{k}.v"
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(next(iter(texts.values())))
+            j = J.dc_job(self.cfg, self.design, "E4", self.phi, 2)
+            j["payload"].update(rtl=[str(p)], incdirs=[], is_baseline=0, cand_id=f"{cid}_env{k}")
+            jobs.append(self._q().submit(j["kind"], j["payload"], design_id=self.row["design_id"], cand_id=f"{cid}_env{k}", config="E4", priority=2, timeout_sec=j["timeout_sec"]))
+        c["envelope_jobs"], c["state"] = jobs, "envelope_pending"
+        self.state["pending"][cid] = "envelope"
+        if not jobs:
+            self.finish_envelope(cid, c)
+
+    def finish_envelope(self, cid, c):
+        gains = []
+        for k in range(len(c.get("envelope_jobs") or [])):
+            row = self.conn.execute("SELECT * FROM evaluations WHERE design_id=? AND cand_id=? AND config='E4' AND status='ok' ORDER BY eval_id DESC LIMIT 1",
+                                    (self.row["design_id"], f"{cid}_env{k}")).fetchone()
+            if row is not None:
+                gains.append(m3.relative_gains(self.base, record_from_row(row), self.phi))
+        c["envelope_gains"] = gains
+        row = self.e4_row(cid)
+        cand = record_from_row(row)
+        if len(gains) < int(self.cfg["search"]["acceptance_envelope"].get("n_min", 2)):
+            diag = dict(c.get("diag_pending") or {})
+            diag.update(label="fragile", sublabel=f"acceptance envelope unavailable ({len(gains)} of {len(c.get('envelope_jobs') or [])} perturbation runs)")
+        else:
+            fps = {k: v for k, v in self.state["fingerprints"].items() if k != cid}
+            diag = m3.diagnose(self.base, cand, self.sigma, self.phi, v3_status="proven", k_sigma=float(self.cfg["noise"]["k_sigma"]),
+                               fp_jaccard=float(self.cfg["diag"]["fp_jaccard"]), thresholds=self.thresholds, floor_class=self.floor_class,
+                               run_fingerprints=fps, envelope=gains)
+        diag["envelope"] = gains
+        self.apply_diagnosis(cid, c, diag, cand_rec=cand)
+
+    def apply_diagnosis(self, cid, c, diag, cand_rec):
+        label = diag["label"]
+        gains = (diag.get("evidence") or {}).get("gains") or {}
+        parent = self.state["cands"].get(c.get("parent_id")) if c.get("parent_id") else None
+        parent_gains = (parent or {}).get("gains") or {}
+        improves = any(float(gains.get(m, 0)) > float(parent_gains.get(m, 0)) + 1e-9 for m in gains) and not any(float(gains.get(m, 0)) < float(parent_gains.get(m, 0)) - 1e-9 for m in gains)
+        credit = m3.credit(diag, improves)
+        cls_final = c.get("class_final")
+        self.bandit.credit(cls_final, credit)   # produced class (DECISIONS 2026-09-14 C2.1(c))
+        fb = m3.feedback_block(diag, cls_final, [], prior=(self.prior or {}))
+        fb["floor_class"] = self.floor_class
+        self.state["feedback"][cid] = fb
+        c.update(state="final", label=label, gains=gains, credit=credit)
+        self.state["pending"].pop(cid, None)
+        in_archive = 0
+        if label == "retained":
+            in_archive = int(self.archive.add({"cand_id": cid, "gains": gains, "gen": c["gen"], "label": label}))
+            self.state["retained"] += 1
+            self.state["last_retained_gen"], self.state["stall"] = c["gen"], 0
+        db.insert(self.conn, "diagnoses", {"cand_id": cid, "run_id": self.run_id, "label": label, "rung": diag.get("rung"), "capability": diag.get("capability"),
+                                           "attribution": diag.get("attribution"), "fp_jaccard": (diag.get("evidence") or {}).get("fp_jaccard"),
+                                           "offset_design": int(bool(diag.get("offset_design"))), "duplicate_of": diag.get("duplicate_of"),
+                                           "envelope_json": json.dumps(diag.get("envelope")) if diag.get("envelope") is not None else None,
+                                           "evidence_json": json.dumps(diag.get("evidence"), default=str), "feedback_json": json.dumps(fb, default=str),
+                                           "credit": credit, "credited_class": cls_final})
+        self.conn.execute("UPDATE candidates SET label=?, in_archive=?, accepted=?, class_final=? WHERE cand_id=?", (label, in_archive, in_archive, cls_final, cid))
+
+    def record_label(self, cid, rec, label, extra, *, gen, cls_requested, parent_id, path, note, call, cls_final=None, insert_row=True):
+        """Labels decided without evaluation (duplicate answer, identical text, prescreened)."""
+        if insert_row:
+            db.insert(self.conn, "candidates", {"cand_id": cid, "run_id": self.run_id, "design_id": self.row["design_id"], "gen": gen, "parent_id": parent_id,
+                                                "arm": self.row["arm"], "class_requested": cls_requested, "class_final": cls_final, "llm_model": self.row["llm_model"],
+                                                "cost_usd": call["cost_usd"], "rtl_path": path, "note": note, "call_id": call["call_id"], "label": label,
+                                                "prescreened": int(label == "prescreened")})
+        else:
+            self.conn.execute("UPDATE candidates SET label=? WHERE cand_id=?", (label, cid))
+        db.insert(self.conn, "diagnoses", {"cand_id": cid, "run_id": self.run_id, "label": label, "duplicate_of": extra.get("duplicate_of"),
+                                           "evidence_json": json.dumps(extra), "feedback_json": json.dumps({"diagnosis": label, **extra}), "credit": 0, "credited_class": cls_final})
+        self.state["feedback"][cid] = {"class": cls_final or cls_requested, "diagnosis": label, **extra}
+        self.state["cands"].setdefault(cid, {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": path, "class_requested": cls_requested, "class_final": cls_final, "state": "final"})
+        self.state["cands"][cid]["label"] = label
+        self.bandit.credit(cls_final or cls_requested, 0)
+
+    # ------------------------------------------------------------------ bookkeeping
+    def spent(self):
+        dc = self.conn.execute("SELECT COALESCE(SUM(e.dc_seconds),0) FROM evaluations e JOIN candidates c ON (e.cand_id=c.cand_id OR e.cand_id LIKE c.cand_id || '_env%') WHERE c.run_id=?", (self.run_id,)).fetchone()[0]
+        vcf = sum(float((self.state["cands"][k].get("v3_seconds") or 0)) for k in self.state["cands"])
+        usd = self.conn.execute("SELECT COALESCE(SUM(amount),0) FROM budget_ledger WHERE run_id=? AND kind='llm'", (self.run_id,)).fetchone()[0]
+        return float(dc) / 3600.0, vcf / 3600.0, float(usd)
+
+    def write_gen_summary(self, gen):
+        dc_h, vcf_h, usd = self.spent()
+        db.insert(self.conn, "gen_summary", {"run_id": self.run_id, "gen": gen, "archive_json": self.archive.to_json(), "bandit_probs_json": json.dumps(self.bandit.probs()),
+                                             "tau": None, "e_s": None, "spent_dc_hours_cum": dc_h, "spent_usd_cum": usd, "retained_count_cum": self.state["retained"],
+                                             "pending_json": json.dumps(sorted(self.state["pending"])), "built_at": db.now(), "llm_calls_cum": self.state["calls"]})
+        self.conn.execute("UPDATE runs SET spent_dc_hours=?, spent_vcf_hours=?, spent_usd=?, llm_calls=?, gens_done=? WHERE run_id=?",
+                          (dc_h, vcf_h, usd, self.state["calls"], gen, self.run_id))
+
+    def generation_due(self):
+        st = self.state
+        if st["gen"] == 0:
+            return True
+        current = [c for c in st["cands"].values() if c.get("gen") == st["gen"]]
+        if all(c.get("state") == "final" for c in current):
+            return True
+        return st["issued_at"] is not None and (self.clock() - float(st["issued_at"])) >= float(self.cfg["search"]["gen_wait_sec"])
+
+    def step(self):
+        """One scheduling round: apply arrived verdicts, build the next generation when due, persist. -> 'running' | 'done'."""
+        st = self.state
+        self.process_verdicts()
+        if st["gen"] < int(st["K"]) and st["calls"] < int(st["budget_calls"]) and self.generation_due():
+            before = st["retained"]
+            self.build_generation()
+            if st["gen"] > 1 and st["retained"] == before:
+                st["stall"] += 1
+        done = (st["gen"] >= int(st["K"]) or st["calls"] >= int(st["budget_calls"])) and not st["pending"]
+        if done and not st["done"]:
+            st["done"] = True
+            dc_h, vcf_h, usd = self.spent()
+            self.conn.execute("UPDATE runs SET status='done', finished_at=?, spent_dc_hours=?, spent_vcf_hours=?, spent_usd=? WHERE run_id=?", (db.now(), dc_h, vcf_h, usd, self.run_id))
+        self.save_state()
+        return "done" if st["done"] else "running"
+
+    def run(self, poll_sec=None, sleep=time.sleep, max_steps=None):
+        poll = float(poll_sec or self.cfg["search"].get("poll_sec", 30))
+        steps = 0
+        while True:
+            status = self.step()
+            steps += 1
+            if status == "done" or (max_steps and steps >= max_steps):
+                return status
+            sleep(poll)

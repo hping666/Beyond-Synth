@@ -36,11 +36,11 @@ from src.db import core as db  # noqa: E402
 
 EX_TEMPFAIL = 75
 TIMEOUT_RC = 124
-POOL_OF_KIND = {"shell": "local", "sim": "local", "yosys": "local", "llm": "local", "orfs": "local",
+POOL_OF_KIND = {"shell": "local", "sim": "local", "yosys": "local", "llm": "local", "orfs": "local", "search": "local",
                 "dc": "dc", "pt": "pt", "vcf": "vcf", "dc_hidden": "dc"}
 RUNNER_OF_KIND = {"dc": "src.eval.run_dc", "pt": "src.eval.run_pt", "yosys": "src.eval.run_yosys",
                   "orfs": "src.eval.run_orfs", "vcf": "src.equiv.run_equiv", "sim": "src.equiv.run_equiv",
-                  "llm": "src.search.run_llm",
+                  "llm": "src.search.run_llm", "search": "src.search.run_search",   # Phase 3: one residual-guided evolution run per job
                   "dc_hidden": "scripts.hidden_worker"}  # hidden configurations: recorded only by the hidden worker (rule 3)
 KILL_GRACE_SEC = 3.0
 

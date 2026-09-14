@@ -51,6 +51,7 @@ def main(argv=None):
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--submit", action="store_true")
     ap.add_argument("--missing", action="store_true", help="gate: only perturbations without any equivalence record (crashed / never run)")
+    ap.add_argument("--retry-error", action="store_true", help="gate: only perturbations whose latest record is an `error` verdict (a tool failure)")
     ap.add_argument("--priority", type=int, default=0)
     ap.add_argument("--n-per-type", type=int, default=None, help="generate: perturbations per type (config noise.n_per_type by default; 8 for spread / offset and map designs)")
     ap.add_argument("--text-p1", action="store_true", help="generate: text-level P1 renamings appended to the manifest (designs whose re-print is unusable)")
@@ -83,7 +84,10 @@ def main(argv=None):
             m = GT.manifest_of(d["design_id"])
             if m and (not m.get("error") or m.get("perturbations")):  # a text-P1 manifest may carry the AST generator's error and still have entries
                 new_jobs = GT.gate_jobs(d, m, cfg, priority=a.priority)
-                if a.missing:  # no record and no job still queued or running for that perturbation
+                if a.retry_error:  # only perturbations whose latest record is an error (tool failure, not a verdict)
+                    errs = GT.error_cand_ids(cfg, d["design_id"])
+                    new_jobs = [j for j in new_jobs if j["cand_id"] in errs]
+                elif a.missing:  # no record and no job still queued or running for that perturbation
                     have = GT.recorded_cand_ids(cfg, d["design_id"])
                     active = {r[0] for r in conn.execute("SELECT cand_id FROM jobs WHERE kind='vcf' AND design_id=? AND state IN ('queued','running','backoff')", (d["design_id"],))}
                     new_jobs = [j for j in new_jobs if j["cand_id"] not in have and j["cand_id"] not in active]

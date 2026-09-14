@@ -93,7 +93,7 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
         if timeout_sec is not None and remaining() < MIN_STAGE_SEC:
             v3 = {"v3_status": "inconclusive", "v3_seconds": 0.0, "error": "out of time before V3 (V1 + V2 used the budget)", "counterexample_path": None}
         else:
-            v3 = run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, impl_top=c_top, sverilog=sv_used, timeout_sec=remaining())
+            v3 = run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, impl_top=c_top, sverilog=sv_used, timeout_sec=remaining(), incdirs=incdirs)
         rec["v3"] = v3
         rec["v3_status"] = v3["v3_status"]
         rec["v3_seconds"] = v3["v3_seconds"]

@@ -1,0 +1,8 @@
+{
+ "version": 1,
+ "a": "Simplify the logic without changing any register: constant propagation the synthesizer misses, dead or redundant logic, cheaper but equivalent operators, narrower operands where the value range proves it safe. The cycle-by-cycle behaviour at every port stays identical.",
+ "b": "Restructure the combinational and control logic without changing the number or the function of the registers: re-encode the state machine, share or precompute expensive operators, merge or split always blocks, reorder arithmetic to enable sharing, reduce bit widths where provably safe. The cycle-by-cycle behaviour at every port stays identical.",
+ "c1": "Apply a retiming-style transformation: move, split, merge or duplicate registers across combinational logic so that the cycle-by-cycle behaviour at every port stays identical (same values in every clock cycle after reset). Do not change the latency of any output.",
+ "d": "Change the micro-architecture: a different algorithm, a different datapath organisation, a different memory or FIFO structure, a different arithmetic decomposition, as long as the cycle-by-cycle behaviour at every port stays identical.",
+ "free": "Produce the rewrite you believe the synthesizer cannot obtain on its own, of any kind, as long as the cycle-by-cycle behaviour at every port stays identical."
+}

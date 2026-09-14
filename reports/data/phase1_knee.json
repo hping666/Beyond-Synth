@@ -136,7 +136,7 @@
        "T": 0.7,
        "area": 1186.360027,
        "cells": 563,
-       "dc_seconds": 77.6,
+       "dc_seconds": 64.4,
        "tns": 0.0,
        "wns": 0.000232577
       },
@@ -281,7 +281,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
@@ -412,9 +412,25 @@
        "T": 0.5,
        "area": 603.022014,
        "cells": 255,
-       "dc_seconds": 77.9,
+       "dc_seconds": 64.1,
        "tns": 0.0,
        "wns": 0.00045988
+      },
+      {
+       "T": 0.35,
+       "area": 688.940013,
+       "cells": 339,
+       "dc_seconds": 78.9,
+       "tns": -1.711936,
+       "wns": -0.0725632
+      },
+      {
+       "T": 0.25,
+       "area": 801.192015,
+       "cells": 380,
+       "dc_seconds": 83.2,
+       "tns": -6.790771,
+       "wns": -0.153931
       }
      ]
     },
@@ -717,7 +733,7 @@
        "T": 1.0,
        "area": 1144.33202,
        "cells": 573,
-       "dc_seconds": 78.4,
+       "dc_seconds": 82.6,
        "tns": 0.0,
        "wns": 0.0353298
       },
@@ -1128,7 +1144,7 @@
        "T": 2.0,
        "area": 1229.984021,
        "cells": 630,
-       "dc_seconds": 73.3,
+       "dc_seconds": 80.8,
        "tns": 0.0,
        "wns": 0.00884163
       },
@@ -1303,7 +1319,7 @@
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "cktevo",
@@ -1420,7 +1436,7 @@
        "T": 0.7,
        "area": 426.930004,
        "cells": 188,
-       "dc_seconds": 74.1,
+       "dc_seconds": 75.9,
        "tns": 0.0,
        "wns": 0.0860858
       },
@@ -1494,6 +1510,22 @@
        "dc_seconds": 83.3,
        "tns": 0.0,
        "wns": 0.00385964
+      },
+      {
+       "T": 0.9,
+       "area": 2310.966397,
+       "cells": 197,
+       "dc_seconds": 130.9,
+       "tns": -5.181211,
+       "wns": -0.255067
+      },
+      {
+       "T": 0.65,
+       "area": 2285.942399,
+       "cells": 196,
+       "dc_seconds": 90.3,
+       "tns": -12.060235,
+       "wns": -0.437838
       }
      ]
     }
@@ -1627,7 +1659,7 @@
        "T": 1.0,
        "area": 1453.424009,
        "cells": 700,
-       "dc_seconds": 78.6,
+       "dc_seconds": 78.1,
        "tns": 0.0,
        "wns": 0.00302774
       },
@@ -1733,7 +1765,7 @@
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "cktevo",
@@ -1850,7 +1882,7 @@
        "T": 0.7,
        "area": 172.367995,
        "cells": 108,
-       "dc_seconds": 69.6,
+       "dc_seconds": 75.3,
        "tns": 0.0,
        "wns": 0.0474721
       },
@@ -1924,6 +1956,22 @@
        "dc_seconds": 90.3,
        "tns": 0.0,
        "wns": 0.0059886
+      },
+      {
+       "T": 0.9,
+       "area": 1131.084794,
+       "cells": 136,
+       "dc_seconds": 91.6,
+       "tns": -4.504956,
+       "wns": -0.176096
+      },
+      {
+       "T": 0.65,
+       "area": 1166.118394,
+       "cells": 138,
+       "dc_seconds": 86.6,
+       "tns": -9.344625,
+       "wns": -0.313751
       }
      ]
     }
@@ -2057,7 +2105,7 @@
        "T": 1.0,
        "area": 6809.600137,
        "cells": 3365,
-       "dc_seconds": 90.5,
+       "dc_seconds": 100.7,
        "tns": 0.0,
        "wns": 0.00181872
       },
@@ -2272,7 +2320,7 @@
        "T": 1.0,
        "area": 786.561992,
        "cells": 442,
-       "dc_seconds": 76.3,
+       "dc_seconds": 77.3,
        "tns": 0.0,
        "wns": 0.074817
       },
@@ -2540,7 +2588,7 @@
        "T": 1.0,
        "area": 1377.34797,
        "cells": 539,
-       "dc_seconds": 75.0,
+       "dc_seconds": 80.3,
        "tns": 0.0,
        "wns": 0.0138671
       },
@@ -2816,7 +2864,7 @@
        "T": 0.7,
        "area": 822.737984,
        "cells": 329,
-       "dc_seconds": 72.6,
+       "dc_seconds": 80.0,
        "tns": 0.0,
        "wns": 0.020502
       },
@@ -2967,7 +3015,7 @@
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "cktevo",
@@ -3084,7 +3132,7 @@
        "T": 0.7,
        "area": 2373.518011,
        "cells": 937,
-       "dc_seconds": 76.2,
+       "dc_seconds": 78.0,
        "tns": 0.0,
        "wns": 0.0022682
       },
@@ -3158,6 +3206,22 @@
        "dc_seconds": 98.7,
        "tns": -0.016154,
        "wns": -0.00160801
+      },
+      {
+       "T": 0.9,
+       "area": 14601.503819,
+       "cells": 1291,
+       "dc_seconds": 146.4,
+       "tns": -27.959995,
+       "wns": -0.170501
+      },
+      {
+       "T": 0.65,
+       "area": 14885.526209,
+       "cells": 1287,
+       "dc_seconds": 133.1,
+       "tns": -99.316475,
+       "wns": -0.444895
       }
      ]
     }
@@ -3334,14 +3398,14 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.9,
+     "points": 9
     }
    },
    "suite": "cktevo",
@@ -3412,7 +3476,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -3466,16 +3530,32 @@
        "T": 0.5,
        "area": 185.401997,
        "cells": 104,
-       "dc_seconds": 71.8,
+       "dc_seconds": 80.2,
        "tns": 0.0,
        "wns": 0.0354349
+      },
+      {
+       "T": 0.35,
+       "area": 189.923997,
+       "cells": 114,
+       "dc_seconds": 72.0,
+       "tns": 0.0,
+       "wns": 0.00861272
+      },
+      {
+       "T": 0.25,
+       "area": 300.845994,
+       "cells": 153,
+       "dc_seconds": 73.7,
+       "tns": -0.2803,
+       "wns": -0.0160146
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.9,
      "points": [
       {
        "T": 10.0,
@@ -3532,6 +3612,22 @@
        "dc_seconds": 82.6,
        "tns": 0.0,
        "wns": 0.0371038
+      },
+      {
+       "T": 0.9,
+       "area": 964.675175,
+       "cells": 119,
+       "dc_seconds": 126.5,
+       "tns": 0.0,
+       "wns": 0.00271147
+      },
+      {
+       "T": 0.65,
+       "area": 1183.635176,
+       "cells": 153,
+       "dc_seconds": 106.6,
+       "tns": -0.94865,
+       "wns": -0.0488752
       }
      ]
     }
@@ -3677,7 +3773,7 @@
        "T": 4.0,
        "area": 61107.381405,
        "cells": 50724,
-       "dc_seconds": 639.7,
+       "dc_seconds": 693.3,
        "tns": 0.0,
        "wns": 0.000587463
       },
@@ -3892,7 +3988,7 @@
        "T": 4.0,
        "area": 7786.617922,
        "cells": 6486,
-       "dc_seconds": 137.3,
+       "dc_seconds": 122.8,
        "tns": 0.0,
        "wns": 0.00482869
       },
@@ -4068,13 +4164,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.9,
+     "points": 9
     }
    },
    "suite": "cktevo",
@@ -4199,16 +4295,32 @@
        "T": 0.5,
        "area": 880.725979,
        "cells": 401,
-       "dc_seconds": 253.9,
+       "dc_seconds": 246.8,
        "tns": 0.0,
        "wns": 0.00968516
+      },
+      {
+       "T": 0.35,
+       "area": 917.965979,
+       "cells": 427,
+       "dc_seconds": 359.4,
+       "tns": -1.023348,
+       "wns": -0.0348878
+      },
+      {
+       "T": 0.25,
+       "area": 1400.489967,
+       "cells": 500,
+       "dc_seconds": 249.4,
+       "tns": -5.304376,
+       "wns": -0.0493815
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.9,
      "points": [
       {
        "T": 10.0,
@@ -4265,6 +4377,22 @@
        "dc_seconds": 253.3,
        "tns": 0.0,
        "wns": 0.00114191
+      },
+      {
+       "T": 0.9,
+       "area": 4309.132675,
+       "cells": 420,
+       "dc_seconds": 261.9,
+       "tns": 0.0,
+       "wns": 0.00276744
+      },
+      {
+       "T": 0.65,
+       "area": 4404.223882,
+       "cells": 424,
+       "dc_seconds": 262.2,
+       "tns": -19.202555,
+       "wns": -0.184998
       }
      ]
     }
@@ -4470,7 +4598,7 @@
        "T": 2.0,
        "area": 12146.623705,
        "cells": 4400,
-       "dc_seconds": 106.5,
+       "dc_seconds": 95.0,
        "tns": 0.0,
        "wns": 0.00167596
       },
@@ -4921,7 +5049,7 @@
        "T": 0.7,
        "area": 903.335978,
        "cells": 443,
-       "dc_seconds": 125.9,
+       "dc_seconds": 161.1,
        "tns": 0.0,
        "wns": 0.0159287
       },
@@ -5172,13 +5300,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "cktevo",
@@ -5303,9 +5431,25 @@
        "T": 0.5,
        "area": 144.172,
        "cells": 126,
-       "dc_seconds": 74.8,
+       "dc_seconds": 75.4,
        "tns": 0.0,
        "wns": 0.00491068
+      },
+      {
+       "T": 0.35,
+       "area": 188.594,
+       "cells": 173,
+       "dc_seconds": 75.0,
+       "tns": -0.211066,
+       "wns": -0.0230458
+      },
+      {
+       "T": 0.25,
+       "area": 189.126,
+       "cells": 181,
+       "dc_seconds": 78.8,
+       "tns": -3.650662,
+       "wns": -0.113219
       }
      ]
     },
@@ -5369,6 +5513,22 @@
        "dc_seconds": 89.6,
        "tns": 0.0,
        "wns": 0.00711596
+      },
+      {
+       "T": 0.9,
+       "area": 1086.041574,
+       "cells": 196,
+       "dc_seconds": 99.3,
+       "tns": -0.099084,
+       "wns": -0.0173846
+      },
+      {
+       "T": 0.65,
+       "area": 1072.278377,
+       "cells": 192,
+       "dc_seconds": 129.8,
+       "tns": -7.41228,
+       "wns": -0.190424
       }
      ]
     }
@@ -5714,7 +5874,7 @@
        "T": 1.0,
        "area": 146.3,
        "cells": 141,
-       "dc_seconds": 71.5,
+       "dc_seconds": 81.1,
        "tns": 0.0,
        "wns": 0.00183606
       },
@@ -5966,7 +6126,7 @@
        "T": 2.0,
        "area": 2856.307951,
        "cells": 1404,
-       "dc_seconds": 83.0,
+       "dc_seconds": 85.1,
        "tns": 0.0,
        "wns": 0.0107801
       },
@@ -6250,7 +6410,7 @@
        "T": 1.0,
        "area": 2133.585966,
        "cells": 1309,
-       "dc_seconds": 77.0,
+       "dc_seconds": 86.9,
        "tns": 0.0,
        "wns": 0.000690222
       },
@@ -6465,7 +6625,7 @@
        "T": 1.0,
        "area": 34107.317226,
        "cells": 13393,
-       "dc_seconds": 176.3,
+       "dc_seconds": 185.1,
        "tns": 0.0,
        "wns": 0.000697434
       },
@@ -6732,7 +6892,7 @@
        "T": 0.7,
        "area": 969.038021,
        "cells": 425,
-       "dc_seconds": 73.9,
+       "dc_seconds": 78.8,
        "tns": 0.0,
        "wns": 0.0145992
       },
@@ -6992,7 +7152,7 @@
        "T": 1.0,
        "area": 1599.458031,
        "cells": 740,
-       "dc_seconds": 66.3,
+       "dc_seconds": 79.2,
        "tns": 0.0,
        "wns": 0.00523841
       },
@@ -7207,7 +7367,7 @@
        "T": 1.0,
        "area": 942.172023,
        "cells": 412,
-       "dc_seconds": 77.1,
+       "dc_seconds": 78.7,
        "tns": 0.0,
        "wns": 0.00425649
       },
@@ -7589,7 +7749,7 @@
        "T": 0.7,
        "area": 787.626018,
        "cells": 287,
-       "dc_seconds": 68.7,
+       "dc_seconds": 79.3,
        "tns": 0.0,
        "wns": 0.000494778
       },
@@ -8008,7 +8168,7 @@
        "T": 1.0,
        "area": 94337.429706,
        "cells": 31256,
-       "dc_seconds": 330.8,
+       "dc_seconds": 350.1,
        "tns": 0.0,
        "wns": 0.000557899
       },
@@ -8337,7 +8497,7 @@
        "T": 0.7,
        "area": 4478.109903,
        "cells": 1919,
-       "dc_seconds": 84.9,
+       "dc_seconds": 89.6,
        "tns": 0.0,
        "wns": 0.00483221
       },
@@ -8544,7 +8704,7 @@
        "T": 1.0,
        "area": 2342.662051,
        "cells": 806,
-       "dc_seconds": 76.2,
+       "dc_seconds": 79.3,
        "tns": 0.0,
        "wns": 0.0111484
       },
@@ -8751,7 +8911,7 @@
        "T": 1.4,
        "area": 3817.631961,
        "cells": 2548,
-       "dc_seconds": 89.4,
+       "dc_seconds": 93.6,
        "tns": 0.0,
        "wns": 0.000248432
       },
@@ -8942,7 +9102,7 @@
        "T": 4.0,
        "area": 3213.545998,
        "cells": 2221,
-       "dc_seconds": 95.5,
+       "dc_seconds": 104.5,
        "tns": -8.35885,
        "wns": -0.564756
       },
@@ -9074,13 +9234,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "drrtl",
@@ -9205,9 +9365,25 @@
        "T": 0.5,
        "area": 1715.965978,
        "cells": 716,
-       "dc_seconds": 76.8,
+       "dc_seconds": 85.3,
        "tns": 0.0,
        "wns": 0.00367981
+      },
+      {
+       "T": 0.35,
+       "area": 1951.641971,
+       "cells": 900,
+       "dc_seconds": 81.9,
+       "tns": -0.008988,
+       "wns": -0.00182247
+      },
+      {
+       "T": 0.25,
+       "area": 2150.343961,
+       "cells": 1022,
+       "dc_seconds": 79.2,
+       "tns": -1.504687,
+       "wns": -0.0353457
       }
      ]
     },
@@ -9271,6 +9447,22 @@
        "dc_seconds": 88.9,
        "tns": 0.0,
        "wns": 0.0171458
+      },
+      {
+       "T": 0.9,
+       "area": 9636.74217,
+       "cells": 802,
+       "dc_seconds": 140.8,
+       "tns": 0.0,
+       "wns": 0.00179303
+      },
+      {
+       "T": 0.65,
+       "area": 9459.071758,
+       "cells": 1008,
+       "dc_seconds": 95.4,
+       "tns": -21.869083,
+       "wns": -0.180443
       }
      ]
     }
@@ -9412,7 +9604,7 @@
        "T": 0.7,
        "area": 903.335989,
        "cells": 469,
-       "dc_seconds": 74.4,
+       "dc_seconds": 78.3,
        "tns": 0.0,
        "wns": 0.0092935
       },
@@ -9619,7 +9811,7 @@
        "T": 1.0,
        "area": 27048.210365,
        "cells": 20238,
-       "dc_seconds": 314.0,
+       "dc_seconds": 339.4,
        "tns": 0.0,
        "wns": 5.32866e-05
       },
@@ -9810,7 +10002,7 @@
        "T": 2.8,
        "area": 23675.330201,
        "cells": 15797,
-       "dc_seconds": 208.3,
+       "dc_seconds": 217.5,
        "tns": 0.0,
        "wns": 6.03199e-05
       },
@@ -10025,7 +10217,7 @@
        "T": 2.8,
        "area": 8848.756203,
        "cells": 4966,
-       "dc_seconds": 101.5,
+       "dc_seconds": 141.3,
        "tns": 0.0,
        "wns": 0.00178361
       },
@@ -10149,7 +10341,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
@@ -10280,9 +10472,25 @@
        "T": 0.5,
        "area": 1818.642043,
        "cells": 827,
-       "dc_seconds": 67.0,
+       "dc_seconds": 84.8,
        "tns": 0.0,
        "wns": 0.00306216
+      },
+      {
+       "T": 0.35,
+       "area": 2397.990056,
+       "cells": 1106,
+       "dc_seconds": 110.2,
+       "tns": -4.269639,
+       "wns": -0.0586689
+      },
+      {
+       "T": 0.25,
+       "area": 2020.004045,
+       "cells": 984,
+       "dc_seconds": 82.6,
+       "tns": -34.690788,
+       "wns": -0.180301
       }
      ]
     },
@@ -10487,7 +10695,7 @@
        "T": 0.7,
        "area": 185.668002,
        "cells": 147,
-       "dc_seconds": 72.9,
+       "dc_seconds": 72.7,
        "tns": 0.0,
        "wns": 0.00582194
       },
@@ -10686,7 +10894,7 @@
        "T": 1.4,
        "area": 24584.783416,
        "cells": 8324,
-       "dc_seconds": 112.6,
+       "dc_seconds": 118.8,
        "tns": 0.0,
        "wns": 0.00197911
       },
@@ -10937,7 +11145,7 @@
        "T": 2.0,
        "area": 9047.192147,
        "cells": 4667,
-       "dc_seconds": 105.5,
+       "dc_seconds": 112.6,
        "tns": 0.0,
        "wns": 0.00945699
       },
@@ -11053,13 +11261,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "drrtl",
@@ -11184,9 +11392,25 @@
        "T": 0.5,
        "area": 1080.75802,
        "cells": 481,
-       "dc_seconds": 67.9,
+       "dc_seconds": 76.4,
        "tns": 0.0,
        "wns": 0.000259668
+      },
+      {
+       "T": 0.35,
+       "area": 1200.724019,
+       "cells": 588,
+       "dc_seconds": 82.8,
+       "tns": -5.243873,
+       "wns": -0.0854179
+      },
+      {
+       "T": 0.25,
+       "area": 1219.344017,
+       "cells": 613,
+       "dc_seconds": 110.1,
+       "tns": -15.93729,
+       "wns": -0.179754
       }
      ]
     },
@@ -11250,6 +11474,22 @@
        "dc_seconds": 93.4,
        "tns": 0.0,
        "wns": 0.00262558
+      },
+      {
+       "T": 0.9,
+       "area": 5830.591956,
+       "cells": 634,
+       "dc_seconds": 139.1,
+       "tns": -11.974771,
+       "wns": -0.241005
+      },
+      {
+       "T": 0.65,
+       "area": 5858.118351,
+       "cells": 647,
+       "dc_seconds": 103.4,
+       "tns": -38.390232,
+       "wns": -0.487438
       }
      ]
     }
@@ -11383,7 +11623,7 @@
        "T": 1.0,
        "area": 965.314013,
        "cells": 570,
-       "dc_seconds": 68.0,
+       "dc_seconds": 80.3,
        "tns": 0.0,
        "wns": 0.0196502
       },
@@ -11598,7 +11838,7 @@
        "T": 1.0,
        "area": 4169.549913,
        "cells": 1693,
-       "dc_seconds": 71.0,
+       "dc_seconds": 85.5,
        "tns": 0.0,
        "wns": 0.00296336
       },
@@ -11704,7 +11944,7 @@
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "drrtl",
@@ -11821,7 +12061,7 @@
        "T": 0.7,
        "area": 911.315987,
        "cells": 389,
-       "dc_seconds": 72.0,
+       "dc_seconds": 75.6,
        "tns": 0.0,
        "wns": 0.00662166
       },
@@ -11895,6 +12135,22 @@
        "dc_seconds": 85.5,
        "tns": 0.0,
        "wns": 0.00504971
+      },
+      {
+       "T": 0.9,
+       "area": 5435.212682,
+       "cells": 636,
+       "dc_seconds": 98.7,
+       "tns": -5.234625,
+       "wns": -0.141386
+      },
+      {
+       "T": 0.65,
+       "area": 5347.628691,
+       "cells": 608,
+       "dc_seconds": 90.7,
+       "tns": -21.054382,
+       "wns": -0.422714
       }
      ]
     }
@@ -11913,13 +12169,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "drrtl",
@@ -12044,9 +12300,25 @@
        "T": 0.5,
        "area": 58.253999,
        "cells": 35,
-       "dc_seconds": 64.5,
+       "dc_seconds": 77.0,
        "tns": 0.0,
        "wns": 0.0375879
+      },
+      {
+       "T": 0.35,
+       "area": 84.321999,
+       "cells": 68,
+       "dc_seconds": 76.6,
+       "tns": 0.0,
+       "wns": 0.00118276
+      },
+      {
+       "T": 0.25,
+       "area": 87.779999,
+       "cells": 67,
+       "dc_seconds": 72.6,
+       "tns": -0.657447,
+       "wns": -0.0768708
       }
      ]
     },
@@ -12110,6 +12382,22 @@
        "dc_seconds": 85.9,
        "tns": 0.0,
        "wns": 0.0192012
+      },
+      {
+       "T": 0.9,
+       "area": 414.147189,
+       "cells": 69,
+       "dc_seconds": 118.7,
+       "tns": 0.0,
+       "wns": 0.000128865
+      },
+      {
+       "T": 0.65,
+       "area": 505.484785,
+       "cells": 82,
+       "dc_seconds": 123.0,
+       "tns": -1.613572,
+       "wns": -0.188296
       }
      ]
     }
@@ -12227,7 +12515,7 @@
        "T": 2.0,
        "area": 5263.873966,
        "cells": 3601,
-       "dc_seconds": 95.4,
+       "dc_seconds": 98.1,
        "tns": 0.0,
        "wns": 0.000540733
       },
@@ -12434,7 +12722,7 @@
        "T": 2.8,
        "area": 12193.173875,
        "cells": 11494,
-       "dc_seconds": 185.5,
+       "dc_seconds": 174.3,
        "tns": 0.0,
        "wns": 0.00302529
       },
@@ -12551,20 +12839,20 @@
     "asap7": {
      "complete": true,
      "fallback": false,
-     "phi": 0.13,
-     "points": 7
+     "phi": 0.09,
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.65,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -12572,7 +12860,7 @@
     "asap7": {
      "complete": true,
      "fallback": false,
-     "phi": 0.13,
+     "phi": 0.09,
      "points": [
       {
        "T": 1.0,
@@ -12629,13 +12917,29 @@
        "dc_seconds": 157.1,
        "tns": 0.0,
        "wns": 0.038419299999999997
+      },
+      {
+       "T": 0.09,
+       "area": 27.3375,
+       "cells": 133,
+       "dc_seconds": 196.1,
+       "tns": 0.0,
+       "wns": 0.00886467
+      },
+      {
+       "T": 0.065,
+       "area": 27.45414,
+       "cells": 135,
+       "dc_seconds": 169.3,
+       "tns": -1.584384888,
+       "wns": -0.0161353
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -12689,16 +12993,32 @@
        "T": 0.5,
        "area": 342.874011,
        "cells": 67,
-       "dc_seconds": 71.7,
+       "dc_seconds": 77.7,
        "tns": 0.0,
        "wns": 0.297651
+      },
+      {
+       "T": 0.35,
+       "area": 342.874011,
+       "cells": 67,
+       "dc_seconds": 77.1,
+       "tns": 0.0,
+       "wns": 0.177651
+      },
+      {
+       "T": 0.25,
+       "area": 342.874011,
+       "cells": 67,
+       "dc_seconds": 102.9,
+       "tns": 0.0,
+       "wns": 0.0976513
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.65,
      "points": [
       {
        "T": 10.0,
@@ -12755,6 +13075,22 @@
        "dc_seconds": 87.6,
        "tns": 0.0,
        "wns": 0.474779
+      },
+      {
+       "T": 0.9,
+       "area": 1621.555209,
+       "cells": 68,
+       "dc_seconds": 119.6,
+       "tns": 0.0,
+       "wns": 0.229501
+      },
+      {
+       "T": 0.65,
+       "area": 1621.555209,
+       "cells": 68,
+       "dc_seconds": 84.8,
+       "tns": 0.0,
+       "wns": 0.00858882
       }
      ]
     }
@@ -12767,19 +13103,19 @@
      "complete": true,
      "fallback": false,
      "phi": 0.13,
-     "points": 7
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.65,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -12844,13 +13180,29 @@
        "dc_seconds": 167.5,
        "tns": 0.0,
        "wns": 0.0151911
+      },
+      {
+       "T": 0.09,
+       "area": 1.86624,
+       "cells": 10,
+       "dc_seconds": 218.0,
+       "tns": -0.024464622,
+       "wns": -0.0114869
+      },
+      {
+       "T": 0.065,
+       "area": 1.92456,
+       "cells": 11,
+       "dc_seconds": 189.5,
+       "tns": -0.160654709,
+       "wns": -0.0368478
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -12904,16 +13256,32 @@
        "T": 0.5,
        "area": 23.408001,
        "cells": 6,
-       "dc_seconds": 69.9,
+       "dc_seconds": 77.1,
        "tns": 0.0,
        "wns": 0.290302
+      },
+      {
+       "T": 0.35,
+       "area": 23.408001,
+       "cells": 6,
+       "dc_seconds": 75.1,
+       "tns": 0.0,
+       "wns": 0.140302
+      },
+      {
+       "T": 0.25,
+       "area": 23.408001,
+       "cells": 6,
+       "dc_seconds": 101.2,
+       "tns": 0.0,
+       "wns": 0.0403017
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.65,
      "points": [
       {
        "T": 10.0,
@@ -12970,6 +13338,22 @@
        "dc_seconds": 85.7,
        "tns": 0.0,
        "wns": 0.667588
+      },
+      {
+       "T": 0.9,
+       "area": 115.1104,
+       "cells": 6,
+       "dc_seconds": 128.0,
+       "tns": 0.0,
+       "wns": 0.280164
+      },
+      {
+       "T": 0.65,
+       "area": 115.1104,
+       "cells": 6,
+       "dc_seconds": 117.4,
+       "tns": 0.0,
+       "wns": 0.0301638
       }
      ]
     }
@@ -12988,13 +13372,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -13119,9 +13503,25 @@
        "T": 0.5,
        "area": 192.849996,
        "cells": 85,
-       "dc_seconds": 70.6,
+       "dc_seconds": 61.7,
        "tns": 0.0,
        "wns": 6.57737e-05
+      },
+      {
+       "T": 0.35,
+       "area": 218.385997,
+       "cells": 96,
+       "dc_seconds": 72.4,
+       "tns": 0.0,
+       "wns": 0.000323951
+      },
+      {
+       "T": 0.25,
+       "area": 232.749997,
+       "cells": 125,
+       "dc_seconds": 73.5,
+       "tns": -2.766404,
+       "wns": -0.102795
       }
      ]
     },
@@ -13185,6 +13585,22 @@
        "dc_seconds": 89.8,
        "tns": 0.0,
        "wns": 0.0172129
+      },
+      {
+       "T": 0.9,
+       "area": 1084.790371,
+       "cells": 130,
+       "dc_seconds": 132.2,
+       "tns": 0.0,
+       "wns": 0.000174582
+      },
+      {
+       "T": 0.65,
+       "area": 1351.295966,
+       "cells": 157,
+       "dc_seconds": 87.1,
+       "tns": -6.448912,
+       "wns": -0.224257
       }
      ]
     }
@@ -13203,7 +13619,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
@@ -13337,6 +13753,22 @@
        "dc_seconds": 64.2,
        "tns": 0.0,
        "wns": 0.00777876
+      },
+      {
+       "T": 0.35,
+       "area": 588.392007,
+       "cells": 219,
+       "dc_seconds": 77.1,
+       "tns": -0.52979,
+       "wns": -0.0456852
+      },
+      {
+       "T": 0.25,
+       "area": 680.694007,
+       "cells": 260,
+       "dc_seconds": 77.8,
+       "tns": -2.424133,
+       "wns": -0.0989895
       }
      ]
     },
@@ -13569,7 +14001,7 @@
        "T": 1.4,
        "area": 131.138003,
        "cells": 50,
-       "dc_seconds": 69.7,
+       "dc_seconds": 75.7,
        "tns": 0.0,
        "wns": 0.280198
       },
@@ -13768,7 +14200,7 @@
        "T": 2.8,
        "area": 68.096001,
        "cells": 16,
-       "dc_seconds": 72.9,
+       "dc_seconds": 82.1,
        "tns": 0.0,
        "wns": 0.174825
       },
@@ -13975,7 +14407,7 @@
        "T": 4.0,
        "area": 170.239999,
        "cells": 125,
-       "dc_seconds": 71.9,
+       "dc_seconds": 77.4,
        "tns": 0.0,
        "wns": 0.303123
       },
@@ -14214,7 +14646,7 @@
        "T": 1.4,
        "area": 34.048,
        "cells": 8,
-       "dc_seconds": 65.8,
+       "dc_seconds": 77.9,
        "tns": 0.0,
        "wns": 0.0599722
       },
@@ -14429,7 +14861,7 @@
        "T": 1.4,
        "area": 27.93,
        "cells": 18,
-       "dc_seconds": 72.3,
+       "dc_seconds": 74.1,
        "tns": 0.0,
        "wns": 0.142035
       },
@@ -14660,7 +15092,7 @@
        "T": 0.7,
        "area": 2388.680057,
        "cells": 839,
-       "dc_seconds": 69.3,
+       "dc_seconds": 62.6,
        "tns": 0.0,
        "wns": 9.02414e-05
       },
@@ -14835,7 +15267,7 @@
        "T": 4.0,
        "area": 1310.848011,
        "cells": 1237,
-       "dc_seconds": 68.0,
+       "dc_seconds": 92.2,
        "tns": 0.0,
        "wns": 0.00332928
       },
@@ -14967,13 +15399,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -15098,9 +15530,25 @@
        "T": 0.5,
        "area": 31.388,
        "cells": 28,
-       "dc_seconds": 71.9,
+       "dc_seconds": 79.8,
        "tns": 0.0,
        "wns": 0.0127524
+      },
+      {
+       "T": 0.35,
+       "area": 38.304,
+       "cells": 35,
+       "dc_seconds": 76.4,
+       "tns": -0.080355,
+       "wns": -0.0176101
+      },
+      {
+       "T": 0.25,
+       "area": 51.072,
+       "cells": 51,
+       "dc_seconds": 103.1,
+       "tns": -0.613125,
+       "wns": -0.0925408
       }
      ]
     },
@@ -15164,6 +15612,22 @@
        "dc_seconds": 89.5,
        "tns": 0.0,
        "wns": 0.0224404
+      },
+      {
+       "T": 0.9,
+       "area": 312.799991,
+       "cells": 71,
+       "dc_seconds": 123.5,
+       "tns": -0.000394,
+       "wns": -0.000393867
+      },
+      {
+       "T": 0.65,
+       "area": 315.302392,
+       "cells": 59,
+       "dc_seconds": 92.1,
+       "tns": -0.964208,
+       "wns": -0.137826
       }
      ]
     }
@@ -15305,7 +15769,7 @@
        "T": 0.7,
        "area": 143.906003,
        "cells": 61,
-       "dc_seconds": 71.7,
+       "dc_seconds": 75.7,
        "tns": 0.0,
        "wns": 0.0350816
       },
@@ -15435,19 +15899,19 @@
      "complete": true,
      "fallback": false,
      "phi": 0.13,
-     "points": 7
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.65,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -15512,13 +15976,29 @@
        "dc_seconds": 159.0,
        "tns": 0.0,
        "wns": 0.0137125
+      },
+      {
+       "T": 0.09,
+       "area": 1.41426,
+       "cells": 19,
+       "dc_seconds": 232.3,
+       "tns": -0.0010125429999999999,
+       "wns": -0.00101254
+      },
+      {
+       "T": 0.065,
+       "area": 1.41426,
+       "cells": 19,
+       "dc_seconds": 171.5,
+       "tns": -0.043162520999999995,
+       "wns": -0.0167416
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -15572,16 +16052,32 @@
        "T": 0.5,
        "area": 13.034,
        "cells": 15,
-       "dc_seconds": 70.2,
+       "dc_seconds": 78.8,
        "tns": 0.0,
        "wns": 0.093655
+      },
+      {
+       "T": 0.35,
+       "area": 13.034,
+       "cells": 15,
+       "dc_seconds": 97.4,
+       "tns": 0.0,
+       "wns": 0.00365496
+      },
+      {
+       "T": 0.25,
+       "area": 18.886,
+       "cells": 22,
+       "dc_seconds": 72.9,
+       "tns": -0.101984,
+       "wns": -0.0356817
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.65,
      "points": [
       {
        "T": 10.0,
@@ -15638,6 +16134,22 @@
        "dc_seconds": 79.9,
        "tns": 0.0,
        "wns": 0.164352
+      },
+      {
+       "T": 0.9,
+       "area": 70.067199,
+       "cells": 13,
+       "dc_seconds": 84.8,
+       "tns": 0.0,
+       "wns": 0.0400288
+      },
+      {
+       "T": 0.65,
+       "area": 71.318399,
+       "cells": 14,
+       "dc_seconds": 115.1,
+       "tns": 0.0,
+       "wns": 0.0233476
       }
      ]
     }
@@ -15662,7 +16174,7 @@
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -15779,7 +16291,7 @@
        "T": 0.7,
        "area": 18.886,
        "cells": 23,
-       "dc_seconds": 71.6,
+       "dc_seconds": 78.5,
        "tns": 0.0,
        "wns": 0.102175
       },
@@ -15853,6 +16365,22 @@
        "dc_seconds": 86.5,
        "tns": 0.0,
        "wns": 0.0888892
+      },
+      {
+       "T": 0.9,
+       "area": 115.110397,
+       "cells": 25,
+       "dc_seconds": 115.6,
+       "tns": 0.0,
+       "wns": 0.00166154
+      },
+      {
+       "T": 0.65,
+       "area": 133.878397,
+       "cells": 31,
+       "dc_seconds": 91.2,
+       "tns": -0.07924,
+       "wns": -0.056905
       }
      ]
     }
@@ -15870,14 +16398,14 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.9,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -15948,7 +16476,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -16002,16 +16530,32 @@
        "T": 0.5,
        "area": 30.590001,
        "cells": 10,
-       "dc_seconds": 71.8,
+       "dc_seconds": 97.8,
        "tns": 0.0,
        "wns": 0.20875
+      },
+      {
+       "T": 0.35,
+       "area": 30.590001,
+       "cells": 10,
+       "dc_seconds": 101.1,
+       "tns": 0.0,
+       "wns": 0.0587503
+      },
+      {
+       "T": 0.25,
+       "area": 34.314001,
+       "cells": 13,
+       "dc_seconds": 71.3,
+       "tns": 0.0,
+       "wns": 0.00288893
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.9,
      "points": [
       {
        "T": 10.0,
@@ -16068,6 +16612,22 @@
        "dc_seconds": 88.4,
        "tns": 0.0,
        "wns": 0.319922
+      },
+      {
+       "T": 0.9,
+       "area": 165.158399,
+       "cells": 15,
+       "dc_seconds": 85.4,
+       "tns": 0.0,
+       "wns": 0.0133672
+      },
+      {
+       "T": 0.65,
+       "area": 178.921598,
+       "cells": 19,
+       "dc_seconds": 85.2,
+       "tns": -0.080708,
+       "wns": -0.0334477
       }
      ]
     }
@@ -16169,7 +16729,7 @@
        "T": 4.0,
        "area": 1709.049991,
        "cells": 1752,
-       "dc_seconds": 148.0,
+       "dc_seconds": 180.2,
        "tns": -41.438164,
        "wns": -2.11595
       },
@@ -16295,19 +16855,19 @@
      "complete": true,
      "fallback": false,
      "phi": 0.13,
-     "points": 7
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.65,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -16372,13 +16932,29 @@
        "dc_seconds": 167.2,
        "tns": 0.0,
        "wns": 0.032563499999999995
+      },
+      {
+       "T": 0.09,
+       "area": 1.44342,
+       "cells": 8,
+       "dc_seconds": 158.3,
+       "tns": -0.007644753,
+       "wns": -0.00397841
+      },
+      {
+       "T": 0.065,
+       "area": 1.44342,
+       "cells": 8,
+       "dc_seconds": 197.0,
+       "tns": -0.06557267,
+       "wns": -0.0289784
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -16432,16 +17008,32 @@
        "T": 0.5,
        "area": 17.822001,
        "cells": 5,
-       "dc_seconds": 68.9,
+       "dc_seconds": 77.2,
        "tns": 0.0,
        "wns": 0.302707
+      },
+      {
+       "T": 0.35,
+       "area": 17.822001,
+       "cells": 5,
+       "dc_seconds": 74.9,
+       "tns": 0.0,
+       "wns": 0.182707
+      },
+      {
+       "T": 0.25,
+       "area": 17.822001,
+       "cells": 5,
+       "dc_seconds": 72.3,
+       "tns": 0.0,
+       "wns": 0.0955173
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.65,
      "points": [
       {
        "T": 10.0,
@@ -16498,6 +17090,22 @@
        "dc_seconds": 84.7,
        "tns": 0.0,
        "wns": 0.693664
+      },
+      {
+       "T": 0.9,
+       "area": 88.8352,
+       "cells": 5,
+       "dc_seconds": 124.9,
+       "tns": 0.0,
+       "wns": 0.307584
+      },
+      {
+       "T": 0.65,
+       "area": 88.8352,
+       "cells": 5,
+       "dc_seconds": 126.4,
+       "tns": 0.0,
+       "wns": 0.0575837
       }
      ]
     }
@@ -16599,7 +17207,7 @@
        "T": 4.0,
        "area": 632.015999,
        "cells": 627,
-       "dc_seconds": 76.5,
+       "dc_seconds": 83.4,
        "tns": 0.0,
        "wns": 0.328942
       },
@@ -16814,7 +17422,7 @@
        "T": 4.0,
        "area": 464.967998,
        "cells": 460,
-       "dc_seconds": 69.7,
+       "dc_seconds": 79.7,
        "tns": 0.0,
        "wns": 0.311257
       },
@@ -16990,13 +17598,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -17121,9 +17729,25 @@
        "T": 0.5,
        "area": 105.868002,
        "cells": 43,
-       "dc_seconds": 72.8,
+       "dc_seconds": 78.0,
        "tns": 0.0,
        "wns": 0.0468805
+      },
+      {
+       "T": 0.35,
+       "area": 122.360002,
+       "cells": 54,
+       "dc_seconds": 71.1,
+       "tns": 0.0,
+       "wns": 5.427e-05
+      },
+      {
+       "T": 0.25,
+       "area": 130.074002,
+       "cells": 65,
+       "dc_seconds": 95.5,
+       "tns": -0.733288,
+       "wns": -0.0866432
       }
      ]
     },
@@ -17187,6 +17811,22 @@
        "dc_seconds": 86.6,
        "tns": 0.0,
        "wns": 0.0748857
+      },
+      {
+       "T": 0.9,
+       "area": 626.851196,
+       "cells": 66,
+       "dc_seconds": 90.8,
+       "tns": -0.00889,
+       "wns": -0.00627548
+      },
+      {
+       "T": 0.65,
+       "area": 694.415994,
+       "cells": 69,
+       "dc_seconds": 87.0,
+       "tns": -2.662293,
+       "wns": -0.254086
       }
      ]
     }
@@ -17199,19 +17839,19 @@
      "complete": true,
      "fallback": false,
      "phi": 0.13,
-     "points": 7
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.65,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -17276,13 +17916,29 @@
        "dc_seconds": 157.8,
        "tns": 0.0,
        "wns": 0.0120459
+      },
+      {
+       "T": 0.09,
+       "area": 1.57464,
+       "cells": 9,
+       "dc_seconds": 193.5,
+       "tns": -0.042807667,
+       "wns": -0.018561
+      },
+      {
+       "T": 0.065,
+       "area": 1.57464,
+       "cells": 9,
+       "dc_seconds": 220.5,
+       "tns": -0.128536972,
+       "wns": -0.043561
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -17336,16 +17992,32 @@
        "T": 0.5,
        "area": 19.152,
        "cells": 6,
-       "dc_seconds": 71.9,
+       "dc_seconds": 73.0,
        "tns": 0.0,
        "wns": 0.275732
+      },
+      {
+       "T": 0.35,
+       "area": 19.152,
+       "cells": 6,
+       "dc_seconds": 72.1,
+       "tns": 0.0,
+       "wns": 0.125732
+      },
+      {
+       "T": 0.25,
+       "area": 19.152,
+       "cells": 6,
+       "dc_seconds": 99.8,
+       "tns": 0.0,
+       "wns": 0.0257325
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.65,
      "points": [
       {
        "T": 10.0,
@@ -17402,6 +18074,22 @@
        "dc_seconds": 84.3,
        "tns": 0.0,
        "wns": 0.641819
+      },
+      {
+       "T": 0.9,
+       "area": 95.0912,
+       "cells": 6,
+       "dc_seconds": 119.6,
+       "tns": 0.0,
+       "wns": 0.241819
+      },
+      {
+       "T": 0.65,
+       "area": 97.5936,
+       "cells": 7,
+       "dc_seconds": 89.6,
+       "tns": 0.0,
+       "wns": 0.0100036
       }
      ]
     }
@@ -17420,7 +18108,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
@@ -17494,9 +18182,25 @@
        "T": 0.5,
        "area": 44.954001,
        "cells": 19,
-       "dc_seconds": 75.6,
+       "dc_seconds": 74.4,
        "tns": 0.0,
        "wns": 0.003492
+      },
+      {
+       "T": 0.35,
+       "area": 54.264001,
+       "cells": 30,
+       "dc_seconds": 75.3,
+       "tns": -0.078932,
+       "wns": -0.0539014
+      },
+      {
+       "T": 0.25,
+       "area": 64.904001,
+       "cells": 39,
+       "dc_seconds": 70.9,
+       "tns": -0.379801,
+       "wns": -0.0817217
       }
      ]
     },
@@ -17621,14 +18325,14 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.9,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -17699,7 +18403,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -17753,16 +18457,32 @@
        "T": 0.5,
        "area": 34.580001,
        "cells": 17,
-       "dc_seconds": 79.8,
+       "dc_seconds": 77.3,
        "tns": 0.0,
        "wns": 0.118556
+      },
+      {
+       "T": 0.35,
+       "area": 34.580001,
+       "cells": 17,
+       "dc_seconds": 74.9,
+       "tns": 0.0,
+       "wns": 0.00836229
+      },
+      {
+       "T": 0.25,
+       "area": 35.378001,
+       "cells": 19,
+       "dc_seconds": 70.4,
+       "tns": 0.0,
+       "wns": 0.000729069
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.9,
      "points": [
       {
        "T": 10.0,
@@ -17819,6 +18539,22 @@
        "dc_seconds": 86.9,
        "tns": 0.0,
        "wns": 0.359152
+      },
+      {
+       "T": 0.9,
+       "area": 181.423997,
+       "cells": 18,
+       "dc_seconds": 89.7,
+       "tns": 0.0,
+       "wns": 0.0391522
+      },
+      {
+       "T": 0.65,
+       "area": 206.447997,
+       "cells": 26,
+       "dc_seconds": 118.0,
+       "tns": -0.006966,
+       "wns": -0.00696611
       }
      ]
     }
@@ -17830,20 +18566,20 @@
     "asap7": {
      "complete": true,
      "fallback": false,
-     "phi": 0.13,
-     "points": 7
+     "phi": 0.09,
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.65,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -17851,7 +18587,7 @@
     "asap7": {
      "complete": true,
      "fallback": false,
-     "phi": 0.13,
+     "phi": 0.09,
      "points": [
       {
        "T": 1.0,
@@ -17908,13 +18644,29 @@
        "dc_seconds": 167.2,
        "tns": 0.0,
        "wns": 0.029065999999999998
+      },
+      {
+       "T": 0.09,
+       "area": 7.5816,
+       "cells": 40,
+       "dc_seconds": 200.1,
+       "tns": 0.0,
+       "wns": 0.009097820000000001
+      },
+      {
+       "T": 0.065,
+       "area": 7.66908,
+       "cells": 40,
+       "dc_seconds": 199.4,
+       "tns": -0.08101125299999999,
+       "wns": -0.00879396
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -17968,16 +18720,32 @@
        "T": 0.5,
        "area": 95.494003,
        "cells": 21,
-       "dc_seconds": 71.6,
+       "dc_seconds": 75.4,
        "tns": 0.0,
        "wns": 0.242558
+      },
+      {
+       "T": 0.35,
+       "area": 95.494003,
+       "cells": 21,
+       "dc_seconds": 71.4,
+       "tns": 0.0,
+       "wns": 0.122558
+      },
+      {
+       "T": 0.25,
+       "area": 95.494003,
+       "cells": 21,
+       "dc_seconds": 97.3,
+       "tns": 0.0,
+       "wns": 0.0425584
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.65,
      "points": [
       {
        "T": 10.0,
@@ -18034,6 +18802,22 @@
        "dc_seconds": 85.1,
        "tns": 0.0,
        "wns": 0.693664
+      },
+      {
+       "T": 0.9,
+       "area": 456.688001,
+       "cells": 21,
+       "dc_seconds": 86.6,
+       "tns": 0.0,
+       "wns": 0.373664
+      },
+      {
+       "T": 0.65,
+       "area": 456.688001,
+       "cells": 21,
+       "dc_seconds": 85.9,
+       "tns": 0.0,
+       "wns": 0.173665
       }
      ]
     }
@@ -18135,7 +18919,7 @@
        "T": 4.0,
        "area": 724.318015,
        "cells": 294,
-       "dc_seconds": 74.7,
+       "dc_seconds": 88.4,
        "tns": 0.0,
        "wns": 0.5081
       },
@@ -18358,7 +19142,7 @@
        "T": 2.8,
        "area": 296.856001,
        "cells": 160,
-       "dc_seconds": 73.7,
+       "dc_seconds": 75.8,
        "tns": 0.0,
        "wns": 0.126104
       },
@@ -18597,7 +19381,7 @@
        "T": 1.0,
        "area": 388.360001,
        "cells": 170,
-       "dc_seconds": 81.1,
+       "dc_seconds": 78.0,
        "tns": 0.0,
        "wns": 0.031603
       },
@@ -18697,13 +19481,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -18828,9 +19612,25 @@
        "T": 0.5,
        "area": 169.176004,
        "cells": 64,
-       "dc_seconds": 72.3,
+       "dc_seconds": 80.9,
        "tns": 0.0,
        "wns": 0.00516167
+      },
+      {
+       "T": 0.35,
+       "area": 206.948003,
+       "cells": 98,
+       "dc_seconds": 105.5,
+       "tns": 0.0,
+       "wns": 0.00137624
+      },
+      {
+       "T": 0.25,
+       "area": 238.868003,
+       "cells": 123,
+       "dc_seconds": 102.3,
+       "tns": -1.144093,
+       "wns": -0.0881967
       }
      ]
     },
@@ -18894,6 +19694,22 @@
        "dc_seconds": 84.8,
        "tns": 0.0,
        "wns": 0.0156089
+      },
+      {
+       "T": 0.9,
+       "area": 1104.809589,
+       "cells": 126,
+       "dc_seconds": 86.5,
+       "tns": 0.0,
+       "wns": 0.0011735
+      },
+      {
+       "T": 0.65,
+       "area": 1157.359991,
+       "cells": 121,
+       "dc_seconds": 91.6,
+       "tns": -2.71635,
+       "wns": -0.179723
       }
      ]
     }
@@ -19027,7 +19843,7 @@
        "T": 1.0,
        "area": 851.200014,
        "cells": 313,
-       "dc_seconds": 69.5,
+       "dc_seconds": 81.0,
        "tns": 0.0,
        "wns": 0.00604892
       },
@@ -19126,14 +19942,14 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.9,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -19204,7 +20020,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -19258,16 +20074,32 @@
        "T": 0.5,
        "area": 46.550001,
        "cells": 13,
-       "dc_seconds": 69.0,
+       "dc_seconds": 74.3,
        "tns": 0.0,
        "wns": 0.195894
+      },
+      {
+       "T": 0.35,
+       "area": 46.550001,
+       "cells": 13,
+       "dc_seconds": 104.1,
+       "tns": 0.0,
+       "wns": 0.0458939
+      },
+      {
+       "T": 0.25,
+       "area": 48.412,
+       "cells": 13,
+       "dc_seconds": 74.8,
+       "tns": 0.0,
+       "wns": 0.000877261
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.9,
      "points": [
       {
        "T": 10.0,
@@ -19324,6 +20156,22 @@
        "dc_seconds": 89.0,
        "tns": 0.0,
        "wns": 0.209203
+      },
+      {
+       "T": 0.9,
+       "area": 231.472001,
+       "cells": 15,
+       "dc_seconds": 130.9,
+       "tns": 0.0,
+       "wns": 0.0120532
+      },
+      {
+       "T": 0.65,
+       "area": 274.012798,
+       "cells": 27,
+       "dc_seconds": 123.7,
+       "tns": -0.3717,
+       "wns": -0.0782812
       }
      ]
     }
@@ -19441,7 +20289,7 @@
        "T": 2.0,
        "area": 2394.532013,
        "cells": 1210,
-       "dc_seconds": 81.1,
+       "dc_seconds": 83.5,
        "tns": 0.0,
        "wns": 0.000688076
       },
@@ -19551,19 +20399,19 @@
      "complete": true,
      "fallback": false,
      "phi": 0.13,
-     "points": 7
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.9,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -19628,13 +20476,29 @@
        "dc_seconds": 149.0,
        "tns": 0.0,
        "wns": 0.0160901
+      },
+      {
+       "T": 0.09,
+       "area": 1.26846,
+       "cells": 10,
+       "dc_seconds": 206.4,
+       "tns": -0.039083527,
+       "wns": -0.0234631
+      },
+      {
+       "T": 0.065,
+       "area": 1.26846,
+       "cells": 10,
+       "dc_seconds": 199.9,
+       "tns": -0.084083527,
+       "wns": -0.048463099999999995
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -19688,16 +20552,32 @@
        "T": 0.5,
        "area": 14.63,
        "cells": 7,
-       "dc_seconds": 73.1,
+       "dc_seconds": 78.0,
        "tns": 0.0,
        "wns": 0.187621
+      },
+      {
+       "T": 0.35,
+       "area": 14.63,
+       "cells": 7,
+       "dc_seconds": 108.4,
+       "tns": 0.0,
+       "wns": 0.0976212
+      },
+      {
+       "T": 0.25,
+       "area": 14.63,
+       "cells": 7,
+       "dc_seconds": 98.6,
+       "tns": 0.0,
+       "wns": 0.0311644
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.9,
      "points": [
       {
        "T": 10.0,
@@ -19754,6 +20634,22 @@
        "dc_seconds": 86.2,
        "tns": 0.0,
        "wns": 0.371358
+      },
+      {
+       "T": 0.9,
+       "area": 73.820799,
+       "cells": 6,
+       "dc_seconds": 99.2,
+       "tns": 0.0,
+       "wns": 0.051358
+      },
+      {
+       "T": 0.65,
+       "area": 110.105599,
+       "cells": 11,
+       "dc_seconds": 89.9,
+       "tns": -0.120761,
+       "wns": -0.0780589
       }
      ]
     }
@@ -19879,7 +20775,7 @@
        "T": 1.4,
        "area": 348.991994,
        "cells": 194,
-       "dc_seconds": 73.2,
+       "dc_seconds": 78.4,
        "tns": 0.0,
        "wns": 0.344756
       },
@@ -19980,20 +20876,20 @@
     "asap7": {
      "complete": true,
      "fallback": false,
-     "phi": 0.13,
-     "points": 7
+     "phi": 0.09,
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.65,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -20001,7 +20897,7 @@
     "asap7": {
      "complete": true,
      "fallback": false,
-     "phi": 0.13,
+     "phi": 0.09,
      "points": [
       {
        "T": 1.0,
@@ -20058,13 +20954,29 @@
        "dc_seconds": 164.8,
        "tns": 0.0,
        "wns": 0.0529414
+      },
+      {
+       "T": 0.09,
+       "area": 2.68272,
+       "cells": 16,
+       "dc_seconds": 166.6,
+       "tns": 0.0,
+       "wns": 0.0129414
+      },
+      {
+       "T": 0.065,
+       "area": 3.04722,
+       "cells": 16,
+       "dc_seconds": 187.1,
+       "tns": -0.054060268,
+       "wns": -0.0137856
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -20118,16 +21030,32 @@
        "T": 0.5,
        "area": 36.175999,
        "cells": 8,
-       "dc_seconds": 73.9,
+       "dc_seconds": 78.2,
        "tns": 0.0,
        "wns": 0.311867
+      },
+      {
+       "T": 0.35,
+       "area": 36.175999,
+       "cells": 8,
+       "dc_seconds": 75.6,
+       "tns": 0.0,
+       "wns": 0.191867
+      },
+      {
+       "T": 0.25,
+       "area": 36.175999,
+       "cells": 8,
+       "dc_seconds": 104.1,
+       "tns": 0.0,
+       "wns": 0.111867
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.65,
      "points": [
       {
        "T": 10.0,
@@ -20184,6 +21112,22 @@
        "dc_seconds": 87.1,
        "tns": 0.0,
        "wns": 0.761481
+      },
+      {
+       "T": 0.9,
+       "area": 160.153595,
+       "cells": 8,
+       "dc_seconds": 86.1,
+       "tns": 0.0,
+       "wns": 0.441481
+      },
+      {
+       "T": 0.65,
+       "area": 160.153595,
+       "cells": 8,
+       "dc_seconds": 105.3,
+       "tns": 0.0,
+       "wns": 0.241481
       }
      ]
     }
@@ -20289,14 +21233,14 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.9,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -20367,7 +21311,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -20421,16 +21365,32 @@
        "T": 0.5,
        "area": 133.532004,
        "cells": 40,
-       "dc_seconds": 70.7,
+       "dc_seconds": 77.6,
        "tns": 0.0,
        "wns": 0.132567
+      },
+      {
+       "T": 0.35,
+       "area": 133.798004,
+       "cells": 40,
+       "dc_seconds": 71.7,
+       "tns": 0.0,
+       "wns": 0.0222515
+      },
+      {
+       "T": 0.25,
+       "area": 141.778004,
+       "cells": 47,
+       "dc_seconds": 75.9,
+       "tns": -0.062419,
+       "wns": -0.0154814
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.9,
      "points": [
       {
        "T": 10.0,
@@ -20487,6 +21447,22 @@
        "dc_seconds": 81.1,
        "tns": 0.0,
        "wns": 0.053017
+      },
+      {
+       "T": 0.9,
+       "area": 665.638401,
+       "cells": 45,
+       "dc_seconds": 118.1,
+       "tns": 0.0,
+       "wns": 0.016645
+      },
+      {
+       "T": 0.65,
+       "area": 701.923199,
+       "cells": 53,
+       "dc_seconds": 86.1,
+       "tns": -0.898084,
+       "wns": -0.167178
       }
      ]
     }
@@ -20505,13 +21481,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -20636,9 +21612,25 @@
        "T": 0.5,
        "area": 62.776001,
        "cells": 32,
-       "dc_seconds": 70.4,
+       "dc_seconds": 76.2,
        "tns": 0.0,
        "wns": 0.000776947
+      },
+      {
+       "T": 0.35,
+       "area": 75.810001,
+       "cells": 44,
+       "dc_seconds": 110.4,
+       "tns": 0.0,
+       "wns": 0.00137326
+      },
+      {
+       "T": 0.25,
+       "area": 91.504001,
+       "cells": 68,
+       "dc_seconds": 91.5,
+       "tns": -0.381071,
+       "wns": -0.0652606
       }
      ]
     },
@@ -20702,6 +21694,22 @@
        "dc_seconds": 82.9,
        "tns": 0.0,
        "wns": 0.0639336
+      },
+      {
+       "T": 0.9,
+       "area": 449.180794,
+       "cells": 66,
+       "dc_seconds": 93.0,
+       "tns": -0.045833,
+       "wns": -0.0151839
+      },
+      {
+       "T": 0.65,
+       "area": 425.407993,
+       "cells": 61,
+       "dc_seconds": 119.4,
+       "tns": -1.494625,
+       "wns": -0.259641
       }
      ]
     }
@@ -20835,7 +21843,7 @@
        "T": 1.0,
        "area": 98.419998,
        "cells": 65,
-       "dc_seconds": 71.1,
+       "dc_seconds": 78.2,
        "tns": 0.0,
        "wns": 0.0106166
       },
@@ -21026,7 +22034,7 @@
        "T": 2.8,
        "area": 480.927994,
        "cells": 536,
-       "dc_seconds": 74.6,
+       "dc_seconds": 81.7,
        "tns": 0.0,
        "wns": 0.00268888
       },
@@ -21194,7 +22202,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
@@ -21325,9 +22333,25 @@
        "T": 0.5,
        "area": 137.256003,
        "cells": 70,
-       "dc_seconds": 74.3,
+       "dc_seconds": 75.2,
        "tns": 0.0,
        "wns": 0.0063749
+      },
+      {
+       "T": 0.35,
+       "area": 164.654003,
+       "cells": 94,
+       "dc_seconds": 77.7,
+       "tns": -0.651126,
+       "wns": -0.0753068
+      },
+      {
+       "T": 0.25,
+       "area": 158.004003,
+       "cells": 90,
+       "dc_seconds": 110.8,
+       "tns": -1.116509,
+       "wns": -0.12172
       }
      ]
     },
@@ -21500,7 +22524,7 @@
        "T": 2.8,
        "area": 149.226003,
        "cells": 34,
-       "dc_seconds": 69.8,
+       "dc_seconds": 79.3,
        "tns": 0.0,
        "wns": 0.737348
       },
@@ -21618,19 +22642,19 @@
      "complete": true,
      "fallback": false,
      "phi": 0.13,
-     "points": 7
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.65,
+     "points": 9
     }
    },
    "suite": "rtllm",
@@ -21695,13 +22719,29 @@
        "dc_seconds": 160.4,
        "tns": 0.0,
        "wns": 0.011872299999999999
+      },
+      {
+       "T": 0.09,
+       "area": 12.11598,
+       "cells": 62,
+       "dc_seconds": 226.1,
+       "tns": -0.10079482299999999,
+       "wns": -0.0322534
+      },
+      {
+       "T": 0.065,
+       "area": 12.11598,
+       "cells": 62,
+       "dc_seconds": 199.4,
+       "tns": -0.397264771,
+       "wns": -0.057253399999999996
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -21755,16 +22795,32 @@
        "T": 0.5,
        "area": 150.556004,
        "cells": 33,
-       "dc_seconds": 75.0,
+       "dc_seconds": 77.6,
        "tns": 0.0,
        "wns": 0.226637
+      },
+      {
+       "T": 0.35,
+       "area": 150.556004,
+       "cells": 33,
+       "dc_seconds": 95.1,
+       "tns": 0.0,
+       "wns": 0.106637
+      },
+      {
+       "T": 0.25,
+       "area": 150.822004,
+       "cells": 33,
+       "dc_seconds": 72.1,
+       "tns": 0.0,
+       "wns": 0.00495529
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.65,
      "points": [
       {
        "T": 10.0,
@@ -21821,6 +22877,22 @@
        "dc_seconds": 82.3,
        "tns": 0.0,
        "wns": 0.531741
+      },
+      {
+       "T": 0.9,
+       "area": 719.440003,
+       "cells": 34,
+       "dc_seconds": 116.7,
+       "tns": 0.0,
+       "wns": 0.210884
+      },
+      {
+       "T": 0.65,
+       "area": 721.942403,
+       "cells": 36,
+       "dc_seconds": 89.8,
+       "tns": -0.004683,
+       "wns": -0.00468287
       }
      ]
     }
@@ -21930,7 +23002,7 @@
        "T": 2.8,
        "area": 93.1,
        "cells": 34,
-       "dc_seconds": 75.1,
+       "dc_seconds": 76.4,
        "tns": 0.0,
        "wns": 0.045645
       },
@@ -22137,7 +23209,7 @@
        "T": 4.0,
        "area": 368.941997,
        "cells": 142,
-       "dc_seconds": 74.3,
+       "dc_seconds": 78.1,
        "tns": 0.0,
        "wns": 0.25222
       },
@@ -22376,7 +23448,7 @@
        "T": 1.4,
        "area": 34.048,
        "cells": 8,
-       "dc_seconds": 64.4,
+       "dc_seconds": 75.3,
        "tns": 0.0,
        "wns": 0.0599722
       },
@@ -22567,7 +23639,7 @@
        "T": 4.0,
        "area": 313.879998,
        "cells": 200,
-       "dc_seconds": 75.5,
+       "dc_seconds": 77.3,
        "tns": 0.0,
        "wns": 0.08127
       },
@@ -22798,7 +23870,7 @@
        "T": 2.0,
        "area": 106.134001,
        "cells": 46,
-       "dc_seconds": 72.6,
+       "dc_seconds": 76.4,
        "tns": 0.0,
        "wns": 0.110319
       },
@@ -23013,7 +24085,7 @@
        "T": 2.0,
        "area": 1616.215999,
        "cells": 1663,
-       "dc_seconds": 83.1,
+       "dc_seconds": 87.8,
        "tns": 0.0,
        "wns": 0.00118971
       },
@@ -23228,7 +24300,7 @@
        "T": 2.0,
        "area": 172.368,
        "cells": 139,
-       "dc_seconds": 71.2,
+       "dc_seconds": 76.5,
        "tns": 0.0,
        "wns": 0.115918
       },
@@ -23427,7 +24499,7 @@
        "T": 4.0,
        "area": 1139.011999,
        "cells": 742,
-       "dc_seconds": 85.0,
+       "dc_seconds": 88.0,
        "tns": 0.0,
        "wns": 0.00135636
       },
@@ -23674,7 +24746,7 @@
        "T": 1.0,
        "area": 41.762,
        "cells": 45,
-       "dc_seconds": 77.8,
+       "dc_seconds": 74.7,
        "tns": 0.0,
        "wns": 0.0102962
       },
@@ -23983,19 +25055,19 @@
      "complete": true,
      "fallback": false,
      "phi": 0.13,
-     "points": 7
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.65,
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -24060,13 +25132,29 @@
        "dc_seconds": 174.9,
        "tns": 0.0,
        "wns": 0.0150704
+      },
+      {
+       "T": 0.09,
+       "area": 0.84564,
+       "cells": 15,
+       "dc_seconds": 210.7,
+       "tns": 0.0,
+       "wns": 0.00255879
+      },
+      {
+       "T": 0.065,
+       "area": 1.03518,
+       "cells": 15,
+       "dc_seconds": 167.7,
+       "tns": -0.005690266,
+       "wns": -0.0028723900000000003
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -24120,16 +25208,32 @@
        "T": 0.5,
        "area": 9.576,
        "cells": 10,
-       "dc_seconds": 71.3,
+       "dc_seconds": 79.5,
        "tns": 0.0,
        "wns": 0.130432
+      },
+      {
+       "T": 0.35,
+       "area": 9.576,
+       "cells": 10,
+       "dc_seconds": 103.6,
+       "tns": 0.0,
+       "wns": 0.0404321
+      },
+      {
+       "T": 0.25,
+       "area": 10.64,
+       "cells": 10,
+       "dc_seconds": 100.4,
+       "tns": 0.0,
+       "wns": 0.00437537
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.65,
      "points": [
       {
        "T": 10.0,
@@ -24186,6 +25290,22 @@
        "dc_seconds": 89.9,
        "tns": 0.0,
        "wns": 0.347158
+      },
+      {
+       "T": 0.9,
+       "area": 48.796799,
+       "cells": 8,
+       "dc_seconds": 109.2,
+       "tns": 0.0,
+       "wns": 0.107158
+      },
+      {
+       "T": 0.65,
+       "area": 47.545599,
+       "cells": 8,
+       "dc_seconds": 113.0,
+       "tns": 0.0,
+       "wns": 0.00911683
       }
      ]
     }
@@ -24204,13 +25324,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -24335,9 +25455,25 @@
        "T": 0.5,
        "area": 21.28,
        "cells": 23,
-       "dc_seconds": 70.6,
+       "dc_seconds": 80.8,
        "tns": 0.0,
        "wns": 0.0770845
+      },
+      {
+       "T": 0.35,
+       "area": 23.94,
+       "cells": 25,
+       "dc_seconds": 104.8,
+       "tns": 0.0,
+       "wns": 0.00010404
+      },
+      {
+       "T": 0.25,
+       "area": 27.93,
+       "cells": 30,
+       "dc_seconds": 73.5,
+       "tns": -0.130692,
+       "wns": -0.055694
       }
      ]
     },
@@ -24401,6 +25537,22 @@
        "dc_seconds": 82.2,
        "tns": 0.0,
        "wns": 0.111501
+      },
+      {
+       "T": 0.9,
+       "area": 161.404797,
+       "cells": 32,
+       "dc_seconds": 118.4,
+       "tns": 0.0,
+       "wns": 0.000359952
+      },
+      {
+       "T": 0.65,
+       "area": 142.636797,
+       "cells": 27,
+       "dc_seconds": 87.3,
+       "tns": -0.086048,
+       "wns": -0.0396339
       }
      ]
     }
@@ -24542,7 +25694,7 @@
        "T": 0.7,
        "area": 44.422,
        "cells": 46,
-       "dc_seconds": 76.6,
+       "dc_seconds": 79.8,
        "tns": 0.0,
        "wns": 0.0714389
       },
@@ -24628,19 +25780,19 @@
      "complete": true,
      "fallback": false,
      "phi": 0.13,
-     "points": 7
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.9,
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -24705,13 +25857,29 @@
        "dc_seconds": 165.2,
        "tns": 0.0,
        "wns": 0.00359123
+      },
+      {
+       "T": 0.09,
+       "area": 7.11504,
+       "cells": 97,
+       "dc_seconds": 168.8,
+       "tns": -0.759383606,
+       "wns": -0.0128048
+      },
+      {
+       "T": 0.065,
+       "area": 7.4358,
+       "cells": 102,
+       "dc_seconds": 159.3,
+       "tns": -1.55906958,
+       "wns": -0.0262825
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -24765,16 +25933,32 @@
        "T": 0.5,
        "area": 71.553999,
        "cells": 87,
-       "dc_seconds": 74.0,
+       "dc_seconds": 79.0,
        "tns": 0.0,
        "wns": 0.0961127
+      },
+      {
+       "T": 0.35,
+       "area": 71.553999,
+       "cells": 87,
+       "dc_seconds": 98.5,
+       "tns": 0.0,
+       "wns": 0.00611269
+      },
+      {
+       "T": 0.25,
+       "area": 92.301998,
+       "cells": 106,
+       "dc_seconds": 107.7,
+       "tns": -2.506623,
+       "wns": -0.0451589
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.9,
      "points": [
       {
        "T": 10.0,
@@ -24831,6 +26015,22 @@
        "dc_seconds": 89.1,
        "tns": 0.0,
        "wns": 0.137536
+      },
+      {
+       "T": 0.9,
+       "area": 341.577589,
+       "cells": 87,
+       "dc_seconds": 100.4,
+       "tns": 0.0,
+       "wns": 0.0119136
+      },
+      {
+       "T": 0.65,
+       "area": 564.291187,
+       "cells": 114,
+       "dc_seconds": 120.7,
+       "tns": -3.598749,
+       "wns": -0.0637469
       }
      ]
     }
@@ -24849,13 +26049,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -24980,9 +26180,25 @@
        "T": 0.5,
        "area": 247.645993,
        "cells": 313,
-       "dc_seconds": 72.7,
+       "dc_seconds": 76.3,
        "tns": 0.0,
        "wns": 0.00146392
+      },
+      {
+       "T": 0.35,
+       "area": 301.909995,
+       "cells": 359,
+       "dc_seconds": 92.9,
+       "tns": -11.434185,
+       "wns": -0.0512039
+      },
+      {
+       "T": 0.25,
+       "area": 296.589996,
+       "cells": 347,
+       "dc_seconds": 78.5,
+       "tns": -22.854702,
+       "wns": -0.0962449
       }
      ]
     },
@@ -25046,6 +26262,22 @@
        "dc_seconds": 87.3,
        "tns": 0.0,
        "wns": 0.0160426
+      },
+      {
+       "T": 0.9,
+       "area": 1532.719976,
+       "cells": 328,
+       "dc_seconds": 126.5,
+       "tns": -5.523785,
+       "wns": -0.0387871
+      },
+      {
+       "T": 0.65,
+       "area": 1525.212777,
+       "cells": 332,
+       "dc_seconds": 96.8,
+       "tns": -43.410789,
+       "wns": -0.182784
       }
      ]
     }
@@ -25147,7 +26379,7 @@
        "T": 4.0,
        "area": 2645.901972,
        "cells": 2681,
-       "dc_seconds": 122.3,
+       "dc_seconds": 125.7,
        "tns": -39.480129,
        "wns": -2.09892
       },
@@ -25305,7 +26537,7 @@
        "T": 4.0,
        "area": 13635.15988,
        "cells": 13878,
-       "dc_seconds": 637.4,
+       "dc_seconds": 682.1,
        "tns": -388.78009,
        "wns": -8.80648
       },
@@ -25495,7 +26727,7 @@
        "T": 1.0,
        "area": 43.624,
        "cells": 44,
-       "dc_seconds": 74.3,
+       "dc_seconds": 76.9,
        "tns": 0.0,
        "wns": 0.00531328
       },
@@ -25678,7 +26910,7 @@
        "T": 4.0,
        "area": 398.733995,
        "cells": 403,
-       "dc_seconds": 82.6,
+       "dc_seconds": 87.0,
        "tns": -0.556462,
        "wns": -0.0981386
       },
@@ -25925,7 +27157,7 @@
        "T": 1.0,
        "area": 128.744002,
        "cells": 89,
-       "dc_seconds": 73.2,
+       "dc_seconds": 75.2,
        "tns": 0.0,
        "wns": 0.0604717
       },
@@ -26132,7 +27364,7 @@
        "T": 1.4,
        "area": 319.200006,
        "cells": 144,
-       "dc_seconds": 71.5,
+       "dc_seconds": 75.0,
        "tns": 0.0,
        "wns": 0.15245
       },
@@ -26240,13 +27472,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -26371,9 +27603,25 @@
        "T": 0.5,
        "area": 68.628001,
        "cells": 50,
-       "dc_seconds": 69.5,
+       "dc_seconds": 74.7,
        "tns": 0.0,
        "wns": 0.070774
+      },
+      {
+       "T": 0.35,
+       "area": 79.268001,
+       "cells": 63,
+       "dc_seconds": 105.3,
+       "tns": -0.007547,
+       "wns": -0.00492391
+      },
+      {
+       "T": 0.25,
+       "area": 110.922001,
+       "cells": 87,
+       "dc_seconds": 75.0,
+       "tns": -1.095199,
+       "wns": -0.121348
       }
      ]
     },
@@ -26437,6 +27685,22 @@
        "dc_seconds": 85.4,
        "tns": 0.0,
        "wns": 0.020743
+      },
+      {
+       "T": 0.9,
+       "area": 492.972791,
+       "cells": 89,
+       "dc_seconds": 114.8,
+       "tns": -0.505759,
+       "wns": -0.0648406
+      },
+      {
+       "T": 0.65,
+       "area": 486.716792,
+       "cells": 88,
+       "dc_seconds": 120.5,
+       "tns": -3.103904,
+       "wns": -0.31234
       }
      ]
     }
@@ -26554,7 +27818,7 @@
        "T": 2.0,
        "area": 614.459993,
        "cells": 253,
-       "dc_seconds": 76.7,
+       "dc_seconds": 79.6,
        "tns": 0.0,
        "wns": 0.255925
       },
@@ -26769,7 +28033,7 @@
        "T": 2.0,
        "area": 272.384001,
        "cells": 175,
-       "dc_seconds": 78.3,
+       "dc_seconds": 77.2,
        "tns": 0.0,
        "wns": 0.00124991
       },
@@ -27000,7 +28264,7 @@
        "T": 1.0,
        "area": 42.028,
        "cells": 19,
-       "dc_seconds": 74.1,
+       "dc_seconds": 77.7,
        "tns": 0.0,
        "wns": 0.113284
       },
@@ -27191,7 +28455,7 @@
        "T": 2.8,
        "area": 285.950001,
        "cells": 157,
-       "dc_seconds": 71.7,
+       "dc_seconds": 76.2,
        "tns": 0.0,
        "wns": 0.15375
       },
@@ -27309,19 +28573,19 @@
      "complete": true,
      "fallback": false,
      "phi": 0.13,
-     "points": 7
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -27386,6 +28650,22 @@
        "dc_seconds": 148.8,
        "tns": 0.0,
        "wns": 0.00326408
+      },
+      {
+       "T": 0.09,
+       "area": 1.21014,
+       "cells": 17,
+       "dc_seconds": 167.2,
+       "tns": 0.0,
+       "wns": 0.00016118599999999998
+      },
+      {
+       "T": 0.065,
+       "area": 1.51632,
+       "cells": 19,
+       "dc_seconds": 158.8,
+       "tns": -0.012778267,
+       "wns": -0.0127783
       }
      ]
     },
@@ -27449,6 +28729,22 @@
        "dc_seconds": 73.8,
        "tns": 0.0,
        "wns": 0.0560856
+      },
+      {
+       "T": 0.35,
+       "area": 15.162,
+       "cells": 17,
+       "dc_seconds": 111.4,
+       "tns": 0.0,
+       "wns": 5.23627e-05
+      },
+      {
+       "T": 0.25,
+       "area": 14.896,
+       "cells": 15,
+       "dc_seconds": 75.6,
+       "tns": -0.006189,
+       "wns": -0.00618856
       }
      ]
     },
@@ -27512,6 +28808,22 @@
        "dc_seconds": 88.0,
        "tns": 0.0,
        "wns": 0.0592626
+      },
+      {
+       "T": 0.9,
+       "area": 90.086398,
+       "cells": 17,
+       "dc_seconds": 85.5,
+       "tns": 0.0,
+       "wns": 0.000816524
+      },
+      {
+       "T": 0.65,
+       "area": 85.081598,
+       "cells": 16,
+       "dc_seconds": 89.1,
+       "tns": 0.0,
+       "wns": 3.24845e-05
       }
      ]
     }
@@ -27530,13 +28842,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -27661,9 +28973,25 @@
        "T": 0.5,
        "area": 60.648001,
        "cells": 53,
-       "dc_seconds": 72.5,
+       "dc_seconds": 81.9,
        "tns": 0.0,
        "wns": 0.0250387
+      },
+      {
+       "T": 0.35,
+       "area": 65.968001,
+       "cells": 55,
+       "dc_seconds": 75.9,
+       "tns": -0.304273,
+       "wns": -0.0190171
+      },
+      {
+       "T": 0.25,
+       "area": 68.362001,
+       "cells": 59,
+       "dc_seconds": 78.3,
+       "tns": -0.966832,
+       "wns": -0.061168
       }
      ]
     },
@@ -27727,6 +29055,22 @@
        "dc_seconds": 88.6,
        "tns": 0.0,
        "wns": 0.0169014
+      },
+      {
+       "T": 0.9,
+       "area": 402.886391,
+       "cells": 69,
+       "dc_seconds": 91.1,
+       "tns": -0.001194,
+       "wns": -0.000119448
+      },
+      {
+       "T": 0.65,
+       "area": 401.635192,
+       "cells": 91,
+       "dc_seconds": 128.7,
+       "tns": -1.152781,
+       "wns": -0.0720488
       }
      ]
     }
@@ -27745,13 +29089,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -27876,9 +29220,25 @@
        "T": 0.5,
        "area": 237.538004,
        "cells": 213,
-       "dc_seconds": 72.7,
+       "dc_seconds": 81.4,
        "tns": 0.0,
        "wns": 0.00666806
+      },
+      {
+       "T": 0.35,
+       "area": 252.168004,
+       "cells": 223,
+       "dc_seconds": 101.3,
+       "tns": -3.051686,
+       "wns": -0.0479797
+      },
+      {
+       "T": 0.25,
+       "area": 413.630003,
+       "cells": 501,
+       "dc_seconds": 88.5,
+       "tns": -7.684894,
+       "wns": -0.126783
       }
      ]
     },
@@ -27942,6 +29302,22 @@
        "dc_seconds": 89.8,
        "tns": 0.0,
        "wns": 0.0124226
+      },
+      {
+       "T": 0.9,
+       "area": 1460.150361,
+       "cells": 290,
+       "dc_seconds": 100.1,
+       "tns": -4.040318,
+       "wns": -0.0728627
+      },
+      {
+       "T": 0.65,
+       "area": 1589.023971,
+       "cells": 356,
+       "dc_seconds": 139.3,
+       "tns": -11.354626,
+       "wns": -0.178056
       }
      ]
     }
@@ -27953,20 +29329,20 @@
     "asap7": {
      "complete": true,
      "fallback": false,
-     "phi": 0.13,
-     "points": 7
+     "phi": 0.09,
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.9,
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -27974,7 +29350,7 @@
     "asap7": {
      "complete": true,
      "fallback": false,
-     "phi": 0.13,
+     "phi": 0.09,
      "points": [
       {
        "T": 1.0,
@@ -28031,13 +29407,29 @@
        "dc_seconds": 151.9,
        "tns": 0.0,
        "wns": 0.009571099999999999
+      },
+      {
+       "T": 0.09,
+       "area": 1.10808,
+       "cells": 9,
+       "dc_seconds": 167.6,
+       "tns": 0.0,
+       "wns": 0.00374705
+      },
+      {
+       "T": 0.065,
+       "area": 1.51632,
+       "cells": 24,
+       "dc_seconds": 227.5,
+       "tns": 0.0,
+       "wns": 0.0036986099999999997
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -28091,16 +29483,32 @@
        "T": 0.5,
        "area": 21.812,
        "cells": 25,
-       "dc_seconds": 77.6,
+       "dc_seconds": 76.7,
        "tns": 0.0,
        "wns": 0.0965645
+      },
+      {
+       "T": 0.35,
+       "area": 21.812,
+       "cells": 25,
+       "dc_seconds": 102.8,
+       "tns": 0.0,
+       "wns": 0.00656456
+      },
+      {
+       "T": 0.25,
+       "area": 25.004,
+       "cells": 29,
+       "dc_seconds": 93.8,
+       "tns": -0.238327,
+       "wns": -0.0397212
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.9,
      "points": [
       {
        "T": 10.0,
@@ -28157,6 +29565,22 @@
        "dc_seconds": 82.9,
        "tns": 0.0,
        "wns": 0.091585
+      },
+      {
+       "T": 0.9,
+       "area": 83.830397,
+       "cells": 9,
+       "dc_seconds": 136.3,
+       "tns": 0.0,
+       "wns": 0.0896387
+      },
+      {
+       "T": 0.65,
+       "area": 97.593601,
+       "cells": 15,
+       "dc_seconds": 117.5,
+       "tns": 0.0,
+       "wns": 0.000355422
       }
      ]
     }
@@ -28513,7 +29937,7 @@
        "T": 0.7,
        "area": 98.420002,
        "cells": 84,
-       "dc_seconds": 74.5,
+       "dc_seconds": 77.0,
        "tns": 0.0,
        "wns": 0.0150631
       },
@@ -28720,7 +30144,7 @@
        "T": 1.0,
        "area": 7669.844214,
        "cells": 2905,
-       "dc_seconds": 107.1,
+       "dc_seconds": 114.3,
        "tns": -0.118337,
        "wns": -0.00315356
       },
@@ -28935,7 +30359,7 @@
        "T": 1.0,
        "area": 68.893999,
        "cells": 23,
-       "dc_seconds": 75.6,
+       "dc_seconds": 76.5,
        "tns": 0.0,
        "wns": 0.000722528
       },
@@ -29029,19 +30453,19 @@
      "complete": true,
      "fallback": false,
      "phi": 0.13,
-     "points": 7
+     "points": 9
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
-     "points": 7
+     "phi": 0.65,
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -29106,13 +30530,29 @@
        "dc_seconds": 156.5,
        "tns": 0.0,
        "wns": 0.00197955
+      },
+      {
+       "T": 0.09,
+       "area": 2.85768,
+       "cells": 18,
+       "dc_seconds": 187.9,
+       "tns": 0.0,
+       "wns": 0.00210493
+      },
+      {
+       "T": 0.065,
+       "area": 3.0618,
+       "cells": 21,
+       "dc_seconds": 168.4,
+       "tns": -0.052906329999999994,
+       "wns": -0.0136793
       }
      ]
     },
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -29166,16 +30606,32 @@
        "T": 0.5,
        "area": 38.835999,
        "cells": 16,
-       "dc_seconds": 71.8,
+       "dc_seconds": 78.3,
        "tns": 0.0,
        "wns": 0.139034
+      },
+      {
+       "T": 0.35,
+       "area": 38.835999,
+       "cells": 16,
+       "dc_seconds": 104.6,
+       "tns": 0.0,
+       "wns": 0.0190343
+      },
+      {
+       "T": 0.25,
+       "area": 42.027999,
+       "cells": 17,
+       "dc_seconds": 73.2,
+       "tns": -0.049364,
+       "wns": -0.0311738
       }
      ]
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
-     "phi": 1.3,
+     "phi": 0.65,
      "points": [
       {
        "T": 10.0,
@@ -29232,6 +30688,22 @@
        "dc_seconds": 91.0,
        "tns": 0.0,
        "wns": 0.0479881
+      },
+      {
+       "T": 0.9,
+       "area": 191.433595,
+       "cells": 18,
+       "dc_seconds": 108.2,
+       "tns": 0.0,
+       "wns": 0.117583
+      },
+      {
+       "T": 0.65,
+       "area": 191.433595,
+       "cells": 18,
+       "dc_seconds": 129.7,
+       "tns": 0.0,
+       "wns": 0.00770777
       }
      ]
     }
@@ -29341,7 +30813,7 @@
        "T": 2.8,
        "area": 84.322001,
        "cells": 49,
-       "dc_seconds": 72.2,
+       "dc_seconds": 76.4,
        "tns": 0.0,
        "wns": 0.153424
       },
@@ -29572,7 +31044,7 @@
        "T": 1.4,
        "area": 250.305998,
        "cells": 274,
-       "dc_seconds": 78.7,
+       "dc_seconds": 80.3,
        "tns": 0.0,
        "wns": 0.00305641
       },
@@ -29803,7 +31275,7 @@
        "T": 0.7,
        "area": 17.822,
        "cells": 12,
-       "dc_seconds": 69.2,
+       "dc_seconds": 75.6,
        "tns": 0.0,
        "wns": 0.0815086
       },
@@ -30002,7 +31474,7 @@
        "T": 1.4,
        "area": 36.974,
        "cells": 20,
-       "dc_seconds": 72.8,
+       "dc_seconds": 74.6,
        "tns": 0.0,
        "wns": 0.138935
       },
@@ -30110,13 +31582,13 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": true,
      "fallback": false,
      "phi": 1.3,
-     "points": 7
+     "points": 9
     }
    },
    "suite": "rtlopt",
@@ -30241,9 +31713,25 @@
        "T": 0.5,
        "area": 58.253999,
        "cells": 35,
-       "dc_seconds": 72.8,
+       "dc_seconds": 80.9,
        "tns": 0.0,
        "wns": 0.0375879
+      },
+      {
+       "T": 0.35,
+       "area": 84.321999,
+       "cells": 68,
+       "dc_seconds": 76.2,
+       "tns": 0.0,
+       "wns": 0.00118276
+      },
+      {
+       "T": 0.25,
+       "area": 87.779999,
+       "cells": 67,
+       "dc_seconds": 73.1,
+       "tns": -0.657447,
+       "wns": -0.0768708
       }
      ]
     },
@@ -30307,6 +31795,22 @@
        "dc_seconds": 88.3,
        "tns": 0.0,
        "wns": 0.0192012
+      },
+      {
+       "T": 0.9,
+       "area": 414.147189,
+       "cells": 69,
+       "dc_seconds": 90.7,
+       "tns": 0.0,
+       "wns": 0.000128865
+      },
+      {
+       "T": 0.65,
+       "area": 505.484785,
+       "cells": 82,
+       "dc_seconds": 120.2,
+       "tns": -1.613572,
+       "wns": -0.188296
       }
      ]
     }
@@ -30500,7 +32004,7 @@
        "T": 2.8,
        "area": 1132.627979,
        "cells": 660,
-       "dc_seconds": 76.2,
+       "dc_seconds": 76.8,
        "tns": 0.0,
        "wns": 0.705483
       },
@@ -30593,7 +32097,7 @@
        "T": 4.0,
        "area": 313.879998,
        "cells": 200,
-       "dc_seconds": 73.2,
+       "dc_seconds": 77.4,
        "tns": 0.0,
        "wns": 0.08127
       },
@@ -30746,7 +32250,7 @@
        "T": 2.8,
        "area": 201.096002,
        "cells": 50,
-       "dc_seconds": 72.8,
+       "dc_seconds": 76.8,
        "tns": 0.0,
        "wns": 0.00611043
       },
@@ -30839,7 +32343,7 @@
        "T": 4.0,
        "area": 11232.913989,
        "cells": 7004,
-       "dc_seconds": 116.2,
+       "dc_seconds": 129.3,
        "tns": 0.0,
        "wns": 0.000169754
       },
@@ -30940,7 +32444,7 @@
        "T": 4.0,
        "area": 8693.14599,
        "cells": 5568,
-       "dc_seconds": 114.7,
+       "dc_seconds": 125.3,
        "tns": -0.334475,
        "wns": -0.0757818
       },
@@ -31073,7 +32577,7 @@
        "T": 1.0,
        "area": 107959.28936,
        "cells": 35418,
-       "dc_seconds": 773.1,
+       "dc_seconds": 861.2,
        "tns": 0.0,
        "wns": 0.000463843
       },
@@ -31115,8 +32619,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -31136,7 +32640,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -31190,9 +32694,25 @@
        "T": 0.5,
        "area": 4.522,
        "cells": 4,
-       "dc_seconds": 73.9,
+       "dc_seconds": 81.2,
        "tns": 0.0,
        "wns": 0.16592
+      },
+      {
+       "T": 0.35,
+       "area": 4.522,
+       "cells": 4,
+       "dc_seconds": 107.2,
+       "tns": 0.0,
+       "wns": 0.0759196
+      },
+      {
+       "T": 0.25,
+       "area": 4.522,
+       "cells": 4,
+       "dc_seconds": 96.0,
+       "tns": 0.0,
+       "wns": 0.0159196
       }
      ]
     },
@@ -31216,8 +32736,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -31237,7 +32757,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -31291,9 +32811,25 @@
        "T": 0.5,
        "area": 8.778,
        "cells": 8,
-       "dc_seconds": 74.1,
+       "dc_seconds": 75.7,
        "tns": 0.0,
        "wns": 0.120687
+      },
+      {
+       "T": 0.35,
+       "area": 8.778,
+       "cells": 8,
+       "dc_seconds": 74.6,
+       "tns": 0.0,
+       "wns": 0.0306866
+      },
+      {
+       "T": 0.25,
+       "area": 10.108,
+       "cells": 10,
+       "dc_seconds": 73.4,
+       "tns": -0.01516,
+       "wns": -0.0151602
       }
      ]
     },
@@ -31317,8 +32853,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -31338,7 +32874,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -31395,6 +32931,22 @@
        "dc_seconds": 72.9,
        "tns": 0.0,
        "wns": 0.0566689
+      },
+      {
+       "T": 0.35,
+       "area": 8.778,
+       "cells": 9,
+       "dc_seconds": 85.2,
+       "tns": 0.0,
+       "wns": 0.0233735
+      },
+      {
+       "T": 0.25,
+       "area": 13.566,
+       "cells": 14,
+       "dc_seconds": 106.2,
+       "tns": 0.0,
+       "wns": 0.00280145
       }
      ]
     },
@@ -31418,8 +32970,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -31439,7 +32991,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -31493,9 +33045,25 @@
        "T": 0.5,
        "area": 7.448,
        "cells": 2,
-       "dc_seconds": 74.5,
+       "dc_seconds": 78.7,
        "tns": 0.0,
        "wns": 0.249905
+      },
+      {
+       "T": 0.35,
+       "area": 7.448,
+       "cells": 2,
+       "dc_seconds": 89.3,
+       "tns": 0.0,
+       "wns": 0.129905
+      },
+      {
+       "T": 0.25,
+       "area": 7.448,
+       "cells": 2,
+       "dc_seconds": 71.1,
+       "tns": 0.0,
+       "wns": 0.049905
       }
      ]
     },
@@ -31554,7 +33122,7 @@
        "T": 2.8,
        "area": 785.763997,
        "cells": 579,
-       "dc_seconds": 76.4,
+       "dc_seconds": 75.3,
        "tns": 0.0,
        "wns": 0.0146542
       },
@@ -31655,7 +33223,7 @@
        "T": 2.8,
        "area": 798.797997,
        "cells": 608,
-       "dc_seconds": 77.4,
+       "dc_seconds": 78.3,
        "tns": 0.0,
        "wns": 0.0247972
       },
@@ -31721,8 +33289,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -31742,7 +33310,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -31796,9 +33364,25 @@
        "T": 0.5,
        "area": 12.236,
        "cells": 4,
-       "dc_seconds": 73.7,
+       "dc_seconds": 78.2,
        "tns": 0.0,
        "wns": 0.230168
+      },
+      {
+       "T": 0.35,
+       "area": 12.236,
+       "cells": 4,
+       "dc_seconds": 72.4,
+       "tns": 0.0,
+       "wns": 0.110168
+      },
+      {
+       "T": 0.25,
+       "area": 12.236,
+       "cells": 4,
+       "dc_seconds": 75.7,
+       "tns": 0.0,
+       "wns": 0.0336134
       }
      ]
     },
@@ -31823,7 +33407,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -31897,9 +33481,25 @@
        "T": 0.5,
        "area": 22.344,
        "cells": 22,
-       "dc_seconds": 74.4,
+       "dc_seconds": 80.0,
        "tns": 0.0,
        "wns": 0.0660713
+      },
+      {
+       "T": 0.35,
+       "area": 24.738,
+       "cells": 25,
+       "dc_seconds": 72.0,
+       "tns": 0.0,
+       "wns": 0.0123462
+      },
+      {
+       "T": 0.25,
+       "area": 23.94,
+       "cells": 24,
+       "dc_seconds": 107.2,
+       "tns": -0.137789,
+       "wns": -0.0646043
       }
      ]
     },
@@ -31974,7 +33574,7 @@
        "T": 1.4,
        "area": 34.048,
        "cells": 8,
-       "dc_seconds": 72.0,
+       "dc_seconds": 77.8,
        "tns": 0.0,
        "wns": 0.0599722
       },
@@ -32155,7 +33755,7 @@
        "T": 2.0,
        "area": 98.952001,
        "cells": 26,
-       "dc_seconds": 70.6,
+       "dc_seconds": 76.2,
        "tns": 0.0,
        "wns": 0.251257
       },
@@ -32264,7 +33864,7 @@
        "T": 1.4,
        "area": 31.388,
        "cells": 10,
-       "dc_seconds": 69.0,
+       "dc_seconds": 74.3,
        "tns": 0.0,
        "wns": 0.139133
       },
@@ -32357,7 +33957,7 @@
        "T": 2.0,
        "area": 125.019999,
        "cells": 97,
-       "dc_seconds": 73.7,
+       "dc_seconds": 75.2,
        "tns": 0.0,
        "wns": 0.216893
       },
@@ -32502,7 +34102,7 @@
        "T": 2.0,
        "area": 256.956,
        "cells": 190,
-       "dc_seconds": 74.8,
+       "dc_seconds": 72.3,
        "tns": 0.0,
        "wns": 0.0218468
       },
@@ -32603,7 +34203,7 @@
        "T": 2.0,
        "area": 219.183999,
        "cells": 154,
-       "dc_seconds": 73.2,
+       "dc_seconds": 72.4,
        "tns": 0.0,
        "wns": 0.201257
       },
@@ -32772,7 +34372,7 @@
        "T": 0.7,
        "area": 16.758,
        "cells": 18,
-       "dc_seconds": 75.7,
+       "dc_seconds": 75.5,
        "tns": 0.0,
        "wns": 0.0906616
       },
@@ -32921,7 +34521,7 @@
        "T": 4.0,
        "area": 17.024,
        "cells": 16,
-       "dc_seconds": 63.8,
+       "dc_seconds": 75.6,
        "tns": 0.0,
        "wns": 2.36068
       }
@@ -33018,7 +34618,7 @@
        "T": 4.0,
        "area": 59.318,
        "cells": 40,
-       "dc_seconds": 64.0,
+       "dc_seconds": 78.2,
        "tns": 0.0,
        "wns": 1.71644
       }
@@ -33180,7 +34780,7 @@
        "T": 2.8,
        "area": 285.950001,
        "cells": 157,
-       "dc_seconds": 71.1,
+       "dc_seconds": 79.3,
        "tns": 0.0,
        "wns": 0.15375
       },
@@ -33305,7 +34905,7 @@
        "T": 1.0,
        "area": 42.028,
        "cells": 19,
-       "dc_seconds": 74.0,
+       "dc_seconds": 78.7,
        "tns": 0.0,
        "wns": 0.113284
       },
@@ -33374,7 +34974,7 @@
        "T": 4.0,
        "area": 1139.011999,
        "cells": 742,
-       "dc_seconds": 83.6,
+       "dc_seconds": 90.5,
        "tns": 0.0,
        "wns": 0.00135636
       },
@@ -33449,7 +35049,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -33523,9 +35123,25 @@
        "T": 0.5,
        "area": 45.752001,
        "cells": 31,
-       "dc_seconds": 73.0,
+       "dc_seconds": 72.8,
        "tns": 0.0,
        "wns": 0.0403517
+      },
+      {
+       "T": 0.35,
+       "area": 96.824002,
+       "cells": 49,
+       "dc_seconds": 71.6,
+       "tns": 0.0,
+       "wns": 0.00364721
+      },
+      {
+       "T": 0.25,
+       "area": 57.456001,
+       "cells": 40,
+       "dc_seconds": 72.5,
+       "tns": -0.228893,
+       "wns": -0.0576605
       }
      ]
     },
@@ -33549,8 +35165,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -33570,7 +35186,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -33624,9 +35240,25 @@
        "T": 0.5,
        "area": 25.802001,
        "cells": 13,
-       "dc_seconds": 73.5,
+       "dc_seconds": 78.2,
        "tns": 0.0,
        "wns": 0.179437
+      },
+      {
+       "T": 0.35,
+       "area": 25.802001,
+       "cells": 13,
+       "dc_seconds": 71.2,
+       "tns": 0.0,
+       "wns": 0.0646245
+      },
+      {
+       "T": 0.25,
+       "area": 27.664001,
+       "cells": 15,
+       "dc_seconds": 83.9,
+       "tns": 0.0,
+       "wns": 0.00177291
       }
      ]
     },
@@ -33650,8 +35282,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -33671,7 +35303,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -33725,9 +35357,25 @@
        "T": 0.5,
        "area": 28.994,
        "cells": 16,
-       "dc_seconds": 71.7,
+       "dc_seconds": 74.5,
        "tns": 0.0,
        "wns": 0.158937
+      },
+      {
+       "T": 0.35,
+       "area": 29.26,
+       "cells": 16,
+       "dc_seconds": 86.1,
+       "tns": 0.0,
+       "wns": 0.00475141
+      },
+      {
+       "T": 0.25,
+       "area": 34.846001,
+       "cells": 22,
+       "dc_seconds": 104.7,
+       "tns": -0.013848,
+       "wns": -0.0138481
       }
      ]
     },
@@ -33751,8 +35399,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -33772,7 +35420,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -33826,9 +35474,25 @@
        "T": 0.5,
        "area": 37.772001,
        "cells": 21,
-       "dc_seconds": 73.4,
+       "dc_seconds": 77.4,
        "tns": 0.0,
        "wns": 0.116815
+      },
+      {
+       "T": 0.35,
+       "area": 38.304001,
+       "cells": 21,
+       "dc_seconds": 85.5,
+       "tns": 0.0,
+       "wns": 0.0154536
+      },
+      {
+       "T": 0.25,
+       "area": 54.264001,
+       "cells": 40,
+       "dc_seconds": 89.6,
+       "tns": -0.178687,
+       "wns": -0.0408548
       }
      ]
     },
@@ -33852,8 +35516,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -33873,7 +35537,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -33927,9 +35591,25 @@
        "T": 0.5,
        "area": 37.772001,
        "cells": 21,
-       "dc_seconds": 75.1,
+       "dc_seconds": 81.1,
        "tns": 0.0,
        "wns": 0.116815
+      },
+      {
+       "T": 0.35,
+       "area": 38.304001,
+       "cells": 21,
+       "dc_seconds": 72.6,
+       "tns": 0.0,
+       "wns": 0.0154536
+      },
+      {
+       "T": 0.25,
+       "area": 54.264001,
+       "cells": 40,
+       "dc_seconds": 76.2,
+       "tns": -0.178687,
+       "wns": -0.0408548
       }
      ]
     },
@@ -33980,7 +35660,7 @@
        "T": 4.0,
        "area": 15301.383932,
        "cells": 14077,
-       "dc_seconds": 236.6,
+       "dc_seconds": 264.0,
        "tns": 0.0,
        "wns": 0.0141027
       },
@@ -34267,7 +35947,7 @@
        "T": 4.0,
        "area": 735.756002,
        "cells": 714,
-       "dc_seconds": 82.0,
+       "dc_seconds": 87.3,
        "tns": 0.0,
        "wns": 7.1764e-05
       },
@@ -34368,7 +36048,7 @@
        "T": 4.0,
        "area": 610.204005,
        "cells": 414,
-       "dc_seconds": 80.2,
+       "dc_seconds": 76.8,
        "tns": 0.0,
        "wns": 0.00459504
       },
@@ -34530,8 +36210,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -34551,7 +36231,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -34605,9 +36285,25 @@
        "T": 0.5,
        "area": 1.596,
        "cells": 2,
-       "dc_seconds": 72.2,
+       "dc_seconds": 78.5,
        "tns": 0.0,
        "wns": 0.221079
+      },
+      {
+       "T": 0.35,
+       "area": 1.596,
+       "cells": 2,
+       "dc_seconds": 97.2,
+       "tns": 0.0,
+       "wns": 0.131079
+      },
+      {
+       "T": 0.25,
+       "area": 1.596,
+       "cells": 2,
+       "dc_seconds": 71.1,
+       "tns": 0.0,
+       "wns": 0.0710789
       }
      ]
     },
@@ -34632,7 +36328,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -34706,9 +36402,25 @@
        "T": 0.5,
        "area": 50.54,
        "cells": 47,
-       "dc_seconds": 73.6,
+       "dc_seconds": 80.8,
        "tns": 0.0,
        "wns": 0.00477061
+      },
+      {
+       "T": 0.35,
+       "area": 62.776,
+       "cells": 58,
+       "dc_seconds": 72.3,
+       "tns": -0.063461,
+       "wns": -0.0187128
+      },
+      {
+       "T": 0.25,
+       "area": 65.169999,
+       "cells": 56,
+       "dc_seconds": 76.3,
+       "tns": -0.421986,
+       "wns": -0.0874602
       }
      ]
     },
@@ -34791,7 +36503,7 @@
        "T": 1.0,
        "area": 108408.569247,
        "cells": 31681,
-       "dc_seconds": 412.9,
+       "dc_seconds": 408.2,
        "tns": 0.0,
        "wns": 0.000945151
       },
@@ -34833,8 +36545,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.35,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -34854,7 +36566,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.35,
      "points": [
       {
        "T": 4.0,
@@ -34908,9 +36620,25 @@
        "T": 0.5,
        "area": 40.964,
        "cells": 51,
-       "dc_seconds": 72.7,
+       "dc_seconds": 82.4,
        "tns": 0.0,
        "wns": 0.00735298
+      },
+      {
+       "T": 0.35,
+       "area": 42.826,
+       "cells": 53,
+       "dc_seconds": 75.5,
+       "tns": 0.0,
+       "wns": 0.00253615
+      },
+      {
+       "T": 0.25,
+       "area": 65.436,
+       "cells": 83,
+       "dc_seconds": 99.3,
+       "tns": -0.535583,
+       "wns": -0.0217906
       }
      ]
     },
@@ -34978,8 +36706,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -34999,7 +36727,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -35053,9 +36781,25 @@
        "T": 0.5,
        "area": 347.928011,
        "cells": 70,
-       "dc_seconds": 75.5,
+       "dc_seconds": 76.6,
        "tns": 0.0,
        "wns": 0.287671
+      },
+      {
+       "T": 0.35,
+       "area": 347.928011,
+       "cells": 70,
+       "dc_seconds": 74.1,
+       "tns": 0.0,
+       "wns": 0.167671
+      },
+      {
+       "T": 0.25,
+       "area": 347.928011,
+       "cells": 70,
+       "dc_seconds": 75.2,
+       "tns": 0.0,
+       "wns": 0.0876708
       }
      ]
     },
@@ -35174,7 +36918,7 @@
        "T": 1.4,
        "area": 7603.610217,
        "cells": 2835,
-       "dc_seconds": 95.9,
+       "dc_seconds": 96.8,
        "tns": 0.0,
        "wns": 0.000396132
       },
@@ -35259,7 +37003,7 @@
        "T": 2.8,
        "area": 9047.458088,
        "cells": 4267,
-       "dc_seconds": 90.3,
+       "dc_seconds": 92.6,
        "tns": 0.0,
        "wns": 0.00508761
       },
@@ -35369,8 +37113,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -35390,7 +37134,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -35444,9 +37188,25 @@
        "T": 0.5,
        "area": 22.876,
        "cells": 8,
-       "dc_seconds": 72.7,
+       "dc_seconds": 76.0,
        "tns": 0.0,
        "wns": 0.294968
+      },
+      {
+       "T": 0.35,
+       "area": 22.876,
+       "cells": 8,
+       "dc_seconds": 72.8,
+       "tns": 0.0,
+       "wns": 0.170748
+      },
+      {
+       "T": 0.25,
+       "area": 22.876,
+       "cells": 8,
+       "dc_seconds": 72.1,
+       "tns": 0.0,
+       "wns": 0.070748
       }
      ]
     },
@@ -35515,7 +37275,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -35589,9 +37349,25 @@
        "T": 0.5,
        "area": 858.381981,
        "cells": 294,
-       "dc_seconds": 77.6,
+       "dc_seconds": 77.5,
        "tns": 0.0,
        "wns": 0.010593
+      },
+      {
+       "T": 0.35,
+       "area": 1294.887966,
+       "cells": 399,
+       "dc_seconds": 79.3,
+       "tns": 0.0,
+       "wns": 0.000631124
+      },
+      {
+       "T": 0.25,
+       "area": 1680.85396,
+       "cells": 588,
+       "dc_seconds": 81.6,
+       "tns": -9.968662,
+       "wns": -0.0527945
       }
      ]
     },
@@ -35616,7 +37392,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -35690,9 +37466,25 @@
        "T": 0.5,
        "area": 247.379996,
        "cells": 125,
-       "dc_seconds": 73.5,
+       "dc_seconds": 77.1,
        "tns": 0.0,
        "wns": 0.0162697
+      },
+      {
+       "T": 0.35,
+       "area": 344.203992,
+       "cells": 201,
+       "dc_seconds": 76.7,
+       "tns": 0.0,
+       "wns": 0.000575215
+      },
+      {
+       "T": 0.25,
+       "area": 349.789993,
+       "cells": 215,
+       "dc_seconds": 114.1,
+       "tns": -3.297059,
+       "wns": -0.0965203
       }
      ]
     },
@@ -35717,7 +37509,7 @@
      "complete": true,
      "fallback": false,
      "phi": 0.5,
-     "points": 7
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -35791,9 +37583,25 @@
        "T": 0.5,
        "area": 333.829995,
        "cells": 182,
-       "dc_seconds": 74.7,
+       "dc_seconds": 75.6,
        "tns": 0.0,
        "wns": 0.00153422
+      },
+      {
+       "T": 0.35,
+       "area": 455.923992,
+       "cells": 302,
+       "dc_seconds": 109.3,
+       "tns": -0.053892,
+       "wns": -0.00463635
+      },
+      {
+       "T": 0.25,
+       "area": 575.091989,
+       "cells": 339,
+       "dc_seconds": 75.4,
+       "tns": -3.312515,
+       "wns": -0.0800411
       }
      ]
     },
@@ -35884,7 +37692,7 @@
        "T": 0.7,
        "area": 1242.751989,
        "cells": 601,
-       "dc_seconds": 76.1,
+       "dc_seconds": 79.3,
        "tns": 0.0,
        "wns": 0.0216306
       },
@@ -35962,8 +37770,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -35983,7 +37791,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -36037,9 +37845,25 @@
        "T": 0.5,
        "area": 1.064,
        "cells": 1,
-       "dc_seconds": 77.4,
+       "dc_seconds": 71.5,
        "tns": 0.0,
        "wns": 0.260683
+      },
+      {
+       "T": 0.35,
+       "area": 1.064,
+       "cells": 1,
+       "dc_seconds": 70.8,
+       "tns": 0.0,
+       "wns": 0.170683
+      },
+      {
+       "T": 0.25,
+       "area": 1.064,
+       "cells": 1,
+       "dc_seconds": 100.0,
+       "tns": 0.0,
+       "wns": 0.110683
       }
      ]
     },
@@ -36063,8 +37887,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -36084,7 +37908,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -36138,9 +37962,25 @@
        "T": 0.5,
        "area": 1.064,
        "cells": 1,
-       "dc_seconds": 76.9,
+       "dc_seconds": 73.9,
        "tns": 0.0,
        "wns": 0.244018
+      },
+      {
+       "T": 0.35,
+       "area": 1.064,
+       "cells": 1,
+       "dc_seconds": 104.2,
+       "tns": 0.0,
+       "wns": 0.154018
+      },
+      {
+       "T": 0.25,
+       "area": 1.064,
+       "cells": 1,
+       "dc_seconds": 71.1,
+       "tns": 0.0,
+       "wns": 0.0940178
       }
      ]
     },
@@ -36208,8 +38048,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -36229,7 +38069,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -36283,9 +38123,25 @@
        "T": 0.5,
        "area": 5.054,
        "cells": 5,
-       "dc_seconds": 73.0,
+       "dc_seconds": 73.6,
        "tns": 0.0,
        "wns": 0.180336
+      },
+      {
+       "T": 0.35,
+       "area": 5.054,
+       "cells": 5,
+       "dc_seconds": 71.0,
+       "tns": 0.0,
+       "wns": 0.0903361
+      },
+      {
+       "T": 0.25,
+       "area": 5.054,
+       "cells": 5,
+       "dc_seconds": 74.5,
+       "tns": 0.0,
+       "wns": 0.0303361
       }
      ]
     },
@@ -36309,8 +38165,8 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
-     "points": 7
+     "phi": 0.25,
+     "points": 9
     },
     "sky130hd": {
      "complete": false,
@@ -36330,7 +38186,7 @@
     "nangate45": {
      "complete": true,
      "fallback": false,
-     "phi": 0.5,
+     "phi": 0.25,
      "points": [
       {
        "T": 4.0,
@@ -36384,9 +38240,25 @@
        "T": 0.5,
        "area": 5.054,
        "cells": 5,
-       "dc_seconds": 71.1,
+       "dc_seconds": 75.5,
        "tns": 0.0,
        "wns": 0.180336
+      },
+      {
+       "T": 0.35,
+       "area": 5.054,
+       "cells": 5,
+       "dc_seconds": 103.6,
+       "tns": 0.0,
+       "wns": 0.0903361
+      },
+      {
+       "T": 0.25,
+       "area": 5.054,
+       "cells": 5,
+       "dc_seconds": 103.5,
+       "tns": 0.0,
+       "wns": 0.0303361
       }
      ]
     },
@@ -36399,7 +38271,7 @@
    }
   }
  ],
- "generated_at": "2026-09-13T02:42:52",
+ "generated_at": "2026-09-14T04:18:14",
  "params": {
   "area_tol": 0.1,
   "configs": {
@@ -36444,7 +38316,8 @@
    "designs": 252,
    "fallback": 4,
    "phi_hist": {
-    "0.13": 14,
+    "0.09": 4,
+    "0.13": 10,
     "0.18": 13,
     "0.25": 20,
     "0.35": 25,
@@ -36459,7 +38332,9 @@
    "designs": 252,
    "fallback": 6,
    "phi_hist": {
-    "0.5": 63,
+    "0.25": 21,
+    "0.35": 14,
+    "0.5": 28,
     "0.7": 21,
     "1.0": 28,
     "1.4": 13,
@@ -36474,7 +38349,9 @@
    "designs": 252,
    "fallback": 3,
    "phi_hist": {
-    "1.3": 40,
+    "0.65": 10,
+    "0.9": 9,
+    "1.3": 21,
     "1.8": 19,
     "10.0": 11,
     "2.5": 19,

@@ -205,3 +205,12 @@ def test_project_seq_script_adds_the_zero_init_line_only_when_asked():
     assert [l for l in on if not l.startswith("sim_set_state")] == off
     assert on.index("sim_run -stable") < on.index("sim_set_state -uninitialized -apply 0") < on.index("sim_save_reset") < on.index("seq_config -map_uninit -map_x zero")
     assert "create_reset spec.rst_n -sense low" in off and off[-1] == "exit"
+
+
+def test_project_seq_script_passes_include_directories():
+    from src.equiv.seq_tcl import seq_tcl
+    lines = seq_tcl(["/d.v"], ["/c.v"], "top", "top", "clk", None, "high", "20M", 1, "verilog", True, ["/inc/a", "/inc/b"]).splitlines()
+    assert lines[3] == "analyze -format verilog -vcs {+incdir+/inc/a +incdir+/inc/b} -library spec {/d.v}"
+    assert lines[4].startswith("analyze -format verilog -vcs {+incdir+/inc/a +incdir+/inc/b} -library impl")
+    assert "create_reset" not in "\n".join(lines)
+    assert "-vcs" not in seq_tcl(["/d.v"], ["/c.v"], "top", "top", "clk", None, "high", "20M", 1, "verilog", True).splitlines()[3]

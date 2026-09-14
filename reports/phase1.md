@@ -1,6 +1,6 @@
 # Phase 1 report — design sets and constraints
 
-Generated 2026-09-13 02:44 by scripts/report_phase.py (git a3492e0e16f4, cfg 26f7fc70c91b). Data: reports/data/phase1_inventory.json, phase1_trial.json, phase1_knee.json; catalogue data/designs/<suite>/.
+Generated 2026-09-14 04:19 by scripts/report_phase.py (git f8927024f8ee, cfg 35f19caaffcd). Data: reports/data/phase1_inventory.json, phase1_trial.json, phase1_knee.json; catalogue data/designs/<suite>/.
 
 ## 1. Sources (PLAN 1.1)
 
@@ -188,9 +188,9 @@ E4 seconds per design at the loosest period: min 58, median 73, max 1986 (n = 23
 
 | library | designs swept | complete sweeps | with Φ_main | fallback (no period met) | Φ_main histogram (ns: designs) |
 |---|---|---|---|---|---|
-| asap7 | 252 | 128 | 128 | 4 | 1.0: 21, 0.7: 14, 0.5: 21, 0.35: 25, 0.25: 20, 0.18: 13, 0.13: 14 |
-| nangate45 | 252 | 180 | 221 | 6 | 4.0: 62, 2.8: 19, 2.0: 15, 1.4: 13, 1.0: 28, 0.7: 21, 0.5: 63 |
-| sky130hd | 252 | 129 | 129 | 3 | 10.0: 11, 7.0: 13, 5.0: 13, 3.5: 14, 2.5: 19, 1.8: 19, 1.3: 40 |
+| asap7 | 252 | 128 | 128 | 4 | 1.0: 21, 0.7: 14, 0.5: 21, 0.35: 25, 0.25: 20, 0.18: 13, 0.13: 10, 0.09: 4 |
+| nangate45 | 252 | 180 | 221 | 6 | 4.0: 62, 2.8: 19, 2.0: 15, 1.4: 13, 1.0: 28, 0.7: 21, 0.5: 28, 0.35: 14, 0.25: 21 |
+| sky130hd | 252 | 129 | 129 | 3 | 10.0: 11, 7.0: 13, 5.0: 13, 3.5: 14, 2.5: 19, 1.8: 19, 1.3: 21, 0.9: 9, 0.65: 10 |
 
 Rule (spec 01 §3): candidates = periods with WNS ≥ −0.01·T; tightest T with area ≤ (1 + 0.1) × area(T_loosest); empty candidate set → smallest violation, `fallback`.
 
@@ -198,7 +198,7 @@ Spot-check curves (Nangate45, area in µm² / WNS in ns per period; Φ marked wi
 
 | design | 4 ns | 2.8 ns | 2 ns | 1.4 ns | 1 ns | 0.7 ns | 0.5 ns |
 |---|---|---|---|---|---|---|---|
-| rtllm_JC_counter | 343 / 3.10 | 343 / 2.14 | 343 / 1.50 | 343 / 1.02 | 343 / 0.70 | 343 / 0.46 | 343 / 0.30* |
+| rtllm_JC_counter | 343 / 3.10 | 343 / 2.14 | 343 / 1.50 | 343 / 1.02 | 343 / 0.70 | 343 / 0.46 | 343 / 0.30 |
 | drrtl_DSP | 3528 / 0.00 | 3700 / 0.00 | 3680 / 0.00 | 3818 / 0.00* | 3917 / -0.23 | 4421 / -0.31 | 4548 / -0.48 |
 | rtlopt_add_sub | 93 / 0.77 | 93 / 0.05* | 132 / 0.00 | 134 / 0.03 | 142 / 0.00 | 155 / -0.07 | 176 / -0.16 |
 | cktevo_ethmac__eth_cop | 1114 / 1.92 | 1114 / 0.96 | 1114 / 0.32 | 1115 / 0.03 | 1137 / 0.00 | 1186 / 0.00* | 1272 / -0.11 |

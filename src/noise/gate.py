@@ -52,6 +52,20 @@ def recorded_cand_ids(cfg, design_id):
     return ids
 
 
+def error_cand_ids(cfg, design_id):
+    """cand_ids whose latest equivalence record carries the verdict `error` (a tool failure: retried, never a verdict)."""
+    latest = {}
+    for eq in (Path(C.results_dir(cfg)) / "raw" / design_id / "EQ").glob("*/equiv.json"):
+        try:
+            rec = json.loads(eq.read_text())
+        except json.JSONDecodeError:
+            continue
+        cid = rec.get("cand_id")
+        if cid and (cid not in latest or eq.stat().st_mtime > latest[cid][0]):
+            latest[cid] = (eq.stat().st_mtime, rec.get("verdict"))
+    return {cid for cid, (_, v) in latest.items() if v == "error"}
+
+
 def _verdict(rec):
     """The stack's verdict (spec 03 vocabulary): proven / falsified / inconclusive / rejected / sim_fail /
     proven_sim_only / error; only `proven` (SEQ) admits a perturbation into the noise floor."""
