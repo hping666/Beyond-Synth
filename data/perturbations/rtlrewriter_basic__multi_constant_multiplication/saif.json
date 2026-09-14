@@ -30,7 +30,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__multi_constant_multiplication/saif/p87075df1e714ee.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication/EQ/da7de2c99e4ba93a",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

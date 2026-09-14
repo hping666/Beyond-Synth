@@ -30,7 +30,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_memory__memory_folding2/saif/p7b8797a924c2b4.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_folding2/EQ/2da5f3b875b3a4a0",
-   "status": "ok"
+   "status": "exists"
   },
   "pc611d62c3bd36c": {
    "instance": "bs_lockstep/u_c",

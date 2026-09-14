@@ -36,7 +36,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_sub_32bit/saif/p82fa261bd28d18.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_sub_32bit/EQ/7a9e92f96d5740b8",
-   "status": "ok"
+   "status": "exists"
   },
   "p9d0cc6526f3dbb": {
    "instance": "bs_lockstep/u_c",

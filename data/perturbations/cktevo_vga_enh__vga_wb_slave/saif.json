@@ -9,5 +9,24 @@
  "missing": [
   "design"
  ],
- "perturbations": {}
+ "perturbations": {
+  "p3a4496b19ac3f2": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_slave/saif/p3a4496b19ac3f2.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_slave/EQ/680fe7825529ca99",
+   "status": "copied"
+  },
+  "p3a80d129c12b22": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_slave/saif/p3a80d129c12b22.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_slave/EQ/d8b5f144b416fbf2",
+   "status": "copied"
+  },
+  "pcc9e93b6978fb2": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_slave/saif/pcc9e93b6978fb2.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_slave/EQ/1e6202efe17f7b5e",
+   "status": "copied"
+  }
+ }
 }

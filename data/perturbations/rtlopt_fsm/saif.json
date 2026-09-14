@@ -90,7 +90,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_fsm/saif/pf9517fdd0981c5.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_fsm/EQ/ab4e0700fd929a27",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

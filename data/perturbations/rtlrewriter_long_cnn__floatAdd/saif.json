@@ -42,7 +42,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cnn__floatAdd/saif/pab5bc083a0d4f0.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__floatAdd/EQ/7d807c7ec942e943",
-   "status": "ok"
+   "status": "exists"
   },
   "pb75a06e956ac86": {
    "instance": "bs_lockstep/u_c",

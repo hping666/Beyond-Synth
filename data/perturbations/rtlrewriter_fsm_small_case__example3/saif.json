@@ -48,7 +48,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_fsm_small_case__example3/saif/pb7a4b8e135b19a.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_fsm_small_case__example3/EQ/b73637c19217e69e",
-   "status": "ok"
+   "status": "exists"
   },
   "pd8edd7e530f57a": {
    "instance": "bs_lockstep/u_c",

@@ -18,7 +18,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_decoder_8bit/saif/p4fbbe10e8d0197.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_decoder_8bit/EQ/f4ccecbe95c7e285",
-   "status": "ok"
+   "status": "exists"
   },
   "p64c45242629a78": {
    "instance": "bs_lockstep/u_c",

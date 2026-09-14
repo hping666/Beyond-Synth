@@ -30,7 +30,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_comparator_4bit/saif/pfd04917c701d20.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_4bit/EQ/34adda5965d7d6b0",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

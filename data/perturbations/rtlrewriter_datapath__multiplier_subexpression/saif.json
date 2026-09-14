@@ -36,7 +36,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_datapath__multiplier_subexpression/saif/pf92b8eb89186b7.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__multiplier_subexpression/EQ/6b5497a07702ed23",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

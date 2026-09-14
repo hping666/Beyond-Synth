@@ -36,7 +36,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__dualDendRC_H7/saif/p66ea36bb7c2d51.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__dualDendRC_H7/EQ/3ff37cbcf17d1c49",
-   "status": "ok"
+   "status": "exists"
   },
   "p79fdff7fc6dfa2": {
    "instance": "bs_lockstep/u_c",

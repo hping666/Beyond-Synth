@@ -8,6 +8,12 @@
  "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
  "missing": [],
  "perturbations": {
+  "p123f6c58c4ecf9": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/p123f6c58c4ecf9.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/ebcf590ff3fd2508",
+   "status": "copied"
+  },
   "p199e18997b0542": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/p199e18997b0542.saif",
@@ -32,6 +38,12 @@
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/9a5916d4a9eb5e45",
    "status": "exists"
   },
+  "p35ed996ffd5fb0": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/p35ed996ffd5fb0.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/c30e832840ee6d3b",
+   "status": "copied"
+  },
   "p37732734d68ce1": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/p37732734d68ce1.saif",
@@ -50,11 +62,29 @@
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/825bcc119600abc6",
    "status": "exists"
   },
+  "p44b2621afed670": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/p44b2621afed670.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/dfbf901272f21513",
+   "status": "copied"
+  },
+  "p54ca0b44aadd03": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/p54ca0b44aadd03.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/1d125643d260ae8f",
+   "status": "copied"
+  },
   "p564768ca5b097a": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/p564768ca5b097a.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/44b70a9e281b1463",
    "status": "exists"
+  },
+  "p72ce7479ff0b35": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/p72ce7479ff0b35.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/d5bdfab7c6ff6926",
+   "status": "copied"
   },
   "p8977376b7000ed": {
    "instance": "bs_lockstep/u_c",
@@ -68,6 +98,12 @@
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/788823c4a85bc58e",
    "status": "exists"
   },
+  "p9658d2f0565530": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/p9658d2f0565530.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/2f43422d189e207d",
+   "status": "copied"
+  },
   "pb5a47c1b38160d": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/pb5a47c1b38160d.saif",
@@ -80,17 +116,53 @@
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/071829a55af05f7f",
    "status": "exists"
   },
+  "pbb2ddb73937087": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/pbb2ddb73937087.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/b35b2921d98e7ec5",
+   "status": "copied"
+  },
+  "pbee505faf991bb": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/pbee505faf991bb.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/6f19f17452c30e25",
+   "status": "copied"
+  },
+  "pcd21f96f52a9f5": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/pcd21f96f52a9f5.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/3723f39870dd512f",
+   "status": "copied"
+  },
   "pce3e82410e6271": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/pce3e82410e6271.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/7cbcade103d6ea83",
-   "status": "ok"
+   "status": "exists"
+  },
+  "pea3f085d206057": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/pea3f085d206057.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/e95992e0e1abcb81",
+   "status": "copied"
   },
   "pf6924173588647": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/pf6924173588647.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/582d3566c821ffc7",
    "status": "exists"
+  },
+  "pfce82a13ecc0ce": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/pfce82a13ecc0ce.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/5d70c5014be0f07a",
+   "status": "copied"
+  },
+  "pfcea8648217ca7": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__spikeNeuron8_H7/saif/pfcea8648217ca7.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__spikeNeuron8_H7/EQ/cbcae2974db96f97",
+   "status": "copied"
   }
  }
 }

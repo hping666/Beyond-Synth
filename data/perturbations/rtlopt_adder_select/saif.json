@@ -12,7 +12,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_adder_select/saif/p1118160e635519.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_adder_select/EQ/8870dd1385af801f",
-   "status": "ok"
+   "status": "exists"
   },
   "p26fd281d7968b7": {
    "instance": "bs_lockstep/u_c",

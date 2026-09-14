@@ -148,7 +148,7 @@ llm:                         # LOCKED (budgets); the model is filled into `selec
   service_tier_search: flex
   service_tier_offline: batch
   reasoning_effort: medium
-  max_output_tokens: 3000
+  max_output_tokens: 10000            # 2026-09-14 (DECISIONS): 3000 truncated 602 of 895 calibration answers (reasoning 0.5-2.3k tokens + RTL); a model-call setting, not a budget cap
   temperature: 0.7
   budget_usd:
     total: 1000

@@ -78,7 +78,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_ticket_machine/saif/pf9edb5b57d990b.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_ticket_machine/EQ/f459734d584e42f1",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }

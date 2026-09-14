@@ -30,7 +30,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__distributed_ram/saif/pf6158eba92a08f.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__distributed_ram/EQ/85245189c874d793",
-   "status": "ok"
+   "status": "exists"
   },
   "pfce947a0659905": {
    "instance": "bs_lockstep/u_c",

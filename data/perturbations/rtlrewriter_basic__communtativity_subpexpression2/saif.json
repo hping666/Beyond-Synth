@@ -12,7 +12,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__communtativity_subpexpression2/saif/p1c61f2d74d4393.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/EQ/646f9cf478877087",
-   "status": "ok"
+   "status": "exists"
   },
   "p2d9176154f4917": {
    "instance": "bs_lockstep/u_c",

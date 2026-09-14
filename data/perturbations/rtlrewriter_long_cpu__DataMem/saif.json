@@ -24,7 +24,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/p409f88f9de5dde.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/32f4948d36b283aa",
-   "status": "ok"
+   "status": "exists"
   },
   "p6488708de01be8": {
    "instance": "bs_lockstep/u_c",
@@ -54,7 +54,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_long_cpu__DataMem/saif/pb0f0b64d3b3c7a.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/6186cc7297d8d231",
-   "status": "ok"
+   "status": "exists"
   },
   "pb8307ed270f114": {
    "instance": "bs_lockstep/u_c",

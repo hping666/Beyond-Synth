@@ -66,7 +66,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_UART/saif/p9d4313580fc71d.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_UART/EQ/05e3a53a1edd26b1",
-   "status": "ok"
+   "status": "exists"
   },
   "pab3329f0b4d042": {
    "instance": "bs_lockstep/u_c",

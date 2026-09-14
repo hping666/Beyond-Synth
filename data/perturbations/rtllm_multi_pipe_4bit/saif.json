@@ -72,7 +72,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_multi_pipe_4bit/saif/pdc19b84b3ac65c.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_multi_pipe_4bit/EQ/9b7373acb858d341",
-   "status": "ok"
+   "status": "exists"
   },
   "pf1b04076d9f707": {
    "instance": "bs_lockstep/u_c",

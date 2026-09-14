@@ -9,5 +9,30 @@
  "missing": [
   "design"
  ],
- "perturbations": {}
+ "perturbations": {
+  "p054aae1acfbc44": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_i2c/saif/p054aae1acfbc44.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_i2c/EQ/5752f66e33c7af8e",
+   "status": "copied"
+  },
+  "p728e342277fa4f": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_i2c/saif/p728e342277fa4f.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_i2c/EQ/089331df6019efca",
+   "status": "copied"
+  },
+  "p7415c84a5dcc14": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_i2c/saif/p7415c84a5dcc14.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_i2c/EQ/7bf40f9c1bdea6cc",
+   "status": "copied"
+  },
+  "p75c984f974bd04": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_i2c/saif/p75c984f974bd04.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_i2c/EQ/9e2b33dc441cdfc6",
+   "status": "copied"
+  }
+ }
 }

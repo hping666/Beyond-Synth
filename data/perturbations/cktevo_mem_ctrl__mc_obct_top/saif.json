@@ -30,7 +30,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p69c6f3764f02c4.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/0d4cd6ffab2f502a",
-   "status": "ok"
+   "status": "exists"
   },
   "p7821abebd2e844": {
    "instance": "bs_lockstep/u_c",

@@ -24,7 +24,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_decoder_6bit/saif/pa24786ec7c9c65.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_decoder_6bit/EQ/9aa8656b3a8d4c6a",
-   "status": "ok"
+   "status": "exists"
   },
   "pb2a55efe223e09": {
    "instance": "bs_lockstep/u_c",

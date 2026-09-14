@@ -101,7 +101,7 @@ def y_jobs(cfg, conn, do_submit):
     q = Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
     jobs = []
     seen_design = set()
-    for c in conn.execute("SELECT c.cand_id, c.design_id, c.rtl_path FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND c.e4_job_id IS NOT NULL"):
+    for c in conn.execute("SELECT c.cand_id, c.design_id, c.rtl_path FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL"):
         d = designs[c["design_id"]]
         phi = float(conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()[0])
         if c["design_id"] not in seen_design:
@@ -128,7 +128,7 @@ def y_jobs(cfg, conn, do_submit):
 def y_auroc(cfg, conn):
     """AUROC of the Y area gain (and of the best-of-three-components Y gain) for E4 retention over the diagnosed candidates."""
     pos, neg, pos3, neg3 = [], [], [], []
-    for c in conn.execute("SELECT c.cand_id, c.design_id, c.label FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND c.label IN ('retained','absorbed','absorbed_identical','noise','harmful','tradeoff','fragile','duplicate')"):
+    for c in conn.execute("SELECT c.cand_id, c.design_id, c.label FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND r.status != 'superseded' AND c.label IN ('retained','absorbed','absorbed_identical','noise','harmful','tradeoff','fragile','duplicate')"):
         phi = float(conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()[0])
         base = conn.execute("SELECT area_um2, wns_ns, power_default_mw FROM evaluations WHERE design_id=? AND config='Y' AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (c["design_id"], phi)).fetchone()
         cand = conn.execute("SELECT area_um2, wns_ns, power_default_mw FROM evaluations WHERE design_id=? AND cand_id=? AND config='Y' AND status='ok' ORDER BY eval_id DESC LIMIT 1", (c["design_id"], c["cand_id"])).fetchone()
@@ -147,7 +147,7 @@ def cmd_sample(cfg, conn, n=40, seed=1):
     up to n candidates spread over the labels, deterministic; the checklist lists the evidence and the raw directories."""
     import random
     rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.llm_model, c.class_requested, c.class_final, c.rtl_path, d.label, d.rung, d.evidence_json "
-                                          "FROM candidates c JOIN diagnoses d ON d.cand_id=c.cand_id JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' ORDER BY c.cand_id")]
+                                          "FROM candidates c JOIN diagnoses d ON d.cand_id=c.cand_id JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND r.status != 'superseded' ORDER BY c.cand_id")]
     by = {}
     for r in rows:
         by.setdefault(r["label"], []).append(r)
@@ -175,7 +175,7 @@ def cmd_sample(cfg, conn, n=40, seed=1):
 
 
 def cmd_status(cfg, conn):
-    for r in conn.execute("SELECT run_id, design_id, llm_model, seed, status, gens_done, llm_calls, spent_usd, spent_dc_hours FROM runs WHERE exp IN ('phase3','smoke') ORDER BY started_at"):
+    for r in conn.execute("SELECT run_id, design_id, llm_model, seed, status, gens_done, llm_calls, spent_usd, spent_dc_hours FROM runs WHERE exp IN ('phase3','smoke') AND status != 'superseded' ORDER BY started_at"):
         n = conn.execute("SELECT COUNT(*), SUM(label='retained'), SUM(label IS NULL) FROM candidates WHERE run_id=?", (r["run_id"],)).fetchone()
         print(f"{r['run_id']:44s} {r['design_id']:28s} {r['llm_model']:14s} s{r['seed']} {r['status']:8s} gens {r['gens_done']} calls {r['llm_calls']} "
               f"usd {r['spent_usd'] or 0:.3f} dc_h {r['spent_dc_hours'] or 0:.2f} cands {n[0]} retained {n[1] or 0} pending {n[2] or 0}")
@@ -185,7 +185,7 @@ def cmd_status(cfg, conn):
 
 def cmd_collect(cfg, conn):
     mat = cfg["noise"]["materiality"]
-    runs = [dict(r) for r in conn.execute("SELECT * FROM runs WHERE exp='phase3'")]
+    runs = [dict(r) for r in conn.execute("SELECT * FROM runs WHERE exp='phase3' AND status != 'superseded'")]
     per_model = {}
     for run in runs:
         m = per_model.setdefault(run["llm_model"], {"runs": 0, "designs": set(), "calls": 0, "usd": 0.0, "dc_h": 0.0, "vcf_h": 0.0, "cands": 0, "unusable": 0,

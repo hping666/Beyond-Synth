@@ -42,7 +42,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_adder_8bit/saif/pc2b6d303409418.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_adder_8bit/EQ/8360508a29f21d77",
-   "status": "ok"
+   "status": "exists"
   },
   "pdcea78ad13ca56": {
    "instance": "bs_lockstep/u_c",

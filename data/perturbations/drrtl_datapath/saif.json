@@ -102,7 +102,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_datapath/saif/pe1157f498ce4d9.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_datapath/EQ/babe1b072128d092",
-   "status": "ok"
+   "status": "exists"
   },
   "pf4676d03b3d9ef": {
    "instance": "bs_lockstep/u_c",

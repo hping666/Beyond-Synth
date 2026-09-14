@@ -2,5 +2,30 @@
  "design": null,
  "design_id": "rtllm_parallel2serial",
  "missing": [],
- "perturbations": {}
+ "perturbations": {
+  "p0864bbb40f8d2e": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_parallel2serial/saif/p0864bbb40f8d2e.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_parallel2serial/EQ/8acb0cc2ca0bd24e",
+   "status": "copied"
+  },
+  "p562fa28acf9170": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_parallel2serial/saif/p562fa28acf9170.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_parallel2serial/EQ/1cb9a10925d75814",
+   "status": "copied"
+  },
+  "p8fa90685107f06": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_parallel2serial/saif/p8fa90685107f06.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_parallel2serial/EQ/307275a92d3485b7",
+   "status": "copied"
+  },
+  "pe31e9ecbd19e8b": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_parallel2serial/saif/pe31e9ecbd19e8b.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_parallel2serial/EQ/ea5a5fac78ae9b92",
+   "status": "copied"
+  }
+ }
 }

@@ -84,7 +84,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_traffic_light/saif/pcf206c6818cadf.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_traffic_light/EQ/1364754179d66443",
-   "status": "ok"
+   "status": "exists"
   },
   "pe2468f34d183dc": {
    "instance": "bs_lockstep/u_c",

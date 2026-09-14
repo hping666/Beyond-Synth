@@ -78,7 +78,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_serial2parallel/saif/pb8e8055d291b61.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_serial2parallel/EQ/b38e77d48b81ac01",
-   "status": "ok"
+   "status": "exists"
   },
   "pc0138f84b4ff34": {
    "instance": "bs_lockstep/u_c",

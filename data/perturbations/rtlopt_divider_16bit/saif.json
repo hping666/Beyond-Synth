@@ -18,7 +18,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_divider_16bit/saif/p10f71baebb728d.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_divider_16bit/EQ/5ba6c6e2da5eae05",
-   "status": "ok"
+   "status": "exists"
   },
   "p19d77a654eed70": {
    "instance": "bs_lockstep/u_c",

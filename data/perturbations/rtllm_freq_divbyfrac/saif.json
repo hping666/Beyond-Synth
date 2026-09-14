@@ -18,7 +18,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_freq_divbyfrac/saif/p2b9268f33d665f.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_freq_divbyfrac/EQ/47c0d3bb637c3365",
-   "status": "ok"
+   "status": "exists"
   },
   "p3f231df005bb60": {
    "instance": "bs_lockstep/u_c",

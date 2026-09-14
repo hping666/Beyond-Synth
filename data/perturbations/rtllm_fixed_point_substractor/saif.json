@@ -54,7 +54,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtllm_fixed_point_substractor/saif/pec805fa127b134.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtllm_fixed_point_substractor/EQ/c3893d5614a33065",
-   "status": "ok"
+   "status": "exists"
   },
   "pf25f8b6fc6696d": {
    "instance": "bs_lockstep/u_c",

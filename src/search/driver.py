@@ -196,6 +196,8 @@ class SearchRun:
             st["calls"] += 1
             meta = {"run_id": self.run_id, "gen": gen, "parent_id": parent_id, "class_requested": cls, "call_id": r["call_id"], "cost_usd": r["cost_usd"], "usage": r["usage"]}
             try:
+                if r.get("status") == "incomplete":
+                    raise CA.BadAnswer(f"truncated at max_output_tokens (status incomplete, {(r.get('usage') or {}).get('output_tokens')} output tokens)")
                 rtl, note = CA.parse_answer(r["text"])
                 CA.check_top(rtl, self.design["top"])
             except CA.BadAnswer as e:

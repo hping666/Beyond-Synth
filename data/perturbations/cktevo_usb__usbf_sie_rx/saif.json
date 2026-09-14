@@ -9,5 +9,30 @@
  "missing": [
   "design"
  ],
- "perturbations": {}
+ "perturbations": {
+  "p8f5c22cb76eea5": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_usb__usbf_sie_rx/saif/p8f5c22cb76eea5.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_usb__usbf_sie_rx/EQ/93c29e5a26dd2b16",
+   "status": "copied"
+  },
+  "p94a21369316bfb": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_usb__usbf_sie_rx/saif/p94a21369316bfb.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_usb__usbf_sie_rx/EQ/df3f97cc761e466b",
+   "status": "copied"
+  },
+  "p9e6bf851563211": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_usb__usbf_sie_rx/saif/p9e6bf851563211.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_usb__usbf_sie_rx/EQ/d5730c28286da57a",
+   "status": "copied"
+  },
+  "pb99c12883ab312": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_usb__usbf_sie_rx/saif/pb99c12883ab312.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_usb__usbf_sie_rx/EQ/1cb129785dfe45ae-r3",
+   "status": "copied"
+  }
+ }
 }

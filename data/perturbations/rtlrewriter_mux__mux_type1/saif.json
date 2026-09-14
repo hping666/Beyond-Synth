@@ -36,7 +36,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_mux__mux_type1/saif/pab6b7d1e0f3a99.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_mux__mux_type1/EQ/4f1218fbba384f0d",
-   "status": "ok"
+   "status": "exists"
   },
   "paca9435b9c3bfe": {
    "instance": "bs_lockstep/u_c",

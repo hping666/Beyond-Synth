@@ -96,7 +96,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_cpu_fsm/saif/pece57604b94ad9.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_cpu_fsm/EQ/facd91e4147cf913",
-   "status": "ok"
+   "status": "exists"
   },
   "pf212e1c92a3a3d": {
    "instance": "bs_lockstep/u_c",

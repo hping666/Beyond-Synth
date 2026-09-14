@@ -18,7 +18,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlopt_addr_calcu/saif/p655f72eb808a27.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlopt_addr_calcu/EQ/340fbfd28dbbdb1d",
-   "status": "ok"
+   "status": "exists"
   },
   "p65dd09a6dd3d05": {
    "instance": "bs_lockstep/u_c",

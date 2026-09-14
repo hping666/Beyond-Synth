@@ -36,7 +36,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/rtlrewriter_basic__commutativity_subexpression/saif/pf1225c2cf7cafb.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__commutativity_subexpression/EQ/7d502a6478d960e1",
-   "status": "ok"
+   "status": "exists"
   }
  }
 }
