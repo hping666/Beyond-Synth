@@ -1,6 +1,6 @@
 # Phase 3 report — LLM calibration (residual-guided evolution, minimal skeleton)
 
-Generated 2026-09-14 13:38 by scripts/report_phase.py (git 8105ea0e031c, cfg 5c4f19739d23). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).
+Generated 2026-09-14 13:40 by scripts/report_phase.py (git 9b6d27978f96, cfg 5c4f19739d23). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).
 
 ## 1. Setup
 
@@ -37,6 +37,20 @@ Models ['gpt-5.6-luna', 'gpt-5.4-mini', 'gpt-5.6-terra', 'gpt-5.4']; designs (de
 - **gpt-5.4-mini**: a: n=69 median 284 q95 4490 max 12992; b: n=26 median 253 q95 3303 max 8246; c1: n=46 median 454 q95 15676 max 19552; d: n=99 median 609 q95 13182 max 17642; children of absorbed parents that were not absorbed again: 0 of 0
 - **gpt-5.6-luna**: a: n=96 median 203 q95 11310 max 15698; b: n=34 median 242 q95 3687 max 4588; c1: n=95 median 374 q95 10026 max 13110; d: n=45 median 316 q95 15556 max 17938; free: n=1 median 13209 q95 13209 max 13209; children of absorbed parents that were not absorbed again: 0 of 0
 - **gpt-5.6-terra**: a: n=85 median 86 q95 285 max 16076; b: n=26 median 88 q95 165 max 173; c1: n=69 median 95 q95 214 max 16060; d: n=58 median 113 q95 263 max 290; children of absorbed parents that were not absorbed again: 0 of 0
+
+## 5a. Label sensitivity: run-time floors vs the current rule-A floors vs the fixed materiality thresholds
+
+Every E4-evaluated candidate re-diagnosed offline (no tool runs). The floors of the calibration designs moved after the runs started because the perturbation sets of the spread / offset designs grew (rule A's pooled minimum is record-weighted); the stored labels are the ones the search acted on.
+
+| model | E4-evaluated | stored: retained / tradeoff / absorbed_identical / noise / harmful | current floors: retained / tradeoff / absorbed_identical / noise / harmful | materiality: retained / tradeoff / absorbed_identical / noise / harmful |
+|---|---|---|---|---|
+| gpt-5.4 | 207 | 69 / 60 / 39 / 0 / 3 | 104 / 60 / 39 / 0 / 4 | 112 / 52 / 39 / 0 / 4 |
+| gpt-5.4-mini | 177 | 37 / 37 / 55 / 0 / 4 | 83 / 33 / 55 / 0 / 6 | 82 / 31 / 55 / 0 / 9 |
+| gpt-5.6-luna | 223 | 57 / 52 / 35 / 0 / 6 | 121 / 56 / 35 / 1 / 10 | 120 / 51 / 35 / 1 / 16 |
+| gpt-5.6-terra | 198 | 59 / 39 / 39 / 0 / 1 | 106 / 50 / 39 / 1 / 2 | 106 / 47 / 39 / 1 / 5 |
+
+Current rule-A t_D per calibration design (area / WNS as a fraction of the period / power): rtllm_LIFObuffer: 1.43 % / 0.36 % / 5.92 % (quiet); rtllm_adder_16bit: 1.43 % / 0.36 % / 5.92 % (quiet); rtllm_multi_pipe_8bit: 1.43 % / 0.36 % / 5.92 % (quiet); rtllm_serial2parallel: 1.43 % / 0.36 % / 1.41 % (quiet); rtllm_traffic_light: 1.43 % / 0.36 % / 5.92 % (quiet)
+
 
 ## 5b. Y (Yosys + OpenSTA) as a screen for E4 retention
 

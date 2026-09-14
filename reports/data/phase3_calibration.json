@@ -21,7 +21,143 @@
    "gpt-5.6-terra": 11.576643254965932
   }
  },
- "generated_at": "2026-09-14T13:38:47",
+ "generated_at": "2026-09-14T13:40:34",
+ "label_sensitivity": {
+  "_floors_now": {
+   "rtllm_LIFObuffer": {
+    "class": "quiet",
+    "t_d": {
+     "area": 0.014335534220772453,
+     "power": 0.059187718228726045,
+     "wns": 0.0035878081714285723
+    }
+   },
+   "rtllm_adder_16bit": {
+    "class": "quiet",
+    "t_d": {
+     "area": 0.014335534220772453,
+     "power": 0.059187718228726045,
+     "wns": 0.0035878081714285723
+    }
+   },
+   "rtllm_multi_pipe_8bit": {
+    "class": "quiet",
+    "t_d": {
+     "area": 0.014335534220772453,
+     "power": 0.059187718228726045,
+     "wns": 0.0035878081714285723
+    }
+   },
+   "rtllm_serial2parallel": {
+    "class": "quiet",
+    "t_d": {
+     "area": 0.014335534220772453,
+     "power": 0.014090412868872587,
+     "wns": 0.0035878081714285723
+    }
+   },
+   "rtllm_traffic_light": {
+    "class": "quiet",
+    "t_d": {
+     "area": 0.014335534220772453,
+     "power": 0.059187718228726045,
+     "wns": 0.0035878081714285723
+    }
+   }
+  },
+  "gpt-5.4": {
+   "current_floor": {
+    "absorbed_identical": 39,
+    "harmful": 4,
+    "retained": 104,
+    "tradeoff": 60
+   },
+   "materiality": {
+    "absorbed_identical": 39,
+    "harmful": 4,
+    "retained": 112,
+    "tradeoff": 52
+   },
+   "n": 207,
+   "stored": {
+    "absorbed_identical": 39,
+    "duplicate": 36,
+    "harmful": 3,
+    "retained": 69,
+    "tradeoff": 60
+   }
+  },
+  "gpt-5.4-mini": {
+   "current_floor": {
+    "absorbed_identical": 55,
+    "harmful": 6,
+    "retained": 83,
+    "tradeoff": 33
+   },
+   "materiality": {
+    "absorbed_identical": 55,
+    "harmful": 9,
+    "retained": 82,
+    "tradeoff": 31
+   },
+   "n": 177,
+   "stored": {
+    "absorbed_identical": 55,
+    "duplicate": 44,
+    "harmful": 4,
+    "retained": 37,
+    "tradeoff": 37
+   }
+  },
+  "gpt-5.6-luna": {
+   "current_floor": {
+    "absorbed_identical": 35,
+    "harmful": 10,
+    "noise": 1,
+    "retained": 121,
+    "tradeoff": 56
+   },
+   "materiality": {
+    "absorbed_identical": 35,
+    "harmful": 16,
+    "noise": 1,
+    "retained": 120,
+    "tradeoff": 51
+   },
+   "n": 223,
+   "stored": {
+    "absorbed_identical": 35,
+    "duplicate": 73,
+    "harmful": 6,
+    "retained": 57,
+    "tradeoff": 52
+   }
+  },
+  "gpt-5.6-terra": {
+   "current_floor": {
+    "absorbed_identical": 39,
+    "harmful": 2,
+    "noise": 1,
+    "retained": 106,
+    "tradeoff": 50
+   },
+   "materiality": {
+    "absorbed_identical": 39,
+    "harmful": 5,
+    "noise": 1,
+    "retained": 106,
+    "tradeoff": 47
+   },
+   "n": 198,
+   "stored": {
+    "absorbed_identical": 39,
+    "duplicate": 60,
+    "harmful": 1,
+    "retained": 59,
+    "tradeoff": 39
+   }
+  }
+ },
  "models": {
   "gpt-5.4": {
    "absorbed_response": [

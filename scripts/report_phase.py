@@ -419,6 +419,18 @@ def phase3(cfg):
             ttv = "; ".join(f"{c}: n={t['n']} median {t['median']:.0f} q95 {t['q95']:.0f} max {t['max']:.0f}" for c, t in sorted(v["time_to_verdict"].items()))
             resp = v["absorbed_response"]
             L.append(f"- **{mo}**: {ttv or 'no verdicts'}; children of absorbed parents that were not absorbed again: {resp[0]} of {resp[1]}")
+        ls = data.get("label_sensitivity") or {}
+        if ls:
+            L += ["", "## 5a. Label sensitivity: run-time floors vs the current rule-A floors vs the fixed materiality thresholds", "",
+                  "Every E4-evaluated candidate re-diagnosed offline (no tool runs). The floors of the calibration designs moved after the runs started because the perturbation sets of the spread / offset designs grew (rule A's pooled minimum is record-weighted); the stored labels are the ones the search acted on.", "",
+                  "| model | E4-evaluated | stored: retained / tradeoff / absorbed_identical / noise / harmful | current floors: retained / tradeoff / absorbed_identical / noise / harmful | materiality: retained / tradeoff / absorbed_identical / noise / harmful |", "|---|---|---|---|---|"]
+            keys = ("retained", "tradeoff", "absorbed_identical", "noise", "harmful")
+            for mo, v in sorted((k, v) for k, v in ls.items() if not k.startswith("_")):
+                cells = [" / ".join(str(v[which].get(k, 0)) for k in keys) for which in ("stored", "current_floor", "materiality")]
+                L.append(f"| {mo} | {v['n']} | {cells[0]} | {cells[1]} | {cells[2]} |")
+            fl = ls.get("_floors_now") or {}
+            L += ["", "Current rule-A t_D per calibration design (area / WNS as a fraction of the period / power): " + "; ".join(
+                f"{d}: {100 * (f['t_d'].get('area') or 0):.2f} % / {100 * (f['t_d'].get('wns') or 0):.2f} % / {100 * (f['t_d'].get('power') or 0):.2f} % ({f['class']})" for d, f in sorted(fl.items())), ""]
         ya = data.get("y_auroc") or {}
         if ya.get("auroc_area") is not None:
             L += ["", "## 5b. Y (Yosys + OpenSTA) as a screen for E4 retention", "",

@@ -174,6 +174,105 @@ def cmd_sample(cfg, conn, n=40, seed=1):
     return 0
 
 
+def cmd_verify(cfg, conn):
+    """PLAN 3.5 manual verification support: for every sampled candidate print the raw evidence the operator checks by hand
+    (D's and C's E4 numbers re-read from the raw qor / area reports, the diff size of the RTL, the fingerprint equality,
+    the duplicate's content match) next to the diagnoser's label, and write reports/data/phase3_manual_verify.json with the
+    automatic consistency checks; the operator's verdicts go into the .md checklist."""
+    import difflib
+    sample = json.loads((Path(C.ROOT) / "reports" / "data" / "phase3_manual_sample.json").read_text())["sample"]
+    designs = {d["design_id"]: d for d in __import__("src.designs.catalog", fromlist=["load_all"]).load_all()}
+    out = []
+    for r in sample:
+        d = designs[r["design_id"]]
+        d_text = "\n".join(Path(d["_dir"], f).read_text(errors="replace") for f in d["files"])
+        c_text = Path(r["rtl_path"]).read_text(errors="replace") if r.get("rtl_path") and Path(r["rtl_path"]).exists() else ""
+        ratio = difflib.SequenceMatcher(None, d_text, c_text).ratio() if c_text else None
+        phi = float(conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (r["design_id"],)).fetchone()[0])
+        base = conn.execute("SELECT area_um2, cells, wns_ns, power_saif_mw, hist_json, raw_dir FROM evaluations WHERE design_id=? AND config='E4' AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY (power_saif_mw IS NOT NULL) DESC, eval_id DESC LIMIT 1", (r["design_id"], phi)).fetchone()
+        cand = conn.execute("SELECT area_um2, cells, wns_ns, power_saif_mw, hist_json, raw_dir FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' ORDER BY eval_id DESC LIMIT 1", (r["cand_id"],)).fetchone()
+
+        def qor_area(raw_dir):
+            p = Path(raw_dir or "/nonexistent") / "outputs" / "reports" / "area.rpt"
+            if not p.exists():
+                return None
+            for line in p.read_text(errors="replace").splitlines():
+                if line.startswith("Total cell area:"):
+                    return float(line.split(":")[1])
+            return None
+        ev = json.loads(r.get("evidence_json") or "{}")
+        item = {"cand_id": r["cand_id"], "design_id": r["design_id"], "model": r["llm_model"], "label": r["label"], "class": f"{r['class_requested']}->{r['class_final']}",
+                "rtl_diff_ratio": round(ratio, 3) if ratio is not None else None,
+                "d_area_db": base["area_um2"] if base else None, "c_area_db": cand["area_um2"] if cand else None,
+                "d_area_rpt": qor_area(base["raw_dir"]) if base else None, "c_area_rpt": qor_area(cand["raw_dir"]) if cand else None,
+                "d_cells": base["cells"] if base else None, "c_cells": cand["cells"] if cand else None,
+                "gains_recorded": ev.get("gains"), "fp_jaccard": ev.get("fp_jaccard"), "checks": {}}
+        if base and cand:
+            item["checks"]["area_db_matches_report"] = (item["d_area_rpt"] is None or abs(item["d_area_rpt"] - base["area_um2"]) < 1e-3) and (item["c_area_rpt"] is None or abs(item["c_area_rpt"] - cand["area_um2"]) < 1e-3)
+            g_area = (base["area_um2"] - cand["area_um2"]) / base["area_um2"]
+            item["checks"]["gain_recomputed_matches"] = abs(g_area - float((ev.get("gains") or {}).get("area", g_area))) < 1e-4
+            item["checks"]["identical_hist_iff_absorbed_identical"] = ((base["hist_json"] == cand["hist_json"] and abs(base["area_um2"] - cand["area_um2"]) < 1e-6) == (r["label"] == "absorbed_identical"))
+        if r["label"] == "duplicate":
+            # two kinds (spec 04 §B.2): an identical answer text (no evaluation, id suffixed _dup) or an identical E4 fingerprint of an earlier candidate
+            dup = conn.execute("SELECT duplicate_of FROM diagnoses WHERE cand_id=?", (r["cand_id"],)).fetchone()
+            other = conn.execute("SELECT rtl_path FROM candidates WHERE cand_id=?", (dup[0],)).fetchone() if dup and dup[0] else None
+            if cand is not None and dup and dup[0]:
+                o = conn.execute("SELECT area_um2, cells, hist_json FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' ORDER BY eval_id DESC LIMIT 1", (dup[0],)).fetchone()
+                item["checks"]["duplicate_fingerprint_identical"] = bool(o and o["hist_json"] == cand["hist_json"] and abs(float(o["area_um2"]) - float(cand["area_um2"])) < 1e-6)
+                item["duplicate_of"] = dup[0]
+            else:
+                item["checks"]["duplicate_text_identical"] = bool(other and Path(other[0]).exists() and Path(other[0]).read_text() == c_text) if other else None
+        if r["label"] == "nonequiv":
+            v = conn.execute("SELECT verdict, v2_status, v3_status FROM candidates WHERE cand_id=?", (r["cand_id"],)).fetchone()
+            item["checks"]["stack_verdict"] = dict(v) if v else None
+        out.append(item)
+        print(f"{item['cand_id']} {item['design_id']:24s} {item['model']:13s} {item['label']:19s} {item['class']:8s} diff={item['rtl_diff_ratio']} "
+              f"D area {item['d_area_db']} C area {item['c_area_db']} cells {item['d_cells']}->{item['c_cells']} gains={item['gains_recorded']} checks={item['checks']}")
+    p = Path(C.ROOT) / "reports" / "data" / "phase3_manual_verify.json"
+    p.write_text(json.dumps(out, indent=1, default=str) + "\n")
+    ok = sum(1 for i in out if i["checks"] and all(v is True or isinstance(v, dict) for v in i["checks"].values()))
+    print(f"{ok} of {len(out)} sampled candidates pass every automatic consistency check; wrote {p}")
+    return 0
+
+
+def label_sensitivity(cfg, conn):
+    """Per model, the label distribution of every E4-evaluated candidate (a) as diagnosed at run time (stored), (b)
+    re-diagnosed offline under the current rule-A floors, (c) under the fixed materiality thresholds (area 1 %, power 2 %,
+    WNS 1 % of the period). No tool runs: the stored E4 records are re-read. Floors move when the perturbation sets grow
+    (DECISIONS 2026-09-14), so the report shows all three."""
+    from src.diagnose import m3
+    from src.search.driver import record_from_row
+    mat = cfg["noise"]["materiality"]
+    out = {}
+    floors, bases = {}, {}
+    for c in conn.execute("SELECT c.cand_id, c.design_id, c.label, c.class_final, r.llm_model FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                          "WHERE r.exp='phase3' AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL"):
+        did = c["design_id"]
+        if did not in floors:
+            fl = S.latest_floor(conn, did, "E4")
+            floors[did] = ({"area": (fl.get("area") or {}).get("t_d"), "wns": (fl.get("wns") or {}).get("t_d"), "power": (fl.get("power_saif") or {}).get("t_d")},
+                           {"area": (fl.get("area") or {}).get("sigma_robust") or 0.0, "wns": (fl.get("wns") or {}).get("sigma_robust") or 0.0, "power": (fl.get("power_saif") or {}).get("sigma_robust") or 0.0},
+                           next((r.get("floor_class") for r in fl.values() if r.get("floor_class")), None))
+            phi = float(conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (did,)).fetchone()[0])
+            b = conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config='E4' AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY (power_saif_mw IS NOT NULL) DESC, eval_id DESC LIMIT 1", (did, phi)).fetchone()
+            bases[did] = (record_from_row(b) if b else None, phi)
+        base, phi = bases[did]
+        row = conn.execute("SELECT * FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' ORDER BY eval_id DESC LIMIT 1", (c["cand_id"],)).fetchone()
+        m = out.setdefault(c["llm_model"], {"stored": {}, "current_floor": {}, "materiality": {}, "n": 0})
+        if base is None or row is None:
+            continue
+        m["n"] += 1
+        m["stored"][c["label"]] = m["stored"].get(c["label"], 0) + 1
+        cand = record_from_row(row)
+        th, sig, cls = floors[did]
+        d1 = m3.diagnose(base, cand, sig, phi, thresholds=th, floor_class=cls, k_sigma=float(cfg["noise"]["k_sigma"]), fp_jaccard=float(cfg["diag"]["fp_jaccard"]))
+        m["current_floor"][d1["label"]] = m["current_floor"].get(d1["label"], 0) + 1
+        d2 = m3.diagnose(base, cand, sig, phi, thresholds={"area": mat["area"], "wns": mat["wns"], "power": mat["power_saif"]}, k_sigma=float(cfg["noise"]["k_sigma"]), fp_jaccard=float(cfg["diag"]["fp_jaccard"]))
+        m["materiality"][d2["label"]] = m["materiality"].get(d2["label"], 0) + 1
+    out["_floors_now"] = {did: {"t_d": f[0], "class": f[2]} for did, f in floors.items()}
+    return out
+
+
 def cmd_status(cfg, conn):
     for r in conn.execute("SELECT run_id, design_id, llm_model, seed, status, gens_done, llm_calls, spent_usd, spent_dc_hours FROM runs WHERE exp IN ('phase3','smoke') AND status != 'superseded' ORDER BY started_at"):
         n = conn.execute("SELECT COUNT(*), SUM(label='retained'), SUM(label IS NULL) FROM candidates WHERE run_id=?", (r["run_id"],)).fetchone()
@@ -255,6 +354,7 @@ def cmd_collect(cfg, conn):
                        "recommended": max(eligible, key=lambda mo: scored[mo]) if eligible else None,
                        "note": "recommendation by config llm.calibration.decision; the user confirms at G4 (config llm.selected stays TBD until then)"}
     out["y_auroc"] = y_auroc(cfg, conn)
+    out["label_sensitivity"] = label_sensitivity(cfg, conn)
     p = Path(C.ROOT) / "reports" / "data" / "phase3_calibration.json"
     p.write_text(json.dumps(out, indent=1, sort_keys=True, default=str) + "\n")
     for mo, v in sorted(out["models"].items()):
@@ -267,7 +367,7 @@ def cmd_collect(cfg, conn):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect", "yruns", "sample"])
+    ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect", "yruns", "sample", "verify"])
     ap.add_argument("--models", nargs="*", default=None)
     ap.add_argument("--model", default=None)
     ap.add_argument("--design", nargs="*", default=None)
@@ -291,6 +391,8 @@ def main(argv=None):
         return 0
     if a.what == "sample":
         return cmd_sample(cfg, conn)
+    if a.what == "verify":
+        return cmd_verify(cfg, conn)
     if a.what == "smoke":
         designs = a.design or calibration_designs(cfg, conn)[:1]
         submit_runs(cfg, conn, designs, [a.model or cfg["llm"]["candidates"][0]], a.seeds or [1], a.K or 1, a.N or 2, "smoke", a.submit, note="smoke")
