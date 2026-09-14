@@ -377,8 +377,9 @@ class SearchRun:
             in_archive = int(self.archive.add({"cand_id": cid, "gains": gains, "gen": c["gen"], "label": label}))
             self.state["retained"] += 1
             self.state["last_retained_gen"], self.state["stall"] = c["gen"], 0
+        attribution = diag.get("attribution") if diag.get("attribution") in ("measured", "prior") else None  # the table's CHECK; 'identical' lives in the evidence
         db.insert(self.conn, "diagnoses", {"cand_id": cid, "run_id": self.run_id, "label": label, "rung": diag.get("rung"), "capability": diag.get("capability"),
-                                           "attribution": diag.get("attribution"), "fp_jaccard": (diag.get("evidence") or {}).get("fp_jaccard"),
+                                           "attribution": attribution, "fp_jaccard": (diag.get("evidence") or {}).get("fp_jaccard"),
                                            "offset_design": int(bool(diag.get("offset_design"))), "duplicate_of": diag.get("duplicate_of"),
                                            "envelope_json": json.dumps(diag.get("envelope")) if diag.get("envelope") is not None else None,
                                            "evidence_json": json.dumps(diag.get("evidence"), default=str), "feedback_json": json.dumps(fb, default=str),

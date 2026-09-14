@@ -65,7 +65,7 @@ def test_new_labels_absorbed_identical_duplicate_fragile_and_rule_a_bands():
     duplicate; a retained gain on a spread / offset design that does not beat the candidate's own perturbation envelope ->
     fragile; the rule-A thresholds replace k*sigma as the band; an offset design is flagged."""
     r = m3.diagnose(BASE, cand(), SIGMA, T)
-    assert r["label"] == "absorbed_identical" and r["attribution"] == "identical"
+    assert r["label"] == "absorbed_identical" and r["attribution"] == "measured" and r["evidence"]["identical_fingerprint"] is True
     c1 = cand(area=90.0, hist={"DFF_X1": 10, "NAND2_X1": 12, "XOR2_X1": 5})
     r = m3.diagnose(BASE, c1, SIGMA, T, run_fingerprints={"cand_A": c1})
     assert r["label"] == "duplicate" and r["duplicate_of"] == "cand_A"

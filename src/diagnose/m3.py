@@ -107,7 +107,8 @@ def diagnose(base, cand, sigma, clock_ns, *, v3_status="proven", k_sigma=2.0, fp
                 "icg": [mb.get("icg_count"), mc.get("icg_count")], "floor_class": floor_class}
     out["evidence"] = evidence
     if identical_fingerprint(base, cand):
-        out.update(label="absorbed_identical", rung="E4", attribution="identical")
+        out.update(label="absorbed_identical", rung="E4", attribution="measured")   # measured at E4: the netlist is D's
+        evidence["identical_fingerprint"] = True
         return out
     for cid, rec in (run_fingerprints or {}).items():
         if identical_fingerprint(rec, cand):

@@ -180,9 +180,12 @@ def test_driver_generations_verdicts_credit_and_resumption(env):
     for c in gen2:
         finish_eq(conn, cfg, tmp_path, c["cand_id"], verdict="proven")
     run2.step()
-    for c in gen2:
-        finish_e4(conn, c["cand_id"], 99.9, hist={"DFF_X1": 4, "NAND2_X1": 16})   # within the floor and same fingerprint as D: absorbed_identical / noise
+    finish_e4(conn, gen2[0]["cand_id"], 100.0, hist={"DFF_X1": 4, "NAND2_X1": 16})   # D's netlist exactly: absorbed_identical, stored with a legal attribution
+    finish_e4(conn, gen2[1]["cand_id"], 99.9, hist={"DFF_X1": 4, "NAND2_X1": 16})    # within the floor, fingerprint converged: absorbed
     assert run2.step() == "done"                                    # K = 2 generations built, nothing pending
+    d2 = {r["cand_id"]: dict(r) for r in conn.execute("SELECT * FROM diagnoses WHERE run_id=?", (run.run_id,))}
+    assert d2[gen2[0]["cand_id"]]["label"] == "absorbed_identical" and d2[gen2[0]["cand_id"]]["attribution"] == "measured"
+    assert d2[gen2[1]["cand_id"]]["label"] in ("absorbed", "noise")
     row = dict(conn.execute("SELECT * FROM runs WHERE run_id=?", (run.run_id,)).fetchone())
     assert row["status"] == "done" and row["llm_calls"] == 6 and row["gens_done"] == 2 and row["spent_usd"] > 0
     labels = {r["cand_id"]: r["label"] for r in conn.execute("SELECT cand_id, label FROM candidates WHERE run_id=?", (run.run_id,))}
