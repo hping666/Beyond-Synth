@@ -273,12 +273,21 @@ class Queue:
             free = cap - self.running_in_pool(pool)
             if free <= 0:
                 continue
+            per_design = int((self.cfg["queue"].get("per_design_max") or {}).get(pool) or 0)
             rows = self.conn.execute(
                 "SELECT * FROM jobs WHERE state IN ('queued','backoff') AND pool=? "
-                "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, free)).fetchall()
+                "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, free + (200 if per_design else 0))).fetchall()
+            spawned = 0
             for job in rows:
+                if spawned >= free:
+                    break
+                if per_design and job["design_id"]:
+                    n = self.conn.execute("SELECT COUNT(*) FROM jobs WHERE state='running' AND pool=? AND design_id=?", (pool, job["design_id"])).fetchone()[0]
+                    if n >= per_design:
+                        continue  # fairness (config queue.per_design_max): another design's job goes first; this one waits
                 try:
                     self._spawn(job)
+                    spawned += 1
                 except Exception as e:  # one unspawnable job (unknown kind in an old daemon, bad payload) must not block the pool
                     self._set(job["job_id"], state="failed", exit_code=None, error=f"cannot spawn: {type(e).__name__}: {e}"[:200],
                               finished_at=db.now())

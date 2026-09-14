@@ -191,3 +191,25 @@ def test_unspawnable_job_fails_alone_and_the_pool_keeps_dispatching(q, monkeypat
     q.tick()
     assert q.get(bad)["state"] == "failed" and "cannot spawn" in q.get(bad)["error"]
     assert wait_state(q, good, {"done"}) == "done"
+
+
+def test_per_design_fairness_in_a_pool(tmp_path):
+    """config queue.per_design_max (DECISIONS 2026-09-14): a design cannot hold more than N running jobs of a pool while
+    other designs wait; without other designs' jobs the seats stay unused rather than exceeding N; no cap changes."""
+    cfg = make_cfg()
+    cfg["queue"]["local_max"] = 4
+    cfg["queue"]["per_design_max"] = {"local": 1}
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    a1 = q.submit("shell", {"cmd": "sleep 0.6"}, design_id="A", priority=5)
+    a2 = q.submit("shell", {"cmd": "sleep 0.6"}, design_id="A", priority=5)
+    b1 = q.submit("shell", {"cmd": "sleep 0.6"}, design_id="B", priority=0)
+    q.tick()
+    states = {j: q.get(j)["state"] for j in (a1, a2, b1)}
+    running_a = [j for j in (a1, a2) if states[j] == "running"]
+    assert len(running_a) == 1 and states[b1] == "running"   # one of A's jobs waits although its priority is higher; B's job runs
+    waiting_a = a2 if running_a == [a1] else a1
+    assert wait_state(q, running_a[0], {"done"}, timeout=15) == "done"
+    q.tick()
+    assert q.get(waiting_a)["state"] == "running"   # A's seat frees: its second job starts
+    assert wait_state(q, waiting_a, {"done"}, timeout=15) == "done" and wait_state(q, b1, {"done"}, timeout=15) == "done"
