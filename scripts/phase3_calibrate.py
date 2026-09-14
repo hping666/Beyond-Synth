@@ -142,6 +142,38 @@ def y_auroc(cfg, conn):
     return {"n_retained": len(pos), "n_other": len(neg), "auroc_area": auroc(pos, neg), "auroc_best_component": auroc(pos3, neg3)}
 
 
+def cmd_sample(cfg, conn, n=40, seed=1):
+    """PLAN 3.5: a stratified sample of diagnosed candidates for the manual verification (reading both netlists and logs):
+    up to n candidates spread over the labels, deterministic; the checklist lists the evidence and the raw directories."""
+    import random
+    rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.llm_model, c.class_requested, c.class_final, c.rtl_path, d.label, d.rung, d.evidence_json "
+                                          "FROM candidates c JOIN diagnoses d ON d.cand_id=c.cand_id JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' ORDER BY c.cand_id")]
+    by = {}
+    for r in rows:
+        by.setdefault(r["label"], []).append(r)
+    rng = random.Random(seed)
+    labels = sorted(by)
+    quota = {lab: max(1, n // len(labels)) for lab in labels} if labels else {}
+    sample = []
+    for lab in labels:
+        pool = by[lab][:]
+        rng.shuffle(pool)
+        sample += pool[:quota[lab]]
+    rest = [r for lab in labels for r in by[lab] if r not in sample]
+    rng.shuffle(rest)
+    sample += rest[:max(0, n - len(sample))]
+    out = Path(C.ROOT) / "reports" / "data" / "phase3_manual_sample.json"
+    out.write_text(json.dumps({"seed": seed, "n": len(sample), "labels": {lab: len(v) for lab, v in by.items()}, "sample": sample}, indent=1, default=str) + "\n")
+    md = [f"# Phase 3 manual verification sample ({len(sample)} of {len(rows)} diagnosed candidates, seed {seed})", "",
+          "| # | design | model | requested -> produced | label (rung) | E4 raw dir | candidate RTL | agree? | note |", "|---|---|---|---|---|---|---|---|---|"]
+    for i, r in enumerate(sample, 1):
+        raw = conn.execute("SELECT raw_dir FROM evaluations WHERE cand_id=? AND config='E4' ORDER BY eval_id DESC LIMIT 1", (r["cand_id"],)).fetchone()
+        md.append(f"| {i} | {r['design_id']} | {r['llm_model']} | {r['class_requested']} -> {r['class_final']} | {r['label']} ({r['rung'] or '-'}) | {raw[0] if raw else '-'} | {r['rtl_path']} |  |  |")
+    (Path(C.ROOT) / "reports" / "data" / "phase3_manual_sample.md").write_text("\n".join(md) + "\n")
+    print(f"{len(sample)} sampled from {len(rows)} diagnosed candidates over labels {dict((lab, len(v)) for lab, v in by.items())}; wrote {out} and the .md checklist")
+    return 0
+
+
 def cmd_status(cfg, conn):
     for r in conn.execute("SELECT run_id, design_id, llm_model, seed, status, gens_done, llm_calls, spent_usd, spent_dc_hours FROM runs WHERE exp IN ('phase3','smoke') ORDER BY started_at"):
         n = conn.execute("SELECT COUNT(*), SUM(label='retained'), SUM(label IS NULL) FROM candidates WHERE run_id=?", (r["run_id"],)).fetchone()
@@ -235,7 +267,7 @@ def cmd_collect(cfg, conn):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect", "yruns"])
+    ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect", "yruns", "sample"])
     ap.add_argument("--models", nargs="*", default=None)
     ap.add_argument("--model", default=None)
     ap.add_argument("--design", nargs="*", default=None)
@@ -257,6 +289,8 @@ def main(argv=None):
     if a.what == "yruns":
         y_jobs(cfg, conn, a.submit)
         return 0
+    if a.what == "sample":
+        return cmd_sample(cfg, conn)
     if a.what == "smoke":
         designs = a.design or calibration_designs(cfg, conn)[:1]
         submit_runs(cfg, conn, designs, [a.model or cfg["llm"]["candidates"][0]], a.seeds or [1], a.K or 1, a.N or 2, "smoke", a.submit, note="smoke")
