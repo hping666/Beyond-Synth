@@ -1,0 +1,611 @@
+{
+ "seed": 2,
+ "quotas": {
+  "d": 24,
+  "c1": 16,
+  "a": 10,
+  "b": 10
+ },
+ "sample": [
+  {
+   "cand_id": "cec41e65ae2f127",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "c1",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_6-luna_s1/cec41e65ae2f127.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5052)\"]"
+  },
+  {
+   "cand_id": "c8ce03d085d2b2b",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "free",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_4-mini_s2/c8ce03d085d2b2b.v",
+   "label": "retained",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5174)\"]"
+  },
+  {
+   "cand_id": "c7c5dc0bae9acca",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "b",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_4-mini_s1/c7c5dc0bae9acca.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5391)\"]"
+  },
+  {
+   "cand_id": "ca80c2c0c8d77fc",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.4",
+   "class_requested": "d",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_raffic_light_pt-54_s2/ca80c2c0c8d77fc.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.599)\"]"
+  },
+  {
+   "cand_id": "cceb649a2c0c4ed",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "b",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_-terra_s1/cceb649a2c0c4ed.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.6088)\"]"
+  },
+  {
+   "cand_id": "c42c484df1483b2",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "c1",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_4-mini_s1/c42c484df1483b2.v",
+   "label": "retained",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.501)\"]"
+  },
+  {
+   "cand_id": "cb1f43266f06ad1",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "c1",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_4-mini_s1/cb1f43266f06ad1.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5719)\"]"
+  },
+  {
+   "cand_id": "c14561fddb8ff50",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "d",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_4-mini_s2/c14561fddb8ff50.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5763)\"]"
+  },
+  {
+   "cand_id": "c85fb633c516eb0",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.4",
+   "class_requested": "b",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_raffic_light_pt-54_s1/c85fb633c516eb0.v",
+   "label": "retained",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5217)\"]"
+  },
+  {
+   "cand_id": "cd0f6fcc131a590",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "c1",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_6-luna_s2/cd0f6fcc131a590.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.6496)\"]"
+  },
+  {
+   "cand_id": "c91f0a15d3f07ec",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "b",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_-terra_s1/c91f0a15d3f07ec.v",
+   "label": "retained",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.6221)\"]"
+  },
+  {
+   "cand_id": "cceaf078b063988",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.4",
+   "class_requested": "free",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_m_LIFObuffer_pt-54_s1/cceaf078b063988.v",
+   "label": "retained",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5294)\"]"
+  },
+  {
+   "cand_id": "c1573ced15e1248",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "b",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_-terra_s1/c1573ced15e1248.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5583)\"]"
+  },
+  {
+   "cand_id": "c54be66c4dbf198",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.4",
+   "class_requested": "free",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_raffic_light_pt-54_s1/c54be66c4dbf198.v",
+   "label": "retained",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5711)\"]"
+  },
+  {
+   "cand_id": "c5d7ecfc9c3a103",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "a",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_-terra_s2/c5d7ecfc9c3a103.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5057)\"]"
+  },
+  {
+   "cand_id": "c35993cdd6aa0f0",
+   "design_id": "rtllm_adder_16bit",
+   "llm_model": "gpt-5.4",
+   "class_requested": "d",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704__adder_16bit_pt-54_s2/c35993cdd6aa0f0.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.8139)\"]"
+  },
+  {
+   "cand_id": "c2516f88ad77a2e",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.4",
+   "class_requested": "a",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_m_LIFObuffer_pt-54_s2/c2516f88ad77a2e.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5286)\"]"
+  },
+  {
+   "cand_id": "c22d7036b29abd8",
+   "design_id": "rtllm_serial2parallel",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "free",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ial2parallel_4-mini_s1/c22d7036b29abd8.v",
+   "label": "retained",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5678)\"]"
+  },
+  {
+   "cand_id": "c7ec4da150c7ad0",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "b",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_4-mini_s2/c7ec4da150c7ad0.v",
+   "label": "retained",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5885)\"]"
+  },
+  {
+   "cand_id": "ceeba4ce1dfb8a6",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "d",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_-terra_s1/ceeba4ce1dfb8a6.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5501)\"]"
+  },
+  {
+   "cand_id": "c1262ae4a28f90a",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "c1",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_6-luna_s1/c1262ae4a28f90a.v",
+   "label": "retained",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.7902)\"]"
+  },
+  {
+   "cand_id": "c870992080f1644",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "b",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_6-luna_s1/c870992080f1644.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.6675)\"]"
+  },
+  {
+   "cand_id": "cc26273a169123f",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "d",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_4-mini_s1/cc26273a169123f.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.5825)\"]"
+  },
+  {
+   "cand_id": "c456d249fdd8eb5",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "d",
+   "class_final": "d",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_-terra_s1/c456d249fdd8eb5.v",
+   "label": "harmful",
+   "subtags_json": "[\"sequential structure changed and the text differs widely (ratio 0.6454)\"]"
+  },
+  {
+   "cand_id": "c4a8f4d032925d3",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "a",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_4-mini_s2/c4a8f4d032925d3.v",
+   "label": "retained",
+   "subtags_json": "[\"flip-flop bits 57 -> 25 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "c8a512245fd1412",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "a",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_4-mini_s2/c8a512245fd1412.v",
+   "label": "retained",
+   "subtags_json": "[\"flip-flop bits 57 -> 25 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "ca4713bdeb8ad54",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "free",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_6-luna_s2/ca4713bdeb8ad54.v",
+   "label": "retained",
+   "subtags_json": "[\"flip-flop bits 16 -> 10 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "c6028c0668636f1",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "a",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_4-mini_s2/c6028c0668636f1.v",
+   "label": "retained",
+   "subtags_json": "[\"flip-flop bits 57 -> 25 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "cfc46f39b150eaf",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "d",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_-terra_s1/cfc46f39b150eaf.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"flip-flop bits 57 -> 24 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "cfe1ddcc1168acb",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "b",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_6-luna_s2/cfe1ddcc1168acb.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"flip-flop bits 16 -> 12 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "c4294c201570633",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "d",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_-terra_s1/c4294c201570633.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"flip-flop bits 57 -> 24 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "cfa21f3d4abcbcb",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.4",
+   "class_requested": "a",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_m_LIFObuffer_pt-54_s1/cfa21f3d4abcbcb.v",
+   "label": "retained",
+   "subtags_json": "[\"flip-flop bits 57 -> 25 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "c70ab0689a6b700",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "a",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_4-mini_s2/c70ab0689a6b700.v",
+   "label": "retained",
+   "subtags_json": "[\"flip-flop bits 16 -> 12 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "c813009d855d5a9",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "a",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_4-mini_s1/c813009d855d5a9.v",
+   "label": "retained",
+   "subtags_json": "[\"flip-flop bits 116 -> 68 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "ce6a2f3a815884a",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "c1",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_-terra_s2/ce6a2f3a815884a.v",
+   "label": "retained",
+   "subtags_json": "[\"flip-flop bits 16 -> 14 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "c0b9e5eeb2a76ec",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "a",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_m_LIFObuffer_-terra_s2/c0b9e5eeb2a76ec.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"flip-flop bits 57 -> 24 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "c4cc1bf0a3b1bdc",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "free",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_6-luna_s1/c4cc1bf0a3b1bdc.v",
+   "label": "retained",
+   "subtags_json": "[\"flip-flop bits 16 -> 12 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "c1cc13efbd2c34d",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.4",
+   "class_requested": "free",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_raffic_light_pt-54_s2/c1cc13efbd2c34d.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"flip-flop bits 16 -> 8 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "cab845aa437aa16",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "c1",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_4-mini_s2/cab845aa437aa16.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"flip-flop bits 116 -> 77 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "c501fafcecf20f1",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "d",
+   "class_final": "c1",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_6-luna_s2/c501fafcecf20f1.v",
+   "label": "retained",
+   "subtags_json": "[\"flip-flop bits 116 -> 84 with identical latency (no offset)\"]"
+  },
+  {
+   "cand_id": "caf1dce11804fb5",
+   "design_id": "rtllm_adder_16bit",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "free",
+   "class_final": "a",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703__adder_16bit_-terra_s1/caf1dce11804fb5.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"flip-flop count, register names and clocked targets unchanged\", \"but the text differs widely (ratio 0.8583) -> review for (d)\"]"
+  },
+  {
+   "cand_id": "c888064c2a16509",
+   "design_id": "rtllm_adder_16bit",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "free",
+   "class_final": "a",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703__adder_16bit_4-mini_s1/c888064c2a16509.v",
+   "label": "absorbed_identical",
+   "subtags_json": "[\"flip-flop count, register names and clocked targets unchanged\", \"but the text differs widely (ratio 0.7936) -> review for (d)\"]"
+  },
+  {
+   "cand_id": "c7573713980673c",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "a",
+   "class_final": "a",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_4-mini_s1/c7573713980673c.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"flip-flop count, register names and clocked targets unchanged\"]"
+  },
+  {
+   "cand_id": "cd4da8414dcee98",
+   "design_id": "rtllm_adder_16bit",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "a",
+   "class_final": "a",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703__adder_16bit_4-mini_s2/cd4da8414dcee98.v",
+   "label": "absorbed_identical",
+   "subtags_json": "[\"flip-flop count, register names and clocked targets unchanged\", \"but the text differs widely (ratio 0.8762) -> review for (d)\"]"
+  },
+  {
+   "cand_id": "c8fc55d1e7afe09",
+   "design_id": "rtllm_adder_16bit",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "free",
+   "class_final": "a",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703__adder_16bit_6-luna_s1/c8fc55d1e7afe09.v",
+   "label": "absorbed_identical",
+   "subtags_json": "[\"flip-flop count, register names and clocked targets unchanged\", \"but the text differs widely (ratio 0.8565) -> review for (d)\"]"
+  },
+  {
+   "cand_id": "c851c1a2fb5d063",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "b",
+   "class_final": "a",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_ti_pipe_8bit_-terra_s2/c851c1a2fb5d063.v",
+   "label": "harmful",
+   "subtags_json": "[\"flip-flop count, register names and clocked targets unchanged\", \"but the text differs widely (ratio 0.5036) -> review for (d)\"]"
+  },
+  {
+   "cand_id": "c646470e93cedee",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "b",
+   "class_final": "a",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_6-luna_s1/c646470e93cedee.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"flip-flop count, register names and clocked targets unchanged\"]"
+  },
+  {
+   "cand_id": "ca01ded8c8586b4",
+   "design_id": "rtllm_adder_16bit",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "free",
+   "class_final": "a",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703__adder_16bit_4-mini_s2/ca01ded8c8586b4.v",
+   "label": "absorbed_identical",
+   "subtags_json": "[\"flip-flop count, register names and clocked targets unchanged\", \"but the text differs widely (ratio 0.8413) -> review for (d)\"]"
+  },
+  {
+   "cand_id": "ceaa3868ed144bd",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "free",
+   "class_final": "a",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ti_pipe_8bit_6-luna_s1/ceaa3868ed144bd.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"flip-flop count, register names and clocked targets unchanged\"]"
+  },
+  {
+   "cand_id": "c81240b24a7ba28",
+   "design_id": "rtllm_adder_16bit",
+   "llm_model": "gpt-5.4",
+   "class_requested": "d",
+   "class_final": "a",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704__adder_16bit_pt-54_s1/c81240b24a7ba28.v",
+   "label": "absorbed_identical",
+   "subtags_json": "[\"flip-flop count, register names and clocked targets unchanged\", \"but the text differs widely (ratio 0.9041) -> review for (d)\"]"
+  },
+  {
+   "cand_id": "c5a2824a0f46eea",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "d",
+   "class_final": "b",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_m_LIFObuffer_4-mini_s2/c5a2824a0f46eea.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"register names or clocked targets changed, flip-flop count and latency unchanged\"]"
+  },
+  {
+   "cand_id": "c52053fb93a511c",
+   "design_id": "rtllm_serial2parallel",
+   "llm_model": "gpt-5.4-mini",
+   "class_requested": "free",
+   "class_final": "b",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ial2parallel_4-mini_s2/c52053fb93a511c.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"register names or clocked targets changed, flip-flop count and latency unchanged\"]"
+  },
+  {
+   "cand_id": "c11a57fa5034091",
+   "design_id": "rtllm_serial2parallel",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "d",
+   "class_final": "b",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_ial2parallel_-terra_s2/c11a57fa5034091.v",
+   "label": "retained",
+   "subtags_json": "[\"register names or clocked targets changed, flip-flop count and latency unchanged\"]"
+  },
+  {
+   "cand_id": "cd02403ad78299c",
+   "design_id": "rtllm_LIFObuffer",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "b",
+   "class_final": "b",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_m_LIFObuffer_-terra_s2/cd02403ad78299c.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"register names or clocked targets changed, flip-flop count and latency unchanged\"]"
+  },
+  {
+   "cand_id": "cce230deea8352e",
+   "design_id": "rtllm_serial2parallel",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "d",
+   "class_final": "b",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ial2parallel_6-luna_s1/cce230deea8352e.v",
+   "label": "nonequiv",
+   "subtags_json": "[\"register names or clocked targets changed, flip-flop count and latency unchanged\"]"
+  },
+  {
+   "cand_id": "c2115e983a350db",
+   "design_id": "rtllm_traffic_light",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "b",
+   "class_final": "b",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_raffic_light_6-luna_s2/c2115e983a350db.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"register names or clocked targets changed, flip-flop count and latency unchanged\"]"
+  },
+  {
+   "cand_id": "c19f200937bca8e",
+   "design_id": "rtllm_serial2parallel",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "c1",
+   "class_final": "b",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ial2parallel_6-luna_s2/c19f200937bca8e.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"register names or clocked targets changed, flip-flop count and latency unchanged\"]"
+  },
+  {
+   "cand_id": "ced6e3b9c573f33",
+   "design_id": "rtllm_serial2parallel",
+   "llm_model": "gpt-5.6-terra",
+   "class_requested": "d",
+   "class_final": "b",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_ial2parallel_-terra_s1/ced6e3b9c573f33.v",
+   "label": "retained",
+   "subtags_json": "[\"register names or clocked targets changed, flip-flop count and latency unchanged\"]"
+  },
+  {
+   "cand_id": "cca37889705b5c8",
+   "design_id": "rtllm_serial2parallel",
+   "llm_model": "gpt-5.6-luna",
+   "class_requested": "a",
+   "class_final": "b",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063703_ial2parallel_6-luna_s1/cca37889705b5c8.v",
+   "label": "retained",
+   "subtags_json": "[\"register names or clocked targets changed, flip-flop count and latency unchanged\"]"
+  },
+  {
+   "cand_id": "c7cbb69c3151e50",
+   "design_id": "rtllm_serial2parallel",
+   "llm_model": "gpt-5.4",
+   "class_requested": "b",
+   "class_final": "b",
+   "rtl_path": "/home/hping/Beyond-Synth/results/candidates/r20260914_063704_ial2parallel_pt-54_s2/c7cbb69c3151e50.v",
+   "label": "tradeoff",
+   "subtags_json": "[\"register names or clocked targets changed, flip-flop count and latency unchanged\"]"
+  }
+ ]
+}

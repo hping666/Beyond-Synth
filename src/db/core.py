@@ -56,6 +56,10 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
     ("gen_summary", "pending_json", "ALTER TABLE gen_summary ADD COLUMN pending_json TEXT"),
     ("gen_summary", "built_at", "ALTER TABLE gen_summary ADD COLUMN built_at TEXT"),
     ("gen_summary", "llm_calls_cum", "ALTER TABLE gen_summary ADD COLUMN llm_calls_cum INTEGER"),
+    # floor versioning (DECISIONS 2026-09-14, G4.3): the floor table is frozen per phase and stamped on runs and diagnoses
+    ("noise_floor", "floor_version", "ALTER TABLE noise_floor ADD COLUMN floor_version TEXT"),
+    ("runs", "floor_version", "ALTER TABLE runs ADD COLUMN floor_version TEXT"),
+    ("diagnoses", "floor_version", "ALTER TABLE diagnoses ADD COLUMN floor_version TEXT"),
 ]
 
 REBUILDS = [  # tables whose CHECK constraint was widened after they existed: (table, needle that the current DDL must contain)

@@ -414,11 +414,27 @@ def phase3(cfg):
                 b = v["best_gain"].get(d)
                 cells.append("-" if not b else f"{100 * b['area']:.2f} %" + (" (offset design)" if b.get("offset_design") else ""))
             L.append(f"| {mo} | " + " | ".join(cells) + " |")
-        L += ["", "## 5. Time to verdict (seconds from the LLM answer to the equivalence verdict) and response to absorbed feedback", ""]
+        L += ["", "## 5. Time to verdict (seconds from the LLM answer to the equivalence verdict) and the response to absorbed feedback", ""]
         for mo, v in sorted(data["models"].items()):
             ttv = "; ".join(f"{c}: n={t['n']} median {t['median']:.0f} q95 {t['q95']:.0f} max {t['max']:.0f}" for c, t in sorted(v["time_to_verdict"].items()))
-            resp = v["absorbed_response"]
-            L.append(f"- **{mo}**: {ttv or 'no verdicts'}; children of absorbed parents that were not absorbed again: {resp[0]} of {resp[1]}")
+            L.append(f"- **{mo}**: {ttv or 'no verdicts'}")
+        fr = data.get("feedback_response") or {}
+        if fr:
+            L += ["", "Feedback response (DECISIONS 2026-09-14 b): absorbed_identical rate among candidates whose lineage feedback carried an absorbed verdict versus candidates whose feedback did not, per generation:", "",
+                  "| model | generation | with absorbed feedback: absorbed_identical / n | without: absorbed_identical / n |", "|---|---|---|---|"]
+            for mo, gens in sorted(fr.items()):
+                for g, kinds in sorted(gens.items(), key=lambda kv: int(kv[0])):
+                    w, wo = kinds.get("with_absorbed_feedback"), kinds.get("without")
+                    L.append(f"| {mo} | {g} | {f'{w[chr(97)+chr(98)+chr(115)+chr(111)+chr(114)+chr(98)+chr(101)+chr(100)+chr(95)+chr(105)+chr(100)+chr(101)+chr(110)+chr(116)+chr(105)+chr(99)+chr(97)+chr(108)]} / {w[chr(110)]} ({100 * w[chr(114)+chr(97)+chr(116)+chr(101)]:.0f} %)' if w else '-'} | {f'{wo[chr(97)+chr(98)+chr(115)+chr(111)+chr(114)+chr(98)+chr(101)+chr(100)+chr(95)+chr(105)+chr(100)+chr(101)+chr(110)+chr(116)+chr(105)+chr(99)+chr(97)+chr(108)]} / {wo[chr(110)]} ({100 * wo[chr(114)+chr(97)+chr(116)+chr(101)]:.0f} %)' if wo else '-'} |")
+        vp = data.get("vcf_projection") or {}
+        if vp:
+            L += ["", "## 5c. Phase 5 VC Formal projection (DECISIONS 2026-09-14 e)", "",
+                  f"Model {vp['model']}: {vp['phase3_calls']} Phase 3 calls consumed {3600 * 0 + sum(c['hours'] for k in vp['by_type_and_class'].values() for c in k.values()):.1f} SEQ hours ({vp['seq_seconds_per_call']:.0f} s per LLM call; arithmetic pipelines {vp['seq_seconds_per_call_by_type']['arith_pipeline']:.0f} s, other designs {vp['seq_seconds_per_call_by_type']['other']:.0f} s per call). "
+                  f"Phase 5 at the planned scale ({vp['phase5_runs']} runs, {vp['phase5_calls']} calls; starting pool {vp['starting_pool']} held designs of which {100 * vp['share_arith_pipeline_in_pool']:.0f} % arithmetic pipelines by name): "
+                  f"**{vp['projected_vcf_hours']:.0f} VC Formal hours** by design-type mix ({vp['projected_vcf_hours_flat_mix']:.0f} h with the calibration's own mix); threshold {vp['threshold_hours']} h.", ""]
+            for k, d in vp["by_type_and_class"].items():
+                L.append(f"- {k}: " + "; ".join(f"class {cls}: n={c['n']}, median {c['median_s']:.0f} s, q95 {c['q95_s']:.0f} s, {c['hours']:.1f} h" for cls, c in sorted(d.items())))
+            L.append("")
         ls = data.get("label_sensitivity") or {}
         if ls:
             pm = ls.get("_pooled_min") or {}

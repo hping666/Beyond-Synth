@@ -1,9 +1,13 @@
 {
- "designs": 1,
- "generated_at": "2026-09-14T04:06:24",
+ "designs": 2,
+ "generated_at": "2026-09-14T16:31:51",
  "not_applicable": {},
  "parse_errors": [],
  "per_type": {
-  "P1_text": 4
+  "P1_rename": 8,
+  "P1_text": 16,
+  "P2_reorder": 8,
+  "P3_expr": 8,
+  "P4_ctrl": 8
  }
 }

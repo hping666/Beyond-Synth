@@ -285,6 +285,117 @@ def label_sensitivity(cfg, conn):
     return out
 
 
+def feedback_response(cfg, conn):
+    """DECISIONS 2026-09-14 (pre-Phase-4 b): per model and generation, the absorbed_identical rate among candidates whose
+    lineage feedback (the parent chain's stored feedback blocks, depth search.feedback_depth; a fresh start from D sees the
+    most recent verdicts of the run) contained an absorbed verdict, versus candidates whose feedback did not."""
+    depth = int(cfg["search"]["feedback_depth"])
+    out = {}
+    for run in conn.execute("SELECT run_id, llm_model FROM runs WHERE exp='phase3' AND status != 'superseded'"):
+        state_path = Path(C.ROOT) / "results" / "candidates" / run["run_id"] / "state.json"
+        if not state_path.exists():
+            continue
+        st = json.loads(state_path.read_text())
+        cands, fb = st.get("cands") or {}, st.get("feedback") or {}
+        by_gen = {}
+        for c in cands.values():
+            by_gen.setdefault(c.get("gen"), []).append(c)
+        for c in cands.values():
+            if c.get("label") in (None, "aborted") or c.get("gen") is None:
+                continue
+            # reconstruct the feedback the candidate's prompt carried: its lineage, else the most recent verdicts before its generation
+            blocks, cid, seen_absorbed = [], c.get("parent_id"), False
+            while cid and len(blocks) < depth:
+                if cid in fb:
+                    blocks.append(fb[cid])
+                cid = (cands.get(cid) or {}).get("parent_id")
+            if not blocks:
+                earlier = [x for g, xs in by_gen.items() if g is not None and g < c["gen"] for x in xs if x["cand_id"] in fb]
+                earlier.sort(key=lambda x: -x.get("gen", 0))
+                blocks = [fb[x["cand_id"]] for x in earlier[:depth]]
+            seen_absorbed = any((b.get("diagnosis") or "").startswith("absorbed") for b in blocks)
+            key = (run["llm_model"], int(c["gen"]), "with_absorbed_feedback" if seen_absorbed else "without")
+            e = out.setdefault(key, {"n": 0, "absorbed_identical": 0})
+            e["n"] += 1
+            e["absorbed_identical"] += int(c.get("label") == "absorbed_identical")
+    table = {}
+    for (model, gen, kind), e in out.items():
+        table.setdefault(model, {}).setdefault(str(gen), {})[kind] = {"n": e["n"], "absorbed_identical": e["absorbed_identical"], "rate": e["absorbed_identical"] / e["n"] if e["n"] else None}
+    return table
+
+
+def vcf_projection(cfg, conn):
+    """DECISIONS 2026-09-14 (pre-Phase-4 e): VC Formal hours of Phase 5 at the planned scale with luna, projected from the
+    Phase 3 time-to-verdict distributions (SEQ seconds per produced class and per design type: arithmetic pipelines vs the
+    rest), assuming the calibration's per-class mix of proven candidates per LLM call."""
+    sc = cfg["scale"]
+    runs_p5 = int(sc["starting_points"]) * len(sc["arms"]) * int(sc["seeds"])
+    calls_p5 = runs_p5 * int(sc["budget"]["llm_calls_per_run"])
+    calls_p3 = 0
+    secs = {"arith_pipeline": {}, "other": {}}
+    for c in conn.execute("SELECT c.design_id, c.class_final, c.v3_seconds, r.llm_model FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND r.status != 'superseded' AND r.llm_model=? AND c.v3_seconds IS NOT NULL", (cfg["llm"]["selected"],)):
+        kind = "arith_pipeline" if "pipe" in c["design_id"] or "mult" in c["design_id"] else "other"
+        secs[kind].setdefault(c["class_final"] or "?", []).append(float(c["v3_seconds"]))
+    calls_p3 = conn.execute("SELECT COALESCE(SUM(llm_calls),0) FROM runs WHERE exp='phase3' AND status != 'superseded' AND llm_model=?", (cfg["llm"]["selected"],)).fetchone()[0]
+    total_secs = sum(sum(v) for k in secs.values() for v in k.values())
+    per_call = total_secs / calls_p3 if calls_p3 else 0.0
+    # design-type shares in Phase 5: the starting-point pool (held designs minus the Exp1 set) by name heuristic
+    pool = [r[0] for r in conn.execute("SELECT design_id FROM designs WHERE split='held' AND phi_main_ns_nangate45 IS NOT NULL")]
+    excluded = set(cfg["design_sets"].get("phase5_excluded") or [])
+    pool = [d for d in pool if d not in excluded]
+    share_arith = sum(1 for d in pool if "pipe" in d or "mult" in d or "div" in d) / len(pool) if pool else 0.0
+    # per-call SEQ seconds by design type in Phase 3 (luna): arithmetic pipelines vs other designs
+    calls_by_type = {"arith_pipeline": 0, "other": 0}
+    for r in conn.execute("SELECT design_id, llm_calls FROM runs WHERE exp='phase3' AND status != 'superseded' AND llm_model=?", (cfg["llm"]["selected"],)):
+        calls_by_type["arith_pipeline" if "pipe" in r["design_id"] or "mult" in r["design_id"] else "other"] += int(r["llm_calls"] or 0)
+    per_call_type = {k: (sum(sum(v) for v in secs[k].values()) / calls_by_type[k] if calls_by_type[k] else 0.0) for k in secs}
+    hours_p5 = calls_p5 * (share_arith * per_call_type["arith_pipeline"] + (1 - share_arith) * per_call_type["other"]) / 3600.0
+    hours_p5_flat = calls_p5 * per_call / 3600.0
+    by_class = {k: {cls: {"n": len(v), "median_s": S.quantile(v, 0.5), "q95_s": S.quantile(v, 0.95), "hours": sum(v) / 3600.0} for cls, v in d.items()} for k, d in secs.items()}
+    return {"model": cfg["llm"]["selected"], "phase5_runs": runs_p5, "phase5_calls": calls_p5, "phase3_calls": calls_p3, "seq_seconds_per_call": per_call,
+            "seq_seconds_per_call_by_type": per_call_type, "starting_pool": len(pool), "share_arith_pipeline_in_pool": share_arith,
+            "projected_vcf_hours": hours_p5, "projected_vcf_hours_flat_mix": hours_p5_flat, "by_type_and_class": by_class, "threshold_hours": 2000}
+
+
+def cmd_m6_sample(cfg, conn, n=60, seed=2):
+    """DECISIONS 2026-09-14 (pre-Phase-4 a): a stratified sample of Phase 3 candidates over the produced classes for the
+    manual M6 validation, with emphasis on the (d) versus (a)/(b) boundary and on (c1): quotas d 24, c1 16, a 10, b 10.
+    Writes reports/data/phase3_m6_sample.json and a review file with the unified diff of every sampled candidate."""
+    import difflib
+    import random
+    from src.designs import catalog as K
+    quotas = {"d": 24, "c1": 16, "a": 10, "b": 10}
+    rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.design_id, c.llm_model, c.class_requested, c.class_final, c.rtl_path, c.label, c.subtags_json "
+                                          "FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND r.status != 'superseded' AND c.label NOT IN ('aborted','duplicate','prescreened') "
+                                          "AND c.rtl_path IS NOT NULL ORDER BY c.cand_id")]
+    rng = random.Random(seed)
+    by = {}
+    for r in rows:
+        by.setdefault(r["class_final"], []).append(r)
+    sample = []
+    for cls, q in quotas.items():
+        pool = by.get(cls, [])[:]
+        rng.shuffle(pool)
+        sample += pool[:q]
+    designs = {d["design_id"]: d for d in K.load_all()}
+    review = ["# M6 manual validation sample (DECISIONS 2026-09-14 a)", "",
+              "Classes (spec 04 §A.1): (a) logic-level simplification, registers untouched; (b) restructuring of combinational / control logic with the register set unchanged; "
+              "(c1) retiming: registers moved / split / merged / duplicated at equal latency; (c2) latency change; (d) micro-architectural change: the operator set or the dataflow topology changes. "
+              "For every sampled candidate the human class goes into reports/data/phase3_m6_human.json.", ""]
+    for i, r in enumerate(sample, 1):
+        d = designs[r["design_id"]]
+        d_text = "\n".join(Path(d["_dir"], f).read_text(errors="replace") for f in d["files"])
+        c_text = Path(r["rtl_path"]).read_text(errors="replace")
+        diff = list(difflib.unified_diff(d_text.splitlines(), c_text.splitlines(), "D", "C", lineterm="", n=2))
+        review += [f"## {i}. {r['cand_id']} — {r['design_id']} — {r['llm_model']} — requested {r['class_requested']} -> rule {r['class_final']} — label {r['label']}", "",
+                   f"rule evidence: {r['subtags_json']}", "", "```diff"] + diff[:400] + (["... (diff truncated)"] if len(diff) > 400 else []) + ["```", ""]
+    out = Path(C.ROOT) / "reports" / "data" / "phase3_m6_sample.json"
+    out.write_text(json.dumps({"seed": seed, "quotas": quotas, "sample": sample}, indent=1, default=str) + "\n")
+    (Path(C.ROOT) / "reports" / "data" / "phase3_m6_review.md").write_text("\n".join(review) + "\n")
+    print(f"{len(sample)} sampled ({dict((c, sum(1 for s in sample if s['class_final'] == c)) for c in quotas)}); wrote {out} and phase3_m6_review.md")
+    return 0
+
+
 def cmd_status(cfg, conn):
     for r in conn.execute("SELECT run_id, design_id, llm_model, seed, status, gens_done, llm_calls, spent_usd, spent_dc_hours FROM runs WHERE exp IN ('phase3','smoke') AND status != 'superseded' ORDER BY started_at"):
         n = conn.execute("SELECT COUNT(*), SUM(label='retained'), SUM(label IS NULL) FROM candidates WHERE run_id=?", (r["run_id"],)).fetchone()
@@ -367,6 +478,8 @@ def cmd_collect(cfg, conn):
                        "note": "recommendation by config llm.calibration.decision; the user confirms at G4 (config llm.selected stays TBD until then)"}
     out["y_auroc"] = y_auroc(cfg, conn)
     out["label_sensitivity"] = label_sensitivity(cfg, conn)
+    out["feedback_response"] = feedback_response(cfg, conn)
+    out["vcf_projection"] = vcf_projection(cfg, conn)
     p = Path(C.ROOT) / "reports" / "data" / "phase3_calibration.json"
     p.write_text(json.dumps(out, indent=1, sort_keys=True, default=str) + "\n")
     for mo, v in sorted(out["models"].items()):
@@ -379,7 +492,7 @@ def cmd_collect(cfg, conn):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect", "yruns", "sample", "verify"])
+    ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect", "yruns", "sample", "verify", "m6-sample"])
     ap.add_argument("--models", nargs="*", default=None)
     ap.add_argument("--model", default=None)
     ap.add_argument("--design", nargs="*", default=None)
@@ -405,6 +518,8 @@ def main(argv=None):
         return cmd_sample(cfg, conn)
     if a.what == "verify":
         return cmd_verify(cfg, conn)
+    if a.what == "m6-sample":
+        return cmd_m6_sample(cfg, conn)
     if a.what == "smoke":
         designs = a.design or calibration_designs(cfg, conn)[:1]
         submit_runs(cfg, conn, designs, [a.model or cfg["llm"]["candidates"][0]], a.seeds or [1], a.K or 1, a.N or 2, "smoke", a.submit, note="smoke")

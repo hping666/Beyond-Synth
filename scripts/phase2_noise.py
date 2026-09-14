@@ -138,12 +138,12 @@ def cmd_collect(cfg, conn, a):
             base, latest = S.pick_records(conn, d["design_id"], config, proven, phi, EPS)
             if base is None or len(latest) < 2:
                 rows = S.pooled_rows(d["design_id"], config, pooled[config]) if (nz.get("pooled_floor_for_missing") and r.get("split") in ("dev", "held")) else []
-                n_rows += S.upsert_floor(conn, rows)
+                n_rows += S.upsert_floor(conn, rows, nz.get('floor_version'))
                 entry["configs"][config] = {"baseline": base is not None, "perturbations": len(latest), "rows": len(rows), "floor_source": "pooled" if rows else None,
                                             "t_d": {row["metric"]: row["t_d"] for row in rows}}
                 continue
             rows = S.floor_rows(d["design_id"], config, base, list(latest.values()), phi, pooled[config], k, quiet)
-            n_rows += S.upsert_floor(conn, rows)
+            n_rows += S.upsert_floor(conn, rows, nz.get('floor_version'))
             entry["configs"][config] = {"baseline": True, "perturbations": len(latest), "rows": len(rows), "floor_source": "measured",
                                         "floor_class": rows[0]["floor_class"] if rows else None,
                                         "sigma": {row["metric"]: row["sigma_robust"] for row in rows}, "t_d": {row["metric"]: row["t_d"] for row in rows}}

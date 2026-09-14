@@ -214,7 +214,7 @@ def noise_floor(cfg, suites=None, designs=None, vis=None, hid=None):
                 rows = S.pooled_rows(d["design_id"], config, pooled.get(config)) if (nz.get("pooled_floor_for_missing") and r.get("split") in ("dev", "held")) else []
             else:
                 rows = S.floor_rows(d["design_id"], config, base, list(latest.values()), base["clock_ns"], pooled.get(config), k, quiet)
-            written[config] = written.get(config, 0) + S.upsert_floor(hid, rows)
+            written[config] = written.get(config, 0) + S.upsert_floor(hid, rows, nz.get("floor_version"))
     return written
 
 
@@ -318,6 +318,64 @@ def coverage(cfg, vis=None, hid=None):
     return out
 
 
+def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None):
+    """DECISIONS 2026-09-14 (pre-Phase-4 c): the hidden configurations on every E4-evaluated candidate of the runs of `exp`
+    (all of H1 / H2a / H2b / H3 / H5, full — not the light set), missing hidden records only. The candidate's SAIF comes
+    from its equivalence record (saif_c); records go to the hidden database only (rule 3)."""
+    from src.designs import jobs as J
+    hid = hid or db.connect(path=hidden_db_path(cfg))
+    configs = configs or [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")]
+    designs = {d["design_id"]: d for d in K.load_all()}
+    jobs = []
+    for c in vis.execute("SELECT c.cand_id, c.design_id, c.rtl_path, c.run_id FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                         "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted' ORDER BY c.cand_id", (exp,)):
+        d = designs[c["design_id"]]
+        r = vis.execute("SELECT phi_main_ns_nangate45, phi_main_ns_asap7, phi_main_ns_sky130hd FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()
+        design = {"phi_main_ns_nangate45": r[0], "phi_main_ns_asap7": r[1], "phi_main_ns_sky130hd": r[2]}
+        saif = None
+        st = Path(C.ROOT) / "results" / "candidates" / c["run_id"] / "state.json"
+        if st.exists():
+            rec_dir = (json.loads(st.read_text()).get("cands") or {}).get(c["cand_id"], {}).get("eq_record")
+            if rec_dir and (Path(rec_dir) / "equiv.json").exists():
+                s = json.loads((Path(rec_dir) / "equiv.json").read_text()).get("saif_c")
+                saif = s if s and Path(s).exists() else None
+        for config in configs:
+            cdef = cfg["configs"][config]
+            lib = cdef.get("lib")
+            clock_ns = cdef.get("clock_ns") or design.get(f"phi_main_ns_{lib}")
+            if clock_ns is None:
+                continue
+            if config in cfg["noise"].get("configs_light", []) and lib == "nangate45" and not cfg["libs"][lib].get("physical_ref_for_spg"):
+                continue
+            if hid.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["design_id"], c["cand_id"], config, float(clock_ns))).fetchone():
+                continue
+            j = J.dc_job(cfg, d, config, float(clock_ns), priority)
+            j["kind"] = "dc_hidden"
+            j["payload"].update(rtl=[c["rtl_path"]], incdirs=[], is_baseline=0, cand_id=c["cand_id"], design=design)
+            if saif:
+                j["payload"].update(saif=saif, saif_instance="bs_lockstep/u_c")
+            j["cand_id"] = c["cand_id"]
+            jobs.append(j)
+    return jobs
+
+
+def submit_candidates(cfg, exp, priority, dry_run):
+    from src.jobqueue.core import Queue
+    vis = db.connect(cfg=cfg)
+    jobs = candidate_jobs(cfg, vis, exp, priority)
+    by = {}
+    for j in jobs:
+        by[j["config"]] = by.get(j["config"], 0) + 1
+    print(f"{len(jobs)} hidden candidate jobs ({exp}): {by}")
+    if dry_run:
+        return 0
+    q = Queue(cfg, vis, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
+    for j in jobs:
+        q.submit(j["kind"], j["payload"], design_id=j["design_id"], cand_id=j["cand_id"], config=j["config"], priority=j["priority"], timeout_sec=j["timeout_sec"])
+    print(f"submitted {len(jobs)} dc_hidden jobs")
+    return 0
+
+
 # ----------------------------------------------------------------------------- Phase 0 migration (done)
 def _fix_meta(job_dir):
     m = Path(job_dir) / "meta.json"
@@ -381,6 +439,8 @@ def main(argv=None):
     ap.add_argument("--noise-floor", action="store_true")
     ap.add_argument("--g3-summary", action="store_true")
     ap.add_argument("--coverage", action="store_true")
+    ap.add_argument("--submit-candidates", action="store_true")
+    ap.add_argument("--exp", default="phase3")
     ap.add_argument("--migrate-phase0", action="store_true")
     ap.add_argument("--suite", nargs="*", default=None)
     ap.add_argument("--design", nargs="*", default=None)
@@ -398,6 +458,8 @@ def main(argv=None):
         written = noise_floor(cfg, a.suite, a.design)
         print("hidden noise_floor rows written per configuration:", written)
         return 0
+    if a.submit_candidates:
+        return submit_candidates(cfg, a.exp, a.priority, a.dry_run)
     if a.coverage:
         cov = coverage(cfg)
         p = Path(C.ROOT) / "reports" / "data" / "phase2_hidden_coverage.json"

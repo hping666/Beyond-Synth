@@ -131,12 +131,12 @@ Acceptance:
 
 Tasks:
 
-4.1 Use B0 (main skeleton + Y-caliber fitness) to generate 30 proven candidates on each of 10 designs (RTLLM 5 dev + CktEvo 5 held), 300 in total; LLM cap from config.
+4.1 Use B0 (main skeleton + Y-caliber fitness, gpt-5.6-luna) to generate 30 proven candidates on each of 10 held designs (CktEvo 5 + Dr.RTL 3 + RTL-OPT 2, config `exp1.designs`, selected by `scripts/phase4_sets.py`: measured floors required; DECISIONS 2026-09-14 C1 scope — RTLLM is out of the C1 claim's scope and serves only as the calibration dev set and as the out-of-scope contrast layer of the map, provided by the Phase 3 candidates), 300 in total; LLM cap from config. The 10 Exp1 designs never serve as Phase 5 starting points (`design_sets.phase5_excluded`).
 4.2 For the 300 candidates + 72 RTL-OPT objects + 40 RTLRewriter objects + 12 samples: run E1–E4, the attribution rungs E1d / E2r / E2g, H1, H2a, H2b, H3, H5, PT (H4); supplementary: O0–O2 and Ycoevo.
 4.3 Classify all objects with M6; diagnose all objects with M3 (including absorption rung and capability attribution, under the permanent-absorption definition).
 4.4 Map v1: retention rate and gain distribution by rewrite class (with sub-tags) × rung × hidden configuration; retention curves; list of non-monotone cases.
 4.5 Retention predictor: features (class, g_E1, g_E2, E1 fingerprint convergence, register-count change, AST diff size) -> E4 retention; leave-one-design-out cross-validation; report AUROC, precision/recall, miss rate; also the class-blind version.
-4.6 Diagnoser validation: manually check 30–50 per class; for "absorbed", reproduce with single flags (apply only `-retime` or `-gate_clock` to D and check whether the fingerprint matches C).
+4.6 Diagnoser validation: manually check 30–50 per class; for "absorbed", reproduce with single flags (apply only `-retime` or `-gate_clock` to D and check whether the fingerprint matches C). The M6 rule validation was moved before Phase 4 (DECISIONS 2026-09-14): a stratified sample of at least 60 Phase 3 candidates over produced classes, emphasis on the (d) versus (a)/(b) boundary and on (c1); a (d) label requires a change of the operator set or of the dataflow topology, not a large diff alone; rule-vs-human agreement reported, rules revised, Phase 3 candidates re-labelled.
 4.7 Literature settings re-evaluation: for RTL-OPT 36 pairs and RTLRewriter 20 pairs, the number of pairs where the optimized version is better under each of E1–E4, side by side with the papers' numbers.
 4.8 Static-rule misclassification rates: with the static rule "no syntactic/coding optimizations, only architectural rewrites", compute the fractions "forbidden by the rule but retained" and "allowed by the rule but absorbed".
 4.9 Motivating figure: re-run a barrel-shifter-style (structural mux -> behavioral) or hand-written clock-gating candidate through E1–E4.
@@ -160,11 +160,11 @@ Deferred to the start of Phase 5 (DECISIONS 2026-09-14): whether H1/H3/H5 run on
 Tasks:
 
 5.1 Full search skeleton (`docs/spec/05-search.md`): screening, online predictor updates, τ control, audits, feedback blocks, operator bandit, archive, restarts, budget accounting. Bidirectional tests: a candidate that must be absorbed (pure renaming) must be stopped at the screening rung; a known-retained candidate (the RTL-OPT optimized version) must be promoted and diagnosed as retained.
-5.2 Arms: B0, B1@E4, B2, M, M-noscreen, Dr.RTL-reimpl (B2 + Dr.RTL's prompts and skill learning, same model). Number of starting points, seeds, candidates per design, and DC-hour budget per design = config.
+5.2 Arms: B0, B1@E4, B2, M, Dr.RTL-reimpl (B2 + Dr.RTL's prompts and skill learning, same model); M-noscreen was dropped at G4 (AUROC(Y) 0.748 < 0.75, DECISIONS 2026-09-14) and its budget went to starting points (36). Main model gpt-5.6-luna; the second model gpt-5.6-terra runs arms M and B2 on all starting points (model-independence check on the full head-to-head comparison, ≈ 200–250 USD); ablations on luna only. Number of starting points, seeds, candidates per design = config; the primary caliber is equal LLM calls (DC and VC Formal hours reported). Report B1@E4's produced-class distribution next to M's, since the static complement prompt is subject to the same weak instruction following (requested → produced agreement 19–21 % in Phase 3), and state this when interpreting M versus B1@E4. The starting-point pool excludes the 10 Exp1 designs (`design_sets.phase5_excluded`).
 5.3 Hidden layer: `scripts/hidden_worker.py` as a separate process; for every run's accepted candidates run H1, H2a, H2b, H3, H5 and PT; also a random 10% of rejected candidates; write `hidden.sqlite`.
 5.4 Dr.RTL original reference row: on 5 Dr.RTL designs, run once with Claude Code + Claude Opus (the user's subscription) following its published workflow, with equivalence checking replaced by VC Formal SEQ; a separate row, annotated as a different LLM. This row is triggered manually by the user and does not consume the OpenAI budget.
 5.5 Sky130 sub-experiment: 8 CktEvo modules, visible layer sky130hd + `compile_ultra -retime -timing_high_effort_script` (CktEvo's setting), run M and B2, report side by side with CktEvo's 1.77% (noting repository-level vs module-level).
-5.6 Auxiliary group at equal LLM calls: M and B2, 1 seed each.
+5.6 (superseded 2026-09-14: equal LLM calls is the primary caliber of every arm, C2.7; the DC-hour view is reported from the same runs.)
 
 Acceptance:
 - Every run has budget and actual DC hours, dollars and status in the `runs` table; every accepted candidate of every run has records in `hidden.sqlite` (100% coverage).

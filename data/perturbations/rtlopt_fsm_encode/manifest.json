@@ -1,12 +1,13 @@
 {
- "cfg_hash": "621834f01e87",
+ "cfg_hash": "ed25df5ec0b8",
  "design_id": "rtlopt_fsm_encode",
  "error": null,
- "git_sha": "dcb53665726f",
- "n_per_type": 4,
+ "git_sha": "c10432f0e93a",
+ "n_per_type": 8,
  "not_applicable": {
   "P3_expr": "no expression site"
  },
+ "notes": [],
  "perturbations": [
   {
    "details": {
@@ -110,6 +111,106 @@
   },
   {
    "details": {
+    "renamed": {
+     "fsm_encode": {
+      "ADD": "hotel_0",
+      "IDLE": "lima_1",
+      "LOAD1": "foxtrot_2",
+      "LOAD2": "uniform_3",
+      "SHIFT": "bravo_4",
+      "STORE1": "whiskey_5",
+      "STORE2": "juliet_6",
+      "SUB": "echo_7",
+      "current_state": "tango_8",
+      "next_state": "victor_9",
+      "out_reg": "india_10",
+      "reg1": "oscar_11",
+      "reg2": "mike_12"
+     }
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/rtlopt_fsm_encode/P1_rename_4.v",
+   "pert_id": "pdb02201c7a5bb0",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "fsm_encode": {
+      "ADD": "xray_0",
+      "IDLE": "oscar_1",
+      "LOAD1": "alpha_2",
+      "LOAD2": "november_3",
+      "SHIFT": "whiskey_4",
+      "STORE1": "india_5",
+      "STORE2": "uniform_6",
+      "SUB": "charlie_7",
+      "current_state": "quebec_8",
+      "next_state": "yankee_9",
+      "out_reg": "delta_10",
+      "reg1": "foxtrot_11",
+      "reg2": "echo_12"
+     }
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/rtlopt_fsm_encode/P1_rename_5.v",
+   "pert_id": "p18de20d04a2435",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "fsm_encode": {
+      "ADD": "juliet_0",
+      "IDLE": "whiskey_1",
+      "LOAD1": "xray_2",
+      "LOAD2": "hotel_3",
+      "SHIFT": "bravo_4",
+      "STORE1": "quebec_5",
+      "STORE2": "romeo_6",
+      "SUB": "lima_7",
+      "current_state": "alpha_8",
+      "next_state": "victor_9",
+      "out_reg": "papa_10",
+      "reg1": "zulu_11",
+      "reg2": "sierra_12"
+     }
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/rtlopt_fsm_encode/P1_rename_6.v",
+   "pert_id": "p18b6c448356b2d",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
+    "renamed": {
+     "fsm_encode": {
+      "ADD": "mike_0",
+      "IDLE": "uniform_1",
+      "LOAD1": "lima_2",
+      "LOAD2": "hotel_3",
+      "SHIFT": "zulu_4",
+      "STORE1": "yankee_5",
+      "STORE2": "sierra_6",
+      "SUB": "victor_7",
+      "current_state": "quebec_8",
+      "next_state": "delta_9",
+      "out_reg": "bravo_10",
+      "reg1": "echo_11",
+      "reg2": "november_12"
+     }
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/rtlopt_fsm_encode/P1_rename_7.v",
+   "pert_id": "peb5422894b6fa2",
+   "ptype": "P1_rename"
+  },
+  {
+   "details": {
     "reordered": {
      "fsm_encode": {
       "always_blocks": 0,
@@ -166,13 +267,41 @@
   },
   {
    "details": {
+    "reordered": {
+     "fsm_encode": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/rtlopt_fsm_encode/P2_reorder_5.v",
+   "pert_id": "p02487263b8e843",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
+    "reordered": {
+     "fsm_encode": {
+      "always_blocks": 0,
+      "item_runs": 1
+     }
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/rtlopt_fsm_encode/P2_reorder_7.v",
+   "pert_id": "p9fcacafbbc3963",
+   "ptype": "P2_reorder"
+  },
+  {
+   "details": {
     "ctrl_sites": [
-     "if_to_ternary"
+     "case_to_if"
     ]
    },
    "k": 0,
    "path": "data/perturbations/rtlopt_fsm_encode/P4_ctrl_0.v",
-   "pert_id": "p796a1d2ea194b0",
+   "pert_id": "p4dbddf3694969d",
    "ptype": "P4_ctrl"
   },
   {

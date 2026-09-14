@@ -59,7 +59,8 @@ class SearchRun:
         self.queue = queue
         self.client = L.LLMClient(cfg, conn, BUDGET_PHASE.get(self.row["exp"], self.row["exp"]), run_id, transport=transport)
         self.system, self.classes, self.prompt_version = PR.load_templates()
-        self.floor = S.latest_floor(conn, self.row["design_id"], "E4")
+        self.floor_version = cfg["noise"].get("floor_version")
+        self.floor = S.latest_floor(conn, self.row["design_id"], "E4", self.floor_version) or S.latest_floor(conn, self.row["design_id"], "E4")
         self.floor_class = next((r.get("floor_class") for r in self.floor.values() if r.get("floor_class")), None)
         self.thresholds = {"area": (self.floor.get("area") or {}).get("t_d"), "wns": (self.floor.get("wns") or {}).get("t_d"), "power": (self.floor.get("power_saif") or {}).get("t_d")}
         self.sigma = {"area": (self.floor.get("area") or {}).get("sigma_robust") or 0.0, "wns": (self.floor.get("wns") or {}).get("sigma_robust") or 0.0,
@@ -84,7 +85,7 @@ class SearchRun:
         budget_calls = min(int(K) * int(N), int(cfg["scale"]["budget"]["llm_calls_per_run"]))
         db.insert(conn, "runs", {"run_id": run_id, "exp": exp, "arm": arm, "skeleton": "hillclimb", "design_id": design_id, "seed": int(seed), "llm_model": model,
                                  "prompt_version": str(PR.load_templates()[2]), "screening_enabled": 0, "e_s": None, "budget_dc_hours": None,
-                                 "budget_llm_calls": budget_calls, "status": "created", "started_at": db.now()})
+                                 "budget_llm_calls": budget_calls, "status": "created", "started_at": db.now(), "floor_version": cfg["noise"].get("floor_version")})
         run = cls(cfg, conn, run_id, queue=queue, transport=transport)
         run.state.update(K=int(K), N=int(N), budget_calls=budget_calls, note=note)
         run.bandit = ClassBandit(sc["bandit"]["arms"], sc["bandit"]["c_ucb"], sc["bandit"]["softmax_temp"], prior=None)
@@ -439,7 +440,7 @@ class SearchRun:
                                            "offset_design": int(bool(diag.get("offset_design"))), "duplicate_of": diag.get("duplicate_of"),
                                            "envelope_json": json.dumps(diag.get("envelope")) if diag.get("envelope") is not None else None,
                                            "evidence_json": json.dumps(diag.get("evidence"), default=str), "feedback_json": json.dumps(fb, default=str),
-                                           "credit": credit, "credited_class": cls_final})
+                                           "credit": credit, "credited_class": cls_final, "floor_version": self.floor_version})
         self.conn.execute("UPDATE candidates SET label=?, in_archive=?, accepted=?, class_final=? WHERE cand_id=?", (label, in_archive, in_archive, cls_final, cid))
 
     def record_label(self, cid, rec, label, extra, *, gen, cls_requested, parent_id, path, note, call, cls_final=None, insert_row=True):

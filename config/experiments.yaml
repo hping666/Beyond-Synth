@@ -99,6 +99,7 @@ noise:
   floor_classes: [quiet, spread, offset]
   pooled_floor_for_missing: true   # G1.2: designs without a measured floor use the pooled minimum with floor_source = pooled; Exp1 map designs must have a measured floor
   materiality: {area: 0.01, power_saif: 0.02, wns: 0.01}   # fixed-threshold sensitivity row for every headline number (WNS as a fraction of the period)
+  floor_version: phase3      # DECISIONS 2026-09-14 (G4.3): the floor table is frozen per phase and stamped on every run and diagnosis; 'phase4' after the pre-Phase-4 recomputation
 
 sim:
   simulator: vcs             # VCS from the VC Formal tree (tools.vcs.home); iverilog is the fallback
@@ -145,7 +146,10 @@ llm:                         # LOCKED (budgets); the model is filled into `selec
   provider: openai
   api_key_env: OPENAI_API_KEY
   candidates: [gpt-5.6-luna, gpt-5.4-mini, gpt-5.6-terra, gpt-5.4]
-  selected: TBD_after_phase3
+  selected: gpt-5.6-luna              # G4 (DECISIONS 2026-09-14): 114 retained per USD, best gains equal to terra / gpt-5.4
+  second_model: {model: gpt-5.6-terra, arms: [M, B2], scope: all_phase5_starting_points, budget_usd_estimate: 250}   # model-independence check on the full head-to-head comparison
+  excluded: {gpt-5.4-mini: "31 truncated answers, 7.5 calls per retained candidate", gpt-5.4: "cost (4.3 retained per USD)"}
+  ablations_model: gpt-5.6-luna
   review_model: gpt-5.6-luna           # M6 review, log summaries (Batch)
   service_tier_search: flex
   service_tier_offline: batch
@@ -202,10 +206,12 @@ design_sets:                 # counts and splits filled in Phase 1; dev contains
 
   split: {dev_count: 20, seed: 1, dev_suite: rtllm, stratify_by: category}   # PLAN 1.4: dev = seeded stratified sample of the synthesizable single-clock RTLLM designs; everything else held
   sky130_subset_count: 8      # PLAN 1.5: CktEvo modules tagged cktevo_sky130 (one per repository first, by size)
+  phase5_pool_excludes_exp1: true   # DECISIONS 2026-09-14: the 10 Exp1 designs (map prior, predictor) never serve as Phase 5 starting points
+  phase5_excluded: [cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode]         # filled by scripts/phase4_sets.py with the Exp1 designs
 
 scale:                       # Phase 5 main-experiment scale; adjustable after G3 (record in DECISIONS)
-  starting_points: 30
-  arms: [B0, B1_E4, B2, M, M_noscreen, DrRTL_reimpl]
+  starting_points: 36        # 30 + the M_noscreen arm's share (5 arms x 36 x 3 seeds = 540 runs, as 6 x 30 x 3)
+  arms: [B0, B1_E4, B2, M, DrRTL_reimpl]   # M_noscreen dropped at G4 (AUROC(Y) 0.748 < screen.auroc_min; DECISIONS 2026-09-14), its budget went to starting points (30 -> 36)
   seeds: 3
   N: 5
   K: 12
@@ -234,7 +240,7 @@ search:
 screen:                      # "screening" = synthesis-rung screening; not part of the main method (DECISIONS 2026-09-14, G3.1)
   candidates_es: [Y]         # Y's AUROC for E4 retention is measured in Phases 3/4
   auroc_min: 0.75
-  noscreen_arm: {drop_if_auroc_below_min: true, reallocate_to: starting_points}   # if AUROC(Y) < auroc_min the M_noscreen arm is dropped
+  noscreen_arm: {drop_if_auroc_below_min: true, reallocate_to: starting_points, dropped_at_g4: true, auroc_phase3: 0.748}   # G4: AUROC(Y) 0.748 < auroc_min -> M_noscreen dropped (final AUROC appended when the multi_pipe verdicts complete); Y stays a map column
   e4_cheap_sec: 120
   miss_max: 0.15
   miss_min: 0.05
@@ -249,7 +255,8 @@ diag:
   threshold_rule: noise.floor_rule          # B.2 bands use the rule-A t_D per metric
 
 exp1:                        # Phase 4
-  b0_designs: {rtllm_dev: 5, cktevo_held: 5}
+  b0_designs: {cktevo_held: 5, drrtl_held: 3, rtlopt_held: 2}   # C1 scope (DECISIONS 2026-09-14): human-written RTL only; RTLLM is the out-of-scope contrast
+  designs: [cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode]                # filled by scripts/phase4_sets.py (deterministic selection, measured floors required)
   candidates_per_design: 30
   configs: [E1, E1d, E2, E3, E4, E2g, H1, H2a, H2b, H3, H5, H4]   # E2r removed from every list (same command as E3; DECISIONS 2026-09-14); E2t dropped (no-op flag)
   supplementary: [O0, O1, O2, Ycoevo]

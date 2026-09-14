@@ -195,24 +195,30 @@ def pooled_minimum(conn, designs, config, proven, quantile=0.90, eps=1e-6, weigh
     return {m: pooled_quantile(v, quantile, weighting) for m, v in pooled.items() if v}
 
 
-def latest_floor(conn, design_id, config):
-    """{metric: row} of the most recently written floor rows (the primary key includes cfg_hash)."""
+def latest_floor(conn, design_id, config, floor_version=None):
+    """{metric: row} of the most recently written floor rows (the primary key includes cfg_hash); with floor_version only
+    the rows of that frozen table (DECISIONS 2026-09-14, G4.3)."""
     out = {}
-    for r in conn.execute("SELECT * FROM noise_floor WHERE design_id=? AND config=? ORDER BY created_at DESC, rowid DESC", (design_id, config)):
+    q = "SELECT * FROM noise_floor WHERE design_id=? AND config=?" + (" AND floor_version=?" if floor_version else "") + " ORDER BY created_at DESC, rowid DESC"
+    args = (design_id, config) + ((floor_version,) if floor_version else ())
+    for r in conn.execute(q, args):
         out.setdefault(r["metric"], dict(r))
     return out
 
 
-def upsert_floor(conn, rows):
+def upsert_floor(conn, rows, floor_version=None):
+    """floor_version: the phase whose frozen floor table these rows belong to (DECISIONS 2026-09-14, G4.3)."""
     for row in rows:
         row = dict(row)
+        if floor_version is not None:
+            row["floor_version"] = floor_version
         row.update(db.stamp())
         cols = list(row)
         conn.execute(f"INSERT INTO noise_floor ({', '.join(cols)}) VALUES ({', '.join('?' for _ in cols)}) "
                      f"ON CONFLICT(design_id, config, metric, cfg_hash) DO UPDATE SET sigma_robust=excluded.sigma_robust, "
                      f"sigma_std=excluded.sigma_std, q95_abs=excluded.q95_abs, max_abs=excluded.max_abs, n=excluded.n, "
                      f"abs_unit_value=excluded.abs_unit_value, t_d=excluded.t_d, floor_class=excluded.floor_class, floor_source=excluded.floor_source, "
-                     f"pooled_min=excluded.pooled_min, git_sha=excluded.git_sha, created_at=excluded.created_at", tuple(row.values()))
+                     f"pooled_min=excluded.pooled_min, floor_version=excluded.floor_version, git_sha=excluded.git_sha, created_at=excluded.created_at", tuple(row.values()))
     return len(rows)
 
 
