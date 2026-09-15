@@ -208,3 +208,33 @@ def test_coverage_counts_only(env, tmp_path, monkeypatch):
     assert cov["H5"]["complete"] == 0 and cov["H5"]["incomplete"] == ["rtllm_acc"] and cov["H5"]["n_missing_perturbations"] == 1
     assert cov["H2a"]["missing_D"] == ["rtllm_acc"] and "H2b" not in cov  # no sky130 knee -> H2b not expected
     assert "1.0" not in json.dumps(cov)  # no metric values leave the function
+
+
+def test_candidate_coverage_counts_only(env):
+    """DECISIONS 2026-09-14 (pre-Phase-4 f): per hidden configuration the counts of E4-evaluated (and accepted) candidates
+    with an ok hidden record; a candidate is expected only where its design has a knee on the configuration's library;
+    nothing but counts leaves the hidden database."""
+    cfg, vis, hid, mod, rtl = env
+    vis.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, phi_main_ns_asap7, created_at, git_sha, cfg_hash) "
+                "VALUES ('rtllm_cov','rtllm','cov','x',1,1,'dev',2.0,NULL,'t','g','c')")
+    db.insert(vis, "runs", {"run_id": "rcov", "exp": "phase3", "arm": "M", "design_id": "rtllm_cov", "seed": 1, "status": "done", "started_at": "t"})
+    for cid, acc in (("k1", 1), ("k2", 0), ("k3", 1)):
+        db.insert(vis, "candidates", {"cand_id": cid, "run_id": "rcov", "design_id": "rtllm_cov", "gen": 1, "arm": "M", "rtl_path": "/x", "e4_job_id": "j", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc})
+    db.insert(vis, "candidates", {"cand_id": "k4", "run_id": "rcov", "design_id": "rtllm_cov", "gen": 1, "arm": "M", "rtl_path": "/x", "label": "nonequiv"})   # never evaluated at E4: not expected
+    n = [0]
+
+    def ev(config, cid, clock):
+        n[0] += 1
+        db.insert(hid, "evaluations", {"design_id": "rtllm_cov", "cand_id": cid, "is_baseline": 0, "config": config, "lib": cfg["configs"][config]["lib"], "clock_ns": clock,
+                                       "area_um2": 1.0, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": f"/h/{n[0]}", "hist_json": "{}"})
+    ev("H1", "k1", 0.1)
+    ev("H1", "k2", 0.1)
+    ev("H1", "k3", 0.1)          # H1 complete
+    ev("H5", "k1", 2.0)          # H5: k2, k3 missing (k3 is accepted)
+    ev("H5", "k2", 3.0)          # wrong period: does not count
+    cov = mod.candidate_coverage(cfg, "phase3", vis=vis, hid=hid, configs=["H1", "H5", "H2a"])
+    assert cov["candidates_e4"] == 3 and cov["accepted"] == 2
+    assert cov["configs"]["H1"] == {"expected": 3, "ok": 3, "missing": 0, "accepted_expected": 2, "accepted_ok": 2, "accepted_missing": 0}
+    assert cov["configs"]["H5"] == {"expected": 3, "ok": 1, "missing": 2, "accepted_expected": 2, "accepted_ok": 1, "accepted_missing": 1}
+    assert cov["configs"]["H2a"]["expected"] == 0        # no ASAP7 knee: nothing expected there
+    assert "1.0" not in json.dumps(cov) and "k1" not in json.dumps(cov)

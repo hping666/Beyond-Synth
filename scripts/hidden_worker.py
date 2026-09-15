@@ -318,6 +318,40 @@ def coverage(cfg, vis=None, hid=None):
     return out
 
 
+
+def candidate_coverage(cfg, exp="phase3", vis=None, hid=None, configs=None):
+    """Hidden-layer registration check for candidates (DECISIONS 2026-09-14, pre-Phase-4 f; counts only): for the accepted
+    candidates (archive members) and for every E4-evaluated candidate of the runs of `exp`, per hidden configuration,
+    how many are expected (a knee period exists on the configuration's library), how many have an ok record in the hidden
+    database, and how many are missing. Nothing but counts leaves the hidden database."""
+    vis = vis or db.connect(cfg=cfg)
+    hid = hid or db.connect(path=hidden_db_path(cfg))
+    configs = configs or [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")]
+    rows = [dict(r) for r in vis.execute("SELECT c.cand_id, c.design_id, c.accepted FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                                         "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted'", (exp,))]
+    phis = {}
+    for r in rows:
+        if r["design_id"] not in phis:
+            d = vis.execute("SELECT phi_main_ns_nangate45, phi_main_ns_asap7, phi_main_ns_sky130hd FROM designs WHERE design_id=?", (r["design_id"],)).fetchone()
+            phis[r["design_id"]] = {"nangate45": d[0], "asap7": d[1], "sky130hd": d[2]} if d else {}
+    out = {"exp": exp, "candidates_e4": len(rows), "accepted": sum(1 for r in rows if r["accepted"]), "configs": {}}
+    for config in configs:
+        cdef = cfg["configs"][config]
+        lib = cdef.get("lib")
+        e = {"expected": 0, "ok": 0, "missing": 0, "accepted_expected": 0, "accepted_ok": 0, "accepted_missing": 0}
+        for r in rows:
+            clock_ns = cdef.get("clock_ns") or (phis.get(r["design_id"]) or {}).get(lib)
+            if clock_ns is None:
+                continue
+            have = hid.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (r["design_id"], r["cand_id"], config, float(clock_ns))).fetchone() is not None
+            e["expected"] += 1
+            e["ok" if have else "missing"] += 1
+            if r["accepted"]:
+                e["accepted_expected"] += 1
+                e["accepted_ok" if have else "accepted_missing"] += 1
+        out["configs"][config] = e
+    return out
+
 def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None):
     """DECISIONS 2026-09-14 (pre-Phase-4 c): the hidden configurations on every E4-evaluated candidate of the runs of `exp`
     (all of H1 / H2a / H2b / H3 / H5, full — not the light set), missing hidden records only. The candidate's SAIF comes
@@ -442,6 +476,7 @@ def main(argv=None):
     ap.add_argument("--noise-floor", action="store_true")
     ap.add_argument("--g3-summary", action="store_true")
     ap.add_argument("--coverage", action="store_true")
+    ap.add_argument("--coverage-candidates", action="store_true", help="hidden registration counts of the candidates of --exp (accepted and all E4-evaluated; counts only)")
     ap.add_argument("--submit-candidates", action="store_true")
     ap.add_argument("--exp", default="phase3")
     ap.add_argument("--migrate-phase0", action="store_true")
@@ -463,6 +498,11 @@ def main(argv=None):
         return 0
     if a.submit_candidates:
         return submit_candidates(cfg, a.exp, a.priority, a.dry_run)
+    if a.coverage_candidates:
+        cov = candidate_coverage(cfg, a.exp)
+        print(json.dumps(cov, indent=1))
+        (Path(C.ROOT) / "reports" / "data" / f"{a.exp}_hidden_candidate_coverage.json").write_text(json.dumps(cov, indent=1) + "\n")
+        return 0
     if a.coverage:
         cov = coverage(cfg)
         p = Path(C.ROOT) / "reports" / "data" / "phase2_hidden_coverage.json"
