@@ -4,12 +4,13 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
-**Phase 4 (Exp1: ladder and map) is complete. STOP G5 was submitted on 2026-09-15 11:30 and is waiting for the user.** No G5 decision has been received yet: the user's last decisions on record are the block of 2026-09-14 (DECISIONS) and the deletion of the 145 test directories on 2026-09-15. Do not start Phase 5 before the user's G5 decisions are recorded verbatim in `docs/DECISIONS.md`.
+**Phase 4 (Exp1: ladder and map) is complete. G5 was decided by the user on 2026-09-15 (recorded verbatim in `docs/DECISIONS.md`, entry "G5 decisions"): Phase 5 go with four adjustments (30 starting points stratified 18 medium / 6 small / 6 large; a correctness probe of terra and sol on the three large Exp1 designs, cap 120 USD; scope-limited rewriting and one counterexample-guided repair call for every arm; projections by tier), the pre-Phase-5 engineering order, the paper form, four additional tasks and the storage policy.**
 
-Next action for the new session, in order:
-1. `python3 scripts/status.py` — expect the daemon running, every pool idle, LLM 45.86 USD total.
-2. If the user has answered G5: record the decisions verbatim and dated in `docs/DECISIONS.md` (Phase 5 go and any adjustments, the engineering order before Phase 5, the paper form, extra tasks), update this file, then follow `docs/PLAN.md` Phase 5 (5.1 onwards) — starting, as the user decided on 2026-09-14, with the SEQ latency mapping (G2.1(b)) on the critical path before Phase 5 and the DPV phase mapping after it.
-3. If the user has not answered: engineering only, nothing that presumes the gate — the pre-Phase-5 items listed under "Open questions" (SEQ latency mapping, DPV phase mapping, B1@E4 static-complement prompt, hidden registration counts, a second `phase2_saif.py prune` pass), each small-before-large with bidirectional tests.
+Order of work after G5 (user instruction of 2026-09-15, same DECISIONS entry):
+1. Storage estimate first (G5 item 5 (i)–(iii)): Phase 5 footprint under the current retention rules and under the tiered policy, free space required; reported to the user, who decides whether to free `~/.cache` or relocate `results/raw` to `/hdd1`.
+2. While that decision is pending, only the low-footprint engineering items of G5 item 2 run, in this order: (i) B1@E4 static complement prompt (from Dr.RTL's "already done by synthesis" category and the RTL-OPT pattern list, not from our map); (ii) SEQ latency mapping (G2.1 (b)); (iii) scope-limited rewriting and the repair step; then (iv) the LLM review of spec 04 A.2 on low-confidence / disagreement objects of Phases 4 and 5; (v) DPV phase mapping only if time remains.
+3. The correctness probe (G5 item 1, terra and sol on spikeLayer8_H7 / drrtl_datapath / drrtl_pcie, 2 seeds × K 6 × N 5) and every batch run wait for the user's storage decision.
+4. Additional tasks of G5 item 4: (a) RTL-OPT 34 proven pairs under the authors' setting; (b) (b)-vs-(c1) class definitions into spec 04 and PROPOSAL §4.5; (c) the four RTL-OPT divider counterexamples by hand; (d) the 128 duplicates by design and generation.
 
 G5 report: `reports/phase4.md` (§1–§8 generated, §9 diagnoser check, §10 motivating figure, §11 conclusions); the conclusions file `reports/phase4_conclusions.md`; the manual check `reports/data/phase4_diagnoser_check.md`; snapshot `results/snapshots/phase4-20260915-1115/`. Headline numbers: map shape **concentrated** (B0 objects: (a) 6 %, (b) 49 %, (c1) 100 %, (d) 94 % E4 retention; all 255 diagnosed objects 15 / 43 / 88 / 73 %; materiality row 21 / 39 / 88 / 69 %); rule R misclassification P(retained | forbidden) 37 %, P(absorbed | allowed) 6 %; predictor LODO AUROC 0.717 with class / 0.733 class-blind; non-monotone 17.6 %; diagnoser check 187 / 187; literature: RTL-OPT 20 better at E1 → 11 retained at E4 of 34 proven pairs, RTLRewriter 24 → 10 of 43; B0 proven rate 24 % (1 357 candidates, 320 proven, none on spikeLayer8_H7 / drrtl_datapath / drrtl_pcie); 28 proven B0 candidates and 2 references rejected by DC (evaluation failed, rule 8).
 
@@ -22,7 +23,7 @@ G5 report: `reports/phase4.md` (§1–§8 generated, §9 diagnoser check, §10 m
 | G2 | closed 2026-09-13 | reports/phase2.md §4 | SEQ protocol with the all-zero initial state (G2.2); the latency mapping G2.1(b) is a pre-Phase-5 item |
 | G3 | closed 2026-09-14 | reports/phase3.md | screening stays out of the main method unless AUROC ≥ 0.75 (final Phase 3 AUROC 0.721: M_noscreen dropped) |
 | G4 | closed 2026-09-14 | reports/phase3.md §7 | luna main model, terra second model on M and B2, C1 scope (Exp1 = CktEvo 5 + Dr.RTL 3 + RTL-OPT 2, RTLLM as contrast), floor versioning |
-| G5 | **submitted 2026-09-15 11:30 — waiting** | reports/phase4.md, reports/phase4_conclusions.md | none received yet. Asked of the user: Phase 5 go (and whether the zero proven rate of luna on the three largest designs changes the Phase 5 design set or projection); which pre-Phase-5 items to do first; the paper form (map paper, see §11) |
+| G5 | closed 2026-09-15 (decided) | reports/phase4.md, reports/phase4_conclusions.md | Phase 5 go with four adjustments (tiered 30 starting points, terra / sol correctness probe on the large tier, scope-limited rewriting + repair call, projections by tier); engineering order B1@E4 prompt → SEQ latency mapping → scope / repair → LLM review → DPV; map paper with residual-guided evolution as C2; four additional tasks; tiered storage policy (DECISIONS 2026-09-15 "G5 decisions") |
 | G6+ | not reached | — | — |
 
 ## In-flight work
@@ -59,7 +60,7 @@ G5 report: `reports/phase4.md` (§1–§8 generated, §9 diagnoser check, §10 m
 
 ## Open questions and known risks
 
-- G5 decisions pending (Phase 5 go, adjustments, engineering order, paper form); nothing that presumes them may start.
+- G5 decided 2026-09-15; the storage estimate (G5 item 5) gates every batch run and the correctness probe.
 - Disk: 25 GB free on a shared root filesystem; the project's own growth is controlled (retention rules of 2026-09-14, `phase2_saif.py prune` after the last runs), the rest is outside the project — tell the user before any bulk run.
 - luna proved 0 of 562 candidates on spikeLayer8_H7, drrtl_datapath and drrtl_pcie (syntax errors, lock-step mismatches, SEQ counterexamples); Phase 5 projections must use the measured proven rates per design (24 % overall).
 - Class (c2) has one Phase 4 object: pipelining rewrites are not on the map until the SEQ latency mapping (G2.1(b)) is implemented (pre-Phase-5, user decision 2026-09-14).
