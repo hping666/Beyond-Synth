@@ -1,6 +1,6 @@
 # Phase 2 report — noise floor, SEQ pilot, E4 runtime (Exp0)
 
-Generated 2026-09-14 19:12 by scripts/report_phase.py (git 8841f31bc7a2, cfg d398386ae5cc). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
+Generated 2026-09-15 16:46 by scripts/report_phase.py (git f5b97e7c67b0, cfg c72fd1bc7965). Hidden-configuration floors (H1 / H2a / H2b / H5, H3) live in the hidden database and appear only in the hidden report after Phase 5.
 
 ## 1. Perturbation generator (PLAN 2.1)
 
@@ -117,20 +117,20 @@ WNS is compared at Φ_main (the E4 knee): once a rung meets timing, area recover
 
 E4 seconds at Phi_main (Nangate45) over 128 set designs: min 62, q25 76, median 80, q75 94, q95 185, max 693, mean 102.
 
-Scale (config `scale`): 36 starting points x 5 arms x 3 seeds x N=5 x K=12 = 32400 candidate evaluations.
-- full-E4 scale: 920 DC hours at the mean t_E4 (102 s); at 12 concurrent runs ≈ 77 h wall, at 50 seats ≈ 18 h.
+Scale (config `scale`): 30 starting points x 5 arms x 3 seeds x N=5 x K=12 = 27000 candidate evaluations.
+- full-E4 scale: 766 DC hours at the mean t_E4 (102 s); at 12 concurrent runs ≈ 64 h wall, at 50 seats ≈ 15 h.
 - per-design budget rule k_e4_equiv = 60 x t_E4(D): median budget 1.3 DC hours per run.
 
 Screening economics (config `screen`): E4 is 'cheap' below 120 s; 13 of 128 set designs are above that (their mean t_E4 = 278 s). Mean screening-rung seconds at Φ_main over the designs with both: E1 36 s, E2 108 s; over the non-cheap designs alone: E1 272 s, E2 309 s against t_E4 278 s (a DC screening rung at Φ_main is not cheaper than E4 where E4 is expensive).
 
 | cascade (ES on every candidate, p promoted to E4) | all designs, DC hours | wall at 50 seats | hybrid: cheap designs straight to E4, only non-cheap designs screened |
 |---|---|---|---|
-| ES = E1, p = 0.10 | 411 (45 % of full-E4) | 8 h | 926 (101 %) |
-| ES = E1, p = 0.25 | 547 (59 % of full-E4) | 11 h | 962 (105 %) |
-| ES = E1, p = 0.50 | 775 (84 % of full-E4) | 15 h | 1022 (111 %) |
-| ES = E2, p = 0.10 | 1064 (116 % of full-E4) | 21 h | 973 (106 %) |
-| ES = E2, p = 0.25 | 1202 (131 % of full-E4) | 24 h | 1011 (110 %) |
-| ES = E2, p = 0.50 | 1432 (156 % of full-E4) | 29 h | 1075 (117 %) |
+| ES = E1, p = 0.10 | 342 (45 % of full-E4) | 7 h | 772 (101 %) |
+| ES = E1, p = 0.25 | 456 (59 % of full-E4) | 9 h | 801 (105 %) |
+| ES = E1, p = 0.50 | 645 (84 % of full-E4) | 13 h | 851 (111 %) |
+| ES = E2, p = 0.10 | 887 (116 % of full-E4) | 18 h | 811 (106 %) |
+| ES = E2, p = 0.25 | 1002 (131 % of full-E4) | 20 h | 843 (110 %) |
+| ES = E2, p = 0.50 | 1193 (156 % of full-E4) | 24 h | 896 (117 %) |
 
 | suite | designs | median t_E4 (s) | max t_E4 (s) |
 |---|---|---|---|
@@ -157,6 +157,41 @@ Guardrail-3 facts for the 2 SEQ-inconclusive candidates (clocked arithmetic / of
 
 - drrtl_DSP c1_a_register_moved_to_stage0.v: arithmetic=True, offsets_constant=True, start-like=[], done-like=[]
 - rtllm_multi_pipe_8bit b_0_c5a7dd97e61a549.v: arithmetic=True, offsets_constant=True, start-like=['mul_en_in', 'mul_en_out'], done-like=[]
+
+### 4b. SEQ latency mapping of the class-(c2) pilot candidates (DECISIONS 2026-09-14 G2.1 (b), implemented 2026-09-15)
+
+Each candidate whose lock-step simulation found constant per-output offsets (verdict `proven_sim_only` under the by-name mapping) was re-run with the outputs asserted at those offsets (`map_by_name -input`, `seq_assert spec.o impl.o -clock spec.clk -latency1 0 -latency2 k`; config `equiv.seq_latency_mapping`). Seeds [1, 2]; verdict counts of the first seed: falsified 2, proven 26.
+
+| design | candidate | offsets | by-name verdict | mapped verdicts (seeds) | V3 s |
+|---|---|---|---|---|---|
+| rtllm_LIFObuffer | c2_0_c50c2cbe60aac44.v | {"EMPTY": 1, "FULL": 1, "dataOut": 1} | proven_sim_only | proven, proven | 47.5, 47.9 |
+| rtllm_LIFObuffer | c2_1_c1fcb2672517aca.v | {"EMPTY": 1, "FULL": 1, "dataOut": 1} | proven_sim_only | proven, proven | 40.2, 50.0 |
+| rtllm_accu | c2_0_cc2c1068875da8e.v | {"data_out": 1, "valid_out": 1} | proven_sim_only | proven, proven | 49.7, 41.8 |
+| rtllm_accu | c2_1_c9b5bf0f196134d.v | {"data_out": 1, "valid_out": 1} | proven_sim_only | proven, proven | 47.2, 45.5 |
+| rtllm_counter_12 | c2_0_c2378489f63201a.v | {"out": 1} | proven_sim_only | proven, proven | 43.5, 38.5 |
+| rtllm_counter_12 | c2_1_cf7392fbebd1071.v | {"out": 1} | proven_sim_only | proven, proven | 40.2, 34.3 |
+| rtllm_edge_detect | c2_0_ce2a4de224df35f.v | {"down": 1, "rise": 1} | proven_sim_only | proven, proven | 46.4, 40.4 |
+| rtllm_edge_detect | c2_1_c71747ae3ed9ce7.v | {"down": 1, "rise": 1} | proven_sim_only | proven, proven | 35.5, 47.7 |
+| rtllm_fsm | c2_0_c06bfeef28af554.v | {"MATCH": 1} | proven_sim_only | proven, proven | 39.0, 38.1 |
+| rtllm_fsm | c2_1_c256e5c2227b8c3.v | {"MATCH": 1} | proven_sim_only | proven, proven | 43.8, 41.5 |
+| rtllm_instr_reg | c2_0_cc35d7685fda65a.v | {"ad1": 1, "ad2": 1, "ins": 1} | proven_sim_only | proven, proven | 49.2, 41.6 |
+| rtllm_instr_reg | c2_1_c834e6ac7e01b96.v | {"ad1": 1, "ad2": 1, "ins": 1} | proven_sim_only | proven, proven | 37.8, 41.7 |
+| rtllm_multi_16bit | c2_0_c1559b9a58f3638.v | {"done": 0, "yout": 1} | proven_sim_only | falsified, falsified | 42.1, 35.3 |
+| rtllm_multi_16bit | c2_1_c481b8667716abc.v | {"done": 0, "yout": 1} | proven_sim_only | falsified, falsified | 37.2, 45.9 |
+| rtllm_multi_pipe_8bit | c2_0_cca82aa4ca2a958.v | {"mul_en_out": 1, "mul_out": 1} | proven_sim_only | proven, proven | 45.1, 39.0 |
+| rtllm_multi_pipe_8bit | c2_1_cffea0490c609e7.v | {"mul_en_out": 1, "mul_out": 1} | proven_sim_only | proven, proven | 36.0, 39.6 |
+| rtllm_pulse_detect | c2_0_c9bff4725f59053.v | {"data_out": 1} | proven_sim_only | proven, proven | 36.8, 36.5 |
+| rtllm_pulse_detect | c2_1_c9bff4725f59053.v | {"data_out": 1} | proven_sim_only | proven, proven | 36.8, 36.5 |
+| rtllm_right_shifter | c2_0_cb680b88049fd3f.v | {"q": 1} | proven_sim_only | proven, proven | 40.6, 47.5 |
+| rtllm_right_shifter | c2_1_c4353ba7d44d993.v | {"q": 1} | proven_sim_only | proven, proven | 39.1, 37.4 |
+| rtllm_serial2parallel | c2_0_cd7df390a12f494.v | {"dout_parallel": 1, "dout_valid": 1} | proven_sim_only | proven, proven | 47.4, 42.3 |
+| rtllm_serial2parallel | c2_1_cd82422c718ab94.v | {"dout_parallel": 1, "dout_valid": 1} | proven_sim_only | proven, proven | 44.5, 37.3 |
+| rtllm_signal_generator | c2_0_cf8f5953f8d47af.v | {"wave": 1} | proven_sim_only | proven, proven | 40.4, 44.2 |
+| rtllm_signal_generator | c2_1_cf7a34d3731e09b.v | {"wave": 1} | proven_sim_only | proven, proven | 40.9, 44.6 |
+| rtllm_traffic_light | c2_0_cc5fb2f478dca5f.v | {"clock": 1, "green": 1, "red": 1, "yellow": 1} | proven_sim_only | proven, proven | 51.6, 43.0 |
+| rtllm_traffic_light | c2_1_c0edad66a142465.v | {"clock": 1, "green": 1, "red": 1, "yellow": 1} | proven_sim_only | proven, proven | 51.7, 39.4 |
+| rtllm_width_8to16 | c2_0_c6d923ea9ab9575.v | {"data_out": 1, "valid_out": 1} | proven_sim_only | proven, proven | 49.0, 41.0 |
+| rtllm_width_8to16 | c2_1_cfe9827efe43d38.v | {"data_out": 1, "valid_out": 1} | proven_sim_only | proven, proven | 49.7, 35.8 |
 
 t_H3 / t_E4 (baseline runs of the same design at Φ_main, 178 designs; hidden worker, counts and seconds only): median 0.97, quartiles 0.93–1.02, range 0.43–1.84; total 5.0 DC hours under E4 vs 4.7 under H3.
 

@@ -1,0 +1,819 @@
+{
+ "candidates": [
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_LIFObuffer",
+   "file": "c2_0_c50c2cbe60aac44.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "EMPTY": 1,
+    "FULL": 1,
+    "dataOut": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_EMPTY": "proven",
+     "_map_output_seq_assert_FULL": "proven",
+     "_map_output_seq_assert_dataOut": "proven"
+    },
+    {
+     "_map_output_seq_assert_EMPTY": "proven",
+     "_map_output_seq_assert_FULL": "proven",
+     "_map_output_seq_assert_dataOut": "proven"
+    }
+   ],
+   "v3_seconds": [
+    47.49,
+    47.91
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_LIFObuffer",
+   "file": "c2_1_c1fcb2672517aca.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "EMPTY": 1,
+    "FULL": 1,
+    "dataOut": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_EMPTY": "proven",
+     "_map_output_seq_assert_FULL": "proven",
+     "_map_output_seq_assert_dataOut": "proven"
+    },
+    {
+     "_map_output_seq_assert_EMPTY": "proven",
+     "_map_output_seq_assert_FULL": "proven",
+     "_map_output_seq_assert_dataOut": "proven"
+    }
+   ],
+   "v3_seconds": [
+    40.23,
+    49.97
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_accu",
+   "file": "c2_0_cc2c1068875da8e.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "data_out": 1,
+    "valid_out": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_data_out": "proven",
+     "_map_output_seq_assert_valid_out": "proven"
+    },
+    {
+     "_map_output_seq_assert_data_out": "proven",
+     "_map_output_seq_assert_valid_out": "proven"
+    }
+   ],
+   "v3_seconds": [
+    49.72,
+    41.8
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_accu",
+   "file": "c2_1_c9b5bf0f196134d.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "data_out": 1,
+    "valid_out": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_data_out": "proven",
+     "_map_output_seq_assert_valid_out": "proven"
+    },
+    {
+     "_map_output_seq_assert_data_out": "proven",
+     "_map_output_seq_assert_valid_out": "proven"
+    }
+   ],
+   "v3_seconds": [
+    47.25,
+    45.54
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_counter_12",
+   "file": "c2_0_c2378489f63201a.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "out": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_out": "proven"
+    },
+    {
+     "_map_output_seq_assert_out": "proven"
+    }
+   ],
+   "v3_seconds": [
+    43.46,
+    38.5
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_counter_12",
+   "file": "c2_1_cf7392fbebd1071.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "out": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_out": "proven"
+    },
+    {
+     "_map_output_seq_assert_out": "proven"
+    }
+   ],
+   "v3_seconds": [
+    40.18,
+    34.28
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_edge_detect",
+   "file": "c2_0_ce2a4de224df35f.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "down": 1,
+    "rise": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_down": "proven",
+     "_map_output_seq_assert_rise": "proven"
+    },
+    {
+     "_map_output_seq_assert_down": "proven",
+     "_map_output_seq_assert_rise": "proven"
+    }
+   ],
+   "v3_seconds": [
+    46.35,
+    40.37
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_edge_detect",
+   "file": "c2_1_c71747ae3ed9ce7.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "down": 1,
+    "rise": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_down": "proven",
+     "_map_output_seq_assert_rise": "proven"
+    },
+    {
+     "_map_output_seq_assert_down": "proven",
+     "_map_output_seq_assert_rise": "proven"
+    }
+   ],
+   "v3_seconds": [
+    35.53,
+    47.72
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_fsm",
+   "file": "c2_0_c06bfeef28af554.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "MATCH": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_MATCH": "proven"
+    },
+    {
+     "_map_output_seq_assert_MATCH": "proven"
+    }
+   ],
+   "v3_seconds": [
+    38.95,
+    38.09
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_fsm",
+   "file": "c2_1_c256e5c2227b8c3.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "MATCH": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_MATCH": "proven"
+    },
+    {
+     "_map_output_seq_assert_MATCH": "proven"
+    }
+   ],
+   "v3_seconds": [
+    43.8,
+    41.5
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_instr_reg",
+   "file": "c2_0_cc35d7685fda65a.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "ad1": 1,
+    "ad2": 1,
+    "ins": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_ad1": "proven",
+     "_map_output_seq_assert_ad2": "proven",
+     "_map_output_seq_assert_ins": "proven"
+    },
+    {
+     "_map_output_seq_assert_ad1": "proven",
+     "_map_output_seq_assert_ad2": "proven",
+     "_map_output_seq_assert_ins": "proven"
+    }
+   ],
+   "v3_seconds": [
+    49.16,
+    41.56
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_instr_reg",
+   "file": "c2_1_c834e6ac7e01b96.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "ad1": 1,
+    "ad2": 1,
+    "ins": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_ad1": "proven",
+     "_map_output_seq_assert_ad2": "proven",
+     "_map_output_seq_assert_ins": "proven"
+    },
+    {
+     "_map_output_seq_assert_ad1": "proven",
+     "_map_output_seq_assert_ad2": "proven",
+     "_map_output_seq_assert_ins": "proven"
+    }
+   ],
+   "v3_seconds": [
+    37.84,
+    41.67
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_multi_16bit",
+   "file": "c2_0_c1559b9a58f3638.v",
+   "mapped_verdicts": [
+    "falsified",
+    "falsified"
+   ],
+   "offsets": {
+    "done": 0,
+    "yout": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_done": "falsified",
+     "_map_output_seq_assert_yout": "proven"
+    },
+    {
+     "_map_output_seq_assert_done": "falsified",
+     "_map_output_seq_assert_yout": "proven"
+    }
+   ],
+   "v3_seconds": [
+    42.08,
+    35.27
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_multi_16bit",
+   "file": "c2_1_c481b8667716abc.v",
+   "mapped_verdicts": [
+    "falsified",
+    "falsified"
+   ],
+   "offsets": {
+    "done": 0,
+    "yout": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_done": "falsified",
+     "_map_output_seq_assert_yout": "proven"
+    },
+    {
+     "_map_output_seq_assert_done": "falsified",
+     "_map_output_seq_assert_yout": "proven"
+    }
+   ],
+   "v3_seconds": [
+    37.18,
+    45.9
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "file": "c2_0_cca82aa4ca2a958.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "mul_en_out": 1,
+    "mul_out": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_mul_en_out": "proven",
+     "_map_output_seq_assert_mul_out": "proven"
+    },
+    {
+     "_map_output_seq_assert_mul_en_out": "proven",
+     "_map_output_seq_assert_mul_out": "proven"
+    }
+   ],
+   "v3_seconds": [
+    45.15,
+    38.99
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "file": "c2_1_cffea0490c609e7.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "mul_en_out": 1,
+    "mul_out": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_mul_en_out": "proven",
+     "_map_output_seq_assert_mul_out": "proven"
+    },
+    {
+     "_map_output_seq_assert_mul_en_out": "proven",
+     "_map_output_seq_assert_mul_out": "proven"
+    }
+   ],
+   "v3_seconds": [
+    36.0,
+    39.64
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_pulse_detect",
+   "file": "c2_0_c9bff4725f59053.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "data_out": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_data_out": "proven"
+    },
+    {
+     "_map_output_seq_assert_data_out": "proven"
+    }
+   ],
+   "v3_seconds": [
+    36.78,
+    36.51
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_pulse_detect",
+   "file": "c2_1_c9bff4725f59053.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "data_out": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_data_out": "proven"
+    },
+    {
+     "_map_output_seq_assert_data_out": "proven"
+    }
+   ],
+   "v3_seconds": [
+    36.78,
+    36.51
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_right_shifter",
+   "file": "c2_0_cb680b88049fd3f.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "q": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_q": "proven"
+    },
+    {
+     "_map_output_seq_assert_q": "proven"
+    }
+   ],
+   "v3_seconds": [
+    40.6,
+    47.51
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_right_shifter",
+   "file": "c2_1_c4353ba7d44d993.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "q": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_q": "proven"
+    },
+    {
+     "_map_output_seq_assert_q": "proven"
+    }
+   ],
+   "v3_seconds": [
+    39.11,
+    37.35
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_serial2parallel",
+   "file": "c2_0_cd7df390a12f494.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "dout_parallel": 1,
+    "dout_valid": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_dout_parallel": "proven",
+     "_map_output_seq_assert_dout_valid": "proven"
+    },
+    {
+     "_map_output_seq_assert_dout_parallel": "proven",
+     "_map_output_seq_assert_dout_valid": "proven"
+    }
+   ],
+   "v3_seconds": [
+    47.37,
+    42.34
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_serial2parallel",
+   "file": "c2_1_cd82422c718ab94.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "dout_parallel": 1,
+    "dout_valid": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_dout_parallel": "proven",
+     "_map_output_seq_assert_dout_valid": "proven"
+    },
+    {
+     "_map_output_seq_assert_dout_parallel": "proven",
+     "_map_output_seq_assert_dout_valid": "proven"
+    }
+   ],
+   "v3_seconds": [
+    44.51,
+    37.26
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_signal_generator",
+   "file": "c2_0_cf8f5953f8d47af.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "wave": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_wave": "proven"
+    },
+    {
+     "_map_output_seq_assert_wave": "proven"
+    }
+   ],
+   "v3_seconds": [
+    40.41,
+    44.16
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_signal_generator",
+   "file": "c2_1_cf7a34d3731e09b.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "wave": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_wave": "proven"
+    },
+    {
+     "_map_output_seq_assert_wave": "proven"
+    }
+   ],
+   "v3_seconds": [
+    40.92,
+    44.62
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_traffic_light",
+   "file": "c2_0_cc5fb2f478dca5f.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "clock": 1,
+    "green": 1,
+    "red": 1,
+    "yellow": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_clock": "proven",
+     "_map_output_seq_assert_green": "proven",
+     "_map_output_seq_assert_red": "proven",
+     "_map_output_seq_assert_yellow": "proven"
+    },
+    {
+     "_map_output_seq_assert_clock": "proven",
+     "_map_output_seq_assert_green": "proven",
+     "_map_output_seq_assert_red": "proven",
+     "_map_output_seq_assert_yellow": "proven"
+    }
+   ],
+   "v3_seconds": [
+    51.6,
+    42.99
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_traffic_light",
+   "file": "c2_1_c0edad66a142465.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "clock": 1,
+    "green": 1,
+    "red": 1,
+    "yellow": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_clock": "proven",
+     "_map_output_seq_assert_green": "proven",
+     "_map_output_seq_assert_red": "proven",
+     "_map_output_seq_assert_yellow": "proven"
+    },
+    {
+     "_map_output_seq_assert_clock": "proven",
+     "_map_output_seq_assert_green": "proven",
+     "_map_output_seq_assert_red": "proven",
+     "_map_output_seq_assert_yellow": "proven"
+    }
+   ],
+   "v3_seconds": [
+    51.71,
+    39.44
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_width_8to16",
+   "file": "c2_0_c6d923ea9ab9575.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "data_out": 1,
+    "valid_out": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_data_out": "proven",
+     "_map_output_seq_assert_valid_out": "proven"
+    },
+    {
+     "_map_output_seq_assert_data_out": "proven",
+     "_map_output_seq_assert_valid_out": "proven"
+    }
+   ],
+   "v3_seconds": [
+    48.96,
+    41.02
+   ]
+  },
+  {
+   "by_name_verdict": "proven_sim_only",
+   "class": "c2",
+   "design_id": "rtllm_width_8to16",
+   "file": "c2_1_cfe9827efe43d38.v",
+   "mapped_verdicts": [
+    "proven",
+    "proven"
+   ],
+   "offsets": {
+    "data_out": 1,
+    "valid_out": 1
+   },
+   "source": "llm",
+   "v3_properties": [
+    {
+     "_map_output_seq_assert_data_out": "proven",
+     "_map_output_seq_assert_valid_out": "proven"
+    },
+    {
+     "_map_output_seq_assert_data_out": "proven",
+     "_map_output_seq_assert_valid_out": "proven"
+    }
+   ],
+   "v3_seconds": [
+    49.71,
+    35.76
+   ]
+  }
+ ],
+ "generated_at": "2026-09-15T16:46:03",
+ "seeds": [
+  1,
+  2
+ ],
+ "summary": {
+  "falsified": 2,
+  "proven": 26
+ }
+}

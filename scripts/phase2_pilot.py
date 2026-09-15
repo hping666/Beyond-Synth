@@ -103,13 +103,30 @@ def gate_jobs(cfg, entries, priority=0):
     return jobs
 
 
+def all_records(cfg, design_id):
+    """{cand_id: [records oldest first]} of a design's equivalence records (records() keeps only the newest per candidate)."""
+    raw = Path(C.results_dir(cfg)) / "raw" / design_id / "EQ"
+    by = {}
+    for eq in raw.glob("*/equiv.json"):
+        try:
+            rec = json.loads(eq.read_text())
+        except json.JSONDecodeError:
+            continue
+        by.setdefault(rec.get("cand_id") or "", []).append((eq.stat().st_mtime, rec))
+    return {cid: [r for _, r in sorted(v, key=lambda t: t[0])] for cid, v in by.items()}
+
+
 def latency_entries(cfg, entries):
-    """The pilot candidates whose V2 found constant non-zero output offsets (verdict proven_sim_only in the by-name run):
-    [(design, variant, offsets)] read from the existing records (both seeds must agree on the offsets)."""
+    """The pilot candidates whose V2 found constant non-zero output offsets (verdict proven_sim_only in the by-name run, any
+    record of the candidate: the latency-mapped re-run adds newer records): [(design, variant, offsets)]; both seeds must
+    agree on the offsets."""
     out = []
     for d, v in entries:
-        recs = records(cfg, d["design_id"])
-        runs = [recs.get(f"{v['cand_id']}_s{seed}") for seed in SEEDS]
+        recs = all_records(cfg, d["design_id"])
+        runs = []
+        for seed in SEEDS:
+            by_name = [r for r in recs.get(f"{v['cand_id']}_s{seed}", []) if not r.get("latency_mapped")]
+            runs.append(by_name[-1] if by_name else None)   # the newest by-name record decides (a later by-name re-run may have changed the verdict)
         if not all(runs) or any(r.get("verdict") != "proven_sim_only" for r in runs):
             continue
         offs = [json.loads(r.get("latency_offset_json") or "{}") for r in runs]
@@ -142,21 +159,11 @@ def latency_collect(cfg, entries):
     latency-mapped record (the newest record of the candidate that carries `latency_mapped`); summary counts per verdict."""
     rows, summary = [], {}
     for d, v, offs in latency_entries(cfg, entries):
-        raw = Path(C.results_dir(cfg)) / "raw" / d["design_id"] / "EQ"
-        per_seed = {}
-        for eq in raw.glob("*/equiv.json"):
-            try:
-                rec = json.loads(eq.read_text())
-            except json.JSONDecodeError:
-                continue
-            if not rec.get("latency_mapped"):
-                continue
-            for seed in SEEDS:
-                if rec.get("cand_id") == f"{v['cand_id']}_s{seed}":
-                    cur = per_seed.get(seed)
-                    if cur is None or eq.stat().st_mtime > cur[0]:
-                        per_seed[seed] = (eq.stat().st_mtime, rec)
-        mapped = [per_seed[s][1] if s in per_seed else None for s in SEEDS]
+        recs = all_records(cfg, d["design_id"])
+        mapped = []
+        for seed in SEEDS:
+            m = [r for r in recs.get(f"{v['cand_id']}_s{seed}", []) if r.get("latency_mapped")]
+            mapped.append(m[-1] if m else None)
         verdicts = [r.get("verdict") if r else "pending" for r in mapped]
         row = {"design_id": d["design_id"], "file": v["file"], "class": v["class"], "source": v["source"], "offsets": offs,
                "by_name_verdict": "proven_sim_only", "mapped_verdicts": verdicts, "v3_seconds": [r.get("v3_seconds") for r in mapped if r],
