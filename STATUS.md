@@ -77,7 +77,6 @@ Open items from 0.5: RTL-line mapping of the critical path is not yet implemente
 | VC Formal hours (cumulative) | — | | |
 
 ## Open questions / known risks
-- 145 test-run directories under results/candidates (`r*_rtllm_d_*`, no database rows) from the driver isolation defect fixed 2026-09-15 (DECISIONS); harmless, deletion left to the user.
 
 - (resolved 2026-09-12) LLM prices per tier supplied by the user and written into config; hand-made pilot variants allowed by CLAUDE.md exception 2.
 - SEQ and registers without reset: VC Formal SEQ treats their initial state as free, so renamed registers (handled by the `proven_rename` rule) and RTL-OPT saturating_add's dead flag registers are falsified although simulation cannot distinguish the designs; G2 decision: assume a reset-sequence / all-zero initial state in SEQ or keep the conservative verdict.
