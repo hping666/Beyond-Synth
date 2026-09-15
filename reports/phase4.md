@@ -1,19 +1,19 @@
 # Phase 4 report — Exp1: ladder and map (C1)
 
-Generated 2026-09-15 16:14 by scripts/report_phase.py (git bb5e90a4d70b, cfg 8a0e9b1a9a34). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
+Generated 2026-09-15 16:49 by scripts/report_phase.py (git 9c3ef6772998, cfg c72fd1bc7965). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
 
 ## 1. Objects
 
-Designs (config `exp1.designs`, C1 scope: human-written RTL): cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode; floor version `phase4`. 1473 objects: roles {'reference': 94, 'llm': 22, 'b0': 1357}; equivalence verdicts {'proven': 409, 'sim_fail': 440, 'falsified': 342, 'rejected': 235, 'inconclusive': 43, 'proven_sim_only': 1, 'pending': 3}; M6 classes (rules v2) {'b': 407, 'a': 152, 'd': 475, 'c1': 399, '?': 9, 'c2': 1, 'free': 30}; E4-evaluated 380; M3 labels at E4 {'harmful': 20, 'tradeoff': 54, 'absorbed_identical': 59, 'retained': 75, '-': 55, 'absorbed': 15, 'duplicate': 128, 'noise': 32, 'nonequiv': 1035}.
+Designs (config `exp1.designs`, C1 scope: human-written RTL): cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode; floor version `phase4`. 1473 objects: roles {'reference': 94, 'llm': 22, 'b0': 1357}; equivalence verdicts {'proven': 409, 'sim_fail': 440, 'falsified': 342, 'rejected': 235, 'inconclusive': 43, 'proven_sim_only': 1, 'pending': 3}; M6 classes (rules v2) {'a': 155, 'b': 405, 'd': 475, 'c2': 5, '?': 9, 'c1': 394, 'free': 30}; E4-evaluated 380; M3 labels at E4 {'harmful': 20, 'tradeoff': 54, 'absorbed_identical': 59, 'retained': 75, '-': 55, 'absorbed': 15, 'duplicate': 128, 'noise': 32, 'nonequiv': 1035}.
 
 ## 2. Map v1: E4 retention rate (area, rule-A threshold of the design under each configuration) by class × configuration
 
 | class | E1 rate (n) | E1d rate (n) | E2 rate (n) | E3 rate (n) | E2g rate (n) | E4 rate (n) | E4 median gain | E4 labels | absorption rung (E4) |
 |---|---|---|---|---|---|---|---|---|---|
-| a | 33 % (73) | - (0) | 14 % (73) | 14 % (73) | - (0) | 15 % (73) | 17.6 % | {'absorbed': 7, 'absorbed_identical': 40, 'harmful': 4, 'noise': 8, 'retained': 10, 'tradeoff': 4} | {'E1': 2, 'E2': 4, 'E4': 40, 'after_Es': 1} |
-| b | 49 % (110) | - (0) | 42 % (110) | 40 % (110) | - (0) | 43 % (110) | 28.5 % | {'absorbed': 8, 'absorbed_identical': 16, 'harmful': 10, 'noise': 23, 'retained': 38, 'tradeoff': 15} | {'E1': 2, 'E2': 1, 'E4': 16, 'after_Es': 5} |
-| c1 | 85 % (26) | - (0) | 92 % (26) | 88 % (26) | - (0) | 88 % (26) | 7.8 % | {'noise': 1, 'retained': 22, 'tradeoff': 3} | {} |
-| c2 | 0 % (1) | - (0) | 0 % (1) | 0 % (1) | - (0) | 0 % (1) | - | {'harmful': 1} | {} |
+| a | 33 % (75) | - (0) | 15 % (75) | 15 % (75) | - (0) | 16 % (75) | 17.6 % | {'absorbed': 7, 'absorbed_identical': 40, 'harmful': 5, 'noise': 8, 'retained': 11, 'tradeoff': 4} | {'E1': 2, 'E2': 4, 'E4': 40, 'after_Es': 1} |
+| b | 50 % (109) | - (0) | 42 % (109) | 40 % (109) | - (0) | 43 % (109) | 28.5 % | {'absorbed': 8, 'absorbed_identical': 16, 'harmful': 9, 'noise': 23, 'retained': 38, 'tradeoff': 15} | {'E1': 2, 'E2': 1, 'E4': 16, 'after_Es': 5} |
+| c1 | 88 % (24) | - (0) | 92 % (24) | 88 % (24) | - (0) | 88 % (24) | 10.5 % | {'noise': 1, 'retained': 20, 'tradeoff': 3} | {} |
+| c2 | 0 % (2) | - (0) | 50 % (2) | 50 % (2) | - (0) | 50 % (2) | 1.9 % | {'harmful': 1, 'retained': 1} | {} |
 | d | 76 % (45) | - (0) | 49 % (45) | 20 % (45) | - (0) | 73 % (45) | 4.8 % | {'absorbed_identical': 3, 'harmful': 5, 'retained': 5, 'tradeoff': 32} | {'E4': 3} |
 
 Map shape (B0 objects): **concentrated** — E4 retention by class {'a': 0.06, 'b': 0.49, 'c1': 1.0, 'd': 0.94} (concentrated: the rates differ by ≥ 0.3 between classes with ≥ 10 evaluated objects; near-zero: every class < 10 %; diffuse otherwise).
@@ -32,20 +32,20 @@ All objects under the materiality thresholds (area 1 %, power 2 %, WNS 1 % of th
 
 | class | E1 rate (n) | E1d rate (n) | E2 rate (n) | E3 rate (n) | E2g rate (n) | E4 rate (n) |
 |---|---|---|---|---|---|---|
-| a | 42 % (73) | 30 % (73) | 14 % (73) | 19 % (73) | 15 % (73) | 21 % (73) |
-| b | 55 % (110) | 53 % (110) | 40 % (110) | 63 % (110) | 36 % (110) | 39 % (110) |
-| c1 | 92 % (26) | 85 % (26) | 92 % (26) | 88 % (26) | 92 % (26) | 88 % (26) |
-| c2 | 0 % (1) | 0 % (1) | 0 % (1) | 0 % (1) | 0 % (1) | 0 % (1) |
+| a | 43 % (75) | 31 % (75) | 15 % (75) | 20 % (75) | 16 % (75) | 21 % (75) |
+| b | 55 % (109) | 53 % (109) | 40 % (109) | 63 % (109) | 37 % (109) | 39 % (109) |
+| c1 | 96 % (24) | 88 % (24) | 92 % (24) | 88 % (24) | 92 % (24) | 88 % (24) |
+| c2 | 0 % (2) | 0 % (2) | 50 % (2) | 50 % (2) | 50 % (2) | 50 % (2) |
 | d | 71 % (45) | 40 % (45) | 53 % (45) | 24 % (45) | 67 % (45) | 69 % (45) |
 
 ## 3. Retention curves and non-monotone cases
 
 | class | E1 | E1d | E2 | E3 | E2g | E4 |
 |---|---|---|---|---|---|---|
-| a | 33 % (73) | - | 14 % (73) | 14 % (73) | - | 15 % (73) |
-| b | 49 % (110) | - | 42 % (110) | 40 % (110) | - | 43 % (110) |
-| c1 | 85 % (26) | - | 92 % (26) | 88 % (26) | - | 88 % (26) |
-| c2 | 0 % (1) | - | 0 % (1) | 0 % (1) | - | 0 % (1) |
+| a | 33 % (75) | - | 15 % (75) | 15 % (75) | - | 16 % (75) |
+| b | 50 % (109) | - | 42 % (109) | 40 % (109) | - | 43 % (109) |
+| c1 | 88 % (24) | - | 92 % (24) | 88 % (24) | - | 88 % (24) |
+| c2 | 0 % (2) | - | 50 % (2) | 50 % (2) | - | 50 % (2) |
 | d | 76 % (45) | - | 49 % (45) | 20 % (45) | - | 73 % (45) |
 
 Non-monotone objects (inside the band at a lower rung, above it at a higher one): 45 of 255 evaluated under E1–E4 (17.6 %): cf89ddd75fb3c99 -RRR, c7fceae7b2cef3e -RRR, cd12c8499b8d1ab -RRR, c5dd5be5540ec6c R--R, c31d3356c1aa4ac R--R, c329f2002ffaa79 RR-R, c5abf0a43a48dd4 -RRR, c8eb4a4b69a2dfe RR-R, ca6a75d9995d074 R--R, cbd06175747b32e R--R, cc722b602ba80f4 -RRR, cfcff4cec55f7f1 -RRR, cde5444e8ee9dcf -RRR, c097257d3463bc2 R--R, c0c021141c94ff8 R--R, c25c096cd506b86 R--R, c56fa2529a980c5 RR-R, c5def31472daffa RR-R, c5fac3ac89179d4 RR-R, cb313beed61b03b RR-R
@@ -125,6 +125,47 @@ Non-monotone objects (inside the band at a lower rung, above it at a higher one)
 | 8 | 133 | 15 | 11 % |
 | 9 | 136 | 12 | 9 % |
 
+## 4d. RTL-OPT pairs under the authors' published setting (G5 item 4 (a); config `E2_1ns`: compile_ultra, 1.0 ns, no retime, no gate clock)
+
+The 34 proven pairs under our reproduction of the authors' setting (compile_ultra at 1 ns, DesignWare, this project's SDC convention, DC W-2024.09): **13 better** (the optimized version smaller than the suboptimal start by area), 4 same, 16 worse, 1 not evaluated (the mux_dead reference does not link, §4a); the paper reports 35 of 36 better (RTL-OPT Table 1, compile_ultra 1 ns); the six pairs that are not equivalent under this project's protocol (§4a) are outside these counts. The authors' released DC reports (their setting: data/sources/RTL-OPT/Results/RTL-OPT_DC: `compile` (not compile_ultra) at CLOCK_PERIOD 0.1 ns with set_max_delay from all inputs to all outputs, set_transform_for_retiming dont_retime, register merging / sequential area recovery / clock gating through hierarchy off, ungroup -all -flatten, DC T-2022.03-SP2, the authors' own Nangate45 typical.db (their released run_dc.tcl and command.log)) give 34 better, 0 same, 0 worse by area over the same 34 pairs — a plain `compile` at a 0.1 ns clock keeps the RTL's structure, so the suboptimal version's redundancy survives; under compile_ultra (ours at 1 ns and at the knee period) DC removes most of it. Their Table 1 count for compile_ultra at 1 ns could not be reproduced with our flow; the released script covers the compile / 0.1 ns setting only, and the differences left (DC version, their set_max_delay input-to-output constraints versus this project's I/O delays, register merging and sequential area recovery switched off in their script) would need a run of their exact script to isolate.
+
+| pair | phi_main (ns) | D area at 1 ns | reference area at 1 ns | rel. area at 1 ns | verdict at 1 ns | rel. area E2 (knee) | rel. area E4 (knee) | authors' released reports: D / ref / rel. |
+|---|---|---|---|---|---|---|---|---|
+| rtlopt_add_sub | 2.80 | 142.3 | 195.0 | +37.0 % | worse | +93.7 % | +93.7 % | 444.2 / 357.0 / -19.6 % |
+| rtlopt_adder | 4.00 | 532.3 | 469.5 | -11.8 % | better | +12.0 % | +12.0 % | 688.4 / 639.7 / -7.1 % |
+| rtlopt_adder_carry | 1.40 | 64.1 | 64.1 | +0.0 % | same | +0.0 % | +0.0 % | 98.7 / 54.0 / -45.3 % |
+| rtlopt_adder_select | 4.00 | 385.2 | 396.6 | +3.0 % | worse | +6.4 % | +6.4 % | 812.1 / 522.7 / -35.6 % |
+| rtlopt_addr_calcu | 2.00 | 158.8 | 158.3 | -0.3 % | better | +4.3 % | +4.3 % | 388.1 / 214.4 / -44.8 % |
+| rtlopt_alu_64bit | 2.00 | 1848.2 | 1879.3 | +1.7 % | worse | +4.0 % | +4.0 % | 3028.4 / 1748.9 / -42.2 % |
+| rtlopt_alu_8bit | 2.00 | 214.4 | 219.7 | +2.5 % | worse | -28.2 % | -28.2 % | 370.0 / 245.8 / -33.6 % |
+| rtlopt_calculation | 4.00 | 1161.9 | 895.9 | -22.9 % | better | -16.9 % | -17.6 % | 997.5 / 761.8 / -23.6 % |
+| rtlopt_comparator | 1.00 | 41.8 | 56.4 | +35.0 % | worse | +35.0 % | +35.0 % | 98.2 / 80.6 / -17.9 % |
+| rtlopt_comparator_16bit | 1.00 | 88.3 | 123.7 | +40.1 % | worse | +40.1 % | +40.1 % | 244.5 / 169.2 / -30.8 % |
+| rtlopt_comparator_2bit | 0.35 | 9.6 | 8.8 | -8.3 % | better | -8.3 % | -8.3 % | 14.4 / 13.0 / -9.3 % |
+| rtlopt_comparator_4bit | 0.50 | 21.3 | 18.4 | -13.8 % | better | -10.0 % | -10.0 % | 25.8 / 23.1 / -10.3 % |
+| rtlopt_comparator_8bit | 0.70 | 44.4 | 41.2 | -7.2 % | better | -7.2 % | -7.2 % | 71.3 / 67.3 / -5.6 % |
+| rtlopt_decoder_6bit | 0.35 | 71.6 | 76.6 | +7.1 % | worse | +8.6 % | +8.6 % | 208.0 / 106.7 / -48.7 % |
+| rtlopt_decoder_8bit | 0.50 | 246.8 | 257.2 | +4.2 % | worse | +12.8 % | +12.8 % | 856.0 / 373.2 / -56.4 % |
+| rtlopt_fsm | 1.00 | 128.7 | 92.0 | -28.5 % | better | -28.5 % | -28.5 % | 192.9 / 129.8 / -32.7 % |
+| rtlopt_fsm_encode | 1.40 | 396.9 | 300.6 | -24.3 % | better | -10.5 % | -13.5 % | 488.9 / 426.7 / -12.7 % |
+| rtlopt_gray | 0.50 | 68.6 | 69.2 | +0.8 % | worse | +0.8 % | +0.8 % | 109.1 / 94.7 / -13.2 % |
+| rtlopt_mul | 2.00 | 333.0 | 345.5 | +3.8 % | worse | +0.0 % | +0.0 % | 453.0 / 426.4 / -5.9 % |
+| rtlopt_mul_const | 1.00 | 42.0 | 42.0 | +0.0 % | same | +0.0 % | +0.0 % | 122.9 / 114.6 / -6.7 % |
+| rtlopt_mul_subexpression | 2.80 | 370.3 | 387.6 | +4.7 % | worse | +0.0 % | +0.0 % | 623.2 / 603.8 / -3.1 % |
+| rtlopt_mult_if | 0.50 | 10.9 | 10.1 | -7.3 % | better | -7.3 % | -7.3 % | 16.0 / 14.9 / -6.7 % |
+| rtlopt_mux_4to1_16bit | 0.50 | 60.6 | 60.6 | +0.0 % | same | +0.0 % | +0.0 % | 77.4 / 73.7 / -4.8 % |
+| rtlopt_mux_4to1_64bit | 0.50 | 234.1 | 234.1 | +0.0 % | same | -0.4 % | -0.4 % | 263.9 / 260.7 / -1.2 % |
+| rtlopt_mux_dead | 0.35 | 21.8 | - | - | missing | - | - | 38.3 / 31.9 / -16.7 % |
+| rtlopt_mux_large | 0.70 | 96.8 | 97.6 | +0.8 % | worse | +1.1 % | +1.1 % | 273.4 / 176.6 / -35.4 % |
+| rtlopt_register | 1.00 | 8986.8 | 9085.5 | +1.1 % | worse | +1.1 % | +0.8 % | 9780.0 / 9582.9 / -2.0 % |
+| rtlopt_saturating_add | 1.00 | 68.9 | 67.6 | -1.9 % | better | -1.9 % | -1.9 % | 176.6 / 141.0 / -20.2 % |
+| rtlopt_selector | 0.35 | 38.8 | 37.5 | -3.4 % | better | -3.4 % | -3.4 % | 56.4 / 49.7 / -11.8 % |
+| rtlopt_sub_16bit | 2.80 | 128.7 | 117.3 | -8.9 % | better | -10.7 % | -10.7 % | 263.1 / 223.2 / -15.2 % |
+| rtlopt_sub_32bit | 1.40 | 267.3 | 268.9 | +0.6 % | worse | +1.3 % | +1.3 % | 502.2 / 452.2 / -10.0 % |
+| rtlopt_sub_4bit | 0.70 | 17.8 | 18.4 | +3.0 % | worse | +43.3 % | +43.3 % | 36.7 / 29.8 / -18.8 % |
+| rtlopt_sub_8bit | 1.40 | 45.8 | 70.8 | +54.6 % | worse | +13.0 % | +13.0 % | 122.6 / 112.0 / -8.7 % |
+| rtlopt_ticket_machine | 0.50 | 58.5 | 32.5 | -44.5 % | better | -44.3 % | -44.3 % | 74.5 / 51.3 / -31.1 % |
+
 The four RTL-OPT divider references of §4a were inspected by hand (G5 item 4 (c)): the pairs differ only on division by zero with the dividend's MSB set (non-restoring vs restoring algorithm) and agree for every non-zero divisor; analysis, traces and the confirming directed simulation in reports/data/phase4_divider_counterexamples.md.
 
 ## 4. Literature settings re-evaluated (PLAN 4.7)
@@ -138,7 +179,7 @@ better = the optimized version's area is below D's under that rung; retained = a
 
 ## 5. Static-rule misclassification rates (PLAN 4.8)
 
-Rule R forbids classes ['a', 'b'] (syntactic / coding rewrites) and allows ['c1', 'c2', 'd']. P(retained | forbidden by R) = 37 % (n = 183); P(absorbed | allowed by R) = 6 % (n = 72).
+Rule R forbids classes ['a', 'b'] (syntactic / coding rewrites) and allows ['c1', 'c2', 'd']. P(retained | forbidden by R) = 37 % (n = 184); P(absorbed | allowed by R) = 6 % (n = 71).
 
 ## 5b. Diagnoser validation data (PLAN 4.6, spec 04 B.5)
 
@@ -153,7 +194,7 @@ Diagnoses by label: {'absorbed': 15, 'absorbed_identical': 59, 'harmful': 20, 'n
 
 ## 6. Retention predictor (PLAN 4.5; leave-one-design-out)
 
-- with the class features: n = 255 (129 retained), AUROC 0.717, precision at recall ≥ 85 % 55 % (τ = 0.138, miss rate 15 %); skipped designs []; coefficients (standardised) {'g_e1': 0.47, 'g_e2': 3.62, 'fp_conv_e1': -1.66, 'dff_delta': 1.14, 'diff_ratio': 0.15, 'cls_a': -1.07, 'cls_b': -0.55, 'cls_c1': 1.96, 'cls_c2': -0.22, 'cls_d': 0.47}
+- with the class features: n = 255 (129 retained), AUROC 0.710, precision at recall ≥ 85 % 54 % (τ = 0.125, miss rate 15 %); skipped designs []; coefficients (standardised) {'g_e1': 0.47, 'g_e2': 3.74, 'fp_conv_e1': -1.65, 'dff_delta': 1.13, 'diff_ratio': 0.15, 'cls_a': -1.07, 'cls_b': -0.53, 'cls_c1': 1.89, 'cls_c2': 0.14, 'cls_d': 0.49}
 - class-blind control: n = 255 (129 retained), AUROC 0.733, precision at recall ≥ 85 % 55 % (τ = 0.263, miss rate 15 %); skipped designs []; coefficients (standardised) {'g_e1': 0.65, 'g_e2': 5.03, 'fp_conv_e1': -1.66, 'dff_delta': 0.21, 'diff_ratio': -0.06}
 
 ## 7. σ_D comparison (E4 floors of the Exp1 designs vs the calibration designs)

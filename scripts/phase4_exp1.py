@@ -920,6 +920,27 @@ def rtlopt_setting_pairs(conn):
     return [c for c in phase4_objects(conn) if c["arm"] == LIT_ARM and c["design_id"].startswith("rtlopt_")]
 
 
+def authors_released_areas(design_id):
+    """Total cell area and cell count of the suboptimal start and the reference from the RTL-OPT authors' released DC reports
+    (data/sources/RTL-OPT/Results/RTL-OPT_DC/<name>/report/area.rpt and <name>_ref/...); {} when absent."""
+    import re
+    root = Path(C.ROOT) / "data" / "sources" / "RTL-OPT" / "Results" / "RTL-OPT_DC"
+    name = design_id.replace("rtlopt_", "")
+    out = {}
+    for key, sub in (("d", name), ("ref", name + "_ref")):
+        p = root / sub / "report" / "area.rpt"
+        if not p.exists():
+            continue
+        t = p.read_text(errors="replace")
+        m = re.search(r"Total cell area:\s+([\d.]+)", t)
+        n = re.search(r"Number of cells:\s+(\d+)", t)
+        out[key + "_area"] = float(m.group(1)) if m else None
+        out[key + "_cells"] = int(n.group(1)) if n else None
+    if out.get("d_area") and out.get("ref_area") is not None:
+        out["rel"] = round((out["ref_area"] - out["d_area"]) / out["d_area"], 4)
+    return out
+
+
 def cmd_rtlopt_setting(cfg, conn, do_submit, priority, collect=False):
     """G5 item 4 (a) (user 2026-09-15 item 5): the proven RTL-OPT pairs under the authors' published setting `E2_1ns`
     (compile_ultra, 1 ns, no retime, no gate clock): submit the missing D baselines and object evaluations, or with
@@ -947,10 +968,16 @@ def cmd_rtlopt_setting(cfg, conn, do_submit, priority, collect=False):
                 rel = (o_row[0] - d_row[0]) / d_row[0] if d_row[0] else 0.0
                 verdict = "better" if rel < -1e-9 else "worse" if rel > 1e-9 else "same"
             counts[verdict] += 1
+            theirs = authors_released_areas(c["design_id"])
             rows.append({"design_id": c["design_id"], "cand_id": c["cand_id"], "phi_main_ns": phi, "d_area": d_row[0] if d_row else None, "d_cells": d_row[1] if d_row else None,
                          "ref_area": o_row[0] if o_row else None, "ref_cells": o_row[1] if o_row else None,
-                         "rel_area": (round((o_row[0] - d_row[0]) / d_row[0], 4) if d_row and o_row and d_row[0] else None), "verdict_1ns": verdict, "other_rungs": others})
-        out = {"config": config, "clock_ns": clock, "pairs": len(pairs), "counts": counts, "authors_count": "35 of 36 better (RTL-OPT Table 1, compile_ultra 1 ns)", "rows": rows}
+                         "rel_area": (round((o_row[0] - d_row[0]) / d_row[0], 4) if d_row and o_row and d_row[0] else None), "verdict_1ns": verdict, "other_rungs": others,
+                         "authors_released": theirs})
+        released = [r["authors_released"] for r in rows if r["authors_released"].get("rel") is not None]
+        out = {"config": config, "clock_ns": clock, "pairs": len(pairs), "counts": counts, "authors_count": "35 of 36 better (RTL-OPT Table 1, compile_ultra 1 ns)",
+               "authors_released_reports": {"setting": "data/sources/RTL-OPT/Results/RTL-OPT_DC: `compile` (not compile_ultra) at CLOCK_PERIOD 0.1 ns with set_max_delay from all inputs to all outputs, set_transform_for_retiming dont_retime, register merging / sequential area recovery / clock gating through hierarchy off, ungroup -all -flatten, DC T-2022.03-SP2, the authors' own Nangate45 typical.db (their released run_dc.tcl and command.log)",
+                                            "better_by_area": sum(1 for t in released if t["rel"] < -1e-9), "same": sum(1 for t in released if abs(t["rel"]) <= 1e-9), "worse": sum(1 for t in released if t["rel"] > 1e-9), "n": len(released)},
+               "rows": rows}
         dst = Path(C.ROOT) / "reports" / "data" / "phase4_rtlopt_setting.json"
         dst.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n")
         print(f"{len(pairs)} proven RTL-OPT pairs under {config}: {counts}; written {dst}")

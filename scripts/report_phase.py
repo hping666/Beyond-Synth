@@ -654,14 +654,18 @@ def phase4(cfg):
         rs = load("phase4_rtlopt_setting.json")
         if rs:
             cnt = rs["counts"]
+            ar = rs.get("authors_released_reports") or {}
             L += [f"## 4d. RTL-OPT pairs under the authors' published setting (G5 item 4 (a); config `{rs['config']}`: compile_ultra, {rs['clock_ns']} ns, no retime, no gate clock)", "",
-                  f"The {rs['pairs']} proven pairs under the authors' setting: {cnt['better']} better (the optimized version smaller than the suboptimal start), {cnt['same']} same, {cnt['worse']} worse, {cnt['missing']} not evaluated; the paper reports {rs['authors_count']} — the six pairs that are not equivalent under this project's protocol (§4a) are outside these counts. "
-                  "The same pairs at the knee period under E2 (compile_ultra) and E4 (full effort) are listed for the reconciliation: the authors' 1 ns clock is relaxed for most of these designs, so DC restructures less than at the knee.", "",
-                  "| pair | phi_main (ns) | D area at 1 ns | reference area at 1 ns | rel. area at 1 ns | verdict at 1 ns | rel. area E2 (knee) | rel. area E4 (knee) |", "|---|---|---|---|---|---|---|---|"]
+                  f"The {rs['pairs']} proven pairs under our reproduction of the authors' setting (compile_ultra at 1 ns, DesignWare, this project's SDC convention, DC W-2024.09): **{cnt['better']} better** (the optimized version smaller than the suboptimal start by area), {cnt['same']} same, {cnt['worse']} worse, {cnt['missing']} not evaluated (the mux_dead reference does not link, §4a); the paper reports {rs['authors_count']}; the six pairs that are not equivalent under this project's protocol (§4a) are outside these counts. "
+                  f"The authors' released DC reports (their setting: {ar.get('setting', '-')}) give {ar.get('better_by_area', '-')} better, {ar.get('same', '-')} same, {ar.get('worse', '-')} worse by area over the same {ar.get('n', '-')} pairs — a plain `compile` at a 0.1 ns clock keeps the RTL's structure, so the suboptimal version's redundancy survives; under compile_ultra (ours at 1 ns and at the knee period) DC removes most of it. "
+                  "Their Table 1 count for compile_ultra at 1 ns could not be reproduced with our flow; the released script covers the compile / 0.1 ns setting only, and the differences left (DC version, their set_max_delay input-to-output constraints versus this project's I/O delays, register merging and sequential area recovery switched off in their script) would need a run of their exact script to isolate.", "",
+                  "| pair | phi_main (ns) | D area at 1 ns | reference area at 1 ns | rel. area at 1 ns | verdict at 1 ns | rel. area E2 (knee) | rel. area E4 (knee) | authors' released reports: D / ref / rel. |", "|---|---|---|---|---|---|---|---|---|"]
             for r in rs["rows"]:
                 o = r.get("other_rungs") or {}
+                t = r.get("authors_released") or {}
                 f = lambda v: "-" if v is None else f"{100 * v:+.1f} %"
-                L.append(f"| {r['design_id']} | {r['phi_main_ns']:.2f} | {'-' if r['d_area'] is None else f'{r[chr(100) + chr(95) + chr(97) + chr(114) + chr(101) + chr(97)]:.1f}'} | {'-' if r['ref_area'] is None else f'{r[chr(114) + chr(101) + chr(102) + chr(95) + chr(97) + chr(114) + chr(101) + chr(97)]:.1f}'} | {f(r['rel_area'])} | {r['verdict_1ns']} | {f((o.get('E2') or {}).get('rel'))} | {f((o.get('E4') or {}).get('rel'))} |")
+                g = lambda v: "-" if v is None else f"{v:.1f}"
+                L.append(f"| {r['design_id']} | {r['phi_main_ns']:.2f} | {g(r['d_area'])} | {g(r['ref_area'])} | {f(r['rel_area'])} | {r['verdict_1ns']} | {f((o.get('E2') or {}).get('rel'))} | {f((o.get('E4') or {}).get('rel'))} | {g(t.get('d_area'))} / {g(t.get('ref_area'))} / {f(t.get('rel'))} |")
             L.append("")
         if (Path(ROOT) / "reports" / "data" / "phase4_divider_counterexamples.md").exists():
             L += ["The four RTL-OPT divider references of §4a were inspected by hand (G5 item 4 (c)): the pairs differ only on division by zero with the dividend's MSB set (non-restoring vs restoring algorithm) and agree for every non-zero divisor; "
