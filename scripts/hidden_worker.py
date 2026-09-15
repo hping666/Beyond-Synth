@@ -386,7 +386,7 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None):
             j = J.dc_job(cfg, d, config, float(clock_ns), priority)
             j["kind"] = "dc_hidden"
             files = json.loads(c["rtl_files_json"]) if c["rtl_files_json"] else [c["rtl_path"]]   # Phase 4 objects: several files, own top (PLAN 4.2)
-            j["payload"].update(rtl=files, incdirs=[], is_baseline=0, cand_id=c["cand_id"], design=design)
+            j["payload"].update(rtl=files, incdirs=[str(p) for p in K.abs_paths(d, d["incdirs"])], is_baseline=0, cand_id=c["cand_id"], design=design)   # candidates may `include D's files
             if c["top"]:
                 j["payload"]["top"] = c["top"]
             if saif:

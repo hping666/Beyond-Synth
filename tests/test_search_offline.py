@@ -328,3 +328,23 @@ def test_long_proofs_first_on_arithmetic_designs(env, monkeypatch):
     run2.step()
     prios2 = [r[0] for r in conn.execute("SELECT j.priority FROM candidates c JOIN jobs j ON j.job_id=c.eq_job_id WHERE c.run_id=?", (run2.run_id,))]
     assert prios2 and all(p == run2.priority for p in prios2)                         # not an arithmetic design: no boost
+
+
+def test_fitness_job_carries_the_design_include_directories(env, monkeypatch):
+    """2026-09-14: the fitness job of a candidate lists the design's include directories (cktevo candidates `include D's files)."""
+    cfg, conn, q, tmp_path = env
+    from src.designs import catalog as K
+    from src.search.driver import SearchRun
+    d = K.load_design(tmp_path / "designs" / "rtllm" / "d" / "design.json") if (tmp_path / "designs" / "rtllm" / "d" / "design.json").exists() else None
+    assert d is not None
+    d["incdirs"] = ["rtl"]
+    K.write_design(d)
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=5, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    run.step()
+    cands = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? AND eq_job_id IS NOT NULL", (run.run_id,))]
+    for cid in cands:
+        finish_eq(conn, cfg, tmp_path, cid)
+    run.process_verdicts()
+    for cid in cands:
+        p = json.loads(conn.execute("SELECT j.payload_json FROM candidates c JOIN jobs j ON j.job_id=c.e4_job_id WHERE c.cand_id=?", (cid,)).fetchone()[0])
+        assert p["incdirs"] == [str(tmp_path / "designs" / "rtllm" / "d" / "rtl")]

@@ -50,7 +50,7 @@ def visible_jobs(cfg, conn, configs, priority):
             if conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["cand_id"], config, phi)).fetchone():
                 continue
             j = J.dc_job(cfg, d, config, phi, priority)
-            j["payload"].update(rtl=[c["rtl_path"]], incdirs=[], is_baseline=0, cand_id=c["cand_id"])
+            j["payload"].update(rtl=[c["rtl_path"]], incdirs=[str(p) for p in K.abs_paths(d, d["incdirs"])], is_baseline=0, cand_id=c["cand_id"])
             if c["saif"]:
                 j["payload"].update(saif=c["saif"], saif_instance="bs_lockstep/u_c")
             j["cand_id"] = c["cand_id"]

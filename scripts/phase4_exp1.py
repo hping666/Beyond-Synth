@@ -327,7 +327,7 @@ def ladder_jobs(cfg, conn, configs, priority):
             j = J.dc_job(cfg, d, config, phi, priority)
             if cfg["configs"][config].get("tool") == "yosys_opensta":
                 j["kind"] = "yosys"
-            j["payload"].update(rtl=files, incdirs=[], is_baseline=0, cand_id=c["cand_id"])
+            j["payload"].update(rtl=files, incdirs=[str(p) for p in K.abs_paths(d, d["incdirs"])], is_baseline=0, cand_id=c["cand_id"])   # candidates may `include D's files
             if c["top"]:
                 j["payload"]["top"] = c["top"]
             if saif and j["kind"] == "dc":
@@ -532,6 +532,8 @@ def cmd_hygiene(cfg, conn):
         elif c["verdict"] == "falsified":
             kind = "SEQ falsified" + (" (counterexample saved)" if rec.get("counterexample_path") else "")
             cause = "genuine functional difference (bounded proof found a counterexample)" + (f"; registers without reset D {noreset_d} / object {noreset_c}: the all-zero start state is part of the protocol" if (noreset_c or noreset_d) else "")
+        elif c["verdict"] == "inconclusive":
+            kind, cause = "SEQ inconclusive (class cap reached)", "undecided: the lock-step simulation passed and the bounded proof reached its cap; not proven, so not counted, reported apart (no-discard policy, C2.5)"
         else:
             kind, cause = c["verdict"], "-"
         rows.append({"cand_id": c["cand_id"], "design_id": c["design_id"], "role": role, "verdict": c["verdict"], "kind": kind, "first_mismatch_cycle": first,
@@ -580,9 +582,61 @@ def cmd_topup(cfg, conn, do_submit):
     return 0
 
 
+
+# ----------------------------------------------------------------------------- recovery of failed fitness evaluations (2026-09-14: include directories)
+def cmd_refit(cfg, conn, do_submit, do_apply):
+    """B0 candidates whose fitness evaluation failed for a tool reason (the include directories of the design were not
+    passed to the candidate's Yosys job, 2026-09-14): --submit re-submits the Y job with the design's include directories
+    (the failed job id is kept in the note); --apply applies the driver's scalar verdict once the evaluation exists,
+    through the run's own driver (label improved / no_gain, archive flags, state file)."""
+    import json
+    from src.jobqueue.core import Queue
+    from src.search.driver import SearchRun
+    cat = {d["design_id"]: d for d in K.load_all()}
+    rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, c.e4_job_id, c.note FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                                          "WHERE r.exp='phase4' AND r.arm='B0' AND c.label IS NULL AND c.note LIKE '%evaluation failed%' AND c.verdict IN ('proven','proven_sim_only') ORDER BY c.run_id, c.cand_id")]
+    print(f"{len(rows)} proven B0 candidates with a failed fitness evaluation")
+    q = Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={}) if do_submit else None
+    n_sub = n_app = 0
+    by_run = {}
+    for c in rows:
+        d = cat[c["design_id"]]
+        phi = float(conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()[0])
+        fit_cfg = (cfg["search"]["arms"].get("B0") or {}).get("fitness", "Y")
+        have = conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["cand_id"], fit_cfg, phi)).fetchone()
+        js = conn.execute("SELECT state FROM jobs WHERE job_id=?", (c["e4_job_id"],)).fetchone() if c["e4_job_id"] else None
+        if have is None and do_submit and (js is None or js[0] in ("failed", "done")):
+            j = J.dc_job(cfg, d, fit_cfg, phi, int(cfg["search"].get("job_priority", 4)))
+            if cfg["configs"][fit_cfg].get("tool") == "yosys_opensta":
+                j["kind"] = "yosys"
+            j["payload"].update(rtl=[c["rtl_path"]], incdirs=[str(p) for p in K.abs_paths(d, d["incdirs"])], is_baseline=0, cand_id=c["cand_id"])
+            jid = q.submit(j["kind"], j["payload"], design_id=c["design_id"], cand_id=c["cand_id"], config=fit_cfg, priority=j["priority"], timeout_sec=j["timeout_sec"])
+            conn.execute("UPDATE candidates SET e4_job_id=?, note=COALESCE(note,'') || ? WHERE cand_id=?", (jid, f" [refit {jid} replaces {c['e4_job_id']}]", c["cand_id"]))
+            conn.commit()
+            n_sub += 1
+        elif have is not None and do_apply:
+            by_run.setdefault(c["run_id"], []).append(c["cand_id"])
+    for run_id, cids in by_run.items():
+        run = SearchRun.resume(cfg, conn, run_id)
+        for cid in cids:
+            row = run.fit_row(cid)
+            entry = run.state["cands"].get(cid)
+            if row is None or entry is None:
+                continue
+            entry.pop("e4_failed", None)
+            run.scalar_verdict(cid, entry, row)
+            conn.execute("UPDATE candidates SET note=COALESCE(note,'') || ' [refit applied]' WHERE cand_id=?", (cid,))
+            n_app += 1
+        run.save_state()
+        conn.commit()
+    print(f"re-submitted {n_sub}, applied {n_app}; still pending: {len(rows) - n_app}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup"])
+    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup", "refit"])
+    ap.add_argument("--apply", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--name", default=None)
     ap.add_argument("--hidden", action="store_true")
@@ -617,6 +671,8 @@ def main(argv=None):
         return cmd_hygiene(cfg, conn)
     if a.what == "topup":
         return cmd_topup(cfg, conn, a.submit)
+    if a.what == "refit":
+        return cmd_refit(cfg, conn, a.submit, a.apply)
     if a.what == "smoke":
         designs = a.design or cfg["exp1"]["designs"][:1]
         create_runs(cfg, conn, designs, "smoke", a.K or 1, a.N or 2, a.seed or 1, a.submit, note="exp1 B0 smoke")

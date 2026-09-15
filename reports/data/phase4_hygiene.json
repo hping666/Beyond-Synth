@@ -1,15 +1,16 @@
 {
- "generated_at": "2026-09-14T18:07:35",
- "n": 18,
+ "generated_at": "2026-09-14T21:23:03",
+ "n": 25,
  "by_role": {
-  "RTL-OPT reference": 5,
-  "RTLRewriter LLM sample": 7,
-  "RTLRewriter reference": 6
+  "RTL-OPT reference": 6,
+  "RTLRewriter LLM sample": 8,
+  "RTLRewriter reference": 11
  },
  "by_verdict": {
-  "falsified": 1,
-  "rejected": 7,
-  "sim_fail": 10
+  "falsified": 2,
+  "inconclusive": 3,
+  "rejected": 9,
+  "sim_fail": 11
  },
  "rows": [
   {
@@ -30,6 +31,23 @@
    "probable_cause": "genuine functional difference (combinational pair, no state)",
    "class_rule": "b",
    "record": "/home/hping/Beyond-Synth/results/raw/rtlopt_divider_16bit/EQ/e554620fe483e5c3"
+  },
+  {
+   "cand_id": "c8d54dce1342cd1",
+   "design_id": "rtlopt_divider_32bit",
+   "role": "RTL-OPT reference",
+   "verdict": "falsified",
+   "kind": "SEQ falsified (counterexample saved)",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (bounded proof found a counterexample)",
+   "class_rule": "b",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlopt_divider_32bit/EQ/50005d10c3152fa6"
   },
   {
    "cand_id": "cda5de4f8d462e8",
@@ -145,6 +163,57 @@
    "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__commutativity_subexpression/EQ/09e508b91458decb"
   },
   {
+   "cand_id": "c77c3c06c5547a3",
+   "design_id": "rtlrewriter_basic__distributed_ram",
+   "role": "RTLRewriter reference",
+   "verdict": "inconclusive",
+   "kind": "SEQ inconclusive (class cap reached)",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": false,
+   "registers_without_reset": {
+    "d": 1,
+    "object": 1
+   },
+   "probable_cause": "undecided: the lock-step simulation passed and the bounded proof reached its cap; not proven, so not counted, reported apart (no-discard policy, C2.5)",
+   "class_rule": "b",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__distributed_ram/EQ/db0b3efeb01146ac"
+  },
+  {
+   "cand_id": "cb592a51e0013af",
+   "design_id": "rtlrewriter_basic__if_prority",
+   "role": "RTLRewriter reference",
+   "verdict": "rejected",
+   "kind": "V1 elaboration failure",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtlrewriter/basic_",
+   "class_rule": null,
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__if_prority/EQ/222f15d219f43181"
+  },
+  {
+   "cand_id": "c880a0ad586dc00",
+   "design_id": "rtlrewriter_basic__multi_constant_multiplication",
+   "role": "RTLRewriter reference",
+   "verdict": "inconclusive",
+   "kind": "SEQ inconclusive (class cap reached)",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "undecided: the lock-step simulation passed and the bounded proof reached its cap; not proven, so not counted, reported apart (no-discard policy, C2.5)",
+   "class_rule": "d",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication/EQ/5f5dca14b0bbdfa6"
+  },
+  {
    "cand_id": "c00fb9357d927e5",
    "design_id": "rtlrewriter_basic__multi_constant_multiplication2",
    "role": "RTLRewriter LLM sample",
@@ -164,6 +233,23 @@
    "probable_cause": "genuine functional difference (combinational pair, no state)",
    "class_rule": "d",
    "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication2/EQ/327fc18598c7b216"
+  },
+  {
+   "cand_id": "c29fdd1d6eb31b3",
+   "design_id": "rtlrewriter_basic__multi_constant_multiplication2",
+   "role": "RTLRewriter reference",
+   "verdict": "inconclusive",
+   "kind": "SEQ inconclusive (class cap reached)",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "undecided: the lock-step simulation passed and the bounded proof reached its cap; not proven, so not counted, reported apart (no-discard policy, C2.5)",
+   "class_rule": "d",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication2/EQ/7e76ca5b163592dc"
   },
   {
    "cand_id": "c861381285076f5",
@@ -274,6 +360,25 @@
    "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/acc929587283121c"
   },
   {
+   "cand_id": "cc510822c4df71b",
+   "design_id": "rtlrewriter_long_cpu__PC",
+   "role": "RTLRewriter reference",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 0 (PC_o)",
+   "first_mismatch_cycle": 0,
+   "mismatching_signals": [
+    "PC_o"
+   ],
+   "clockless": false,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (mismatch after the start-up cycles)",
+   "class_rule": "c1",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__PC/EQ/a532e0c7d7ff48bc"
+  },
+  {
    "cand_id": "c67a13d44d09a5d",
    "design_id": "rtlrewriter_long_huffman__HuffmanDecoder",
    "role": "RTLRewriter reference",
@@ -289,6 +394,23 @@
    "probable_cause": "port mismatch: Error-[IPC-E] Illegal port connection",
    "class_rule": "a",
    "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_huffman__HuffmanDecoder/EQ/1f3c6638b4cac768"
+  },
+  {
+   "cand_id": "c78ed0bc9e6699b",
+   "design_id": "rtlrewriter_mux__mux_type1",
+   "role": "RTLRewriter LLM sample",
+   "verdict": "rejected",
+   "kind": "V1 elaboration failure",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: ERROR: Module `mux_tree' not found!",
+   "class_rule": null,
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_mux__mux_type1/EQ/f05de548d6e131d3"
   },
   {
    "cand_id": "c9db26e0caec2fe",

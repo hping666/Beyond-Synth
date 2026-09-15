@@ -357,7 +357,7 @@ class SearchRun:
         if self.cfg["configs"][self.fit_cfg].get("tool") == "yosys_opensta":
             j["kind"] = "yosys"
         saif = rec.get("saif_c")
-        j["payload"].update(rtl=[c["path"]], incdirs=[], is_baseline=0, cand_id=cid)
+        j["payload"].update(rtl=[c["path"]], incdirs=[str(p) for p in K.abs_paths(self.design, self.design["incdirs"])], is_baseline=0, cand_id=cid)   # candidates `include D's files (cktevo spi, 2026-09-14)
         if saif and Path(saif).exists() and j["kind"] == "dc":
             j["payload"].update(saif=saif, saif_instance="bs_lockstep/u_c")
         jid = self._q().submit(j["kind"], j["payload"], design_id=self.row["design_id"], cand_id=cid, config=self.fit_cfg, priority=self.priority, timeout_sec=j["timeout_sec"])

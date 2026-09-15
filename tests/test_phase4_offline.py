@@ -62,3 +62,30 @@ def test_baseline_configs_and_ladder_jobs(tmp_path):
         assert [j["config"] for j in X.ladder_jobs(cfg, conn, ["E1", "E4", "Y"], 1)] == ["E1", "Y"]   # missing records only
     finally:
         monkey.undo()
+
+
+def test_ladder_jobs_carry_the_design_include_directories(tmp_path):
+    """2026-09-14: candidates of designs with `include files (cktevo) failed every evaluation because the jobs carried no
+    include directories; the ladder payload must list the design's incdirs (absolute)."""
+    cfg = C.load()
+    conn = db.connect(path=str(tmp_path / "r.sqlite"))
+    from src.designs import catalog as K
+    import pytest
+    ddir = tmp_path / "designs" / "cktevo" / "inc"
+    (ddir / "rtl").mkdir(parents=True)
+    (ddir / "rtl" / "inc.v").write_text('`include "defs.v"\nmodule inc(input clk, input a, output reg y); always @(posedge clk) y <= a ^ `K; endmodule\n')
+    (ddir / "rtl" / "defs.v").write_text("`define K 1'b1\n")
+    d = {"design_id": "cktevo_inc", "suite": "cktevo", "name": "inc", "top": "inc", "files": ["rtl/inc.v"], "clk_ports": ["clk"], "rst_port": None, "rst_sense": None, "sverilog": False,
+         "incdirs": ["rtl"], "tb": None, "reference": None, "source": {"url": "u", "commit": "c", "license": "l", "paths": []},
+         "sha256": {"rtl/inc.v": K.sha256_of(ddir / "rtl" / "inc.v")}, "loc": 2, "tags": ["cktevo"], "notes": [], "_dir": str(ddir)}
+    monkey = pytest.MonkeyPatch()
+    monkey.setattr(K, "DESIGNS_DIR", tmp_path / "designs")
+    try:
+        K.write_design(d)
+        conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES ('cktevo_inc','cktevo','inc','x',2,1,'held',1.0,'t','g','c')")
+        db.insert(conn, "runs", {"run_id": "rb0", "exp": "phase4", "arm": "B0", "design_id": "cktevo_inc", "seed": 1, "status": "done", "started_at": "t"})
+        db.insert(conn, "candidates", {"cand_id": "k1", "run_id": "rb0", "design_id": "cktevo_inc", "gen": 1, "arm": "B0", "rtl_path": str(tmp_path / "k1.v"), "label": "improved", "verdict": "proven"})
+        jobs = X.ladder_jobs(cfg, conn, ["E1"], 1)
+        assert jobs and jobs[0]["payload"]["incdirs"] == [str(ddir / "rtl")]
+    finally:
+        monkey.undo()
