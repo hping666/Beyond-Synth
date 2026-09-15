@@ -588,6 +588,23 @@ def phase4(cfg):
                 L.append(f"| {r['design_id']} | {r['role']} | {r['kind']} | {'-' if r['first_mismatch_cycle'] is None else r['first_mismatch_cycle']}{(' (' + sig + ')') if sig else ''} | "
                          f"{r['registers_without_reset']['d']} / {r['registers_without_reset']['object']} | {r['probable_cause']} |")
             L.append("")
+            ef = hy.get("eval_failed_objects") or {}
+            if ef.get("n"):
+                L += [f"**Objects whose synthesis evaluation failed**: {ef['n']} proven objects are rejected by the synthesizer under some configuration although VCS / VC Formal accepted them "
+                      "(a fault of the object's RTL, recorded as `evaluation failed` under rule 8 and never repaired by the operator). They stay in the object counts and are absent from the map cells of the configurations concerned.", "",
+                      "| design | role | objects | configurations | category |", "|---|---|---|---|---|"]
+                groups = {}
+                for r in ef["rows"]:
+                    g = groups.setdefault((r["design_id"], r["role"], r["category"]), {"n": 0, "configs": set()})
+                    g["n"] += 1
+                    g["configs"] |= set(r["configs"])
+                for (d, role, cat), g in sorted(groups.items()):
+                    L.append(f"| {d} | {role} | {g['n']} | {', '.join(sorted(g['configs']))} | {cat} |")
+                L.append("")
+            ff = hy.get("fitness_failed_candidates") or {}
+            if ff.get("n"):
+                L += [f"B0 candidates whose Yosys fitness evaluation failed (no verdict, never objects): {ff['n']}, " + "; ".join(f"{k}: {v}" for k, v in sorted(ff["by_category"].items()))
+                      + " (by design: " + ", ".join(f"{k} {v}" for k, v in sorted(ff["by_design"].items())) + ").", ""]
         L += ["## 4. Literature settings re-evaluated (PLAN 4.7)", "",
               "| suite | pairs | proven | " + " | ".join(f"{cfg_} better / retained (evaluated)" for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4")) + " |", "|---|---|---|" + "---|" * 6]
         for suite, e in sorted(data["literature"].items()):

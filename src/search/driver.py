@@ -54,7 +54,7 @@ class SearchRun:
         self.design = next(d for d in K.load_all() if d["design_id"] == self.row["design_id"])
         drow = conn.execute("SELECT * FROM designs WHERE design_id=?", (self.row["design_id"],)).fetchone()
         self.phi = float(drow["phi_main_ns_nangate45"])
-        self.dir = Path(C.ROOT) / "results" / "candidates" / run_id
+        self.dir = Path(C.results_dir(cfg)) / "candidates" / run_id   # follows project.results_dir (tests run isolated; 2026-09-15)
         self.dir.mkdir(parents=True, exist_ok=True)
         self.state_path = self.dir / "state.json"
         self.queue = queue
@@ -238,7 +238,7 @@ class SearchRun:
             answers.sort(key=lambda a: 0 if a[1] in first else 1)
         for i, cls, rtl, note, r, meta in answers:
             cid = CA.cand_id_of(rtl, self.run_id)   # per-run id; the unsalted content hash is stored alongside (DECISIONS 2026-09-14)
-            _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, cand_id=cid)
+            _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, root=self.dir.parent, cand_id=cid)
             issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i))
         st["gen"] = gen
         st["issued_at"] = self.clock()

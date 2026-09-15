@@ -123,3 +123,32 @@ def test_finalize_vcd_compresses_kept_and_drops_falsified(tmp_path):
             assert rec["vcd_deleted"] is False and rec["vcd_compressed"] is True and rec["vcd_path"].endswith(".vcd.gz") and Path(rec["vcd_path"]).exists() and not vcd.exists()
         else:
             assert rec["vcd_deleted"] is True and rec["vcd_path"] is None and not vcd.exists()
+
+
+def test_retain_vcd_early_return_rules(tmp_path):
+    """A record that ends at V2 (sim_fail) keeps its VCD gzip-compressed, a falsified one loses it, an error record keeps it
+    untouched, and the compression switch turns the compression off (both directions; defect of 2026-09-15)."""
+    from src.equiv import saif as ES
+    cfg = copy.deepcopy(CFG)
+    cfg["retention"].update(vcd_keep_verdicts=["sim_fail"], vcd_compress_kept=True)
+
+    def rec_with_vcd(name, verdict):
+        job = tmp_path / name
+        job.mkdir()
+        vcd = job / "sim.vcd"
+        vcd.write_bytes(b"$enddefinitions $end\n" * 300)
+        return job, vcd, {"verdict": verdict, "vcd_path": str(vcd)}
+    job, vcd, rec = rec_with_vcd("sim_fail", "sim_fail")
+    ES.retain_vcd(job, rec, cfg)
+    assert rec["vcd_compressed"] is True and rec["vcd_deleted"] is False and rec["vcd_path"].endswith(".vcd.gz") and Path(rec["vcd_path"]).exists() and not vcd.exists()
+    job, vcd, rec = rec_with_vcd("falsified", "falsified")
+    ES.retain_vcd(job, rec, cfg)
+    assert rec["vcd_deleted"] is True and rec["vcd_path"] is None and not vcd.exists()
+    job, vcd, rec = rec_with_vcd("error", "error")
+    ES.retain_vcd(job, rec, cfg)
+    assert vcd.exists() and "vcd_compressed" not in rec and "vcd_deleted" not in rec
+    cfg["retention"]["vcd_compress_kept"] = False
+    job, vcd, rec = rec_with_vcd("sim_fail_off", "sim_fail")
+    ES.retain_vcd(job, rec, cfg)
+    assert vcd.exists() and rec["vcd_path"] == str(vcd) and "vcd_compressed" not in rec
+    assert ES.retain_vcd(job, {"verdict": "sim_fail", "vcd_path": None}, cfg) == {"verdict": "sim_fail", "vcd_path": None}   # no VCD: nothing to do

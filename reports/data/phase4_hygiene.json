@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-14T21:23:03",
+ "generated_at": "2026-09-15T05:58:27",
  "n": 25,
  "by_role": {
   "RTL-OPT reference": 6,
@@ -465,5 +465,586 @@
    "class_rule": "a",
    "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_mux__mux_type5/EQ/2e844b7002e42664"
   }
- ]
+ ],
+ "eval_failed_objects": {
+  "n": 31,
+  "by_category": {
+   "DC link: port width mismatch (LINK-3)": 2,
+   "DC syntax error (VER-294)": 25,
+   "DC: blocking and nonblocking assignments to one variable (VER-134)": 1,
+   "DC: net defined twice (VER-262)": 1,
+   "DC: net driven by more than one source (ELAB-366)": 1,
+   "Yosys: behavioural construct left in the netlist (no library cell for it)": 1
+  },
+  "by_design": {
+   "cktevo_ethmac__eth_txethmac": 2,
+   "cktevo_mem_ctrl__mc_obct_top": 1,
+   "cktevo_spi__spi": 1,
+   "cktevo_vga_enh__vga_wb_master": 1,
+   "drrtl_i2c": 24,
+   "rtlopt_mux_dead": 1,
+   "rtlrewriter_mux__mux_type2": 1
+  },
+  "rows": [
+   {
+    "cand_id": "c704f41e8aed038",
+    "design_id": "rtlopt_mux_dead",
+    "role": "RTL-OPT reference",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC link: port width mismatch (LINK-3)",
+    "failed_status": [
+     "link_failed"
+    ],
+    "error": "Error: Width mismatch on port 'sum_result' of reference to 'adder' in 'mux_dead_ref'. (LINK-3)"
+   },
+   {
+    "cand_id": "c6727c1be09869f",
+    "design_id": "rtlrewriter_mux__mux_type2",
+    "role": "RTLRewriter reference",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC link: port width mismatch (LINK-3)",
+    "failed_status": [
+     "link_failed"
+    ],
+    "error": "Error: Width mismatch on port 'in' of reference to 'simple_cal' in 'mux_tree'. (LINK-3)"
+   },
+   {
+    "cand_id": "c0079e645b9564e",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/fe67c690b9cecad5-r2/inputs/rtl/c0079e645b9564e.v:28: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c1802c5623a68fb",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/f83fc618ff476135-r2/inputs/rtl/c1802c5623a68fb.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c2231cc7a76463d",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/d22ca29ac69c43cb-r2/inputs/rtl/c2231cc7a76463d.v:27: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c226c142de5a822",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/f7f91803a154150e-r2/inputs/rtl/c226c142de5a822.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c28375fc9bbe778",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/8c8a26bfb5bf056d-r2/inputs/rtl/c28375fc9bbe778.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c377b25ffd8980c",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/a8fc40375db8d2c7-r2/inputs/rtl/c377b25ffd8980c.v:28: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c440f6c72ec70d9",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/2ea0671727f13610-r2/inputs/rtl/c440f6c72ec70d9.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c49791a6665afaf",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/8fc03a48208ac18c-r2/inputs/rtl/c49791a6665afaf.v:30: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c4d4d1f5956ae1f",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/11d07dd45f0b5fa1-r2/inputs/rtl/c4d4d1f5956ae1f.v:26: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c526423172d7ffe",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/f6a2b0c63f423963-r2/inputs/rtl/c526423172d7ffe.v:26: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c5f4acd6b7528ac",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/6f22c6d2de488757-r2/inputs/rtl/c5f4acd6b7528ac.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c63656e191f240a",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/77299b203359c011-r2/inputs/rtl/c63656e191f240a.v:27: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c8d03e55b41f4e1",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/a47a2b77cf95eeb5-r4/inputs/rtl/c8d03e55b41f4e1.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c923139c5d4dd15",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/6c38332d8a5dd01d-r4/inputs/rtl/c923139c5d4dd15.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c97cfeb4f6083b5",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/9405733c7dd03031-r4/inputs/rtl/c97cfeb4f6083b5.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "c9d639b11f92867",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/f04891c0b603a979-r4/inputs/rtl/c9d639b11f92867.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "ca15e0485b9a9a5",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/73fd7df2a5825ce5-r4/inputs/rtl/ca15e0485b9a9a5.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "caa34ddd4e0a994",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/d7ae5add18fadf77-r4/inputs/rtl/caa34ddd4e0a994.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "cae3c498ff881e1",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/4945581f2df0202b-r4/inputs/rtl/cae3c498ff881e1.v:27: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "cbeb364e30d17c1",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/5d77bf270b51a0ec-r4/inputs/rtl/cbeb364e30d17c1.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "cc409ed47f3cd4b",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/4b9ad96be4223d2e-r4/inputs/rtl/cc409ed47f3cd4b.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "cc86c5ba3ac81e2",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/c2258ed9e0f75578-r4/inputs/rtl/cc86c5ba3ac81e2.v:26: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "cd4b5d18d10f613",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/bfca41fe790594ea-r4/inputs/rtl/cd4b5d18d10f613.v:29: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "ce019ce969cdcd5",
+    "design_id": "drrtl_i2c",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/drrtl_i2c/E1/61ddb824ac465a4d-r4/inputs/rtl/ce019ce969cdcd5.v:25: Syntax error at or near token '|'. (VER-294)"
+   },
+   {
+    "cand_id": "cc90226dd6b4e29",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC: blocking and nonblocking assignments to one variable (VER-134)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E1/e42cc3f4174894f7-r2/inputs/rtl/cc90226dd6b4e29.v:31: Variable 'MTxEn' is the target "
+   },
+   {
+    "cand_id": "c1dbd0f99e92116",
+    "design_id": "cktevo_spi__spi",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC syntax error (VER-294)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/cktevo_spi__spi/E1/a6932f60c9faeff1-r2/inputs/rtl/c1dbd0f99e92116.v:221: Syntax error at or near token '|'. (VER-29"
+   },
+   {
+    "cand_id": "c5f8d6a602c30ab",
+    "design_id": "cktevo_vga_enh__vga_wb_master",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC: net driven by more than one source (ELAB-366)",
+    "failed_status": [
+     "elaborate_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E1/d7a5c6ecf2dc74a6-r2/inputs/rtl/c5f8d6a602c30ab.v:113: Net 'burst_done' or a direct"
+   },
+   {
+    "cand_id": "c5d7d134ba6617d",
+    "design_id": "cktevo_mem_ctrl__mc_obct_top",
+    "role": "B0 candidate",
+    "configs": [
+     "Y"
+    ],
+    "category": "Yosys: behavioural construct left in the netlist (no library cell for it)",
+    "failed_status": [
+     "netlist_not_structural"
+    ],
+    "error": "behavioural constructs in the Yosys netlist (OpenSTA cannot read them): line 799: always @(posedge clk, posedge rst); line 804: always @(posedge clk, posedge rs"
+   },
+   {
+    "cand_id": "cbbd7b16524c074",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "role": "B0 candidate",
+    "configs": [
+     "E1",
+     "E1d",
+     "E2",
+     "E2g",
+     "E3",
+     "E4"
+    ],
+    "category": "DC: net defined twice (VER-262)",
+    "failed_status": [
+     "analyze_failed"
+    ],
+    "error": "Error:  /home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E1/b7dd50a49f3ba82c-r2/inputs/rtl/cbbd7b16524c074.v:70: net symbol inb has already been"
+   }
+  ]
+ },
+ "fitness_failed_candidates": {
+  "n": 0,
+  "by_category": {},
+  "by_design": {},
+  "rows": []
+ }
 }

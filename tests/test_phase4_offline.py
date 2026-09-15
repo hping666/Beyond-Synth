@@ -89,3 +89,42 @@ def test_ladder_jobs_carry_the_design_include_directories(tmp_path):
         assert jobs and jobs[0]["payload"]["incdirs"] == [str(ddir / "rtl")]
     finally:
         monkey.undo()
+
+
+def test_eval_failed_objects_and_categories(tmp_path):
+    """Hygiene of the synthesis evaluations (2026-09-15): an object whose only record under a configuration failed is listed
+    with the category of the tool error; a failed record followed by an ok one (a recovered evaluation) is not; an unknown
+    error is `other (<status>)`; a candidate without a verdict whose fitness evaluation failed is listed too (the hygiene
+    command files it under the fitness failures, not the objects)."""
+    conn = db.connect(path=str(tmp_path / "r.sqlite"))
+    db.insert(conn, "runs", {"run_id": "b0r", "exp": "phase4", "arm": "B0", "design_id": "drrtl_i2c", "seed": 1, "status": "done", "started_at": "t"})
+
+    def cand(cid, verdict):
+        db.insert(conn, "candidates", {"cand_id": cid, "run_id": "b0r", "design_id": "drrtl_i2c", "gen": 1, "arm": "B0", "rtl_path": "x.v", "label": "improved", "verdict": verdict})
+
+    def ev(cid, config, status, error=None, failed_status="analyze_failed"):
+        raw = tmp_path / cid / f"{config}_{status}"
+        raw.mkdir(parents=True)
+        if status != "ok":
+            (raw / "meta.json").write_text(json.dumps({"status": "eval_failed", "failed_status": failed_status, "error": error}))
+        db.insert(conn, "evaluations", {"design_id": "drrtl_i2c", "cand_id": cid, "config": config, "lib": "nangate45", "clock_ns": 1.0, "status": status, "raw_dir": str(raw), "created_at": "t"})
+    cand("rej", "proven")
+    ev("rej", "E1", "eval_failed", "Error: x.v:29: Syntax error at or near token '|'. (VER-294)")
+    ev("rej", "E4", "eval_failed", "Error: x.v:29: Syntax error at or near token '|'. (VER-294)")
+    cand("rec", "proven")
+    ev("rec", "E4", "eval_failed", "Error: Can't open include file")
+    ev("rec", "E4", "ok")
+    cand("unk", "proven")
+    ev("unk", "E2", "eval_failed", "something new", failed_status="timeout")
+    cand("fit", None)
+    ev("fit", "Y", "eval_failed", "behavioural constructs in the Yosys netlist (OpenSTA cannot read them): line 799", failed_status="netlist_not_structural")
+    cand("fine", "proven")
+    ev("fine", "E4", "ok")
+    rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.design_id, c.verdict, c.note, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id")]
+    got = {r["cand_id"]: r for r in X.eval_failed_objects(C.load(), conn, rows)}
+    assert set(got) == {"rej", "unk", "fit"}                                   # recovered and clean evaluations are not failures
+    assert got["rej"]["configs"] == ["E1", "E4"] and got["rej"]["category"] == "DC syntax error (VER-294)" and got["rej"]["role"] == "B0 candidate" and got["rej"]["failed_status"] == ["analyze_failed"]
+    assert got["unk"]["category"] == "other (timeout)"
+    assert got["fit"]["configs"] == ["Y"] and got["fit"]["category"].startswith("Yosys")
+    assert X.failure_category({"failed_status": "link_failed", "error": "Error: Width mismatch on port 'in' (LINK-3)"}) == ("link_failed", "DC link: port width mismatch (LINK-3)")
+    assert X.failure_category({}) == ("?", "other (?)")

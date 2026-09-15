@@ -175,7 +175,7 @@ def test_driver_generations_verdicts_credit_and_resumption(env):
     saved_state = json.loads(run.state_path.read_text())
     run.step()
     assert dict(conn.execute("SELECT * FROM diagnoses WHERE cand_id=?", (pending[1],)).fetchone())["label"] == "nonequiv"
-    assert run.state["gen"] == 2 and run.state["calls"] == 6 and (tmp_path / "cands" / run.run_id).exists()
+    assert run.state["gen"] == 2 and run.state["calls"] == 6 and run.dir.exists() and str(run.dir).startswith(str(tmp_path))   # run directory under the configured results_dir
     assert (Path(run.dir) / "unusable_g2_0.json").exists()   # the unusable answer is recorded, not repaired
     gen2 = [c for c in run.state["cands"].values() if c["gen"] == 2 and c.get("state") != "final"]
     assert len(gen2) == 2 and all(c["parent_id"] == pending[0] for c in gen2)   # the retained candidate is the parent

@@ -13,7 +13,7 @@ from pathlib import Path
 
 from src.equiv import ports as PORTS
 from src.equiv.harness import run_lockstep
-from src.equiv.saif import finalize_vcd
+from src.equiv.saif import finalize_vcd, retain_vcd
 from src.equiv.seq import run_seq
 
 MIN_STAGE_SEC = 20.0  # a stage is not started with less budget than this; the record says why
@@ -82,6 +82,7 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
         rec["v2_detail"] = v2.get("error") or json.dumps(v2.get("mismatches"), sort_keys=True)[:500]
     if rec["verdict"]:
         rec["seconds"] = round(time.time() - t0, 1)
+        retain_vcd(job_dir, rec, cfg)   # a sim_fail VCD is kept gzip-compressed (DECISIONS 2026-09-14); no SAIF for a non-equivalent candidate
         _dump(job_dir, rec)
         return rec
     # ---- V3: SEQ ----

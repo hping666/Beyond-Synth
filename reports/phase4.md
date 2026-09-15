@@ -1,6 +1,6 @@
 # Phase 4 report — Exp1: ladder and map (C1)
 
-Generated 2026-09-14 18:07 by scripts/report_phase.py (git 2ca44a890751, cfg 0a5870d5adac). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
+Generated 2026-09-15 05:58 by scripts/report_phase.py (git 275fa99e7466, cfg 0d40d129a8e7). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
 
 ## 1. Objects
 
@@ -32,28 +32,48 @@ Non-monotone objects (inside the band at a lower rung, above it at a higher one)
 
 ## 4a. Benchmark hygiene: literature objects that are not equivalent to their original under the protocol (DECISIONS 2026-09-14 item 3)
 
-18 objects ({'RTL-OPT reference': 5, 'RTLRewriter LLM sample': 7, 'RTLRewriter reference': 6}; by verdict {'falsified': 1, 'rejected': 7, 'sim_fail': 10}) are excluded from the re-evaluation counts and reported here with the probable cause. Protocol: V1 ports -> V2 lock-step simulation from the all-zero initial state (`+vcs+initreg+0`, G2.2) -> VC Formal SEQ with the same start state; the RTL-OPT authors verified their pairs with combinational equivalence, which ignores the start state and the cycle-level timing.
+25 objects ({'RTL-OPT reference': 6, 'RTLRewriter LLM sample': 8, 'RTLRewriter reference': 11}; by verdict {'falsified': 2, 'inconclusive': 3, 'rejected': 9, 'sim_fail': 11}) are excluded from the re-evaluation counts and reported here with the probable cause. Protocol: V1 ports -> V2 lock-step simulation from the all-zero initial state (`+vcs+initreg+0`, G2.2) -> VC Formal SEQ with the same start state; the RTL-OPT authors verified their pairs with combinational equivalence, which ignores the start state and the cycle-level timing.
 
 | object | role | verdict | first mismatch (cycle, signals) | registers without reset (D / object) | probable cause |
 |---|---|---|---|---|---|
 | rtlopt_divider_16bit | RTL-OPT reference | V2 mismatch at cycle 260 (result) | 260 (result) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlopt_divider_32bit | RTL-OPT reference | SEQ falsified (counterexample saved) | - | 0 / 0 | genuine functional difference (bounded proof found a counterexample) |
 | rtlopt_divider_4bit | RTL-OPT reference | V2 mismatch at cycle 24 (result) | 24 (result) | 0 / 0 | genuine functional difference (combinational pair, no state) |
 | rtlopt_divider_8bit | RTL-OPT reference | V2 mismatch at cycle 32 (result) | 32 (result) | 0 / 0 | genuine functional difference (combinational pair, no state) |
 | rtlopt_mac | RTL-OPT reference | V2 mismatch at cycle 3 (z) | 3 (z) | 4 / 1 | all-zero initial-state assumption likely (mismatch in the first cycles; registers without reset: D 4, object 1) |
 | rtlopt_mux_encode | RTL-OPT reference | V1 elaboration failure | - | 0 / 0 | the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtlopt/mux_encode/ |
 | rtlrewriter_basic__communtativity_subpexpression2 | RTLRewriter LLM sample | V2 mismatch at cycle 0 (output2) | 0 (output2) | 0 / 0 | genuine functional difference (combinational pair, no state) |
 | rtlrewriter_basic__commutativity_subexpression | RTLRewriter LLM sample | V2 mismatch at cycle 0 (result1, result5) | 0 (result1, result5) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlrewriter_basic__distributed_ram | RTLRewriter reference | SEQ inconclusive (class cap reached) | - | 1 / 1 | undecided: the lock-step simulation passed and the bounded proof reached its cap; not proven, so not counted, reported apart (no-discard policy, C2.5) |
+| rtlrewriter_basic__if_prority | RTLRewriter reference | V1 elaboration failure | - | 0 / 0 | the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtlrewriter/basic_ |
+| rtlrewriter_basic__multi_constant_multiplication | RTLRewriter reference | SEQ inconclusive (class cap reached) | - | 0 / 0 | undecided: the lock-step simulation passed and the bounded proof reached its cap; not proven, so not counted, reported apart (no-discard policy, C2.5) |
 | rtlrewriter_basic__multi_constant_multiplication2 | RTLRewriter LLM sample | V2 mismatch at cycle 0 (w, y, z) | 0 (w, y, z) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlrewriter_basic__multi_constant_multiplication2 | RTLRewriter reference | SEQ inconclusive (class cap reached) | - | 0 / 0 | undecided: the lock-step simulation passed and the bounded proof reached its cap; not proven, so not counted, reported apart (no-discard policy, C2.5) |
 | rtlrewriter_basic__multi_constant_multiplication2 | RTLRewriter LLM sample | V2 mismatch at cycle 0 (y, z) | 0 (y, z) | 0 / 0 | genuine functional difference (combinational pair, no state) |
 | rtlrewriter_datapath__alu_subexpression | RTLRewriter LLM sample | V1 port mismatch | - | 0 / 0 | port mismatch: port opcode: width 4 -> 3 |
 | rtlrewriter_long_cnn__convLayerSingle | RTLRewriter reference | V1 elaboration failure | - | 0 / 0 | the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: signs/rtlrewriter/long_cnn__convLayerSingle/rtl/processi |
 | rtlrewriter_long_cnn__convUnit | RTLRewriter reference | V1 elaboration failure | - | 0 / 0 | the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /Beyond-Synth/data/designs/rtlrewriter/long_cnn__convUni |
 | rtlrewriter_long_cpu__DataHazard | RTLRewriter reference | V2 mismatch at cycle 185 (ForwardA, ForwardB) | 185 (ForwardA, ForwardB) | 0 / 0 | genuine functional difference (combinational pair, no state) |
 | rtlrewriter_long_cpu__DataMem | RTLRewriter reference | SEQ falsified (counterexample saved) | - | 0 / 0 | genuine functional difference (bounded proof found a counterexample) |
+| rtlrewriter_long_cpu__PC | RTLRewriter reference | V2 mismatch at cycle 0 (PC_o) | 0 (PC_o) | 0 / 0 | genuine functional difference (mismatch after the start-up cycles) |
 | rtlrewriter_long_huffman__HuffmanDecoder | RTLRewriter reference | V1 port mismatch | - | 0 / 0 | port mismatch: Error-[IPC-E] Illegal port connection |
+| rtlrewriter_mux__mux_type1 | RTLRewriter LLM sample | V1 elaboration failure | - | 0 / 0 | the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: ERROR: Module `mux_tree' not found! |
 | rtlrewriter_mux__mux_type1 | RTLRewriter LLM sample | V1 port mismatch | - | 0 / 0 | port mismatch: port sel missing in candidate; extra port s1 in candidate; extra port s2 in candidate; extra port d in candidate |
 | rtlrewriter_mux__mux_type1 | RTLRewriter reference | V1 elaboration failure | - | 0 / 0 | the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtlrewriter/mux__m |
 | rtlrewriter_mux__mux_type5 | RTLRewriter LLM sample | V2 mismatch at cycle 3 (y) | 3 (y) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+
+**Objects whose synthesis evaluation failed**: 31 proven objects are rejected by the synthesizer under some configuration although VCS / VC Formal accepted them (a fault of the object's RTL, recorded as `evaluation failed` under rule 8 and never repaired by the operator). They stay in the object counts and are absent from the map cells of the configurations concerned.
+
+| design | role | objects | configurations | category |
+|---|---|---|---|---|
+| cktevo_ethmac__eth_txethmac | B0 candidate | 1 | E1, E1d, E2, E2g, E3, E4 | DC: blocking and nonblocking assignments to one variable (VER-134) |
+| cktevo_ethmac__eth_txethmac | B0 candidate | 1 | E1, E1d, E2, E2g, E3, E4 | DC: net defined twice (VER-262) |
+| cktevo_mem_ctrl__mc_obct_top | B0 candidate | 1 | Y | Yosys: behavioural construct left in the netlist (no library cell for it) |
+| cktevo_spi__spi | B0 candidate | 1 | E1, E1d, E2, E2g, E3, E4 | DC syntax error (VER-294) |
+| cktevo_vga_enh__vga_wb_master | B0 candidate | 1 | E1, E1d, E2, E2g, E3, E4 | DC: net driven by more than one source (ELAB-366) |
+| drrtl_i2c | B0 candidate | 24 | E1, E1d, E2, E2g, E3, E4 | DC syntax error (VER-294) |
+| rtlopt_mux_dead | RTL-OPT reference | 1 | E1, E1d, E2, E2g, E3, E4 | DC link: port width mismatch (LINK-3) |
+| rtlrewriter_mux__mux_type2 | RTLRewriter reference | 1 | E1, E1d, E2, E2g, E3, E4 | DC link: port width mismatch (LINK-3) |
 
 ## 4. Literature settings re-evaluated (PLAN 4.7)
 

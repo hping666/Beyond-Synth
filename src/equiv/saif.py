@@ -77,3 +77,25 @@ def finalize_vcd(job_dir, rec, cfg, convert=vcd_to_saif):
             rec["vcd_path"] = str(compress_vcd(vcd))
             rec["vcd_compressed"] = True
     return rec
+
+
+def retain_vcd(job_dir, rec, cfg):
+    """Retention for a record that ends before the SAIF stage (a rejected / error / sim_fail verdict from V1 or V2): the
+    candidate is never power-evaluated, so no SAIF is made; the VCD of a kept verdict (`retention.vcd_keep_verdicts`,
+    sim_fail) is gzip-compressed when `retention.vcd_compress_kept`, a `falsified` VCD is deleted, every other VCD stays
+    (`retention.keep_scratch_on_failure`). Same bookkeeping keys as finalize_vcd (vcd_path, vcd_deleted, vcd_compressed).
+    Defect found 2026-09-15: sim_fail records returned before finalize_vcd and left their VCDs uncompressed (45 GB)."""
+    ret = cfg.get("retention") or {}
+    vcd = rec.get("vcd_path")
+    if not vcd or not Path(vcd).exists():
+        return rec
+    keep = set(ret.get("vcd_keep_verdicts") or [])
+    verdict = rec.get("verdict")
+    if verdict == "falsified" and verdict not in keep:
+        Path(vcd).unlink()
+        rec.update(vcd_path=None, vcd_deleted=True)
+    elif verdict in keep and ret.get("vcd_compress_kept", False):
+        rec["vcd_deleted"] = False
+        rec["vcd_path"] = str(compress_vcd(vcd))
+        rec["vcd_compressed"] = True
+    return rec

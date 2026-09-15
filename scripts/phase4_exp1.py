@@ -485,6 +485,61 @@ def cmd_snapshot(cfg, conn, name=None):
 
 
 # ----------------------------------------------------------------------------- benchmark hygiene (DECISIONS 2026-09-14 item 3)
+FAILURE_CATEGORIES = (   # substring of the tool error -> category: candidate-RTL faults the synthesizer rejects (the object stays unevaluated there, rule 8)
+    ("VER-294", "DC syntax error (VER-294)"),
+    ("VER-262", "DC: net defined twice (VER-262)"),
+    ("VER-134", "DC: blocking and nonblocking assignments to one variable (VER-134)"),
+    ("ELAB-366", "DC: net driven by more than one source (ELAB-366)"),
+    ("LINK-3", "DC link: port width mismatch (LINK-3)"),
+    ("behavioural constructs in the Yosys netlist", "Yosys: behavioural construct left in the netlist (no library cell for it)"),
+    ("Can't open include file", "missing include directory (framework defect fixed 2026-09-14)"),
+)
+
+
+def failure_category(meta):
+    """(failed_status, category) of a failed evaluation record from its meta.json (`other (<status>)` when unknown)."""
+    err = str((meta or {}).get("error") or "")
+    st = (meta or {}).get("failed_status") or (meta or {}).get("status") or "?"
+    for needle, cat in FAILURE_CATEGORIES:
+        if needle in err:
+            return st, cat
+    return st, f"other ({st})"
+
+
+def object_role(c):
+    if c.get("arm") != LIT_ARM:
+        return "B0 candidate"
+    return "RTL-OPT reference" if c["design_id"].startswith("rtlopt") else ("RTLRewriter LLM sample" if (c.get("note") or "").startswith("llm") else "RTLRewriter reference")
+
+
+def eval_failed_objects(cfg, conn, rows):
+    """Candidates (rows with cand_id, design_id, arm, note) with a failed evaluation under some configuration and no ok
+    record under it (a failed record followed by an ok one is a recovered evaluation, not a failure) -> rows with the
+    configurations concerned, the failure category (FAILURE_CATEGORIES) and the first error line."""
+    import json
+    from pathlib import Path
+    out = []
+    for c in rows:
+        fails = [dict(r) for r in conn.execute("SELECT config, raw_dir FROM evaluations WHERE cand_id=? AND status!='ok' ORDER BY config, eval_id DESC", (c["cand_id"],))]
+        if not fails:
+            continue
+        oks = {r[0] for r in conn.execute("SELECT DISTINCT config FROM evaluations WHERE cand_id=? AND status='ok'", (c["cand_id"],))}
+        by_cfg = {}
+        for f in fails:
+            if f["config"] in oks or f["config"] in by_cfg:
+                continue
+            mp = Path(f["raw_dir"] or "") / "meta.json"
+            meta = json.loads(mp.read_text()) if mp.exists() else {}
+            st, cat = failure_category(meta)
+            by_cfg[f["config"]] = (st, cat, str(meta.get("error") or "")[:160])
+        if not by_cfg:
+            continue
+        cats = sorted({v[1] for v in by_cfg.values()})
+        out.append({"cand_id": c["cand_id"], "design_id": c["design_id"], "role": object_role(c), "configs": sorted(by_cfg), "category": "; ".join(cats),
+                    "failed_status": sorted({v[0] for v in by_cfg.values()}), "error": next(iter(by_cfg.values()))[2]})
+    return out
+
+
 def cmd_hygiene(cfg, conn):
     """The literature objects that are not equivalent to their D under the protocol: suite / role, verdict (V1 port
     mismatch, V2 mismatch, SEQ falsified, tool error), the counterexample cycle and signals where available, and the
@@ -543,9 +598,25 @@ def cmd_hygiene(cfg, conn):
     for r in rows:
         by[r["role"]] = by.get(r["role"], 0) + 1
     out = {"generated_at": db.now(), "n": len(rows), "by_role": by, "by_verdict": {v: sum(1 for r in rows if r["verdict"] == v) for v in sorted({r["verdict"] for r in rows})}, "rows": rows}
+    # synthesis evaluations that failed (2026-09-15): proven objects the synthesizer rejects under some configuration, and B0
+    # candidates whose fitness evaluation failed (no verdict, never objects)
+    allrows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.verdict, c.label, c.note, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                                             "WHERE r.exp='phase4' AND r.status != 'superseded' AND c.rtl_path IS NOT NULL ORDER BY c.run_id, c.cand_id")]
+    ef = eval_failed_objects(cfg, conn, allrows)
+    proven = {r["cand_id"] for r in allrows if r.get("verdict") in ("proven", "proven_sim_only")}
+
+    def agg(rs):
+        by_cat, by_design = {}, {}
+        for r in rs:
+            by_cat[r["category"]] = by_cat.get(r["category"], 0) + 1
+            by_design[r["design_id"]] = by_design.get(r["design_id"], 0) + 1
+        return {"n": len(rs), "by_category": dict(sorted(by_cat.items())), "by_design": dict(sorted(by_design.items())), "rows": rs}
+    out["eval_failed_objects"] = agg([r for r in ef if r["cand_id"] in proven])
+    out["fitness_failed_candidates"] = agg([r for r in ef if r["cand_id"] not in proven and r["role"] == "B0 candidate" and "Y" in r["configs"]])
     p = Path(C.ROOT) / "reports" / "data" / "phase4_hygiene.json"
     p.write_text(json.dumps(out, indent=1, default=str) + "\n")
-    print(f"{len(rows)} non-equivalent literature objects ({by}; {out['by_verdict']}); wrote {p}")
+    print(f"{len(rows)} non-equivalent literature objects ({by}; {out['by_verdict']}); {out['eval_failed_objects']['n']} proven objects with a failed synthesis evaluation "
+          f"({out['eval_failed_objects']['by_category']}); {out['fitness_failed_candidates']['n']} B0 candidates with a failed fitness evaluation ({out['fitness_failed_candidates']['by_category']}); wrote {p}")
     return 0
 
 

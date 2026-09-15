@@ -214,3 +214,32 @@ def test_project_seq_script_passes_include_directories():
     assert lines[4].startswith("analyze -format verilog -vcs {+incdir+/inc/a +incdir+/inc/b} -library impl")
     assert "create_reset" not in "\n".join(lines)
     assert "-vcs" not in seq_tcl(["/d.v"], ["/c.v"], "top", "top", "clk", None, "high", "20M", 1, "verilog", True).splitlines()[3]
+
+
+def test_sim_fail_record_compresses_its_vcd(tmp_path, monkeypatch):
+    """The V2 early return applies the retention rules (defect of 2026-09-15: sim_fail records returned before the rules
+    and left their VCDs uncompressed): a sim_fail record's VCD is gzipped and the saved record says so; with the switch
+    off the VCD stays."""
+    import copy
+    import json
+    from pathlib import Path
+    from src.equiv import stack as ST
+
+    def fake_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg, **kw):
+        sim = Path(job_dir) / "v2_sim"
+        sim.mkdir(parents=True, exist_ok=True)
+        vcd = sim / "sim.vcd"
+        vcd.write_bytes(b"$enddefinitions $end\n" * 200)
+        return {"status": "mismatch", "cycles": 3, "vcd": str(vcd), "mismatches": {"q": {"cycle": 3, "d": "1", "c": "0"}}}
+
+    monkeypatch.setattr(ST, "run_lockstep", fake_lockstep)
+    cfg = copy.deepcopy(CFG)
+    cfg["retention"].update(vcd_keep_verdicts=["sim_fail"], vcd_compress_kept=True)
+    rec = ST.check_equivalence(tmp_path / "a", [ACCU], [ACCU], "verified_accu", cfg, run_v3=False, run_v4=False)
+    assert rec["verdict"] == "sim_fail" and rec["vcd_compressed"] is True and rec["vcd_path"].endswith(".vcd.gz") and Path(rec["vcd_path"]).exists()
+    assert not (tmp_path / "a" / "v2_sim" / "sim.vcd").exists()
+    saved = json.loads((tmp_path / "a" / "equiv.json").read_text())
+    assert saved["vcd_path"].endswith(".vcd.gz") and saved["vcd_compressed"] is True and saved["v2_status"] == "sim_fail"
+    cfg["retention"]["vcd_compress_kept"] = False
+    rec = ST.check_equivalence(tmp_path / "b", [ACCU], [ACCU], "verified_accu", cfg, run_v3=False, run_v4=False)
+    assert rec["verdict"] == "sim_fail" and (tmp_path / "b" / "v2_sim" / "sim.vcd").exists() and rec.get("vcd_compressed") is None
