@@ -30,6 +30,28 @@ def keep_vcd(cfg, record_dir, verdict):
     return h < frac * 10000
 
 
+def compress_vcd(path):
+    """gzip a VCD in place (lossless; `gzip -6`, Python's gzip as the fallback) -> the .gz path; the original is removed."""
+    path = Path(path)
+    gz = path.with_suffix(path.suffix + ".gz")
+    if gz.exists():
+        if path.exists():
+            path.unlink()
+        return gz
+    try:
+        p = subprocess.run(["gzip", "-6", str(path)], capture_output=True, text=True, timeout=3600)
+        if p.returncode == 0 and gz.exists():
+            return gz
+    except (OSError, subprocess.TimeoutExpired):
+        pass
+    import gzip
+    import shutil
+    with open(path, "rb") as src, gzip.open(gz, "wb", compresslevel=6) as dst:
+        shutil.copyfileobj(src, dst)
+    path.unlink()
+    return gz
+
+
 def finalize_vcd(job_dir, rec, cfg, convert=vcd_to_saif):
     """After the equivalence stack: turn the lock-step VCD into the two SAIFs of the record (saif_d.saif for D, saif_c.saif
     for the candidate) and delete the VCD unless keep_vcd says otherwise (`retention.vcd_to_scratch`). Updates rec in place:
@@ -51,4 +73,7 @@ def finalize_vcd(job_dir, rec, cfg, convert=vcd_to_saif):
         rec["vcd_deleted"] = True
     else:
         rec["vcd_deleted"] = False
+        if (cfg.get("retention") or {}).get("vcd_compress_kept", False) and Path(vcd).exists():   # 2026-09-14 (user): kept VCDs are stored gzip-compressed
+            rec["vcd_path"] = str(compress_vcd(vcd))
+            rec["vcd_compressed"] = True
     return rec

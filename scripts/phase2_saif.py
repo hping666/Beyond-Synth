@@ -11,6 +11,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path[0] = ROOT
 
 import argparse  # noqa: E402
+from pathlib import Path  # noqa: E402
 
 from src import config as C  # noqa: E402
 from src.db import core as db  # noqa: E402
@@ -49,6 +50,14 @@ def main(argv=None):
     for d in designs:
         freed += S.prune_eq_scratch(cfg, d["design_id"], conn)
     print(f"pruned {freed / 1e9:.1f} GB of equivalence scratch (VCDs with SAIF, VCS builds) for {len(designs)} designs")
+    # the non-proven rule (DECISIONS 2026-09-14, user): every design directory that holds equivalence records
+    tot = {"freed": 0, "vcd_deleted": 0, "vcd_compressed": 0, "builds": 0}
+    raw_root = Path(C.results_dir(cfg)) / "raw"
+    for dd in sorted(p for p in raw_root.iterdir() if (p / "EQ").is_dir()):
+        r = S.prune_nonproven_scratch(cfg, dd.name, log=print)
+        for k in tot:
+            tot[k] += r[k]
+    print(f"non-proven records: freed {tot['freed'] / 1e9:.1f} GB (falsified VCDs deleted {tot['vcd_deleted']}, kept VCDs compressed {tot['vcd_compressed']}, VCS builds removed {tot['builds']})")
     return 0
 
 

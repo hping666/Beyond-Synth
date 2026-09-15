@@ -290,7 +290,9 @@ retention:                   # approved by the user 2026-09-12 (DECISIONS): resu
   prune_dc_work_after_ingest: true   # remove outputs/dc_work and outputs/mw_design once meta.json is written and the ok record is ingested
   prune_eq_build_after_saif: true    # 2026-09-13 (DECISIONS): the VCS build (csrc/, simv, simv.daidir/) of an equivalence record is scratch once its SAIF exists
   prune_eq_vcd_after_saif: true      # DECISIONS 2026-09-14 (operations 1): the VCD of a record is deleted once its SAIF exists and power was ingested with status ok
-  vcd_keep_verdicts: [sim_fail, falsified]   # their VCDs are kept for diagnosis
+  vcd_keep_verdicts: [sim_fail]     # their VCDs are kept for diagnosis; falsified removed 2026-09-14 (user): the lock-step VCD of a falsified record holds no mismatch, the SEQ counterexample is the evidence
+  vcd_compress_kept: true           # 2026-09-14 (user): kept VCDs are stored gzip-compressed (.vcd.gz, lossless)
+  prune_eq_build_nonproven: true    # 2026-09-14 (user): the VCS build of a record that is not proven is scratch as well (rebuildable from the RTL)
   vcd_keep_sample_frac: 0.02        # plus a deterministic 2 % sample (by record hash)
   vcd_to_scratch: true              # future runs: vcd2saif right after the lock-step simulation, the VCD deleted unless kept by the rules above
   keep_scratch_on_failure: true      # failed / eval_failed records keep everything for diagnosis

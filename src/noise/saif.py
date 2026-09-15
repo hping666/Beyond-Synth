@@ -4,6 +4,7 @@ round-trip run, bs_lockstep/u_c for a perturbation), stored under data/perturbat
 saif.json manifest; the noise DC jobs pass them as `saif` / `saif_instance` so that power_saif_mw exists for the
 power floor. After the SAIF exists the VCD and the VCS build of that record are scratch (config
 `retention.prune_eq_scratch_after_saif`): reproducible from the recorded random seed."""
+import datetime
 import json
 import shutil
 from concurrent.futures import ThreadPoolExecutor
@@ -138,6 +139,74 @@ def prune_eq_scratch(cfg, design_id, conn=None):
                 freed += p.stat().st_size
                 p.unlink()
     return freed
+
+
+PROVEN = ("proven", "proven_sim_only")
+
+
+def prune_nonproven_scratch(cfg, design_id, log=None):
+    """Retention of 2026-09-14 (user decision, DECISIONS): for the equivalence records of one design that are NOT proven —
+    the VCD of a `falsified` record is deleted (no mismatch in it; the SEQ counterexample is the evidence), the VCD of a
+    kept verdict (`retention.vcd_keep_verdicts`, sim_fail) is gzip-compressed when `retention.vcd_compress_kept`, and the
+    VCS build (csrc/, simv, simv.daidir/) of every non-proven record is removed when `retention.prune_eq_build_nonproven`.
+    Every other file stays; equiv.json records what happened (vcd_deleted / vcd_deleted_reason / vcd_compressed / vcd_path).
+    -> {"freed": bytes, "vcd_deleted": n, "vcd_compressed": n, "builds": n}"""
+    from src.equiv.saif import compress_vcd
+    ret = cfg.get("retention") or {}
+    keep = set(ret.get("vcd_keep_verdicts") or [])
+    compress = bool(ret.get("vcd_compress_kept", False))
+    prune_build = bool(ret.get("prune_eq_build_nonproven", False))
+    out = {"freed": 0, "vcd_deleted": 0, "vcd_compressed": 0, "builds": 0}
+    raw = Path(C.results_dir(cfg)) / "raw" / design_id / "EQ"
+    if not raw.is_dir():
+        return out
+    for eq in raw.glob("*/equiv.json"):
+        try:
+            rec = json.loads(eq.read_text())
+        except json.JSONDecodeError:
+            continue
+        verdict = rec.get("verdict")
+        if verdict in PROVEN or not verdict:
+            continue   # proven records follow the SAIF-and-power rule; records without a verdict are still running
+        d = eq.parent
+        changed = False
+        vcds = [p for p in d.rglob("*.vcd") if p.is_file()]
+        if verdict not in keep and verdict == "falsified":
+            for p in vcds:
+                out["freed"] += p.stat().st_size
+                p.unlink()
+                out["vcd_deleted"] += 1
+                changed = True
+            if vcds:
+                rec.update(vcd_path=None, vcd_deleted=True, vcd_deleted_reason="falsified: the lock-step VCD holds no mismatch, the SEQ counterexample is the evidence (DECISIONS 2026-09-14)")
+        elif verdict in keep and compress:
+            for p in vcds:
+                before = p.stat().st_size
+                gz = compress_vcd(p)
+                out["freed"] += before - gz.stat().st_size
+                out["vcd_compressed"] += 1
+                changed = True
+                if rec.get("vcd_path") == str(p) or len(vcds) == 1:
+                    rec["vcd_path"] = str(gz)
+                rec["vcd_compressed"] = True
+        if prune_build:
+            for p in list(d.rglob("csrc")) + list(d.rglob("simv.daidir")):
+                if p.is_dir():
+                    out["freed"] += sum(f.stat().st_size for f in p.rglob("*") if f.is_file())
+                    shutil.rmtree(p, ignore_errors=True)
+                    out["builds"] += 1
+                    changed = True
+            for p in d.rglob("simv"):
+                if p.is_file():
+                    out["freed"] += p.stat().st_size
+                    p.unlink()
+                    changed = True
+        if changed:
+            rec.setdefault("retention_log", []).append({"at": datetime.datetime.now().isoformat(timespec="seconds"), "rule": "nonproven_scratch_2026-09-14"})
+            eq.write_text(json.dumps(rec, indent=1, default=str))
+    if log and any(out[k] for k in ("vcd_deleted", "vcd_compressed", "builds")):
+        log(f"{design_id}: freed {out['freed'] / 1e9:.2f} GB (vcd deleted {out['vcd_deleted']}, compressed {out['vcd_compressed']}, builds {out['builds']})")
+    return out
 
 
 def build_all(designs, conn, cfg, workers=8, log=print):
