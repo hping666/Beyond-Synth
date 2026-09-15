@@ -1,6 +1,6 @@
 # Phase 4 report — Exp1: ladder and map (C1)
 
-Generated 2026-09-15 16:13 by scripts/report_phase.py (git aa0ac50ebb99, cfg 8a0e9b1a9a34). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
+Generated 2026-09-15 16:14 by scripts/report_phase.py (git bb5e90a4d70b, cfg 8a0e9b1a9a34). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
 
 ## 1. Objects
 

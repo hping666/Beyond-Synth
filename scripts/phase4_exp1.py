@@ -851,7 +851,7 @@ def collect_duplicates(conn, exp="phase4"):
     `duplicate_of` in the diagnosis evidence) by design, by generation and by design x generation, the generation gap to
     the original answer, and the identical rewrites found by different runs of the same design (same content hash)."""
     from collections import Counter
-    rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.gen, c.label, c.content_hash, r.arm, d.evidence_json FROM candidates c "
+    rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.gen, c.label, c.content_hash, r.arm, d.evidence_json, d.duplicate_of FROM candidates c "
                                           "JOIN runs r ON r.run_id = c.run_id LEFT JOIN diagnoses d ON d.cand_id = c.cand_id WHERE r.exp = ? AND r.status != 'superseded'", (exp,))]
     gen_of = {r["cand_id"]: r["gen"] for r in rows}
     total_by_design, total_by_gen, total_by_dg = Counter(), Counter(), Counter()
@@ -867,10 +867,12 @@ def collect_duplicates(conn, exp="phase4"):
         by_dg[(r["design_id"], r["gen"] or 0)] += 1
         by_arm[r["arm"]] += 1
         per_run[r["run_id"]] += 1
-        try:
-            of = (json.loads(r["evidence_json"] or "{}") or {}).get("duplicate_of")
-        except ValueError:
-            of = None
+        of = r.get("duplicate_of")
+        if not of:
+            try:
+                of = (json.loads(r["evidence_json"] or "{}") or {}).get("duplicate_of")
+            except ValueError:
+                of = None
         if of in gen_of and r["gen"] is not None and gen_of[of] is not None:
             gap[int(r["gen"]) - int(gen_of[of])] += 1
         else:
