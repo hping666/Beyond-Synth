@@ -358,7 +358,7 @@ def cmd_ladder(cfg, conn, do_submit, priority, hidden, configs=None):
         print(f"submitted {len(jobs)} jobs")
     if hidden:
         import subprocess
-        cmd = [sys.executable, os.path.join(ROOT, "scripts", "hidden_worker.py"), "--submit-candidates", "--exp", "phase4", "--priority", str(max(0, priority - 1))]
+        cmd = [sys.executable, os.path.join(ROOT, "scripts", "hidden_worker.py"), "--submit-candidates", "--exp", "phase4", "--priority", str(priority)]   # same priority as the visible rungs: the Phase 4 objects precede the Phase 3 backlog
         if not do_submit:
             cmd.append("--dry-run")
         print(subprocess.run(cmd, capture_output=True, text=True).stdout.strip())
