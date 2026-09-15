@@ -8,19 +8,26 @@ from pathlib import Path
 PROMPT_DIR = Path(__file__).parent / "prompts"
 
 
-def load_templates():
-    system = (PROMPT_DIR / "search_system.md").read_text()
+def load_templates(caliber="E4"):
+    """System prompt (the Y-caliber variant `search_system_y.md` for arm B0 names Yosys + OpenSTA as the measuring tool and
+    drops the reference to the synthesizer's report), class instructions and the template version."""
+    name = "search_system_y.md" if caliber == "Y" else "search_system.md"
+    system = (PROMPT_DIR / name).read_text()
     classes = json.loads((PROMPT_DIR / "search_classes.json").read_text())
     version = classes.pop("version", 1)
     return system, classes, version
 
 
-def e4_summary(base_row, floor, clock_ns):
-    """Text block from D's E4 baseline evaluation row and its rule-A floor rows ({metric: row})."""
+CALIBER_TEXT = {"E4": "Synopsys DC full-effort (E4) result for the original design at a {clock} ns clock:",
+                "Y": "Yosys + OpenSTA (Y) result for the original design at a {clock} ns clock (the caliber used by the RTL-rewriting literature; every positive difference counts):"}
+
+
+def e4_summary(base_row, floor, clock_ns, caliber="E4"):
+    """Text block from D's baseline evaluation row under the fitness caliber (E4, or Y for arm B0) and its rule-A floor rows ({metric: row})."""
     if not base_row:
-        return "No E4 baseline record is available for this design.\n"
+        return f"No {caliber} baseline record is available for this design.\n"
     b = dict(base_row)
-    lines = [f"Synopsys DC full-effort (E4) result for the original design at a {clock_ns} ns clock:",
+    lines = [CALIBER_TEXT.get(caliber, CALIBER_TEXT["E4"]).format(clock=clock_ns),
              f"- area {b.get('area_um2')} um2, {b.get('cells')} cells; WNS {b.get('wns_ns')} ns, TNS {b.get('tns_ns')} ns; power {b.get('power_saif_mw') or b.get('power_default_mw')} mW"]
     try:
         hist = json.loads(b.get("hist_json") or "{}")
@@ -67,10 +74,10 @@ def prior_text(prior):
     return "\n".join(lines) + "\n"
 
 
-def prefix(design, system_text, base_row, floor, clock_ns, prior=None):
+def prefix(design, system_text, base_row, floor, clock_ns, prior=None, caliber="E4"):
     rtl = "\n\n".join(Path(design["_dir"], f).read_text(errors="replace") for f in design["files"])
     return (f"{system_text.strip()}\n\nThe design to rewrite (top module `{design['top']}`):\n```verilog\n{rtl}\n```\n\n"
-            + e4_summary(base_row, floor, clock_ns) + "\n" + prior_text(prior))
+            + e4_summary(base_row, floor, clock_ns, caliber) + "\n" + prior_text(prior))
 
 
 def suffix(instruction, cls, parent_rtl=None, feedback_blocks=(), design_top=None):

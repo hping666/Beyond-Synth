@@ -269,3 +269,41 @@ def test_resume_is_idempotent_after_a_crash_between_diagnosis_and_state_save(env
     # gets distinct duplicate ids (dup<gen>_<index>)
     dups = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? AND label='duplicate'", (run.run_id,))]
     assert dups and all("_dup" in d for d in dups) and len(dups) == len(set(dups))
+
+
+def test_driver_b0_arm_uses_y_fitness_and_scalar_feedback(env):
+    """spec 05 §5 / PLAN 4.1: arm B0 evaluates proven candidates under Y (queue kind yosys, config Y), needs no floor, labels
+    any positive gain `improved` (credit 1, archive) and anything else `no_gain` (credit 0); the feedback block carries the
+    numbers only and no diagnosis row is written (the M3 diagnosis at E4 belongs to the analysis). Both directions."""
+    cfg, conn, q, tmp_path = env
+    from src.search.driver import SearchRun
+    db.insert(conn, "evaluations", {"design_id": "rtllm_d", "is_baseline": 1, "config": "Y", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 80.0, "cells": 18, "wns_ns": 0.2, "tns_ns": 0.0,
+                                    "power_default_mw": 0.8, "status": "ok", "raw_dir": "/x/base_y", "hist_json": json.dumps({"DFF_X1": 4, "NAND2_X1": 14})})
+    tr = FakeTransport()
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="B0", design_id="rtllm_d", seed=1, model="gpt-5.6-luna", K=1, N=3, queue=q, transport=tr)
+    assert run.fit_cfg == "Y" and run.scalar and run.floor == {} and "Yosys" in run.system and "Yosys + OpenSTA (Y) result" in run.prefix and "noise floor" not in run.prefix
+    assert run.step() == "running"
+    cands = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? AND eq_job_id IS NOT NULL ORDER BY gen, cand_id", (run.run_id,))]
+    assert len(cands) == 2                                  # v1, v2 (the duplicate of v2 needs no evaluation)
+    for cid in cands:
+        finish_eq(conn, cfg, tmp_path, cid)
+    run.process_verdicts()
+    jobs = {r[0]: (r[1], r[2]) for r in conn.execute("SELECT c.cand_id, j.kind, j.config FROM candidates c JOIN jobs j ON j.job_id=c.e4_job_id WHERE c.run_id=?", (run.run_id,))}
+    assert all(v == ("yosys", "Y") for v in jobs.values()) and set(jobs) == set(cands)   # the fitness job is a Yosys job, never a DC seat
+    better, worse = cands
+    for cid, area in ((better, 72.0), (worse, 88.0)):
+        jid = conn.execute("SELECT e4_job_id FROM candidates WHERE cand_id=?", (cid,)).fetchone()[0]
+        conn.execute("UPDATE jobs SET state='done' WHERE job_id=?", (jid,))
+        db.insert(conn, "evaluations", {"design_id": "rtllm_d", "cand_id": cid, "is_baseline": 0, "config": "Y", "lib": "nangate45", "clock_ns": 1.0, "area_um2": area, "cells": 18,
+                                        "wns_ns": 0.2, "tns_ns": 0.0, "power_default_mw": 0.8, "status": "ok", "raw_dir": f"/y/{cid}", "hist_json": json.dumps({"DFF_X1": 4})})
+    run.process_verdicts()
+    rows = {r[0]: (r[1], r[2], r[3]) for r in conn.execute("SELECT cand_id, label, in_archive, accepted FROM candidates WHERE run_id=?", (run.run_id,))}
+    assert rows[better] == ("improved", 1, 1) and rows[worse] == ("no_gain", 0, 0)
+    assert conn.execute("SELECT COUNT(*) FROM diagnoses WHERE cand_id IN (?, ?)", (better, worse)).fetchone()[0] == 0   # no M3 verdict at search time
+    fb = run.state["feedback"][better]
+    assert fb["caliber"] == "Y" and fb["diagnosis"] == "improved" and fb["evidence"]["dA_pct"] == -10.0 and "rung" not in fb
+    assert run.state["cands"][better]["credit"] == 1 and run.state["cands"][worse]["credit"] == 0
+    assert [m["cand_id"] for m in run.archive.members] == [better]
+    run.save_state()                                                       # what step() does after every verdict
+    run2 = SearchRun.resume(cfg, conn, run.run_id, queue=q, transport=tr)   # resumption keeps the scalar verdicts
+    assert [m["cand_id"] for m in run2.archive.members] == [better] and run2.state["cands"][worse]["label"] == "no_gain"

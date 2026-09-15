@@ -22,9 +22,9 @@ tools:                       # measured 2026-09-12 (Phase 0.1, selfcheck 22/22 +
   orfs: {version: git-df27ce67, dir: /home/hping/OpenROAD-flow-scripts}
 
 libs:                        # measured 2026-09-12; all .db compiled from the ORFS Liberty files; only nangate45 has a Milkyway physical library
-  nangate45: {db: /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db, name: NangateOpenCellLibrary, time_scale: 1.0, liberty: /home/hping/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib, physical_ref_for_spg: /hdd1/hping/eda/libs/nangate45/mw/nangate45, mw_tf: /hdd1/hping/eda/libs/nangate45/mw/nangate45.tf, main: true}
+  nangate45: {db: /hdd1/hping/eda/libs/nangate45/NangateOpenCellLibrary_typical.db, name: NangateOpenCellLibrary, time_scale: 1.0, liberty: /home/hping/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib, latch_map: /home/hping/OpenROAD-flow-scripts/flow/platforms/nangate45/cells_latch.v, physical_ref_for_spg: /hdd1/hping/eda/libs/nangate45/mw/nangate45, mw_tf: /hdd1/hping/eda/libs/nangate45/mw/nangate45.tf, main: true}
   asap7: {db: /hdd1/hping/eda/libs/asap7/RVT_TT.list, name: asap7sc7p5t_INVBUF_RVT_TT_nldm_211120, time_scale: 1000.0, liberty: null, physical_ref_for_spg: null}
-  sky130hd: {db: /hdd1/hping/eda/libs/sky130hd/sky130_fd_sc_hd__tt_025C_1v80.db, name: sky130_fd_sc_hd__tt_025C_1v80, time_scale: 1.0, liberty: /home/hping/OpenROAD-flow-scripts/flow/platforms/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib, physical_ref_for_spg: null, dont_use: ["sky130_fd_sc_hd__lpflow_*", sky130_fd_sc_hd__probe_p_8, sky130_fd_sc_hd__probec_p_8]}   # as ORFS DONT_USE_CELLS: multi-power-domain (isolation / level-shifter / kapwr) and probe cells; DC MV-090 otherwise (DECISIONS 2026-09-12)
+  sky130hd: {db: /hdd1/hping/eda/libs/sky130hd/sky130_fd_sc_hd__tt_025C_1v80.db, name: sky130_fd_sc_hd__tt_025C_1v80, time_scale: 1.0, liberty: /home/hping/OpenROAD-flow-scripts/flow/platforms/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib, latch_map: /home/hping/OpenROAD-flow-scripts/flow/platforms/sky130hd/cells_latch_hd.v, physical_ref_for_spg: null, dont_use: ["sky130_fd_sc_hd__lpflow_*", sky130_fd_sc_hd__probe_p_8, sky130_fd_sc_hd__probec_p_8]}   # as ORFS DONT_USE_CELLS: multi-power-domain (isolation / level-shifter / kapwr) and probe cells; DC MV-090 otherwise (DECISIONS 2026-09-12)
 
 constraints:                 # one SDC convention for every tool (OpenSTA-native text; the DC copy is rewritten by src/eval/sdc.py); Phase 0.5 decision in DECISIONS
   clock_name: clk
@@ -237,6 +237,11 @@ search:
   poll_sec: 30               # the run driver's polling interval for queue verdicts
   job_priority: 4            # equivalence / E4 / envelope jobs issued by a run go before the noise batches (priorities 0-2)
   envelope_types: [P1_text]  # C2.1(d): the acceptance envelope uses text-level renamings of the candidate (no SEQ needed: renamings are equivalent by construction)
+  arms:                      # spec 05 §5 (implementation differences between arms; the driver reads these keys): fitness source, feedback block, floor, credit rule
+    M:     {fitness: E4, feedback: verdict, floor: rule_a, credit: retained_tradeoff, prescreen: true, envelope: true}
+    B0:    {fitness: Y, feedback: scalar, floor: none, credit: any_gain, prescreen: false, envelope: false}          # literature caliber (EvolVE-style): Yosys + OpenSTA numbers, any positive gain, DC only at the end
+    B1_E4: {fitness: E4, feedback: scalar_static, floor: none, credit: any_gain, prescreen: false, envelope: false}  # Phase 5: E4 numbers plus the static complement text
+    B2:    {fitness: E4, feedback: scalar, floor: none, credit: any_gain, prescreen: false, envelope: false}         # naive commercial-in-the-loop: E4 numbers, scalar feedback
 screen:                      # "screening" = synthesis-rung screening; not part of the main method (DECISIONS 2026-09-14, G3.1)
   candidates_es: [Y]         # Y's AUROC for E4 retention is measured in Phases 3/4
   auroc_min: 0.75
@@ -268,6 +273,7 @@ exp1:                        # Phase 4
   b0_designs: {cktevo_held: 5, drrtl_held: 3, rtlopt_held: 2}   # C1 scope (DECISIONS 2026-09-14): human-written RTL only; RTLLM is the out-of-scope contrast
   designs: [cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode]                # filled by scripts/phase4_sets.py (deterministic selection, measured floors required)
   candidates_per_design: 30
+  b0: {K: 10, N: 5, seed: 1}  # B0 generation per design: K x N = 50 calls (llm.selected, Y-caliber fitness); ~75 % of luna's answers were SEQ-proven in Phase 3, so >= 30 proven candidates are expected
   configs: [E1, E1d, E2, E3, E4, E2g, H1, H2a, H2b, H3, H5, H4]   # E2r removed from every list (same command as E3; DECISIONS 2026-09-14); E2t dropped (no-op flag)
   supplementary: [O0, O1, O2, Ycoevo]
   manual_check_per_class: 40

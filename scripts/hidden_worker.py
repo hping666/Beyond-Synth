@@ -327,7 +327,7 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None):
     configs = configs or [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")]
     designs = {d["design_id"]: d for d in K.load_all()}
     jobs = []
-    for c in vis.execute("SELECT c.cand_id, c.design_id, c.rtl_path, c.run_id FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+    for c in vis.execute("SELECT c.cand_id, c.design_id, c.rtl_path, c.run_id, c.top, c.rtl_files_json FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                          "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted' ORDER BY c.cand_id", (exp,)):
         d = designs[c["design_id"]]
         r = vis.execute("SELECT phi_main_ns_nangate45, phi_main_ns_asap7, phi_main_ns_sky130hd FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()
@@ -351,7 +351,10 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None):
                 continue
             j = J.dc_job(cfg, d, config, float(clock_ns), priority)
             j["kind"] = "dc_hidden"
-            j["payload"].update(rtl=[c["rtl_path"]], incdirs=[], is_baseline=0, cand_id=c["cand_id"], design=design)
+            files = json.loads(c["rtl_files_json"]) if c["rtl_files_json"] else [c["rtl_path"]]   # Phase 4 objects: several files, own top (PLAN 4.2)
+            j["payload"].update(rtl=files, incdirs=[], is_baseline=0, cand_id=c["cand_id"], design=design)
+            if c["top"]:
+                j["payload"]["top"] = c["top"]
             if saif:
                 j["payload"].update(saif=saif, saif_instance="bs_lockstep/u_c")
             j["cand_id"] = c["cand_id"]

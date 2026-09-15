@@ -15,6 +15,23 @@ from src.eval.dc import stage_inputs
 from src.eval.sdc import opensta_sdc
 
 
+_BEHAVIOURAL = re.compile(r"^\s*(always\b|initial\b|\$(display|write|finish|stop)\b)|\$print\b")
+
+
+def structural_netlist_problems(netlist_path):
+    """Lines of a Yosys netlist that OpenSTA cannot read: `always` / `initial` blocks (unmapped latches, memories, print
+    cells) and system tasks. A structural gate-level netlist yields []."""
+    out = []
+    try:
+        lines = Path(netlist_path).read_text(errors="replace").splitlines()
+    except OSError as e:
+        return [f"netlist unreadable: {e}"]
+    for i, line in enumerate(lines, 1):
+        if _BEHAVIOURAL.search(line):
+            out.append(f"line {i}: {line.strip()[:80]}")
+    return out
+
+
 def _stat_metrics(log):
     """Area, cell count and cell-type histogram from the last `stat -liberty` block in the Yosys log."""
     area = None
@@ -112,9 +129,19 @@ def run_yosys(job_dir, rtl_files, top, lib, script_tpl, clock_ns, clk_port, cfg,
     abc_heavy = str(Path(C.ROOT) / cfg["configs"].get("abc_heavy_script", ""))
     script = script_tpl.format(top=top, lib=liberty, abc_heavy_script=abc_heavy)
     netlist = outputs / "netlist.v"
-    ys = [f"read_verilog {'-sv ' if sverilog else ''}{' '.join('-I ' + str(Path(d).resolve()) for d in (incdirs or []))} {' '.join(str(p) for p in staged)}",
+    # $display / $write system tasks survive `synth` as $print cells and reach OpenSTA as `always` blocks (cktevo spi,
+    # 2026-09-14): `-nodisplay` silences them and `delete t:$print` removes the cells; latches are mapped with the ORFS
+    # techmap of the library (libs.<lib>.latch_map) before dfflibmap, which maps flip-flops only (drrtl_pcie, 2026-09-14);
+    # the netlist is then checked to be structural (tests/test_yosys_netlist_offline.py, eda-knowledge/05-traps.md).
+    ys = [f"read_verilog -nodisplay {'-sv ' if sverilog else ''}{' '.join('-I ' + str(Path(d).resolve()) for d in (incdirs or []))} {' '.join(str(p) for p in staged)}",
           f"hierarchy -check -top {top}"]
-    ys += [s.strip() for s in script.split(";") if s.strip()]
+    latch_map = (cfg["libs"].get(lib) or {}).get("latch_map")
+    for s in (s.strip() for s in script.split(";") if s.strip()):
+        if s.startswith("dfflibmap") and not any(x.startswith("delete t:$print") for x in ys):
+            ys.append("delete t:$print")
+            if latch_map:
+                ys.append(f"techmap -map {latch_map}")
+        ys.append(s)
     ys += [f"write_verilog -noattr {netlist}"]
     (inputs / "synth.ys").write_text("\n".join(ys) + "\n")
     t0 = time.time()
@@ -129,6 +156,11 @@ def run_yosys(job_dir, rtl_files, top, lib, script_tpl, clock_ns, clk_port, cfg,
     if p.returncode != 0 or not netlist.exists():
         err = [l for l in (ylog + p.stderr).splitlines() if l.startswith("ERROR")]
         rec.update(status="yosys_failed", error=(err[0] if err else f"yosys exit {p.returncode}")[:300],
+                   wall_seconds=round(time.time() - t0, 1))
+        return rec
+    behavioural = structural_netlist_problems(netlist)
+    if behavioural:
+        rec.update(status="netlist_not_structural", error="behavioural constructs in the Yosys netlist (OpenSTA cannot read them): " + "; ".join(behavioural[:3])[:300],
                    wall_seconds=round(time.time() - t0, 1))
         return rec
     area, cells, hist = _stat_metrics(ylog)

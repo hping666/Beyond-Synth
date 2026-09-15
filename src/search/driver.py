@@ -24,7 +24,8 @@ from src.search.prescreen import decide as prescreen_decide
 
 EQ_KEEP = ("v1_status", "v2_status", "v2_cycles", "latency_offset_json", "v3_status", "v3_seconds", "v4_status", "counterexample_path", "verdict", "seconds")
 BUDGET_PHASE = {"phase3": "phase3_calibration", "smoke": "phase3_calibration", "phase4": "phase4_generation", "phase5": "phase5_main", "ablation": "phase6_ablation"}
-FINAL_LABELS = {"retained", "absorbed", "absorbed_identical", "duplicate", "noise", "harmful", "tradeoff", "fragile", "nonequiv", "prescreened"}
+FINAL_LABELS = {"retained", "absorbed", "absorbed_identical", "duplicate", "noise", "harmful", "tradeoff", "fragile", "nonequiv", "prescreened", "improved", "no_gain"}
+ARM_M = {"fitness": "E4", "feedback": "verdict", "floor": "rule_a", "credit": "retained_tradeoff", "prescreen": True, "envelope": True}
 
 
 def record_from_row(row):
@@ -58,20 +59,27 @@ class SearchRun:
         self.state_path = self.dir / "state.json"
         self.queue = queue
         self.client = L.LLMClient(cfg, conn, BUDGET_PHASE.get(self.row["exp"], self.row["exp"]), run_id, transport=transport)
-        self.system, self.classes, self.prompt_version = PR.load_templates()
+        # arm semantics (spec 05 §5; config search.arms): fitness source (E4 or Y), feedback (verdict | scalar | scalar_static), floor, credit rule
+        self.armdef = dict((cfg["search"].get("arms") or {}).get(self.row["arm"]) or ARM_M)
+        self.fit_cfg = str(self.armdef.get("fitness") or "E4")
+        self.scalar = self.armdef.get("feedback", "verdict") != "verdict"
+        self.system, self.classes, self.prompt_version = PR.load_templates(caliber=self.fit_cfg)
         self.floor_version = cfg["noise"].get("floor_version")
-        self.floor = S.latest_floor(conn, self.row["design_id"], "E4", self.floor_version) or S.latest_floor(conn, self.row["design_id"], "E4")
+        if self.armdef.get("floor", "rule_a") == "none":
+            self.floor = {}
+        else:
+            self.floor = S.latest_floor(conn, self.row["design_id"], "E4", self.floor_version) or S.latest_floor(conn, self.row["design_id"], "E4")
         self.floor_class = next((r.get("floor_class") for r in self.floor.values() if r.get("floor_class")), None)
         self.thresholds = {"area": (self.floor.get("area") or {}).get("t_d"), "wns": (self.floor.get("wns") or {}).get("t_d"), "power": (self.floor.get("power_saif") or {}).get("t_d")}
         self.sigma = {"area": (self.floor.get("area") or {}).get("sigma_robust") or 0.0, "wns": (self.floor.get("wns") or {}).get("sigma_robust") or 0.0,
                       "power": (self.floor.get("power_saif") or {}).get("sigma_robust") or 0.0}
-        base = conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config='E4' AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL AND status='ok' "
-                            "AND abs(clock_ns-?)<1e-6 ORDER BY (power_saif_mw IS NOT NULL) DESC, eval_id DESC LIMIT 1", (self.row["design_id"], self.phi)).fetchone()
+        base = conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL AND status='ok' "
+                            "AND abs(clock_ns-?)<1e-6 ORDER BY (power_saif_mw IS NOT NULL) DESC, eval_id DESC LIMIT 1", (self.row["design_id"], self.fit_cfg, self.phi)).fetchone()
         if base is None:
-            raise RuntimeError(f"{self.row['design_id']}: no E4 baseline at Phi_main {self.phi}; run scripts/phase2_noise.py first")
+            raise RuntimeError(f"{self.row['design_id']}: no {self.fit_cfg} baseline at Phi_main {self.phi}; run scripts/phase2_noise.py (E4) or scripts/phase4_exp1.py baselines (Y) first")
         self.base_row, self.base = base, record_from_row(base)
         self.prior = None   # Phase 3: no map prior yet (Phase 4 output)
-        self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior)
+        self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior, caliber=self.fit_cfg)
         self.d_text = "\n\n".join(Path(self.design["_dir"], f).read_text(errors="replace") for f in self.design["files"])
         self.priority = int(cfg["search"].get("job_priority", 4))
         self.load_state()
@@ -243,7 +251,7 @@ class SearchRun:
             cls_final = cls_rule["class_rule"]
         except Exception as e:  # the classifier could not read the candidate: the requested class stands, flagged
             cls_rule, cls_final = {"class_rule": None, "error": f"{type(e).__name__}: {e}"[:200]}, cls_requested
-        pre = prescreen_decide(self.prior, cls_final, self.cfg["prescreen"]["p_min"], self.cfg["prescreen"]["audit_frac"], rng)
+        pre = prescreen_decide(self.prior, cls_final, self.cfg["prescreen"]["p_min"], self.cfg["prescreen"]["audit_frac"], rng) if self.armdef.get("prescreen", True) else "evaluate"
         cap = self.seq_cap_min(cls_final if cls_final in ("a", "b", "c1", "c2", "d") else "d")
         entry = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_rule": cls_final,
                  "class_final": cls_final, "prescreen": pre, "seq_cap_min": cap, "issued_at": self.clock(), "state": "eq_pending", "note": note}
@@ -297,7 +305,7 @@ class SearchRun:
                     c["class_final"] = "c2"
                     self.conn.execute("UPDATE candidates SET class_final='c2' WHERE cand_id=?", (cid,))
                 if rec.get("verdict") in ("proven", "proven_sim_only"):
-                    self.submit_e4(cid, c, rec)
+                    self.submit_fitness(cid, c, rec)
                 else:
                     self.finish_nonequiv(cid, rec, None)
             elif stage == "e4":
@@ -305,13 +313,16 @@ class SearchRun:
                 if js not in ("done", "failed"):
                     continue
                 changed = True
-                row = self.e4_row(cid)
+                row = self.fit_row(cid)
                 if row is None:
                     c["state"], c["e4_failed"] = "final", True
                     self.state["pending"].pop(cid, None)
-                    self.conn.execute("UPDATE candidates SET note=COALESCE(note,'') || ' [E4 evaluation failed]' WHERE cand_id=?", (cid,))
+                    self.conn.execute("UPDATE candidates SET note=COALESCE(note,'') || ? WHERE cand_id=?", (f" [{self.fit_cfg} evaluation failed]", cid))
                     continue
-                self.diagnose_candidate(cid, c, row)
+                if self.scalar:
+                    self.scalar_verdict(cid, c, row)
+                else:
+                    self.diagnose_candidate(cid, c, row)
             elif stage == "envelope":
                 jobs = c.get("envelope_jobs") or []
                 if any(self.job_state(j) not in ("done", "failed") for j in jobs):
@@ -320,21 +331,56 @@ class SearchRun:
                 self.finish_envelope(cid, c)
         return changed
 
-    def submit_e4(self, cid, c, rec):
+    def submit_fitness(self, cid, c, rec):
+        """The fitness evaluation of a proven candidate: E4 (arm M, B1@E4, B2) or Y (arm B0, `yosys` kind on the local pool);
+        the job id is kept in candidates.e4_job_id whatever the fitness configuration."""
         prev = self.conn.execute("SELECT e4_job_id FROM candidates WHERE cand_id=?", (cid,)).fetchone()
-        if prev is not None and prev[0]:   # a previous attempt submitted the E4 job before dying: reuse it
+        if prev is not None and prev[0]:   # a previous attempt submitted the job before dying: reuse it
             c["e4_job_id"], c["state"] = prev[0], "e4_pending"
             self.state["pending"][cid] = "e4"
             return
-        j = J.dc_job(self.cfg, self.design, "E4", self.phi, self.priority)
+        j = J.dc_job(self.cfg, self.design, self.fit_cfg, self.phi, self.priority)
+        if self.cfg["configs"][self.fit_cfg].get("tool") == "yosys_opensta":
+            j["kind"] = "yosys"
         saif = rec.get("saif_c")
         j["payload"].update(rtl=[c["path"]], incdirs=[], is_baseline=0, cand_id=cid)
-        if saif and Path(saif).exists():
+        if saif and Path(saif).exists() and j["kind"] == "dc":
             j["payload"].update(saif=saif, saif_instance="bs_lockstep/u_c")
-        jid = self._q().submit(j["kind"], j["payload"], design_id=self.row["design_id"], cand_id=cid, config="E4", priority=self.priority, timeout_sec=j["timeout_sec"])
+        jid = self._q().submit(j["kind"], j["payload"], design_id=self.row["design_id"], cand_id=cid, config=self.fit_cfg, priority=self.priority, timeout_sec=j["timeout_sec"])
         c["e4_job_id"], c["state"] = jid, "e4_pending"
         self.conn.execute("UPDATE candidates SET e4_job_id=? WHERE cand_id=?", (jid, cid))
         self.state["pending"][cid] = "e4"
+
+    submit_e4 = submit_fitness
+
+    def fit_row(self, cand_id):
+        return self.conn.execute("SELECT * FROM evaluations WHERE cand_id=? AND config=? AND status='ok' ORDER BY eval_id DESC LIMIT 1", (cand_id, self.fit_cfg)).fetchone()
+
+    def scalar_verdict(self, cid, c, row):
+        """Arms with scalar feedback (spec 05 §5: B0 at the Y caliber, B1@E4, B2): the three-component gain against D under
+        the fitness configuration, no floor; `improved` = any positive component (any positive gain), credited 1 to the
+        produced class; the archive keeps the Pareto front of improved candidates; the feedback block carries the numbers
+        only. No diagnosis row is written here: the M3 diagnosis at E4 of every object belongs to the analysis (PLAN 4.3)."""
+        cand = record_from_row(row)
+        c["e4_raw_dir"], c["dc_seconds"] = cand.get("raw_dir"), cand.get("dc_seconds")
+        gains = {k: v for k, v in m3.relative_gains(self.base, cand, self.phi).items() if v is not None}   # a metric the caliber lacks (Y power) is absent
+        improved = any(float(v) > 1e-12 for v in gains.values())
+        label = "improved" if improved else "no_gain"
+        credit = 1 if improved else 0
+        cls_final = c.get("class_final")
+        self.bandit.credit(cls_final, credit)
+        fb = {"class": cls_final, "caliber": self.fit_cfg, "diagnosis": label,
+              "evidence": {"dA_pct": round(-100.0 * float(gains.get("area") or 0.0), 2), "dWNS_ns": round(float(gains.get("wns") or 0.0) * float(self.phi), 4),
+                           "dP_pct": round(-100.0 * float(gains.get("power") or 0.0), 2)}}
+        self.state["feedback"][cid] = fb
+        c.update(state="final", label=label, gains=gains, credit=credit)
+        self.state["pending"].pop(cid, None)
+        in_archive = 0
+        if improved:
+            in_archive = int(self.archive.add({"cand_id": cid, "gains": gains, "gen": c["gen"], "label": label}))
+            self.state["retained"] += 1   # "accepted" for scalar arms
+            self.state["last_retained_gen"], self.state["stall"] = c["gen"], 0
+        self.conn.execute("UPDATE candidates SET label=?, in_archive=?, accepted=?, class_final=? WHERE cand_id=?", (label, in_archive, in_archive, cls_final, cid))
 
     def finish_nonequiv(self, cid, rec, note):
         c = self.state["cands"][cid]
