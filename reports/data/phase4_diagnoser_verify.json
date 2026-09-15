@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-09-15T11:09:01",
- "n": 186,
- "label_agree": 186,
+ "generated_at": "2026-09-15T11:15:19",
+ "n": 187,
+ "label_agree": 187,
  "agreement": 1.0,
  "by_label": {
   "absorbed": {
-   "n": 4,
+   "n": 15,
    "unreadable": 0,
-   "label_agree": 4,
-   "gains_agree": 4,
+   "label_agree": 15,
+   "gains_agree": 15,
    "disagreements": []
   },
   "absorbed_identical": {
@@ -19,17 +19,17 @@
    "disagreements": []
   },
   "harmful": {
-   "n": 22,
+   "n": 20,
    "unreadable": 0,
-   "label_agree": 22,
-   "gains_agree": 22,
+   "label_agree": 20,
+   "gains_agree": 20,
    "disagreements": []
   },
   "noise": {
-   "n": 40,
+   "n": 32,
    "unreadable": 0,
-   "label_agree": 40,
-   "gains_agree": 40,
+   "label_agree": 32,
+   "gains_agree": 32,
    "disagreements": []
   },
   "retained": {
@@ -48,6 +48,32 @@
   }
  },
  "rows": [
+  {
+   "cand_id": "cc1ec9451bbe90e",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": 0.00043,
+    "wns": 0.0,
+    "power": 0.00112
+   },
+   "independent_gains": {
+    "area": 0.00043,
+    "wns": 0.0,
+    "power": 0.00112
+   },
+   "jaccard_netlist": 0.9981,
+   "fp_jaccard_stored": 0.9984,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/6495d0bd8e355f26"
+  },
   {
    "cand_id": "ce0b8fe45ba6e9a",
    "design_id": "cktevo_spi__spi",
@@ -129,6 +155,60 @@
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/E4/0c421c06eb5845b5"
   },
   {
+   "cand_id": "cdfdb84022dc1e4",
+   "design_id": "rtlrewriter_long_cnn__RFselector",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": -0.00276,
+    "wns": -0.00332,
+    "power": -0.00753
+   },
+   "independent_gains": {
+    "area": -0.00276,
+    "wns": -0.00332,
+    "power": -0.00753
+   },
+   "jaccard_netlist": 0.9706,
+   "fp_jaccard_stored": 0.9705,
+   "up": [],
+   "down": [
+    "wns"
+   ],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__RFselector/E4/ce1ad6c33ca72c27",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__RFselector/E4/9c4ce9d0298abcf7"
+  },
+  {
+   "cand_id": "c1042e1ece93f31",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": 0.00043,
+    "wns": 0.0,
+    "power": 0.02483
+   },
+   "independent_gains": {
+    "area": 0.00043,
+    "wns": 0.0,
+    "power": 0.02483
+   },
+   "jaccard_netlist": 0.9888,
+   "fp_jaccard_stored": 0.9905,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/599a8e06e54d4754"
+  },
+  {
    "cand_id": "c181324dfd00385",
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "label": "absorbed",
@@ -153,6 +233,216 @@
    "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/85e4baa956352787"
+  },
+  {
+   "cand_id": "c4bcd99204c75bc",
+   "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": -0.01333,
+    "wns": -0.01784,
+    "power": -0.01391
+   },
+   "independent_gains": {
+    "area": -0.01333,
+    "wns": -0.01784,
+    "power": -0.01391
+   },
+   "jaccard_netlist": 0.9508,
+   "fp_jaccard_stored": 0.9522,
+   "up": [],
+   "down": [
+    "wns"
+   ],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/E4/9c6919d5d77140f5",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/E4/29fbc6f7cff6706c"
+  },
+  {
+   "cand_id": "c8cb0a2eb7afb3c",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": 0.00238,
+    "wns": 0.0,
+    "power": 0.02276
+   },
+   "independent_gains": {
+    "area": 0.00238,
+    "wns": 0.0,
+    "power": 0.02276
+   },
+   "jaccard_netlist": 0.9758,
+   "fp_jaccard_stored": 0.9795,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/26dd5607d3b5504c"
+  },
+  {
+   "cand_id": "c6c9ad23df59e75",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": 0.00022,
+    "wns": 0.0,
+    "power": -0.01113
+   },
+   "independent_gains": {
+    "area": 0.00022,
+    "wns": 0.0,
+    "power": -0.01113
+   },
+   "jaccard_netlist": 0.9814,
+   "fp_jaccard_stored": 0.9843,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/2295a8f8c5fb5ac5"
+  },
+  {
+   "cand_id": "c53aa752d8e4083",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": 0.00022,
+    "wns": 0.0,
+    "power": -0.01113
+   },
+   "independent_gains": {
+    "area": 0.00022,
+    "wns": 0.0,
+    "power": -0.01113
+   },
+   "jaccard_netlist": 0.9814,
+   "fp_jaccard_stored": 0.9843,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/df4a2bc91e8cd19b"
+  },
+  {
+   "cand_id": "c851892c32d44b5",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": 0.00043,
+    "wns": 0.0,
+    "power": 0.02372
+   },
+   "independent_gains": {
+    "area": 0.00043,
+    "wns": 0.0,
+    "power": 0.02372
+   },
+   "jaccard_netlist": 0.9888,
+   "fp_jaccard_stored": 0.9905,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/080315d10c5ec07b"
+  },
+  {
+   "cand_id": "cecf9e1c85ad765",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": 0.00389,
+    "wns": 0.0,
+    "power": -0.01286
+   },
+   "independent_gains": {
+    "area": 0.00389,
+    "wns": 0.0,
+    "power": -0.01286
+   },
+   "jaccard_netlist": 0.9648,
+   "fp_jaccard_stored": 0.9702,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/7ae3627a0060f8c3"
+  },
+  {
+   "cand_id": "c1931b85c2c196c",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": 0.00065,
+    "wns": 0.0,
+    "power": -0.01037
+   },
+   "independent_gains": {
+    "area": 0.00065,
+    "wns": 0.0,
+    "power": -0.01037
+   },
+   "jaccard_netlist": 0.9796,
+   "fp_jaccard_stored": 0.9827,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/825c713457314de3"
+  },
+  {
+   "cand_id": "c27d77a5adba0d9",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "label": "absorbed",
+   "independent": "absorbed",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": 0.00087,
+    "wns": 0.0,
+    "power": 0.02399
+   },
+   "independent_gains": {
+    "area": 0.00087,
+    "wns": 0.0,
+    "power": 0.02399
+   },
+   "jaccard_netlist": 0.9869,
+   "fp_jaccard_stored": 0.9889,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/e38dc66aa9836451"
   },
   {
    "cand_id": "c570a28078bee79",
@@ -1374,7 +1664,7 @@
     "wns"
    ],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_4bit/E4/01597878e4d15cbc",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_4bit/E4/16a7c21687abdf64"
   },
@@ -1432,7 +1722,7 @@
     "power"
    ],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/E4/826fc49c576ef09c",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlopt_gray/E4/98505e16e5b6e276"
   },
@@ -1555,34 +1845,6 @@
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__add1/E4/6936b6d473ff83ab"
   },
   {
-   "cand_id": "c4bcd99204c75bc",
-   "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
-   "label": "harmful",
-   "independent": "harmful",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": -0.01333,
-    "wns": -0.01784,
-    "power": -0.01391
-   },
-   "independent_gains": {
-    "area": -0.01333,
-    "wns": -0.01784,
-    "power": -0.01391
-   },
-   "jaccard_netlist": 0.9508,
-   "fp_jaccard_stored": 0.9522,
-   "up": [],
-   "down": [
-    "wns"
-   ],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/E4/9c6919d5d77140f5",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/E4/29fbc6f7cff6706c"
-  },
-  {
    "cand_id": "c1e0654112630a7",
    "design_id": "rtlrewriter_basic__commutativity_subexpression",
    "label": "harmful",
@@ -1671,34 +1933,6 @@
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_fsm_small_case__example3/E4/e411d7d98d3f94a4"
   },
   {
-   "cand_id": "cdfdb84022dc1e4",
-   "design_id": "rtlrewriter_long_cnn__RFselector",
-   "label": "harmful",
-   "independent": "harmful",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": -0.00276,
-    "wns": -0.00332,
-    "power": -0.00753
-   },
-   "independent_gains": {
-    "area": -0.00276,
-    "wns": -0.00332,
-    "power": -0.00753
-   },
-   "jaccard_netlist": 0.9706,
-   "fp_jaccard_stored": 0.9705,
-   "up": [],
-   "down": [
-    "wns"
-   ],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__RFselector/E4/ce1ad6c33ca72c27",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__RFselector/E4/9c4ce9d0298abcf7"
-  },
-  {
    "cand_id": "c7e45d57caa99af",
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "label": "harmful",
@@ -1722,7 +1956,7 @@
     "wns"
    ],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d9adc2b20dd2048e"
   },
@@ -1836,35 +2070,35 @@
     "wns"
    ],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/52223329b27e36b8"
   },
   {
-   "cand_id": "cc1ec9451bbe90e",
+   "cand_id": "c58aececcab2e61",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "label": "noise",
    "independent": "noise",
    "label_agree": true,
    "gains_agree": true,
    "stored_gains": {
-    "area": 0.00043,
-    "wns": 0.0,
-    "power": 0.00112
+    "area": 0.02422,
+    "wns": 0.00255,
+    "power": 0.06269
    },
    "independent_gains": {
-    "area": 0.00043,
-    "wns": 0.0,
-    "power": 0.00112
+    "area": 0.02422,
+    "wns": 0.00255,
+    "power": 0.06269
    },
-   "jaccard_netlist": 0.9981,
-   "fp_jaccard_stored": 0.9984,
+   "jaccard_netlist": 0.8748,
+   "fp_jaccard_stored": 0.8932,
    "up": [],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/6495d0bd8e355f26"
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/a82bf37a132353ca"
   },
   {
    "cand_id": "c0e1f050c420219",
@@ -1888,7 +2122,7 @@
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_spi__spi/E4/6c5d2dd46db18321",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_spi__spi/E4/8b0d42a0f310b8ee"
   },
@@ -1914,7 +2148,7 @@
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/8782009cfed3c4c1"
   },
@@ -1940,7 +2174,7 @@
    "up": [],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__commutativity_subexpression/E4/ab9a0beecdd42948",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__commutativity_subexpression/E4/a39617527a67c11d"
   },
@@ -1966,7 +2200,7 @@
    "up": [],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__alu_subexpression/E4/2b70d0058b8011e7",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__alu_subexpression/E4/295c4c186c2149a9"
   },
@@ -1992,35 +2226,35 @@
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_sharing/E4/eb1571707ac62b73",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_memory__memory_sharing/E4/5515ff1d6bd48023"
   },
   {
-   "cand_id": "c58aececcab2e61",
+   "cand_id": "c99732468260bc2",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "label": "noise",
    "independent": "noise",
    "label_agree": true,
    "gains_agree": true,
    "stored_gains": {
-    "area": 0.02422,
-    "wns": 0.00255,
-    "power": 0.06269
+    "area": -0.08651,
+    "wns": 0.01813,
+    "power": -0.06805
    },
    "independent_gains": {
-    "area": 0.02422,
-    "wns": 0.00255,
-    "power": 0.06269
+    "area": -0.08651,
+    "wns": 0.01813,
+    "power": -0.06805
    },
-   "jaccard_netlist": 0.8748,
-   "fp_jaccard_stored": 0.8932,
+   "jaccard_netlist": 0.8408,
+   "fp_jaccard_stored": 0.8604,
    "up": [],
    "down": [],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "endpoints_coincide": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/a82bf37a132353ca"
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/0d7c424cf26ab654"
   },
   {
    "cand_id": "c50281a98924e9a",
@@ -2044,7 +2278,7 @@
    "up": [],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_spi__spi/E4/6c5d2dd46db18321",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_spi__spi/E4/a012b180bf719b8c"
   },
@@ -2070,35 +2304,35 @@
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/1ce598d2c3ebec89"
   },
   {
-   "cand_id": "c99732468260bc2",
+   "cand_id": "ccd271cd9959e4c",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "label": "noise",
    "independent": "noise",
    "label_agree": true,
    "gains_agree": true,
    "stored_gains": {
-    "area": -0.08651,
-    "wns": 0.01813,
-    "power": -0.06805
+    "area": 0.02422,
+    "wns": 0.01544,
+    "power": 0.0595
    },
    "independent_gains": {
-    "area": -0.08651,
-    "wns": 0.01813,
-    "power": -0.06805
+    "area": 0.02422,
+    "wns": 0.01544,
+    "power": 0.0595
    },
-   "jaccard_netlist": 0.8408,
-   "fp_jaccard_stored": 0.8604,
+   "jaccard_netlist": 0.9204,
+   "fp_jaccard_stored": 0.9324,
    "up": [],
    "down": [],
-   "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "endpoints_coincide": true,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/0d7c424cf26ab654"
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/580d96f7c8ba1eb8"
   },
   {
    "cand_id": "c986f0088da39f7",
@@ -2122,7 +2356,7 @@
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_spi__spi/E4/6c5d2dd46db18321",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_spi__spi/E4/439868f6a73fbfed"
   },
@@ -2148,165 +2382,9 @@
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/e6aedd2a4a1cbfa7"
-  },
-  {
-   "cand_id": "c1042e1ece93f31",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": 0.00043,
-    "wns": 0.0,
-    "power": 0.02483
-   },
-   "independent_gains": {
-    "area": 0.00043,
-    "wns": 0.0,
-    "power": 0.02483
-   },
-   "jaccard_netlist": 0.9888,
-   "fp_jaccard_stored": 0.9905,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/599a8e06e54d4754"
-  },
-  {
-   "cand_id": "c7aea4fbd2413cb",
-   "design_id": "cktevo_vga_enh__vga_wb_master",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": -0.00576,
-    "wns": -0.00208,
-    "power": 0.02665
-   },
-   "independent_gains": {
-    "area": -0.00576,
-    "wns": -0.00208,
-    "power": 0.02665
-   },
-   "jaccard_netlist": 0.7792,
-   "fp_jaccard_stored": 0.8354,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": false,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/3e3570299b0f6d23"
-  },
-  {
-   "cand_id": "c8cb0a2eb7afb3c",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": 0.00238,
-    "wns": 0.0,
-    "power": 0.02276
-   },
-   "independent_gains": {
-    "area": 0.00238,
-    "wns": 0.0,
-    "power": 0.02276
-   },
-   "jaccard_netlist": 0.9758,
-   "fp_jaccard_stored": 0.9795,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/26dd5607d3b5504c"
-  },
-  {
-   "cand_id": "cbcd516cbd6edf3",
-   "design_id": "cktevo_vga_enh__vga_wb_master",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": -0.00754,
-    "wns": -0.00178,
-    "power": -0.01456
-   },
-   "independent_gains": {
-    "area": -0.00754,
-    "wns": -0.00178,
-    "power": -0.01456
-   },
-   "jaccard_netlist": 0.719,
-   "fp_jaccard_stored": 0.7932,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": false,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/1ae0e5d879c6b00e"
-  },
-  {
-   "cand_id": "ccd271cd9959e4c",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": 0.02422,
-    "wns": 0.01544,
-    "power": 0.0595
-   },
-   "independent_gains": {
-    "area": 0.02422,
-    "wns": 0.01544,
-    "power": 0.0595
-   },
-   "jaccard_netlist": 0.9204,
-   "fp_jaccard_stored": 0.9324,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/580d96f7c8ba1eb8"
-  },
-  {
-   "cand_id": "cc2bbd307c9a360",
-   "design_id": "cktevo_vga_enh__vga_wb_master",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": -0.0234,
-    "wns": -0.00258,
-    "power": -0.02143
-   },
-   "independent_gains": {
-    "area": -0.0234,
-    "wns": -0.00258,
-    "power": -0.02143
-   },
-   "jaccard_netlist": 0.8544,
-   "fp_jaccard_stored": 0.8934,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": false,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/c861fe9b606d1f09"
   },
   {
    "cand_id": "c6629b08c65859b",
@@ -2330,35 +2408,35 @@
    "up": [],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/82d70f812694ae18"
   },
   {
-   "cand_id": "c42c34364b4555d",
+   "cand_id": "c7aea4fbd2413cb",
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "label": "noise",
    "independent": "noise",
    "label_agree": true,
    "gains_agree": true,
    "stored_gains": {
-    "area": -0.0313,
-    "wns": 0.002,
-    "power": -0.00567
+    "area": -0.00576,
+    "wns": -0.00208,
+    "power": 0.02665
    },
    "independent_gains": {
-    "area": -0.0313,
-    "wns": 0.002,
-    "power": -0.00567
+    "area": -0.00576,
+    "wns": -0.00208,
+    "power": 0.02665
    },
-   "jaccard_netlist": 0.77,
-   "fp_jaccard_stored": 0.8298,
+   "jaccard_netlist": 0.7792,
+   "fp_jaccard_stored": 0.8354,
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/11b2fac17ee503cb"
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/3e3570299b0f6d23"
   },
   {
    "cand_id": "cad9b9ccb22add3",
@@ -2382,139 +2460,35 @@
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/69e5d816d1f2691f"
   },
   {
-   "cand_id": "c08f8558da799b6",
+   "cand_id": "cbcd516cbd6edf3",
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "label": "noise",
    "independent": "noise",
    "label_agree": true,
    "gains_agree": true,
    "stored_gains": {
-    "area": -0.02786,
-    "wns": -0.00588,
-    "power": -0.01542
+    "area": -0.00754,
+    "wns": -0.00178,
+    "power": -0.01456
    },
    "independent_gains": {
-    "area": -0.02786,
-    "wns": -0.00588,
-    "power": -0.01542
+    "area": -0.00754,
+    "wns": -0.00178,
+    "power": -0.01456
    },
-   "jaccard_netlist": 0.8966,
-   "fp_jaccard_stored": 0.9253,
+   "jaccard_netlist": 0.719,
+   "fp_jaccard_stored": 0.7932,
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/5a97ac53bbd0137a"
-  },
-  {
-   "cand_id": "c6c9ad23df59e75",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": 0.00022,
-    "wns": 0.0,
-    "power": -0.01113
-   },
-   "independent_gains": {
-    "area": 0.00022,
-    "wns": 0.0,
-    "power": -0.01113
-   },
-   "jaccard_netlist": 0.9814,
-   "fp_jaccard_stored": 0.9843,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/2295a8f8c5fb5ac5"
-  },
-  {
-   "cand_id": "c8c6d26952f4f31",
-   "design_id": "cktevo_vga_enh__vga_wb_master",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": -0.03362,
-    "wns": -0.00044,
-    "power": -0.03429
-   },
-   "independent_gains": {
-    "area": -0.03362,
-    "wns": -0.00044,
-    "power": -0.03429
-   },
-   "jaccard_netlist": 0.8607,
-   "fp_jaccard_stored": 0.898,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": false,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/08a2a9ca7be91841"
-  },
-  {
-   "cand_id": "c53aa752d8e4083",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": 0.00022,
-    "wns": 0.0,
-    "power": -0.01113
-   },
-   "independent_gains": {
-    "area": 0.00022,
-    "wns": 0.0,
-    "power": -0.01113
-   },
-   "jaccard_netlist": 0.9814,
-   "fp_jaccard_stored": 0.9843,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/df4a2bc91e8cd19b"
-  },
-  {
-   "cand_id": "c0ffda866278ac8",
-   "design_id": "cktevo_vga_enh__vga_wb_master",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": -0.03724,
-    "wns": -0.00367,
-    "power": -0.01487
-   },
-   "independent_gains": {
-    "area": -0.03724,
-    "wns": -0.00367,
-    "power": -0.01487
-   },
-   "jaccard_netlist": 0.7537,
-   "fp_jaccard_stored": 0.8176,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": false,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/a133dd9ef8bf9b1d"
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/1ae0e5d879c6b00e"
   },
   {
    "cand_id": "c3162cf18955e27",
@@ -2538,191 +2512,35 @@
    "up": [],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/2a54cdeb4a42fc51"
   },
   {
-   "cand_id": "ca12411826186f4",
+   "cand_id": "cc2bbd307c9a360",
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "label": "noise",
    "independent": "noise",
    "label_agree": true,
    "gains_agree": true,
    "stored_gains": {
-    "area": -0.03071,
-    "wns": -0.0044,
-    "power": 0.01288
+    "area": -0.0234,
+    "wns": -0.00258,
+    "power": -0.02143
    },
    "independent_gains": {
-    "area": -0.03071,
-    "wns": -0.0044,
-    "power": 0.01288
+    "area": -0.0234,
+    "wns": -0.00258,
+    "power": -0.02143
    },
-   "jaccard_netlist": 0.7751,
-   "fp_jaccard_stored": 0.8327,
+   "jaccard_netlist": 0.8544,
+   "fp_jaccard_stored": 0.8934,
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/39a4deaa6e889883"
-  },
-  {
-   "cand_id": "c851892c32d44b5",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": 0.00043,
-    "wns": 0.0,
-    "power": 0.02372
-   },
-   "independent_gains": {
-    "area": 0.00043,
-    "wns": 0.0,
-    "power": 0.02372
-   },
-   "jaccard_netlist": 0.9888,
-   "fp_jaccard_stored": 0.9905,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/080315d10c5ec07b"
-  },
-  {
-   "cand_id": "c619d2df2225f8c",
-   "design_id": "cktevo_vga_enh__vga_wb_master",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": -0.01093,
-    "wns": -0.00183,
-    "power": 0.0002
-   },
-   "independent_gains": {
-    "area": -0.01093,
-    "wns": -0.00183,
-    "power": 0.0002
-   },
-   "jaccard_netlist": 0.7396,
-   "fp_jaccard_stored": 0.8052,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": false,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/50413ffa87ff1cbd"
-  },
-  {
-   "cand_id": "cecf9e1c85ad765",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": 0.00389,
-    "wns": 0.0,
-    "power": -0.01286
-   },
-   "independent_gains": {
-    "area": 0.00389,
-    "wns": 0.0,
-    "power": -0.01286
-   },
-   "jaccard_netlist": 0.9648,
-   "fp_jaccard_stored": 0.9702,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/7ae3627a0060f8c3"
-  },
-  {
-   "cand_id": "c92f5ccf57a5cd3",
-   "design_id": "cktevo_vga_enh__vga_wb_master",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": -0.04235,
-    "wns": -0.00412,
-    "power": -0.0173
-   },
-   "independent_gains": {
-    "area": -0.04235,
-    "wns": -0.00412,
-    "power": -0.0173
-   },
-   "jaccard_netlist": 0.7451,
-   "fp_jaccard_stored": 0.8109,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": false,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/be2a4fc5d2b17deb"
-  },
-  {
-   "cand_id": "c1931b85c2c196c",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": 0.00065,
-    "wns": 0.0,
-    "power": -0.01037
-   },
-   "independent_gains": {
-    "area": 0.00065,
-    "wns": 0.0,
-    "power": -0.01037
-   },
-   "jaccard_netlist": 0.9796,
-   "fp_jaccard_stored": 0.9827,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/825c713457314de3"
-  },
-  {
-   "cand_id": "c3bdf4c33ebad57",
-   "design_id": "cktevo_vga_enh__vga_wb_master",
-   "label": "noise",
-   "independent": "noise",
-   "label_agree": true,
-   "gains_agree": true,
-   "stored_gains": {
-    "area": -0.03808,
-    "wns": -0.00585,
-    "power": -0.03488
-   },
-   "independent_gains": {
-    "area": -0.03808,
-    "wns": -0.00585,
-    "power": -0.03488
-   },
-   "jaccard_netlist": 0.8387,
-   "fp_jaccard_stored": 0.8819,
-   "up": [],
-   "down": [],
-   "endpoints_coincide": false,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/1931d3150dae37b5"
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/c861fe9b606d1f09"
   },
   {
    "cand_id": "cefd617c8a7277f",
@@ -2746,9 +2564,35 @@
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/ba8f31ba91d6c388"
+  },
+  {
+   "cand_id": "c42c34364b4555d",
+   "design_id": "cktevo_vga_enh__vga_wb_master",
+   "label": "noise",
+   "independent": "noise",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": -0.0313,
+    "wns": 0.002,
+    "power": -0.00567
+   },
+   "independent_gains": {
+    "area": -0.0313,
+    "wns": 0.002,
+    "power": -0.00567
+   },
+   "jaccard_netlist": 0.77,
+   "fp_jaccard_stored": 0.8298,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": false,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/11b2fac17ee503cb"
   },
   {
    "cand_id": "c0d440ee2d781d2",
@@ -2772,9 +2616,35 @@
    "up": [],
    "down": [],
    "endpoints_coincide": false,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/593ee30a403a79a8"
+  },
+  {
+   "cand_id": "c08f8558da799b6",
+   "design_id": "cktevo_vga_enh__vga_wb_master",
+   "label": "noise",
+   "independent": "noise",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": -0.02786,
+    "wns": -0.00588,
+    "power": -0.01542
+   },
+   "independent_gains": {
+    "area": -0.02786,
+    "wns": -0.00588,
+    "power": -0.01542
+   },
+   "jaccard_netlist": 0.8966,
+   "fp_jaccard_stored": 0.9253,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": false,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/5a97ac53bbd0137a"
   },
   {
    "cand_id": "c91f4d7ed841a6d",
@@ -2798,35 +2668,35 @@
    "up": [],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/9cb515a7c53ceb6c"
   },
   {
-   "cand_id": "c27d77a5adba0d9",
-   "design_id": "cktevo_ethmac__eth_txethmac",
+   "cand_id": "c8c6d26952f4f31",
+   "design_id": "cktevo_vga_enh__vga_wb_master",
    "label": "noise",
    "independent": "noise",
    "label_agree": true,
    "gains_agree": true,
    "stored_gains": {
-    "area": 0.00087,
-    "wns": 0.0,
-    "power": 0.02399
+    "area": -0.03362,
+    "wns": -0.00044,
+    "power": -0.03429
    },
    "independent_gains": {
-    "area": 0.00087,
-    "wns": 0.0,
-    "power": 0.02399
+    "area": -0.03362,
+    "wns": -0.00044,
+    "power": -0.03429
    },
-   "jaccard_netlist": 0.9869,
-   "fp_jaccard_stored": 0.9889,
+   "jaccard_netlist": 0.8607,
+   "fp_jaccard_stored": 0.898,
    "up": [],
    "down": [],
-   "endpoints_coincide": true,
-   "area_within_sigma": false,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/e38dc66aa9836451"
+   "endpoints_coincide": false,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/08a2a9ca7be91841"
   },
   {
    "cand_id": "c156be445e68398",
@@ -2850,9 +2720,35 @@
    "up": [],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/be456720b506bd44"
+  },
+  {
+   "cand_id": "c0ffda866278ac8",
+   "design_id": "cktevo_vga_enh__vga_wb_master",
+   "label": "noise",
+   "independent": "noise",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": -0.03724,
+    "wns": -0.00367,
+    "power": -0.01487
+   },
+   "independent_gains": {
+    "area": -0.03724,
+    "wns": -0.00367,
+    "power": -0.01487
+   },
+   "jaccard_netlist": 0.7537,
+   "fp_jaccard_stored": 0.8176,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": false,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/a133dd9ef8bf9b1d"
   },
   {
    "cand_id": "cf92adc9e264421",
@@ -2876,9 +2772,139 @@
    "up": [],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/9553f7c615c7647a"
+  },
+  {
+   "cand_id": "ca12411826186f4",
+   "design_id": "cktevo_vga_enh__vga_wb_master",
+   "label": "noise",
+   "independent": "noise",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": -0.03071,
+    "wns": -0.0044,
+    "power": 0.01288
+   },
+   "independent_gains": {
+    "area": -0.03071,
+    "wns": -0.0044,
+    "power": 0.01288
+   },
+   "jaccard_netlist": 0.7751,
+   "fp_jaccard_stored": 0.8327,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": false,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/39a4deaa6e889883"
+  },
+  {
+   "cand_id": "c7c773d390a144f",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "label": "noise",
+   "independent": "noise",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": -0.07353,
+    "wns": 0.02267,
+    "power": -0.05181
+   },
+   "independent_gains": {
+    "area": -0.07353,
+    "wns": 0.02267,
+    "power": -0.05181
+   },
+   "jaccard_netlist": 0.8851,
+   "fp_jaccard_stored": 0.9024,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": false,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/cb8e9879371bd2ef"
+  },
+  {
+   "cand_id": "c619d2df2225f8c",
+   "design_id": "cktevo_vga_enh__vga_wb_master",
+   "label": "noise",
+   "independent": "noise",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": -0.01093,
+    "wns": -0.00183,
+    "power": 0.0002
+   },
+   "independent_gains": {
+    "area": -0.01093,
+    "wns": -0.00183,
+    "power": 0.0002
+   },
+   "jaccard_netlist": 0.7396,
+   "fp_jaccard_stored": 0.8052,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": false,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/50413ffa87ff1cbd"
+  },
+  {
+   "cand_id": "c92f5ccf57a5cd3",
+   "design_id": "cktevo_vga_enh__vga_wb_master",
+   "label": "noise",
+   "independent": "noise",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": -0.04235,
+    "wns": -0.00412,
+    "power": -0.0173
+   },
+   "independent_gains": {
+    "area": -0.04235,
+    "wns": -0.00412,
+    "power": -0.0173
+   },
+   "jaccard_netlist": 0.7451,
+   "fp_jaccard_stored": 0.8109,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": false,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/be2a4fc5d2b17deb"
+  },
+  {
+   "cand_id": "c3bdf4c33ebad57",
+   "design_id": "cktevo_vga_enh__vga_wb_master",
+   "label": "noise",
+   "independent": "noise",
+   "label_agree": true,
+   "gains_agree": true,
+   "stored_gains": {
+    "area": -0.03808,
+    "wns": -0.00585,
+    "power": -0.03488
+   },
+   "independent_gains": {
+    "area": -0.03808,
+    "wns": -0.00585,
+    "power": -0.03488
+   },
+   "jaccard_netlist": 0.8387,
+   "fp_jaccard_stored": 0.8819,
+   "up": [],
+   "down": [],
+   "endpoints_coincide": false,
+   "area_within_sigma": true,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/d6ee5b7084216f7d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_master/E4/1931d3150dae37b5"
   },
   {
    "cand_id": "ca7289feac87ff6",
@@ -2992,7 +3018,7 @@
    ],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_8bit/E4/46d148ffc4f273fb",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlopt_comparator_8bit/E4/4a669a78f90defab"
   },
@@ -3199,7 +3225,7 @@
    ],
    "down": [],
    "endpoints_coincide": true,
-   "area_within_sigma": false,
+   "area_within_sigma": true,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_algorithm__spmv/E4/0337251c91aa72f3",
    "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_algorithm__spmv/E4/87464d06d8129f43"
   },

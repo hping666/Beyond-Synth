@@ -1,17 +1,17 @@
 # Phase 4 report — Exp1: ladder and map (C1)
 
-Generated 2026-09-15 11:14 by scripts/report_phase.py (git 9b3178d4695c, cfg d845788457d4). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
+Generated 2026-09-15 11:18 by scripts/report_phase.py (git ab0b1c21ed94, cfg d845788457d4). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
 
 ## 1. Objects
 
-Designs (config `exp1.designs`, C1 scope: human-written RTL): cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode; floor version `phase4`. 1473 objects: roles {'reference': 94, 'llm': 22, 'b0': 1357}; equivalence verdicts {'proven': 409, 'sim_fail': 440, 'falsified': 342, 'rejected': 235, 'inconclusive': 43, 'proven_sim_only': 1, 'pending': 3}; M6 classes (rules v2) {'b': 407, 'a': 152, 'd': 475, 'c1': 399, '?': 9, 'c2': 1, 'free': 30}; E4-evaluated 380; M3 labels at E4 {'harmful': 22, 'tradeoff': 54, 'absorbed_identical': 59, 'retained': 75, '-': 55, 'absorbed': 4, 'duplicate': 128, 'noise': 41, 'nonequiv': 1035}.
+Designs (config `exp1.designs`, C1 scope: human-written RTL): cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode; floor version `phase4`. 1473 objects: roles {'reference': 94, 'llm': 22, 'b0': 1357}; equivalence verdicts {'proven': 409, 'sim_fail': 440, 'falsified': 342, 'rejected': 235, 'inconclusive': 43, 'proven_sim_only': 1, 'pending': 3}; M6 classes (rules v2) {'b': 407, 'a': 152, 'd': 475, 'c1': 399, '?': 9, 'c2': 1, 'free': 30}; E4-evaluated 380; M3 labels at E4 {'harmful': 20, 'tradeoff': 54, 'absorbed_identical': 59, 'retained': 75, '-': 55, 'absorbed': 15, 'duplicate': 128, 'noise': 32, 'nonequiv': 1035}.
 
 ## 2. Map v1: E4 retention rate (area, rule-A threshold of the design under each configuration) by class × configuration
 
 | class | E1 rate (n) | E1d rate (n) | E2 rate (n) | E3 rate (n) | E2g rate (n) | E4 rate (n) | E4 median gain | E4 labels | absorption rung (E4) |
 |---|---|---|---|---|---|---|---|---|---|
-| a | 33 % (73) | - (0) | 14 % (73) | 14 % (73) | - (0) | 15 % (73) | 17.6 % | {'absorbed': 2, 'absorbed_identical': 40, 'harmful': 5, 'noise': 12, 'retained': 10, 'tradeoff': 4} | {'E1': 1, 'E4': 40, 'after_Es': 1} |
-| b | 49 % (110) | - (0) | 42 % (110) | 40 % (110) | - (0) | 43 % (110) | 28.5 % | {'absorbed': 2, 'absorbed_identical': 16, 'harmful': 11, 'noise': 28, 'retained': 38, 'tradeoff': 15} | {'E2': 2, 'E4': 16} |
+| a | 33 % (73) | - (0) | 14 % (73) | 14 % (73) | - (0) | 15 % (73) | 17.6 % | {'absorbed': 7, 'absorbed_identical': 40, 'harmful': 4, 'noise': 8, 'retained': 10, 'tradeoff': 4} | {'E1': 2, 'E2': 4, 'E4': 40, 'after_Es': 1} |
+| b | 49 % (110) | - (0) | 42 % (110) | 40 % (110) | - (0) | 43 % (110) | 28.5 % | {'absorbed': 8, 'absorbed_identical': 16, 'harmful': 10, 'noise': 23, 'retained': 38, 'tradeoff': 15} | {'E1': 2, 'E2': 1, 'E4': 16, 'after_Es': 5} |
 | c1 | 85 % (26) | - (0) | 92 % (26) | 88 % (26) | - (0) | 88 % (26) | 7.8 % | {'noise': 1, 'retained': 22, 'tradeoff': 3} | {} |
 | c2 | 0 % (1) | - (0) | 0 % (1) | 0 % (1) | - (0) | 0 % (1) | - | {'harmful': 1} | {} |
 | d | 76 % (45) | - (0) | 49 % (45) | 20 % (45) | - (0) | 73 % (45) | 4.8 % | {'absorbed_identical': 3, 'harmful': 5, 'retained': 5, 'tradeoff': 32} | {'E4': 3} |
@@ -22,8 +22,8 @@ The same map on the B0 objects alone (the C1 scope: luna rewrites of the ten hum
 
 | class | E1 rate (n) | E1d rate (n) | E2 rate (n) | E3 rate (n) | E2g rate (n) | E4 rate (n) | E4 median gain | E4 labels |
 |---|---|---|---|---|---|---|---|---|
-| a | 6 % (33) | - (0) | 6 % (33) | 6 % (33) | - (0) | 6 % (33) | 5.0 % | {'absorbed': 1, 'absorbed_identical': 19, 'noise': 11, 'retained': 1, 'tradeoff': 1} |
-| b | 49 % (84) | - (0) | 49 % (84) | 46 % (84) | - (0) | 49 % (84) | 41.6 % | {'absorbed': 2, 'absorbed_identical': 5, 'harmful': 6, 'noise': 27, 'retained': 34, 'tradeoff': 10} |
+| a | 6 % (33) | - (0) | 6 % (33) | 6 % (33) | - (0) | 6 % (33) | 5.0 % | {'absorbed': 5, 'absorbed_identical': 19, 'noise': 7, 'retained': 1, 'tradeoff': 1} |
+| b | 49 % (84) | - (0) | 49 % (84) | 46 % (84) | - (0) | 49 % (84) | 41.6 % | {'absorbed': 7, 'absorbed_identical': 5, 'harmful': 6, 'noise': 22, 'retained': 34, 'tradeoff': 10} |
 | c1 | 89 % (19) | - (0) | 100 % (19) | 100 % (19) | - (0) | 100 % (19) | 7.8 % | {'retained': 17, 'tradeoff': 2} |
 | c2 | - (0) | - (0) | - (0) | - (0) | - (0) | - (0) | - | {} |
 | d | 84 % (32) | - (0) | 59 % (32) | 19 % (32) | - (0) | 94 % (32) | 4.4 % | {'retained': 3, 'tradeoff': 29} |
@@ -110,14 +110,14 @@ Rule R forbids classes ['a', 'b'] (syntactic / coding rewrites) and allows ['c1'
 
 ## 5b. Diagnoser validation data (PLAN 4.6, spec 04 B.5)
 
-Diagnoses by label: {'absorbed': 4, 'absorbed_identical': 59, 'harmful': 22, 'noise': 41, 'retained': 75, 'tradeoff': 54}; manual sample of 40 per label (seed 1, round-robin over designs; reports/data/phase4_diagnoser_sample.json, verdicts in phase4_diagnoser_check.md). Single-flag reproduction of the 63 absorbed objects (D compiled with one flag alone vs the object's plain-compile netlist C@E1, convergence = histogram Jaccard >= 0.95, area within the E1 band, endpoints coincide): 14 reproduced by at least one flag (22 %).
+Diagnoses by label: {'absorbed': 15, 'absorbed_identical': 59, 'harmful': 20, 'noise': 32, 'retained': 75, 'tradeoff': 54}; manual sample of 40 per label (seed 1, round-robin over designs; reports/data/phase4_diagnoser_sample.json, verdicts in phase4_diagnoser_check.md). Single-flag reproduction of the 74 absorbed objects (D compiled with one flag alone vs the object's plain-compile netlist C@E1, convergence = histogram Jaccard >= 0.95, area within the E1 band, endpoints coincide): 14 reproduced by at least one flag (19 %).
 
 | flag (configuration) | absorbed objects evaluated | converged with C@E1 | rate |
 |---|---|---|---|
-| designware (E1d) | 63 | 14 | 22 % |
-| gate_clock (E2g) | 63 | 4 | 6 % |
-| none (E1) | 63 | 26 | 41 % |
-| retime (E3) | 63 | 4 | 6 % |
+| designware (E1d) | 74 | 14 | 19 % |
+| gate_clock (E2g) | 74 | 4 | 5 % |
+| none (E1) | 74 | 28 | 38 % |
+| retime (E3) | 74 | 4 | 5 % |
 
 ## 6. Retention predictor (PLAN 4.5; leave-one-design-out)
 
@@ -179,6 +179,42 @@ Diagnosis labels at E4 per class (run-time M3 verdicts; `harmful` split by the `
 Inspection of the (d) row: of the 230 class-(d) candidates on RTLLM, 152 are `absorbed_identical` ({'rtllm_adder_16bit': 152, 'rtllm_multi_pipe_8bit': 0}; on rtllm_adder_16bit these are hand-written carry-lookahead / prefix / behavioural adders whose E4 netlist is identical to D's — DC's own adder synthesis reproduces them), 1 are `harmful` of which 1 carry `blocks_synthesis` (a DesignWare component of D displaced by hand-written arithmetic: the first measured instances, see the map); the low (d) retention on RTLLM is absorption of textbook-adder rewrites, not displacement of DesignWare.
 
 
+## 9. Diagnoser validation (PLAN 4.6, spec 04 §B.5) — manual check of 2026-09-15
+
+**Protocol.** (1) A stratified sample of the E4 diagnoses of the Phase 4 objects: 40 per label (all of a label when fewer), round-robin over designs, ranked by a seeded hash of the candidate id (`phase4_exp1.py diag-sample`, seed `exp1.manual_check_seed` = 1). (2) Every sampled diagnosis is re-derived from the raw DC reports without the analysis code (`phase4_exp1.py diag-verify`, `src/analysis/verify.py`): area from `area.rpt`, slack and leaf cells from `qor.rpt`, power from the `Total` line of the power reports on the same basis as the rule (SAIF with SAIF, else default with default), the critical endpoints from `timing.rpt`, the cell histogram from the instances of `netlist.v` (the database histogram comes from `refs.rpt`), and §B.2 re-implemented. Agreement = same label; the gains are compared to 1e-4. (3) The rows of every label are then read by hand (RTL of D and of the object, the E4 report figures, the LLM's own note for B0 candidates), with the deep reads listed below. (4) For `absorbed` / `absorbed_identical`, the single-flag reproduction of §B.5: D compiled with one flag alone (E1d designware, E2g gate_clock, E3 = E2r retime) against the object's plain-compile netlist (C@E1), convergence as in §B.1 with the E1 band of the design.
+
+**Result of the independent re-derivation (final rules).** 187 sampled diagnoses (absorbed 15, absorbed_identical 40, harmful 20, noise 32, retained 40, tradeoff 40): 187 of 187 labels agree, 187 of 187 gain vectors agree (reports/data/phase4_diagnoser_verify.json).
+
+**What the first round found (165 sampled rows of the provisional diagnoses, 161 agreed).** The four disagreements were not reading errors but two defects of the diagnoser's inputs, both fixed before the final diagnosis (DECISIONS 2026-09-15): a candidate with SAIF-based power had been compared with a D that only had default-activity power (power "gains" of +88 % and +93 % on drrtl_i2c and rtlrewriter fsm example3), and designs without a floor row (RTLRewriter) or without a power floor (a D without SAIF) had been judged against a zero band. A third weakness surfaced in the by-hand reading: the convergence test used sigma_robust, which is zero on quiet designs, so a converged but not identical netlist could never be `absorbed` there and fell to `noise`; the test now uses the rule-A band of the rung (t_D), which moved 9 objects from noise to absorbed and gave the absorption-rung column its content (absorbed at E1: 4, at E2: 5, after E_s: 6; absorbed_identical at E4: 59).
+
+**By-hand reading (20 rows: the first three of every label plus the two objects of the motivating figure).** The label was judged against the RTL and the report figures; every one was found consistent with §B.2 and with what the rewrite does:
+
+| object | design | class | label | what the reading showed |
+|---|---|---|---|---|
+| c634baa4b8fa859 | rtlopt_ticket_machine (B0) | b | retained (+58 % area, +31 % WNS, +34 % power at E4) | D is a six-state one-hot FSM (6 flip-flops); the rewrite re-encodes it in three bits with hand-derived next-state and output equations (3 flip-flops, 14 cells vs 35). DC W-2024.09 does not re-encode a one-hot FSM on its own under `compile_ultra -retime -gate_clock`; VC Formal proved the outputs equal from reset. A genuine retained (b) gain. |
+| c180f326d351e0b | rtlopt_add_sub (RTL-OPT reference) | b | harmful (−94 % area, −108 % power) | the "expert-optimized" reference splits the 16-bit add/sub into two 8-bit halves with an explicit carry; under a plain compile the two are equal (84 vs 86 cells), under E4 DC turns the original `a ± b` into one shared DesignWare add/sub (34 cells, 93 µm²) while the split version stays at 105 cells (180 µm²). The literature optimisation is neutral at E1 and harmful at E4 — the paper's thesis in one object. |
+| c5873c2b59da776 | rtlrewriter memory_sharing (engineers' rewrite) | c1 | absorbed at E2 (final rules; noise under the provisional ones) | at E1 the rewrite is 41 % smaller (779 vs 1296 cells, 144 vs 272 registers); at E2 D collapses to exactly the rewrite's netlist (604 cells, 1307.92 µm², 144 registers, equal to the last digit); at E4 they differ by one cell. compile_ultra's own register sharing reproduces the engineers' rewrite. |
+| ce0b8fe45ba6e9a | cktevo_spi__spi (B0) | a | absorbed (after E_s) | control-state consolidation; Jaccard 0.995, area equal, power −0.6 % inside the 23.6 % band of this spread design. |
+| c5962911101c22b | cktevo_vga_enh (B0) | b | absorbed at E2 | collapsed identical Wishbone cycle/strobe state; Jaccard 0.999, converged from E2 on. |
+| c42ea6425e1792a | rtlrewriter commutativity (LLM sample) | a | absorbed at E1 | a re-association of subexpressions; a plain compile already gives D the same netlist (Jaccard 0.956, −1 % area inside the 2.4 % band). |
+| c570a28078bee79, cc34736dc71ee1e, cf96d541739cb1d | eth_txethmac, mc_obct_top, spi (B0) | a | absorbed_identical | factored next-state expressions, shared chip-select vectors, explicit enables: the E4 netlists are D's own (equal histogram, area and cell count). |
+| cef0cadecf1e2f3 | cktevo_vga_enh (B0) | b | harmful (−5.4 % area, −5.7 % power; 48 extra registers) | the rewrite adds intermediate registers; the losses exceed the 4.4 % / 5.8 % bands of this spread design. |
+| c19b2002f2f2b2e | rtlopt_adder_select (RTL-OPT reference) | b | harmful (−6.4 % area, −27 % power) | a carry-select adder written by hand against D's `a + b`: DesignWare's adder is smaller under E4. |
+| cc1ec9451bbe90e | eth_txethmac (B0) | b | noise | +0.04 % area inside the 11.6 % band, Jaccard 0.998 but 1 cell apart: no gain, no convergence claim. |
+| c0e1f050c420219 | spi (B0) | a | noise (+3.3 % area, −4.7 % power) | inside the 15.2 % / 23.6 % bands of this spread design; the fingerprint moved (Jaccard 0.89, 6 registers fewer): correctly not credited. |
+| c110e6ce5c489b5 | cktevo_vga_enh (B0) | b | noise (−2.4 % area) | LFSR FIFO pointers replaced by binary pointers, DW_cmp appears in D only; losses inside the bands. |
+| ca7289feac87ff6 | mc_obct_top (B0) | b | retained (+0.7 % area, +0.6 % WNS) | propagated compile-time-disabled chip selects; small but above the quiet design's 0.28 % band. |
+| cd56b41d32d7637 | drrtl_i2c (B0) | c1 | retained (+6.9 % area, +10 % power on the default basis) | five one-hot state bits re-encoded in three; 15 registers fewer; i2c has no SAIF baseline, so power is compared on the default-activity basis on both sides. |
+| c107891270e0cfd | rtlopt_calculation (RTL-OPT reference) | a | retained (+17.6 % area, +23 % power) | the reference removes a subtractor (DW01_sub in D only): a real algebraic gain. |
+| c0c021141c94ff8 | mc_obct_top (B0) | d | tradeoff (+4.1 % area, −2.6 % WNS, −48 % power) | four bank-state networks replaced by a shared one-hot mask: smaller but slower and far more switching (both SAIF). |
+| ca433d95ad43ab9 | drrtl_i2c (B0) | b | tradeoff (−1.2 % area, +2.7 % power) | the two one-hot FSMs re-encoded as binary: larger, less power on the default basis. |
+| cb5db2844363636 | rtlopt_adder (RTL-OPT reference) | a | tradeoff (−12 % area, +19 % WNS) | the hand-written adder is faster and larger than DesignWare's. |
+
+**Single-flag reproduction (§B.5) of the 74 absorbed objects.** 14 are reproduced by one flag alone (designware 14, gate_clock 4, retime 4; some by several); 28 are already converged with D under a plain compile (the rewrite changes nothing the tool sees); the remaining 32 converge only under `compile_ultra` as a whole, not under a single flag. The negative cases of §B.5 hold in the data: renaming-style rewrites are absorbed at E1 (4 objects) and the hand-written slow multiplier of the RTLRewriter datapath set is `tradeoff` (area up, WNS and power down).
+
+**Agreement.** 187 / 187 (100 %) between the stored labels and the independent re-derivation from the raw reports; 20 / 20 rows read by hand consistent with the labels. The residual limitation is the one stated in spec 04 §B.6: convergence is a proxy for equal quality, and the 32 absorbed objects without a single-flag reproduction are attributed to `compile_ultra` as a whole.
+
+
 ## 10. Motivating figure (PLAN 4.9): the same rewrite along the ladder
 
 Two Phase 4 objects chosen by the data: the largest plain-compile (E1) gain that the full-effort flow recovers on its own, and the largest gain that survives E4 (retained). Positive = better than D under that configuration (relative); t_D is the rule-A threshold of the design at E4.
@@ -189,3 +225,26 @@ Two Phase 4 objects chosen by the data: the largest plain-compile (E1) gain that
 | retained: c634baa4b8fa859 | rtlopt_ticket_machine | b | retained / E4 | +58.9 % / +24.4 % / +73.8 % | +58.9 % / +24.4 % / +51.3 % | +58.4 % / +30.9 % / +34.0 % | +58.4 % / +30.9 % / +34.0 % | +58.4 % / +30.9 % / +50.1 % | +58.4 % / +30.9 % / +34.0 % | +42.8 % / +6.0 % / +41.7 % | +42.8 % / +6.0 % / +41.7 % | +42.8 % / +6.0 % / +41.7 % | +41.2 % / +2.0 % / +43.2 % | 0.28 % |
 
 The recovered object shows the gain a plain compile reports vanishing under `compile_ultra -retime -gate_clock` (the synthesizer obtains it on its own); the retained object keeps its gain there — the complement the ladder search aims at (PROPOSAL §1).
+
+
+## 11. Conclusions (STOP G5, 2026-09-15)
+
+**Map shape: concentrated.** On the B0 objects (luna rewrites of the ten human-written designs, C1 scope) the E4 retention rate by class is (a) 6 % of 33, (b) 49 % of 84, (c1) 100 % of 19, (d) 94 % of 32, and on all 255 diagnosed objects (B0 plus the literature pairs) 15 % / 43 % / 88 % / 73 %. The evidence for "concentrated": the rates differ by far more than the 0.3 criterion between classes with at least 10 objects, and the shape survives the sensitivity row (materiality thresholds instead of the rule-A floors: 21 % / 39 % / 88 % / 69 %) and the two floor-class populations (five spread designs with bands of 4–15 % and four quiet ones at 0.28 %). Two nuances belong in the paper. First, the rate is an area criterion; by the five-way label the (d) objects are mostly `tradeoff` (29 of 32 on B0: area down, WNS or power up — the shared one-hot masks and re-organised datapaths of mc_obct_top), so the class that "retains" most is the class that pays for it elsewhere, while (c1) (register re-encoding, 22 retained of 26 overall) and the state-encoding half of (b) retain cleanly. Second, (a) is absorbed almost entirely: of 73 (a) objects 40 synthesise to D's own E4 netlist and 7 more converge with it, i.e. combinational rewriting is what the synthesizer does itself.
+
+**Absorption is compile_ultra as a whole, rarely one flag.** Of the 74 absorbed objects, 28 are already indistinguishable from D under a plain compile, 14 are reproduced by a single flag (14 by the DesignWare mapping, 4 by clock gating, 4 by retiming, some by several) and 32 converge only under the full-effort flow. Retention is not monotone along the ladder: 45 of 255 objects (17.6 %) are inside the band at a lower rung and above it at a higher one (mostly `-RRR` and `R--R` patterns), which is why the ladder is measured at every rung rather than assumed to dominate from E4 downwards.
+
+**The static rule R is wrong in both directions.** Forbidding "syntactic / coding" rewrites (classes (a) and (b)) would discard 37 % retained objects (n = 183), and allowing only architectural ones ((c1), (c2), (d)) would still let 6 % absorbed objects through (n = 72). The retained (b) objects are state re-encodings (one-hot to binary FSMs on ticket_machine, i2c, fsm_encode) that DC W-2024.09 does not perform under `compile_ultra -retime -gate_clock`.
+
+**Predictor.** A leave-one-design-out logistic model on the cheap features (E1 and E2 gains, E1 convergence, flip-flop delta, diff ratio) reaches AUROC 0.717 with the class features and 0.733 without them (n = 255, 129 retained; precision 55 % at 85 % recall for both). The class adds nothing beyond the E1/E2 gains — the E2 gain alone carries the model — so the screening decision of G3 stands as it was: E2-level evidence predicts retention moderately, not enough to replace E4.
+
+**Literature settings re-evaluated.** Of the 34 proven RTL-OPT pairs, 20 optimised versions are smaller than the original under a plain compile and every one of these retains at E1, but only 13 are smaller under E4 and 11 retain; the RTL-OPT `add_sub` reference is the emblematic case (equal to the original at E1, 94 % larger at E4 because DC turns the original `a ± b` into one shared DesignWare unit and cannot do so on the split version). Of the 43 proven RTLRewriter pairs, 24 are smaller at E1 and 10 at E4 (10 retained); the `memory_sharing` rewrite that is 41 % smaller at E1 is reproduced to the last cell by `compile_ultra` at E2. Six RTL-OPT references, eleven RTLRewriter references and eight of its LLM samples are not equivalent to their original under the protocol (V1 ports, lock-step simulation from the all-zero state, SEQ) and are reported apart (§4a): the four RTL-OPT dividers differ functionally, `mac` only under the initial-state assumption, and several RTLRewriter references do not elaborate or change the ports.
+
+**Generation and hygiene (the B0 correctness finding).** 28 luna runs (K = 10 × N = 5, 1 400 calls, 4.01 USD) produced 1 357 candidates of which 320 (24 %) are proven equivalent — 429 lock-step mismatches, 340 SEQ counterexamples, 226 rejected at V1 (do not elaborate or change the interface), 40 inconclusive. The three largest designs (spikeLayer8_H7, drrtl_datapath, drrtl_pcie: 562 candidates over four seeds each) yielded no proven candidate at all, while the small FSM designs reached 78–84 % (fsm_encode 42 of 50, ticket_machine 39 of 50). A further 28 proven B0 candidates and two literature references are rejected by DC (25 `!|` reductions, VER-294; a double net declaration; blocking and nonblocking assignments to one variable; a multiply-driven net; two port-width mismatches at link) and stay `evaluation failed` (rule 8). The LLM's correctness on multi-module human-written RTL, not the synthesizer, is the first limit of the setting; Phase 5 keeps the ten designs but the projection of proofs per retained candidate must use these rates.
+
+**Cost.** Search: 63.8 VC Formal hours and 5.7 DC hours at search time (Yosys fitness); ladder and diagnosis: 45.3 DC hours for 380 objects under E1–E4 plus the supplementary configurations; hidden registrations submitted for every E4-evaluated object (reported after Phase 5, rule 3).
+
+**Validation of the instruments.** The M6 rules v2 (validated before Phase 4 on 60 candidates) and the M3 diagnoser (this phase: 187 of 187 sampled diagnoses agree with an independent re-derivation from the raw DC reports, 20 rows read by hand, §9) are fit for Phase 5. The validation itself found and fixed three input defects of the diagnoser (mixed SAIF / default power bases, a zero band for designs without a floor component, a convergence test that could never fire on quiet designs; DECISIONS 2026-09-15); Phase 3 was re-derived under the corrected rules and its conclusions stand (at most 15 substantive label changes of 906).
+
+**Recommended paper form.** A map paper: "which rewrites survive the synthesizer" with the concentrated map as the central figure (class × rung retention with the sensitivity rows), the non-monotone ladder, the two-sided failure of the static rule, the literature re-evaluation table with the `add_sub` / `memory_sharing` pair as the motivating figure (§10), and the ladder search of Phase 5 as the method that aims at the complement ((c1), state re-encoding (b), and (d) only with a tradeoff-aware objective). The class-blind predictor result argues against a class-based prescreen and for the verdict feedback of the M arm.
+
+**Open before Phase 5 (unchanged, DECISIONS 2026-09-14).** SEQ latency mapping (G2.1 (b)) — class (c2) has one object in this phase, so pipelining rewrites are not yet on the map; the DPV phase mapping for fixed-latency arithmetic pipelines; `vcf_seats_target` 50 in bulk mode; the B1@E4 static-complement prompt; whether the LLM review of spec 04 A.2 is applied to the Phase 4 / 5 objects.

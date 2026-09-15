@@ -1,16 +1,123 @@
 {
- "generated_at": "2026-09-15T11:09:01",
+ "generated_at": "2026-09-15T11:15:18",
  "per_label_total": {
-  "absorbed": 4,
+  "absorbed": 15,
   "absorbed_identical": 59,
-  "harmful": 22,
-  "noise": 41,
+  "harmful": 20,
+  "noise": 32,
   "retained": 75,
   "tradeoff": 54
  },
  "sample_per_label": 40,
  "seed": 1,
  "sample": [
+  {
+   "cand_id": "cc1ec9451bbe90e",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "role": "b0",
+   "class": "b",
+   "label": "absorbed",
+   "rung": "E1",
+   "attribution": "measured",
+   "fp_jaccard": 0.9984,
+   "evidence": {
+    "gains": {
+     "area": 0.00043,
+     "wns": 0.0,
+     "power": 0.00112
+    },
+    "band": {
+     "area": 0.11635,
+     "wns": 0.03158,
+     "power": 0.13131
+    },
+    "power_basis": "saif",
+    "fp_jaccard": 0.9984,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0.0,
+    "icg": [
+     5,
+     5
+    ],
+    "floor_class": "spread"
+   },
+   "gains": {
+    "E1": {
+     "area": 0.0,
+     "wns": 0.0,
+     "power": 0.0
+    },
+    "E1d": {
+     "area": 0.0,
+     "wns": 0.0,
+     "power": 0.0
+    },
+    "E2": {
+     "area": -0.009459743386323565,
+     "wns": -0.0012592648999999998,
+     "power": -0.01093155773716832
+    },
+    "E3": {
+     "area": 0.03883834843792011,
+     "wns": -0.0015972,
+     "power": 0.1245902995524145
+    },
+    "E2g": {
+     "area": 0.00044444443701840996,
+     "wns": 0.0,
+     "power": 2.119558505145778e-05
+    },
+    "E4": {
+     "area": 0.00043252594417234747,
+     "wns": 0.0,
+     "power": 0.0011219617713226525
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.01621319392435846,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0069371451499706145,
+     "wns": 0.01119735,
+     "power": 0.02309400065736992
+    },
+    "E3": {
+     "area": 0.05108467497226432,
+     "wns": 0.03863735,
+     "power": 0.12423298678661843
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.11634948304747127,
+     "wns": 0.031582935,
+     "power": 0.1313085754412415
+    }
+   },
+   "phi": 2.0,
+   "sigma_area_e4": 0.0,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/6495d0bd8e355f26",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/cc1ec9451bbe90e.v",
+   "human": null,
+   "human_note": null
+  },
   {
    "cand_id": "ce0b8fe45ba6e9a",
    "design_id": "cktevo_spi__spi",
@@ -333,12 +440,226 @@
    "human_note": null
   },
   {
+   "cand_id": "cdfdb84022dc1e4",
+   "design_id": "rtlrewriter_long_cnn__RFselector",
+   "role": "reference",
+   "class": "b",
+   "label": "absorbed",
+   "rung": "after_Es",
+   "attribution": "prior",
+   "fp_jaccard": 0.9705,
+   "evidence": {
+    "gains": {
+     "area": -0.00276,
+     "wns": -0.00332,
+     "power": -0.00753
+    },
+    "band": {
+     "area": 0.00279,
+     "wns": 0.0003,
+     "power": 0.02223
+    },
+    "power_basis": "default",
+    "fp_jaccard": 0.9705,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0,
+    "icg": [
+     0,
+     0
+    ],
+    "floor_class": null
+   },
+   "gains": {
+    "E1": {
+     "area": 0.26218587102742824,
+     "wns": 0.00093269275,
+     "power": 0.27501152056182265
+    },
+    "E1d": {
+     "area": 0.24554933394226952,
+     "wns": -0.011726499750000001,
+     "power": 0.2444981802334483
+    },
+    "E2": {
+     "area": -0.003303543630477986,
+     "wns": -0.0038334732500000003,
+     "power": 0.0037261798611876056
+    },
+    "E3": {
+     "area": -0.002764063838143992,
+     "wns": -0.0033185487499999998,
+     "power": -0.007533740989183199
+    },
+    "E2g": {
+     "area": -0.002764063838143992,
+     "wns": -0.0033185487499999998,
+     "power": -0.007533740989183199
+    },
+    "E4": {
+     "area": -0.002764063838143992,
+     "wns": -0.0033185487499999998,
+     "power": -0.007533740989183199
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.004508948000959425,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0009519779782887865,
+     "wns": 0.0002004285714285657,
+     "power": 0.00996823382309333
+    },
+    "E3": {
+     "area": 0.0018570090608194714,
+     "wns": 0.0003017775,
+     "power": 0.011164812036152712
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.0027938146505548643,
+     "wns": 0.0003017775,
+     "power": 0.022227533067402338
+    }
+   },
+   "phi": 4.0,
+   "sigma_area_e4": 0.0,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__RFselector/E4/ce1ad6c33ca72c27",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__RFselector/E4/9c4ce9d0298abcf7",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/data/designs/rtlrewriter/long_cnn__RFselector/reference/RFselector.v",
+   "human": null,
+   "human_note": null
+  },
+  {
+   "cand_id": "c1042e1ece93f31",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "role": "b0",
+   "class": "a",
+   "label": "absorbed",
+   "rung": "E1",
+   "attribution": "measured",
+   "fp_jaccard": 0.9905,
+   "evidence": {
+    "gains": {
+     "area": 0.00043,
+     "wns": 0.0,
+     "power": 0.02483
+    },
+    "band": {
+     "area": 0.11635,
+     "wns": 0.03158,
+     "power": 0.13131
+    },
+    "power_basis": "saif",
+    "fp_jaccard": 0.9905,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0.0,
+    "icg": [
+     5,
+     5
+    ],
+    "floor_class": "spread"
+   },
+   "gains": {
+    "E1": {
+     "area": 0.01434960911640759,
+     "wns": 0.0010327099999999996,
+     "power": -0.02533177995908505
+    },
+    "E1d": {
+     "area": 0.002791736417104884,
+     "wns": 0.00017917500000000017,
+     "power": 0.009562856644890686
+    },
+    "E2": {
+     "area": 0.0004204330393920986,
+     "wns": 0.0,
+     "power": 0.019593681839724264
+    },
+    "E3": {
+     "area": -0.002099370150282312,
+     "wns": 0.0,
+     "power": 0.012710402547495779
+    },
+    "E2g": {
+     "area": 0.00044444443701840996,
+     "wns": 0.0,
+     "power": 0.0006062263472582007
+    },
+    "E4": {
+     "area": 0.00043252594417234747,
+     "wns": 0.0,
+     "power": 0.024828176398250516
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.01621319392435846,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0069371451499706145,
+     "wns": 0.01119735,
+     "power": 0.02309400065736992
+    },
+    "E3": {
+     "area": 0.05108467497226432,
+     "wns": 0.03863735,
+     "power": 0.12423298678661843
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.11634948304747127,
+     "wns": 0.031582935,
+     "power": 0.1313085754412415
+    }
+   },
+   "phi": 2.0,
+   "sigma_area_e4": 0.0,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/599a8e06e54d4754",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s3/c1042e1ece93f31.v",
+   "human": null,
+   "human_note": null
+  },
+  {
    "cand_id": "c181324dfd00385",
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "role": "b0",
    "class": "b",
    "label": "absorbed",
-   "rung": "E2",
+   "rung": "E1",
    "attribution": "measured",
    "fp_jaccard": 0.999,
    "evidence": {
@@ -436,6 +757,862 @@
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
    "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_065554_ga_wb_master_6-luna_s3/c181324dfd00385.v",
+   "human": null,
+   "human_note": null
+  },
+  {
+   "cand_id": "c4bcd99204c75bc",
+   "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
+   "role": "reference",
+   "class": "a",
+   "label": "absorbed",
+   "rung": "E2",
+   "attribution": "measured",
+   "fp_jaccard": 0.9522,
+   "evidence": {
+    "gains": {
+     "area": -0.01333,
+     "wns": -0.01784,
+     "power": -0.01391
+    },
+    "band": {
+     "area": 0.02359,
+     "wns": 0.0003,
+     "power": 0.04275
+    },
+    "power_basis": "saif",
+    "fp_jaccard": 0.9522,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0,
+    "icg": [
+     0,
+     0
+    ],
+    "floor_class": "spread"
+   },
+   "gains": {
+    "E1": {
+     "area": 0.031025283879653223,
+     "wns": 0.006489999999999996,
+     "power": 0.08480661792272878
+    },
+    "E1d": {
+     "area": -0.024208263006325986,
+     "wns": 0.10039550000000001,
+     "power": -0.04489350081922449
+    },
+    "E2": {
+     "area": -0.01333207003513541,
+     "wns": -0.017835788499999998,
+     "power": -0.013263830665839109
+    },
+    "E3": {
+     "area": -0.01333207003513541,
+     "wns": -0.017835788499999998,
+     "power": -0.013914480810739023
+    },
+    "E2g": {
+     "area": -0.01333207003513541,
+     "wns": -0.017835788499999998,
+     "power": -0.022047999237014008
+    },
+    "E4": {
+     "area": -0.01333207003513541,
+     "wns": -0.017835788499999998,
+     "power": -0.013914480810739023
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.010341761172099891,
+     "wns": 0.005151142857142861,
+     "power": 0.017792645487093202
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.026752733401491074,
+     "wns": 0.0002004285714285657,
+     "power": 0.033005266100254525
+    },
+    "E3": {
+     "area": 0.023592960885619133,
+     "wns": 0.0003017775,
+     "power": 0.042753869450440005
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.023592960885619133,
+     "wns": 0.0003017775,
+     "power": 0.042753869450440005
+    }
+   },
+   "phi": 4.0,
+   "sigma_area_e4": 0.011796480442809567,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/E4/9c6919d5d77140f5",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/E4/29fbc6f7cff6706c",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/data/designs/rtlrewriter/basic__communtativity_subpexpression2/reference/basic_optimized.v",
+   "human": null,
+   "human_note": null
+  },
+  {
+   "cand_id": "c8cb0a2eb7afb3c",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "role": "b0",
+   "class": "b",
+   "label": "absorbed",
+   "rung": "after_Es",
+   "attribution": "prior",
+   "fp_jaccard": 0.9795,
+   "evidence": {
+    "gains": {
+     "area": 0.00238,
+     "wns": 0.0,
+     "power": 0.02276
+    },
+    "band": {
+     "area": 0.11635,
+     "wns": 0.03158,
+     "power": 0.13131
+    },
+    "power_basis": "saif",
+    "fp_jaccard": 0.9795,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0.0,
+    "icg": [
+     5,
+     5
+    ],
+    "floor_class": "spread"
+   },
+   "gains": {
+    "E1": {
+     "area": 0.010808796650168333,
+     "wns": -0.00173652,
+     "power": -0.0247799397379795
+    },
+    "E1d": {
+     "area": 0.0026056199562812738,
+     "wns": 0.002304495,
+     "power": -0.0003338668960258999
+    },
+    "E2": {
+     "area": -0.0071473616696665744,
+     "wns": -0.001234052,
+     "power": 0.0107192394211129
+    },
+    "E3": {
+     "area": 0.04041287670832933,
+     "wns": -0.0015979999999999987,
+     "power": 0.14128457853442483
+    },
+    "E2g": {
+     "area": 0.00244444440360154,
+     "wns": 0.0,
+     "power": 0.002008587698909484
+    },
+    "E4": {
+     "area": 0.002378892692948188,
+     "wns": 0.0,
+     "power": 0.02275550169475238
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.01621319392435846,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0069371451499706145,
+     "wns": 0.01119735,
+     "power": 0.02309400065736992
+    },
+    "E3": {
+     "area": 0.05108467497226432,
+     "wns": 0.03863735,
+     "power": 0.12423298678661843
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.11634948304747127,
+     "wns": 0.031582935,
+     "power": 0.1313085754412415
+    }
+   },
+   "phi": 2.0,
+   "sigma_area_e4": 0.0,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/26dd5607d3b5504c",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/c8cb0a2eb7afb3c.v",
+   "human": null,
+   "human_note": null
+  },
+  {
+   "cand_id": "c6c9ad23df59e75",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "role": "b0",
+   "class": "a",
+   "label": "absorbed",
+   "rung": "E2",
+   "attribution": "measured",
+   "fp_jaccard": 0.9843,
+   "evidence": {
+    "gains": {
+     "area": 0.00022,
+     "wns": 0.0,
+     "power": -0.01113
+    },
+    "band": {
+     "area": 0.11635,
+     "wns": 0.03158,
+     "power": 0.13131
+    },
+    "power_basis": "saif",
+    "fp_jaccard": 0.9843,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0.0,
+    "icg": [
+     5,
+     5
+    ],
+    "floor_class": "spread"
+   },
+   "gains": {
+    "E1": {
+     "area": 0.010808796650168333,
+     "wns": -0.00173652,
+     "power": -0.03385605578359909
+    },
+    "E1d": {
+     "area": 0.0026056199562812738,
+     "wns": 0.002304495,
+     "power": 0.0009182349193947905
+    },
+    "E2": {
+     "area": 0.00021021651969613912,
+     "wns": 0.0,
+     "power": -0.009465106074464444
+    },
+    "E3": {
+     "area": -0.004723582838135202,
+     "wns": -0.006126349999999999,
+     "power": -0.022722909041334942
+    },
+    "E2g": {
+     "area": 0.000222221383087333,
+     "wns": 0.0,
+     "power": -0.00012951492989596192
+    },
+    "E4": {
+     "area": 0.0002162621590674837,
+     "wns": 0.0,
+     "power": -0.011125086046576495
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.01621319392435846,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0069371451499706145,
+     "wns": 0.01119735,
+     "power": 0.02309400065736992
+    },
+    "E3": {
+     "area": 0.05108467497226432,
+     "wns": 0.03863735,
+     "power": 0.12423298678661843
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.11634948304747127,
+     "wns": 0.031582935,
+     "power": 0.1313085754412415
+    }
+   },
+   "phi": 2.0,
+   "sigma_area_e4": 0.0,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/2295a8f8c5fb5ac5",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/c6c9ad23df59e75.v",
+   "human": null,
+   "human_note": null
+  },
+  {
+   "cand_id": "c53aa752d8e4083",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "role": "b0",
+   "class": "a",
+   "label": "absorbed",
+   "rung": "E2",
+   "attribution": "measured",
+   "fp_jaccard": 0.9843,
+   "evidence": {
+    "gains": {
+     "area": 0.00022,
+     "wns": 0.0,
+     "power": -0.01113
+    },
+    "band": {
+     "area": 0.11635,
+     "wns": 0.03158,
+     "power": 0.13131
+    },
+    "power_basis": "saif",
+    "fp_jaccard": 0.9843,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0.0,
+    "icg": [
+     5,
+     5
+    ],
+    "floor_class": "spread"
+   },
+   "gains": {
+    "E1": {
+     "area": 0.010808796650168333,
+     "wns": -0.00173652,
+     "power": -0.03385605578359909
+    },
+    "E1d": {
+     "area": 0.0026056199562812738,
+     "wns": 0.002304495,
+     "power": 0.0009182349193947905
+    },
+    "E2": {
+     "area": 0.00021021651969613912,
+     "wns": 0.0,
+     "power": -0.009465106074464444
+    },
+    "E3": {
+     "area": -0.004723582838135202,
+     "wns": -0.006126349999999999,
+     "power": -0.022722909041334942
+    },
+    "E2g": {
+     "area": 0.000222221383087333,
+     "wns": 0.0,
+     "power": -0.00012951492989596192
+    },
+    "E4": {
+     "area": 0.0002162621590674837,
+     "wns": 0.0,
+     "power": -0.011125086046576495
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.01621319392435846,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0069371451499706145,
+     "wns": 0.01119735,
+     "power": 0.02309400065736992
+    },
+    "E3": {
+     "area": 0.05108467497226432,
+     "wns": 0.03863735,
+     "power": 0.12423298678661843
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.11634948304747127,
+     "wns": 0.031582935,
+     "power": 0.1313085754412415
+    }
+   },
+   "phi": 2.0,
+   "sigma_area_e4": 0.0,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/df4a2bc91e8cd19b",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s4/c53aa752d8e4083.v",
+   "human": null,
+   "human_note": null
+  },
+  {
+   "cand_id": "c851892c32d44b5",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "role": "b0",
+   "class": "a",
+   "label": "absorbed",
+   "rung": "E2",
+   "attribution": "measured",
+   "fp_jaccard": 0.9905,
+   "evidence": {
+    "gains": {
+     "area": 0.00043,
+     "wns": 0.0,
+     "power": 0.02372
+    },
+    "band": {
+     "area": 0.11635,
+     "wns": 0.03158,
+     "power": 0.13131
+    },
+    "power_basis": "saif",
+    "fp_jaccard": 0.9905,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0.0,
+    "icg": [
+     5,
+     5
+    ],
+    "floor_class": "spread"
+   },
+   "gains": {
+    "E1": {
+     "area": 0.010808796650168333,
+     "wns": -0.00173652,
+     "power": -0.0247799397379795
+    },
+    "E1d": {
+     "area": 0.0026056199562812738,
+     "wns": 0.002304495,
+     "power": -0.0003338668960258999
+    },
+    "E2": {
+     "area": 0.0004204330393920986,
+     "wns": 0.0,
+     "power": 0.019596668825668927
+    },
+    "E3": {
+     "area": -0.002099370150282312,
+     "wns": 0.0,
+     "power": 0.012850636235424437
+    },
+    "E2g": {
+     "area": 0.00044444443701840996,
+     "wns": 0.0,
+     "power": 0.0006062263472582007
+    },
+    "E4": {
+     "area": 0.00043252594417234747,
+     "wns": 0.0,
+     "power": 0.02371958205277337
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.01621319392435846,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0069371451499706145,
+     "wns": 0.01119735,
+     "power": 0.02309400065736992
+    },
+    "E3": {
+     "area": 0.05108467497226432,
+     "wns": 0.03863735,
+     "power": 0.12423298678661843
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.11634948304747127,
+     "wns": 0.031582935,
+     "power": 0.1313085754412415
+    }
+   },
+   "phi": 2.0,
+   "sigma_area_e4": 0.0,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/080315d10c5ec07b",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/c851892c32d44b5.v",
+   "human": null,
+   "human_note": null
+  },
+  {
+   "cand_id": "cecf9e1c85ad765",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "role": "b0",
+   "class": "b",
+   "label": "absorbed",
+   "rung": "after_Es",
+   "attribution": "prior",
+   "fp_jaccard": 0.9702,
+   "evidence": {
+    "gains": {
+     "area": 0.00389,
+     "wns": 0.0,
+     "power": -0.01286
+    },
+    "band": {
+     "area": 0.11635,
+     "wns": 0.03158,
+     "power": 0.13131
+    },
+    "power_basis": "saif",
+    "fp_jaccard": 0.9702,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0.0,
+    "icg": [
+     5,
+     5
+    ],
+    "floor_class": "spread"
+   },
+   "gains": {
+    "E1": {
+     "area": -0.0074543413335917165,
+     "wns": -0.00120586,
+     "power": -0.12451919954678999
+    },
+    "E1d": {
+     "area": 0.006327935878771123,
+     "wns": 0.013590670000000001,
+     "power": -0.013162048257728752
+    },
+    "E2": {
+     "area": -0.006726928630274475,
+     "wns": 0.003497065,
+     "power": -0.01257733573388822
+    },
+    "E3": {
+     "area": 0.026766970073796817,
+     "wns": -0.0073889,
+     "power": 0.021183239652619566
+    },
+    "E2g": {
+     "area": 0.0039999990977442924,
+     "wns": 0.0,
+     "power": 0.0028125885041001076
+    },
+    "E4": {
+     "area": 0.003892732684532899,
+     "wns": 0.0,
+     "power": -0.012857198175795788
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.01621319392435846,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0069371451499706145,
+     "wns": 0.01119735,
+     "power": 0.02309400065736992
+    },
+    "E3": {
+     "area": 0.05108467497226432,
+     "wns": 0.03863735,
+     "power": 0.12423298678661843
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.11634948304747127,
+     "wns": 0.031582935,
+     "power": 0.1313085754412415
+    }
+   },
+   "phi": 2.0,
+   "sigma_area_e4": 0.0,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/7ae3627a0060f8c3",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/cecf9e1c85ad765.v",
+   "human": null,
+   "human_note": null
+  },
+  {
+   "cand_id": "c1931b85c2c196c",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "role": "b0",
+   "class": "b",
+   "label": "absorbed",
+   "rung": "after_Es",
+   "attribution": "prior",
+   "fp_jaccard": 0.9827,
+   "evidence": {
+    "gains": {
+     "area": 0.00065,
+     "wns": 0.0,
+     "power": -0.01037
+    },
+    "band": {
+     "area": 0.11635,
+     "wns": 0.03158,
+     "power": 0.13131
+    },
+    "power_basis": "saif",
+    "fp_jaccard": 0.9827,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0.0,
+    "icg": [
+     5,
+     5
+    ],
+    "floor_class": "spread"
+   },
+   "gains": {
+    "E1": {
+     "area": 0.010995155201023081,
+     "wns": -0.00173652,
+     "power": -0.03223328298144848
+    },
+    "E1d": {
+     "area": 0.0027917357174216525,
+     "wns": 0.002304495,
+     "power": 0.000992275794794493
+    },
+    "E2": {
+     "area": -0.010090392945411803,
+     "wns": -0.0009846065,
+     "power": -0.018214975801569305
+    },
+    "E3": {
+     "area": 0.039013295950443685,
+     "wns": -0.0015974500000000003,
+     "power": 0.11492722472959117
+    },
+    "E2g": {
+     "area": 0.000666665820105743,
+     "wns": 0.0,
+     "power": -0.00010844215361046592
+    },
+    "E4": {
+     "area": 0.0006487881032398311,
+     "wns": 0.0,
+     "power": -0.01037241973545151
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.01621319392435846,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0069371451499706145,
+     "wns": 0.01119735,
+     "power": 0.02309400065736992
+    },
+    "E3": {
+     "area": 0.05108467497226432,
+     "wns": 0.03863735,
+     "power": 0.12423298678661843
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.11634948304747127,
+     "wns": 0.031582935,
+     "power": 0.1313085754412415
+    }
+   },
+   "phi": 2.0,
+   "sigma_area_e4": 0.0,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/825c713457314de3",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/c1931b85c2c196c.v",
+   "human": null,
+   "human_note": null
+  },
+  {
+   "cand_id": "c27d77a5adba0d9",
+   "design_id": "cktevo_ethmac__eth_txethmac",
+   "role": "b0",
+   "class": "b",
+   "label": "absorbed",
+   "rung": "after_Es",
+   "attribution": "prior",
+   "fp_jaccard": 0.9889,
+   "evidence": {
+    "gains": {
+     "area": 0.00087,
+     "wns": 0.0,
+     "power": 0.02399
+    },
+    "band": {
+     "area": 0.11635,
+     "wns": 0.03158,
+     "power": 0.13131
+    },
+    "power_basis": "saif",
+    "fp_jaccard": 0.9889,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
+    "log_diff": {},
+    "missing_resources": [],
+    "extra_regs": 0.0,
+    "icg": [
+     5,
+     5
+    ],
+    "floor_class": "spread"
+   },
+   "gains": {
+    "E1": {
+     "area": 0.010808796650168333,
+     "wns": -0.00173652,
+     "power": -0.0247799397379795
+    },
+    "E1d": {
+     "area": 0.0026056199562812738,
+     "wns": 0.002304495,
+     "power": -0.0003338668960258999
+    },
+    "E2": {
+     "area": -0.008618877307539189,
+     "wns": -0.001234052,
+     "power": 0.01031593574010011
+    },
+    "E3": {
+     "area": 0.03918824346296726,
+     "wns": -0.0015967499999999992,
+     "power": 0.13982250906841812
+    },
+    "E2g": {
+     "area": 0.0008888888740368199,
+     "wns": 0.0,
+     "power": 0.0006272387257898607
+    },
+    "E4": {
+     "area": 0.0008650518883448798,
+     "wns": 0.0,
+     "power": 0.023994130834763337
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.01621319392435846,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0069371451499706145,
+     "wns": 0.01119735,
+     "power": 0.02309400065736992
+    },
+    "E3": {
+     "area": 0.05108467497226432,
+     "wns": 0.03863735,
+     "power": 0.12423298678661843
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.11634948304747127,
+     "wns": 0.031582935,
+     "power": 0.1313085754412415
+    }
+   },
+   "phi": 2.0,
+   "sigma_area_e4": 0.0,
+   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/e38dc66aa9836451",
+   "duplicate_of": null,
+   "duplicate_raw_dir_e4": null,
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/c27d77a5adba0d9.v",
    "human": null,
    "human_note": null
   },
@@ -5322,7 +6499,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.3636,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
@@ -5538,7 +6715,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.4783,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
@@ -6052,113 +7229,6 @@
    "human_note": null
   },
   {
-   "cand_id": "c4bcd99204c75bc",
-   "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
-   "role": "reference",
-   "class": "a",
-   "label": "harmful",
-   "rung": null,
-   "attribution": null,
-   "fp_jaccard": 0.9522,
-   "evidence": {
-    "gains": {
-     "area": -0.01333,
-     "wns": -0.01784,
-     "power": -0.01391
-    },
-    "band": {
-     "area": 0.02359,
-     "wns": 0.0003,
-     "power": 0.04275
-    },
-    "power_basis": "saif",
-    "fp_jaccard": 0.9522,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
-    "log_diff": {},
-    "missing_resources": [],
-    "extra_regs": 0,
-    "icg": [
-     0,
-     0
-    ],
-    "floor_class": "spread"
-   },
-   "gains": {
-    "E1": {
-     "area": 0.031025283879653223,
-     "wns": 0.006489999999999996,
-     "power": 0.08480661792272878
-    },
-    "E1d": {
-     "area": -0.024208263006325986,
-     "wns": 0.10039550000000001,
-     "power": -0.04489350081922449
-    },
-    "E2": {
-     "area": -0.01333207003513541,
-     "wns": -0.017835788499999998,
-     "power": -0.013263830665839109
-    },
-    "E3": {
-     "area": -0.01333207003513541,
-     "wns": -0.017835788499999998,
-     "power": -0.013914480810739023
-    },
-    "E2g": {
-     "area": -0.01333207003513541,
-     "wns": -0.017835788499999998,
-     "power": -0.022047999237014008
-    },
-    "E4": {
-     "area": -0.01333207003513541,
-     "wns": -0.017835788499999998,
-     "power": -0.013914480810739023
-    }
-   },
-   "t_d": {
-    "E1": {
-     "area": 0.010341761172099891,
-     "wns": 0.005151142857142861,
-     "power": 0.017792645487093202
-    },
-    "E1d": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E2": {
-     "area": 0.026752733401491074,
-     "wns": 0.0002004285714285657,
-     "power": 0.033005266100254525
-    },
-    "E3": {
-     "area": 0.023592960885619133,
-     "wns": 0.0003017775,
-     "power": 0.042753869450440005
-    },
-    "E2g": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E4": {
-     "area": 0.023592960885619133,
-     "wns": 0.0003017775,
-     "power": 0.042753869450440005
-    }
-   },
-   "phi": 4.0,
-   "sigma_area_e4": 0.011796480442809567,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/E4/9c6919d5d77140f5",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/E4/29fbc6f7cff6706c",
-   "duplicate_of": null,
-   "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/data/designs/rtlrewriter/basic__communtativity_subpexpression2/reference/basic_optimized.v",
-   "human": null,
-   "human_note": null
-  },
-  {
    "cand_id": "c1e0654112630a7",
    "design_id": "rtlrewriter_basic__commutativity_subexpression",
    "role": "llm",
@@ -6480,113 +7550,6 @@
    "human_note": null
   },
   {
-   "cand_id": "cdfdb84022dc1e4",
-   "design_id": "rtlrewriter_long_cnn__RFselector",
-   "role": "reference",
-   "class": "b",
-   "label": "harmful",
-   "rung": null,
-   "attribution": null,
-   "fp_jaccard": 0.9705,
-   "evidence": {
-    "gains": {
-     "area": -0.00276,
-     "wns": -0.00332,
-     "power": -0.00753
-    },
-    "band": {
-     "area": 0.00279,
-     "wns": 0.0003,
-     "power": 0.02223
-    },
-    "power_basis": "default",
-    "fp_jaccard": 0.9705,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
-    "log_diff": {},
-    "missing_resources": [],
-    "extra_regs": 0,
-    "icg": [
-     0,
-     0
-    ],
-    "floor_class": null
-   },
-   "gains": {
-    "E1": {
-     "area": 0.26218587102742824,
-     "wns": 0.00093269275,
-     "power": 0.27501152056182265
-    },
-    "E1d": {
-     "area": 0.24554933394226952,
-     "wns": -0.011726499750000001,
-     "power": 0.2444981802334483
-    },
-    "E2": {
-     "area": -0.003303543630477986,
-     "wns": -0.0038334732500000003,
-     "power": 0.0037261798611876056
-    },
-    "E3": {
-     "area": -0.002764063838143992,
-     "wns": -0.0033185487499999998,
-     "power": -0.007533740989183199
-    },
-    "E2g": {
-     "area": -0.002764063838143992,
-     "wns": -0.0033185487499999998,
-     "power": -0.007533740989183199
-    },
-    "E4": {
-     "area": -0.002764063838143992,
-     "wns": -0.0033185487499999998,
-     "power": -0.007533740989183199
-    }
-   },
-   "t_d": {
-    "E1": {
-     "area": 0.004508948000959425,
-     "wns": 0.005151142857142861,
-     "power": 0.012750748679332152
-    },
-    "E1d": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E2": {
-     "area": 0.0009519779782887865,
-     "wns": 0.0002004285714285657,
-     "power": 0.00996823382309333
-    },
-    "E3": {
-     "area": 0.0018570090608194714,
-     "wns": 0.0003017775,
-     "power": 0.011164812036152712
-    },
-    "E2g": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E4": {
-     "area": 0.0027938146505548643,
-     "wns": 0.0003017775,
-     "power": 0.022227533067402338
-    }
-   },
-   "phi": 4.0,
-   "sigma_area_e4": 0.0,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__RFselector/E4/ce1ad6c33ca72c27",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__RFselector/E4/9c4ce9d0298abcf7",
-   "duplicate_of": null,
-   "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/data/designs/rtlrewriter/long_cnn__RFselector/reference/RFselector.v",
-   "human": null,
-   "human_note": null
-  },
-  {
    "cand_id": "c7e45d57caa99af",
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "role": "b0",
@@ -6608,7 +7571,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8006,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -7044,7 +8007,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.815,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -7132,19 +8095,19 @@
    "human_note": null
   },
   {
-   "cand_id": "cc1ec9451bbe90e",
+   "cand_id": "c58aececcab2e61",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
-   "class": "b",
+   "class": "a",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.9984,
+   "fp_jaccard": 0.8932,
    "evidence": {
     "gains": {
-     "area": 0.00043,
-     "wns": 0.0,
-     "power": 0.00112
+     "area": 0.02422,
+     "wns": 0.00255,
+     "power": 0.06269
     },
     "band": {
      "area": 0.11635,
@@ -7152,12 +8115,12 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.9984,
-    "area_within_sigma": false,
+    "fp_jaccard": 0.8932,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
-    "extra_regs": 0.0,
+    "extra_regs": -6.0,
     "icg": [
      5,
      5
@@ -7166,34 +8129,34 @@
    },
    "gains": {
     "E1": {
-     "area": 0.0,
-     "wns": 0.0,
-     "power": 0.0
+     "area": 0.00689526708221974,
+     "wns": 0.0007616899999999998,
+     "power": -0.02635778349561781
     },
     "E1d": {
-     "area": 0.0,
-     "wns": 0.0,
-     "power": 0.0
+     "area": 0.00688628246250871,
+     "wns": -0.0014904126999999998,
+     "power": 0.0006638081986061619
     },
     "E2": {
-     "area": -0.009459743386323565,
-     "wns": -0.0012592648999999998,
-     "power": -0.01093155773716832
+     "area": -0.0008408660787843768,
+     "wns": -0.0006025399999999999,
+     "power": 0.014321949880193342
     },
     "E3": {
-     "area": 0.03883834843792011,
-     "wns": -0.0015972,
-     "power": 0.1245902995524145
+     "area": 0.018194541302446653,
+     "wns": -0.0016712499999999991,
+     "power": 0.02428640657492019
     },
     "E2g": {
-     "area": 0.00044444443701840996,
-     "wns": 0.0,
-     "power": 2.119558505145778e-05
+     "area": -0.0026666666221108397,
+     "wns": 0.004778854999999999,
+     "power": 0.0011911926851941926
     },
     "E4": {
-     "area": 0.00043252594417234747,
-     "wns": 0.0,
-     "power": 0.0011219617713226525
+     "area": 0.024221453686673566,
+     "wns": 0.0025477349999999998,
+     "power": 0.06269319575054927
     }
    },
    "t_d": {
@@ -7231,10 +8194,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/6495d0bd8e355f26",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/a82bf37a132353ca",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/cc1ec9451bbe90e.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s3/c58aececcab2e61.v",
    "human": null,
    "human_note": null
   },
@@ -7260,7 +8223,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8926,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
@@ -7367,7 +8330,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8903,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -7476,7 +8439,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.9262,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
@@ -7583,7 +8546,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.5785,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
@@ -7690,7 +8653,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.9884,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
@@ -7776,19 +8739,19 @@
    "human_note": null
   },
   {
-   "cand_id": "c58aececcab2e61",
+   "cand_id": "c99732468260bc2",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
-   "class": "a",
+   "class": "b",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.8932,
+   "fp_jaccard": 0.8604,
    "evidence": {
     "gains": {
-     "area": 0.02422,
-     "wns": 0.00255,
-     "power": 0.06269
+     "area": -0.08651,
+     "wns": 0.01813,
+     "power": -0.06805
     },
     "band": {
      "area": 0.11635,
@@ -7796,12 +8759,12 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.8932,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
+    "fp_jaccard": 0.8604,
+    "area_within_sigma": true,
+    "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
-    "extra_regs": -6.0,
+    "extra_regs": 19.0,
     "icg": [
      5,
      5
@@ -7810,34 +8773,34 @@
    },
    "gains": {
     "E1": {
-     "area": 0.00689526708221974,
-     "wns": 0.0007616899999999998,
-     "power": -0.02635778349561781
+     "area": 0.014722326218116926,
+     "wns": 0.00292427,
+     "power": -0.023234919471671677
     },
     "E1d": {
-     "area": 0.00688628246250871,
-     "wns": -0.0014904126999999998,
-     "power": 0.0006638081986061619
+     "area": 0.0003722308225973669,
+     "wns": -0.0013257249999999998,
+     "power": -0.002686259462295056
     },
     "E2": {
-     "area": -0.0008408660787843768,
-     "wns": -0.0006025399999999999,
-     "power": 0.014321949880193342
+     "area": 0.0012612991181764753,
+     "wns": 0.002117575,
+     "power": 0.02461961421329075
     },
     "E3": {
-     "area": 0.018194541302446653,
-     "wns": -0.0016712499999999991,
-     "power": 0.02428640657492019
+     "area": 0.019944016427681965,
+     "wns": -0.0094984,
+     "power": 0.033848053330164767
     },
     "E2g": {
-     "area": -0.0026666666221108397,
-     "wns": 0.004778854999999999,
-     "power": 0.0011911926851941926
+     "area": 0.0011111110925461198,
+     "wns": 0.009528304999999999,
+     "power": 0.0030594542562853823
     },
     "E4": {
-     "area": 0.024221453686673566,
-     "wns": 0.0025477349999999998,
-     "power": 0.06269319575054927
+     "area": -0.08650519208655645,
+     "wns": 0.018125835,
+     "power": -0.06804772295838457
     }
    },
    "t_d": {
@@ -7875,10 +8838,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/a82bf37a132353ca",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/0d7c424cf26ab654",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s3/c58aececcab2e61.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s4/c99732468260bc2.v",
    "human": null,
    "human_note": null
   },
@@ -7904,7 +8867,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.9133,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
@@ -8011,7 +8974,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8179,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -8099,19 +9062,19 @@
    "human_note": null
   },
   {
-   "cand_id": "c99732468260bc2",
+   "cand_id": "ccd271cd9959e4c",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
    "class": "b",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.8604,
+   "fp_jaccard": 0.9324,
    "evidence": {
     "gains": {
-     "area": -0.08651,
-     "wns": 0.01813,
-     "power": -0.06805
+     "area": 0.02422,
+     "wns": 0.01544,
+     "power": 0.0595
     },
     "band": {
      "area": 0.11635,
@@ -8119,12 +9082,12 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.8604,
-    "area_within_sigma": false,
-    "endpoints_coincide": false,
+    "fp_jaccard": 0.9324,
+    "area_within_sigma": true,
+    "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
-    "extra_regs": 19.0,
+    "extra_regs": -6.0,
     "icg": [
      5,
      5
@@ -8133,34 +9096,34 @@
    },
    "gains": {
     "E1": {
-     "area": 0.014722326218116926,
-     "wns": 0.00292427,
-     "power": -0.023234919471671677
+     "area": 0.010995155201023081,
+     "wns": -0.00173652,
+     "power": -0.02344588981514143
     },
     "E1d": {
-     "area": 0.0003722308225973669,
-     "wns": -0.0013257249999999998,
-     "power": -0.002686259462295056
+     "area": 0.0027917357174216525,
+     "wns": 0.002304495,
+     "power": -0.00025982762947628215
     },
     "E2": {
-     "area": 0.0012612991181764753,
-     "wns": 0.002117575,
-     "power": 0.02461961421329075
+     "area": -0.0023123817166568117,
+     "wns": 0.00013310000000000015,
+     "power": 0.008034628719860678
     },
     "E3": {
-     "area": 0.019944016427681965,
-     "wns": -0.0094984,
-     "power": 0.033848053330164767
+     "area": 0.037963610875302534,
+     "wns": -0.012493895,
+     "power": 0.04723911988928511
     },
     "E2g": {
-     "area": 0.0011111110925461198,
-     "wns": 0.009528304999999999,
-     "power": 0.0030594542562853823
+     "area": -0.0026666666221108397,
+     "wns": 0.017675555000000003,
+     "power": 0.0007038532764294188
     },
     "E4": {
-     "area": -0.08650519208655645,
-     "wns": 0.018125835,
-     "power": -0.06804772295838457
+     "area": 0.024221453686673566,
+     "wns": 0.015444435000000001,
+     "power": 0.05950464252954614
     }
    },
    "t_d": {
@@ -8198,10 +9161,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/0d7c424cf26ab654",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/580d96f7c8ba1eb8",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s4/c99732468260bc2.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/ccd271cd9959e4c.v",
    "human": null,
    "human_note": null
   },
@@ -8227,7 +9190,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8969,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
@@ -8334,7 +9297,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8271,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -8422,19 +9385,19 @@
    "human_note": null
   },
   {
-   "cand_id": "c1042e1ece93f31",
+   "cand_id": "c6629b08c65859b",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
-   "class": "a",
+   "class": "b",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.9905,
+   "fp_jaccard": 0.8831,
    "evidence": {
     "gains": {
-     "area": 0.00043,
-     "wns": 0.0,
-     "power": 0.02483
+     "area": 0.02574,
+     "wns": 0.00255,
+     "power": 0.06236
     },
     "band": {
      "area": 0.11635,
@@ -8442,12 +9405,12 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.9905,
-    "area_within_sigma": false,
+    "fp_jaccard": 0.8831,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
-    "extra_regs": 0.0,
+    "extra_regs": -6.0,
     "icg": [
      5,
      5
@@ -8456,34 +9419,34 @@
    },
    "gains": {
     "E1": {
-     "area": 0.01434960911640759,
-     "wns": 0.0010327099999999996,
-     "power": -0.02533177995908505
+     "area": 0.013790533463843504,
+     "wns": -0.002836584,
+     "power": -0.026691222709605517
     },
     "E1d": {
-     "area": 0.002791736417104884,
-     "wns": 0.00017917500000000017,
-     "power": 0.009562856644890686
+     "area": 0.01916992339745343,
+     "wns": -0.0013211949999999998,
+     "power": 0.01324070492312698
     },
     "E2": {
-     "area": 0.0004204330393920986,
-     "wns": 0.0,
-     "power": 0.019593681839724264
+     "area": 0.0014715156378726146,
+     "wns": 0.00172639,
+     "power": 0.01954839242257124
     },
     "E3": {
-     "area": -0.002099370150282312,
-     "wns": 0.0,
-     "power": 0.012710402547495779
+     "area": 0.02414275672824659,
+     "wns": -0.011854094999999999,
+     "power": 0.04079445932401934
     },
     "E2g": {
-     "area": 0.00044444443701840996,
-     "wns": 0.0,
-     "power": 0.0006062263472582007
+     "area": -0.0011111110925463097,
+     "wns": 0.004778854999999999,
+     "power": 0.0010159063242435966
     },
     "E4": {
-     "area": 0.00043252594417234747,
-     "wns": 0.0,
-     "power": 0.024828176398250516
+     "area": 0.025735294491276876,
+     "wns": 0.0025477349999999998,
+     "power": 0.06235783016293712
     }
    },
    "t_d": {
@@ -8521,10 +9484,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/599a8e06e54d4754",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/82d70f812694ae18",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s3/c1042e1ece93f31.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s3/c6629b08c65859b.v",
    "human": null,
    "human_note": null
   },
@@ -8550,7 +9513,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8354,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
@@ -8636,19 +9599,19 @@
    "human_note": null
   },
   {
-   "cand_id": "c8cb0a2eb7afb3c",
+   "cand_id": "cad9b9ccb22add3",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
-   "class": "b",
+   "class": "a",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.9795,
+   "fp_jaccard": 0.9024,
    "evidence": {
     "gains": {
-     "area": 0.00238,
-     "wns": 0.0,
-     "power": 0.02276
+     "area": -0.07353,
+     "wns": 0.02267,
+     "power": -0.05218
     },
     "band": {
      "area": 0.11635,
@@ -8656,12 +9619,12 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.9795,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
+    "fp_jaccard": 0.9024,
+    "area_within_sigma": true,
+    "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
-    "extra_regs": 0.0,
+    "extra_regs": 16.0,
     "icg": [
      5,
      5
@@ -8670,34 +9633,34 @@
    },
    "gains": {
     "E1": {
-     "area": 0.010808796650168333,
+     "area": 0.010995155201023081,
      "wns": -0.00173652,
-     "power": -0.0247799397379795
+     "power": -0.023483468553055626
     },
     "E1d": {
-     "area": 0.0026056199562812738,
+     "area": 0.0027917357174216525,
      "wns": 0.002304495,
-     "power": -0.0003338668960258999
+     "power": -0.0002584520629204029
     },
     "E2": {
-     "area": -0.0071473616696665744,
-     "wns": -0.001234052,
-     "power": 0.0107192394211129
+     "area": 0.0,
+     "wns": 0.0006990450000000001,
+     "power": 0.020632374747722722
     },
     "E3": {
-     "area": 0.04041287670832933,
-     "wns": -0.0015979999999999987,
-     "power": 0.14128457853442483
+     "area": 0.03813855904552345,
+     "wns": -0.014074429999999999,
+     "power": 0.0499500882231782
     },
     "E2g": {
-     "area": 0.00244444440360154,
-     "wns": 0.0,
-     "power": 0.002008587698909484
+     "area": 0.0015555555295645297,
+     "wns": 0.0030853549999999997,
+     "power": 0.0004438409465098008
     },
     "E4": {
-     "area": 0.002378892692948188,
-     "wns": 0.0,
-     "power": 0.02275550169475238
+     "area": -0.07352941294836539,
+     "wns": 0.022666535,
+     "power": -0.05218145901430828
     }
    },
    "t_d": {
@@ -8735,10 +9698,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/26dd5607d3b5504c",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/69e5d816d1f2691f",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/c8cb0a2eb7afb3c.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s3/cad9b9ccb22add3.v",
    "human": null,
    "human_note": null
   },
@@ -8764,7 +9727,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.7932,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -8852,7 +9815,7 @@
    "human_note": null
   },
   {
-   "cand_id": "ccd271cd9959e4c",
+   "cand_id": "c3162cf18955e27",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
    "class": "b",
@@ -8873,7 +9836,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.9324,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
@@ -8888,12 +9851,12 @@
     "E1": {
      "area": 0.010995155201023081,
      "wns": -0.00173652,
-     "power": -0.02344588981514143
+     "power": -0.023416318420878362
     },
     "E1d": {
      "area": 0.0027917357174216525,
      "wns": 0.002304495,
-     "power": -0.00025982762947628215
+     "power": -0.0002584520629204029
     },
     "E2": {
      "area": -0.0023123817166568117,
@@ -8951,10 +9914,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/580d96f7c8ba1eb8",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/2a54cdeb4a42fc51",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/ccd271cd9959e4c.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s3/c3162cf18955e27.v",
    "human": null,
    "human_note": null
   },
@@ -8980,7 +9943,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8934,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -9068,19 +10031,19 @@
    "human_note": null
   },
   {
-   "cand_id": "c6629b08c65859b",
+   "cand_id": "cefd617c8a7277f",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
    "class": "b",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.8831,
+   "fp_jaccard": 0.8662,
    "evidence": {
     "gains": {
-     "area": 0.02574,
-     "wns": 0.00255,
-     "power": 0.06236
+     "area": -0.08845,
+     "wns": 0.01813,
+     "power": -0.08545
     },
     "band": {
      "area": 0.11635,
@@ -9088,12 +10051,12 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.8831,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
+    "fp_jaccard": 0.8662,
+    "area_within_sigma": true,
+    "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
-    "extra_regs": -6.0,
+    "extra_regs": 19.0,
     "icg": [
      5,
      5
@@ -9102,34 +10065,34 @@
    },
    "gains": {
     "E1": {
-     "area": 0.013790533463843504,
-     "wns": -0.002836584,
-     "power": -0.026691222709605517
+     "area": -0.0001863578502586143,
+     "wns": -0.00020098499999999988,
+     "power": -0.004767423040316362
     },
     "E1d": {
-     "area": 0.01916992339745343,
-     "wns": -0.0013211949999999998,
-     "power": 0.01324070492312698
+     "area": -0.002791737116788115,
+     "wns": -0.0008019799999999999,
+     "power": -0.0013876136229438092
     },
     "E2": {
-     "area": 0.0014715156378726146,
-     "wns": 0.00172639,
-     "power": 0.01954839242257124
+     "area": -0.0006306495590882377,
+     "wns": 0.002117575,
+     "power": 0.00466158998659808
     },
     "E3": {
-     "area": 0.02414275672824659,
-     "wns": -0.011854094999999999,
-     "power": 0.04079445932401934
+     "area": 0.01836948881497023,
+     "wns": -0.00949745,
+     "power": 0.016766638674632652
     },
     "E2g": {
-     "area": -0.0011111110925463097,
-     "wns": 0.004778854999999999,
-     "power": 0.0010159063242435966
+     "area": -0.0008888888740370099,
+     "wns": 0.009525655,
+     "power": 0.0010392520693286418
     },
     "E4": {
-     "area": 0.025735294491276876,
-     "wns": 0.0025477349999999998,
-     "power": 0.06235783016293712
+     "area": -0.08845155883533229,
+     "wns": 0.018125835,
+     "power": -0.08544533067896502
     }
    },
    "t_d": {
@@ -9167,10 +10130,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/82d70f812694ae18",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/ba8f31ba91d6c388",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s3/c6629b08c65859b.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s4/cefd617c8a7277f.v",
    "human": null,
    "human_note": null
   },
@@ -9196,7 +10159,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8298,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
@@ -9282,19 +10245,19 @@
    "human_note": null
   },
   {
-   "cand_id": "cad9b9ccb22add3",
+   "cand_id": "c0d440ee2d781d2",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
-   "class": "a",
+   "class": "b",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.9024,
+   "fp_jaccard": 0.8687,
    "evidence": {
     "gains": {
-     "area": -0.07353,
-     "wns": 0.02267,
-     "power": -0.05218
+     "area": -0.08802,
+     "wns": 0.01813,
+     "power": -0.06642
     },
     "band": {
      "area": 0.11635,
@@ -9302,12 +10265,12 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.9024,
-    "area_within_sigma": false,
+    "fp_jaccard": 0.8687,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
-    "extra_regs": 16.0,
+    "extra_regs": 19.0,
     "icg": [
      5,
      5
@@ -9316,34 +10279,34 @@
    },
    "gains": {
     "E1": {
-     "area": 0.010995155201023081,
-     "wns": -0.00173652,
-     "power": -0.023483468553055626
+     "area": 0.014722326218116926,
+     "wns": 0.00292427,
+     "power": -0.023234919471671677
     },
     "E1d": {
-     "area": 0.0027917357174216525,
-     "wns": 0.002304495,
-     "power": -0.0002584520629204029
+     "area": 0.0003722308225973669,
+     "wns": -0.0013257249999999998,
+     "power": -0.002686259462295056
     },
     "E2": {
-     "area": 0.0,
-     "wns": 0.0006990450000000001,
-     "power": 0.020632374747722722
+     "area": -0.00021021651969613912,
+     "wns": 0.002117575,
+     "power": 0.024816214739032887
     },
     "E3": {
-     "area": 0.03813855904552345,
-     "wns": -0.014074429999999999,
-     "power": 0.0499500882231782
+     "area": 0.018719383840017232,
+     "wns": -0.0094965,
+     "power": 0.03332776903142265
     },
     "E2g": {
-     "area": 0.0015555555295645297,
-     "wns": 0.0030853549999999997,
-     "power": 0.0004438409465098008
+     "area": -0.0004444444370185999,
+     "wns": 0.009523855,
+     "power": 0.0016743565959161546
     },
     "E4": {
-     "area": -0.07352941294836539,
-     "wns": 0.022666535,
-     "power": -0.05218145901430828
+     "area": -0.08801903289115975,
+     "wns": 0.018125835,
+     "power": -0.06641899992314128
     }
    },
    "t_d": {
@@ -9381,10 +10344,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/69e5d816d1f2691f",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/593ee30a403a79a8",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s3/cad9b9ccb22add3.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s4/c0d440ee2d781d2.v",
    "human": null,
    "human_note": null
   },
@@ -9410,7 +10373,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.9253,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
@@ -9496,19 +10459,19 @@
    "human_note": null
   },
   {
-   "cand_id": "c6c9ad23df59e75",
+   "cand_id": "c91f4d7ed841a6d",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
    "class": "a",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.9843,
+   "fp_jaccard": 0.9106,
    "evidence": {
     "gains": {
-     "area": 0.00022,
-     "wns": 0.0,
-     "power": -0.01113
+     "area": 0.02444,
+     "wns": 0.00043,
+     "power": 0.05171
     },
     "band": {
      "area": 0.11635,
@@ -9516,12 +10479,12 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.9843,
-    "area_within_sigma": false,
+    "fp_jaccard": 0.9106,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
-    "extra_regs": 0.0,
+    "extra_regs": -6.0,
     "icg": [
      5,
      5
@@ -9530,34 +10493,34 @@
    },
    "gains": {
     "E1": {
-     "area": 0.010808796650168333,
+     "area": 0.010995155201023081,
      "wns": -0.00173652,
-     "power": -0.03385605578359909
+     "power": -0.03231348877074744
     },
     "E1d": {
-     "area": 0.0026056199562812738,
+     "area": 0.0027917357174216525,
      "wns": 0.002304495,
-     "power": 0.0009182349193947905
+     "power": 0.000992275794794493
     },
     "E2": {
-     "area": 0.00021021651969613912,
-     "wns": 0.0,
-     "power": -0.009465106074464444
+     "area": -0.00021021651969613912,
+     "wns": 0.0006990450000000001,
+     "power": -0.010375596240954977
     },
     "E3": {
-     "area": -0.004723582838135202,
-     "wns": -0.006126349999999999,
-     "power": -0.022722909041334942
+     "area": 0.037963610875302534,
+     "wns": -0.014075144999999999,
+     "power": 0.025108224804452073
     },
     "E2g": {
-     "area": 0.000222221383087333,
-     "wns": 0.0,
-     "power": -0.00012951492989596192
+     "area": -0.0024444444036017298,
+     "wns": 0.002664685,
+     "power": 0.003022959920207592
     },
     "E4": {
-     "area": 0.0002162621590674837,
-     "wns": 0.0,
-     "power": -0.011125086046576495
+     "area": 0.02443771665875965,
+     "wns": 0.00043356500000000034,
+     "power": 0.05170590064712405
     }
    },
    "t_d": {
@@ -9595,10 +10558,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/2295a8f8c5fb5ac5",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/9cb515a7c53ceb6c",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/c6c9ad23df59e75.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/c91f4d7ed841a6d.v",
    "human": null,
    "human_note": null
   },
@@ -9624,7 +10587,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.898,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -9712,19 +10675,19 @@
    "human_note": null
   },
   {
-   "cand_id": "c53aa752d8e4083",
+   "cand_id": "c156be445e68398",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
-   "class": "a",
+   "class": "b",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.9843,
+   "fp_jaccard": 0.9015,
    "evidence": {
     "gains": {
-     "area": 0.00022,
-     "wns": 0.0,
-     "power": -0.01113
+     "area": 0.0266,
+     "wns": 0.00035,
+     "power": 0.03801
     },
     "band": {
      "area": 0.11635,
@@ -9732,12 +10695,12 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.9843,
-    "area_within_sigma": false,
+    "fp_jaccard": 0.9015,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
-    "extra_regs": 0.0,
+    "extra_regs": -6.0,
     "icg": [
      5,
      5
@@ -9746,34 +10709,34 @@
    },
    "gains": {
     "E1": {
-     "area": 0.010808796650168333,
-     "wns": -0.00173652,
-     "power": -0.03385605578359909
+     "area": -0.0001863578502586143,
+     "wns": -0.00020098499999999988,
+     "power": -0.0066961576723674155
     },
     "E1d": {
-     "area": 0.0026056199562812738,
-     "wns": 0.002304495,
-     "power": 0.0009182349193947905
+     "area": -0.002791737116788115,
+     "wns": -0.0008019799999999999,
+     "power": -0.0013876136229438092
     },
     "E2": {
-     "area": 0.00021021651969613912,
-     "wns": 0.0,
-     "power": -0.009465106074464444
+     "area": -0.00840866078784305,
+     "wns": 0.0008146799999999999,
+     "power": -0.019903629395287326
     },
     "E3": {
-     "area": -0.004723582838135202,
-     "wns": -0.006126349999999999,
-     "power": -0.022722909041334942
+     "area": -0.10846746171077025,
+     "wns": -0.009337999999999999,
+     "power": -0.014428643434172585
     },
     "E2g": {
-     "area": 0.000222221383087333,
-     "wns": 0.0,
-     "power": -0.00012951492989596192
+     "area": -0.0011111110925463097,
+     "wns": 0.007139504999999999,
+     "power": 0.0011612112402297381
     },
     "E4": {
-     "area": 0.0002162621590674837,
-     "wns": 0.0,
-     "power": -0.011125086046576495
+     "area": 0.026600346379621755,
+     "wns": 0.00035137000000000015,
+     "power": 0.03800681685227445
     }
    },
    "t_d": {
@@ -9811,10 +10774,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/df4a2bc91e8cd19b",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/be456720b506bd44",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s4/c53aa752d8e4083.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/c156be445e68398.v",
    "human": null,
    "human_note": null
   },
@@ -9840,7 +10803,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8176,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -9928,19 +10891,19 @@
    "human_note": null
   },
   {
-   "cand_id": "c3162cf18955e27",
+   "cand_id": "cf92adc9e264421",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
    "class": "b",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.9324,
+   "fp_jaccard": 0.8521,
    "evidence": {
     "gains": {
-     "area": 0.02422,
-     "wns": 0.01544,
-     "power": 0.0595
+     "area": 0.02314,
+     "wns": 0.01614,
+     "power": 0.06828
     },
     "band": {
      "area": 0.11635,
@@ -9948,8 +10911,8 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.9324,
-    "area_within_sigma": false,
+    "fp_jaccard": 0.8521,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
@@ -9962,34 +10925,34 @@
    },
    "gains": {
     "E1": {
-     "area": 0.010995155201023081,
-     "wns": -0.00173652,
-     "power": -0.023416318420878362
+     "area": 0.000186358550854748,
+     "wns": 0.0,
+     "power": 0.0033137781932059103
     },
     "E1d": {
-     "area": 0.0027917357174216525,
-     "wns": 0.002304495,
-     "power": -0.0002584520629204029
+     "area": 0.00018611506145698828,
+     "wns": 0.0,
+     "power": 7.394273556347213e-05
     },
     "E2": {
-     "area": -0.0023123817166568117,
+     "area": -0.0027328147560490897,
      "wns": 0.00013310000000000015,
-     "power": 0.008034628719860678
+     "power": -0.014499281783656314
     },
     "E3": {
-     "area": 0.037963610875302534,
+     "area": 0.03761371585025553,
      "wns": -0.012493895,
-     "power": 0.04723911988928511
+     "power": 0.0291727494740654
     },
     "E2g": {
-     "area": -0.0026666666221108397,
-     "wns": 0.017675555000000003,
-     "power": 0.0007038532764294188
+     "area": -0.0037777777146571494,
+     "wns": 0.018375705,
+     "power": 0.006458609638796234
     },
     "E4": {
-     "area": 0.024221453686673566,
-     "wns": 0.015444435000000001,
-     "power": 0.05950464252954614
+     "area": 0.02314013882624242,
+     "wns": 0.016144585000000003,
+     "power": 0.06828186530014688
     }
    },
    "t_d": {
@@ -10027,10 +10990,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/2a54cdeb4a42fc51",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/9553f7c615c7647a",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s3/c3162cf18955e27.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/cf92adc9e264421.v",
    "human": null,
    "human_note": null
   },
@@ -10056,7 +11019,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8327,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
@@ -10142,19 +11105,19 @@
    "human_note": null
   },
   {
-   "cand_id": "c851892c32d44b5",
+   "cand_id": "c7c773d390a144f",
    "design_id": "cktevo_ethmac__eth_txethmac",
    "role": "b0",
    "class": "a",
    "label": "noise",
    "rung": null,
    "attribution": null,
-   "fp_jaccard": 0.9905,
+   "fp_jaccard": 0.9024,
    "evidence": {
     "gains": {
-     "area": 0.00043,
-     "wns": 0.0,
-     "power": 0.02372
+     "area": -0.07353,
+     "wns": 0.02267,
+     "power": -0.05181
     },
     "band": {
      "area": 0.11635,
@@ -10162,12 +11125,12 @@
      "power": 0.13131
     },
     "power_basis": "saif",
-    "fp_jaccard": 0.9905,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
+    "fp_jaccard": 0.9024,
+    "area_within_sigma": true,
+    "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [],
-    "extra_regs": 0.0,
+    "extra_regs": 16.0,
     "icg": [
      5,
      5
@@ -10186,24 +11149,24 @@
      "power": -0.0003338668960258999
     },
     "E2": {
-     "area": 0.0004204330393920986,
-     "wns": 0.0,
-     "power": 0.019596668825668927
+     "area": 0.0,
+     "wns": 0.0006990450000000001,
+     "power": 0.02011928418862304
     },
     "E3": {
-     "area": -0.002099370150282312,
-     "wns": 0.0,
-     "power": 0.012850636235424437
+     "area": 0.03813855904552345,
+     "wns": -0.014074429999999999,
+     "power": 0.050561384264612215
     },
     "E2g": {
-     "area": 0.00044444443701840996,
-     "wns": 0.0,
-     "power": 0.0006062263472582007
+     "area": 0.0015555555295645297,
+     "wns": 0.0030853549999999997,
+     "power": 0.0004486949126532842
     },
     "E4": {
-     "area": 0.00043252594417234747,
-     "wns": 0.0,
-     "power": 0.02371958205277337
+     "area": -0.07352941294836539,
+     "wns": 0.022666535,
+     "power": -0.05180944182244554
     }
    },
    "t_d": {
@@ -10241,10 +11204,10 @@
    "phi": 2.0,
    "sigma_area_e4": 0.0,
    "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/080315d10c5ec07b",
+   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/cb8e9879371bd2ef",
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/c851892c32d44b5.v",
+   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/c7c773d390a144f.v",
    "human": null,
    "human_note": null
   },
@@ -10270,7 +11233,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8052,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -10358,113 +11321,6 @@
    "human_note": null
   },
   {
-   "cand_id": "cecf9e1c85ad765",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "role": "b0",
-   "class": "b",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
-   "fp_jaccard": 0.9702,
-   "evidence": {
-    "gains": {
-     "area": 0.00389,
-     "wns": 0.0,
-     "power": -0.01286
-    },
-    "band": {
-     "area": 0.11635,
-     "wns": 0.03158,
-     "power": 0.13131
-    },
-    "power_basis": "saif",
-    "fp_jaccard": 0.9702,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
-    "log_diff": {},
-    "missing_resources": [],
-    "extra_regs": 0.0,
-    "icg": [
-     5,
-     5
-    ],
-    "floor_class": "spread"
-   },
-   "gains": {
-    "E1": {
-     "area": -0.0074543413335917165,
-     "wns": -0.00120586,
-     "power": -0.12451919954678999
-    },
-    "E1d": {
-     "area": 0.006327935878771123,
-     "wns": 0.013590670000000001,
-     "power": -0.013162048257728752
-    },
-    "E2": {
-     "area": -0.006726928630274475,
-     "wns": 0.003497065,
-     "power": -0.01257733573388822
-    },
-    "E3": {
-     "area": 0.026766970073796817,
-     "wns": -0.0073889,
-     "power": 0.021183239652619566
-    },
-    "E2g": {
-     "area": 0.0039999990977442924,
-     "wns": 0.0,
-     "power": 0.0028125885041001076
-    },
-    "E4": {
-     "area": 0.003892732684532899,
-     "wns": 0.0,
-     "power": -0.012857198175795788
-    }
-   },
-   "t_d": {
-    "E1": {
-     "area": 0.01621319392435846,
-     "wns": 0.005151142857142861,
-     "power": 0.012750748679332152
-    },
-    "E1d": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E2": {
-     "area": 0.0069371451499706145,
-     "wns": 0.01119735,
-     "power": 0.02309400065736992
-    },
-    "E3": {
-     "area": 0.05108467497226432,
-     "wns": 0.03863735,
-     "power": 0.12423298678661843
-    },
-    "E2g": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E4": {
-     "area": 0.11634948304747127,
-     "wns": 0.031582935,
-     "power": 0.1313085754412415
-    }
-   },
-   "phi": 2.0,
-   "sigma_area_e4": 0.0,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/7ae3627a0060f8c3",
-   "duplicate_of": null,
-   "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/cecf9e1c85ad765.v",
-   "human": null,
-   "human_note": null
-  },
-  {
    "cand_id": "c92f5ccf57a5cd3",
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "role": "b0",
@@ -10486,7 +11342,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8109,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -10574,113 +11430,6 @@
    "human_note": null
   },
   {
-   "cand_id": "c1931b85c2c196c",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "role": "b0",
-   "class": "b",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
-   "fp_jaccard": 0.9827,
-   "evidence": {
-    "gains": {
-     "area": 0.00065,
-     "wns": 0.0,
-     "power": -0.01037
-    },
-    "band": {
-     "area": 0.11635,
-     "wns": 0.03158,
-     "power": 0.13131
-    },
-    "power_basis": "saif",
-    "fp_jaccard": 0.9827,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
-    "log_diff": {},
-    "missing_resources": [],
-    "extra_regs": 0.0,
-    "icg": [
-     5,
-     5
-    ],
-    "floor_class": "spread"
-   },
-   "gains": {
-    "E1": {
-     "area": 0.010995155201023081,
-     "wns": -0.00173652,
-     "power": -0.03223328298144848
-    },
-    "E1d": {
-     "area": 0.0027917357174216525,
-     "wns": 0.002304495,
-     "power": 0.000992275794794493
-    },
-    "E2": {
-     "area": -0.010090392945411803,
-     "wns": -0.0009846065,
-     "power": -0.018214975801569305
-    },
-    "E3": {
-     "area": 0.039013295950443685,
-     "wns": -0.0015974500000000003,
-     "power": 0.11492722472959117
-    },
-    "E2g": {
-     "area": 0.000666665820105743,
-     "wns": 0.0,
-     "power": -0.00010844215361046592
-    },
-    "E4": {
-     "area": 0.0006487881032398311,
-     "wns": 0.0,
-     "power": -0.01037241973545151
-    }
-   },
-   "t_d": {
-    "E1": {
-     "area": 0.01621319392435846,
-     "wns": 0.005151142857142861,
-     "power": 0.012750748679332152
-    },
-    "E1d": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E2": {
-     "area": 0.0069371451499706145,
-     "wns": 0.01119735,
-     "power": 0.02309400065736992
-    },
-    "E3": {
-     "area": 0.05108467497226432,
-     "wns": 0.03863735,
-     "power": 0.12423298678661843
-    },
-    "E2g": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E4": {
-     "area": 0.11634948304747127,
-     "wns": 0.031582935,
-     "power": 0.1313085754412415
-    }
-   },
-   "phi": 2.0,
-   "sigma_area_e4": 0.0,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/825c713457314de3",
-   "duplicate_of": null,
-   "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/c1931b85c2c196c.v",
-   "human": null,
-   "human_note": null
-  },
-  {
    "cand_id": "c3bdf4c33ebad57",
    "design_id": "cktevo_vga_enh__vga_wb_master",
    "role": "b0",
@@ -10702,7 +11451,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.8819,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": false,
     "log_diff": {},
     "missing_resources": [
@@ -10786,648 +11535,6 @@
    "duplicate_of": null,
    "duplicate_raw_dir_e4": null,
    "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_011814_ga_wb_master_6-luna_s2/c3bdf4c33ebad57.v",
-   "human": null,
-   "human_note": null
-  },
-  {
-   "cand_id": "cefd617c8a7277f",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "role": "b0",
-   "class": "b",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
-   "fp_jaccard": 0.8662,
-   "evidence": {
-    "gains": {
-     "area": -0.08845,
-     "wns": 0.01813,
-     "power": -0.08545
-    },
-    "band": {
-     "area": 0.11635,
-     "wns": 0.03158,
-     "power": 0.13131
-    },
-    "power_basis": "saif",
-    "fp_jaccard": 0.8662,
-    "area_within_sigma": false,
-    "endpoints_coincide": false,
-    "log_diff": {},
-    "missing_resources": [],
-    "extra_regs": 19.0,
-    "icg": [
-     5,
-     5
-    ],
-    "floor_class": "spread"
-   },
-   "gains": {
-    "E1": {
-     "area": -0.0001863578502586143,
-     "wns": -0.00020098499999999988,
-     "power": -0.004767423040316362
-    },
-    "E1d": {
-     "area": -0.002791737116788115,
-     "wns": -0.0008019799999999999,
-     "power": -0.0013876136229438092
-    },
-    "E2": {
-     "area": -0.0006306495590882377,
-     "wns": 0.002117575,
-     "power": 0.00466158998659808
-    },
-    "E3": {
-     "area": 0.01836948881497023,
-     "wns": -0.00949745,
-     "power": 0.016766638674632652
-    },
-    "E2g": {
-     "area": -0.0008888888740370099,
-     "wns": 0.009525655,
-     "power": 0.0010392520693286418
-    },
-    "E4": {
-     "area": -0.08845155883533229,
-     "wns": 0.018125835,
-     "power": -0.08544533067896502
-    }
-   },
-   "t_d": {
-    "E1": {
-     "area": 0.01621319392435846,
-     "wns": 0.005151142857142861,
-     "power": 0.012750748679332152
-    },
-    "E1d": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E2": {
-     "area": 0.0069371451499706145,
-     "wns": 0.01119735,
-     "power": 0.02309400065736992
-    },
-    "E3": {
-     "area": 0.05108467497226432,
-     "wns": 0.03863735,
-     "power": 0.12423298678661843
-    },
-    "E2g": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E4": {
-     "area": 0.11634948304747127,
-     "wns": 0.031582935,
-     "power": 0.1313085754412415
-    }
-   },
-   "phi": 2.0,
-   "sigma_area_e4": 0.0,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/ba8f31ba91d6c388",
-   "duplicate_of": null,
-   "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s4/cefd617c8a7277f.v",
-   "human": null,
-   "human_note": null
-  },
-  {
-   "cand_id": "c0d440ee2d781d2",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "role": "b0",
-   "class": "b",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
-   "fp_jaccard": 0.8687,
-   "evidence": {
-    "gains": {
-     "area": -0.08802,
-     "wns": 0.01813,
-     "power": -0.06642
-    },
-    "band": {
-     "area": 0.11635,
-     "wns": 0.03158,
-     "power": 0.13131
-    },
-    "power_basis": "saif",
-    "fp_jaccard": 0.8687,
-    "area_within_sigma": false,
-    "endpoints_coincide": false,
-    "log_diff": {},
-    "missing_resources": [],
-    "extra_regs": 19.0,
-    "icg": [
-     5,
-     5
-    ],
-    "floor_class": "spread"
-   },
-   "gains": {
-    "E1": {
-     "area": 0.014722326218116926,
-     "wns": 0.00292427,
-     "power": -0.023234919471671677
-    },
-    "E1d": {
-     "area": 0.0003722308225973669,
-     "wns": -0.0013257249999999998,
-     "power": -0.002686259462295056
-    },
-    "E2": {
-     "area": -0.00021021651969613912,
-     "wns": 0.002117575,
-     "power": 0.024816214739032887
-    },
-    "E3": {
-     "area": 0.018719383840017232,
-     "wns": -0.0094965,
-     "power": 0.03332776903142265
-    },
-    "E2g": {
-     "area": -0.0004444444370185999,
-     "wns": 0.009523855,
-     "power": 0.0016743565959161546
-    },
-    "E4": {
-     "area": -0.08801903289115975,
-     "wns": 0.018125835,
-     "power": -0.06641899992314128
-    }
-   },
-   "t_d": {
-    "E1": {
-     "area": 0.01621319392435846,
-     "wns": 0.005151142857142861,
-     "power": 0.012750748679332152
-    },
-    "E1d": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E2": {
-     "area": 0.0069371451499706145,
-     "wns": 0.01119735,
-     "power": 0.02309400065736992
-    },
-    "E3": {
-     "area": 0.05108467497226432,
-     "wns": 0.03863735,
-     "power": 0.12423298678661843
-    },
-    "E2g": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E4": {
-     "area": 0.11634948304747127,
-     "wns": 0.031582935,
-     "power": 0.1313085754412415
-    }
-   },
-   "phi": 2.0,
-   "sigma_area_e4": 0.0,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/593ee30a403a79a8",
-   "duplicate_of": null,
-   "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s4/c0d440ee2d781d2.v",
-   "human": null,
-   "human_note": null
-  },
-  {
-   "cand_id": "c91f4d7ed841a6d",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "role": "b0",
-   "class": "a",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
-   "fp_jaccard": 0.9106,
-   "evidence": {
-    "gains": {
-     "area": 0.02444,
-     "wns": 0.00043,
-     "power": 0.05171
-    },
-    "band": {
-     "area": 0.11635,
-     "wns": 0.03158,
-     "power": 0.13131
-    },
-    "power_basis": "saif",
-    "fp_jaccard": 0.9106,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
-    "log_diff": {},
-    "missing_resources": [],
-    "extra_regs": -6.0,
-    "icg": [
-     5,
-     5
-    ],
-    "floor_class": "spread"
-   },
-   "gains": {
-    "E1": {
-     "area": 0.010995155201023081,
-     "wns": -0.00173652,
-     "power": -0.03231348877074744
-    },
-    "E1d": {
-     "area": 0.0027917357174216525,
-     "wns": 0.002304495,
-     "power": 0.000992275794794493
-    },
-    "E2": {
-     "area": -0.00021021651969613912,
-     "wns": 0.0006990450000000001,
-     "power": -0.010375596240954977
-    },
-    "E3": {
-     "area": 0.037963610875302534,
-     "wns": -0.014075144999999999,
-     "power": 0.025108224804452073
-    },
-    "E2g": {
-     "area": -0.0024444444036017298,
-     "wns": 0.002664685,
-     "power": 0.003022959920207592
-    },
-    "E4": {
-     "area": 0.02443771665875965,
-     "wns": 0.00043356500000000034,
-     "power": 0.05170590064712405
-    }
-   },
-   "t_d": {
-    "E1": {
-     "area": 0.01621319392435846,
-     "wns": 0.005151142857142861,
-     "power": 0.012750748679332152
-    },
-    "E1d": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E2": {
-     "area": 0.0069371451499706145,
-     "wns": 0.01119735,
-     "power": 0.02309400065736992
-    },
-    "E3": {
-     "area": 0.05108467497226432,
-     "wns": 0.03863735,
-     "power": 0.12423298678661843
-    },
-    "E2g": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E4": {
-     "area": 0.11634948304747127,
-     "wns": 0.031582935,
-     "power": 0.1313085754412415
-    }
-   },
-   "phi": 2.0,
-   "sigma_area_e4": 0.0,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/9cb515a7c53ceb6c",
-   "duplicate_of": null,
-   "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/c91f4d7ed841a6d.v",
-   "human": null,
-   "human_note": null
-  },
-  {
-   "cand_id": "c27d77a5adba0d9",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "role": "b0",
-   "class": "b",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
-   "fp_jaccard": 0.9889,
-   "evidence": {
-    "gains": {
-     "area": 0.00087,
-     "wns": 0.0,
-     "power": 0.02399
-    },
-    "band": {
-     "area": 0.11635,
-     "wns": 0.03158,
-     "power": 0.13131
-    },
-    "power_basis": "saif",
-    "fp_jaccard": 0.9889,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
-    "log_diff": {},
-    "missing_resources": [],
-    "extra_regs": 0.0,
-    "icg": [
-     5,
-     5
-    ],
-    "floor_class": "spread"
-   },
-   "gains": {
-    "E1": {
-     "area": 0.010808796650168333,
-     "wns": -0.00173652,
-     "power": -0.0247799397379795
-    },
-    "E1d": {
-     "area": 0.0026056199562812738,
-     "wns": 0.002304495,
-     "power": -0.0003338668960258999
-    },
-    "E2": {
-     "area": -0.008618877307539189,
-     "wns": -0.001234052,
-     "power": 0.01031593574010011
-    },
-    "E3": {
-     "area": 0.03918824346296726,
-     "wns": -0.0015967499999999992,
-     "power": 0.13982250906841812
-    },
-    "E2g": {
-     "area": 0.0008888888740368199,
-     "wns": 0.0,
-     "power": 0.0006272387257898607
-    },
-    "E4": {
-     "area": 0.0008650518883448798,
-     "wns": 0.0,
-     "power": 0.023994130834763337
-    }
-   },
-   "t_d": {
-    "E1": {
-     "area": 0.01621319392435846,
-     "wns": 0.005151142857142861,
-     "power": 0.012750748679332152
-    },
-    "E1d": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E2": {
-     "area": 0.0069371451499706145,
-     "wns": 0.01119735,
-     "power": 0.02309400065736992
-    },
-    "E3": {
-     "area": 0.05108467497226432,
-     "wns": 0.03863735,
-     "power": 0.12423298678661843
-    },
-    "E2g": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E4": {
-     "area": 0.11634948304747127,
-     "wns": 0.031582935,
-     "power": 0.1313085754412415
-    }
-   },
-   "phi": 2.0,
-   "sigma_area_e4": 0.0,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/e38dc66aa9836451",
-   "duplicate_of": null,
-   "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/c27d77a5adba0d9.v",
-   "human": null,
-   "human_note": null
-  },
-  {
-   "cand_id": "c156be445e68398",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "role": "b0",
-   "class": "b",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
-   "fp_jaccard": 0.9015,
-   "evidence": {
-    "gains": {
-     "area": 0.0266,
-     "wns": 0.00035,
-     "power": 0.03801
-    },
-    "band": {
-     "area": 0.11635,
-     "wns": 0.03158,
-     "power": 0.13131
-    },
-    "power_basis": "saif",
-    "fp_jaccard": 0.9015,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
-    "log_diff": {},
-    "missing_resources": [],
-    "extra_regs": -6.0,
-    "icg": [
-     5,
-     5
-    ],
-    "floor_class": "spread"
-   },
-   "gains": {
-    "E1": {
-     "area": -0.0001863578502586143,
-     "wns": -0.00020098499999999988,
-     "power": -0.0066961576723674155
-    },
-    "E1d": {
-     "area": -0.002791737116788115,
-     "wns": -0.0008019799999999999,
-     "power": -0.0013876136229438092
-    },
-    "E2": {
-     "area": -0.00840866078784305,
-     "wns": 0.0008146799999999999,
-     "power": -0.019903629395287326
-    },
-    "E3": {
-     "area": -0.10846746171077025,
-     "wns": -0.009337999999999999,
-     "power": -0.014428643434172585
-    },
-    "E2g": {
-     "area": -0.0011111110925463097,
-     "wns": 0.007139504999999999,
-     "power": 0.0011612112402297381
-    },
-    "E4": {
-     "area": 0.026600346379621755,
-     "wns": 0.00035137000000000015,
-     "power": 0.03800681685227445
-    }
-   },
-   "t_d": {
-    "E1": {
-     "area": 0.01621319392435846,
-     "wns": 0.005151142857142861,
-     "power": 0.012750748679332152
-    },
-    "E1d": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E2": {
-     "area": 0.0069371451499706145,
-     "wns": 0.01119735,
-     "power": 0.02309400065736992
-    },
-    "E3": {
-     "area": 0.05108467497226432,
-     "wns": 0.03863735,
-     "power": 0.12423298678661843
-    },
-    "E2g": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E4": {
-     "area": 0.11634948304747127,
-     "wns": 0.031582935,
-     "power": 0.1313085754412415
-    }
-   },
-   "phi": 2.0,
-   "sigma_area_e4": 0.0,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/be456720b506bd44",
-   "duplicate_of": null,
-   "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260914_191316_eth_txethmac_6-luna_s1/c156be445e68398.v",
-   "human": null,
-   "human_note": null
-  },
-  {
-   "cand_id": "cf92adc9e264421",
-   "design_id": "cktevo_ethmac__eth_txethmac",
-   "role": "b0",
-   "class": "b",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
-   "fp_jaccard": 0.8521,
-   "evidence": {
-    "gains": {
-     "area": 0.02314,
-     "wns": 0.01614,
-     "power": 0.06828
-    },
-    "band": {
-     "area": 0.11635,
-     "wns": 0.03158,
-     "power": 0.13131
-    },
-    "power_basis": "saif",
-    "fp_jaccard": 0.8521,
-    "area_within_sigma": false,
-    "endpoints_coincide": true,
-    "log_diff": {},
-    "missing_resources": [],
-    "extra_regs": -6.0,
-    "icg": [
-     5,
-     5
-    ],
-    "floor_class": "spread"
-   },
-   "gains": {
-    "E1": {
-     "area": 0.000186358550854748,
-     "wns": 0.0,
-     "power": 0.0033137781932059103
-    },
-    "E1d": {
-     "area": 0.00018611506145698828,
-     "wns": 0.0,
-     "power": 7.394273556347213e-05
-    },
-    "E2": {
-     "area": -0.0027328147560490897,
-     "wns": 0.00013310000000000015,
-     "power": -0.014499281783656314
-    },
-    "E3": {
-     "area": 0.03761371585025553,
-     "wns": -0.012493895,
-     "power": 0.0291727494740654
-    },
-    "E2g": {
-     "area": -0.0037777777146571494,
-     "wns": 0.018375705,
-     "power": 0.006458609638796234
-    },
-    "E4": {
-     "area": 0.02314013882624242,
-     "wns": 0.016144585000000003,
-     "power": 0.06828186530014688
-    }
-   },
-   "t_d": {
-    "E1": {
-     "area": 0.01621319392435846,
-     "wns": 0.005151142857142861,
-     "power": 0.012750748679332152
-    },
-    "E1d": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E2": {
-     "area": 0.0069371451499706145,
-     "wns": 0.01119735,
-     "power": 0.02309400065736992
-    },
-    "E3": {
-     "area": 0.05108467497226432,
-     "wns": 0.03863735,
-     "power": 0.12423298678661843
-    },
-    "E2g": {
-     "area": null,
-     "wns": null,
-     "power": null
-    },
-    "E4": {
-     "area": 0.11634948304747127,
-     "wns": 0.031582935,
-     "power": 0.1313085754412415
-    }
-   },
-   "phi": 2.0,
-   "sigma_area_e4": 0.0,
-   "d_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/5f617e5c3ce34a1d",
-   "c_raw_dir_e4": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/E4/9553f7c615c7647a",
-   "duplicate_of": null,
-   "duplicate_raw_dir_e4": null,
-   "c_rtl": "/home/hping/Beyond-Synth/results/candidates/r20260915_012814_eth_txethmac_6-luna_s2/cf92adc9e264421.v",
    "human": null,
    "human_note": null
   },
@@ -11776,7 +11883,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.55,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
@@ -12527,7 +12634,7 @@
     },
     "power_basis": "saif",
     "fp_jaccard": 0.9925,
-    "area_within_sigma": false,
+    "area_within_sigma": true,
     "endpoints_coincide": true,
     "log_diff": {},
     "missing_resources": [],
@@ -20003,35 +20110,35 @@
   }
  ],
  "reproduction": {
-  "n": 63,
+  "n": 74,
   "by_flag": {
    "designware": {
     "config": "E1d",
-    "evaluated": 63,
+    "evaluated": 74,
     "converged": 14,
-    "rate": 0.2222222222222222
+    "rate": 0.1891891891891892
    },
    "gate_clock": {
     "config": "E2g",
-    "evaluated": 63,
+    "evaluated": 74,
     "converged": 4,
-    "rate": 0.06349206349206349
+    "rate": 0.05405405405405406
    },
    "none": {
     "config": "E1",
-    "evaluated": 63,
-    "converged": 26,
-    "rate": 0.4126984126984127
+    "evaluated": 74,
+    "converged": 28,
+    "rate": 0.3783783783783784
    },
    "retime": {
     "config": "E3",
-    "evaluated": 63,
+    "evaluated": 74,
     "converged": 4,
-    "rate": 0.06349206349206349
+    "rate": 0.05405405405405406
    }
   },
   "reproduced_by_a_single_flag": 14,
-  "rate_any_flag": 0.2222222222222222,
+  "rate_any_flag": 0.1891891891891892,
   "rows": [
    {
     "cand_id": "c0043c159f6ad2d",
@@ -20250,6 +20357,42 @@
     }
    },
    {
+    "cand_id": "c1042e1ece93f31",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "label": "absorbed",
+    "rung": "E1",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.8118,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.5187,
+      "area_within_sigma": false,
+      "endpoints_coincide": false
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.5349,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "none": {
+      "converged": true,
+      "config": "E1",
+      "fp_jaccard": 0.9596,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
     "cand_id": "c108312082da3f5",
     "design_id": "rtlrewriter_basic__checksum",
     "label": "absorbed_identical",
@@ -20289,7 +20432,7 @@
     "cand_id": "c181324dfd00385",
     "design_id": "cktevo_vga_enh__vga_wb_master",
     "label": "absorbed",
-    "rung": "E2",
+    "rung": "E1",
     "repro": {
      "designware": {
       "converged": false,
@@ -20316,6 +20459,42 @@
       "converged": true,
       "config": "E1",
       "fp_jaccard": 0.9828,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
+    "cand_id": "c1931b85c2c196c",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "label": "absorbed",
+    "rung": "after_Es",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.8146,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.5208,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.5369,
+      "area_within_sigma": false,
+      "endpoints_coincide": false
+     },
+     "none": {
+      "converged": false,
+      "config": "E1",
+      "fp_jaccard": 0.9405,
       "area_within_sigma": true,
       "endpoints_coincide": true
      }
@@ -20424,6 +20603,42 @@
       "converged": false,
       "config": "E1",
       "fp_jaccard": 0.9076,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
+    "cand_id": "c27d77a5adba0d9",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "label": "absorbed",
+    "rung": "after_Es",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.8128,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.5261,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.5418,
+      "area_within_sigma": false,
+      "endpoints_coincide": false
+     },
+     "none": {
+      "converged": false,
+      "config": "E1",
+      "fp_jaccard": 0.9472,
       "area_within_sigma": true,
       "endpoints_coincide": true
      }
@@ -20641,6 +20856,78 @@
       "config": "E1",
       "fp_jaccard": 0.8728,
       "area_within_sigma": false,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
+    "cand_id": "c4bcd99204c75bc",
+    "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
+    "label": "absorbed",
+    "rung": "E2",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.4184,
+      "area_within_sigma": false,
+      "endpoints_coincide": false
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.3804,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.3804,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "none": {
+      "converged": false,
+      "config": "E1",
+      "fp_jaccard": 0.9457,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
+    "cand_id": "c53aa752d8e4083",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "label": "absorbed",
+    "rung": "E2",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.8167,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.5261,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.5418,
+      "area_within_sigma": false,
+      "endpoints_coincide": false
+     },
+     "none": {
+      "converged": false,
+      "config": "E1",
+      "fp_jaccard": 0.945,
+      "area_within_sigma": true,
       "endpoints_coincide": true
      }
     }
@@ -20970,6 +21257,42 @@
     }
    },
    {
+    "cand_id": "c6c9ad23df59e75",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "label": "absorbed",
+    "rung": "E2",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.8167,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.5261,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.5418,
+      "area_within_sigma": false,
+      "endpoints_coincide": false
+     },
+     "none": {
+      "converged": false,
+      "config": "E1",
+      "fp_jaccard": 0.945,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
     "cand_id": "c757298b0c91bcc",
     "design_id": "rtlrewriter_datapath__alu_subexpression",
     "label": "absorbed_identical",
@@ -21222,6 +21545,42 @@
     }
    },
    {
+    "cand_id": "c851892c32d44b5",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "label": "absorbed",
+    "rung": "E2",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.8128,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.5261,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.5418,
+      "area_within_sigma": false,
+      "endpoints_coincide": false
+     },
+     "none": {
+      "converged": false,
+      "config": "E1",
+      "fp_jaccard": 0.9472,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
     "cand_id": "c86d0973fbb80dd",
     "design_id": "rtlrewriter_datapath__adder_architecture",
     "label": "absorbed_identical",
@@ -21288,6 +21647,42 @@
       "converged": true,
       "config": "E1",
       "fp_jaccard": 1.0,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
+    "cand_id": "c8cb0a2eb7afb3c",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "label": "absorbed",
+    "rung": "after_Es",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.8128,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.5261,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.5418,
+      "area_within_sigma": false,
+      "endpoints_coincide": false
+     },
+     "none": {
+      "converged": false,
+      "config": "E1",
+      "fp_jaccard": 0.9472,
       "area_within_sigma": true,
       "endpoints_coincide": true
      }
@@ -21582,6 +21977,42 @@
     }
    },
    {
+    "cand_id": "cc1ec9451bbe90e",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "label": "absorbed",
+    "rung": "E1",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.8243,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.5179,
+      "area_within_sigma": false,
+      "endpoints_coincide": false
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.531,
+      "area_within_sigma": false,
+      "endpoints_coincide": false
+     },
+     "none": {
+      "converged": true,
+      "config": "E1",
+      "fp_jaccard": 1.0,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
     "cand_id": "cc34736dc71ee1e",
     "design_id": "cktevo_mem_ctrl__mc_obct_top",
     "label": "absorbed_identical",
@@ -21798,6 +22229,42 @@
     }
    },
    {
+    "cand_id": "cdfdb84022dc1e4",
+    "design_id": "rtlrewriter_long_cnn__RFselector",
+    "label": "absorbed",
+    "rung": "after_Es",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.4787,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.545,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.545,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "none": {
+      "converged": false,
+      "config": "E1",
+      "fp_jaccard": 0.5975,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
     "cand_id": "ce0b8fe45ba6e9a",
     "design_id": "cktevo_spi__spi",
     "label": "absorbed",
@@ -21973,6 +22440,42 @@
       "config": "E1",
       "fp_jaccard": 0.8593,
       "area_within_sigma": false,
+      "endpoints_coincide": true
+     }
+    }
+   },
+   {
+    "cand_id": "cecf9e1c85ad765",
+    "design_id": "cktevo_ethmac__eth_txethmac",
+    "label": "absorbed",
+    "rung": "after_Es",
+    "repro": {
+     "designware": {
+      "converged": false,
+      "config": "E1d",
+      "fp_jaccard": 0.8211,
+      "area_within_sigma": true,
+      "endpoints_coincide": true
+     },
+     "gate_clock": {
+      "converged": false,
+      "config": "E2g",
+      "fp_jaccard": 0.5102,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "retime": {
+      "converged": false,
+      "config": "E3",
+      "fp_jaccard": 0.5267,
+      "area_within_sigma": false,
+      "endpoints_coincide": true
+     },
+     "none": {
+      "converged": false,
+      "config": "E1",
+      "fp_jaccard": 0.9247,
+      "area_within_sigma": true,
       "endpoints_coincide": true
      }
     }

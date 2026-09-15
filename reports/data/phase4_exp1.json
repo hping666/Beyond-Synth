@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-09-15T11:08:49",
- "git_sha": "9b3178d4695c",
+ "generated_at": "2026-09-15T11:15:06",
+ "git_sha": "ab0b1c21ed94",
  "cfg_hash": "d845788457d4",
  "floor_version": "phase4",
  "designs": [
@@ -1255,14 +1255,14 @@
    "free": 30
   },
   "by_label": {
-   "harmful": 22,
+   "harmful": 20,
    "tradeoff": 54,
    "absorbed_identical": 59,
    "retained": 75,
    "-": 55,
-   "absorbed": 4,
+   "absorbed": 15,
    "duplicate": 128,
-   "noise": 41,
+   "noise": 32,
    "nonequiv": 1035
   },
   "with_e4": 380
@@ -1317,19 +1317,20 @@
     "magnitude_median": 0.17561886896329354,
     "magnitude_iqr": 0.2571099270325251,
     "absorption_rung": {
-     "E1": 1,
+     "E1": 2,
+     "E2": 4,
      "E4": 40,
      "after_Es": 1
     },
     "attribution": {
-     "measured": 41,
+     "measured": 46,
      "prior": 1
     },
     "labels": {
-     "absorbed": 2,
+     "absorbed": 7,
      "absorbed_identical": 40,
-     "harmful": 5,
-     "noise": 12,
+     "harmful": 4,
+     "noise": 8,
      "retained": 10,
      "tradeoff": 4
     },
@@ -1385,17 +1386,20 @@
     "magnitude_median": 0.2851239702801844,
     "magnitude_iqr": 0.3800210454066093,
     "absorption_rung": {
-     "E2": 2,
-     "E4": 16
+     "E1": 2,
+     "E2": 1,
+     "E4": 16,
+     "after_Es": 5
     },
     "attribution": {
-     "measured": 18
+     "measured": 19,
+     "prior": 5
     },
     "labels": {
-     "absorbed": 2,
+     "absorbed": 8,
      "absorbed_identical": 16,
-     "harmful": 11,
-     "noise": 28,
+     "harmful": 10,
+     "noise": 23,
      "retained": 38,
      "tradeoff": 15
     },
@@ -1630,17 +1634,19 @@
     "magnitude_median": 0.049748857922898404,
     "magnitude_iqr": 0.02691780730266547,
     "absorption_rung": {
+     "E1": 1,
+     "E2": 3,
      "E4": 19,
      "after_Es": 1
     },
     "attribution": {
-     "measured": 19,
+     "measured": 23,
      "prior": 1
     },
     "labels": {
-     "absorbed": 1,
+     "absorbed": 5,
      "absorbed_identical": 19,
-     "noise": 11,
+     "noise": 7,
      "retained": 1,
      "tradeoff": 1
     },
@@ -1696,17 +1702,20 @@
     "magnitude_median": 0.4158333286497494,
     "magnitude_iqr": 0.3798683161738724,
     "absorption_rung": {
-     "E2": 2,
-     "E4": 5
+     "E1": 2,
+     "E2": 1,
+     "E4": 5,
+     "after_Es": 4
     },
     "attribution": {
-     "measured": 7
+     "measured": 8,
+     "prior": 4
     },
     "labels": {
-     "absorbed": 2,
+     "absorbed": 7,
      "absorbed_identical": 5,
      "harmful": 6,
-     "noise": 27,
+     "noise": 22,
      "retained": 34,
      "tradeoff": 10
     },
@@ -1932,19 +1941,20 @@
     "magnitude_median": 0.15697674075501095,
     "magnitude_iqr": 0.2699223024716533,
     "absorption_rung": {
-     "E1": 1,
+     "E1": 2,
+     "E2": 4,
      "E4": 40,
      "after_Es": 1
     },
     "attribution": {
-     "measured": 41,
+     "measured": 46,
      "prior": 1
     },
     "labels": {
-     "absorbed": 2,
+     "absorbed": 7,
      "absorbed_identical": 40,
-     "harmful": 5,
-     "noise": 12,
+     "harmful": 4,
+     "noise": 8,
      "retained": 10,
      "tradeoff": 4
     },
@@ -2000,17 +2010,20 @@
     "magnitude_median": 0.4158333286497494,
     "magnitude_iqr": 0.37053500306055054,
     "absorption_rung": {
-     "E2": 2,
-     "E4": 16
+     "E1": 2,
+     "E2": 1,
+     "E4": 16,
+     "after_Es": 5
     },
     "attribution": {
-     "measured": 18
+     "measured": 19,
+     "prior": 5
     },
     "labels": {
-     "absorbed": 2,
+     "absorbed": 8,
      "absorbed_identical": 16,
-     "harmful": 11,
-     "noise": 28,
+     "harmful": 10,
+     "noise": 23,
      "retained": 38,
      "tradeoff": 15
     },
@@ -4822,9 +4835,9 @@
    "cls": "a",
    "role": "reference",
    "verdict": "proven",
-   "label": "harmful",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "E2",
+   "attribution": "measured",
    "gains": {
     "E1": {
      "area": 0.031025283879653223,
@@ -6478,9 +6491,9 @@
    "cls": "b",
    "role": "reference",
    "verdict": "proven",
-   "label": "harmful",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "after_Es",
+   "attribution": "prior",
    "gains": {
     "E1": {
      "area": 0.26218587102742824,
@@ -11389,9 +11402,9 @@
    "cls": "b",
    "role": "b0",
    "verdict": "proven",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "after_Es",
+   "attribution": "prior",
    "gains": {
     "E1": {
      "area": 0.010995155201023081,
@@ -11492,9 +11505,9 @@
    "cls": "b",
    "role": "b0",
    "verdict": "proven",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "after_Es",
+   "attribution": "prior",
    "gains": {
     "E1": {
      "area": 0.010808796650168333,
@@ -11746,9 +11759,9 @@
    "cls": "b",
    "role": "b0",
    "verdict": "proven",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "after_Es",
+   "attribution": "prior",
    "gains": {
     "E1": {
      "area": 0.010808796650168333,
@@ -11916,9 +11929,9 @@
    "cls": "b",
    "role": "b0",
    "verdict": "proven",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "E1",
+   "attribution": "measured",
    "gains": {
     "E1": {
      "area": 0.0,
@@ -12043,9 +12056,9 @@
    "cls": "b",
    "role": "b0",
    "verdict": "proven",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "after_Es",
+   "attribution": "prior",
    "gains": {
     "E1": {
      "area": -0.0074543413335917165,
@@ -25962,9 +25975,9 @@
    "cls": "a",
    "role": "b0",
    "verdict": "proven",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "E2",
+   "attribution": "measured",
    "gains": {
     "E1": {
      "area": 0.010808796650168333,
@@ -26084,9 +26097,9 @@
    "cls": "a",
    "role": "b0",
    "verdict": "proven",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "E2",
+   "attribution": "measured",
    "gains": {
     "E1": {
      "area": 0.010808796650168333,
@@ -26570,9 +26583,9 @@
    "cls": "a",
    "role": "b0",
    "verdict": "proven",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "E1",
+   "attribution": "measured",
    "gains": {
     "E1": {
      "area": 0.01434960911640759,
@@ -27691,9 +27704,9 @@
    "cls": "a",
    "role": "b0",
    "verdict": "proven",
-   "label": "noise",
-   "rung": null,
-   "attribution": null,
+   "label": "absorbed",
+   "rung": "E2",
+   "attribution": "measured",
    "gains": {
     "E1": {
      "area": 0.010808796650168333,
@@ -31730,7 +31743,7 @@
    "role": "b0",
    "verdict": "proven",
    "label": "absorbed",
-   "rung": "E2",
+   "rung": "E1",
    "attribution": "measured",
    "gains": {
     "E1": {
