@@ -378,10 +378,10 @@ def cmd_ladder(cfg, conn, do_submit, priority, hidden, configs=None, retry_faile
 
 
 # ----------------------------------------------------------------------------- diagnosis, map, predictor, snapshot (PLAN 4.3-4.8)
-def cmd_diagnose(cfg, conn, dry_run):
+def cmd_diagnose(cfg, conn, dry_run, force=False):
     from src.analysis import objects as O
-    out = O.diagnose_objects(cfg, conn, "phase4", dry_run=dry_run)
-    print(("dry run: " if dry_run else "") + f"diagnosed {out['diagnosed']} (labels {out['labels']}); existing {out['existing']}, not proven {out['skipped_not_proven']}, no E4 record {out['skipped_no_e4']}")
+    out = O.diagnose_objects(cfg, conn, "phase4", dry_run=dry_run, force=force)
+    print(("dry run: " if dry_run else "") + f"diagnosed {out['diagnosed']} (labels {out['labels']}); existing {out['existing']}, replaced {out.get('replaced', 0)}, not proven {out['skipped_not_proven']}, no E4 record {out['skipped_no_e4']}")
     return 0
 
 
@@ -664,9 +664,14 @@ def cmd_diag_sample(cfg, conn):
             did = r["design_id"]
             base = O.baseline_row(conn, did, "E4", phi_of(did))
             ev = O.object_row_eval(conn, r["cand_id"], "E4", phi_of(did))
+            fl = O.thresholds(conn, did, "E4", cfg["noise"].get("floor_version"))[1]
+            dup = conn.execute("SELECT duplicate_of FROM diagnoses WHERE cand_id=?", (r["cand_id"],)).fetchone()[0]
+            dup_ev = O.object_row_eval(conn, dup, "E4", phi_of(did)) if dup else None
             sample.append({"cand_id": r["cand_id"], "design_id": did, "role": o.get("role"), "class": r["class_final"], "label": label, "rung": r["rung"], "attribution": r["attribution"],
-                           "fp_jaccard": r["fp_jaccard"], "evidence": json.loads(r["evidence_json"] or "{}"), "gains": o.get("gains"), "t_d": o.get("t_d"),
-                           "d_raw_dir_e4": base["raw_dir"] if base else None, "c_raw_dir_e4": ev["raw_dir"] if ev else None, "c_rtl": r["rtl_path"], "human": None, "human_note": None})
+                           "fp_jaccard": r["fp_jaccard"], "evidence": json.loads(r["evidence_json"] or "{}"), "gains": o.get("gains"), "t_d": o.get("t_d"), "phi": phi_of(did),
+                           "sigma_area_e4": float((fl.get("area") or {}).get("sigma_robust") or 0.0),
+                           "d_raw_dir_e4": base["raw_dir"] if base else None, "c_raw_dir_e4": ev["raw_dir"] if ev else None, "duplicate_of": dup,
+                           "duplicate_raw_dir_e4": dup_ev["raw_dir"] if dup_ev else None, "c_rtl": r["rtl_path"], "human": None, "human_note": None})
     repro_rows = []
     for r in rows:
         if r["label"] in ("absorbed", "absorbed_identical"):
@@ -680,6 +685,48 @@ def cmd_diag_sample(cfg, conn):
     rs = out["reproduction"]
     print(f"diagnoses by label {out['per_label_total']}; sample {len(sample)} rows ({n} per label, seed {seed}); single-flag reproduction of {rs['n']} absorbed objects: "
           f"{rs['reproduced_by_a_single_flag']} by at least one flag ({ {k: (v['converged'], v['evaluated']) for k, v in rs['by_flag'].items()} }); wrote {p}")
+    return 0
+
+
+def cmd_diag_verify(cfg, conn):
+    """PLAN 4.6: independent re-derivation of every sampled diagnosis from the raw DC reports (src/analysis/verify.py:
+    area.rpt, qor.rpt, power_saif.rpt, timing.rpt, netlist.v; B.2 re-implemented) -> agreement with the stored label and
+    gains per label, the disagreements listed for the manual reading. reports/data/phase4_diagnoser_verify.json."""
+    import json
+    from pathlib import Path
+    from src.analysis import verify as VF
+    data = Path(C.ROOT) / "reports" / "data"
+    sample = json.loads((data / "phase4_diagnoser_sample.json").read_text())
+    jac = float(cfg["diag"]["fp_jaccard"])
+    rows, by_label = [], {}
+    for r in sample["sample"]:
+        d_rec = VF.record_from_reports(r.get("d_raw_dir_e4"))
+        c_rec = VF.record_from_reports(r.get("c_raw_dir_e4"))
+        dup_rec = VF.record_from_reports(r.get("duplicate_raw_dir_e4")) if r.get("duplicate_raw_dir_e4") else None
+        e = by_label.setdefault(r["label"], {"n": 0, "unreadable": 0, "label_agree": 0, "gains_agree": 0, "disagreements": []})
+        e["n"] += 1
+        if d_rec is None or c_rec is None:
+            e["unreadable"] += 1
+            rows.append({"cand_id": r["cand_id"], "design_id": r["design_id"], "label": r["label"], "independent": None, "note": "reports unreadable"})
+            continue
+        ind = VF.independent_diagnosis(d_rec, c_rec, r.get("phi"), (r.get("t_d") or {}).get("E4") or {}, r.get("sigma_area_e4"), jac, duplicate_rec=dup_rec)
+        stored = (r.get("evidence") or {}).get("gains") or {}
+        gains_ok = all(abs(float(stored.get(m, 0.0)) - float(ind["gains"].get(m, 0.0))) <= 1e-4 for m in ("area", "wns", "power") if m in stored and m in ind["gains"])
+        agree = ind["label"] == r["label"]
+        e["label_agree"] += int(agree)
+        e["gains_agree"] += int(gains_ok)
+        row = {"cand_id": r["cand_id"], "design_id": r["design_id"], "label": r["label"], "independent": ind["label"], "label_agree": agree, "gains_agree": gains_ok,
+               "stored_gains": stored, "independent_gains": ind["gains"], "jaccard_netlist": ind["jaccard"], "fp_jaccard_stored": r.get("fp_jaccard"), "up": ind["up"], "down": ind["down"],
+               "endpoints_coincide": ind["endpoints_coincide"], "area_within_sigma": ind["area_within_sigma"], "d_raw_dir_e4": r.get("d_raw_dir_e4"), "c_raw_dir_e4": r.get("c_raw_dir_e4")}
+        if not agree or not gains_ok:
+            e["disagreements"].append(row["cand_id"])
+        rows.append(row)
+    n = sum(e["n"] for e in by_label.values())
+    agree = sum(e["label_agree"] for e in by_label.values())
+    out = {"generated_at": db.now(), "n": n, "label_agree": agree, "agreement": (agree / n) if n else None, "by_label": by_label, "rows": rows}
+    (data / "phase4_diagnoser_verify.json").write_text(json.dumps(out, indent=1, default=str) + "\n")
+    print(f"independent re-derivation of {n} sampled diagnoses: {agree} labels agree ({'-' if not n else f'{100 * agree / n:.0f} %'}); per label " +
+          "; ".join(f"{k}: {v['label_agree']}/{v['n']} (gains {v['gains_agree']}, unreadable {v['unreadable']}, disagreements {len(v['disagreements'])})" for k, v in sorted(by_label.items())))
     return 0
 
 
@@ -789,7 +836,7 @@ def cmd_refit(cfg, conn, do_submit, do_apply):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup", "refit", "diag-sample", "motivating"])
+    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup", "refit", "diag-sample", "diag-verify", "motivating"])
     ap.add_argument("--apply", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--name", default=None)
@@ -801,6 +848,7 @@ def main(argv=None):
     ap.add_argument("--seed", type=int, default=None)
     ap.add_argument("--priority", type=int, default=1)
     ap.add_argument("--submit", action="store_true")
+    ap.add_argument("--force", action="store_true", help="diagnose: re-derive the diagnosis of every proven object under the current rules (replaces the analysis rows)")
     ap.add_argument("--retry-failed", action="store_true", help="ladder: re-submit pairs whose latest record is a deterministic failure (tool rejects the RTL)")
     a = ap.parse_args(argv)
     cfg = C.load()
@@ -817,13 +865,15 @@ def main(argv=None):
     if a.what == "ladder":
         return cmd_ladder(cfg, conn, a.submit, a.priority, a.hidden, a.configs, retry_failed=a.retry_failed)
     if a.what == "diagnose":
-        return cmd_diagnose(cfg, conn, a.dry_run)
+        return cmd_diagnose(cfg, conn, a.dry_run, force=a.force)
     if a.what == "collect":
         return cmd_collect(cfg, conn)
     if a.what == "snapshot":
         return cmd_snapshot(cfg, conn, a.name)
     if a.what == "diag-sample":
         return cmd_diag_sample(cfg, conn)
+    if a.what == "diag-verify":
+        return cmd_diag_verify(cfg, conn)
     if a.what == "motivating":
         return cmd_motivating(cfg, conn)
     if a.what == "hygiene":

@@ -23,13 +23,30 @@ def object_row_eval(conn, cand_id, config, clock_ns):
                         (cand_id, config, float(clock_ns))).fetchone()
 
 
+def pooled_minimum_floor(conn, config, floor_version):
+    """{metric key: pooled_min} of the frozen floor table under `config` (the pooled quantile of |delta| of that
+    configuration and metric, the same value on every design row; rule A's third term)."""
+    q = "SELECT metric, MAX(pooled_min) FROM noise_floor WHERE config=? AND pooled_min IS NOT NULL" + (" AND floor_version=?" if floor_version else "") + " GROUP BY metric"
+    args = (config,) + ((floor_version,) if floor_version else ())
+    return {r[0]: float(r[1]) for r in conn.execute(q, args) if r[1] is not None}
+
+
 def thresholds(conn, design_id, config, floor_version):
-    """{metric: t_d} of D under `config` from the frozen floor table (None when D has no floor there)."""
+    """{metric: t_d} of D under `config` from the frozen floor table; a metric without a measured component (no floor
+    row for the design, or no power floor because D has no SAIF power) takes the pooled minimum of the configuration
+    (G1.2, `noise.pooled_floor_for_missing`; 2026-09-15: before this, such metrics were diagnosed with a zero band);
+    None only when the configuration has no pooled minimum either."""
     fl = S.latest_floor(conn, design_id, config, floor_version) or S.latest_floor(conn, design_id, config)
+    pooled = pooled_minimum_floor(conn, config, floor_version)
     out = {}
     for metric, key in (("area", "area"), ("wns", "wns"), ("power", "power_saif")):
         r = fl.get(key) or {}
-        out[metric] = float(r["t_d"]) if r.get("t_d") is not None else None
+        if r.get("t_d") is not None:
+            out[metric] = float(r["t_d"])
+        elif pooled.get(key) is not None:
+            out[metric] = pooled[key]
+        else:
+            out[metric] = None
     return out, fl
 
 
@@ -70,7 +87,7 @@ def build_object_rows(cfg, conn, exp="phase4", configs=LADDER):
     return rows
 
 
-def diagnose_objects(cfg, conn, exp="phase4", dry_run=False):
+def diagnose_objects(cfg, conn, exp="phase4", dry_run=False, force=False):
     """PLAN 4.3: the M3 diagnosis at E4 of every proven Phase 4 object that has an E4 record and no diagnosis yet, with the
     frozen floors (thresholds of the design's floor version) and the lower rungs E1 / E2 / E3 for the absorption rung.
     The acceptance envelope of C2.1(d) is a search-time mechanism and is not applied here (the flag stays in the
@@ -79,12 +96,16 @@ def diagnose_objects(cfg, conn, exp="phase4", dry_run=False):
     out = {"diagnosed": 0, "skipped_no_e4": 0, "skipped_not_proven": 0, "existing": 0, "labels": {}}
     seen = {}
     for c in phase4_candidates(conn, exp):
-        if conn.execute("SELECT 1 FROM diagnoses WHERE cand_id=?", (c["cand_id"],)).fetchone():
-            out["existing"] += 1
-            continue
         if c.get("verdict") not in ("proven", "proven_sim_only"):
             out["skipped_not_proven"] += 1
             continue
+        if conn.execute("SELECT 1 FROM diagnoses WHERE cand_id=?", (c["cand_id"],)).fetchone():
+            if not force:
+                out["existing"] += 1
+                continue
+            if not dry_run:   # force: the analysis diagnosis of a proven object is re-derived under the current rules (2026-09-15)
+                conn.execute("DELETE FROM diagnoses WHERE cand_id=?", (c["cand_id"],))
+                out["replaced"] = out.get("replaced", 0) + 1
         did = c["design_id"]
         phi = conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (did,)).fetchone()[0]
         base = baseline_row(conn, did, "E4", phi)
@@ -104,7 +125,7 @@ def diagnose_objects(cfg, conn, exp="phase4", dry_run=False):
         fps = seen.setdefault(c["run_id"], {})
         cand = record_from_row(ev)
         diag = m3.diagnose(record_from_row(base), cand, sigma, float(phi), v3_status="proven", k_sigma=float(cfg["noise"]["k_sigma"]),
-                           fp_jaccard=float(cfg["diag"]["fp_jaccard"]), lower_rungs=lower or None, thresholds=t_d if all(v is not None for v in t_d.values()) else None,
+                           fp_jaccard=float(cfg["diag"]["fp_jaccard"]), lower_rungs=lower or None, thresholds={m: v for m, v in t_d.items() if v is not None} or None,
                            floor_class=floor_class, run_fingerprints=fps)
         fps[c["cand_id"]] = {"metrics": {"area": cand["metrics"]["area"], "cells": cand["metrics"]["cells"]}, "hist": cand["hist"]}
         label = diag["label"]
@@ -119,7 +140,7 @@ def diagnose_objects(cfg, conn, exp="phase4", dry_run=False):
                                       "duplicate_of": diag.get("duplicate_of"), "envelope_json": None, "evidence_json": json.dumps(diag.get("evidence"), default=str),
                                       "feedback_json": json.dumps({"diagnosis": label, "analysis": "phase4 objects (PLAN 4.3)", "envelope_required": bool(diag.get("envelope_required"))}),
                                       "credit": 0, "credited_class": c.get("class_final"), "floor_version": floor_version})
-        conn.execute("UPDATE candidates SET label=? WHERE cand_id=? AND label IN ('object','improved','no_gain')", (label, c["cand_id"]))
+        conn.execute("UPDATE candidates SET label=? WHERE cand_id=? AND label IN ('object','improved','no_gain','retained','tradeoff','absorbed','absorbed_identical','noise','harmful','duplicate','fragile')", (label, c["cand_id"]))
         conn.commit()
     return out
 

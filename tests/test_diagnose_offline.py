@@ -102,3 +102,25 @@ def test_rung_attribution_compares_under_the_same_rung():
     worse_e3 = cand(area=150.0, hist={"DFF_X1": 12, "NAND2_X1": 50})   # ... and far worse at E3
     r = m3.diagnose(BASE, cand(), SIGMA, T, lower_rungs={"E1": (base_e1, better_e1, 0.01), "E3": (base_e2, worse_e3, 0.01)})
     assert r["label"] == "absorbed_identical"  # identical at E4: the lower rungs neither promote nor demote the verdict
+
+
+def test_power_basis_is_never_mixed():
+    """2026-09-15: a SAIF power figure is compared only with a SAIF figure; when one side lacks SAIF power both sides use
+    the default-activity figure; without any common basis there is no power gain. The evidence records the basis."""
+    def rec(**metrics):
+        c = cand()
+        c["metrics"].update(metrics)
+        return c
+    d_saif = rec(power_saif_mw=1.0, power_default_mw=4.0)
+    c_saif = rec(power_saif_mw=0.8, power_default_mw=3.0)
+    c_default = rec(power_saif_mw=None, power_default_mw=3.0)
+    assert m3.power_basis(d_saif, c_saif) == "saif" and round(m3.relative_gains(d_saif, c_saif, T)["power"], 9) == 0.2
+    assert m3.power_basis(d_saif, c_default) == "default" and round(m3.relative_gains(d_saif, c_default, T)["power"], 9) == 0.25      # 4.0 vs 3.0, not 1.0 vs 3.0
+    d_default = rec(power_saif_mw=None, power_default_mw=4.0)
+    assert m3.power_basis(d_default, c_saif) == "default" and round(m3.relative_gains(d_default, c_saif, T)["power"], 9) == 0.25       # not 4.0 vs 0.8 (+80 %)
+    none = rec(power_saif_mw=None, power_default_mw=None)
+    assert m3.power_basis(none, c_saif) is None and "power" not in m3.relative_gains(none, c_saif, T)
+    c = rec(area=90.0, power_saif_mw=None, power_default_mw=3.0)
+    c["hist"] = {"DFF_X1": 10, "NAND2_X1": 12}
+    r = m3.diagnose(d_saif, c, SIGMA, T)
+    assert r["evidence"]["power_basis"] == "default" and round(r["evidence"]["gains"]["power"], 5) == 0.25

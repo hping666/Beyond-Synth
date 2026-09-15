@@ -5,7 +5,7 @@ single-flag reproduction of `absorbed` objects (D compiled with one transformati
 C@E1, with the design's rule-A E1 band as the area tolerance), and the choice of the two objects of the motivating figure
 (the largest E1 gain the ladder recovers, the largest E4 gain that survives). Pure functions over rows, plus readers of the
 visible database only (rule 3)."""
-import random
+import hashlib
 
 from src.analysis import objects as O
 from src.diagnose import m3
@@ -29,15 +29,15 @@ def single_flag_rungs(cfg):
 
 
 def stratified_sample(rows, n, seed, key="design_id"):
-    """Up to n rows: round-robin over the strata (sorted by `key`), a seeded shuffle inside each stratum -> deterministic
-    for a given seed, every stratum represented before any stratum gets a second row."""
-    rnd = random.Random(int(seed))
+    """Up to n rows: round-robin over the strata (sorted by `key`), the rows of a stratum ranked by a seeded hash of their
+    candidate id -> deterministic for a given seed, stable under additions, every stratum represented before any stratum
+    gets a second row."""
     strata = {}
     for r in sorted(rows, key=lambda r: (str(r.get(key)), str(r.get("cand_id")))):
         strata.setdefault(str(r.get(key)), []).append(r)
     keys = sorted(strata)
-    for k in keys:
-        rnd.shuffle(strata[k])
+    for k in keys:   # rank by a seeded hash of the candidate id: stable when objects are added or removed
+        strata[k].sort(key=lambda r: hashlib.sha1(f"{seed}:{r.get('cand_id')}".encode()).hexdigest(), reverse=True)
     out = []
     while len(out) < n and any(strata[k] for k in keys):
         for k in keys:

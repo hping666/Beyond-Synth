@@ -28,7 +28,7 @@ Input: C's E4 record, D's E4 baseline record, σ_D, available lower-rung records
 
 ### B.1 Evidence
 
-- **Retained-gain vector** g (area, timing, power), relative, compared with the rule-A threshold t_D(E4) of each metric (spec 02 §4; DECISIONS 2026-09-14 G1.1). A fixed materiality threshold (area 1 %, power 2 %, WNS 1 % of the period) gives the sensitivity row of every headline number.
+- **Retained-gain vector** g (area, timing, power), relative, compared with the rule-A threshold t_D(E4) of each metric (spec 02 §4; DECISIONS 2026-09-14 G1.1). A fixed materiality threshold (area 1 %, power 2 %, WNS 1 % of the period) gives the sensitivity row of every headline number. Power is compared on one basis only (2026-09-15): SAIF-based power when both records carry it, otherwise DC default-activity power on both sides, never one against the other; the evidence records `power_basis`. A metric of a design without a measured floor component takes the pooled minimum of the configuration as its threshold (G1.2); no metric is ever judged against a zero band.
 - **Fingerprint similarity**: weighted Jaccard of cell-type histograms (threshold config: `diag.fp_jaccard`, calibrated in Phase 4); whether the area delta lies within that rung's σ_D; whether critical-path endpoints coincide. All three satisfied -> "converged".
 - **Log diff**: datapath-extracted blocks, retimed registers, ICG count, ungrouped modules, shared resources — one summary each for D and C, diffed item by item.
 - **Resource diff**: DesignWare components and implementations (e.g. DW02_mult Booth) present in D but absent in C -> evidence of "blocks synthesis".

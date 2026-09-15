@@ -19,10 +19,25 @@ def relative_gains(base, cand, clock_ns):
     bw, cw = bm.get("wns_ns"), cm.get("wns_ns")
     if bw is not None and cw is not None and clock_ns:
         g["wns"] = (float(cw) - float(bw)) / float(clock_ns)
-    bp, cp = bm.get("power_saif_mw") or bm.get("power_default_mw"), cm.get("power_saif_mw") or cm.get("power_default_mw")
-    if bp and cp is not None:
-        g["power"] = (float(bp) - float(cp)) / float(bp)
+    basis = power_basis(base, cand)
+    if basis:
+        col = "power_saif_mw" if basis == "saif" else "power_default_mw"
+        bp, cp = bm.get(col), cm.get(col)
+        if bp and cp is not None:
+            g["power"] = (float(bp) - float(cp)) / float(bp)
     return g
+
+
+def power_basis(base, cand):
+    """The power basis both records share: `saif` when both carry SAIF-based power, else `default` (DC default switching
+    activity, present on every record), else None. A SAIF figure is never compared with a default-activity one
+    (2026-09-15: mixed pairs produced spurious power gains of up to 90 %)."""
+    bm, cm = base.get("metrics") or base, cand.get("metrics") or cand
+    if bm.get("power_saif_mw") is not None and cm.get("power_saif_mw") is not None:
+        return "saif"
+    if bm.get("power_default_mw") is not None and cm.get("power_default_mw") is not None:
+        return "default"
+    return None
 
 
 def weighted_jaccard(h1, h2):
@@ -102,7 +117,7 @@ def diagnose(base, cand, sigma, clock_ns, *, v3_status="proven", k_sigma=2.0, fp
     rd, ld = resource_diff(base, cand), log_diff(base, cand)
     mb, mc = base.get("metrics") or {}, cand.get("metrics") or {}
     extra_regs = (mc.get("registers") or 0) - (mb.get("registers") or 0)
-    evidence = {"gains": {m: round(v, 5) for m, v in g.items()}, "band": {m: round(v, 5) for m, v in band.items()}, **fp,
+    evidence = {"gains": {m: round(v, 5) for m, v in g.items()}, "band": {m: round(v, 5) for m, v in band.items()}, "power_basis": power_basis(base, cand), **fp,
                 "log_diff": ld, "missing_resources": rd["missing_resources"], "extra_regs": extra_regs,
                 "icg": [mb.get("icg_count"), mc.get("icg_count")], "floor_class": floor_class}
     out["evidence"] = evidence
