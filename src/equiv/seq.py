@@ -4,6 +4,7 @@ Statuses returned by the flow are mapped to the project vocabulary: equivalent -
 falsified, inconclusive / timeout -> inconclusive (never treated as proven, CLAUDE.md rule 8), everything else
 -> error. The VC Formal work directory is kept as the counterexample path for falsified candidates.
 """
+import re
 import sys
 import time
 from pathlib import Path
@@ -49,4 +50,14 @@ def run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, *, impl_to
            "properties": r.get("properties"), "workdir": str(wd), "latency_mapped": bool(latency), "latency": dict(latency) if latency else None}
     if status == "falsified":
         out["counterexample_path"] = str(wd)
+        out["cex_depths"] = cex_depths((wd / "vcf.log").read_text(errors="replace")) if (wd / "vcf.log").exists() else {}
     return out
+
+
+_CEX = re.compile(r"> ID: \[\d+\] falsified \(depth=(\d+)\)\s*\n\s*- name\s*:\s*(\S+)")
+
+
+def cex_depths(log_text):
+    """{property name: counterexample depth (cycles after reset)} from `report_fv -verbose` (the repair prompt of G5 item 1
+    names the failing outputs and the shortest counterexample)."""
+    return {m.group(2): int(m.group(1)) for m in _CEX.finditer(log_text)}

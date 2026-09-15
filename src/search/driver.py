@@ -20,11 +20,12 @@ from src.search import llm as L
 from src.search import prompts as PR
 from src.search.archive import Archive
 from src.search.bandit import ClassBandit
+from src.search import scope as SC
 from src.search.prescreen import decide as prescreen_decide
 
 EQ_KEEP = ("v1_status", "v2_status", "v2_cycles", "latency_offset_json", "v3_status", "v3_seconds", "v4_status", "counterexample_path", "verdict", "seconds")
 BUDGET_PHASE = {"phase3": "phase3_calibration", "smoke": "phase3_calibration", "phase4": "phase4_generation", "phase5": "phase5_main", "ablation": "phase6_ablation"}
-FINAL_LABELS = {"retained", "absorbed", "absorbed_identical", "duplicate", "noise", "harmful", "tradeoff", "fragile", "nonequiv", "prescreened", "improved", "no_gain"}
+FINAL_LABELS = {"retained", "absorbed", "absorbed_identical", "duplicate", "noise", "harmful", "tradeoff", "fragile", "nonequiv", "prescreened", "improved", "no_gain", "scope_violation"}
 ARM_M = {"fitness": "E4", "feedback": "verdict", "floor": "rule_a", "credit": "retained_tradeoff", "prescreen": True, "envelope": True}
 
 
@@ -70,6 +71,12 @@ class SearchRun:
         else:
             self.floor = S.latest_floor(conn, self.row["design_id"], "E4", self.floor_version) or S.latest_floor(conn, self.row["design_id"], "E4")
         self.floor_class = next((r.get("floor_class") for r in self.floor.values() if r.get("floor_class")), None)
+        # G5 item 1 correctness aids (config exp5.correctness_aids): scope-limited rewriting and one counterexample-guided repair per candidate
+        aids = (cfg.get("exp5") or {}).get("correctness_aids") or {}
+        self.scope_on = bool(aids.get("scope_limited_rewriting", False))
+        self.scope_cfg = dict(aids.get("scope") or {})
+        self.repair_max = int(aids.get("repair_attempts") or 0)
+        self.repair_types = set(aids.get("repair_failure_types") or ["rejected", "sim_fail", "falsified"])
         self.thresholds = {"area": (self.floor.get("area") or {}).get("t_d"), "wns": (self.floor.get("wns") or {}).get("t_d"), "power": (self.floor.get("power_saif") or {}).get("t_d")}
         self.sigma = {"area": (self.floor.get("area") or {}).get("sigma_robust") or 0.0, "wns": (self.floor.get("wns") or {}).get("sigma_robust") or 0.0,
                       "power": (self.floor.get("power_saif") or {}).get("sigma_robust") or 0.0}
@@ -83,6 +90,7 @@ class SearchRun:
         self.static_text, self.static_version = PR.load_static_complement() if self.armdef.get("feedback") == "scalar_static" else (None, None)
         self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior, caliber=self.fit_cfg, static_text=self.static_text)
         self.d_text = "\n\n".join(Path(self.design["_dir"], f).read_text(errors="replace") for f in self.design["files"])
+        self.d_design = SC.parse_design(self.d_text) if self.scope_on else None
         self.priority = int(cfg["search"].get("job_priority", 4))
         pats = (cfg["search"].get("long_proof_first") or {}).get("design_patterns") or []
         self.arith_design = any(pat in self.row["design_id"] for pat in pats)   # arithmetic pipelines by name (as the Phase 5 projection)
@@ -180,6 +188,87 @@ class SearchRun:
         return self.conn.execute("SELECT * FROM evaluations WHERE design_id=? AND cand_id=? AND config='E4' AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1",
                                  (self.row["design_id"], cand_id, self.phi)).fetchone()
 
+    # ------------------------------------------------------------------ correctness aids (G5 item 1; config exp5.correctness_aids)
+    def region_for(self, parent_id):
+        """(region, prompt text) for the next rewrite: the critical endpoints of the parent's fitness evaluation (or D's
+        baseline) mapped to the module / always blocks of the design text (src/search/scope.py); (None, None) when off."""
+        if not self.scope_on:
+            return None, None
+        crit = None
+        if parent_id:
+            row = self.fit_row(parent_id)
+            crit = row["crit_path_json"] if row is not None else None
+        if not crit:
+            crit = self.base_row["crit_path_json"] if self.base_row is not None else None
+        region = SC.select_region(self.d_design, self.design["top"], crit, endpoints=int(self.scope_cfg.get("endpoints", 3)),
+                                  single_module=str(self.scope_cfg.get("single_module", "block")), multi_module=str(self.scope_cfg.get("multi_module", "module")))
+        region["from_parent"] = parent_id if (parent_id and crit) else None
+        return region, SC.region_text(self.d_design, region, self.design["top"])
+
+    def scope_violation(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, region, index=0):
+        """The textual check before any tool runs: D's items outside the region must be unchanged. A violating answer is
+        labelled `scope_violation` (candidate row, diagnosis row, feedback block; credit 0; one call spent, no repair). True when violated."""
+        viol = SC.verify(self.d_text, rtl, region)
+        if not viol:
+            return False
+        label_cid = cid if cid not in self.state["cands"] else f"{cid}_scope{gen}_{index}"
+        extra = {"violations": viol[:8], "n_violations": len(viol), "region": {k: region.get(k) for k in ("module", "kind", "registers")}}
+        self.record_label(label_cid, None, "scope_violation", extra, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
+        self.conn.execute("UPDATE candidates SET scope_json=? WHERE cand_id=?", (json.dumps({"region": region, "violations": viol[:8]}, default=str), label_cid))
+        self.state.setdefault("scope_violations", 0)
+        self.state["scope_violations"] += 1
+        return True
+
+    def maybe_repair(self, cid, c, rec):
+        """G5 item 1 (ii): after a V1 rejection, a lock-step mismatch or a SEQ counterexample, one repair call with the
+        verifier's evidence; the answer is a new candidate (`repair_of` = the failed one, same parent, same requested class)
+        that goes through the whole pipeline; a repair's own failure is never repaired again; the call comes out of the
+        run's equal-call budget."""
+        if self.repair_max <= 0 or c.get("repair_of") or c.get("repaired_by"):
+            return None
+        failure, text = SC.failure_evidence(rec)
+        if failure is None or failure not in self.repair_types:
+            return None
+        st = self.state
+        if int(st["calls"]) >= int(st["budget_calls"]):
+            st.setdefault("repairs_skipped_budget", 0)
+            st["repairs_skipped_budget"] += 1
+            return None
+        gen = int(st["gen"])
+        cls = c.get("class_requested") or "free"
+        instr = self.classes.get(cls, self.classes.get("free"))
+        region, scope_text = self.region_for(c.get("parent_id"))
+        failed_rtl = Path(c["path"]).read_text(errors="replace")
+        sfx = PR.repair_suffix(instr, cls, failed_rtl, text, scope_text=scope_text)
+        r = self.client.call(self.row["llm_model"], self.prefix, sfx, tag=f"{self.run_id}:repair:{cid}:{failure}")
+        st["calls"] += 1
+        rep = {"of": cid, "failure": failure, "call_id": r["call_id"], "gen": gen, "cand_id": None, "unusable": None}
+        st.setdefault("repairs", []).append(rep)
+        c["repaired_by"] = "pending"
+        meta = {"run_id": self.run_id, "gen": gen, "parent_id": c.get("parent_id"), "class_requested": cls, "call_id": r["call_id"], "cost_usd": r["cost_usd"], "usage": r["usage"], "repair_of": cid, "repair_failure": failure}
+        try:
+            if r.get("status") == "incomplete":
+                raise CA.BadAnswer("truncated at max_output_tokens (status incomplete)")
+            rtl, note = CA.parse_answer(r["text"])
+            CA.check_top(rtl, self.design["top"])
+        except CA.BadAnswer as e:
+            rep["unusable"] = str(e)
+            (self.dir / f"unusable_repair_{cid}.json").write_text(json.dumps({**meta, "unusable": str(e)}, indent=1, default=str))
+            self.bandit.credit(cls, 0)
+            c["repaired_by"] = None
+            self.conn.execute("UPDATE runs SET llm_calls=? WHERE run_id=?", (st["calls"], self.run_id))
+            return None
+        new_cid = CA.cand_id_of(rtl, self.run_id)
+        _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, root=self.dir.parent, cand_id=new_cid)
+        rng = random.Random(f"{self.run_id}|repair|{cid}")
+        if region is not None and self.scope_violation(new_cid, path, rtl, note, cls, gen, c.get("parent_id"), r, region, index=99):
+            rep["cand_id"], c["repaired_by"] = f"{new_cid} (scope_violation)", new_cid
+        else:
+            issued = self.issue_candidate(new_cid, path, rtl, note, cls, gen, c.get("parent_id"), r, rng, index=99, region=region, repair_of=cid)
+            rep["cand_id"], c["repaired_by"] = issued, issued
+        self.conn.execute("UPDATE runs SET llm_calls=? WHERE run_id=?", (st["calls"], self.run_id))
+        return rep["cand_id"]
+
     def c2_allowed(self, c):
         """spec 03 §2 / config `equiv.c2_population`: a candidate proven only through the SEQ latency mapping (class c2, constant
         output offsets) may enter the population only when the protocol-recognition rules allow it; until then never."""
@@ -219,11 +308,12 @@ class SearchRun:
         n = min(int(st["N"]), int(st["budget_calls"]) - int(st["calls"]))
         classes = self.bandit.draw(rng, n)
         blocks = self.lineage_feedback(parent_id)
+        region, scope_text = self.region_for(parent_id)
         issued = []
         answers = []
         for i, cls in enumerate(classes):
             instr = self.classes.get(cls, self.classes.get("free"))
-            sfx = PR.suffix(instr, cls, parent_rtl, blocks, self.design["top"])
+            sfx = PR.suffix(instr, cls, parent_rtl, blocks, self.design["top"], scope_text=scope_text)
             r = self.client.call(self.row["llm_model"], self.prefix, sfx, tag=f"{self.run_id}:g{gen}:{cls}:{i}")
             st["calls"] += 1
             meta = {"run_id": self.run_id, "gen": gen, "parent_id": parent_id, "class_requested": cls, "call_id": r["call_id"], "cost_usd": r["cost_usd"], "usage": r["usage"]}
@@ -237,6 +327,8 @@ class SearchRun:
                 (self.dir / f"unusable_g{gen}_{i}.json").write_text(json.dumps(meta, indent=1, default=str))
                 self.bandit.credit(cls, 0)   # an unusable answer is the requested class's failure
                 continue
+            if region is not None:
+                meta["scope"] = region
             answers.append((i, cls, rtl, note, r, meta))
         # DECISIONS 2026-09-14 item 2: on arithmetic designs the (c1) / (d) proofs (hours-long tails) are submitted before the
         # rest of the generation, so that their tails overlap with the other proofs; the produced class is known only after
@@ -248,14 +340,16 @@ class SearchRun:
         for i, cls, rtl, note, r, meta in answers:
             cid = CA.cand_id_of(rtl, self.run_id)   # per-run id; the unsalted content hash is stored alongside (DECISIONS 2026-09-14)
             _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, root=self.dir.parent, cand_id=cid)
-            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i))
+            if region is not None and self.scope_violation(cid, path, rtl, note, cls, gen, parent_id, r, region, index=i):
+                continue
+            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i, region=region))
         st["gen"] = gen
         st["issued_at"] = self.clock()
         self.conn.execute("UPDATE runs SET llm_calls=?, gens_done=?, status='running' WHERE run_id=?", (st["calls"], gen, self.run_id))
         self.write_gen_summary(gen)
         return issued
 
-    def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng, index=0):
+    def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng, index=0, region=None, repair_of=None):
         st = self.state
         if cid in st["cands"]:   # the same RTL came out twice: a duplicate of the earlier candidate, no evaluation
             self.record_label(f"{cid}_dup{gen}_{index}", None, "duplicate", {"duplicate_of": cid}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
@@ -275,14 +369,16 @@ class SearchRun:
         pre = prescreen_decide(self.prior, cls_final, self.cfg["prescreen"]["p_min"], self.cfg["prescreen"]["audit_frac"], rng) if self.armdef.get("prescreen", True) else "evaluate"
         cap = self.seq_cap_min(cls_final if cls_final in ("a", "b", "c1", "c2", "d") else "d")
         entry = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_rule": cls_final,
-                 "class_final": cls_final, "prescreen": pre, "seq_cap_min": cap, "issued_at": self.clock(), "state": "eq_pending", "note": note}
+                 "class_final": cls_final, "prescreen": pre, "seq_cap_min": cap, "issued_at": self.clock(), "state": "eq_pending", "note": note,
+                 "repair_of": repair_of, "scope": region}
         row = {"cand_id": cid, "run_id": self.run_id, "design_id": self.row["design_id"], "gen": gen, "parent_id": parent_id, "arm": self.row["arm"],
                "content_hash": CA.cand_id_of(rtl),
                "class_requested": cls_requested, "class_rule": cls_final, "class_final": cls_final, "confidence": cls_rule.get("confidence"),
                "subtags_json": json.dumps(cls_rule.get("rules") or cls_rule), "prompt_hash": None, "llm_model": self.row["llm_model"],
                "tokens_in": (call["usage"] or {}).get("input_tokens"), "tokens_cached": (call["usage"] or {}).get("cached_tokens"),
                "tokens_out": (call["usage"] or {}).get("output_tokens"), "cost_usd": call["cost_usd"], "rtl_path": str(path), "prescreened": int(pre == "prescreened"),
-               "seq_cap_min": cap, "note": note, "call_id": call["call_id"]}
+               "seq_cap_min": cap, "note": note, "call_id": call["call_id"], "repair_of": repair_of,
+               "scope_json": json.dumps({"region": region, "violations": []}, default=str) if region is not None else None}
         db.insert(self.conn, "candidates", row)
         if pre == "prescreened":
             entry["state"] = "final"
@@ -332,6 +428,7 @@ class SearchRun:
                     self.submit_fitness(cid, c, rec)
                 else:
                     self.finish_nonequiv(cid, rec, None)
+                    self.maybe_repair(cid, c, rec)   # G5 item 1 (ii): one counterexample-guided repair call
             elif stage == "e4":
                 js = self.job_state(c["e4_job_id"])
                 if js not in ("done", "failed"):

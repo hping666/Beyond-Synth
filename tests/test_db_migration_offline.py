@@ -29,3 +29,28 @@ def test_old_perturbations_table_is_rebuilt(tmp_path):
     assert conn.execute("SELECT name FROM sqlite_master WHERE name='perturbations_old'").fetchone() is None
     assert db._rebuild_perturbations_if_old(conn) is False  # idempotent
     assert conn.execute("SELECT COUNT(*) FROM perturbations").fetchone()[0] == 2
+
+
+def test_scope_violation_label_and_repair_columns_are_migrated(tmp_path):
+    """G5 item 1 (2026-09-15): an older database whose diagnoses CHECK lacks `scope_violation` is rebuilt on connect and accepts
+    the label; the candidates table gains repair_of and scope_json; a second connect changes nothing."""
+    path = str(tmp_path / "r.sqlite")
+    conn = db.connect(path=path)
+    old = conn.execute("SELECT sql FROM sqlite_master WHERE name='diagnoses'").fetchone()[0].replace(", 'scope_violation'", "")
+    conn.execute("DROP TABLE diagnoses")
+    conn.execute(old)
+    conn.execute("ALTER TABLE candidates DROP COLUMN repair_of")
+    conn.execute("ALTER TABLE candidates DROP COLUMN scope_json")
+    conn.commit()
+    with __import__("pytest").raises(sqlite3.IntegrityError):
+        db.insert(conn, "diagnoses", {"cand_id": "c1", "label": "scope_violation", "credit": 0})
+    conn.close()
+    conn = db.connect(path=path)
+    assert "scope_violation" in conn.execute("SELECT sql FROM sqlite_master WHERE name='diagnoses'").fetchone()[0]
+    cols = {r[1] for r in conn.execute("PRAGMA table_info(candidates)")}
+    assert {"repair_of", "scope_json"} <= cols
+    db.insert(conn, "diagnoses", {"cand_id": "c1", "label": "scope_violation", "credit": 0})
+    db.insert(conn, "candidates", {"cand_id": "c2", "design_id": "d", "repair_of": "c1", "scope_json": "{}"})
+    assert conn.execute("SELECT repair_of FROM candidates WHERE cand_id='c2'").fetchone()[0] == "c1"
+    with __import__("pytest").raises(sqlite3.IntegrityError):
+        db.insert(conn, "diagnoses", {"cand_id": "c3", "label": "not_a_label", "credit": 0})

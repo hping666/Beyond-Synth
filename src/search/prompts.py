@@ -96,12 +96,27 @@ def prefix(design, system_text, base_row, floor, clock_ns, prior=None, caliber="
             + e4_summary(base_row, floor, clock_ns, caliber) + "\n" + tail)
 
 
-def suffix(instruction, cls, parent_rtl=None, feedback_blocks=(), design_top=None):
+def suffix(instruction, cls, parent_rtl=None, feedback_blocks=(), design_top=None, scope_text=None):
     parts = []
     if parent_rtl:
         parts.append(f"Start from this earlier rewrite of the design (it is equivalent to the original):\n```verilog\n{parent_rtl}\n```\n")
     if feedback_blocks:
         parts.append("The synthesizer's verdicts on the earlier rewrites of this lineage (most recent first):\n" +
                      "\n".join("```json\n" + json.dumps(b, sort_keys=True) + "\n```" for b in feedback_blocks) + "\n")
+    if scope_text:
+        parts.append(scope_text.strip() + "\n")
     parts.append(f"Instruction (class {cls}): {instruction}\nAnswer with the JSON object only.")
     return "\n".join(parts)
+
+
+def repair_suffix(instruction, cls, failed_rtl, failure_text, scope_text=None):
+    """The counterexample-guided repair call (G5 item 1, correctness aid (ii)): the failed rewrite, the verifier's evidence,
+    the same class instruction and scope; one such call per candidate, counted under the equal-call budget."""
+    parts = [f"Your earlier rewrite of the design (below) was rejected by the equivalence check: {failure_text.strip()}.",
+             f"```verilog\n{failed_rtl.strip()}\n```",
+             "Repair this rewrite so that it is sequentially equivalent to the original design at every port, cycle by cycle after reset, "
+             "while keeping the transformation it intended. Fix the cause named above rather than reverting to the original text."]
+    if scope_text:
+        parts.append(scope_text.strip())
+    parts.append(f"Instruction (class {cls}): {instruction}\nAnswer with the JSON object only.")
+    return "\n\n".join(parts) + "\n"

@@ -286,9 +286,11 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
     N: 5
     min_proven: 5
     budget_usd: 120                         # LOCKED (G5 item 1; a cap recorded from the user's decision, booked as phase phase5_probe in the ledger)
-  correctness_aids:                         # G5 item 1, pre-registered for every arm (implemented in src/search/, spec 05)
-    scope_limited_rewriting: true           # the prompt names the region to rewrite; the answer returns the full file; unchanged regions verified textually before any tool runs
+  correctness_aids:                         # G5 item 1, pre-registered for every arm (implemented in src/search/scope.py and driver.py, spec 05)
+    scope_limited_rewriting: true           # the prompt names the region to rewrite; the answer returns the full file; unchanged regions verified textually before any tool runs (label scope_violation, one call, no repair)
+    scope: {endpoints: 3, multi_module: module, single_module: block}   # region = the module holding the top-k critical endpoints of the parent's (or D's) evaluation on a multi-module design, or the always blocks assigning them on a single-module design; other statement-level items must be unchanged, declarations are free
     repair_attempts: 1                      # one counterexample-guided repair call per candidate for V1 rejections, lock-step mismatches and SEQ counterexamples, counted under the equal-call budget
+    repair_failure_types: [rejected, sim_fail, falsified]   # inconclusive / error / scope_violation get no repair
 exp1:                        # Phase 4
   b0_designs: {cktevo_held: 5, drrtl_held: 3, rtlopt_held: 2}   # C1 scope (DECISIONS 2026-09-14): human-written RTL only; RTLLM is the out-of-scope contrast
   designs: [cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode]                # filled by scripts/phase4_sets.py (deterministic selection, measured floors required)

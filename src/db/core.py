@@ -68,11 +68,14 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
     ("candidates", "top", "ALTER TABLE candidates ADD COLUMN top TEXT"),
     ("candidates", "rtl_files_json", "ALTER TABLE candidates ADD COLUMN rtl_files_json TEXT"),
     ("candidates", "review_json", "ALTER TABLE candidates ADD COLUMN review_json TEXT"),   # M6 LLM review (DECISIONS 2026-09-14 item 1)
+    # G5 item 1 correctness aids (2026-09-15): repair lineage and the scope named for the call
+    ("candidates", "repair_of", "ALTER TABLE candidates ADD COLUMN repair_of TEXT"),
+    ("candidates", "scope_json", "ALTER TABLE candidates ADD COLUMN scope_json TEXT"),
 ]
 
 REBUILDS = [  # tables whose CHECK constraint was widened after they existed: (table, needle that the current DDL must contain)
     ("perturbations", ("P0_roundtrip", "P1_text")),
-    ("diagnoses", ("absorbed_identical", "fragile", "prescreened")),
+    ("diagnoses", ("absorbed_identical", "fragile", "prescreened", "'scope_violation'")),   # quoted: the DDL's trailing comment also names the label
 ]
 
 

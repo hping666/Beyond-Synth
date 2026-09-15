@@ -338,3 +338,11 @@ def test_seq_log_parser_reads_both_summary_formats():
     r = parse_seq_log("[Error] SEQ_SOMETHING: bad script\n", vcf, rc=1)
     assert r["status"] == "error" and r["error"].startswith("[Error] SEQ_SOMETHING")
     assert parse_seq_log("", vcf, timed_out=True, timeout=10, max_time="1M")["status"] == "timeout"
+
+
+def test_cex_depths_from_the_verbose_report():
+    from src.equiv.seq import cex_depths
+    log = ("   > Assertion\n     # Assertion: 2\n     > ID: [22] falsified (depth=1) \n      - name          : _map_output_MTxD\n      - type          : assert\n"
+           "     > ID: [23] falsified (depth=3) \n      - name          : _map_output_TxDone\n     > ID: [24] proven \n      - name          : _map_output_X\n")
+    assert cex_depths(log) == {"_map_output_MTxD": 1, "_map_output_TxDone": 3}
+    assert cex_depths("") == {}

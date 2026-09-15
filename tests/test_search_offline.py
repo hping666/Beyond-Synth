@@ -171,13 +171,17 @@ def test_driver_generations_verdicts_credit_and_resumption(env):
     d1 = dict(conn.execute("SELECT * FROM diagnoses WHERE cand_id=?", (pending[0],)).fetchone())
     assert d1["label"] == "retained" and d1["credit"] == 1 and d1["credited_class"] == "b"
     assert run.archive.members[0]["cand_id"] == pending[0] and run.bandit.n["b"] >= 1 and run.bandit.reward["b"] == 1.0
-    # the second candidate is falsified -> nonequiv, no credit; now generation 2 is due and built (calls 4: unusable, 5, 6)
+    # the second candidate is falsified -> nonequiv, no credit, one repair call (4: unusable); now generation 2 is due and built (calls 5, 6)
     finish_eq(conn, cfg, tmp_path, pending[1], verdict="falsified")
     saved_state = json.loads(run.state_path.read_text())
     run.step()
     assert dict(conn.execute("SELECT * FROM diagnoses WHERE cand_id=?", (pending[1],)).fetchone())["label"] == "nonequiv"
     assert run.state["gen"] == 2 and run.state["calls"] == 6 and run.dir.exists() and str(run.dir).startswith(str(tmp_path))   # run directory under the configured results_dir
-    assert (Path(run.dir) / "unusable_g2_0.json").exists()   # the unusable answer is recorded, not repaired
+    # G5 item 1 (ii): the falsified candidate got one repair call (call 4, the unusable answer): recorded, no candidate, the budget charged;
+    # generation 2 then had two calls left (5, 6). An unusable answer itself is never repaired.
+    rep = run.state["repairs"]
+    assert len(rep) == 1 and rep[0]["of"] == pending[1] and rep[0]["failure"] == "falsified" and rep[0]["unusable"] and rep[0]["cand_id"] is None
+    assert (Path(run.dir) / f"unusable_repair_{pending[1]}.json").exists() and not (Path(run.dir) / "unusable_g2_0.json").exists()
     gen2 = [c for c in run.state["cands"].values() if c["gen"] == 2 and c.get("state") != "final"]
     assert len(gen2) == 2 and all(c["parent_id"] == pending[0] for c in gen2)   # the retained candidate is the parent
     # resumption: a new driver object continues from the state file and the database, with the verdicts arriving later
@@ -418,3 +422,152 @@ def test_latency_mapped_c2_candidates_are_map_objects_but_not_population_members
         assert row == ("retained", 1, 1) and d["credit"] == 1 and [m["cand_id"] for m in run.archive.members] == [cid]
     else:
         assert row == ("retained", 0, 0) and d["credit"] == 0 and run.archive.members == [] and run.state["retained"] == 0
+
+
+RTL_D2 = ("module d2(input clk, input rst_n, input [3:0] x, output reg [3:0] y, output reg [3:0] z);\n"
+          "  always @(posedge clk or negedge rst_n) if (!rst_n) y <= 0; else y <= x + 4'd1;\n"
+          "  always @(posedge clk or negedge rst_n) if (!rst_n) z <= 0; else z <= x - 4'd1;\n"
+          "endmodule\n")
+
+
+class ListTransport:
+    """Answers the given texts in order (each a rewrite's RTL); further calls repeat the last one with a new tag."""
+    def __init__(self, rtls):
+        self.rtls, self.calls = list(rtls), 0
+
+    def create(self, **kw):
+        self.calls += 1
+        rtl = self.rtls[min(self.calls, len(self.rtls)) - 1]
+        text = json.dumps({"rtl": rtl, "note": f"answer {self.calls}"})
+
+        class R:
+            pass
+        r = R()
+        r.output_text, r.id, r.status, r.service_tier = text, f"resp{self.calls}", "completed", "flex"
+        r.usage = SimpleNamespace(input_tokens=100, output_tokens=50, input_tokens_details=SimpleNamespace(cached_tokens=0, cache_write_tokens=0), output_tokens_details=None)
+        return r
+
+
+def _add_design_d2(env):
+    cfg, conn, q, tmp_path = env
+    from src.designs import catalog as K
+    ddir = tmp_path / "designs" / "rtllm" / "d2"
+    (ddir / "rtl").mkdir(parents=True)
+    (ddir / "rtl" / "d2.v").write_text(RTL_D2)
+    d = {"design_id": "rtllm_d2", "suite": "rtllm", "name": "d2", "top": "d2", "files": ["rtl/d2.v"], "clk_ports": ["clk"], "rst_port": "rst_n", "rst_sense": "low",
+         "sverilog": False, "incdirs": [], "tb": None, "reference": None, "source": {"url": "u", "commit": "c", "license": "l", "paths": []},
+         "sha256": {"rtl/d2.v": K.sha256_of(ddir / "rtl" / "d2.v")}, "loc": 4, "tags": ["rtllm"], "notes": [], "_dir": str(ddir)}
+    K.write_design(d)
+    conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES ('rtllm_d2','rtllm','d2','x',4,1,'dev',1.0,'t','g','c')")
+    crit = {"critical": {"endpoint": "y_reg[3]", "startpoint": "x[0]"}, "endpoints": [["x[0]", "y_reg[3]", 0.1], ["x[1]", "y_reg[2]", 0.2]]}
+    db.insert(conn, "evaluations", {"design_id": "rtllm_d2", "is_baseline": 1, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 100.0, "cells": 20, "wns_ns": 0.1, "tns_ns": 0.0,
+                                    "power_saif_mw": 1.0, "status": "ok", "raw_dir": "/x/base2", "hist_json": json.dumps({"DFF_X1": 8, "NAND2_X1": 12}), "crit_path_json": json.dumps(crit)})
+    from src.noise import stats as S
+    S.upsert_floor(conn, [{"design_id": "rtllm_d2", "config": "E4", "metric": m, "sigma_robust": 0.0, "sigma_std": 0.0, "q95_abs": 0.0, "max_abs": 0.0, "n": 4, "abs_unit_value": None,
+                           "t_d": t, "floor_class": "quiet", "floor_source": "measured", "pooled_min": t} for m, t in (("area", 0.003), ("wns", 0.001), ("power_saif", 0.014))])
+
+
+def test_scope_limited_rewriting_names_the_region_and_rejects_changes_outside_it(env):
+    """G5 item 1 (i): the suffix names the always block holding the critical endpoint register (y); an answer that changes the
+    other block (z) is labelled scope_violation before any tool runs (candidate and diagnosis rows, credit 0, the call
+    spent, no equivalence job); an answer that changes only the y block is issued normally and carries the region."""
+    cfg, conn, q, tmp_path = env
+    _add_design_d2(env)
+    from src.search.driver import SearchRun
+    bad = RTL_D2.replace("z <= x - 4'd1", "z <= x + 4'd3")                     # touches the z block: outside the scope
+    good = RTL_D2.replace("y <= x + 4'd1", "y <= {x[3:1], ~x[0]}")            # touches only the y block
+    tr = ListTransport([bad, good])
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d2", seed=1, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=tr)
+    assert run.scope_on and run.repair_max == 1
+    region, text = run.region_for(None)
+    assert region["kind"] == "blocks" and region["registers"] == ["y"] and region["module"] == "d2" and "rewrite only the always block at line 2" in text
+    assert run.step() == "running" and run.state["calls"] == 2
+    rows = {r["cand_id"]: dict(r) for r in conn.execute("SELECT * FROM candidates WHERE run_id=?", (run.run_id,))}
+    viol = [r for r in rows.values() if r["label"] == "scope_violation"]
+    ok = [r for r in rows.values() if r["label"] is None]
+    assert len(viol) == 1 and len(ok) == 1 and viol[0]["eq_job_id"] is None and ok[0]["eq_job_id"]
+    sj = json.loads(viol[0]["scope_json"])
+    assert sj["violations"][0]["kind"] == "always" and sj["violations"][0]["line"] == 3 and sj["region"]["registers"] == ["y"]
+    d = dict(conn.execute("SELECT * FROM diagnoses WHERE cand_id=?", (viol[0]["cand_id"],)).fetchone())
+    assert d["label"] == "scope_violation" and d["credit"] == 0 and json.loads(d["evidence_json"])["n_violations"] == 1
+    assert json.loads(ok[0]["scope_json"])["region"]["kind"] == "blocks" and run.state["scope_violations"] == 1
+    assert run.state["feedback"][viol[0]["cand_id"]]["diagnosis"] == "scope_violation"
+    req = json.loads(Path(sorted((tmp_path / "results" / "llm" / run.run_id).glob("c*.json"))[0]).read_text())
+    assert "Scope of this rewrite" in req["request"]["input"] and "textually unchanged" in req["request"]["input"]
+    # switched off: the same answers are all issued and no scope text is sent
+    cfg["exp5"]["correctness_aids"]["scope_limited_rewriting"] = False
+    run2 = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d2", seed=2, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=ListTransport([bad, good]))
+    assert run2.region_for(None) == (None, None) and run2.step() == "running"
+    assert conn.execute("SELECT COUNT(*) FROM candidates WHERE run_id=? AND eq_job_id IS NOT NULL", (run2.run_id,)).fetchone()[0] == 2
+    req2 = json.loads(Path(sorted((tmp_path / "results" / "llm" / run2.run_id).glob("c*.json"))[0]).read_text())
+    assert "Scope of this rewrite" not in req2["request"]["input"]
+
+
+def test_repair_call_after_a_lockstep_mismatch_is_budgeted_and_never_repeated(env):
+    """G5 item 1 (ii): a sim_fail verdict triggers one repair call carrying the mismatch (cycle, signals) and the failed RTL;
+    the answer is a new candidate (repair_of = the failed one, same parent and class) that enters the pipeline; the call is
+    charged to the equal-call budget (generation 2 gets one call fewer); the repair's own failure is not repaired again; an
+    inconclusive verdict gets no repair; with the budget exhausted the repair is skipped and counted."""
+    cfg, conn, q, tmp_path = env
+    from src.analysis.repair import repair_table, repair_yield
+    from src.search.driver import SearchRun
+    tr = ListTransport([rewrite("a1"), rewrite("a2"), rewrite("fix1"), rewrite("g2")])
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="B2", design_id="rtllm_d", seed=1, model="gpt-5.6-luna", K=2, N=2, queue=q, transport=tr)
+    assert run.step() == "running" and run.state["calls"] == 2
+    c1, c2 = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? ORDER BY cand_id", (run.run_id,))]
+    mism = {"y": {"c": "0101", "d": "0110", "first_cycle": 17}}
+    finish_eq(conn, cfg, tmp_path, c1, verdict="sim_fail", extra_rec={"v2_status": "sim_fail", "v3_status": None, "v2": {"first_mismatch": 17, "mismatches": mism}, "v2_detail": json.dumps(mism)})
+    finish_eq(conn, cfg, tmp_path, c2, verdict="inconclusive", extra_rec={"v3_status": "inconclusive"})
+    run.step()
+    assert run.state["calls"] == 3                                                # exactly one repair call (the inconclusive one gets none)
+    rep = run.state["repairs"]
+    assert len(rep) == 1 and rep[0]["of"] == c1 and rep[0]["failure"] == "sim_fail" and rep[0]["cand_id"]
+    fix = dict(conn.execute("SELECT * FROM candidates WHERE cand_id=?", (rep[0]["cand_id"],)).fetchone())
+    assert fix["repair_of"] == c1 and fix["parent_id"] is None and fix["class_requested"] == dict(conn.execute("SELECT class_requested FROM candidates WHERE cand_id=?", (c1,)).fetchone())["class_requested"]
+    assert fix["eq_job_id"] and run.state["cands"][c1]["repaired_by"] == fix["cand_id"] and run.state["cands"][fix["cand_id"]]["repair_of"] == c1
+    req = json.loads(Path(sorted((tmp_path / "results" / "llm" / run.run_id).glob("c*.json"))[2]).read_text())
+    failed_rtl = Path(dict(conn.execute("SELECT rtl_path FROM candidates WHERE cand_id=?", (c1,)).fetchone())["rtl_path"]).read_text().strip()
+    inp = req["request"]["input"]
+    assert "cycle 17" in inp and "output y: original 0110, rewrite 0101" in inp and failed_rtl in inp and req["tag"].endswith(f"repair:{c1}:sim_fail")
+    assert conn.execute("SELECT llm_calls FROM runs WHERE run_id=?", (run.run_id,)).fetchone()[0] == 3
+    # the repair fails too: no second repair; generation 2 has one call left (budget 4 - 3)
+    finish_eq(conn, cfg, tmp_path, fix["cand_id"], verdict="falsified", extra_rec={"v3_status": "falsified", "v3": {"properties": {"_map_output_y": "falsified"}, "cex_depths": {"_map_output_y": 2}}})
+    run.step()
+    assert len(run.state["repairs"]) == 1 and run.state["calls"] == 4 and run.state["gen"] == 2
+    gen2 = [c for c in run.state["cands"].values() if c["gen"] == 2 and not c.get("repair_of")]
+    assert len(gen2) == 1
+    # budget exhausted: a further failure is not repaired but counted
+    finish_eq(conn, cfg, tmp_path, gen2[0]["cand_id"], verdict="rejected", extra_rec={"v1_status": "rejected", "v1_detail": "yosys: syntax error", "v2_status": None, "v3_status": None})
+    run.step()
+    assert run.state["calls"] == 4 and run.state.get("repairs_skipped_budget") == 1 and len(run.state["repairs"]) == 1
+    y = repair_yield(conn, exp="smoke", run_ids=[run.run_id])
+    assert y["by_failure"]["sim_fail"]["attempted"] == 1 and y["by_failure"]["sim_fail"]["proven"] == 0 and y["calls_repair"] == 1
+    assert y["unrepaired"] == {"falsified": 1, "rejected": 1}                     # the repair's own failure and the budget-blocked one
+    assert any(row.startswith("| sim_fail | 1 | 0 |") for row in repair_table(y))
+    # switched off: no repair at all
+    cfg["exp5"]["correctness_aids"]["repair_attempts"] = 0
+    run3 = SearchRun.create(cfg, conn, exp="smoke", arm="B2", design_id="rtllm_d", seed=3, model="gpt-5.6-luna", K=1, N=1, queue=q, transport=ListTransport([rewrite("b1")]))
+    run3.step()
+    cid3 = conn.execute("SELECT cand_id FROM candidates WHERE run_id=?", (run3.run_id,)).fetchone()[0]
+    finish_eq(conn, cfg, tmp_path, cid3, verdict="sim_fail", extra_rec={"v2_status": "sim_fail", "v3_status": None, "v2": {"first_mismatch": 1, "mismatches": mism}})
+    run3.step()
+    assert run3.state["calls"] == 1 and not run3.state.get("repairs")
+
+
+def test_repaired_candidate_that_is_proven_and_retained_counts_in_the_yield(env):
+    cfg, conn, q, tmp_path = env
+    from src.analysis.repair import repair_yield
+    from src.search.driver import SearchRun
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=7, model="gpt-5.6-luna", K=2, N=1, queue=q, transport=ListTransport([rewrite("z1"), rewrite("z2")]))   # budget 2: one call for the candidate, one for its repair
+    run.step()
+    c1 = conn.execute("SELECT cand_id FROM candidates WHERE run_id=?", (run.run_id,)).fetchone()[0]
+    finish_eq(conn, cfg, tmp_path, c1, verdict="rejected", extra_rec={"v1_status": "rejected", "v1_detail": "x.v:3: ERROR: syntax error", "v2_status": None, "v3_status": None})
+    run.step()
+    fix = run.state["repairs"][0]["cand_id"]
+    finish_eq(conn, cfg, tmp_path, fix, verdict="proven")
+    run.step()
+    finish_e4(conn, fix, 90.0)
+    assert run.step() == "done"
+    y = repair_yield(conn, exp="smoke", run_ids=[run.run_id])
+    assert y["by_failure"]["rejected"] == {"attempted": 1, "proven": 1, "accepted": 1, "retained": 1, "scope_violation": 0}
+    assert conn.execute("SELECT label, accepted, repair_of FROM candidates WHERE cand_id=?", (fix,)).fetchone()[:] == ("retained", 1, c1)

@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS candidates (
   v3_status TEXT, v3_seconds REAL, v4_status TEXT, counterexample_path TEXT,
   in_archive INTEGER NOT NULL DEFAULT 0, accepted INTEGER NOT NULL DEFAULT 0,
   proven_by TEXT CHECK (proven_by IN ('seq', 'dpv') OR proven_by IS NULL),
+  repair_of TEXT, scope_json TEXT,   -- G5 item 1 correctness aids (2026-09-15): the failed candidate this one repairs; the region named for the call and the scope check
   created_at TEXT NOT NULL, git_sha TEXT NOT NULL, cfg_hash TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS ix_candidates_run ON candidates (run_id, gen);
 
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS screening (
 
 CREATE TABLE IF NOT EXISTS diagnoses (
   cand_id TEXT PRIMARY KEY,
-  label TEXT NOT NULL CHECK (label IN ('retained', 'absorbed', 'absorbed_identical', 'duplicate', 'noise', 'harmful', 'tradeoff', 'fragile', 'nonequiv', 'prescreened', 'screened_out')),   -- DECISIONS 2026-09-14 C2.4
+  label TEXT NOT NULL CHECK (label IN ('retained', 'absorbed', 'absorbed_identical', 'duplicate', 'noise', 'harmful', 'tradeoff', 'fragile', 'nonequiv', 'prescreened', 'screened_out', 'scope_violation')),   -- DECISIONS 2026-09-14 C2.4; scope_violation 2026-09-15 (G5 item 1)
   rung TEXT, capability TEXT,
   attribution TEXT CHECK (attribution IN ('measured', 'prior') OR attribution IS NULL),
   fp_jaccard REAL, evidence_json TEXT, feedback_json TEXT, credit INTEGER,
