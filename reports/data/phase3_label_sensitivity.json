@@ -88,29 +88,29 @@
  "gpt-5.4": {
   "design_weighted": {
    "absorbed_identical": 39,
-   "harmful": 14,
-   "retained": 107,
-   "tradeoff": 74
+   "harmful": 15,
+   "retained": 111,
+   "tradeoff": 76
   },
   "materiality": {
    "absorbed_identical": 39,
-   "harmful": 17,
-   "retained": 124,
-   "tradeoff": 54
+   "harmful": 18,
+   "retained": 128,
+   "tradeoff": 56
   },
-  "n": 234,
+  "n": 241,
   "record_weighted": {
    "absorbed_identical": 39,
-   "harmful": 17,
-   "retained": 117,
-   "tradeoff": 61
+   "harmful": 18,
+   "retained": 121,
+   "tradeoff": 63
   },
   "stored": {
    "absorbed_identical": 39,
-   "duplicate": 37,
+   "duplicate": 41,
    "harmful": 13,
-   "retained": 81,
-   "tradeoff": 64
+   "retained": 82,
+   "tradeoff": 66
   }
  },
  "gpt-5.4-mini": {
@@ -145,28 +145,28 @@
   "design_weighted": {
    "absorbed_identical": 36,
    "harmful": 5,
-   "retained": 127,
+   "retained": 128,
    "tradeoff": 72
   },
   "materiality": {
    "absorbed_identical": 36,
    "harmful": 18,
    "noise": 1,
-   "retained": 132,
+   "retained": 133,
    "tradeoff": 53
   },
-  "n": 240,
+  "n": 241,
   "record_weighted": {
    "absorbed_identical": 36,
    "harmful": 11,
-   "retained": 134,
+   "retained": 135,
    "tradeoff": 59
   },
   "stored": {
    "absorbed_identical": 36,
    "duplicate": 80,
    "harmful": 6,
-   "retained": 63,
+   "retained": 64,
    "tradeoff": 55
   }
  },
@@ -174,27 +174,27 @@
   "design_weighted": {
    "absorbed_identical": 40,
    "harmful": 7,
-   "retained": 121,
+   "retained": 125,
    "tradeoff": 56
   },
   "materiality": {
    "absorbed_identical": 40,
    "harmful": 12,
    "noise": 4,
-   "retained": 120,
+   "retained": 124,
    "tradeoff": 48
   },
-  "n": 224,
+  "n": 228,
   "record_weighted": {
    "absorbed_identical": 40,
    "harmful": 8,
    "noise": 1,
-   "retained": 124,
+   "retained": 128,
    "tradeoff": 51
   },
   "stored": {
    "absorbed_identical": 40,
-   "duplicate": 66,
+   "duplicate": 70,
    "harmful": 6,
    "retained": 71,
    "tradeoff": 41

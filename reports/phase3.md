@@ -1,6 +1,6 @@
 # Phase 3 report — LLM calibration (residual-guided evolution, minimal skeleton)
 
-Generated 2026-09-14 18:38 by scripts/report_phase.py (git ab272f12b4fe, cfg 0a5870d5adac). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).
+Generated 2026-09-14 21:42 by scripts/report_phase.py (git 79fbf5722ef5, cfg 0d40d129a8e7). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).
 
 ## 1. Setup
 
@@ -10,17 +10,17 @@ Models ['gpt-5.6-luna', 'gpt-5.4-mini', 'gpt-5.6-terra', 'gpt-5.4']; designs (de
 
 | model | runs | candidates | unusable answers | V1 ok | V3 proven | proven_sim_only (apart) | inconclusive | retained (rule A) | retained (materiality row) | LLM calls / retained | USD / retained | DC h / retained | USD | DC h | VCF h |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.4 | 10 | 300 | 0 | 275 | 234 | 0 | 6 | 81 | 125 | 3.7 | 0.200 | 0.07 | 16.16 | 5.32 | 2.00 |
+| gpt-5.4 | 10 | 300 | 0 | 300 | 241 | 0 | 24 | 82 | 129 | 3.7 | 0.197 | 0.09 | 16.16 | 7.75 | 84.94 |
 | gpt-5.4-mini | 10 | 269 | 31 | 268 | 196 | 0 | 11 | 46 | 101 | 6.5 | 0.177 | 0.13 | 8.13 | 6.13 | 85.35 |
-| gpt-5.6-luna | 10 | 300 | 0 | 291 | 240 | 0 | 8 | 63 | 133 | 4.8 | 0.008 | 0.11 | 0.52 | 7.20 | 32.81 |
-| gpt-5.6-terra | 10 | 303 | 0 | 276 | 225 | 0 | 12 | 71 | 122 | 4.2 | 0.072 | 0.08 | 5.10 | 5.54 | 1.95 |
+| gpt-5.6-luna | 10 | 300 | 0 | 292 | 241 | 0 | 8 | 64 | 134 | 4.7 | 0.008 | 0.13 | 0.52 | 8.27 | 66.09 |
+| gpt-5.6-terra | 10 | 303 | 0 | 294 | 229 | 0 | 26 | 71 | 126 | 4.2 | 0.072 | 0.11 | 5.10 | 7.97 | 96.20 |
 
 ## 3. Classes: produced distribution and requested → produced confusion
 
-- **gpt-5.4**: produced classes {'a': 22, 'b': 102, 'c1': 68, 'c2': 14, 'd': 94}; confusion a->a: 14, a->b: 19, a->c1: 5, a->d: 5, b->a: 7, b->b: 26, b->c1: 10, b->c2: 3, b->d: 17, c1->a: 1, c1->b: 11, c1->c1: 17, c1->d: 20, d->b: 19, d->c1: 11, d->c2: 2, d->d: 30, free->b: 27, free->c1: 25, free->c2: 9, free->d: 22; labels {'absorbed_identical': 39, 'duplicate': 37, 'harmful': 13, 'nonequiv': 41, 'pending': 25, 'retained': 81, 'tradeoff': 64}; inconclusive rate by class {a: 5 %, b: 0 %, c1: 0 %, c2: 0 %, d: 5 %}
+- **gpt-5.4**: produced classes {'a': 19, 'b': 105, 'c1': 67, 'c2': 14, 'd': 95}; confusion a->a: 11, a->b: 21, a->c1: 5, a->d: 6, b->a: 7, b->b: 27, b->c1: 9, b->c2: 3, b->d: 17, c1->a: 1, c1->b: 11, c1->c1: 17, c1->d: 20, d->b: 19, d->c1: 11, d->c2: 2, d->d: 30, free->b: 27, free->c1: 25, free->c2: 9, free->d: 22; labels {'absorbed_identical': 39, 'duplicate': 41, 'harmful': 13, 'nonequiv': 59, 'retained': 82, 'tradeoff': 66}; inconclusive rate by class {a: 0 %, b: 0 %, c1: 1 %, c2: 0 %, d: 24 %}
 - **gpt-5.4-mini**: produced classes {'a': 29, 'b': 80, 'c1': 39, 'c2': 14, 'd': 107}; confusion a->a: 20, a->b: 7, a->c1: 6, a->d: 16, b->a: 7, b->b: 16, b->c1: 9, b->c2: 2, b->d: 23, c1->a: 1, c1->b: 18, c1->c1: 9, c1->c2: 3, c1->d: 18, d->b: 12, d->c1: 8, d->c2: 4, d->d: 29, free->a: 1, free->b: 27, free->c1: 7, free->c2: 5, free->d: 21; labels {'absorbed_identical': 55, 'duplicate': 49, 'harmful': 6, 'nonequiv': 73, 'retained': 46, 'tradeoff': 40}; inconclusive rate by class {a: 0 %, b: 0 %, c1: 0 %, c2: 0 %, d: 10 %}
-- **gpt-5.6-luna**: produced classes {'a': 53, 'b': 67, 'c1': 82, 'c2': 9, 'd': 88, 'free': 1}; confusion a->a: 10, a->b: 5, a->c1: 7, a->d: 8, b->a: 23, b->b: 14, b->c1: 13, b->c2: 1, b->d: 17, c1->a: 3, c1->b: 22, c1->c1: 13, c1->d: 17, d->a: 1, d->b: 10, d->c1: 19, d->c2: 1, d->d: 30, free->a: 16, free->b: 16, free->c1: 30, free->c2: 7, free->d: 16, free->free: 1; labels {'absorbed_identical': 36, 'duplicate': 84, 'harmful': 6, 'nonequiv': 55, 'pending': 1, 'retained': 63, 'tradeoff': 55}; inconclusive rate by class {a: 0 %, b: 0 %, c1: 0 %, c2: 0 %, d: 9 %, free: 0 %}
-- **gpt-5.6-terra**: produced classes {'a': 44, 'b': 64, 'c1': 87, 'c2': 15, 'd': 93}; confusion a->a: 16, a->b: 7, a->c1: 12, a->c2: 2, b->a: 13, b->b: 8, b->c1: 13, b->c2: 6, b->d: 13, c1->b: 11, c1->c1: 21, c1->d: 20, d->a: 3, d->b: 26, d->c1: 14, d->c2: 4, d->d: 28, free->a: 12, free->b: 12, free->c1: 27, free->c2: 3, free->d: 32; labels {'aborted': 2, 'absorbed_identical': 40, 'duplicate': 73, 'harmful': 6, 'nonequiv': 51, 'pending': 19, 'retained': 71, 'tradeoff': 41}; inconclusive rate by class {a: 2 %, b: 0 %, c1: 2 %, c2: 0 %, d: 10 %}
+- **gpt-5.6-luna**: produced classes {'a': 53, 'b': 67, 'c1': 82, 'c2': 9, 'd': 88, 'free': 1}; confusion a->a: 10, a->b: 5, a->c1: 7, a->d: 8, b->a: 23, b->b: 14, b->c1: 13, b->c2: 1, b->d: 17, c1->a: 3, c1->b: 22, c1->c1: 13, c1->d: 17, d->a: 1, d->b: 10, d->c1: 19, d->c2: 1, d->d: 30, free->a: 16, free->b: 16, free->c1: 30, free->c2: 7, free->d: 16, free->free: 1; labels {'absorbed_identical': 36, 'duplicate': 84, 'harmful': 6, 'nonequiv': 55, 'retained': 64, 'tradeoff': 55}; inconclusive rate by class {a: 0 %, b: 0 %, c1: 0 %, c2: 0 %, d: 9 %, free: 0 %}
+- **gpt-5.6-terra**: produced classes {'a': 43, 'b': 64, 'c1': 87, 'c2': 15, 'd': 94}; confusion a->a: 15, a->b: 7, a->c1: 12, a->c2: 2, a->d: 1, b->a: 13, b->b: 8, b->c1: 13, b->c2: 6, b->d: 13, c1->b: 11, c1->c1: 21, c1->d: 20, d->a: 3, d->b: 26, d->c1: 14, d->c2: 4, d->d: 28, free->a: 12, free->b: 12, free->c1: 27, free->c2: 3, free->d: 32; labels {'aborted': 2, 'absorbed_identical': 40, 'duplicate': 77, 'harmful': 6, 'nonequiv': 65, 'pending': 1, 'retained': 71, 'tradeoff': 41}; inconclusive rate by class {a: 0 %, b: 0 %, c1: 2 %, c2: 0 %, d: 26 %}
 
 ## 4. Best retained area gain per design (offset designs flagged)
 
@@ -33,21 +33,21 @@ Models ['gpt-5.6-luna', 'gpt-5.4-mini', 'gpt-5.6-terra', 'gpt-5.4']; designs (de
 
 ## 5. Time to verdict (seconds from the LLM answer to the equivalence verdict) and the response to absorbed feedback
 
-- **gpt-5.4**: a: n=22 median 359 q95 19109 max 22286; b: n=101 median 389 q95 18763 max 20181; c1: n=67 median 351 q95 936 max 17381; c2: n=14 median 369 q95 678 max 730; d: n=71 median 345 q95 26483 max 28864
+- **gpt-5.4**: a: n=19 median 309 q95 17083 max 19194; b: n=105 median 399 q95 18719 max 20181; c1: n=67 median 351 q95 936 max 29497; c2: n=14 median 369 q95 678 max 730; d: n=95 median 545 q95 29494 max 30244
 - **gpt-5.4-mini**: a: n=29 median 462 q95 4285 max 4914; b: n=80 median 438 q95 8221 max 17249; c1: n=39 median 609 q95 15071 max 15445; c2: n=14 median 271 q95 8796 max 17332; d: n=107 median 2675 q95 23503 max 25584
-- **gpt-5.6-luna**: a: n=53 median 242 q95 11317 max 17257; b: n=66 median 244 q95 4591 max 17292; c1: n=82 median 500 q95 13816 max 24886; c2: n=9 median 2011 q95 4220 max 4250; d: n=84 median 263 q95 26334 max 28284; free: n=1 median 13209 q95 13209 max 13209
-- **gpt-5.6-terra**: a: n=42 median 106 q95 19563 max 22142; b: n=64 median 93 q95 16560 max 19544; c1: n=81 median 110 q95 290 max 21634; c2: n=15 median 203 q95 250 max 257; d: n=74 median 100 q95 26546 max 27818
+- **gpt-5.6-luna**: a: n=53 median 242 q95 11317 max 17257; b: n=66 median 244 q95 4591 max 17292; c1: n=82 median 500 q95 13816 max 24886; c2: n=9 median 2011 q95 4220 max 4250; d: n=85 median 264 q95 26543 max 29944; free: n=1 median 13209 q95 13209 max 13209
+- **gpt-5.6-terra**: a: n=41 median 105 q95 19524 max 19621; b: n=64 median 93 q95 16560 max 19544; c1: n=81 median 110 q95 290 max 21634; c2: n=15 median 203 q95 250 max 257; d: n=93 median 150 q95 29656 max 29953
 
 Feedback response (DECISIONS 2026-09-14 b): absorbed_identical rate among candidates whose lineage feedback carried an absorbed verdict versus candidates whose feedback did not, per generation:
 
 | model | generation | with absorbed feedback: absorbed_identical / n | without: absorbed_identical / n |
 |---|---|---|---|
 | gpt-5.4 | 1 | - | 8 / 50 (16 %) |
-| gpt-5.4 | 2 | 7 / 10 (70 %) | 0 / 36 (0 %) |
-| gpt-5.4 | 3 | 8 / 10 (80 %) | 0 / 34 (0 %) |
-| gpt-5.4 | 4 | 4 / 10 (40 %) | 0 / 37 (0 %) |
-| gpt-5.4 | 5 | 9 / 10 (90 %) | 0 / 37 (0 %) |
-| gpt-5.4 | 6 | 3 / 10 (30 %) | 0 / 31 (0 %) |
+| gpt-5.4 | 2 | 7 / 10 (70 %) | 0 / 40 (0 %) |
+| gpt-5.4 | 3 | 8 / 10 (80 %) | 0 / 40 (0 %) |
+| gpt-5.4 | 4 | 4 / 10 (40 %) | 0 / 40 (0 %) |
+| gpt-5.4 | 5 | 9 / 10 (90 %) | 0 / 40 (0 %) |
+| gpt-5.4 | 6 | 3 / 10 (30 %) | 0 / 40 (0 %) |
 | gpt-5.4-mini | 1 | - | 12 / 46 (26 %) |
 | gpt-5.4-mini | 2 | 7 / 10 (70 %) | 0 / 35 (0 %) |
 | gpt-5.4-mini | 3 | 8 / 10 (80 %) | 0 / 34 (0 %) |
@@ -59,24 +59,24 @@ Feedback response (DECISIONS 2026-09-14 b): absorbed_identical rate among candid
 | gpt-5.6-luna | 3 | 7 / 10 (70 %) | 0 / 40 (0 %) |
 | gpt-5.6-luna | 4 | 4 / 10 (40 %) | 1 / 40 (2 %) |
 | gpt-5.6-luna | 5 | 5 / 10 (50 %) | 0 / 40 (0 %) |
-| gpt-5.6-luna | 6 | 6 / 10 (60 %) | 0 / 39 (0 %) |
+| gpt-5.6-luna | 6 | 6 / 10 (60 %) | 0 / 40 (0 %) |
 | gpt-5.6-terra | 1 | - | 10 / 50 (20 %) |
 | gpt-5.6-terra | 2 | 7 / 9 (78 %) | 1 / 40 (2 %) |
 | gpt-5.6-terra | 3 | 7 / 10 (70 %) | 0 / 40 (0 %) |
-| gpt-5.6-terra | 4 | 6 / 10 (60 %) | 0 / 35 (0 %) |
-| gpt-5.6-terra | 5 | 5 / 10 (50 %) | 0 / 33 (0 %) |
-| gpt-5.6-terra | 6 | 2 / 5 (40 %) | 2 / 39 (5 %) |
+| gpt-5.6-terra | 4 | 6 / 10 (60 %) | 0 / 40 (0 %) |
+| gpt-5.6-terra | 5 | 5 / 10 (50 %) | 0 / 40 (0 %) |
+| gpt-5.6-terra | 6 | 2 / 5 (40 %) | 2 / 45 (4 %) |
 
 ## 5c. Phase 5 VC Formal projection (DECISIONS 2026-09-14 e)
 
-Model gpt-5.6-luna: 300 Phase 3 calls consumed 63.2 SEQ hours (759 s per LLM call; arithmetic pipelines 3671 s, other designs 31 s per call). Phase 5 at the planned scale (540 runs, 32400 calls; starting pool 98 held designs of which 13 % arithmetic pipelines by name): **4623 VC Formal hours** by design-type mix (6830 h with the calibration's own mix); threshold 2000 h.
+Model gpt-5.6-luna: 300 Phase 3 calls consumed 66.1 SEQ hours (793 s per LLM call; arithmetic pipelines 3842 s, other designs 31 s per call). Phase 5 at the planned scale (540 runs, 32400 calls; starting pool 98 held designs of which 13 % arithmetic pipelines by name): **4827 VC Formal hours** by design-type mix (7137 h with the calibration's own mix); threshold 2000 h.
 
-- arith_pipeline: class a: n=6, median 35 s, q95 48 s, 0.1 h; class b: n=4, median 36 s, q95 38 s, 0.0 h; class c1: n=14, median 104 s, q95 8259 s, 7.5 h; class d: n=28, median 7189 s, q95 10420 s, 53.6 h
+- arith_pipeline: class a: n=6, median 35 s, q95 48 s, 0.1 h; class b: n=4, median 36 s, q95 38 s, 0.0 h; class c1: n=14, median 104 s, q95 8259 s, 7.5 h; class d: n=29, median 7194 s, q95 10420 s, 56.4 h
 - other: class a: n=38, median 37 s, q95 39 s, 0.4 h; class b: n=57, median 37 s, q95 40 s, 0.6 h; class c1: n=54, median 38 s, q95 41 s, 0.6 h; class d: n=51, median 36 s, q95 38 s, 0.5 h
 
-Method: every Phase 3 SEQ verdict of the main model is binned by produced class (rules v2) and design type (arithmetic pipelines by name — `pipe`, `mult`, `div` — versus the rest); the per-call SEQ seconds of each design type (the type's total verdict seconds over its LLM calls) are combined with the design-type share of the Phase 5 starting pool (98 held designs, 13 % arithmetic pipelines) and multiplied by the planned 32400 calls; the flat-mix figure applies the calibration's own mix instead. Decision (2026-09-14 item 2): accepted as is — 4623 h at 50 seats is ≈ 92 h of wall-clock; the class caps and the pipeline share of the starting pool are not changed; Phase 5 proofs run in bulk mode at 50 seats; the SEQ latency mapping (G2.1(b)) stays on the critical path before Phase 5 and the DPV phase mapping follows it; within a generation the (c1) / (d) proofs on arithmetic designs are submitted first (config `search.long_proof_first`).
+Method: every Phase 3 SEQ verdict of the main model is binned by produced class (rules v2) and design type (arithmetic pipelines by name — `pipe`, `mult`, `div` — versus the rest); the per-call SEQ seconds of each design type (the type's total verdict seconds over its LLM calls) are combined with the design-type share of the Phase 5 starting pool (98 held designs, 13 % arithmetic pipelines) and multiplied by the planned 32400 calls; the flat-mix figure applies the calibration's own mix instead. Decision (2026-09-14 item 2): accepted as is — 4827 h at 50 seats is ≈ 97 h of wall-clock; the class caps and the pipeline share of the starting pool are not changed; Phase 5 proofs run in bulk mode at 50 seats; the SEQ latency mapping (G2.1(b)) stays on the critical path before Phase 5 and the DPV phase mapping follows it; within a generation the (c1) / (d) proofs on arithmetic designs are submitted first (config `search.long_proof_first`).
 
-**Addendum (DECISIONS 2026-09-14 e, the projection exceeds 2000 h — proposal for the user, nothing changed):** (1) lower the SEQ class caps of arithmetic pipelined designs to 2 h for (c1) and (d) (config `equiv.seq_cap_min_by_class` would need a per-design-type entry; today's caps are 4 h): 15 of the 42 Phase 3 (c1) / (d) verdicts on the arithmetic pipeline ran longer than 2 h and would become `inconclusive` (never discarded, C2.5); the projection drops to **4137 h** at the planned scale, so the cap alone does not reach the threshold — the verdict distribution of the pipeline is bimodal (30–40 s or hours) and the hours sit in the proofs that finish under the cap as well. (2) Prioritise the SEQ latency mapping (G2.1(b)) and a DPV phase mapping for fixed-latency arithmetic pipelines before Phase 5: the pipeline's (c1) / (d) rewrites are fixed-latency datapaths where DPV's transaction equivalence needs no state-space search; this is the engineering item that removes the hours, the cap only bounds them. (3) Alternatively reduce the arithmetic-pipeline share of the Phase 5 starting pool (13 % by name) — a design-set decision for the user. The no-discard timeout policy is unchanged either way.
+**Addendum (DECISIONS 2026-09-14 e, the projection exceeds 2000 h — proposal for the user, nothing changed):** (1) lower the SEQ class caps of arithmetic pipelined designs to 2 h for (c1) and (d) (config `equiv.seq_cap_min_by_class` would need a per-design-type entry; today's caps are 4 h): 16 of the 43 Phase 3 (c1) / (d) verdicts on the arithmetic pipeline ran longer than 2 h and would become `inconclusive` (never discarded, C2.5); the projection drops to **4280 h** at the planned scale, so the cap alone does not reach the threshold — the verdict distribution of the pipeline is bimodal (30–40 s or hours) and the hours sit in the proofs that finish under the cap as well. (2) Prioritise the SEQ latency mapping (G2.1(b)) and a DPV phase mapping for fixed-latency arithmetic pipelines before Phase 5: the pipeline's (c1) / (d) rewrites are fixed-latency datapaths where DPV's transaction equivalence needs no state-space search; this is the engineering item that removes the hours, the cap only bounds them. (3) Alternatively reduce the arithmetic-pipeline share of the Phase 5 starting pool (13 % by name) — a design-set decision for the user. The no-discard timeout policy is unchanged either way.
 
 
 ## 5a. Verdict sensitivity: stored (run-time) floors vs rule A design-weighted (adopted) vs record-weighted (rejected) vs materiality
@@ -85,22 +85,22 @@ Every E4-evaluated candidate re-diagnosed offline (no tool runs; archived in rep
 
 | model | E4-evaluated | stored: retained / tradeoff / absorbed_identical / noise / harmful | design-weighted: same | record-weighted: same | materiality: same |
 |---|---|---|---|---|---|
-| gpt-5.4 | 234 | 81 / 64 / 39 / 0 / 13 | 107 / 74 / 39 / 0 / 14 | 117 / 61 / 39 / 0 / 17 | 124 / 54 / 39 / 0 / 17 |
+| gpt-5.4 | 241 | 82 / 66 / 39 / 0 / 13 | 111 / 76 / 39 / 0 / 15 | 121 / 63 / 39 / 0 / 18 | 128 / 56 / 39 / 0 / 18 |
 | gpt-5.4-mini | 196 | 46 / 40 / 55 / 0 / 6 | 93 / 42 / 55 / 0 / 6 | 99 / 34 / 55 / 0 / 8 | 98 / 31 / 55 / 0 / 12 |
-| gpt-5.6-luna | 240 | 63 / 55 / 36 / 0 / 6 | 127 / 72 / 36 / 0 / 5 | 134 / 59 / 36 / 0 / 11 | 132 / 53 / 36 / 1 / 18 |
-| gpt-5.6-terra | 224 | 71 / 41 / 40 / 0 / 6 | 121 / 56 / 40 / 0 / 7 | 124 / 51 / 40 / 1 / 8 | 120 / 48 / 40 / 4 / 12 |
+| gpt-5.6-luna | 241 | 64 / 55 / 36 / 0 / 6 | 128 / 72 / 36 / 0 / 5 | 135 / 59 / 36 / 0 / 11 | 133 / 53 / 36 / 1 / 18 |
+| gpt-5.6-terra | 228 | 71 / 41 / 40 / 0 / 6 | 125 / 56 / 40 / 0 / 7 | 128 / 51 / 40 / 1 / 8 | 124 / 48 / 40 / 4 / 12 |
 
 Rule-A t_D per calibration design under the adopted design-weighted minimum (area / WNS as a fraction of the period / power): rtllm_LIFObuffer: 0.28 % / 0.03 % / 2.22 % (quiet); rtllm_adder_16bit: 0.28 % / 0.03 % / 2.22 % (quiet); rtllm_multi_pipe_8bit: 0.28 % / 0.03 % / 2.22 % (quiet); rtllm_serial2parallel: 0.28 % / 0.03 % / 2.22 % (quiet); rtllm_traffic_light: 0.28 % / 0.03 % / 2.22 % (quiet)
 
 
 ## 5b. Y (Yosys + OpenSTA) as a screen for E4 retention
 
-AUROC of the Y area gain for E4 retention over 197 retained vs 528 other diagnosed candidates: 0.748; best-of-three-components gain: 0.579; threshold `screen.auroc_min` = 0.75 (Y does not qualify: the M_noscreen arm is dropped and its budget goes to starting points (DECISIONS 2026-09-14 G3.1)).
+AUROC of the Y area gain for E4 retention over 263 retained vs 643 other diagnosed candidates: 0.721; best-of-three-components gain: 0.568; threshold `screen.auroc_min` = 0.75 (Y does not qualify: the M_noscreen arm is dropped and its budget goes to starting points (DECISIONS 2026-09-14 G3.1)).
 
 
 ## 6. Decision rule (config llm.calibration.decision)
 
-Primary metric retained_candidates_per_usd: scores {'gpt-5.4': 5.012, 'gpt-5.4-mini': 5.659, 'gpt-5.6-luna': 121.817, 'gpt-5.6-terra': 13.931}; best area gain per model {'gpt-5.4': 44.96, 'gpt-5.4-mini': 26.74, 'gpt-5.6-luna': 42.05, 'gpt-5.6-terra': 44.96} %; eligible (best gain ≥ 0.7 × strongest, a retained (c1) or (d)): ['gpt-5.6-luna', 'gpt-5.6-terra', 'gpt-5.4']; **recommended: gpt-5.6-luna** — recommendation by config llm.calibration.decision; the user confirms at G4 (config llm.selected stays TBD until then)
+Primary metric retained_candidates_per_usd: scores {'gpt-5.4': 5.074, 'gpt-5.4-mini': 5.659, 'gpt-5.6-luna': 123.75, 'gpt-5.6-terra': 13.931}; best area gain per model {'gpt-5.4': 44.96, 'gpt-5.4-mini': 26.74, 'gpt-5.6-luna': 42.05, 'gpt-5.6-terra': 44.96} %; eligible (best gain ≥ 0.7 × strongest, a retained (c1) or (d)): ['gpt-5.6-luna', 'gpt-5.6-terra', 'gpt-5.4']; **recommended: gpt-5.6-luna** — recommendation by config llm.calibration.decision; the user confirms at G4 (config llm.selected stays TBD until then)
 
 
 ## 6a. M6 manual validation and the rules-v2 classifier (DECISIONS 2026-09-14 a)
@@ -127,10 +127,10 @@ Phase 3 class distribution per model after the rules-v2 re-labelling (supersedes
 
 | model | a | b | c1 | c2 | d | unclassified |
 |---|---|---|---|---|---|---|
-| gpt-5.4 | 22 | 102 | 68 | 14 | 94 | 0 |
+| gpt-5.4 | 19 | 105 | 67 | 14 | 95 | 0 |
 | gpt-5.4-mini | 29 | 80 | 39 | 14 | 107 | 0 |
 | gpt-5.6-luna | 53 | 67 | 82 | 9 | 88 | 1 |
-| gpt-5.6-terra | 44 | 64 | 87 | 15 | 93 | 0 |
+| gpt-5.6-terra | 43 | 64 | 87 | 15 | 94 | 0 |
 
 The LLM review of spec 04 A.2 step 2 (DECISIONS 2026-09-14 item 1; `src/classify/review.py`, prompt `src/search/prompts/m6_review.md`, model `llm.selected`) runs on the candidates with low v2 confidence or in the four categories above (`phase3_calibrate.py m6-review`); its class replaces the rule class for (a) / (b) / (c1) / (c2) and is stored as `class_llm` / `class_final`, while (d) stays defined by tool evidence: the recall loss of (d) (7 of the 21 human-labelled (d) candidates of the sample end up as (a) / (b) / (c1)) is a stated limitation and the map's (d) row is read precision-first.
 
@@ -165,3 +165,17 @@ Decisions requested:
 2. **Y screen.** AUROC 0.748 is at the threshold; recommendation: keep the M_noscreen arm decision open until the final numbers (multi_pipe verdicts) and, if it stays below 0.75, drop the arm as decided (G3.1) — the difference is immaterial either way.
 3. **Class instruction.** Because the produced class rarely matches the requested one, the bandit's arms are effectively "prompt styles" rather than classes; the map prior of Phase 4 should be indexed by the produced class (already the credit rule). No change requested, a note for the paper.
 4. **Floors during a run.** A run reads its floors at start; floors were recomputed twice during the calibration. Proposal: freeze the floor table per phase (a `floor_version` stamped on every run and diagnosis) so that later recollections never change a run's verdicts silently; re-diagnosis stays an offline sensitivity analysis.
+
+### Final numbers of Phase 3 (all 40 runs complete, 2026-09-14 21:45; rules-v2 classes with the LLM review; DECISIONS 2026-09-14 item 6)
+
+| model | proven | inconclusive | retained (run-time floors) | material | classes a / b / c1 / c2 / d | USD | DC h | VCF h |
+|---|---|---|---|---|---|---|---|---|
+| gpt-5.4 | 241 | 24 | 82 | 129 | 19 / 105 / 67 / 14 / 95 | 16.16 | 7.75 | 84.94 |
+| gpt-5.4-mini | 196 | 11 | 46 | 101 | 29 / 80 / 39 / 14 / 107 | 8.13 | 6.13 | 85.35 |
+| gpt-5.6-luna | 241 | 8 | 64 | 134 | 53 / 67 / 82 / 9 / 88 | 0.52 | 8.27 | 66.09 |
+| gpt-5.6-terra | 229 | 26 | 71 | 126 | 43 / 64 / 87 / 15 / 94 | 5.10 | 7.97 | 96.20 |
+
+- Final AUROC of the Y area gain for E4 retention: **0.721** (263 retained vs 643 other diagnosed candidates; best-of-three components 0.568), below `screen.auroc_min` 0.75: the G4 decision to drop the M_noscreen arm stands.
+- Feedback response (redefined metric, task b; generations 2–6 pooled): absorbed_identical rate gpt-5.4: 31/50 (62 %) with an absorbed verdict in the lineage feedback vs 0/200 (0 %) without; gpt-5.4-mini: 43/50 (86 %) with an absorbed verdict in the lineage feedback vs 0/173 (0 %) without; gpt-5.6-luna: 28/50 (56 %) with an absorbed verdict in the lineage feedback vs 1/200 (0 %) without; gpt-5.6-terra: 27/44 (61 %) with an absorbed verdict in the lineage feedback vs 3/205 (1 %) without. Children whose lineage carried an absorbed verdict are absorbed far more often than children without one — the feedback marks lineages that keep producing netlist-identical rewrites rather than steering them away; a negative result for scalar-free verdict feedback at this scale, to be revisited with the map prior in Phase 5.
+- The class distribution above supersedes the G4 tables (rules v2 + LLM review; `class_rule_v1` keeps the v1 classes); the model decision (luna main, terra second) is unchanged: luna retains 64 candidates (134 under the materiality thresholds) for 0.52 USD.
+- Phase 3 is complete; the ladder and hidden runs on its candidates (task c) and the hidden registration counts (task f) continue in the queue behind the Phase 4 work.

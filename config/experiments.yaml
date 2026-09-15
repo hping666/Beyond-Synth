@@ -135,8 +135,8 @@ queue:                       # LOCKED (concurrency caps); automatic backoff when
   dc_seats_target: 24        # dispatch target for Phases 3-4 (DECISIONS 2026-09-14: 50 only for bulk Phase 5-6 runs on the user's confirmation; never back to 12)
   pt_seats_max: 8            # filled 2026-09-12 (DECISIONS): a PT run takes ~5 s, 100 seats licensed
   vcf_seats_max: 50          # 50 seats per SEQ feature, not shared with DC (eda-knowledge 01; DECISIONS 2026-09-14; was a 4-seat placeholder)
-  vcf_seats_target: 50       # 24 for Phases 3-4; raised to 50 on 2026-09-14 with the user's confirmation for the multi_pipe_8bit SEQ backlog (165 jobs of 1-4 h), to be restored to 24 when it drains; Phase 5 proofs run in bulk mode at 50 (DECISIONS 2026-09-14 item 2)
-  per_design_max: {vcf: 40}  # 2026-09-14 (DECISIONS): fairness, not a cap: at most this many jobs of one design at once in a pool (8 while the other calibration runs needed seats, 16 once they were nearly done, 40 of the temporary 50 for the multi_pipe_8bit backlog)
+  vcf_seats_target: 24       # dispatch target for Phases 3-4 (single-worker SEQ runs, ~1 core each; restored from the temporary 50 of the multi_pipe_8bit backlog on 2026-09-14 21:45); Phase 5 proofs run in bulk mode at 50 (DECISIONS 2026-09-14 item 2)
+  per_design_max: {vcf: 16}  # 2026-09-14 (DECISIONS): fairness, not a cap: at most this many jobs of one design at once in a pool, so that hours-long SEQ runs of one design cannot hold every seat (40 during the temporary 50-seat backlog)
   local_max: 16              # added 2026-09-12 (DECISIONS): sim / yosys / orfs / llm / shell jobs on the 64-core host
   poll_sec: 5                # daemon tick interval
   backoff: {initial_sec: 60, max_sec: 900, factor: 2}

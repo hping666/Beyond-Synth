@@ -22,3 +22,17 @@ Decisions requested:
 2. **Y screen.** AUROC 0.748 is at the threshold; recommendation: keep the M_noscreen arm decision open until the final numbers (multi_pipe verdicts) and, if it stays below 0.75, drop the arm as decided (G3.1) — the difference is immaterial either way.
 3. **Class instruction.** Because the produced class rarely matches the requested one, the bandit's arms are effectively "prompt styles" rather than classes; the map prior of Phase 4 should be indexed by the produced class (already the credit rule). No change requested, a note for the paper.
 4. **Floors during a run.** A run reads its floors at start; floors were recomputed twice during the calibration. Proposal: freeze the floor table per phase (a `floor_version` stamped on every run and diagnosis) so that later recollections never change a run's verdicts silently; re-diagnosis stays an offline sensitivity analysis.
+
+### Final numbers of Phase 3 (all 40 runs complete, 2026-09-14 21:45; rules-v2 classes with the LLM review; DECISIONS 2026-09-14 item 6)
+
+| model | proven | inconclusive | retained (run-time floors) | material | classes a / b / c1 / c2 / d | USD | DC h | VCF h |
+|---|---|---|---|---|---|---|---|---|
+| gpt-5.4 | 241 | 24 | 82 | 129 | 19 / 105 / 67 / 14 / 95 | 16.16 | 7.75 | 84.94 |
+| gpt-5.4-mini | 196 | 11 | 46 | 101 | 29 / 80 / 39 / 14 / 107 | 8.13 | 6.13 | 85.35 |
+| gpt-5.6-luna | 241 | 8 | 64 | 134 | 53 / 67 / 82 / 9 / 88 | 0.52 | 8.27 | 66.09 |
+| gpt-5.6-terra | 229 | 26 | 71 | 126 | 43 / 64 / 87 / 15 / 94 | 5.10 | 7.97 | 96.20 |
+
+- Final AUROC of the Y area gain for E4 retention: **0.721** (263 retained vs 643 other diagnosed candidates; best-of-three components 0.568), below `screen.auroc_min` 0.75: the G4 decision to drop the M_noscreen arm stands.
+- Feedback response (redefined metric, task b; generations 2–6 pooled): absorbed_identical rate gpt-5.4: 31/50 (62 %) with an absorbed verdict in the lineage feedback vs 0/200 (0 %) without; gpt-5.4-mini: 43/50 (86 %) with an absorbed verdict in the lineage feedback vs 0/173 (0 %) without; gpt-5.6-luna: 28/50 (56 %) with an absorbed verdict in the lineage feedback vs 1/200 (0 %) without; gpt-5.6-terra: 27/44 (61 %) with an absorbed verdict in the lineage feedback vs 3/205 (1 %) without. Children whose lineage carried an absorbed verdict are absorbed far more often than children without one — the feedback marks lineages that keep producing netlist-identical rewrites rather than steering them away; a negative result for scalar-free verdict feedback at this scale, to be revisited with the map prior in Phase 5.
+- The class distribution above supersedes the G4 tables (rules v2 + LLM review; `class_rule_v1` keeps the v1 classes); the model decision (luna main, terra second) is unchanged: luna retains 64 candidates (134 under the materiality thresholds) for 0.52 USD.
+- Phase 3 is complete; the ladder and hidden runs on its candidates (task c) and the hidden registration counts (task f) continue in the queue behind the Phase 4 work.
