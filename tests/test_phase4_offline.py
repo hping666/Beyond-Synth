@@ -60,6 +60,20 @@ def test_baseline_configs_and_ladder_jobs(tmp_path):
         assert all(j["payload"]["top"] == "p_ref" and j["payload"]["rtl"] == [str(ref), str(ref)] and j["payload"]["cand_id"] == "obj1" and j["payload"]["is_baseline"] == 0 for j in jobs)
         db.insert(conn, "evaluations", {"design_id": "rtlopt_p", "cand_id": "obj1", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 1.0, "status": "ok", "raw_dir": "/x"})
         assert [j["config"] for j in X.ladder_jobs(cfg, conn, ["E1", "E4", "Y"], 1)] == ["E1", "Y"]   # missing records only
+        # 2026-09-15: a pair whose latest record is a deterministic failure (the tool rejects the RTL) is not re-submitted
+        # unless retry_failed; a license failure is re-submitted; the skip is counted per configuration
+        raw1 = tmp_path / "raw_e1"
+        raw1.mkdir()
+        (raw1 / "meta.json").write_text(json.dumps({"status": "eval_failed", "failed_status": "analyze_failed", "error": "Error: x.v:29: Syntax error at or near token (VER-294)"}))
+        db.insert(conn, "evaluations", {"design_id": "rtlopt_p", "cand_id": "obj1", "config": "E1", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": str(raw1), "created_at": "t"})
+        raw2 = tmp_path / "raw_y"
+        raw2.mkdir()
+        (raw2 / "meta.json").write_text(json.dumps({"status": "eval_failed", "failed_status": "license_failed"}))
+        db.insert(conn, "evaluations", {"design_id": "rtlopt_p", "cand_id": "obj1", "config": "Y", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": str(raw2), "created_at": "t"})
+        skipped = {}
+        jobs = X.ladder_jobs(cfg, conn, ["E1", "E4", "Y"], 1, skipped=skipped)
+        assert [j["config"] for j in jobs] == ["Y"] and skipped == {"E1": 1}
+        assert [j["config"] for j in X.ladder_jobs(cfg, conn, ["E1", "E4", "Y"], 1, retry_failed=True)] == ["E1", "Y"]
     finally:
         monkey.undo()
 

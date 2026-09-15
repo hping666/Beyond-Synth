@@ -31,6 +31,7 @@ from src.db import core as db  # noqa: E402
 from src.db import ingest  # noqa: E402
 from src.designs import catalog as K  # noqa: E402
 from src.designs import jobs as J  # noqa: E402
+from src.eval.failures import deterministic_failure  # noqa: E402
 from src.eval.service import HiddenConfigError, evaluate  # noqa: E402
 from src.noise import stats as S  # noqa: E402
 
@@ -352,7 +353,7 @@ def candidate_coverage(cfg, exp="phase3", vis=None, hid=None, configs=None):
         out["configs"][config] = e
     return out
 
-def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None):
+def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, retry_failed=False, skipped=None):
     """DECISIONS 2026-09-14 (pre-Phase-4 c): the hidden configurations on every E4-evaluated candidate of the runs of `exp`
     (all of H1 / H2a / H2b / H3 / H5, full — not the light set), missing hidden records only. The candidate's SAIF comes
     from its equivalence record (saif_c); records go to the hidden database only (rule 3)."""
@@ -383,6 +384,10 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None):
                 continue
             if hid.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["design_id"], c["cand_id"], config, float(clock_ns))).fetchone():
                 continue
+            if not retry_failed and deterministic_failure(hid, c["cand_id"], config, float(clock_ns), design_id=c["design_id"]):   # the tool rejects the RTL: no re-run (2026-09-15)
+                if skipped is not None:
+                    skipped[config] = skipped.get(config, 0) + 1
+                continue
             j = J.dc_job(cfg, d, config, float(clock_ns), priority)
             j["kind"] = "dc_hidden"
             files = json.loads(c["rtl_files_json"]) if c["rtl_files_json"] else [c["rtl_path"]]   # Phase 4 objects: several files, own top (PLAN 4.2)
@@ -396,14 +401,15 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None):
     return jobs
 
 
-def submit_candidates(cfg, exp, priority, dry_run):
+def submit_candidates(cfg, exp, priority, dry_run, retry_failed=False):
     from src.jobqueue.core import Queue
     vis = db.connect(cfg=cfg)
-    jobs = candidate_jobs(cfg, vis, exp, priority)
+    skipped = {}
+    jobs = candidate_jobs(cfg, vis, exp, priority, retry_failed=retry_failed, skipped=skipped)
     by = {}
     for j in jobs:
         by[j["config"]] = by.get(j["config"], 0) + 1
-    print(f"{len(jobs)} hidden candidate jobs ({exp}): {by}")
+    print(f"{len(jobs)} hidden candidate jobs ({exp}): {by}; deterministic failures skipped: {skipped}")
     if dry_run:
         return 0
     q = Queue(cfg, vis, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
@@ -478,6 +484,7 @@ def main(argv=None):
     ap.add_argument("--coverage", action="store_true")
     ap.add_argument("--coverage-candidates", action="store_true", help="hidden registration counts of the candidates of --exp (accepted and all E4-evaluated; counts only)")
     ap.add_argument("--submit-candidates", action="store_true")
+    ap.add_argument("--retry-failed", action="store_true", help="candidate jobs: re-submit pairs whose latest hidden record is a deterministic failure")
     ap.add_argument("--exp", default="phase3")
     ap.add_argument("--migrate-phase0", action="store_true")
     ap.add_argument("--suite", nargs="*", default=None)
@@ -497,7 +504,7 @@ def main(argv=None):
         print("hidden noise_floor rows written per configuration:", written)
         return 0
     if a.submit_candidates:
-        return submit_candidates(cfg, a.exp, a.priority, a.dry_run)
+        return submit_candidates(cfg, a.exp, a.priority, a.dry_run, retry_failed=a.retry_failed)
     if a.coverage_candidates:
         cov = candidate_coverage(cfg, a.exp)
         print(json.dumps(cov, indent=1))

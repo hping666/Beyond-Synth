@@ -312,8 +312,11 @@ def object_saif(cfg, conn, row):
     return None
 
 
-def ladder_jobs(cfg, conn, configs, priority):
+def ladder_jobs(cfg, conn, configs, priority, retry_failed=False, skipped=None):
+    """Missing records only; a pair whose latest record is a deterministic failure (src/eval/failures.py: the tool rejects the
+    RTL) is skipped unless retry_failed, counted per configuration in `skipped` when a dict is given."""
     import json
+    from src.eval.failures import deterministic_failure
     cat = {d["design_id"]: d for d in K.load_all()}
     jobs = []
     for c in phase4_objects(conn):
@@ -323,6 +326,10 @@ def ladder_jobs(cfg, conn, configs, priority):
         saif = object_saif(cfg, conn, c)
         for config in configs:
             if conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["cand_id"], config, phi)).fetchone():
+                continue
+            if not retry_failed and deterministic_failure(conn, c["cand_id"], config, phi):
+                if skipped is not None:
+                    skipped[config] = skipped.get(config, 0) + 1
                 continue
             j = J.dc_job(cfg, d, config, phi, priority)
             if cfg["configs"][config].get("tool") == "yosys_opensta":
@@ -337,17 +344,19 @@ def ladder_jobs(cfg, conn, configs, priority):
     return jobs
 
 
-def cmd_ladder(cfg, conn, do_submit, priority, hidden, configs=None):
-    """Every visible rung and supplementary Yosys configuration on every proven Phase 4 object (missing records only); with
-    --hidden also the hidden configurations through scripts/hidden_worker.py --submit-candidates --exp phase4 (rule 3)."""
+def cmd_ladder(cfg, conn, do_submit, priority, hidden, configs=None, retry_failed=False):
+    """Every visible rung and supplementary Yosys configuration on every proven Phase 4 object (missing records only;
+    deterministic failures skipped unless --retry-failed); with --hidden also the hidden configurations through
+    scripts/hidden_worker.py --submit-candidates --exp phase4 (rule 3)."""
     from src.jobqueue.core import Queue
     visible = [c for c in cfg["exp1"]["configs"] if not cfg["configs"][c].get("hidden")]
     configs = configs or visible + ["Y"] + list(cfg["exp1"].get("supplementary") or [])
-    jobs = ladder_jobs(cfg, conn, configs, priority)
+    skipped = {}
+    jobs = ladder_jobs(cfg, conn, configs, priority, retry_failed=retry_failed, skipped=skipped)
     by = {}
     for j in jobs:
         by[j["config"]] = by.get(j["config"], 0) + 1
-    print(f"{len(jobs)} ladder jobs on {len(phase4_objects(conn))} proven Phase 4 objects: {dict(sorted(by.items()))}")
+    print(f"{len(jobs)} ladder jobs on {len(phase4_objects(conn))} proven Phase 4 objects: {dict(sorted(by.items()))}; deterministic failures skipped: {dict(sorted(skipped.items()))}")
     if do_submit:
         q = Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
         for j in jobs:
@@ -361,6 +370,8 @@ def cmd_ladder(cfg, conn, do_submit, priority, hidden, configs=None):
         cmd = [sys.executable, os.path.join(ROOT, "scripts", "hidden_worker.py"), "--submit-candidates", "--exp", "phase4", "--priority", str(priority)]   # same priority as the visible rungs: the Phase 4 objects precede the Phase 3 backlog
         if not do_submit:
             cmd.append("--dry-run")
+        if retry_failed:
+            cmd.append("--retry-failed")
         print(subprocess.run(cmd, capture_output=True, text=True).stdout.strip())
     return 0
 
@@ -790,6 +801,7 @@ def main(argv=None):
     ap.add_argument("--seed", type=int, default=None)
     ap.add_argument("--priority", type=int, default=1)
     ap.add_argument("--submit", action="store_true")
+    ap.add_argument("--retry-failed", action="store_true", help="ladder: re-submit pairs whose latest record is a deterministic failure (tool rejects the RTL)")
     a = ap.parse_args(argv)
     cfg = C.load()
     conn = db.connect(cfg=cfg)
@@ -803,7 +815,7 @@ def main(argv=None):
     if a.what == "verdicts":
         return cmd_verdicts(cfg, conn)
     if a.what == "ladder":
-        return cmd_ladder(cfg, conn, a.submit, a.priority, a.hidden, a.configs)
+        return cmd_ladder(cfg, conn, a.submit, a.priority, a.hidden, a.configs, retry_failed=a.retry_failed)
     if a.what == "diagnose":
         return cmd_diagnose(cfg, conn, a.dry_run)
     if a.what == "collect":
