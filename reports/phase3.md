@@ -1,6 +1,6 @@
 # Phase 3 report — LLM calibration (residual-guided evolution, minimal skeleton)
 
-Generated 2026-09-14 21:42 by scripts/report_phase.py (git 79fbf5722ef5, cfg 0d40d129a8e7). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).
+Generated 2026-09-15 10:00 by scripts/report_phase.py (git e4e77b301b39, cfg d845788457d4). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).
 
 ## 1. Setup
 
@@ -179,3 +179,7 @@ Decisions requested:
 - Feedback response (redefined metric, task b; generations 2–6 pooled): absorbed_identical rate gpt-5.4: 31/50 (62 %) with an absorbed verdict in the lineage feedback vs 0/200 (0 %) without; gpt-5.4-mini: 43/50 (86 %) with an absorbed verdict in the lineage feedback vs 0/173 (0 %) without; gpt-5.6-luna: 28/50 (56 %) with an absorbed verdict in the lineage feedback vs 1/200 (0 %) without; gpt-5.6-terra: 27/44 (61 %) with an absorbed verdict in the lineage feedback vs 3/205 (1 %) without. Children whose lineage carried an absorbed verdict are absorbed far more often than children without one — the feedback marks lineages that keep producing netlist-identical rewrites rather than steering them away; a negative result for scalar-free verdict feedback at this scale, to be revisited with the map prior in Phase 5.
 - The class distribution above supersedes the G4 tables (rules v2 + LLM review; `class_rule_v1` keeps the v1 classes); the model decision (luna main, terra second) is unchanged: luna retains 64 candidates (134 under the materiality thresholds) for 0.52 USD.
 - Phase 3 is complete; the ladder and hidden runs on its candidates (task c) and the hidden registration counts (task f) continue in the queue behind the Phase 4 work.
+
+## Addendum 2026-09-15: power basis of the diagnoser
+
+The independent re-derivation of the Phase 4 diagnoses (PLAN 4.6) found that the diagnoser compared a SAIF-based power figure with a default-activity one whenever only one side had SAIF power (DECISIONS 2026-09-15). In Phase 3, 178 of the 906 E4 diagnoses were such pairs. Re-deriving all 906 under the corrected rule (same basis on both sides) changes at most 15 substantive labels: tradeoff → harmful 8, retained → tradeoff 5, harmful → tradeoff 1, tradeoff → retained 1; the remaining differences only move the `duplicate` label between members of a duplicate group (an ordering artefact of the re-derivation). No Phase 3 diagnosis used a zero band (every calibration design has a measured floor). The per-model retained counts of §7 move by at most four in total, the AUROC and the feedback-response metric are unaffected at this scale, and the G4 decision stands. The search-time diagnoses are kept unchanged as the record of what the search saw; Phase 4 and Phase 5 use the corrected rule.
