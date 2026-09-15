@@ -16,6 +16,8 @@ from src.eval.sdc import opensta_sdc
 
 
 _BEHAVIOURAL = re.compile(r"^\s*(always\b|initial\b|\$(display|write|finish|stop)\b)|\$print\b")
+_ASSIGN_EXPR = re.compile(r"^\s*assign\s+[^=]+=\s*(?P<rhs>[^;]*);")
+_EXPR_OP = re.compile(r"[?&|^~+\-*/<>!%]")
 
 
 def structural_netlist_problems(netlist_path):
@@ -28,6 +30,10 @@ def structural_netlist_problems(netlist_path):
         return [f"netlist unreadable: {e}"]
     for i, line in enumerate(lines, 1):
         if _BEHAVIOURAL.search(line):
+            out.append(f"line {i}: {line.strip()[:80]}")
+            continue
+        m = _ASSIGN_EXPR.match(line)
+        if m and _EXPR_OP.search(m.group("rhs")):   # an unmapped cell written as an expression (e.g. a $mux left by `share`, 2026-09-14)
             out.append(f"line {i}: {line.strip()[:80]}")
     return out
 

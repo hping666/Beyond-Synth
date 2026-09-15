@@ -33,6 +33,10 @@ def test_checker_both_directions(tmp_path):
     probs = Y.structural_netlist_problems(bad)
     assert len(probs) == 3 and probs[0].startswith("line 2:") and "initial" in probs[1] and "$write" in probs[2]
     assert Y.structural_netlist_problems(tmp_path / "missing.v")[0].startswith("netlist unreadable")
+    expr = tmp_path / "expr.v"
+    expr.write_text("module top(input c, input a, input b, output y, output z, output w);\n  wire n;\n  assign n = a;\n  assign z = 1'b0;\n  assign y = c ? a : b;\n  assign w = a & ~b;\nendmodule\n")
+    probs = Y.structural_netlist_problems(expr)
+    assert len(probs) == 2 and "c ? a : b" in probs[0] and "a & ~b" in probs[1]   # wire-to-wire and constant assigns pass, expressions do not
 
 
 @pytest.mark.skipif(not os.path.exists(YOSYS) or not LIB.get("latch_map") or not os.path.exists(LIB["latch_map"]), reason="yosys or the ORFS latch map missing")
