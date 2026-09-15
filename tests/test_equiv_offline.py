@@ -234,6 +234,7 @@ def test_sim_fail_record_compresses_its_vcd(tmp_path, monkeypatch):
 
     monkeypatch.setattr(ST, "run_lockstep", fake_lockstep)
     cfg = copy.deepcopy(CFG)
+    cfg["retention"]["sim_fail_vcd_sample"] = {"frac": 1.0, "seed": 1}   # 2026-09-15 amendment: the compression path is tested with every sim_fail VCD kept
     cfg["retention"].update(vcd_keep_verdicts=["sim_fail"], vcd_compress_kept=True)
     rec = ST.check_equivalence(tmp_path / "a", [ACCU], [ACCU], "verified_accu", cfg, run_v3=False, run_v4=False)
     assert rec["verdict"] == "sim_fail" and rec["vcd_compressed"] is True and rec["vcd_path"].endswith(".vcd.gz") and Path(rec["vcd_path"]).exists()

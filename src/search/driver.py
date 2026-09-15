@@ -25,7 +25,7 @@ from src.search import scope as SC
 from src.search.prescreen import decide as prescreen_decide
 
 EQ_KEEP = ("v1_status", "v2_status", "v2_cycles", "latency_offset_json", "v3_status", "v3_seconds", "v4_status", "counterexample_path", "verdict", "seconds")
-BUDGET_PHASE = {"phase3": "phase3_calibration", "smoke": "phase3_calibration", "phase4": "phase4_generation", "phase5": "phase5_main", "ablation": "phase6_ablation"}
+BUDGET_PHASE = {"phase3": "phase3_calibration", "smoke": "phase3_calibration", "phase4": "phase4_generation", "phase5": "phase5_main", "phase5_probe": "phase5_probe", "ablation": "phase6_ablation"}
 FINAL_LABELS = {"retained", "absorbed", "absorbed_identical", "duplicate", "noise", "harmful", "tradeoff", "fragile", "nonequiv", "prescreened", "improved", "no_gain", "scope_violation"}
 ARM_M = {"fitness": "E4", "feedback": "verdict", "floor": "rule_a", "credit": "retained_tradeoff", "prescreen": True, "envelope": True}
 
@@ -86,7 +86,7 @@ class SearchRun:
         if base is None:
             raise RuntimeError(f"{self.row['design_id']}: no {self.fit_cfg} baseline at Phi_main {self.phi}; run scripts/phase2_noise.py (E4) or scripts/phase4_exp1.py baselines (Y) first")
         self.base_row, self.base = base, record_from_row(base)
-        self.prior = None   # Phase 3: no map prior yet (Phase 4 output)
+        self.prior, self.prior_retained = self.load_map_prior()   # Phase 4 output (search.map_prior_file); arm M only
         # arm B1@E4 (feedback scalar_static): the literature's static complement text replaces the map-prior table (spec 05 §2)
         self.static_text, self.static_version = PR.load_static_complement() if self.armdef.get("feedback") == "scalar_static" else (None, None)
         self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior, caliber=self.fit_cfg, static_text=self.static_text)
@@ -112,7 +112,7 @@ class SearchRun:
                                  "budget_llm_calls": budget_calls, "status": "created", "started_at": db.now(), "floor_version": cfg["noise"].get("floor_version")})
         run = cls(cfg, conn, run_id, queue=queue, transport=transport)
         run.state.update(K=int(K), N=int(N), budget_calls=budget_calls, note=note)
-        run.bandit = ClassBandit(sc["bandit"]["arms"], sc["bandit"]["c_ucb"], sc["bandit"]["softmax_temp"], prior=None)
+        run.bandit = ClassBandit(sc["bandit"]["arms"], sc["bandit"]["c_ucb"], sc["bandit"]["softmax_temp"], prior=run.prior_retained if sc["bandit"].get("init_from_map_prior") else None)
         run.archive = Archive(sc["archive_size"])
         run.save_state()
         return run
@@ -189,6 +189,21 @@ class SearchRun:
     def e4_row(self, cand_id):
         return self.conn.execute("SELECT * FROM evaluations WHERE design_id=? AND cand_id=? AND config='E4' AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1",
                                  (self.row["design_id"], cand_id, self.phi)).fetchone()
+
+    def load_map_prior(self):
+        """(absorbed, retained) per class from `search.map_prior_file` for arms with verdict feedback (M); (None, None) for
+        the baselines and when the file is unset or missing. The absorbed table feeds the prescreen and the prompt's prior
+        block, the retained table the bandit's pseudo-counts (spec 05 §1, §3)."""
+        sc = self.cfg["search"]
+        path = sc.get("map_prior_file")
+        if not path or self.armdef.get("feedback", "verdict") != "verdict" or not sc["bandit"].get("init_from_map_prior", False):
+            return None, None
+        p = Path(path) if Path(path).is_absolute() else Path(C.ROOT) / path
+        if not p.exists():
+            return None, None
+        data = json.loads(p.read_text())
+        self.map_prior_meta = {k: data.get(k) for k in ("basis", "generated_at", "git_sha", "floor_version")}
+        return {k: float(v) for k, v in (data.get("absorbed") or {}).items()}, {k: float(v) for k, v in (data.get("retained") or {}).items()}
 
     # ------------------------------------------------------------------ correctness aids (G5 item 1; config exp5.correctness_aids)
     def region_for(self, parent_id):

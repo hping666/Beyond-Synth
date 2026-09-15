@@ -108,7 +108,7 @@ def test_finalize_vcd_compresses_kept_and_drops_falsified(tmp_path):
     """At record time: with the new switches a kept sim_fail VCD is gzipped and a falsified VCD deleted after the SAIFs."""
     from src.equiv import saif as ES
     cfg = copy.deepcopy(CFG)
-    cfg["retention"].update(vcd_to_scratch=True, vcd_keep_verdicts=["sim_fail"], vcd_compress_kept=True, vcd_keep_sample_frac=0.0)
+    cfg["retention"].update(vcd_to_scratch=True, vcd_keep_verdicts=["sim_fail"], vcd_compress_kept=True, vcd_keep_sample_frac=0.0, sim_fail_vcd_sample={"frac": 1.0, "seed": 1})
 
     def fake_convert(vcd, saif, instance, cfg_):
         Path(saif).write_text("saif")
@@ -130,7 +130,7 @@ def test_retain_vcd_early_return_rules(tmp_path):
     untouched, and the compression switch turns the compression off (both directions; defect of 2026-09-15)."""
     from src.equiv import saif as ES
     cfg = copy.deepcopy(CFG)
-    cfg["retention"].update(vcd_keep_verdicts=["sim_fail"], vcd_compress_kept=True)
+    cfg["retention"].update(vcd_keep_verdicts=["sim_fail"], vcd_compress_kept=True, sim_fail_vcd_sample={"frac": 1.0, "seed": 1})
 
     def rec_with_vcd(name, verdict):
         job = tmp_path / name
@@ -292,3 +292,50 @@ def test_prune_script_tiered_mode_dry_run_then_apply(tmp_path):
     assert (raw / "d1" / "E4" / "c_fail_rec" / "outputs" / "reports" / "netlist.v").exists() and not (cand_root / "r1" / "m6_c_no").exists()
     assert PS.tiered(cfg, conn, raw, cand_root, apply=True, log=logs.append)["total_bytes"] == 0                       # idempotent
     assert any("would free" in l for l in logs) and any(l.startswith("freed") for l in logs)
+
+
+
+def test_sim_fail_vcd_sample_amendment_both_directions(tmp_path):
+    """2026-09-15 amendment: only a seeded 5 % sample of sim_fail records keeps its VCD — at record time (retain_vcd deletes the
+    others instead of compressing them) and in the tiered prune (the sampled record keeps sim.vcd.gz, the others lose it);
+    the sample is deterministic in the seed; frac 1.0 restores the 2026-09-14 behaviour."""
+    from src.equiv import saif as ES
+    from src.eval import retention as R
+    cfg = copy.deepcopy(CFG)
+    cfg["retention"].update(vcd_keep_verdicts=["sim_fail"], vcd_compress_kept=True, sim_fail_vcd_sample={"frac": 0.05, "seed": 1})
+    names = [f"rec{i:05d}" for i in range(4000)]
+    sampled = [n for n in names if R.sim_fail_vcd_sampled(cfg, n)]
+    assert 140 < len(sampled) < 260                                                    # ≈ 5 %
+    assert sampled == [n for n in names if R.sim_fail_vcd_sampled(cfg, n)]              # deterministic
+    cfg2 = copy.deepcopy(cfg)
+    cfg2["retention"]["sim_fail_vcd_sample"]["seed"] = 2
+    assert [n for n in names if R.sim_fail_vcd_sampled(cfg2, n)] != sampled              # the seed moves the sample
+    kept_name, dropped_name = sampled[0], next(n for n in names if n not in set(sampled))
+    for name, kept in ((kept_name, True), (dropped_name, False)):
+        job = tmp_path / "rec" / name
+        job.mkdir(parents=True)
+        vcd = job / "sim.vcd"
+        vcd.write_bytes(b"$enddefinitions $end\n" * 300)
+        rec = {"verdict": "sim_fail", "vcd_path": str(vcd)}
+        ES.retain_vcd(job, rec, cfg)
+        if kept:
+            assert rec["vcd_compressed"] is True and rec["vcd_deleted"] is False and Path(rec["vcd_path"]).exists()
+        else:
+            assert rec["vcd_deleted"] is True and rec["vcd_path"] is None and rec["vcd_sampled"] is False and not vcd.exists() and not list(job.glob("*.gz"))
+    # the tiered prune: the sampled sim_fail record keeps its VCD and loses the rest; the other loses the VCD too
+    tcfg = tiered_cfg()
+    tcfg["retention"]["sim_fail_vcd_sample"] = {"frac": 0.05, "seed": 1}
+    for name, kept in ((kept_name, True), (dropped_name, False)):
+        eq = make_eq(tmp_path / "tier" / name)
+        eq2 = eq.parent / name
+        eq.rename(eq2)
+        freed = R.slim_eq_record(eq2, tcfg)
+        assert (eq2 / "v2_sim" / "sim.vcd.gz").exists() is kept and not (eq2 / "v2_sim" / "trace.txt").exists()
+        assert ("vcd" in freed) is (not kept)
+    # a falsified record is unaffected by the sample (its VCD goes as before)
+    eq = make_eq(tmp_path / "fals")
+    (eq / "equiv.json").write_text(json.dumps({"cand_id": "c1", "verdict": "falsified"}))
+    assert "vcd" in R.slim_eq_record(eq, tcfg)
+    # frac 1.0: every sim_fail VCD kept (the 2026-09-14 rule)
+    cfg["retention"]["sim_fail_vcd_sample"] = {"frac": 1.0, "seed": 1}
+    assert all(R.sim_fail_vcd_sampled(cfg, n) for n in names[:50])

@@ -47,6 +47,7 @@ configs:
   E4:  {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: nangate45, clock: phi_main, synlib: dw, main_scoring: true}
   E2r: {alias_of: E3, single_flag: retime}
   E2g: {tool: dc, compile: "compile_ultra -gate_clock", lib: nangate45, clock: phi_main, synlib: dw, single_flag: gate_clock}
+  E2_1ns: {tool: dc, compile: "compile_ultra", lib: nangate45, clock_ns: 1.0, synlib: dw}   # RTL-OPT authors' published setting (G5 item 4 (a), user 2026-09-15 item 5): compile_ultra at 1 ns, no retime, no gate clock, DesignWare Foundation as compile_ultra loads it; run on the 34 proven RTL-OPT pairs only
   H1:  {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: nangate45, clock_ns: 0.1, synlib: dw, hidden: true}
   H2a: {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: asap7, clock: phi_main_asap7, synlib: dw, hidden: true}
   H2b: {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: sky130hd, clock: phi_main_sky130hd, synlib: dw, hidden: true}
@@ -163,6 +164,7 @@ llm:                         # LOCKED (budgets); the model is filled into `selec
     phase3_calibration: 60
     phase4_generation: 40
     phase5_main: 600
+    phase5_probe: 120                # G5 item 1 (user, 2026-09-15): the large-design correctness probe of terra and sol; LOCKED
     phase6_ablation: 200
     reserve: 100
   hard_stop_fraction: 0.95           # stop when phase spend reaches 95% of its cap
@@ -170,16 +172,19 @@ llm:                         # LOCKED (budgets); the model is filled into `selec
     standard:                        # the ledger bills each call at the tier the response reports (flex may fall back to standard),
       gpt-5.6-luna:  {input: 0.20, cached_input: 0.02, cache_write: 0.25, output: 1.20}      # batch for Batch-API calls
       gpt-5.6-terra: {input: 2.00, cached_input: 0.20, cache_write: 2.50, output: 12.00}
+      gpt-5.6-sol:   {input: 4.00, cached_input: 0.40, cache_write: 5.00, output: 20.00}      # live page https://developers.openai.com/api/docs/pricing on 2026-09-15 (the user's 5.00 / 0.50 / 30.00 of item 4 differed; corrected per that item); cache write 1.25x input (model page)
       gpt-5.4:       {input: 2.50, cached_input: 0.25, cache_write: null, output: 15.00}      # null: no separate cache-write price, input rate applies
       gpt-5.4-mini:  {input: 0.75, cached_input: 0.075, cache_write: null, output: 4.50}
     flex:
       gpt-5.6-luna:  {input: 0.10, cached_input: 0.01, cache_write: 0.125, output: 0.60}
       gpt-5.6-terra: {input: 1.00, cached_input: 0.10, cache_write: 1.25, output: 6.00}
+      gpt-5.6-sol:   {input: 2.00, cached_input: 0.20, cache_write: 2.50, output: 10.00}      # live page 2026-09-15: Flex = 0.5x standard (the user's 2.50 / 0.25 / 15.00 corrected)
       gpt-5.4:       {input: 1.25, cached_input: 0.13, cache_write: null, output: 7.50}
       gpt-5.4-mini:  {input: 0.375, cached_input: 0.0375, cache_write: null, output: 2.25}
     batch:
       gpt-5.6-luna:  {input: 0.10, cached_input: 0.01, cache_write: 0.125, output: 0.60}
       gpt-5.6-terra: {input: 1.00, cached_input: 0.10, cache_write: 1.25, output: 6.00}
+      gpt-5.6-sol:   {input: 2.00, cached_input: 0.20, cache_write: 2.50, output: 10.00}      # live page 2026-09-15: Flex = 0.5x standard (the user's 2.50 / 0.25 / 15.00 corrected)
       gpt-5.4:       {input: 1.25, cached_input: 0.13, cache_write: null, output: 7.50}
       gpt-5.4-mini:  {input: 0.375, cached_input: 0.0375, cache_write: null, output: 2.25}
   calibration:
@@ -232,6 +237,7 @@ search:
   recal_gens: 3
   audit_frac: 0.10
   bandit: {c_ucb: 1.0, softmax_temp: 0.5, arms: [a, b, c1, d, free], init_from_map_prior: true}
+  map_prior_file: reports/data/map_prior_phase4.json   # Phase 4 output (scripts/phase4_exp1.py map-prior): per class the E4 absorption probability (prescreen, feedback) and retention rate (bandit pseudo-counts) on the B0 objects; loaded by arm M (verdict feedback) when init_from_map_prior; null disables
   credit: {labels: [retained, tradeoff], by_class: produced}   # C2.1(c): credited by the produced class (M6), not the requested one
   acceptance_envelope: {floor_classes: [spread, offset], n_perturbations: 3, n_min: 2, rung: E4}   # C2.1(d): on spread / offset designs the gain must exceed the envelope of surface perturbations of the candidate itself
   async_generations: true    # C2.6: the next generation is built from the verdicts available; late verdicts update archive, credit and lineage feedback (spec 05 §7)
@@ -278,7 +284,10 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
     small: [rtlopt_fsm_encode, rtlopt_ticket_machine]
     medium: [cktevo_spi__spi, drrtl_i2c, cktevo_vga_enh__vga_wb_master, cktevo_ethmac__eth_txethmac, cktevo_mem_ctrl__mc_obct_top]
     large: [cktevo_nn_engine__spikeLayer8_H7, drrtl_datapath, drrtl_pcie]
-  correctness_probe:                        # G5 item 1: before Phase 5, terra and sol on the three large Exp1 designs; a model with >= min_proven proven candidates on a design carries the large tier for arms M and B2 (sol never the main model); launch waits for the storage decision (G5 item 5)
+  hidden_scope: {H1: all_e4, H3: all_e4, H5: all_e4, H2a: accepted_and_audit, H2b: accepted_and_audit, H4: accepted_and_audit}   # user 2026-09-15 item 2: H1 / H3 / H5 on every E4-evaluated candidate (+6 GB); the other configurations on accepted candidates and the audit sample (spec 06 §3)
+  ladder_on_accepted: phase6                # user 2026-09-15 item 2: the Phase 4 ladder is repeated on the accepted Phase 5 candidates in Phase 6 (in Phase 5 only if ~/.cache is freed, option B)
+  correctness_probe:                        # G5 item 1: before Phase 5, terra and sol on the three large Exp1 designs; a model with >= min_proven proven candidates on a design carries the large tier for arms M and B2 (sol never the main model); starts after the prune and the user's review of the B1 prefix (decision 2026-09-15 item 6)
+    arm: M                                  # the main method's arm (E4 fitness, verdict feedback, map prior, correctness aids), exp phase5_probe, budget llm.budget_usd.phase5_probe
     models: [gpt-5.6-terra, gpt-5.6-sol]
     designs: [cktevo_nn_engine__spikeLayer8_H7, drrtl_datapath, drrtl_pcie]
     seeds: 2
@@ -313,6 +322,7 @@ retention:                   # approved by the user 2026-09-12 (DECISIONS): resu
   prune_eq_build_after_saif: true    # 2026-09-13 (DECISIONS): the VCS build (csrc/, simv, simv.daidir/) of an equivalence record is scratch once its SAIF exists
   prune_eq_vcd_after_saif: true      # DECISIONS 2026-09-14 (operations 1): the VCD of a record is deleted once its SAIF exists and power was ingested with status ok
   vcd_keep_verdicts: [sim_fail]     # their VCDs are kept for diagnosis; falsified removed 2026-09-14 (user): the lock-step VCD of a falsified record holds no mismatch, the SEQ counterexample is the evidence
+  sim_fail_vcd_sample: {frac: 0.05, seed: 1}   # 2026-09-15 amendment (user, verbatim in DECISIONS): of the sim_fail records only this seeded random sample keeps its VCD, at record time and in the tiered prune; the mismatch cycle and signal values stored in the record are the evidence of the repair step and the paper
   vcd_compress_kept: true           # 2026-09-14 (user): kept VCDs are stored gzip-compressed (.vcd.gz, lossless)
   prune_eq_build_nonproven: true    # 2026-09-14 (user): the VCS build of a record that is not proven is scratch as well (rebuildable from the RTL)
   vcd_keep_sample_frac: 0.02        # plus a deterministic 2 % sample (by record hash)

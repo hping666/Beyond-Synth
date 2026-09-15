@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS noise_floor (
 
 CREATE TABLE IF NOT EXISTS runs (
   run_id TEXT PRIMARY KEY,
-  exp TEXT NOT NULL CHECK (exp IN ('phase3', 'phase4', 'phase5', 'ablation', 'smoke')),
+  exp TEXT NOT NULL CHECK (exp IN ('phase3', 'phase4', 'phase5', 'ablation', 'smoke', 'phase5_probe')),
   arm TEXT NOT NULL, skeleton TEXT, design_id TEXT NOT NULL, seed INTEGER, llm_model TEXT, prompt_version TEXT,
   screening_enabled INTEGER, e_s TEXT,
   budget_dc_hours REAL, spent_dc_hours REAL NOT NULL DEFAULT 0, spent_vcf_hours REAL NOT NULL DEFAULT 0,

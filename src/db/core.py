@@ -76,6 +76,7 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
 REBUILDS = [  # tables whose CHECK constraint was widened after they existed: (table, needle that the current DDL must contain)
     ("perturbations", ("P0_roundtrip", "P1_text")),
     ("diagnoses", ("absorbed_identical", "fragile", "prescreened", "'scope_violation'")),   # quoted: the DDL's trailing comment also names the label
+    ("runs", ("'phase5_probe'",)),   # the probe experiment (2026-09-15)
 ]
 
 

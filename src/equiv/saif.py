@@ -24,6 +24,9 @@ def keep_vcd(cfg, record_dir, verdict):
     random sample (`retention.vcd_keep_sample_frac`, by record directory name); every other VCD is scratch once the SAIFs exist."""
     ret = cfg.get("retention") or {}
     if verdict in set(ret.get("vcd_keep_verdicts") or []):
+        if verdict == "sim_fail":   # 2026-09-15 amendment: only the seeded sample of sim_fail records keeps its VCD
+            from src.eval.retention import sim_fail_vcd_sampled
+            return sim_fail_vcd_sampled(cfg, Path(record_dir).name)
         return True
     frac = float(ret.get("vcd_keep_sample_frac") or 0.0)
     h = int(hashlib.sha1(Path(record_dir).name.encode()).hexdigest()[:8], 16) % 10000
@@ -94,6 +97,9 @@ def retain_vcd(job_dir, rec, cfg):
     if verdict == "falsified" and verdict not in keep:
         Path(vcd).unlink()
         rec.update(vcd_path=None, vcd_deleted=True)
+    elif verdict in keep and not keep_vcd(cfg, job_dir, verdict):   # 2026-09-15 amendment: a sim_fail record outside the seeded sample loses its VCD
+        Path(vcd).unlink()
+        rec.update(vcd_path=None, vcd_deleted=True, vcd_sampled=False)
     elif verdict in keep and ret.get("vcd_compress_kept", False):
         rec["vcd_deleted"] = False
         rec["vcd_path"] = str(compress_vcd(vcd))

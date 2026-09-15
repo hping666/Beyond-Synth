@@ -97,6 +97,7 @@ def env(tmp_path, monkeypatch):
     cfg = copy.deepcopy(C.load())
     cfg["project"]["results_dir"] = str(tmp_path / "results")
     cfg["search"]["gen_wait_sec"] = 10 ** 9
+    cfg["search"]["map_prior_file"] = None   # the Phase 4 prior is tested on its own; the driver tests start without it
     conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
     from src.designs import catalog as K
     from src.search import candidates as CA
@@ -619,3 +620,55 @@ def test_driver_slims_finished_candidates_unless_accepted(env, monkeypatch):
     run2 = SearchRun.resume(cfg, conn, run.run_id, queue=q, transport=ListTransport([]))
     run2.slim_finished()                                                                                                    # idempotent across resumption
     assert (g_eq / "v2_sim" / "trace.txt").exists()
+
+
+def test_map_prior_loads_for_arm_m_only_and_feeds_prescreen_prompt_and_bandit(env, tmp_path):
+    """spec 05 §1 / §3 (Phase 4 output, `search.map_prior_file`): arm M loads the absorbed / retained tables — the prompt shows
+    the prior table, the prescreen sees the absorbed probabilities, the bandit starts from the retained rates as
+    pseudo-counts; the baseline arms and a missing file give no prior (both directions)."""
+    cfg, conn, q, tmp_path2 = env
+    from src.search.driver import SearchRun
+    prior_file = tmp_path / "map_prior.json"
+    prior_file.write_text(json.dumps({"basis": "test", "absorbed": {"a": 0.94, "b": 0.51, "c1": 0.0, "d": 0.06}, "retained": {"a": 0.06, "b": 0.49, "c1": 1.0, "d": 0.94}, "n": {"a": 33}}))
+    cfg["search"]["map_prior_file"] = str(prior_file)
+    m = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=11, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    assert m.prior == {"a": 0.94, "b": 0.51, "c1": 0.0, "d": 0.06} and m.prior_retained["c1"] == 1.0 and m.map_prior_meta["basis"] == "test"
+    assert "Map prior (fraction of rewrites of each class absorbed by the synthesizer, from Experiment 1):" in m.prefix and "- class a: absorbed 94 %" in m.prefix
+    assert m.bandit.prior == {"a": 0.06, "b": 0.49, "c1": 1.0, "d": 0.94, "free": 0.0} and m.bandit.probs()["c1"] > m.bandit.probs()["a"]
+    m.save_state()
+    m2 = SearchRun.resume(cfg, conn, m.run_id, queue=q, transport=FakeTransport())
+    assert m2.bandit.prior == m.bandit.prior and m2.prior == m.prior                                     # persisted with the state
+    db.insert(conn, "evaluations", {"design_id": "rtllm_d", "is_baseline": 1, "config": "Y", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 80.0, "cells": 18, "wns_ns": 0.2, "tns_ns": 0.0,
+                                    "power_default_mw": 0.8, "status": "ok", "raw_dir": "/x/base_y", "hist_json": json.dumps({"DFF_X1": 4, "NAND2_X1": 14})})
+    for seed, arm in ((12, "B0"), (13, "B1_E4"), (14, "B2")):
+        b = SearchRun.create(cfg, conn, exp="smoke", arm=arm, design_id="rtllm_d", seed=seed, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+        assert b.prior is None and b.prior_retained is None and all(v == 0.0 for v in b.bandit.prior.values()) and "Map prior" not in b.prefix
+    cfg["search"]["map_prior_file"] = str(tmp_path / "missing.json")
+    m3 = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=15, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    assert m3.prior is None and "No map prior" in m3.prefix
+    cfg["search"]["map_prior_file"] = str(prior_file)
+    cfg["search"]["bandit"]["init_from_map_prior"] = False
+    m4 = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=16, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    assert m4.prior is None and all(v == 0.0 for v in m4.bandit.prior.values())                           # the switch turns the prior off
+
+
+def test_phase4_map_prior_file_matches_the_map_and_the_probe_script_lists_its_runs(env):
+    """The committed prior file is derived from the B0 map at E4 (absorbed = 1 - retention); the probe script refuses a
+    model without prices and creates the 12 runs of the probe configuration otherwise (not submitted)."""
+    cfg, conn, q, tmp_path = env
+    import scripts.phase5_probe as PB
+    prior = json.loads((Path(C.ROOT) / "reports" / "data" / "map_prior_phase4.json").read_text())
+    data = json.loads((Path(C.ROOT) / "reports" / "data" / "phase4_exp1.json").read_text())
+    for cls, v in prior["retained"].items():
+        assert abs(v - data["map_b0"][cls]["E4"]["retention_rate"]) < 1e-3 and abs(prior["absorbed"][cls] + v - 1.0) < 1e-6
+    cfg["exp5"]["correctness_probe"] = dict(cfg["exp5"]["correctness_probe"], designs=["rtllm_d"], seeds=1, K=1, N=1, models=["gpt-5.6-terra", "gpt-5.6-sol"])
+    cfg["search"]["map_prior_file"] = None
+    PB.cmd_create(cfg, conn, do_submit=False)
+    rows = [dict(r) for r in conn.execute("SELECT * FROM runs WHERE exp='phase5_probe'")]
+    assert sorted(r["llm_model"] for r in rows) == ["gpt-5.6-sol", "gpt-5.6-terra"] and all(r["arm"] == "M" and r["status"] == "created" for r in rows)
+    assert conn.execute("SELECT COUNT(*) FROM jobs WHERE kind='search'").fetchone()[0] == 0                # not submitted
+    PB.cmd_create(cfg, conn, do_submit=False)
+    assert conn.execute("SELECT COUNT(*) FROM runs WHERE exp='phase5_probe'").fetchone()[0] == 2           # idempotent
+    cfg["llm"]["prices_usd_per_1m"]["flex"].pop("gpt-5.6-sol")
+    with pytest.raises(SystemExit):
+        PB.cmd_create(cfg, conn, do_submit=False)

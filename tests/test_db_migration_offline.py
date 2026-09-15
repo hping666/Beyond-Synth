@@ -54,3 +54,21 @@ def test_scope_violation_label_and_repair_columns_are_migrated(tmp_path):
     assert conn.execute("SELECT repair_of FROM candidates WHERE cand_id='c2'").fetchone()[0] == "c1"
     with __import__("pytest").raises(sqlite3.IntegrityError):
         db.insert(conn, "diagnoses", {"cand_id": "c3", "label": "not_a_label", "credit": 0})
+
+
+def test_runs_exp_check_is_widened_for_the_probe(tmp_path):
+    """The runs table of an older database (exp CHECK without phase5_probe) is rebuilt on connect and accepts the probe experiment."""
+    path = str(tmp_path / "r.sqlite")
+    conn = db.connect(path=path)
+    old = conn.execute("SELECT sql FROM sqlite_master WHERE name='runs'").fetchone()[0].replace(", 'phase5_probe'", "")
+    conn.execute("DROP TABLE runs")
+    conn.execute(old)
+    db.insert(conn, "runs", {"run_id": "r1", "exp": "phase4", "arm": "B0", "design_id": "d", "seed": 1, "status": "done"})
+    with __import__("pytest").raises(sqlite3.IntegrityError):
+        db.insert(conn, "runs", {"run_id": "r2", "exp": "phase5_probe", "arm": "M", "design_id": "d", "seed": 1, "status": "created"})
+    conn.close()
+    conn = db.connect(path=path)
+    db.insert(conn, "runs", {"run_id": "r2", "exp": "phase5_probe", "arm": "M", "design_id": "d", "seed": 1, "status": "created"})
+    assert conn.execute("SELECT COUNT(*) FROM runs").fetchone()[0] == 2
+    with __import__("pytest").raises(sqlite3.IntegrityError):
+        db.insert(conn, "runs", {"run_id": "r3", "exp": "not_an_exp", "arm": "M", "design_id": "d", "seed": 1, "status": "created"})

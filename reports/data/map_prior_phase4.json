@@ -1,0 +1,25 @@
+{
+ "absorbed": {
+  "a": 0.9394,
+  "b": 0.5119,
+  "c1": 0.0,
+  "d": 0.0625
+ },
+ "basis": "B0 objects at E4 (C1 scope: human-written designs), reports/data/phase4_exp1.json",
+ "floor_version": "phase4",
+ "generated_at": "2026-09-15T11:15:06",
+ "git_sha": "ab0b1c21ed94",
+ "n": {
+  "a": 33,
+  "b": 84,
+  "c1": 19,
+  "d": 32
+ },
+ "retained": {
+  "a": 0.0606,
+  "b": 0.4881,
+  "c1": 1.0,
+  "d": 0.9375
+ },
+ "use": "absorbed -> prescreen (config prescreen.p_min) and the prior table of the prompt; retained -> bandit pseudo-counts (search.bandit.init_from_map_prior)"
+}

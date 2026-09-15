@@ -893,6 +893,95 @@ def collect_duplicates(conn, exp="phase4"):
             "cross_run_identical": {"groups": len(cross), "runs_involved": sum(len(v) for v in cross.values()), "by_design": dict(cross_by_design)}}
 
 
+def cmd_map_prior(cfg, conn):
+    """The map prior of arm M (spec 05 §1 / §3; Phase 4 output): per rewrite class the E4 absorption probability
+    (1 - retention rate on the B0 objects, the C1 basis) and the retention rate, from reports/data/phase4_exp1.json;
+    written to `search.map_prior_file`. Classes without objects get no entry (no prescreen, no pseudo-count)."""
+    src = Path(C.ROOT) / "reports" / "data" / "phase4_exp1.json"
+    data = json.loads(src.read_text())
+    cells = data.get("map_b0") or {}
+    absorbed, retained, n = {}, {}, {}
+    for cls, cfgs in cells.items():
+        cell = (cfgs or {}).get("E4") or {}
+        if cell.get("n_evaluated"):
+            rate = float(cell["retention_rate"])
+            retained[cls], absorbed[cls], n[cls] = round(rate, 4), round(1.0 - rate, 4), int(cell["n_evaluated"])
+    out = {"basis": "B0 objects at E4 (C1 scope: human-written designs), reports/data/phase4_exp1.json", "generated_at": data.get("generated_at"), "git_sha": data.get("git_sha"),
+           "floor_version": data.get("floor_version"), "absorbed": absorbed, "retained": retained, "n": n,
+           "use": "absorbed -> prescreen (config prescreen.p_min) and the prior table of the prompt; retained -> bandit pseudo-counts (search.bandit.init_from_map_prior)"}
+    dst = Path(C.ROOT) / (cfg["search"].get("map_prior_file") or "reports/data/map_prior_phase4.json")
+    dst.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n")
+    print(f"map prior: absorbed {absorbed}; retained {retained}; n {n}; written {dst}")
+    return 0
+
+
+def rtlopt_setting_pairs(conn):
+    """The proven RTL-OPT pairs (design D = the suboptimal start, the literature reference object)."""
+    return [c for c in phase4_objects(conn) if c["arm"] == LIT_ARM and c["design_id"].startswith("rtlopt_")]
+
+
+def cmd_rtlopt_setting(cfg, conn, do_submit, priority, collect=False):
+    """G5 item 4 (a) (user 2026-09-15 item 5): the proven RTL-OPT pairs under the authors' published setting `E2_1ns`
+    (compile_ultra, 1 ns, no retime, no gate clock): submit the missing D baselines and object evaluations, or with
+    --collect write reports/data/phase4_rtlopt_setting.json (per pair the areas and better / same / worse, the count
+    against the authors' 35 of 36, and the same pairs under E2 at the knee period and under E4 for the reconciliation)."""
+    from src.jobqueue.core import Queue
+    config = "E2_1ns"
+    clock = float(cfg["configs"][config]["clock_ns"])
+    pairs = rtlopt_setting_pairs(conn)
+    cat = {d["design_id"]: d for d in K.load_all()}
+    if collect:
+        rows, counts = [], {"better": 0, "same": 0, "worse": 0, "missing": 0}
+        for c in pairs:
+            d_row = conn.execute("SELECT area_um2, cells FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (c["design_id"], config, clock)).fetchone()
+            o_row = conn.execute("SELECT area_um2, cells FROM evaluations WHERE cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (c["cand_id"], config, clock)).fetchone()
+            phi = float(conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()[0])
+            others = {}
+            for cf in ("E2", "E4"):
+                dr = conn.execute("SELECT area_um2 FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (c["design_id"], cf, phi)).fetchone()
+                orow = conn.execute("SELECT area_um2 FROM evaluations WHERE cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (c["cand_id"], cf, phi)).fetchone()
+                others[cf] = {"d": dr[0] if dr else None, "ref": orow[0] if orow else None, "rel": (round((orow[0] - dr[0]) / dr[0], 4) if dr and orow and dr[0] else None)}
+            if d_row is None or o_row is None:
+                verdict = "missing"
+            else:
+                rel = (o_row[0] - d_row[0]) / d_row[0] if d_row[0] else 0.0
+                verdict = "better" if rel < -1e-9 else "worse" if rel > 1e-9 else "same"
+            counts[verdict] += 1
+            rows.append({"design_id": c["design_id"], "cand_id": c["cand_id"], "phi_main_ns": phi, "d_area": d_row[0] if d_row else None, "d_cells": d_row[1] if d_row else None,
+                         "ref_area": o_row[0] if o_row else None, "ref_cells": o_row[1] if o_row else None,
+                         "rel_area": (round((o_row[0] - d_row[0]) / d_row[0], 4) if d_row and o_row and d_row[0] else None), "verdict_1ns": verdict, "other_rungs": others})
+        out = {"config": config, "clock_ns": clock, "pairs": len(pairs), "counts": counts, "authors_count": "35 of 36 better (RTL-OPT Table 1, compile_ultra 1 ns)", "rows": rows}
+        dst = Path(C.ROOT) / "reports" / "data" / "phase4_rtlopt_setting.json"
+        dst.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n")
+        print(f"{len(pairs)} proven RTL-OPT pairs under {config}: {counts}; written {dst}")
+        return 0
+    jobs = []
+    for c in pairs:
+        d = cat[c["design_id"]]
+        if not conn.execute("SELECT 1 FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["design_id"], config, clock)).fetchone() \
+                and not conn.execute("SELECT 1 FROM jobs WHERE design_id=? AND config=? AND cand_id IS NULL AND state IN ('queued','running') LIMIT 1", (c["design_id"], config)).fetchone():
+            jobs.append(J.dc_job(cfg, d, config, clock, priority))
+        if not conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["cand_id"], config, clock)).fetchone() \
+                and not conn.execute("SELECT 1 FROM jobs WHERE cand_id=? AND config=? AND state IN ('queued','running') LIMIT 1", (c["cand_id"], config)).fetchone():
+            files = json.loads(c["rtl_files_json"]) if c["rtl_files_json"] else [c["rtl_path"]]
+            j = J.dc_job(cfg, d, config, clock, priority)
+            j["payload"].update(rtl=files, incdirs=[str(p) for p in K.abs_paths(d, d["incdirs"])], is_baseline=0, cand_id=c["cand_id"])
+            if c["top"]:
+                j["payload"]["top"] = c["top"]
+            saif = object_saif(cfg, conn, c)
+            if saif:
+                j["payload"].update(saif=saif, saif_instance="bs_lockstep/u_c")
+            j["cand_id"] = c["cand_id"]
+            jobs.append(j)
+    print(f"{len(pairs)} proven RTL-OPT pairs; {len(jobs)} missing {config} jobs (baselines {sum(1 for j in jobs if j['payload'].get('is_baseline'))}, references {sum(1 for j in jobs if not j['payload'].get('is_baseline'))})")
+    if do_submit and jobs:
+        q = Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
+        for j in jobs:
+            q.submit(j["kind"], j["payload"], design_id=j["design_id"], cand_id=j.get("cand_id"), config=j["config"], priority=j["priority"], timeout_sec=j["timeout_sec"])
+        print(f"submitted {len(jobs)} dc jobs")
+    return 0
+
+
 def cmd_duplicates(cfg, conn):
     out = collect_duplicates(conn, "phase4")
     p = Path(C.ROOT) / "reports" / "data" / "phase4_duplicates.json"
@@ -908,7 +997,8 @@ def cmd_duplicates(cfg, conn):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup", "refit", "diag-sample", "diag-verify", "motivating", "duplicates"])
+    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup", "refit", "diag-sample", "diag-verify", "motivating", "duplicates", "map-prior", "rtlopt-setting"])
+    ap.add_argument("--collect", action="store_true", help="rtlopt-setting: write reports/data/phase4_rtlopt_setting.json from the finished records")
     ap.add_argument("--apply", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--name", default=None)
@@ -953,6 +1043,10 @@ def main(argv=None):
         return cmd_hygiene(cfg, conn)
     if a.what == "duplicates":
         return cmd_duplicates(cfg, conn)
+    if a.what == "map-prior":
+        return cmd_map_prior(cfg, conn)
+    if a.what == "rtlopt-setting":
+        return cmd_rtlopt_setting(cfg, conn, a.submit, a.priority, collect=a.collect)
     if a.what == "topup":
         return cmd_topup(cfg, conn, a.submit)
     if a.what == "refit":

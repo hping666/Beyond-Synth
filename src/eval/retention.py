@@ -47,6 +47,20 @@ def is_audit_sample(cand_id, frac):
     return h < float(frac)
 
 
+def sim_fail_vcd_sampled(cfg, key):
+    """Amendment of 2026-09-15 (user) to the VCD decision of 2026-09-14: of the `sim_fail` records only a seeded random
+    sample (`retention.sim_fail_vcd_sample`: frac, seed; keyed by the record directory name) keeps its VCD, at record time
+    and in the tiered prune; the mismatch cycle and signal values in the record are the evidence."""
+    sp = policy(cfg).get("sim_fail_vcd_sample") or {}
+    frac = float(sp.get("frac", 1.0) if sp.get("frac") is not None else 1.0)
+    if frac >= 1.0:
+        return True
+    if frac <= 0.0:
+        return False
+    h = int(hashlib.sha256(f"{sp.get('seed', 0)}|{key}".encode()).hexdigest()[:8], 16) / 0xFFFFFFFF
+    return h < frac
+
+
 def keep_full(cfg, cand_id, accepted):
     """True when the candidate's artifacts must stay complete: accepted (ever archived) or in the audit sample."""
     if accepted:
@@ -101,10 +115,19 @@ def slim_dc_record(rec_dir, cfg, dry_run=False):
 
 
 def slim_eq_record(rec_dir, cfg, dry_run=False):
-    """An equivalence record of a non-kept candidate: keep equiv.json, the logs, seq.tcl, the harness and the candidate copy."""
-    if not enabled(cfg) or not (Path(rec_dir) / "equiv.json").exists():
+    """An equivalence record of a non-kept candidate: keep equiv.json, the logs, seq.tcl, the harness and the candidate copy;
+    a sim_fail record of the seeded VCD sample keeps its VCD as well."""
+    f = Path(rec_dir) / "equiv.json"
+    if not enabled(cfg) or not f.exists():
         return {}
-    return _slim(rec_dir, policy(cfg).get("tiered_eq_delete") or [], EQ_CATEGORIES, "equiv.json", dry_run)
+    cats = list(policy(cfg).get("tiered_eq_delete") or [])
+    try:
+        verdict = json.loads(f.read_text()).get("verdict")
+    except (ValueError, OSError):
+        verdict = None
+    if verdict == "sim_fail" and sim_fail_vcd_sampled(cfg, Path(rec_dir).name):
+        cats = [c for c in cats if c != "vcd"]
+    return _slim(rec_dir, cats, EQ_CATEGORIES, "equiv.json", dry_run)
 
 
 def slim_m6_workdir(path, cfg, dry_run=False):
