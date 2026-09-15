@@ -385,7 +385,7 @@ def cmd_collect(cfg, conn):
     for o in objs:
         for k, v in (("by_role", o["role"]), ("by_verdict", o["verdict"] or "pending"), ("by_class", o["cls"] or "?"), ("by_label", o["label"] or "-")):
             counts[k][v] = counts[k].get(v, 0) + 1
-    diagnosed = [o for o in objs if o.get("label") and o["label"] != "nonequiv"]
+    diagnosed = [o for o in objs if o.get("label") and o["label"] not in ("nonequiv", "duplicate")]   # a duplicate repeats an earlier object's netlist: not a map object
     b0 = [o for o in diagnosed if o["role"] == "b0"]
     lit = [o for o in diagnosed if o["role"] in ("reference", "llm")]
     map_all = M.build_map(diagnosed)
@@ -404,7 +404,13 @@ def cmd_collect(cfg, conn):
     for did in list(cfg["exp1"]["designs"]) + [d for d in calibration_designs(cfg, conn) if d not in cfg["exp1"]["designs"]]:
         fl = S.latest_floor(conn, did, "E4", cfg["noise"].get("floor_version")) or S.latest_floor(conn, did, "E4")
         floors[did] = {m: {"t_d": (fl.get(k) or {}).get("t_d"), "sigma_robust": (fl.get(k) or {}).get("sigma_robust"), "floor_class": (fl.get(k) or {}).get("floor_class")} for m, k in (("area", "area"), ("wns", "wns"), ("power", "power_saif"))}
-    out = {"generated_at": db.now(), "git_sha": C.git_sha(), "cfg_hash": C.cfg_hash(), "floor_version": cfg["noise"].get("floor_version"), "designs": cfg["exp1"]["designs"],
+    # the out-of-scope contrast layer (DECISIONS 2026-09-14, C1 scope): the Phase 3 calibration candidates (RTLLM dev designs)
+    # under the same map; their labels are the run-time M3 verdicts (floors of the runs), their classes rules v2
+    p3 = O.build_object_rows(cfg, conn, "phase3")
+    p3_diag = [o for o in p3 if o.get("label") in ("retained", "tradeoff", "absorbed", "absorbed_identical", "noise", "harmful", "fragile")]   # duplicates excluded (same netlist as an earlier candidate)
+    contrast = {"objects": len(p3), "diagnosed": len(p3_diag), "designs": sorted({o["design_id"] for o in p3}), "map": M.build_map(p3_diag), "retention_curves": M.retention_curves(p3_diag),
+                "non_monotone": M.non_monotone(p3_diag), "misclassification": M.misclassification_rates(p3_diag), "shape": M.shape(M.build_map(p3_diag))}
+    out = {"generated_at": db.now(), "git_sha": C.git_sha(), "cfg_hash": C.cfg_hash(), "floor_version": cfg["noise"].get("floor_version"), "designs": cfg["exp1"]["designs"], "contrast_phase3": contrast,
            "counts": counts, "map": map_all, "map_b0": map_b0, "retention_curves": curves, "non_monotone": nm, "literature": lit_table, "misclassification": mis,
            "predictor": pred, "n_predictor_rows": len(pred_rows), "shape": {"shape": shape, "e4_retention_by_class": rates, "basis": "B0 objects" if len(b0) >= 30 else "all diagnosed objects"},
            "floors_e4": floors, "objects": [{k: o[k] for k in ("cand_id", "design_id", "run_id", "cls", "role", "verdict", "label", "rung", "attribution", "gains")} for o in objs]}

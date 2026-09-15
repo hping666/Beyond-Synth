@@ -1,6 +1,6 @@
 # Phase 4 report — Exp1: ladder and map (C1)
 
-Generated 2026-09-14 17:48 by scripts/report_phase.py (git 0a37c713adc2, cfg 5c738a28481d). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
+Generated 2026-09-14 17:54 by scripts/report_phase.py (git 22efa598eec3, cfg 5c738a28481d). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
 
 ## 1. Objects
 
@@ -66,3 +66,15 @@ Rule R forbids classes ['a', 'b'] (syntactic / coding rewrites) and allows ['c1'
 | rtllm_LIFObuffer | 0.28 % | 0.00 % | 2.22 % | 0.04 % | quiet |
 | rtllm_serial2parallel | 0.28 % | 0.00 % | 1.41 % | 0.04 % | quiet |
 | rtllm_multi_pipe_8bit | 0.28 % | 0.00 % | 2.22 % | 0.04 % | quiet |
+
+## 8. Out-of-scope contrast layer: the Phase 3 calibration candidates (RTLLM dev designs, C1 scope decision)
+
+655 E4-diagnosed candidates of 5 RTLLM designs (run-time M3 verdicts under the Phase 3 floors; classes rules v2); map shape **concentrated** ({'a': 0.65, 'b': 0.62, 'c1': 0.9, 'd': 0.18}); rule-R misclassification: P(retained | forbidden) = 86 % (n = 255), P(absorbed | allowed) = 38 % (n = 400); non-monotone 10 of 91 evaluated under E1–E4.
+
+| class | E1 rate (n) | E1d rate (n) | E2 rate (n) | E3 rate (n) | E2g rate (n) | E4 rate (n) | E4 median gain | E4 labels |
+|---|---|---|---|---|---|---|---|---|
+| a | 79 % (19) | - (0) | 68 % (19) | 86 % (14) | - (0) | 65 % (88) | 2.9 % | {'absorbed_identical': 12, 'retained': 44, 'tradeoff': 32} |
+| b | 67 % (42) | - (0) | 76 % (41) | 68 % (38) | - (0) | 62 % (167) | 6.9 % | {'absorbed_identical': 6, 'harmful': 18, 'retained': 70, 'tradeoff': 73} |
+| c1 | 95 % (40) | - (0) | 92 % (39) | 83 % (42) | - (0) | 90 % (175) | 14.5 % | {'harmful': 9, 'retained': 106, 'tradeoff': 60} |
+| c2 | - (0) | - (0) | - (0) | - (0) | - (0) | - (0) | - | {} |
+| d | 80 % (55) | - (0) | 15 % (48) | 12 % (50) | - (0) | 18 % (225) | 12.2 % | {'absorbed_identical': 152, 'harmful': 2, 'retained': 38, 'tradeoff': 33} |

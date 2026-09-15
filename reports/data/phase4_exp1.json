@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-09-14T17:46:25",
- "git_sha": "0a37c713adc2",
+ "generated_at": "2026-09-14T17:54:25",
+ "git_sha": "22efa598eec3",
  "cfg_hash": "5c738a28481d",
  "floor_version": "phase3",
  "designs": [
@@ -15,6 +15,546 @@
   "rtlopt_ticket_machine",
   "rtlopt_fsm_encode"
  ],
+ "contrast_phase3": {
+  "objects": 1114,
+  "diagnosed": 655,
+  "designs": [
+   "rtllm_LIFObuffer",
+   "rtllm_adder_16bit",
+   "rtllm_multi_pipe_8bit",
+   "rtllm_serial2parallel",
+   "rtllm_traffic_light"
+  ],
+  "map": {
+   "a": {
+    "E1": {
+     "n": 88,
+     "n_evaluated": 19,
+     "n_retained": 15,
+     "retention_rate": 0.7894736842105263,
+     "magnitude_median": 0.05603985134748243,
+     "magnitude_iqr": 0.06600249158703486
+    },
+    "E1d": {
+     "n": 88,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2": {
+     "n": 88,
+     "n_evaluated": 19,
+     "n_retained": 13,
+     "retention_rate": 0.6842105263157895,
+     "magnitude_median": 0.02190722165782537,
+     "magnitude_iqr": 0.033505155126131024
+    },
+    "E3": {
+     "n": 88,
+     "n_evaluated": 14,
+     "n_retained": 12,
+     "retention_rate": 0.8571428571428571,
+     "magnitude_median": 0.029088811252462217,
+     "magnitude_iqr": 0.04992236586441747
+    },
+    "E2g": {
+     "n": 88,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E4": {
+     "n": 88,
+     "n_evaluated": 88,
+     "n_retained": 57,
+     "retention_rate": 0.6477272727272727,
+     "magnitude_median": 0.028965512656790593,
+     "magnitude_iqr": 0.052413794190589474,
+     "absorption_rung": {
+      "E4": 12
+     },
+     "attribution": {
+      "measured": 12
+     },
+     "labels": {
+      "absorbed_identical": 12,
+      "retained": 44,
+      "tradeoff": 32
+     }
+    }
+   },
+   "b": {
+    "E1": {
+     "n": 167,
+     "n_evaluated": 42,
+     "n_retained": 28,
+     "retention_rate": 0.6666666666666666,
+     "magnitude_median": 0.1186387055308325,
+     "magnitude_iqr": 0.05573801261676392
+    },
+    "E1d": {
+     "n": 167,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2": {
+     "n": 167,
+     "n_evaluated": 41,
+     "n_retained": 31,
+     "retention_rate": 0.7560975609756098,
+     "magnitude_median": 0.05324459101385933,
+     "magnitude_iqr": 0.04473536766890285
+    },
+    "E3": {
+     "n": 167,
+     "n_evaluated": 38,
+     "n_retained": 26,
+     "retention_rate": 0.6842105263157895,
+     "magnitude_median": 0.080068153858202,
+     "magnitude_iqr": 0.16748375267233162
+    },
+    "E2g": {
+     "n": 167,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E4": {
+     "n": 167,
+     "n_evaluated": 167,
+     "n_retained": 103,
+     "retention_rate": 0.6167664670658682,
+     "magnitude_median": 0.06896551867182829,
+     "magnitude_iqr": 0.07141564471695018,
+     "absorption_rung": {
+      "E4": 6
+     },
+     "attribution": {
+      "measured": 6
+     },
+     "labels": {
+      "absorbed_identical": 6,
+      "harmful": 18,
+      "retained": 70,
+      "tradeoff": 73
+     }
+    }
+   },
+   "c1": {
+    "E1": {
+     "n": 175,
+     "n_evaluated": 40,
+     "n_retained": 38,
+     "retention_rate": 0.95,
+     "magnitude_median": 0.11826571986247364,
+     "magnitude_iqr": 0.14786919517757952
+    },
+    "E1d": {
+     "n": 175,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2": {
+     "n": 175,
+     "n_evaluated": 39,
+     "n_retained": 36,
+     "retention_rate": 0.9230769230769231,
+     "magnitude_median": 0.1812015537127363,
+     "magnitude_iqr": 0.19151832204108954
+    },
+    "E3": {
+     "n": 175,
+     "n_evaluated": 42,
+     "n_retained": 35,
+     "retention_rate": 0.8333333333333334,
+     "magnitude_median": 0.21269841295099673,
+     "magnitude_iqr": 0.18794143127887797
+    },
+    "E2g": {
+     "n": 175,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E4": {
+     "n": 175,
+     "n_evaluated": 175,
+     "n_retained": 158,
+     "retention_rate": 0.9028571428571428,
+     "magnitude_median": 0.1453675533547601,
+     "magnitude_iqr": 0.18923873907264865,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {
+      "harmful": 9,
+      "retained": 106,
+      "tradeoff": 60
+     }
+    }
+   },
+   "c2": {
+    "E1": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E1d": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E3": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2g": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E4": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {}
+    }
+   },
+   "d": {
+    "E1": {
+     "n": 225,
+     "n_evaluated": 55,
+     "n_retained": 44,
+     "retention_rate": 0.8,
+     "magnitude_median": 0.35042735324229923,
+     "magnitude_iqr": 0.14529914646631917
+    },
+    "E1d": {
+     "n": 225,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2": {
+     "n": 225,
+     "n_evaluated": 48,
+     "n_retained": 7,
+     "retention_rate": 0.14583333333333334,
+     "magnitude_median": 0.07980505410916039,
+     "magnitude_iqr": 0.06792567737294641
+    },
+    "E3": {
+     "n": 225,
+     "n_evaluated": 50,
+     "n_retained": 6,
+     "retention_rate": 0.12,
+     "magnitude_median": 0.032919253029665314,
+     "magnitude_iqr": 0.06529502868171166
+    },
+    "E2g": {
+     "n": 225,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E4": {
+     "n": 225,
+     "n_evaluated": 225,
+     "n_retained": 40,
+     "retention_rate": 0.17777777777777778,
+     "magnitude_median": 0.12187499917028902,
+     "magnitude_iqr": 0.06562500215137453,
+     "absorption_rung": {
+      "E4": 152
+     },
+     "attribution": {
+      "measured": 152
+     },
+     "labels": {
+      "absorbed_identical": 152,
+      "harmful": 2,
+      "retained": 38,
+      "tradeoff": 33
+     }
+    }
+   }
+  },
+  "retention_curves": {
+   "a": [
+    [
+     "E1",
+     0.7894736842105263,
+     19
+    ],
+    [
+     "E1d",
+     null,
+     0
+    ],
+    [
+     "E2",
+     0.6842105263157895,
+     19
+    ],
+    [
+     "E3",
+     0.8571428571428571,
+     14
+    ],
+    [
+     "E2g",
+     null,
+     0
+    ],
+    [
+     "E4",
+     0.6477272727272727,
+     88
+    ]
+   ],
+   "b": [
+    [
+     "E1",
+     0.6666666666666666,
+     42
+    ],
+    [
+     "E1d",
+     null,
+     0
+    ],
+    [
+     "E2",
+     0.7560975609756098,
+     41
+    ],
+    [
+     "E3",
+     0.6842105263157895,
+     38
+    ],
+    [
+     "E2g",
+     null,
+     0
+    ],
+    [
+     "E4",
+     0.6167664670658682,
+     167
+    ]
+   ],
+   "c1": [
+    [
+     "E1",
+     0.95,
+     40
+    ],
+    [
+     "E1d",
+     null,
+     0
+    ],
+    [
+     "E2",
+     0.9230769230769231,
+     39
+    ],
+    [
+     "E3",
+     0.8333333333333334,
+     42
+    ],
+    [
+     "E2g",
+     null,
+     0
+    ],
+    [
+     "E4",
+     0.9028571428571428,
+     175
+    ]
+   ],
+   "c2": [
+    [
+     "E1",
+     null,
+     0
+    ],
+    [
+     "E1d",
+     null,
+     0
+    ],
+    [
+     "E2",
+     null,
+     0
+    ],
+    [
+     "E3",
+     null,
+     0
+    ],
+    [
+     "E2g",
+     null,
+     0
+    ],
+    [
+     "E4",
+     null,
+     0
+    ]
+   ],
+   "d": [
+    [
+     "E1",
+     0.8,
+     55
+    ],
+    [
+     "E1d",
+     null,
+     0
+    ],
+    [
+     "E2",
+     0.14583333333333334,
+     48
+    ],
+    [
+     "E3",
+     0.12,
+     50
+    ],
+    [
+     "E2g",
+     null,
+     0
+    ],
+    [
+     "E4",
+     0.17777777777777778,
+     225
+    ]
+   ]
+  },
+  "non_monotone": {
+   "cases": [
+    [
+     "c4e0f6dafee9d21",
+     "RR-R"
+    ],
+    [
+     "c501c6dae613fd6",
+     "-R--"
+    ],
+    [
+     "c04edc39e411de4",
+     "---R"
+    ],
+    [
+     "c0fed9bb9b2beb3",
+     "-R--"
+    ],
+    [
+     "c1715b6dc608d69",
+     "-RR-"
+    ],
+    [
+     "c094a2a608c0f8d",
+     "RR-R"
+    ],
+    [
+     "c1430f1d18d8cab",
+     "-RRR"
+    ],
+    [
+     "c21a758bb84b91f",
+     "RR-R"
+    ],
+    [
+     "c0881eab4ebf3a3",
+     "RR-R"
+    ],
+    [
+     "c0802e272c680a5",
+     "--RR"
+    ]
+   ],
+   "n_evaluated_on_all": 91,
+   "fraction": 0.10989010989010989
+  },
+  "misclassification": {
+   "n_forbidden": 255,
+   "n_allowed": 400,
+   "p_retained_given_forbidden": 0.8588235294117647,
+   "p_absorbed_given_allowed": 0.38,
+   "forbidden_classes": [
+    "a",
+    "b"
+   ],
+   "allowed_classes": [
+    "c1",
+    "c2",
+    "d"
+   ]
+  },
+  "shape": [
+   "concentrated",
+   {
+    "a": 0.6477272727272727,
+    "b": 0.6167664670658682,
+    "c1": 0.9028571428571428,
+    "d": 0.17777777777777778
+   }
+  ]
+ },
  "counts": {
   "objects": 116,
   "by_role": {

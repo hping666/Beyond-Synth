@@ -573,6 +573,25 @@ def phase4(cfg):
             L.append(f"| {did} | {'-' if a['t_d'] is None else f'{100 * a['t_d']:.2f} %'} | {'-' if a['sigma_robust'] is None else f'{100 * a['sigma_robust']:.2f} %'} | "
                      f"{'-' if p['t_d'] is None else f'{100 * p['t_d']:.2f} %'} | {'-' if w['t_d'] is None else f'{100 * w['t_d']:.2f} %'} | {a['floor_class'] or '-'} |")
         L.append("")
+    ct = (data or {}).get("contrast_phase3")
+    if ct:
+        L += ["## 8. Out-of-scope contrast layer: the Phase 3 calibration candidates (RTLLM dev designs, C1 scope decision)", "",
+              f"{ct['diagnosed']} E4-diagnosed candidates of {len(ct['designs'])} RTLLM designs (run-time M3 verdicts under the Phase 3 floors; classes rules v2); map shape **{ct['shape'][0]}** "
+              f"({dict((k, round(v, 2)) for k, v in ct['shape'][1].items())}); rule-R misclassification: P(retained | forbidden) = "
+              f"{'-' if ct['misclassification']['p_retained_given_forbidden'] is None else f'{100 * ct['misclassification']['p_retained_given_forbidden']:.0f} %'} (n = {ct['misclassification']['n_forbidden']}), "
+              f"P(absorbed | allowed) = {'-' if ct['misclassification']['p_absorbed_given_allowed'] is None else f'{100 * ct['misclassification']['p_absorbed_given_allowed']:.0f} %'} (n = {ct['misclassification']['n_allowed']}); "
+              f"non-monotone {len(ct['non_monotone']['cases'])} of {ct['non_monotone']['n_evaluated_on_all']} evaluated under E1–E4.", "",
+              "| class | " + " | ".join(f"{cfg_} rate (n)" for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4")) + " | E4 median gain | E4 labels |", "|---|" + "---|" * 8]
+        for cls in ("a", "b", "c1", "c2", "d"):
+            cells = ct["map"].get(cls) or {}
+            row = [cls]
+            for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4"):
+                ce = cells.get(cfg_) or {}
+                row.append(f"{'-' if ce.get('retention_rate') is None else f'{100 * ce['retention_rate']:.0f} %'} ({ce.get('n_evaluated', 0)})")
+            e4 = cells.get("E4") or {}
+            row += [f"{'-' if e4.get('magnitude_median') is None else f'{100 * e4['magnitude_median']:.1f} %'}", str(e4.get("labels") or {})]
+            L.append("| " + " | ".join(row) + " |")
+        L.append("")
     for extra in ("phase4_diagnoser_check.md", "phase4_motivating.md"):
         p = DATA / extra
         if p.exists():
