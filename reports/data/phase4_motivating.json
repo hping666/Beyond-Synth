@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-15T06:13:03",
+ "generated_at": "2026-09-15T11:09:16",
  "configs": [
   "E1",
   "E1d",
@@ -13,7 +13,295 @@
   "O2"
  ],
  "picks": {
-  "recovered": null,
-  "retained": null
+  "recovered": {
+   "cand_id": "c5873c2b59da776",
+   "design_id": "rtlrewriter_memory__memory_sharing",
+   "run_id": "lit_rtlrewriter_memory__memory_sharing",
+   "cls": "c1",
+   "subtags": [],
+   "role": "reference",
+   "proven": true,
+   "verdict": "proven",
+   "label": "noise",
+   "rung": null,
+   "attribution": null,
+   "capability": null,
+   "blocks_synthesis": false,
+   "missing_resources": [],
+   "gains": {
+    "E1": {
+     "area": 0.40633185883195383,
+     "wns": -0.005955872857142857,
+     "power": 0.345885983005498
+    },
+    "E1d": {
+     "area": 0.40633185883195383,
+     "wns": -0.005955872857142857,
+     "power": 0.47392457437494884
+    },
+    "E2": {
+     "area": 0.0,
+     "wns": 0.0,
+     "power": 1.8835779384834918e-05
+    },
+    "E3": {
+     "area": 0.0,
+     "wns": 0.0,
+     "power": -4.186423731187727e-06
+    },
+    "E2g": {
+     "area": -0.0014982876844945872,
+     "wns": 0.0,
+     "power": 0.029601123376922108
+    },
+    "E4": {
+     "area": -0.0014982876844945872,
+     "wns": 0.0,
+     "power": -0.008917172787164593
+    },
+    "Y": {
+     "area": 0.0,
+     "wns": 0.0142857142857143,
+     "power": 0.0
+    },
+    "O0": {
+     "area": 0.0,
+     "wns": 0.0142857142857143,
+     "power": 0.0
+    },
+    "O1": {
+     "area": 0.0,
+     "wns": 0.0142857142857143,
+     "power": 0.0
+    },
+    "O2": {
+     "area": 0.0005647590361445796,
+     "wns": 0.0,
+     "power": 0.0
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.004508948000959425,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0009519779782887865,
+     "wns": 0.0002004285714285657,
+     "power": 0.00996823382309333
+    },
+    "E3": {
+     "area": 0.0018570090608194714,
+     "wns": 0.0003017775,
+     "power": 0.011164812036152712
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.0027938146505548643,
+     "wns": 0.0003017775,
+     "power": 0.022227533067402338
+    },
+    "Y": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "O0": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "O1": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "O2": {
+     "area": null,
+     "wns": null,
+     "power": null
+    }
+   },
+   "features": {
+    "rules_version": 2,
+    "ff_d": 272,
+    "ff_c": 144,
+    "ff_cells_d": 34,
+    "ff_cells_c": 18,
+    "cells_d": 56,
+    "cells_c": 38,
+    "depth_d": 2,
+    "depth_c": 2,
+    "ops_d": [],
+    "ops_c": [],
+    "hist_d": {
+     "$dffe": 2,
+     "$memrd": 2,
+     "$memwr_v2": 36,
+     "$mux": 13,
+     "$not": 1,
+     "$reduce_and": 2
+    },
+    "hist_c": {
+     "$dffe": 2,
+     "$memrd": 2,
+     "$memwr_v2": 18,
+     "$mux": 13,
+     "$not": 1,
+     "$reduce_and": 2
+    },
+    "regs_d": [
+     "mem1",
+     "mem2"
+    ],
+    "regs_c": [
+     "mem"
+    ],
+    "targets_d": [
+     "data_out_a",
+     "data_out_b",
+     "mem1",
+     "mem2"
+    ],
+    "targets_c": [
+     "data_out_a",
+     "data_out_b",
+     "mem"
+    ],
+    "diff_ratio": 0.1235,
+    "max_offset": 0
+   }
+  },
+  "retained": {
+   "cand_id": "c634baa4b8fa859",
+   "design_id": "rtlopt_ticket_machine",
+   "run_id": "r20260914_191316_cket_machine_6-luna_s1",
+   "cls": "b",
+   "subtags": [],
+   "role": "b0",
+   "proven": true,
+   "verdict": "proven",
+   "label": "retained",
+   "rung": "E4",
+   "attribution": null,
+   "capability": null,
+   "blocks_synthesis": false,
+   "missing_resources": [],
+   "gains": {
+    "E1": {
+     "area": 0.5887446050190411,
+     "wns": 0.24379779999999998,
+     "power": 0.7383811085881732
+    },
+    "E1d": {
+     "area": 0.5887446050190411,
+     "wns": 0.24379779999999998,
+     "power": 0.5129252349777753
+    },
+    "E2": {
+     "area": 0.5844748958779638,
+     "wns": 0.3094962,
+     "power": 0.3395001435635242
+    },
+    "E3": {
+     "area": 0.5844748958779638,
+     "wns": 0.3094962,
+     "power": 0.3395001435635242
+    },
+    "E2g": {
+     "area": 0.5844748958779638,
+     "wns": 0.3094962,
+     "power": 0.501176555760432
+    },
+    "E4": {
+     "area": 0.5844748958779638,
+     "wns": 0.3094962,
+     "power": 0.3395001435635242
+    },
+    "Y": {
+     "area": 0.4277777777777778,
+     "wns": 0.06,
+     "power": 0.4171122994652406
+    },
+    "O0": {
+     "area": 0.4277777777777778,
+     "wns": 0.06,
+     "power": 0.4171122994652406
+    },
+    "O1": {
+     "area": 0.4277777777777778,
+     "wns": 0.06,
+     "power": 0.4171122994652406
+    },
+    "O2": {
+     "area": 0.4117647058823529,
+     "wns": 0.020000000000000018,
+     "power": 0.432230522945571
+    }
+   },
+   "t_d": {
+    "E1": {
+     "area": 0.004508948000959425,
+     "wns": 0.005151142857142861,
+     "power": 0.012750748679332152
+    },
+    "E1d": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E2": {
+     "area": 0.0009519779782887865,
+     "wns": 0.0002004285714285657,
+     "power": 0.011164812036152712
+    },
+    "E3": {
+     "area": 0.0018570090608194714,
+     "wns": 0.0003017775,
+     "power": 0.011164812036152712
+    },
+    "E2g": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "E4": {
+     "area": 0.0027938146505548643,
+     "wns": 0.0003017775,
+     "power": 0.022227533067402338
+    },
+    "Y": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "O0": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "O1": {
+     "area": null,
+     "wns": null,
+     "power": null
+    },
+    "O2": {
+     "area": null,
+     "wns": null,
+     "power": null
+    }
+   },
+   "features": {}
+  }
  }
 }

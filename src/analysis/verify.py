@@ -118,7 +118,7 @@ def independent_diagnosis(d_rec, c_rec, clock_ns, t_d, sigma_area, jaccard_min=0
     ends_d = [e[1] for e in d_rec["endpoints"][:3]]
     ends_c = [e[1] for e in c_rec["endpoints"][:3]]
     ends = (bool(set(ends_d) & set(ends_c))) if ends_d and ends_c else None
-    within = abs(g.get("area", 0.0)) <= float(sigma_area or 0.0)
+    within = abs(g.get("area", 0.0)) <= float(band.get("area") if band.get("area") is not None else (sigma_area or 0.0))   # the rule-A band, as m3 since 2026-09-15
     conv = jac >= float(jaccard_min) and within and ends is not False
     out = {"gains": {m: round(v, 5) for m, v in g.items()}, "band": band, "power_basis": basis, "jaccard": round(jac, 4), "endpoints_coincide": ends, "area_within_sigma": within, "up": up, "down": down}
     if identical(d_rec, c_rec):

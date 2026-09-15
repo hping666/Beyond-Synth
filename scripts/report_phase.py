@@ -569,6 +569,26 @@ def phase4(cfg):
         sh = data["shape"]
         L += ["", f"Map shape ({sh['basis']}): **{sh['shape']}** — E4 retention by class {dict((k, round(v, 2)) for k, v in sh['e4_retention_by_class'].items())} "
               "(concentrated: the rates differ by ≥ 0.3 between classes with ≥ 10 evaluated objects; near-zero: every class < 10 %; diffuse otherwise).", ""]
+
+        def map_table(mp_, title, with_labels=True):
+            L.append(title)
+            L.append("")
+            L.append("| class | " + " | ".join(f"{cfg_} rate (n)" for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4")) + (" | E4 median gain | E4 labels |" if with_labels else " |"))
+            L.append("|---|" + "---|" * (8 if with_labels else 6))
+            for cls_ in ("a", "b", "c1", "c2", "d"):
+                cells_ = mp_.get(cls_) or {}
+                row_ = [cls_]
+                for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4"):
+                    ce_ = cells_.get(cfg_) or {}
+                    row_.append(f"{'-' if ce_.get('retention_rate') is None else f'{100 * ce_['retention_rate']:.0f} %'} ({ce_.get('n_evaluated', 0)})")
+                if with_labels:
+                    e4_ = cells_.get("E4") or {}
+                    row_ += [f"{'-' if e4_.get('magnitude_median') is None else f'{100 * e4_['magnitude_median']:.1f} %'}", str(e4_.get("labels") or {})]
+                L.append("| " + " | ".join(row_) + " |")
+            L.append("")
+        map_table(data.get("map_b0") or {}, "The same map on the B0 objects alone (the C1 scope: luna rewrites of the ten human-written designs; the literature objects excluded):")
+        map_table(data.get("map_materiality") or {}, "All objects under the materiality thresholds (area 1 %, power 2 %, WNS 1 % of the period) instead of the rule-A floors — the sensitivity row; "
+                  "E1d and E2g have no measured floor, so they appear here only:", with_labels=False)
         nm = data["non_monotone"]
         L += ["## 3. Retention curves and non-monotone cases", "",
               "| class | " + " | ".join(f"{cfg_}" for cfg_, _, _ in (data["retention_curves"].get("a") or [])) + " |", "|---|" + "---|" * len(data["retention_curves"].get("a") or [])]

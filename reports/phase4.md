@@ -1,34 +1,54 @@
 # Phase 4 report — Exp1: ladder and map (C1)
 
-Generated 2026-09-15 07:48 by scripts/report_phase.py (git c3bcddbdd0ea, cfg d845788457d4). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
+Generated 2026-09-15 11:14 by scripts/report_phase.py (git 9b3178d4695c, cfg d845788457d4). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
 
 ## 1. Objects
 
-Designs (config `exp1.designs`, C1 scope: human-written RTL): cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode; floor version `phase4`. 1437 objects: roles {'reference': 94, 'llm': 22, 'b0': 1321}; equivalence verdicts {'proven': 402, 'sim_fail': 438, 'falsified': 331, 'rejected': 225, 'inconclusive': 37, 'proven_sim_only': 1, 'pending': 3}; M6 classes (rules v2) {'b': 377, 'a': 152, 'd': 474, 'c1': 394, '?': 9, 'c2': 1, 'free': 30}; E4-evaluated 296; M3 labels at E4 {'harmful': 19, 'tradeoff': 42, 'absorbed_identical': 56, 'retained': 70, '-': 132, 'absorbed': 2, 'duplicate': 86, 'noise': 24, 'nonequiv': 1006}.
+Designs (config `exp1.designs`, C1 scope: human-written RTL): cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode; floor version `phase4`. 1473 objects: roles {'reference': 94, 'llm': 22, 'b0': 1357}; equivalence verdicts {'proven': 409, 'sim_fail': 440, 'falsified': 342, 'rejected': 235, 'inconclusive': 43, 'proven_sim_only': 1, 'pending': 3}; M6 classes (rules v2) {'b': 407, 'a': 152, 'd': 475, 'c1': 399, '?': 9, 'c2': 1, 'free': 30}; E4-evaluated 380; M3 labels at E4 {'harmful': 22, 'tradeoff': 54, 'absorbed_identical': 59, 'retained': 75, '-': 55, 'absorbed': 4, 'duplicate': 128, 'noise': 41, 'nonequiv': 1035}.
 
 ## 2. Map v1: E4 retention rate (area, rule-A threshold of the design under each configuration) by class × configuration
 
 | class | E1 rate (n) | E1d rate (n) | E2 rate (n) | E3 rate (n) | E2g rate (n) | E4 rate (n) | E4 median gain | E4 labels | absorption rung (E4) |
 |---|---|---|---|---|---|---|---|---|---|
-| a | 37 % (65) | - (0) | 15 % (65) | 15 % (65) | - (0) | 17 % (65) | 17.6 % | {'absorbed': 2, 'absorbed_identical': 40, 'harmful': 5, 'noise': 5, 'retained': 10, 'tradeoff': 4} | {'E1': 1, 'E4': 40, 'after_Es': 1} |
-| b | 60 % (83) | - (0) | 48 % (83) | 46 % (83) | - (0) | 51 % (84) | 41.6 % | {'absorbed_identical': 13, 'harmful': 9, 'noise': 18, 'retained': 35, 'tradeoff': 13} | {'E4': 13} |
-| c1 | 87 % (23) | - (0) | 91 % (22) | 86 % (22) | - (0) | 87 % (23) | 24.9 % | {'noise': 1, 'retained': 19, 'tradeoff': 3} | {} |
-| c2 | 0 % (1) | - (0) | 0 % (1) | 0 % (1) | - (0) | 0 % (1) | - | {'tradeoff': 1} | {} |
-| d | 69 % (35) | - (0) | 49 % (35) | 26 % (35) | - (0) | 71 % (35) | 4.9 % | {'absorbed_identical': 3, 'harmful': 5, 'retained': 6, 'tradeoff': 21} | {'E4': 3} |
+| a | 33 % (73) | - (0) | 14 % (73) | 14 % (73) | - (0) | 15 % (73) | 17.6 % | {'absorbed': 2, 'absorbed_identical': 40, 'harmful': 5, 'noise': 12, 'retained': 10, 'tradeoff': 4} | {'E1': 1, 'E4': 40, 'after_Es': 1} |
+| b | 49 % (110) | - (0) | 42 % (110) | 40 % (110) | - (0) | 43 % (110) | 28.5 % | {'absorbed': 2, 'absorbed_identical': 16, 'harmful': 11, 'noise': 28, 'retained': 38, 'tradeoff': 15} | {'E2': 2, 'E4': 16} |
+| c1 | 85 % (26) | - (0) | 92 % (26) | 88 % (26) | - (0) | 88 % (26) | 7.8 % | {'noise': 1, 'retained': 22, 'tradeoff': 3} | {} |
+| c2 | 0 % (1) | - (0) | 0 % (1) | 0 % (1) | - (0) | 0 % (1) | - | {'harmful': 1} | {} |
+| d | 76 % (45) | - (0) | 49 % (45) | 20 % (45) | - (0) | 73 % (45) | 4.8 % | {'absorbed_identical': 3, 'harmful': 5, 'retained': 5, 'tradeoff': 32} | {'E4': 3} |
 
-Map shape (B0 objects): **concentrated** — E4 retention by class {'a': 0.08, 'b': 0.6, 'c1': 1.0, 'd': 1.0} (concentrated: the rates differ by ≥ 0.3 between classes with ≥ 10 evaluated objects; near-zero: every class < 10 %; diffuse otherwise).
+Map shape (B0 objects): **concentrated** — E4 retention by class {'a': 0.06, 'b': 0.49, 'c1': 1.0, 'd': 0.94} (concentrated: the rates differ by ≥ 0.3 between classes with ≥ 10 evaluated objects; near-zero: every class < 10 %; diffuse otherwise).
+
+The same map on the B0 objects alone (the C1 scope: luna rewrites of the ten human-written designs; the literature objects excluded):
+
+| class | E1 rate (n) | E1d rate (n) | E2 rate (n) | E3 rate (n) | E2g rate (n) | E4 rate (n) | E4 median gain | E4 labels |
+|---|---|---|---|---|---|---|---|---|
+| a | 6 % (33) | - (0) | 6 % (33) | 6 % (33) | - (0) | 6 % (33) | 5.0 % | {'absorbed': 1, 'absorbed_identical': 19, 'noise': 11, 'retained': 1, 'tradeoff': 1} |
+| b | 49 % (84) | - (0) | 49 % (84) | 46 % (84) | - (0) | 49 % (84) | 41.6 % | {'absorbed': 2, 'absorbed_identical': 5, 'harmful': 6, 'noise': 27, 'retained': 34, 'tradeoff': 10} |
+| c1 | 89 % (19) | - (0) | 100 % (19) | 100 % (19) | - (0) | 100 % (19) | 7.8 % | {'retained': 17, 'tradeoff': 2} |
+| c2 | - (0) | - (0) | - (0) | - (0) | - (0) | - (0) | - | {} |
+| d | 84 % (32) | - (0) | 59 % (32) | 19 % (32) | - (0) | 94 % (32) | 4.4 % | {'retained': 3, 'tradeoff': 29} |
+
+All objects under the materiality thresholds (area 1 %, power 2 %, WNS 1 % of the period) instead of the rule-A floors — the sensitivity row; E1d and E2g have no measured floor, so they appear here only:
+
+| class | E1 rate (n) | E1d rate (n) | E2 rate (n) | E3 rate (n) | E2g rate (n) | E4 rate (n) |
+|---|---|---|---|---|---|---|
+| a | 42 % (73) | 30 % (73) | 14 % (73) | 19 % (73) | 15 % (73) | 21 % (73) |
+| b | 55 % (110) | 53 % (110) | 40 % (110) | 63 % (110) | 36 % (110) | 39 % (110) |
+| c1 | 92 % (26) | 85 % (26) | 92 % (26) | 88 % (26) | 92 % (26) | 88 % (26) |
+| c2 | 0 % (1) | 0 % (1) | 0 % (1) | 0 % (1) | 0 % (1) | 0 % (1) |
+| d | 71 % (45) | 40 % (45) | 53 % (45) | 24 % (45) | 67 % (45) | 69 % (45) |
 
 ## 3. Retention curves and non-monotone cases
 
 | class | E1 | E1d | E2 | E3 | E2g | E4 |
 |---|---|---|---|---|---|---|
-| a | 37 % (65) | - | 15 % (65) | 15 % (65) | - | 17 % (65) |
-| b | 60 % (83) | - | 48 % (83) | 46 % (83) | - | 51 % (84) |
-| c1 | 87 % (23) | - | 91 % (22) | 86 % (22) | - | 87 % (23) |
+| a | 33 % (73) | - | 14 % (73) | 14 % (73) | - | 15 % (73) |
+| b | 49 % (110) | - | 42 % (110) | 40 % (110) | - | 43 % (110) |
+| c1 | 85 % (26) | - | 92 % (26) | 88 % (26) | - | 88 % (26) |
 | c2 | 0 % (1) | - | 0 % (1) | 0 % (1) | - | 0 % (1) |
-| d | 69 % (35) | - | 49 % (35) | 26 % (35) | - | 71 % (35) |
+| d | 76 % (45) | - | 49 % (45) | 20 % (45) | - | 73 % (45) |
 
-Non-monotone objects (inside the band at a lower rung, above it at a higher one): 33 of 206 evaluated under E1–E4 (16.0 %): cf89ddd75fb3c99 -RRR, c7fceae7b2cef3e -RRR, cd12c8499b8d1ab -RRR, c5dd5be5540ec6c R--R, c31d3356c1aa4ac R--R, c329f2002ffaa79 RR-R, c5abf0a43a48dd4 -RRR, c8eb4a4b69a2dfe RR-R, ca6a75d9995d074 R--R, cbd06175747b32e R--R, cc722b602ba80f4 -RRR, cfcff4cec55f7f1 -RRR, cde5444e8ee9dcf -RRR, c25c096cd506b86 R--R, c5def31472daffa RR-R, c5fac3ac89179d4 RR-R, c60a748e0e14ff0 R--R, c7f86836928564f R--R, cb313beed61b03b RR-R, c273c94176cbafb R--R
+Non-monotone objects (inside the band at a lower rung, above it at a higher one): 45 of 255 evaluated under E1–E4 (17.6 %): cf89ddd75fb3c99 -RRR, c7fceae7b2cef3e -RRR, cd12c8499b8d1ab -RRR, c5dd5be5540ec6c R--R, c31d3356c1aa4ac R--R, c329f2002ffaa79 RR-R, c5abf0a43a48dd4 -RRR, c8eb4a4b69a2dfe RR-R, ca6a75d9995d074 R--R, cbd06175747b32e R--R, cc722b602ba80f4 -RRR, cfcff4cec55f7f1 -RRR, cde5444e8ee9dcf -RRR, c097257d3463bc2 R--R, c0c021141c94ff8 R--R, c25c096cd506b86 R--R, c56fa2529a980c5 RR-R, c5def31472daffa RR-R, c5fac3ac89179d4 RR-R, cb313beed61b03b RR-R
 
 ## 4a. Benchmark hygiene: literature objects that are not equivalent to their original under the protocol (DECISIONS 2026-09-14 item 3)
 
@@ -79,26 +99,30 @@ Non-monotone objects (inside the band at a lower rung, above it at a higher one)
 
 | suite | pairs | proven | E1 better / retained (evaluated) | E1d better / retained (evaluated) | E2 better / retained (evaluated) | E3 better / retained (evaluated) | E2g better / retained (evaluated) | E4 better / retained (evaluated) |
 |---|---|---|---|---|---|---|---|---|
-| rtlopt | 40 | 34 | 20 / 20 (33) | 2 / 0 (2) | 13 / 11 (33) | 13 / 11 (33) | 2 / 0 (2) | 13 / 11 (33) |
-| rtlrewriter | 54 | 43 | 24 / 23 (41) | 0 / 0 (0) | 11 / 10 (41) | 10 / 9 (41) | 0 / 0 (0) | 10 / 10 (42) |
+| rtlopt | 40 | 34 | 20 / 20 (33) | 17 / 0 (33) | 13 / 11 (33) | 13 / 11 (33) | 13 / 0 (33) | 13 / 11 (33) |
+| rtlrewriter | 54 | 43 | 24 / 24 (42) | 21 / 0 (42) | 11 / 10 (42) | 10 / 9 (42) | 11 / 0 (42) | 10 / 10 (42) |
 
 better = the optimized version's area is below D's under that rung; retained = above D's rule-A threshold there. The papers' own counts are compared in the paper text (RTL-OPT: pairs judged better by the authors' flow; RTLRewriter: pass@k of the engineers' rewrite).
 
 ## 5. Static-rule misclassification rates (PLAN 4.8)
 
-Rule R forbids classes ['a', 'b'] (syntactic / coding rewrites) and allows ['c1', 'c2', 'd']. P(retained | forbidden by R) = 40 % (n = 154); P(absorbed | allowed by R) = 7 % (n = 59).
+Rule R forbids classes ['a', 'b'] (syntactic / coding rewrites) and allows ['c1', 'c2', 'd']. P(retained | forbidden by R) = 37 % (n = 183); P(absorbed | allowed by R) = 6 % (n = 72).
 
 ## 5b. Diagnoser validation data (PLAN 4.6, spec 04 B.5)
 
-Diagnoses by label: {}; manual sample of 40 per label (seed 1, round-robin over designs; reports/data/phase4_diagnoser_sample.json, verdicts in phase4_diagnoser_check.md). Single-flag reproduction of the 0 absorbed objects (D compiled with one flag alone vs the object's plain-compile netlist C@E1, convergence = histogram Jaccard >= 0.95, area within the E1 band, endpoints coincide): 0 reproduced by at least one flag (-).
+Diagnoses by label: {'absorbed': 4, 'absorbed_identical': 59, 'harmful': 22, 'noise': 41, 'retained': 75, 'tradeoff': 54}; manual sample of 40 per label (seed 1, round-robin over designs; reports/data/phase4_diagnoser_sample.json, verdicts in phase4_diagnoser_check.md). Single-flag reproduction of the 63 absorbed objects (D compiled with one flag alone vs the object's plain-compile netlist C@E1, convergence = histogram Jaccard >= 0.95, area within the E1 band, endpoints coincide): 14 reproduced by at least one flag (22 %).
 
 | flag (configuration) | absorbed objects evaluated | converged with C@E1 | rate |
 |---|---|---|---|
+| designware (E1d) | 63 | 14 | 22 % |
+| gate_clock (E2g) | 63 | 4 | 6 % |
+| none (E1) | 63 | 26 | 41 % |
+| retime (E3) | 63 | 4 | 6 % |
 
 ## 6. Retention predictor (PLAN 4.5; leave-one-design-out)
 
-- with the class features: n = 213 (112 retained), AUROC 0.738, precision at recall ≥ 85 % 60 % (τ = 0.190, miss rate 14 %); skipped designs []; coefficients (standardised) {'g_e1': 0.38, 'g_e2': 3.05, 'fp_conv_e1': -1.66, 'dff_delta': 1.15, 'diff_ratio': 0.01, 'cls_a': -1.02, 'cls_b': -0.51, 'cls_c1': 1.84, 'cls_c2': 0.57, 'cls_d': 0.3}
-- class-blind control: n = 213 (112 retained), AUROC 0.703, precision at recall ≥ 85 % 58 % (τ = 0.293, miss rate 14 %); skipped designs []; coefficients (standardised) {'g_e1': 0.23, 'g_e2': 3.14, 'fp_conv_e1': -1.71, 'dff_delta': 0.22, 'diff_ratio': -0.09}
+- with the class features: n = 255 (129 retained), AUROC 0.717, precision at recall ≥ 85 % 55 % (τ = 0.138, miss rate 15 %); skipped designs []; coefficients (standardised) {'g_e1': 0.47, 'g_e2': 3.62, 'fp_conv_e1': -1.66, 'dff_delta': 1.14, 'diff_ratio': 0.15, 'cls_a': -1.07, 'cls_b': -0.55, 'cls_c1': 1.96, 'cls_c2': -0.22, 'cls_d': 0.47}
+- class-blind control: n = 255 (129 retained), AUROC 0.733, precision at recall ≥ 85 % 55 % (τ = 0.263, miss rate 15 %); skipped designs []; coefficients (standardised) {'g_e1': 0.65, 'g_e2': 5.03, 'fp_conv_e1': -1.66, 'dff_delta': 0.21, 'diff_ratio': -0.06}
 
 ## 7. σ_D comparison (E4 floors of the Exp1 designs vs the calibration designs)
 
@@ -161,7 +185,7 @@ Two Phase 4 objects chosen by the data: the largest plain-compile (E1) gain that
 
 | object | design | class | E4 label / rung | E1 area / wns / power | E1d area / wns / power | E2 area / wns / power | E3 area / wns / power | E2g area / wns / power | E4 area / wns / power | Y area / wns / power | O0 area / wns / power | O1 area / wns / power | O2 area / wns / power | t_D(E4) area |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| recovered: none | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| retained: none | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
+| recovered: c5873c2b59da776 | rtlrewriter_memory__memory_sharing | c1 | noise / - | +40.6 % / -0.6 % / +34.6 % | +40.6 % / -0.6 % / +47.4 % | +0.0 % / +0.0 % / +0.0 % | +0.0 % / +0.0 % / -0.0 % | -0.1 % / +0.0 % / +3.0 % | -0.1 % / +0.0 % / -0.9 % | +0.0 % / +1.4 % / +0.0 % | +0.0 % / +1.4 % / +0.0 % | +0.0 % / +1.4 % / +0.0 % | +0.1 % / +0.0 % / +0.0 % | 0.28 % |
+| retained: c634baa4b8fa859 | rtlopt_ticket_machine | b | retained / E4 | +58.9 % / +24.4 % / +73.8 % | +58.9 % / +24.4 % / +51.3 % | +58.4 % / +30.9 % / +34.0 % | +58.4 % / +30.9 % / +34.0 % | +58.4 % / +30.9 % / +50.1 % | +58.4 % / +30.9 % / +34.0 % | +42.8 % / +6.0 % / +41.7 % | +42.8 % / +6.0 % / +41.7 % | +42.8 % / +6.0 % / +41.7 % | +41.2 % / +2.0 % / +43.2 % | 0.28 % |
 
 The recovered object shows the gain a plain compile reports vanishing under `compile_ultra -retime -gate_clock` (the synthesizer obtains it on its own); the retained object keeps its gain there — the complement the ladder search aims at (PROPOSAL §1).

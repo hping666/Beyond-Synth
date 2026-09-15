@@ -124,3 +124,14 @@ def test_power_basis_is_never_mixed():
     c["hist"] = {"DFF_X1": 10, "NAND2_X1": 12}
     r = m3.diagnose(d_saif, c, SIGMA, T)
     assert r["evidence"]["power_basis"] == "default" and round(r["evidence"]["gains"]["power"], 5) == 0.25
+
+
+def test_convergence_uses_the_rule_a_band_on_quiet_designs():
+    """2026-09-15: on a quiet design (sigma_robust = 0) a converged but not identical netlist is `absorbed` when its area
+    lies within the rule-A band t_D, `noise` beyond it; with sigma alone it could never converge."""
+    quiet = {"area": 0.0, "wns": 0.0, "power": 0.0}
+    t_d = {"area": 0.003, "wns": 0.001, "power": 0.02}
+    near = cand(area=100.1, hist={"DFF_X1": 10, "NAND2_X1": 20, "XOR2_X1": 5, "INV_X1": 1})
+    assert m3.diagnose(BASE, near, quiet, T, thresholds=t_d)["label"] == "absorbed"
+    assert m3.diagnose(BASE, cand(area=100.5, hist={"DFF_X1": 10, "NAND2_X1": 20, "XOR2_X1": 5, "INV_X1": 1}), quiet, T, thresholds=t_d)["label"] == "harmful"   # beyond the band and worse
+    assert m3.diagnose(BASE, cand(area=100.1, hist={"DFF_X1": 10, "NOR2_X1": 20, "XOR2_X1": 5}), quiet, T, thresholds=t_d)["label"] == "noise"               # inside the band, different netlist

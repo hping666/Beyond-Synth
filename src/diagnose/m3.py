@@ -59,7 +59,8 @@ def endpoints_coincide(base, cand, top_n=3):
 
 
 def converged(base, cand, sigma_area, jaccard_min):
-    """Fingerprint convergence (§B.1): histogram Jaccard >= threshold, area delta within 1 sigma, endpoints coincide."""
+    """Fingerprint convergence (§B.1): histogram Jaccard >= threshold, area delta within the band of the rung (the rule-A
+    threshold t_D since 2026-09-15; sigma_robust before, which is zero on quiet designs), endpoints coincide."""
     jac = weighted_jaccard(base.get("hist"), cand.get("hist"))
     g = relative_gains(base, cand, None)
     within = abs(g.get("area", 0.0)) <= float(sigma_area or 0.0) if "area" in g else True
@@ -113,7 +114,7 @@ def diagnose(base, cand, sigma, clock_ns, *, v3_status="proven", k_sigma=2.0, fp
     band = {m: (float(thresholds[m]) if thresholds and thresholds.get(m) is not None else float(k_sigma) * float(sigma.get(m) or 0.0)) for m in g}
     up = [m for m in g if g[m] > band[m]]
     down = [m for m in g if g[m] < -band[m]]
-    conv, fp = converged(base, cand, sigma.get("area"), fp_jaccard)
+    conv, fp = converged(base, cand, band.get("area", sigma.get("area")), fp_jaccard)   # 2026-09-15: the rule-A band of the rung, not sigma_robust (zero on quiet designs)
     rd, ld = resource_diff(base, cand), log_diff(base, cand)
     mb, mc = base.get("metrics") or {}, cand.get("metrics") or {}
     extra_regs = (mc.get("registers") or 0) - (mb.get("registers") or 0)

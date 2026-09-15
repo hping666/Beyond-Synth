@@ -53,8 +53,8 @@ def test_independent_labels(tmp_path):
     near = V.record_from_reports(write_record(tmp_path / "near", 1001.0, 0.05, 100, 500.0, {"NAND2_X1": 60, "DFF_X1": 40, "INV_X1": 1}))
     r = V.independent_diagnosis(d, near, 2.0, t_d, 0.003)
     assert r["label"] == "absorbed" and r["jaccard"] > 0.95 and r["area_within_sigma"] and r["endpoints_coincide"] is True
-    r = V.independent_diagnosis(d, near, 2.0, t_d, 0.0005)                                                             # outside sigma: not converged
-    assert r["label"] == "noise"
+    r = V.independent_diagnosis(d, near, 2.0, {"area": 0.0005, "wns": 0.01, "power": 0.02}, 0.0005)                    # area band below the 0.1 % loss: not converged, and the loss counts
+    assert r["label"] == "harmful" and r["down"] == ["area"]
     other = V.record_from_reports(write_record(tmp_path / "other", 1002.0, 0.05, 100, 501.0, {"NOR2_X1": 60, "DFF_X1": 40}))
     assert V.independent_diagnosis(d, other, 2.0, t_d, 0.01)["label"] == "noise"                                        # inside the band, different netlist
     bigger = V.record_from_reports(write_record(tmp_path / "big", 1100.0, 0.05, 110, 560.0, {"NAND2_X1": 70, "DFF_X1": 40}))

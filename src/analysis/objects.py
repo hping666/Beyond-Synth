@@ -120,8 +120,9 @@ def diagnose_objects(cfg, conn, exp="phase4", dry_run=False, force=False):
         for config in LOWER_FOR_ATTRIBUTION:
             b, e = baseline_row(conn, did, config, phi), object_row_eval(conn, c["cand_id"], config, phi)
             if b is not None and e is not None:
-                s_cfg = thresholds(conn, did, config, floor_version)[1]
-                lower[config] = (record_from_row(b), record_from_row(e), float((s_cfg.get("area") or {}).get("sigma_robust") or sigma["area"] or 0.0))
+                t_cfg, s_cfg = thresholds(conn, did, config, floor_version)
+                band_cfg = t_cfg.get("area") if t_cfg.get("area") is not None else float((s_cfg.get("area") or {}).get("sigma_robust") or sigma["area"] or 0.0)
+                lower[config] = (record_from_row(b), record_from_row(e), float(band_cfg))   # the rung's rule-A area band (2026-09-15)
         fps = seen.setdefault(c["run_id"], {})
         cand = record_from_row(ev)
         diag = m3.diagnose(record_from_row(base), cand, sigma, float(phi), v3_status="proven", k_sigma=float(cfg["noise"]["k_sigma"]),
