@@ -38,7 +38,7 @@ def test_single_flag_reproduction_and_summary(tmp_path):
     from src.noise import stats as S
     S.upsert_floor(conn, [{"design_id": "d", "config": "E1", "metric": "area", "sigma_robust": 0.0, "sigma_std": 0.0, "q95_abs": 0.0, "max_abs": 0.0, "n": 4, "abs_unit_value": None,
                            "t_d": 0.01, "floor_class": "quiet", "floor_source": "measured", "pooled_min": 0.01}])
-    _ev(conn, "d", "E1", {"NAND2_X1": 20, "DFF_X1": 4}, 100.0, is_baseline=1)
+    _ev(conn, "d", "E1", {"NAND2_X1": 30, "DFF_X1": 4}, 110.0, is_baseline=1)                        # D plain: another netlist than the rewrite
     _ev(conn, "d", "E2g", {"NAND2_X1": 20, "DFF_X1": 4, "CLKGATE_X1": 1}, 100.5, is_baseline=1)     # D with -gate_clock alone
     _ev(conn, "d", "E1d", {"NAND2_X1": 8, "DFF_X1": 4}, 60.0, is_baseline=1)                        # D with DesignWare: another netlist
     _ev(conn, "d", "E1", {"NAND2_X1": 20, "DFF_X1": 4, "CLKGATE_X1": 1}, 100.4, cand_id="c_gate")   # the hand-gated rewrite compiled plainly
