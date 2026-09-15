@@ -607,7 +607,7 @@ def cmd_m6_relabel(cfg, conn, limit=None, force=False):
 
 
 
-def cmd_m6_review(cfg, conn, do_submit, limit=None, exp="phase3"):
+def cmd_m6_review(cfg, conn, do_submit, limit=None, exp="phase3", shards=1):
     """DECISIONS 2026-09-14 item 1: the LLM review of spec 04 §A.2 on the candidates whose rules-v2 class has low
     confidence or falls into the four disagreement categories (src/classify/review.py). Without --submit: the selection
     counts; with --submit: one `llm` queue job (src/search/run_llm.py, task m6_review; the daemon holds the API key)."""
@@ -624,8 +624,12 @@ def cmd_m6_review(cfg, conn, do_submit, limit=None, exp="phase3"):
     print(f"{len(rows)} candidates of exp {exp} to review ({why}; rule classes {by_cls}); model {cfg['llm']['selected']}, prompt src/search/prompts/m6_review.md")
     if do_submit and rows:
         q = Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
-        jid = q.submit("llm", {"task": "m6_review", "exp": exp, "limit": limit}, design_id=None, config="m6_review", priority=3, timeout_sec=6 * 3600)
-        print(f"submitted llm job {jid}")
+        for shard in range(max(1, int(shards))):
+            payload = {"task": "m6_review", "exp": exp, "limit": limit}
+            if int(shards) > 1:
+                payload.update(shard=shard, shards=int(shards))
+            jid = q.submit("llm", payload, design_id=None, config="m6_review", priority=3, timeout_sec=6 * 3600)
+            print(f"submitted llm job {jid}" + (f" (shard {shard} of {shards})" if int(shards) > 1 else ""))
     return 0
 
 
@@ -633,6 +637,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect", "yruns", "sample", "verify", "m6-sample", "m6-agreement", "m6-relabel", "m6-review"])
     ap.add_argument("--exp", default="phase3")
+    ap.add_argument("--shards", type=int, default=1)
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--models", nargs="*", default=None)
@@ -667,7 +672,7 @@ def main(argv=None):
     if a.what == "m6-relabel":
         return cmd_m6_relabel(cfg, conn, a.limit, a.force)
     if a.what == "m6-review":
-        return cmd_m6_review(cfg, conn, a.submit, a.limit, a.exp)
+        return cmd_m6_review(cfg, conn, a.submit, a.limit, a.exp, a.shards)
     if a.what == "smoke":
         designs = a.design or calibration_designs(cfg, conn)[:1]
         submit_runs(cfg, conn, designs, [a.model or cfg["llm"]["candidates"][0]], a.seeds or [1], a.K or 1, a.N or 2, "smoke", a.submit, note="smoke")

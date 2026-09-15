@@ -88,3 +88,19 @@ def test_review_set_and_run(env):
     again = R.run_review(cfg, conn, "phase3", transport=Transport(), log=lambda m: None)      # resumable: only the unusable one is retried
     assert again["selected"] == 1 and again["reviewed"] == 1
     assert conn.execute("SELECT class_llm, class_final FROM candidates WHERE cand_id='redundant'").fetchone()[1] == "b"
+
+
+def test_shards_and_concurrent_skip(env):
+    cfg, conn = env
+    all_rows = R.review_set(conn, cfg, "phase3")
+    s0 = R.review_set(conn, cfg, "phase3", shard=0, shards=2)
+    s1 = R.review_set(conn, cfg, "phase3", shard=1, shards=2)
+    assert {r["cand_id"] for r in s0} | {r["cand_id"] for r in s1} == {r["cand_id"] for r in all_rows} and len(s0) == 2 and len(s1) == 1 and not ({r["cand_id"] for r in s0} & {r["cand_id"] for r in s1})
+
+    class Concurrent(Transport):
+        """While answering the first call, another shard reviews `redundant` (the second row of shard 0)."""
+        def create(self, **kw):
+            conn.execute("UPDATE candidates SET class_llm='a', class_final='a' WHERE cand_id='redundant'")
+            return super().create(**kw)
+    out = R.run_review(cfg, conn, "phase3", transport=Concurrent(), log=lambda m: None, shard=0, shards=2)
+    assert out["selected"] == 2 and out["reviewed"] == 1 and out.get("skipped_meanwhile") == 1   # `low` reviewed, `redundant` skipped: no double call

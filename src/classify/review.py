@@ -21,7 +21,7 @@ FINAL_FROM_LLM = ("a", "b", "c1", "c2")          # (d) is tool-defined (DECISION
 BUDGET_PHASE = {"phase3": "phase3_calibration", "phase4": "phase4_generation", "phase5": "phase5_main", "smoke": "phase3_calibration"}
 
 
-def review_set(conn, cfg, exp="phase3", limit=None):
+def review_set(conn, cfg, exp="phase3", limit=None, shard=None, shards=None):
     """Candidates to review: rules v2, RTL on disk, no LLM class yet, and (confidence below `classify.review_below`) or
     (the rules flagged the wide rewrite for review) or (a nonequiv candidate classed (b) / (c1): the timing-change
     category) or (a (c1) whose flip-flop bits moved by at most two: the redundant-register category)."""
@@ -45,6 +45,8 @@ def review_set(conn, cfg, exp="phase3", limit=None):
         if why:
             r["why"] = why
             out.append(r)
+    if shards:   # k parallel jobs take interleaved slices of the same deterministic order
+        out = [r for i, r in enumerate(out) if i % int(shards) == int(shard or 0)]
     return out[: (limit or len(out))]
 
 
@@ -89,9 +91,10 @@ def final_class(class_rule, class_llm):
     return class_llm if class_llm in FINAL_FROM_LLM else class_rule
 
 
-def run_review(cfg, conn, exp="phase3", limit=None, transport=None, log=print, max_output_tokens=6000):
-    """Review the selected candidates one by one (resumable). -> {reviewed, unusable, changed, by_transition}."""
-    rows = review_set(conn, cfg, exp, limit)
+def run_review(cfg, conn, exp="phase3", limit=None, transport=None, log=print, max_output_tokens=6000, shard=None, shards=None):
+    """Review the selected candidates one by one (resumable; concurrent shard jobs re-check every candidate before the
+    call, so a candidate reviewed meanwhile by another job is skipped). -> {reviewed, unusable, changed, by_transition}."""
+    rows = review_set(conn, cfg, exp, limit, shard, shards)
     run_id = f"m6rev_{exp}_{db.now().replace('-', '').replace(':', '').replace('T', '_')}"
     client = L.LLMClient(cfg, conn, BUDGET_PHASE.get(exp, exp), run_id, transport=transport)
     designs = {d["design_id"]: d for d in K.load_all()}
@@ -102,6 +105,9 @@ def run_review(cfg, conn, exp="phase3", limit=None, transport=None, log=print, m
             out["why"][w] = out["why"].get(w, 0) + 1
     log(f"{run_id}: {len(rows)} candidates to review with {model} ({out['why']})")
     for i, r in enumerate(rows, 1):
+        if conn.execute("SELECT class_llm FROM candidates WHERE cand_id=?", (r["cand_id"],)).fetchone()[0] is not None:
+            out["skipped_meanwhile"] = out.get("skipped_meanwhile", 0) + 1
+            continue
         prefix, suffix = prompt_parts(designs[r["design_id"]], r)
         call = client.call(model, prefix, suffix, tag=f"m6_review:{r['cand_id']}", max_output_tokens=max_output_tokens)
         try:

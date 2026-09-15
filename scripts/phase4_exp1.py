@@ -51,13 +51,16 @@ def baseline_jobs(cfg, conn, designs, priority=1):
             continue
         for config in baseline_configs(cfg):
             have = conn.execute("SELECT power_default_mw FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (did, config, float(phi))).fetchone()
-            if have is not None and not (cfg["configs"][config].get("tool") == "yosys_opensta" and have[0] is None):
-                continue   # a Yosys record without OpenSTA power predates report_power (2026-09-14) and is refreshed (append-only: a newer record)
+            refresh = have is not None and cfg["configs"][config].get("tool") == "yosys_opensta" and have[0] is None
+            if have is not None and not refresh:
+                continue   # a Yosys record without OpenSTA power predates report_power (2026-09-14) and is refreshed (append-only: a newer -rN record, the cache bypassed)
             if conn.execute("SELECT 1 FROM jobs WHERE design_id=? AND config=? AND cand_id IS NULL AND state IN ('queued','running') LIMIT 1", (did, config)).fetchone():
                 continue   # already in the queue
             j = J.dc_job(cfg, d, config, float(phi), priority)
             if cfg["configs"][config].get("tool") == "yosys_opensta":
                 j["kind"] = "yosys"
+            if refresh:
+                j["payload"]["force_rerun"] = True
             jobs.append(j)
     return jobs
 

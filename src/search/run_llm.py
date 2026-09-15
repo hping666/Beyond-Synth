@@ -15,7 +15,7 @@ TASKS = {}
 
 def _m6_review(cfg, conn, p):
     from src.classify.review import run_review
-    return run_review(cfg, conn, p.get("exp", "phase3"), p.get("limit"), log=print)
+    return run_review(cfg, conn, p.get("exp", "phase3"), p.get("limit"), log=print, shard=p.get("shard"), shards=p.get("shards"))
 
 
 TASKS["m6_review"] = _m6_review
