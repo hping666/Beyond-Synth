@@ -408,10 +408,21 @@ def cmd_collect(cfg, conn):
     # under the same map; their labels are the run-time M3 verdicts (floors of the runs), their classes rules v2
     p3 = O.build_object_rows(cfg, conn, "phase3")
     p3_diag = [o for o in p3 if o.get("label") in ("retained", "tradeoff", "absorbed", "absorbed_identical", "noise", "harmful", "fragile")]   # duplicates excluded (same netlist as an earlier candidate)
-    contrast = {"objects": len(p3), "diagnosed": len(p3_diag), "designs": sorted({o["design_id"] for o in p3}), "map": M.build_map(p3_diag), "retention_curves": M.retention_curves(p3_diag),
-                "non_monotone": M.non_monotone(p3_diag), "misclassification": M.misclassification_rates(p3_diag), "shape": M.shape(M.build_map(p3_diag))}
+    mat = {"area": float(cfg["noise"]["materiality"]["area"]), "wns": float(cfg["noise"]["materiality"]["wns"]), "power": float(cfg["noise"]["materiality"]["power_saif"])}
+    d_by_design = {}
+    for o in p3_diag:
+        if o["cls"] == "d":
+            e = d_by_design.setdefault(o["design_id"], {})
+            e[o["label"]] = e.get(o["label"], 0) + 1
+    contrast = {"objects": len(p3), "diagnosed": len(p3_diag), "designs": sorted({o["design_id"] for o in p3}), "map": M.build_map(p3_diag), "map_materiality": M.build_map(p3_diag, t_override=mat),
+                "materiality": mat, "retention_curves": M.retention_curves(p3_diag), "non_monotone": M.non_monotone(p3_diag), "misclassification": M.misclassification_rates(p3_diag),
+                "shape": M.shape(M.build_map(p3_diag)), "d_by_design": d_by_design,
+                "d_harmful_blocks_synthesis": sum(1 for o in p3_diag if o["cls"] == "d" and o["label"] == "harmful" and o.get("blocks_synthesis")),
+                "harmful_blocks_synthesis_by_class": {cls: sum(1 for o in p3_diag if o["cls"] == cls and o["label"] == "harmful" and o.get("blocks_synthesis")) for cls in M.CLASSES},
+                "harmful_by_class": {cls: sum(1 for o in p3_diag if o["cls"] == cls and o["label"] == "harmful") for cls in M.CLASSES}}
+    map_mat = M.build_map(diagnosed, t_override=mat)
     out = {"generated_at": db.now(), "git_sha": C.git_sha(), "cfg_hash": C.cfg_hash(), "floor_version": cfg["noise"].get("floor_version"), "designs": cfg["exp1"]["designs"], "contrast_phase3": contrast,
-           "counts": counts, "map": map_all, "map_b0": map_b0, "retention_curves": curves, "non_monotone": nm, "literature": lit_table, "misclassification": mis,
+           "counts": counts, "map": map_all, "map_b0": map_b0, "map_materiality": map_mat, "materiality": mat, "retention_curves": curves, "non_monotone": nm, "literature": lit_table, "misclassification": mis,
            "predictor": pred, "n_predictor_rows": len(pred_rows), "shape": {"shape": shape, "e4_retention_by_class": rates, "basis": "B0 objects" if len(b0) >= 30 else "all diagnosed objects"},
            "floors_e4": floors, "objects": [{k: o[k] for k in ("cand_id", "design_id", "run_id", "cls", "role", "verdict", "label", "rung", "attribution", "gains")} for o in objs]}
     p = Path(C.ROOT) / "reports" / "data" / "phase4_exp1.json"
@@ -468,9 +479,73 @@ def cmd_snapshot(cfg, conn, name=None):
     return 0
 
 
+
+# ----------------------------------------------------------------------------- benchmark hygiene (DECISIONS 2026-09-14 item 3)
+def cmd_hygiene(cfg, conn):
+    """The literature objects that are not equivalent to their D under the protocol: suite / role, verdict (V1 port
+    mismatch, V2 mismatch, SEQ falsified, tool error), the counterexample cycle and signals where available, and the
+    probable cause from the record (port mismatch; a clockless pair with a mismatch is a genuine functional difference;
+    a mismatch in the first cycles of a pair whose registers lack a reset points at the all-zero initial-state assumption;
+    X or Z values in the mismatch point at X semantics; otherwise a genuine functional difference). Written to
+    reports/data/phase4_hygiene.json; the report renders the list before the re-evaluation table."""
+    import json
+    from pathlib import Path
+    rows = []
+    for c in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.verdict, c.v1_status, c.v2_status, c.v3_status, c.note, c.features_json, c.class_final FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                          "WHERE r.exp='phase4' AND r.arm=? AND c.verdict IS NOT NULL AND c.verdict NOT IN ('proven','proven_sim_only') ORDER BY c.design_id, c.cand_id", (LIT_ARM,)):
+        info_p = object_dir(cfg, c["run_id"]) / f"{c['cand_id']}.json"
+        info = json.loads(info_p.read_text()) if info_p.exists() else {}
+        rec, rec_dir = eq_record_for(cfg, info["eq_payload"]) if info.get("eq_payload") else (None, None)
+        rec = rec or {}
+        v2 = rec.get("v2") or {}
+        feat = json.loads(c["features_json"]) if c["features_json"] else {}
+        hist_c, hist_d = feat.get("hist_c") or {}, feat.get("hist_d") or {}
+        noreset_c = sum(v for k, v in hist_c.items() if k in ("$dff", "$dffe"))
+        noreset_d = sum(v for k, v in hist_d.items() if k in ("$dff", "$dffe"))
+        clockless = not (info.get("eq_payload") or {}).get("clk")
+        role = "RTL-OPT reference" if c["design_id"].startswith("rtlopt") else ("RTLRewriter LLM sample" if (c["note"] or "").startswith("llm") else "RTLRewriter reference")
+        first = v2.get("first_mismatch")
+        mism = v2.get("mismatches") or {}
+        xz = any(any(ch in str(m.get(k, "")).lower() for ch in "xz") for m in mism.values() if isinstance(m, dict) for k in ("c", "d"))
+        if c["verdict"] == "rejected":
+            detail = str(rec.get("v1_detail") or c["note"] or "")
+            if "does not elaborate" in detail or "yosys exit" in detail:
+                kind, cause = "V1 elaboration failure", "the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): " + detail[:100]
+            else:
+                kind, cause = "V1 port mismatch", "port mismatch: " + detail[:120]
+        elif c["verdict"] == "error":
+            kind, cause = "tool error", str(rec.get("error") or "no equivalence record")[:120]
+        elif c["verdict"] == "sim_fail":
+            kind = f"V2 mismatch at cycle {first}" + (f" ({', '.join(sorted(mism))})" if mism else "")
+            if clockless:
+                cause = "genuine functional difference (combinational pair, no state)"
+            elif xz:
+                cause = "X semantics (X / Z in the mismatching values)"
+            elif first is not None and int(first) <= 4 and (noreset_c or noreset_d):
+                cause = f"all-zero initial-state assumption likely (mismatch in the first cycles; registers without reset: D {noreset_d}, object {noreset_c})"
+            else:
+                cause = "genuine functional difference (mismatch after the start-up cycles)" + (f"; registers without reset D {noreset_d} / object {noreset_c}" if (noreset_c or noreset_d) else "")
+        elif c["verdict"] == "falsified":
+            kind = "SEQ falsified" + (" (counterexample saved)" if rec.get("counterexample_path") else "")
+            cause = "genuine functional difference (bounded proof found a counterexample)" + (f"; registers without reset D {noreset_d} / object {noreset_c}: the all-zero start state is part of the protocol" if (noreset_c or noreset_d) else "")
+        else:
+            kind, cause = c["verdict"], "-"
+        rows.append({"cand_id": c["cand_id"], "design_id": c["design_id"], "role": role, "verdict": c["verdict"], "kind": kind, "first_mismatch_cycle": first,
+                     "mismatching_signals": sorted(mism) if isinstance(mism, dict) else [], "clockless": clockless, "registers_without_reset": {"d": noreset_d, "object": noreset_c},
+                     "probable_cause": cause, "class_rule": c["class_final"], "record": rec_dir})
+    by = {}
+    for r in rows:
+        by[r["role"]] = by.get(r["role"], 0) + 1
+    out = {"generated_at": db.now(), "n": len(rows), "by_role": by, "by_verdict": {v: sum(1 for r in rows if r["verdict"] == v) for v in sorted({r["verdict"] for r in rows})}, "rows": rows}
+    p = Path(C.ROOT) / "reports" / "data" / "phase4_hygiene.json"
+    p.write_text(json.dumps(out, indent=1, default=str) + "\n")
+    print(f"{len(rows)} non-equivalent literature objects ({by}; {out['by_verdict']}); wrote {p}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot"])
+    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene"])
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--name", default=None)
     ap.add_argument("--hidden", action="store_true")
@@ -501,6 +576,8 @@ def main(argv=None):
         return cmd_collect(cfg, conn)
     if a.what == "snapshot":
         return cmd_snapshot(cfg, conn, a.name)
+    if a.what == "hygiene":
+        return cmd_hygiene(cfg, conn)
     if a.what == "smoke":
         designs = a.design or cfg["exp1"]["designs"][:1]
         create_runs(cfg, conn, designs, "smoke", a.K or 1, a.N or 2, a.seed or 1, a.submit, note="exp1 B0 smoke")

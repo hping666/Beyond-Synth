@@ -307,3 +307,24 @@ def test_driver_b0_arm_uses_y_fitness_and_scalar_feedback(env):
     run.save_state()                                                       # what step() does after every verdict
     run2 = SearchRun.resume(cfg, conn, run.run_id, queue=q, transport=tr)   # resumption keeps the scalar verdicts
     assert [m["cand_id"] for m in run2.archive.members] == [better] and run2.state["cands"][worse]["label"] == "no_gain"
+
+
+def test_long_proofs_first_on_arithmetic_designs(env, monkeypatch):
+    """DECISIONS 2026-09-14 item 2: on an arithmetic design the (c1) / (d) proofs are issued first within a generation and
+    get one queue-priority step more; on other designs (and for other classes) nothing changes."""
+    cfg, conn, q, tmp_path = env
+    from src.search import driver as DR
+    from src.search.driver import SearchRun
+    cfg["search"]["long_proof_first"] = {"classes": ["c1", "d"], "design_patterns": ["rtllm_d"], "priority_boost": 1}
+    monkeypatch.setattr(DR.M6, "classify", lambda feat, **k: {"class_rule": "d", "rules": ["stub"], "confidence": 0.8, "needs_review": False})
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=3, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    assert run.arith_design is True
+    run.step()
+    prios = [r[0] for r in conn.execute("SELECT j.priority FROM candidates c JOIN jobs j ON j.job_id=c.eq_job_id WHERE c.run_id=?", (run.run_id,))]
+    assert prios and all(p == run.priority + 1 for p in prios)                       # produced class (d) on an arithmetic design: boosted
+    cfg["search"]["long_proof_first"] = {"classes": ["c1", "d"], "design_patterns": ["pipe"], "priority_boost": 1}
+    run2 = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=4, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    assert run2.arith_design is False
+    run2.step()
+    prios2 = [r[0] for r in conn.execute("SELECT j.priority FROM candidates c JOIN jobs j ON j.job_id=c.eq_job_id WHERE c.run_id=?", (run2.run_id,))]
+    assert prios2 and all(p == run2.priority for p in prios2)                         # not an arithmetic design: no boost

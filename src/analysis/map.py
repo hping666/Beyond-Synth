@@ -30,20 +30,21 @@ def quantile(xs, q):
     return xs[lo] + (xs[hi] - xs[lo]) * (pos - lo)
 
 
-def retained_under(obj, config, metric="area"):
+def retained_under(obj, config, metric="area", t_override=None):
     """True / False / None: the object's gain under `config` exceeds D's rule-A threshold for that configuration
-    (a strict comparison; None when the object has no record or D has no threshold under that configuration)."""
+    (a strict comparison; None when the object has no record or D has no threshold under that configuration).
+    `t_override` = {metric: threshold} replaces the design's thresholds (the materiality table)."""
     g = ((obj.get("gains") or {}).get(config) or {}).get(metric)
-    t = ((obj.get("t_d") or {}).get(config) or {}).get(metric)
+    t = (t_override or {}).get(metric) if t_override else ((obj.get("t_d") or {}).get(config) or {}).get(metric)
     if g is None or t is None:
         return None
     return float(g) > float(t)
 
 
-def cell(objs, cls, config, metric="area"):
+def cell(objs, cls, config, metric="area", t_override=None):
     """One map cell: objects of class `cls` with a record under `config`."""
     rows = [o for o in objs if o.get("cls") == cls]
-    verdicts = [(o, retained_under(o, config, metric)) for o in rows]
+    verdicts = [(o, retained_under(o, config, metric, t_override)) for o in rows]
     known = [(o, r) for o, r in verdicts if r is not None]
     retained = [o for o, r in known if r]
     mags = [float(o["gains"][config][metric]) for o in retained]
@@ -62,11 +63,12 @@ def cell(objs, cls, config, metric="area"):
         for o in rows:
             labels[o.get("label") or "?"] = labels.get(o.get("label") or "?", 0) + 1
         out["labels"] = dict(sorted(labels.items()))
+        out["harmful_blocks_synthesis"] = sum(1 for o in rows if o.get("label") == "harmful" and o.get("blocks_synthesis"))
     return out
 
 
-def build_map(objs, configs=LADDER, metric="area"):
-    return {cls: {config: cell(objs, cls, config, metric) for config in configs} for cls in CLASSES}
+def build_map(objs, configs=LADDER, metric="area", t_override=None):
+    return {cls: {config: cell(objs, cls, config, metric, t_override) for config in configs} for cls in CLASSES}
 
 
 def retention_curves(objs, configs=LADDER, metric="area"):

@@ -1,0 +1,347 @@
+{
+ "generated_at": "2026-09-14T18:07:35",
+ "n": 18,
+ "by_role": {
+  "RTL-OPT reference": 5,
+  "RTLRewriter LLM sample": 7,
+  "RTLRewriter reference": 6
+ },
+ "by_verdict": {
+  "falsified": 1,
+  "rejected": 7,
+  "sim_fail": 10
+ },
+ "rows": [
+  {
+   "cand_id": "ce0055f6d2cf566",
+   "design_id": "rtlopt_divider_16bit",
+   "role": "RTL-OPT reference",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 260 (result)",
+   "first_mismatch_cycle": 260,
+   "mismatching_signals": [
+    "result"
+   ],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (combinational pair, no state)",
+   "class_rule": "b",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlopt_divider_16bit/EQ/e554620fe483e5c3"
+  },
+  {
+   "cand_id": "cda5de4f8d462e8",
+   "design_id": "rtlopt_divider_4bit",
+   "role": "RTL-OPT reference",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 24 (result)",
+   "first_mismatch_cycle": 24,
+   "mismatching_signals": [
+    "result"
+   ],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (combinational pair, no state)",
+   "class_rule": "b",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlopt_divider_4bit/EQ/5dbcf3d5f1c25ad8"
+  },
+  {
+   "cand_id": "c7c117802161c05",
+   "design_id": "rtlopt_divider_8bit",
+   "role": "RTL-OPT reference",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 32 (result)",
+   "first_mismatch_cycle": 32,
+   "mismatching_signals": [
+    "result"
+   ],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (combinational pair, no state)",
+   "class_rule": "b",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlopt_divider_8bit/EQ/dbaf8c3bf8062fcc"
+  },
+  {
+   "cand_id": "c339c9b4616d5e6",
+   "design_id": "rtlopt_mac",
+   "role": "RTL-OPT reference",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 3 (z)",
+   "first_mismatch_cycle": 3,
+   "mismatching_signals": [
+    "z"
+   ],
+   "clockless": false,
+   "registers_without_reset": {
+    "d": 4,
+    "object": 1
+   },
+   "probable_cause": "all-zero initial-state assumption likely (mismatch in the first cycles; registers without reset: D 4, object 1)",
+   "class_rule": "c1",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlopt_mac/EQ/4628c60ae19b819f"
+  },
+  {
+   "cand_id": "cecdcc710b39f4e",
+   "design_id": "rtlopt_mux_encode",
+   "role": "RTL-OPT reference",
+   "verdict": "rejected",
+   "kind": "V1 elaboration failure",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtlopt/mux_encode/",
+   "class_rule": null,
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlopt_mux_encode/EQ/26d30c4666665849"
+  },
+  {
+   "cand_id": "cc1260b52c354a4",
+   "design_id": "rtlrewriter_basic__communtativity_subpexpression2",
+   "role": "RTLRewriter LLM sample",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 0 (output2)",
+   "first_mismatch_cycle": 0,
+   "mismatching_signals": [
+    "output2"
+   ],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (combinational pair, no state)",
+   "class_rule": "a",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__communtativity_subpexpression2/EQ/a011517068c14e26"
+  },
+  {
+   "cand_id": "ccb5401e9543fc1",
+   "design_id": "rtlrewriter_basic__commutativity_subexpression",
+   "role": "RTLRewriter LLM sample",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 0 (result1, result5)",
+   "first_mismatch_cycle": 0,
+   "mismatching_signals": [
+    "result1",
+    "result5"
+   ],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (combinational pair, no state)",
+   "class_rule": "a",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__commutativity_subexpression/EQ/09e508b91458decb"
+  },
+  {
+   "cand_id": "c00fb9357d927e5",
+   "design_id": "rtlrewriter_basic__multi_constant_multiplication2",
+   "role": "RTLRewriter LLM sample",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 0 (w, y, z)",
+   "first_mismatch_cycle": 0,
+   "mismatching_signals": [
+    "w",
+    "y",
+    "z"
+   ],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (combinational pair, no state)",
+   "class_rule": "d",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication2/EQ/327fc18598c7b216"
+  },
+  {
+   "cand_id": "c861381285076f5",
+   "design_id": "rtlrewriter_basic__multi_constant_multiplication2",
+   "role": "RTLRewriter LLM sample",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 0 (y, z)",
+   "first_mismatch_cycle": 0,
+   "mismatching_signals": [
+    "y",
+    "z"
+   ],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (combinational pair, no state)",
+   "class_rule": "d",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_basic__multi_constant_multiplication2/EQ/f4b72fb61780eb5b"
+  },
+  {
+   "cand_id": "c086ed666b1eb4f",
+   "design_id": "rtlrewriter_datapath__alu_subexpression",
+   "role": "RTLRewriter LLM sample",
+   "verdict": "rejected",
+   "kind": "V1 port mismatch",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "port mismatch: port opcode: width 4 -> 3",
+   "class_rule": "b",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_datapath__alu_subexpression/EQ/893e46c557187ad2"
+  },
+  {
+   "cand_id": "c4015406e8d479d",
+   "design_id": "rtlrewriter_long_cnn__convLayerSingle",
+   "role": "RTLRewriter reference",
+   "verdict": "rejected",
+   "kind": "V1 elaboration failure",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": false,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: signs/rtlrewriter/long_cnn__convLayerSingle/rtl/processi",
+   "class_rule": null,
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__convLayerSingle/EQ/34a0d9029b58a0f0"
+  },
+  {
+   "cand_id": "cbf642292ae49a4",
+   "design_id": "rtlrewriter_long_cnn__convUnit",
+   "role": "RTLRewriter reference",
+   "verdict": "rejected",
+   "kind": "V1 elaboration failure",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": false,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /Beyond-Synth/data/designs/rtlrewriter/long_cnn__convUni",
+   "class_rule": null,
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cnn__convUnit/EQ/804b5754c1094980"
+  },
+  {
+   "cand_id": "c2e3b788107434e",
+   "design_id": "rtlrewriter_long_cpu__DataHazard",
+   "role": "RTLRewriter reference",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 185 (ForwardA, ForwardB)",
+   "first_mismatch_cycle": 185,
+   "mismatching_signals": [
+    "ForwardA",
+    "ForwardB"
+   ],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (combinational pair, no state)",
+   "class_rule": "b",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataHazard/EQ/e5745c60d02dc25f"
+  },
+  {
+   "cand_id": "c1caae7887d0c67",
+   "design_id": "rtlrewriter_long_cpu__DataMem",
+   "role": "RTLRewriter reference",
+   "verdict": "falsified",
+   "kind": "SEQ falsified (counterexample saved)",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": false,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (bounded proof found a counterexample)",
+   "class_rule": "c1",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_cpu__DataMem/EQ/acc929587283121c"
+  },
+  {
+   "cand_id": "c67a13d44d09a5d",
+   "design_id": "rtlrewriter_long_huffman__HuffmanDecoder",
+   "role": "RTLRewriter reference",
+   "verdict": "rejected",
+   "kind": "V1 port mismatch",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": false,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "port mismatch: Error-[IPC-E] Illegal port connection",
+   "class_rule": "a",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_long_huffman__HuffmanDecoder/EQ/1f3c6638b4cac768"
+  },
+  {
+   "cand_id": "c9db26e0caec2fe",
+   "design_id": "rtlrewriter_mux__mux_type1",
+   "role": "RTLRewriter LLM sample",
+   "verdict": "rejected",
+   "kind": "V1 port mismatch",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "port mismatch: port sel missing in candidate; extra port s1 in candidate; extra port s2 in candidate; extra port d in candidate",
+   "class_rule": "a",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_mux__mux_type1/EQ/e4816e5d5f59210c"
+  },
+  {
+   "cand_id": "cad25f24f97c877",
+   "design_id": "rtlrewriter_mux__mux_type1",
+   "role": "RTLRewriter reference",
+   "verdict": "rejected",
+   "kind": "V1 elaboration failure",
+   "first_mismatch_cycle": null,
+   "mismatching_signals": [],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtlrewriter/mux__m",
+   "class_rule": null,
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_mux__mux_type1/EQ/5413651fdc1e8d58"
+  },
+  {
+   "cand_id": "c7394a1539d3a7b",
+   "design_id": "rtlrewriter_mux__mux_type5",
+   "role": "RTLRewriter LLM sample",
+   "verdict": "sim_fail",
+   "kind": "V2 mismatch at cycle 3 (y)",
+   "first_mismatch_cycle": 3,
+   "mismatching_signals": [
+    "y"
+   ],
+   "clockless": true,
+   "registers_without_reset": {
+    "d": 0,
+    "object": 0
+   },
+   "probable_cause": "genuine functional difference (combinational pair, no state)",
+   "class_rule": "a",
+   "record": "/home/hping/Beyond-Synth/results/raw/rtlrewriter_mux__mux_type5/EQ/2e844b7002e42664"
+  }
+ ]
+}

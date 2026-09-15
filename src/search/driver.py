@@ -82,6 +82,8 @@ class SearchRun:
         self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior, caliber=self.fit_cfg)
         self.d_text = "\n\n".join(Path(self.design["_dir"], f).read_text(errors="replace") for f in self.design["files"])
         self.priority = int(cfg["search"].get("job_priority", 4))
+        pats = (cfg["search"].get("long_proof_first") or {}).get("design_patterns") or []
+        self.arith_design = any(pat in self.row["design_id"] for pat in pats)   # arithmetic pipelines by name (as the Phase 5 projection)
         self.load_state()
         self.mark_orphans()
 
@@ -209,6 +211,7 @@ class SearchRun:
         classes = self.bandit.draw(rng, n)
         blocks = self.lineage_feedback(parent_id)
         issued = []
+        answers = []
         for i, cls in enumerate(classes):
             instr = self.classes.get(cls, self.classes.get("free"))
             sfx = PR.suffix(instr, cls, parent_rtl, blocks, self.design["top"])
@@ -225,6 +228,15 @@ class SearchRun:
                 (self.dir / f"unusable_g{gen}_{i}.json").write_text(json.dumps(meta, indent=1, default=str))
                 self.bandit.credit(cls, 0)   # an unusable answer is the requested class's failure
                 continue
+            answers.append((i, cls, rtl, note, r, meta))
+        # DECISIONS 2026-09-14 item 2: on arithmetic designs the (c1) / (d) proofs (hours-long tails) are submitted before the
+        # rest of the generation, so that their tails overlap with the other proofs; the produced class is known only after
+        # M6 inside issue_candidate, which also raises the queue priority of such proofs (config search.long_proof_first)
+        lp = self.cfg["search"].get("long_proof_first") or {}
+        first = set(lp.get("classes") or [])
+        if self.arith_design and first:
+            answers.sort(key=lambda a: 0 if a[1] in first else 1)
+        for i, cls, rtl, note, r, meta in answers:
             cid = CA.cand_id_of(rtl, self.run_id)   # per-run id; the unsalted content hash is stored alongside (DECISIONS 2026-09-14)
             _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, cand_id=cid)
             issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i))
@@ -272,7 +284,9 @@ class SearchRun:
                    "clk": (self.design.get("clk_ports") or [None])[0], "rst": self.design.get("rst_port"), "rst_sense": self.design.get("rst_sense"),
                    "sverilog": self.design.get("sverilog", False), "incdirs": [str(p) for p in K.abs_paths(self.design, self.design["incdirs"])],
                    "note": f"search {self.run_id} g{gen} {cls_final}"}
-        jid = self._q().submit("vcf", payload, design_id=self.row["design_id"], cand_id=cid, config="EQ", priority=self.priority, timeout_sec=cap * 60 + 900)
+        lp = self.cfg["search"].get("long_proof_first") or {}
+        boost = int(lp.get("priority_boost") or 0) if (self.arith_design and cls_final in set(lp.get("classes") or [])) else 0
+        jid = self._q().submit("vcf", payload, design_id=self.row["design_id"], cand_id=cid, config="EQ", priority=self.priority + boost, timeout_sec=cap * 60 + 900)
         entry["eq_job_id"], entry["eq_payload"] = jid, payload
         self.conn.execute("UPDATE candidates SET eq_job_id=? WHERE cand_id=?", (jid, cid))
         st["cands"][cid] = entry

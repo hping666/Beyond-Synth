@@ -1,6 +1,6 @@
 # Phase 3 report — LLM calibration (residual-guided evolution, minimal skeleton)
 
-Generated 2026-09-14 17:20 by scripts/report_phase.py (git 87ae96f64a5c, cfg c6236d1e0c73). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).
+Generated 2026-09-14 18:07 by scripts/report_phase.py (git 2ca44a890751, cfg 0a5870d5adac). Data: reports/data/phase3_calibration.json (scripts/phase3_calibrate.py collect).
 
 ## 1. Setup
 
@@ -74,6 +74,8 @@ Model gpt-5.6-luna: 300 Phase 3 calls consumed 56.2 SEQ hours (675 s per LLM cal
 - arith_pipeline: class a: n=6, median 35 s, q95 48 s, 0.1 h; class b: n=4, median 36 s, q95 38 s, 0.0 h; class c1: n=14, median 104 s, q95 8259 s, 7.5 h; class d: n=25, median 7168 s, q95 10420 s, 46.6 h
 - other: class a: n=38, median 37 s, q95 39 s, 0.4 h; class b: n=55, median 37 s, q95 40 s, 0.6 h; class c1: n=56, median 38 s, q95 41 s, 0.6 h; class d: n=51, median 36 s, q95 38 s, 0.5 h
 
+Method: every Phase 3 SEQ verdict of the main model is binned by produced class (rules v2) and design type (arithmetic pipelines by name — `pipe`, `mult`, `div` — versus the rest); the per-call SEQ seconds of each design type (the type's total verdict seconds over its LLM calls) are combined with the design-type share of the Phase 5 starting pool (98 held designs, 13 % arithmetic pipelines) and multiplied by the planned 32400 calls; the flat-mix figure applies the calibration's own mix instead. Decision (2026-09-14 item 2): accepted as is — 4121 h at 50 seats is ≈ 82 h of wall-clock; the class caps and the pipeline share of the starting pool are not changed; Phase 5 proofs run in bulk mode at 50 seats; the SEQ latency mapping (G2.1(b)) stays on the critical path before Phase 5 and the DPV phase mapping follows it; within a generation the (c1) / (d) proofs on arithmetic designs are submitted first (config `search.long_proof_first`).
+
 **Addendum (DECISIONS 2026-09-14 e, the projection exceeds 2000 h — proposal for the user, nothing changed):** (1) lower the SEQ class caps of arithmetic pipelined designs to 2 h for (c1) and (d) (config `equiv.seq_cap_min_by_class` would need a per-design-type entry; today's caps are 4 h): 12 of the 39 Phase 3 (c1) / (d) verdicts on the arithmetic pipeline ran longer than 2 h and would become `inconclusive` (never discarded, C2.5); the projection drops to **3707 h** at the planned scale, so the cap alone does not reach the threshold — the verdict distribution of the pipeline is bimodal (30–40 s or hours) and the hours sit in the proofs that finish under the cap as well. (2) Prioritise the SEQ latency mapping (G2.1(b)) and a DPV phase mapping for fixed-latency arithmetic pipelines before Phase 5: the pipeline's (c1) / (d) rewrites are fixed-latency datapaths where DPV's transaction equivalence needs no state-space search; this is the engineering item that removes the hours, the cap only bounds them. (3) Alternatively reduce the arithmetic-pipeline share of the Phase 5 starting pool (13 % by name) — a design-set decision for the user. The no-discard timeout policy is unchanged either way.
 
 
@@ -113,6 +115,24 @@ Primary metric retained_candidates_per_usd: scores {'gpt-5.4': 4.579, 'gpt-5.4-m
 Confusion v1 (human -> rule): a->a: 1, a->c1: 1, a->d: 1, b->a: 1, b->b: 9, b->c1: 4, b->d: 9, c1->c1: 6, c1->d: 3, c2->d: 4, d->a: 8, d->b: 1, d->c1: 5, d->d: 7
 
 Confusion v2 (human -> rule): a->a: 2, a->c1: 1, b->a: 4, b->b: 15, b->c1: 4, c1->c1: 9, c2->c1: 4, d->a: 1, d->b: 2, d->c1: 4, d->d: 14
+
+Disagreement categories of rules v2 (DECISIONS 2026-09-14 item 1):
+
+- unobservable-state or redundant-register removal (human b -> rule a / c1): 8
+- buffer / schedule re-organisation without operator or depth evidence (human d -> rule a / b / c1): 7
+- output-timing change of a nonequiv candidate (human c2 -> rule c1): 4
+- nonequiv artifact (human a -> rule c1): 1
+
+Phase 3 class distribution per model after the rules-v2 re-labelling (supersedes the distribution reported at G4; the run-time bandit credits and SEQ caps are unchanged):
+
+| model | a | b | c1 | c2 | d | unclassified |
+|---|---|---|---|---|---|---|
+| gpt-5.4 | 20 | 96 | 89 | 0 | 95 | 0 |
+| gpt-5.4-mini | 25 | 86 | 51 | 0 | 107 | 0 |
+| gpt-5.6-luna | 50 | 64 | 97 | 0 | 88 | 1 |
+| gpt-5.6-terra | 42 | 60 | 107 | 0 | 94 | 0 |
+
+The LLM review of spec 04 A.2 step 2 (DECISIONS 2026-09-14 item 1; `src/classify/review.py`, prompt `src/search/prompts/m6_review.md`, model `llm.selected`) runs on the candidates with low v2 confidence or in the four categories above (`phase3_calibrate.py m6-review`); its class replaces the rule class for (a) / (b) / (c1) / (c2) and is stored as `class_llm` / `class_final`, while (d) stays defined by tool evidence: the recall loss of (d) (7 of the 21 human-labelled (d) candidates of the sample end up as (a) / (b) / (c1)) is a stated limitation and the map's (d) row is read precision-first.
 
 Rules v2 (`src/classify/rules.py`, config `classify`): (d) requires an operator family gained (multiply / divide, add / subtract, variable shift; present in C's word-level RTLIL histogram, absent in D's) or a longest-combinational-path ratio ≥ 3.0 (Yosys `ltp -noff`); the text diff ratio only flags a rewrite for review. Flip-flop bits are counted after `opt` (the 32-bit loop variable of LIFObuffer's reset loop no longer counts as a register), (c1) needs the flip-flop bits **and** the number of register cells to change, blocking assignments count as clocked targets.
 

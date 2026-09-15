@@ -67,6 +67,7 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
     # Phase 4 objects (PLAN 4.2): literature objects may have several files and a top module named unlike D's (RTL-OPT `<name>_ref`)
     ("candidates", "top", "ALTER TABLE candidates ADD COLUMN top TEXT"),
     ("candidates", "rtl_files_json", "ALTER TABLE candidates ADD COLUMN rtl_files_json TEXT"),
+    ("candidates", "review_json", "ALTER TABLE candidates ADD COLUMN review_json TEXT"),   # M6 LLM review (DECISIONS 2026-09-14 item 1)
 ]
 
 REBUILDS = [  # tables whose CHECK constraint was widened after they existed: (table, needle that the current DDL must contain)

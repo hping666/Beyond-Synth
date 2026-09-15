@@ -59,12 +59,14 @@ def build_object_rows(cfg, conn, exp="phase4", configs=LADDER):
                 continue
             g = m3.relative_gains(record_from_row(base), record_from_row(ev), float(phi[did]))
             gains[config] = {m: (float(g[m]) if g.get(m) is not None else None) for m in ("area", "wns", "power")}
-        d = conn.execute("SELECT label, rung, attribution, capability FROM diagnoses WHERE cand_id=?", (c["cand_id"],)).fetchone()
+        d = conn.execute("SELECT label, rung, attribution, capability, evidence_json FROM diagnoses WHERE cand_id=?", (c["cand_id"],)).fetchone()
+        ev = json.loads(d["evidence_json"] or "{}") if d and d["evidence_json"] else {}
         role = "b0" if c["run_arm"] == "B0" else ("reference" if (c.get("note") or "").startswith("reference") else "llm" if (c.get("note") or "").startswith("llm") else c["run_arm"])
         proven = c.get("verdict") in ("proven", "proven_sim_only")
         rows.append({"cand_id": c["cand_id"], "design_id": did, "run_id": c["run_id"], "cls": c.get("class_final"), "subtags": [], "role": role, "proven": proven,
                      "verdict": c.get("verdict"), "label": d["label"] if d else None, "rung": d["rung"] if d else None, "attribution": d["attribution"] if d else None,
-                     "capability": d["capability"] if d else None, "gains": gains, "t_d": t_d, "features": json.loads(c["features_json"]) if c.get("features_json") else {}})
+                     "capability": d["capability"] if d else None, "blocks_synthesis": bool(ev.get("missing_resources")), "missing_resources": ev.get("missing_resources") or [],
+                     "gains": gains, "t_d": t_d, "features": json.loads(c["features_json"]) if c.get("features_json") else {}})
     return rows
 
 

@@ -1,10 +1,10 @@
 # Phase 4 report — Exp1: ladder and map (C1)
 
-Generated 2026-09-14 17:54 by scripts/report_phase.py (git 22efa598eec3, cfg 5c738a28481d). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
+Generated 2026-09-14 18:07 by scripts/report_phase.py (git 2ca44a890751, cfg 0a5870d5adac). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
 
 ## 1. Objects
 
-Designs (config `exp1.designs`, C1 scope: human-written RTL): cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode; floor version `phase3`. 116 objects: roles {'reference': 94, 'llm': 22}; equivalence verdicts {'pending': 116}; M6 classes (rules v2) {'b': 33, 'a': 49, 'd': 17, 'c1': 11, '?': 6}; E4-evaluated 0; M3 labels at E4 {'-': 116}.
+Designs (config `exp1.designs`, C1 scope: human-written RTL): cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode; floor version `phase3`. 116 objects: roles {'reference': 94, 'llm': 22}; equivalence verdicts {'proven': 78, 'sim_fail': 10, 'pending': 19, 'rejected': 7, 'proven_sim_only': 1, 'falsified': 1}; M6 classes (rules v2) {'b': 33, 'a': 49, 'd': 17, 'c1': 10, '?': 6, 'c2': 1}; E4-evaluated 0; M3 labels at E4 {'-': 116}.
 
 ## 2. Map v1: E4 retention rate (area, rule-A threshold of the design under each configuration) by class × configuration
 
@@ -30,12 +30,37 @@ Map shape (all diagnosed objects): **undetermined** — E4 retention by class {}
 
 Non-monotone objects (inside the band at a lower rung, above it at a higher one): 0 of 0 evaluated under E1–E4 (-): 
 
+## 4a. Benchmark hygiene: literature objects that are not equivalent to their original under the protocol (DECISIONS 2026-09-14 item 3)
+
+18 objects ({'RTL-OPT reference': 5, 'RTLRewriter LLM sample': 7, 'RTLRewriter reference': 6}; by verdict {'falsified': 1, 'rejected': 7, 'sim_fail': 10}) are excluded from the re-evaluation counts and reported here with the probable cause. Protocol: V1 ports -> V2 lock-step simulation from the all-zero initial state (`+vcs+initreg+0`, G2.2) -> VC Formal SEQ with the same start state; the RTL-OPT authors verified their pairs with combinational equivalence, which ignores the start state and the cycle-level timing.
+
+| object | role | verdict | first mismatch (cycle, signals) | registers without reset (D / object) | probable cause |
+|---|---|---|---|---|---|
+| rtlopt_divider_16bit | RTL-OPT reference | V2 mismatch at cycle 260 (result) | 260 (result) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlopt_divider_4bit | RTL-OPT reference | V2 mismatch at cycle 24 (result) | 24 (result) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlopt_divider_8bit | RTL-OPT reference | V2 mismatch at cycle 32 (result) | 32 (result) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlopt_mac | RTL-OPT reference | V2 mismatch at cycle 3 (z) | 3 (z) | 4 / 1 | all-zero initial-state assumption likely (mismatch in the first cycles; registers without reset: D 4, object 1) |
+| rtlopt_mux_encode | RTL-OPT reference | V1 elaboration failure | - | 0 / 0 | the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtlopt/mux_encode/ |
+| rtlrewriter_basic__communtativity_subpexpression2 | RTLRewriter LLM sample | V2 mismatch at cycle 0 (output2) | 0 (output2) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlrewriter_basic__commutativity_subexpression | RTLRewriter LLM sample | V2 mismatch at cycle 0 (result1, result5) | 0 (result1, result5) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlrewriter_basic__multi_constant_multiplication2 | RTLRewriter LLM sample | V2 mismatch at cycle 0 (w, y, z) | 0 (w, y, z) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlrewriter_basic__multi_constant_multiplication2 | RTLRewriter LLM sample | V2 mismatch at cycle 0 (y, z) | 0 (y, z) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlrewriter_datapath__alu_subexpression | RTLRewriter LLM sample | V1 port mismatch | - | 0 / 0 | port mismatch: port opcode: width 4 -> 3 |
+| rtlrewriter_long_cnn__convLayerSingle | RTLRewriter reference | V1 elaboration failure | - | 0 / 0 | the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: signs/rtlrewriter/long_cnn__convLayerSingle/rtl/processi |
+| rtlrewriter_long_cnn__convUnit | RTLRewriter reference | V1 elaboration failure | - | 0 / 0 | the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /Beyond-Synth/data/designs/rtlrewriter/long_cnn__convUni |
+| rtlrewriter_long_cpu__DataHazard | RTLRewriter reference | V2 mismatch at cycle 185 (ForwardA, ForwardB) | 185 (ForwardA, ForwardB) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+| rtlrewriter_long_cpu__DataMem | RTLRewriter reference | SEQ falsified (counterexample saved) | - | 0 / 0 | genuine functional difference (bounded proof found a counterexample) |
+| rtlrewriter_long_huffman__HuffmanDecoder | RTLRewriter reference | V1 port mismatch | - | 0 / 0 | port mismatch: Error-[IPC-E] Illegal port connection |
+| rtlrewriter_mux__mux_type1 | RTLRewriter LLM sample | V1 port mismatch | - | 0 / 0 | port mismatch: port sel missing in candidate; extra port s1 in candidate; extra port s2 in candidate; extra port d in candidate |
+| rtlrewriter_mux__mux_type1 | RTLRewriter reference | V1 elaboration failure | - | 0 / 0 | the object does not elaborate in the V1 port check (Yosys parse failure; a tool boundary of the protocol, not a functional difference): candidate does not elaborate: yosys exit 1: /home/hping/Beyond-Synth/data/designs/rtlrewriter/mux__m |
+| rtlrewriter_mux__mux_type5 | RTLRewriter LLM sample | V2 mismatch at cycle 3 (y) | 3 (y) | 0 / 0 | genuine functional difference (combinational pair, no state) |
+
 ## 4. Literature settings re-evaluated (PLAN 4.7)
 
 | suite | pairs | proven | E1 better / retained (evaluated) | E1d better / retained (evaluated) | E2 better / retained (evaluated) | E3 better / retained (evaluated) | E2g better / retained (evaluated) | E4 better / retained (evaluated) |
 |---|---|---|---|---|---|---|---|---|
-| rtlopt | 40 | 0 | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) |
-| rtlrewriter | 54 | 0 | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) |
+| rtlopt | 40 | 31 | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) |
+| rtlrewriter | 54 | 36 | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) | 0 / 0 (0) |
 
 better = the optimized version's area is below D's under that rung; retained = above D's rule-A threshold there. The papers' own counts are compared in the paper text (RTL-OPT: pairs judged better by the authors' flow; RTLRewriter: pass@k of the engineers' rewrite).
 
@@ -69,12 +94,34 @@ Rule R forbids classes ['a', 'b'] (syntactic / coding rewrites) and allows ['c1'
 
 ## 8. Out-of-scope contrast layer: the Phase 3 calibration candidates (RTLLM dev designs, C1 scope decision)
 
-655 E4-diagnosed candidates of 5 RTLLM designs (run-time M3 verdicts under the Phase 3 floors; classes rules v2); map shape **concentrated** ({'a': 0.65, 'b': 0.62, 'c1': 0.9, 'd': 0.18}); rule-R misclassification: P(retained | forbidden) = 86 % (n = 255), P(absorbed | allowed) = 38 % (n = 400); non-monotone 10 of 91 evaluated under E1–E4.
+662 E4-diagnosed candidates of 5 RTLLM designs (run-time M3 verdicts under the Phase 3 floors; classes rules v2); map shape **concentrated** ({'a': 0.64, 'b': 0.62, 'c1': 0.9, 'd': 0.18}); rule-R misclassification: P(retained | forbidden) = 85 % (n = 260), P(absorbed | allowed) = 38 % (n = 402); non-monotone 10 of 91 evaluated under E1–E4.
 
 | class | E1 rate (n) | E1d rate (n) | E2 rate (n) | E3 rate (n) | E2g rate (n) | E4 rate (n) | E4 median gain | E4 labels |
 |---|---|---|---|---|---|---|---|---|
-| a | 79 % (19) | - (0) | 68 % (19) | 86 % (14) | - (0) | 65 % (88) | 2.9 % | {'absorbed_identical': 12, 'retained': 44, 'tradeoff': 32} |
-| b | 67 % (42) | - (0) | 76 % (41) | 68 % (38) | - (0) | 62 % (167) | 6.9 % | {'absorbed_identical': 6, 'harmful': 18, 'retained': 70, 'tradeoff': 73} |
+| a | 79 % (19) | - (0) | 68 % (19) | 86 % (14) | - (0) | 64 % (91) | 2.9 % | {'absorbed_identical': 12, 'harmful': 2, 'retained': 45, 'tradeoff': 32} |
+| b | 67 % (42) | - (0) | 76 % (41) | 68 % (38) | - (0) | 62 % (169) | 6.9 % | {'absorbed_identical': 6, 'harmful': 18, 'retained': 71, 'tradeoff': 74} |
 | c1 | 95 % (40) | - (0) | 92 % (39) | 83 % (42) | - (0) | 90 % (175) | 14.5 % | {'harmful': 9, 'retained': 106, 'tradeoff': 60} |
 | c2 | - (0) | - (0) | - (0) | - (0) | - (0) | - (0) | - | {} |
-| d | 80 % (55) | - (0) | 15 % (48) | 12 % (50) | - (0) | 18 % (225) | 12.2 % | {'absorbed_identical': 152, 'harmful': 2, 'retained': 38, 'tradeoff': 33} |
+| d | 80 % (55) | - (0) | 15 % (48) | 12 % (50) | - (0) | 18 % (227) | 12.2 % | {'absorbed_identical': 152, 'harmful': 2, 'retained': 39, 'tradeoff': 34} |
+
+The same table under the materiality thresholds (area 1 %, power 2 %, WNS 1 % of the period) instead of the rule-A floors:
+
+| class | E1 rate (n) | E1d rate (n) | E2 rate (n) | E3 rate (n) | E2g rate (n) | E4 rate (n) |
+|---|---|---|---|---|---|---|
+| a | 74 % (19) | - (0) | 53 % (19) | 57 % (14) | - (0) | 53 % (91) |
+| b | 71 % (42) | - (0) | 68 % (41) | 61 % (38) | - (0) | 56 % (169) |
+| c1 | 95 % (40) | - (0) | 90 % (39) | 83 % (42) | - (0) | 89 % (175) |
+| c2 | - (0) | - (0) | - (0) | - (0) | - (0) | - (0) |
+| d | 80 % (55) | - (0) | 15 % (48) | 12 % (50) | - (0) | 18 % (227) |
+
+Diagnosis labels at E4 per class (run-time M3 verdicts; `harmful` split by the `blocks_synthesis` sub-label = DesignWare components of D absent from the candidate):
+
+| class | retained | trade-off | absorbed_identical | absorbed | noise | harmful (of which blocks_synthesis) | fragile |
+|---|---|---|---|---|---|---|---|
+| a | 45 | 32 | 12 | 0 | 0 | 2 (0) | 0 |
+| b | 71 | 74 | 6 | 0 | 0 | 18 (0) | 0 |
+| c1 | 106 | 60 | 0 | 0 | 0 | 9 (2) | 0 |
+| c2 | 0 | 0 | 0 | 0 | 0 | 0 (0) | 0 |
+| d | 39 | 34 | 152 | 0 | 0 | 2 (1) | 0 |
+
+Inspection of the (d) row: of the 227 class-(d) candidates on RTLLM, 152 are `absorbed_identical` ({'rtllm_adder_16bit': 152, 'rtllm_multi_pipe_8bit': 0}; on rtllm_adder_16bit these are hand-written carry-lookahead / prefix / behavioural adders whose E4 netlist is identical to D's — DC's own adder synthesis reproduces them), 2 are `harmful` of which 1 carry `blocks_synthesis` (a DesignWare component of D displaced by hand-written arithmetic: the first measured instances, see the map); the low (d) retention on RTLLM is absorption of textbook-adder rewrites, not displacement of DesignWare.

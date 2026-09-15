@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-09-14T17:54:25",
- "git_sha": "22efa598eec3",
- "cfg_hash": "5c738a28481d",
+ "generated_at": "2026-09-14T18:07:50",
+ "git_sha": "2ca44a890751",
+ "cfg_hash": "0a5870d5adac",
  "floor_version": "phase3",
  "designs": [
   "cktevo_nn_engine__spikeLayer8_H7",
@@ -16,8 +16,8 @@
   "rtlopt_fsm_encode"
  ],
  "contrast_phase3": {
-  "objects": 1114,
-  "diagnosed": 655,
+  "objects": 1123,
+  "diagnosed": 662,
   "designs": [
    "rtllm_LIFObuffer",
    "rtllm_adder_16bit",
@@ -28,7 +28,7 @@
   "map": {
    "a": {
     "E1": {
-     "n": 88,
+     "n": 91,
      "n_evaluated": 19,
      "n_retained": 15,
      "retention_rate": 0.7894736842105263,
@@ -36,7 +36,7 @@
      "magnitude_iqr": 0.06600249158703486
     },
     "E1d": {
-     "n": 88,
+     "n": 91,
      "n_evaluated": 0,
      "n_retained": 0,
      "retention_rate": null,
@@ -44,7 +44,7 @@
      "magnitude_iqr": null
     },
     "E2": {
-     "n": 88,
+     "n": 91,
      "n_evaluated": 19,
      "n_retained": 13,
      "retention_rate": 0.6842105263157895,
@@ -52,7 +52,7 @@
      "magnitude_iqr": 0.033505155126131024
     },
     "E3": {
-     "n": 88,
+     "n": 91,
      "n_evaluated": 14,
      "n_retained": 12,
      "retention_rate": 0.8571428571428571,
@@ -60,7 +60,7 @@
      "magnitude_iqr": 0.04992236586441747
     },
     "E2g": {
-     "n": 88,
+     "n": 91,
      "n_evaluated": 0,
      "n_retained": 0,
      "retention_rate": null,
@@ -68,12 +68,12 @@
      "magnitude_iqr": null
     },
     "E4": {
-     "n": 88,
-     "n_evaluated": 88,
-     "n_retained": 57,
-     "retention_rate": 0.6477272727272727,
-     "magnitude_median": 0.028965512656790593,
-     "magnitude_iqr": 0.052413794190589474,
+     "n": 91,
+     "n_evaluated": 91,
+     "n_retained": 58,
+     "retention_rate": 0.6373626373626373,
+     "magnitude_median": 0.028965515249479257,
+     "magnitude_iqr": 0.05179957107210732,
      "absorption_rung": {
       "E4": 12
      },
@@ -82,14 +82,16 @@
      },
      "labels": {
       "absorbed_identical": 12,
-      "retained": 44,
+      "harmful": 2,
+      "retained": 45,
       "tradeoff": 32
-     }
+     },
+     "harmful_blocks_synthesis": 0
     }
    },
    "b": {
     "E1": {
-     "n": 167,
+     "n": 169,
      "n_evaluated": 42,
      "n_retained": 28,
      "retention_rate": 0.6666666666666666,
@@ -97,7 +99,7 @@
      "magnitude_iqr": 0.05573801261676392
     },
     "E1d": {
-     "n": 167,
+     "n": 169,
      "n_evaluated": 0,
      "n_retained": 0,
      "retention_rate": null,
@@ -105,7 +107,7 @@
      "magnitude_iqr": null
     },
     "E2": {
-     "n": 167,
+     "n": 169,
      "n_evaluated": 41,
      "n_retained": 31,
      "retention_rate": 0.7560975609756098,
@@ -113,7 +115,7 @@
      "magnitude_iqr": 0.04473536766890285
     },
     "E3": {
-     "n": 167,
+     "n": 169,
      "n_evaluated": 38,
      "n_retained": 26,
      "retention_rate": 0.6842105263157895,
@@ -121,7 +123,7 @@
      "magnitude_iqr": 0.16748375267233162
     },
     "E2g": {
-     "n": 167,
+     "n": 169,
      "n_evaluated": 0,
      "n_retained": 0,
      "retention_rate": null,
@@ -129,12 +131,12 @@
      "magnitude_iqr": null
     },
     "E4": {
-     "n": 167,
-     "n_evaluated": 167,
-     "n_retained": 103,
-     "retention_rate": 0.6167664670658682,
-     "magnitude_median": 0.06896551867182829,
-     "magnitude_iqr": 0.07141564471695018,
+     "n": 169,
+     "n_evaluated": 169,
+     "n_retained": 104,
+     "retention_rate": 0.6153846153846154,
+     "magnitude_median": 0.06927402199182042,
+     "magnitude_iqr": 0.0709186255428205,
      "absorption_rung": {
       "E4": 6
      },
@@ -144,9 +146,10 @@
      "labels": {
       "absorbed_identical": 6,
       "harmful": 18,
-      "retained": 70,
-      "tradeoff": 73
-     }
+      "retained": 71,
+      "tradeoff": 74
+     },
+     "harmful_blocks_synthesis": 0
     }
    },
    "c1": {
@@ -203,7 +206,8 @@
       "harmful": 9,
       "retained": 106,
       "tradeoff": 60
-     }
+     },
+     "harmful_blocks_synthesis": 2
     }
    },
    "c2": {
@@ -256,12 +260,13 @@
      "magnitude_iqr": null,
      "absorption_rung": {},
      "attribution": {},
-     "labels": {}
+     "labels": {},
+     "harmful_blocks_synthesis": 0
     }
    },
    "d": {
     "E1": {
-     "n": 225,
+     "n": 227,
      "n_evaluated": 55,
      "n_retained": 44,
      "retention_rate": 0.8,
@@ -269,7 +274,7 @@
      "magnitude_iqr": 0.14529914646631917
     },
     "E1d": {
-     "n": 225,
+     "n": 227,
      "n_evaluated": 0,
      "n_retained": 0,
      "retention_rate": null,
@@ -277,7 +282,7 @@
      "magnitude_iqr": null
     },
     "E2": {
-     "n": 225,
+     "n": 227,
      "n_evaluated": 48,
      "n_retained": 7,
      "retention_rate": 0.14583333333333334,
@@ -285,7 +290,7 @@
      "magnitude_iqr": 0.06792567737294641
     },
     "E3": {
-     "n": 225,
+     "n": 227,
      "n_evaluated": 50,
      "n_retained": 6,
      "retention_rate": 0.12,
@@ -293,7 +298,7 @@
      "magnitude_iqr": 0.06529502868171166
     },
     "E2g": {
-     "n": 225,
+     "n": 227,
      "n_evaluated": 0,
      "n_retained": 0,
      "retention_rate": null,
@@ -301,10 +306,313 @@
      "magnitude_iqr": null
     },
     "E4": {
-     "n": 225,
-     "n_evaluated": 225,
+     "n": 227,
+     "n_evaluated": 227,
+     "n_retained": 41,
+     "retention_rate": 0.18061674008810572,
+     "magnitude_median": 0.12187499917028902,
+     "magnitude_iqr": 0.06656250125484608,
+     "absorption_rung": {
+      "E4": 152
+     },
+     "attribution": {
+      "measured": 152
+     },
+     "labels": {
+      "absorbed_identical": 152,
+      "harmful": 2,
+      "retained": 39,
+      "tradeoff": 34
+     },
+     "harmful_blocks_synthesis": 1
+    }
+   }
+  },
+  "map_materiality": {
+   "a": {
+    "E1": {
+     "n": 91,
+     "n_evaluated": 19,
+     "n_retained": 14,
+     "retention_rate": 0.7368421052631579,
+     "magnitude_median": 0.059775841437314604,
+     "magnitude_iqr": 0.05728518137742651
+    },
+    "E1d": {
+     "n": 91,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2": {
+     "n": 91,
+     "n_evaluated": 19,
+     "n_retained": 10,
+     "retention_rate": 0.5263157894736842,
+     "magnitude_median": 0.032860827642152174,
+     "magnitude_iqr": 0.02942421772773267
+    },
+    "E3": {
+     "n": 91,
+     "n_evaluated": 14,
+     "n_retained": 8,
+     "retention_rate": 0.5714285714285714,
+     "magnitude_median": 0.04019992258458438,
+     "magnitude_iqr": 0.06192233978191759
+    },
+    "E2g": {
+     "n": 91,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E4": {
+     "n": 91,
+     "n_evaluated": 91,
+     "n_retained": 48,
+     "retention_rate": 0.5274725274725275,
+     "magnitude_median": 0.03146226081480019,
+     "magnitude_iqr": 0.046206897510124995,
+     "absorption_rung": {
+      "E4": 12
+     },
+     "attribution": {
+      "measured": 12
+     },
+     "labels": {
+      "absorbed_identical": 12,
+      "harmful": 2,
+      "retained": 45,
+      "tradeoff": 32
+     },
+     "harmful_blocks_synthesis": 0
+    }
+   },
+   "b": {
+    "E1": {
+     "n": 169,
+     "n_evaluated": 42,
+     "n_retained": 30,
+     "retention_rate": 0.7142857142857143,
+     "magnitude_median": 0.11783484702936636,
+     "magnitude_iqr": 0.07223513055785938
+    },
+    "E1d": {
+     "n": 169,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2": {
+     "n": 169,
+     "n_evaluated": 41,
+     "n_retained": 28,
+     "retention_rate": 0.6829268292682927,
+     "magnitude_median": 0.06156406461501343,
+     "magnitude_iqr": 0.04173724872560657
+    },
+    "E3": {
+     "n": 169,
+     "n_evaluated": 38,
+     "n_retained": 23,
+     "retention_rate": 0.6052631578947368,
+     "magnitude_median": 0.08253968418147914,
+     "magnitude_iqr": 0.16243386168663443
+    },
+    "E2g": {
+     "n": 169,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E4": {
+     "n": 169,
+     "n_evaluated": 169,
+     "n_retained": 94,
+     "retention_rate": 0.5562130177514792,
+     "magnitude_median": 0.0799999964739434,
+     "magnitude_iqr": 0.07188181597651785,
+     "absorption_rung": {
+      "E4": 6
+     },
+     "attribution": {
+      "measured": 6
+     },
+     "labels": {
+      "absorbed_identical": 6,
+      "harmful": 18,
+      "retained": 71,
+      "tradeoff": 74
+     },
+     "harmful_blocks_synthesis": 0
+    }
+   },
+   "c1": {
+    "E1": {
+     "n": 175,
+     "n_evaluated": 40,
+     "n_retained": 38,
+     "retention_rate": 0.95,
+     "magnitude_median": 0.11826571986247364,
+     "magnitude_iqr": 0.14786919517757952
+    },
+    "E1d": {
+     "n": 175,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2": {
+     "n": 175,
+     "n_evaluated": 39,
+     "n_retained": 35,
+     "retention_rate": 0.8974358974358975,
+     "magnitude_median": 0.2015503904772748,
+     "magnitude_iqr": 0.1901172784177436
+    },
+    "E3": {
+     "n": 175,
+     "n_evaluated": 42,
+     "n_retained": 35,
+     "retention_rate": 0.8333333333333334,
+     "magnitude_median": 0.21269841295099673,
+     "magnitude_iqr": 0.18794143127887797
+    },
+    "E2g": {
+     "n": 175,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E4": {
+     "n": 175,
+     "n_evaluated": 175,
+     "n_retained": 156,
+     "retention_rate": 0.8914285714285715,
+     "magnitude_median": 0.1481261741016332,
+     "magnitude_iqr": 0.18900435967095852,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {
+      "harmful": 9,
+      "retained": 106,
+      "tradeoff": 60
+     },
+     "harmful_blocks_synthesis": 2
+    }
+   },
+   "c2": {
+    "E1": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E1d": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E3": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2g": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E4": {
+     "n": 0,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {},
+     "harmful_blocks_synthesis": 0
+    }
+   },
+   "d": {
+    "E1": {
+     "n": 227,
+     "n_evaluated": 55,
+     "n_retained": 44,
+     "retention_rate": 0.8,
+     "magnitude_median": 0.35042735324229923,
+     "magnitude_iqr": 0.14529914646631917
+    },
+    "E1d": {
+     "n": 227,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E2": {
+     "n": 227,
+     "n_evaluated": 48,
+     "n_retained": 7,
+     "retention_rate": 0.14583333333333334,
+     "magnitude_median": 0.07980505410916039,
+     "magnitude_iqr": 0.06792567737294641
+    },
+    "E3": {
+     "n": 227,
+     "n_evaluated": 50,
+     "n_retained": 6,
+     "retention_rate": 0.12,
+     "magnitude_median": 0.032919253029665314,
+     "magnitude_iqr": 0.06529502868171166
+    },
+    "E2g": {
+     "n": 227,
+     "n_evaluated": 0,
+     "n_retained": 0,
+     "retention_rate": null,
+     "magnitude_median": null,
+     "magnitude_iqr": null
+    },
+    "E4": {
+     "n": 227,
+     "n_evaluated": 227,
      "n_retained": 40,
-     "retention_rate": 0.17777777777777778,
+     "retention_rate": 0.1762114537444934,
      "magnitude_median": 0.12187499917028902,
      "magnitude_iqr": 0.06562500215137453,
      "absorption_rung": {
@@ -316,11 +624,17 @@
      "labels": {
       "absorbed_identical": 152,
       "harmful": 2,
-      "retained": 38,
-      "tradeoff": 33
-     }
+      "retained": 39,
+      "tradeoff": 34
+     },
+     "harmful_blocks_synthesis": 1
     }
    }
+  },
+  "materiality": {
+   "area": 0.01,
+   "wns": 0.01,
+   "power": 0.02
   },
   "retention_curves": {
    "a": [
@@ -351,8 +665,8 @@
     ],
     [
      "E4",
-     0.6477272727272727,
-     88
+     0.6373626373626373,
+     91
     ]
    ],
    "b": [
@@ -383,8 +697,8 @@
     ],
     [
      "E4",
-     0.6167664670658682,
-     167
+     0.6153846153846154,
+     169
     ]
    ],
    "c1": [
@@ -479,8 +793,8 @@
     ],
     [
      "E4",
-     0.17777777777777778,
-     225
+     0.18061674008810572,
+     227
     ]
    ]
   },
@@ -531,10 +845,10 @@
    "fraction": 0.10989010989010989
   },
   "misclassification": {
-   "n_forbidden": 255,
-   "n_allowed": 400,
-   "p_retained_given_forbidden": 0.8588235294117647,
-   "p_absorbed_given_allowed": 0.38,
+   "n_forbidden": 260,
+   "n_allowed": 402,
+   "p_retained_given_forbidden": 0.8538461538461538,
+   "p_absorbed_given_allowed": 0.3781094527363184,
    "forbidden_classes": [
     "a",
     "b"
@@ -548,12 +862,38 @@
   "shape": [
    "concentrated",
    {
-    "a": 0.6477272727272727,
-    "b": 0.6167664670658682,
+    "a": 0.6373626373626373,
+    "b": 0.6153846153846154,
     "c1": 0.9028571428571428,
-    "d": 0.17777777777777778
+    "d": 0.18061674008810572
    }
-  ]
+  ],
+  "d_by_design": {
+   "rtllm_adder_16bit": {
+    "absorbed_identical": 152,
+    "tradeoff": 29
+   },
+   "rtllm_multi_pipe_8bit": {
+    "retained": 39,
+    "harmful": 2,
+    "tradeoff": 5
+   }
+  },
+  "d_harmful_blocks_synthesis": 1,
+  "harmful_blocks_synthesis_by_class": {
+   "a": 0,
+   "b": 0,
+   "c1": 2,
+   "c2": 0,
+   "d": 1
+  },
+  "harmful_by_class": {
+   "a": 2,
+   "b": 18,
+   "c1": 9,
+   "c2": 0,
+   "d": 2
+  }
  },
  "counts": {
   "objects": 116,
@@ -562,14 +902,20 @@
    "llm": 22
   },
   "by_verdict": {
-   "pending": 116
+   "proven": 78,
+   "sim_fail": 10,
+   "pending": 19,
+   "rejected": 7,
+   "proven_sim_only": 1,
+   "falsified": 1
   },
   "by_class": {
    "b": 33,
    "a": 49,
    "d": 17,
-   "c1": 11,
-   "?": 6
+   "c1": 10,
+   "?": 6,
+   "c2": 1
   },
   "by_label": {
    "-": 116
@@ -627,7 +973,8 @@
     "magnitude_iqr": null,
     "absorption_rung": {},
     "attribution": {},
-    "labels": {}
+    "labels": {},
+    "harmful_blocks_synthesis": 0
    }
   },
   "b": {
@@ -680,7 +1027,8 @@
     "magnitude_iqr": null,
     "absorption_rung": {},
     "attribution": {},
-    "labels": {}
+    "labels": {},
+    "harmful_blocks_synthesis": 0
    }
   },
   "c1": {
@@ -733,7 +1081,8 @@
     "magnitude_iqr": null,
     "absorption_rung": {},
     "attribution": {},
-    "labels": {}
+    "labels": {},
+    "harmful_blocks_synthesis": 0
    }
   },
   "c2": {
@@ -786,7 +1135,8 @@
     "magnitude_iqr": null,
     "absorption_rung": {},
     "attribution": {},
-    "labels": {}
+    "labels": {},
+    "harmful_blocks_synthesis": 0
    }
   },
   "d": {
@@ -839,7 +1189,8 @@
     "magnitude_iqr": null,
     "absorption_rung": {},
     "attribution": {},
-    "labels": {}
+    "labels": {},
+    "harmful_blocks_synthesis": 0
    }
   }
  },
@@ -894,7 +1245,8 @@
     "magnitude_iqr": null,
     "absorption_rung": {},
     "attribution": {},
-    "labels": {}
+    "labels": {},
+    "harmful_blocks_synthesis": 0
    }
   },
   "b": {
@@ -947,7 +1299,8 @@
     "magnitude_iqr": null,
     "absorption_rung": {},
     "attribution": {},
-    "labels": {}
+    "labels": {},
+    "harmful_blocks_synthesis": 0
    }
   },
   "c1": {
@@ -1000,7 +1353,8 @@
     "magnitude_iqr": null,
     "absorption_rung": {},
     "attribution": {},
-    "labels": {}
+    "labels": {},
+    "harmful_blocks_synthesis": 0
    }
   },
   "c2": {
@@ -1053,7 +1407,8 @@
     "magnitude_iqr": null,
     "absorption_rung": {},
     "attribution": {},
-    "labels": {}
+    "labels": {},
+    "harmful_blocks_synthesis": 0
    }
   },
   "d": {
@@ -1106,9 +1461,287 @@
     "magnitude_iqr": null,
     "absorption_rung": {},
     "attribution": {},
-    "labels": {}
+    "labels": {},
+    "harmful_blocks_synthesis": 0
    }
   }
+ },
+ "map_materiality": {
+  "a": {
+   "E1": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E1d": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E2": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E3": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E2g": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E4": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null,
+    "absorption_rung": {},
+    "attribution": {},
+    "labels": {},
+    "harmful_blocks_synthesis": 0
+   }
+  },
+  "b": {
+   "E1": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E1d": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E2": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E3": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E2g": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E4": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null,
+    "absorption_rung": {},
+    "attribution": {},
+    "labels": {},
+    "harmful_blocks_synthesis": 0
+   }
+  },
+  "c1": {
+   "E1": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E1d": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E2": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E3": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E2g": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E4": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null,
+    "absorption_rung": {},
+    "attribution": {},
+    "labels": {},
+    "harmful_blocks_synthesis": 0
+   }
+  },
+  "c2": {
+   "E1": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E1d": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E2": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E3": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E2g": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E4": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null,
+    "absorption_rung": {},
+    "attribution": {},
+    "labels": {},
+    "harmful_blocks_synthesis": 0
+   }
+  },
+  "d": {
+   "E1": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E1d": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E2": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E3": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E2g": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null
+   },
+   "E4": {
+    "n": 0,
+    "n_evaluated": 0,
+    "n_retained": 0,
+    "retention_rate": null,
+    "magnitude_median": null,
+    "magnitude_iqr": null,
+    "absorption_rung": {},
+    "attribution": {},
+    "labels": {},
+    "harmful_blocks_synthesis": 0
+   }
+  }
+ },
+ "materiality": {
+  "area": 0.01,
+  "wns": 0.01,
+  "power": 0.02
  },
  "retention_curves": {
   "a": [
@@ -1280,7 +1913,7 @@
  "literature": {
   "rtlopt": {
    "pairs": 40,
-   "proven": 0,
+   "proven": 31,
    "better": {
     "E1": 0,
     "E1d": 0,
@@ -1308,7 +1941,7 @@
   },
   "rtlrewriter": {
    "pairs": 54,
-   "proven": 0,
+   "proven": 36,
    "better": {
     "E1": 0,
     "E1d": 0,
@@ -1623,7 +2256,7 @@
    "run_id": "lit_rtlopt_add_sub",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1635,7 +2268,7 @@
    "run_id": "lit_rtlopt_adder",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1647,7 +2280,7 @@
    "run_id": "lit_rtlopt_adder_carry",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1659,7 +2292,7 @@
    "run_id": "lit_rtlopt_adder_select",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1671,7 +2304,7 @@
    "run_id": "lit_rtlopt_addr_calcu",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1683,7 +2316,7 @@
    "run_id": "lit_rtlopt_alu_64bit",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1695,7 +2328,7 @@
    "run_id": "lit_rtlopt_alu_8bit",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1707,7 +2340,7 @@
    "run_id": "lit_rtlopt_calculation",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1719,7 +2352,7 @@
    "run_id": "lit_rtlopt_comparator",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1731,7 +2364,7 @@
    "run_id": "lit_rtlopt_comparator_16bit",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1743,7 +2376,7 @@
    "run_id": "lit_rtlopt_comparator_2bit",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1755,7 +2388,7 @@
    "run_id": "lit_rtlopt_comparator_4bit",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1767,7 +2400,7 @@
    "run_id": "lit_rtlopt_comparator_8bit",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1779,7 +2412,7 @@
    "run_id": "lit_rtlopt_decoder_6bit",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1791,7 +2424,7 @@
    "run_id": "lit_rtlopt_decoder_8bit",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1803,7 +2436,7 @@
    "run_id": "lit_rtlopt_divider_16bit",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "sim_fail",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1827,7 +2460,7 @@
    "run_id": "lit_rtlopt_divider_4bit",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "sim_fail",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1839,7 +2472,7 @@
    "run_id": "lit_rtlopt_divider_8bit",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "sim_fail",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1851,7 +2484,7 @@
    "run_id": "lit_rtlopt_fsm",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1863,7 +2496,7 @@
    "run_id": "lit_rtlopt_fsm_encode",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1875,7 +2508,7 @@
    "run_id": "lit_rtlopt_gray",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1887,7 +2520,7 @@
    "run_id": "lit_rtlopt_mac",
    "cls": "c1",
    "role": "reference",
-   "verdict": null,
+   "verdict": "sim_fail",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1899,7 +2532,7 @@
    "run_id": "lit_rtlopt_mul",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1911,7 +2544,7 @@
    "run_id": "lit_rtlopt_mul_const",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1923,7 +2556,7 @@
    "run_id": "lit_rtlopt_mul_subexpression",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1935,7 +2568,7 @@
    "run_id": "lit_rtlopt_mult_if",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1947,7 +2580,7 @@
    "run_id": "lit_rtlopt_mux_4to1_16bit",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1959,7 +2592,7 @@
    "run_id": "lit_rtlopt_mux_4to1_64bit",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -1983,7 +2616,7 @@
    "run_id": "lit_rtlopt_mux_encode",
    "cls": null,
    "role": "reference",
-   "verdict": null,
+   "verdict": "rejected",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2007,7 +2640,7 @@
    "run_id": "lit_rtlopt_register",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2019,7 +2652,7 @@
    "run_id": "lit_rtlopt_saturating_add",
    "cls": "c1",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2043,7 +2676,7 @@
    "run_id": "lit_rtlopt_sub_16bit",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2055,7 +2688,7 @@
    "run_id": "lit_rtlopt_sub_32bit",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2067,7 +2700,7 @@
    "run_id": "lit_rtlopt_sub_4bit",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2079,7 +2712,7 @@
    "run_id": "lit_rtlopt_sub_8bit",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2091,7 +2724,7 @@
    "run_id": "lit_rtlopt_ticket_machine",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2103,7 +2736,7 @@
    "run_id": "lit_rtlrewriter_algorithm__md",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2115,7 +2748,7 @@
    "run_id": "lit_rtlrewriter_algorithm__spmv",
    "cls": "c1",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2127,7 +2760,7 @@
    "run_id": "lit_rtlrewriter_basic__add1",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2139,7 +2772,7 @@
    "run_id": "lit_rtlrewriter_basic__checksum",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2151,7 +2784,7 @@
    "run_id": "lit_rtlrewriter_basic__communtativity_subpexpression2",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2175,7 +2808,7 @@
    "run_id": "lit_rtlrewriter_basic__communtativity_subpexpression2",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "sim_fail",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2187,7 +2820,7 @@
    "run_id": "lit_rtlrewriter_basic__communtativity_subpexpression2",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2199,7 +2832,7 @@
    "run_id": "lit_rtlrewriter_basic__commutativity_subexpression",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2211,7 +2844,7 @@
    "run_id": "lit_rtlrewriter_basic__commutativity_subexpression",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2223,7 +2856,7 @@
    "run_id": "lit_rtlrewriter_basic__commutativity_subexpression",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "sim_fail",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2235,7 +2868,7 @@
    "run_id": "lit_rtlrewriter_basic__commutativity_subexpression",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2259,7 +2892,7 @@
    "run_id": "lit_rtlrewriter_basic__flatten1",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2271,7 +2904,7 @@
    "run_id": "lit_rtlrewriter_basic__if_else",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2295,7 +2928,7 @@
    "run_id": "lit_rtlrewriter_basic__logic_elimnation",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2331,7 +2964,7 @@
    "run_id": "lit_rtlrewriter_basic__multi_constant_multiplication2",
    "cls": "d",
    "role": "llm",
-   "verdict": null,
+   "verdict": "sim_fail",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2355,7 +2988,7 @@
    "run_id": "lit_rtlrewriter_basic__multi_constant_multiplication2",
    "cls": "d",
    "role": "llm",
-   "verdict": null,
+   "verdict": "sim_fail",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2367,7 +3000,7 @@
    "run_id": "lit_rtlrewriter_basic__register_balancing",
    "cls": "c1",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2379,7 +3012,7 @@
    "run_id": "lit_rtlrewriter_basic__sub-expression-basic",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2391,7 +3024,7 @@
    "run_id": "lit_rtlrewriter_datapath__adder_architecture",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2403,7 +3036,7 @@
    "run_id": "lit_rtlrewriter_datapath__adder_subexpression",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2415,7 +3048,7 @@
    "run_id": "lit_rtlrewriter_datapath__adder_subexpression",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2427,7 +3060,7 @@
    "run_id": "lit_rtlrewriter_datapath__adder_subexpression",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2439,7 +3072,7 @@
    "run_id": "lit_rtlrewriter_datapath__algebraic_simplification",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2451,7 +3084,7 @@
    "run_id": "lit_rtlrewriter_datapath__alu_bit_width",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2463,7 +3096,7 @@
    "run_id": "lit_rtlrewriter_datapath__alu_subexpression",
    "cls": "b",
    "role": "llm",
-   "verdict": null,
+   "verdict": "rejected",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2487,7 +3120,7 @@
    "run_id": "lit_rtlrewriter_datapath__alu_subexpression",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2499,7 +3132,7 @@
    "run_id": "lit_rtlrewriter_datapath__constant_folding",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2511,7 +3144,7 @@
    "run_id": "lit_rtlrewriter_datapath__dead_code_elimination",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2523,7 +3156,7 @@
    "run_id": "lit_rtlrewriter_datapath__loop_tiling",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2535,7 +3168,7 @@
    "run_id": "lit_rtlrewriter_datapath__multiplier_architecture",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2547,7 +3180,7 @@
    "run_id": "lit_rtlrewriter_datapath__multiplier_bitwidth",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2559,7 +3192,7 @@
    "run_id": "lit_rtlrewriter_datapath__multiplier_bitwidth",
    "cls": "b",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2583,7 +3216,7 @@
    "run_id": "lit_rtlrewriter_datapath__multiplier_subexpression",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2595,7 +3228,7 @@
    "run_id": "lit_rtlrewriter_datapath__strength_reduction",
    "cls": "d",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2607,7 +3240,7 @@
    "run_id": "lit_rtlrewriter_datapath__subexpression_elimination",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2619,7 +3252,7 @@
    "run_id": "lit_rtlrewriter_fsm_small_case__example1",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2631,7 +3264,7 @@
    "run_id": "lit_rtlrewriter_fsm_small_case__example1",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2643,7 +3276,7 @@
    "run_id": "lit_rtlrewriter_fsm_small_case__example2",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2653,9 +3286,9 @@
    "cand_id": "c50bcff7d1f3960",
    "design_id": "rtlrewriter_fsm_small_case__example3",
    "run_id": "lit_rtlrewriter_fsm_small_case__example3",
-   "cls": "c1",
+   "cls": "c2",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven_sim_only",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2667,7 +3300,7 @@
    "run_id": "lit_rtlrewriter_fsm_small_case__example3",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2691,7 +3324,7 @@
    "run_id": "lit_rtlrewriter_fsm_small_case__example5",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2703,7 +3336,7 @@
    "run_id": "lit_rtlrewriter_long_cnn__RFselector",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2715,7 +3348,7 @@
    "run_id": "lit_rtlrewriter_long_cnn__convLayerSingle",
    "cls": null,
    "role": "reference",
-   "verdict": null,
+   "verdict": "rejected",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2727,7 +3360,7 @@
    "run_id": "lit_rtlrewriter_long_cnn__convUnit",
    "cls": null,
    "role": "reference",
-   "verdict": null,
+   "verdict": "rejected",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2739,7 +3372,7 @@
    "run_id": "lit_rtlrewriter_long_cnn__floatAdd",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2751,7 +3384,7 @@
    "run_id": "lit_rtlrewriter_long_cnn__floatMult",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2775,7 +3408,7 @@
    "run_id": "lit_rtlrewriter_long_cpu__DataHazard",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "sim_fail",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2787,7 +3420,7 @@
    "run_id": "lit_rtlrewriter_long_cpu__DataMem",
    "cls": "c1",
    "role": "reference",
-   "verdict": null,
+   "verdict": "falsified",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2799,7 +3432,7 @@
    "run_id": "lit_rtlrewriter_long_cpu__ImmExtend",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2823,7 +3456,7 @@
    "run_id": "lit_rtlrewriter_long_cpu__RegFile",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2847,7 +3480,7 @@
    "run_id": "lit_rtlrewriter_long_huffman__HuffmanDecoder",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "rejected",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2859,7 +3492,7 @@
    "run_id": "lit_rtlrewriter_memory__memory_compression",
    "cls": "b",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2871,7 +3504,7 @@
    "run_id": "lit_rtlrewriter_memory__memory_folding",
    "cls": "c1",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2895,7 +3528,7 @@
    "run_id": "lit_rtlrewriter_memory__memory_sharing",
    "cls": "c1",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2919,7 +3552,7 @@
    "run_id": "lit_rtlrewriter_mux__mux_type1",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "rejected",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2931,7 +3564,7 @@
    "run_id": "lit_rtlrewriter_mux__mux_type1",
    "cls": null,
    "role": "reference",
-   "verdict": null,
+   "verdict": "rejected",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2943,7 +3576,7 @@
    "run_id": "lit_rtlrewriter_mux__mux_type2",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2955,7 +3588,7 @@
    "run_id": "lit_rtlrewriter_mux__mux_type4",
    "cls": "a",
    "role": "reference",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2967,7 +3600,7 @@
    "run_id": "lit_rtlrewriter_mux__mux_type4",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2979,7 +3612,7 @@
    "run_id": "lit_rtlrewriter_mux__mux_type4",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "proven",
    "label": null,
    "rung": null,
    "attribution": null,
@@ -2991,7 +3624,7 @@
    "run_id": "lit_rtlrewriter_mux__mux_type5",
    "cls": "a",
    "role": "llm",
-   "verdict": null,
+   "verdict": "sim_fail",
    "label": null,
    "rung": null,
    "attribution": null,

@@ -435,6 +435,11 @@ def phase3(cfg):
             for k, d in vp["by_type_and_class"].items():
                 L.append(f"- {k}: " + "; ".join(f"class {cls}: n={c['n']}, median {c['median_s']:.0f} s, q95 {c['q95_s']:.0f} s, {c['hours']:.1f} h" for cls, c in sorted(d.items())))
             L.append("")
+            L += [f"Method: every Phase 3 SEQ verdict of the main model is binned by produced class (rules v2) and design type (arithmetic pipelines by name — `pipe`, `mult`, `div` — versus the rest); "
+                  f"the per-call SEQ seconds of each design type (the type's total verdict seconds over its LLM calls) are combined with the design-type share of the Phase 5 starting pool "
+                  f"({vp['starting_pool']} held designs, {100 * vp['share_arith_pipeline_in_pool']:.0f} % arithmetic pipelines) and multiplied by the planned {vp['phase5_calls']} calls; the flat-mix figure applies the calibration's own mix instead. "
+                  f"Decision (2026-09-14 item 2): accepted as is — {vp['projected_vcf_hours']:.0f} h at 50 seats is ≈ {vp['projected_vcf_hours'] / 50:.0f} h of wall-clock; the class caps and the pipeline share of the starting pool are not changed; "
+                  f"Phase 5 proofs run in bulk mode at 50 seats; the SEQ latency mapping (G2.1(b)) stays on the critical path before Phase 5 and the DPV phase mapping follows it; within a generation the (c1) / (d) proofs on arithmetic designs are submitted first (config `search.long_proof_first`).", ""]
             if vp["projected_vcf_hours"] > float(vp["threshold_hours"]) and vp.get("projected_vcf_hours_with_cap") is not None:
                 L += [f"**Addendum (DECISIONS 2026-09-14 e, the projection exceeds {vp['threshold_hours']} h — proposal for the user, nothing changed):** "
                       f"(1) lower the SEQ class caps of arithmetic pipelined designs to {vp['proposal_cap_hours']:.0f} h for (c1) and (d) (config `equiv.seq_cap_min_by_class` would need a per-design-type entry; "
@@ -489,7 +494,32 @@ def phase3(cfg):
         for ver in ("v1", "v2"):
             L += ["", f"Confusion {ver} (human -> rule): " + ", ".join(f"{k}: {n}" for k, n in m6["rules"][ver]["confusion"].items())]
         wrong = [l for l in m6["labels"] if l["rule_v2"] != l["human"]]
-        L += ["", f"Rules v2 (`src/classify/rules.py`, config `classify`): (d) requires an operator family gained (multiply / divide, add / subtract, variable shift; "
+
+        def category(l):
+            h, r = l["human"], l["rule_v2"]
+            if h == "c2" and r == "c1":
+                return "output-timing change of a nonequiv candidate (human c2 -> rule c1)"
+            if h == "d" and r in ("a", "b", "c1"):
+                return "buffer / schedule re-organisation without operator or depth evidence (human d -> rule a / b / c1)"
+            if h == "b" and r in ("a", "c1"):
+                return "unobservable-state or redundant-register removal (human b -> rule a / c1)"
+            if h == "a" and r == "c1":
+                return "nonequiv artifact (human a -> rule c1)"
+            return "other"
+        cats = {}
+        for l in wrong:
+            cats[category(l)] = cats.get(category(l), 0) + 1
+        L += ["", "Disagreement categories of rules v2 (DECISIONS 2026-09-14 item 1):", ""] + [f"- {k}: {n}" for k, n in sorted(cats.items(), key=lambda kv: -kv[1])]
+        if data and data.get("models"):
+            L += ["", "Phase 3 class distribution per model after the rules-v2 re-labelling (supersedes the distribution reported at G4; the run-time bandit credits and SEQ caps are unchanged):", "",
+                  "| model | a | b | c1 | c2 | d | unclassified |", "|---|---|---|---|---|---|---|"]
+            for mo, v in sorted(data["models"].items()):
+                cl = v.get("classes") or {}
+                L.append(f"| {mo} | " + " | ".join(str(cl.get(c, 0)) for c in ("a", "b", "c1", "c2", "d")) + f" | {sum(n for c, n in cl.items() if c not in ('a', 'b', 'c1', 'c2', 'd'))} |")
+        L += ["", "The LLM review of spec 04 A.2 step 2 (DECISIONS 2026-09-14 item 1; `src/classify/review.py`, prompt `src/search/prompts/m6_review.md`, model `llm.selected`) runs on the candidates with low "
+              "v2 confidence or in the four categories above (`phase3_calibrate.py m6-review`); its class replaces the rule class for (a) / (b) / (c1) / (c2) and is stored as `class_llm` / `class_final`, "
+              "while (d) stays defined by tool evidence: the recall loss of (d) (7 of the 21 human-labelled (d) candidates of the sample end up as (a) / (b) / (c1)) is a stated limitation and the map's (d) row is read precision-first.",
+              "", f"Rules v2 (`src/classify/rules.py`, config `classify`): (d) requires an operator family gained (multiply / divide, add / subtract, variable shift; "
               f"present in C's word-level RTLIL histogram, absent in D's) or a longest-combinational-path ratio ≥ {m6['classify_config']['d_depth_ratio']} (Yosys `ltp -noff`); "
               f"the text diff ratio only flags a rewrite for review. Flip-flop bits are counted after `opt` (the 32-bit loop variable of LIFObuffer's reset loop no longer counts as a "
               f"register), (c1) needs the flip-flop bits **and** the number of register cells to change, blocking assignments count as clocked targets.",
@@ -546,6 +576,18 @@ def phase4(cfg):
             L.append(f"| {cls} | " + " | ".join("-" if r is None else f"{100 * r:.0f} % ({n})" for _, r, n in pts) + " |")
         L += ["", f"Non-monotone objects (inside the band at a lower rung, above it at a higher one): {len(nm['cases'])} of {nm['n_evaluated_on_all']} evaluated under E1–E4 "
               f"({'-' if nm['fraction'] is None else f'{100 * nm['fraction']:.1f} %'}): {', '.join(f'{cid} {pat}' for cid, pat in nm['cases'][:20])}", ""]
+        hy = load("phase4_hygiene.json")
+        if hy:
+            L += ["## 4a. Benchmark hygiene: literature objects that are not equivalent to their original under the protocol (DECISIONS 2026-09-14 item 3)", "",
+                  f"{hy['n']} objects ({hy['by_role']}; by verdict {hy['by_verdict']}) are excluded from the re-evaluation counts and reported here with the probable cause. "
+                  "Protocol: V1 ports -> V2 lock-step simulation from the all-zero initial state (`+vcs+initreg+0`, G2.2) -> VC Formal SEQ with the same start state; the RTL-OPT authors verified their pairs with combinational equivalence, "
+                  "which ignores the start state and the cycle-level timing.", "",
+                  "| object | role | verdict | first mismatch (cycle, signals) | registers without reset (D / object) | probable cause |", "|---|---|---|---|---|---|"]
+            for r in hy["rows"]:
+                sig = ", ".join(r["mismatching_signals"][:4]) + (" …" if len(r["mismatching_signals"]) > 4 else "")
+                L.append(f"| {r['design_id']} | {r['role']} | {r['kind']} | {'-' if r['first_mismatch_cycle'] is None else r['first_mismatch_cycle']}{(' (' + sig + ')') if sig else ''} | "
+                         f"{r['registers_without_reset']['d']} / {r['registers_without_reset']['object']} | {r['probable_cause']} |")
+            L.append("")
         L += ["## 4. Literature settings re-evaluated (PLAN 4.7)", "",
               "| suite | pairs | proven | " + " | ".join(f"{cfg_} better / retained (evaluated)" for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4")) + " |", "|---|---|---|" + "---|" * 6]
         for suite, e in sorted(data["literature"].items()):
@@ -592,6 +634,29 @@ def phase4(cfg):
             row += [f"{'-' if e4.get('magnitude_median') is None else f'{100 * e4['magnitude_median']:.1f} %'}", str(e4.get("labels") or {})]
             L.append("| " + " | ".join(row) + " |")
         L.append("")
+        mat = ct.get("materiality") or {}
+        mm = ct.get("map_materiality") or {}
+        if mm:
+            L += [f"The same table under the materiality thresholds (area {100 * mat.get('area', 0):.0f} %, power {100 * mat.get('power', 0):.0f} %, WNS {100 * mat.get('wns', 0):.0f} % of the period) instead of the rule-A floors:", "",
+                  "| class | " + " | ".join(f"{cfg_} rate (n)" for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4")) + " |", "|---|" + "---|" * 6]
+            for cls in ("a", "b", "c1", "c2", "d"):
+                cells = mm.get(cls) or {}
+                L.append(f"| {cls} | " + " | ".join(f"{'-' if (cells.get(cfg_) or {}).get('retention_rate') is None else f'{100 * cells[cfg_]['retention_rate']:.0f} %'} ({(cells.get(cfg_) or {}).get('n_evaluated', 0)})" for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4")) + " |")
+            L.append("")
+        L += ["Diagnosis labels at E4 per class (run-time M3 verdicts; `harmful` split by the `blocks_synthesis` sub-label = DesignWare components of D absent from the candidate):", "",
+              "| class | retained | trade-off | absorbed_identical | absorbed | noise | harmful (of which blocks_synthesis) | fragile |", "|---|---|---|---|---|---|---|---|"]
+        for cls in ("a", "b", "c1", "c2", "d"):
+            lab = ((ct["map"].get(cls) or {}).get("E4") or {}).get("labels") or {}
+            hb = (ct.get("harmful_blocks_synthesis_by_class") or {}).get(cls, 0)
+            L.append(f"| {cls} | {lab.get('retained', 0)} | {lab.get('tradeoff', 0)} | {lab.get('absorbed_identical', 0)} | {lab.get('absorbed', 0)} | {lab.get('noise', 0)} | {lab.get('harmful', 0)} ({hb}) | {lab.get('fragile', 0)} |")
+        dbd = ct.get("d_by_design") or {}
+        d_tot = sum(sum(v.values()) for v in dbd.values())
+        d_ident = sum(v.get("absorbed_identical", 0) for v in dbd.values())
+        top_ident = max(dbd.items(), key=lambda kv: kv[1].get("absorbed_identical", 0))[0] if dbd else "-"
+        L += ["", f"Inspection of the (d) row: of the {d_tot} class-(d) candidates on RTLLM, {d_ident} are `absorbed_identical` ({dict((k, v.get('absorbed_identical', 0)) for k, v in sorted(dbd.items()))}; "
+              f"on {top_ident} these are hand-written carry-lookahead / prefix / behavioural adders whose E4 netlist is identical to D's — DC's own adder synthesis reproduces them), "
+              f"{sum(v.get('harmful', 0) for v in dbd.values())} are `harmful` of which {ct.get('d_harmful_blocks_synthesis', 0)} carry `blocks_synthesis` (a DesignWare component of D displaced by hand-written arithmetic: the first measured instances, "
+              f"{'see the map' if ct.get('d_harmful_blocks_synthesis', 0) else 'none so far'}); the low (d) retention on RTLLM is absorption of textbook-adder rewrites, not displacement of DesignWare.", ""]
     for extra in ("phase4_diagnoser_check.md", "phase4_motivating.md"):
         p = DATA / extra
         if p.exists():
