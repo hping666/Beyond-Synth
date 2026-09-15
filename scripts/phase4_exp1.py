@@ -577,8 +577,11 @@ def cmd_topup(cfg, conn, do_submit):
             print(state + f" -> {n_new} top-up run(s) with seed(s) {list(range(next_seed, next_seed + n_new))}")
             for seed in range(next_seed, next_seed + n_new):
                 todo.append((did, seed))
+    if not do_submit:   # a dry run only reports (a run row without a queue job would look like a stalled run)
+        print(f"{len(todo)} top-up run(s) would be created; pass --submit to create and submit them")
+        return 0
     for did, seed in todo:
-        create_runs(cfg, conn, [did], "phase4", b0["K"], b0["N"], seed, do_submit, note=f"exp1 B0 top-up seed {seed}")
+        create_runs(cfg, conn, [did], "phase4", b0["K"], b0["N"], seed, True, note=f"exp1 B0 top-up seed {seed}")
     return 0
 
 
