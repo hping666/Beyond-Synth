@@ -567,8 +567,14 @@ def cmd_topup(cfg, conn, do_submit):
         elif len(runs) >= max_runs:
             print(state + f" -> max_runs_per_design {max_runs} reached (reported as is)")
         else:
-            print(state + f" -> top-up run with seed {max(r['seed'] for r in runs) + 1 if runs else int(b0['seed'])}")
-            todo.append((did, max(r["seed"] for r in runs) + 1 if runs else int(b0["seed"])))
+            # a large shortfall (below half the target) gets every remaining run at once so that the rounds do not serialise
+            per_run = max(1, int(b0["K"]) * int(b0["N"]))
+            need = max(1, -(-(target - proven) // max(1, proven // max(1, len(runs)) if proven else per_run)))   # runs needed at the observed proven rate
+            n_new = min(max_runs - len(runs), need if proven < target / 2 else 1)
+            next_seed = max(r["seed"] for r in runs) + 1 if runs else int(b0["seed"])
+            print(state + f" -> {n_new} top-up run(s) with seed(s) {list(range(next_seed, next_seed + n_new))}")
+            for seed in range(next_seed, next_seed + n_new):
+                todo.append((did, seed))
     for did, seed in todo:
         create_runs(cfg, conn, [did], "phase4", b0["K"], b0["N"], seed, do_submit, note=f"exp1 B0 top-up seed {seed}")
     return 0
