@@ -99,7 +99,7 @@ noise:
   floor_classes: [quiet, spread, offset]
   pooled_floor_for_missing: true   # G1.2: designs without a measured floor use the pooled minimum with floor_source = pooled; Exp1 map designs must have a measured floor
   materiality: {area: 0.01, power_saif: 0.02, wns: 0.01}   # fixed-threshold sensitivity row for every headline number (WNS as a fraction of the period)
-  floor_version: phase3      # DECISIONS 2026-09-14 (G4.3): the floor table is frozen per phase and stamped on every run and diagnosis; 'phase4' after the pre-Phase-4 recomputation
+  floor_version: phase4      # DECISIONS 2026-09-14 (G4.3): the floor table is frozen per phase and stamped on every run and diagnosis; phase4 frozen 2026-09-14 after the pre-Phase-4 recomputation (new Exp1 perturbations, knee extension); phase3 rows kept
 
 sim:
   simulator: vcs             # VCS from the VC Formal tree (tools.vcs.home); iverilog is the fallback
