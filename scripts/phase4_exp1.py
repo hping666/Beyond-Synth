@@ -42,7 +42,8 @@ def baseline_configs(cfg):
     return [c for c in visible if c not in ("E1", "E2", "E3", "E4")] + ["Y"] + list(cfg["exp1"].get("supplementary") or [])
 
 
-def baseline_jobs(cfg, conn, designs, priority=1):
+def baseline_jobs(cfg, conn, designs, priority=1, configs=None):
+    """Missing D baselines of `designs` under `configs` (default baseline_configs: the attribution rungs and the Yosys runs)."""
     cat = {d["design_id"]: d for d in K.load_all()}
     jobs = []
     for did in designs:
@@ -50,7 +51,7 @@ def baseline_jobs(cfg, conn, designs, priority=1):
         phi = conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (did,)).fetchone()[0]
         if phi is None:
             continue
-        for config in baseline_configs(cfg):
+        for config in (configs or baseline_configs(cfg)):
             have = conn.execute("SELECT power_default_mw FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (did, config, float(phi))).fetchone()
             refresh = have is not None and cfg["configs"][config].get("tool") == "yosys_opensta" and have[0] is None
             if have is not None and not refresh:
@@ -66,10 +67,19 @@ def baseline_jobs(cfg, conn, designs, priority=1):
     return jobs
 
 
-def cmd_baselines(cfg, conn, do_submit, priority):
+def cmd_baselines(cfg, conn, do_submit, priority, objects=False):
+    """Missing D baselines for the Exp1 and calibration designs; with --objects also for every design that has a proven
+    Phase 4 object (the literature designs: 2026-09-15, 76 of 83 such designs lacked E1d / E2g / Y / O0-O2 / Ycoevo
+    baselines, so the map columns and the single-flag reproduction were B0-only), including E1 / E2 / E3 where missing."""
     from src.jobqueue.core import Queue
     designs = list(cfg["exp1"]["designs"]) + [d for d in calibration_designs(cfg, conn) if d not in cfg["exp1"]["designs"]]
-    jobs = baseline_jobs(cfg, conn, designs, priority)
+    configs = None
+    if objects:
+        extra = [r[0] for r in conn.execute("SELECT DISTINCT c.design_id FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase4' AND r.status != 'superseded' "
+                                            "AND c.verdict IN ('proven','proven_sim_only') ORDER BY c.design_id")]
+        designs += [d for d in extra if d not in designs]
+        configs = ["E1", "E2", "E3"] + baseline_configs(cfg)
+    jobs = baseline_jobs(cfg, conn, designs, priority, configs=configs)
     by = {}
     for j in jobs:
         by[(j["kind"], j["config"])] = by.get((j["kind"], j["config"]), 0) + 1
@@ -848,6 +858,7 @@ def main(argv=None):
     ap.add_argument("--seed", type=int, default=None)
     ap.add_argument("--priority", type=int, default=1)
     ap.add_argument("--submit", action="store_true")
+    ap.add_argument("--objects", action="store_true", help="baselines: also the designs of every proven Phase 4 object (literature designs), E1-E3 included where missing")
     ap.add_argument("--force", action="store_true", help="diagnose: re-derive the diagnosis of every proven object under the current rules (replaces the analysis rows)")
     ap.add_argument("--retry-failed", action="store_true", help="ladder: re-submit pairs whose latest record is a deterministic failure (tool rejects the RTL)")
     a = ap.parse_args(argv)
@@ -855,7 +866,7 @@ def main(argv=None):
     conn = db.connect(cfg=cfg)
     b0 = cfg["exp1"]["b0"]
     if a.what == "baselines":
-        return cmd_baselines(cfg, conn, a.submit, a.priority)
+        return cmd_baselines(cfg, conn, a.submit, a.priority, objects=a.objects)
     if a.what == "status":
         return cmd_status(cfg, conn)
     if a.what == "objects":

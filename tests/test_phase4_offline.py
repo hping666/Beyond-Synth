@@ -70,6 +70,7 @@ def test_baseline_configs_and_ladder_jobs(tmp_path):
         raw2.mkdir()
         (raw2 / "meta.json").write_text(json.dumps({"status": "eval_failed", "failed_status": "license_failed"}))
         db.insert(conn, "evaluations", {"design_id": "rtlopt_p", "cand_id": "obj1", "config": "Y", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": str(raw2), "created_at": "t"})
+        assert [j["config"] for j in X.baseline_jobs(cfg, conn, ["rtlopt_p"], 1, configs=["E1", "E4", "Y"])] == ["E1", "E4", "Y"]   # no D baseline in this database: all missing
         skipped = {}
         jobs = X.ladder_jobs(cfg, conn, ["E1", "E4", "Y"], 1, skipped=skipped)
         assert [j["config"] for j in jobs] == ["Y"] and skipped == {"E1": 1}
