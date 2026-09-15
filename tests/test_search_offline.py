@@ -348,3 +348,45 @@ def test_fitness_job_carries_the_design_include_directories(env, monkeypatch):
     for cid in cands:
         p = json.loads(conn.execute("SELECT j.payload_json FROM candidates c JOIN jobs j ON j.job_id=c.e4_job_id WHERE c.cand_id=?", (cid,)).fetchone()[0])
         assert p["incdirs"] == [str(tmp_path / "designs" / "rtllm" / "d" / "rtl")]
+
+
+def test_static_complement_text_is_literature_only_and_versioned():
+    """G5 decisions item 2 (i): the B1@E4 block is written from the literature's own guidance (Dr. RTL's "already done by
+    synthesis" category, the RTL-OPT pattern list), never from this project's map: the body carries no map prior, no
+    Experiment-1 retention rates and no rewrite-class letters of the map; the front matter (sources, version) is stripped."""
+    from src.search import prompts as PR
+    text, version = PR.load_static_complement()
+    assert version == "1" and text.startswith("Static guidance from the RTL-optimization literature")
+    assert "---" not in text and "sources:" not in text and "arXiv" not in text          # the front matter never reaches the model
+    for forbidden in ("Map prior", "Experiment 1", "absorbed %", "class (a)", "class (c1)", "retention", "retained"):
+        assert forbidden not in text
+    assert "%" not in text                                                                   # no rates of any kind
+    for part in ("A. The synthesizer already does these", "B. Directions the literature found", "C. Do not do these"):
+        assert part in text
+    for pattern in ("Bit-width optimization", "Precomputation and LUT conversion", "Operator strength reduction", "Control simplification", "Resource sharing", "State encoding optimization"):
+        assert pattern in text                                                               # RTL-OPT §3.2, the six patterns
+    assert "XOR" in text and "counter's direction" in text                                   # Dr. RTL Fig. 7: already done by synthesis / breaks equivalence
+
+
+def test_driver_b1_arm_carries_the_static_complement_and_the_others_do_not(env):
+    """spec 05 §2 / §5: arm B1@E4 uses E4 fitness with scalar feedback plus the static complement text in place of the
+    map-prior table; arms M, B2 and B0 never see that text (M keeps the prior table). Both directions; the run row records
+    the static text's version in prompt_version."""
+    cfg, conn, q, tmp_path = env
+    from src.search import prompts as PR
+    from src.search.driver import SearchRun
+    static, version = PR.load_static_complement()
+    db.insert(conn, "evaluations", {"design_id": "rtllm_d", "is_baseline": 1, "config": "Y", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 80.0, "cells": 18, "wns_ns": 0.2, "tns_ns": 0.0,
+                                    "power_default_mw": 0.8, "status": "ok", "raw_dir": "/x/base_y", "hist_json": json.dumps({"DFF_X1": 4, "NAND2_X1": 14})})
+    b1 = SearchRun.create(cfg, conn, exp="smoke", arm="B1_E4", design_id="rtllm_d", seed=1, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    assert b1.fit_cfg == "E4" and b1.scalar and b1.floor == {} and b1.static_text == static and b1.static_version == "1"
+    assert static.strip() in b1.prefix and "Map prior" not in b1.prefix and "No map prior" not in b1.prefix
+    assert b1.prefix.index("Synopsys DC full-effort (E4) result") < b1.prefix.index("Static guidance")   # the block sits where M's prior table sits
+    assert conn.execute("SELECT prompt_version FROM runs WHERE run_id=?", (b1.run_id,)).fetchone()[0].endswith(f"+sc{version}")
+    for seed, arm in enumerate(("M", "B2", "B0"), start=2):   # distinct seeds: run ids are stamped to the second
+        run = SearchRun.create(cfg, conn, exp="smoke", arm=arm, design_id="rtllm_d", seed=seed, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+        assert run.static_text is None and "Static guidance" not in run.prefix
+        assert "+sc" not in conn.execute("SELECT prompt_version FROM runs WHERE run_id=?", (run.run_id,)).fetchone()[0]
+    assert "No map prior" in SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=5, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport()).prefix
+    assert b1.step() == "running"                                              # the B1 prompt is accepted by the driver end to end
+    assert conn.execute("SELECT COUNT(*) FROM candidates WHERE run_id=? AND eq_job_id IS NOT NULL", (b1.run_id,)).fetchone()[0] >= 1

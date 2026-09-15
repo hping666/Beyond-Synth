@@ -79,7 +79,9 @@ class SearchRun:
             raise RuntimeError(f"{self.row['design_id']}: no {self.fit_cfg} baseline at Phi_main {self.phi}; run scripts/phase2_noise.py (E4) or scripts/phase4_exp1.py baselines (Y) first")
         self.base_row, self.base = base, record_from_row(base)
         self.prior = None   # Phase 3: no map prior yet (Phase 4 output)
-        self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior, caliber=self.fit_cfg)
+        # arm B1@E4 (feedback scalar_static): the literature's static complement text replaces the map-prior table (spec 05 §2)
+        self.static_text, self.static_version = PR.load_static_complement() if self.armdef.get("feedback") == "scalar_static" else (None, None)
+        self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior, caliber=self.fit_cfg, static_text=self.static_text)
         self.d_text = "\n\n".join(Path(self.design["_dir"], f).read_text(errors="replace") for f in self.design["files"])
         self.priority = int(cfg["search"].get("job_priority", 4))
         pats = (cfg["search"].get("long_proof_first") or {}).get("design_patterns") or []
@@ -93,8 +95,10 @@ class SearchRun:
         run_id = f"r{db.now().replace('-', '').replace(':', '').replace('T', '_')}_{design_id[-12:]}_{model[-6:]}_s{seed}".replace(".", "")
         sc = cfg["search"]
         budget_calls = min(int(K) * int(N), int(cfg["scale"]["budget"]["llm_calls_per_run"]))
+        armdef = (cfg["search"].get("arms") or {}).get(arm) or {}
+        prompt_version = str(PR.load_templates()[2]) + (f"+sc{PR.load_static_complement()[1]}" if armdef.get("feedback") == "scalar_static" else "")
         db.insert(conn, "runs", {"run_id": run_id, "exp": exp, "arm": arm, "skeleton": "hillclimb", "design_id": design_id, "seed": int(seed), "llm_model": model,
-                                 "prompt_version": str(PR.load_templates()[2]), "screening_enabled": 0, "e_s": None, "budget_dc_hours": None,
+                                 "prompt_version": prompt_version, "screening_enabled": 0, "e_s": None, "budget_dc_hours": None,
                                  "budget_llm_calls": budget_calls, "status": "created", "started_at": db.now(), "floor_version": cfg["noise"].get("floor_version")})
         run = cls(cfg, conn, run_id, queue=queue, transport=transport)
         run.state.update(K=int(K), N=int(N), budget_calls=budget_calls, note=note)

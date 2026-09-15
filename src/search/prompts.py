@@ -18,6 +18,20 @@ def load_templates(caliber="E4"):
     return system, classes, version
 
 
+def load_static_complement():
+    """(text, version) of the static complement block of arm B1@E4 (`prompts/static_complement.md`; spec 05 §2): the
+    front matter between the two `---` lines (version, purpose, sources) is stripped and only the body reaches the model.
+    The body is written from the literature's own guidance, never from this project's map (G5 decisions, item 2 (i))."""
+    raw = (PROMPT_DIR / "static_complement.md").read_text()
+    body, version = raw, None
+    if raw.startswith("---"):
+        head, _, body = raw[3:].partition("\n---")
+        for line in head.splitlines():
+            if line.strip().startswith("version:"):
+                version = line.split(":", 1)[1].strip()
+    return body.strip() + "\n", version
+
+
 CALIBER_TEXT = {"E4": "Synopsys DC full-effort (E4) result for the original design at a {clock} ns clock:",
                 "Y": "Yosys + OpenSTA (Y) result for the original design at a {clock} ns clock (the caliber used by the RTL-rewriting literature; every positive difference counts):"}
 
@@ -74,10 +88,12 @@ def prior_text(prior):
     return "\n".join(lines) + "\n"
 
 
-def prefix(design, system_text, base_row, floor, clock_ns, prior=None, caliber="E4"):
+def prefix(design, system_text, base_row, floor, clock_ns, prior=None, caliber="E4", static_text=None):
+    """The cacheable prefix; `static_text` (arm B1@E4) takes the place of the map-prior table (spec 05 §2)."""
     rtl = "\n\n".join(Path(design["_dir"], f).read_text(errors="replace") for f in design["files"])
+    tail = static_text if static_text else prior_text(prior)
     return (f"{system_text.strip()}\n\nThe design to rewrite (top module `{design['top']}`):\n```verilog\n{rtl}\n```\n\n"
-            + e4_summary(base_row, floor, clock_ns, caliber) + "\n" + prior_text(prior))
+            + e4_summary(base_row, floor, clock_ns, caliber) + "\n" + tail)
 
 
 def suffix(instruction, cls, parent_rtl=None, feedback_blocks=(), design_top=None):
