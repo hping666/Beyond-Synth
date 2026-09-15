@@ -576,7 +576,8 @@ def cmd_m6_relabel(cfg, conn, limit=None, force=False):
     from src.designs import catalog as K
     designs = {d["design_id"]: d for d in K.load_all()}
     scratch = None
-    rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, c.latency_offset_json, c.class_rule, c.class_final, c.rules_version "
+    from src.classify.review import final_class
+    rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, c.latency_offset_json, c.class_rule, c.class_final, c.rules_version, c.class_llm "
                                           "FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND r.status != 'superseded' AND c.rtl_path IS NOT NULL "
                                           + ("" if force else "AND (c.rules_version IS NULL OR c.rules_version < 2) ") + "ORDER BY c.run_id, c.cand_id")]
     print(f"{len(rows)} candidates to re-label ({db.now()})")
@@ -595,11 +596,12 @@ def cmd_m6_relabel(cfg, conn, limit=None, force=False):
             conn.commit()
             continue
         old = row["class_final"]
+        cls_final = final_class(res["class_rule"], row["class_llm"]) if row.get("class_llm") else res["class_rule"]   # an LLM review (DECISIONS 2026-09-14 item 1) keeps its say
         conn.execute("UPDATE candidates SET class_rule_v1=COALESCE(class_rule_v1, class_rule), class_rule=?, class_final=?, subtags_json=?, confidence=?, rules_version=2, features_json=? WHERE cand_id=?",
-                     (res["class_rule"], res["class_rule"], json.dumps(res["rules"]), res["confidence"], json.dumps(feat), row["cand_id"]))
+                     (res["class_rule"], cls_final, json.dumps(res["rules"]), res["confidence"], json.dumps(feat), row["cand_id"]))
         conn.commit()
         done += 1
-        changed[f"{old}->{res['class_rule']}"] = changed.get(f"{old}->{res['class_rule']}", 0) + 1
+        changed[f"{old}->{cls_final}"] = changed.get(f"{old}->{cls_final}", 0) + 1
         if i % 50 == 0:
             print(f"  {i}/{len(rows)} done {done} failed {failed} ({db.now()})", flush=True)
     print(f"re-labelled {done}, failed {failed}; transitions v1->v2: {dict(sorted(changed.items()))} ({db.now()})")
