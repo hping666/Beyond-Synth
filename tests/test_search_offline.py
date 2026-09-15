@@ -126,17 +126,18 @@ def env(tmp_path, monkeypatch):
     return cfg, conn, q, tmp_path
 
 
-def finish_eq(conn, cfg, tmp_path, cand_id, design_id="rtllm_d", verdict="proven"):
+def finish_eq(conn, cfg, tmp_path, cand_id, design_id="rtllm_d", verdict="proven", extra_rec=None):
     """The test plays the equivalence runner: a record under the content-addressed directory the runner would use
     (results/raw/<design>/EQ/<hash>) and the job marked done."""
-    from src.equiv.run_equiv import equiv_hash
+    from src.equiv.run_equiv import equiv_extra, equiv_hash
     jid0 = conn.execute("SELECT eq_job_id FROM candidates WHERE cand_id=?", (cand_id,)).fetchone()[0]
     p = json.loads(conn.execute("SELECT payload_json FROM jobs WHERE job_id=?", (jid0,)).fetchone()[0])
-    extra = {"stages": "full", "clk": p.get("clk"), "rst": p.get("rst"), "rst_sense": p.get("rst_sense"), "sverilog": p.get("sverilog", False), "sim_seed": p.get("sim_seed"), "c_top": p.get("c_top")}
-    d = Path(cfg["project"]["results_dir"]) / "raw" / design_id / "EQ" / equiv_hash(p["d_rtl"], p["c_rtl"], p["top"], cfg, extra)
+    d = Path(cfg["project"]["results_dir"]) / "raw" / design_id / "EQ" / equiv_hash(p["d_rtl"], p["c_rtl"], p["top"], cfg, equiv_extra(cfg, p, True))
     d.mkdir(parents=True, exist_ok=True)
-    (d / "equiv.json").write_text(json.dumps({"cand_id": cand_id, "verdict": verdict, "v1_status": "ok", "v2_status": "identical", "v2_cycles": 100,
-                                              "latency_offset_json": "{}", "v3_status": verdict, "v3_seconds": 5.0, "v4_status": "not_run", "seconds": 8.0, "proven_by": "seq" if verdict == "proven" else None}))
+    rec = {"cand_id": cand_id, "verdict": verdict, "v1_status": "ok", "v2_status": "identical", "v2_cycles": 100,
+           "latency_offset_json": "{}", "v3_status": verdict, "v3_seconds": 5.0, "v4_status": "not_run", "seconds": 8.0, "proven_by": "seq" if verdict == "proven" else None}
+    rec.update(extra_rec or {})
+    (d / "equiv.json").write_text(json.dumps(rec))
     jid = conn.execute("SELECT eq_job_id FROM candidates WHERE cand_id=?", (cand_id,)).fetchone()[0]
     conn.execute("UPDATE jobs SET state='done' WHERE job_id=?", (jid,))
 
@@ -390,3 +391,30 @@ def test_driver_b1_arm_carries_the_static_complement_and_the_others_do_not(env):
     assert "No map prior" in SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=5, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport()).prefix
     assert b1.step() == "running"                                              # the B1 prompt is accepted by the driver end to end
     assert conn.execute("SELECT COUNT(*) FROM candidates WHERE run_id=? AND eq_job_id IS NOT NULL", (b1.run_id,)).fetchone()[0] >= 1
+
+
+@pytest.mark.parametrize("population", [False, True])
+def test_latency_mapped_c2_candidates_are_map_objects_but_not_population_members(env, population):
+    """spec 03 §2 / config equiv.c2_population: a candidate proven through the SEQ latency mapping (constant output offsets,
+    class c2) is evaluated at E4 and diagnosed like any proven candidate, but with c2_population false it never enters the
+    archive, is never accepted and earns no bandit credit; with the switch on it is treated as any retained candidate."""
+    cfg, conn, q, tmp_path = env
+    cfg["equiv"]["c2_population"] = population
+    from src.search.driver import SearchRun
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=3 + int(population), model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    assert run.step() == "running"
+    cid = conn.execute("SELECT cand_id FROM candidates WHERE run_id=? AND eq_job_id IS NOT NULL ORDER BY cand_id", (run.run_id,)).fetchone()[0]
+    finish_eq(conn, cfg, tmp_path, cid, verdict="proven", extra_rec={"v2_status": "offset", "latency_offset_json": '{"q": 1}', "latency_mapped": True, "proven_by": "seq"})
+    run.process_verdicts()
+    c = run.state["cands"][cid]
+    assert c["class_final"] == "c2" and c["latency_mapped"] is True and run.state["pending"][cid] == "e4"   # evaluated at E4 like any proven candidate
+    assert conn.execute("SELECT class_final, verdict FROM candidates WHERE cand_id=?", (cid,)).fetchone()[:] == ("c2", "proven")
+    finish_e4(conn, cid, 90.0)                                                                             # 10 % smaller: retained by the diagnosis
+    run.process_verdicts()
+    d = dict(conn.execute("SELECT * FROM diagnoses WHERE cand_id=?", (cid,)).fetchone())
+    row = conn.execute("SELECT label, in_archive, accepted FROM candidates WHERE cand_id=?", (cid,)).fetchone()[:]
+    assert d["label"] == "retained"                                                                        # the map sees a retained (c2) object either way
+    if population:
+        assert row == ("retained", 1, 1) and d["credit"] == 1 and [m["cand_id"] for m in run.archive.members] == [cid]
+    else:
+        assert row == ("retained", 0, 0) and d["credit"] == 0 and run.archive.members == [] and run.state["retained"] == 0

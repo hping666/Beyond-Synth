@@ -243,3 +243,98 @@ def test_sim_fail_record_compresses_its_vcd(tmp_path, monkeypatch):
     cfg["retention"]["vcd_compress_kept"] = False
     rec = ST.check_equivalence(tmp_path / "b", [ACCU], [ACCU], "verified_accu", cfg, run_v3=False, run_v4=False)
     assert rec["verdict"] == "sim_fail" and (tmp_path / "b" / "v2_sim" / "sim.vcd").exists() and rec.get("vcd_compressed") is None
+
+
+def test_project_seq_script_latency_mapping_lines():
+    """DECISIONS 2026-09-14 G2.1 (b) (implemented 2026-09-15): with per-output offsets the script maps only the inputs by name
+    and asserts every output at its latency (impl lags spec by k: -latency1 0 -latency2 k; k = 0 outputs keep an immediate
+    assertion), between the reset definition and sim_run; without offsets the script is the one of before, byte for byte."""
+    from src.equiv import seq_tcl as SQT
+    args = (["/d/d.v"], ["/c/c.v"], "top", "top", "clk", "rst_n", "low", "20M", 1, "verilog", True)
+    plain = SQT.seq_tcl(*args)
+    mapped = SQT.seq_tcl(*args, latency={"out": 1, "flag": 0, "data": 3})
+    assert "map_by_name\n" in plain and "seq_assert" not in plain and "-input" not in plain
+    lines = mapped.splitlines()
+    assert "map_by_name -input" in lines and "map_by_name" not in lines
+    assert "seq_assert spec.out impl.out -clock spec.clk -latency1 0 -latency2 1" in lines
+    assert "seq_assert spec.data impl.data -clock spec.clk -latency1 0 -latency2 3" in lines
+    assert "seq_assert spec.flag impl.flag" in lines                              # offset 0: immediate assertion, still compared
+    i_rst, i_first, i_run = lines.index("create_reset spec.rst_n -sense low"), min(i for i, l in enumerate(lines) if l.startswith("seq_assert")), lines.index("sim_run -stable")
+    assert i_rst < i_first < i_run and "sim_set_state -uninitialized -apply 0" in lines
+    assert [l for l in plain.splitlines() if not l.startswith("map_by_name")] == [l for l in lines if not l.startswith(("map_by_name", "seq_assert"))]
+    assert SQT.seq_tcl(*args, latency={}) == plain and SQT.seq_tcl(*args, latency=None) == plain
+
+
+def test_latency_map_needs_an_offset_and_the_switch():
+    from src.equiv.stack import latency_map
+    on, off = {"equiv": {"seq_latency_mapping": True}}, {"equiv": {"seq_latency_mapping": False}}
+    assert latency_map(on, {"status": "offset", "offsets": {"a": 1, "b": 0}}) == {"a": 1, "b": 0}
+    assert latency_map(off, {"status": "offset", "offsets": {"a": 1, "b": 0}}) is None                # switch off: proven_sim_only as before
+    assert latency_map(on, {"status": "identical", "offsets": {"a": 0}}) is None                       # nothing to map
+    assert latency_map(on, {"status": "offset", "offsets": {"a": 0}}) is None                          # an "offset" status without a positive offset
+
+
+@pytest.mark.parametrize("switch, v3_verdict, expected, proven_by, seq_called", [(True, "proven", "proven", "seq", True), (True, "falsified", "falsified", None, True), (True, "inconclusive", "inconclusive", None, True), (False, "proven", "proven_sim_only", None, False)])
+def test_stack_offset_candidates_run_seq_with_the_latency_mapping(tmp_path, monkeypatch, switch, v3_verdict, expected, proven_by, seq_called):
+    """Both directions: with the switch on, a V2 offset candidate goes to SEQ with the offsets as latencies and SEQ's own
+    verdict decides (proven / falsified / inconclusive); with the switch off it stays proven_sim_only and SEQ never runs."""
+    import copy
+    from src.equiv import stack as ST
+    cfg = copy.deepcopy(CFG)
+    cfg["equiv"]["seq_latency_mapping"] = switch
+    seen = {}
+
+    def fake_lockstep(job_dir, d_files, c_files, top, ports, clk, rst, rst_sense, cfg, **kw):
+        return {"status": "offset", "offsets": {"data_out": 1, "valid_out": 1}, "cycles": 10, "vcd": None}
+
+    def fake_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, **kw):
+        seen["latency"] = kw.get("latency")
+        return {"v3_status": v3_verdict, "v3_seconds": 1.0, "counterexample_path": str(job_dir) if v3_verdict == "falsified" else None,
+                "flow_status": "x", "latency_mapped": True, "latency": kw.get("latency")}
+
+    monkeypatch.setattr(ST, "run_lockstep", fake_lockstep)
+    monkeypatch.setattr(ST, "run_seq", fake_seq)
+    rec = ST.check_equivalence(tmp_path / "job", [ACCU], [ASSETS / "accu_perturb_rename.v"], "verified_accu", cfg, run_v4=False)
+    assert rec["v2_status"] == "offset" and rec["latency_offset_json"] == '{"data_out": 1, "valid_out": 1}'
+    assert rec["verdict"] == expected and rec["proven_by"] == proven_by and rec["latency_mapped"] is seq_called
+    assert (seen.get("latency") == {"data_out": 1, "valid_out": 1}) is seq_called
+    assert rec["v3_status"] == (v3_verdict if seq_called else "proven_sim_only")
+
+
+def test_equiv_extra_adds_the_latency_switch_only_when_enabled():
+    """The record hash of every earlier record is unchanged while the switch is off; enabling it gives new record directories."""
+    import copy
+    from src.equiv.run_equiv import equiv_extra
+    p = {"clk": "clk", "rst": "rst_n", "rst_sense": "low", "sverilog": False, "sim_seed": 1, "c_top": None}
+    off = copy.deepcopy(CFG)
+    off["equiv"]["seq_latency_mapping"] = False
+    on = copy.deepcopy(CFG)
+    on["equiv"]["seq_latency_mapping"] = True
+    assert equiv_extra(off, p, True) == {"stages": "full", "clk": "clk", "rst": "rst_n", "rst_sense": "low", "sverilog": False, "sim_seed": 1, "c_top": None}
+    assert equiv_extra(on, p, True) == {**equiv_extra(off, p, True), "latency_mapping": True}
+    assert equiv_extra(on, p, False)["stages"] == "v1v2"
+
+
+def test_seq_log_parser_reads_both_summary_formats():
+    """The by-name run prints its assertion counts under "Sequential Equivalence Summary: SEQ"; a run with explicit output
+    assertions (latency mapping) prints them under "Property Summary: SEQ" (VC Formal Y-2026, counter_12 on 2026-09-15).
+    Both parse; a log with neither is an error, never a verdict."""
+    from src.equiv import seq as SQ
+    from src.equiv.seq_tcl import parse_seq_log
+    vcf = SQ._vcf(CFG)
+    by_name = ("[Info] '3' registers are mapped by name\n[Info] PROP_I_RESULT: SEQ  _map_output_out  e1  proven  property  00:00:08\n"
+               "  Summary Results\n   Property Summary: SEQ\n   -----------------\n   > Constraint\n     - # found        : 4\n\n"
+               "   Sequential Equivalence Summary: SEQ\n   -------------------------------\n   > Assertion\n     - # found        : 2\n     - # proven       : 1\n     - # falsified    : 1\n\n")
+    r = parse_seq_log(by_name, vcf)
+    assert r["status"] == "not_equivalent" and (r["total"], r["proven"], r["failed"], r["inconclusive"]) == (2, 1, 1, 0) and r["regs_mapped"] == 3
+    mapped = ("[Info] PROP_I_RESULT: SEQ  _map_output_seq_assert_out  checking  property  00:00:08\n"
+              "[Info] PROP_I_RESULT: SEQ  _map_output_seq_assert_out  e1  proven  property  00:00:08\n"
+              "  Summary Results\n   Property Summary: SEQ\n   -----------------\n   > Assertion\n     - # found        : 1\n     - # proven       : 1\n\n   > Constraint\n     - # found        : 4\n\n")
+    r = parse_seq_log(mapped, vcf)
+    assert r["status"] == "equivalent" and (r["total"], r["proven"], r["failed"], r["inconclusive"]) == (1, 1, 0, 0)
+    assert r["properties"] == {"_map_output_seq_assert_out": "proven"}
+    falsified = mapped.replace("- # proven       : 1", "- # falsified    : 1")
+    assert parse_seq_log(falsified, vcf)["status"] == "not_equivalent"
+    r = parse_seq_log("[Error] SEQ_SOMETHING: bad script\n", vcf, rc=1)
+    assert r["status"] == "error" and r["error"].startswith("[Error] SEQ_SOMETHING")
+    assert parse_seq_log("", vcf, timed_out=True, timeout=10, max_time="1M")["status"] == "timeout"

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Phase 5 storage footprint: measure what the existing records occupy and project Phase 5 (G5 decisions item 5).
 
-  measure   walk results/raw (never results/hidden: CLAUDE.md rule 3), results/candidates, results/llm, results/queue,
+  measure   walk results/raw (never the hidden tree: CLAUDE.md rule 3), results/candidates, results/llm, results/queue,
             results/db, results/snapshots, results/scratch; aggregate bytes and file counts per record kind, configuration,
             object type (baseline / perturbation / candidate), status or verdict and file category; write
             reports/data/phase5_footprint_measured.json (aggregates only, no record content)

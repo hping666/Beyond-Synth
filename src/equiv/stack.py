@@ -4,7 +4,7 @@ directory and returns the record fields of the `candidates` table plus a verdict
 
     rejected        V1: ports differ or the candidate does not compile
     sim_fail        V2: outputs differ (mismatch) or the simulation failed
-    proven_sim_only V2 found a constant latency offset (class c2); SEQ latency mapping is a Phase 2 item
+    proven_sim_only V2 found a constant latency offset (class c2) and the SEQ latency mapping is off (`equiv.seq_latency_mapping`)
     proven / falsified / inconclusive / error   V3 result (inconclusive is never promoted to proven)
 """
 import json
@@ -88,13 +88,15 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
     # ---- V3: SEQ ----
     v4_accepted = False
     sv_used = v2.get("sverilog", sverilog)
-    if v2["status"] == "offset":
+    latency = latency_map(cfg, v2)   # G2.1 (b): the V2 offsets become SEQ output latencies when the mapping is enabled
+    rec["latency_mapped"] = bool(latency)
+    if v2["status"] == "offset" and not latency:
         rec["v3_status"] = "proven_sim_only"
     elif run_v3:
         if timeout_sec is not None and remaining() < MIN_STAGE_SEC:
             v3 = {"v3_status": "inconclusive", "v3_seconds": 0.0, "error": "out of time before V3 (V1 + V2 used the budget)", "counterexample_path": None}
         else:
-            v3 = run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, impl_top=c_top, sverilog=sv_used, timeout_sec=remaining(), incdirs=incdirs)
+            v3 = run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, impl_top=c_top, sverilog=sv_used, timeout_sec=remaining(), incdirs=incdirs, latency=latency)
         rec["v3"] = v3
         rec["v3_status"] = v3["v3_status"]
         rec["v3_seconds"] = v3["v3_seconds"]
@@ -117,11 +119,20 @@ def check_equivalence(job_dir, d_files, c_files, top, cfg, *, clk=None, rst=None
                 rec["counterexample_path"] = v4["workdir"]
     else:
         rec["v3_status"] = "not_run"
-    rec["verdict"], rec["proven_by"] = decide(rec["v1_status"], rec["v2_status"], rec["v3_status"], rec.get("v4_status"), v4_accepted)
+    rec["verdict"], rec["proven_by"] = decide(rec["v1_status"], rec["v2_status"], rec["v3_status"], rec.get("v4_status"), v4_accepted, latency_mapped=bool(latency))
     rec["seconds"] = round(time.time() - t0, 1)
     finalize_vcd(job_dir, rec, cfg)   # SAIFs next to the record, VCD to scratch (DECISIONS 2026-09-14)
     _dump(job_dir, rec)
     return rec
+
+
+def latency_map(cfg, v2):
+    """{output: cycles} for SEQ when V2 found constant per-output offsets and `equiv.seq_latency_mapping` is on; every
+    output is listed (offset 0 outputs keep an immediate assertion) so that no output is left uncompared; else None."""
+    if v2.get("status") != "offset" or not (cfg.get("equiv") or {}).get("seq_latency_mapping", False):
+        return None
+    offsets = {k: int(v or 0) for k, v in (v2.get("offsets") or {}).items()}
+    return offsets if any(k > 0 for k in offsets.values()) else None
 
 
 def _dump(job_dir, rec):

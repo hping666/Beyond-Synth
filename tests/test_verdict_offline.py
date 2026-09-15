@@ -66,3 +66,14 @@ def test_mutants_skip_comments_and_empty_bodies():
     text2 = "module m(input [1:0] a, output c);\nassign c = a == 2'd1;\nendmodule\n"
     muts = generate_mutants(text2)
     assert any("!=" in new for _, new in muts) and all("input [1:0] a, output c" in new for _, new in muts)
+
+
+def test_offset_candidates_stay_proven_sim_only_unless_seq_ran_with_the_latency_mapping():
+    """DECISIONS 2026-09-14 G2.1 (b): with the latency mapping SEQ's verdict decides for a V2 offset candidate; without it the
+    weaker proven_sim_only class stands (both directions)."""
+    assert decide("ok", "offset", "proven_sim_only") == ("proven_sim_only", None)
+    assert decide("ok", "offset", "proven", latency_mapped=False) == ("proven_sim_only", None)
+    assert decide("ok", "offset", "proven", latency_mapped=True) == ("proven", "seq")
+    assert decide("ok", "offset", "falsified", latency_mapped=True) == ("falsified", None)
+    assert decide("ok", "offset", "inconclusive", latency_mapped=True) == ("inconclusive", None)
+    assert decide("ok", "sim_fail", "proven", latency_mapped=True) == ("sim_fail", None)   # a mismatch is never mapped away

@@ -155,11 +155,9 @@ class SearchRun:
         best = None
         payload = c.get("eq_payload")
         if payload:
-            from src.equiv.run_equiv import equiv_hash
-            extra = {"stages": "full", "clk": payload.get("clk"), "rst": payload.get("rst"), "rst_sense": payload.get("rst_sense"),
-                     "sverilog": payload.get("sverilog", False), "sim_seed": payload.get("sim_seed"), "c_top": payload.get("c_top")}
+            from src.equiv.run_equiv import equiv_extra, equiv_hash
             try:
-                h = equiv_hash(payload["d_rtl"], payload["c_rtl"], payload["top"], self.cfg, extra)
+                h = equiv_hash(payload["d_rtl"], payload["c_rtl"], payload["top"], self.cfg, equiv_extra(self.cfg, payload, True))
             except OSError:
                 h = None
             if h:
@@ -181,6 +179,13 @@ class SearchRun:
     def e4_row(self, cand_id):
         return self.conn.execute("SELECT * FROM evaluations WHERE design_id=? AND cand_id=? AND config='E4' AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1",
                                  (self.row["design_id"], cand_id, self.phi)).fetchone()
+
+    def c2_allowed(self, c):
+        """spec 03 §2 / config `equiv.c2_population`: a candidate proven only through the SEQ latency mapping (class c2, constant
+        output offsets) may enter the population only when the protocol-recognition rules allow it; until then never."""
+        if not c.get("latency_mapped"):
+            return True
+        return bool((self.cfg.get("equiv") or {}).get("c2_population", False))
 
     def seq_cap_min(self, cls):
         caps = self.cfg.get("equiv", {}).get("seq_cap_min_by_class") or {}
@@ -321,6 +326,7 @@ class SearchRun:
                 offsets = json.loads(rec.get("latency_offset_json") or "{}")
                 if rec.get("verdict") in ("proven", "proven_sim_only") and any(int(v) > 0 for v in offsets.values()):
                     c["class_final"] = "c2"
+                    c["latency_mapped"] = bool(rec.get("latency_mapped"))   # G2.1 (b): SEQ-proven at the V2 offsets; population rule in c2_allowed()
                     self.conn.execute("UPDATE candidates SET class_final='c2' WHERE cand_id=?", (cid,))
                 if rec.get("verdict") in ("proven", "proven_sim_only"):
                     self.submit_fitness(cid, c, rec)
@@ -386,6 +392,8 @@ class SearchRun:
         label = "improved" if improved else "no_gain"
         credit = 1 if improved else 0
         cls_final = c.get("class_final")
+        if not self.c2_allowed(c):   # a latency-mapped (c2) candidate is a map object only: no archive, no acceptance, no credit (spec 03 §2)
+            improved, credit = False, 0
         self.bandit.credit(cls_final, credit)
         fb = {"class": cls_final, "caliber": self.fit_cfg, "diagnosis": label,
               "evidence": {"dA_pct": round(-100.0 * float(gains.get("area") or 0.0), 2), "dWNS_ns": round(float(gains.get("wns") or 0.0) * float(self.phi), 4),
@@ -487,6 +495,9 @@ class SearchRun:
         improves = any(float(gains.get(m, 0)) > float(parent_gains.get(m, 0)) + 1e-9 for m in gains) and not any(float(gains.get(m, 0)) < float(parent_gains.get(m, 0)) - 1e-9 for m in gains)
         credit = m3.credit(diag, improves)
         cls_final = c.get("class_final")
+        c2_blocked = not self.c2_allowed(c)     # spec 03 §2: a latency-mapped (c2) candidate is diagnosed for the map but never archived, accepted or credited
+        if c2_blocked:
+            credit = 0
         self.bandit.credit(cls_final, credit)   # produced class (DECISIONS 2026-09-14 C2.1(c))
         fb = m3.feedback_block(diag, cls_final, [], prior=(self.prior or {}))
         fb["floor_class"] = self.floor_class
@@ -494,7 +505,7 @@ class SearchRun:
         c.update(state="final", label=label, gains=gains, credit=credit)
         self.state["pending"].pop(cid, None)
         in_archive = 0
-        if label == "retained":
+        if label == "retained" and not c2_blocked:
             in_archive = int(self.archive.add({"cand_id": cid, "gains": gains, "gen": c["gen"], "label": label}))
             self.state["retained"] += 1
             self.state["last_retained_gen"], self.state["stall"] = c["gen"], 0

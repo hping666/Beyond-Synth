@@ -17,13 +17,15 @@ def v4_acceptance(v4, outputs, vacuity):
     return (not failed), failed
 
 
-def decide(v1_status, v2_status, v3_status, v4_status=None, v4_accepted=False):
-    """-> (verdict, proven_by). Guardrail 1: a V3 falsified is final. V4 only counts after a V3 inconclusive."""
+def decide(v1_status, v2_status, v3_status, v4_status=None, v4_accepted=False, latency_mapped=False):
+    """-> (verdict, proven_by). Guardrail 1: a V3 falsified is final. V4 only counts after a V3 inconclusive. A V2
+    `offset` (class c2) stays `proven_sim_only` unless SEQ ran with the latency mapping (DECISIONS 2026-09-14 G2.1 (b)),
+    in which case SEQ's own verdict decides exactly as for any other candidate."""
     if v1_status == "rejected":
         return "rejected", None
     if v2_status in ("sim_fail", "compile_failed", "run_failed", "timeout", "no_trace"):
         return "sim_fail", None
-    if v2_status == "offset":
+    if v2_status == "offset" and not latency_mapped:
         return "proven_sim_only", None
     if v3_status == "proven":
         return "proven", "seq"

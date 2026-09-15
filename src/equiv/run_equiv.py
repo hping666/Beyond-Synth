@@ -43,6 +43,17 @@ def equiv_hash(d_files, c_files, top, cfg, extra):
     return h.hexdigest()[:16]
 
 
+def equiv_extra(cfg, payload, stages_full=True):
+    """The `extra` part of the record hash: the stage set, the control ports, the seed and the candidate top; the latency
+    mapping switch is included only when it is on, so that every earlier record keeps its hash (2026-09-15)."""
+    p = payload
+    extra = {"stages": "full" if stages_full else "v1v2", "clk": p.get("clk"), "rst": p.get("rst"), "rst_sense": p.get("rst_sense"),
+             "sverilog": p.get("sverilog", False), "sim_seed": p.get("sim_seed"), "c_top": p.get("c_top")}
+    if (cfg.get("equiv") or {}).get("seq_latency_mapping", False):
+        extra["latency_mapping"] = True
+    return extra
+
+
 def _license_problem(rec):
     texts = []
     v2 = rec.get("v2") or {}
@@ -69,8 +80,7 @@ def main(argv=None):
         return 1
     p = json.loads(job["payload_json"])
     stages_full = job["kind"] == "vcf"
-    extra = {"stages": "full" if stages_full else "v1v2", "clk": p.get("clk"), "rst": p.get("rst"),
-             "rst_sense": p.get("rst_sense"), "sverilog": p.get("sverilog", False), "sim_seed": p.get("sim_seed"), "c_top": p.get("c_top")}
+    extra = equiv_extra(cfg, p, stages_full)
     h = equiv_hash(p["d_rtl"], p["c_rtl"], p["top"], cfg, extra)
     root = Path(C.results_dir(cfg)) / "raw" / p["design_id"] / "EQ" / h
     job_dir, cached = job_directory(root, force_rerun=p.get("force_rerun", False))

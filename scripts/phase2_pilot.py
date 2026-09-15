@@ -5,6 +5,8 @@ and (later) a temporary LLM batch, all pushed through V1 -> V2 -> V3 twice with 
 
     .venv/bin/python scripts/phase2_pilot.py gate    [--design ...] [--submit] [--priority N]
     .venv/bin/python scripts/phase2_pilot.py collect [--design ...]
+    .venv/bin/python scripts/phase2_pilot.py latency [--design ...] [--submit] [--priority N]   # G2.1 (b): re-run the class-(c2) candidates (V2 offsets) with the SEQ latency mapping
+    .venv/bin/python scripts/phase2_pilot.py latency-collect                                    # -> reports/data/phase2_pilot_latency.json (old verdict -> mapped verdict per candidate)
 
 collect writes reports/data/phase2_pilot.json: per class the proven / falsified / inconclusive / rejected / sim_fail
 fractions and V3 seconds, and per SEQ-inconclusive candidate the three guardrail-3 facts: clocked arithmetic
@@ -99,6 +101,69 @@ def gate_jobs(cfg, entries, priority=0):
                 payload["c_top"] = v["top"]
             jobs.append({"kind": "vcf", "design_id": d["design_id"], "cand_id": payload["cand_id"], "config": "PILOT", "priority": priority, "payload": payload})
     return jobs
+
+
+def latency_entries(cfg, entries):
+    """The pilot candidates whose V2 found constant non-zero output offsets (verdict proven_sim_only in the by-name run):
+    [(design, variant, offsets)] read from the existing records (both seeds must agree on the offsets)."""
+    out = []
+    for d, v in entries:
+        recs = records(cfg, d["design_id"])
+        runs = [recs.get(f"{v['cand_id']}_s{seed}") for seed in SEEDS]
+        if not all(runs) or any(r.get("verdict") != "proven_sim_only" for r in runs):
+            continue
+        offs = [json.loads(r.get("latency_offset_json") or "{}") for r in runs]
+        if offs[0] != offs[1] or not any(int(k) > 0 for k in offs[0].values()):
+            continue
+        out.append((d, v, offs[0]))
+    return out
+
+
+def latency_jobs(cfg, entries, priority=0):
+    """The same payloads as the gate (config PILOT_LAT): the runner re-runs V1 -> V2 -> V3 and, with `equiv.seq_latency_mapping`
+    on, V3 asserts the outputs at the V2 offsets; the record hash includes the switch, so the by-name records are kept."""
+    if not (cfg.get("equiv") or {}).get("seq_latency_mapping", False):
+        raise SystemExit("config equiv.seq_latency_mapping is off: the latency re-run would only repeat the by-name proof")
+    jobs = []
+    for d, v, offs in latency_entries(cfg, entries):
+        for seed in SEEDS:
+            payload = {"design_id": d["design_id"], "cand_id": f"{v['cand_id']}_s{seed}", "d_rtl": [str(p) for p in K.abs_paths(d, d["files"])],
+                       "c_rtl": [v["path"]], "top": d["top"], "clk": (d["clk_ports"] or [None])[0], "rst": d.get("rst_port"),
+                       "rst_sense": d.get("rst_sense"), "sverilog": bool(d["sverilog"]), "incdirs": [str(p) for p in K.abs_paths(d, d["incdirs"])],
+                       "sim_seed": seed, "note": f"pilot latency mapping {v['class']} {v['file']} seed {seed} offsets {json.dumps(offs, sort_keys=True)}"}
+            if v.get("top") and v["top"] != d["top"]:
+                payload["c_top"] = v["top"]
+            jobs.append({"kind": "vcf", "design_id": d["design_id"], "cand_id": payload["cand_id"], "config": "PILOT_LAT", "priority": priority, "payload": payload})
+    return jobs
+
+
+def latency_collect(cfg, entries):
+    """Per class-(c2) pilot candidate: the by-name verdict (proven_sim_only), the offsets, and the verdict and V3 seconds of the
+    latency-mapped record (the newest record of the candidate that carries `latency_mapped`); summary counts per verdict."""
+    rows, summary = [], {}
+    for d, v, offs in latency_entries(cfg, entries):
+        raw = Path(C.results_dir(cfg)) / "raw" / d["design_id"] / "EQ"
+        per_seed = {}
+        for eq in raw.glob("*/equiv.json"):
+            try:
+                rec = json.loads(eq.read_text())
+            except json.JSONDecodeError:
+                continue
+            if not rec.get("latency_mapped"):
+                continue
+            for seed in SEEDS:
+                if rec.get("cand_id") == f"{v['cand_id']}_s{seed}":
+                    cur = per_seed.get(seed)
+                    if cur is None or eq.stat().st_mtime > cur[0]:
+                        per_seed[seed] = (eq.stat().st_mtime, rec)
+        mapped = [per_seed[s][1] if s in per_seed else None for s in SEEDS]
+        verdicts = [r.get("verdict") if r else "pending" for r in mapped]
+        row = {"design_id": d["design_id"], "file": v["file"], "class": v["class"], "source": v["source"], "offsets": offs,
+               "by_name_verdict": "proven_sim_only", "mapped_verdicts": verdicts, "v3_seconds": [r.get("v3_seconds") for r in mapped if r],
+               "v3_properties": [(r.get("v3") or {}).get("properties") for r in mapped if r]}
+        rows.append(row)
+        summary[verdicts[0]] = summary.get(verdicts[0], 0) + 1
+    return rows, summary
 
 
 def records(cfg, design_id):
@@ -215,7 +280,7 @@ def classify_entry(cfg, entries, entry):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["pairs", "gate", "collect", "llm"])
+    ap.add_argument("what", choices=["pairs", "gate", "collect", "llm", "latency", "latency-collect"])
     ap.add_argument("--model", default=None, help="llm: model for the temporary batch (default: the cheapest candidate in config)")
     ap.add_argument("--classes", nargs="*", default=["c1", "c2", "b"])
     ap.add_argument("--n", type=int, default=1, help="llm: answers per design and class")
@@ -234,6 +299,28 @@ def main(argv=None):
         print(f"{len(pairs)} RTL-OPT pairs with a different flip-flop count: {[p['design_id'] for p in pairs]}")
         return 0
     entries = pilot_entries(a.design)
+    if a.what == "latency":
+        jobs = latency_jobs(cfg, entries, a.priority)
+        print(f"{len(jobs)} latency-mapping jobs ({len(jobs) // len(SEEDS)} class-(c2) candidates x {len(SEEDS)} seeds)")
+        for j in jobs:
+            print(f"  {j['design_id']:28s} {j['payload']['note']}")
+        if a.submit:
+            from src.jobqueue.core import Queue
+            conn = db.connect(cfg=cfg)
+            q = Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
+            for j in jobs:
+                q.submit(j["kind"], j["payload"], design_id=j["design_id"], cand_id=j["cand_id"], config=j["config"], priority=j["priority"])
+            print(f"submitted {len(jobs)} vcf jobs")
+        return 0
+    if a.what == "latency-collect":
+        rows, summary = latency_collect(cfg, entries)
+        for r in rows:
+            print(f"{r['design_id']:28s} {r['file']:40s} offsets={r['offsets']} by_name={r['by_name_verdict']} mapped={r['mapped_verdicts']} v3s={r['v3_seconds']}")
+        print(f"summary (first seed): {summary}")
+        out = Path(ROOT) / "reports" / "data" / "phase2_pilot_latency.json"
+        out.write_text(json.dumps({"generated_at": datetime.datetime.now().isoformat(timespec="seconds"), "seeds": SEEDS, "summary": summary, "candidates": rows}, indent=1, sort_keys=True, default=str) + "\n")
+        print(f"report: {out}")
+        return 0
     if a.what == "gate":
         jobs = gate_jobs(cfg, entries, a.priority)
         print(f"{len(jobs)} pilot gate jobs ({len(entries)} candidates x {len(SEEDS)} seeds)")

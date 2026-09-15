@@ -352,6 +352,16 @@ def phase2(cfg):
         L += [f"- {x['design_id']} {x['file']}: arithmetic={x['clocked_arithmetic']}, offsets_constant={x['offsets_constant']}, start-like={x['start_like_ports']}, done-like={x['done_like_ports']}" for x in g3[:40]] + [""]
     else:
         L += ["(pilot not collected yet: scripts/phase2_pilot.py collect --classify)", ""]
+    lat = load("phase2_pilot_latency.json")
+    if lat:
+        L += ["### 4b. SEQ latency mapping of the class-(c2) pilot candidates (DECISIONS 2026-09-14 G2.1 (b), implemented 2026-09-15)", "",
+              "Each candidate whose lock-step simulation found constant per-output offsets (verdict `proven_sim_only` under the by-name mapping) was re-run with the outputs asserted at those offsets "
+              "(`map_by_name -input`, `seq_assert spec.o impl.o -clock spec.clk -latency1 0 -latency2 k`; config `equiv.seq_latency_mapping`). "
+              f"Seeds {lat['seeds']}; verdict counts of the first seed: " + ", ".join(f"{k} {v}" for k, v in sorted(lat["summary"].items())) + ".", "",
+              "| design | candidate | offsets | by-name verdict | mapped verdicts (seeds) | V3 s |", "|---|---|---|---|---|---|"]
+        for r in lat["candidates"]:
+            L.append(f"| {r['design_id']} | {r['file']} | {json.dumps(r['offsets'], sort_keys=True)} | {r['by_name_verdict']} | {', '.join(str(v) for v in r['mapped_verdicts'])} | {', '.join(str(round(float(x), 1)) for x in r['v3_seconds'] if x is not None)} |")
+        L.append("")
     g3s = load("phase2_g3.json")
     if g3s and g3s.get("n_designs_with_ratio"):
         tr = g3s["t_ratio"]

@@ -119,6 +119,8 @@ equiv:                       # DECISIONS 2026-09-14 (G2, C2.5)
   v4: {enabled: true, clockless_only: true}   # G2.3: DPV only on modules without a clock port, with the three guardrails of spec 03 §1
   seq_cap_min_by_class: {a: 60, b: 60, c1: 240, c2: 240, d: 240}   # C2.5: class-aware safety caps for candidates (minutes); cap -> inconclusive, reported, never discarded; perturbations keep timeouts.seq_min
   c2_headline: false         # G2.1: proven_sim_only is reported apart from proven and never enters headline numbers
+  seq_latency_mapping: true  # G2.1 (b), G5 item 2 (ii) (DECISIONS 2026-09-15): a candidate whose V2 offsets are constant runs SEQ with the outputs asserted at those latencies (map_by_name -input; seq_assert -latency2 k); proven -> `proven` with latency_offset_json non-empty (class c2 enters the map), falsified stays falsified; off -> proven_sim_only as before
+  c2_population: false       # spec 03 §2: a latency-mapped (c2) candidate is evaluated at E4 and diagnosed (map object) but never enters the archive, is never accepted and earns no credit until the protocol-recognition rules exist
 
 timeouts:                    # minutes
   dc_small: 20

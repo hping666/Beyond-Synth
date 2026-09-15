@@ -54,3 +54,25 @@ def test_width_change_rejected_before_simulation(cfg, tmp_path):
     rec = check_equivalence(tmp_path / "job", [ACCU], [ASSETS / "accu_width.v"], TOP, cfg)
     assert rec["v1_status"] == "rejected" and rec["verdict"] == "rejected" and "width 10 -> 12" in rec["v1_detail"]
     assert rec["v2_status"] is None and not (tmp_path / "job" / "v2_sim").exists()
+
+
+def test_latency_mapping_proves_a_registered_output_and_falsifies_a_wrong_offset(cfg, tmp_path):
+    """DECISIONS 2026-09-14 G2.1 (b), implemented 2026-09-15: the SEQ pilot's class-(c2) candidate of counter_12 registers the
+    output once more (out lags by one cycle; proven_sim_only in the pilot). With the latency mapping V2's offset {out: 1}
+    becomes a SEQ output latency and SEQ proves it; the same candidate asserted at the wrong offset (2) is falsified, and
+    the plain by-name mapping (offset ignored) is falsified as well — the proof comes from the mapping, not from slack."""
+    import copy
+    from src.equiv.seq import run_seq
+    c2cfg = copy.deepcopy(cfg)
+    c2cfg["equiv"]["seq_latency_mapping"] = True
+    d = ROOT / "data" / "designs" / "rtllm" / "counter_12" / "rtl" / "counter_12.v"
+    c = ROOT / "data" / "pilot" / "llm_pilot_luna1__rtllm_counter_12" / "c2_0_c2378489f63201a.v"
+    rec = check_equivalence(tmp_path / "job", [d], [c], "counter_12", c2cfg)
+    assert rec["v1_status"] == "ok" and rec["v2_status"] == "offset" and rec["latency_offset_json"] == '{"out": 1}', rec.get("v2")
+    assert rec["latency_mapped"] is True and rec["v3"]["latency"] == {"out": 1}
+    assert rec["v3_status"] == "proven" and rec["verdict"] == "proven" and rec["proven_by"] == "seq", rec.get("v3")
+    assert "seq_assert spec.out impl.out -clock spec.clk -latency1 0 -latency2 1" in (tmp_path / "job" / "v3_seq" / "seq.tcl").read_text()
+    wrong = run_seq(tmp_path / "wrong", [d], [c], "counter_12", "clk", "rst_n", "low", c2cfg, latency={"out": 2})
+    assert wrong["v3_status"] == "falsified" and wrong["latency"] == {"out": 2}, wrong
+    plain = run_seq(tmp_path / "plain", [d], [c], "counter_12", "clk", "rst_n", "low", c2cfg)
+    assert plain["v3_status"] == "falsified" and plain["latency_mapped"] is False, plain
