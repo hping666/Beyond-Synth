@@ -5,6 +5,7 @@
     .venv/bin/python scripts/phase4_exp1.py generate  [--design ...] [--submit]   # B0 runs (Y-caliber fitness, llm.selected) on config exp1.designs, one `search` job each
     .venv/bin/python scripts/phase4_exp1.py smoke --design <id> [--K 1 --N 2] [--submit]   # rule 7: one B0 run first
     .venv/bin/python scripts/phase4_exp1.py status
+    .venv/bin/python scripts/phase4_exp1.py topup [--submit]             # more B0 runs (next seeds) for designs below exp1.candidates_per_design proven candidates
     .venv/bin/python scripts/phase4_exp1.py objects [--submit]          # literature objects (RTL-OPT / RTLRewriter references, LLM samples): runs + candidates, M6, equivalence jobs
     .venv/bin/python scripts/phase4_exp1.py verdicts                    # ingest the objects' equivalence verdicts
     .venv/bin/python scripts/phase4_exp1.py ladder [--hidden] [--submit] [--priority 1]   # E1, E1d, E2, E3, E4, E2g, Y, O0-O2, Ycoevo (+ hidden) on every proven object
@@ -546,9 +547,36 @@ def cmd_hygiene(cfg, conn):
     return 0
 
 
+
+def cmd_topup(cfg, conn, do_submit):
+    """PLAN 4.1 target of `exp1.candidates_per_design` proven candidates per design: designs below the target whose B0 runs
+    have all finished get one more run with the next seed (K x N calls each), up to `exp1.b0.max_runs_per_design` runs."""
+    b0 = cfg["exp1"]["b0"]
+    target = int(cfg["exp1"]["candidates_per_design"])
+    max_runs = int(b0.get("max_runs_per_design", 1))
+    todo = []
+    for did in cfg["exp1"]["designs"]:
+        runs = [dict(r) for r in conn.execute("SELECT run_id, seed, status FROM runs WHERE exp='phase4' AND arm='B0' AND design_id=? AND status != 'superseded' ORDER BY seed", (did,))]
+        proven = conn.execute("SELECT COUNT(*) FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase4' AND r.arm='B0' AND r.status != 'superseded' AND c.design_id=? AND c.verdict IN ('proven','proven_sim_only')", (did,)).fetchone()[0]
+        running = [r for r in runs if r["status"] not in ("done", "failed")]
+        state = f"{did:36s} runs {len(runs)} (running {len(running)}) proven {proven} / target {target}"
+        if proven >= target:
+            print(state + " -> target reached")
+        elif running:
+            print(state + " -> a run is still going")
+        elif len(runs) >= max_runs:
+            print(state + f" -> max_runs_per_design {max_runs} reached (reported as is)")
+        else:
+            print(state + f" -> top-up run with seed {max(r['seed'] for r in runs) + 1 if runs else int(b0['seed'])}")
+            todo.append((did, max(r["seed"] for r in runs) + 1 if runs else int(b0["seed"])))
+    for did, seed in todo:
+        create_runs(cfg, conn, [did], "phase4", b0["K"], b0["N"], seed, do_submit, note=f"exp1 B0 top-up seed {seed}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene"])
+    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup"])
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--name", default=None)
     ap.add_argument("--hidden", action="store_true")
@@ -581,6 +609,8 @@ def main(argv=None):
         return cmd_snapshot(cfg, conn, a.name)
     if a.what == "hygiene":
         return cmd_hygiene(cfg, conn)
+    if a.what == "topup":
+        return cmd_topup(cfg, conn, a.submit)
     if a.what == "smoke":
         designs = a.design or cfg["exp1"]["designs"][:1]
         create_runs(cfg, conn, designs, "smoke", a.K or 1, a.N or 2, a.seed or 1, a.submit, note="exp1 B0 smoke")

@@ -274,7 +274,7 @@ exp1:                        # Phase 4
   b0_designs: {cktevo_held: 5, drrtl_held: 3, rtlopt_held: 2}   # C1 scope (DECISIONS 2026-09-14): human-written RTL only; RTLLM is the out-of-scope contrast
   designs: [cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode]                # filled by scripts/phase4_sets.py (deterministic selection, measured floors required)
   candidates_per_design: 30
-  b0: {K: 10, N: 5, seed: 1}  # B0 generation per design: K x N = 50 calls (llm.selected, Y-caliber fitness); ~75 % of luna's answers were SEQ-proven in Phase 3, so >= 30 proven candidates are expected
+  b0: {K: 10, N: 5, seed: 1, max_runs_per_design: 4}  # B0 generation per design: K x N = 50 calls (llm.selected, Y-caliber fitness) per run; designs below candidates_per_design proven candidates get top-up runs (next seeds) up to max_runs_per_design (luna's proven rate on human-written multi-module RTL is far below the 75 % of the RTLLM calibration: syntax errors, SEQ counterexamples)
   configs: [E1, E1d, E2, E3, E4, E2g, H1, H2a, H2b, H3, H5, H4]   # E2r removed from every list (same command as E3; DECISIONS 2026-09-14); E2t dropped (no-op flag)
   supplementary: [O0, O1, O2, Ycoevo]
   manual_check_per_class: 40
