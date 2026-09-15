@@ -278,6 +278,7 @@ exp1:                        # Phase 4
   configs: [E1, E1d, E2, E3, E4, E2g, H1, H2a, H2b, H3, H5, H4]   # E2r removed from every list (same command as E3; DECISIONS 2026-09-14); E2t dropped (no-op flag)
   supplementary: [O0, O1, O2, Ycoevo]
   manual_check_per_class: 40
+  manual_check_seed: 1         # PLAN 4.6: seed of the stratified diagnosis sample (phase4_exp1.py diag-sample)
 
 ablations:                   # Phase 6, 30-start subset, 3 seeds
   subset_size: 30

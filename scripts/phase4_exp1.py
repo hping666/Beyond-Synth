@@ -621,6 +621,75 @@ def cmd_hygiene(cfg, conn):
 
 
 
+def cmd_diag_sample(cfg, conn):
+    """PLAN 4.6 tooling: a deterministic stratified sample of the E4 diagnoses of the Phase 4 objects per label
+    (`exp1.manual_check_per_class` rows, seed `exp1.manual_check_seed`, round-robin over designs) with the evidence the
+    manual check reads (gains vs t_D, fingerprint, resources, log diff, the E4 record directories of D and C, the object RTL),
+    and the single-flag reproduction of every absorbed object (spec 04 B.5: D with one flag alone vs C@E1). Written to
+    reports/data/phase4_diagnoser_sample.json; the human verdicts go to reports/data/phase4_diagnoser_check.md (by hand)."""
+    import json
+    from pathlib import Path
+    from src.analysis import objects as O
+    from src.analysis import validation as V
+    n = int(cfg["exp1"].get("manual_check_per_class", 40))
+    seed = int(cfg["exp1"].get("manual_check_seed", 1))
+    objs = {o["cand_id"]: o for o in O.build_object_rows(cfg, conn, "phase4")}
+    rows = [dict(r) for r in conn.execute("SELECT d.cand_id, d.label, d.rung, d.capability, d.attribution, d.fp_jaccard, d.evidence_json, c.design_id, c.class_final, c.rtl_path, r.arm "
+                                          "FROM diagnoses d JOIN candidates c ON c.cand_id=d.cand_id JOIN runs r ON r.run_id=c.run_id "
+                                          "WHERE r.exp='phase4' AND r.status != 'superseded' AND d.label NOT IN ('nonequiv','duplicate') ORDER BY d.cand_id")]
+    phi = {}
+
+    def phi_of(did):
+        if did not in phi:
+            phi[did] = conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (did,)).fetchone()[0]
+        return phi[did]
+    by_label = {}
+    for r in rows:
+        by_label.setdefault(r["label"], []).append(r)
+    sample = []
+    for label, rs in sorted(by_label.items()):
+        for r in V.stratified_sample(rs, n, seed):
+            o = objs.get(r["cand_id"]) or {}
+            did = r["design_id"]
+            base = O.baseline_row(conn, did, "E4", phi_of(did))
+            ev = O.object_row_eval(conn, r["cand_id"], "E4", phi_of(did))
+            sample.append({"cand_id": r["cand_id"], "design_id": did, "role": o.get("role"), "class": r["class_final"], "label": label, "rung": r["rung"], "attribution": r["attribution"],
+                           "fp_jaccard": r["fp_jaccard"], "evidence": json.loads(r["evidence_json"] or "{}"), "gains": o.get("gains"), "t_d": o.get("t_d"),
+                           "d_raw_dir_e4": base["raw_dir"] if base else None, "c_raw_dir_e4": ev["raw_dir"] if ev else None, "c_rtl": r["rtl_path"], "human": None, "human_note": None})
+    repro_rows = []
+    for r in rows:
+        if r["label"] in ("absorbed", "absorbed_identical"):
+            rep = V.single_flag_reproduction(cfg, conn, r["cand_id"], r["design_id"], phi_of(r["design_id"]))
+            if rep is not None:
+                repro_rows.append({"cand_id": r["cand_id"], "design_id": r["design_id"], "label": r["label"], "rung": r["rung"], "repro": rep})
+    out = {"generated_at": db.now(), "per_label_total": {k: len(v) for k, v in sorted(by_label.items())}, "sample_per_label": n, "seed": seed,
+           "sample": sample, "reproduction": {**V.reproduction_summary(repro_rows), "rows": repro_rows}}
+    p = Path(C.ROOT) / "reports" / "data" / "phase4_diagnoser_sample.json"
+    p.write_text(json.dumps(out, indent=1, default=str) + "\n")
+    rs = out["reproduction"]
+    print(f"diagnoses by label {out['per_label_total']}; sample {len(sample)} rows ({n} per label, seed {seed}); single-flag reproduction of {rs['n']} absorbed objects: "
+          f"{rs['reproduced_by_a_single_flag']} by at least one flag ({ {k: (v['converged'], v['evaluated']) for k, v in rs['by_flag'].items()} }); wrote {p}")
+    return 0
+
+
+def cmd_motivating(cfg, conn):
+    """PLAN 4.9: the two objects of the motivating figure chosen by the data (src/analysis/validation.py: the largest E1 gain
+    the ladder recovers, the largest retained E4 gain) with their gains along E1..E4 and the Yosys configurations ->
+    reports/data/phase4_motivating.json and .md (included by reports/phase4.md)."""
+    import json
+    from pathlib import Path
+    from src.analysis import objects as O
+    from src.analysis import validation as V
+    objs = O.build_object_rows(cfg, conn, "phase4", configs=V.FIGURE_CONFIGS)
+    picks = V.pick_motivating([o for o in objs if o.get("label")])
+    data = Path(C.ROOT) / "reports" / "data"
+    (data / "phase4_motivating.json").write_text(json.dumps({"generated_at": db.now(), "configs": list(V.FIGURE_CONFIGS), "picks": picks}, indent=1, default=str) + "\n")
+    md = V.motivating_md(picks, V.FIGURE_CONFIGS)
+    (data / "phase4_motivating.md").write_text(md)
+    print(md)
+    return 0
+
+
 def cmd_topup(cfg, conn, do_submit):
     """PLAN 4.1 target of `exp1.candidates_per_design` proven candidates per design: designs below the target whose B0 runs
     have all finished get one more run with the next seed (K x N calls each), up to `exp1.b0.max_runs_per_design` runs."""
@@ -709,7 +778,7 @@ def cmd_refit(cfg, conn, do_submit, do_apply):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup", "refit"])
+    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup", "refit", "diag-sample", "motivating"])
     ap.add_argument("--apply", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--name", default=None)
@@ -741,6 +810,10 @@ def main(argv=None):
         return cmd_collect(cfg, conn)
     if a.what == "snapshot":
         return cmd_snapshot(cfg, conn, a.name)
+    if a.what == "diag-sample":
+        return cmd_diag_sample(cfg, conn)
+    if a.what == "motivating":
+        return cmd_motivating(cfg, conn)
     if a.what == "hygiene":
         return cmd_hygiene(cfg, conn)
     if a.what == "topup":

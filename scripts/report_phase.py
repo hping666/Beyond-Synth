@@ -615,6 +615,17 @@ def phase4(cfg):
               f"Rule R forbids classes {mis['forbidden_classes']} (syntactic / coding rewrites) and allows {mis['allowed_classes']}. "
               f"P(retained | forbidden by R) = {'-' if mis['p_retained_given_forbidden'] is None else f'{100 * mis['p_retained_given_forbidden']:.0f} %'} (n = {mis['n_forbidden']}); "
               f"P(absorbed | allowed by R) = {'-' if mis['p_absorbed_given_allowed'] is None else f'{100 * mis['p_absorbed_given_allowed']:.0f} %'} (n = {mis['n_allowed']}).", ""]
+        ds = load("phase4_diagnoser_sample.json")
+        if ds:
+            rp = ds.get("reproduction") or {}
+            L += ["## 5b. Diagnoser validation data (PLAN 4.6, spec 04 B.5)", "",
+                  f"Diagnoses by label: {ds.get('per_label_total')}; manual sample of {ds.get('sample_per_label')} per label (seed {ds.get('seed')}, round-robin over designs; reports/data/phase4_diagnoser_sample.json, verdicts in phase4_diagnoser_check.md). "
+                  f"Single-flag reproduction of the {rp.get('n', 0)} absorbed objects (D compiled with one flag alone vs the object's plain-compile netlist C@E1, convergence = histogram Jaccard >= {cfg['diag']['fp_jaccard']}, area within the E1 band, endpoints coincide): "
+                  f"{rp.get('reproduced_by_a_single_flag', 0)} reproduced by at least one flag ({'-' if rp.get('rate_any_flag') is None else f'{100 * rp['rate_any_flag']:.0f} %'}).", "",
+                  "| flag (configuration) | absorbed objects evaluated | converged with C@E1 | rate |", "|---|---|---|---|"]
+            for flag, e in (rp.get("by_flag") or {}).items():
+                L.append(f"| {flag} ({e.get('config')}) | {e['evaluated']} | {e['converged']} | {'-' if e.get('rate') is None else f'{100 * e['rate']:.0f} %'} |")
+            L.append("")
         pr = data["predictor"]
         L += ["## 6. Retention predictor (PLAN 4.5; leave-one-design-out)", ""]
         if isinstance(pr.get("with_class"), dict):
