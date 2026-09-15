@@ -79,3 +79,4 @@ data/perturbations/**/*.v
 # Pyverilog (PLY) parser tables regenerated at run time
 parser.out
 parsetab.py
+results/scratch/

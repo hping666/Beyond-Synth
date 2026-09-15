@@ -7,6 +7,7 @@ cell / flip-flop counts. Clock ports are therefore identified by their use, not 
 WB_CLK_I / MTxClk / MRxClk, RTLLM rclk / wclk / clk_a / clk_b): a design with two or more clock ports is tagged
 multi_clock, one without any is combinational (tag no_clock)."""
 import json
+import re
 import subprocess
 import tempfile
 from pathlib import Path
@@ -67,3 +68,49 @@ def probe(rtl_files, top, cfg, sverilog=False, incdirs=None, workdir=None, timeo
             async_resets[n] = "high" if pols == {1} else "low" if pols == {0} else "mixed"
     return {"ports": ports, "clock_ports": clock_ports, "async_resets": async_resets,
             "n_cells": len(mod["cells"]), "n_ff_bits": n_ff}
+
+
+_STAT_ROW = re.compile(r"^\s+(\d+)\s+(\$\w+)\s*$", re.M)
+_LTP = re.compile(r"Longest topological path in \S+ \(length=(\d+)\)")
+
+
+def rtl_stats(rtl_files, top, cfg, sverilog=False, incdirs=None, workdir=None, timeout=900):
+    """Word-level RTLIL statistics for the classifier M6 (spec 04 §A, rules version 2): `proc; flatten; opt` then
+    `stat` (cell histogram by RTLIL type: $add, $mul, $mux, ...), `ltp -noff` (longest combinational path in cells, the
+    dataflow-topology measure) and the flip-flop bits / cells after optimisation. Unlike `probe`, dead registers such
+    as the loop variable of an unrolled `for` inside a clocked block are gone (LIFObuffer: 57 bits before opt, 25 after),
+    so two rewrites of the same registers compare equal."""
+    wd = Path(workdir) if workdir else Path(tempfile.mkdtemp(prefix="bs_stats_"))
+    wd.mkdir(parents=True, exist_ok=True)
+    out = wd / "stats.json"
+    incs = " ".join(f"-I {Path(d).resolve()}" for d in (incdirs or []))
+    files = " ".join(str(Path(f).resolve()) for f in rtl_files)
+    script = f"read_verilog {'-sv ' if sverilog else ''}{incs} {files}; hierarchy -top {top}; proc; flatten; opt; stat; ltp -noff; write_json {out}"
+    p = subprocess.run([cfg["tools"]["yosys"]["bin"], "-p", script], capture_output=True, text=True, timeout=timeout)
+    txt = p.stdout + p.stderr
+    (wd / "yosys.log").write_text(txt)
+    if p.returncode != 0 or not out.exists():
+        err = [line for line in txt.splitlines() if line.startswith("ERROR")]
+        raise PortError(err[0] if err else f"yosys exit {p.returncode}: {txt[-500:]}")
+    stat_txt = txt[txt.rfind("Printing statistics"):]
+    cells = {}
+    for n, t in _STAT_ROW.findall(stat_txt):
+        cells[t] = cells.get(t, 0) + int(n)
+    m = _LTP.search(txt)
+    data = json.loads(out.read_text())
+    mod = data["modules"].get(top) or next(iter(data["modules"].values()))
+    ff_bits = ff_cells = 0
+    for cell in mod["cells"].values():
+        if cell["type"] in DFF_TYPES:
+            ff_cells += 1
+            ff_bits += len(cell.get("connections", {}).get("Q", []))
+        elif cell["type"] in MEM_TYPES:   # a memory that Yosys kept as $mem counts like the register list it would otherwise become
+            size, width = int(_param(cell, "SIZE", 0) or 0), int(_param(cell, "WIDTH", 0) or 0)
+            ff_cells += size
+            ff_bits += size * width
+    for mem in (mod.get("memories") or {}).values():   # memories not yet collected into a $mem cell (write_json lists them apart)
+        size, width = int(mem.get("size", 0) or 0), int(mem.get("width", 0) or 0)
+        ff_cells += size
+        ff_bits += size * width
+    return {"cells": cells, "n_cells": sum(cells.values()), "n_ff_bits": ff_bits, "n_ff_cells": ff_cells,
+            "depth": int(m.group(1)) if m else 0}

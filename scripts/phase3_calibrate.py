@@ -352,9 +352,18 @@ def vcf_projection(cfg, conn):
     hours_p5 = calls_p5 * (share_arith * per_call_type["arith_pipeline"] + (1 - share_arith) * per_call_type["other"]) / 3600.0
     hours_p5_flat = calls_p5 * per_call / 3600.0
     by_class = {k: {cls: {"n": len(v), "median_s": S.quantile(v, 0.5), "q95_s": S.quantile(v, 0.95), "hours": sum(v) / 3600.0} for cls, v in d.items()} for k, d in secs.items()}
+    # the proposal of DECISIONS 2026-09-14 e when the projection exceeds the threshold: (c1) / (d) verdicts of arithmetic
+    # pipelines capped at `cap_h` hours (the verdict becomes inconclusive at the cap, never discarded) -> projected hours
+    cap_h = 2.0
+    capped = {k: {cls: [min(x, cap_h * 3600.0) if (k == "arith_pipeline" and cls in ("c1", "d")) else x for x in v] for cls, v in d.items()} for k, d in secs.items()}
+    per_call_capped = {k: (sum(sum(v) for v in capped[k].values()) / calls_by_type[k] if calls_by_type[k] else 0.0) for k in capped}
+    hours_p5_capped = calls_p5 * (share_arith * per_call_capped["arith_pipeline"] + (1 - share_arith) * per_call_capped["other"]) / 3600.0
+    n_over_cap = sum(1 for cls in ("c1", "d") for x in secs["arith_pipeline"].get(cls, []) if x > cap_h * 3600.0)
+    n_arith_c1d = sum(len(secs["arith_pipeline"].get(cls, [])) for cls in ("c1", "d"))
     return {"model": cfg["llm"]["selected"], "phase5_runs": runs_p5, "phase5_calls": calls_p5, "phase3_calls": calls_p3, "seq_seconds_per_call": per_call,
             "seq_seconds_per_call_by_type": per_call_type, "starting_pool": len(pool), "share_arith_pipeline_in_pool": share_arith,
-            "projected_vcf_hours": hours_p5, "projected_vcf_hours_flat_mix": hours_p5_flat, "by_type_and_class": by_class, "threshold_hours": 2000}
+            "projected_vcf_hours": hours_p5, "projected_vcf_hours_flat_mix": hours_p5_flat, "by_type_and_class": by_class, "threshold_hours": 2000,
+            "proposal_cap_hours": cap_h, "projected_vcf_hours_with_cap": hours_p5_capped, "arith_c1d_verdicts": n_arith_c1d, "arith_c1d_over_cap": n_over_cap}
 
 
 def cmd_m6_sample(cfg, conn, n=60, seed=2):
@@ -379,9 +388,9 @@ def cmd_m6_sample(cfg, conn, n=60, seed=2):
         sample += pool[:q]
     designs = {d["design_id"]: d for d in K.load_all()}
     review = ["# M6 manual validation sample (DECISIONS 2026-09-14 a)", "",
-              "Classes (spec 04 §A.1): (a) logic-level simplification, registers untouched; (b) restructuring of combinational / control logic with the register set unchanged; "
-              "(c1) retiming: registers moved / split / merged / duplicated at equal latency; (c2) latency change; (d) micro-architectural change: the operator set or the dataflow topology changes. "
-              "For every sampled candidate the human class goes into reports/data/phase3_m6_human.json.", ""]
+              "Classes per spec 04 §A.1 ((a) combinational rewrite, (b) latency-preserving coding / structural refactor, (c1) latency-preserving sequential restructuring, "
+              "(c2) latency / interface-timing change, (d) algorithm / architecture replacement); the operational protocol of the human labels is written in "
+              "reports/data/phase3_m6_human.json, which also holds the human class and a one-line basis for every sampled candidate.", ""]
     for i, r in enumerate(sample, 1):
         d = designs[r["design_id"]]
         d_text = "\n".join(Path(d["_dir"], f).read_text(errors="replace") for f in d["files"])
@@ -490,9 +499,118 @@ def cmd_collect(cfg, conn):
     return 0
 
 
+def m6_classify_row(cfg, row, designs, scratch):
+    """Rules-v2 features and class of one candidate row (design files from the catalog, the lock-step offsets from the
+    row); the Yosys scratch directory is removed afterwards, the features are returned for archiving."""
+    import shutil
+    import tempfile
+    from src.classify import rules as M6
+    from src.designs import catalog as K
+    d = designs[row["design_id"]]
+    d_files = [str(p) for p in K.abs_paths(d, d["files"])]
+    offsets = json.loads(row.get("latency_offset_json") or "{}") if row.get("latency_offset_json") else {}
+    wd = Path(tempfile.mkdtemp(prefix=f"bs_m6v2_{row['cand_id']}_"))
+    try:
+        feat = M6.features(d_files, [row["rtl_path"]], d["top"], cfg, sverilog=d.get("sverilog", False),
+                           incdirs=[str(p) for p in K.abs_paths(d, d["incdirs"])], workdir=wd, offsets=offsets)
+    finally:
+        shutil.rmtree(wd, ignore_errors=True)
+    res = M6.classify(feat, cfg)
+    feat = {k: v for k, v in feat.items() if k not in ("hist_d", "hist_c")} | {"hist_d": feat["hist_d"], "hist_c": feat["hist_c"]}
+    return feat, res
+
+
+def _agreement(pairs, classes=("a", "b", "c1", "c2", "d")):
+    """pairs: (rule, human) -> {agreement, n, confusion 'human->rule', per_rule_class precision, per_human_class recall}."""
+    conf, n_ok = {}, 0
+    for rule, human in pairs:
+        key = f"{human}->{rule}"
+        conf[key] = conf.get(key, 0) + 1
+        n_ok += int(rule == human)
+    per_rule, per_human = {}, {}
+    for c in classes:
+        pred = [h for r, h in pairs if r == c]
+        truth = [r for r, h in pairs if h == c]
+        per_rule[c] = {"n": len(pred), "correct": sum(1 for h in pred if h == c), "precision": (sum(1 for h in pred if h == c) / len(pred)) if pred else None}
+        per_human[c] = {"n": len(truth), "found": sum(1 for r in truth if r == c), "recall": (sum(1 for r in truth if r == c) / len(truth)) if truth else None}
+    return {"n": len(pairs), "agree": n_ok, "agreement": (n_ok / len(pairs)) if pairs else None, "confusion": dict(sorted(conf.items())),
+            "per_rule_class": per_rule, "per_human_class": per_human}
+
+
+def cmd_m6_agreement(cfg, conn):
+    """DECISIONS 2026-09-14 (pre-Phase-4 a): rule-vs-human agreement of the M6 classifier on the reviewed sample —
+    rules v1 (the classes stored at run time, reports/data/phase3_m6_sample.json) and rules v2 (recomputed here with
+    src/classify/rules.py) against reports/data/phase3_m6_human.json; writes reports/data/phase3_m6_agreement.json."""
+    from src.designs import catalog as K
+    human = json.loads((Path(C.ROOT) / "reports" / "data" / "phase3_m6_human.json").read_text())
+    sample = {s["cand_id"]: s for s in json.loads((Path(C.ROOT) / "reports" / "data" / "phase3_m6_sample.json").read_text())["sample"]}
+    designs = {d["design_id"]: d for d in K.load_all()}
+    scratch = None   # Yosys runs in a temporary directory (rule 5: results/ is append-only)
+    labels, v1, v2 = [], [], []
+    for h in human["labels"]:
+        s = sample[h["cand_id"]]
+        row = dict(conn.execute("SELECT cand_id, run_id, design_id, rtl_path, latency_offset_json, class_final FROM candidates WHERE cand_id=?", (h["cand_id"],)).fetchone())
+        feat, res = m6_classify_row(cfg, row, designs, scratch)
+        labels.append({"i": h["i"], "cand_id": h["cand_id"], "design_id": h["design_id"], "model": h["model"], "human": h["human"], "rule_v1": s["class_final"],
+                       "rule_v2": res["class_rule"], "v2_rules": res["rules"], "v2_confidence": res["confidence"], "note": h["note"],
+                       "features": {k: feat[k] for k in ("ff_d", "ff_c", "ff_cells_d", "ff_cells_c", "depth_d", "depth_c", "ops_d", "ops_c", "diff_ratio", "max_offset")}})
+        v1.append((s["class_final"], h["human"]))
+        v2.append((res["class_rule"], h["human"]))
+        print(f"{h['i']:2d} {h['cand_id']} {h['design_id'][6:]:18s} human {h['human']:2s} v1 {s['class_final']:2s} v2 {res['class_rule']:2s} {'ok' if res['class_rule'] == h['human'] else '--'}  {res['rules'][0][:70]}")
+    out = {"generated_at": db.now(), "git_sha": C.git_sha(), "cfg_hash": C.cfg_hash(), "n": len(labels), "protocol": human["protocol"],
+           "sample": {"seed": json.loads((Path(C.ROOT) / "reports" / "data" / "phase3_m6_sample.json").read_text())["seed"], "quotas": json.loads((Path(C.ROOT) / "reports" / "data" / "phase3_m6_sample.json").read_text())["quotas"]},
+           "human_class_counts": {c: sum(1 for l in labels if l["human"] == c) for c in ("a", "b", "c1", "c2", "d")},
+           "rules": {"v1": _agreement(v1), "v2": _agreement(v2)}, "classify_config": cfg["classify"], "labels": labels}
+    p = Path(C.ROOT) / "reports" / "data" / "phase3_m6_agreement.json"
+    p.write_text(json.dumps(out, indent=1) + "\n")
+    print(f"v1 agreement {out['rules']['v1']['agree']}/{out['n']}, v2 agreement {out['rules']['v2']['agree']}/{out['n']}; (d) precision v1 {out['rules']['v1']['per_rule_class']['d']}, v2 {out['rules']['v2']['per_rule_class']['d']}")
+    print(f"wrote {p}")
+    return 0
+
+
+def cmd_m6_relabel(cfg, conn, limit=None, force=False):
+    """Re-label every Phase 3 candidate with rules v2 (DECISIONS 2026-09-14 a): the rules-v1 class is kept in
+    candidates.class_rule_v1, class_rule / class_final / subtags_json / confidence are replaced, the features archived in
+    features_json, rules_version = 2. Idempotent (rows already at version 2 are skipped unless --force, which recomputes every row, e.g. after the running drivers wrote their run-time classes or offsets) and resumable; verdict labels,
+    credits and SEQ caps of the runs are untouched (they belong to the run). Runs locally (Yosys only)."""
+    from src.designs import catalog as K
+    designs = {d["design_id"]: d for d in K.load_all()}
+    scratch = None
+    rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, c.latency_offset_json, c.class_rule, c.class_final, c.rules_version "
+                                          "FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase3' AND r.status != 'superseded' AND c.rtl_path IS NOT NULL "
+                                          + ("" if force else "AND (c.rules_version IS NULL OR c.rules_version < 2) ") + "ORDER BY c.run_id, c.cand_id")]
+    print(f"{len(rows)} candidates to re-label ({db.now()})")
+    done = failed = 0
+    changed = {}
+    for i, row in enumerate(rows[: (limit or len(rows))], 1):
+        if not Path(row["rtl_path"]).exists():
+            failed += 1
+            continue
+        try:
+            feat, res = m6_classify_row(cfg, row, designs, scratch)
+        except Exception as e:
+            failed += 1
+            conn.execute("UPDATE candidates SET class_rule_v1=COALESCE(class_rule_v1, class_rule), rules_version=2, note=COALESCE(note,'') || ? WHERE cand_id=?",
+                         (f" [m6 v2 failed: {type(e).__name__}: {e}"[:160] + "]", row["cand_id"]))
+            conn.commit()
+            continue
+        old = row["class_final"]
+        conn.execute("UPDATE candidates SET class_rule_v1=COALESCE(class_rule_v1, class_rule), class_rule=?, class_final=?, subtags_json=?, confidence=?, rules_version=2, features_json=? WHERE cand_id=?",
+                     (res["class_rule"], res["class_rule"], json.dumps(res["rules"]), res["confidence"], json.dumps(feat), row["cand_id"]))
+        conn.commit()
+        done += 1
+        changed[f"{old}->{res['class_rule']}"] = changed.get(f"{old}->{res['class_rule']}", 0) + 1
+        if i % 50 == 0:
+            print(f"  {i}/{len(rows)} done {done} failed {failed} ({db.now()})", flush=True)
+    print(f"re-labelled {done}, failed {failed}; transitions v1->v2: {dict(sorted(changed.items()))} ({db.now()})")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect", "yruns", "sample", "verify", "m6-sample"])
+    ap.add_argument("what", choices=["designs", "smoke", "submit", "status", "collect", "yruns", "sample", "verify", "m6-sample", "m6-agreement", "m6-relabel"])
+    ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--force", action="store_true")
     ap.add_argument("--models", nargs="*", default=None)
     ap.add_argument("--model", default=None)
     ap.add_argument("--design", nargs="*", default=None)
@@ -520,6 +638,10 @@ def main(argv=None):
         return cmd_verify(cfg, conn)
     if a.what == "m6-sample":
         return cmd_m6_sample(cfg, conn)
+    if a.what == "m6-agreement":
+        return cmd_m6_agreement(cfg, conn)
+    if a.what == "m6-relabel":
+        return cmd_m6_relabel(cfg, conn, a.limit, a.force)
     if a.what == "smoke":
         designs = a.design or calibration_designs(cfg, conn)[:1]
         submit_runs(cfg, conn, designs, [a.model or cfg["llm"]["candidates"][0]], a.seeds or [1], a.K or 1, a.N or 2, "smoke", a.submit, note="smoke")

@@ -1,0 +1,1986 @@
+{
+ "generated_at": "2026-09-14T17:04:59",
+ "git_sha": "87ae96f64a5c",
+ "cfg_hash": "c6236d1e0c73",
+ "n": 60,
+ "protocol": {
+  "unit": "the rewrite as written in the candidate RTL (for nonequiv candidates: what the RTL actually does, not the intention)",
+  "c2": "the cycle-level timing of an output changes: pipeline stages added or removed, or outputs that were registered are produced combinationally from the state (for nonequiv candidates this is a judgment; the lock-step offset is only measured on candidates that pass V2)",
+  "c1": "latency preserved, registers cross combinational logic (retiming-style): registers removed, added or merged such that logic that sat before a register now sits after it or vice versa, e.g. output registers replaced by a decode of a delayed state register, pipeline registers merged across an adder level, an FSM re-scheduled to absorb its output delay",
+  "d": "the algorithm, datapath organisation, buffer organisation or schedule is different: another arithmetic algorithm (shift-add mux tree vs `*`, explicit ripple carry vs carry-lookahead / prefix network vs behavioural `+`, radix-2 vs radix-4 partial products), another storage organisation (indexed memory vs shift-register stack vs pointer-addressed write), another control schedule (FSM plus counter vs one phase counter)",
+  "b": "latency-preserving coding / structural refactor that changes the register structure or the stored state without moving registers across logic: always-block split or merge, state encoding, bit-width reduction, redundant-register removal (a register replaced by a function of other registers), removal of unobservable state updates (reset or clear of an unread memory entry), register split / array flattening, enables added",
+  "a": "the state elements (registers and memories: names, widths, reset behaviour, update conditions, stored values at every cycle) are unchanged and only the combinational logic is re-expressed (case vs if/else recoding of next-state logic, mux restructuring, operator recoding, constant folding), wherever the text sits",
+  "note": "Where the spec 04 A.1 definition names a transformation explicitly (always-block merge/split, state encoding, bit width, precomputation, strength reduction -> b) the named class wins; the state-element criterion decides the rest."
+ },
+ "sample": {
+  "seed": 2,
+  "quotas": {
+   "d": 24,
+   "c1": 16,
+   "a": 10,
+   "b": 10
+  }
+ },
+ "human_class_counts": {
+  "a": 3,
+  "b": 23,
+  "c1": 9,
+  "c2": 4,
+  "d": 21
+ },
+ "rules": {
+  "v1": {
+   "n": 60,
+   "agree": 23,
+   "agreement": 0.38333333333333336,
+   "confusion": {
+    "a->a": 1,
+    "a->c1": 1,
+    "a->d": 1,
+    "b->a": 1,
+    "b->b": 9,
+    "b->c1": 4,
+    "b->d": 9,
+    "c1->c1": 6,
+    "c1->d": 3,
+    "c2->d": 4,
+    "d->a": 8,
+    "d->b": 1,
+    "d->c1": 5,
+    "d->d": 7
+   },
+   "per_rule_class": {
+    "a": {
+     "n": 10,
+     "correct": 1,
+     "precision": 0.1
+    },
+    "b": {
+     "n": 10,
+     "correct": 9,
+     "precision": 0.9
+    },
+    "c1": {
+     "n": 16,
+     "correct": 6,
+     "precision": 0.375
+    },
+    "c2": {
+     "n": 0,
+     "correct": 0,
+     "precision": null
+    },
+    "d": {
+     "n": 24,
+     "correct": 7,
+     "precision": 0.2916666666666667
+    }
+   },
+   "per_human_class": {
+    "a": {
+     "n": 3,
+     "found": 1,
+     "recall": 0.3333333333333333
+    },
+    "b": {
+     "n": 23,
+     "found": 9,
+     "recall": 0.391304347826087
+    },
+    "c1": {
+     "n": 9,
+     "found": 6,
+     "recall": 0.6666666666666666
+    },
+    "c2": {
+     "n": 4,
+     "found": 0,
+     "recall": 0.0
+    },
+    "d": {
+     "n": 21,
+     "found": 7,
+     "recall": 0.3333333333333333
+    }
+   }
+  },
+  "v2": {
+   "n": 60,
+   "agree": 40,
+   "agreement": 0.6666666666666666,
+   "confusion": {
+    "a->a": 2,
+    "a->c1": 1,
+    "b->a": 4,
+    "b->b": 15,
+    "b->c1": 4,
+    "c1->c1": 9,
+    "c2->c1": 4,
+    "d->a": 1,
+    "d->b": 2,
+    "d->c1": 4,
+    "d->d": 14
+   },
+   "per_rule_class": {
+    "a": {
+     "n": 7,
+     "correct": 2,
+     "precision": 0.2857142857142857
+    },
+    "b": {
+     "n": 17,
+     "correct": 15,
+     "precision": 0.8823529411764706
+    },
+    "c1": {
+     "n": 22,
+     "correct": 9,
+     "precision": 0.4090909090909091
+    },
+    "c2": {
+     "n": 0,
+     "correct": 0,
+     "precision": null
+    },
+    "d": {
+     "n": 14,
+     "correct": 14,
+     "precision": 1.0
+    }
+   },
+   "per_human_class": {
+    "a": {
+     "n": 3,
+     "found": 2,
+     "recall": 0.6666666666666666
+    },
+    "b": {
+     "n": 23,
+     "found": 15,
+     "recall": 0.6521739130434783
+    },
+    "c1": {
+     "n": 9,
+     "found": 9,
+     "recall": 1.0
+    },
+    "c2": {
+     "n": 4,
+     "found": 0,
+     "recall": 0.0
+    },
+    "d": {
+     "n": 21,
+     "found": 14,
+     "recall": 0.6666666666666666
+    }
+   }
+  }
+ },
+ "classify_config": {
+  "rules_version": 2,
+  "d_diff_min": 0.5,
+  "review_below": 0.7,
+  "d_depth_ratio": 3.0,
+  "operator_families": {
+   "mul": [
+    "$mul",
+    "$div",
+    "$mod",
+    "$divfloor",
+    "$modfloor",
+    "$pow",
+    "$macc"
+   ],
+   "add": [
+    "$add",
+    "$sub",
+    "$neg",
+    "$alu"
+   ],
+   "shift": [
+    "$shl",
+    "$shr",
+    "$sshl",
+    "$sshr",
+    "$shift",
+    "$shiftx"
+   ]
+  }
+ },
+ "labels": [
+  {
+   "i": 1,
+   "cand_id": "cec41e65ae2f127",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.6-luna",
+   "human": "c1",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 116 -> 68 and register cells 10 -> 7 with identical latency (no offset)",
+    "text differs widely (ratio 0.5052) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "the four sum registers after the first adder level merged into one product_sum register after the whole adder tree; same latency (3 stages), the second adder level crossed the registers",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 68,
+    "ff_cells_d": 10,
+    "ff_cells_c": 7,
+    "depth_d": 3,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.5052,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 2,
+   "cand_id": "c8ce03d085d2b2b",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "d",
+   "rule_v2": "d",
+   "v2_rules": [
+    "operator family gained: mul (present in C, absent in D)"
+   ],
+   "v2_confidence": 0.8,
+   "note": "4x4 partial-product decomposition with `*` operators replaces the shift-add mux tree",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 68,
+    "ff_cells_d": 10,
+    "ff_cells_c": 7,
+    "depth_d": 3,
+    "depth_c": 4,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add",
+     "mul"
+    ],
+    "diff_ratio": 0.5174,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 3,
+   "cand_id": "c7c5dc0bae9acca",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.4-mini",
+   "human": "b",
+   "rule_v1": "d",
+   "rule_v2": "a",
+   "v2_rules": [
+    "flip-flop bits, register names and clocked targets unchanged",
+    "text differs widely (ratio 0.5391) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "case on SP with nonblocking assignments; FULL now lags a cycle (stored state differs; nonequiv); same registers and organisation",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 8,
+    "depth_d": 5,
+    "depth_c": 3,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.5391,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 4,
+   "cand_id": "ca80c2c0c8d77fc",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.4",
+   "human": "c2",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 8 and register cells 8 -> 2 with identical latency (no offset)",
+    "text differs widely (ratio 0.599) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "outputs made combinational from the state: the two-cycle output delay disappears (nonequiv)",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 8,
+    "ff_cells_d": 8,
+    "ff_cells_c": 2,
+    "depth_d": 6,
+    "depth_c": 6,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.599,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 5,
+   "cand_id": "cceb649a2c0c4ed",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.6-terra",
+   "human": "c2",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 8 and register cells 8 -> 2 with identical latency (no offset)",
+    "text differs widely (ratio 0.6088) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "outputs made combinational, output latency changed (nonequiv)",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 8,
+    "ff_cells_d": 8,
+    "ff_cells_c": 2,
+    "depth_d": 6,
+    "depth_c": 10,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.6088,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 6,
+   "cand_id": "c42c484df1483b2",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "d",
+   "rule_v2": "d",
+   "v2_rules": [
+    "operator family gained: mul (present in C, absent in D)"
+   ],
+   "v2_confidence": 0.8,
+   "note": "mux tree replaced by a `*` operator",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 68,
+    "ff_cells_d": 10,
+    "ff_cells_c": 7,
+    "depth_d": 3,
+    "depth_c": 2,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "mul"
+    ],
+    "diff_ratio": 0.501,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 7,
+   "cand_id": "cb1f43266f06ad1",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.4-mini",
+   "human": "b",
+   "rule_v1": "d",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged",
+    "text differs widely (ratio 0.5719) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "operand registers concatenated with a hold enable instead of zeroing, sum / output registers gated by the valid pipe, generate loop; same register positions and latency",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 116,
+    "ff_cells_d": 10,
+    "ff_cells_c": 9,
+    "depth_d": 3,
+    "depth_c": 3,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.5719,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 8,
+   "cand_id": "c14561fddb8ff50",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "d",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged",
+    "text differs widely (ratio 0.5763) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "indexed 4-entry memory replaced by a shift-register stack (entries move on push / pop)",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 8,
+    "depth_d": 5,
+    "depth_c": 7,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.5763,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 9,
+   "cand_id": "c85fb633c516eb0",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.4",
+   "human": "c1",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 8 and register cells 8 -> 2 with identical latency (no offset)",
+    "text differs widely (ratio 0.5217) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "p_* and output registers removed, the state schedule re-timed by two cycles; proven, same output timing",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 8,
+    "ff_cells_d": 8,
+    "ff_cells_c": 2,
+    "depth_d": 6,
+    "depth_c": 7,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.5217,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 10,
+   "cand_id": "cd0f6fcc131a590",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.6-luna",
+   "human": "b",
+   "rule_v1": "d",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged",
+    "text differs widely (ratio 0.6496) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "two-process split (next-state block plus registered update); same stored state and organisation",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 9,
+    "depth_d": 5,
+    "depth_c": 11,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.6496,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 11,
+   "cand_id": "c91f0a15d3f07ec",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.6-terra",
+   "human": "b",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 25 -> 24 and register cells 8 -> 7 with identical latency (no offset)",
+    "text differs widely (ratio 0.6221) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "memory array replaced by four named registers with a case on SP (same organisation), EMPTY made a function of SP (redundant register removed)",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 24,
+    "ff_cells_d": 8,
+    "ff_cells_c": 7,
+    "depth_d": 5,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.6221,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 12,
+   "cand_id": "cceaf078b063988",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.4",
+   "human": "b",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 25 -> 24 and register cells 8 -> 7 with identical latency (no offset)",
+    "text differs widely (ratio 0.5294) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "four named registers, sp_state, EMPTY combinational, nonblocking; memory clears on reset / pop dropped (unobservable state)",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 24,
+    "ff_cells_d": 8,
+    "ff_cells_c": 7,
+    "depth_d": 5,
+    "depth_c": 3,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.5294,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 13,
+   "cand_id": "c1573ced15e1248",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.6-terra",
+   "human": "c2",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 12 and register cells 8 -> 4 with identical latency (no offset)",
+    "text differs widely (ratio 0.5583) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "transition registers, outputs combinational: output latency changed (nonequiv)",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 12,
+    "ff_cells_d": 8,
+    "ff_cells_c": 4,
+    "depth_d": 6,
+    "depth_c": 7,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.5583,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 14,
+   "cand_id": "c54be66c4dbf198",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.4",
+   "human": "c1",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 10 and register cells 8 -> 2 with identical latency (no offset)",
+    "text differs widely (ratio 0.5711) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "p_* and output registers removed, outputs decoded from a delayed state; proven",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 10,
+    "ff_cells_d": 8,
+    "ff_cells_c": 2,
+    "depth_d": 6,
+    "depth_c": 11,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.5711,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 15,
+   "cand_id": "c5d7ecfc9c3a103",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.6-terra",
+   "human": "c2",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 11 and register cells 8 -> 4 with identical latency (no offset)",
+    "text differs widely (ratio 0.5057) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "output timing changed (nonequiv)",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 11,
+    "ff_cells_d": 8,
+    "ff_cells_c": 4,
+    "depth_d": 6,
+    "depth_c": 8,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.5057,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 16,
+   "cand_id": "c35993cdd6aa0f0",
+   "design_id": "rtllm_adder_16bit",
+   "model": "gpt-5.4",
+   "human": "d",
+   "rule_v1": "d",
+   "rule_v2": "d",
+   "v2_rules": [
+    "operator family gained: add (present in C, absent in D)",
+    "longest combinational path 67 -> 12 cells (ratio 5.6 >= 3.0)"
+   ],
+   "v2_confidence": 0.9,
+   "note": "ripple hierarchy (add8 / add4 / add2 / add1 with SOP carries) replaced by generate / propagate carry-lookahead",
+   "features": {
+    "ff_d": 0,
+    "ff_c": 0,
+    "ff_cells_d": 0,
+    "ff_cells_c": 0,
+    "depth_d": 67,
+    "depth_c": 12,
+    "ops_d": [],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.8139,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 17,
+   "cand_id": "c2516f88ad77a2e",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.4",
+   "human": "a",
+   "rule_v1": "d",
+   "rule_v2": "a",
+   "v2_rules": [
+    "flip-flop bits, register names and clocked targets unchanged",
+    "text differs widely (ratio 0.5286) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "case on SP with nonblocking assignments that store the same values as the original at every cycle (FULL / EMPTY assigned the post-update values, reset and pop clears kept): a recode of the next-state logic only",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 8,
+    "depth_d": 5,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.5286,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 18,
+   "cand_id": "c22d7036b29abd8",
+   "design_id": "rtllm_serial2parallel",
+   "model": "gpt-5.4-mini",
+   "human": "b",
+   "rule_v1": "d",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged",
+    "text differs widely (ratio 0.5678) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "shift register split into two halves, the 4-bit counter (0..8) re-encoded as a 3-bit counter plus a full flag, one always block; same organisation",
+   "features": {
+    "ff_d": 21,
+    "ff_c": 21,
+    "ff_cells_d": 4,
+    "ff_cells_c": 6,
+    "depth_d": 3,
+    "depth_c": 4,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.5678,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 19,
+   "cand_id": "c7ec4da150c7ad0",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.4-mini",
+   "human": "b",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 13 and register cells 8 -> 6 with identical latency (no offset)",
+    "text differs widely (ratio 0.5885) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "one-hot p_* registers re-encoded as a 2-bit phase register, state encoding and counter width changed, next-state block split; outputs still registered at the same position",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 13,
+    "ff_cells_d": 8,
+    "ff_cells_c": 6,
+    "depth_d": 6,
+    "depth_c": 6,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.5885,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 20,
+   "cand_id": "ceeba4ce1dfb8a6",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.6-terra",
+   "human": "d",
+   "rule_v1": "d",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged",
+    "text differs widely (ratio 0.5501) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "valid-bit stack organisation (nonequiv)",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 10,
+    "depth_d": 5,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.5501,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 21,
+   "cand_id": "c1262ae4a28f90a",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.6-luna",
+   "human": "b",
+   "rule_v1": "d",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged",
+    "text differs widely (ratio 0.7902) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "array flattened to a 16-bit vector, two-process split; reset and pop clears kept, same stored state",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 5,
+    "depth_d": 5,
+    "depth_c": 7,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.7902,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 22,
+   "cand_id": "c870992080f1644",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.6-luna",
+   "human": "b",
+   "rule_v1": "d",
+   "rule_v2": "b",
+   "v2_rules": [
+    "flip-flop bits 116 -> 104 in the same register cells (widths), latency unchanged",
+    "text differs widely (ratio 0.6675) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "bit widths of the partial products and sums reduced, always blocks merged; same operators, same register positions",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 104,
+    "ff_cells_d": 10,
+    "ff_cells_c": 10,
+    "depth_d": 3,
+    "depth_c": 2,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.6675,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 23,
+   "cand_id": "cc26273a169123f",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "d",
+   "rule_v2": "d",
+   "v2_rules": [
+    "operator family gained: mul (present in C, absent in D)"
+   ],
+   "v2_confidence": 0.8,
+   "note": "two half-width `*` operators (low / high nibbles of mul_b) replace the shift-add tree; operand hold instead of zeroing (nonequiv)",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 60,
+    "ff_cells_d": 10,
+    "ff_cells_c": 7,
+    "depth_d": 3,
+    "depth_c": 2,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add",
+     "mul"
+    ],
+    "diff_ratio": 0.5825,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 24,
+   "cand_id": "c456d249fdd8eb5",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.6-terra",
+   "human": "d",
+   "rule_v1": "d",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 7 and register cells 8 -> 1 with identical latency (no offset)",
+    "text differs widely (ratio 0.6454) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "FSM plus counter replaced by one 7-bit phase counter with combinational decode of the lights and the count value: a different schedule",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 7,
+    "ff_cells_d": 8,
+    "ff_cells_c": 1,
+    "depth_d": 6,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.6454,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 25,
+   "cand_id": "c4a8f4d032925d3",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.4-mini",
+   "human": "b",
+   "rule_v1": "c1",
+   "rule_v2": "a",
+   "v2_rules": [
+    "flip-flop bits, register names and clocked targets unchanged"
+   ],
+   "v2_confidence": 0.85,
+   "note": "case recode; the memory clear on reset and on pop removed (unobservable state); the flip-flop difference 57 -> 25 is the 32-bit loop variable `integer i` counted by the v1 probe, not a register change",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 8,
+    "depth_d": 5,
+    "depth_c": 4,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.4641,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 26,
+   "cand_id": "c8a512245fd1412",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.4-mini",
+   "human": "b",
+   "rule_v1": "c1",
+   "rule_v2": "a",
+   "v2_rules": [
+    "flip-flop bits, register names and clocked targets unchanged"
+   ],
+   "v2_confidence": 0.85,
+   "note": "memory clears on reset / pop removed, conditions simplified; the flip-flop difference is the loop-variable artifact",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 8,
+    "depth_d": 5,
+    "depth_c": 6,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.2899,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 27,
+   "cand_id": "ca4713bdeb8ad54",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.6-luna",
+   "human": "c1",
+   "rule_v1": "c1",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 10 and register cells 8 -> 3 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "p_* and output registers replaced by a two-stage delayed state register with the light decode after it; counter narrowed",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 10,
+    "ff_cells_d": 8,
+    "ff_cells_c": 3,
+    "depth_d": 6,
+    "depth_c": 6,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4109,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 28,
+   "cand_id": "c6028c0668636f1",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.4-mini",
+   "human": "b",
+   "rule_v1": "c1",
+   "rule_v2": "a",
+   "v2_rules": [
+    "flip-flop bits, register names and clocked targets unchanged"
+   ],
+   "v2_confidence": 0.85,
+   "note": "case recode, memory clears removed; loop-variable artifact",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 8,
+    "depth_d": 5,
+    "depth_c": 6,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.4385,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 29,
+   "cand_id": "cfc46f39b150eaf",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.6-terra",
+   "human": "b",
+   "rule_v1": "c1",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 25 -> 24 and register cells 8 -> 7 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "four named registers with a case on SP, EMPTY made a function of SP (redundant register removed, 25 -> 24 bits after the artifact); same organisation",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 24,
+    "ff_cells_d": 8,
+    "ff_cells_c": 7,
+    "depth_d": 5,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4669,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 30,
+   "cand_id": "cfe1ddcc1168acb",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.6-luna",
+   "human": "c1",
+   "rule_v1": "c1",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 12 and register cells 8 -> 4 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "state delay chain replaces the p_* and output registers, decode after the registers; a wrong transition makes it nonequiv",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 12,
+    "ff_cells_d": 8,
+    "ff_cells_c": 4,
+    "depth_d": 6,
+    "depth_c": 7,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4513,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 31,
+   "cand_id": "c4294c201570633",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.6-terra",
+   "human": "d",
+   "rule_v1": "c1",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 25 -> 24 and register cells 8 -> 7 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "shift-register stack (top / level1..3 move on push and pop) replaces the indexed memory",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 24,
+    "ff_cells_d": 8,
+    "ff_cells_c": 7,
+    "depth_d": 5,
+    "depth_c": 4,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4717,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 32,
+   "cand_id": "cfa21f3d4abcbcb",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.4",
+   "human": "a",
+   "rule_v1": "c1",
+   "rule_v2": "a",
+   "v2_rules": [
+    "flip-flop bits, register names and clocked targets unchanged"
+   ],
+   "v2_confidence": 0.85,
+   "note": "case recode of the next-state logic with identical stored values (reset clear and pop clear kept); the flip-flop difference is the loop-variable artifact",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 8,
+    "depth_d": 5,
+    "depth_c": 4,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.4491,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 33,
+   "cand_id": "c70ab0689a6b700",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.4-mini",
+   "human": "c1",
+   "rule_v1": "c1",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 12 and register cells 8 -> 4 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "two-stage delayed state register with the light decode after it replaces p_* and the output registers",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 12,
+    "ff_cells_d": 8,
+    "ff_cells_c": 4,
+    "depth_d": 6,
+    "depth_c": 7,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4386,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 34,
+   "cand_id": "c813009d855d5a9",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "c1",
+   "rule_v2": "d",
+   "v2_rules": [
+    "operator family gained: mul (present in C, absent in D)",
+    "longest combinational path 3 -> 1 cells (ratio 3.0 >= 3.0)"
+   ],
+   "v2_confidence": 0.9,
+   "note": "`mul_a_reg * mul_b_reg` with one product register replaces the partial-product tree",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 68,
+    "ff_cells_d": 10,
+    "ff_cells_c": 7,
+    "depth_d": 3,
+    "depth_c": 1,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "mul"
+    ],
+    "diff_ratio": 0.3466,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 35,
+   "cand_id": "ce6a2f3a815884a",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.6-terra",
+   "human": "c1",
+   "rule_v1": "c1",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 14 and register cells 8 -> 6 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "output registers replaced by a delayed phase register with decode after it; comparator results precomputed into registers",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 14,
+    "ff_cells_d": 8,
+    "ff_cells_c": 6,
+    "depth_d": 6,
+    "depth_c": 8,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.3869,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 36,
+   "cand_id": "c0b9e5eeb2a76ec",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.6-terra",
+   "human": "d",
+   "rule_v1": "c1",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 25 -> 24 and register cells 8 -> 5 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "16-bit shift-register stack with a 2-bit pointer replaces the indexed memory (nonequiv)",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 24,
+    "ff_cells_d": 8,
+    "ff_cells_c": 5,
+    "depth_d": 5,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.4572,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 37,
+   "cand_id": "c4cc1bf0a3b1bdc",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.6-luna",
+   "human": "c1",
+   "rule_v1": "c1",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 12 and register cells 8 -> 4 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "state delay chain with the decode after the registers, new state encoding, counter narrowed",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 12,
+    "ff_cells_d": 8,
+    "ff_cells_c": 4,
+    "depth_d": 6,
+    "depth_c": 8,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4468,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 38,
+   "cand_id": "c1cc13efbd2c34d",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.4",
+   "human": "c1",
+   "rule_v1": "c1",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 16 -> 8 and register cells 8 -> 2 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "FSM and counter merged, output registers removed, the schedule shifted by the two absorbed cycles (proven)",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 8,
+    "ff_cells_d": 8,
+    "ff_cells_c": 2,
+    "depth_d": 6,
+    "depth_c": 4,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.475,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 39,
+   "cand_id": "cab845aa437aa16",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "c1",
+   "rule_v2": "d",
+   "v2_rules": [
+    "operator family gained: mul (present in C, absent in D)"
+   ],
+   "v2_confidence": 0.8,
+   "note": "three 4x4 `*` partial products with a recombination stage replace the shift-add tree (nonequiv)",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 77,
+    "ff_cells_d": 10,
+    "ff_cells_c": 11,
+    "depth_d": 3,
+    "depth_c": 2,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add",
+     "mul"
+    ],
+    "diff_ratio": 0.4949,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 40,
+   "cand_id": "c501fafcecf20f1",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.6-luna",
+   "human": "d",
+   "rule_v1": "c1",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 116 -> 84 and register cells 10 -> 8 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "radix-4 partial products (0, a, 2a, 3a selected per bit pair) with two sum registers: a different multiplier architecture",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 84,
+    "ff_cells_d": 10,
+    "ff_cells_c": 8,
+    "depth_d": 3,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.3144,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 41,
+   "cand_id": "caf1dce11804fb5",
+   "design_id": "rtllm_adder_16bit",
+   "model": "gpt-5.6-terra",
+   "human": "d",
+   "rule_v1": "a",
+   "rule_v2": "d",
+   "v2_rules": [
+    "longest combinational path 67 -> 11 cells (ratio 6.1 >= 3.0)"
+   ],
+   "v2_confidence": 0.8,
+   "note": "parallel-prefix (four-level generate / propagate) adder replaces the ripple hierarchy",
+   "features": {
+    "ff_d": 0,
+    "ff_c": 0,
+    "ff_cells_d": 0,
+    "ff_cells_c": 0,
+    "depth_d": 67,
+    "depth_c": 11,
+    "ops_d": [],
+    "ops_c": [],
+    "diff_ratio": 0.8583,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 42,
+   "cand_id": "c888064c2a16509",
+   "design_id": "rtllm_adder_16bit",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "a",
+   "rule_v2": "d",
+   "v2_rules": [
+    "longest combinational path 67 -> 13 cells (ratio 5.2 >= 3.0)"
+   ],
+   "v2_confidence": 0.8,
+   "note": "block carry-lookahead inside every hierarchy level replaces the ripple SOP carries",
+   "features": {
+    "ff_d": 0,
+    "ff_c": 0,
+    "ff_cells_d": 0,
+    "ff_cells_c": 0,
+    "depth_d": 67,
+    "depth_c": 13,
+    "ops_d": [],
+    "ops_c": [],
+    "diff_ratio": 0.7936,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 43,
+   "cand_id": "c7573713980673c",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "a",
+   "rule_v2": "d",
+   "v2_rules": [
+    "operator family gained: mul (present in C, absent in D)",
+    "longest combinational path 3 -> 1 cells (ratio 3.0 >= 3.0)"
+   ],
+   "v2_confidence": 0.9,
+   "note": "`mul_a_reg * mul_b_reg` into sum[0], the other sum registers zeroed (nonequiv)",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 68,
+    "ff_cells_d": 10,
+    "ff_cells_c": 7,
+    "depth_d": 3,
+    "depth_c": 1,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "mul"
+    ],
+    "diff_ratio": 0.2599,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 44,
+   "cand_id": "cd4da8414dcee98",
+   "design_id": "rtllm_adder_16bit",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "a",
+   "rule_v2": "d",
+   "v2_rules": [
+    "operator family gained: add (present in C, absent in D)",
+    "longest combinational path 67 -> 2 cells (ratio 33.5 >= 3.0)"
+   ],
+   "v2_confidence": 0.9,
+   "note": "behavioural `{Co, y} = a + b + Cin` replaces the hand-built ripple adder",
+   "features": {
+    "ff_d": 0,
+    "ff_c": 0,
+    "ff_cells_d": 0,
+    "ff_cells_c": 0,
+    "depth_d": 67,
+    "depth_c": 2,
+    "ops_d": [],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.8762,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 45,
+   "cand_id": "c8fc55d1e7afe09",
+   "design_id": "rtllm_adder_16bit",
+   "model": "gpt-5.6-luna",
+   "human": "d",
+   "rule_v1": "a",
+   "rule_v2": "d",
+   "v2_rules": [
+    "longest combinational path 67 -> 13 cells (ratio 5.2 >= 3.0)"
+   ],
+   "v2_confidence": 0.8,
+   "note": "4-bit-block carry-lookahead adder replaces the ripple hierarchy",
+   "features": {
+    "ff_d": 0,
+    "ff_c": 0,
+    "ff_cells_d": 0,
+    "ff_cells_c": 0,
+    "depth_d": 67,
+    "depth_c": 13,
+    "ops_d": [],
+    "ops_c": [],
+    "diff_ratio": 0.8565,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 46,
+   "cand_id": "c851c1a2fb5d063",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.6-terra",
+   "human": "b",
+   "rule_v1": "a",
+   "rule_v2": "b",
+   "v2_rules": [
+    "flip-flop bits 116 -> 92 in the same register cells (widths), latency unchanged",
+    "text differs widely (ratio 0.5036) without operator or topology evidence -> review"
+   ],
+   "v2_confidence": 0.6,
+   "note": "partial-product pairs added before the sum registers at reduced width, final sum as a tree; same register positions and operator set",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 92,
+    "ff_cells_d": 10,
+    "ff_cells_c": 10,
+    "depth_d": 3,
+    "depth_c": 2,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.5036,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 47,
+   "cand_id": "c646470e93cedee",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.6-luna",
+   "human": "a",
+   "rule_v1": "a",
+   "rule_v2": "c1",
+   "v2_rules": [
+    "flip-flop bits 25 -> 21 and register cells 8 -> 7 with identical latency (no offset)"
+   ],
+   "v2_confidence": 0.7,
+   "note": "case on SP recode of the next-state logic, clears kept; the SP == 0 case forgets the pop (nonequiv), the register structure is unchanged",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 21,
+    "ff_cells_d": 8,
+    "ff_cells_c": 7,
+    "depth_d": 5,
+    "depth_c": 3,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.4595,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 48,
+   "cand_id": "ca01ded8c8586b4",
+   "design_id": "rtllm_adder_16bit",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "a",
+   "rule_v2": "d",
+   "v2_rules": [
+    "longest combinational path 67 -> 13 cells (ratio 5.2 >= 3.0)"
+   ],
+   "v2_confidence": 0.8,
+   "note": "flat carry-lookahead adder with group generate / propagate replaces the ripple hierarchy",
+   "features": {
+    "ff_d": 0,
+    "ff_c": 0,
+    "ff_cells_d": 0,
+    "ff_cells_c": 0,
+    "depth_d": 67,
+    "depth_c": 13,
+    "ops_d": [],
+    "ops_c": [],
+    "diff_ratio": 0.8413,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 49,
+   "cand_id": "ceaa3868ed144bd",
+   "design_id": "rtllm_multi_pipe_8bit",
+   "model": "gpt-5.6-luna",
+   "human": "d",
+   "rule_v1": "a",
+   "rule_v2": "a",
+   "v2_rules": [
+    "flip-flop bits, register names and clocked targets unchanged"
+   ],
+   "v2_confidence": 0.85,
+   "note": "radix-4 partial products (a_ext, a_ext << 1, a_ext + (a_ext << 1)) into the four sum registers: a different multiplier architecture",
+   "features": {
+    "ff_d": 116,
+    "ff_c": 116,
+    "ff_cells_d": 10,
+    "ff_cells_c": 10,
+    "depth_d": 3,
+    "depth_c": 4,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4915,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 50,
+   "cand_id": "c81240b24a7ba28",
+   "design_id": "rtllm_adder_16bit",
+   "model": "gpt-5.4",
+   "human": "d",
+   "rule_v1": "a",
+   "rule_v2": "d",
+   "v2_rules": [
+    "longest combinational path 67 -> 15 cells (ratio 4.5 >= 3.0)"
+   ],
+   "v2_confidence": 0.8,
+   "note": "two-level group generate / propagate carry-lookahead adder replaces the ripple hierarchy",
+   "features": {
+    "ff_d": 0,
+    "ff_c": 0,
+    "ff_cells_d": 0,
+    "ff_cells_c": 0,
+    "depth_d": 67,
+    "depth_c": 15,
+    "ops_d": [],
+    "ops_c": [],
+    "diff_ratio": 0.9041,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 51,
+   "cand_id": "c5a2824a0f46eea",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.4-mini",
+   "human": "b",
+   "rule_v1": "b",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "v2_confidence": 0.7,
+   "note": "stack pointer re-encoded as a used-entries counter (4 - SP) with case-selected entries; same organisation (nonequiv)",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 8,
+    "depth_d": 5,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4177,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 52,
+   "cand_id": "c52053fb93a511c",
+   "design_id": "rtllm_serial2parallel",
+   "model": "gpt-5.4-mini",
+   "human": "d",
+   "rule_v1": "b",
+   "rule_v2": "d",
+   "v2_rules": [
+    "operator family gained: shift (present in C, absent in D)"
+   ],
+   "v2_confidence": 0.8,
+   "note": "shift register replaced by a pointer-addressed bit write (mem[wptr]) with a full flag: another buffer organisation (nonequiv)",
+   "features": {
+    "ff_d": 21,
+    "ff_c": 21,
+    "ff_cells_d": 4,
+    "ff_cells_c": 5,
+    "depth_d": 3,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add",
+     "shift"
+    ],
+    "diff_ratio": 0.423,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 53,
+   "cand_id": "c11a57fa5034091",
+   "design_id": "rtllm_serial2parallel",
+   "model": "gpt-5.6-terra",
+   "human": "b",
+   "rule_v1": "b",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "v2_confidence": 0.7,
+   "note": "4-bit up counter re-encoded as a 3-bit down counter written as bit logic plus a frame_ready flag",
+   "features": {
+    "ff_d": 21,
+    "ff_c": 21,
+    "ff_cells_d": 4,
+    "ff_cells_c": 5,
+    "depth_d": 3,
+    "depth_c": 6,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.284,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 54,
+   "cand_id": "cd02403ad78299c",
+   "design_id": "rtllm_LIFObuffer",
+   "model": "gpt-5.6-terra",
+   "human": "b",
+   "rule_v1": "b",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "v2_confidence": 0.7,
+   "note": "two-process split (sp_next / do_write / do_read computed combinationally); same organisation (nonequiv)",
+   "features": {
+    "ff_d": 25,
+    "ff_c": 25,
+    "ff_cells_d": 8,
+    "ff_cells_c": 8,
+    "depth_d": 5,
+    "depth_c": 8,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.4097,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 55,
+   "cand_id": "cce230deea8352e",
+   "design_id": "rtllm_serial2parallel",
+   "model": "gpt-5.6-luna",
+   "human": "b",
+   "rule_v1": "b",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "v2_confidence": 0.7,
+   "note": "counter re-encoded as 3 bits plus a frame_ready flag, blocks merged (nonequiv)",
+   "features": {
+    "ff_d": 21,
+    "ff_c": 21,
+    "ff_cells_d": 4,
+    "ff_cells_c": 5,
+    "depth_d": 3,
+    "depth_c": 4,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4803,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 56,
+   "cand_id": "c2115e983a350db",
+   "design_id": "rtllm_traffic_light",
+   "model": "gpt-5.6-luna",
+   "human": "b",
+   "rule_v1": "b",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "v2_confidence": 0.7,
+   "note": "two-process FSM split, comparators as explicit bit logic, state encoding changed; registers unchanged in position",
+   "features": {
+    "ff_d": 16,
+    "ff_c": 16,
+    "ff_cells_d": 8,
+    "ff_cells_c": 8,
+    "depth_d": 6,
+    "depth_c": 6,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4452,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 57,
+   "cand_id": "c19f200937bca8e",
+   "design_id": "rtllm_serial2parallel",
+   "model": "gpt-5.6-luna",
+   "human": "b",
+   "rule_v1": "b",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "v2_confidence": 0.7,
+   "note": "shift register split into two halves, counter renamed; same organisation",
+   "features": {
+    "ff_d": 21,
+    "ff_c": 21,
+    "ff_cells_d": 4,
+    "ff_cells_c": 5,
+    "depth_d": 3,
+    "depth_c": 3,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.2283,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 58,
+   "cand_id": "ced6e3b9c573f33",
+   "design_id": "rtllm_serial2parallel",
+   "model": "gpt-5.6-terra",
+   "human": "b",
+   "rule_v1": "b",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "v2_confidence": 0.7,
+   "note": "one always block, 3-bit down counter as bit logic plus a frame_done flag",
+   "features": {
+    "ff_d": 21,
+    "ff_c": 21,
+    "ff_cells_d": 4,
+    "ff_cells_c": 5,
+    "depth_d": 3,
+    "depth_c": 5,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [],
+    "diff_ratio": 0.4744,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 59,
+   "cand_id": "cca37889705b5c8",
+   "design_id": "rtllm_serial2parallel",
+   "model": "gpt-5.6-luna",
+   "human": "b",
+   "rule_v1": "b",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "v2_confidence": 0.7,
+   "note": "3-bit counter plus a frame_done flag replaces the 4-bit counter; same latency (proven)",
+   "features": {
+    "ff_d": 21,
+    "ff_c": 21,
+    "ff_cells_d": 4,
+    "ff_cells_c": 5,
+    "depth_d": 3,
+    "depth_c": 3,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.3872,
+    "max_offset": 0
+   }
+  },
+  {
+   "i": 60,
+   "cand_id": "c7cbb69c3151e50",
+   "design_id": "rtllm_serial2parallel",
+   "model": "gpt-5.4",
+   "human": "b",
+   "rule_v1": "b",
+   "rule_v2": "b",
+   "v2_rules": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "v2_confidence": 0.7,
+   "note": "3-bit counter plus a word_ready flag, control conditions as wires",
+   "features": {
+    "ff_d": 21,
+    "ff_c": 21,
+    "ff_cells_d": 4,
+    "ff_cells_c": 5,
+    "depth_d": 3,
+    "depth_c": 6,
+    "ops_d": [
+     "add"
+    ],
+    "ops_c": [
+     "add"
+    ],
+    "diff_ratio": 0.4369,
+    "max_offset": 0
+   }
+  }
+ ]
+}

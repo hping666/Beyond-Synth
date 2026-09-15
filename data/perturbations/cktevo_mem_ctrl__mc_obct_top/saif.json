@@ -8,6 +8,18 @@
  "design_id": "cktevo_mem_ctrl__mc_obct_top",
  "missing": [],
  "perturbations": {
+  "p116bfa17ebfb77": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p116bfa17ebfb77.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/d62fe1fc72ae50e5",
+   "status": "copied"
+  },
+  "p1fe7b427e6ac90": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p1fe7b427e6ac90.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/168c9cdd87c294c6",
+   "status": "copied"
+  },
   "p24a25e2b246c69": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p24a25e2b246c69.saif",
@@ -20,11 +32,35 @@
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/c46066d48524a0a8",
    "status": "exists"
   },
+  "p4eda9fe3b5cf87": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p4eda9fe3b5cf87.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/09ed22eb84475e61",
+   "status": "copied"
+  },
   "p549b37c111366f": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p549b37c111366f.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/4474159254eff569",
    "status": "exists"
+  },
+  "p5595316d11833e": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p5595316d11833e.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/f814f52f5704b26b",
+   "status": "copied"
+  },
+  "p6275f7efaf7827": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p6275f7efaf7827.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/54399f918adaec40",
+   "status": "copied"
+  },
+  "p643e54a3f100cd": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p643e54a3f100cd.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/c4121a888ba168fe",
+   "status": "copied"
   },
   "p69c6f3764f02c4": {
    "instance": "bs_lockstep/u_c",
@@ -38,6 +74,12 @@
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/8bb0f3ac8f4c22d1",
    "status": "exists"
   },
+  "p7e1135e6fd3d3d": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p7e1135e6fd3d3d.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/53bfd28135fac49d",
+   "status": "copied"
+  },
   "p822396f00db52d": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p822396f00db52d.saif",
@@ -50,11 +92,29 @@
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/026058297a9b8e43",
    "status": "exists"
   },
+  "p93649bb473425c": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p93649bb473425c.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/3d6850b6f881c936",
+   "status": "copied"
+  },
+  "p9c48c600c75cdc": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p9c48c600c75cdc.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/a3241471cdf61a03",
+   "status": "copied"
+  },
   "p9fe50960a47f3a": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/p9fe50960a47f3a.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/1cf5f5eab4c6731b",
    "status": "exists"
+  },
+  "paae199a0421b60": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/paae199a0421b60.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/9c80e711f898efff",
+   "status": "copied"
   },
   "pbd48daa15fd385": {
    "instance": "bs_lockstep/u_c",
@@ -80,11 +140,23 @@
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/00e2f71eec0c1138",
    "status": "exists"
   },
+  "pe5e923c0fb6ca4": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/pe5e923c0fb6ca4.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/1d1d6e66b129679d",
+   "status": "copied"
+  },
   "pf3d8173620303c": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/pf3d8173620303c.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/80af5d26c1281813",
    "status": "exists"
+  },
+  "pfdc957df10f815": {
+   "instance": "bs_lockstep/u_c",
+   "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_mem_ctrl__mc_obct_top/saif/pfdc957df10f815.saif",
+   "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_mem_ctrl__mc_obct_top/EQ/0aa639a62421f34e",
+   "status": "copied"
   }
  }
 }

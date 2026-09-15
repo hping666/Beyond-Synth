@@ -12,37 +12,37 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/p0d032d65c8a0a2.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/f0a0c2d3c0c59732",
-   "status": "copied"
+   "status": "exists"
   },
   "p14aff67d0acd97": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/p14aff67d0acd97.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/5930b0dae1beaf73",
-   "status": "copied"
+   "status": "exists"
   },
   "p238e3f5b240830": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/p238e3f5b240830.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/5883db7f70b06ac3",
-   "status": "copied"
+   "status": "exists"
   },
   "p2c752e4d1f481e": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/p2c752e4d1f481e.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/9c5a135afae2cd14",
-   "status": "copied"
+   "status": "exists"
   },
   "p2d705e02c43673": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/p2d705e02c43673.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/927ab6ea6a6b393f",
-   "status": "copied"
+   "status": "exists"
   },
   "p32bca64217fb1f": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/p32bca64217fb1f.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/d57f8ef739bffcc1",
-   "status": "copied"
+   "status": "exists"
   },
   "p3414b0303083f9": {
    "instance": "bs_lockstep/u_c",
@@ -54,7 +54,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/p3c266b2c988ad6.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/1e2d8a536fed7845",
-   "status": "copied"
+   "status": "exists"
   },
   "p3f2ac9eeba81c4": {
    "instance": "bs_lockstep/u_c",
@@ -72,13 +72,13 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/p45af8fe954ceec.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/453a9031c08820cc",
-   "status": "copied"
+   "status": "exists"
   },
   "p5d46272a93f9ff": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/p5d46272a93f9ff.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/8790d9c205606811",
-   "status": "copied"
+   "status": "exists"
   },
   "p60049c172a71ea": {
    "instance": "bs_lockstep/u_c",
@@ -132,7 +132,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/p99023d1bd288d2.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/76063da4335ce148",
-   "status": "copied"
+   "status": "exists"
   },
   "p9b35fe3874eef5": {
    "instance": "bs_lockstep/u_c",
@@ -144,13 +144,13 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/pa858a6decde040.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/a6f8ad93d0de76fe",
-   "status": "copied"
+   "status": "exists"
   },
   "pb02573e61f9ea0": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/pb02573e61f9ea0.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/330285686d8db79c",
-   "status": "copied"
+   "status": "exists"
   },
   "pb544190936bbe1": {
    "instance": "bs_lockstep/u_c",
@@ -180,19 +180,19 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/pd54016149e5d52.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/1f3921a834087847",
-   "status": "copied"
+   "status": "exists"
   },
   "pe933a43184b24a": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/pe933a43184b24a.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/0aa1392c1c48d865",
-   "status": "copied"
+   "status": "exists"
   },
   "peff1959e20d708": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/peff1959e20d708.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/63b3099f5a217833",
-   "status": "copied"
+   "status": "exists"
   },
   "pf358e5ad985dd0": {
    "instance": "bs_lockstep/u_c",
@@ -204,7 +204,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_pcie/saif/pfd5702134e7e6e.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_pcie/EQ/4d52e14260d66ef5",
-   "status": "copied"
+   "status": "exists"
   }
  }
 }

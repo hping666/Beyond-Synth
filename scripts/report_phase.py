@@ -435,6 +435,16 @@ def phase3(cfg):
             for k, d in vp["by_type_and_class"].items():
                 L.append(f"- {k}: " + "; ".join(f"class {cls}: n={c['n']}, median {c['median_s']:.0f} s, q95 {c['q95_s']:.0f} s, {c['hours']:.1f} h" for cls, c in sorted(d.items())))
             L.append("")
+            if vp["projected_vcf_hours"] > float(vp["threshold_hours"]) and vp.get("projected_vcf_hours_with_cap") is not None:
+                L += [f"**Addendum (DECISIONS 2026-09-14 e, the projection exceeds {vp['threshold_hours']} h — proposal for the user, nothing changed):** "
+                      f"(1) lower the SEQ class caps of arithmetic pipelined designs to {vp['proposal_cap_hours']:.0f} h for (c1) and (d) (config `equiv.seq_cap_min_by_class` would need a per-design-type entry; "
+                      f"today's caps are 4 h): {vp['arith_c1d_over_cap']} of the {vp['arith_c1d_verdicts']} Phase 3 (c1) / (d) verdicts on the arithmetic pipeline ran longer than {vp['proposal_cap_hours']:.0f} h and would become "
+                      f"`inconclusive` (never discarded, C2.5); the projection drops to **{vp['projected_vcf_hours_with_cap']:.0f} h** at the planned scale, so the cap alone does not reach the threshold — "
+                      f"the verdict distribution of the pipeline is bimodal (30–40 s or hours) and the hours sit in the proofs that finish under the cap as well. "
+                      f"(2) Prioritise the SEQ latency mapping (G2.1(b)) and a DPV phase mapping for fixed-latency arithmetic pipelines before Phase 5: the pipeline's (c1) / (d) rewrites are "
+                      f"fixed-latency datapaths where DPV's transaction equivalence needs no state-space search; this is the engineering item that removes the hours, the cap only bounds them. "
+                      f"(3) Alternatively reduce the arithmetic-pipeline share of the Phase 5 starting pool ({100 * vp['share_arith_pipeline_in_pool']:.0f} % by name) — a design-set decision for the user. "
+                      f"The no-discard timeout policy is unchanged either way.", ""]
         ls = data.get("label_sensitivity") or {}
         if ls:
             pm = ls.get("_pooled_min") or {}
@@ -460,6 +470,36 @@ def phase3(cfg):
         L += ["", "## 6. Decision rule (config llm.calibration.decision)", "",
               f"Primary metric {dec['primary_metric']}: scores {dict((k, round(v, 3)) for k, v in dec['scores'].items())}; best area gain per model {dict((k, round(100 * v, 2)) for k, v in dec['best_gain_by_model'].items())} %; "
               f"eligible (best gain ≥ {cfg['llm']['calibration']['decision']['floor_best_gain_ratio']} × strongest, a retained (c1) or (d)): {dec['eligible']}; **recommended: {dec['recommended']}** — {dec['note']}", ""]
+    m6 = load("phase3_m6_agreement.json")
+    if m6:
+        classes = ("a", "b", "c1", "c2", "d")
+        L += ["", "## 6a. M6 manual validation and the rules-v2 classifier (DECISIONS 2026-09-14 a)", "",
+              f"{m6['n']} candidates sampled over the rules-v1 produced classes (seed {m6['sample']['seed']}, quotas {m6['sample']['quotas']}) were read as diffs against D and "
+              f"classified by hand under the protocol of reports/data/phase3_m6_human.json (state-element criterion: (a) same registers and stored values, (b) register structure / "
+              f"stored state changed without registers crossing logic, (c1) registers cross logic at equal latency, (c2) output timing changed, (d) another algorithm / organisation / schedule). "
+              f"Human classes: {m6['human_class_counts']}.", "",
+              "| rules | agreement | (a) precision / recall | (b) | (c1) | (c2) | (d) |", "|---|---|---|---|---|---|---|"]
+        for ver in ("v1", "v2"):
+            r = m6["rules"][ver]
+            cells = []
+            for c in classes:
+                pr, rc = r["per_rule_class"][c], r["per_human_class"][c]
+                cells.append(f"{'-' if pr['precision'] is None else f'{100 * pr['precision']:.0f} %'} ({pr['correct']}/{pr['n']}) / {'-' if rc['recall'] is None else f'{100 * rc['recall']:.0f} %'} ({rc['found']}/{rc['n']})")
+            L.append(f"| {ver} | {r['agree']} / {r['n']} ({100 * r['agreement']:.0f} %) | " + " | ".join(cells) + " |")
+        for ver in ("v1", "v2"):
+            L += ["", f"Confusion {ver} (human -> rule): " + ", ".join(f"{k}: {n}" for k, n in m6["rules"][ver]["confusion"].items())]
+        wrong = [l for l in m6["labels"] if l["rule_v2"] != l["human"]]
+        L += ["", f"Rules v2 (`src/classify/rules.py`, config `classify`): (d) requires an operator family gained (multiply / divide, add / subtract, variable shift; "
+              f"present in C's word-level RTLIL histogram, absent in D's) or a longest-combinational-path ratio ≥ {m6['classify_config']['d_depth_ratio']} (Yosys `ltp -noff`); "
+              f"the text diff ratio only flags a rewrite for review. Flip-flop bits are counted after `opt` (the 32-bit loop variable of LIFObuffer's reset loop no longer counts as a "
+              f"register), (c1) needs the flip-flop bits **and** the number of register cells to change, blocking assignments count as clocked targets.",
+              "", f"Remaining disagreements of v2 ({len(wrong)}): " + "; ".join(f"#{l['i']} human {l['human']} / rule {l['rule_v2']}" for l in wrong) + ".",
+              "", "Known limits of the static rules (recorded, not fixed): output-timing changes of nonequiv candidates cannot be seen without a lock-step offset (human c2 -> rule c1); "
+              "buffer re-organisations that keep the register count (shift-register stacks, pointer-addressed writes without a shift cell), the FSM-to-phase-counter schedule change and "
+              "the radix-4 partial-product recoding carry no operator or depth evidence (human d -> rule b / c1 / a); removals of unobservable state updates (reset / pop clears of an unread memory "
+              "entry) and redundant-register removals are refactors the register features cannot separate from recodes (human b -> rule a / c1). These cases are the domain of the LLM review "
+              "of spec 04 A.2 step 2, which is not part of the Phase 3 protocol. Every Phase 3 candidate was re-labelled with rules v2 (candidates.class_rule_v1 keeps the v1 class); "
+              "the produced-class tables of §3 use the v2 classes, the run-time bandit credits and SEQ caps are untouched.", ""]
     concl = Path(ROOT) / "reports" / "phase3_conclusions.md"
     if concl.exists():
         L += ["", concl.read_text().rstrip("\n"), ""]

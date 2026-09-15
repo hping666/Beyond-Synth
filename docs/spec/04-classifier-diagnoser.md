@@ -8,11 +8,11 @@ Input: RTL of D and C. Output: main class, sub-tags, confidence, rule basis.
 
 | Class | Definition | Rule criterion (AST/dataflow diff with Pyverilog; register counts from the DFF count of Yosys `proc; opt; stat`) |
 |---|---|---|
-| (a) combinational rewrite | only combinational expressions / muxes / constants change | register count and register-name set unchanged; assignment targets of `always @(posedge)` blocks unchanged; changes confined to assigns / combinational always |
-| (b) latency-preserving coding/structural refactor | always-block merge/split, state encoding, resource sharing, bit width, precomputation, strength reduction; register count or names may change but latency does not | V2 identical every cycle; register structure or state encoding changes |
-| (c1) latency-preserving sequential restructuring | retiming-style register movement/duplication | V2 identical every cycle; register count changes and registers cross combinational boundaries (register positions move in the dataflow graph) |
+| (a) combinational rewrite | only combinational expressions / muxes / constants change | flip-flop bits (Yosys `proc; flatten; opt`), register-name set and the assignment targets of clocked always blocks (blocking and nonblocking) unchanged; no (d) evidence |
+| (b) latency-preserving coding/structural refactor | always-block merge/split, state encoding, resource sharing, bit width, precomputation, strength reduction; register count or names may change but latency does not | V2 identical every cycle; register names / targets change, or the flip-flop bits change inside the same register cells (widths) |
+| (c1) latency-preserving sequential restructuring | retiming-style register movement/duplication | V2 identical every cycle; flip-flop bits **and** the number of register cells change (register positions move in the dataflow graph) |
 | (c2) latency / interface-timing change | pipeline stages added/removed, multi-cycling | V2 finds a constant offset k > 0 |
-| (d) algorithm / architecture replacement | different algorithm, datapath organization, buffer structure, schedule | operator set or connection topology of the dataflow graph changes widely (diff size above the config threshold), or LLM review decides |
+| (d) algorithm / architecture replacement | different algorithm, datapath organization, buffer structure, schedule | **rules version 2 (DECISIONS 2026-09-14):** an operator family (`classify.operator_families`: multiply / divide, add / subtract, variable shift; memory cells excluded because Yosys turns small arrays into register lists by indexing style) present in C's word-level RTLIL histogram and absent in D's, or the longest combinational path (`ltp -noff`, cells) changed by `classify.d_depth_ratio` or more; the text diff size alone never yields (d) (a wide rewrite without such evidence keeps its structural class and is flagged for review); or LLM review decides |
 
 Sub-tags (multi-select): bit-width reduction, precomputation/LUT, operator strength reduction, control simplification, resource sharing, state encoding, clock gating, pipelining, algorithm replacement, buffer/memory organization, and the "knowledge the synthesizer lacks" sub-classes: value range, mutual exclusivity, algebraic identity, cross-cycle invariant.
 
@@ -20,7 +20,7 @@ Sub-tags (multi-select): bit-width reduction, precomputation/LUT, operator stren
 
 1. Rule labeling (explainable; the triggered rules are recorded).
 2. When rule confidence is below threshold or rules conflict, LLM review (cheap model, Batch): given D, C, the diff summary and the class definitions, return JSON (class, sub-tags, one-sentence basis). Record `class_rule, class_llm, class_final, confidence`.
-3. Calibration: manual verification of samples in Phases 3/4; report rule-vs-human and LLM-vs-human agreement; revise rules on misclassifications (record revisions in DECISIONS).
+3. Calibration: manual verification of samples in Phases 3/4; report rule-vs-human and LLM-vs-human agreement; revise rules on misclassifications (record revisions in DECISIONS). Done once before Phase 4 on 60 Phase 3 candidates (reports/data/phase3_m6_human.json, protocol included; reports/data/phase3_m6_agreement.json): rules v1 agreed on 23 of 60 with a (d) precision of 29 %, rules v2 on 40 of 60 with a (d) precision of 14 / 14 and a recall of 14 / 21 (DECISIONS 2026-09-14). The known limits of the static rules (output-timing changes of nonequiv candidates, buffer / schedule re-organisations without operator or depth evidence, unobservable-state and redundant-register removals) are the cases step 2 is for.
 
 ## B. Diagnoser M3
 

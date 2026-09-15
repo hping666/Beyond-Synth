@@ -239,7 +239,7 @@ class SearchRun:
         try:
             feat = M6.features(d_files, [str(path)], self.design["top"], self.cfg, sverilog=self.design.get("sverilog", False),
                                incdirs=[str(p) for p in K.abs_paths(self.design, self.design["incdirs"])], workdir=self.dir / f"m6_{cid}")
-            cls_rule = M6.classify(feat)
+            cls_rule = M6.classify(feat, cfg=self.cfg)
             cls_final = cls_rule["class_rule"]
         except Exception as e:  # the classifier could not read the candidate: the requested class stands, flagged
             cls_rule, cls_final = {"class_rule": None, "error": f"{type(e).__name__}: {e}"[:200]}, cls_requested

@@ -24,13 +24,13 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/p1402e7628640a7.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/733c71b54b73b3cd",
-   "status": "copied"
+   "status": "exists"
   },
   "p31cfe441436879": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/p31cfe441436879.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/e9e750add1343223",
-   "status": "copied"
+   "status": "exists"
   },
   "p3c986cbea481a8": {
    "instance": "bs_lockstep/u_c",
@@ -72,13 +72,13 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/p81b8e0e9a8d5f1.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/08485f520aa505d4",
-   "status": "copied"
+   "status": "exists"
   },
   "p83fa68c042405d": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/p83fa68c042405d.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/d797f55eab293cfc",
-   "status": "copied"
+   "status": "exists"
   },
   "p8e2ed76177c021": {
    "instance": "bs_lockstep/u_c",
@@ -90,7 +90,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/p91ec1deffc4692.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/5ef68b62b9e846a1",
-   "status": "copied"
+   "status": "exists"
   },
   "pa45688c32e58df": {
    "instance": "bs_lockstep/u_c",
@@ -108,13 +108,13 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/pb0c6dde3e678fe.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/22c13fe700a938ea",
-   "status": "copied"
+   "status": "exists"
   },
   "pb142da7c0f5389": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/pb142da7c0f5389.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/17bd67663e11b114",
-   "status": "copied"
+   "status": "exists"
   },
   "pb688424005efa5": {
    "instance": "bs_lockstep/u_c",
@@ -126,7 +126,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/pccce6a477e4878.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/b230c0855248d1a1",
-   "status": "copied"
+   "status": "exists"
   },
   "pe1aaf41ebd94e3": {
    "instance": "bs_lockstep/u_c",
@@ -138,19 +138,19 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/pe658b197c345c6.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/9e8150ccce0d6b6f",
-   "status": "copied"
+   "status": "exists"
   },
   "ped343ad808fba9": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/ped343ad808fba9.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/7a4e7bf3bcefac22",
-   "status": "copied"
+   "status": "exists"
   },
   "ped45eda34cede8": {
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/ped45eda34cede8.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/bd780dcf59023031",
-   "status": "copied"
+   "status": "exists"
   },
   "pfac5fab5f0d1b3": {
    "instance": "bs_lockstep/u_c",
@@ -162,7 +162,7 @@
    "instance": "bs_lockstep/u_c",
    "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_ethmac__eth_txethmac/saif/pfe761da48248be.saif",
    "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_ethmac__eth_txethmac/EQ/812e7bd7d97fa4f4",
-   "status": "copied"
+   "status": "exists"
   }
  }
 }

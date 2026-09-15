@@ -60,6 +60,10 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
     ("noise_floor", "floor_version", "ALTER TABLE noise_floor ADD COLUMN floor_version TEXT"),
     ("runs", "floor_version", "ALTER TABLE runs ADD COLUMN floor_version TEXT"),
     ("diagnoses", "floor_version", "ALTER TABLE diagnoses ADD COLUMN floor_version TEXT"),
+    # M6 rules version 2 (DECISIONS 2026-09-14, pre-Phase-4 task a): the rules-v1 class is kept, the features archived
+    ("candidates", "class_rule_v1", "ALTER TABLE candidates ADD COLUMN class_rule_v1 TEXT"),
+    ("candidates", "rules_version", "ALTER TABLE candidates ADD COLUMN rules_version INTEGER"),
+    ("candidates", "features_json", "ALTER TABLE candidates ADD COLUMN features_json TEXT"),
 ]
 
 REBUILDS = [  # tables whose CHECK constraint was widened after they existed: (table, needle that the current DDL must contain)

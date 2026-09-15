@@ -247,6 +247,16 @@ screen:                      # "screening" = synthesis-rung screening; not part 
 prescreen:                   # DECISIONS 2026-09-14 (C2.3): classifier-based prescreen, a separate mechanism from screening
   p_min: 0.9                 # produced class with map-prior absorption probability >= p_min ...
   audit_frac: 0.10           # ... is not evaluated with probability 1 - audit_frac and gets immediate feedback with the prior
+classify:                    # M6 rule classifier, rules version 2 (DECISIONS 2026-09-14, pre-Phase-4 task a; calibrated on the 60-candidate dev sample)
+  rules_version: 2
+  d_diff_min: 0.5            # token diff ratio above which a rewrite without (d) evidence is flagged for review (no longer decides (d))
+  review_below: 0.7          # confidence below which the LLM review of spec 04 A.2 step 2 would be consulted
+  d_depth_ratio: 3.0         # (d) topology evidence: longest combinational path (Yosys ltp -noff, cells) changes by this factor or more
+  operator_families:         # (d) operator evidence: a family present in C's RTLIL histogram and absent in D's (gains only; losses are ordinary recoding)
+    mul: ["$mul", "$div", "$mod", "$divfloor", "$modfloor", "$pow", "$macc"]
+    add: ["$add", "$sub", "$neg", "$alu"]
+    shift: ["$shl", "$shr", "$sshl", "$sshr", "$shift", "$shiftx"]
+    # memory cells are deliberately absent: Yosys replaces small arrays by register lists depending on the indexing style, not on the buffer organisation (sample #10)
 diag:
   fp_jaccard: 0.95           # may be changed after Phase 4 calibration (record in DECISIONS)
   classes: [a, b, c1, c2, d]

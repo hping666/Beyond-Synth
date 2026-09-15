@@ -88,117 +88,117 @@
  "gpt-5.4": {
   "design_weighted": {
    "absorbed_identical": 39,
-   "harmful": 3,
-   "retained": 96,
-   "tradeoff": 70
+   "harmful": 9,
+   "retained": 100,
+   "tradeoff": 72
   },
   "materiality": {
    "absorbed_identical": 39,
-   "harmful": 4,
-   "retained": 112,
-   "tradeoff": 53
+   "harmful": 10,
+   "retained": 117,
+   "tradeoff": 54
   },
-  "n": 208,
+  "n": 220,
   "record_weighted": {
    "absorbed_identical": 39,
-   "harmful": 4,
+   "harmful": 10,
    "noise": 1,
-   "retained": 104,
-   "tradeoff": 60
+   "retained": 109,
+   "tradeoff": 61
   },
   "stored": {
    "absorbed_identical": 39,
    "duplicate": 36,
-   "harmful": 3,
-   "retained": 69,
-   "tradeoff": 61
+   "harmful": 9,
+   "retained": 74,
+   "tradeoff": 62
   }
  },
  "gpt-5.4-mini": {
   "design_weighted": {
    "absorbed_identical": 55,
-   "harmful": 5,
-   "retained": 85,
-   "tradeoff": 40
+   "harmful": 6,
+   "retained": 93,
+   "tradeoff": 42
   },
   "materiality": {
    "absorbed_identical": 55,
-   "harmful": 10,
-   "retained": 89,
+   "harmful": 12,
+   "retained": 98,
    "tradeoff": 31
   },
-  "n": 185,
+  "n": 196,
   "record_weighted": {
    "absorbed_identical": 55,
-   "harmful": 7,
-   "retained": 90,
-   "tradeoff": 33
+   "harmful": 8,
+   "retained": 99,
+   "tradeoff": 34
   },
   "stored": {
    "absorbed_identical": 55,
-   "duplicate": 47,
-   "harmful": 5,
-   "retained": 40,
-   "tradeoff": 38
+   "duplicate": 49,
+   "harmful": 6,
+   "retained": 46,
+   "tradeoff": 40
   }
  },
  "gpt-5.6-luna": {
   "design_weighted": {
    "absorbed_identical": 36,
    "harmful": 6,
-   "retained": 117,
-   "tradeoff": 68
+   "retained": 125,
+   "tradeoff": 70
   },
   "materiality": {
    "absorbed_identical": 36,
-   "harmful": 16,
+   "harmful": 18,
    "noise": 1,
-   "retained": 122,
+   "retained": 130,
    "tradeoff": 52
   },
-  "n": 227,
+  "n": 237,
   "record_weighted": {
    "absorbed_identical": 36,
-   "harmful": 10,
+   "harmful": 11,
    "noise": 1,
-   "retained": 124,
-   "tradeoff": 56
+   "retained": 132,
+   "tradeoff": 57
   },
   "stored": {
    "absorbed_identical": 36,
-   "duplicate": 74,
+   "duplicate": 78,
    "harmful": 6,
-   "retained": 59,
-   "tradeoff": 52
+   "retained": 63,
+   "tradeoff": 54
   }
  },
  "gpt-5.6-terra": {
   "design_weighted": {
    "absorbed_identical": 40,
-   "harmful": 1,
-   "retained": 105,
+   "harmful": 7,
+   "retained": 121,
    "tradeoff": 56
   },
   "materiality": {
    "absorbed_identical": 40,
-   "harmful": 6,
-   "noise": 2,
-   "retained": 106,
+   "harmful": 12,
+   "noise": 4,
+   "retained": 120,
    "tradeoff": 48
   },
-  "n": 202,
+  "n": 224,
   "record_weighted": {
    "absorbed_identical": 40,
-   "harmful": 3,
-   "noise": 1,
-   "retained": 107,
+   "harmful": 8,
+   "noise": 2,
+   "retained": 123,
    "tradeoff": 51
   },
   "stored": {
    "absorbed_identical": 40,
-   "duplicate": 60,
-   "harmful": 1,
-   "retained": 60,
+   "duplicate": 66,
+   "harmful": 6,
+   "retained": 71,
    "tradeoff": 41
   }
  }
