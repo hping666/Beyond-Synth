@@ -5,12 +5,12 @@
    "design_weighted_t_d": {
     "area": 0.0027938146505548643,
     "power": 0.022227533067402338,
-    "wns": 0.00039774100000000007
+    "wns": 0.0003017775
    },
    "record_weighted_t_d": {
-    "area": 0.014335534220772453,
+    "area": 0.013715654976061706,
     "power": 0.059187718228726045,
-    "wns": 0.0035878081714285723
+    "wns": 0.0034754850000000143
    }
   },
   "rtllm_adder_16bit": {
@@ -18,12 +18,12 @@
    "design_weighted_t_d": {
     "area": 0.0027938146505548643,
     "power": 0.022227533067402338,
-    "wns": 0.00039774100000000007
+    "wns": 0.0003017775
    },
    "record_weighted_t_d": {
-    "area": 0.014335534220772453,
+    "area": 0.013715654976061706,
     "power": 0.059187718228726045,
-    "wns": 0.0035878081714285723
+    "wns": 0.0034754850000000143
    }
   },
   "rtllm_multi_pipe_8bit": {
@@ -31,12 +31,12 @@
    "design_weighted_t_d": {
     "area": 0.0027938146505548643,
     "power": 0.022227533067402338,
-    "wns": 0.00039774100000000007
+    "wns": 0.0003017775
    },
    "record_weighted_t_d": {
-    "area": 0.014335534220772453,
+    "area": 0.013715654976061706,
     "power": 0.059187718228726045,
-    "wns": 0.0035878081714285723
+    "wns": 0.0034754850000000143
    }
   },
   "rtllm_serial2parallel": {
@@ -44,12 +44,12 @@
    "design_weighted_t_d": {
     "area": 0.0027938146505548643,
     "power": 0.022227533067402338,
-    "wns": 0.00039774100000000007
+    "wns": 0.0003017775
    },
    "record_weighted_t_d": {
-    "area": 0.014335534220772453,
+    "area": 0.013715654976061706,
     "power": 0.059187718228726045,
-    "wns": 0.0035878081714285723
+    "wns": 0.0034754850000000143
    }
   },
   "rtllm_traffic_light": {
@@ -57,12 +57,12 @@
    "design_weighted_t_d": {
     "area": 0.0027938146505548643,
     "power": 0.022227533067402338,
-    "wns": 0.00039774100000000007
+    "wns": 0.0003017775
    },
    "record_weighted_t_d": {
-    "area": 0.014335534220772453,
+    "area": 0.013715654976061706,
     "power": 0.059187718228726045,
-    "wns": 0.0035878081714285723
+    "wns": 0.0034754850000000143
    }
   }
  },
@@ -71,7 +71,7 @@
    "area": 0.0027938146505548643,
    "power_saif": 0.022227533067402338,
    "tns": 0.0,
-   "wns": 0.00039774100000000007
+   "wns": 0.0003017775
   },
   "materiality": {
    "area": 0.01,
@@ -79,39 +79,38 @@
    "wns": 0.01
   },
   "record_weighted": {
-   "area": 0.014335534220772453,
+   "area": 0.013715654976061706,
    "power_saif": 0.059187718228726045,
    "tns": 0.0,
-   "wns": 0.0035878081714285723
+   "wns": 0.0034754850000000143
   }
  },
  "gpt-5.4": {
   "design_weighted": {
    "absorbed_identical": 39,
-   "harmful": 9,
-   "retained": 100,
-   "tradeoff": 72
+   "harmful": 14,
+   "retained": 107,
+   "tradeoff": 74
   },
   "materiality": {
    "absorbed_identical": 39,
-   "harmful": 10,
-   "retained": 117,
+   "harmful": 17,
+   "retained": 124,
    "tradeoff": 54
   },
-  "n": 220,
+  "n": 234,
   "record_weighted": {
    "absorbed_identical": 39,
-   "harmful": 10,
-   "noise": 1,
-   "retained": 109,
+   "harmful": 17,
+   "retained": 117,
    "tradeoff": 61
   },
   "stored": {
    "absorbed_identical": 39,
-   "duplicate": 36,
-   "harmful": 9,
-   "retained": 74,
-   "tradeoff": 62
+   "duplicate": 37,
+   "harmful": 13,
+   "retained": 81,
+   "tradeoff": 64
   }
  },
  "gpt-5.4-mini": {
@@ -145,31 +144,30 @@
  "gpt-5.6-luna": {
   "design_weighted": {
    "absorbed_identical": 36,
-   "harmful": 6,
-   "retained": 125,
-   "tradeoff": 70
+   "harmful": 5,
+   "retained": 127,
+   "tradeoff": 72
   },
   "materiality": {
    "absorbed_identical": 36,
    "harmful": 18,
    "noise": 1,
-   "retained": 130,
-   "tradeoff": 52
+   "retained": 132,
+   "tradeoff": 53
   },
-  "n": 237,
+  "n": 240,
   "record_weighted": {
    "absorbed_identical": 36,
    "harmful": 11,
-   "noise": 1,
-   "retained": 132,
-   "tradeoff": 57
+   "retained": 134,
+   "tradeoff": 59
   },
   "stored": {
    "absorbed_identical": 36,
-   "duplicate": 78,
+   "duplicate": 80,
    "harmful": 6,
    "retained": 63,
-   "tradeoff": 54
+   "tradeoff": 55
   }
  },
  "gpt-5.6-terra": {
@@ -190,8 +188,8 @@
   "record_weighted": {
    "absorbed_identical": 40,
    "harmful": 8,
-   "noise": 2,
-   "retained": 123,
+   "noise": 1,
+   "retained": 124,
    "tradeoff": 51
   },
   "stored": {
