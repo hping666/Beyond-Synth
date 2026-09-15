@@ -8,6 +8,9 @@
     .venv/bin/python scripts/phase4_exp1.py objects [--submit]          # literature objects (RTL-OPT / RTLRewriter references, LLM samples): runs + candidates, M6, equivalence jobs
     .venv/bin/python scripts/phase4_exp1.py verdicts                    # ingest the objects' equivalence verdicts
     .venv/bin/python scripts/phase4_exp1.py ladder [--hidden] [--submit] [--priority 1]   # E1, E1d, E2, E3, E4, E2g, Y, O0-O2, Ycoevo (+ hidden) on every proven object
+    .venv/bin/python scripts/phase4_exp1.py diagnose [--dry-run]         # M3 at E4 with the frozen floors and the lower rungs (PLAN 4.3)
+    .venv/bin/python scripts/phase4_exp1.py collect                      # reports/data/phase4_exp1.json (map, curves, literature table, misclassification, predictor)
+    .venv/bin/python scripts/phase4_exp1.py snapshot [--name ...]        # results/snapshots/phase4-<date>/ (evaluations, candidates, diagnoses, map)
 
 Every candidate of every B0 run is SEQ-checked by the driver and evaluated under Y (the run's fitness); the ladder
 (E1, E1d, E2, E3, E4, E2g, the supplementary Yosys configurations and the hidden configurations) runs afterwards on
@@ -47,8 +50,9 @@ def baseline_jobs(cfg, conn, designs, priority=1):
         if phi is None:
             continue
         for config in baseline_configs(cfg):
-            if conn.execute("SELECT 1 FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (did, config, float(phi))).fetchone():
-                continue
+            have = conn.execute("SELECT power_default_mw FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (did, config, float(phi))).fetchone()
+            if have is not None and not (cfg["configs"][config].get("tool") == "yosys_opensta" and have[0] is None):
+                continue   # a Yosys record without OpenSTA power predates report_power (2026-09-14) and is refreshed (append-only: a newer record)
             if conn.execute("SELECT 1 FROM jobs WHERE design_id=? AND config=? AND cand_id IS NULL AND state IN ('queued','running') LIMIT 1", (did, config)).fetchone():
                 continue   # already in the queue
             j = J.dc_job(cfg, d, config, float(phi), priority)
@@ -357,9 +361,112 @@ def cmd_ladder(cfg, conn, do_submit, priority, hidden, configs=None):
     return 0
 
 
+
+# ----------------------------------------------------------------------------- diagnosis, map, predictor, snapshot (PLAN 4.3-4.8)
+def cmd_diagnose(cfg, conn, dry_run):
+    from src.analysis import objects as O
+    out = O.diagnose_objects(cfg, conn, "phase4", dry_run=dry_run)
+    print(("dry run: " if dry_run else "") + f"diagnosed {out['diagnosed']} (labels {out['labels']}); existing {out['existing']}, not proven {out['skipped_not_proven']}, no E4 record {out['skipped_no_e4']}")
+    return 0
+
+
+def cmd_collect(cfg, conn):
+    """reports/data/phase4_exp1.json: object counts, the map (class x configuration), retention curves, non-monotone cases,
+    the literature table, the misclassification rates, the predictor (with class / class-blind, leave-one-design-out),
+    the map shape, and the sigma comparison of the Exp1 designs' floors with the calibration designs'."""
+    import json
+    from pathlib import Path
+    from src.analysis import map as M
+    from src.analysis import objects as O
+    from src.analysis import predictor as P
+    from src.noise import stats as S
+    objs = O.build_object_rows(cfg, conn, "phase4")
+    counts = {"objects": len(objs), "by_role": {}, "by_verdict": {}, "by_class": {}, "by_label": {}, "with_e4": sum(1 for o in objs if "E4" in o["gains"])}
+    for o in objs:
+        for k, v in (("by_role", o["role"]), ("by_verdict", o["verdict"] or "pending"), ("by_class", o["cls"] or "?"), ("by_label", o["label"] or "-")):
+            counts[k][v] = counts[k].get(v, 0) + 1
+    diagnosed = [o for o in objs if o.get("label") and o["label"] != "nonequiv"]
+    b0 = [o for o in diagnosed if o["role"] == "b0"]
+    lit = [o for o in diagnosed if o["role"] in ("reference", "llm")]
+    map_all = M.build_map(diagnosed)
+    map_b0 = M.build_map(b0)
+    curves = M.retention_curves(diagnosed)
+    nm = M.non_monotone(diagnosed)
+    lit_table = M.literature_table([o for o in objs if o["role"] == "reference"])
+    mis = M.misclassification_rates(diagnosed)
+    pred_rows = O.predictor_rows(cfg, conn, diagnosed)
+    pred = P.evaluate(pred_rows) if len(pred_rows) >= 16 else {"note": f"only {len(pred_rows)} diagnosed objects"}
+    for k in ("with_class", "class_blind"):
+        if isinstance(pred.get(k), dict):
+            pred[k].pop("scores", None)
+    shape, rates = M.shape(map_b0 if len(b0) >= 30 else map_all)
+    floors = {}
+    for did in list(cfg["exp1"]["designs"]) + [d for d in calibration_designs(cfg, conn) if d not in cfg["exp1"]["designs"]]:
+        fl = S.latest_floor(conn, did, "E4", cfg["noise"].get("floor_version")) or S.latest_floor(conn, did, "E4")
+        floors[did] = {m: {"t_d": (fl.get(k) or {}).get("t_d"), "sigma_robust": (fl.get(k) or {}).get("sigma_robust"), "floor_class": (fl.get(k) or {}).get("floor_class")} for m, k in (("area", "area"), ("wns", "wns"), ("power", "power_saif"))}
+    out = {"generated_at": db.now(), "git_sha": C.git_sha(), "cfg_hash": C.cfg_hash(), "floor_version": cfg["noise"].get("floor_version"), "designs": cfg["exp1"]["designs"],
+           "counts": counts, "map": map_all, "map_b0": map_b0, "retention_curves": curves, "non_monotone": nm, "literature": lit_table, "misclassification": mis,
+           "predictor": pred, "n_predictor_rows": len(pred_rows), "shape": {"shape": shape, "e4_retention_by_class": rates, "basis": "B0 objects" if len(b0) >= 30 else "all diagnosed objects"},
+           "floors_e4": floors, "objects": [{k: o[k] for k in ("cand_id", "design_id", "run_id", "cls", "role", "verdict", "label", "rung", "attribution", "gains")} for o in objs]}
+    p = Path(C.ROOT) / "reports" / "data" / "phase4_exp1.json"
+    p.write_text(json.dumps(out, indent=1, default=str) + "\n")
+    print(f"objects {counts['objects']} (roles {counts['by_role']}, verdicts {counts['by_verdict']}, labels {counts['by_label']}); E4-diagnosed {len(diagnosed)}; "
+          f"shape {shape} {rates}; non-monotone {nm['fraction']}; predictor AUROC {(pred.get('with_class') or {}).get('auroc') if isinstance(pred.get('with_class'), dict) else pred.get('note')}; wrote {p}")
+    return 0
+
+
+def cmd_snapshot(cfg, conn, name=None):
+    """results/snapshots/phase4-<date>/: the four tables of the Phase 4 acceptance (evaluations, candidates, diagnoses, map)
+    as CSV / JSON, restricted to the Phase 4 objects and their designs; plus runs and noise_floor for reproducibility."""
+    import csv
+    import datetime
+    import json
+    import shutil
+    from pathlib import Path
+    name = name or f"phase4-{datetime.datetime.now():%Y%m%d-%H%M}"
+    out = Path(C.results_dir(cfg)) / "snapshots" / name
+    out.mkdir(parents=True, exist_ok=True)
+    cands = [dict(r) for r in conn.execute("SELECT c.* FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase4' AND r.status != 'superseded'")]
+    ids = [c["cand_id"] for c in cands]
+    designs = sorted({c["design_id"] for c in cands})
+
+    def dump(rows, fname):
+        if not rows:
+            (out / fname).write_text("")
+            return 0
+        with open(out / fname, "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+            w.writeheader()
+            w.writerows(rows)
+        return len(rows)
+    n = {"candidates": dump(cands, "candidates.csv")}
+    evals = []
+    for i in range(0, len(ids), 500):
+        chunk = ids[i:i + 500]
+        evals += [dict(r) for r in conn.execute(f"SELECT * FROM evaluations WHERE cand_id IN ({','.join('?' * len(chunk))})", chunk)]
+    for did in designs:
+        evals += [dict(r) for r in conn.execute("SELECT * FROM evaluations WHERE design_id=? AND is_baseline=1 AND status='ok'", (did,))]
+    n["evaluations"] = dump(evals, "evaluations.csv")
+    diags = []
+    for i in range(0, len(ids), 500):
+        chunk = ids[i:i + 500]
+        diags += [dict(r) for r in conn.execute(f"SELECT * FROM diagnoses WHERE cand_id IN ({','.join('?' * len(chunk))})", chunk)]
+    n["diagnoses"] = dump(diags, "diagnoses.csv")
+    n["runs"] = dump([dict(r) for r in conn.execute("SELECT * FROM runs WHERE exp='phase4' AND status != 'superseded'")], "runs.csv")
+    n["noise_floor"] = dump([dict(r) for r in conn.execute(f"SELECT * FROM noise_floor WHERE design_id IN ({','.join('?' * len(designs))})", designs)], "noise_floor.csv") if designs else 0
+    src = Path(C.ROOT) / "reports" / "data" / "phase4_exp1.json"
+    if src.exists():
+        shutil.copy(src, out / "map.json")
+    (out / "MANIFEST.json").write_text(json.dumps({"snapshot": name, "created_at": db.now(), "git_sha": C.git_sha(), "cfg_hash": C.cfg_hash(), "rows": n, "designs": designs}, indent=1) + "\n")
+    print(f"snapshot {out}: {n}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder"])
+    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot"])
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--name", default=None)
     ap.add_argument("--hidden", action="store_true")
     ap.add_argument("--configs", nargs="*", default=None)
     ap.add_argument("--design", nargs="*", default=None)
@@ -382,6 +489,12 @@ def main(argv=None):
         return cmd_verdicts(cfg, conn)
     if a.what == "ladder":
         return cmd_ladder(cfg, conn, a.submit, a.priority, a.hidden, a.configs)
+    if a.what == "diagnose":
+        return cmd_diagnose(cfg, conn, a.dry_run)
+    if a.what == "collect":
+        return cmd_collect(cfg, conn)
+    if a.what == "snapshot":
+        return cmd_snapshot(cfg, conn, a.name)
     if a.what == "smoke":
         designs = a.design or cfg["exp1"]["designs"][:1]
         create_runs(cfg, conn, designs, "smoke", a.K or 1, a.N or 2, a.seed or 1, a.submit, note="exp1 B0 smoke")

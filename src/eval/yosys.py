@@ -95,6 +95,10 @@ def _sta_metrics(log, clock_name="clk"):
             out["wns_ns"] = min(slacks)
     if "wns_ns" not in out and "wns_report" in out:
         out["wns_ns"] = out["wns_report"]
+    # report_power (default switching activity): "Total  internal switching leakage total (W) percent"
+    m = re.search(r"^Total\s+(-?[\d.]+(?:[eE][-+]?\d+)?)\s+(-?[\d.]+(?:[eE][-+]?\d+)?)\s+(-?[\d.]+(?:[eE][-+]?\d+)?)\s+(-?[\d.]+(?:[eE][-+]?\d+)?)", log, re.M)
+    if m:
+        out["power_total_w"] = float(m.group(4))
     return out
 
 
@@ -167,7 +171,7 @@ def run_yosys(job_dir, rtl_files, top, lib, script_tpl, clock_ns, clk_port, cfg,
     sta_tcl = inputs / "sta.tcl"
     sta_tcl.write_text("\n".join([
         f"read_liberty {liberty}", f"read_verilog {netlist}", f"link_design {top}", f"read_sdc {sdc_path}",
-        "report_checks -path_delay max -format full_clock_expanded", "report_wns", "report_tns", "exit"]) + "\n")
+        "report_checks -path_delay max -format full_clock_expanded", "report_wns", "report_tns", "report_power", "exit"]) + "\n")
     try:
         s = subprocess.run([tools["opensta"]["bin"], "-exit", str(sta_tcl)], cwd=str(outputs), capture_output=True, text=True,
                            timeout=timeout_sec, stdin=subprocess.DEVNULL)
@@ -181,6 +185,8 @@ def run_yosys(job_dir, rtl_files, top, lib, script_tpl, clock_ns, clk_port, cfg,
     sm = _sta_metrics(slog, cfg["constraints"]["clock_name"])
     m = {"area": area, "cells": cells, "wns_ns": sm.get("wns_ns"), "tns_ns": sm.get("tns_ns"),
          "crit_delay_ns": sm.get("crit_delay_ns"), "registers": sum(v for k, v in hist.items() if re.search(r"DFF|dff|SDFF|LATCH", k))}
+    if sm.get("power_total_w") is not None:
+        m["power_default_mw"] = sm["power_total_w"] * 1000.0   # OpenSTA report_power with its default activity (the Y caliber's third component)
     rec["metrics"] = m
     rec["hist"] = hist
     rec["crit_path"] = {"startpoint": sm.get("startpoint"), "endpoint": sm.get("endpoint")}

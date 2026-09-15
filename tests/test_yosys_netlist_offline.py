@@ -54,3 +54,18 @@ def test_nodisplay_and_latch_map_give_a_structural_netlist(tmp_path):
     assert run("-nodisplay", True) == []                                   # the fix: nothing behavioural left
     without = run("", False)
     assert any("always" in x for x in without)                              # without: the latch (and the print) survive as always blocks
+
+
+@pytest.mark.skipif(not os.path.exists(YOSYS) or not os.path.exists(CFG["tools"]["opensta"]["bin"]) or not LIB.get("liberty") or not os.path.exists(LIB["liberty"]),
+                    reason="yosys / opensta / liberty missing")
+def test_runner_end_to_end_reports_area_timing_and_power(tmp_path):
+    """The Y runner on the display-plus-latch design: status ok, area and cells, WNS parsed, OpenSTA power (mW) present
+    (the third component of the Y-caliber fitness), and the print / latch constructs gone."""
+    rtl = tmp_path / "top.v"
+    rtl.write_text(RTL)
+    rec = Y.run_yosys(tmp_path / "job", [rtl], "top", "nangate45", CFG["configs"]["Y"]["script"], 1.0, "clk", CFG, timeout_sec=300)
+    assert rec["status"] == "ok", rec.get("error")
+    m = rec["metrics"]
+    assert m["area"] > 0 and m["cells"] > 0 and m.get("wns_ns") is not None
+    assert m.get("power_default_mw") is not None and m["power_default_mw"] > 0
+    assert Y.structural_netlist_problems(rec["netlist"]) == [] and any(k.startswith("DLH") or k.startswith("DLL") for k in rec["hist"])

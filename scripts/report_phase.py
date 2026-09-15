@@ -509,12 +509,89 @@ def phase3(cfg):
     return 0
 
 
+def phase4(cfg):
+    """Exp1 (PLAN 4.1–4.9, acceptance of Phase 4): map heatmap (class × configuration), retention curves, σ_D comparison,
+    predictor metrics with the class-blind control, literature re-evaluation table, misclassification rates, the map shape;
+    diagnoser agreement and the motivating figure are appended by hand-checked data (reports/data/phase4_*)."""
+    data = load("phase4_exp1.json")
+    L = ["# Phase 4 report — Exp1: ladder and map (C1)", "",
+         f"Generated {datetime.datetime.now():%Y-%m-%d %H:%M} by scripts/report_phase.py (git {C.git_sha()}, cfg {C.cfg_hash()}). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).", ""]
+    if not data:
+        L += ["(not collected yet: scripts/phase4_exp1.py collect)", ""]
+    else:
+        c = data["counts"]
+        L += ["## 1. Objects", "",
+              f"Designs (config `exp1.designs`, C1 scope: human-written RTL): {', '.join(data['designs'])}; floor version `{data['floor_version']}`. "
+              f"{c['objects']} objects: roles {c['by_role']}; equivalence verdicts {c['by_verdict']}; M6 classes (rules v2) {c['by_class']}; E4-evaluated {c['with_e4']}; M3 labels at E4 {c['by_label']}.", ""]
+        L += ["## 2. Map v1: E4 retention rate (area, rule-A threshold of the design under each configuration) by class × configuration", "",
+              "| class | " + " | ".join(f"{cfg_} rate (n)" for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4")) + " | E4 median gain | E4 labels | absorption rung (E4) |",
+              "|---|" + "---|" * 9]
+        mp = data["map"]
+        for cls in ("a", "b", "c1", "c2", "d"):
+            cells = mp.get(cls) or {}
+            row = [cls]
+            for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4"):
+                ce = cells.get(cfg_) or {}
+                row.append(f"{'-' if ce.get('retention_rate') is None else f'{100 * ce['retention_rate']:.0f} %'} ({ce.get('n_evaluated', 0)})")
+            e4 = cells.get("E4") or {}
+            row += [f"{'-' if e4.get('magnitude_median') is None else f'{100 * e4['magnitude_median']:.1f} %'}", str(e4.get("labels") or {}), str(e4.get("absorption_rung") or {})]
+            L.append("| " + " | ".join(row) + " |")
+        sh = data["shape"]
+        L += ["", f"Map shape ({sh['basis']}): **{sh['shape']}** — E4 retention by class {dict((k, round(v, 2)) for k, v in sh['e4_retention_by_class'].items())} "
+              "(concentrated: the rates differ by ≥ 0.3 between classes with ≥ 10 evaluated objects; near-zero: every class < 10 %; diffuse otherwise).", ""]
+        nm = data["non_monotone"]
+        L += ["## 3. Retention curves and non-monotone cases", "",
+              "| class | " + " | ".join(f"{cfg_}" for cfg_, _, _ in (data["retention_curves"].get("a") or [])) + " |", "|---|" + "---|" * len(data["retention_curves"].get("a") or [])]
+        for cls, pts in data["retention_curves"].items():
+            L.append(f"| {cls} | " + " | ".join("-" if r is None else f"{100 * r:.0f} % ({n})" for _, r, n in pts) + " |")
+        L += ["", f"Non-monotone objects (inside the band at a lower rung, above it at a higher one): {len(nm['cases'])} of {nm['n_evaluated_on_all']} evaluated under E1–E4 "
+              f"({'-' if nm['fraction'] is None else f'{100 * nm['fraction']:.1f} %'}): {', '.join(f'{cid} {pat}' for cid, pat in nm['cases'][:20])}", ""]
+        L += ["## 4. Literature settings re-evaluated (PLAN 4.7)", "",
+              "| suite | pairs | proven | " + " | ".join(f"{cfg_} better / retained (evaluated)" for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4")) + " |", "|---|---|---|" + "---|" * 6]
+        for suite, e in sorted(data["literature"].items()):
+            L.append(f"| {suite} | {e['pairs']} | {e['proven']} | " + " | ".join(f"{e['better'].get(cfg_, 0)} / {e['retained'].get(cfg_, 0)} ({e['evaluated'].get(cfg_, 0)})" for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4")) + " |")
+        L += ["", "better = the optimized version's area is below D's under that rung; retained = above D's rule-A threshold there. The papers' own counts are compared in the paper text (RTL-OPT: pairs judged better by the authors' flow; RTLRewriter: pass@k of the engineers' rewrite).", ""]
+        mis = data["misclassification"]
+        L += ["## 5. Static-rule misclassification rates (PLAN 4.8)", "",
+              f"Rule R forbids classes {mis['forbidden_classes']} (syntactic / coding rewrites) and allows {mis['allowed_classes']}. "
+              f"P(retained | forbidden by R) = {'-' if mis['p_retained_given_forbidden'] is None else f'{100 * mis['p_retained_given_forbidden']:.0f} %'} (n = {mis['n_forbidden']}); "
+              f"P(absorbed | allowed by R) = {'-' if mis['p_absorbed_given_allowed'] is None else f'{100 * mis['p_absorbed_given_allowed']:.0f} %'} (n = {mis['n_allowed']}).", ""]
+        pr = data["predictor"]
+        L += ["## 6. Retention predictor (PLAN 4.5; leave-one-design-out)", ""]
+        if isinstance(pr.get("with_class"), dict):
+            for k, lab in (("with_class", "with the class features"), ("class_blind", "class-blind control")):
+                r = pr[k]
+                L.append(f"- {lab}: n = {r['n']} ({r['n_pos']} retained), AUROC {'-' if r['auroc'] is None else f'{r['auroc']:.3f}'}, precision at recall ≥ 85 % "
+                         f"{'-' if r['precision_at_85'] is None else f'{100 * r['precision_at_85']:.0f} %'} (τ = {'-' if r['tau_85'] is None else f'{r['tau_85']:.3f}'}, miss rate "
+                         f"{'-' if r['miss_rate_at_85'] is None else f'{100 * r['miss_rate_at_85']:.0f} %'}); skipped designs {r['skipped_designs']}; "
+                         f"coefficients (standardised) {dict((kk, round(v, 2)) for kk, v in (r.get('feature_importance') or {}).items())}")
+        else:
+            L.append(f"- {pr.get('note')}")
+        L += ["", "## 7. σ_D comparison (E4 floors of the Exp1 designs vs the calibration designs)", "", "| design | area t_D | area σ | power t_D | WNS t_D | floor class |", "|---|---|---|---|---|---|"]
+        for did, f in data["floors_e4"].items():
+            a, p, w = f["area"], f["power"], f["wns"]
+            L.append(f"| {did} | {'-' if a['t_d'] is None else f'{100 * a['t_d']:.2f} %'} | {'-' if a['sigma_robust'] is None else f'{100 * a['sigma_robust']:.2f} %'} | "
+                     f"{'-' if p['t_d'] is None else f'{100 * p['t_d']:.2f} %'} | {'-' if w['t_d'] is None else f'{100 * w['t_d']:.2f} %'} | {a['floor_class'] or '-'} |")
+        L.append("")
+    for extra in ("phase4_diagnoser_check.md", "phase4_motivating.md"):
+        p = DATA / extra
+        if p.exists():
+            L += ["", p.read_text().rstrip("\n"), ""]
+    concl = Path(ROOT) / "reports" / "phase4_conclusions.md"
+    if concl.exists():
+        L += ["", concl.read_text().rstrip("\n"), ""]
+    out = Path(ROOT) / "reports" / "phase4.md"
+    out.write_text("\n".join(L))
+    print(f"wrote {out}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("phase", choices=["phase1", "phase2", "phase3"])
+    ap.add_argument("phase", choices=["phase1", "phase2", "phase3", "phase4"])
     a = ap.parse_args(argv)
     cfg = C.load()
-    return {"phase1": phase1, "phase2": phase2, "phase3": phase3}[a.phase](cfg)
+    return {"phase1": phase1, "phase2": phase2, "phase3": phase3, "phase4": phase4}[a.phase](cfg)
 
 
 if __name__ == "__main__":
