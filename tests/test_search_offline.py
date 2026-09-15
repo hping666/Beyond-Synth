@@ -571,3 +571,51 @@ def test_repaired_candidate_that_is_proven_and_retained_counts_in_the_yield(env)
     y = repair_yield(conn, exp="smoke", run_ids=[run.run_id])
     assert y["by_failure"]["rejected"] == {"attempted": 1, "proven": 1, "accepted": 1, "retained": 1, "scope_violation": 0}
     assert conn.execute("SELECT label, accepted, repair_of FROM candidates WHERE cand_id=?", (fix,)).fetchone()[:] == ("retained", 1, c1)
+
+
+def test_driver_slims_finished_candidates_unless_accepted(env, monkeypatch):
+    """Tiered retention in the run (G5 item 5 (ii)): after the final label a non-accepted candidate loses its regenerable
+    artifacts (equivalence VCD / trace / ports, E4 netlist and ddc) while its records stay; an accepted (archived) candidate
+    keeps everything; the classifier workdir goes for every candidate right after classification."""
+    cfg, conn, q, tmp_path = env
+    cfg["retention"].update(tiered=True, tiered_audit_frac=0.0)
+    from src.search.driver import SearchRun
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=9, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=ListTransport([rewrite("k1"), rewrite("k2")]))
+    run.step()
+    cands = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? ORDER BY cand_id", (run.run_id,))]
+    for cid in cands:
+        (run.dir / f"m6_{cid}" / "c").mkdir(parents=True, exist_ok=True)   # would have been created by Yosys; removed after classification in production
+    good, bad = cands
+    finish_eq(conn, cfg, tmp_path, good, verdict="proven")
+    finish_eq(conn, cfg, tmp_path, bad, verdict="proven")
+    for cid in cands:
+        eq_dir = Path(conn.execute("SELECT payload_json FROM jobs WHERE job_id=(SELECT eq_job_id FROM candidates WHERE cand_id=?)", (cid,)).fetchone()[0] and run.eq_record(cid)[1])
+        (eq_dir / "v2_sim").mkdir(exist_ok=True)
+        (eq_dir / "v2_sim" / "trace.txt").write_text("t" * 100)
+        (eq_dir / "v2_sim" / "sim.vcd.gz").write_text("v" * 100)
+    run.process_verdicts()
+    for cid, area in ((good, 90.0), (bad, 100.0)):
+        raw = tmp_path / "results" / "raw" / "rtllm_d" / "E4" / f"fake_{cid}"
+        (raw / "outputs" / "reports").mkdir(parents=True)
+        (raw / "outputs" / "reports" / "netlist.v").write_text("n" * 100)
+        (raw / "outputs" / "reports" / "qor.rpt").write_text("q")
+        (raw / "meta.json").write_text(json.dumps({"status": "ok", "cand_id": cid}))
+        jid = conn.execute("SELECT e4_job_id FROM candidates WHERE cand_id=?", (cid,)).fetchone()[0]
+        conn.execute("UPDATE jobs SET state='done' WHERE job_id=?", (jid,))
+        db.insert(conn, "evaluations", {"design_id": "rtllm_d", "cand_id": cid, "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": area, "cells": 20,
+                                        "wns_ns": 0.1, "tns_ns": 0.0, "power_saif_mw": 1.0, "dc_seconds": 60.0, "status": "ok", "raw_dir": str(raw), "hist_json": json.dumps({"DFF_X1": 4, "NAND2_X1": 16})})
+    run.process_verdicts()
+    labels = {r[0]: (r[1], r[2]) for r in conn.execute("SELECT cand_id, label, in_archive FROM candidates WHERE run_id=?", (run.run_id,))}
+    assert labels[good] == ("retained", 1) and labels[bad][1] == 0
+    g_eq, b_eq = Path(run.eq_record(good)[1]), Path(run.eq_record(bad)[1])
+    assert (g_eq / "v2_sim" / "trace.txt").exists() and (g_eq / "v2_sim" / "sim.vcd.gz").exists()                       # accepted: full artifacts
+    assert not (b_eq / "v2_sim" / "trace.txt").exists() and not (b_eq / "v2_sim" / "sim.vcd.gz").exists() and (b_eq / "equiv.json").exists()   # slimmed, record kept
+    g_raw, b_raw = tmp_path / "results/raw/rtllm_d/E4" / f"fake_{good}", tmp_path / "results/raw/rtllm_d/E4" / f"fake_{bad}"
+    assert (g_raw / "outputs/reports/netlist.v").exists() and not (b_raw / "outputs/reports/netlist.v").exists() and (b_raw / "outputs/reports/qor.rpt").exists() and (b_raw / "meta.json").exists()
+    assert json.loads((b_raw / "meta.json").read_text())["slimmed"]["categories"] == ["netlist"]
+    assert run.state["cands"][good]["slimmed"]["kept_full"] is True and run.state["cands"][bad]["slimmed"]["kept_full"] is False
+    assert not (run.dir / f"m6_{bad}").exists()
+    run.save_state()
+    run2 = SearchRun.resume(cfg, conn, run.run_id, queue=q, transport=ListTransport([]))
+    run2.slim_finished()                                                                                                    # idempotent across resumption
+    assert (g_eq / "v2_sim" / "trace.txt").exists()

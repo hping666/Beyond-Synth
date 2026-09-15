@@ -72,11 +72,17 @@ def families_present(cells, families):
     return sorted(name for name, types in families.items() if any(cells.get(t, 0) > 0 for t in types))
 
 
-def features(d_files, c_files, top, cfg, *, sverilog=False, incdirs=None, workdir=None, offsets=None, c_top=None):
+def d_statistics(d_files, top, cfg, *, sverilog=False, incdirs=None, workdir=None):
+    """D's word-level statistics, computed once per run and passed to `features` as `d_stats` (2026-09-15: the per-candidate
+    copy of D's Yosys JSON was 9.5 GB of results/candidates)."""
+    return YP.rtl_stats(d_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=workdir)
+
+
+def features(d_files, c_files, top, cfg, *, sverilog=False, incdirs=None, workdir=None, offsets=None, c_top=None, d_stats=None):
     d_text = "\n".join(open(f, errors="replace").read() for f in d_files)
     c_text = "\n".join(open(f, errors="replace").read() for f in c_files)
     fams = (cfg.get("classify") or {}).get("operator_families") or DEFAULTS["operator_families"]
-    sd = YP.rtl_stats(d_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=(workdir / "d") if workdir else None)
+    sd = d_stats or YP.rtl_stats(d_files, top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=(workdir / "d") if workdir else None)
     sc = YP.rtl_stats(c_files, c_top or top, cfg, sverilog=sverilog, incdirs=incdirs, workdir=(workdir / "c") if workdir else None)
     return {"rules_version": RULES_VERSION,
             "ff_d": sd["n_ff_bits"], "ff_c": sc["n_ff_bits"], "ff_cells_d": sd["n_ff_cells"], "ff_cells_c": sc["n_ff_cells"],

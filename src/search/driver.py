@@ -20,6 +20,7 @@ from src.search import llm as L
 from src.search import prompts as PR
 from src.search.archive import Archive
 from src.search.bandit import ClassBandit
+from src.eval import retention as RET
 from src.search import scope as SC
 from src.search.prescreen import decide as prescreen_decide
 
@@ -91,6 +92,7 @@ class SearchRun:
         self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior, caliber=self.fit_cfg, static_text=self.static_text)
         self.d_text = "\n\n".join(Path(self.design["_dir"], f).read_text(errors="replace") for f in self.design["files"])
         self.d_design = SC.parse_design(self.d_text) if self.scope_on else None
+        self._d_stats = None
         self.priority = int(cfg["search"].get("job_priority", 4))
         pats = (cfg["search"].get("long_proof_first") or {}).get("design_patterns") or []
         self.arith_design = any(pat in self.row["design_id"] for pat in pats)   # arithmetic pipelines by name (as the Phase 5 projection)
@@ -359,13 +361,18 @@ class SearchRun:
             self.record_label(cid, None, "absorbed_identical", {"identical_text": True}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call, cls_final="a")
             return cid
         d_files = [str(p) for p in K.abs_paths(self.design, self.design["files"])]
+        incdirs = [str(p) for p in K.abs_paths(self.design, self.design["incdirs"])]
+        feat = None
         try:
+            if self._d_stats is None:   # D's statistics once per run (2026-09-15), reused for every candidate
+                self._d_stats = M6.d_statistics(d_files, self.design["top"], self.cfg, sverilog=self.design.get("sverilog", False), incdirs=incdirs, workdir=self.dir / "m6_D")
             feat = M6.features(d_files, [str(path)], self.design["top"], self.cfg, sverilog=self.design.get("sverilog", False),
-                               incdirs=[str(p) for p in K.abs_paths(self.design, self.design["incdirs"])], workdir=self.dir / f"m6_{cid}")
+                               incdirs=incdirs, workdir=self.dir / f"m6_{cid}", d_stats=self._d_stats)
             cls_rule = M6.classify(feat, cfg=self.cfg)
             cls_final = cls_rule["class_rule"]
         except Exception as e:  # the classifier could not read the candidate: the requested class stands, flagged
             cls_rule, cls_final = {"class_rule": None, "error": f"{type(e).__name__}: {e}"[:200]}, cls_requested
+        RET.slim_m6_workdir(self.dir / f"m6_{cid}", self.cfg)   # tiered retention: the features are archived in the row below
         pre = prescreen_decide(self.prior, cls_final, self.cfg["prescreen"]["p_min"], self.cfg["prescreen"]["audit_frac"], rng) if self.armdef.get("prescreen", True) else "evaluate"
         cap = self.seq_cap_min(cls_final if cls_final in ("a", "b", "c1", "c2", "d") else "d")
         entry = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_rule": cls_final,
@@ -378,7 +385,8 @@ class SearchRun:
                "tokens_in": (call["usage"] or {}).get("input_tokens"), "tokens_cached": (call["usage"] or {}).get("cached_tokens"),
                "tokens_out": (call["usage"] or {}).get("output_tokens"), "cost_usd": call["cost_usd"], "rtl_path": str(path), "prescreened": int(pre == "prescreened"),
                "seq_cap_min": cap, "note": note, "call_id": call["call_id"], "repair_of": repair_of,
-               "scope_json": json.dumps({"region": region, "violations": []}, default=str) if region is not None else None}
+               "scope_json": json.dumps({"region": region, "violations": []}, default=str) if region is not None else None,
+               "features_json": json.dumps(feat, default=list, sort_keys=True) if feat else None, "rules_version": (feat or {}).get("rules_version")}
         db.insert(self.conn, "candidates", row)
         if pre == "prescreened":
             entry["state"] = "final"
@@ -450,7 +458,24 @@ class SearchRun:
                     continue
                 changed = True
                 self.finish_envelope(cid, c)
+        if changed:
+            self.slim_finished()
         return changed
+
+    def slim_finished(self):
+        """Tiered retention (G5 item 5 (ii)): once a candidate has its final label and is neither accepted (ever archived) nor in
+        the audit sample, its regenerable artifacts are removed (equivalence record, fitness and envelope records, classifier
+        workdir); the records themselves stay. Runs once per candidate (`slimmed` in the state)."""
+        if not RET.enabled(self.cfg):
+            return
+        for cid, c in self.state["cands"].items():
+            if c.get("state") != "final" or c.get("slimmed") is not None or c.get("repaired_by") == "pending":
+                continue
+            row = self.conn.execute("SELECT accepted, in_archive FROM candidates WHERE cand_id=?", (cid,)).fetchone()
+            accepted = bool(row and (row[0] or row[1])) or any(m.get("cand_id") == cid for m in self.archive.members)
+            fit_dirs = [c.get("e4_raw_dir")] + [r[0] for r in self.conn.execute("SELECT raw_dir FROM evaluations WHERE cand_id LIKE ? AND cand_id != ?", (f"{cid}_env%", cid))]
+            res = RET.slim_candidate(self.cfg, cid, accepted, eq_dir=c.get("eq_record"), fit_dirs=[d for d in fit_dirs if d], m6_dir=self.dir / f"m6_{cid}")
+            c["slimmed"] = {"kept_full": res["kept_full"], "bytes": sum(res["freed"].values()) + res["m6"]}
 
     def submit_fitness(self, cid, c, rec):
         """The fitness evaluation of a proven candidate: E4 (arm M, B1@E4, B2) or Y (arm B0, `yosys` kind on the local pool);

@@ -318,3 +318,12 @@ retention:                   # approved by the user 2026-09-12 (DECISIONS): resu
   vcd_keep_sample_frac: 0.02        # plus a deterministic 2 % sample (by record hash)
   vcd_to_scratch: true              # future runs: vcd2saif right after the lock-step simulation, the VCD deleted unless kept by the rules above
   keep_scratch_on_failure: true      # failed / eval_failed records keep everything for diagnosis
+  # G5 decisions item 5 (ii), 2026-09-15: tiered retention. Full raw artifacts only for accepted candidates (ever in an archive) and the audit
+  # sample; every other candidate evaluation keeps the record, the small reports, logs and scripts and loses the regenerable artifacts
+  # once the run has applied its verdict (src/eval/retention.py; the driver slims at the final label, scripts/prune_scratch.py --tiered
+  # applies the same rule to earlier records on the user's decision). Records and rows are never deleted (rule 5).
+  tiered: true
+  tiered_audit_frac: 0.10            # deterministic sample by candidate id that keeps everything (the hidden layer's rejected-candidate sample, spec 06 §3)
+  tiered_dc_delete: [netlist, ddc, saif, inputs_rtl]                          # DC / Yosys records: netlist.v, design.ddc, SAIFs, the RTL copy
+  tiered_eq_delete: [vcd, trace, ports, seq_rtdb, seq_learnt, vcs_build, saif]   # equivalence records: VCDs, lock-step trace, port JSONs, VC Formal databases and learnt data, VCS builds, SAIFs
+  m6_workdir_after_classification: delete   # the classifier's Yosys workdir of a candidate (features archived in candidates.features_json); D's statistics are computed once per run
