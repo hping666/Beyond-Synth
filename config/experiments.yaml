@@ -210,7 +210,7 @@ design_sets:                 # counts and splits filled in Phase 1; dev contains
   phase5_excluded: [cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode]         # filled by scripts/phase4_sets.py with the Exp1 designs
 
 scale:                       # Phase 5 main-experiment scale; adjustable after G3 (record in DECISIONS)
-  starting_points: 36        # 30 + the M_noscreen arm's share (5 arms x 36 x 3 seeds = 540 runs, as 6 x 30 x 3)
+  starting_points: 30        # G5 decisions (DECISIONS 2026-09-15, item 1): 30 held designs stratified by tier (exp5.tiers); 5 arms x 30 x 3 seeds = 450 luna runs (36 was the M_noscreen-share figure before G5)
   arms: [B0, B1_E4, B2, M, DrRTL_reimpl]   # M_noscreen dropped at G4 (AUROC(Y) 0.748 < screen.auroc_min; DECISIONS 2026-09-14), its budget went to starting points (30 -> 36)
   seeds: 3
   N: 5
@@ -270,6 +270,23 @@ diag:
   absorbed_identical_seq_audit_frac: 0.10   # absorbed_identical needs no simulation or proof for the verdict; 10 % are audited with SEQ
   threshold_rule: noise.floor_rule          # B.2 bands use the rule-A t_D per metric
 
+exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the pool selection is filled by scripts/phase5_sets.py)
+  tiers: {medium: 18, small: 6, large: 6}   # starting points by tier: medium = module-level CktEvo and mid-size Dr.RTL / RTL-OPT designs (B0 proven rate non-zero in Phase 4), small = human-written small designs, large = multi-module designs (kept: a zero proven rate there is a result about the LLM)
+  projection_reference_tiers:               # the Exp1 designs grouped by tier: reference for the Phase 5 projections by tier (proofs and calls per retained candidate, storage footprint); never Phase 5 starting points (design_sets.phase5_excluded)
+    small: [rtlopt_fsm_encode, rtlopt_ticket_machine]
+    medium: [cktevo_spi__spi, drrtl_i2c, cktevo_vga_enh__vga_wb_master, cktevo_ethmac__eth_txethmac, cktevo_mem_ctrl__mc_obct_top]
+    large: [cktevo_nn_engine__spikeLayer8_H7, drrtl_datapath, drrtl_pcie]
+  correctness_probe:                        # G5 item 1: before Phase 5, terra and sol on the three large Exp1 designs; a model with >= min_proven proven candidates on a design carries the large tier for arms M and B2 (sol never the main model); launch waits for the storage decision (G5 item 5)
+    models: [gpt-5.6-terra, gpt-5.6-sol]
+    designs: [cktevo_nn_engine__spikeLayer8_H7, drrtl_datapath, drrtl_pcie]
+    seeds: 2
+    K: 6
+    N: 5
+    min_proven: 5
+    budget_usd: 120                         # LOCKED (G5 item 1; a cap recorded from the user's decision, booked as phase phase5_probe in the ledger)
+  correctness_aids:                         # G5 item 1, pre-registered for every arm (implemented in src/search/, spec 05)
+    scope_limited_rewriting: true           # the prompt names the region to rewrite; the answer returns the full file; unchanged regions verified textually before any tool runs
+    repair_attempts: 1                      # one counterexample-guided repair call per candidate for V1 rejections, lock-step mismatches and SEQ counterexamples, counted under the equal-call budget
 exp1:                        # Phase 4
   b0_designs: {cktevo_held: 5, drrtl_held: 3, rtlopt_held: 2}   # C1 scope (DECISIONS 2026-09-14): human-written RTL only; RTLLM is the out-of-scope contrast
   designs: [cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode]                # filled by scripts/phase4_sets.py (deterministic selection, measured floors required)
