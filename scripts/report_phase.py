@@ -635,6 +635,25 @@ def phase4(cfg):
             if ff.get("n"):
                 L += [f"B0 candidates whose Yosys fitness evaluation failed (no verdict, never objects): {ff['n']}, " + "; ".join(f"{k}: {v}" for k, v in sorted(ff["by_category"].items()))
                       + " (by design: " + ", ".join(f"{k} {v}" for k, v in sorted(ff["by_design"].items())) + ").", ""]
+        dup = load("phase4_duplicates.json")
+        if dup:
+            cr = dup["cross_run_identical"]
+            L += ["## 4c. Duplicate answers by design and by generation (G5 decisions item 4 (d))", "",
+                  f"{dup['n_duplicates']} of the {dup['n_candidates']} Phase 4 answers repeat the RTL text of an earlier answer of the same run (label `duplicate`, no evaluation; by arm {dup['by_arm']}); "
+                  f"{dup['runs_with_duplicates']} runs have at least one, at most {dup['max_per_run']} in a run. Generation gap to the repeated answer: " +
+                  ", ".join(f"{k}: {v}" for k, v in dup["gap_to_original"].items()) + ". Identical rewrites produced by different runs of the same design (same content hash, not counted as duplicates within a run): "
+                  f"{cr['groups']} groups over {cr['runs_involved']} run memberships" + (" (" + ", ".join(f"{d} {n}" for d, n in sorted(cr["by_design"].items())) + ")" if cr["by_design"] else "") + ".", "",
+                  "| design | answers | duplicates | share |", "|---|---|---|---|"]
+            for d, v in dup["by_design"].items():
+                if v["duplicates"]:
+                    L.append(f"| {d} | {v['candidates']} | {v['duplicates']} | {100 * v['share']:.0f} % |")
+            L += ["", "| generation | answers | duplicates | share |", "|---|---|---|---|"]
+            for g, v in dup["by_gen"].items():
+                L.append(f"| {g} | {v['candidates']} | {v['duplicates']} | {100 * v['share']:.0f} % |")
+            L.append("")
+        if (Path(ROOT) / "reports" / "data" / "phase4_divider_counterexamples.md").exists():
+            L += ["The four RTL-OPT divider references of §4a were inspected by hand (G5 item 4 (c)): the pairs differ only on division by zero with the dividend's MSB set (non-restoring vs restoring algorithm) and agree for every non-zero divisor; "
+                  "analysis, traces and the confirming directed simulation in reports/data/phase4_divider_counterexamples.md.", ""]
         L += ["## 4. Literature settings re-evaluated (PLAN 4.7)", "",
               "| suite | pairs | proven | " + " | ".join(f"{cfg_} better / retained (evaluated)" for cfg_ in ("E1", "E1d", "E2", "E3", "E2g", "E4")) + " |", "|---|---|---|" + "---|" * 6]
         for suite, e in sorted(data["literature"].items()):

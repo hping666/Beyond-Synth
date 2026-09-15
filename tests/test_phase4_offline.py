@@ -143,3 +143,27 @@ def test_eval_failed_objects_and_categories(tmp_path):
     assert got["fit"]["configs"] == ["Y"] and got["fit"]["category"].startswith("Yosys")
     assert X.failure_category({"failed_status": "link_failed", "error": "Error: Width mismatch on port 'in' (LINK-3)"}) == ("link_failed", "DC link: port width mismatch (LINK-3)")
     assert X.failure_category({}) == ("?", "other (?)")
+
+
+
+def test_duplicates_report_counts_by_design_generation_gap_and_across_runs(tmp_path):
+    """G5 item 4 (d): duplicates (same RTL text within a run) by design and generation, the generation gap to the repeated
+    answer, and identical rewrites of different runs of one design (same content hash); literature objects never count."""
+    import json
+    from src.db import core as db
+    import scripts.phase4_exp1 as P4
+    conn = db.connect(path=str(tmp_path / "r.sqlite"))
+    for rid, arm in (("r1", "B0"), ("r2", "B0"), ("lit", P4.LIT_ARM)):
+        db.insert(conn, "runs", {"run_id": rid, "exp": "phase4", "arm": arm, "design_id": "dA", "seed": 1, "status": "done"})
+    rows = [("a", "r1", "dA", 1, None, "h1"), ("b", "r1", "dA", 2, "duplicate", "h1"), ("c", "r1", "dA", 3, None, "h3"), ("c2", "r1", "dA", 3, "duplicate", "h3"),
+            ("x", "r2", "dA", 1, None, "h1"), ("y", "r2", "dA", 2, None, "h9"), ("l1", "lit", "dA", 0, None, "h1")]
+    for cid, rid, did, gen, label, ch in rows:
+        db.insert(conn, "candidates", {"cand_id": cid, "run_id": rid, "design_id": did, "gen": gen, "label": label, "content_hash": ch, "arm": "B0" if rid != "lit" else P4.LIT_ARM})
+    db.insert(conn, "diagnoses", {"cand_id": "b", "label": "duplicate", "evidence_json": json.dumps({"duplicate_of": "a"}), "credit": 0})
+    db.insert(conn, "diagnoses", {"cand_id": "c2", "label": "duplicate", "evidence_json": json.dumps({"duplicate_of": "c"}), "credit": 0})
+    out = P4.collect_duplicates(conn, "phase4")
+    assert out["n_duplicates"] == 2 and out["n_candidates"] == 7 and out["by_arm"] == {"B0": 2}
+    assert out["by_design"]["dA"] == {"candidates": 7, "duplicates": 2, "share": round(2 / 7, 4)}
+    assert out["by_gen"]["2"]["duplicates"] == 1 and out["by_gen"]["3"] == {"candidates": 2, "duplicates": 1, "share": 0.5}
+    assert out["gap_to_original"] == {"0": 1, "1": 1} and out["runs_with_duplicates"] == 1 and out["max_per_run"] == 2
+    assert out["cross_run_identical"] == {"groups": 1, "runs_involved": 2, "by_design": {"dA": 1}}   # a (r1) and x (r2) share h1; the literature object does not count

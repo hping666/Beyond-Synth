@@ -1,6 +1,6 @@
 # Phase 4 report — Exp1: ladder and map (C1)
 
-Generated 2026-09-15 11:18 by scripts/report_phase.py (git ab0b1c21ed94, cfg d845788457d4). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
+Generated 2026-09-15 16:13 by scripts/report_phase.py (git aa0ac50ebb99, cfg 8a0e9b1a9a34). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
 
 ## 1. Objects
 
@@ -94,6 +94,38 @@ Non-monotone objects (inside the band at a lower rung, above it at a higher one)
 | drrtl_i2c | B0 candidate | 24 | E1, E1d, E2, E2g, E3, E4 | DC syntax error (VER-294) |
 | rtlopt_mux_dead | RTL-OPT reference | 1 | E1, E1d, E2, E2g, E3, E4 | DC link: port width mismatch (LINK-3) |
 | rtlrewriter_mux__mux_type2 | RTLRewriter reference | 1 | E1, E1d, E2, E2g, E3, E4 | DC link: port width mismatch (LINK-3) |
+
+## 4c. Duplicate answers by design and by generation (G5 decisions item 4 (d))
+
+128 of the 1474 Phase 4 answers repeat the RTL text of an earlier answer of the same run (label `duplicate`, no evaluation; by arm {'B0': 126, 'literature': 2}); 18 runs have at least one, at most 25 in a run. Generation gap to the repeated answer: 0: 2, 1: 1, unknown: 125. Identical rewrites produced by different runs of the same design (same content hash, not counted as duplicates within a run): 1 groups over 2 run memberships (cktevo_nn_engine__spikeLayer8_H7 1).
+
+| design | answers | duplicates | share |
+|---|---|---|---|
+| cktevo_ethmac__eth_txethmac | 197 | 12 | 6 % |
+| cktevo_mem_ctrl__mc_obct_top | 199 | 23 | 12 % |
+| cktevo_spi__spi | 50 | 11 | 22 % |
+| cktevo_vga_enh__vga_wb_master | 150 | 9 | 6 % |
+| drrtl_i2c | 100 | 22 | 22 % |
+| rtlopt_fsm_encode | 51 | 24 | 47 % |
+| rtlopt_ticket_machine | 51 | 25 | 49 % |
+| rtlrewriter_basic__communtativity_subpexpression2 | 4 | 1 | 25 % |
+| rtlrewriter_basic__commutativity_subexpression | 4 | 1 | 25 % |
+
+| generation | answers | duplicates | share |
+|---|---|---|---|
+| 0 | 116 | 2 | 2 % |
+| 1 | 139 | 6 | 4 % |
+| 10 | 138 | 17 | 12 % |
+| 2 | 138 | 11 | 8 % |
+| 3 | 131 | 14 | 11 % |
+| 4 | 135 | 11 | 8 % |
+| 5 | 137 | 11 | 8 % |
+| 6 | 135 | 14 | 10 % |
+| 7 | 136 | 15 | 11 % |
+| 8 | 133 | 15 | 11 % |
+| 9 | 136 | 12 | 9 % |
+
+The four RTL-OPT divider references of §4a were inspected by hand (G5 item 4 (c)): the pairs differ only on division by zero with the dividend's MSB set (non-restoring vs restoring algorithm) and agree for every non-zero divisor; analysis, traces and the confirming directed simulation in reports/data/phase4_divider_counterexamples.md.
 
 ## 4. Literature settings re-evaluated (PLAN 4.7)
 

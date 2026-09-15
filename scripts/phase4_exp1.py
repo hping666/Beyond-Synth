@@ -24,6 +24,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path[0] = ROOT
 
 import argparse  # noqa: E402
+import json  # noqa: E402
+from pathlib import Path  # noqa: E402
 
 from src import config as C  # noqa: E402
 from src.db import core as db  # noqa: E402
@@ -844,9 +846,67 @@ def cmd_refit(cfg, conn, do_submit, do_apply):
     return 0
 
 
+def collect_duplicates(conn, exp="phase4"):
+    """G5 decisions item 4 (d): the duplicate answers of the Phase 4 runs (identical RTL text within a run: label `duplicate`,
+    `duplicate_of` in the diagnosis evidence) by design, by generation and by design x generation, the generation gap to
+    the original answer, and the identical rewrites found by different runs of the same design (same content hash)."""
+    from collections import Counter
+    rows = [dict(r) for r in conn.execute("SELECT c.cand_id, c.run_id, c.design_id, c.gen, c.label, c.content_hash, r.arm, d.evidence_json FROM candidates c "
+                                          "JOIN runs r ON r.run_id = c.run_id LEFT JOIN diagnoses d ON d.cand_id = c.cand_id WHERE r.exp = ? AND r.status != 'superseded'", (exp,))]
+    gen_of = {r["cand_id"]: r["gen"] for r in rows}
+    total_by_design, total_by_gen, total_by_dg = Counter(), Counter(), Counter()
+    for r in rows:
+        total_by_design[r["design_id"]] += 1
+        total_by_gen[r["gen"] or 0] += 1
+        total_by_dg[(r["design_id"], r["gen"] or 0)] += 1
+    dups = [r for r in rows if r["label"] == "duplicate"]
+    by_design, by_gen, by_dg, by_arm, gap, per_run = Counter(), Counter(), Counter(), Counter(), Counter(), Counter()
+    for r in dups:
+        by_design[r["design_id"]] += 1
+        by_gen[r["gen"] or 0] += 1
+        by_dg[(r["design_id"], r["gen"] or 0)] += 1
+        by_arm[r["arm"]] += 1
+        per_run[r["run_id"]] += 1
+        try:
+            of = (json.loads(r["evidence_json"] or "{}") or {}).get("duplicate_of")
+        except ValueError:
+            of = None
+        if of in gen_of and r["gen"] is not None and gen_of[of] is not None:
+            gap[int(r["gen"]) - int(gen_of[of])] += 1
+        else:
+            gap["unknown"] += 1
+    groups = {}
+    for r in rows:
+        if r["label"] == "duplicate" or not r["content_hash"] or r["arm"] == LIT_ARM:
+            continue
+        groups.setdefault((r["design_id"], r["content_hash"]), set()).add(r["run_id"])
+    cross = {k: v for k, v in groups.items() if len(v) > 1}
+    cross_by_design = Counter(k[0] for k in cross)
+    return {"exp": exp, "n_candidates": len(rows), "n_duplicates": len(dups), "by_arm": dict(by_arm),
+            "by_design": {d: {"candidates": total_by_design[d], "duplicates": by_design.get(d, 0), "share": round(by_design.get(d, 0) / total_by_design[d], 4)} for d in sorted(total_by_design)},
+            "by_gen": {str(g): {"candidates": total_by_gen[g], "duplicates": by_gen.get(g, 0), "share": round(by_gen.get(g, 0) / total_by_gen[g], 4)} for g in sorted(total_by_gen)},
+            "by_design_gen": {f"{d}|{g}": {"candidates": total_by_dg[(d, g)], "duplicates": by_dg.get((d, g), 0)} for (d, g) in sorted(total_by_dg)},
+            "gap_to_original": {str(k): v for k, v in sorted(gap.items(), key=lambda kv: (isinstance(kv[0], str), kv[0]))},
+            "runs_with_duplicates": len(per_run), "max_per_run": max(per_run.values()) if per_run else 0,
+            "cross_run_identical": {"groups": len(cross), "runs_involved": sum(len(v) for v in cross.values()), "by_design": dict(cross_by_design)}}
+
+
+def cmd_duplicates(cfg, conn):
+    out = collect_duplicates(conn, "phase4")
+    p = Path(C.ROOT) / "reports" / "data" / "phase4_duplicates.json"
+    p.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n")
+    print(f"duplicates {out['n_duplicates']} of {out['n_candidates']} candidates; by arm {out['by_arm']}; by generation " +
+          ", ".join(f"g{g}: {v['duplicates']}/{v['candidates']}" for g, v in out["by_gen"].items()) + f"; cross-run identical rewrites {out['cross_run_identical']['groups']} groups")
+    for d, v in out["by_design"].items():
+        if v["duplicates"]:
+            print(f"  {d:34s} {v['duplicates']:4d} of {v['candidates']:4d} ({100 * v['share']:.0f} %)")
+    print(f"written {p}")
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup", "refit", "diag-sample", "diag-verify", "motivating"])
+    ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup", "refit", "diag-sample", "diag-verify", "motivating", "duplicates"])
     ap.add_argument("--apply", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--name", default=None)
@@ -889,6 +949,8 @@ def main(argv=None):
         return cmd_motivating(cfg, conn)
     if a.what == "hygiene":
         return cmd_hygiene(cfg, conn)
+    if a.what == "duplicates":
+        return cmd_duplicates(cfg, conn)
     if a.what == "topup":
         return cmd_topup(cfg, conn, a.submit)
     if a.what == "refit":
