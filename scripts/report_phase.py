@@ -651,6 +651,18 @@ def phase4(cfg):
             for g, v in dup["by_gen"].items():
                 L.append(f"| {g} | {v['candidates']} | {v['duplicates']} | {100 * v['share']:.0f} % |")
             L.append("")
+        rs = load("phase4_rtlopt_setting.json")
+        if rs:
+            cnt = rs["counts"]
+            L += [f"## 4d. RTL-OPT pairs under the authors' published setting (G5 item 4 (a); config `{rs['config']}`: compile_ultra, {rs['clock_ns']} ns, no retime, no gate clock)", "",
+                  f"The {rs['pairs']} proven pairs under the authors' setting: {cnt['better']} better (the optimized version smaller than the suboptimal start), {cnt['same']} same, {cnt['worse']} worse, {cnt['missing']} not evaluated; the paper reports {rs['authors_count']} — the six pairs that are not equivalent under this project's protocol (§4a) are outside these counts. "
+                  "The same pairs at the knee period under E2 (compile_ultra) and E4 (full effort) are listed for the reconciliation: the authors' 1 ns clock is relaxed for most of these designs, so DC restructures less than at the knee.", "",
+                  "| pair | phi_main (ns) | D area at 1 ns | reference area at 1 ns | rel. area at 1 ns | verdict at 1 ns | rel. area E2 (knee) | rel. area E4 (knee) |", "|---|---|---|---|---|---|---|---|"]
+            for r in rs["rows"]:
+                o = r.get("other_rungs") or {}
+                f = lambda v: "-" if v is None else f"{100 * v:+.1f} %"
+                L.append(f"| {r['design_id']} | {r['phi_main_ns']:.2f} | {'-' if r['d_area'] is None else f'{r[chr(100) + chr(95) + chr(97) + chr(114) + chr(101) + chr(97)]:.1f}'} | {'-' if r['ref_area'] is None else f'{r[chr(114) + chr(101) + chr(102) + chr(95) + chr(97) + chr(114) + chr(101) + chr(97)]:.1f}'} | {f(r['rel_area'])} | {r['verdict_1ns']} | {f((o.get('E2') or {}).get('rel'))} | {f((o.get('E4') or {}).get('rel'))} |")
+            L.append("")
         if (Path(ROOT) / "reports" / "data" / "phase4_divider_counterexamples.md").exists():
             L += ["The four RTL-OPT divider references of §4a were inspected by hand (G5 item 4 (c)): the pairs differ only on division by zero with the dividend's MSB set (non-restoring vs restoring algorithm) and agree for every non-zero divisor; "
                   "analysis, traces and the confirming directed simulation in reports/data/phase4_divider_counterexamples.md.", ""]
