@@ -1,41 +1,100 @@
-# STATUS.md — current state (read first at the start of every session; update before the end)
+# STATUS — Beyond the Synthesizer
 
-Last updated: 2026-09-13 03:00 · Phase 1 closed; Phase 2.2 noise runs starting
+Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends here; a fresh session continues). Read this file, then `docs/PLAN.md` Phase 5 and `reports/phase4.md`.
 
-## Current phase
+## Current phase and the next action
 
-Phase: 4 (docs/PLAN.md Phase 4 — Exp1: ladder and map); Phase 3 complete 2026-09-14 21:45 (reports/phase3.md; DECISIONS 2026-09-14), Phase 2 closed 2026-09-14 (reports/phase2.md), Phase 1 closed 2026-09-13 02:50
-Current task: **Phase 4 complete (2026-09-15 11:30) — STOP G5 submitted, waiting for the user.** Exp1 per PLAN 4.1–4.9 done: 28 B0 runs (luna, Y-caliber fitness) on the ten held designs, 116 literature objects, ladder E1–E4 + supplementary Yosys configurations and hidden registrations on every proven object, M3 diagnosis at E4 under the frozen phase4 floors, map / curves / non-monotone / literature table / misclassification / predictor, diagnoser validation (187 / 187), motivating figure, conclusions. History of the day in DECISIONS 2026-09-15 (failed-evaluation audit, retention fix, three diagnoser-input fixes, literature baselines).
-Phase 4 engineering done ahead of the go (2026-09-14 17:50, DECISIONS): arm B0 (Y-caliber fitness, scalar feedback) in the driver with a bidirectional test; `scripts/phase4_exp1.py` (baselines, B0 runs, literature objects, verdicts, ladder, diagnose, collect, snapshot) and `report_phase.py phase4`; `src/analysis/` map / predictor / objects with tests; Yosys runner fixed for `$display` print cells and unmapped latches (trap recorded). State: 100 D baselines (E1d, E2g, Y, O0–O2, Ycoevo) submitted 17:27 for the 15 Exp1 + calibration designs (the two Y failures re-run after the fix); 116 literature objects registered (RTL-OPT 40 references, RTLRewriter 54 references + 22 LLM samples; 6 unreadable by Yosys keep no class) and their 116 equivalence jobs queued at priority 2; B0 smoke on spikeLayer8_H7 done (2 calls, both nonequiv), second smoke on rtlopt_fsm_encode (N = 3) running. The 338 pre-Phase-4 (d) noise / baseline jobs were moved to queue priority 2 (above the ladder's 1) so that the floors can be frozen before the Exp1 generation starts; the ladder (c) continues behind them. Launch order once (d) is closed: `phase4_exp1.py generate --submit` (10 B0 runs, ≈ 0.5 USD) → `objects`/`verdicts` → `ladder --hidden --submit` → `diagnose` → `collect` → `snapshot` → `report_phase.py phase4` → STOP G5.
-Decisions of 2026-09-14 (DECISIONS, verbatim) in progress (18:15): (1) rules v2 accepted; §6a extended (per-class precision / recall, four disagreement categories with counts, per-model classes after re-labelling); the M6 LLM review (`src/classify/review.py`, prompt `src/search/prompts/m6_review.md`, queue kind `llm`) runs on 392 Phase 3 candidates as job j922f0c3b7b17 (started 18:07; `class_llm` / `class_final`, (d) stays tool-defined) → afterwards `phase3_calibrate.py collect` + `report_phase.py phase3`. (2) VC Formal projection accepted; no cap / design-set change; `search.long_proof_first` ((c1)/(d) proofs first on arithmetic designs, priority +1); Phase 5 proofs in bulk at 50 seats; SEQ latency mapping (G2.1(b)) then the DPV phase mapping are pre-Phase-5 engineering items. (3) benchmark hygiene: `phase4_exp1.py hygiene` → reports/phase4.md §4a (18 non-equivalent literature objects so far: 7 V1 failures, 10 V2 mismatches, 1 SEQ counterexample; RTL-OPT dividers differ functionally, `mac` mismatches at cycle 3 with reset-less registers = initial-state assumption). (4) contrast layer: materiality table, label breakdown with `blocks_synthesis`, (d) inspection (152 of 227 (d) candidates are absorbed_identical adder rewrites on adder_16bit; 1 harmful with blocks_synthesis). (5) Phase 4 go: ladder + hidden runs submitted for the 60 proven literature objects (660 dc / yosys + 236 dc_hidden jobs at priority 2); the remaining objects follow as their verdicts arrive; B0 generation starts at the floor freeze. (6) Phase 3 closure after the last multi_pipe verdicts: `m6-relabel --force`, final AUROC and feedback-response metric appended, Phase 3 marked complete.
-Storage (2026-09-14 22:00, user decision in DECISIONS): the root filesystem had 20 GB free; the project's tool scratch in /tmp and the pip cache were removed (+7 GB), the approved SAIF-and-power prune ran (+1 GB), and the retention was tightened with the user's approval — falsified-record VCDs deleted, kept (sim_fail) VCDs gzip-compressed, non-proven VCS builds removed: 28 GB → 104 GB free; 409 VCDs (2.9 GB, proven / inconclusive per the rules) and 372 compressed sim_fail VCDs (4.4 GB) remain; no proven record, SAIF, evaluation or running job was touched (verified). Non-project consumers noted for the user: ~/.cache/huggingface 42 GB, /tmp foreign files ~14 GB. **2026-09-15 06:20:** back at 48 GB free after 4 263 hidden, 672 DC, 813 VC Formal and 607 Yosys jobs; cause found: `sim_fail` records returned before the VCD rules (702 uncompressed VCDs, 48 GB, 45.5 GB of them in the Phase 4 B0 records of spikeLayer8_H7 and drrtl_datapath) — fixed (`retain_vcd`, DECISIONS) and the approved `phase2_saif.py prune` is compressing the existing ones in the background (log in the session scratchpad; freed amount to be recorded when it finishes). **07:40:** the prune finished (38.6 GB freed: 295 sim_fail VCDs compressed, 1 363 VCS builds removed); 57 GB free afterwards because ~30 GB of Hugging Face model weights were downloaded into ~/.cache/huggingface meanwhile (outside the project).
-Resume procedure: (1) batches: `python3 scripts/status.py`; when the vcf pool has drained the background chain runs `scripts/phase2_perturb.py collect` → `scripts/phase2_saif.py build` → `scripts/phase2_noise.py submit --missing --submit --priority 1 --design …` and `scripts/hidden_worker.py --submit-noise --missing --priority 0 --design …` for the 40 regenerated designs; when the knee extension has drained: `scripts/phase1_collect.py knee`, then the same two submitters (without `--missing`) for every design whose Φ_main changed; when all DC runs are done: `phase2_noise.py collect`, `hidden_worker.py --noise-floor`, `report_phase.py phase2`, commit. (2) Phase 3 (docs/PLAN.md Phase 3, spec 05 residual-guided evolution): search skeleton, prompts, calibration runs. Daemon: pid in results/queue/daemon.pid, restart with `scripts/queue/daemon.py start` (it sources the EDA env and the API-key file itself).
-Done on 2026-09-12 (Phase 1 session):
-- 1.1 sources located and pinned (config `design_sets.sources`): RTLLM v2.0 (local checkout, MIT), Dr.RTL 20 (hkust-zhiyao/DR_RTL, no license file), RTL-OPT (anonymous repo of the paper expired → hkust-zhiyao/RTL-OPT, MIT, 40 pairs), CktEvo (cure-lab/cktevo), RTLRewriter-Bench (yaoxufeng). Staged by `scripts/stage_designs.py` into data/designs/<suite>/<name>/ (design.json + gitignored copies; SOURCE.md / index.json / POOL.json): rtllm 50, drrtl 20, rtlopt 40, cktevo pool 83, rtlrewriter 72 = 265.
-- 1.2 inventory (`scripts/inventory.py`, reports/data/phase1_inventory.json): Yosys probe identifies clocks by flip-flop use; 13 multi-clock designs, 15 Yosys parse failures, 3 SystemVerilog-only. E4 trial at 4.0 ns Nangate45 (`scripts/phase1_collect.py trial`, reports/data/phase1_trial.json): synthesizable rtllm 43/50, drrtl 19/20, rtlopt 40/40, cktevo 78/83, rtlrewriter 54/72; failures are design errors (mixed blocking/non-blocking, assign to reg, undefined symbols, SystemVerilog constructs that DC rejects even in SV mode) or memory models (empty netlist / timeout); reasons per design in the trial JSON and reports/phase1.md.
-- 1.5 CktEvo set: 30 modules (≤5 per repository, round-robin by size; tag `cktevo_set`, config `design_sets.suites.cktevo.held`). 1.4 split: dev = 20 RTLLM designs (seeded stratified sample, config `design_sets.suites.rtllm.dev`), held = 21 rtllm + 18 drrtl + 39 rtlopt + 30 cktevo (`split` column, config held lists); rtlrewriter calibration-only (no split). Eligibility = E4 ok, single clock, Yosys-readable.
-- Rule-3 gap closed (hidden configurations routed to the hidden DB / raw tree; Phase 0 H-rows migrated); K_asap7 / K_sky130hd knee configurations; `queue.dc_concurrency: 12`; multi-clock SDC; SDC guard for zero-input designs; config-edit lesson recorded (DECISIONS).
-- Phase 2.1 started: `src/noise/` perturbation generator (Pyverilog: P1 rename, P2 reorder, P3 expressions, P4 control) with bidirectional tests (Yosys equivalence on a synthetic design; NotApplicable paths); accu smoke: 10 perturbations + round trip.
-- Phase 2.4 SEQ pilot done (2026-09-12 19:30): 131 candidates × 2 seeds; (b) 41/43 proven, (c1) 38/43 proven, (c2) 29 proven_sim_only + 11 proven; offsets constant across seeds for all 124 measurable; 2 inconclusive (DSP multiplier retiming, multi_pipe_8bit); LLM batch cost 0.07 USD (DECISIONS, reports/phase2.md §4).
-- Phase 2 / 3 groundwork done ahead of the data: hidden worker (`dc_hidden` kind, `--submit-noise`, `--noise-floor`), visible noise driver, noise statistics, Phase 2 report generator, LLM client with per-tier prices (user-supplied 2026-09-12) and budget ledger, M6 rule classifier, M3 diagnoser, SEQ-pilot driver and hand-made variants (CLAUDE.md exception 2), lock-step sampling moved before the posedge, `proven_rename` gate rule, sky130hd dont-use cells.
-- Tests: 309 offline passed, 14 EDA skipped (2026-09-15 10:00; power basis, pooled-minimum band, forced re-diagnosis, verifier).
-Stopped at: **Phase 4 complete — STOP G5 submitted 2026-09-15 11:30, waiting for the user.** reports/phase4.md (final collect 11:15 after the band-rule re-diagnosis; snapshot phase4-20260915-1115), reports/phase4_conclusions.md, reports/data/phase4_diagnoser_check.md, phase4_motivating.md. Map shape concentrated (B0: a 6 %, b 49 %, c1 100 %, d 94 %); rule R misclassification 37 % / 6 %; predictor AUROC 0.717 (class-blind 0.733); diagnoser check 187 / 187; B0 proven rate 24 %, none on the three largest designs; 4.01 USD, 63.8 VCF h, 51 DC h. Queue idle; hidden registrations of every E4-evaluated object submitted (counts after Phase 5, rule 3). Engineering while waiting: pre-Phase-5 items (SEQ latency mapping, DPV phase mapping, B1@E4 prompt, LLM review decision for Phase 4 / 5 objects), a second `phase2_saif.py prune` pass.
-Next steps (by priority):
-1. **G5**: wait for the user's decisions (Phase 5 go, paper form, pre-Phase-5 items); while waiting, engineering only: SEQ latency mapping (G2.1(b)) and the DPV phase mapping, the B1@E4 static-complement prompt, a second `phase2_saif.py prune` pass, hidden registration counts (`hidden_worker.py --coverage-candidates --exp phase3 / phase4`)
-2. Run `phase2_saif.py prune` once more after the last VC Formal jobs of the old stack code have finished (the vga top-up; their sim_fail VCDs are small)
-3. Hidden registration counts (`hidden_worker.py --coverage-candidates --exp phase3` and `--exp phase4`) and a second `phase3_ladder.py --missing` pass for the late Phase 3 candidates
-4. Before Phase 5: SEQ latency mapping (G2.1(b)), then the DPV phase mapping for fixed-latency arithmetic pipelines; `vcf_seats_target` 50 in bulk mode; the B1@E4 static-complement prompt; decide the LLM review for Phase 4 / 5 objects (`m6-review --exp phase4`)
-Engineering backlog (no gate): SAIF coverage parsing from `report_saif -hier`, queue runners for `pt` / `yosys` kinds, `src/db/query.py`, `scripts/snapshot.py`, `scripts/db_check.py`, SEQ timeout → inconclusive test on a large design, hidden_worker certification loop (Phase 5), RTL-line mapping of the critical path (PROPOSAL §4.9, Phase 3), Pyverilog parse gaps (multi-target `assign a = x, b = y;`, SystemVerilog `int` loops) → those designs get no AST perturbations (recorded in the manifests).
-Open items from 0.5: RTL-line mapping of the critical path is not yet implemented (records carry pin/cell names of the path); `results/raw` retention policy decided (prune DC scratch after ingest, VCS builds after SAIF; the lock-step VCDs await the user's decision).
+**Phase 4 (Exp1: ladder and map) is complete. STOP G5 was submitted on 2026-09-15 11:30 and is waiting for the user.** No G5 decision has been received yet: the user's last decisions on record are the block of 2026-09-14 (DECISIONS) and the deletion of the 145 test directories on 2026-09-15. Do not start Phase 5 before the user's G5 decisions are recorded verbatim in `docs/DECISIONS.md`.
+
+Next action for the new session, in order:
+1. `python3 scripts/status.py` — expect the daemon running, every pool idle, LLM 45.86 USD total.
+2. If the user has answered G5: record the decisions verbatim and dated in `docs/DECISIONS.md` (Phase 5 go and any adjustments, the engineering order before Phase 5, the paper form, extra tasks), update this file, then follow `docs/PLAN.md` Phase 5 (5.1 onwards) — starting, as the user decided on 2026-09-14, with the SEQ latency mapping (G2.1(b)) on the critical path before Phase 5 and the DPV phase mapping after it.
+3. If the user has not answered: engineering only, nothing that presumes the gate — the pre-Phase-5 items listed under "Open questions" (SEQ latency mapping, DPV phase mapping, B1@E4 static-complement prompt, hidden registration counts, a second `phase2_saif.py prune` pass), each small-before-large with bidirectional tests.
+
+G5 report: `reports/phase4.md` (§1–§8 generated, §9 diagnoser check, §10 motivating figure, §11 conclusions); the conclusions file `reports/phase4_conclusions.md`; the manual check `reports/data/phase4_diagnoser_check.md`; snapshot `results/snapshots/phase4-20260915-1115/`. Headline numbers: map shape **concentrated** (B0 objects: (a) 6 %, (b) 49 %, (c1) 100 %, (d) 94 % E4 retention; all 255 diagnosed objects 15 / 43 / 88 / 73 %; materiality row 21 / 39 / 88 / 69 %); rule R misclassification P(retained | forbidden) 37 %, P(absorbed | allowed) 6 %; predictor LODO AUROC 0.717 with class / 0.733 class-blind; non-monotone 17.6 %; diagnoser check 187 / 187; literature: RTL-OPT 20 better at E1 → 11 retained at E4 of 34 proven pairs, RTLRewriter 24 → 10 of 43; B0 proven rate 24 % (1 357 candidates, 320 proven, none on spikeLayer8_H7 / drrtl_datapath / drrtl_pcie); 28 proven B0 candidates and 2 references rejected by DC (evaluation failed, rule 8).
 
 ## Pending STOP gates
 
-| Gate | Submitted on | Report path | Human decision |
+| Gate | Status | Report | User decision |
 |---|---|---|---|
-| G5 | **submitted 2026-09-15 11:30** | reports/phase4.md, reports/phase4_conclusions.md (§11), reports/data/phase4_diagnoser_check.md, phase4_motivating.md | waiting for the user: Phase 5 go, paper form, the open pre-Phase-5 items (SEQ latency mapping, DPV phase mapping, B1@E4 prompt, LLM review for Phase 4 / 5 objects) |
-| G4 | 2026-09-14 | reports/phase3.md §7 (+ final-numbers addendum) | **closed 2026-09-14 (human, DECISIONS verbatim)**: luna main model, terra second model on arms M and B2 for all Phase 5 starting points, mini and gpt-5.4 excluded; M_noscreen dropped (final AUROC 0.721 < 0.75); floor versioning (phase4 frozen); C1 scope (Exp1 = CktEvo 5 + Dr.RTL 3 + RTL-OPT 2, RTLLM out of scope); pre-Phase-4 tasks a–f done / in the queue |
-| G1 / G2 / G3 | 2026-09-13 | reports/phase2.md §6 | **closed 2026-09-14 (human, DECISIONS verbatim)**: rule A; pooled floors + text-level P1 for unproven designs; 8 per type for spread/offset and map designs; c2 stays `proven_sim_only` (latency mapping attempt before Phase 5); all-zero initial state; V4 clockless only; no synthesis-rung screening (Y only, AUROC-gated M_noscreen); E4 scoring, H3 hidden; VCDs to scratch; seat caps 50/50 with targets 24; C2 = residual-guided evolution |
-| G0 | 2026-09-12 | reports/phase0.md (+ ladder addendum) | **closed 2026-09-12 (human)**: cross-tool publication allowed (Viterbi ITS); raw retention policy approved; V4 scope with three guardrails; ladder redefined after the DC check (E1 standard library, E1d attribution rung, E4 = `compile_ultra -retime -gate_clock`, E2r alias of E3, E2t dropped, H3 topographical full effort); Y = proposal definition with Ycoevo as a mandatory Exp1 supplementary column; fixtures regenerated, tests green |
+| G0 | closed 2026-09-12 | reports/phase0.md | recorded in DECISIONS |
+| G1 | closed 2026-09-13 | reports/phase2.md | rule A floors, floor classes, pooled minimum (DECISIONS 2026-09-14 G1.x) |
+| G2 | closed 2026-09-13 | reports/phase2.md §4 | SEQ protocol with the all-zero initial state (G2.2); the latency mapping G2.1(b) is a pre-Phase-5 item |
+| G3 | closed 2026-09-14 | reports/phase3.md | screening stays out of the main method unless AUROC ≥ 0.75 (final Phase 3 AUROC 0.721: M_noscreen dropped) |
+| G4 | closed 2026-09-14 | reports/phase3.md §7 | luna main model, terra second model on M and B2, C1 scope (Exp1 = CktEvo 5 + Dr.RTL 3 + RTL-OPT 2, RTLLM as contrast), floor versioning |
+| G5 | **submitted 2026-09-15 11:30 — waiting** | reports/phase4.md, reports/phase4_conclusions.md | none received yet. Asked of the user: Phase 5 go (and whether the zero proven rate of luna on the three largest designs changes the Phase 5 design set or projection); which pre-Phase-5 items to do first; the paper form (map paper, see §11) |
+| G6+ | not reached | — | — |
+
+## In-flight work
+
+- **Queue daemon**: running, pid 945587, started with `python3 scripts/queue/daemon.py start` (setsid; it sources `~/.config/beyond-synth/env.sh` itself for `OPENAI_API_KEY`; restart with `python3 scripts/queue/daemon.py stop` then `start`). Pools: dc cap 50 / target 24, vcf cap 50 / target 24 (`queue.dc_seats_target`, `queue.vcf_seats_target`; 50 only for bulk Phase 5–6 runs on the user's confirmation), pt 8, local 16, `per_design_max {vcf: 16}`. The queue is empty (no queued or running job); nothing is waiting on the daemon.
+- **Hidden worker**: no persistent process; `scripts/hidden_worker.py` is invoked per submission and its runner per job. Every E4-evaluated Phase 3 and Phase 4 object has its H1 / H2a / H2b / H3 / H5 registrations submitted; completion counts (`python3 scripts/hidden_worker.py --coverage-candidates --exp phase3` and `--exp phase4`, counts only) have not been reported yet.
+- **Session-bound monitors and chains**: none survive. All of the day's chains finished before the handoff (B0 top-up chain 10:53, final collection chain 11:09, hourly progress monitor 11:44, chain monitor). Nothing needs re-creating. If a collection has to be redone: `python3 scripts/phase4_exp1.py verdicts`, `ladder --hidden --submit --priority 2` (idempotent, deterministic failures skipped), then after the queue drains `diagnose --force`, `hygiene`, `collect`, `snapshot`, `diag-sample`, `diag-verify`, `motivating`, `python3 scripts/report_phase.py phase4`.
+- Hourly monitors of the old sessions were `Monitor` tasks of the Claude session (not daemon jobs); the new session creates its own if it needs them.
+
+## Budget and hours (to the cent, 2026-09-15 12:00)
+
+| Item | Spent | Cap (config) | Note |
+|---|---|---|---|
+| LLM phase3_calibration | 41.85 USD | 60 | closed |
+| LLM phase4_generation | 4.01 USD | 40 | closed (28 B0 runs, 1 400 calls, plus the M6 review 0.31 USD booked to phase3_calibration) |
+| LLM phase5_main | 0.00 USD | 600 | not started |
+| LLM phase6_ablation | 0.00 USD | 200 | not started |
+| LLM total | 45.86 USD | 1 000 | `budget_ledger` |
+| DC hours (visible evaluations, cumulative) | 539.4 h | reported, not budgeted | `SUM(evaluations.dc_seconds)`; hidden-configuration hours are in the hidden database (counts only via the hidden worker) |
+| VC Formal hours (search runs, cumulative) | 399.4 h | reported, not budgeted | `runs.spent_vcf_hours`: phase3 335.5, phase4 63.8, smoke 0.1; the Phase 2 pilot and noise equivalence jobs are not in `runs` |
+| PT hours | 0 | — | PT not used yet |
+
+`scripts/status.py` prints "DC / PT / VCF hours cumulative 0.00" because those counters read `budget_ledger` rows of kind dc / vcf that nobody writes — a known gap (open item), the numbers above come from the tables named.
+
+## Data state
+
+- Results database `results/db/results.sqlite` (append-only): 23 888 evaluations, 1 951 perturbations, 265 designs, 11 560 failed jobs (all with records or known causes), 0 active jobs; `python3 scripts/db_check.py`: 0 problems, 0 warnings (2026-09-15 12:00).
+- Last snapshot: `results/snapshots/phase4-20260915-1115/` (candidates 1 474, evaluations 7 579, diagnoses 1 418, runs 122, noise_floor 7 235). Earlier: `phase4-20260915-1108` (provisional, before the band rule), `phase4-20260915-0748` (premature chain firing, superseded).
+- `noise.floor_version: phase4` in force (frozen 2026-09-14 19:15); Phase 3 rows keep `phase3`.
+- Hidden results only in `results/hidden/hidden.sqlite` (rule 3; read only by `scripts/report_hidden.py` after Phase 5).
+- Last commit before the handoff: c4a9d3a (the handoff commit follows it; `git log -1` shows it). Working tree clean, remote `origin/main` up to date after the handoff commit.
+- Tests: `pytest tests/` → **311 passed, 14 skipped (EDA tools)** on 2026-09-15 12:00 (the Yosys async-load trap test included).
+- Disk: root filesystem **25 GB free of 1.8 TB (99 %)** — shared host; this project's `results/` is 83 GB after the retention prune of 2026-09-15 (38.6 GB freed); `~/.cache` of this account is 60 GB (Hugging Face model weights, the user's, not touched); the other accounts hold the rest. `/hdd1` 50 GB free.
+
+## Open questions and known risks
+
+- G5 decisions pending (Phase 5 go, adjustments, engineering order, paper form); nothing that presumes them may start.
+- Disk: 25 GB free on a shared root filesystem; the project's own growth is controlled (retention rules of 2026-09-14, `phase2_saif.py prune` after the last runs), the rest is outside the project — tell the user before any bulk run.
+- luna proved 0 of 562 candidates on spikeLayer8_H7, drrtl_datapath and drrtl_pcie (syntax errors, lock-step mismatches, SEQ counterexamples); Phase 5 projections must use the measured proven rates per design (24 % overall).
+- Class (c2) has one Phase 4 object: pipelining rewrites are not on the map until the SEQ latency mapping (G2.1(b)) is implemented (pre-Phase-5, user decision 2026-09-14).
+- 28 proven B0 candidates and 2 literature references are rejected by DC (25 `!|` reductions VER-294, VER-262, VER-134, ELAB-366, LINK-3); they stay `evaluation failed` and are listed in reports/phase4.md §4a; ladders skip such deterministic failures unless `--retry-failed`.
+- Phase 3 search-time diagnoses were left unchanged after the diagnoser-input fixes of 2026-09-15 (power basis, band); the re-derivation changes ≤ 15 of 906 labels (addendum in reports/phase3_conclusions.md); Phase 4 / 5 use the corrected rules.
+- `scripts/status.py` hour counters show 0 (ledger rows of kind dc / vcf never written) — engineering item.
+- Hidden registration completion counts for Phase 3 / Phase 4 objects not yet reported (counts only).
+- DPV phase mapping for fixed-latency arithmetic pipelines, the B1@E4 static-complement prompt, and whether the M6 LLM review (spec 04 A.2) is applied to Phase 4 / 5 objects (`phase3_calibrate.py m6-review --exp phase4`) are open pre-Phase-5 items.
+- Traps: 2026-09-15 Yosys async-load flip-flops (`if (rst) q <= <signal>`) stay behavioural in the netlist — the runner's structural check rejects them (eda-knowledge/05-traps.md, test in tests/test_yosys_netlist_offline.py).
+
+## Resume checklist (run first, in this order)
+
+```bash
+cd /home/hping/Beyond-Synth && source .venv/bin/activate
+python3 scripts/status.py            # healthy: "daemon: running", every pool running=0 waiting=0, LLM total 45.86 USD, key configured, 0 orphan EDA processes
+python3 scripts/queue/daemon.py status   # healthy: "daemon: running pid=945587" (if not running: python3 scripts/queue/daemon.py start)
+python3 scripts/db_check.py          # healthy: "0 problems, 0 warnings"
+pytest tests/ -x -q                  # healthy: 311 passed, 14 skipped (EDA tests skipped without the tool environment on PATH)
+git status --short && git log --oneline -3   # healthy: clean tree, HEAD = the handoff commit
+df -h / | tail -1                    # watch the shared root filesystem (25 GB free at the handoff)
+python3 scripts/phase4_exp1.py status | tail -3   # 28 B0 runs done, phase4 spend 4.007 USD
+```
+Then: `docs/DECISIONS.md` (tail, 2026-09-15 entries), `reports/phase4.md` §11, `docs/PLAN.md` Phase 5.
+
+## Done on 2026-09-15 (this session, chronological; details in DECISIONS)
+
+- Night audit: 328 failed queue jobs were candidate-RTL faults rejected by the synthesizer; `phase4_exp1.py hygiene` lists them (report §4a).
+- Retention defect fixed: sim_fail records skipped the VCD rules (`retain_vcd`); the approved prune freed 38.6 GB.
+- Search-driver run directory now follows `project.results_dir` (test isolation; the flaky B0 test); the user approved deleting the 145 test directories.
+- Ladders skip deterministic evaluation failures (`--retry-failed` to force), visible and hidden.
+- PLAN 4.6 / 4.9 tooling: `diag-sample`, `diag-verify` (independent re-derivation from the raw DC reports), `motivating`; the collection chain re-run with a strict completion condition.
+- Three diagnoser-input defects found by the check and fixed: mixed SAIF / default power bases, zero band for missing floor components (pooled minimum now), convergence test on sigma_robust (rule-A band now); every Phase 4 object re-diagnosed; Phase 3 impact estimated (addendum).
+- D baselines of the 76 literature designs under E1d / E2g / Y / O0–O2 / Ycoevo added (`baselines --objects`).
+- Phase 4 completed: final collect, diagnoser check 187 / 187, motivating figure, conclusions, STOP G5 submitted.
+
 
 ## Environment (filled by Claude Code in Phase 0 after reading eda-knowledge; afterwards updated only when the environment changes)
 
@@ -63,29 +122,6 @@ Open items from 0.5: RTL-line mapping of the critical path is not yet implemente
 | CktEvo modules | https://github.com/cure-lab/cktevo @ 2f1abe75 (OpenCores headers) | pool 83 → set 30 | 78 of the pool (memory models: empty netlist / timeout; simple_cpu mixed assignments) | 0 | held 30 = the set (≤5 per repository, by size) | 11 multi-clock modules excluded from the set |
 | RTLLM v2.0 | https://github.com/hkust-zhiyao/RTLLM @ 41b26896 (MIT), local /home/hping/RTLLM | 50 | **N = 43** (ROM / clkgenerator no cells or paths; float_multi, synchronizer event lists; freq_divbyodd, ring_counter assign-to-reg; sequence_detector mixed assignments) | 50 | dev 20 / held 21 (asyn_fifo two clocks; RAM Yosys crash) | tops renamed to the testbench names |
 | RTLRewriter 54 short + 18 long | https://github.com/yaoxufeng/RTLRewriter-Bench @ 96639fe6 (no license file) | 72 (roles: original / expert / tool / llm) | 54 (SystemVerilog constructs, undefined symbols, hierarchical names, constant designs) | 2 | calibration only | file roles by rule (DECISIONS 2026-09-12); Nangate45 knee only |
-
-## Budget usage
-
-| Item | Cap | Used | Updated |
-|---|---|---|---|
-| LLM total (USD) | 1000 | | |
-| LLM Phase 3 calibration | | | |
-| LLM Phase 4 generation | | | |
-| LLM Phase 5 main experiment | | | |
-| LLM Phase 6 ablations | | | |
-| DC hours (cumulative) | — | | |
-| VC Formal hours (cumulative) | — | | |
-
-## Open questions / known risks
-
-- (resolved 2026-09-12) LLM prices per tier supplied by the user and written into config; hand-made pilot variants allowed by CLAUDE.md exception 2.
-- SEQ and registers without reset: VC Formal SEQ treats their initial state as free, so renamed registers (handled by the `proven_rename` rule) and RTL-OPT saturating_add's dead flag registers are falsified although simulation cannot distinguish the designs; G2 decision: assume a reset-sequence / all-zero initial state in SEQ or keep the conservative verdict.
-- V2 offsets: a candidate whose latency change is not a uniform per-output delay (DSP with an extra multiplier stage feeding only some paths) shows as sim_fail, not offset; class (c2) certification covers only uniform per-output delays.
-- (resolved 2026-09-14) Lock-step VCDs: deleted once SAIF and power exist (34 GB freed); sim_fail / falsified records and a 2 % sample keep theirs; new records convert to SAIF themselves.
-- (resolved 2026-09-14) Noise floor: rule A adopted (t_D = max(2σ_robust, own max |δ| incl. P0, pooled q90)); floor classes stored; pooled floors for designs without a measured one.
-- Registers without reset: the all-zero initial state is now assumed in V2 and V3 (DECISIONS 2026-09-14 G2.2); perturbations gated before 2026-09-14 were gated under the free-initial-state protocol (their proven verdicts stay valid: the assumption only makes more pairs provable).
-- Three calibration-suite designs (RTLRewriter md, distributed_ram; CktEvo thresholds_128x4096) time out under some rungs at Φ_main (1 020 s runner limit): recorded as evaluation failed, timeouts unchanged (rule 6).
-- Config edits while a batch runs change `cfg_hash` for later jobs (cache misses only) and a syntax error kills every runner: validate in the same command, edit between batches when possible (DECISIONS 2026-09-12).
 
 ## Decision summary (details in docs/DECISIONS.md)
 

@@ -73,3 +73,35 @@ def test_runner_end_to_end_reports_area_timing_and_power(tmp_path):
     assert m["area"] > 0 and m["cells"] > 0 and m.get("wns_ns") is not None
     assert m.get("power_default_mw") is not None and m["power_default_mw"] > 0
     assert Y.structural_netlist_problems(rec["netlist"]) == [] and any(k.startswith("DLH") or k.startswith("DLL") for k in rec["hist"])
+
+
+ASYNC_LOAD_RTL = """module top(input clk, input rst, input en, input [1:0] d, input [1:0] hold, output reg [1:0] q);
+  always @(posedge clk, posedge rst)
+    if (rst) q <= hold;          // asynchronous load of a non-constant value: no library flip-flop does this
+    else if (en) q <= d;
+endmodule
+"""
+ASYNC_RESET_RTL = ASYNC_LOAD_RTL.replace("q <= hold;", "q <= 2'b00;")
+
+
+@pytest.mark.skipif(not os.path.exists(YOSYS) or not LIB.get("latch_map") or not os.path.exists(LIB["latch_map"]), reason="yosys or the ORFS latch map missing")
+def test_async_load_flop_is_rejected_as_non_structural(tmp_path):
+    """Trap of 2026-09-15 (eda-knowledge 05): an asynchronous reset that loads a non-constant value becomes a Yosys
+    `$aldff` / `$aldffe`, which `dfflibmap` cannot map to a Nangate45 cell, so `write_verilog` leaves an `always @(posedge
+    clk, posedge rst)` block in the netlist and OpenSTA cannot read it; the structural check rejects it. The same flop
+    with a constant reset value maps to DFFR / DFFS cells and passes."""
+    lib = LIB["liberty"]
+
+    def run(text, name):
+        rtl = tmp_path / f"{name}.v"
+        rtl.write_text(text)
+        out = tmp_path / f"{name}_net.v"
+        steps = [f"read_verilog -nodisplay {rtl}", "hierarchy -check -top top", "synth -top top", "delete t:$print", f"techmap -map {LIB['latch_map']}",
+                 f"dfflibmap -liberty {lib}", f"abc -liberty {lib}", "opt_clean -purge", f"write_verilog -noattr {out}"]
+        p = subprocess.run([YOSYS, "-q", "-p", "; ".join(steps)], capture_output=True, text=True, timeout=300)
+        assert p.returncode == 0, p.stderr[-500:]
+        return Y.structural_netlist_problems(out)
+
+    bad = run(ASYNC_LOAD_RTL, "load")
+    assert any("always" in x for x in bad)                                  # the async-load flop survives as an always block
+    assert run(ASYNC_RESET_RTL, "reset") == []                              # a constant async reset maps to library cells
