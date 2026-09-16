@@ -166,6 +166,7 @@ llm:                         # LOCKED (budgets); the model is filled into `selec
   ablations_model: gpt-5.6-luna
   review_model: gpt-5.6-luna           # M6 review, log summaries (Batch)
   retry: {attempts: 6, base_sec: 15, max_sec: 480}   # 2026-09-15 (probe: a sol run died on two 429 "processing too many requests" answers in a row with the old 2 / 4 / 6 s backoff): transient failures (429, 408 / 409, 5xx, connection / timeout) wait 15, 30, 60, 120, 240, 480 s before the call gives up; request errors (4xx) are never retried; a model-call setting, not a budget
+  parallel: {enabled: true, global_max: 8}   # user follow-up 2026-09-16 (item 2): the N calls of a generation are issued concurrently; at most global_max requests in flight over every run (lock-file slots under results/queue/llm_slots); the retry / 429 backoff rule above applies per call; the generation cadence is unchanged
   service_tier_search: flex
   service_tier_offline: batch
   reasoning_effort: medium
@@ -332,7 +333,7 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
   events:                                   # timestamps of the operational changes during the run (DECISIONS 2026-09-16), read by the stage reports (src/analysis/phase5.py)
     hidden_throttle_at: "2026-09-16T14:30"        # hidden DC registrations capped at 8 (the hourly proven-to-inconclusive ratio is reported from here)
     scheduling_change_at: "2026-09-16T15:14"      # split pipeline, provisional feedback, proof ordering live (daemon restart and roll)
-    provisional_fix_at: null                      # user follow-up item 1: positive provisional verdicts withheld from the model from this time on (filled at the roll)
+    provisional_fix_at: "2026-09-16T16:03"      # user follow-up item 1: positive provisional verdicts withheld from the model from this time on (the last run restarted after the roll of 16:02:52)
   excluded_pairs:                           # (arm, design) pairs left out of the matrix with the reason (operator deviation 2026-09-15, DECISIONS "Launch: the pair B0 / thresholds_128x4096 excluded"): reversible by removing the entry
     - {arm: B0, design_id: cktevo_nn_engine__thresholds_128x4096, reason: "Yosys maps the 128x4096 threshold memory into 1.4 M cells (DC: 427); the Y-caliber baseline exceeds the 20-minute Yosys timeout and every B0 candidate evaluation would too"}
   model_assignment:                         # 2026-09-15 evening decision 3 (amends the G5 rule): the models of every arm per tier; sol is not used in Phase 5

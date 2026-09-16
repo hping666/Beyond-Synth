@@ -90,3 +90,70 @@ def test_tier_complete_both_directions(tmp_path, monkeypatch):
     assert ST.tier_complete(cfg, conn, "large", plan=plan) and not ST.tier_complete(cfg, conn, "small", plan=plan) and not ST.tier_complete(cfg, conn, "medium", plan=plan)
     db.insert(conn, "runs", {"run_id": "c", "exp": "phase5", "arm": "M", "design_id": "s1", "seed": 1, "llm_model": "m", "status": "superseded"})
     assert not ST.tier_complete(cfg, conn, "small", plan=plan)
+
+
+def test_operational_changes_section_agreement_exposure_reuse_and_hourly_ratio(tmp_path, monkeypatch):
+    """User follow-up 2026-09-16 (items 1 and 5): the report's §7a — provisional-versus-final agreement, the exposure window of
+    positive provisional feedback (calls whose prompt carried a positive pending block, the candidates behind them, their proofs
+    since), cross-run verdict reuse, the hourly proven-to-inconclusive ratio since the throttle (both directions: a negative
+    pending block and a call outside the window are not exposures; a decided record without `reused_from` is not a reuse)."""
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["events"] = {"hidden_throttle_at": "2026-09-16T14:30", "scheduling_change_at": "2026-09-16T15:14", "provisional_fix_at": "2026-09-16T16:03"}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    db.insert(conn, "runs", {"run_id": "r1", "exp": "phase5", "arm": "M", "design_id": "l1", "seed": 1, "llm_model": "gpt-5.6-terra", "status": "running", "started_at": "t", "llm_calls": 10})
+    rows = [("p_ret", "[provisional retained: equivalence pending]", "proven", "retained"), ("p_abs", "[provisional absorbed: equivalence pending]", "proven", "duplicate"),
+            ("p_fal", "[provisional improved: equivalence pending]", "falsified", "nonequiv"), ("p_pen", "[provisional tradeoff: equivalence pending]", None, None),
+            ("p_wh", "[provisional retained: equivalence pending, withheld]", None, None), ("plain", "no marker", "proven", "absorbed")]
+    for cid, note, verdict, label in rows:
+        db.insert(conn, "candidates", {"cand_id": cid, "run_id": "r1", "design_id": "l1", "gen": 1, "arm": "M", "note": note, "verdict": verdict, "label": label})
+        if label:
+            db.insert(conn, "diagnoses", {"cand_id": cid, "run_id": "r1", "label": label, "credit": 0})
+    ag = P5.provisional_agreement(conn)
+    assert ag["n_provisional"] == 5 and ag["proven_final"] == 2 and ag["agree"] == 1 and ag["agree_rate"] == 0.5 and ag["not_proven"] == 1 and ag["pending"] == 2 and ag["withheld"] == 1
+    assert ag["disagree"] == [{"cand_id": "p_abs", "provisional": "absorbed", "final": "duplicate"}] and ag["by_label"]["retained"] == 2
+    # exposure: the run's state names its positively labelled provisional candidates; two calls in the window carry a positive block, one a negative one, one is after the fix
+    st = {"cands": {"p_ret": {"provisional": {"label": "retained", "at": "2026-09-16T15:20:00"}, "seq_job_id": "jp"}, "p_pen": {"provisional": {"label": "tradeoff", "at": "2026-09-16T15:50:00"}},
+                    "p_abs": {"provisional": {"label": "absorbed", "at": "2026-09-16T15:20:00"}}}, "feedback": {}}
+    (tmp_path / "results" / "candidates" / "r1").mkdir(parents=True)
+    (tmp_path / "results" / "candidates" / "r1" / "state.json").write_text(json.dumps(st))
+    db.insert(conn, "jobs", {"job_id": "jp", "kind": "vcf", "pool": "vcf", "state": "done", "cand_id": "p_ret", "priority": 4, "attempts": 0, "payload_json": "{}", "submitted_at": "2026-09-16T15:15:00", "started_at": "2026-09-16T15:16:00", "finished_at": "2026-09-16T15:40:00"})
+    ldir = tmp_path / "results" / "llm" / "r1"
+    ldir.mkdir(parents=True)
+    block = lambda diag: "```json\n" + json.dumps({"class": "b", "diagnosis": diag, "equivalence": "pending"}) + "\n```"
+    calls = [("c1", "2026-09-16T15:30:00", block("retained")),                       # p_ret's block, before its proof: an exposure
+             ("c2", "2026-09-16T15:45:00", block("retained") + "\n" + block("absorbed")),   # after p_ret's proof (15:40): the final block, not provisional; the absorbed one is negative
+             ("c3", "2026-09-16T15:55:00", block("tradeoff")),                       # p_pen's block: an exposure
+             ("c4", "2026-09-16T16:10:00", block("tradeoff")),                       # after the fix: outside the window
+             ("c5", "2026-09-16T15:35:00", "no feedback here")]
+    for cid, at, text in calls:
+        (ldir / f"{cid}.json").write_text(json.dumps({"call_id": cid, "at": at, "request": {"input": "verdicts:\n" + text + "\nInstruction"}}))
+    ex = P5.provisional_exposure(cfg, conn)
+    assert ex["window"] == ["2026-09-16T15:14", "2026-09-16T16:03"] and ex["calls"] == 3 and ex["blocks"] == 3 and ex["runs"] == {"r1": 3}
+    assert ex["cand_ids"] == ["p_pen", "p_ret"] and ex["fate"] == {"proven": 1, "pending": 1} and ex["unmatched_blocks"] == 1
+    # reuse: one proof record copied from a decided full record, one ordinary split proof, one old record before the change
+    eq = tmp_path / "results" / "raw" / "l1" / "EQ"
+    for name, rec in (("h1", {"verdict": "falsified", "sim_record": "/s", "reused_from": "/old"}), ("h2", {"verdict": "proven", "sim_record": "/s"}), ("h3", {"verdict": "proven"})):
+        (eq / name).mkdir(parents=True)
+        (eq / name / "equiv.json").write_text(json.dumps(rec))
+    import os, time
+    old = time.mktime(time.strptime("2026-09-16T10:00", "%Y-%m-%dT%H:%M"))
+    os.utime(eq / "h3" / "equiv.json", (old, old))
+    ru = P5.verdict_reuse(cfg, conn)
+    assert ru["records_scanned"] == 2 and ru["reused"] == 1 and ru["split_proofs"] == 2 and ru["by_verdict"] == {"falsified": 1} and ru["sim_record_missing"] == 0
+    # hourly ratio since the throttle: jobs on the vcf pool by the candidate's verdict
+    for i, (cid, fin) in enumerate((("p_ret", "2026-09-16T14:50:00"), ("p_fal", "2026-09-16T14:55:00"), ("plain", "2026-09-16T15:10:00"), ("p_abs", "2026-09-16T15:20:00"))):
+        db.insert(conn, "jobs", {"job_id": f"jh{i}", "kind": "vcf", "pool": "vcf", "state": "done", "cand_id": cid, "priority": 4, "attempts": 0, "payload_json": "{}", "submitted_at": "2026-09-16T14:00:00", "started_at": "2026-09-16T14:30:00", "finished_at": fin})
+    db.insert(conn, "candidates", {"cand_id": "inc", "run_id": "r1", "design_id": "l1", "gen": 1, "arm": "M", "verdict": "inconclusive"})
+    db.insert(conn, "jobs", {"job_id": "jinc", "kind": "vcf", "pool": "vcf", "state": "done", "cand_id": "inc", "priority": 4, "attempts": 0, "payload_json": "{}", "submitted_at": "2026-09-16T14:00:00", "started_at": "2026-09-16T14:30:00", "finished_at": "2026-09-16T15:30:00"})
+    db.insert(conn, "jobs", {"job_id": "jold", "kind": "vcf", "pool": "vcf", "state": "done", "cand_id": "plain", "priority": 4, "attempts": 0, "payload_json": "{}", "submitted_at": "2026-09-16T13:00:00", "started_at": "2026-09-16T13:30:00", "finished_at": "2026-09-16T14:00:00"})   # before the throttle
+    hr = P5.hourly_proof_ratio(cfg, conn)
+    assert [(h["hour"], h["finished"], h["proven"], h["inconclusive"], h["falsified"], h["ratio"]) for h in hr["hours"]] == [("2026-09-16T14", 2, 1, 0, 1, None), ("2026-09-16T15", 4, 3, 1, 0, 3.0)]   # hour 15 includes p_ret's proof job (jp, 15:40)
+    # the section renders from collect()'s data
+    ops = P5.operations(cfg, conn)
+    assert set(ops) == {"events", "agreement", "exposure", "reuse", "hourly"} and "error" not in ops["exposure"]
+    R = load_report()
+    text = "\n".join(R.phase5_ops_section(ops))
+    assert "## 7a." in text and "1 of 2 proven candidates with a final diagnosis agree (50.0 %)" in text and "3 LLM calls carried 3 positive pending blocks" in text
+    assert "2 candidates behind them — proofs since: pending 1, proven 1" in text and "1 proofs copied from a decided record" in text and "| 2026-09-16T15 | 4 | 3 | 1 | 3.0 |" in text
+    assert "not computed" in "\n".join(R.phase5_ops_section({"events": {}, "agreement": {"error": "boom"}}))

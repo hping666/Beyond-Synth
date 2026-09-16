@@ -898,6 +898,7 @@ def phase5_markdown(cfg, data, stage="all"):
     bad = [r for r in data["runs"] if r["status"] not in ("done", "running", "created")]
     L += ["## 7. Runs and anomalies", "", f"Runs on the reported tiers: {len(data['runs'])} ({sum(1 for r in data['runs'] if r['status'] == 'done')} done, {sum(1 for r in data['runs'] if r['status'] == 'running')} running, {sum(1 for r in data['runs'] if r['status'] == 'created')} not started). "
           + (f"Abnormal statuses: " + ", ".join(f"{r['run_id']} {r['status']}" for r in bad[:20]) + "." if bad else "No run in an abnormal status."), ""]
+    L += phase5_ops_section(data.get("ops") or {})
     if stage in ("C", "all"):
         L += ["## 8. Success criteria (PROPOSAL §7.2), visible-layer view", "",
               "- C2 (M vs B2 and vs B1@E4 at equal calls; the hidden-configuration form of the criterion waits for scripts/report_hidden.py): see §1 (retained per run, best gain per run) and §2 (per-design best gains) per tier; the geometric-mean form and the 2σ_D test per design are computed in the final report once every tier is complete.",
@@ -905,6 +906,51 @@ def phase5_markdown(cfg, data, stage="all"):
               "- C1 (map): the produced-class distribution per arm in §6; the absorbed / retained map by class over the accepted candidates of every arm follows in Phase 6.2.",
               "- Screening: not part of Phase 5 (dropped at G3).", ""]
     return "\n".join(L) + "\n"
+
+
+def phase5_ops_section(ops):
+    """§7a of the Phase 5 report: the operational changes of 2026-09-16 (user follow-up items 1 and 5) — provisional-versus-final
+    agreement, the exposure window of positive provisional feedback and the fate of its candidates, cross-run verdict reuse, the
+    hourly proven-to-inconclusive ratio since the hidden-job throttle."""
+    if not ops:
+        return []
+    ev = ops.get("events") or {}
+    L = ["## 7a. Operational changes during the run (DECISIONS 2026-09-16; verdict definitions, floors, budgets and the stack unchanged)", "",
+         f"Hidden DC registrations capped at 8 from {ev.get('hidden_throttle_at')}; split equivalence pipeline, provisional diagnosis and proof ordering from {ev.get('scheduling_change_at')}; "
+         f"positive provisional verdicts withheld from the model from {ev.get('provisional_fix_at') or '(not yet)'}.", ""]
+    ag = ops.get("agreement") or {}
+    if "error" in ag:
+        L.append(f"- Provisional-versus-final agreement: not computed ({ag['error']}).")
+    else:
+        rate = f"{100.0 * ag['agree_rate']:.1f} %" if ag.get("agree_rate") is not None else "n/a"
+        dis = "; ".join(f"{d['provisional']}→{d['final']}" for d in (ag.get("disagree") or [])[:8])
+        L.append(f"- Provisional-versus-final diagnosis agreement: {ag.get('agree', 0)} of {ag.get('proven_final', 0)} proven candidates with a final diagnosis agree ({rate}); "
+                 f"{ag.get('n_provisional', 0)} candidates received a provisional label ({', '.join(f'{k} {v}' for k, v in sorted((ag.get('by_label') or {}).items()))}), "
+                 f"{ag.get('not_proven', 0)} of them were not proven, {ag.get('pending', 0)} still wait for the proof or the diagnosis, {ag.get('withheld', 0)} labels withheld from the model" + (f". Disagreements: {dis}" if dis else "") + ".")
+    ex = ops.get("exposure") or {}
+    if "error" in ex:
+        L.append(f"- Positive provisional feedback exposure: not computed ({ex['error']}).")
+    else:
+        fate = ex.get("fate") or {}
+        L.append(f"- Positive provisional feedback exposure (window {ex.get('window', ['?', '?'])[0]} to {ex.get('window', ['?', '?'])[1]}): {ex.get('calls', 0)} LLM calls carried {ex.get('blocks', 0)} positive pending blocks "
+                 f"({len(ex.get('runs') or {})} runs); {ex.get('n_candidates', 0)} candidates behind them — proofs since: " + (", ".join(f"{k} {v}" for k, v in sorted(fate.items())) or "none") +
+                 (f"; {ex['unmatched_blocks']} blocks could not be matched to a candidate" if ex.get("unmatched_blocks") else "") + ".")
+    ru = ops.get("reuse") or {}
+    if "error" in ru:
+        L.append(f"- Cross-run verdict reuse: not computed ({ru['error']}).")
+    else:
+        L.append(f"- Cross-run verdict reuse since {ru.get('since')}: {ru.get('reused', 0)} proofs copied from a decided record of the same pair ({ru.get('by_verdict') or {}}), "
+                 f"over {ru.get('split_proofs', 0)} split-pipeline proofs of {ru.get('records_scanned', 0)} equivalence records; sim records missing: {ru.get('sim_record_missing', 0)}.")
+    hr = ops.get("hourly") or {}
+    if "error" in hr:
+        L.append(f"- Hourly proven-to-inconclusive ratio: not computed ({hr['error']}).")
+    elif hr.get("hours"):
+        L += ["", f"Equivalence jobs finished per hour on the VC Formal pool since the throttle ({hr.get('since')}), by the candidate's verdict:", "",
+              "| hour | finished | proven | inconclusive | proven : inconclusive | falsified | rejected | sim_fail |", "|---|---|---|---|---|---|---|---|"]
+        for h in hr["hours"]:
+            L.append(f"| {h['hour']} | {h['finished']} | {h['proven']} | {h['inconclusive']} | {h['ratio'] if h['ratio'] is not None else '-'} | {h['falsified']} | {h['rejected']} | {h['sim_fail']} |")
+    L.append("")
+    return L
 
 
 def phase5(cfg, stage="all", out_dir=None, conn=None):

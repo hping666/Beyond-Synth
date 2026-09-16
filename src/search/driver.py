@@ -348,6 +348,7 @@ class SearchRun:
         region, scope_text = self.region_for(parent_id)
         issued = []
         answers = []
+        specs = []   # the prompts of the generation, built in order (the Dr. RTL path selection draws from the run's rng)
         for i, cls in enumerate(classes):
             if self.drrtl:
                 strat = self.drrtl_strategy(gen, i)
@@ -357,7 +358,14 @@ class SearchRun:
             else:
                 instr = self.classes.get(cls, self.classes.get("free"))
                 sfx = PR.suffix(instr, cls, parent_rtl, blocks, self.design["top"], scope_text=scope_text)
-            r = self.client.call(self.row["llm_model"], self.prefix, sfx, tag=f"{self.run_id}:g{gen}:{cls}:{i}")
+            specs.append((i, cls, sfx))
+        par = self.cfg["llm"].get("parallel") or {}
+        if par.get("enabled") and len(specs) > 1:   # user follow-up 2026-09-16 (item 2): the N calls of a generation go out together, under the global cap of llm.parallel.global_max
+            results = self.client.call_many([{"model": self.row["llm_model"], "prefix": self.prefix, "suffix": sfx, "tag": f"{self.run_id}:g{gen}:{cls}:{i}"} for i, cls, sfx in specs],
+                                            max_workers=int(par.get("global_max") or 8))
+        else:
+            results = [self.client.call(self.row["llm_model"], self.prefix, sfx, tag=f"{self.run_id}:g{gen}:{cls}:{i}") for i, cls, sfx in specs]
+        for (i, cls, sfx), r in zip(specs, results):
             st["calls"] += 1
             meta = {"run_id": self.run_id, "gen": gen, "parent_id": parent_id, "class_requested": cls, "call_id": r["call_id"], "cost_usd": r["cost_usd"], "usage": r["usage"]}
             if self.drrtl:

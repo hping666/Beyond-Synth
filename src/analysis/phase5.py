@@ -8,6 +8,7 @@ scripts/report_hidden.py after the completion marker.
 """
 import datetime
 import json
+import re
 import statistics
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -279,8 +280,178 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
                 vals.append(best)
             pts.append({"dc_hours": h, "mean_best_gain": round(statistics.mean(vals), 5) if vals else None})
         out["curves"].setdefault(key, {})["by_dc_hours"] = pts
+    out["ops"] = operations(cfg, conn, exp, results_dir)   # user follow-up 2026-09-16 (items 1 and 5)
     return out
 
 
 def stage_tiers(stage):
     return STAGES[stage]
+
+
+# ----------------------------------------------------------------------------- operational changes of 2026-09-16 (DECISIONS; user follow-up items 1 and 5)
+PROVISIONAL_RE = re.compile(r"\[provisional (\w+): equivalence pending")
+POSITIVE_LABELS = ("retained", "tradeoff", "improved")
+BLOCK_RE = re.compile(r"```json\n(.*?)\n```", re.S)
+
+
+def _events(cfg):
+    ev = (cfg.get("exp5") or {}).get("events") or {}
+    return {k: (str(v) if v else None) for k, v in ev.items()}
+
+
+def provisional_agreement(conn, exp="phase5"):
+    """Provisional-versus-final diagnosis: every candidate that received a provisional label; agreement is counted on the
+    candidates whose proof succeeded and whose final diagnosis exists (the same E4 record, the same rule)."""
+    out = {"n_provisional": 0, "by_label": Counter(), "proven_final": 0, "agree": 0, "disagree": [], "not_proven": 0, "pending": 0, "withheld": 0}
+    for r in conn.execute("SELECT cand.cand_id, cand.note, cand.verdict, (SELECT label FROM diagnoses d WHERE d.cand_id=cand.cand_id ORDER BY rowid DESC LIMIT 1) AS final "
+                          "FROM candidates cand JOIN runs r ON r.run_id=cand.run_id WHERE r.exp=? AND cand.note LIKE '%[provisional %'", (exp,)):
+        m = PROVISIONAL_RE.search(r["note"] or "")
+        if not m:
+            continue
+        prov = m.group(1)
+        out["n_provisional"] += 1
+        out["by_label"][prov] += 1
+        out["withheld"] += int("withheld]" in (r["note"] or ""))
+        if r["verdict"] is None:
+            out["pending"] += 1
+        elif r["verdict"] not in ("proven", "proven_sim_only"):
+            out["not_proven"] += 1
+        elif r["final"]:
+            out["proven_final"] += 1
+            if r["final"] == prov:
+                out["agree"] += 1
+            elif len(out["disagree"]) < 50:
+                out["disagree"].append({"cand_id": r["cand_id"], "provisional": prov, "final": r["final"]})
+        else:
+            out["pending"] += 1
+    out["by_label"] = dict(out["by_label"])
+    out["agree_rate"] = round(out["agree"] / out["proven_final"], 4) if out["proven_final"] else None
+    return out
+
+
+def provisional_exposure(cfg, conn, exp="phase5", results_dir=None, now=None):
+    """User follow-up item 1: the calls whose prompt carried a positive provisional block ("equivalence": "pending" with a
+    retained / tradeoff / improved diagnosis) between the change and the fix, the candidates behind them (the run's positively
+    labelled provisional candidates whose proof had not arrived when the call was made) and what their proofs said since."""
+    ev = _events(cfg)
+    start, end = ev.get("scheduling_change_at"), ev.get("provisional_fix_at") or (now or datetime.datetime.now().isoformat(timespec="seconds"))
+    out = {"window": [start, end], "calls": 0, "blocks": 0, "runs": Counter(), "cand_ids": set(), "unmatched_blocks": 0}
+    if not start:
+        return out
+    root = Path(results_dir or C.results_dir(cfg))
+    runs = [r[0] for r in conn.execute("SELECT run_id FROM runs WHERE exp=? AND status != 'superseded'", (exp,))]
+    for rid in runs:
+        d = root / "llm" / rid
+        if not d.is_dir():
+            continue
+        cands = None
+        for f in sorted(d.glob("c*.json")):
+            try:
+                rec = json.loads(f.read_text())
+            except (OSError, json.JSONDecodeError):
+                continue
+            at = str(rec.get("at") or "")
+            if not at or at < start or at > end:
+                continue
+            text = ((rec.get("request") or {}).get("input")) or ""
+            if '"equivalence": "pending"' not in text:
+                continue
+            hits = []
+            for blob in BLOCK_RE.findall(text):
+                try:
+                    b = json.loads(blob)
+                except json.JSONDecodeError:
+                    continue
+                if isinstance(b, dict) and b.get("equivalence") == "pending" and b.get("diagnosis") in POSITIVE_LABELS:
+                    hits.append(b.get("diagnosis"))
+            if not hits:
+                continue
+            out["calls"] += 1
+            out["blocks"] += len(hits)
+            out["runs"][rid] += 1
+            if cands is None:   # the run's positively labelled provisional candidates (state file) with the time of the label and of the verdict
+                cands = []
+                st = root / "candidates" / rid / "state.json"
+                if st.exists():
+                    try:
+                        for cid, c in (json.loads(st.read_text()).get("cands") or {}).items():
+                            prov = c.get("provisional") or {}
+                            if prov.get("label") in POSITIVE_LABELS:
+                                cands.append((cid, prov.get("label"), str(prov.get("at") or ""), c))
+                    except (OSError, json.JSONDecodeError):
+                        pass
+            matched = False
+            for cid, label, prov_at, c in cands:
+                if label in hits and prov_at <= at:
+                    verdict_at = conn.execute("SELECT finished_at FROM jobs WHERE job_id=? AND state IN ('done','failed')", (c.get("seq_job_id"),)).fetchone() if c.get("seq_job_id") else None
+                    if verdict_at and verdict_at[0] and verdict_at[0] < at:
+                        continue   # its proof had already arrived: the block in the prompt was the final one, not this candidate's provisional block
+                    out["cand_ids"].add(cid)
+                    matched = True
+            out["unmatched_blocks"] += int(not matched)
+    fate = Counter()
+    for cid in out["cand_ids"]:
+        r = conn.execute("SELECT verdict FROM candidates WHERE cand_id=?", (cid,)).fetchone()
+        fate[(r[0] if r and r[0] else "pending")] += 1
+    out["runs"] = dict(out["runs"])
+    out["cand_ids"] = sorted(out["cand_ids"])
+    out["n_candidates"] = len(out["cand_ids"])
+    out["fate"] = dict(fate)
+    return out
+
+
+def verdict_reuse(cfg, conn, exp="phase5", results_dir=None, since=None):
+    """Cross-run verdict reuse (split pipeline): proof records copied from a decided `full` record of the same pair (`reused_from`),
+    counted over the EQ records written since the change."""
+    ev = _events(cfg)
+    since = since or ev.get("scheduling_change_at")
+    root = Path(results_dir or C.results_dir(cfg)) / "raw"
+    t0 = datetime.datetime.fromisoformat(since).timestamp() if since else 0.0
+    out = {"since": since, "records_scanned": 0, "reused": 0, "split_proofs": 0, "sim_record_missing": 0, "by_verdict": Counter()}
+    for eq in root.glob("*/EQ/*/equiv.json"):
+        try:
+            if eq.stat().st_mtime < t0:
+                continue
+            rec = json.loads(eq.read_text())
+        except (OSError, json.JSONDecodeError):
+            continue
+        out["records_scanned"] += 1
+        if rec.get("sim_record") or rec.get("sim_record_missing"):
+            out["split_proofs"] += 1
+        out["sim_record_missing"] += int(bool(rec.get("sim_record_missing")))
+        if rec.get("reused_from"):
+            out["reused"] += 1
+            out["by_verdict"][rec.get("verdict")] += 1
+    out["by_verdict"] = dict(out["by_verdict"])
+    return out
+
+
+def hourly_proof_ratio(cfg, conn, since=None):
+    """Per hour since the hidden-job throttle: equivalence jobs finished on the vcf pool by the candidate's verdict, and the
+    proven-to-inconclusive ratio (the throttle's and the scheduling change's effect on the proofs)."""
+    ev = _events(cfg)
+    since = since or ev.get("hidden_throttle_at")
+    rows = []
+    if not since:
+        return {"since": None, "hours": rows}
+    by = defaultdict(Counter)
+    for r in conn.execute("SELECT substr(j.finished_at, 1, 13) AS h, cand.verdict AS v, COUNT(*) AS n FROM jobs j JOIN candidates cand ON cand.cand_id=j.cand_id "
+                          "WHERE j.pool='vcf' AND j.state='done' AND j.finished_at >= ? GROUP BY h, v ORDER BY h", (since,)):
+        by[r["h"]][r["v"] or "pending"] += int(r["n"])
+    for h in sorted(by):
+        c = by[h]
+        rows.append({"hour": h, "finished": sum(c.values()), "proven": c.get("proven", 0), "inconclusive": c.get("inconclusive", 0), "falsified": c.get("falsified", 0),
+                     "rejected": c.get("rejected", 0), "sim_fail": c.get("sim_fail", 0), "ratio": round(c.get("proven", 0) / c["inconclusive"], 2) if c.get("inconclusive") else None})
+    return {"since": since, "hours": rows}
+
+
+def operations(cfg, conn, exp="phase5", results_dir=None):
+    """The block of the report on the operational changes of 2026-09-16 (each part guarded: a failure is reported, never fatal)."""
+    out = {"events": _events(cfg)}
+    for name, fn in (("agreement", lambda: provisional_agreement(conn, exp)), ("exposure", lambda: provisional_exposure(cfg, conn, exp, results_dir)),
+                     ("reuse", lambda: verdict_reuse(cfg, conn, exp, results_dir)), ("hourly", lambda: hourly_proof_ratio(cfg, conn))):
+        try:
+            out[name] = fn()
+        except Exception as e:
+            out[name] = {"error": f"{type(e).__name__}: {e}"[:200]}
+    return out

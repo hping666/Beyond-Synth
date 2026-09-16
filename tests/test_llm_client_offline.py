@@ -175,3 +175,68 @@ def test_quota_exhaustion_is_not_retried_and_raises_its_own_error(env):
     t2 = T([Err(429, "Error code: 429 - rate_limit_exceeded: processing too many requests")])
     assert L.LLMClient(cfg, conn, "phase3_calibration", "run_q2", transport=t2, sleep=slept.append).call("m1", "p", "s")["text"] and slept == [1.0]
     assert L.quota_exhausted(Err(429, "insufficient_quota")) and not L.quota_exhausted(Err(429, "rate_limit_exceeded")) and not L.quota_exhausted(Err(500, "insufficient_quota"))
+
+
+def test_call_many_runs_the_requests_concurrently_under_the_global_slot_cap(env, tmp_path):
+    """User follow-up 2026-09-16 (item 2): the calls of a generation go out together — with 4 requests of 0.3 s the batch takes about
+    one request's time and up to 4 are in flight; with a global cap of 1 (lock-file slots shared by every process) they serialize;
+    the results keep the order of the specs, every call is recorded and billed; a failing request raises after the others have
+    ended, QuotaExhausted first (both directions)."""
+    import threading
+    import time
+    cfg, conn = env[0], env[1]
+    cfg["llm"]["parallel"] = {"enabled": True, "global_max": 8}
+
+    class SlowTransport:
+        def __init__(self, delay=0.3, fail_on=None, quota_on=None):
+            self.delay, self.fail_on, self.quota_on = delay, fail_on, quota_on
+            self.inflight = self.peak = 0
+            self.lock = threading.Lock()
+
+        def create(self, **kw):
+            with self.lock:
+                self.inflight += 1
+                self.peak = max(self.peak, self.inflight)
+            try:
+                time.sleep(self.delay)
+                tag = kw["input"]
+                if self.quota_on and tag == self.quota_on:
+                    e = RuntimeError("insufficient_quota: no credits")
+                    e.status_code, e.code = 429, "insufficient_quota"
+                    raise e
+                if self.fail_on and tag == self.fail_on:
+                    e = RuntimeError("bad request")
+                    e.status_code = 400
+                    raise e
+                return fake_response(text=f"answer to {tag}")
+            finally:
+                with self.lock:
+                    self.inflight -= 1
+    tr = SlowTransport()
+    c = L.LLMClient(cfg, conn, "phase4_generation", "run_p", transport=tr, sleep=lambda s: None)
+    specs = [{"model": "m1", "prefix": "P", "suffix": f"s{i}", "tag": f"t{i}"} for i in range(4)]
+    t0 = time.time()
+    res = c.call_many(specs)
+    assert time.time() - t0 < 0.9 and tr.peak >= 2 and tr.peak <= 4
+    assert [r["text"] for r in res] == [f"answer to s{i}" for i in range(4)] and [r["call_id"][:6] for r in res] == ["c00001", "c00002", "c00003", "c00004"]
+    assert conn.execute("SELECT COUNT(*) FROM budget_ledger WHERE run_id='run_p'").fetchone()[0] == 4 and len(list((tmp_path / "results" / "llm" / "run_p").glob("c*.json"))) == 4
+    # the global cap: one slot -> serialized (peak 1), a second client of another "process" shares the same lock files
+    cfg["llm"]["parallel"] = {"enabled": True, "global_max": 1}
+    tr1 = SlowTransport(delay=0.1)
+    c1 = L.LLMClient(cfg, conn, "phase4_generation", "run_q", transport=tr1, sleep=lambda s: None)
+    t0 = time.time()
+    c1.call_many(specs)
+    assert tr1.peak == 1 and time.time() - t0 >= 0.4
+    assert (tmp_path / "results" / "queue" / "llm_slots" / "slot_0").exists()   # the lock files of the earlier, wider cap stay; only slot_0 was usable here
+    # errors: a request error raises after the batch (the good answers are billed); an exhausted account raises QuotaExhausted
+    cfg["llm"]["parallel"] = {"enabled": True, "global_max": 8}
+    c2 = L.LLMClient(cfg, conn, "phase4_generation", "run_r", transport=SlowTransport(delay=0.05, fail_on="s2"), sleep=lambda s: None)
+    with pytest.raises(RuntimeError, match="bad request"):
+        c2.call_many(specs)
+    assert conn.execute("SELECT COUNT(*) FROM budget_ledger WHERE run_id='run_r'").fetchone()[0] == 3
+    c3 = L.LLMClient(cfg, conn, "phase4_generation", "run_s", transport=SlowTransport(delay=0.05, fail_on="s1", quota_on="s3"), sleep=lambda s: None)
+    with pytest.raises(L.QuotaExhausted):
+        c3.call_many(specs)
+    # the sequential call is unchanged and holds a slot too
+    c4 = L.LLMClient(cfg, conn, "phase4_generation", "run_t", transport=SlowTransport(delay=0.01), sleep=lambda s: None)
+    assert c4.call("m1", "P", "s9", tag="x")["text"] == "answer to s9"

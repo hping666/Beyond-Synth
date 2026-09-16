@@ -100,6 +100,7 @@ def env(tmp_path, monkeypatch):
     cfg["search"]["gen_wait_sec"] = 10 ** 9
     cfg["search"]["map_prior_file"] = None   # the Phase 4 prior is tested on its own; the driver tests start without it
     cfg["search"]["early_fitness"]["enabled"] = False   # the one-job pipeline; the split pipeline (DECISIONS 2026-09-16) has its own tests below
+    cfg["llm"]["parallel"] = {"enabled": False, "global_max": 8}   # sequential calls keep the fake transport's answer order deterministic; the parallel path has its own test below
     conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
     from src.designs import catalog as K
     from src.search import candidates as CA
@@ -1108,3 +1109,54 @@ def test_code_roll_signal_leaves_after_a_completed_step(env):
     assert run.run(poll_sec=0, sleep=lambda s: None, max_steps=5) == "rolled" and run.roll
     assert json.loads(run.state_path.read_text())["gen"] == run.state["gen"]
     signal.signal(signal.SIGUSR1, signal.SIG_DFL)
+
+
+def test_generation_calls_go_out_together_when_parallel_is_on(env):
+    """User follow-up 2026-09-16 (item 2): with llm.parallel on, the N calls of a generation are issued through call_many (concurrent,
+    global cap); the candidates are issued in prompt order, the call count and the budget are unchanged; with it off the calls stay
+    sequential (both directions)."""
+    import threading
+    import time
+    cfg, conn, q, tmp_path = env
+    from src.search.driver import SearchRun
+
+    class ParallelTransport(FakeTransport):
+        def __init__(self):
+            super().__init__()
+            self.inflight = self.peak = 0
+            self.lock = threading.Lock()
+
+        def create(self, **kw):
+            with self.lock:
+                self.inflight += 1
+                self.peak = max(self.peak, self.inflight)
+                self.calls += 1
+                n = self.calls
+            try:
+                time.sleep(0.2)
+                text = json.dumps({"rtl": rewrite(f"v{n}"), "note": f"rewrite {n}"})
+
+                class R:
+                    pass
+                r = R()
+                r.output_text, r.id, r.status, r.service_tier = text, f"resp{n}", "completed", "flex"
+                r.usage = SimpleNamespace(input_tokens=100, output_tokens=50, input_tokens_details=SimpleNamespace(cached_tokens=0, cache_write_tokens=0), output_tokens_details=None)
+                return r
+            finally:
+                with self.lock:
+                    self.inflight -= 1
+    cfg["llm"]["parallel"] = {"enabled": True, "global_max": 8}
+    tr = ParallelTransport()
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=7, model="gpt-5.6-luna", K=2, N=4, queue=q, transport=tr)
+    t0 = time.time()
+    assert run.step() == "running"
+    assert time.time() - t0 < 0.7 and tr.peak >= 2 and run.state["calls"] == 4
+    cands = [dict(r) for r in conn.execute("SELECT cand_id, call_id FROM candidates WHERE run_id=? ORDER BY created_at, cand_id", (run.run_id,))]
+    assert len(cands) == 4 and len({c["call_id"] for c in cands}) == 4
+    assert conn.execute("SELECT COUNT(*) FROM budget_ledger WHERE run_id=?", (run.run_id,)).fetchone()[0] == 4
+    cfg["llm"]["parallel"] = {"enabled": False, "global_max": 8}
+    tr2 = ParallelTransport()
+    run2 = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=8, model="gpt-5.6-luna", K=2, N=3, queue=q, transport=tr2)
+    t0 = time.time()
+    run2.step()
+    assert tr2.peak == 1 and time.time() - t0 >= 0.6
