@@ -283,6 +283,20 @@ class Queue:
             self._set(jid, state="failed", attempts=attempts, host_pid=None, exit_code=rc, error=error, finished_at=db.now())
             self.log(f"{jid} FAILED ({error}) after {attempts} attempts")
 
+    def backpressure_holds(self, pool):
+        """config `queue.backpressure[pool] = {pool: <other>, max_waiting: N}` (user decision 2026-09-16): no new job of `pool` starts while
+        the other pool is saturated (running at its limit) and more than N of its jobs wait — search runs are throttled by the depth of
+        the VC Formal queue so that verdicts keep arriving within a generation's wait; seats that fairness leaves free do not count as
+        saturation."""
+        bp = ((self.cfg["queue"].get("backpressure") or {}).get(pool)) or {}
+        other = bp.get("pool")
+        if not other or other not in self.limits:
+            return False
+        if self.running_in_pool(other) < self.limits[other]:
+            return False
+        waiting = self.conn.execute("SELECT COUNT(*) FROM jobs WHERE state IN ('queued','backoff') AND pool=?", (other,)).fetchone()[0]
+        return waiting > int(bp.get("max_waiting", 0))
+
     def _dispatch(self):
         now = time.time()
         for pool, cap in self.limits.items():
@@ -291,6 +305,8 @@ class Queue:
                 continue
             free = cap - self.running_in_pool(pool)
             if free <= 0:
+                continue
+            if self.backpressure_holds(pool):
                 continue
             per_design = int((self.cfg["queue"].get("per_design_max") or {}).get(pool) or 0)
             rows = self.conn.execute(

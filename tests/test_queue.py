@@ -251,3 +251,32 @@ def test_search_runs_have_their_own_pool(tmp_path):
     conn.execute("UPDATE jobs SET state='running' WHERE job_id IN (?, ?)", (js, jy)); conn.commit()
     assert q.running_in_pool("search") == 1 and q.running_in_pool("local") == 1
     assert q.stats()["search"]["running"] == 1 and q.stats()["local"]["running"] == 1
+
+
+def test_search_backpressure_from_the_vcf_queue(tmp_path):
+    """User decision 2026-09-16: a search run is not started while the vcf pool is saturated and more than max_waiting proofs wait; it
+    starts when the queue drains or when the vcf seats are not all busy (fairness-idled seats do not count) — both directions."""
+    cfg = make_cfg()
+    cfg["queue"]["search_max"] = 4
+    cfg["queue"]["vcf_seats_max"] = 2
+    cfg["queue"].pop("vcf_seats_target", None)
+    cfg["queue"]["backpressure"] = {"search": {"pool": "vcf", "max_waiting": 1}}
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    base = {"kind": "vcf", "priority": 0, "payload_json": "{}", "attempts": 0, "submitted_at": "2026-09-16T01:00:00", "pool": "vcf"}
+    for i, st in enumerate(("running", "running", "queued", "queued")):        # vcf saturated (2 of 2) with 2 waiting > 1
+        db.insert(conn, "jobs", {**base, "job_id": f"v{i}", "state": st})
+    sj = q.submit("shell", {"cmd": "sleep 0.3"}, pool="search", priority=5)
+    q._dispatch()
+    assert q.get(sj)["state"] == "queued" and q.backpressure_holds("search")
+    conn.execute("UPDATE jobs SET state='done' WHERE job_id='v3'"); conn.commit()   # the queue drains to 1 waiting: not more than max_waiting
+    assert not q.backpressure_holds("search")
+    q._dispatch()
+    assert q.get(sj)["state"] == "running"
+    assert wait_state(q, sj, {"done"}, timeout=15) == "done"
+    db.insert(conn, "jobs", {**base, "job_id": "v5", "state": "queued"})
+    db.insert(conn, "jobs", {**base, "job_id": "v6", "state": "queued"})
+    conn.execute("UPDATE jobs SET state='done' WHERE job_id='v1'"); conn.commit()   # one vcf seat free (fairness could be the reason): not saturated -> no backpressure
+    assert not q.backpressure_holds("search")
+    cfg["queue"].pop("backpressure")
+    assert not Queue(cfg, conn, str(tmp_path / "logs2"), env={}, log=lambda m: None).backpressure_holds("search")
