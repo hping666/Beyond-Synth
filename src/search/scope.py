@@ -2,7 +2,8 @@
 
 The prompt names the region the model may rewrite — the module on the critical path (multi-module designs) or the
 always block(s) holding the critical endpoint registers (single-module designs) — the answer must return the full
-file, and every other region is verified textually before any tool runs. "Regions" are the statement-level items of a
+file, and every other region is verified textually before any tool runs; since the evening decision of 2026-09-15 (item 2)
+an out-of-scope edit is restored from D (`splice`) and recorded as a warning flag instead of discarding the answer. "Regions" are the statement-level items of a
 module: always / initial blocks, continuous assigns, instantiations, functions, tasks, generate and specify blocks;
 declarations (ports, regs, wires, parameters, integers, genvars) are free, so a rewrite may add the wires or registers
 it needs. The scanner is a small statement parser over comment-stripped Verilog-2001 text (Yosys stays the parser
@@ -282,18 +283,44 @@ def _module_items(body):
     return items, instances
 
 
-def parse_design(text):
-    """{module: {"first_line", "items": [...], "instances": {...}}} over the comment-stripped design text; item texts are
-    normalised (whitespace collapsed) for comparison and carry their first line."""
-    out = {}
-    for name, first, last, body in V.module_spans(text):
-        items, instances = _module_items(body)
-        base_line = first
-        for it in items:
-            it["text"] = normalise(body[it["start"]:it["end"]])
-            it["line"] = base_line + body.count("\n", 0, it["start"])
-        out[name] = {"first_line": first, "last_line": last, "items": items, "instances": instances}
+def module_offsets(text):
+    """[(name, start, end)]: raw-text offsets of every `module ... endmodule` (comments blanked in place, so the offsets
+    address the raw text as well)."""
+    b = V.blank_comments(text)
+    out, pos = [], 0
+    while True:
+        m = V._MODULE.search(b, pos)
+        if not m:
+            break
+        e = V._ENDMODULE.search(b, m.end())
+        end = e.end() if e else len(b)
+        out.append((m.group(1), m.start(), end))
+        pos = end
     return out
+
+
+def parse_design(text):
+    """{module: {"first_line", "last_line", "start", "end", "items": [...], "instances": {...}}} over the design text with the
+    comments blanked in place; item texts are canonical token sequences (whitespace and comments do not count, 2026-09-15
+    evening decision 2) and carry their first line and their raw-text offsets (`abs_start`, `abs_end`)."""
+    out = {}
+    b = V.blank_comments(text)
+    for name, start, end in module_offsets(text):
+        body = b[start:end]
+        items, instances = _module_items(body)
+        first = b.count("\n", 0, start) + 1
+        for it in items:
+            it["text"] = canonical(body[it["start"]:it["end"]])
+            it["line"] = first + body.count("\n", 0, it["start"])
+            it["abs_start"], it["abs_end"] = start + it["start"], start + it["end"]
+        out[name] = {"first_line": first, "last_line": b.count("\n", 0, end) + 1, "start": start, "end": end, "items": items, "instances": instances}
+    return out
+
+
+def canonical(s):
+    """The comparison form of an item: its tokens joined by single spaces (comments were blanked before; whitespace, line
+    breaks and `ENCRYPTION    : x` vs `ENCRYPTION: x` do not count; `begin`/`end` and every other token do)."""
+    return " ".join(t[1] for t in tokenize(s))
 
 
 def normalise(s):
@@ -374,28 +401,103 @@ def region_text(design, region, top):
 
 
 def splice(d_text, c_text, region):
-    """Module-level regions (multi-module designs): an answer may return only the rewritten module(s); every module of D that
-    the answer does not contain is taken verbatim from D's text (operator decision 2026-09-15 after the probe: both models
-    returned the region module alone in 41 of 41 answers and 55 answers lacked the top module). -> (full_text, spliced
-    module names). Block-level regions and answers that contain every module are returned unchanged."""
-    if region is None or region.get("kind") != "module":
-        return c_text, []
-    d_mods = V.module_spans(d_text)
-    c_names = set(V.module_names(c_text))
-    missing = [m for m in d_mods if m[0] not in c_names]
-    if not missing or region["module"] in [m[0] for m in missing]:
-        return c_text, []            # nothing to add, or the region itself is absent (the answer is not a rewrite of the region)
-    d_raw = d_text
-    pieces = [c_text.rstrip() + "\n"]
-    for name, first, last, body in missing:
-        lines = d_raw.splitlines()
-        pieces.append("\n" + "\n".join(lines[first - 1:last]) + "\n")   # the original module text, comments included (line numbers from the comment-stripped scan match the raw text)
-    return "".join(pieces), [m[0] for m in missing]
+    """The scope aid's restoration step (decision 2026-09-15 evening, item 2, amending `correctness_aids.scope`): the answer's
+    text outside the region is replaced by D's text, the region keeps the model's rewrite, and the pipeline runs on the
+    result; what was outside the region and differed is recorded as the warning flag `violations` (never a discard).
+    Module-level regions (multi-module designs): every module of D that the answer omits is appended verbatim from D
+    (operator decision 2026-09-15 after the probe) and every module outside the region that the answer changed is replaced
+    by D's module text. Block-level regions (single-module designs): every statement-level item of D outside the region
+    that the answer changed is replaced by D's item text in place, and every such item the answer dropped is appended
+    before `endmodule` (concurrent items are order-independent); the answer's own additions (new declarations, new
+    assigns or blocks) stay. -> (text, {"violations": [...pre-splice...], "restored_modules": [...], "added_modules": [...],
+    "restored_items": [...], "added_items": [...]}); an answer without violations comes back unchanged with an empty dict."""
+    info = {}
+    if region is None:
+        return c_text, info
+    violations = verify(d_text, c_text, region, ordered=False)   # a re-ordering of concurrent items is neither an edit nor a flag
+    if not violations:
+        return c_text, info
+    info["violations"] = violations
+    if region.get("kind") == "module":
+        return _splice_modules(d_text, c_text, region, violations, info)
+    return _splice_items(d_text, c_text, region, violations, info)
 
 
-def verify(d_text, c_text, region):
-    """Violations of the region: every item of D outside the region must appear unchanged in the candidate's module of the
-    same name, in the same order. -> [{"module", "kind", "line", "snippet", "problem"}] (empty when the scope holds)."""
+def _splice_modules(d_text, c_text, region, violations, info):
+    d_offs = module_offsets(d_text)
+    changed = {v["module"] for v in violations if v["problem"] != "module missing from the answer" and v["module"] != region["module"]}
+    missing = [v["module"] for v in violations if v["problem"] == "module missing from the answer"]
+    c_offs = {name: (s, e) for name, s, e in module_offsets(c_text)}
+    if region["module"] not in c_offs:
+        info["region_missing"] = region["module"]   # not a rewrite of the region: the driver treats the answer as unusable
+        return c_text, info
+    text = c_text
+    for name, ds, de in sorted(d_offs, key=lambda m: -c_offs.get(m[0], (0, 0))[0]):   # replace from the back so offsets stay valid
+        if name in changed and name in c_offs:
+            cs, ce = c_offs[name]
+            text = text[:cs] + d_text[ds:de] + text[ce:]
+    pieces = [text.rstrip() + "\n"]
+    for name, ds, de in d_offs:
+        if name in missing and name != region["module"]:
+            pieces.append("\n" + d_text[ds:de] + "\n")
+    info["restored_modules"] = sorted(changed)
+    info["added_modules"] = [m for m in missing if m != region["module"]]
+    return "".join(pieces), info
+
+
+def _splice_items(d_text, c_text, region, violations, info):
+    mod = region["module"]
+    d, c = parse_design(d_text), parse_design(c_text)
+    dm, cm = d.get(mod), c.get(mod)
+    if dm is None or cm is None:
+        info["region_missing"] = mod   # the module is absent from the answer: not a rewrite of the region
+        return c_text, info
+    free = set(region.get("items") or [])
+    c_texts = [it["text"] for it in cm["items"]]
+    matched = set()
+    for i, it in enumerate(dm["items"]):
+        if i in free:
+            continue
+        for j, ct in enumerate(c_texts):
+            if j not in matched and ct == it["text"]:
+                matched.add(j)
+                break
+    key = lambda it: (it["kind"], tuple(sorted(it.get("targets") or [])))
+    edits = []      # (abs_start, abs_end, replacement) on the candidate text
+    appended = []
+    restored, added = [], []
+    used = set(matched)
+    for i, it in enumerate(dm["items"]):
+        if i in free or it["text"] in c_texts:
+            continue
+        j = next((k for k, cit in enumerate(cm["items"]) if k not in used and key(cit) == key(it)), None)
+        d_raw = d_text[it["abs_start"]:it["abs_end"]]
+        if j is not None:
+            used.add(j)
+            edits.append((cm["items"][j]["abs_start"], cm["items"][j]["abs_end"], d_raw))
+            restored.append({"kind": it["kind"], "line": it["line"], "targets": it.get("targets")})
+        else:
+            appended.append(d_raw)
+            added.append({"kind": it["kind"], "line": it["line"], "targets": it.get("targets")})
+    text = c_text
+    for cs, ce, rep in sorted(edits, key=lambda e: -e[0]):
+        text = text[:cs] + rep + text[ce:]
+    if appended:
+        b = V.blank_comments(text)
+        ms = {name: (s, e) for name, s, e in module_offsets(text)}
+        cs, ce = ms[mod]
+        em = V._ENDMODULE.search(b, cs, ce)
+        at = em.start() if em else ce
+        text = text[:at] + "\n" + "\n".join(appended) + "\n" + text[at:]
+    info["restored_items"] = restored
+    info["added_items"] = added
+    return text, info
+
+
+def verify(d_text, c_text, region, ordered=True):
+    """Violations of the region: every item of D outside the region must appear unchanged (token-identical) in the candidate's
+    module of the same name, in the same order unless `ordered` is False (concurrent items are order-independent; the
+    spliced text appends restored items). -> [{"module", "kind", "line", "snippet", "problem"}] (empty when the scope holds)."""
     d, c = parse_design(d_text), parse_design(c_text)
     out = []
     free_module = region["module"] if region["kind"] == "module" else None
@@ -413,13 +515,16 @@ def verify(d_text, c_text, region):
             if name == region["module"] and i in free_items:
                 continue
             try:
-                j = c_items.index(it["text"], pos)
+                j = c_items.index(it["text"], pos if ordered else 0)
                 pos = j + 1
             except ValueError:
                 changed = it["text"] in c_items   # present but out of order
                 out.append({"module": name, "kind": it["kind"], "line": it["line"], "snippet": it["text"][:100],
                             "problem": "moved" if changed else "changed or removed", "targets": it.get("targets")})
     return out
+
+
+SCOPE_FLAG_SQL = "(label='scope_violation' OR COALESCE(json_array_length(json_extract(scope_json,'$.violations')),0) > 0)"   # a candidate carrying the warning flag (or the pre-amendment discard label)
 
 
 def failure_evidence(rec):

@@ -50,9 +50,9 @@ def test_scanner_finds_statement_items_and_their_targets():
     lines = [it["line"] for it in d["top"]["items"]]
     assert lines == sorted(lines) and lines[1] == 7                      # the y block starts on line 7 of the text
     texts = [it["text"] for it in d["top"]["items"]]
-    assert texts[1].startswith("always @(posedge clk or negedge rst_n) if (!rst_n) y <= 0;") and texts[1].endswith("else y <= y;")
-    assert texts[2].startswith("always @(posedge clk) begin : blk case (s)") and texts[2].endswith("end")
-    assert "sub u1 [1:0]" in texts[5]
+    assert texts[1].startswith(SC.canonical("always @(posedge clk or negedge rst_n) if (!rst_n) y <= 0;")) and texts[1].endswith(SC.canonical("else y <= y;"))
+    assert texts[2].startswith(SC.canonical("always @(posedge clk) begin : blk case (s)")) and texts[2].endswith("end")
+    assert SC.canonical("sub u1 [1:0]") in texts[5]
 
 
 @pytest.mark.parametrize("did, files", [("cktevo/ethmac__eth_txethmac", None), ("drrtl/i2c", None), ("rtlopt/fsm_encode", None), ("cktevo/mem_ctrl__mc_obct_top", None), ("rtllm/counter_12", None)])
@@ -114,7 +114,8 @@ def test_verify_accepts_changes_inside_the_region_and_rejects_changes_outside_it
     crit = {"critical": {"endpoint": "reg1_reg[6]"}, "endpoints": [["current_state_reg[7]", "reg1_reg[6]", 0.15]]}
     r = SC.select_region(des, d["top"], crit)
     items = des["fsm_encode"]["items"]
-    body = SC.V.module_spans(text)[0][3]                                                 # comment-stripped module text: the candidate's form
+    m = des["fsm_encode"]
+    body = SC.V.blank_comments(text)[m["start"]:m["end"]]                                # the module text with comments blanked: item offsets address it
     tgt = items[r["items"][0]]
     inside = body[:tgt["start"]] + body[tgt["start"]:tgt["end"]].replace("<=", "<= 1'b0 |", 1) + body[tgt["end"]:]
     assert SC.verify(text, inside, r) == []                                              # the named block may change
@@ -164,11 +165,86 @@ def test_splice_takes_the_omitted_modules_from_the_original():
     lines = text.splitlines()
     only_region = "\n".join(lines[spans["eth_txcounters"][0] - 1:spans["eth_txcounters"][1]]).replace("NibCnt <= NibCnt + 1", "NibCnt <= NibCnt + 1'b1")
     full, spliced = SC.splice(text, only_region, region)
-    assert sorted(spliced) == sorted(n for n in spans if n != "eth_txcounters") and set(SC.V.module_names(full)) == set(spans)
+    assert sorted(spliced["added_modules"]) == sorted(n for n in spans if n != "eth_txcounters") and set(SC.V.module_names(full)) == set(spans)
+    assert spliced["restored_modules"] == [] and {v["problem"] for v in spliced["violations"]} == {"module missing from the answer"}   # the omissions are the warning flag
     assert SC.verify(text, full, region) == [] and full.startswith(only_region.rstrip())              # the other modules are D's own text
-    assert SC.splice(text, text, region) == (text, [])                                                # a complete answer: nothing spliced
+    assert SC.splice(text, text, region) == (text, {})                                                # a complete answer: nothing spliced, no flag
     other_only = "\n".join(lines[spans["eth_random"][0] - 1:spans["eth_random"][1]])
-    assert SC.splice(text, other_only, region) == (other_only, [])                                   # the region module is absent: not a rewrite of the region
+    t3, i3 = SC.splice(text, other_only, region)
+    assert t3 == other_only and not i3.get("added_modules") and i3["violations"]                     # the region module is absent: not a rewrite of the region (check_top decides)
     block_region = {"module": "eth_txcounters", "kind": "blocks", "items": [0], "registers": ["NibCnt"]}
-    assert SC.splice(text, only_region, block_region) == (only_region, [])                            # block-level scope: no splicing
-    assert SC.splice(text, only_region, None) == (only_region, [])
+    t4, i4 = SC.splice(text, only_region, block_region)
+    assert t4 == only_region and i4["restored_items"] == [] and i4["added_items"] == []               # block-level scope restores items of the region module only (single-module designs)
+    assert SC.splice(text, only_region, None) == (only_region, {})
+
+
+D_TWO_BLOCKS = """// header comment
+module top(input clk, input rst_n, input [3:0] a, output reg [3:0] y, output reg [3:0] z);
+  wire [3:0] t;
+  assign t = a + 4'd1;   // helper
+  always @(posedge clk or negedge rst_n)
+    if (!rst_n) y <= 4'd0;
+    else        y <= t;      /* y block */
+  always @(posedge clk or negedge rst_n)
+    if (!rst_n) z <= 4'd0;
+    else        z <= a ^ 4'b1010;
+  assign_never_here: ;
+endmodule
+"""
+
+
+def test_canonical_comparison_ignores_whitespace_and_comments_but_not_tokens():
+    """Decision 2026-09-15 evening (item 2) after the smoke runs: a reformatted but token-identical block outside the region is no
+    violation (spacing around operators, line breaks, comments, case-item alignment); a dropped `begin`/`end` pair or any other
+    token change still is (both directions)."""
+    d = D_TWO_BLOCKS.replace("  assign_never_here: ;\n", "")
+    region = {"module": "top", "kind": "blocks", "items": [1], "registers": ["y"]}   # item 0 = the assign of t, 1 = y block, 2 = z block
+    items = SC.parse_design(d)["top"]["items"]
+    assert [it["targets"] for it in items] == [["t"], ["y"], ["z"]]
+    reformatted = d.replace("if (!rst_n) z <= 4'd0;\n    else        z <= a ^ 4'b1010;", "if(!rst_n)z<=4'd0; else z <= a^4'b1010; // rewritten spacing")
+    reformatted = reformatted.replace("assign t = a + 4'd1;   // helper", "assign t=a+4'd1;")
+    assert SC.verify(d, reformatted, region) == []
+    changed = d.replace("z <= a ^ 4'b1010;", "z <= a ^ 4'b1011;")
+    v = SC.verify(d, changed, region)
+    assert len(v) == 1 and v[0]["targets"] == ["z"] and v[0]["problem"] == "changed or removed"
+    wrapped = d.replace("else        z <= a ^ 4'b1010;", "else begin z <= a ^ 4'b1010; end")
+    assert len(SC.verify(d, wrapped, region)) == 1                                  # begin/end are tokens: a textual change of the block
+    assert SC.verify(d, d.replace("y <= t;", "y <= t + 4'd0;"), region) == []      # the region itself may change
+
+
+def test_block_level_splice_restores_out_of_scope_items_and_keeps_the_rewrite():
+    """Decision 2026-09-15 evening (item 2): the model's rewrite of the scoped block is kept, every other item is restored from D
+    (changed in place, dropped ones appended before endmodule), the model's additions stay, and the violations are returned as
+    the warning flag; an answer without violations comes back unchanged; the spliced text passes an order-free verification."""
+    d = D_TWO_BLOCKS.replace("  assign_never_here: ;\n", "")
+    region = {"module": "top", "kind": "blocks", "items": [1], "registers": ["y"]}
+    c = d.replace("y <= t;", "y <= a + 4'd1;")                                           # the scoped rewrite
+    c = c.replace("z <= a ^ 4'b1010;", "z <= a ^ 4'b1011;")                               # an out-of-scope change
+    c = c.replace("  assign t = a + 4'd1;   // helper\n", "  wire [3:0] helper2;\n  assign helper2 = a & 4'd3;\n")   # the assign of t dropped, a new declaration and a new assign added
+    text, info = SC.splice(d, c, region)
+    assert {v["targets"][0] for v in info["violations"]} == {"t", "z"}
+    assert info["restored_items"][0]["targets"] == ["z"] and info["added_items"][0]["targets"] == ["t"]
+    assert "y <= a + 4'd1;" in text and "z <= a ^ 4'b1010;" in text and "z <= a ^ 4'b1011;" not in text
+    assert "helper2 = a & 4'd3" in text and "wire [3:0] t;" in text and "t = a + 4'd1" in text and text.count("endmodule") == 1
+    assert SC.verify(d, text, region, ordered=False) == [] and SC.verify(d, text, region) != []   # only the order differs after the append
+    assert SC.parse_design(text)["top"]["instances"] == {} and text.index("endmodule") > text.index("t = a + 4'd1")
+    same, info2 = SC.splice(d, c.replace("z <= a ^ 4'b1011;", "z <= a ^ 4'b1010;").replace("  wire [3:0] helper2;\n  assign helper2 = a & 4'd3;\n", "  assign t = a + 4'd1;\n"), region)
+    assert info2 == {} and "y <= a + 4'd1;" in same
+    assert SC.splice(d, c, None) == (c, {})
+    swapped = d.replace("  assign t = a + 4'd1;   // helper\n", "").replace("endmodule", "  assign t = a + 4'd1;\nendmodule")   # the assign moved to the end: no edit, no flag
+    assert SC.splice(d, swapped, region) == (swapped, {}) and SC.verify(d, swapped, region) != []
+
+
+def test_module_level_splice_restores_changed_modules_and_adds_omitted_ones():
+    """Module-level regions: a module outside the region that the answer changed is replaced by D's text, an omitted one is
+    appended, the region module keeps the rewrite; the violations are the warning flag."""
+    d = "module top(input a, output y, output z);\n  wire m; sub u(.a(a), .y(m));\n  other o(.a(m), .z(z));\n  assign y = m;\nendmodule\n" \
+        "module sub(input a, output y);\n  assign y = ~a;   // sub\nendmodule\n" \
+        "module other(input a, output z);\n  assign z = a;\nendmodule\n"
+    region = {"module": "sub", "kind": "module", "items": [], "registers": ["y"]}
+    c = "module top(input a, output y, output z);\n  wire m; sub u(.a(a), .y(m));\n  other o(.a(m), .z(z));\n  assign y = m | 1'b0;\nendmodule\n" \
+        "module sub(input a, output y);\n  assign y = !a;\nendmodule\n"                         # top changed, other omitted, sub rewritten
+    text, info = SC.splice(d, c, region)
+    assert info["restored_modules"] == ["top"] and info["added_modules"] == ["other"]
+    assert "assign y = m;" in text and "m | 1'b0" not in text and "assign y = !a;" in text and "module other" in text
+    assert SC.verify(d, text, region) == []

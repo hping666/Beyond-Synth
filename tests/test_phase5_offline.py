@@ -54,9 +54,20 @@ def test_plan_matrix_and_undefined_arms(env):
     assert pl["skipped_arms"] == ["Undefined_arm"]                                                                 # no driver definition: not launched (DrRTL_reimpl is defined since 2026-09-15)
     runs = pl["runs"]
     from collections import Counter
-    assert Counter(r["model"] for r in runs) == {"gpt-5.6-luna": 4 * 2 * 5, "gpt-5.6-terra": 2 * 2 * 3, "gpt-5.6-sol": 2 * 2 * 1}   # 4 designs x 2 seeds x 5 arms; terra M / B2 on the 3 non-large designs; sol on the large one
-    assert {r["model"] for r in runs if r["tier"] == "large" and r["arm"] in ("M", "B2") and r["model"] != "gpt-5.6-luna"} == {"gpt-5.6-sol"}
-    assert pl["probe"]["zero"] is False
+    # decision 2026-09-15 evening item 3 (exp5.model_assignment): large tier = terra on every arm + luna on M (contrast); small / medium = luna on every arm + terra on M / B2 (second); sol never
+    assert Counter(r["model"] for r in runs) == {"gpt-5.6-luna": 3 * 2 * 5 + 1 * 2 * 1, "gpt-5.6-terra": 1 * 2 * 5 + 3 * 2 * 2}
+    assert Counter(r["role"] for r in runs) == {"main": 4 * 2 * 5, "second": 3 * 2 * 2, "contrast": 1 * 2 * 1}
+    large = [r for r in runs if r["tier"] == "large"]
+    assert {(r["model"], r["role"]) for r in large if r["arm"] == "B0"} == {("gpt-5.6-terra", "main")}
+    assert {(r["model"], r["role"]) for r in large if r["arm"] == "M"} == {("gpt-5.6-terra", "main"), ("gpt-5.6-luna", "contrast")}
+    assert {(r["model"], r["role"]) for r in runs if r["tier"] == "small" and r["arm"] == "B2"} == {("gpt-5.6-luna", "main"), ("gpt-5.6-terra", "second")}
+    assert not [r for r in runs if r["model"] == "gpt-5.6-sol"] and pl["probe"]["zero"] is False
+    assert pl["assignment"]["large"]["all_arms"] == "gpt-5.6-terra" and PM.tier_assignment(cfg, "medium")["second"] == {"gpt-5.6-terra": ["M", "B2"]}
+    cfg2 = copy.deepcopy(cfg)
+    cfg2["exp5"].pop("model_assignment")                                                                             # without the assignment: the pre-amendment rule (main model everywhere, second model on its arms)
+    assert Counter(r["model"] for r in PM.plan(cfg2, conn)["runs"]) == {"gpt-5.6-luna": 4 * 2 * 5, "gpt-5.6-terra": 4 * 2 * 2}
+    text = PM.prelaunch(cfg, conn, write=False)[4]
+    assert "| model | B0 |" in text and "| large | gpt-5.6-terra | main |" in text and "| large | gpt-5.6-luna | contrast |" in text and "vcf_seats_target = dc_seats_target" in text
 
 
 def test_prelaunch_caps_in_both_directions(env, monkeypatch, tmp_path):

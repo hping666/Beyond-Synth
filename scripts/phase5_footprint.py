@@ -368,7 +368,12 @@ def _cand_dir_bytes(results, conn, tiers):
     return {t: {"rtl": v["rtl"] / max(v["cands"], 1), "m6": v["m6"] / max(v["cands"], 1), "llm": v["llm"] / max(v["calls"], 1), "cands": v["cands"]} for t, v in acc.items()}
 
 
-def project(args):
+def project(args, plan_runs=None, model_rates=None, slim_kept_eq=False):
+    """plan_runs: the launch matrix ([{model, arm, tier, ...}], scripts/phase5_main.plan) replaces the config-derived workload;
+    model_rates: {(model, tier): {"proven_per_call", "accepted_per_call"}} measured rates that replace the tier's verdict mix
+    and acceptance for that model (decision 2026-09-15 evening, item 3: the projection follows the amended assignment);
+    slim_kept_eq: a what-if variant in which the equivalence records of accepted / audit-sample candidates are slimmed like the
+    others (VCS builds and VC Formal databases are regenerable; equiv.json, logs, seq.tcl and the candidate copy stay)."""
     cfg = load_config()
     results = Path(cfg["project"]["results_dir"])
     m = json.loads(Path(args.measured).read_text())
@@ -394,11 +399,15 @@ def project(args):
     tier_n = cfg["exp5"]["tiers"]                        # starting points per tier
     fam = {"B0": "B0", "B1_E4": "B", "B2": "B", "M": "M", "DrRTL_reimpl": "B"}
     work = defaultdict(int)                              # (tier, family, model) -> calls
-    for t, n in tier_n.items():
-        for arm in arms:
-            work[(t, fam.get(arm, "B"), "main")] += n * seeds * calls_per_run
-        for arm in second.get("arms") or []:
-            work[(t, fam.get(arm, "B"), "second")] += n * seeds * calls_per_run
+    if plan_runs:
+        for r in plan_runs:
+            work[(r["tier"], fam.get(r["arm"], "B"), r["model"])] += calls_per_run
+    else:
+        for t, n in tier_n.items():
+            for arm in arms:
+                work[(t, fam.get(arm, "B"), "main")] += n * seeds * calls_per_run
+            for arm in second.get("arms") or []:
+                work[(t, fam.get(arm, "B"), "second")] += n * seeds * calls_per_run
     sky_tiers = {"medium": 5, "large": 3}                # cktevo_sky130 modules by E4 cell count (5 below 1k cells, hsm / sdc_controller / spikeLayer8_H7 above)
     for t, n in sky_tiers.items():
         for arm in sky.get("arms") or []:
@@ -409,14 +418,24 @@ def project(args):
     def per_call(t, family, model):
         r = rates[t]
         v = dict(r["verdicts"])
-        if t == "large" and model in ("second", "probe", "sky130") and v["proven"] == 0:
+        mr = (model_rates or {}).get((model, t)) or {}
+        p_acc = p_acc_m if family == "M" else (r["p_acc_b"] if r["p_acc_b"] is not None else rates["medium"]["p_acc_b"])
+        if mr.get("proven_per_call") is not None:
+            # the measured proven rate of this model on the tier (probe, Phase 4) replaces the tier's verdict mix; the other verdicts share the rest
+            pp = min(max(float(mr["proven_per_call"]), 0.0), 1.0)
+            v["proven"] = pp
+            s = sum(v[k] for k in ("sim_fail", "falsified", "rejected", "inconclusive")) or 1.0
+            for k in ("sim_fail", "falsified", "rejected", "inconclusive"):
+                v[k] *= (1 - pp) / s
+            if mr.get("accepted_per_call") is not None and pp > 0:
+                p_acc = min(1.0, float(mr["accepted_per_call"]) / pp)
+        elif t == "large" and model in ("second", "probe", "sky130") and v["proven"] == 0:
             # the models that carry the large tier: assumed proven rate, taken from the mismatch / counterexample share
             v["proven"] = large_proven
             s = sum(v[k] for k in ("sim_fail", "falsified", "rejected", "inconclusive")) or 1.0
             for k in ("sim_fail", "falsified", "rejected", "inconclusive"):
                 v[k] *= (1 - large_proven) / s
         p_dup = r["p_dup"]
-        p_acc = p_acc_m if family == "M" else (r["p_acc_b"] if r["p_acc_b"] is not None else rates["medium"]["p_acc_b"])
         p_prov = v["proven"]
         fit_cfg = "Y" if family == "B0" else "E4"
         fit_kind = "yosys" if family == "B0" else "dc"
@@ -447,7 +466,7 @@ def project(args):
              "envelope": env, "hidden": p_prov * (p_acc + (1 - p_acc) * rej_sample) * hidden_full,
              "queue_db": jobs * (QUEUE_BYTES_PER_JOB + DB_BYTES_PER_EVAL) + DB_BYTES_PER_CAND}
         B = {"candidates_dir": cb["rtl"], "llm": cb["llm"],
-             "eq": (1 - p_keep) * full["eq_slim"] + p_keep * full["eq"],
+             "eq": full["eq_slim"] if slim_kept_eq else (1 - p_keep) * full["eq_slim"] + p_keep * full["eq"],
              "fitness": p_prov * ((p_acc + (1 - p_acc) * rej_sample) * fit + (1 - p_acc - (1 - p_acc) * rej_sample) * fits),
              "envelope": env_slim, "hidden": A["hidden"], "queue_db": A["queue_db"]}
         extras = {"hidden_all_e4": p_prov * (1 - p_acc) * (1 - rej_sample) * h_e4only,     # deferred question of PLAN Phase 5: H1 / H3 / H5 on every E4-evaluated candidate
@@ -512,7 +531,7 @@ def project(args):
         v = r["verdicts"]
         L.append(f"| {t} | {r['n']} | {100 * r['p_dup']:.0f} % | {100 * v['proven']:.0f} % | {100 * v['sim_fail']:.0f} % | {100 * v['falsified']:.0f} % | {100 * v['rejected']:.0f} % | {100 * v['inconclusive']:.0f} % | {'-' if r['p_acc_b'] is None else f'{100 * r[chr(112) + chr(95) + chr(97) + chr(99) + chr(99) + chr(95) + chr(98)]:.0f} %'} |")
     L.append(f"\nArm M accepts {100 * p_acc_m:.0f} % of its proven candidates (Phase 3, {m3[0]} proven; retained or trade-off {100 * p_ret_m:.0f} %); spread / offset designs are {100 * p_spread:.0f} % of the designs with an E4 floor, and only their retained / trade-off M candidates get the {n_env} envelope runs. The large tier's proven rate for the models of the correctness probe and the second model is an assumption: {100 * large_proven:.0f} % (luna proved 0 of 562; `--large-proven-rate`). Hidden layer per accepted candidate: {', '.join(hidden_cfgs)} plus a {100 * rej_sample:.0f} % sample of the rejected proven candidates (spec 06 §3). Prescreen not applied (upper bound).\n")
-    L.append("## 4. Workload (G5: 30 starting points = 18 medium / 6 small / 6 large; 5 arms × 3 seeds with luna; terra on M and B2; Sky130 sub-experiment 8 modules × 2 arms; correctness probe)\n")
+    L.append("## 4. Workload (G5: 30 starting points = 18 medium / 6 small / 6 large; " + ("the launch matrix of exp5.model_assignment (decision 2026-09-15 evening, item 3) with the measured rates per model and tier where they exist" if plan_runs else "5 arms × 3 seeds with luna; terra on M and B2") + "; Sky130 sub-experiment 8 modules × 2 arms; correctness probe)\n")
     L.append("| Tier | arm family | runs of | LLM calls | MB per call, current rules | MB per call, tiered policy | GB current | GB tiered | + H1/H3/H5 on all E4-evaluated (GB) | + ladder on accepted (GB) |\n|---|---|---|---|---|---|---|---|---|---|")
     for t, family, model, calls, a, b, x1, x2, info in rows:
         L.append(f"| {t} | {family} | {model} | {calls} | {a / 1e6:.1f} | {b / 1e6:.2f} | {_gb(a * calls):.1f} | {_gb(b * calls):.1f} | {_gb(x1 * calls):.1f} | {_gb(x2 * calls):.1f} |")

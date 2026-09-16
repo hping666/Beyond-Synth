@@ -62,8 +62,8 @@ def cmd_status(cfg, conn):
         print(f"({len(superseded)} superseded runs not shown: the first launch, stopped after the scope-splice fix)")
     by = {}
     for r in rows:
-        n = conn.execute("SELECT COUNT(*), SUM(verdict='proven'), SUM(verdict='sim_fail'), SUM(verdict='falsified'), SUM(verdict='rejected'), SUM(verdict='inconclusive'), SUM(label='scope_violation'), SUM(repair_of IS NOT NULL) FROM candidates WHERE run_id=?", (r["run_id"],)).fetchone()
-        print(f"{r['run_id']:44s} {r['llm_model']:14s} {r['design_id']:34s} {r['status']:8s} gens {r['gens_done'] or 0} calls {r['llm_calls'] or 0} usd {float(r['spent_usd'] or 0):.2f} cands {n[0]} proven {n[1] or 0} sim_fail {n[2] or 0} falsified {n[3] or 0} rejected {n[4] or 0} inconclusive {n[5] or 0} scope_violation {n[6] or 0} repairs {n[7] or 0}")
+        n = conn.execute("SELECT COUNT(*), SUM(verdict='proven'), SUM(verdict='sim_fail'), SUM(verdict='falsified'), SUM(verdict='rejected'), SUM(verdict='inconclusive'), SUM((label='scope_violation' OR COALESCE(json_array_length(json_extract(scope_json,'$.violations')),0) > 0)), SUM(repair_of IS NOT NULL) FROM candidates WHERE run_id=?", (r["run_id"],)).fetchone()
+        print(f"{r['run_id']:44s} {r['llm_model']:14s} {r['design_id']:34s} {r['status']:8s} gens {r['gens_done'] or 0} calls {r['llm_calls'] or 0} usd {float(r['spent_usd'] or 0):.2f} cands {n[0]} proven {n[1] or 0} sim_fail {n[2] or 0} falsified {n[3] or 0} rejected {n[4] or 0} inconclusive {n[5] or 0} scope_flags {n[6] or 0} repairs {n[7] or 0}")
         k = (r["llm_model"], r["design_id"])
         by.setdefault(k, {"runs": 0, "proven": 0, "cands": 0, "done": 0})
         by[k]["runs"] += 1

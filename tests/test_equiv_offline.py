@@ -347,3 +347,13 @@ def test_cex_depths_from_the_verbose_report():
            "     > ID: [23] falsified (depth=3) \n      - name          : _map_output_TxDone\n     > ID: [24] proven \n      - name          : _map_output_X\n")
     assert cex_depths(log) == {"_map_output_MTxD": 1, "_map_output_TxDone": 3}
     assert cex_depths("") == {}
+
+
+def test_equiv_version_is_stamped_on_the_record_but_not_hashed():
+    """Decision 2026-09-15 evening (item 5): every equivalence record carries config equiv.version; the record hash does not
+    include it, so records produced earlier under the same stack stay cached (both directions: no version -> no stamp)."""
+    from src.equiv import run_equiv as RE
+    cfg = {"equiv": {"version": "phase5", "seq_latency_mapping": True}}
+    rec = RE.stamp_version({"verdict": "proven"}, cfg)
+    assert rec["equiv_version"] == "phase5"
+    assert "equiv_version" not in RE.stamp_version({"verdict": "proven"}, {"equiv": {}}) and "version" not in RE.equiv_extra(cfg, {})

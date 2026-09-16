@@ -27,6 +27,13 @@ def strip_comments(text):
     return _LINE_COMMENT.sub("", text)
 
 
+def blank_comments(text):
+    """Comments replaced by spaces of the same length (newlines kept): every offset and line number of the result matches the
+    source, so item spans found on the blanked text can be spliced into the raw text (scope splicing, 2026-09-15)."""
+    text = _BLOCK_COMMENT.sub(lambda m: re.sub(r"[^\n]", " ", m.group(0)), text)
+    return _LINE_COMMENT.sub(lambda m: " " * len(m.group(0)), text)
+
+
 def module_names(text):
     return _MODULE.findall(strip_comments(text))
 

@@ -2,7 +2,16 @@
 failed one (`candidates.repair_of`), the original's failure type (its verdict: rejected / sim_fail / falsified), whether the
 repair was proven, and whether it was accepted; plus the failures that got no repair (budget exhausted, unusable answer,
 or a repair's own failure). Read from the results database only."""
+import json
 from collections import defaultdict
+
+
+def scope_flagged(scope_json):
+    """True when a candidate row carries the scope warning flag (out-of-scope edits restored from D, decision 2026-09-15 evening)."""
+    try:
+        return bool((json.loads(scope_json) if scope_json else {}).get("violations"))
+    except (ValueError, TypeError, AttributeError):
+        return False
 
 
 def repair_yield(conn, exp=None, run_ids=None, arm=None):
@@ -20,11 +29,11 @@ def repair_yield(conn, exp=None, run_ids=None, arm=None):
         where.append("r.run_id IN (%s)" % ",".join("?" for _ in run_ids))
         args += list(run_ids)
     w = ("WHERE " + " AND ".join(where)) if where else ""
-    rows = conn.execute(f"SELECT c.cand_id, c.run_id, c.repair_of, c.verdict, c.label, c.accepted FROM candidates c JOIN runs r ON r.run_id = c.run_id {w}", args).fetchall()
+    rows = conn.execute(f"SELECT c.cand_id, c.run_id, c.repair_of, c.verdict, c.label, c.accepted, c.scope_json FROM candidates c JOIN runs r ON r.run_id = c.run_id {w}", args).fetchall()
     by_id = {r[0]: r for r in rows}
     by_failure = defaultdict(lambda: {"attempted": 0, "proven": 0, "accepted": 0, "retained": 0, "scope_violation": 0})
     repaired = set()
-    for cid, run_id, repair_of, verdict, label, accepted in rows:
+    for cid, run_id, repair_of, verdict, label, accepted, scope_json in rows:
         if not repair_of:
             continue
         orig = by_id.get(repair_of)
@@ -32,8 +41,8 @@ def repair_yield(conn, exp=None, run_ids=None, arm=None):
         repaired.add(repair_of)
         b = by_failure[failure]
         b["attempted"] += 1
-        if label == "scope_violation":
-            b["scope_violation"] += 1
+        if label == "scope_violation" or scope_flagged(scope_json):
+            b["scope_violation"] += 1   # the warning flag (restored text) or, before the 2026-09-15 evening amendment, the discard label
         if verdict == "proven":
             b["proven"] += 1
         if accepted:
@@ -41,7 +50,7 @@ def repair_yield(conn, exp=None, run_ids=None, arm=None):
         if label in ("retained", "tradeoff", "improved"):
             b["retained"] += 1
     unrepaired = defaultdict(int)
-    for cid, run_id, repair_of, verdict, label, accepted in rows:
+    for cid, run_id, repair_of, verdict, label, accepted, scope_json in rows:
         if verdict in ("rejected", "sim_fail", "falsified") and cid not in repaired:
             unrepaired[verdict] += 1
     return {"by_failure": dict(by_failure), "unrepaired": dict(unrepaired), "runs": len({r[1] for r in rows}),
@@ -50,7 +59,7 @@ def repair_yield(conn, exp=None, run_ids=None, arm=None):
 
 def repair_table(y):
     """Markdown rows: failure type | repairs | proven | accepted | retained or improved | scope violations | yield."""
-    L = ["| failure type of the original | repair calls | proven | accepted | retained / improved | scope violations | proven per repair call | not repaired (budget / unusable / already a repair) |",
+    L = ["| failure type of the original | repair calls | proven | accepted | retained / improved | scope flags (restored) | proven per repair call | not repaired (budget / unusable / already a repair) |",
          "|---|---|---|---|---|---|---|---|"]
     for f in ("rejected", "sim_fail", "falsified"):
         b = y["by_failure"].get(f) or {"attempted": 0, "proven": 0, "accepted": 0, "retained": 0, "scope_violation": 0}

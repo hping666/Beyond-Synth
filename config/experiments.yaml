@@ -121,6 +121,7 @@ sim:
   saif_coverage_min: 0.8
 
 equiv:                       # DECISIONS 2026-09-14 (G2, C2.5)
+  version: phase5            # 2026-09-15 evening decision 5: the equivalence stack frozen for Phase 5 = V1 (interface / elaboration), the testbench where one exists, V2 lock-step simulation with the all-zero initial state, SEQ with the latency mapping for measured constant offsets, V4 (DPV) for clockless modules only; stamped on every equivalence record and every Phase 5 verdict (candidates.equiv_version); the DPV phase mapping is deferred to Phase 6; no change to the stack during Phase 5
   init_state_zero_no_reset: true   # G2.2: registers without a reset start at zero in V2 and V3, identically for D and the candidate (spec 03 §6)
   v4: {enabled: true, clockless_only: true}   # G2.3: DPV only on modules without a clock port, with the three guardrails of spec 03 §1
   seq_cap_min_by_class: {a: 60, b: 60, c1: 240, c2: 240, d: 240}   # C2.5: class-aware safety caps for candidates (minutes); cap -> inconclusive, reported, never discarded; perturbations keep timeouts.seq_min
@@ -316,6 +317,10 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
     vcf_hours: 4200                         # the Phase 3 projection accepted at G4 (4 121 h at 50 seats, reports/phase3.md §5c)
     dc_hours: 4000                          # operator derivation for the record: G3's full-E4 figure (766 h, reports/phase2.md) times the E4-clock runs per proven candidate under decision item 2 (fitness + H1 / H3 / H5 on every E4-evaluated candidate, H2a / H2b on accepted) ~ 3 500 h; at 50 seats ~ 70 h wall-clock
     bulk_seats_target: 50                   # vcf_seats_target and dc_seats_target during Phase 5 (decision item 6), restored to 24 afterwards
+  model_assignment:                         # 2026-09-15 evening decision 3 (amends the G5 rule): the models of every arm per tier; sol is not used in Phase 5
+    large:  {all_arms: gpt-5.6-terra, contrast: {gpt-5.6-luna: [M]}}     # single-model comparison on the large tier; luna on arm M (3 seeds) is the model-correctness contrast, reported apart from the main table
+    medium: {all_arms: gpt-5.6-luna, second: {gpt-5.6-terra: [M, B2]}}   # the main model for every arm; terra on M / B2 = the model-independence check
+    small:  {all_arms: gpt-5.6-luna, second: {gpt-5.6-terra: [M, B2]}}
   correctness_probe:                        # G5 item 1: before Phase 5, terra and sol on the three large Exp1 designs; a model with >= min_proven proven candidates on a design carries the large tier for arms M and B2 (sol never the main model); starts after the prune and the user's review of the B1 prefix (decision 2026-09-15 item 6)
     arm: M                                  # the main method's arm (E4 fitness, verdict feedback, map prior, correctness aids), exp phase5_probe, budget llm.budget_usd.phase5_probe
     models: [gpt-5.6-terra, gpt-5.6-sol]
@@ -326,7 +331,7 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
     min_proven: 5
     budget_usd: 120                         # LOCKED (G5 item 1; a cap recorded from the user's decision, booked as phase phase5_probe in the ledger)
   correctness_aids:                         # G5 item 1, pre-registered for every arm (implemented in src/search/scope.py and driver.py, spec 05)
-    scope_limited_rewriting: true           # the prompt names the region to rewrite; the answer returns the full file; unchanged regions verified textually before any tool runs (label scope_violation, one call, no repair)
+    scope_limited_rewriting: true           # the prompt names the region to rewrite; the answer returns the full file; the text outside the region is verified (token-canonical) before any tool runs. AMENDED 2026-09-15 evening (decision 2, pre-registered): an out-of-scope edit is restored from D (src/search/scope.splice: the scoped block / module keeps the model's rewrite, every other item / module is D's text) and recorded as the warning flag candidates.scope_json.violations, never a discard; if the spliced file fails V1 the one repair call applies; the block-level violation rate is reported per arm
     scope: {endpoints: 3, multi_module: module, single_module: block}   # region = the module holding the top-k critical endpoints of the parent's (or D's) evaluation on a multi-module design, or the always blocks assigning them on a single-module design; other statement-level items must be unchanged, declarations are free
     repair_attempts: 1                      # one counterexample-guided repair call per candidate for V1 rejections, lock-step mismatches and SEQ counterexamples, counted under the equal-call budget
     repair_failure_types: [rejected, sim_fail, falsified]   # inconclusive / error / scope_violation get no repair

@@ -54,6 +54,15 @@ def equiv_extra(cfg, payload, stages_full=True):
     return extra
 
 
+def stamp_version(rec, cfg):
+    """`equiv_version` = config equiv.version (decision 2026-09-15 evening, item 5: the stack frozen for Phase 5 and stamped on
+    every record); not part of the record hash, so earlier records under the same stack stay cached."""
+    v = (cfg.get("equiv") or {}).get("version")
+    if v:
+        rec["equiv_version"] = str(v)
+    return rec
+
+
 def _license_problem(rec):
     texts = []
     v2 = rec.get("v2") or {}
@@ -94,6 +103,7 @@ def main(argv=None):
                                 run_v3=stages_full, timeout_sec=runner_timeout(job), design_id=p["design_id"], sim_seed=p.get("sim_seed"), c_top=p.get("c_top"))
         rec.update(design_id=p["design_id"], cand_id=p.get("cand_id"), input_hash=h, raw_dir=str(job_dir),
                    git_sha=C.git_sha(), cfg_hash=C.cfg_hash(), job_id=a.job, kind=job["kind"])
+        stamp_version(rec, cfg)
         (job_dir / "equiv.json").write_text(json.dumps(rec, indent=1, sort_keys=True, default=str))
     print(json.dumps({k: rec.get(k) for k in ("design_id", "cand_id", "verdict", "v1_status", "v2_status", "v3_status",
                                                "v3_seconds", "raw_dir", "cached")}))

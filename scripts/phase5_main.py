@@ -54,28 +54,59 @@ def large_tier_model(cfg, qualifies):
     return second, f"no probe model reached min_proven: the large tier stays with {second} (a zero proven rate there is a result about the LLM, G5 item 1)"
 
 
+def tier_assignment(cfg, tier):
+    """The models of a tier (config `exp5.model_assignment`, decision 2026-09-15 evening item 3): {"all_arms": model, "second":
+    {model: [arms]}, "contrast": {model: [arms]}}; a tier without an entry falls back to the pre-amendment rule (the main model
+    on every arm, the second model on its arms)."""
+    ma = (cfg["exp5"].get("model_assignment") or {}).get(tier)
+    if ma:
+        return {"all_arms": ma["all_arms"], "second": dict(ma.get("second") or {}), "contrast": dict(ma.get("contrast") or {})}
+    second = cfg["llm"]["second_model"]
+    return {"all_arms": cfg["llm"]["selected"], "second": {second["model"]: list(second.get("arms") or [])}, "contrast": {}}
+
+
 def plan(cfg, conn):
-    """-> {"runs": [{model, arm, design_id, tier, seed}], "large_second": (model, note), "probe": {...}}"""
+    """-> {"runs": [{model, arm, design_id, tier, seed, role}], "assignment": {tier: ...}, "skipped_arms", "probe": {...}}.
+    role: main (the tier's model on every arm), second (the model-independence check), contrast (the model-correctness
+    contrast, reported apart from the main table)."""
     sp = cfg["exp5"]["starting_points"]
     defined = cfg["search"].get("arms") or {}
     arms = [a for a in cfg["scale"]["arms"] if a in defined or a == "M"]
-    skipped_arms = [a for a in cfg["scale"]["arms"] if a not in arms]   # an arm without a driver definition (DrRTL_reimpl, 2026-09-15) is not launched
+    skipped_arms = [a for a in cfg["scale"]["arms"] if a not in arms]   # an arm without a driver definition is not launched
     seeds = int(cfg["scale"]["seeds"])
-    main = cfg["llm"]["selected"]
-    second = cfg["llm"]["second_model"]
     proven, qualifies, finished, zero, n_probe = probe_verdicts(cfg, conn)
-    lt_model, note = large_tier_model(cfg, qualifies)
-    runs = []
+    runs, assignment = [], {}
     for tier, designs in sp.items():
+        ma = tier_assignment(cfg, tier)
+        assignment[tier] = ma
         for did in designs:
             for seed in range(1, seeds + 1):
                 for arm in arms:
-                    runs.append({"model": main, "arm": arm, "design_id": did, "tier": tier, "seed": seed})
-                for arm in second.get("arms") or []:
-                    model = lt_model if tier == "large" else second["model"]
-                    runs.append({"model": model, "arm": arm, "design_id": did, "tier": tier, "seed": seed})
-    return {"runs": runs, "large_second": (lt_model, note), "skipped_arms": skipped_arms,
+                    runs.append({"model": ma["all_arms"], "arm": arm, "design_id": did, "tier": tier, "seed": seed, "role": "main"})
+                for role in ("second", "contrast"):
+                    for model, marms in ma[role].items():
+                        for arm in marms:
+                            if arm in arms and model != ma["all_arms"]:
+                                runs.append({"model": model, "arm": arm, "design_id": did, "tier": tier, "seed": seed, "role": role})
+    return {"runs": runs, "assignment": assignment, "skipped_arms": skipped_arms,
+            "large_second": (assignment.get("large", {}).get("all_arms"), "exp5.model_assignment (decision 2026-09-15 evening, item 3) supersedes the probe rule"),
             "probe": {"proven": proven, "qualifies": qualifies, "finished": finished, "zero": zero, "runs": n_probe}}
+
+
+def matrix_tables(pl):
+    """Markdown: runs per (model, arm) and per (tier, model, role) — the launch summary of decision 2026-09-15 evening, item 7."""
+    from collections import Counter
+    by_ma = Counter((r["model"], r["arm"]) for r in pl["runs"])
+    by_tmr = Counter((r["tier"], r["model"], r["role"]) for r in pl["runs"])
+    arms = sorted({a for _, a in by_ma})
+    models = sorted({m for m, _ in by_ma})
+    L = ["| model | " + " | ".join(arms) + " | total |", "|---|" + "---|" * (len(arms) + 1)]
+    for m in models:
+        L.append(f"| {m} | " + " | ".join(str(by_ma.get((m, a), 0)) for a in arms) + f" | {sum(v for (mm, _), v in by_ma.items() if mm == m)} |")
+    L += ["", "| tier | model | role | runs |", "|---|---|---|---|"]
+    for (t, m, role), n in sorted(by_tmr.items(), key=lambda kv: ({"large": 0, "medium": 1, "small": 2}.get(kv[0][0], 3), kv[0][1], kv[0][2])):
+        L.append(f"| {t} | {m} | {role} | {n} |")
+    return L
 
 
 # ----------------------------------------------------------------------------- projections
@@ -135,8 +166,9 @@ def _lookup(stats, cfg, model, tier, key, default=None):
     return default, "default"
 
 
-def projection(cfg, conn, pl):
-    """LLM USD, VC Formal hours, DC hours and disk growth of the planned runs, with the sources of every per-call figure."""
+def projection(cfg, conn, pl, slim_kept_eq=False):
+    """LLM USD, VC Formal hours, DC hours and disk growth of the planned runs, with the sources of every per-call figure.
+    slim_kept_eq: the what-if disk variant of scripts/phase5_footprint.project (accepted candidates' equivalence records slimmed too)."""
     stats = per_call_stats(cfg, conn)
     calls_per_run = int(cfg["scale"]["budget"]["llm_calls_per_run"])
     t_e4 = {}
@@ -174,9 +206,17 @@ def projection(cfg, conn, pl):
         sys.path.insert(0, os.path.join(ROOT, "scripts"))
         import phase5_footprint as PF
         ns = argparse.Namespace(measured=str(Path(ROOT) / "reports/data/phase5_footprint_measured.json"), out=str(Path(ROOT) / "reports/data/phase5_footprint.md"), large_proven_rate=0.10)
-        totals = PF.project(ns)
+        model_rates = {}
+        for r in pl["runs"]:
+            k = (r["model"], r["tier"])
+            if k not in model_rates:
+                pp, s_p = _lookup(stats, cfg, r["model"], r["tier"], "proven_per_call", None)
+                pa, s_a = _lookup(stats, cfg, r["model"], r["tier"], "accepted_per_call", None)
+                model_rates[k] = {"proven_per_call": pp, "accepted_per_call": pa, "source": s_p}
+        totals = PF.project(ns, plan_runs=pl["runs"], model_rates=model_rates, slim_kept_eq=slim_kept_eq)   # the footprint follows the launch matrix and the measured rates (decision 2026-09-15 evening, item 3)
         if totals:
-            disk_gb = (totals["tiered"] + totals["hidden_all_e4"]) / 1e9
+            n_all = len([h for h in ("H1", "H3", "H5") if (cfg["exp5"].get("hidden_scope") or {}).get(h) == "all_e4"])   # the all-E4 extra counts only the configurations registered for every E4-evaluated candidate
+            disk_gb = (totals["tiered"] + totals["hidden_all_e4"] * n_all / 3.0) / 1e9
     except Exception as e:   # the footprint projection is optional; its absence is reported
         disk_gb = None
         sources["disk_error"] = f"{type(e).__name__}: {e}"[:200]
@@ -205,15 +245,22 @@ def prelaunch(cfg, conn, write=True):
         reasons.append("probe not finished")
     if probe["zero"]:
         reasons.append("probe: zero proven candidates for both models on all three designs")
-    L = [f"# Phase 5 pre-launch report ({datetime.datetime.now().isoformat(timespec='minutes')}; decision 2026-09-15 item 6)", "",
+    L = [f"# Phase 5 pre-launch report ({datetime.datetime.now().isoformat(timespec='minutes')}; decisions 2026-09-15 item 6 and evening items 3 / 7)", "",
          f"**{'GO' if go else 'NO-GO'}**" + ("" if go else f" — {', '.join(reasons)}"), "",
          "## Probe (G5 item 1)", "", "| model | " + " | ".join(cfg["exp5"]["correctness_probe"]["designs"]) + " | qualifies (>= %d proven on a design) |" % int(cfg["exp5"]["correctness_probe"]["min_proven"]),
          "|---|" + "---|" * (len(cfg["exp5"]["correctness_probe"]["designs"]) + 1)]
     for m, byd in probe["proven"].items():
         L.append(f"| {m} | " + " | ".join(str(byd.get(d, 0)) for d in cfg["exp5"]["correctness_probe"]["designs"]) + f" | {'yes' if probe['qualifies'].get(m) else 'no'} |")
-    L += ["", f"Probe runs: {probe['runs']}, finished: {probe['finished']}. Large tier for arms M / B2: {pl['large_second'][0]} — {pl['large_second'][1]}.", "",
+    asg = pl.get("assignment") or {}
+    asg_text = "; ".join(f"{t}: {a['all_arms']} on every arm" + "".join(f", {m} on {'/'.join(ar)} ({role})" for role in ("second", "contrast") for m, ar in a[role].items()) for t, a in asg.items())
+    lim = cfg["exp5"]["correctness_probe"]["designs"]
+    low = [d for d in lim if all((probe["proven"].get(m) or {}).get(d, 0) < int(cfg["exp5"]["correctness_probe"]["min_proven"]) for m in probe["proven"])] if probe["proven"] else []
+    L += ["", f"Probe runs: {probe['runs']}, finished: {probe['finished']}. Model assignment by tier (decision 2026-09-15 evening, item 3; supersedes the probe rule for the large tier): {asg_text}."
+          + (f" Probe designs below min_proven under every model: {', '.join(low)} — kept in the large tier; their near-zero proven rate is the LLM-correctness limit and is reported as such (item 4)." if low else ""), "",
           "## Run matrix", "", f"{pr['runs']} runs, {pr['calls']} LLM calls: " + ", ".join(f"{m} {v['runs']} runs" for m, v in pr["by_model"].items()) + "."
-          + (f" Arms without a driver definition are not in this launch and follow once implemented: {', '.join(pl['skipped_arms'])}." if pl.get("skipped_arms") else ""), "",
+          + (f" Arms without a driver definition are not in this launch and follow once implemented: {', '.join(pl['skipped_arms'])}." if pl.get("skipped_arms") else ""), ""]
+    L += matrix_tables(pl)
+    L += ["", f"Seat targets at launch: vcf_seats_target = dc_seats_target = {cfg['exp5']['launch_caps'].get('bulk_seats_target')} (restored to the Phase 3-4 targets afterwards); search runs in their own pool of {cfg['queue'].get('search_max')}.", "",
           "## Projections against the caps", "", "| quantity | projected | cap | inside |", "|---|---|---|---|"]
     for k, (v, c, ok) in checks.items():
         L.append(f"| {k} | {'-' if v is None else f'{v:.1f}'} | {c:.1f} | {'yes' if ok else 'NO'} |")
@@ -289,12 +336,12 @@ def cmd_status(cfg, conn):
     for r in rows:
         tier = _tier_of_design(cfg, r["design_id"]) or "?"
         k = (r["llm_model"], r["arm"], tier)
-        n = conn.execute("SELECT COUNT(*), SUM(verdict='proven'), SUM(accepted), SUM(label='scope_violation'), SUM(repair_of IS NOT NULL) FROM candidates WHERE run_id=?", (r["run_id"],)).fetchone()
+        n = conn.execute("SELECT COUNT(*), SUM(verdict='proven'), SUM(accepted), SUM((label='scope_violation' OR COALESCE(json_array_length(json_extract(scope_json,'$.violations')),0) > 0)), SUM(repair_of IS NOT NULL) FROM candidates WHERE run_id=?", (r["run_id"],)).fetchone()
         b = by.setdefault(k, {"runs": 0, "done": 0, "cands": 0, "proven": 0, "accepted": 0, "scope": 0, "repairs": 0})
         b["runs"] += 1
         b["done"] += int(r["status"] == "done")
         b["cands"] += int(n[0]); b["proven"] += int(n[1] or 0); b["accepted"] += int(n[2] or 0); b["scope"] += int(n[3] or 0); b["repairs"] += int(n[4] or 0)
-    print("| model | arm | tier | runs | done | candidates | proven | accepted | scope violations | repairs |")
+    print("| model | arm | tier | runs | done | candidates | proven | accepted | scope flags (restored) | repairs |")
     for (m, arm, tier), b in sorted(by.items()):
         print(f"| {m} | {arm} | {tier} | {b['runs']} | {b['done']} | {b['cands']} | {b['proven']} | {b['accepted']} | {b['scope']} | {b['repairs']} |")
     free = shutil.disk_usage(C.results_dir(cfg)).free / 1e9

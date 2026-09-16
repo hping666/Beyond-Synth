@@ -59,7 +59,8 @@ CREATE TABLE IF NOT EXISTS candidates (
   v3_status TEXT, v3_seconds REAL, v4_status TEXT, counterexample_path TEXT,
   in_archive INTEGER NOT NULL DEFAULT 0, accepted INTEGER NOT NULL DEFAULT 0,
   proven_by TEXT CHECK (proven_by IN ('seq', 'dpv') OR proven_by IS NULL),
-  repair_of TEXT, scope_json TEXT,   -- G5 item 1 correctness aids (2026-09-15): the failed candidate this one repairs; the region named for the call and the scope check
+  repair_of TEXT, scope_json TEXT,   -- G5 item 1 correctness aids (2026-09-15): the failed candidate this one repairs; the region named for the call and the scope check (violations = the warning flag since the evening amendment)
+  equiv_version TEXT,                -- decision 2026-09-15 evening item 5: the equivalence stack (config equiv.version) in force when the verdict was recorded
   created_at TEXT NOT NULL, git_sha TEXT NOT NULL, cfg_hash TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS ix_candidates_run ON candidates (run_id, gen);
 

@@ -228,16 +228,12 @@ class SearchRun:
         region["from_parent"] = parent_id if (parent_id and crit) else None
         return region, SC.region_text(self.d_design, region, self.design["top"])
 
-    def scope_violation(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, region, index=0):
-        """The textual check before any tool runs: D's items outside the region must be unchanged. A violating answer is
-        labelled `scope_violation` (candidate row, diagnosis row, feedback block; credit 0; one call spent, no repair). True when violated."""
-        viol = SC.verify(self.d_text, rtl, region)
-        if not viol:
+    def scope_flag(self, cid, violations):
+        """Decision 2026-09-15 evening (item 2): an out-of-scope edit is no longer a discard — the text outside the region was
+        restored from D by `scope.splice` and the candidate runs the pipeline; the violations stay on the row as a warning
+        flag (`scope_json.violations`) and are counted per run (`state.scope_violations`, reported per arm). True when flagged."""
+        if not violations:
             return False
-        label_cid = cid if cid not in self.state["cands"] else f"{cid}_scope{gen}_{index}"
-        extra = {"violations": viol[:8], "n_violations": len(viol), "region": {k: region.get(k) for k in ("module", "kind", "registers")}}
-        self.record_label(label_cid, None, "scope_violation", extra, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
-        self.conn.execute("UPDATE candidates SET scope_json=? WHERE cand_id=?", (json.dumps({"region": region, "violations": viol[:8]}, default=str), label_cid))
         self.state.setdefault("scope_violations", 0)
         self.state["scope_violations"] += 1
         return True
@@ -273,10 +269,12 @@ class SearchRun:
             if r.get("status") == "incomplete":
                 raise CA.BadAnswer("truncated at max_output_tokens (status incomplete)")
             rtl, note = CA.parse_answer(r["text"])
-            rtl, spliced = SC.splice(self.d_text, rtl, region)
+            rtl, spliced = SC.splice(self.d_text, rtl, region)   # out-of-scope edits restored from D; the violations become the warning flag
+            if spliced.get("region_missing"):
+                raise CA.BadAnswer(f"the answer does not contain the region module {spliced['region_missing']}: not a rewrite of the region")
             CA.check_top(rtl, self.design["top"])
             if spliced:
-                meta["spliced_modules"] = spliced
+                meta["scope_splice"] = spliced
         except CA.BadAnswer as e:
             rep["unusable"] = str(e)
             (self.dir / f"unusable_repair_{cid}.json").write_text(json.dumps({**meta, "unusable": str(e)}, indent=1, default=str))
@@ -287,11 +285,10 @@ class SearchRun:
         new_cid = CA.cand_id_of(rtl, self.run_id)
         _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, root=self.dir.parent, cand_id=new_cid)
         rng = random.Random(f"{self.run_id}|repair|{cid}")
-        if region is not None and self.scope_violation(new_cid, path, rtl, note, cls, gen, c.get("parent_id"), r, region, index=99):
-            rep["cand_id"], c["repaired_by"] = f"{new_cid} (scope_violation)", new_cid
-        else:
-            issued = self.issue_candidate(new_cid, path, rtl, note, cls, gen, c.get("parent_id"), r, rng, index=99, region=region, repair_of=cid, spliced=meta.get("spliced_modules"))
-            rep["cand_id"], c["repaired_by"] = issued, issued
+        if region is not None:
+            self.scope_flag(new_cid, (meta.get("scope_splice") or {}).get("violations"))
+        issued = self.issue_candidate(new_cid, path, rtl, note, cls, gen, c.get("parent_id"), r, rng, index=99, region=region, repair_of=cid, spliced=meta.get("scope_splice"))
+        rep["cand_id"], c["repaired_by"] = issued, issued
         self.conn.execute("UPDATE runs SET llm_calls=? WHERE run_id=?", (st["calls"], self.run_id))
         return rep["cand_id"]
 
@@ -357,7 +354,9 @@ class SearchRun:
                 if r.get("status") == "incomplete":
                     raise CA.BadAnswer(f"truncated at max_output_tokens (status incomplete, {(r.get('usage') or {}).get('output_tokens')} output tokens)")
                 rtl, note = CA.parse_answer(r["text"])
-                rtl, spliced = SC.splice(self.d_text, rtl, region)   # module-level scope: the modules the answer left out come from D
+                rtl, spliced = SC.splice(self.d_text, rtl, region)   # the text outside the region comes from D (omitted modules, changed modules or blocks); the violations become the warning flag (decision 2026-09-15 evening, item 2)
+                if spliced.get("region_missing"):
+                    raise CA.BadAnswer(f"the answer does not contain the region module {spliced['region_missing']}: not a rewrite of the region")
                 CA.check_top(rtl, self.design["top"])
             except CA.BadAnswer as e:
                 meta.update(unusable=str(e))
@@ -367,7 +366,7 @@ class SearchRun:
             if region is not None:
                 meta["scope"] = region
                 if spliced:
-                    meta["spliced_modules"] = spliced
+                    meta["scope_splice"] = spliced
             answers.append((i, cls, rtl, note, r, meta))
         # DECISIONS 2026-09-14 item 2: on arithmetic designs the (c1) / (d) proofs (hours-long tails) are submitted before the
         # rest of the generation, so that their tails overlap with the other proofs; the produced class is known only after
@@ -379,9 +378,9 @@ class SearchRun:
         for i, cls, rtl, note, r, meta in answers:
             cid = CA.cand_id_of(rtl, self.run_id)   # per-run id; the unsalted content hash is stored alongside (DECISIONS 2026-09-14)
             _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, root=self.dir.parent, cand_id=cid)
-            if region is not None and self.scope_violation(cid, path, rtl, note, cls, gen, parent_id, r, region, index=i):
-                continue
-            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i, region=region, spliced=meta.get("spliced_modules"), strategy=meta.get("drrtl_strategy")))
+            if region is not None:
+                self.scope_flag(cid, (meta.get("scope_splice") or {}).get("violations"))
+            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i, region=region, spliced=meta.get("scope_splice"), strategy=meta.get("drrtl_strategy")))
         st["gen"] = gen
         st["issued_at"] = self.clock()
         if self.drrtl and (self.cfg["search"].get("drrtl") or {}).get("skill_learning", False):
@@ -441,12 +440,18 @@ class SearchRun:
 
     def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng, index=0, region=None, repair_of=None, spliced=None, strategy=None):
         st = self.state
+        scope_json = json.dumps({"region": region, "violations": list((spliced or {}).get("violations") or [])[:8], "spliced": {k: v for k, v in (spliced or {}).items() if k != "violations"}}, default=str) if region is not None else None
         if cid in st["cands"]:   # the same RTL came out twice: a duplicate of the earlier candidate, no evaluation
-            self.record_label(f"{cid}_dup{gen}_{index}", None, "duplicate", {"duplicate_of": cid}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
+            dup = f"{cid}_dup{gen}_{index}"
+            self.record_label(dup, None, "duplicate", {"duplicate_of": cid}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
+            if scope_json:
+                self.conn.execute("UPDATE candidates SET scope_json=? WHERE cand_id=?", (scope_json, dup))
             return cid
-        if rtl.strip() == self.d_text.strip():
-            st["cands"][cid] = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_final": "a", "state": "final", "issued_at": self.clock()}
+        if rtl.strip() == self.d_text.strip():   # (after the scope restoration an answer whose only edits were out of scope is D again: it keeps its flag)
+            st["cands"][cid] = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_final": "a", "state": "final", "issued_at": self.clock(), "scope_flag": bool((spliced or {}).get("violations"))}
             self.record_label(cid, None, "absorbed_identical", {"identical_text": True}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call, cls_final="a")
+            if scope_json:
+                self.conn.execute("UPDATE candidates SET scope_json=? WHERE cand_id=?", (scope_json, cid))
             return cid
         d_files = [str(p) for p in K.abs_paths(self.design, self.design["files"])]
         incdirs = [str(p) for p in K.abs_paths(self.design, self.design["incdirs"])]
@@ -465,7 +470,7 @@ class SearchRun:
         cap = self.seq_cap_min(cls_final if cls_final in ("a", "b", "c1", "c2", "d") else "d")
         entry = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_rule": cls_final,
                  "class_final": cls_final, "prescreen": pre, "seq_cap_min": cap, "issued_at": self.clock(), "state": "eq_pending", "note": note,
-                 "repair_of": repair_of, "scope": region, "drrtl_strategy": strategy}
+                 "repair_of": repair_of, "scope": region, "drrtl_strategy": strategy, "scope_flag": bool((spliced or {}).get("violations"))}
         row = {"cand_id": cid, "run_id": self.run_id, "design_id": self.row["design_id"], "gen": gen, "parent_id": parent_id, "arm": self.row["arm"],
                "content_hash": CA.cand_id_of(rtl),
                "class_requested": cls_requested, "class_rule": cls_final, "class_final": cls_final, "confidence": cls_rule.get("confidence"),
@@ -473,7 +478,7 @@ class SearchRun:
                "tokens_in": (call["usage"] or {}).get("input_tokens"), "tokens_cached": (call["usage"] or {}).get("cached_tokens"),
                "tokens_out": (call["usage"] or {}).get("output_tokens"), "cost_usd": call["cost_usd"], "rtl_path": str(path), "prescreened": int(pre == "prescreened"),
                "seq_cap_min": cap, "note": note, "call_id": call["call_id"], "repair_of": repair_of,
-               "scope_json": json.dumps({"region": region, "violations": [], "spliced": list(spliced or [])}, default=str) if region is not None else None,
+               "scope_json": scope_json,
                "features_json": json.dumps(feat, default=list, sort_keys=True) if feat else None, "rules_version": (feat or {}).get("rules_version")}
         db.insert(self.conn, "candidates", row)
         if pre == "prescreened":
@@ -513,8 +518,9 @@ class SearchRun:
                 c["v3_seconds"], c["eq_seconds"] = rec.get("v3_seconds"), rec.get("seconds")
                 c["time_to_verdict_s"] = round(self.clock() - float(c["issued_at"]), 1)
                 self.conn.execute("UPDATE candidates SET v1_status=?, v2_status=?, v2_cycles=?, latency_offset_json=?, v3_status=?, v3_seconds=?, v4_status=?, "
-                                  "counterexample_path=?, verdict=?, time_to_verdict_s=?, proven_by=? WHERE cand_id=?",
-                                  tuple(rec.get(k) for k in EQ_KEEP[:8]) + (rec.get("verdict"), c["time_to_verdict_s"], rec.get("proven_by"), cid))
+                                  "counterexample_path=?, verdict=?, time_to_verdict_s=?, proven_by=?, equiv_version=? WHERE cand_id=?",
+                                  tuple(rec.get(k) for k in EQ_KEEP[:8]) + (rec.get("verdict"), c["time_to_verdict_s"], rec.get("proven_by"),
+                                                                             rec.get("equiv_version") or (self.cfg.get("equiv") or {}).get("version"), cid))   # decision 2026-09-15 evening item 5: the stack version stamped on every verdict
                 offsets = json.loads(rec.get("latency_offset_json") or "{}")
                 if rec.get("verdict") in ("proven", "proven_sim_only") and any(int(v) > 0 for v in offsets.values()):
                     c["class_final"] = "c2"

@@ -234,8 +234,8 @@ def test_candidate_coverage_counts_only(env):
     ev("H5", "k2", 3.0)          # wrong period: does not count
     cov = mod.candidate_coverage(cfg, "phase3", vis=vis, hid=hid, configs=["H1", "H5", "H2a"])
     assert cov["candidates_e4"] == 3 and cov["accepted"] == 2
-    assert cov["configs"]["H1"] == {"expected": 3, "ok": 3, "missing": 0, "accepted_expected": 2, "accepted_ok": 2, "accepted_missing": 0}
-    assert cov["configs"]["H5"] == {"expected": 3, "ok": 1, "missing": 2, "accepted_expected": 2, "accepted_ok": 1, "accepted_missing": 1}
+    assert cov["configs"]["H1"] == {"expected": 3, "ok": 3, "missing": 0, "skipped": 0, "accepted_expected": 2, "accepted_ok": 2, "accepted_missing": 0}
+    assert cov["configs"]["H5"] == {"expected": 3, "ok": 1, "missing": 2, "skipped": 0, "accepted_expected": 2, "accepted_ok": 1, "accepted_missing": 1}
     assert cov["configs"]["H2a"]["expected"] == 0        # no ASAP7 knee: nothing expected there
     assert "1.0" not in json.dumps(cov) and "k1" not in json.dumps(cov)
 
@@ -343,7 +343,8 @@ def test_signoff_h4_jobs_for_the_baseline_and_kept_candidates_with_a_netlist_onl
                                    "area_um2": None, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": "/h/h4acc", "hist_json": "{}"})
     assert {j["cand_id"] for j in mod.candidate_jobs(cfg, vis, "phase4", 1, hid=hid, configs=["H4"])} == {"k_audit"}
     cov = mod.candidate_coverage(cfg, "phase4", vis=vis, hid=hid, configs=["H4"])["configs"]["H4"]
-    assert cov == {"expected": 3, "ok": 1, "missing": 2, "accepted_expected": 2, "accepted_ok": 1, "accepted_missing": 1}   # kept candidates only (k_plain is not expected)
+    assert cov == {"expected": 3, "ok": 1, "missing": 1, "skipped": 1, "accepted_expected": 2, "accepted_ok": 1, "accepted_missing": 1}   # kept candidates only (k_plain is not expected); k_acc_slim lost its netlist before H4: skipped (decision 2026-09-15 evening, item 6)
+    assert mod.candidate_coverage(cfg, "phase4", vis=vis, hid=hid, configs=["H1"])["configs"]["H1"]["skipped"] == 0
     # the queue takes the pt pool for the dc_hidden kind
     q = Queue(cfg, vis, str(Path(cfg["project"]["results_dir"]) / "logs"), env={}, log=lambda m: None)
     jid = q.submit(jobs[0]["kind"], jobs[0]["payload"], design_id="rtllm_so", cand_id=jobs[0]["cand_id"], config="H4", timeout_sec=jobs[0]["timeout_sec"], pool=jobs[0]["pool"])

@@ -339,3 +339,19 @@ def test_sim_fail_vcd_sample_amendment_both_directions(tmp_path):
     # frac 1.0: every sim_fail VCD kept (the 2026-09-14 rule)
     cfg["retention"]["sim_fail_vcd_sample"] = {"frac": 1.0, "seed": 1}
     assert all(R.sim_fail_vcd_sampled(cfg, n) for n in names[:50])
+
+
+def test_kept_candidates_keep_the_e4_netlist_and_constraints_for_h4(tmp_path):
+    """Decision 2026-09-15 evening (item 6): the tiered retention never removes the E4 netlist and SDC of an accepted, archived
+    or audit-sample candidate (the H4 signoff reads them later); a non-kept candidate's netlist goes (both directions)."""
+    from src.eval import retention as R
+    cfg = tiered_cfg(on=True, audit=0.0)
+    job = make_dc(tmp_path / "keep", cand_id="c_acc")
+    res = R.slim_candidate(cfg, "c_acc", True, fit_dirs=[job])
+    assert res["kept_full"] and (job / "outputs/reports/netlist.v").exists() and (job / "outputs/reports/design.sdc").exists()
+    cfg_audit = tiered_cfg(on=True, audit=1.0)                                                   # every candidate is in the audit sample
+    job2 = make_dc(tmp_path / "audit", cand_id="c_aud")
+    assert R.slim_candidate(cfg_audit, "c_aud", False, fit_dirs=[job2])["kept_full"] and (job2 / "outputs/reports/netlist.v").exists()
+    job3 = make_dc(tmp_path / "drop", cand_id="c_no")
+    res3 = R.slim_candidate(cfg, "c_no", False, fit_dirs=[job3])
+    assert not res3["kept_full"] and not (job3 / "outputs/reports/netlist.v").exists() and (job3 / "outputs/reports/design.sdc").exists()

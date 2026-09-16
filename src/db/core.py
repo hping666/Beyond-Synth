@@ -41,6 +41,7 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
     ("candidates", "eq_job_id", "ALTER TABLE candidates ADD COLUMN eq_job_id TEXT"),
     ("candidates", "e4_job_id", "ALTER TABLE candidates ADD COLUMN e4_job_id TEXT"),
     ("candidates", "verdict", "ALTER TABLE candidates ADD COLUMN verdict TEXT"),
+    ("candidates", "equiv_version", "ALTER TABLE candidates ADD COLUMN equiv_version TEXT"),   # decision 2026-09-15 evening item 5: the equivalence stack stamped on every verdict
     ("candidates", "label", "ALTER TABLE candidates ADD COLUMN label TEXT"),
     ("candidates", "note", "ALTER TABLE candidates ADD COLUMN note TEXT"),
     ("candidates", "call_id", "ALTER TABLE candidates ADD COLUMN call_id TEXT"),

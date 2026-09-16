@@ -13,6 +13,7 @@ import pytest
 
 from src import config as C
 from src.db import core as db
+from src.search import scope as SC
 from src.search.archive import Archive, crowding_distance, dominates, pareto_front
 from src.search.bandit import ClassBandit
 from src.search.prescreen import decide
@@ -469,38 +470,47 @@ def _add_design_d2(env):
                            "t_d": t, "floor_class": "quiet", "floor_source": "measured", "pooled_min": t} for m, t in (("area", 0.003), ("wns", 0.001), ("power_saif", 0.014))])
 
 
-def test_scope_limited_rewriting_names_the_region_and_rejects_changes_outside_it(env):
-    """G5 item 1 (i): the suffix names the always block holding the critical endpoint register (y); an answer that changes the
-    other block (z) is labelled scope_violation before any tool runs (candidate and diagnosis rows, credit 0, the call
-    spent, no equivalence job); an answer that changes only the y block is issued normally and carries the region."""
+def test_scope_limited_rewriting_names_the_region_and_restores_changes_outside_it(env):
+    """G5 item 1 (i) as amended on the evening of 2026-09-15 (item 2): the suffix names the always block holding the critical
+    endpoint register (y); an answer that changes the other block (z) is spliced — the z block restored from D, the y rewrite
+    kept — issued into the pipeline and flagged (`scope_json.violations`, `state.scope_violations`), never discarded; an
+    answer that changes only the y block is issued normally without a flag."""
     cfg, conn, q, tmp_path = env
     _add_design_d2(env)
     from src.search.driver import SearchRun
-    bad = RTL_D2.replace("z <= x - 4'd1", "z <= x + 4'd3")                     # touches the z block: outside the scope
+    bad = RTL_D2.replace("z <= x - 4'd1", "z <= x + 4'd3")                     # touches only the z block: outside the scope -> restored, D again
+    mixed = RTL_D2.replace("y <= x + 4'd1", "y <= x + 4'd2").replace("z <= x - 4'd1", "z <= x + 4'd3")   # y rewritten, z touched -> z restored, issued with the flag
     good = RTL_D2.replace("y <= x + 4'd1", "y <= {x[3:1], ~x[0]}")            # touches only the y block
-    tr = ListTransport([bad, good])
-    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d2", seed=1, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=tr)
+    tr = ListTransport([bad, mixed, good])
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d2", seed=1, model="gpt-5.6-luna", K=1, N=3, queue=q, transport=tr)
     assert run.scope_on and run.repair_max == 1
     region, text = run.region_for(None)
     assert region["kind"] == "blocks" and region["registers"] == ["y"] and region["module"] == "d2" and "rewrite only the always block at line 2" in text
-    assert run.step() == "running" and run.state["calls"] == 2
+    assert run.step() == "running" and run.state["calls"] == 3
     rows = {r["cand_id"]: dict(r) for r in conn.execute("SELECT * FROM candidates WHERE run_id=?", (run.run_id,))}
-    viol = [r for r in rows.values() if r["label"] == "scope_violation"]
-    ok = [r for r in rows.values() if r["label"] is None]
-    assert len(viol) == 1 and len(ok) == 1 and viol[0]["eq_job_id"] is None and ok[0]["eq_job_id"]
-    sj = json.loads(viol[0]["scope_json"])
+    from src.analysis.repair import scope_flagged
+    viol = sorted([r for r in rows.values() if scope_flagged(r["scope_json"])], key=lambda r: r["label"] or "")
+    ok = [r for r in rows.values() if not scope_flagged(r["scope_json"])]
+    assert len(viol) == 2 and len(ok) == 1 and ok[0]["eq_job_id"] and ok[0]["label"] is None
+    issued, identical = viol[0], viol[1]
+    assert issued["eq_job_id"] and issued["label"] is None                                              # the mixed answer runs the pipeline on the spliced text
+    assert identical["label"] == "absorbed_identical" and identical["eq_job_id"] is None                # the z-only answer is D after the restoration: no evaluation, flag kept
+    assert conn.execute("SELECT COUNT(*) FROM diagnoses WHERE label='scope_violation'").fetchone()[0] == 0
+    sj = json.loads(issued["scope_json"])
     assert sj["violations"][0]["kind"] == "always" and sj["violations"][0]["line"] == 3 and sj["region"]["registers"] == ["y"]
-    d = dict(conn.execute("SELECT * FROM diagnoses WHERE cand_id=?", (viol[0]["cand_id"],)).fetchone())
-    assert d["label"] == "scope_violation" and d["credit"] == 0 and json.loads(d["evidence_json"])["n_violations"] == 1
-    assert json.loads(ok[0]["scope_json"])["region"]["kind"] == "blocks" and run.state["scope_violations"] == 1
-    assert run.state["feedback"][viol[0]["cand_id"]]["diagnosis"] == "scope_violation"
+    assert sj["spliced"]["restored_items"][0]["targets"] == ["z"]
+    stored = Path(issued["rtl_path"]).read_text()
+    assert "z <= x - 4'd1" in stored and "z <= x + 4'd3" not in stored and "y <= x + 4'd2" in stored   # D's z block restored, the y rewrite kept
+    assert json.loads(ok[0]["scope_json"])["region"]["kind"] == "blocks" and run.state["scope_violations"] == 2
+    assert run.state["cands"][issued["cand_id"]]["scope_flag"] and not run.state["cands"][ok[0]["cand_id"]]["scope_flag"]
+    assert conn.execute("SELECT SUM" + "(" + SC.SCOPE_FLAG_SQL + ") FROM candidates WHERE run_id=?", (run.run_id,)).fetchone()[0] == 2
     req = json.loads(Path(sorted((tmp_path / "results" / "llm" / run.run_id).glob("c*.json"))[0]).read_text())
     assert "Scope of this rewrite" in req["request"]["input"] and "textually unchanged" in req["request"]["input"]
     # switched off: the same answers are all issued and no scope text is sent
     cfg["exp5"]["correctness_aids"]["scope_limited_rewriting"] = False
     run2 = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d2", seed=2, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=ListTransport([bad, good]))
     assert run2.region_for(None) == (None, None) and run2.step() == "running"
-    assert conn.execute("SELECT COUNT(*) FROM candidates WHERE run_id=? AND eq_job_id IS NOT NULL", (run2.run_id,)).fetchone()[0] == 2
+    assert conn.execute("SELECT COUNT(*) FROM candidates WHERE run_id=? AND eq_job_id IS NOT NULL", (run2.run_id,)).fetchone()[0] == 2   # no scope: the z edit is a candidate of its own
     req2 = json.loads(Path(sorted((tmp_path / "results" / "llm" / run2.run_id).glob("c*.json"))[0]).read_text())
     assert "Scope of this rewrite" not in req2["request"]["input"]
 
@@ -790,15 +800,19 @@ def test_module_scope_answers_with_only_the_region_module_are_spliced_and_issued
     assert region["kind"] == "module" and region["module"] == "sub" and "you may return only this module" in text
     assert run.step() == "running"
     rows = {r["cand_id"]: dict(r) for r in conn.execute("SELECT * FROM candidates WHERE run_id=?", (run.run_id,))}
+    from src.analysis.repair import scope_flagged
     issued = [r for r in rows.values() if r["eq_job_id"]]
-    viol = [r for r in rows.values() if r["label"] == "scope_violation"]
-    assert len(issued) == 1 and len(viol) == 2 and len(rows) == 3                                  # region-only: issued; top-only and changed-other: violations (the top module is outside the region)
+    dups = [r for r in rows.values() if r["label"] == "duplicate"]
+    assert len(issued) == 1 and len(dups) == 1 and len(rows) == 2                                  # region-only: issued (D's top added); changed-other: after D's top is restored it is the same file -> duplicate, flag kept; top-only lacks the region module: unusable
     sj = json.loads(issued[0]["scope_json"])
-    assert sj["spliced"] == ["d3"] and set(sj["region"]["registers"]) == {"s"}
+    assert sj["spliced"]["added_modules"] == ["d3"] and set(sj["region"]["registers"]) == {"s"} and scope_flagged(issued[0]["scope_json"])
     stored = Path(issued[0]["rtl_path"]).read_text()
     assert "module d3(" in stored and "assign y = s;" in stored and "~a[0]" in stored                # the full file: the rewritten sub plus D's top
-    assert not list(run.dir.glob("unusable_*.json"))                                                # nothing unusable: the splice made every answer a full file
-    assert all(json.loads(v["scope_json"])["violations"][0]["module"] == "d3" for v in viol)
+    sj2 = json.loads(dups[0]["scope_json"])
+    assert sj2["spliced"]["restored_modules"] == ["d3"] and sj2["violations"][0]["module"] == "d3"   # the changed top was restored from D before the duplicate check
+    unusable = list(run.dir.glob("unusable_*.json"))
+    assert len(unusable) == 1 and "does not contain the region module sub" in json.loads(unusable[0].read_text())["unusable"]
+    assert run.state["scope_violations"] == 2
     superseded = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d3", seed=2, model="gpt-5.6-luna", K=1, N=1, queue=q, transport=ListTransport([region_only]))
     conn.execute("UPDATE runs SET status='superseded' WHERE run_id=?", (superseded.run_id,))
     assert superseded.run(sleep=lambda s: None) == "superseded" and superseded.state["calls"] == 0     # a stopped run never continues when its job is retried

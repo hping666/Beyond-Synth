@@ -49,7 +49,7 @@ def once():
     r = subprocess.run([PY, os.path.join(ROOT, "scripts", "phase5_main.py"), "launch"], capture_output=True, text=True)
     log(f"launch rc={r.returncode}: {(r.stdout + r.stderr)[-1500:]}")
     if r.returncode == 0:
-        h = subprocess.run([PY, os.path.join(ROOT, "scripts", "hidden_loop.py"), "start", "--exp", "phase5"], capture_output=True, text=True)
+        h = subprocess.run([PY, os.path.join(ROOT, "scripts", "hidden_loop.py"), "start"], capture_output=True, text=True)
         log(f"hidden loop: {(h.stdout + h.stderr).strip()[-300:]}")
         return "launched"
     return "no-go"

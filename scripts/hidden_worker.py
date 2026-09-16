@@ -390,7 +390,7 @@ def candidate_coverage(cfg, exp="phase3", vis=None, hid=None, configs=None):
     for config in configs:
         cdef = cfg["configs"][config]
         lib = cdef.get("lib")
-        e = {"expected": 0, "ok": 0, "missing": 0, "accepted_expected": 0, "accepted_ok": 0, "accepted_missing": 0}
+        e = {"expected": 0, "ok": 0, "missing": 0, "skipped": 0, "accepted_expected": 0, "accepted_ok": 0, "accepted_missing": 0}
         for r in rows:
             clock_ns = cdef.get("clock_ns") or (phis.get(r["design_id"]) or {}).get(lib)
             if clock_ns is None:
@@ -398,8 +398,9 @@ def candidate_coverage(cfg, exp="phase3", vis=None, hid=None, configs=None):
             if config in signoff and not (r["accepted"] or r["in_archive"] or is_audit_sample(r["cand_id"], audit_frac)):
                 continue   # signoff certifies accepted candidates and the audit sample only (spec 06)
             have = hid.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (r["design_id"], r["cand_id"], config, float(clock_ns))).fetchone() is not None
+            skipped = (not have) and config in signoff and signoff_source(vis, r["design_id"], r["cand_id"], None, cdef, float(clock_ns)) is None   # the E4 netlist was pruned before the signoff run (decision 2026-09-15 evening, item 6): skipped, not missing
             e["expected"] += 1
-            e["ok" if have else "missing"] += 1
+            e["ok" if have else ("skipped" if skipped else "missing")] += 1
             if r["accepted"]:
                 e["accepted_expected"] += 1
                 e["accepted_ok" if have else "accepted_missing"] += 1
