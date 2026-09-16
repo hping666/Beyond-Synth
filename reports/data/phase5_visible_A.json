@@ -1,5 +1,5 @@
 {
- "cfg_hash": "b326eaa98549",
+ "cfg_hash": "90f0c83611ef",
  "classes": {},
  "correctness": {
   "large|gpt-5.6-luna|cktevo_hsm__hsm": {
@@ -10,8 +10,8 @@
   },
   "large|gpt-5.6-luna|cktevo_nn_engine__spikeNeuron8_H7": {
    "cands": 60,
-   "proven": 5,
-   "proven_rate": 0.0833,
+   "proven": 8,
+   "proven_rate": 0.1333,
    "runs": 3
   },
   "large|gpt-5.6-luna|cktevo_risc__btb": {
@@ -46,14 +46,14 @@
   },
   "large|gpt-5.6-terra|cktevo_nn_engine__spikeNeuron8_H7": {
    "cands": 286,
-   "proven": 104,
-   "proven_rate": 0.3636,
+   "proven": 134,
+   "proven_rate": 0.4685,
    "runs": 15
   },
   "large|gpt-5.6-terra|cktevo_risc__btb": {
    "cands": 230,
-   "proven": 112,
-   "proven_rate": 0.487,
+   "proven": 161,
+   "proven_rate": 0.7,
    "runs": 15
   },
   "large|gpt-5.6-terra|drrtl_LSTM": {
@@ -64,8 +64,8 @@
   },
   "large|gpt-5.6-terra|drrtl_aes": {
    "cands": 230,
-   "proven": 76,
-   "proven_rate": 0.3304,
+   "proven": 92,
+   "proven_rate": 0.4,
    "runs": 15
   },
   "large|gpt-5.6-terra|drrtl_tv80": {
@@ -142,6 +142,10 @@
    "by_dc_hours": [
     {
      "dc_hours": 0.25,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 0.5,
      "mean_best_gain": 0.0
     }
    ]
@@ -270,7 +274,7 @@
     },
     {
      "calls": 60,
-     "mean_best_gain": 0.00149,
+     "mean_best_gain": 0.00173,
      "runs_with_retained": 2
     }
    ],
@@ -318,6 +322,46 @@
     {
      "dc_hours": 2.75,
      "mean_best_gain": 0.00149
+    },
+    {
+     "dc_hours": 3.0,
+     "mean_best_gain": 0.00149
+    },
+    {
+     "dc_hours": 3.25,
+     "mean_best_gain": 0.00154
+    },
+    {
+     "dc_hours": 3.5,
+     "mean_best_gain": 0.00173
+    },
+    {
+     "dc_hours": 3.75,
+     "mean_best_gain": 0.00173
+    },
+    {
+     "dc_hours": 4.0,
+     "mean_best_gain": 0.00173
+    },
+    {
+     "dc_hours": 4.25,
+     "mean_best_gain": 0.00173
+    },
+    {
+     "dc_hours": 4.5,
+     "mean_best_gain": 0.00173
+    },
+    {
+     "dc_hours": 4.75,
+     "mean_best_gain": 0.00173
+    },
+    {
+     "dc_hours": 5.0,
+     "mean_best_gain": 0.00173
+    },
+    {
+     "dc_hours": 5.25,
+     "mean_best_gain": 0.00173
     }
    ]
   },
@@ -423,6 +467,34 @@
     },
     {
      "dc_hours": 2.5,
+     "mean_best_gain": 0.00098
+    },
+    {
+     "dc_hours": 2.75,
+     "mean_best_gain": 0.00098
+    },
+    {
+     "dc_hours": 3.0,
+     "mean_best_gain": 0.00098
+    },
+    {
+     "dc_hours": 3.25,
+     "mean_best_gain": 0.00098
+    },
+    {
+     "dc_hours": 3.5,
+     "mean_best_gain": 0.00098
+    },
+    {
+     "dc_hours": 3.75,
+     "mean_best_gain": 0.00098
+    },
+    {
+     "dc_hours": 4.0,
+     "mean_best_gain": 0.00098
+    },
+    {
+     "dc_hours": 4.25,
      "mean_best_gain": 0.00098
     }
    ]
@@ -711,8 +783,8 @@
    "runs": 3
   },
   "large|gpt-5.6-terra|B1_E4|cktevo_risc__btb": {
-   "best_retained_area_gain": 0.01925,
-   "retained": 11,
+   "best_retained_area_gain": 0.02359,
+   "retained": 20,
    "runs": 3
   },
   "large|gpt-5.6-terra|B1_E4|drrtl_LSTM": {
@@ -742,7 +814,7 @@
   },
   "large|gpt-5.6-terra|B2|cktevo_risc__btb": {
    "best_retained_area_gain": 0.01763,
-   "retained": 14,
+   "retained": 17,
    "runs": 3
   },
   "large|gpt-5.6-terra|B2|drrtl_LSTM": {
@@ -772,7 +844,7 @@
   },
   "large|gpt-5.6-terra|DrRTL_reimpl|cktevo_risc__btb": {
    "best_retained_area_gain": 0.00247,
-   "retained": 7,
+   "retained": 9,
    "runs": 3
   },
   "large|gpt-5.6-terra|DrRTL_reimpl|drrtl_LSTM": {
@@ -824,8 +896,8 @@
  "equiv_version": "phase5",
  "exp": "phase5",
  "floor_version": "phase4",
- "generated_at": "2026-09-16T11:00",
- "git_sha": "34c0dfe9bb75",
+ "generated_at": "2026-09-16T14:01",
+ "git_sha": "783e525356f2",
  "groups": {
   "large|gpt-5.6-luna|M": {
    "accepted": 0,
@@ -839,7 +911,7 @@
    "cands": 240,
    "classes": {
     "a": 47,
-    "b": 138,
+    "b": 136,
     "c1": 40,
     "d": 12
    },
@@ -850,7 +922,7 @@
     "b->a": 6,
     "b->b": 16,
     "c1->a": 8,
-    "c1->b": 20,
+    "c1->b": 18,
     "c1->c1": 19,
     "d->a": 21,
     "d->b": 70,
@@ -860,25 +932,25 @@
     "free->b": 21,
     "free->c1": 4
    },
-   "dc_h": 0.53,
-   "done": 0,
-   "duplicate": 3,
+   "dc_h": 0.99,
+   "done": 4,
+   "duplicate": 5,
    "error": 0,
-   "falsified": 2,
+   "falsified": 3,
    "gain_retained_max": null,
    "gain_retained_median": null,
-   "inconclusive": 1,
+   "inconclusive": 3,
    "latency_mapped": 0,
    "model": "gpt-5.6-luna",
-   "pending": 23,
+   "pending": 0,
    "planned": 18,
    "prescreened": 39,
-   "proven": 2,
-   "proven_per_call": 0.0083,
+   "proven": 3,
+   "proven_per_call": 0.0125,
    "proven_sim_only": 0,
    "rejected": 48,
    "repairs": 64,
-   "repairs_proven": 1,
+   "repairs_proven": 2,
    "retained": 0,
    "retained_per_100_calls": 0.0,
    "retained_per_dc_hour": 0.0,
@@ -887,29 +959,29 @@
    "role": "contrast",
    "runs": 18,
    "runs_with_retained": 0,
-   "scope_flags": 237,
-   "sim_fail": 122,
+   "scope_flags": 235,
+   "sim_fail": 139,
    "stored": {
-    "absorbed_identical": 1,
+    "absorbed_identical": 2,
     "harmful": 1,
-    "nonequiv": 173
+    "nonequiv": 193
    },
    "tier": "large",
    "ttv": {
-    "median": 13159.1,
-    "n": 175,
-    "q95": 27148.9
+    "median": 15046.1,
+    "n": 196,
+    "q95": 28649.1
    },
    "uniform": {
-    "absorbed_identical": 1,
+    "absorbed_identical": 2,
     "harmful": 1
    },
    "unusable": 0,
    "usd": 1.06,
-   "vcf_h": 0.36
+   "vcf_h": 5.36
   },
   "large|gpt-5.6-terra|B0": {
-   "accepted": 15,
+   "accepted": 18,
    "arm": "B0",
    "best_gain_mean": 0.0,
    "best_gain_median": 0.0,
@@ -946,24 +1018,24 @@
     "free->d": 15
    },
    "dc_h": 0.0,
-   "done": 2,
+   "done": 3,
    "duplicate": 11,
-   "error": 1,
-   "falsified": 4,
+   "error": 2,
+   "falsified": 11,
    "gain_retained_max": null,
    "gain_retained_median": null,
-   "inconclusive": 84,
+   "inconclusive": 108,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 147,
+   "pending": 72,
    "planned": 18,
    "prescreened": 0,
-   "proven": 53,
-   "proven_per_call": 0.1113,
+   "proven": 66,
+   "proven_per_call": 0.1387,
    "proven_sim_only": 0,
-   "rejected": 70,
+   "rejected": 72,
    "repairs": 60,
-   "repairs_proven": 3,
+   "repairs_proven": 4,
    "retained": 0,
    "retained_per_100_calls": 0.0,
    "retained_per_dc_hour": null,
@@ -973,27 +1045,27 @@
    "runs": 18,
    "runs_with_retained": 0,
    "scope_flags": 375,
-   "sim_fail": 106,
+   "sim_fail": 134,
    "stored": {
-    "improved": 38,
+    "improved": 51,
     "no_gain": 15,
-    "nonequiv": 265
+    "nonequiv": 327
    },
    "tier": "large",
    "ttv": {
-    "median": 12401.5,
-    "n": 318,
-    "q95": 25859.8
+    "median": 14423.3,
+    "n": 393,
+    "q95": 26943.6
    },
    "uniform": {},
    "unusable": 0,
    "usd": 16.97,
-   "vcf_h": 72.19
+   "vcf_h": 85.87
   },
   "large|gpt-5.6-terra|B1_E4": {
-   "accepted": 48,
+   "accepted": 74,
    "arm": "B1_E4",
-   "best_gain_mean": 0.00149,
+   "best_gain_mean": 0.00173,
    "best_gain_median": 0.0,
    "block_answers": 0,
    "block_flag_rate": null,
@@ -1028,59 +1100,60 @@
     "free->c1": 9,
     "free->d": 17
    },
-   "dc_h": 8.93,
-   "done": 2,
+   "dc_h": 12.78,
+   "done": 5,
    "duplicate": 27,
    "error": 1,
-   "falsified": 10,
-   "gain_retained_max": 0.01925,
-   "gain_retained_median": 0.00764,
-   "inconclusive": 97,
+   "falsified": 13,
+   "gain_retained_max": 0.02359,
+   "gain_retained_median": 0.00947,
+   "inconclusive": 119,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 150,
+   "pending": 56,
    "planned": 18,
    "prescreened": 0,
-   "proven": 88,
-   "proven_per_call": 0.163,
+   "proven": 123,
+   "proven_per_call": 0.2278,
    "proven_sim_only": 0,
-   "rejected": 68,
+   "rejected": 70,
    "repairs": 54,
-   "repairs_proven": 5,
-   "retained": 13,
-   "retained_per_100_calls": 2.407,
-   "retained_per_dc_hour": 1.455,
-   "retained_per_run": 0.722,
-   "retained_per_usd": 0.573,
+   "repairs_proven": 7,
+   "retained": 22,
+   "retained_per_100_calls": 4.074,
+   "retained_per_dc_hour": 1.721,
+   "retained_per_run": 1.222,
+   "retained_per_usd": 0.969,
    "role": "main",
    "runs": 18,
    "runs_with_retained": 2,
    "scope_flags": 383,
-   "sim_fail": 99,
+   "sim_fail": 131,
    "stored": {
-    "improved": 61,
+    "improved": 93,
     "no_gain": 21,
-    "nonequiv": 275
+    "nonequiv": 334
    },
    "tier": "large",
    "ttv": {
-    "median": 12507.1,
-    "n": 363,
-    "q95": 27105.4
+    "median": 14453.0,
+    "n": 457,
+    "q95": 27123.2
    },
    "uniform": {
+    "absorbed": 1,
     "absorbed_identical": 14,
-    "harmful": 38,
+    "harmful": 58,
     "noise": 5,
-    "retained": 13,
-    "tradeoff": 12
+    "retained": 22,
+    "tradeoff": 14
    },
    "unusable": 0,
    "usd": 22.71,
-   "vcf_h": 60.22
+   "vcf_h": 93.14
   },
   "large|gpt-5.6-terra|B2": {
-   "accepted": 14,
+   "accepted": 15,
    "arm": "B2",
    "best_gain_mean": 0.00098,
    "best_gain_median": 0.0,
@@ -1116,59 +1189,59 @@
     "free->c1": 9,
     "free->d": 17
    },
-   "dc_h": 7.01,
-   "done": 2,
+   "dc_h": 9.51,
+   "done": 5,
    "duplicate": 3,
    "error": 0,
-   "falsified": 12,
+   "falsified": 16,
    "gain_retained_max": 0.01763,
    "gain_retained_median": 0.00602,
-   "inconclusive": 98,
+   "inconclusive": 127,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 104,
+   "pending": 35,
    "planned": 18,
    "prescreened": 0,
-   "proven": 59,
-   "proven_per_call": 0.1229,
+   "proven": 85,
+   "proven_per_call": 0.1771,
    "proven_sim_only": 0,
    "rejected": 69,
    "repairs": 81,
-   "repairs_proven": 8,
-   "retained": 14,
-   "retained_per_100_calls": 2.917,
-   "retained_per_dc_hour": 1.997,
-   "retained_per_run": 0.778,
-   "retained_per_usd": 0.79,
+   "repairs_proven": 10,
+   "retained": 17,
+   "retained_per_100_calls": 3.542,
+   "retained_per_dc_hour": 1.787,
+   "retained_per_run": 0.944,
+   "retained_per_usd": 0.959,
    "role": "main",
    "runs": 18,
    "runs_with_retained": 1,
    "scope_flags": 387,
-   "sim_fail": 135,
+   "sim_fail": 145,
    "stored": {
-    "improved": 25,
-    "no_gain": 30,
-    "nonequiv": 314
+    "improved": 32,
+    "no_gain": 43,
+    "nonequiv": 357
    },
    "tier": "large",
    "ttv": {
-    "median": 13552.9,
-    "n": 373,
-    "q95": 24796.2
+    "median": 15145.6,
+    "n": 442,
+    "q95": 26632.1
    },
    "uniform": {
-    "absorbed_identical": 16,
-    "harmful": 11,
-    "noise": 9,
-    "retained": 14,
-    "tradeoff": 5
+    "absorbed_identical": 22,
+    "harmful": 18,
+    "noise": 10,
+    "retained": 17,
+    "tradeoff": 8
    },
    "unusable": 0,
    "usd": 17.72,
-   "vcf_h": 59.37
+   "vcf_h": 93.65
   },
   "large|gpt-5.6-terra|DrRTL_reimpl": {
-   "accepted": 40,
+   "accepted": 42,
    "arm": "DrRTL_reimpl",
    "best_gain_mean": 0.00014,
    "best_gain_median": 0.0,
@@ -1189,56 +1262,57 @@
     "free->c1": 3,
     "free->free": 2
    },
-   "dc_h": 11.07,
-   "done": 4,
+   "dc_h": 12.85,
+   "done": 6,
    "duplicate": 33,
    "error": 1,
    "falsified": 5,
    "gain_retained_max": 0.00247,
    "gain_retained_median": -0.0016,
-   "inconclusive": 75,
+   "inconclusive": 91,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 76,
+   "pending": 14,
    "planned": 18,
    "prescreened": 0,
-   "proven": 92,
-   "proven_per_call": 0.1917,
+   "proven": 113,
+   "proven_per_call": 0.2354,
    "proven_sim_only": 0,
-   "rejected": 58,
+   "rejected": 61,
    "repairs": 49,
-   "repairs_proven": 2,
-   "retained": 7,
-   "retained_per_100_calls": 1.458,
-   "retained_per_dc_hour": 0.632,
-   "retained_per_run": 0.389,
-   "retained_per_usd": 0.403,
+   "repairs_proven": 5,
+   "retained": 9,
+   "retained_per_100_calls": 1.875,
+   "retained_per_dc_hour": 0.701,
+   "retained_per_run": 0.5,
+   "retained_per_usd": 0.518,
    "role": "main",
    "runs": 18,
    "runs_with_retained": 1,
    "scope_flags": 308,
-   "sim_fail": 68,
+   "sim_fail": 90,
    "stored": {
-    "improved": 49,
-    "no_gain": 28,
-    "nonequiv": 207
+    "improved": 52,
+    "no_gain": 43,
+    "nonequiv": 248
    },
    "tier": "large",
    "ttv": {
-    "median": 13499.3,
-    "n": 299,
-    "q95": 23432.6
+    "median": 15157.0,
+    "n": 361,
+    "q95": 25775.4
    },
    "uniform": {
     "absorbed": 2,
     "absorbed_identical": 1,
-    "harmful": 44,
-    "noise": 23,
-    "retained": 7
+    "harmful": 58,
+    "noise": 24,
+    "retained": 9,
+    "tradeoff": 1
    },
    "unusable": 3,
    "usd": 17.39,
-   "vcf_h": 67.83
+   "vcf_h": 94.89
   },
   "large|gpt-5.6-terra|M": {
    "accepted": 0,
@@ -1268,22 +1342,22 @@
     "free->c1": 1
    },
    "dc_h": 0.0,
-   "done": 1,
+   "done": 2,
    "duplicate": 0,
    "error": 0,
    "falsified": 0,
    "gain_retained_max": null,
    "gain_retained_median": null,
-   "inconclusive": 43,
+   "inconclusive": 49,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 50,
+   "pending": 11,
    "planned": 18,
    "prescreened": 0,
    "proven": 0,
    "proven_per_call": 0.0,
    "proven_sim_only": 0,
-   "rejected": 8,
+   "rejected": 10,
    "repairs": 31,
    "repairs_proven": 0,
    "retained": 0,
@@ -1295,20 +1369,20 @@
    "runs": 18,
    "runs_with_retained": 0,
    "scope_flags": 135,
-   "sim_fail": 79,
+   "sim_fail": 110,
    "stored": {
-    "nonequiv": 130
+    "nonequiv": 169
    },
    "tier": "large",
    "ttv": {
-    "median": 16959.7,
-    "n": 130,
-    "q95": 28178.4
+    "median": 20610.6,
+    "n": 169,
+    "q95": 28527.3
    },
    "uniform": {},
    "unusable": 0,
    "usd": 8.2,
-   "vcf_h": 23.06
+   "vcf_h": 37.53
   }
  },
  "planned": {
@@ -1346,11 +1420,11 @@
    "role": "main",
    "run_id": "r20260915_214001_evo_hsm__hsm_-terra_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
    "usd": 2.5396,
-   "vcf_h": 7.63
+   "vcf_h": 15.334
   },
   {
    "arm": "B1_E4",
@@ -1364,11 +1438,11 @@
    "role": "main",
    "run_id": "r20260915_214002_evo_hsm__hsm_-terra_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
    "usd": 2.6856,
-   "vcf_h": 10.151
+   "vcf_h": 22.45
   },
   {
    "arm": "B2",
@@ -1418,10 +1492,10 @@
    "role": "contrast",
    "run_id": "r20260915_214858_evo_hsm__hsm_M_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
-   "usd": 0.2335,
+   "usd": 0.2635,
    "vcf_h": 0.0
   },
   {
@@ -1436,11 +1510,11 @@
    "role": "main",
    "run_id": "r20260915_214858_evo_hsm__hsm_M_-terra_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
-   "usd": 2.5168,
-   "vcf_h": 5.128
+   "usd": 2.7711,
+   "vcf_h": 19.599
   },
   {
    "arm": "B0",
@@ -1472,11 +1546,11 @@
    "role": "main",
    "run_id": "r20260915_214858_evo_hsm__hsm_B1_E4_-terra_s2",
    "seed": 2,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
    "usd": 2.5608,
-   "vcf_h": 10.159
+   "vcf_h": 19.567
   },
   {
    "arm": "B2",
@@ -1490,11 +1564,11 @@
    "role": "main",
    "run_id": "r20260915_214858_evo_hsm__hsm_B2_-terra_s2",
    "seed": 2,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
    "usd": 2.6706,
-   "vcf_h": 7.635
+   "vcf_h": 13.577
   },
   {
    "arm": "DrRTL_reimpl",
@@ -1526,10 +1600,10 @@
    "role": "contrast",
    "run_id": "r20260915_214858_evo_hsm__hsm_M_6-luna_s2",
    "seed": 2,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
-   "usd": 0.24,
+   "usd": 0.2699,
    "vcf_h": 0.0
   },
   {
@@ -1566,7 +1640,7 @@
    "tier": "large",
    "unusable": 0,
    "usd": 2.6846,
-   "vcf_h": 0.857
+   "vcf_h": 6.839
   },
   {
    "arm": "B1_E4",
@@ -1598,11 +1672,11 @@
    "role": "main",
    "run_id": "r20260915_214859_evo_hsm__hsm_B2_-terra_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
    "usd": 2.7358,
-   "vcf_h": 2.554
+   "vcf_h": 15.274
   },
   {
    "arm": "DrRTL_reimpl",
@@ -1620,7 +1694,7 @@
    "tier": "large",
    "unusable": 0,
    "usd": 2.8107,
-   "vcf_h": 1.711
+   "vcf_h": 9.428
   },
   {
    "arm": "M",
@@ -1634,11 +1708,11 @@
    "role": "contrast",
    "run_id": "r20260915_214859_evo_hsm__hsm_M_6-luna_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
    "usd": 0.2619,
-   "vcf_h": 0.0
+   "vcf_h": 0.859
   },
   {
    "arm": "M",
@@ -1681,25 +1755,25 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.652,
+   "dc_h": 5.232,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 12,
    "model": "gpt-5.6-terra",
    "role": "main",
    "run_id": "r20260915_214859_keNeuron8_H7_B1_E4_-terra_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
    "usd": 4.3136,
-   "vcf_h": 4.021
+   "vcf_h": 15.232
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.48,
+   "dc_h": 4.208,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 12,
    "model": "gpt-5.6-terra",
@@ -1724,29 +1798,29 @@
    "role": "main",
    "run_id": "r20260915_214859_keNeuron8_H7_DrRTL__-terra_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
    "usd": 4.0888,
-   "vcf_h": 1.223
+   "vcf_h": 11.901
   },
   {
    "arm": "M",
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 0.535,
+   "dc_h": 0.986,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 11,
    "model": "gpt-5.6-luna",
    "role": "contrast",
    "run_id": "r20260915_214859_keNeuron8_H7_M_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
    "usd": 0.2646,
-   "vcf_h": 0.355
+   "vcf_h": 4.503
   },
   {
    "arm": "M",
@@ -2002,10 +2076,10 @@
   },
   {
    "arm": "B1_E4",
-   "best_retained_area_gain": 0.01925,
+   "best_retained_area_gain": 0.02359,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.119,
+   "dc_h": 3.389,
    "design_id": "cktevo_risc__btb",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -2023,36 +2097,36 @@
    "best_retained_area_gain": 0.01763,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.218,
+   "dc_h": 2.991,
    "design_id": "cktevo_risc__btb",
    "gens": 11,
    "model": "gpt-5.6-terra",
    "role": "main",
    "run_id": "r20260915_214900_vo_risc__btb_B2_-terra_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 0,
    "usd": 1.9146,
-   "vcf_h": 2.861
+   "vcf_h": 18.481
   },
   {
    "arm": "DrRTL_reimpl",
    "best_retained_area_gain": 0.00247,
    "calls": 60,
    "cands": 50,
-   "dc_h": 2.088,
+   "dc_h": 3.865,
    "design_id": "cktevo_risc__btb",
    "gens": 10,
    "model": "gpt-5.6-terra",
    "role": "main",
    "run_id": "r20260915_214900_vo_risc__btb_DrRTL__-terra_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "large",
    "unusable": 1,
    "usd": 1.9615,
-   "vcf_h": 3.886
+   "vcf_h": 12.543
   },
   {
    "arm": "M",
