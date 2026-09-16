@@ -4,9 +4,9 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
-**Phase 5 launch: the probe finished at 20:5x (12 of 12; final table in DECISIONS "Launch attempt of 21:05 aborted"); the watcher's launch of 21:05 aborted on its first run — arm B0 needs a Yosys (Y) baseline at Φ_main and 23 of the 30 starting points had none — before any submission (one orphan run row superseded, seats untouched, hidden loop not started). The 23 Y baselines were submitted at 21:07; 22 are in, the last one (cktevo_nn_engine__thresholds_128x4096, a heavy Yosys run, 20-minute timeout) was still running at 21:20. `phase5_main.py prelaunch` now runs a preflight of every (arm, design) pair; a background step re-runs it when that job ends and restarts the watcher on GO (every other check holds: disk 44.0 GB against 59.8, LLM 447.8 / 600 USD, VC Formal 2 192 / 4 200 h, DC 1 448 / 4 000 h). If that Y run fails, the user decides about the design (B0 cannot run on it without a Y baseline).**
+**Phase 5 is running since 21:48 (DECISIONS "Phase 5 launched at 21:48"): 609 runs (luna 375, terra 234; the pair B0 / cktevo_nn_engine__thresholds_128x4096 excluded — Yosys cannot evaluate that design), 16 search runs at a time (own pool), seat targets 50 / 50, daemon pid 1037487, hidden loop running (registers Phase 5 and probe candidates every 30 min, relocation check first). Watch with `python3 scripts/phase5_main.py status` (per model / arm / tier; disk guard; block-level scope flags per arm) and `scripts/status.py`. After Phase 5: seat targets back to 24 / 24 (`queue.dc_seats_target`, `vcf_seats_target`), `report_hidden.py` only after the completion marker.**
 
-What the launch will do on GO: 612 runs per `exp5.model_assignment` (large tier: terra on every arm = 90, luna on M as the contrast = 18; medium / small: luna on every arm = 360, terra on M / B2 = 144), large tier first; `queue.vcf_seats_target` and `dc_seats_target` set to 50 and the daemon restarted; `scripts/hidden_loop.py` registering the hidden configurations of the Phase 5 and probe candidates every 30 minutes (accepted + audit sample; 20 % audit for H1 / H3 / H5) and running the relocation check (`scripts/relocate_hidden_raw.py auto`) every pass. Stamps: equiv_version phase5, floor_version phase4.
+What the launch did (21:48): 609 runs per `exp5.model_assignment` (large tier: terra on every arm = 90, luna on M as the contrast = 18; medium / small: luna on every arm = 360, terra on M / B2 = 144), large tier first; `queue.vcf_seats_target` and `dc_seats_target` set to 50 and the daemon restarted; `scripts/hidden_loop.py` registering the hidden configurations of the Phase 5 and probe candidates every 30 minutes (accepted + audit sample; 20 % audit for H1 / H3 / H5) and running the relocation check (`scripts/relocate_hidden_raw.py auto`) every pass. Stamps: equiv_version phase5, floor_version phase4.
 
 **Arm `DrRTL_reimpl` (PLAN 5.2) implemented at 17:55 (commit a00c7d4; DECISIONS "Arm DrRTL_reimpl implemented"):** Dr. RTL's optimizer role, the released skill library in the prefix, per call the ten worst E4 paths with slack and the critical path's cells plus a rotating diversity strategy, and one skill-extraction call per built round charged to the equal-call budget; B2's fitness and archive. The driver still refuses an arm without a definition. **H4 (PrimeTime / PrimePower) wired into the hidden worker at 18:12 (DECISIONS "H4 ... wired"):** signoff records for D baselines and accepted / audit-sample candidates in the queue's pt pool; the hidden loop covers it for Phase 5.
 
@@ -30,13 +30,14 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 | Pre-probe review | closed 2026-09-15 | static_complement.md v1 approved; prefix fixes applied | probe go; Phase 5 launch pre-authorised under the caps |
 | Evening decisions 2026-09-15 | items 2–6 done | DECISIONS "Implementation of the evening decisions" | recorded verbatim |
 | Storage decision 2026-09-15 | closed | DECISIONS "User storage decision" / "Implementation of the storage decision" | option D + 20 % audit, 5 GB reserve, relocation contingency |
-| Phase 5 launch | **pending the last Y baseline** (21:05 attempt aborted on a missing Y baseline; preflight added) | reports/data/phase5_prelaunch.md, reports/data/phase5_probe_report.md | none needed unless the Y run of thresholds_128x4096 fails |
+| Phase 5 launch | **launched 21:48** (609 runs; 21:05 and 21:40 attempts aborted before submission: missing Y baselines, run-id collision) | reports/data/phase5_prelaunch.md, reports/data/phase5_probe_report.md | the B0 / thresholds_128x4096 exclusion is an operator deviation the user may reverse |
 | G6+ | not reached | — | — |
 
 ## In-flight work
 
 - **Probe runs** (exp phase5_probe, 12 runs, search jobs on the local pool): gpt-5.6-terra and gpt-5.6-sol × 3 designs × 2 seeds, K 6 × N 5, cap 120 USD (10 USD spent at 17:42 including the 6.7 USD of the superseded first launch). `python3 scripts/phase5_probe.py status`.
-- **Autolaunch watcher**: stopped itself at 21:05 (no-go after the aborted launch); restarted automatically by the background step once the last Y baseline is in and the pre-launch check is GO (`python3 scripts/phase5_autolaunch.py status`); it then launches and starts the hidden loop.
+- **Autolaunch watcher**: no longer needed (launch done); its launched-before guard stops it at once.
+- **Phase 5 runs**: `python3 scripts/phase5_main.py status`; a killed run (e.g. a transient API error beyond the retry budget) keeps its state and is resubmitted as a `search` job with `{"run_id": ...}` (see the sol probe run of 19:22 in DECISIONS).
 - **Queue daemon**: restarted at 18:26 (pid 591986) so that it knows the new `search` pool (`queue.search_max` 16, DECISIONS "Search runs get their own queue pool"): search runs no longer share the local pool with the yosys fitness jobs that arm B0 runs wait for (a deadlock at the Phase 5 scale). Targets 24 / 24 until the launch sets 50 / 50 and restarts it again.
 - **Smoke runs before the launch (rule 7, exp `smoke`, luna, K 2 × N 3)**: `DrRTL_reimpl` on drrtl_controller finished 18:23 — the arm works end to end (timing block with the 10 worst paths and the critical cells, rotating strategy, skill-extraction call parsed into two [avoid] entries fed to round 2; 0.03 USD) but 3 of its 4 first-round answers were **scope violations** (the path list points at endpoints outside the block-level region, and the model rewrote those blocks too). Two arm M smoke runs at block-level scope (drrtl_controller, rtllm_traffic_light) were submitted at 18:26 to measure the base rate of the aid itself; the probe never exercised block-level scope (its designs are multi-module → module-level regions, 0 violations).
 - **Hidden loop**: started by the watcher on GO (`python3 scripts/hidden_loop.py status`).
@@ -61,7 +62,7 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - Results database: 24 059 evaluations (+E1_authors), 3 035 + probe candidates; `db_check.py` 0 problems at the last check (17:00). Schema additions today: `candidates.repair_of`, `scope_json`, `features_json` at issue time; diagnoses label `scope_violation`; runs exp `phase5_probe`.
 - Snapshots: `phase4-20260915-review`, `phase4-20260915-1115`.
 - Retention: tiered policy on (`retention.tiered`), kept records slimmed of their regenerable equivalence artifacts (`tiered_eq_delete_kept`, storage decision 2026-09-15), sim_fail VCD 5 % seeded sample, disk guard 15 GB with the relocation contingency; the retroactive prune of 2026-09-15 freed 60 GB of disk (78.5 GB free at 19:22).
-- Tests: `pytest tests/` → **376 passed, 15 skipped**.
+- Tests: `pytest tests/` → **378 passed, 15 skipped**.
 
 ## Open questions and known risks
 
@@ -88,7 +89,7 @@ python3 scripts/phase5_autolaunch.py status   # waiting / launched / no-go, with
 python3 scripts/phase5_probe.py status        # per (model, design) proven, verdict, repair yield, scope violations
 python3 scripts/phase5_main.py status         # after the launch: runs by model / arm / tier
 python3 scripts/hidden_loop.py status
-pytest tests/ -x -q                  # 376 passed, 15 skipped
+pytest tests/ -x -q                  # 378 passed, 15 skipped
 git status --short && git log --oneline -3
 df -h / | tail -1
 ```

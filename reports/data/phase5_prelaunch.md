@@ -1,4 +1,4 @@
-# Phase 5 pre-launch report (2026-09-15T21:40; decisions 2026-09-15 item 6 and evening items 3 / 7)
+# Phase 5 pre-launch report (2026-09-15T21:48; decisions 2026-09-15 item 6 and evening items 3 / 7)
 
 **GO**
 
@@ -38,11 +38,11 @@ Preflight (fitness baseline at Phi_main, E4 noise floor, arm definition for ever
 | quantity | projected | cap | inside |
 |---|---|---|---|
 | llm_usd | 447.3 | 600.0 | yes |
-| disk_gb | 43.9 | 59.6 | yes |
+| disk_gb | 43.9 | 57.9 | yes |
 | vcf_hours | 2176.9 | 4200.0 | yes |
 | dc_hours | 1443.0 | 4000.0 | yes |
 
-Free space now 84.6 GB (cap = free minus the 20 GB margin minus the 5 GB reserve of the storage decision 2026-09-15); disk projection = the tiered policy with the kept-record equivalence slimming and the hidden registrations of `exp5.hidden_scope` / `hidden_audit_frac` (reports/data/phase5_footprint.md). Stamps: equiv_version = phase5; floor_version = phase4. DC hours count the E4 fitness runs of the proven candidates (B0: its accepted candidates), the hidden configurations per `exp5.hidden_scope` and 10 % for envelope and single-flag runs; VC Formal hours are the measured seconds per LLM call of the same model and tier (or the main model's).
+Free space now 82.9 GB (cap = free minus the 20 GB margin minus the 5 GB reserve of the storage decision 2026-09-15); disk projection = the tiered policy with the kept-record equivalence slimming and the hidden registrations of `exp5.hidden_scope` / `hidden_audit_frac` (reports/data/phase5_footprint.md). Stamps: equiv_version = phase5; floor_version = phase4. DC hours count the E4 fitness runs of the proven candidates (B0: its accepted candidates), the hidden configurations per `exp5.hidden_scope` and 10 % for envelope and single-flag runs; VC Formal hours are the measured seconds per LLM call of the same model and tier (or the main model's).
 
 ## Per-call figures used (measured where a finished run of the model on the tier exists)
 
