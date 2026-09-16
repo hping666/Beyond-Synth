@@ -89,7 +89,8 @@ class SearchRun:
         self.prior, self.prior_retained = self.load_map_prior()   # Phase 4 output (search.map_prior_file); arm M only
         # arm B1@E4 (feedback scalar_static): the literature's static complement text replaces the map-prior table (spec 05 §2)
         self.static_text, self.static_version = PR.load_static_complement() if self.armdef.get("feedback") == "scalar_static" else (None, None)
-        self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior, caliber=self.fit_cfg, static_text=self.static_text)
+        self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior, caliber=self.fit_cfg, static_text=self.static_text,
+                                prior_block=(self.armdef.get("feedback", "verdict") == "verdict"))   # B0 / B2: neither the prior table nor the static block
         self.d_text = "\n\n".join(Path(self.design["_dir"], f).read_text(errors="replace") for f in self.design["files"])
         self.d_design = SC.parse_design(self.d_text) if self.scope_on else None
         self._d_stats = None
@@ -695,9 +696,30 @@ class SearchRun:
             return True
         return st["issued_at"] is not None and (self.clock() - float(st["issued_at"])) >= float(self.cfg["search"]["gen_wait_sec"])
 
+    def disk_guard(self):
+        """Decision 2026-09-15 item 1: below `retention.min_free_gb` of free space on `/` the run submits nothing (no LLM call,
+        no equivalence / fitness / envelope / repair job): status `paused_disk`, a line in the job log; it resumes by itself
+        when space returns. -> True when the run may submit."""
+        ok, free, thr = RET.disk_ok(self.cfg, C.results_dir(self.cfg))
+        if ok:
+            if self.state.get("paused_disk"):
+                self.state["paused_disk"] = None
+                self.conn.execute("UPDATE runs SET status='running' WHERE run_id=? AND status='paused_disk'", (self.run_id,))
+                print(f"{self.run_id}: disk guard released ({free:.1f} GB free >= {thr:.0f} GB), resuming", flush=True)
+            return True
+        if not self.state.get("paused_disk"):
+            self.state["paused_disk"] = {"since": db.now(), "free_gb": round(free, 1), "threshold_gb": thr}
+            self.conn.execute("UPDATE runs SET status='paused_disk' WHERE run_id=?", (self.run_id,))
+            self.save_state()
+            print(f"{self.run_id}: DISK GUARD — {free:.1f} GB free on / is below {thr:.0f} GB: no new job is submitted until space returns (retention.min_free_gb)", flush=True)
+        return False
+
     def step(self):
-        """One scheduling round: apply arrived verdicts, build the next generation when due, persist. -> 'running' | 'done'."""
+        """One scheduling round: apply arrived verdicts, build the next generation when due, persist. -> 'running' | 'done' |
+        'paused_disk' (nothing submitted while the disk guard holds)."""
         st = self.state
+        if not self.disk_guard():
+            return "paused_disk"
         self.process_verdicts()
         if st["gen"] < int(st["K"]) and st["calls"] < int(st["budget_calls"]) and self.generation_due():
             before = st["retained"]

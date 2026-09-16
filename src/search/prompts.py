@@ -3,6 +3,7 @@
 variable suffix (parent RTL when the parent is not D, the lineage's feedback blocks, the class instruction).
 Template files are versioned; changes are recorded in DECISIONS."""
 import json
+import re
 from pathlib import Path
 
 PROMPT_DIR = Path(__file__).parent / "prompts"
@@ -34,10 +35,37 @@ def load_static_complement():
 
 CALIBER_TEXT = {"E4": "Synopsys DC full-effort (E4) result for the original design at a {clock} ns clock:",
                 "Y": "Yosys + OpenSTA (Y) result for the original design at a {clock} ns clock (the caliber used by the RTL-rewriting literature; every positive difference counts):"}
+_MSG_ID = re.compile(r"\(([A-Z]{2,6}-\d{1,5})\)")
+
+
+def synth_log_line(log_summary):
+    """The "what the synthesizer already did" line of the E4 summary (decision 2026-09-15 item 3 (ii)): the counts of the
+    log categories plus the normalised DC message types (identifier and count, e.g. OPT-776 x4) — never the raw messages,
+    never a file path — and the counts of integrated clock-gating cells, datapath blocks and registers. None when empty."""
+    ls = log_summary if isinstance(log_summary, dict) else {}
+    log = ls.get("log") if isinstance(ls.get("log"), dict) else {}
+    counts = log.get("counts") if isinstance(log.get("counts"), dict) else (ls.get("counts") if isinstance(ls.get("counts"), dict) else {})
+    parts = [f"{k} {v}" for k, v in sorted(counts.items()) if v]
+    types = {}
+    for msgs in (log.get("samples") or {}).values():
+        for m in msgs or []:
+            for mid in _MSG_ID.findall(str(m)):
+                types[mid] = types.get(mid, 0) + 1
+    extras = [f"{name} {int(ls[key])}" for key, name in (("icg_count", "integrated clock-gating cells"), ("datapath_blocks", "datapath blocks"), ("registers", "registers")) if ls.get(key) is not None]
+    if not parts and not types and not extras:
+        return None
+    out = "- what the synthesizer already did: " + (", ".join(parts) if parts else "no log categories")
+    if types:
+        out += "; message types " + ", ".join(f"{k} x{v}" for k, v in sorted(types.items()))
+    if extras:
+        out += "; " + ", ".join(extras)
+    return out
 
 
 def e4_summary(base_row, floor, clock_ns, caliber="E4"):
-    """Text block from D's baseline evaluation row under the fitness caliber (E4, or Y for arm B0) and its rule-A floor rows ({metric: row})."""
+    """Text block from D's baseline evaluation row under the fitness caliber (E4, or Y for arm B0) and its rule-A floor rows
+    ({metric: row}). Caliber Y (arm B0, the literature caliber) carries only what Yosys + OpenSTA measured — numbers, cell mix,
+    critical endpoints — and no DC-derived line (decision 2026-09-15 item 3 (i))."""
     if not base_row:
         return f"No {caliber} baseline record is available for this design.\n"
     b = dict(base_row)
@@ -50,20 +78,20 @@ def e4_summary(base_row, floor, clock_ns, caliber="E4"):
             lines.append("- cell mix: " + ", ".join(f"{k} x{int(v)}" for k, v in top))
     except (ValueError, TypeError):
         pass
-    try:
-        res = json.loads(b.get("resources_json") or "{}")
-        dw = res.get("dw_modules") or []
-        if dw:
-            lines.append("- DesignWare components inferred: " + ", ".join(sorted(set(dw))))
-    except (ValueError, TypeError):
-        pass
-    try:
-        ls = json.loads(b.get("log_summary_json") or "{}")
-        counts = ls.get("counts") or ls
-        if isinstance(counts, dict) and counts:
-            lines.append("- what the synthesizer already did (log counts): " + ", ".join(f"{k}={v}" for k, v in sorted(counts.items()) if v))
-    except (ValueError, TypeError):
-        pass
+    if caliber != "Y":
+        try:
+            res = json.loads(b.get("resources_json") or "{}")
+            dw = res.get("dw_modules") or []
+            if dw:
+                lines.append("- DesignWare components inferred: " + ", ".join(sorted(set(dw))))
+        except (ValueError, TypeError):
+            pass
+        try:
+            line = synth_log_line(json.loads(b.get("log_summary_json") or "{}"))
+            if line:
+                lines.append(line)
+        except (ValueError, TypeError):
+            pass
     try:
         cp = json.loads(b.get("crit_path_json") or "{}")
         ends = cp.get("endpoints") or cp.get("path_endpoints") or []
@@ -88,10 +116,11 @@ def prior_text(prior):
     return "\n".join(lines) + "\n"
 
 
-def prefix(design, system_text, base_row, floor, clock_ns, prior=None, caliber="E4", static_text=None):
-    """The cacheable prefix; `static_text` (arm B1@E4) takes the place of the map-prior table (spec 05 §2)."""
+def prefix(design, system_text, base_row, floor, clock_ns, prior=None, caliber="E4", static_text=None, prior_block=True):
+    """The cacheable prefix; `static_text` (arm B1@E4) takes the place of the map-prior table (spec 05 §2); the scalar arms
+    B0 / B2 carry neither (`prior_block=False`)."""
     rtl = "\n\n".join(Path(design["_dir"], f).read_text(errors="replace") for f in design["files"])
-    tail = static_text if static_text else prior_text(prior)
+    tail = static_text if static_text else (prior_text(prior) if prior_block else "")
     return (f"{system_text.strip()}\n\nThe design to rewrite (top module `{design['top']}`):\n```verilog\n{rtl}\n```\n\n"
             + e4_summary(base_row, floor, clock_ns, caliber) + "\n" + tail)
 

@@ -287,7 +287,8 @@ def test_driver_b0_arm_uses_y_fitness_and_scalar_feedback(env):
                                     "power_default_mw": 0.8, "status": "ok", "raw_dir": "/x/base_y", "hist_json": json.dumps({"DFF_X1": 4, "NAND2_X1": 14})})
     tr = FakeTransport()
     run = SearchRun.create(cfg, conn, exp="smoke", arm="B0", design_id="rtllm_d", seed=1, model="gpt-5.6-luna", K=1, N=3, queue=q, transport=tr)
-    assert run.fit_cfg == "Y" and run.scalar and run.floor == {} and "Yosys" in run.system and "Yosys + OpenSTA (Y) result" in run.prefix and "noise floor" not in run.prefix
+    assert run.fit_cfg == "Y" and run.scalar and run.floor == {} and "Yosys" not in run.system and "compile_ultra" not in run.system   # tool-neutral objective (decision 2026-09-15 item 3 (i))
+    assert "Yosys + OpenSTA (Y) result" in run.prefix and "noise floor" not in run.prefix
     assert run.step() == "running"
     cands = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? AND eq_job_id IS NOT NULL ORDER BY gen, cand_id", (run.run_id,))]
     assert len(cands) == 2                                  # v1, v2 (the duplicate of v2 needs no evaluation)
@@ -672,3 +673,87 @@ def test_phase4_map_prior_file_matches_the_map_and_the_probe_script_lists_its_ru
     cfg["llm"]["prices_usd_per_1m"]["flex"].pop("gpt-5.6-sol")
     with pytest.raises(SystemExit):
         PB.cmd_create(cfg, conn, do_submit=False)
+
+
+DC_WORDS = ("Synopsys", "Design Compiler", "compile_ultra", "-retime", "-gate_clock", "DesignWare", "E4", "synthesizer already did", "map prior", "Map prior", "Static guidance")
+
+
+def test_b0_prefix_has_no_dc_derived_line_and_a_tool_neutral_objective(env):
+    """Decision 2026-09-15 item 3 (i): arm B0 is the literature caliber — its prefix carries the Y-caliber summary of D and a
+    tool-neutral objective sentence, never the DC E4 summary, the compile_ultra wording, the DC log line, the DesignWare
+    line, the map prior or the static block (both directions: the same design's M prefix carries the E4 lines)."""
+    cfg, conn, q, tmp_path = env
+    from src.search.driver import SearchRun
+    db.insert(conn, "evaluations", {"design_id": "rtllm_d", "is_baseline": 1, "config": "Y", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 80.0, "cells": 18, "wns_ns": 0.2, "tns_ns": 0.0,
+                                    "power_default_mw": 0.8, "status": "ok", "raw_dir": "/x/base_y", "hist_json": json.dumps({"DFF_X1": 4, "NAND2_X1": 14}),
+                                    "log_summary_json": json.dumps({"datapath_blocks": None, "icg_count": None, "log": None, "registers": 4}), "resources_json": "{}",
+                                    "crit_path_json": json.dumps({"critical": {"endpoint": "y_reg[0]", "startpoint": "x[0]"}, "endpoints": None})})
+    conn.execute("UPDATE evaluations SET log_summary_json=?, resources_json=? WHERE design_id='rtllm_d' AND config='E4' AND is_baseline=1",
+                 (json.dumps({"datapath_blocks": 1, "icg_count": 2, "registers": 4, "log": {"counts": {"clock_gating": 3, "retime": 1, "warning": 1}, "samples": {"clock_gating": ["Information: Performing clock-gating on design d. (PWR-730)"], "warning": ["Warning:  /home/hping/Beyond-Synth/results/raw/rtllm_d/E4/abc/inputs/rtl/d.v:2: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)"]}}}),
+                  json.dumps({"dw_modules": ["DW01_add"]})))
+    b0 = SearchRun.create(cfg, conn, exp="smoke", arm="B0", design_id="rtllm_d", seed=21, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    for w in DC_WORDS:
+        assert w not in b0.prefix, w
+    assert "so that logic synthesis produces a smaller, faster or lower-power netlist" in b0.prefix and "Yosys + OpenSTA (Y) result" in b0.prefix and "cell mix" in b0.prefix
+    assert "/home/" not in b0.prefix and "No map prior" not in b0.prefix
+    m = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=22, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    assert "Synopsys DC full-effort (E4) result" in m.prefix and "compile_ultra -retime -gate_clock" in m.prefix and "DesignWare components inferred: DW01_add" in m.prefix
+    b2 = SearchRun.create(cfg, conn, exp="smoke", arm="B2", design_id="rtllm_d", seed=23, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+    assert "Synopsys DC full-effort (E4) result" in b2.prefix and "No map prior" not in b2.prefix and "Static guidance" not in b2.prefix
+
+
+def test_e4_summary_log_line_has_counts_and_message_types_but_no_raw_messages(env):
+    """Decision 2026-09-15 item 3 (ii): the E4 summary's synthesizer line carries the log counts and the normalised message
+    types (identifier x count), never the raw DC messages or a file path; identical for every arm that receives the E4
+    summary (M, B1@E4, B2)."""
+    cfg, conn, q, tmp_path = env
+    from src.search import prompts as PR
+    from src.search.driver import SearchRun
+    ls = {"datapath_blocks": 0, "icg_count": 4, "registers": 79.0, "shared_resources": None,
+          "log": {"counts": {"clock_gating": 8, "datapath": 0, "error": 0, "retime": 1, "sharing": 0, "ungroup": 6, "warning": 1},
+                  "samples": {"clock_gating": ["Information: Performing clock-gating with positive edge logic: 'integrated' and negative edge logic: 'or'. (PWR-1047)", "Information: Skipping clock gating on design encoder, since there are no registers. (PWR-806)"],
+                              "retime": ["Information: Retiming is enabled. SVF file must be used for formal verification. (OPT-1210)"],
+                              "ungroup": ["Information: Ungrouping hierarchy SCR before Pass 1 (OPT-776)", "Information: Ungrouping 4 of 11 hierarchies before Pass 1 (OPT-775)"],
+                              "warning": ["Warning:  /home/hping/Beyond-Synth/results/raw/drrtl_pcie/E4/e1d8/inputs/rtl/pcie.v:854: DEFAULT branch of CASE statement cannot be reached. (ELAB-311)"]}}}
+    line = PR.synth_log_line(ls)
+    assert line.startswith("- what the synthesizer already did: clock_gating 8, retime 1, ungroup 6, warning 1; message types ELAB-311 x1, OPT-1210 x1, OPT-775 x1, OPT-776 x1, PWR-1047 x1, PWR-806 x1")
+    assert line.endswith("; integrated clock-gating cells 4, datapath blocks 0, registers 79")
+    assert "/home/" not in line and "pcie.v" not in line and "Skipping" not in line and "Information" not in line
+    assert PR.synth_log_line({"datapath_blocks": None, "icg_count": None, "log": None, "registers": None}) is None   # a Yosys row: nothing to say
+    assert PR.synth_log_line({"registers": 3}) == "- what the synthesizer already did: no log categories; registers 3"
+    conn.execute("UPDATE evaluations SET log_summary_json=? WHERE design_id='rtllm_d' AND config='E4' AND is_baseline=1", (json.dumps(ls),))
+    prefixes = {}
+    for seed, arm in ((31, "M"), (32, "B1_E4"), (33, "B2")):
+        run = SearchRun.create(cfg, conn, exp="smoke", arm=arm, design_id="rtllm_d", seed=seed, model="gpt-5.6-luna", K=1, N=2, queue=q, transport=FakeTransport())
+        prefixes[arm] = run.prefix
+        assert line in run.prefix and "/home/" not in run.prefix and "Skipping" not in run.prefix, arm
+    def e4_block(p):   # the summary block without the noise-floor line (arm M carries a floor, the scalar arms do not)
+        blk = p[p.index("Synopsys DC full-effort"):p.index("\n\n", p.index("Synopsys DC full-effort"))]
+        return "\n".join(l for l in blk.splitlines() if not l.startswith("- noise floor"))
+    assert e4_block(prefixes["M"]) == e4_block(prefixes["B1_E4"]) == e4_block(prefixes["B2"])
+
+
+def test_disk_guard_pauses_submissions_and_resumes(env, monkeypatch):
+    """Decision 2026-09-15 item 1: below `retention.min_free_gb` the run submits nothing (no LLM call, no job), its status is
+    paused_disk and the state records it; when space returns the run resumes and continues (both directions)."""
+    cfg, conn, q, tmp_path = env
+    from src.eval import retention as R
+    from src.search.driver import SearchRun
+    cfg["retention"]["min_free_gb"] = 15
+    free = {"gb": 10.0}
+    monkeypatch.setattr(R, "free_gb", lambda path=None: free["gb"])
+    tr = FakeTransport()
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=41, model="gpt-5.6-luna", K=2, N=2, queue=q, transport=tr)
+    assert run.step() == "paused_disk" and run.state["calls"] == 0 and tr.calls == 0
+    assert run.state["paused_disk"]["free_gb"] == 10.0 and run.state["paused_disk"]["threshold_gb"] == 15.0
+    assert conn.execute("SELECT status FROM runs WHERE run_id=?", (run.run_id,)).fetchone()[0] == "paused_disk"
+    assert conn.execute("SELECT COUNT(*) FROM jobs").fetchone()[0] == 0 and conn.execute("SELECT COUNT(*) FROM candidates WHERE run_id=?", (run.run_id,)).fetchone()[0] == 0
+    assert run.step() == "paused_disk" and tr.calls == 0                                   # still paused, still nothing submitted
+    free["gb"] = 40.0
+    assert run.step() == "running" and run.state["paused_disk"] is None and tr.calls == 2   # space returned: the generation is built
+    assert conn.execute("SELECT status FROM runs WHERE run_id=?", (run.run_id,)).fetchone()[0] == "running"
+    assert conn.execute("SELECT COUNT(*) FROM jobs WHERE state='queued'").fetchone()[0] >= 1
+    ok, f, thr = R.disk_ok(cfg)
+    assert ok and f == 40.0 and thr == 15.0
+    cfg["retention"]["min_free_gb"] = 0
+    assert R.disk_ok(cfg)[0] is True                                                        # threshold 0: the guard never holds

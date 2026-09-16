@@ -35,6 +35,19 @@ def policy(cfg):
     return (cfg.get("retention") or {})
 
 
+def free_gb(path=None):
+    """Free space of the filesystem holding `path` (default: the results directory's filesystem root `/`) in GB (1e9)."""
+    return shutil.disk_usage(str(path or "/")).free / 1e9
+
+
+def disk_ok(cfg, path=None):
+    """Decision 2026-09-15 item 1: the search driver submits no new job while the free space on `/` is below
+    `retention.min_free_gb` (15 GB). -> (ok, free_gb, threshold_gb)."""
+    thr = float(policy(cfg).get("min_free_gb") or 0.0)
+    free = free_gb(path)
+    return free >= thr, free, thr
+
+
 def enabled(cfg):
     return bool(policy(cfg).get("tiered", False))
 

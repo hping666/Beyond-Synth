@@ -653,19 +653,31 @@ def phase4(cfg):
             L.append("")
         rs = load("phase4_rtlopt_setting.json")
         if rs:
-            cnt = rs["counts"]
+            cb = rs.get("counts_by_setting") or {"E2_1ns": rs["counts"]}
             ar = rs.get("authors_released_reports") or {}
-            L += [f"## 4d. RTL-OPT pairs under the authors' published setting (G5 item 4 (a); config `{rs['config']}`: compile_ultra, {rs['clock_ns']} ns, no retime, no gate clock)", "",
-                  f"The {rs['pairs']} proven pairs under our reproduction of the authors' setting (compile_ultra at 1 ns, DesignWare, this project's SDC convention, DC W-2024.09): **{cnt['better']} better** (the optimized version smaller than the suboptimal start by area), {cnt['same']} same, {cnt['worse']} worse, {cnt['missing']} not evaluated (the mux_dead reference does not link, §4a); the paper reports {rs['authors_count']}; the six pairs that are not equivalent under this project's protocol (§4a) are outside these counts. "
-                  f"The authors' released DC reports (their setting: {ar.get('setting', '-')}) give {ar.get('better_by_area', '-')} better, {ar.get('same', '-')} same, {ar.get('worse', '-')} worse by area over the same {ar.get('n', '-')} pairs — a plain `compile` at a 0.1 ns clock keeps the RTL's structure, so the suboptimal version's redundancy survives; under compile_ultra (ours at 1 ns and at the knee period) DC removes most of it. "
-                  "Their Table 1 count for compile_ultra at 1 ns could not be reproduced with our flow; the released script covers the compile / 0.1 ns setting only, and the differences left (DC version, their set_max_delay input-to-output constraints versus this project's I/O delays, register merging and sequential area recovery switched off in their script) would need a run of their exact script to isolate.", "",
-                  "| pair | phi_main (ns) | D area at 1 ns | reference area at 1 ns | rel. area at 1 ns | verdict at 1 ns | rel. area E2 (knee) | rel. area E4 (knee) | authors' released reports: D / ref / rel. |", "|---|---|---|---|---|---|---|---|---|"]
+            st = rs.get("settings") or {}
+            def cnt(c):
+                return f"{c.get('better', 0)} better / {c.get('same', 0)} same / {c.get('worse', 0)} worse" + (f" / {c['missing']} not evaluated" if c.get("missing") else "")
+            L += ["## 4d. RTL-OPT pairs under the settings of the authors' published work and released artifacts (G5 item 4 (a); decisions 2026-09-15 items 4 and 5)", "",
+                  f"Objects: the {rs['pairs']} proven RTL-OPT pairs (the six pairs that are not equivalent under this project's protocol, §4a, are outside every count; the mux_dead reference does not link under DC). "
+                  "Criterion in every column: the reference version's total cell area against the suboptimal start's (better = smaller). Three settings side by side:", "",
+                  "| setting | where it comes from | count over the proven pairs |", "|---|---|---|",
+                  f"| authors' released reports | {ar.get('setting', '-')} | {ar.get('better_by_area', '-')} better / {ar.get('same', '-')} same / {ar.get('worse', '-')} worse of {ar.get('n', '-')} (their reports, their DC) |"]
+            for name, label in (("E1_authors", "the released scripts' settings reproduced on DC W-2024.09 with this project's SDC (I/O delays 20 % of the period added to their input-to-output max-delay; standard synthetic library)"),
+                                ("E2_1ns", "the paper's Table 1 setting as described (compile_ultra, 1 ns, no retime, no gate clock; DesignWare Foundation; this project's SDC) reproduced on W-2024.09")):
+                if name in cb:
+                    L.append(f"| `{name}` | {label}; compile string `{st.get(name, {}).get('compile', '-')}` | {cnt(cb[name])} |")
+            L += ["", f"The paper's Table 1 reports {rs['authors_count']} for the compile_ultra / 1 ns setting; the released artifacts document the plain-compile / 0.1 ns setting. The rows above state what each artifact and each reproduction shows; "
+                  "the remaining differences between the released scripts and this project's flow are the DC version, the I/O constraint form and the library compilation. At the knee period the same pairs under E2 and E4 are listed for reference.", "",
+                  "| pair | phi_main (ns) | authors' released: D / ref / rel. | E1_authors: D / ref / rel. | E2_1ns: D / ref / rel. | rel. area E2 (knee) | rel. area E4 (knee) |", "|---|---|---|---|---|---|---|"]
+            f = lambda v: "-" if v is None else f"{100 * v:+.1f} %"
+            g = lambda v: "-" if v is None else f"{v:.1f}"
             for r in rs["rows"]:
                 o = r.get("other_rungs") or {}
                 t = r.get("authors_released") or {}
-                f = lambda v: "-" if v is None else f"{100 * v:+.1f} %"
-                g = lambda v: "-" if v is None else f"{v:.1f}"
-                L.append(f"| {r['design_id']} | {r['phi_main_ns']:.2f} | {g(r['d_area'])} | {g(r['ref_area'])} | {f(r['rel_area'])} | {r['verdict_1ns']} | {f((o.get('E2') or {}).get('rel'))} | {f((o.get('E4') or {}).get('rel'))} | {g(t.get('d_area'))} / {g(t.get('ref_area'))} / {f(t.get('rel'))} |")
+                se = r.get("settings") or {"E2_1ns": {"d_area": r.get("d_area"), "ref_area": r.get("ref_area"), "rel": r.get("rel_area")}}
+                cells = [f"{g(x.get('d_area'))} / {g(x.get('ref_area'))} / {f(x.get('rel'))}" for x in (t, se.get("E1_authors") or {}, se.get("E2_1ns") or {})]
+                L.append(f"| {r['design_id']} | {r['phi_main_ns']:.2f} | " + " | ".join(cells) + f" | {f((o.get('E2') or {}).get('rel'))} | {f((o.get('E4') or {}).get('rel'))} |")
             L.append("")
         if (Path(ROOT) / "reports" / "data" / "phase4_divider_counterexamples.md").exists():
             L += ["The four RTL-OPT divider references of §4a were inspected by hand (G5 item 4 (c)): the pairs differ only on division by zero with the dividend's MSB set (non-restoring vs restoring algorithm) and agree for every non-zero divisor; "

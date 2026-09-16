@@ -941,17 +941,66 @@ def authors_released_areas(design_id):
     return out
 
 
-def cmd_rtlopt_setting(cfg, conn, do_submit, priority, collect=False):
-    """G5 item 4 (a) (user 2026-09-15 item 5): the proven RTL-OPT pairs under the authors' published setting `E2_1ns`
-    (compile_ultra, 1 ns, no retime, no gate clock): submit the missing D baselines and object evaluations, or with
-    --collect write reports/data/phase4_rtlopt_setting.json (per pair the areas and better / same / worse, the count
-    against the authors' 35 of 36, and the same pairs under E2 at the knee period and under E4 for the reconciliation)."""
+def _pair_areas(conn, c, config, clock):
+    d_row = conn.execute("SELECT area_um2, cells FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (c["design_id"], config, clock)).fetchone()
+    o_row = conn.execute("SELECT area_um2, cells FROM evaluations WHERE cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (c["cand_id"], config, clock)).fetchone()
+    if d_row is None or o_row is None:
+        return {"d_area": d_row[0] if d_row else None, "ref_area": o_row[0] if o_row else None, "rel": None, "verdict": "missing"}
+    rel = (o_row[0] - d_row[0]) / d_row[0] if d_row[0] else 0.0
+    return {"d_area": d_row[0], "d_cells": d_row[1], "ref_area": o_row[0], "ref_cells": o_row[1], "rel": round(rel, 4),
+            "verdict": "better" if rel < -1e-9 else "worse" if rel > 1e-9 else "same"}
+
+
+def collect_rtlopt_settings(cfg, conn, pairs):
+    """reports/data/phase4_rtlopt_setting.json: every reproduced setting (RTLOPT_SETTINGS) side by side with the authors'
+    released reports and the knee-period rungs E2 / E4."""
+    rows, counts = [], {s: {"better": 0, "same": 0, "worse": 0, "missing": 0} for s in RTLOPT_SETTINGS}
+    released_counts = {"better": 0, "same": 0, "worse": 0, "missing": 0}
+    for c in pairs:
+        phi = float(conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()[0])
+        row = {"design_id": c["design_id"], "cand_id": c["cand_id"], "phi_main_ns": phi, "settings": {}, "other_rungs": {}, "authors_released": authors_released_areas(c["design_id"])}
+        for s in RTLOPT_SETTINGS:
+            if s not in cfg["configs"]:
+                continue
+            r = _pair_areas(conn, c, s, float(cfg["configs"][s]["clock_ns"]))
+            row["settings"][s] = r
+            counts[s][r["verdict"]] += 1
+        for cf in ("E2", "E4"):
+            row["other_rungs"][cf] = _pair_areas(conn, c, cf, phi)
+        ar = row["authors_released"]
+        released_counts["missing" if ar.get("rel") is None else ("better" if ar["rel"] < -1e-9 else "worse" if ar["rel"] > 1e-9 else "same")] += 1
+        # legacy keys of the first collector (E2_1ns), kept for the report renderer
+        e = row["settings"].get("E2_1ns") or {}
+        row.update(d_area=e.get("d_area"), ref_area=e.get("ref_area"), rel_area=e.get("rel"), verdict_1ns=e.get("verdict", "missing"))
+        rows.append(row)
+    out = {"config": "E2_1ns", "clock_ns": float(cfg["configs"]["E2_1ns"]["clock_ns"]), "pairs": len(pairs), "counts": counts["E2_1ns"], "counts_by_setting": counts,
+           "settings": {s: {"compile": cfg["configs"][s]["compile"], "clock_ns": cfg["configs"][s]["clock_ns"], "synlib": cfg["configs"][s].get("synlib")} for s in RTLOPT_SETTINGS if s in cfg["configs"]},
+           "authors_count": "35 of 36 better (RTL-OPT Table 1, compile_ultra 1 ns)",
+           "authors_released_reports": {"setting": "data/sources/RTL-OPT/Results/RTL-OPT_DC: `compile` (not compile_ultra) at CLOCK_PERIOD 0.1 ns with set_max_delay from all inputs to all outputs, set_transform_for_retiming dont_retime, register merging / sequential area recovery / clock gating through hierarchy off, ungroup -all -flatten, DC T-2022.03-SP2, the authors' own Nangate45 typical.db (their released run_dc.tcl and command.log)",
+                                        "better_by_area": released_counts["better"], "same": released_counts["same"], "worse": released_counts["worse"], "n": len(pairs) - released_counts["missing"]},
+           "rows": rows}
+    dst = Path(C.ROOT) / "reports" / "data" / "phase4_rtlopt_setting.json"
+    dst.write_text(json.dumps(out, indent=1, sort_keys=True) + "\n")
+    print(f"{len(pairs)} proven RTL-OPT pairs: " + "; ".join(f"{s} {counts[s]}" for s in counts) + f"; authors' released reports {released_counts}; written {dst}")
+    return 0
+
+
+RTLOPT_SETTINGS = ("E2_1ns", "E1_authors")   # the two reproductions of the authors' settings (decisions 2026-09-15 items 5 and 4)
+
+
+def cmd_rtlopt_setting(cfg, conn, do_submit, priority, collect=False, config="E2_1ns"):
+    """G5 item 4 (a) (user 2026-09-15 item 5 and the follow-up item 4): the proven RTL-OPT pairs under a reproduction of the
+    authors' setting (`E2_1ns`: compile_ultra, 1 ns; `E1_authors`: the released scripts' plain compile at 0.1 ns with their
+    constraints): submit the missing D baselines and object evaluations, or with --collect write
+    reports/data/phase4_rtlopt_setting.json (per pair the areas and better / same / worse under every reproduced setting, the
+    authors' released reports, and the same pairs under E2 at the knee period and under E4 for the reconciliation)."""
     from src.jobqueue.core import Queue
-    config = "E2_1ns"
     clock = float(cfg["configs"][config]["clock_ns"])
     pairs = rtlopt_setting_pairs(conn)
     cat = {d["design_id"]: d for d in K.load_all()}
     if collect:
+        return collect_rtlopt_settings(cfg, conn, pairs)
+    if False:
         rows, counts = [], {"better": 0, "same": 0, "worse": 0, "missing": 0}
         for c in pairs:
             d_row = conn.execute("SELECT area_um2, cells FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND status='ok' AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (c["design_id"], config, clock)).fetchone()
@@ -1026,6 +1075,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("what", choices=["baselines", "generate", "smoke", "status", "objects", "verdicts", "ladder", "diagnose", "collect", "snapshot", "hygiene", "topup", "refit", "diag-sample", "diag-verify", "motivating", "duplicates", "map-prior", "rtlopt-setting"])
     ap.add_argument("--collect", action="store_true", help="rtlopt-setting: write reports/data/phase4_rtlopt_setting.json from the finished records")
+    ap.add_argument("--config", default="E2_1ns", help="rtlopt-setting: the reproduced setting to submit (E2_1ns or E1_authors)")
     ap.add_argument("--apply", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--name", default=None)
@@ -1073,7 +1123,7 @@ def main(argv=None):
     if a.what == "map-prior":
         return cmd_map_prior(cfg, conn)
     if a.what == "rtlopt-setting":
-        return cmd_rtlopt_setting(cfg, conn, a.submit, a.priority, collect=a.collect)
+        return cmd_rtlopt_setting(cfg, conn, a.submit, a.priority, collect=a.collect, config=a.config)
     if a.what == "topup":
         return cmd_topup(cfg, conn, a.submit)
     if a.what == "refit":

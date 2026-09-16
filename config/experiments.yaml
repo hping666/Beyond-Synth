@@ -48,6 +48,9 @@ configs:
   E2r: {alias_of: E3, single_flag: retime}
   E2g: {tool: dc, compile: "compile_ultra -gate_clock", lib: nangate45, clock: phi_main, synlib: dw, single_flag: gate_clock}
   E2_1ns: {tool: dc, compile: "compile_ultra", lib: nangate45, clock_ns: 1.0, synlib: dw}   # RTL-OPT authors' published setting (G5 item 4 (a), user 2026-09-15 item 5): compile_ultra at 1 ns, no retime, no gate clock, DesignWare Foundation as compile_ultra loads it; run on the 34 proven RTL-OPT pairs only
+  # decision 2026-09-15 item 4: the settings found in the RTL-OPT authors' released scripts (evaluation_framework/DC/run_dc.tcl, Results/RTL-OPT_DC/*/command.log) on our DC version:
+  # plain compile, 0.1 ns, set_max_delay from all inputs to all outputs, dont_retime, register merging off, sequential (timing) area recovery off, flatten after compile; standard synthetic library only (no DesignWare Foundation with plain compile)
+  E1_authors: {tool: dc, compile: "set_app_var compile_enable_register_merging false; set_app_var compile_sequential_area_recovery false; set_fix_multiple_port_nets -all -buffer_constants -feedthroughs [all_designs]; set_max_delay -from [all_inputs] -to [all_outputs] 0.1; set_transform_for_retiming [get_cells *] dont_retime; compile; ungroup -all -flatten", lib: nangate45, clock_ns: 0.1, synlib: standard}
   H1:  {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: nangate45, clock_ns: 0.1, synlib: dw, hidden: true}
   H2a: {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: asap7, clock: phi_main_asap7, synlib: dw, hidden: true}
   H2b: {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: sky130hd, clock: phi_main_sky130hd, synlib: dw, hidden: true}
@@ -333,6 +336,7 @@ retention:                   # approved by the user 2026-09-12 (DECISIONS): resu
   # once the run has applied its verdict (src/eval/retention.py; the driver slims at the final label, scripts/prune_scratch.py --tiered
   # applies the same rule to earlier records on the user's decision). Records and rows are never deleted (rule 5).
   tiered: true
+  min_free_gb: 15                    # decision 2026-09-15 item 1: the search driver stops submitting new jobs (LLM calls, equivalence, fitness, envelope, repair) while the root filesystem has less free space; runs pause with status paused_disk and resume when space returns; scripts/status.py warns
   tiered_audit_frac: 0.10            # deterministic sample by candidate id that keeps everything (the hidden layer's rejected-candidate sample, spec 06 §3)
   tiered_dc_delete: [netlist, ddc, saif, inputs_rtl]                          # DC / Yosys records: netlist.v, design.ddc, SAIFs, the RTL copy
   tiered_eq_delete: [vcd, trace, ports, seq_rtdb, seq_learnt, vcs_build, saif]   # equivalence records: VCDs, lock-step trace, port JSONs, VC Formal databases and learnt data, VCS builds, SAIFs

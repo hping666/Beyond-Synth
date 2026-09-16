@@ -70,7 +70,8 @@ Under the single label "DC", the literature's settings span E1 to E4:
 |---|---|---|
 | SymRTLO | DC 2019, medium mapping effort, RTLRewriter's artificial benchmark; reports −38.05% area, still claims −27.7% with flatten + high effort | E1 |
 | LongRTL | DC + ASAP7, compile command and constraints unstated; Table I shows alu critical path 1555 ps and fpu_post 3009 ps, possible only under unconstrained / very loose synthesis; reports ~25% single-module PPA improvement | E1–E2, not timing-driven |
-| RTL-OPT | `compile_ultra`, 1 ns (0.1 ns also reported) | E2 |
+| RTL-OPT | `compile_ultra`, 1 ns (0.1 ns also reported) | E2 (reproduced as `E2_1ns`, 2026-09-15) |
+| RTL-OPT released artifacts (run_dc.tcl, Results/RTL-OPT_DC) | plain `compile`, 0.1 ns, `set_max_delay` from all inputs to all outputs, `dont_retime`, register merging and sequential area recovery off, flatten after compile, DC T-2022.03 | `E1_authors` (reproduced on W-2024.09, 2026-09-15) |
 | CktEvo (commercial arm) | `compile_ultra -retime -timing_high_effort_script`, Sky130 | E3 on DC W-2024.09, where the high-effort flag is a no-op; its effect on CktEvo's DC version is unknown (no `-gate_clock`) |
 | Dr.RTL | DC, 0.1 ns tight constraint, Nangate45 | E2 + tight constraint |
 | ARES | DC + PrimeTime, max frequency + area, JasperGold SEC | rung unstated |

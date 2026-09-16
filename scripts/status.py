@@ -82,6 +82,13 @@ def main():
             print(f"disk {label}: {u.free / 2**30:.0f} GB free of {u.total / 2**30:.0f} GB ({100 * u.used / u.total:.0f}% used)")
         except OSError:
             pass
+    thr = float((cfg.get("retention") or {}).get("min_free_gb") or 0.0)
+    free = shutil.disk_usage(ROOT).free / 1e9
+    paused = conn.execute("SELECT COUNT(*) FROM runs WHERE status='paused_disk'").fetchone()[0]
+    if free < thr or paused:
+        print(f"DISK GUARD: {free:.1f} GB free on / (threshold {thr:.0f} GB, retention.min_free_gb); runs paused: {paused}  <- free space before the search runs continue")
+    else:
+        print(f"disk guard: {free:.1f} GB free on /, threshold {thr:.0f} GB, no run paused")
     return 0
 
 
