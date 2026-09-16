@@ -67,7 +67,8 @@ class SearchRun:
         self.armdef = dict((cfg["search"].get("arms") or {}).get(self.row["arm"]) or ARM_M)
         self.fit_cfg = str(self.armdef.get("fitness") or "E4")
         self.scalar = self.armdef.get("feedback", "verdict") != "verdict"
-        self.system, self.classes, self.prompt_version = PR.load_templates(caliber=self.fit_cfg)
+        self.drrtl = self.armdef.get("feedback") == "drrtl"   # PLAN 5.2: the Dr. RTL re-implementation arm (2026-09-15)
+        self.system, self.classes, self.prompt_version = PR.load_templates(caliber=self.fit_cfg, system="drrtl" if self.drrtl else "default")
         self.floor_version = cfg["noise"].get("floor_version")
         if self.armdef.get("floor", "rule_a") == "none":
             self.floor = {}
@@ -91,6 +92,8 @@ class SearchRun:
         self.prior, self.prior_retained = self.load_map_prior()   # Phase 4 output (search.map_prior_file); arm M only
         # arm B1@E4 (feedback scalar_static): the literature's static complement text replaces the map-prior table (spec 05 §2)
         self.static_text, self.static_version = PR.load_static_complement() if self.armdef.get("feedback") == "scalar_static" else (None, None)
+        if self.drrtl:
+            self.static_text, self.static_version = PR.load_skill_library(cfg), "drrtl-skills"   # Dr. RTL's released skill library takes the prior table's slot
         self.prefix = PR.prefix(self.design, self.system, base, self.floor, self.phi, self.prior, caliber=self.fit_cfg, static_text=self.static_text,
                                 prior_block=(self.armdef.get("feedback", "verdict") == "verdict"))   # B0 / B2: neither the prior table nor the static block
         self.d_text = "\n\n".join(Path(self.design["_dir"], f).read_text(errors="replace") for f in self.design["files"])
@@ -328,6 +331,8 @@ class SearchRun:
             st["stall"] = 0
         parent_id = parent["cand_id"] if parent else None
         parent_rtl = Path(st["cands"][parent_id]["path"]).read_text() if parent_id else None
+        if self.drrtl and st.get("skill_learning_due") and int(st["calls"]) < int(st["budget_calls"]):
+            self.drrtl_learn_skills(gen)   # in-run skill learning: one call on the previous round, charged before this round's calls are counted
         n = min(int(st["N"]), int(st["budget_calls"]) - int(st["calls"]))
         classes = self.bandit.draw(rng, n)
         blocks = self.lineage_feedback(parent_id)
@@ -335,11 +340,19 @@ class SearchRun:
         issued = []
         answers = []
         for i, cls in enumerate(classes):
-            instr = self.classes.get(cls, self.classes.get("free"))
-            sfx = PR.suffix(instr, cls, parent_rtl, blocks, self.design["top"], scope_text=scope_text)
+            if self.drrtl:
+                strat = self.drrtl_strategy(gen, i)
+                paths = PR.drrtl_paths_block(self.drrtl_crit_path(parent_id), strat, int((self.cfg["search"].get("drrtl") or {}).get("k_paths", 10)), rng=rng)
+                sfx = PR.drrtl_suffix(paths, st.get("drrtl_skills"), parent_rtl, blocks, scope_text=scope_text)
+                cls = "free"   # no class instruction: the produced class (M6) is credited as for every arm
+            else:
+                instr = self.classes.get(cls, self.classes.get("free"))
+                sfx = PR.suffix(instr, cls, parent_rtl, blocks, self.design["top"], scope_text=scope_text)
             r = self.client.call(self.row["llm_model"], self.prefix, sfx, tag=f"{self.run_id}:g{gen}:{cls}:{i}")
             st["calls"] += 1
             meta = {"run_id": self.run_id, "gen": gen, "parent_id": parent_id, "class_requested": cls, "call_id": r["call_id"], "cost_usd": r["cost_usd"], "usage": r["usage"]}
+            if self.drrtl:
+                meta["drrtl_strategy"] = self.drrtl_strategy(gen, i)
             try:
                 if r.get("status") == "incomplete":
                     raise CA.BadAnswer(f"truncated at max_output_tokens (status incomplete, {(r.get('usage') or {}).get('output_tokens')} output tokens)")
@@ -368,14 +381,65 @@ class SearchRun:
             _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, root=self.dir.parent, cand_id=cid)
             if region is not None and self.scope_violation(cid, path, rtl, note, cls, gen, parent_id, r, region, index=i):
                 continue
-            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i, region=region, spliced=meta.get("spliced_modules")))
+            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i, region=region, spliced=meta.get("spliced_modules"), strategy=meta.get("drrtl_strategy")))
         st["gen"] = gen
         st["issued_at"] = self.clock()
+        if self.drrtl and (self.cfg["search"].get("drrtl") or {}).get("skill_learning", False):
+            st["skill_learning_due"] = gen   # the next build distils this round first
         self.conn.execute("UPDATE runs SET llm_calls=?, gens_done=?, status='running' WHERE run_id=?", (st["calls"], gen, self.run_id))
         self.write_gen_summary(gen)
         return issued
 
-    def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng, index=0, region=None, repair_of=None, spliced=None):
+    # ------------------------------------------------------------------ Dr. RTL re-implementation arm (PLAN 5.2; config search.drrtl)
+    def drrtl_strategy(self, gen, index):
+        strategies = (self.cfg["search"].get("drrtl") or {}).get("strategies") or [{"paths": "top_slack", "focus": "mixed"}]
+        return dict(strategies[((int(gen) - 1) * 2 + int(index)) % len(strategies)])   # a deterministic rotation: the first round starts at the first strategy
+
+    def drrtl_crit_path(self, parent_id):
+        """The parent's E4 timing paths when it has an E4 record, else D's baseline paths."""
+        if parent_id:
+            row = self.fit_row(parent_id)
+            if row is not None and row["crit_path_json"]:
+                return row["crit_path_json"]
+        return self.base_row["crit_path_json"] if self.base_row is not None else None
+
+    def drrtl_learn_skills(self, gen):
+        """Dr. RTL's group-relative skill learning, one LLM call per built generation: the previous round's attempts (strategy,
+        note, verdict, PPA deltas) -> pattern-strategy entries appended to the run's learned skills (kept in the state and
+        given to every later call); the call is charged to the run's equal-call budget."""
+        st = self.state
+        prev = int(st.get("skill_learning_due") or 0)
+        st["skill_learning_due"] = None
+        attempts = []
+        for c in st["cands"].values():
+            if int(c.get("gen") or 0) != prev or c.get("repair_of"):
+                continue
+            fb = st["feedback"].get(c["cand_id"]) or {}
+            attempts.append({"strategy": (c.get("drrtl_strategy") or {}), "note": c.get("note"), "verdict": c.get("label") or c.get("state"),
+                             "ppa_delta": (fb.get("evidence") or {}) if isinstance(fb.get("evidence"), dict) else {}, "class": c.get("class_final")})
+        if not attempts:
+            return None
+        gains = [a["ppa_delta"].get("dA_pct") for a in attempts if isinstance(a["ppa_delta"].get("dA_pct"), (int, float))]
+        summary = {"round": prev, "attempts": attempts, "round_mean_dA_pct": (sum(gains) / len(gains)) if gains else None}
+        r = self.client.call(self.row["llm_model"], self.prefix, PR.drrtl_skill_prompt(summary), tag=f"{self.run_id}:skills:g{prev}")
+        st["calls"] += 1
+        text = None
+        try:
+            raw = (r.get("text") or "").strip()
+            raw = raw[raw.find("{"):raw.rfind("}") + 1]
+            obj = json.loads(raw) if raw else {}
+            entries = obj.get("skills") or []
+            lines = [f"- [{e.get('confidence', 'medium')}] pattern: {e.get('pattern')}; strategy: {e.get('strategy')}" + (f" ({e.get('basis')})" if e.get("basis") else "") for e in entries[:3] if isinstance(e, dict)]
+            text = "\n".join(lines) if lines else None
+        except (ValueError, AttributeError, TypeError):
+            text = None
+        st.setdefault("drrtl_skill_calls", []).append({"gen": prev, "call_id": r["call_id"], "entries": text})
+        if text:
+            st["drrtl_skills"] = ((st.get("drrtl_skills") or "") + "\n" + text).strip()[-4000:]
+        self.conn.execute("UPDATE runs SET llm_calls=? WHERE run_id=?", (st["calls"], self.run_id))
+        return text
+
+    def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng, index=0, region=None, repair_of=None, spliced=None, strategy=None):
         st = self.state
         if cid in st["cands"]:   # the same RTL came out twice: a duplicate of the earlier candidate, no evaluation
             self.record_label(f"{cid}_dup{gen}_{index}", None, "duplicate", {"duplicate_of": cid}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
@@ -401,7 +465,7 @@ class SearchRun:
         cap = self.seq_cap_min(cls_final if cls_final in ("a", "b", "c1", "c2", "d") else "d")
         entry = {"cand_id": cid, "gen": gen, "parent_id": parent_id, "path": str(path), "class_requested": cls_requested, "class_rule": cls_final,
                  "class_final": cls_final, "prescreen": pre, "seq_cap_min": cap, "issued_at": self.clock(), "state": "eq_pending", "note": note,
-                 "repair_of": repair_of, "scope": region}
+                 "repair_of": repair_of, "scope": region, "drrtl_strategy": strategy}
         row = {"cand_id": cid, "run_id": self.run_id, "design_id": self.row["design_id"], "gen": gen, "parent_id": parent_id, "arm": self.row["arm"],
                "content_hash": CA.cand_id_of(rtl),
                "class_requested": cls_requested, "class_rule": cls_final, "class_final": cls_final, "confidence": cls_rule.get("confidence"),

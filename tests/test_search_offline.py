@@ -440,7 +440,7 @@ class ListTransport:
     def create(self, **kw):
         self.calls += 1
         rtl = self.rtls[min(self.calls, len(self.rtls)) - 1]
-        text = json.dumps({"rtl": rtl, "note": f"answer {self.calls}"})
+        text = json.dumps(rtl) if isinstance(rtl, dict) else json.dumps({"rtl": rtl, "note": f"answer {self.calls}"})   # a dict is answered verbatim (e.g. a skill-learning answer)
 
         class R:
             pass
@@ -802,3 +802,78 @@ def test_module_scope_answers_with_only_the_region_module_are_spliced_and_issued
     superseded = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d3", seed=2, model="gpt-5.6-luna", K=1, N=1, queue=q, transport=ListTransport([region_only]))
     conn.execute("UPDATE runs SET status='superseded' WHERE run_id=?", (superseded.run_id,))
     assert superseded.run(sleep=lambda s: None) == "superseded" and superseded.state["calls"] == 0     # a stopped run never continues when its job is retried
+
+
+def test_drrtl_reimpl_arm_prompts_skill_library_and_in_run_skill_learning(env):
+    """PLAN 5.2 (2026-09-15): the Dr. RTL re-implementation arm keeps B2's E4 scalar fitness and archive, but its prefix is
+    the Dr. RTL optimizer role plus the released skill library (no map prior, no static block), each call carries the
+    timing-analysis block of the K worst paths with a rotating diversity strategy instead of a class instruction, and after a
+    built round one skill-extraction call distils the round into learned skills that later calls receive; the calls count
+    against the run's equal-call budget; with skill learning off no such call is made (both directions)."""
+    cfg, conn, q, tmp_path = env
+    from src.search import prompts as PR
+    from src.search.driver import SearchRun
+    crit = {"critical": {"startpoint": "x[0]", "endpoint": "y_reg[3]", "slack": 0.02, "arrival": 0.9, "required": 0.92, "points": [["U1/A", "NAND2_X1"], ["y_reg[3]/D", "DFF_X1"]]},
+            "endpoints": [["x[0]", "y_reg[3]", 0.02], ["x[1]", "y_reg[2]", 0.05]]}
+    conn.execute("UPDATE evaluations SET crit_path_json=? WHERE design_id='rtllm_d' AND config='E4' AND is_baseline=1", (json.dumps(crit),))
+    skills_answer = {"skills": [{"pattern": "adder feeding a register", "strategy": "precompute the constant increment", "confidence": "high", "basis": "a1 improved area"}]}
+    tr = ListTransport([rewrite("a1"), rewrite("a2"), skills_answer, rewrite("b1")])
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="DrRTL_reimpl", design_id="rtllm_d", seed=1, model="gpt-5.6-luna", K=2, N=2, queue=q, transport=tr)
+    assert run.drrtl and run.scalar and run.fit_cfg == "E4" and run.floor == {} and "RTL Optimization Agent" in run.system
+    assert "Learned RTL optimization skills (cross-design library" in run.prefix and "High-confidence" in run.prefix and "Do not use" in run.prefix
+    assert "Map prior" not in run.prefix and "Static guidance" not in run.prefix and "No map prior" not in run.prefix
+    assert run.step() == "running" and run.state["calls"] == 2
+    req = json.loads(Path(sorted((tmp_path / "results" / "llm" / run.run_id).glob("c*.json"))[0]).read_text())
+    inp = req["request"]["input"]
+    assert "Timing analysis of the current design" in inp and "path 1: x[0] -> y_reg[3], slack 0.02 ns" in inp and "cells on the path: NAND2_X1 -> DFF_X1" in inp
+    assert "path selection: top_slack; optimization focus: combinational" in inp and "Instruction (class" not in inp and "Apply a learned skill" in inp
+    cands = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? ORDER BY cand_id", (run.run_id,))]
+    assert all(conn.execute("SELECT class_requested FROM candidates WHERE cand_id=?", (c,)).fetchone()[0] == "free" for c in cands)
+    assert run.state["cands"][cands[0]]["drrtl_strategy"] in (cfg["search"]["drrtl"]["strategies"])
+    for cid, area in zip(cands, (90.0, 100.0)):
+        finish_eq(conn, cfg, tmp_path, cid, verdict="proven")
+    run.process_verdicts()
+    for cid, area in zip(cands, (90.0, 100.0)):
+        finish_e4(conn, cid, area)
+    assert run.step() == "running"                                                # round 1 built -> the skill call (call 3), then round 2 with the one call left (call 4)
+    assert run.state["calls"] == 4 and tr.calls == 4 and run.state["skill_learning_due"] == 2   # round 2 is marked but never distilled: the equal-call budget is spent
+    assert run.state["drrtl_skill_calls"][0]["gen"] == 1 and "precompute the constant increment" in run.state["drrtl_skills"]
+    skill_req = json.loads(Path(sorted((tmp_path / "results" / "llm" / run.run_id).glob("c*.json"))[2]).read_text())
+    assert skill_req["tag"].endswith("skills:g1") and "group-relative" in skill_req["request"]["input"] and "round_mean_dA_pct" in skill_req["request"]["input"]
+    gen2_req = json.loads(Path(sorted((tmp_path / "results" / "llm" / run.run_id).glob("c*.json"))[3]).read_text())
+    assert "Skills learned in this run so far" in gen2_req["request"]["input"] and "[high] pattern: adder feeding a register" in gen2_req["request"]["input"]
+    assert conn.execute("SELECT llm_calls FROM runs WHERE run_id=?", (run.run_id,)).fetchone()[0] == 4
+    last = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? AND gen=2", (run.run_id,))]
+    for cid in last:
+        finish_eq(conn, cfg, tmp_path, cid, verdict="proven")
+    run.process_verdicts()
+    for cid in last:
+        finish_e4(conn, cid, 97.0)
+    assert run.step() == "done" and tr.calls == 4 and run.state["calls"] == 4                  # no skill call beyond the budget once the last round is in
+    # skill learning off: no extra call
+    cfg["search"]["drrtl"]["skill_learning"] = False
+    tr2 = ListTransport([rewrite("c1"), rewrite("c2"), rewrite("c3"), rewrite("c4")])
+    run2 = SearchRun.create(cfg, conn, exp="smoke", arm="DrRTL_reimpl", design_id="rtllm_d", seed=2, model="gpt-5.6-luna", K=2, N=2, queue=q, transport=tr2)
+    run2.step()
+    c2 = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? ORDER BY cand_id", (run2.run_id,))]
+    for cid in c2:
+        finish_eq(conn, cfg, tmp_path, cid, verdict="proven")
+    run2.process_verdicts()
+    for cid in c2:
+        finish_e4(conn, cid, 95.0)
+    run2.step()
+    assert run2.state["calls"] == 4 and not run2.state.get("drrtl_skill_calls") and not run2.state.get("skill_learning_due")
+
+
+def test_drrtl_paths_block_selection_strategies():
+    from src.search import prompts as PR
+    cp = {"critical": {"startpoint": "a", "endpoint": "u0/r_reg[1]", "slack": 0.01}, "endpoints": [["a", "u0/r_reg[1]", 0.01], ["b", "u1/s_reg[0]", 0.02], ["c", "u0/r_reg[2]", 0.03], ["d", "u1/s_reg[1]", 0.04]]}
+    top = PR.drrtl_paths_block(cp, {"paths": "top_slack", "focus": "mixed"}, 2)
+    assert "path 1: a -> u0/r_reg[1], slack 0.01 ns" in top and "path 2: b" in top and "path 3" not in top
+    mod = PR.drrtl_paths_block(cp, {"paths": "module", "focus": "combinational"}, 10)
+    assert "u0/r_reg[1]" in mod and "u0/r_reg[2]" in mod and "u1/s_reg" not in mod                      # the instance holding the worst path
+    clu = PR.drrtl_paths_block(cp, {"paths": "endpoint_cluster", "focus": "mixed"}, 10)
+    assert "u0/r_reg" in clu or "u1/s_reg" in clu
+    rnd = PR.drrtl_paths_block(cp, {"paths": "random", "focus": "mixed"}, 2, rng=random.Random(3))
+    assert rnd.count("- path ") == 2
+    assert "no path data is available" in PR.drrtl_paths_block(None, {"paths": "top_slack"}, 5)

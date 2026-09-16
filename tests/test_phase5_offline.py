@@ -49,11 +49,12 @@ def test_probe_rule_and_large_tier_assignment(env):
 def test_plan_matrix_and_undefined_arms(env):
     cfg, conn = env
     probe_runs(conn, {"gpt-5.6-terra": {"p1": 0, "p2": 0, "p3": 0}, "gpt-5.6-sol": {"p1": 0, "p2": 0, "p3": 7}})
+    cfg["scale"]["arms"] = ["B0", "B1_E4", "B2", "M", "DrRTL_reimpl", "Undefined_arm"]
     pl = PM.plan(cfg, conn)
-    assert pl["skipped_arms"] == ["DrRTL_reimpl"]                                                                  # no driver definition: not launched
+    assert pl["skipped_arms"] == ["Undefined_arm"]                                                                 # no driver definition: not launched (DrRTL_reimpl is defined since 2026-09-15)
     runs = pl["runs"]
     from collections import Counter
-    assert Counter(r["model"] for r in runs) == {"gpt-5.6-luna": 4 * 2 * 4, "gpt-5.6-terra": 2 * 2 * 3, "gpt-5.6-sol": 2 * 2 * 1}   # 4 designs x 2 seeds x 4 arms; terra M / B2 on the 3 non-large designs; sol on the large one
+    assert Counter(r["model"] for r in runs) == {"gpt-5.6-luna": 4 * 2 * 5, "gpt-5.6-terra": 2 * 2 * 3, "gpt-5.6-sol": 2 * 2 * 1}   # 4 designs x 2 seeds x 5 arms; terra M / B2 on the 3 non-large designs; sol on the large one
     assert {r["model"] for r in runs if r["tier"] == "large" and r["arm"] in ("M", "B2") and r["model"] != "gpt-5.6-luna"} == {"gpt-5.6-sol"}
     assert pl["probe"]["zero"] is False
 
@@ -87,6 +88,6 @@ def test_driver_refuses_an_arm_without_a_definition(tmp_path, monkeypatch):
     cfg["project"]["results_dir"] = str(tmp_path / "results")
     conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
     from src.search.driver import SearchRun
-    db.insert(conn, "runs", {"run_id": "rX", "exp": "phase5", "arm": "DrRTL_reimpl", "design_id": "rtllm_d", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "created"})
+    db.insert(conn, "runs", {"run_id": "rX", "exp": "phase5", "arm": "Undefined_arm", "design_id": "rtllm_d", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "created"})
     with pytest.raises(ValueError, match="no definition"):
         SearchRun(cfg, conn, "rX")

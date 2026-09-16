@@ -9,10 +9,10 @@ from pathlib import Path
 PROMPT_DIR = Path(__file__).parent / "prompts"
 
 
-def load_templates(caliber="E4"):
-    """System prompt (the Y-caliber variant `search_system_y.md` for arm B0 names Yosys + OpenSTA as the measuring tool and
-    drops the reference to the synthesizer's report), class instructions and the template version."""
-    name = "search_system_y.md" if caliber == "Y" else "search_system.md"
+def load_templates(caliber="E4", system="default"):
+    """System prompt (the Y-caliber variant `search_system_y.md` for arm B0 names no tool; `search_system_drrtl.md` for the
+    Dr. RTL re-implementation arm), class instructions and the template version."""
+    name = "search_system_drrtl.md" if system == "drrtl" else ("search_system_y.md" if caliber == "Y" else "search_system.md")
     system = (PROMPT_DIR / name).read_text()
     classes = json.loads((PROMPT_DIR / "search_classes.json").read_text())
     version = classes.pop("version", 1)
@@ -149,3 +149,82 @@ def repair_suffix(instruction, cls, failed_rtl, failure_text, scope_text=None):
         parts.append(scope_text.strip())
     parts.append(f"Instruction (class {cls}): {instruction}\nAnswer with the JSON object only.")
     return "\n\n".join(parts) + "\n"
+
+
+
+# ----------------------------------------------------------------------------- Dr. RTL re-implementation arm (PLAN 5.2, 2026-09-15)
+def load_skill_library(cfg):
+    """The released Dr. RTL skill library as the model's cross-design "learned skills" (prefix block); front matter dropped."""
+    path = (cfg.get("search", {}).get("drrtl") or {}).get("skill_library")
+    if not path:
+        return ""
+    p = Path(path) if Path(path).is_absolute() else Path(__file__).resolve().parents[2] / path
+    if not p.exists():
+        return ""
+    raw = p.read_text(errors="replace")
+    if raw.startswith("---"):
+        raw = raw[3:].partition("\n---")[2]
+    return "Learned RTL optimization skills (cross-design library; pattern, strategy, example; confidence tiers; the last section lists strategies not to use):\n" + raw.strip() + "\n"
+
+
+def drrtl_paths_block(crit_path, strategy, k, rng=None, modules=None):
+    """The timing-analysis block of a call: the K worst paths (startpoint, endpoint, slack) of the parent's E4 record chosen by
+    the strategy's path selection (top_slack | random | module | endpoint_cluster), the critical path's cell chain, and the
+    optimization focus (combinational | sequential | mixed)."""
+    cp = crit_path if isinstance(crit_path, dict) else (json.loads(crit_path) if crit_path else {})
+    ends = [e for e in (cp.get("endpoints") or []) if isinstance(e, (list, tuple)) and len(e) >= 3]
+    sel = str(strategy.get("paths", "top_slack"))
+    if sel == "random" and ends and rng is not None:
+        ends = sorted(rng.sample(ends, min(len(ends), max(1, k))), key=lambda e: float(e[2]))
+    elif sel == "endpoint_cluster" and ends:
+        by = {}
+        for e in ends:
+            by.setdefault(str(e[1]).rsplit("/", 1)[0] if "/" in str(e[1]) else "top", []).append(e)
+        biggest = max(by.values(), key=len)
+        ends = sorted(biggest, key=lambda e: float(e[2]))
+    elif sel == "module" and ends:
+        by = {}
+        for e in ends:
+            by.setdefault(str(e[1]).rsplit("/", 1)[0] if "/" in str(e[1]) else "top", []).append(e)
+        inst = (sorted(by, key=lambda m: min(float(e[2]) for e in by[m])) or ["top"])[0]
+        ends = sorted(by[inst], key=lambda e: float(e[2]))
+    else:
+        ends = sorted(ends, key=lambda e: float(e[2]))
+    ends = ends[:max(1, int(k))]
+    lines = [f"Timing analysis of the current design (Design Compiler at full effort; path selection: {sel}; optimization focus: {strategy.get('focus', 'mixed')}):"]
+    crit = cp.get("critical") or {}
+    if crit:
+        lines.append(f"- worst path: {crit.get('startpoint')} -> {crit.get('endpoint')}, slack {crit.get('slack')} ns, arrival {crit.get('arrival')} ns, required {crit.get('required')} ns"
+                     + (", cells on the path: " + " -> ".join(f"{pt[1]}" for pt in (crit.get("points") or [])[:24] if isinstance(pt, (list, tuple)) and len(pt) > 1) if crit.get("points") else ""))
+    for i, e in enumerate(ends, 1):
+        lines.append(f"- path {i}: {e[0]} -> {e[1]}, slack {e[2]} ns")
+    if not ends and not crit:
+        lines.append("- no path data is available for this design")
+    lines.append("For each path: logic structure, root cause, amenability (combinational | sequential-safe | sequential-unsafe: skip | out-of-scope: skip); then optimize the amenable ones.")
+    return "\n".join(lines) + "\n"
+
+
+def drrtl_suffix(paths_block, learned_skills=None, parent_rtl=None, feedback_blocks=(), scope_text=None):
+    parts = []
+    if parent_rtl:
+        parts.append(f"Start from this earlier rewrite of the design (it is equivalent to the original):\n```verilog\n{parent_rtl}\n```\n")
+    if feedback_blocks:
+        parts.append("Results of the earlier attempts of this lineage (most recent first; PPA deltas against the original):\n" +
+                     "\n".join("```json\n" + json.dumps(b, sort_keys=True) + "\n```" for b in feedback_blocks) + "\n")
+    if learned_skills:
+        parts.append("Skills learned in this run so far (from the previous rounds; apply them when a path matches, avoid the ones marked avoid):\n" + learned_skills.strip() + "\n")
+    parts.append(paths_block.strip() + "\n")
+    if scope_text:
+        parts.append(scope_text.strip() + "\n")
+    parts.append("Apply a learned skill where a path matches one (name it) or propose a new transformation; process the paths worst slack first; never change latency. Answer with the JSON object only.")
+    return "\n".join(parts)
+
+
+def drrtl_skill_prompt(round_summary):
+    """The in-run skill-extraction call (Dr. RTL's group-relative skill learning, one call per built generation): the round's
+    attempts with their strategies, transformation notes, verdicts and PPA deltas -> pattern-strategy entries."""
+    return ("You are the skill-learning agent of an agentic RTL optimization loop. Below are the attempts of the last round on one design: the diversity strategy, "
+            "the transformation the optimizer said it applied, the equivalence verdict and the synthesized PPA deltas against the original (negative area or power is an improvement; a positive WNS delta is an improvement). "
+            "Compare the attempts against each other (group-relative: which transformations did better or worse than the round's mean) and distil at most three reusable entries of the form "
+            "<pattern, strategy, confidence> where confidence is high, medium, low or avoid (avoid = broke equivalence or made PPA worse). Answer with a JSON object {\"skills\": [{\"pattern\": ..., \"strategy\": ..., \"confidence\": ..., \"basis\": ...}]} and nothing else.\n\n"
+            "```json\n" + json.dumps(round_summary, sort_keys=True) + "\n```")

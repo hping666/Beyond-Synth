@@ -256,6 +256,17 @@ search:
     B0:    {fitness: Y, feedback: scalar, floor: none, credit: any_gain, prescreen: false, envelope: false}          # literature caliber (EvolVE-style): Yosys + OpenSTA numbers, any positive gain, DC only at the end
     B1_E4: {fitness: E4, feedback: scalar_static, floor: none, credit: any_gain, prescreen: false, envelope: false}  # Phase 5: E4 numbers plus the static complement text
     B2:    {fitness: E4, feedback: scalar, floor: none, credit: any_gain, prescreen: false, envelope: false}         # naive commercial-in-the-loop: E4 numbers, scalar feedback
+    DrRTL_reimpl: {fitness: E4, feedback: drrtl, floor: none, credit: any_gain, prescreen: false, envelope: false}   # PLAN 5.2 (2026-09-15): B2's fitness and archive with Dr. RTL's prompts (timing-analysis block of the K worst paths, the released skill library, a diversity strategy per call) and in-run skill learning (one skill-extraction call per generation)
+  drrtl:                     # the Dr. RTL re-implementation arm (data/sources/Dr_RTL: CLAUDE.md, .claude/agents/*.md, .claude/skill/rtl-opt/skill.md)
+    k_paths: 10              # the K worst paths of the parent's E4 timing report given to the model (the E4 record stores report_timing -max_paths 10; Dr. RTL uses K = 10-25 by design size)
+    skill_library: data/sources/Dr_RTL/.claude/skill/rtl-opt/skill.md   # the released cross-design skill library, sent in the cacheable prefix
+    skill_learning: true     # in-run skill learning: after every built generation one LLM call distils the round's outcomes into pattern-strategy entries for the next calls (counted under the equal-call budget)
+    strategies:              # Dr. RTL's diversity strategy per minor attempt, rotated per call: path selection x optimization focus
+      - {paths: top_slack, focus: combinational}
+      - {paths: top_slack, focus: sequential}
+      - {paths: random, focus: mixed}
+      - {paths: module, focus: combinational}
+      - {paths: endpoint_cluster, focus: mixed}
 screen:                      # "screening" = synthesis-rung screening; not part of the main method (DECISIONS 2026-09-14, G3.1)
   candidates_es: [Y]         # Y's AUROC for E4 retention is measured in Phases 3/4
   auroc_min: 0.75
