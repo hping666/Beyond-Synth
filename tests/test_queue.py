@@ -2,6 +2,7 @@
 failed after one retry, exit 75 backs the pool off without counting an attempt, pool caps hold, timeouts kill
 the whole process group, and a restarted daemon recovers jobs it did not spawn."""
 import copy
+import json
 import os
 import subprocess
 import sys
@@ -280,3 +281,23 @@ def test_search_backpressure_from_the_vcf_queue(tmp_path):
     assert not q.backpressure_holds("search")
     cfg["queue"].pop("backpressure")
     assert not Queue(cfg, conn, str(tmp_path / "logs2"), env={}, log=lambda m: None).backpressure_holds("search")
+
+
+def test_per_design_fairness_scans_past_a_large_backlog(tmp_path):
+    """2026-09-16: with a per-design cap the dispatcher must look past one design's backlog (480 queued proofs of one design sat in
+    front of every other design's job and 28 seats idled) — a job of another design starts although hundreds of the capped
+    design's jobs precede it in the queue (both directions: the capped design still gets no second seat)."""
+    cfg = make_cfg()
+    cfg["queue"]["local_max"] = 4
+    cfg["queue"]["per_design_max"] = {"local": 1}
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    base = {"kind": "shell", "priority": 5, "payload_json": json.dumps({"cmd": "sleep 0.5"}), "attempts": 0, "pool": "local"}
+    db.insert(conn, "jobs", {**base, "job_id": "a_run", "design_id": "A", "state": "running", "submitted_at": "2026-09-16T00:00:00"})   # A holds its one seat
+    for i in range(300):
+        db.insert(conn, "jobs", {**base, "job_id": f"a{i:04d}", "design_id": "A", "state": "queued", "submitted_at": f"2026-09-16T00:{i // 60:02d}:{i % 60:02d}"})
+    b1 = q.submit("shell", {"cmd": "sleep 0.5"}, design_id="B", priority=0)                                                          # behind 300 A jobs, lower priority
+    q._dispatch()
+    assert q.get(b1)["state"] == "running"
+    assert conn.execute("SELECT COUNT(*) FROM jobs WHERE design_id='A' AND state='running'").fetchone()[0] == 1
+    assert wait_state(q, b1, {"done"}, timeout=15) == "done"

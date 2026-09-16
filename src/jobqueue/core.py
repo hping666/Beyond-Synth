@@ -311,7 +311,7 @@ class Queue:
             per_design = int((self.cfg["queue"].get("per_design_max") or {}).get(pool) or 0)
             rows = self.conn.execute(
                 "SELECT * FROM jobs WHERE state IN ('queued','backoff') AND pool=? "
-                "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, free + (200 if per_design else 0))).fetchall()
+                "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, -1 if per_design else free)).fetchall()   # with a per-design cap the whole queue is scanned: a window of free + 200 rows starved every other design behind one design's backlog (2026-09-16, 480 queued proofs of one design)
             spawned = 0
             for job in rows:
                 if spawned >= free:
