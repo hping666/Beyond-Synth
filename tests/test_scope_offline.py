@@ -166,15 +166,15 @@ def test_splice_takes_the_omitted_modules_from_the_original():
     only_region = "\n".join(lines[spans["eth_txcounters"][0] - 1:spans["eth_txcounters"][1]]).replace("NibCnt <= NibCnt + 1", "NibCnt <= NibCnt + 1'b1")
     full, spliced = SC.splice(text, only_region, region)
     assert sorted(spliced["added_modules"]) == sorted(n for n in spans if n != "eth_txcounters") and set(SC.V.module_names(full)) == set(spans)
-    assert spliced["restored_modules"] == [] and {v["problem"] for v in spliced["violations"]} == {"module missing from the answer"}   # the omissions are the warning flag
+    assert spliced["restored_modules"] == [] and spliced["violations"] == []                            # omissions are allowed by the prompt: restored, not flagged
     assert SC.verify(text, full, region) == [] and full.startswith(only_region.rstrip())              # the other modules are D's own text
     assert SC.splice(text, text, region) == (text, {})                                                # a complete answer: nothing spliced, no flag
     other_only = "\n".join(lines[spans["eth_random"][0] - 1:spans["eth_random"][1]])
     t3, i3 = SC.splice(text, other_only, region)
-    assert t3 == other_only and not i3.get("added_modules") and i3["violations"]                     # the region module is absent: not a rewrite of the region (check_top decides)
+    assert t3 == other_only and not i3.get("added_modules") and i3.get("region_missing") == "eth_txcounters"   # the region module is absent: not a rewrite of the region (the driver treats it as unusable)
     block_region = {"module": "eth_txcounters", "kind": "blocks", "items": [0], "registers": ["NibCnt"]}
     t4, i4 = SC.splice(text, only_region, block_region)
-    assert t4 == only_region and i4["restored_items"] == [] and i4["added_items"] == []               # block-level scope restores items of the region module only (single-module designs)
+    assert t4 == only_region and i4["restored_items"] == [] and i4["added_items"] == [] and i4["violations"] == []   # block-level scope restores items of the region module only (single-module designs)
     assert SC.splice(text, only_region, None) == (only_region, {})
 
 
@@ -245,6 +245,6 @@ def test_module_level_splice_restores_changed_modules_and_adds_omitted_ones():
     c = "module top(input a, output y, output z);\n  wire m; sub u(.a(a), .y(m));\n  other o(.a(m), .z(z));\n  assign y = m | 1'b0;\nendmodule\n" \
         "module sub(input a, output y);\n  assign y = !a;\nendmodule\n"                         # top changed, other omitted, sub rewritten
     text, info = SC.splice(d, c, region)
-    assert info["restored_modules"] == ["top"] and info["added_modules"] == ["other"]
+    assert info["restored_modules"] == ["top"] and info["added_modules"] == ["other"] and [v["module"] for v in info["violations"]] == ["top"]   # the changed module is the flag, the omitted one is not
     assert "assign y = m;" in text and "m | 1'b0" not in text and "assign y = !a;" in text and "module other" in text
     assert SC.verify(d, text, region) == []

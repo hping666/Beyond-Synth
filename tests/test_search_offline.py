@@ -805,14 +805,14 @@ def test_module_scope_answers_with_only_the_region_module_are_spliced_and_issued
     dups = [r for r in rows.values() if r["label"] == "duplicate"]
     assert len(issued) == 1 and len(dups) == 1 and len(rows) == 2                                  # region-only: issued (D's top added); changed-other: after D's top is restored it is the same file -> duplicate, flag kept; top-only lacks the region module: unusable
     sj = json.loads(issued[0]["scope_json"])
-    assert sj["spliced"]["added_modules"] == ["d3"] and set(sj["region"]["registers"]) == {"s"} and scope_flagged(issued[0]["scope_json"])
+    assert sj["spliced"]["added_modules"] == ["d3"] and set(sj["region"]["registers"]) == {"s"} and not scope_flagged(issued[0]["scope_json"])   # an omission is restored, not flagged
     stored = Path(issued[0]["rtl_path"]).read_text()
     assert "module d3(" in stored and "assign y = s;" in stored and "~a[0]" in stored                # the full file: the rewritten sub plus D's top
     sj2 = json.loads(dups[0]["scope_json"])
     assert sj2["spliced"]["restored_modules"] == ["d3"] and sj2["violations"][0]["module"] == "d3"   # the changed top was restored from D before the duplicate check
     unusable = list(run.dir.glob("unusable_*.json"))
     assert len(unusable) == 1 and "does not contain the region module sub" in json.loads(unusable[0].read_text())["unusable"]
-    assert run.state["scope_violations"] == 2
+    assert run.state["scope_violations"] == 1                                                       # only the answer that changed the top module is flagged
     superseded = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d3", seed=2, model="gpt-5.6-luna", K=1, N=1, queue=q, transport=ListTransport([region_only]))
     conn.execute("UPDATE runs SET status='superseded' WHERE run_id=?", (superseded.run_id,))
     assert superseded.run(sleep=lambda s: None) == "superseded" and superseded.state["calls"] == 0     # a stopped run never continues when its job is retried

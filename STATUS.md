@@ -4,7 +4,7 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
-**Phase 5 is running since 21:48 (DECISIONS "Phase 5 launched at 21:48"): 609 runs (luna 375, terra 234; the pair B0 / cktevo_nn_engine__thresholds_128x4096 excluded — Yosys cannot evaluate that design), 16 search runs at a time (own pool), seat targets 50 / 50, daemon pid 1037487, hidden loop running (registers Phase 5 and probe candidates every 30 min, relocation check first). Watch with `python3 scripts/phase5_main.py status` (per model / arm / tier; disk guard; block-level scope flags per arm) and `scripts/status.py`. After Phase 5: seat targets back to 24 / 24 (`queue.dc_seats_target`, `vcf_seats_target`), `report_hidden.py` only after the completion marker.**
+**Phase 5 is running since 21:48 (DECISIONS "Phase 5 launched at 21:48"): 609 runs (luna 375, terra 234; the pair B0 / cktevo_nn_engine__thresholds_128x4096 excluded — Yosys cannot evaluate that design), 16 search runs at a time (own pool), seat targets 50 / 50, daemon pid 1037487, hidden loop running (registers Phase 5 and probe candidates every 30 min, relocation check first). Watch with `python3 scripts/phase5_main.py status` (per model / arm / tier; disk guard; block-level scope flags per arm) and `scripts/status.py`. Concurrency raised to 40 search runs with a VC Formal backpressure rule (`queue.search_max`, `queue.backpressure`, DECISIONS 2026-09-16); the launch order interleaves designs. **Staged reports** (DECISIONS "Phase 5 report generator"): `scripts/phase5_stages.py` (detached, log results/queue/phase5_stages.log) renders reports/phase5_stage_A.md when the large tier completes (≈ 12 h after 02:00 on 2026-09-16), B (large + medium), C (every tier → reports/phase5.md, visible part); the hidden part (stage D, `report_hidden.py`) follows the completion marker. Interim renderings every 3 h. `python3 scripts/report_phase.py phase5 --stage A` renders by hand. After Phase 5: seat targets back to 24 / 24 (`queue.dc_seats_target`, `vcf_seats_target`), `report_hidden.py` only after the completion marker.**
 
 What the launch did (21:48): 609 runs per `exp5.model_assignment` (large tier: terra on every arm = 90, luna on M as the contrast = 18; medium / small: luna on every arm = 360, terra on M / B2 = 144), large tier first; `queue.vcf_seats_target` and `dc_seats_target` set to 50 and the daemon restarted; `scripts/hidden_loop.py` registering the hidden configurations of the Phase 5 and probe candidates every 30 minutes (accepted + audit sample; 20 % audit for H1 / H3 / H5) and running the relocation check (`scripts/relocate_hidden_raw.py auto`) every pass. Stamps: equiv_version phase5, floor_version phase4.
 
@@ -40,7 +40,8 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - **Phase 5 runs**: `python3 scripts/phase5_main.py status`; a killed run (e.g. a transient API error beyond the retry budget) keeps its state and is resubmitted as a `search` job with `{"run_id": ...}` (see the sol probe run of 19:22 in DECISIONS).
 - **Queue daemon**: restarted at 18:26 (pid 591986) so that it knows the new `search` pool (`queue.search_max` 16, DECISIONS "Search runs get their own queue pool"): search runs no longer share the local pool with the yosys fitness jobs that arm B0 runs wait for (a deadlock at the Phase 5 scale). Targets 24 / 24 until the launch sets 50 / 50 and restarts it again.
 - **Smoke runs before the launch (rule 7, exp `smoke`, luna, K 2 × N 3)**: `DrRTL_reimpl` on drrtl_controller finished 18:23 — the arm works end to end (timing block with the 10 worst paths and the critical cells, rotating strategy, skill-extraction call parsed into two [avoid] entries fed to round 2; 0.03 USD) but 3 of its 4 first-round answers were **scope violations** (the path list points at endpoints outside the block-level region, and the model rewrote those blocks too). Two arm M smoke runs at block-level scope (drrtl_controller, rtllm_traffic_light) were submitted at 18:26 to measure the base rate of the aid itself; the probe never exercised block-level scope (its designs are multi-module → module-level regions, 0 violations).
-- **Hidden loop**: started by the watcher on GO (`python3 scripts/hidden_loop.py status`).
+- **Hidden loop**: running since 21:47 (`python3 scripts/hidden_loop.py status`; registers Phase 5 and probe candidates every 30 min, relocation check first).
+- **Stages loop**: `python3 scripts/phase5_stages.py status` (stage reports A / B / C when their tiers complete; ANOMALY lines in its log).
 - **Hidden registrations submitted 18:12**: 616 H4 signoff jobs (pt pool, 8 seats: 179 D baselines, 257 Phase 3 + 155 Phase 4 + 25 probe candidates; 257 duplicates of the Phase 3 set return cached records) and 220 DC jobs for the 44 rtllm_multi_pipe_8bit candidates of Phase 3 that had no hidden record (priority 0). `python3 scripts/queue/daemon.py status`; coverage counts: `python3 scripts/hidden_worker.py --coverage-candidates --exp phase3|phase4|phase5_probe`.
 - Session-bound: a Monitor of this session prints the probe's progress every 5 minutes; nothing else.
 
@@ -62,7 +63,7 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - Results database: 24 059 evaluations (+E1_authors), 3 035 + probe candidates; `db_check.py` 0 problems at the last check (17:00). Schema additions today: `candidates.repair_of`, `scope_json`, `features_json` at issue time; diagnoses label `scope_violation`; runs exp `phase5_probe`.
 - Snapshots: `phase4-20260915-review`, `phase4-20260915-1115`.
 - Retention: tiered policy on (`retention.tiered`), kept records slimmed of their regenerable equivalence artifacts (`tiered_eq_delete_kept`, storage decision 2026-09-15), sim_fail VCD 5 % seeded sample, disk guard 15 GB with the relocation contingency; the retroactive prune of 2026-09-15 freed 60 GB of disk (78.5 GB free at 19:22).
-- Tests: `pytest tests/` → **378 passed, 15 skipped**.
+- Tests: `pytest tests/` → **381 passed, 15 skipped**.
 
 ## Open questions and known risks
 
@@ -89,7 +90,7 @@ python3 scripts/phase5_autolaunch.py status   # waiting / launched / no-go, with
 python3 scripts/phase5_probe.py status        # per (model, design) proven, verdict, repair yield, scope violations
 python3 scripts/phase5_main.py status         # after the launch: runs by model / arm / tier
 python3 scripts/hidden_loop.py status
-pytest tests/ -x -q                  # 378 passed, 15 skipped
+pytest tests/ -x -q                  # 381 passed, 15 skipped
 git status --short && git log --oneline -3
 df -h / | tail -1
 ```

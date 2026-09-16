@@ -775,11 +775,165 @@ def phase4(cfg):
     return 0
 
 
+# ----------------------------------------------------------------------------- Phase 5 (visible part; stages A / B / C, user decision 2026-09-16)
+def _pct(x, digits=2):
+    return "-" if x is None else f"{100.0 * x:.{digits}f} %"
+
+
+def _num(x, digits=2):
+    return "-" if x is None else f"{x:.{digits}f}"
+
+
+def phase5_markdown(cfg, data, stage="all"):
+    """The visible-layer report from the collector's data (src/analysis/phase5.collect). Stage A: the large tier; B: large + medium;
+    C / all: every tier. Nothing here reads the hidden database; the hidden part is scripts/report_hidden.py after Phase 5 completes."""
+    from src.analysis import phase5 as P5
+    tiers = P5.stage_tiers(stage)
+    groups = data["groups"]
+    planned = data.get("planned") or {}
+    title = {"A": "Stage A — the large tier", "B": "Stage B — large and medium tiers", "C": "Stage C — every tier (full visible part)", "all": "visible part"}[stage]
+    L = [f"# Phase 5 report ({title})", "",
+         f"Generated {data['generated_at']} by scripts/report_phase.py phase5 --stage {stage} (git {data['git_sha']}, cfg {data['cfg_hash']}). Data: reports/data/phase5_visible_{stage}.json (src/analysis/phase5.collect). "
+         f"Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. "
+         f"Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = {data['equiv_version']}, floor_version = {data['floor_version']}); an interim report changes nothing.", ""]
+    # progress
+    L += ["## 0. Progress", "", "| tier | model | arm | runs done / existing / planned | calls | USD | DC h (visible) | VC Formal h |", "|---|---|---|---|---|---|---|---|"]
+    order = {"large": 0, "medium": 1, "small": 2}
+    keys = sorted(groups, key=lambda k: (order.get(k.split("|")[0], 3), k.split("|")[1], k.split("|")[2]))
+    for k in keys:
+        g = groups[k]
+        L.append(f"| {g['tier']} | {g['model']} | {g['arm']} | {g['done']} / {g['runs']} / {g['planned'] if g['planned'] is not None else '-'} | {g['calls']} | {g['usd']:.2f} | {g['dc_h']:.1f} | {g['vcf_h']:.1f} |")
+    unfinished = [k for k in keys if groups[k]["done"] < (groups[k]["planned"] or groups[k]["runs"])]
+    if unfinished:
+        L += ["", f"Unfinished groups: {len(unfinished)} of {len(keys)} — the numbers below are interim for those groups (runs still open, verdicts and fitness evaluations pending)."]
+    L.append("")
+    # arm comparison per tier
+    L += ["## 1. Arm comparison per tier (uniform caliber: equal LLM calls; every proven candidate re-labelled offline under rule A with the design's frozen E4 floor)", ""]
+    for tier in tiers:
+        tk = [k for k in keys if k.startswith(tier + "|")]
+        if not tk:
+            L += [f"### {tier} tier: no runs yet", ""]
+            continue
+        L += [f"### {tier} tier", "", "| model (role) | arm | runs | candidates | unusable | proven (rate / call) | inconclusive | latency-mapped (c2) | accepted (arm's own) | retained (rule A) | retained / run | runs with ≥ 1 retained | best area gain per run: mean / median | retained per 100 calls | retained per USD | retained per DC h | USD | DC h | VCF h |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        for k in tk:
+            g = groups[k]
+            L.append(f"| {g['model']} ({g['role']}) | {g['arm']} | {g['done']}/{g['runs']} | {g['cands']} | {g['unusable']} | {g['proven']} ({_num(g['proven_per_call'], 3)}) | {g['inconclusive']} | {g['latency_mapped']} | {g['accepted']} | {g['retained']} | {_num(g['retained_per_run'], 2)} | {g['runs_with_retained']} | {_pct(g['best_gain_mean'])} / {_pct(g['best_gain_median'])} | {_num(g['retained_per_100_calls'], 2)} | {_num(g['retained_per_usd'], 2)} | {_num(g['retained_per_dc_hour'], 2)} | {g['usd']:.2f} | {g['dc_h']:.1f} | {g['vcf_h']:.1f} |")
+        L.append("")
+        L += ["Verdict mix and labels:", "", "| model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        for k in tk:
+            g = groups[k]
+            uni = ", ".join(f"{a}: {n}" for a, n in sorted(g["uniform"].items()))
+            sto = ", ".join(f"{a}: {n}" for a, n in sorted(g["stored"].items()))
+            bl = f"{g['block_flags']} / {g['block_answers']} = {_pct(g['block_flag_rate'], 0)}" if g["block_answers"] else "no block-level answers"
+            L.append(f"| {g['model']} | {g['arm']} | {g['sim_fail']} | {g['falsified']} | {g['rejected']} | {g['inconclusive']} | {g['error']} | {g['pending']} | {g['duplicate']} | {g['prescreened']} | {uni or '-'} | {sto or '-'} | {g['scope_flags']} ({bl}) | {g['repairs']} ({g['repairs_proven']}) | {_num(g['ttv']['median'], 0)} / {_num(g['ttv']['q95'], 0)} |")
+        L.append("")
+    # best gain per design
+    L += ["## 2. Best retained area gain per design (max over seeds; uniform rule A; '-' = no retained candidate; 0 = runs without one)", ""]
+    for tier in tiers:
+        dkeys = [k for k in data["designs"] if k.startswith(tier + "|")]
+        if not dkeys:
+            continue
+        designs = sorted({k.split("|")[3] for k in dkeys})
+        cols = sorted({(k.split("|")[1], k.split("|")[2]) for k in dkeys}, key=lambda x: (x[1], x[0]))
+        L += [f"### {tier} tier", "", "| design | " + " | ".join(f"{a} ({m.split('-')[-1]})" for m, a in cols) + " |", "|---|" + "---|" * len(cols)]
+        for d in designs:
+            cells = []
+            for m, a in cols:
+                v = data["designs"].get(f"{tier}|{m}|{a}|{d}")
+                cells.append("-" if not v else (_pct(v["best_retained_area_gain"]) if v["best_retained_area_gain"] else "0"))
+            L.append(f"| {d} | " + " | ".join(cells) + " |")
+        L.append("")
+    # model contrast
+    L += ["## 3. Model contrast (the same arm under two models on the same tier)", ""]
+    any_contrast = False
+    for tier in tiers:
+        arms = sorted({k.split("|")[2] for k in keys if k.startswith(tier + "|")})
+        for arm in arms:
+            ks = [k for k in keys if k.startswith(tier + "|") and k.endswith("|" + arm)]
+            if len(ks) < 2:
+                continue
+            any_contrast = True
+            L += [f"- **{tier} / {arm}**: " + "; ".join(f"{groups[k]['model']} ({groups[k]['role']}): proven {_num(groups[k]['proven_per_call'], 3)} / call, retained {_num(groups[k]['retained_per_run'], 2)} / run, best gain mean {_pct(groups[k]['best_gain_mean'])}, unusable {groups[k]['unusable']}, USD {groups[k]['usd']:.2f}" for k in ks)]
+    if not any_contrast:
+        L.append("(no arm has two models on the reported tiers yet)")
+    L.append("")
+    # curves
+    L += ["## 4. Retained-gain curves (mean over the group's runs of the best retained area gain so far)", ""]
+    for tier in tiers:
+        ck = [k for k in data["curves"] if k.startswith(tier + "|")]
+        if not ck:
+            continue
+        pts = [5, 10, 20, 30, 40, 50, 60]
+        L += [f"### {tier} tier — by LLM calls (equal-call caliber)", "", "| model | arm | " + " | ".join(f"{x} calls" for x in pts) + " |", "|---|---|" + "---|" * len(pts)]
+        for k in sorted(ck, key=lambda k: (k.split("|")[2], k.split("|")[1])):
+            byc = {p["calls"]: p for p in data["curves"][k].get("by_calls", [])}
+            L.append(f"| {k.split('|')[1]} | {k.split('|')[2]} | " + " | ".join(_pct((byc.get(x) or {}).get("mean_best_gain")) for x in pts) + " |")
+        L += ["", f"### {tier} tier — by visible DC hours per run", ""]
+        for k in sorted(ck, key=lambda k: (k.split("|")[2], k.split("|")[1])):
+            bd = data["curves"][k].get("by_dc_hours", [])
+            if not bd:
+                continue
+            sample = bd[:: max(1, len(bd) // 6)][:7]
+            L.append(f"- {k.split('|')[1]} / {k.split('|')[2]}: " + ", ".join(f"{p['dc_hours']:.2f} h → {_pct(p['mean_best_gain'])}" for p in sample))
+        L.append("")
+    # correctness
+    L += ["## 5. Correctness (the LLM's equivalence-preserving rate)", "", "| tier | model | design | runs | candidates | proven | proven rate |", "|---|---|---|---|---|---|---|"]
+    for k in sorted(data["correctness"], key=lambda k: (order.get(k.split("|")[0], 3), k.split("|")[2], k.split("|")[1])):
+        if k.split("|")[0] not in tiers:
+            continue
+        v = data["correctness"][k]
+        L.append(f"| {k.split('|')[0]} | {k.split('|')[1]} | {k.split('|')[2]} | {v['runs']} | {v['cands']} | {v['proven']} | {_pct(v['proven_rate'], 1)} |")
+    low = [k for k, v in data["correctness"].items() if k.split("|")[0] in tiers and v["cands"] >= 30 and (v["proven_rate"] or 0) < 0.05]
+    L += ["", "LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): " + (", ".join(f"{k.split('|')[2]} under {k.split('|')[1]}" for k in low) if low else "none on the reported tiers") + ".", ""]
+    # classes
+    L += ["## 6. Classes produced (rules v2) and requested → produced", ""]
+    for k in keys:
+        g = groups[k]
+        if g["classes"]:
+            conf = ", ".join(f"{a}: {n}" for a, n in sorted(g["confusion"].items()))
+            L.append(f"- {g['tier']} / {g['model']} / {g['arm']}: produced {dict(sorted(g['classes'].items()))}" + (f"; requested → produced {conf}" if conf else ""))
+    L.append("")
+    # runs / anomalies
+    bad = [r for r in data["runs"] if r["status"] not in ("done", "running", "created")]
+    L += ["## 7. Runs and anomalies", "", f"Runs on the reported tiers: {len(data['runs'])} ({sum(1 for r in data['runs'] if r['status'] == 'done')} done, {sum(1 for r in data['runs'] if r['status'] == 'running')} running, {sum(1 for r in data['runs'] if r['status'] == 'created')} not started). "
+          + (f"Abnormal statuses: " + ", ".join(f"{r['run_id']} {r['status']}" for r in bad[:20]) + "." if bad else "No run in an abnormal status."), ""]
+    if stage in ("C", "all"):
+        L += ["## 8. Success criteria (PROPOSAL §7.2), visible-layer view", "",
+              "- C2 (M vs B2 and vs B1@E4 at equal calls; the hidden-configuration form of the criterion waits for scripts/report_hidden.py): see §1 (retained per run, best gain per run) and §2 (per-design best gains) per tier; the geometric-mean form and the 2σ_D test per design are computed in the final report once every tier is complete.",
+              "- Dr.RTL re-implementation: arm DrRTL_reimpl against M and B2 in §1 / §2 (the original reference row, PLAN 5.4, is the user's manual run).",
+              "- C1 (map): the produced-class distribution per arm in §6; the absorbed / retained map by class over the accepted candidates of every arm follows in Phase 6.2.",
+              "- Screening: not part of Phase 5 (dropped at G3).", ""]
+    return "\n".join(L) + "\n"
+
+
+def phase5(cfg, stage="all", out_dir=None, conn=None):
+    """Collect the visible-layer data of the stage's tiers and write reports/phase5_stage_<stage>.md (stage C / all also
+    reports/phase5.md, the visible part of the Phase 5 report)."""
+    from src.analysis import phase5 as P5
+    from src.db import core as db
+    conn = conn or db.connect(cfg=cfg)
+    data = P5.collect(cfg, conn, tiers=P5.stage_tiers(stage))
+    out = Path(out_dir or (Path(C.ROOT) / "reports"))
+    (out / "data").mkdir(parents=True, exist_ok=True)
+    (out / "data" / f"phase5_visible_{stage}.json").write_text(json.dumps(data, indent=1, sort_keys=True, default=str) + "\n")
+    text = phase5_markdown(cfg, data, stage)
+    (out / f"phase5_stage_{stage}.md").write_text(text)
+    if stage in ("C", "all"):
+        (out / "phase5.md").write_text(text)
+    print(text[:1500])
+    print(f"... written {out / f'phase5_stage_{stage}.md'}" + (f" and {out / 'phase5.md'}" if stage in ("C", "all") else ""))
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("phase", choices=["phase1", "phase2", "phase3", "phase4"])
+    ap.add_argument("phase", choices=["phase1", "phase2", "phase3", "phase4", "phase5"])
+    ap.add_argument("--stage", default="all", choices=["A", "B", "C", "all"], help="phase5: A = large tier, B = large + medium, C / all = every tier (the full visible part)")
     a = ap.parse_args(argv)
     cfg = C.load()
+    if a.phase == "phase5":
+        return phase5(cfg, stage=a.stage)
     return {"phase1": phase1, "phase2": phase2, "phase3": phase3, "phase4": phase4}[a.phase](cfg)
 
 

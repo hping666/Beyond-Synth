@@ -417,7 +417,9 @@ def splice(d_text, c_text, region):
     violations = verify(d_text, c_text, region, ordered=False)   # a re-ordering of concurrent items is neither an edit nor a flag
     if not violations:
         return c_text, info
-    info["violations"] = violations
+    # the warning flag counts edits outside the region; a module the answer left out is what the prompt allows ("you may return only
+    # this module") and is only restored (2026-09-16: the first Phase 5 reports had flagged every module-level answer for its omissions)
+    info["violations"] = [v for v in violations if v.get("problem") != "module missing from the answer"]
     if region.get("kind") == "module":
         return _splice_modules(d_text, c_text, region, violations, info)
     return _splice_items(d_text, c_text, region, violations, info)
