@@ -146,6 +146,7 @@ queue:                       # LOCKED (concurrency caps); automatic backoff when
   vcf_seats_target: 24       # dispatch target for Phases 3-4 (single-worker SEQ runs, ~1 core each; restored from the temporary 50 of the multi_pipe_8bit backlog on 2026-09-14 21:45); Phase 5 proofs run in bulk mode at 50 (DECISIONS 2026-09-14 item 2)
   per_design_max: {vcf: 16}  # 2026-09-14 (DECISIONS): fairness, not a cap: at most this many jobs of one design at once in a pool, so that hours-long SEQ runs of one design cannot hold every seat (40 during the temporary 50-seat backlog)
   local_max: 16              # added 2026-09-12 (DECISIONS): sim / yosys / orfs / llm / shell jobs on the 64-core host
+  search_max: 16             # 2026-09-15 (DECISIONS): search runs (kind search) in their own pool, the same 16 the local pool bounded them to before; a search run waits for queue jobs (arm B0's yosys fitness runs in the local pool), so 16 of them in the local pool starve those jobs and deadlock at the Phase 5 scale; no other cap changed
   poll_sec: 5                # daemon tick interval
   backoff: {initial_sec: 60, max_sec: 900, factor: 2}
   retries: 1

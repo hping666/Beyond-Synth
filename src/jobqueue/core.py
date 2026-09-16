@@ -36,7 +36,7 @@ from src.db import core as db  # noqa: E402
 
 EX_TEMPFAIL = 75
 TIMEOUT_RC = 124
-POOL_OF_KIND = {"shell": "local", "sim": "local", "yosys": "local", "llm": "local", "orfs": "local", "search": "local",
+POOL_OF_KIND = {"shell": "local", "sim": "local", "yosys": "local", "llm": "local", "orfs": "local", "search": "search",   # search runs in their own pool (2026-09-15): they wait for local yosys jobs and must not fill the local pool
                 "dc": "dc", "pt": "pt", "vcf": "vcf", "dc_hidden": "dc"}
 RUNNER_OF_KIND = {"dc": "src.eval.run_dc", "pt": "src.eval.run_pt", "yosys": "src.eval.run_yosys",
                   "orfs": "src.eval.run_orfs", "vcf": "src.equiv.run_equiv", "sim": "src.equiv.run_equiv",
@@ -89,7 +89,8 @@ class Queue:
         self.log_dir = log_dir
         q = cfg["queue"]
         self.caps = {"dc": int(q["dc_seats_max"]), "pt": int(q["pt_seats_max"]),
-                     "vcf": int(q["vcf_seats_max"]), "local": int(q["local_max"])}
+                     "vcf": int(q["vcf_seats_max"]), "local": int(q["local_max"]),
+                     "search": int(q.get("search_max") or q["local_max"])}   # 2026-09-15: search runs poll for their queue jobs (yosys fitness of arm B0 in the local pool); sharing the local pool deadlocks once 16 such runs hold every seat
         # dispatch limits: an optional `<pool>_concurrency` below the seat cap (config queue.dc_concurrency, DECISIONS
         # 2026-09-12: 12 DC jobs at once on the 64-core host); the caps stay the hard ceiling
         # dispatch targets below the seat caps: `<pool>_seats_target` (DECISIONS 2026-09-14: 24 for Phases 3-4, 50 only for bulk

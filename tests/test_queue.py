@@ -230,3 +230,24 @@ def test_pool_hours_from_the_jobs_table(tmp_path):
     db.insert(conn, "jobs", {**base, "job_id": "e", "pool": "vcf", "state": "done", "started_at": "garbage", "finished_at": "2026-09-15T13:00:00"})
     h = pool_hours(conn, now=datetime.datetime(2026, 9, 15, 12, 15, 0))
     assert abs(h["dc"] - 2.0) < 1e-9 and abs(h["pt"] - 0.25) < 1e-9 and "vcf" not in h
+
+
+def test_search_runs_have_their_own_pool(tmp_path):
+    """2026-09-15: search runs (kind search) are dispatched from the `search` pool (config queue.search_max) and do not count
+    against the local pool whose yosys / sim / llm jobs they wait for (both directions: a running search job leaves the local
+    pool free; a running yosys job leaves the search pool free)."""
+    from src.jobqueue.core import POOL_OF_KIND, Queue
+    from src import config as C
+    from src.db import core as db
+    cfg = C.load()
+    assert POOL_OF_KIND["search"] == "search" and POOL_OF_KIND["yosys"] == "local"
+    conn = db.connect(path=str(tmp_path / "q.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={}, log=lambda m: None)
+    assert q.caps["search"] == int(cfg["queue"]["search_max"]) and "search" in q.limits and q.caps["local"] == int(cfg["queue"]["local_max"])
+    js = q.submit("search", {"run_id": "r1"}, config="search")
+    jy = q.submit("yosys", {"module": "x"}, config="Y")
+    assert conn.execute("SELECT pool FROM jobs WHERE job_id=?", (js,)).fetchone()[0] == "search"
+    assert conn.execute("SELECT pool FROM jobs WHERE job_id=?", (jy,)).fetchone()[0] == "local"
+    conn.execute("UPDATE jobs SET state='running' WHERE job_id IN (?, ?)", (js, jy)); conn.commit()
+    assert q.running_in_pool("search") == 1 and q.running_in_pool("local") == 1
+    assert q.stats()["search"]["running"] == 1 and q.stats()["local"]["running"] == 1
