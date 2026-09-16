@@ -35,7 +35,8 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 
 - **Probe runs** (exp phase5_probe, 12 runs, search jobs on the local pool): gpt-5.6-terra and gpt-5.6-sol × 3 designs × 2 seeds, K 6 × N 5, cap 120 USD (10 USD spent at 17:42 including the 6.7 USD of the superseded first launch). `python3 scripts/phase5_probe.py status`.
 - **Autolaunch watcher**: `python3 scripts/phase5_autolaunch.py status` (pid file results/queue/phase5_autolaunch.pid). Stop with `stop` if the launch must not happen.
-- **Queue daemon**: running, pid 945587; targets 24 / 24 until the launch sets 50 / 50 and restarts it.
+- **Queue daemon**: restarted at 18:26 (pid 591986) so that it knows the new `search` pool (`queue.search_max` 16, DECISIONS "Search runs get their own queue pool"): search runs no longer share the local pool with the yosys fitness jobs that arm B0 runs wait for (a deadlock at the Phase 5 scale). Targets 24 / 24 until the launch sets 50 / 50 and restarts it again.
+- **Smoke runs before the launch (rule 7, exp `smoke`, luna, K 2 × N 3)**: `DrRTL_reimpl` on drrtl_controller finished 18:23 — the arm works end to end (timing block with the 10 worst paths and the critical cells, rotating strategy, skill-extraction call parsed into two [avoid] entries fed to round 2; 0.03 USD) but 3 of its 4 first-round answers were **scope violations** (the path list points at endpoints outside the block-level region, and the model rewrote those blocks too). Two arm M smoke runs at block-level scope (drrtl_controller, rtllm_traffic_light) were submitted at 18:26 to measure the base rate of the aid itself; the probe never exercised block-level scope (its designs are multi-module → module-level regions, 0 violations).
 - **Hidden loop**: started by the watcher on GO (`python3 scripts/hidden_loop.py status`).
 - **Hidden registrations submitted 18:12**: 616 H4 signoff jobs (pt pool, 8 seats: 179 D baselines, 257 Phase 3 + 155 Phase 4 + 25 probe candidates; 257 duplicates of the Phase 3 set return cached records) and 220 DC jobs for the 44 rtllm_multi_pipe_8bit candidates of Phase 3 that had no hidden record (priority 0). `python3 scripts/queue/daemon.py status`; coverage counts: `python3 scripts/hidden_worker.py --coverage-candidates --exp phase3|phase4|phase5_probe`.
 - Session-bound: a Monitor of this session prints the probe's progress every 5 minutes; nothing else.
@@ -49,23 +50,27 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 | LLM phase5_probe | ≈ 10 USD and rising | 120 | 6.7 USD of it in the superseded first launch |
 | LLM phase5_main | 0.00 USD | 600 | projected 355 USD for the 630 runs |
 | LLM phase6_ablation | 0.00 USD | 200 | not started |
-| DC hours (visible, cumulative) | ≈ 546 h | reported, not budgeted | + E2_1ns and E1_authors (136 runs) today |
-| VC Formal hours (search runs, cumulative) | ≈ 400 h + probe | reported, not budgeted | |
+| DC seat-hours (jobs table, cumulative, all phases, failed and hidden runs included) | 1 076.6 h at 18:25 | reported, not budgeted | `scripts/status.py` |
+| VC Formal seat-hours (jobs table, cumulative) | 524.3 h at 18:25 | reported, not budgeted | |
+| PrimeTime seat-hours | 0.35 h at 18:25 (H4 batch running) | reported, not budgeted | |
 
 ## Data state
 
 - Results database: 24 059 evaluations (+E1_authors), 3 035 + probe candidates; `db_check.py` 0 problems at the last check (17:00). Schema additions today: `candidates.repair_of`, `scope_json`, `features_json` at issue time; diagnoses label `scope_violation`; runs exp `phase5_probe`.
 - Snapshots: `phase4-20260915-review`, `phase4-20260915-1115`.
 - Retention: tiered policy on (`retention.tiered`), sim_fail VCD 5 % seeded sample, disk guard 15 GB; the retroactive prune of 2026-09-15 freed 60 GB of disk (86.8 GB free after it; 79.9 GB at 17:37 with the probe's records).
-- Tests: `pytest tests/` → **363 passed, 15 skipped**.
+- Tests: `pytest tests/` → **365 passed, 15 skipped**.
 
 ## Open questions and known risks
 
 - `DrRTL_reimpl` arm: implemented offline (tests) but not yet run end-to-end against the API before the launch; its first Phase 5 runs are its smoke test (watch its unusable-answer and skill-call counts in `phase5_main.py status`).
 - H4 wired (18:12); the first Phase 5 H4 records come from the hidden loop; 13 kept Phase 4 candidates have no E4 netlist any more (pruned) and get no H4 record.
-- The large tier's proven rate: the probe shows terra and sol proving on drrtl_pcie (10 each in the first generation) and near zero on spikeLayer8_H7 / drrtl_datapath so far.
+- The large tier's proven rate: the probe shows terra and sol proving on drrtl_pcie and drrtl_datapath (≥ 13 each) and near zero on spikeLayer8_H7.
+- **Block-level scope (single-module designs) may reject most answers**: 3 of 4 in the DrRTL smoke run; the arm M base rate is being measured (smoke runs of 18:26). If it is high for every arm, the pre-registered aid (`exp5.correctness_aids.scope`, single_module: block) needs the user's decision before or early in Phase 5; the launch itself is not gated on it.
+- Transient disk footprint of in-flight proofs: the probe's equivalence records on spikeLayer8_H7 reach ≈ 0.5 GB each (VCS build + VC Formal databases) until the candidate is final and slimmed; 12 probe runs held ≈ 12 GB at 18:20. With 16 concurrent runs on large designs the transient can reach 20–40 GB on top of the retained footprint; the disk guard (15 GB) pauses submissions rather than failing.
+- DPV phase mapping (engineering item (v), "only if time remains"): deliberately not started today — a change of the equivalence stack under a pre-authorised launch would make Phase 5 verdicts heterogeneous; proposed for the user's decision as a Phase 6 / post-launch item.
 - The DC-hour cap (4 000 h) is an operator derivation (DECISIONS "Phase 5 launch tooling"); the VC Formal cap is the G4-accepted projection.
-- `scripts/status.py` hour counters show 0 (ledger rows of kind dc / vcf never written) — engineering item.
+- `scripts/status.py` seat-hours now come from the jobs table (18:25: DC 1 076.6 h cumulative incl. failed and hidden runs, VC Formal 524.3 h, PT 0.35 h).
 - Hidden registration completion counts for Phase 3 / Phase 4 objects not yet reported (counts only); 49 hidden noise records (H1 16, H2a 7, H2b 7, H5 13, H3 6) are still missing per `--submit-noise --missing --dry-run` (not resubmitted today; check whether they are deterministic failures).
 
 ## Resume checklist (run first, in this order)
@@ -79,7 +84,7 @@ python3 scripts/phase5_autolaunch.py status   # waiting / launched / no-go, with
 python3 scripts/phase5_probe.py status        # per (model, design) proven, verdict, repair yield, scope violations
 python3 scripts/phase5_main.py status         # after the launch: runs by model / arm / tier
 python3 scripts/hidden_loop.py status
-pytest tests/ -x -q                  # 363 passed, 15 skipped
+pytest tests/ -x -q                  # 365 passed, 15 skipped
 git status --short && git log --oneline -3
 df -h / | tail -1
 ```
@@ -89,7 +94,7 @@ Then: `docs/DECISIONS.md` (tail, the entries after "Review and decisions after t
 
 - G5 recorded; storage footprint; B1@E4 prompt; SEQ latency mapping; scope-limited rewriting and repair; tiered retention; G5 item 4 (b) (c) (d).
 - Decisions of 2026-09-15: sim_fail VCD sample, sol prices from the live page, E2_1ns, hidden scope, probe script, map prior; prune applied (86.8 GB free); pilot re-run (26 / 28 proven); LLM review (23 objects, map shape unchanged); E2_1ns (13 / 4 / 16).
-- Review decisions: disk guard; B0 tool-neutral prefix; normalised E4 log line; E1_authors (25 / 1 / 7); PROPOSAL row; probe launched, stopped, scope splice, probe relaunched; starting points drawn; launch tooling; hidden scope and loop; autolaunch watcher started; arm DrRTL_reimpl implemented (plan 540 → 630 runs); H4 wired and 616 signoff jobs + 220 Phase 3 registrations submitted.
+- Review decisions: disk guard; B0 tool-neutral prefix; normalised E4 log line; E1_authors (25 / 1 / 7); PROPOSAL row; probe launched, stopped, scope splice, probe relaunched; starting points drawn; launch tooling; hidden scope and loop; autolaunch watcher started; arm DrRTL_reimpl implemented (plan 540 → 630 runs); H4 wired and 616 signoff jobs + 220 Phase 3 registrations submitted; seat-hours from the jobs table; search pool; DrRTL smoke run; block-scope smoke runs.
 
 
 ## Environment (filled by Claude Code in Phase 0 after reading eda-knowledge; afterwards updated only when the environment changes)
