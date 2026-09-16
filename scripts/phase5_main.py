@@ -352,7 +352,15 @@ def cmd_launch(cfg, conn, dry_run=False):
     K, N = int(cfg["scale"]["K"]), int(cfg["scale"]["N"])
     created = 0
     order = {"large": 0, "medium": 1, "small": 2}   # the long proofs first (decision 2026-09-14 item 2: their tails overlap with the rest)
-    for r in sorted(pl["runs"], key=lambda r: (order.get(r["tier"], 3), r["design_id"], r["seed"], r["arm"], r["model"])):
+    # within a tier the designs are interleaved (seed, arm, model round-robin over designs): concurrent runs then span many designs and the
+    # per-design fairness cap of the VC Formal pool (queue.per_design_max) does not idle the seats (2026-09-16: the first 16 runs were all on one design)
+    designs_in = {}
+    for r in pl["runs"]:
+        designs_in.setdefault(r["tier"], []).append(r["design_id"])
+    def launch_key(r):
+        ds = sorted(set(designs_in[r["tier"]]))
+        return (order.get(r["tier"], 3), r["seed"], r["arm"], r["model"], ds.index(r["design_id"]))
+    for r in sorted(pl["runs"], key=launch_key):
         if (r["model"], r["arm"], r["design_id"], r["seed"]) in have:
             continue
         run = SearchRun.create(cfg, conn, exp=EXP, arm=r["arm"], design_id=r["design_id"], seed=r["seed"], model=r["model"], K=K, N=N, queue=q, note=f"Phase 5 main: tier {r['tier']}")
