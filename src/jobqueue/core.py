@@ -357,9 +357,11 @@ class Queue:
             held = self.backpressure_holds(pool)   # fresh runs wait; a resumption (a run that already made calls) goes on — it has verdicts to process and records to slim (2026-09-16)
             admit_left = self.fresh_admissions_left(pool)   # and fresh runs are admitted a few per minute, so the concurrency ramps to what the proof seats sustain instead of bursting
             per_design = int((self.cfg["queue"].get("per_design_max") or {}).get(pool) or 0)
+            per_kind = {k: v for k, v in (self.cfg["queue"].get("per_kind_max") or {}).items() if POOL_OF_KIND.get(k) == pool}   # 2026-09-16: a kind's own ceiling inside this pool (hidden-layer DC jobs while the visible layer needs the CPU)
+            running_kind = {r[0]: r[1] for r in self.conn.execute("SELECT kind, COUNT(*) FROM jobs WHERE state='running' AND pool=? GROUP BY kind", (pool,))} if per_kind else {}
             rows = self.conn.execute(
                 "SELECT * FROM jobs WHERE state IN ('queued','backoff') AND pool=? "
-                "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, -1 if per_design else free)).fetchall()   # with a per-design cap the whole queue is scanned: a window of free + 200 rows starved every other design behind one design's backlog (2026-09-16, 480 queued proofs of one design)
+                "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, -1 if (per_design or per_kind) else free)).fetchall()   # with a per-design cap the whole queue is scanned: a window of free + 200 rows starved every other design behind one design's backlog (2026-09-16, 480 queued proofs of one design)
             if per_design:
                 running_by_design = {r[0]: r[1] for r in self.conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE state='running' AND pool=? GROUP BY design_id", (pool,))}
                 rows = round_robin_by_design(rows, running_by_design)   # 2026-09-16: within a priority level the designs take turns, the design holding the fewest seats first
@@ -367,6 +369,9 @@ class Queue:
             for job in rows:
                 if spawned >= free:
                     break
+                lim_kind = per_kind.get(job["kind"])
+                if lim_kind is not None and running_kind.get(job["kind"], 0) >= int(lim_kind):
+                    continue   # this kind is at its ceiling; other kinds of the pool may still start
                 fresh = not self.is_resumption(job)
                 if held and fresh:
                     continue
@@ -381,6 +386,8 @@ class Queue:
                 try:
                     self._spawn(job)
                     spawned += 1
+                    if per_kind:
+                        running_kind[job["kind"]] = running_kind.get(job["kind"], 0) + 1
                 except Exception as e:  # one unspawnable job (unknown kind in an old daemon, bad payload) must not block the pool
                     self._set(job["job_id"], state="failed", exit_code=None, error=f"cannot spawn: {type(e).__name__}: {e}"[:200],
                               finished_at=db.now())

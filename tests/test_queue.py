@@ -386,3 +386,25 @@ def test_fresh_search_runs_are_admitted_at_a_limited_rate(tmp_path):
     q2._spawn = q._spawn
     q2._dispatch()
     assert len([j for j in spawned if j in jobs]) == 5                                   # no limit: the rest start
+
+
+def test_per_kind_ceiling_inside_a_pool(tmp_path):
+    """2026-09-16: `queue.per_kind_max` caps one kind inside a pool (hidden-layer DC jobs) while other kinds of the pool fill the
+    remaining seats; without the key every kind competes freely (both directions)."""
+    cfg = make_cfg()
+    cfg["queue"]["local_max"] = 4
+    cfg["queue"]["per_kind_max"] = {"shell": 1}
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={}, log=lambda m: None)
+    shells = [q.submit("shell", {"cmd": "sleep 0.2"}, priority=5) for _ in range(3)]
+    others = [q.submit("shell", {"cmd": "sleep 0.2"}, priority=0) for _ in range(2)]
+    conn.execute("UPDATE jobs SET kind='yosys' WHERE job_id IN (?, ?)", tuple(others)); conn.commit()
+    spawned = []
+    q._spawn = lambda job: spawned.append(job["job_id"]) or conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (job["job_id"],))
+    q._dispatch()
+    assert len([j for j in spawned if j in shells]) == 1 and len([j for j in spawned if j in others]) == 2   # one shell (its ceiling), both yosys jobs
+    cfg["queue"].pop("per_kind_max")
+    q2 = Queue(cfg, conn, str(tmp_path / "logs2"), env={}, log=lambda m: None)
+    q2._spawn = q._spawn
+    q2._dispatch()
+    assert len([j for j in spawned if j in shells]) == 2                                                     # no ceiling: the fourth seat goes to a shell job
