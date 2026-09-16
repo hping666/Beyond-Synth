@@ -1,4 +1,4 @@
-# Probe report (2026-09-15 21:05; decision 2026-09-15 item 5)
+# Probe report (2026-09-15 21:40; decision 2026-09-15 item 5)
 
 ```text
 (12 superseded runs not shown: the first launch, stopped after the scope-splice fix)

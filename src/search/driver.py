@@ -108,7 +108,11 @@ class SearchRun:
     # ------------------------------------------------------------------ creation / resumption
     @classmethod
     def create(cls, cfg, conn, *, exp, arm, design_id, seed, model, K, N, queue=None, transport=None, note=""):
-        run_id = f"r{db.now().replace('-', '').replace(':', '').replace('T', '_')}_{design_id[-12:]}_{model[-6:]}_s{seed}".replace(".", "")
+        base_id = f"r{db.now().replace('-', '').replace(':', '').replace('T', '_')}_{design_id[-12:]}_{str(arm)[:6]}_{model[-6:]}_s{seed}".replace(".", "")
+        run_id, n = base_id, 1
+        while conn.execute("SELECT 1 FROM runs WHERE run_id=?", (run_id,)).fetchone():   # the launch creates hundreds of runs within a second (2026-09-15): the arm is part of the id and a suffix settles the rest
+            n += 1
+            run_id = f"{base_id}-{n}"
         sc = cfg["search"]
         budget_calls = min(int(K) * int(N), int(cfg["scale"]["budget"]["llm_calls_per_run"]))
         armdef = (cfg["search"].get("arms") or {}).get(arm) or {}

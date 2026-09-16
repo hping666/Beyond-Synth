@@ -173,3 +173,26 @@ def test_excluded_pairs_leave_the_matrix_and_the_preflight(env):
     assert ("B0", "m1") not in {(a, d) for a, d, _ in PM.preflight(cfg, conn, pl)}
     cfg["exp5"]["excluded_pairs"] = []
     assert len([r for r in PM.plan(cfg, conn)["runs"] if r["arm"] == "B0"]) == 4 * 2
+
+
+def test_run_ids_stay_unique_within_one_second_across_arms(env, monkeypatch):
+    """The launch of 21:40 collided on runs.run_id (timestamp + design + model + seed, hundreds of runs per second): the arm is now
+    part of the id and a counter suffix settles same-second duplicates (both directions: different arms, same arm twice)."""
+    cfg, conn = env
+    from src.search.driver import SearchRun
+    from src.db import core as db2
+    monkeypatch.setattr(db2, "now", lambda: "2026-09-15T21:40:01")
+    created = []
+    real_init = SearchRun.__init__
+    def fake_init(self, cfg_, conn_, run_id, queue=None, transport=None, clock=None):   # the constructor's prerequisites are not this test's subject
+        self.run_id, self.state = run_id, {}
+        created.append(run_id)
+    monkeypatch.setattr(SearchRun, "__init__", fake_init)
+    monkeypatch.setattr(SearchRun, "save_state", lambda self: None)
+    for arm in ("B0", "B1_E4", "B2", "B2"):
+        try:
+            SearchRun.create(cfg, conn, exp="phase5", arm=arm, design_id="cktevo_hsm__hsm", seed=1, model="gpt-5.6-terra", K=1, N=1)
+        except AttributeError:
+            pass   # the stub has no state to update after the row was inserted; the row is what the test checks
+    ids = [r[0] for r in conn.execute("SELECT run_id FROM runs WHERE exp='phase5' ORDER BY rowid")]
+    assert len(ids) == 4 and len(set(ids)) == 4 and "_B0_" in ids[0] and "_B1_E4_" in ids[1] and ids[3] == ids[2] + "-2"
