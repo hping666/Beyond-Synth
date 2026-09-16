@@ -320,6 +320,18 @@ class Queue:
         waiting = self.conn.execute("SELECT COUNT(*) FROM jobs WHERE state IN ('queued','backoff') AND pool=?", (other,)).fetchone()[0]
         return waiting > int(bp.get("max_waiting", 0))
 
+    def fresh_admissions_left(self, pool):
+        """How many fresh search runs may still start this tick under `queue.search_admit_per_min` (None = no limit): the limit minus
+        the search jobs started within the last minute."""
+        if pool != "search":
+            return 10 ** 9
+        lim = self.cfg["queue"].get("search_admit_per_min")
+        if not lim:
+            return 10 ** 9
+        since = (datetime.datetime.now() - datetime.timedelta(seconds=60)).isoformat(timespec="seconds")
+        n = self.conn.execute("SELECT COUNT(*) FROM jobs WHERE kind='search' AND started_at >= ?", (since,)).fetchone()[0]
+        return max(0, int(lim) - int(n))
+
     def is_resumption(self, job):
         """A search job of a run that already made LLM calls (an interrupted run resuming from its state)."""
         if job["kind"] != "search":
@@ -343,6 +355,7 @@ class Queue:
             if free <= 0:
                 continue
             held = self.backpressure_holds(pool)   # fresh runs wait; a resumption (a run that already made calls) goes on — it has verdicts to process and records to slim (2026-09-16)
+            admit_left = self.fresh_admissions_left(pool)   # and fresh runs are admitted a few per minute, so the concurrency ramps to what the proof seats sustain instead of bursting
             per_design = int((self.cfg["queue"].get("per_design_max") or {}).get(pool) or 0)
             rows = self.conn.execute(
                 "SELECT * FROM jobs WHERE state IN ('queued','backoff') AND pool=? "
@@ -354,8 +367,13 @@ class Queue:
             for job in rows:
                 if spawned >= free:
                     break
-                if held and not self.is_resumption(job):
+                fresh = not self.is_resumption(job)
+                if held and fresh:
                     continue
+                if fresh and job["kind"] == "search":
+                    if admit_left <= 0:
+                        continue
+                    admit_left -= 1
                 if per_design and job["design_id"]:
                     n = self.conn.execute("SELECT COUNT(*) FROM jobs WHERE state='running' AND pool=? AND design_id=?", (pool, job["design_id"])).fetchone()[0]
                     if n >= per_design:

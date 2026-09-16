@@ -359,3 +359,30 @@ def test_dispatch_alternates_designs_within_a_priority_level(tmp_path):
     q._spawn = lambda job: spawned.append(job["job_id"]) or conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (job["job_id"],))
     q._dispatch()
     assert sorted(spawned) == ["a0", "a1", "b0", "b1"]                                   # 4 seats: two per design, not three of A and one of B
+
+
+def test_fresh_search_runs_are_admitted_at_a_limited_rate(tmp_path):
+    """2026-09-16: `queue.search_admit_per_min` caps the fresh search runs started per minute (a resumption is exempt); without the key
+    there is no limit (both directions)."""
+    cfg = make_cfg()
+    cfg["queue"]["search_max"] = 8
+    cfg["queue"]["search_admit_per_min"] = 2
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={}, log=lambda m: None)
+    for i in range(5):
+        db.insert(conn, "runs", {"run_id": f"r{i}", "exp": "phase5", "arm": "M", "design_id": "d", "seed": i, "llm_model": "m", "status": "created", "llm_calls": 0})
+    db.insert(conn, "runs", {"run_id": "r_res", "exp": "phase5", "arm": "M", "design_id": "d", "seed": 9, "llm_model": "m", "status": "failed", "llm_calls": 30})
+    jobs = [q.submit("shell", {"cmd": "sleep 0.2", "run_id": f"r{i}"}, pool="search", priority=1) for i in range(5)]
+    res = q.submit("shell", {"cmd": "sleep 0.2", "run_id": "r_res"}, pool="search", priority=0)
+    conn.execute("UPDATE jobs SET kind='search' WHERE pool='search'"); conn.commit()
+    spawned = []
+    q._spawn = lambda job: spawned.append(job["job_id"]) or conn.execute("UPDATE jobs SET state='running', started_at=? WHERE job_id=?", (db.now(), job["job_id"]))
+    q._dispatch()
+    assert len([j for j in spawned if j in jobs]) == 2 and res in spawned                # two fresh runs this minute, the resumption on top
+    q._dispatch()
+    assert len([j for j in spawned if j in jobs]) == 2                                   # nothing more within the minute
+    cfg["queue"].pop("search_admit_per_min")
+    q2 = Queue(cfg, conn, str(tmp_path / "logs2"), env={}, log=lambda m: None)
+    q2._spawn = q._spawn
+    q2._dispatch()
+    assert len([j for j in spawned if j in jobs]) == 5                                   # no limit: the rest start
