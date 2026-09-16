@@ -1,47 +1,55 @@
 {
  "exp": "phase3",
- "candidates_e4": 900,
- "accepted": 176,
+ "candidates_e4": 906,
+ "accepted": 177,
  "configs": {
   "H1": {
-   "expected": 900,
-   "ok": 0,
-   "missing": 900,
-   "accepted_expected": 176,
-   "accepted_ok": 0,
-   "accepted_missing": 176
+   "expected": 906,
+   "ok": 885,
+   "missing": 21,
+   "accepted_expected": 177,
+   "accepted_ok": 173,
+   "accepted_missing": 4
   },
   "H2a": {
-   "expected": 900,
-   "ok": 0,
-   "missing": 900,
-   "accepted_expected": 176,
-   "accepted_ok": 0,
-   "accepted_missing": 176
+   "expected": 906,
+   "ok": 882,
+   "missing": 24,
+   "accepted_expected": 177,
+   "accepted_ok": 169,
+   "accepted_missing": 8
   },
   "H2b": {
-   "expected": 900,
-   "ok": 0,
-   "missing": 900,
-   "accepted_expected": 176,
-   "accepted_ok": 0,
-   "accepted_missing": 176
+   "expected": 906,
+   "ok": 888,
+   "missing": 18,
+   "accepted_expected": 177,
+   "accepted_ok": 172,
+   "accepted_missing": 5
   },
   "H5": {
-   "expected": 900,
-   "ok": 0,
-   "missing": 900,
-   "accepted_expected": 176,
-   "accepted_ok": 0,
-   "accepted_missing": 176
+   "expected": 906,
+   "ok": 894,
+   "missing": 12,
+   "accepted_expected": 177,
+   "accepted_ok": 174,
+   "accepted_missing": 3
   },
   "H3": {
-   "expected": 900,
+   "expected": 906,
+   "ok": 889,
+   "missing": 17,
+   "accepted_expected": 177,
+   "accepted_ok": 172,
+   "accepted_missing": 5
+  },
+  "H4": {
+   "expected": 257,
    "ok": 0,
-   "missing": 900,
-   "accepted_expected": 176,
+   "missing": 257,
+   "accepted_expected": 177,
    "accepted_ok": 0,
-   "accepted_missing": 176
+   "accepted_missing": 177
   }
  }
 }
