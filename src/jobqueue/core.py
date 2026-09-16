@@ -49,6 +49,24 @@ def _ts(iso):
     return datetime.datetime.fromisoformat(iso).timestamp()
 
 
+def pool_hours(conn, now=None):
+    """Seat-hours per pool from the jobs table: started_at -> finished_at of every finished job (its last attempt), started_at -> now
+    for running ones. The budget ledger never carried tool hours (2026-09-15); the jobs table covers the hidden runs as well
+    without reading their database (rule 3). Timestamps are local ISO strings (never compared as text)."""
+    now = now or datetime.datetime.now()
+    out = {}
+    for r in conn.execute("SELECT pool, state, started_at, finished_at FROM jobs WHERE started_at IS NOT NULL"):
+        try:
+            t0 = datetime.datetime.fromisoformat(r["started_at"])
+            t1 = datetime.datetime.fromisoformat(r["finished_at"]) if r["finished_at"] else (now if r["state"] == "running" else None)
+        except (TypeError, ValueError):
+            continue
+        if t1 is None:
+            continue
+        out[r["pool"]] = out.get(r["pool"], 0.0) + max(0.0, (t1 - t0).total_seconds()) / 3600.0
+    return out
+
+
 def _alive(pid):
     try:
         os.kill(int(pid), 0)

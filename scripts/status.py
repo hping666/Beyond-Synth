@@ -13,7 +13,7 @@ sys.path[0] = ROOT
 
 from src import config as C  # noqa: E402
 from src.db import core as db  # noqa: E402
-from src.jobqueue.core import Queue, _alive  # noqa: E402
+from src.jobqueue.core import Queue, pool_hours, _alive  # noqa: E402
 from src.jobqueue.daemon import SECRETS_FILE, read_pid  # noqa: E402
 
 
@@ -63,9 +63,9 @@ def main():
         if phase in ("total", "reserve"):
             continue
         print(f"  LLM {phase:20s}: {spent.get(phase, 0.0):8.2f} / {cap} USD")
-    for kind in ("dc", "pt", "vcf"):
-        h = conn.execute("SELECT COALESCE(SUM(amount),0) FROM budget_ledger WHERE kind=? AND unit='hours'", (kind,)).fetchone()[0]
-        print(f"  {kind.upper():3s} hours cumulative: {h:.2f}")
+    hours = pool_hours(conn)   # 2026-09-15: from the jobs table (the ledger never carried tool hours); hidden runs included, last attempt of each job
+    for pool in ("dc", "pt", "vcf"):
+        print(f"  {pool.upper():3s} seat-hours cumulative (jobs table, hidden runs included): {hours.get(pool, 0.0):.2f}")
     failed = conn.execute("SELECT job_id, kind, design_id, config, error, finished_at FROM jobs WHERE state='failed' "
                           "ORDER BY finished_at DESC LIMIT 10").fetchall()
     print(f"failed jobs (last {len(failed)}):")

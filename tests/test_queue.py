@@ -213,3 +213,20 @@ def test_per_design_fairness_in_a_pool(tmp_path):
     q.tick()
     assert q.get(waiting_a)["state"] == "running"   # A's seat frees: its second job starts
     assert wait_state(q, waiting_a, {"done"}, timeout=15) == "done" and wait_state(q, b1, {"done"}, timeout=15) == "done"
+
+
+def test_pool_hours_from_the_jobs_table(tmp_path):
+    """2026-09-15: seat-hours per pool come from the jobs table (finished jobs by their timestamps, running jobs up to now);
+    jobs never started, malformed timestamps and other pools do not count (both directions)."""
+    import datetime
+    from src.db import core as db
+    from src.jobqueue.core import pool_hours
+    conn = db.connect(path=str(tmp_path / "q.sqlite"))
+    base = {"kind": "dc", "priority": 0, "payload_json": "{}", "attempts": 0, "submitted_at": "2026-09-15T10:00:00"}
+    db.insert(conn, "jobs", {**base, "job_id": "a", "pool": "dc", "state": "done", "started_at": "2026-09-15T10:00:00", "finished_at": "2026-09-15T11:30:00"})
+    db.insert(conn, "jobs", {**base, "job_id": "b", "pool": "dc", "state": "failed", "started_at": "2026-09-15T10:00:00", "finished_at": "2026-09-15T10:30:00"})
+    db.insert(conn, "jobs", {**base, "job_id": "c", "pool": "pt", "state": "running", "started_at": "2026-09-15T12:00:00", "finished_at": None})
+    db.insert(conn, "jobs", {**base, "job_id": "d", "pool": "vcf", "state": "queued", "started_at": None, "finished_at": None})
+    db.insert(conn, "jobs", {**base, "job_id": "e", "pool": "vcf", "state": "done", "started_at": "garbage", "finished_at": "2026-09-15T13:00:00"})
+    h = pool_hours(conn, now=datetime.datetime(2026, 9, 15, 12, 15, 0))
+    assert abs(h["dc"] - 2.0) < 1e-9 and abs(h["pt"] - 0.25) < 1e-9 and "vcf" not in h
