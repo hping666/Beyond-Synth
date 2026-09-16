@@ -75,6 +75,7 @@ def plan(cfg, conn):
     skipped_arms = [a for a in cfg["scale"]["arms"] if a not in arms]   # an arm without a driver definition is not launched
     seeds = int(cfg["scale"]["seeds"])
     proven, qualifies, finished, zero, n_probe = probe_verdicts(cfg, conn)
+    excluded = {(e["arm"], e["design_id"]): e.get("reason", "") for e in (cfg["exp5"].get("excluded_pairs") or [])}   # operator deviations with their reasons (config)
     runs, assignment = [], {}
     for tier, designs in sp.items():
         ma = tier_assignment(cfg, tier)
@@ -82,13 +83,14 @@ def plan(cfg, conn):
         for did in designs:
             for seed in range(1, seeds + 1):
                 for arm in arms:
-                    runs.append({"model": ma["all_arms"], "arm": arm, "design_id": did, "tier": tier, "seed": seed, "role": "main"})
+                    if (arm, did) not in excluded:
+                        runs.append({"model": ma["all_arms"], "arm": arm, "design_id": did, "tier": tier, "seed": seed, "role": "main"})
                 for role in ("second", "contrast"):
                     for model, marms in ma[role].items():
                         for arm in marms:
-                            if arm in arms and model != ma["all_arms"]:
+                            if arm in arms and model != ma["all_arms"] and (arm, did) not in excluded:
                                 runs.append({"model": model, "arm": arm, "design_id": did, "tier": tier, "seed": seed, "role": role})
-    return {"runs": runs, "assignment": assignment, "skipped_arms": skipped_arms,
+    return {"runs": runs, "assignment": assignment, "skipped_arms": skipped_arms, "excluded": [(a, d, why) for (a, d), why in excluded.items()],
             "large_second": (assignment.get("large", {}).get("all_arms"), "exp5.model_assignment (decision 2026-09-15 evening, item 3) supersedes the probe rule"),
             "probe": {"proven": proven, "qualifies": qualifies, "finished": finished, "zero": zero, "runs": n_probe}}
 
@@ -295,7 +297,8 @@ def prelaunch(cfg, conn, write=True):
     L += ["", f"Probe runs: {probe['runs']}, finished: {probe['finished']}. Model assignment by tier (decision 2026-09-15 evening, item 3; supersedes the probe rule for the large tier): {asg_text}."
           + (f" Probe designs below min_proven under every model: {', '.join(low)} — kept in the large tier; their near-zero proven rate is the LLM-correctness limit and is reported as such (item 4)." if low else ""), "",
           "## Run matrix", "", f"{pr['runs']} runs, {pr['calls']} LLM calls: " + ", ".join(f"{m} {v['runs']} runs" for m, v in pr["by_model"].items()) + "."
-          + (f" Arms without a driver definition are not in this launch and follow once implemented: {', '.join(pl['skipped_arms'])}." if pl.get("skipped_arms") else ""), ""]
+          + (f" Arms without a driver definition are not in this launch and follow once implemented: {', '.join(pl['skipped_arms'])}." if pl.get("skipped_arms") else "")
+          + (" Excluded pairs (config exp5.excluded_pairs): " + "; ".join(f"{a} / {d} — {why}" for a, d, why in pl["excluded"]) + "." if pl.get("excluded") else ""), ""]
     L += matrix_tables(pl)
     L += ["", f"Seat targets at launch: vcf_seats_target = dc_seats_target = {cfg['exp5']['launch_caps'].get('bulk_seats_target')} (restored to the Phase 3-4 targets afterwards); search runs in their own pool of {cfg['queue'].get('search_max')}.",
           "", "Preflight (fitness baseline at Phi_main, E4 noise floor, arm definition for every (arm, design) of the matrix): " + ("every pair ready" if not pf else f"{len(pf)} pairs not ready — " + "; ".join(f"{a} / {d}: {why}" for a, d, why in pf[:8]) + (" ..." if len(pf) > 8 else "")), "",

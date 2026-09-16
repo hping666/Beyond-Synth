@@ -48,7 +48,7 @@ Arm M accepts 19 % of its proven candidates (Phase 3, 1192 proven; retained or t
 | medium | B | gpt-5.6-luna | 9720 | 3.8 | 0.79 | 36.9 | 7.7 | 1.4 | 4.0 |
 | medium | B | gpt-5.6-terra | 3240 | 3.8 | 0.79 | 12.3 | 2.6 | 0.5 | 1.3 |
 | medium | B | sky130 | 300 | 3.5 | 0.68 | 1.1 | 0.2 | 0.0 | 0.1 |
-| medium | B0 | gpt-5.6-luna | 3240 | 3.8 | 0.78 | 12.2 | 2.5 | 0.5 | 1.3 |
+| medium | B0 | gpt-5.6-luna | 3060 | 3.8 | 0.78 | 11.5 | 2.4 | 0.4 | 1.3 |
 | medium | M | gpt-5.6-luna | 3240 | 3.8 | 0.80 | 12.4 | 2.6 | 0.5 | 1.3 |
 | medium | M | gpt-5.6-terra | 3240 | 3.8 | 0.80 | 12.4 | 2.6 | 0.5 | 1.3 |
 | medium | M | sky130 | 300 | 3.4 | 0.56 | 1.0 | 0.2 | 0.0 | 0.0 |
@@ -57,16 +57,16 @@ Arm M accepts 19 % of its proven candidates (Phase 3, 1192 proven; retained or t
 | small | B0 | gpt-5.6-luna | 1080 | 1.7 | 0.50 | 1.9 | 0.5 | 0.1 | 0.3 |
 | small | M | gpt-5.6-luna | 1080 | 1.8 | 0.56 | 2.0 | 0.6 | 0.1 | 0.3 |
 | small | M | gpt-5.6-terra | 1080 | 1.8 | 0.56 | 2.0 | 0.6 | 0.1 | 0.3 |
-| **total** | | | **38040** | | | **368** | **44.0** | 23.4 | 47.3 |
+| **total** | | | **37860** | | | **367** | **43.9** | 23.4 | 47.2 |
 
 Components of the totals (GB):
 
 | Component | current rules | tiered policy |
 |---|---|---|
-| eq | 328.5 | 11.1 |
+| eq | 327.9 | 11.0 |
 | candidates_dir | 0.4 | 0.4 |
 | fitness | 11.3 | 5.2 |
-| hidden | 24.5 | 24.5 |
+| hidden | 24.4 | 24.4 |
 | envelope | 0.8 | 0.2 |
 | llm | 1.9 | 1.9 |
 | queue_db | 0.8 | 0.8 |
@@ -88,11 +88,11 @@ Components of the totals (GB):
 
 ## 6. Free space required
 
-Root filesystem free now: 84.8 GB. /hdd1 free: 53.3 GB.
+Root filesystem free now: 84.6 GB. /hdd1 free: 53.3 GB.
 
 | Scenario | projected growth (GB) | with a 25 % margin (GB) | fits in 85 GB? | fits after the retroactive prune (+53 GB)? | fits after freeing ~/.cache (+63 GB)? |
 |---|---|---|---|---|---|
-| current rules | 368 | 460 | no | no | no |
+| current rules | 367 | 459 | no | no | no |
 | tiered policy | 44 | 55 | yes | yes | yes |
 | tiered + H1/H3/H5 on all E4-evaluated | 67 | 84 | yes | yes | yes |
 | tiered + ladder on accepted | 91 | 114 | no | yes | yes |

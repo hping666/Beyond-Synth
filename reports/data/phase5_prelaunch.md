@@ -1,6 +1,6 @@
-# Phase 5 pre-launch report (2026-09-15T21:11; decisions 2026-09-15 item 6 and evening items 3 / 7)
+# Phase 5 pre-launch report (2026-09-15T21:38; decisions 2026-09-15 item 6 and evening items 3 / 7)
 
-**NO-GO** — preflight: 1 (arm, design) pairs lack a prerequisite, e.g. B0 / cktevo_nn_engine__thresholds_128x4096: no Y baseline at Phi_main 0.5
+**GO**
 
 ## Probe (G5 item 1)
 
@@ -13,36 +13,36 @@ Probe runs: 12, finished: True. Model assignment by tier (decision 2026-09-15 ev
 
 ## Run matrix
 
-612 runs, 36720 LLM calls: gpt-5.6-luna 378 runs, gpt-5.6-terra 234 runs.
+609 runs, 36540 LLM calls: gpt-5.6-luna 375 runs, gpt-5.6-terra 234 runs. Excluded pairs (config exp5.excluded_pairs): B0 / cktevo_nn_engine__thresholds_128x4096 — Yosys maps the 128x4096 threshold memory into 1.4 M cells (DC: 427); the Y-caliber baseline exceeds the 20-minute Yosys timeout and every B0 candidate evaluation would too.
 
 | model | B0 | B1_E4 | B2 | DrRTL_reimpl | M | total |
 |---|---|---|---|---|---|---|
-| gpt-5.6-luna | 72 | 72 | 72 | 72 | 90 | 378 |
+| gpt-5.6-luna | 69 | 72 | 72 | 72 | 90 | 375 |
 | gpt-5.6-terra | 18 | 18 | 90 | 18 | 90 | 234 |
 
 | tier | model | role | runs |
 |---|---|---|---|
 | large | gpt-5.6-luna | contrast | 18 |
 | large | gpt-5.6-terra | main | 90 |
-| medium | gpt-5.6-luna | main | 270 |
+| medium | gpt-5.6-luna | main | 267 |
 | medium | gpt-5.6-terra | second | 108 |
 | small | gpt-5.6-luna | main | 90 |
 | small | gpt-5.6-terra | second | 36 |
 
 Seat targets at launch: vcf_seats_target = dc_seats_target = 50 (restored to the Phase 3-4 targets afterwards); search runs in their own pool of 16.
 
-Preflight (fitness baseline at Phi_main, E4 noise floor, arm definition for every (arm, design) of the matrix): 1 pairs not ready — B0 / cktevo_nn_engine__thresholds_128x4096: no Y baseline at Phi_main 0.5
+Preflight (fitness baseline at Phi_main, E4 noise floor, arm definition for every (arm, design) of the matrix): every pair ready
 
 ## Projections against the caps
 
 | quantity | projected | cap | inside |
 |---|---|---|---|
-| llm_usd | 447.8 | 600.0 | yes |
-| disk_gb | 44.0 | 59.8 | yes |
-| vcf_hours | 2192.0 | 4200.0 | yes |
-| dc_hours | 1447.9 | 4000.0 | yes |
+| llm_usd | 447.3 | 600.0 | yes |
+| disk_gb | 43.9 | 59.6 | yes |
+| vcf_hours | 2176.9 | 4200.0 | yes |
+| dc_hours | 1443.0 | 4000.0 | yes |
 
-Free space now 84.8 GB (cap = free minus the 20 GB margin minus the 5 GB reserve of the storage decision 2026-09-15); disk projection = the tiered policy with the kept-record equivalence slimming and the hidden registrations of `exp5.hidden_scope` / `hidden_audit_frac` (reports/data/phase5_footprint.md). Stamps: equiv_version = phase5; floor_version = phase4. DC hours count the E4 fitness runs of the proven candidates (B0: its accepted candidates), the hidden configurations per `exp5.hidden_scope` and 10 % for envelope and single-flag runs; VC Formal hours are the measured seconds per LLM call of the same model and tier (or the main model's).
+Free space now 84.6 GB (cap = free minus the 20 GB margin minus the 5 GB reserve of the storage decision 2026-09-15); disk projection = the tiered policy with the kept-record equivalence slimming and the hidden registrations of `exp5.hidden_scope` / `hidden_audit_frac` (reports/data/phase5_footprint.md). Stamps: equiv_version = phase5; floor_version = phase4. DC hours count the E4 fitness runs of the proven candidates (B0: its accepted candidates), the hidden configurations per `exp5.hidden_scope` and 10 % for envelope and single-flag runs; VC Formal hours are the measured seconds per LLM call of the same model and tier (or the main model's).
 
 ## Per-call figures used (measured where a finished run of the model on the tier exists)
 

@@ -158,3 +158,18 @@ def test_preflight_catches_a_missing_fitness_baseline_before_any_run_is_created(
     db.insert(conn, "evaluations", {"design_id": "l1", "is_baseline": 1, "config": "Y", "lib": "nangate45", "clock_ns": 0.5, "area_um2": 1.0, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": "/v/l1_Y", "hist_json": "{}"})
     db.insert(conn, "noise_floor", {"design_id": "s2", "config": "E4", "metric": "area", "sigma_robust": 0.0, "t_d": 0.01, "floor_source": "measured"})
     assert PM.preflight(cfg, conn, PM.plan(cfg, conn)) == [] and PM.prelaunch(cfg, conn, write=False)[0]
+
+
+def test_excluded_pairs_leave_the_matrix_and_the_preflight(env):
+    """Operator deviation 2026-09-15: a (arm, design) pair listed in exp5.excluded_pairs is not planned, not preflighted and named in
+    the report; the other arms on that design and the arm on the other designs stay (both directions)."""
+    cfg, conn = env
+    probe_runs(conn, {"gpt-5.6-terra": {"p1": 6, "p2": 0, "p3": 0}, "gpt-5.6-sol": {"p1": 0, "p2": 0, "p3": 0}})
+    cfg["exp5"]["excluded_pairs"] = [{"arm": "B0", "design_id": "m1", "reason": "Yosys cannot evaluate it"}]
+    pl = PM.plan(cfg, conn)
+    assert not [r for r in pl["runs"] if r["arm"] == "B0" and r["design_id"] == "m1"]
+    assert len([r for r in pl["runs"] if r["design_id"] == "m1"]) == 2 * (4 + 2) and len([r for r in pl["runs"] if r["arm"] == "B0"]) == 3 * 2   # m1: 4 luna arms + terra M / B2 x 2 seeds; B0 on the other three designs
+    assert pl["excluded"] == [("B0", "m1", "Yosys cannot evaluate it")]
+    assert ("B0", "m1") not in {(a, d) for a, d, _ in PM.preflight(cfg, conn, pl)}
+    cfg["exp5"]["excluded_pairs"] = []
+    assert len([r for r in PM.plan(cfg, conn)["runs"] if r["arm"] == "B0"]) == 4 * 2

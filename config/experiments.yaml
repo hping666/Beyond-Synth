@@ -320,6 +320,8 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
     vcf_hours: 4200                         # the Phase 3 projection accepted at G4 (4 121 h at 50 seats, reports/phase3.md §5c)
     dc_hours: 4000                          # operator derivation for the record: G3's full-E4 figure (766 h, reports/phase2.md) times the E4-clock runs per proven candidate under decision item 2 (fitness + H1 / H3 / H5 on every E4-evaluated candidate, H2a / H2b on accepted) ~ 3 500 h; at 50 seats ~ 70 h wall-clock
     bulk_seats_target: 50                   # vcf_seats_target and dc_seats_target during Phase 5 (decision item 6), restored to 24 afterwards
+  excluded_pairs:                           # (arm, design) pairs left out of the matrix with the reason (operator deviation 2026-09-15, DECISIONS "Launch: the pair B0 / thresholds_128x4096 excluded"): reversible by removing the entry
+    - {arm: B0, design_id: cktevo_nn_engine__thresholds_128x4096, reason: "Yosys maps the 128x4096 threshold memory into 1.4 M cells (DC: 427); the Y-caliber baseline exceeds the 20-minute Yosys timeout and every B0 candidate evaluation would too"}
   model_assignment:                         # 2026-09-15 evening decision 3 (amends the G5 rule): the models of every arm per tier; sol is not used in Phase 5
     large:  {all_arms: gpt-5.6-terra, contrast: {gpt-5.6-luna: [M]}}     # single-model comparison on the large tier; luna on arm M (3 seeds) is the model-correctness contrast, reported apart from the main table
     medium: {all_arms: gpt-5.6-luna, second: {gpt-5.6-terra: [M, B2]}}   # the main model for every arm; terra on M / B2 = the model-independence check
