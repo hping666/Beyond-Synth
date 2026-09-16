@@ -334,3 +334,27 @@ def test_file_size_limit_kills_a_runaway_writer(tmp_path):
     j2 = q2.submit("shell", {"cmd": f"head -c 3000000 /dev/zero > {free}"})
     q2.tick()
     assert wait_state(q2, j2, {"done", "failed"}, timeout=20) == "done" and free.stat().st_size == 3000000
+
+
+def test_dispatch_alternates_designs_within_a_priority_level(tmp_path):
+    """2026-09-16: with a per-design cap the free seats are shared round-robin across designs (within a priority level), so a
+    design with newer jobs is not starved behind another design's older backlog; a higher priority still goes first."""
+    from src.jobqueue.core import round_robin_by_design
+    mk = lambda jid, d, pri, t: {"job_id": jid, "design_id": d, "priority": pri, "submitted_at": t}
+    rows = [mk("a1", "A", 4, "01"), mk("a2", "A", 4, "02"), mk("a3", "A", 4, "03"), mk("b1", "B", 4, "04"), mk("b2", "B", 4, "05"), mk("c1", "C", 4, "06"), mk("hi", "A", 9, "07")]
+    rows.sort(key=lambda r: (-r["priority"], r["submitted_at"]))
+    assert [r["job_id"] for r in round_robin_by_design(rows)] == ["hi", "a1", "b1", "c1", "a2", "b2", "a3"]
+    cfg = make_cfg()
+    cfg["queue"]["local_max"] = 4
+    cfg["queue"]["per_design_max"] = {"local": 3}
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    base = {"kind": "shell", "priority": 4, "payload_json": json.dumps({"cmd": "sleep 0.5"}), "attempts": 0, "pool": "local", "state": "queued"}
+    for i in range(6):
+        db.insert(conn, "jobs", {**base, "job_id": f"a{i}", "design_id": "A", "submitted_at": f"2026-09-16T00:00:{i:02d}"})
+    for i in range(3):
+        db.insert(conn, "jobs", {**base, "job_id": f"b{i}", "design_id": "B", "submitted_at": f"2026-09-16T00:01:{i:02d}"})
+    spawned = []
+    q._spawn = lambda job: spawned.append(job["job_id"]) or conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (job["job_id"],))
+    q._dispatch()
+    assert sorted(spawned) == ["a0", "a1", "b0", "b1"]                                   # 4 seats: two per design, not three of A and one of B

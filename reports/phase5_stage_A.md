@@ -1,17 +1,17 @@
 # Phase 5 report (Stage A — the large tier)
 
-Generated 2026-09-16T04:57 by scripts/report_phase.py phase5 --stage A (git 1d905dbd749d, cfg 47f7ba4d337d). Data: reports/data/phase5_visible_A.json (src/analysis/phase5.collect). Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = phase5, floor_version = phase4); an interim report changes nothing.
+Generated 2026-09-16T07:58 by scripts/report_phase.py phase5 --stage A (git 29aa0e2b95cd, cfg b326eaa98549). Data: reports/data/phase5_visible_A.json (src/analysis/phase5.collect). Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = phase5, floor_version = phase4); an interim report changes nothing.
 
 ## 0. Progress
 
 | tier | model | arm | runs done / existing / planned | calls | USD | DC h (visible) | VC Formal h |
 |---|---|---|---|---|---|---|---|
-| large | gpt-5.6-luna | M | 0 / 18 / 18 | 206 | 0.90 | 0.0 | 0.1 |
-| large | gpt-5.6-terra | B0 | 0 / 18 / 18 | 317 | 12.15 | 0.0 | 41.5 |
-| large | gpt-5.6-terra | B1_E4 | 0 / 18 / 18 | 346 | 14.23 | 3.8 | 39.1 |
-| large | gpt-5.6-terra | B2 | 0 / 18 / 18 | 330 | 12.80 | 1.1 | 21.4 |
-| large | gpt-5.6-terra | DrRTL_reimpl | 0 / 18 / 18 | 349 | 11.49 | 2.2 | 19.1 |
-| large | gpt-5.6-terra | M | 0 / 18 / 18 | 140 | 6.37 | 0.0 | 10.2 |
+| large | gpt-5.6-luna | M | 0 / 18 / 18 | 234 | 1.04 | 0.2 | 0.4 |
+| large | gpt-5.6-terra | B0 | 0 / 18 / 18 | 459 | 16.37 | 0.0 | 61.1 |
+| large | gpt-5.6-terra | B1_E4 | 1 / 18 / 18 | 505 | 21.07 | 6.0 | 56.4 |
+| large | gpt-5.6-terra | B2 | 0 / 18 / 18 | 464 | 17.00 | 3.2 | 34.4 |
+| large | gpt-5.6-terra | DrRTL_reimpl | 0 / 18 / 18 | 480 | 17.34 | 6.3 | 30.4 |
+| large | gpt-5.6-terra | M | 0 / 18 / 18 | 166 | 7.54 | 0.0 | 10.2 |
 
 Unfinished groups: 6 of 6 — the numbers below are interim for those groups (runs still open, verdicts and fitness evaluations pending).
 
@@ -21,23 +21,23 @@ Unfinished groups: 6 of 6 — the numbers below are interim for those groups (ru
 
 | model (role) | arm | runs | candidates | unusable | proven (rate / call) | inconclusive | latency-mapped (c2) | accepted (arm's own) | retained (rule A) | retained / run | runs with ≥ 1 retained | best area gain per run: mean / median | retained per 100 calls | retained per USD | retained per DC h | USD | DC h | VCF h |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna (contrast) | M | 0/18 | 206 | 0 | 0 (0.000) | 0 | 0 | 0 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | 0.00 | 0.00 | - | 0.90 | 0.0 | 0.1 |
-| gpt-5.6-terra (main) | B0 | 0/18 | 322 | 0 | 17 (0.054) | 44 | 0 | 9 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | 0.00 | 0.00 | - | 12.15 | 0.0 | 41.5 |
-| gpt-5.6-terra (main) | B1_E4 | 0/18 | 346 | 0 | 39 (0.113) | 40 | 0 | 27 | 3 | 0.17 | 2 | 0.14 % / 0.00 % | 0.87 | 0.21 | 0.80 | 14.23 | 3.8 | 39.1 |
-| gpt-5.6-terra (main) | B2 | 0/18 | 330 | 0 | 8 (0.024) | 42 | 0 | 4 | 3 | 0.17 | 1 | 0.03 % / 0.00 % | 0.91 | 0.23 | 2.74 | 12.80 | 1.1 | 21.4 |
-| gpt-5.6-terra (main) | DrRTL_reimpl | 0/18 | 300 | 3 | 17 (0.049) | 34 | 0 | 7 | 2 | 0.11 | 1 | 0.01 % / 0.00 % | 0.57 | 0.17 | 0.90 | 11.49 | 2.2 | 19.1 |
-| gpt-5.6-terra (main) | M | 0/18 | 140 | 0 | 0 (0.000) | 20 | 0 | 0 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | 0.00 | 0.00 | - | 6.37 | 0.0 | 10.2 |
+| gpt-5.6-luna (contrast) | M | 0/18 | 234 | 0 | 1 (0.004) | 0 | 0 | 0 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | 0.00 | 0.00 | 0.00 | 1.04 | 0.2 | 0.4 |
+| gpt-5.6-terra (main) | B0 | 0/18 | 459 | 0 | 37 (0.081) | 62 | 0 | 12 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | 0.00 | 0.00 | - | 16.37 | 0.0 | 61.1 |
+| gpt-5.6-terra (main) | B1_E4 | 1/18 | 510 | 0 | 61 (0.121) | 71 | 0 | 36 | 9 | 0.50 | 2 | 0.14 % / 0.00 % | 1.78 | 0.43 | 1.50 | 21.07 | 6.0 | 56.4 |
+| gpt-5.6-terra (main) | B2 | 0/18 | 464 | 0 | 23 (0.050) | 66 | 0 | 9 | 4 | 0.22 | 1 | 0.03 % / 0.00 % | 0.86 | 0.23 | 1.26 | 17.00 | 3.2 | 34.4 |
+| gpt-5.6-terra (main) | DrRTL_reimpl | 0/18 | 408 | 3 | 52 (0.108) | 57 | 0 | 23 | 3 | 0.17 | 1 | 0.01 % / 0.00 % | 0.62 | 0.17 | 0.48 | 17.34 | 6.3 | 30.4 |
+| gpt-5.6-terra (main) | M | 0/18 | 166 | 0 | 0 (0.000) | 31 | 0 | 0 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | 0.00 | 0.00 | - | 7.54 | 0.0 | 10.2 |
 
 Verdict mix and labels:
 
 | model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna | M | 67 | 1 | 27 | 0 | 0 | 91 | 0 | 20 | - | nonequiv: 95 | 206 (no block-level answers) | 60 (0) | 7181 / 14976 |
-| gpt-5.6-terra | B0 | 55 | 1 | 16 | 44 | 1 | 180 | 8 | 0 | - | improved: 12, no_gain: 5, nonequiv: 117 | 304 (no block-level answers) | 45 (2) | 6455 / 13717 |
-| gpt-5.6-terra | B1_E4 | 49 | 3 | 15 | 40 | 0 | 183 | 17 | 0 | absorbed_identical: 7, harmful: 24, noise: 2, retained: 3, tradeoff: 3 | improved: 29, no_gain: 10, nonequiv: 107 | 313 (no block-level answers) | 41 (1) | 6907 / 12808 |
-| gpt-5.6-terra | B2 | 70 | 3 | 15 | 42 | 0 | 191 | 1 | 0 | harmful: 3, noise: 2, retained: 3 | improved: 5, no_gain: 3, nonequiv: 130 | 315 (no block-level answers) | 64 (0) | 8163 / 14738 |
-| gpt-5.6-terra | DrRTL_reimpl | 38 | 2 | 14 | 34 | 0 | 162 | 33 | 0 | harmful: 7, noise: 7, retained: 2 | improved: 9, no_gain: 7, nonequiv: 88 | 255 (no block-level answers) | 39 (0) | 8323 / 15072 |
-| gpt-5.6-terra | M | 39 | 0 | 5 | 20 | 0 | 76 | 0 | 0 | - | nonequiv: 64 | 135 (no block-level answers) | 29 (0) | 6421 / 14752 |
+| gpt-5.6-luna | M | 96 | 2 | 38 | 0 | 0 | 60 | 1 | 36 | harmful: 1 | harmful: 1, nonequiv: 136 | 233 (no block-level answers) | 63 (0) | 11424 / 21686 |
+| gpt-5.6-terra | B0 | 79 | 1 | 37 | 62 | 1 | 231 | 11 | 0 | - | improved: 26, no_gain: 11, nonequiv: 180 | 375 (no block-level answers) | 59 (2) | 9418 / 18704 |
+| gpt-5.6-terra | B1_E4 | 63 | 5 | 36 | 71 | 1 | 246 | 27 | 0 | absorbed_identical: 12, harmful: 29, noise: 4, retained: 9, tradeoff: 4 | improved: 40, no_gain: 18, nonequiv: 176 | 383 (no block-level answers) | 51 (2) | 9673 / 19554 |
+| gpt-5.6-terra | B2 | 104 | 8 | 36 | 66 | 0 | 224 | 3 | 0 | absorbed_identical: 3, harmful: 7, noise: 6, retained: 4, tradeoff: 3 | improved: 12, no_gain: 11, nonequiv: 214 | 387 (no block-level answers) | 81 (0) | 10388 / 20194 |
+| gpt-5.6-terra | DrRTL_reimpl | 54 | 5 | 34 | 57 | 1 | 172 | 33 | 0 | absorbed: 1, harmful: 24, noise: 15, retained: 3 | improved: 27, no_gain: 16, nonequiv: 151 | 308 (no block-level answers) | 49 (0) | 11085 / 19377 |
+| gpt-5.6-terra | M | 57 | 0 | 7 | 31 | 0 | 71 | 0 | 0 | - | nonequiv: 95 | 135 (no block-level answers) | 30 (0) | 11840 / 21856 |
 
 ## 2. Best retained area gain per design (max over seeds; uniform rule A; '-' = no retained candidate; 0 = runs without one)
 
@@ -54,7 +54,7 @@ Verdict mix and labels:
 
 ## 3. Model contrast (the same arm under two models on the same tier)
 
-- **large / M**: gpt-5.6-luna (contrast): proven 0.000 / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 0.90; gpt-5.6-terra (main): proven 0.000 / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 6.37
+- **large / M**: gpt-5.6-luna (contrast): proven 0.004 / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 1.04; gpt-5.6-terra (main): proven 0.000 / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 7.54
 
 ## 4. Retained-gain curves (mean over the group's runs of the best retained area gain so far)
 
@@ -72,38 +72,39 @@ Verdict mix and labels:
 ### large tier — by visible DC hours per run
 
 - gpt-5.6-terra / B1_E4: 0.25 h → 0.00 %, 0.50 h → 0.10 %, 0.75 h → 0.14 %, 1.00 h → 0.14 %, 1.25 h → 0.14 %, 1.50 h → 0.14 %, 1.75 h → 0.14 %
-- gpt-5.6-terra / B2: 0.25 h → 0.03 %, 0.50 h → 0.03 %, 0.75 h → 0.03 %, 1.00 h → 0.03 %
-- gpt-5.6-terra / DrRTL_reimpl: 0.25 h → 0.00 %, 0.50 h → 0.01 %, 0.75 h → 0.01 %, 1.00 h → 0.01 %, 1.25 h → 0.01 %
+- gpt-5.6-terra / B2: 0.25 h → 0.03 %, 0.50 h → 0.03 %, 0.75 h → 0.03 %, 1.00 h → 0.03 %, 1.25 h → 0.03 %, 1.50 h → 0.03 %, 1.75 h → 0.03 %
+- gpt-5.6-terra / DrRTL_reimpl: 0.25 h → 0.00 %, 0.75 h → 0.01 %, 1.25 h → 0.01 %, 1.75 h → 0.01 %, 2.25 h → 0.01 %, 2.75 h → 0.01 %, 3.25 h → 0.01 %
+- gpt-5.6-luna / M: 0.25 h → 0.00 %
 
 ## 5. Correctness (the LLM's equivalence-preserving rate)
 
 | tier | model | design | runs | candidates | proven | proven rate |
 |---|---|---|---|---|---|---|
 | large | gpt-5.6-luna | cktevo_hsm__hsm | 3 | 180 | 0 | 0.0 % |
-| large | gpt-5.6-terra | cktevo_hsm__hsm | 15 | 724 | 0 | 0.0 % |
-| large | gpt-5.6-luna | cktevo_nn_engine__spikeNeuron8_H7 | 3 | 26 | 0 | 0.0 % |
-| large | gpt-5.6-terra | cktevo_nn_engine__spikeNeuron8_H7 | 15 | 190 | 36 | 18.9 % |
+| large | gpt-5.6-terra | cktevo_hsm__hsm | 15 | 836 | 0 | 0.0 % |
+| large | gpt-5.6-luna | cktevo_nn_engine__spikeNeuron8_H7 | 3 | 54 | 2 | 3.7 % |
+| large | gpt-5.6-terra | cktevo_nn_engine__spikeNeuron8_H7 | 15 | 266 | 69 | 25.9 % |
 | large | gpt-5.6-luna | cktevo_risc__btb | 3 | 0 | 0 | - |
-| large | gpt-5.6-terra | cktevo_risc__btb | 15 | 128 | 27 | 21.1 % |
+| large | gpt-5.6-terra | cktevo_risc__btb | 15 | 230 | 58 | 25.2 % |
 | large | gpt-5.6-luna | drrtl_LSTM | 3 | 0 | 0 | - |
-| large | gpt-5.6-terra | drrtl_LSTM | 15 | 160 | 0 | 0.0 % |
+| large | gpt-5.6-terra | drrtl_LSTM | 15 | 233 | 0 | 0.0 % |
 | large | gpt-5.6-luna | drrtl_aes | 3 | 0 | 0 | - |
-| large | gpt-5.6-terra | drrtl_aes | 15 | 92 | 18 | 19.6 % |
+| large | gpt-5.6-terra | drrtl_aes | 15 | 212 | 46 | 21.7 % |
 | large | gpt-5.6-luna | drrtl_tv80 | 3 | 0 | 0 | - |
-| large | gpt-5.6-terra | drrtl_tv80 | 15 | 144 | 0 | 0.0 % |
+| large | gpt-5.6-terra | drrtl_tv80 | 15 | 230 | 0 | 0.0 % |
 
-LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): cktevo_hsm__hsm under gpt-5.6-terra, cktevo_hsm__hsm under gpt-5.6-luna, drrtl_LSTM under gpt-5.6-terra, drrtl_tv80 under gpt-5.6-terra.
+LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): cktevo_hsm__hsm under gpt-5.6-terra, cktevo_hsm__hsm under gpt-5.6-luna, cktevo_nn_engine__spikeNeuron8_H7 under gpt-5.6-luna, drrtl_LSTM under gpt-5.6-terra, drrtl_tv80 under gpt-5.6-terra.
 
 ## 6. Classes produced (rules v2) and requested → produced
 
-- large / gpt-5.6-luna / M: produced {'a': 22, 'b': 138, 'c1': 36, 'd': 10}; requested → produced a->a: 6, a->b: 11, a->c1: 3, b->a: 2, b->b: 15, c1->a: 4, c1->b: 21, c1->c1: 19, d->a: 10, d->b: 70, d->c1: 12, d->d: 10, free->b: 21, free->c1: 2
-- large / gpt-5.6-terra / B0: produced {'a': 52, 'b': 225, 'c1': 24, 'd': 13}; requested → produced a->a: 15, a->b: 49, a->c1: 3, b->a: 13, b->b: 26, b->d: 1, c1->a: 6, c1->b: 34, c1->c1: 16, c1->d: 4, d->a: 7, d->b: 66, d->c1: 3, d->d: 4, free->a: 11, free->b: 50, free->c1: 2, free->d: 4
-- large / gpt-5.6-terra / B1_E4: produced {'a': 107, 'b': 191, 'c1': 16, 'd': 15}; requested → produced a->a: 15, a->b: 48, a->c1: 3, a->d: 2, b->a: 36, b->b: 20, b->d: 2, c1->a: 15, c1->b: 37, c1->c1: 2, c1->d: 1, d->a: 21, d->b: 42, d->c1: 7, d->d: 4, free->a: 20, free->b: 44, free->c1: 4, free->d: 6
-- large / gpt-5.6-terra / B2: produced {'a': 65, 'b': 241, 'c1': 17, 'd': 6}; requested → produced a->a: 18, a->b: 47, a->c1: 4, b->a: 11, b->b: 39, c1->a: 21, c1->b: 46, c1->c1: 3, c1->d: 1, d->a: 8, d->b: 68, d->c1: 5, d->d: 4, free->a: 7, free->b: 41, free->c1: 5, free->d: 1
-- large / gpt-5.6-terra / DrRTL_reimpl: produced {'a': 115, 'b': 148, 'c1': 3, 'free': 1}; requested → produced free->a: 115, free->b: 148, free->c1: 3, free->free: 1
-- large / gpt-5.6-terra / M: produced {'b': 129, 'c1': 11}; requested → produced a->b: 15, b->b: 8, c1->b: 27, c1->c1: 7, d->b: 71, d->c1: 3, free->b: 8, free->c1: 1
+- large / gpt-5.6-luna / M: produced {'a': 41, 'b': 140, 'c1': 40, 'd': 12}; requested → produced a->a: 6, a->b: 11, a->c1: 3, b->a: 6, b->b: 16, c1->a: 7, c1->b: 22, c1->c1: 19, d->a: 17, d->b: 70, d->c1: 14, d->d: 12, free->a: 5, free->b: 21, free->c1: 4
+- large / gpt-5.6-terra / B0: produced {'a': 84, 'b': 296, 'c1': 35, 'd': 33}; requested → produced a->a: 17, a->b: 60, a->c1: 3, a->d: 1, b->a: 18, b->b: 35, b->d: 2, c1->a: 13, c1->b: 44, c1->c1: 19, c1->d: 6, d->a: 14, d->b: 85, d->c1: 5, d->d: 10, free->a: 22, free->b: 72, free->c1: 8, free->d: 14
+- large / gpt-5.6-terra / B1_E4: produced {'a': 155, 'b': 260, 'c1': 22, 'd': 46}; requested → produced a->a: 20, a->b: 68, a->c1: 3, a->d: 7, b->a: 49, b->b: 30, b->c1: 1, b->d: 15, c1->a: 26, c1->b: 50, c1->c1: 2, c1->d: 4, d->a: 29, d->b: 54, d->c1: 8, d->d: 6, free->a: 31, free->b: 58, free->c1: 8, free->d: 14
+- large / gpt-5.6-terra / B2: produced {'a': 106, 'b': 293, 'c1': 26, 'd': 36}; requested → produced a->a: 26, a->b: 54, a->c1: 4, a->d: 1, b->a: 21, b->b: 43, b->d: 5, c1->a: 28, c1->b: 51, c1->c1: 6, c1->d: 2, d->a: 19, d->b: 86, d->c1: 8, d->d: 14, free->a: 12, free->b: 59, free->c1: 8, free->d: 14
+- large / gpt-5.6-terra / DrRTL_reimpl: produced {'a': 165, 'b': 205, 'c1': 3, 'free': 2}; requested → produced free->a: 165, free->b: 205, free->c1: 3, free->free: 2
+- large / gpt-5.6-terra / M: produced {'b': 153, 'c1': 12, 'd': 1}; requested → produced a->b: 15, a->c1: 1, b->b: 14, c1->b: 32, c1->c1: 7, d->b: 82, d->c1: 3, d->d: 1, free->b: 10, free->c1: 1
 
 ## 7. Runs and anomalies
 
-Runs on the reported tiers: 108 (0 done, 39 running, 68 not started). Abnormal statuses: r20260915_214859_keNeuron8_H7_B0_-terra_s1 failed.
+Runs on the reported tiers: 108 (1 done, 38 running, 68 not started). Abnormal statuses: r20260915_214859_keNeuron8_H7_B0_-terra_s1 failed.
 

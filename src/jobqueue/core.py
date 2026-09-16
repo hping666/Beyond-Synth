@@ -49,6 +49,23 @@ def _ts(iso):
     return datetime.datetime.fromisoformat(iso).timestamp()
 
 
+def round_robin_by_design(rows):
+    """Queued jobs re-ordered so that, within one priority level, designs alternate (each design's own jobs keep their order): the
+    per-design fairness cap bounds a design's seats, this gives every design a share of the seats that free up."""
+    from collections import OrderedDict
+    out = []
+    by_pri = OrderedDict()
+    for r in rows:
+        by_pri.setdefault(r["priority"], OrderedDict()).setdefault(r["design_id"] or "", []).append(r)
+    for pri, designs in by_pri.items():
+        queues = list(designs.values())
+        while any(queues):
+            for q in queues:
+                if q:
+                    out.append(q.pop(0))
+    return out
+
+
 def pool_hours(conn, now=None):
     """Seat-hours per pool from the jobs table: started_at -> finished_at of every finished job (its last attempt), started_at -> now
     for running ones. The budget ledger never carried tool hours (2026-09-15); the jobs table covers the hidden runs as well
@@ -327,6 +344,8 @@ class Queue:
             rows = self.conn.execute(
                 "SELECT * FROM jobs WHERE state IN ('queued','backoff') AND pool=? "
                 "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, -1 if per_design else free)).fetchall()   # with a per-design cap the whole queue is scanned: a window of free + 200 rows starved every other design behind one design's backlog (2026-09-16, 480 queued proofs of one design)
+            if per_design:
+                rows = round_robin_by_design(rows)   # 2026-09-16: within a priority level the designs take turns, so no design waits behind another's older backlog
             spawned = 0
             for job in rows:
                 if spawned >= free:
