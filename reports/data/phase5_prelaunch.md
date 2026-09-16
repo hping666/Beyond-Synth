@@ -1,6 +1,6 @@
-# Phase 5 pre-launch report (2026-09-15T21:05; decisions 2026-09-15 item 6 and evening items 3 / 7)
+# Phase 5 pre-launch report (2026-09-15T21:11; decisions 2026-09-15 item 6 and evening items 3 / 7)
 
-**GO**
+**NO-GO** — preflight: 1 (arm, design) pairs lack a prerequisite, e.g. B0 / cktevo_nn_engine__thresholds_128x4096: no Y baseline at Phi_main 0.5
 
 ## Probe (G5 item 1)
 
@@ -30,6 +30,8 @@ Probe runs: 12, finished: True. Model assignment by tier (decision 2026-09-15 ev
 | small | gpt-5.6-terra | second | 36 |
 
 Seat targets at launch: vcf_seats_target = dc_seats_target = 50 (restored to the Phase 3-4 targets afterwards); search runs in their own pool of 16.
+
+Preflight (fitness baseline at Phi_main, E4 noise floor, arm definition for every (arm, design) of the matrix): 1 pairs not ready — B0 / cktevo_nn_engine__thresholds_128x4096: no Y baseline at Phi_main 0.5
 
 ## Projections against the caps
 
