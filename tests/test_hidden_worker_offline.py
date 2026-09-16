@@ -238,3 +238,42 @@ def test_candidate_coverage_counts_only(env):
     assert cov["configs"]["H5"] == {"expected": 3, "ok": 1, "missing": 2, "accepted_expected": 2, "accepted_ok": 1, "accepted_missing": 1}
     assert cov["configs"]["H2a"]["expected"] == 0        # no ASAP7 knee: nothing expected there
     assert "1.0" not in json.dumps(cov) and "k1" not in json.dumps(cov)
+
+
+def test_phase5_hidden_scope_registers_h1_h3_h5_for_all_and_h2_for_accepted_and_audit(env, tmp_path, monkeypatch):
+    """Decision 2026-09-15 item 2 (`exp5.hidden_scope`): for a Phase 5 experiment H1 / H3 / H5 are registered for every
+    E4-evaluated candidate, H2a / H2b only for accepted candidates and the audit sample; a Phase 4 experiment keeps every
+    configuration for every candidate (both directions)."""
+    cfg, vis, hid, mod, rtl = env
+    from src.designs import catalog as K
+    monkeypatch.setattr(K, "DESIGNS_DIR", tmp_path / "designs")
+    ddir = tmp_path / "designs" / "rtllm" / "h5"
+    (ddir / "rtl").mkdir(parents=True)
+    (ddir / "rtl" / "h5.v").write_text("module h5(input clk, output reg y); always @(posedge clk) y <= ~y; endmodule\n")
+    d = {"design_id": "rtllm_h5", "suite": "rtllm", "name": "h5", "top": "h5", "files": ["rtl/h5.v"], "clk_ports": ["clk"], "rst_port": None, "rst_sense": None,
+         "sverilog": False, "incdirs": [], "tb": None, "reference": None, "source": {"url": "u", "commit": "c", "license": "l", "paths": []},
+         "sha256": {"rtl/h5.v": K.sha256_of(ddir / "rtl" / "h5.v")}, "loc": 1, "tags": ["rtllm"], "notes": [], "_dir": str(ddir)}
+    K.write_design(d)
+    vis.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, phi_main_ns_asap7, phi_main_ns_sky130hd, created_at, git_sha, cfg_hash) "
+                "VALUES ('rtllm_h5','rtllm','h5','x',1,1,'held',2.0,0.5,4.0,'t','g','c')")
+    cfg["exp5"]["hidden_scope"] = {"H1": "all_e4", "H3": "all_e4", "H5": "all_e4", "H2a": "accepted_and_audit", "H2b": "accepted_and_audit", "H4": "accepted_and_audit"}
+    cfg["retention"]["tiered_audit_frac"] = 0.5
+    from src.eval import retention as R
+    monkeypatch.setattr(R, "is_audit_sample", lambda cid, frac: cid == "k_audit")
+    for exp, rid in (("phase5", "r5"), ("phase4", "r4")):
+        db.insert(vis, "runs", {"run_id": rid, "exp": exp, "arm": "M", "design_id": "rtllm_h5", "seed": 1, "status": "done", "started_at": "t"})
+        for cid, acc in ((f"{rid}_k_acc", 1), (f"{rid}_k_no", 0), (f"{rid}_k_audit", 0)):
+            db.insert(vis, "candidates", {"cand_id": cid if cid != f"{rid}_k_audit" else "k_audit" if exp == "phase5" else cid, "run_id": rid, "design_id": "rtllm_h5", "gen": 1, "arm": "M",
+                                          "rtl_path": str(ddir / "rtl" / "h5.v"), "e4_job_id": "j", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc})
+    jobs5 = mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1", "H3", "H5", "H2a", "H2b"])
+    by5 = {}
+    for j in jobs5:
+        by5.setdefault(j["config"], set()).add(j["cand_id"])
+    assert by5["H1"] == by5["H5"] == {"r5_k_acc", "r5_k_no", "k_audit"}                      # every E4-evaluated candidate
+    assert by5["H2a"] == by5["H2b"] == {"r5_k_acc", "k_audit"}                                 # accepted + audit sample only
+    assert "H3" not in by5 or by5["H3"] == {"r5_k_acc", "r5_k_no", "k_audit"}                # H3 needs the physical library (configs_light rule); when present it is all_e4
+    jobs4 = mod.candidate_jobs(cfg, vis, "phase4", 1, hid=hid, configs=["H1", "H2a"])
+    by4 = {}
+    for j in jobs4:
+        by4.setdefault(j["config"], set()).add(j["cand_id"])
+    assert by4["H2a"] == {"r4_k_acc", "r4_k_no", "r4_k_audit"}                                 # Phase 4: every configuration for every candidate
