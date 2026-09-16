@@ -131,11 +131,20 @@ def suffix(instruction, cls, parent_rtl=None, feedback_blocks=(), design_top=Non
         parts.append(f"Start from this earlier rewrite of the design (it is equivalent to the original):\n```verilog\n{parent_rtl}\n```\n")
     if feedback_blocks:
         parts.append("The synthesizer's verdicts on the earlier rewrites of this lineage (most recent first):\n" +
-                     "\n".join("```json\n" + json.dumps(b, sort_keys=True) + "\n```" for b in feedback_blocks) + "\n")
+                     "\n".join("```json\n" + json.dumps(b, sort_keys=True) + "\n```" for b in feedback_blocks) + "\n" + pending_note(feedback_blocks))
     if scope_text:
         parts.append(scope_text.strip() + "\n")
     parts.append(f"Instruction (class {cls}): {instruction}\nAnswer with the JSON object only.")
     return "\n".join(parts)
+
+
+PENDING_NOTE = 'A verdict marked "equivalence": "pending" is provisional: the synthesis result is measured, but the equivalence proof of that rewrite has not completed yet.\n'
+
+
+def pending_note(feedback_blocks):
+    """DECISIONS 2026-09-16 (scheduling change, item 3): a provisional diagnosis is fed back before its proof completes, flagged;
+    one sentence explains the flag whenever a block carries it (every arm alike)."""
+    return PENDING_NOTE if any(isinstance(b, dict) and b.get("equivalence") == "pending" for b in feedback_blocks) else ""
 
 
 def repair_suffix(instruction, cls, failed_rtl, failure_text, scope_text=None):
@@ -210,7 +219,7 @@ def drrtl_suffix(paths_block, learned_skills=None, parent_rtl=None, feedback_blo
         parts.append(f"Start from this earlier rewrite of the design (it is equivalent to the original):\n```verilog\n{parent_rtl}\n```\n")
     if feedback_blocks:
         parts.append("Results of the earlier attempts of this lineage (most recent first; PPA deltas against the original):\n" +
-                     "\n".join("```json\n" + json.dumps(b, sort_keys=True) + "\n```" for b in feedback_blocks) + "\n")
+                     "\n".join("```json\n" + json.dumps(b, sort_keys=True) + "\n```" for b in feedback_blocks) + "\n" + pending_note(feedback_blocks))
     if learned_skills:
         parts.append("Skills learned in this run so far (from the previous rounds; apply them when a path matches, avoid the ones marked avoid):\n" + learned_skills.strip() + "\n")
     parts.append(paths_block.strip() + "\n")

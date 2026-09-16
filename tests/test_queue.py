@@ -408,3 +408,62 @@ def test_per_kind_ceiling_inside_a_pool(tmp_path):
     q2._spawn = q._spawn
     q2._dispatch()
     assert len([j for j in spawned if j in shells]) == 2                                                     # no ceiling: the fourth seat goes to a shell job
+
+
+def test_reprioritize_changes_a_waiting_job_only(q):
+    """DECISIONS 2026-09-16 (scheduling change, item 2): a queued proof takes the tier of its provisional diagnosis; a job that
+    already runs (or finished) keeps its priority."""
+    a = q.submit("shell", {"cmd": "true"}, priority=4)
+    assert q.reprioritize(a, 8) and q.get(a)["priority"] == 8
+    q.conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (a,)); q.conn.commit()
+    assert not q.reprioritize(a, 1) and q.get(a)["priority"] == 8
+
+
+def test_code_roll_exit_requeues_a_search_run_without_an_attempt(tmp_path):
+    """2026-09-16: a search run leaving for a code roll (exit 76 from the driver, or 128 + SIGUSR1 from a driver that predates
+    the handler) is requeued as it is — no attempt consumed, no backoff; any other kind, or any other exit code, follows the
+    retry rule (both directions)."""
+    from src.jobqueue.core import EX_RESTART, ROLL_SIGNAL_RC
+    cfg = make_cfg()
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    s = q.submit("shell", {"cmd": "true", "run_id": "r1"}, pool="search")
+    conn.execute("UPDATE jobs SET kind='search', state='running', attempts=1 WHERE job_id=?", (s,)); conn.commit()
+    q._finish(q.get(s), EX_RESTART)
+    assert q.get(s)["state"] == "queued" and q.get(s)["attempts"] == 1 and q.get(s)["error"] == "restarted for a code roll"
+    conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (s,)); conn.commit()
+    q._finish(q.get(s), ROLL_SIGNAL_RC)
+    assert q.get(s)["state"] == "queued" and q.get(s)["attempts"] == 1 and q._backoff("search")[1] == 0
+    conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (s,)); conn.commit()
+    q._finish(q.get(s), 1)                                                        # an ordinary failure of a job on its last attempt
+    assert q.get(s)["state"] == "failed" and q.get(s)["attempts"] == 2
+    o = q.submit("shell", {"cmd": "true"})
+    conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (o,)); conn.commit()
+    q._finish(q.get(o), EX_RESTART)                                               # not a search job: exit 76 is a failure like any other
+    assert q.get(o)["state"] == "queued" and q.get(o)["attempts"] == 1
+
+
+def test_a_resumption_behind_held_fresh_runs_is_still_dispatched(tmp_path):
+    """2026-09-16: while backpressure holds fresh search runs, the dispatcher scans the whole queue — a resumption submitted after
+    hundreds of fresh runs is started (it sat unreached behind the window of `free` rows for hours)."""
+    cfg = make_cfg()
+    cfg["queue"]["search_max"] = 4
+    cfg["queue"]["backpressure"] = {"search": {"pool": "vcf", "max_waiting": 0}}
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    base = {"kind": "vcf", "priority": 0, "payload_json": "{}", "attempts": 0, "pool": "vcf", "design_id": "d"}
+    for i in range(cfg["queue"]["vcf_seats_max"]):
+        db.insert(conn, "jobs", {**base, "job_id": f"v{i}", "state": "running", "submitted_at": "2026-09-16T00:00:00"})
+    db.insert(conn, "jobs", {**base, "job_id": "vq", "state": "queued", "submitted_at": "2026-09-16T00:00:01"})
+    assert q.backpressure_holds("search")
+    db.insert(conn, "runs", {"run_id": "r_old", "exp": "phase5", "arm": "M", "design_id": "d", "seed": 1, "llm_model": "m", "status": "failed", "llm_calls": 12})
+    fresh = []
+    for i in range(20):
+        db.insert(conn, "runs", {"run_id": f"r_new{i}", "exp": "phase5", "arm": "M", "design_id": "d", "seed": 10 + i, "llm_model": "m", "status": "created", "llm_calls": 0})
+        fresh.append(q.submit("shell", {"cmd": "true", "run_id": f"r_new{i}"}, pool="search", priority=5))
+    old_job = q.submit("shell", {"cmd": "true", "run_id": "r_old"}, pool="search", priority=5)          # the last row of the queue
+    conn.execute("UPDATE jobs SET kind='search' WHERE pool='search'"); conn.commit()
+    spawned = []
+    q._spawn = lambda job: spawned.append(job["job_id"]) or conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (job["job_id"],))
+    q._dispatch()
+    assert spawned == [old_job] and all(q.get(j)["state"] == "queued" for j in fresh)

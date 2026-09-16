@@ -259,6 +259,10 @@ search:
   job_priority: 4            # equivalence / E4 / envelope jobs issued by a run go before the noise batches (priorities 0-2)
   envelope_types: [P1_text]  # C2.1(d): the acceptance envelope uses text-level renamings of the candidate (no SEQ needed: renamings are equivalent by construction)
   long_proof_first: {classes: [c1, d], design_patterns: [pipe, mult, div], priority_boost: 1}   # DECISIONS 2026-09-14 item 2: on arithmetic designs the (c1)/(d) proofs go first within a generation (issue order + one priority step) so that their tails overlap with the rest
+  early_fitness:             # user decision 2026-09-16 (DECISIONS "Operational scheduling change", items 1-3): the equivalence job is split into a `sim` job (V1 + V2, local pool) and, once V2 passes, the fitness evaluation (E4 / Y) and the SEQ proof (a `vcf` job continuing from the sim record) run in parallel; the fitness result gives a provisional diagnosis (same rule, no credit, no archive) that is fed back flagged "equivalence pending" and orders the proof queue; verdict definitions, floors, budgets and the frozen stack are untouched
+    enabled: true
+    priority_by_label: {retained: 4, tradeoff: 4, improved: 4, noise: 2, harmful: 2, no_gain: 2, fragile: 2, absorbed: 0, absorbed_identical: 0, duplicate: 0}   # added to job_priority (and the long_proof_first boost) once the provisional diagnosis is known: retained / tradeoff first, noise / harmful next, absorbed / duplicate last
+    priority_undiagnosed: 2  # the proof's tier until the fitness result arrives (between the first and the last tier)
   arms:                      # spec 05 §5 (implementation differences between arms; the driver reads these keys): fitness source, feedback block, floor, credit rule
     M:     {fitness: E4, feedback: verdict, floor: rule_a, credit: retained_tradeoff, prescreen: true, envelope: true}
     B0:    {fitness: Y, feedback: scalar, floor: none, credit: any_gain, prescreen: false, envelope: false}          # literature caliber (EvolVE-style): Yosys + OpenSTA numbers, any positive gain, DC only at the end

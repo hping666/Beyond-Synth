@@ -5,6 +5,7 @@ database plus a state file. No synthesis-rung screening. The driver only submits
 touches the hidden database."""
 import json
 import random
+import signal
 import time
 from pathlib import Path
 
@@ -100,6 +101,9 @@ class SearchRun:
         self.d_design = SC.parse_design(self.d_text) if self.scope_on else None
         self._d_stats = None
         self.priority = int(cfg["search"].get("job_priority", 4))
+        self.early = dict(cfg["search"].get("early_fitness") or {})   # DECISIONS 2026-09-16 (scheduling change): the split pipeline (sim job -> proof and fitness in parallel)
+        self.early_on = bool(self.early.get("enabled", False))
+        self.roll = False   # set by SIGUSR1: leave after the current step so that the queue restarts the run under new code
         pats = (cfg["search"].get("long_proof_first") or {}).get("design_patterns") or []
         self.arith_design = any(pat in self.row["design_id"] for pat in pats)   # arithmetic pipelines by name (as the Phase 5 projection)
         self.load_state()
@@ -166,18 +170,20 @@ class SearchRun:
         r = self.conn.execute("SELECT state FROM jobs WHERE job_id=?", (job_id,)).fetchone()
         return r["state"] if r else "missing"
 
-    def eq_record(self, cand_id):
+    def eq_record(self, cand_id, which="eq"):
         """The equivalence record of a candidate: by the content-addressed directory of its job payload (the runner reuses
         an earlier record when another run produced the same RTL, so the record may carry that run's cand_id), else by
-        cand_id."""
+        cand_id. which: "eq" = the record with the verdict (one-job pipeline, or the proof job of the split pipeline);
+        "sim" = the V1 / V2 record of the split pipeline's sim job."""
         c = self.state["cands"].get(cand_id) or {}
         root = Path(C.results_dir(self.cfg)) / "raw" / self.row["design_id"] / "EQ"
         best = None
-        payload = c.get("eq_payload")
+        payload = c.get("eq_payload") if which == "eq" else c.get("sim_payload")
+        wanted_kind = "sim" if which == "sim" else "vcf"
         if payload:
             from src.equiv.run_equiv import equiv_extra, equiv_hash
             try:
-                h = equiv_hash(payload["d_rtl"], payload["c_rtl"], payload["top"], self.cfg, equiv_extra(self.cfg, payload, True))
+                h = equiv_hash(payload["d_rtl"], payload["c_rtl"], payload["top"], self.cfg, equiv_extra(self.cfg, payload, which == "eq"))
             except OSError:
                 h = None
             if h:
@@ -192,7 +198,7 @@ class SearchRun:
                     rec = json.loads(eq.read_text())
                 except json.JSONDecodeError:
                     continue
-                if rec.get("cand_id") == cand_id and (best is None or eq.stat().st_mtime > best[0]):
+                if rec.get("cand_id") == cand_id and rec.get("kind", wanted_kind) == wanted_kind and (best is None or eq.stat().st_mtime > best[0]):
                     best = (eq.stat().st_mtime, rec, str(eq.parent))
         return (best[1], best[2]) if best else (None, None)
 
@@ -496,16 +502,25 @@ class SearchRun:
                    "note": f"search {self.run_id} g{gen} {cls_final}"}
         lp = self.cfg["search"].get("long_proof_first") or {}
         boost = int(lp.get("priority_boost") or 0) if (self.arith_design and cls_final in set(lp.get("classes") or [])) else 0
-        jid = self._q().submit("vcf", payload, design_id=self.row["design_id"], cand_id=cid, config="EQ", priority=self.priority + boost, timeout_sec=cap * 60 + 900)
-        entry["eq_job_id"], entry["eq_payload"] = jid, payload
+        if self.early_on:   # split pipeline (DECISIONS 2026-09-16, item 1): V1 + V2 first, on the local pool; the proof and the fitness evaluation follow in parallel
+            jid = self._q().submit("sim", payload, design_id=self.row["design_id"], cand_id=cid, config="EQ", priority=self.priority + boost,
+                                   timeout_sec=int(self.cfg["timeouts"]["sim"]) * 60 + 300)
+            entry.update(sim_job_id=jid, sim_payload=payload, proof_boost=boost, state="sim_pending")
+            st["pending"][cid] = "sim"
+        else:
+            jid = self._q().submit("vcf", payload, design_id=self.row["design_id"], cand_id=cid, config="EQ", priority=self.priority + boost, timeout_sec=cap * 60 + 900)
+            entry["eq_job_id"], entry["eq_payload"] = jid, payload
+            st["pending"][cid] = "eq"
         self.conn.execute("UPDATE candidates SET eq_job_id=? WHERE cand_id=?", (jid, cid))
         st["cands"][cid] = entry
-        st["pending"][cid] = "eq"
         return cid
 
     # ------------------------------------------------------------------ verdict processing
     def process_verdicts(self):
-        """Apply every verdict that has arrived (any generation): equivalence -> E4 job; E4 -> diagnosis; envelope -> final label."""
+        """Apply every verdict that has arrived (any generation). One-job pipeline: equivalence -> fitness job -> diagnosis ->
+        envelope. Split pipeline (DECISIONS 2026-09-16, scheduling change): sim (V1 + V2) -> proof job and fitness job in
+        parallel -> a provisional diagnosis when the fitness result comes first (fed back flagged, orders the proof queue) ->
+        the diagnosis on the proof (the same fitness record) -> envelope. Verdict definitions are the same on both paths."""
         changed = False
         for cid, stage in list(self.state["pending"].items()):
             c = self.state["cands"][cid]
@@ -519,33 +534,78 @@ class SearchRun:
                     self.finish_nonequiv(cid, {"verdict": "error", "v1_status": "error"}, "no equivalence record (job failed)")
                     continue
                 c["eq_record"] = rec_dir
-                c["v3_seconds"], c["eq_seconds"] = rec.get("v3_seconds"), rec.get("seconds")
-                c["time_to_verdict_s"] = round(self.clock() - float(c["issued_at"]), 1)
-                self.conn.execute("UPDATE candidates SET v1_status=?, v2_status=?, v2_cycles=?, latency_offset_json=?, v3_status=?, v3_seconds=?, v4_status=?, "
-                                  "counterexample_path=?, verdict=?, time_to_verdict_s=?, proven_by=?, equiv_version=? WHERE cand_id=?",
-                                  tuple(rec.get(k) for k in EQ_KEEP[:8]) + (rec.get("verdict"), c["time_to_verdict_s"], rec.get("proven_by"),
-                                                                             rec.get("equiv_version") or (self.cfg.get("equiv") or {}).get("version"), cid))   # decision 2026-09-15 evening item 5: the stack version stamped on every verdict
-                offsets = json.loads(rec.get("latency_offset_json") or "{}")
-                if rec.get("verdict") in ("proven", "proven_sim_only") and any(int(v) > 0 for v in offsets.values()):
-                    c["class_final"] = "c2"
-                    c["latency_mapped"] = bool(rec.get("latency_mapped"))   # G2.1 (b): SEQ-proven at the V2 offsets; population rule in c2_allowed()
-                    self.conn.execute("UPDATE candidates SET class_final='c2' WHERE cand_id=?", (cid,))
+                self.record_stages(cid, c, rec, final=True)
                 if rec.get("verdict") in ("proven", "proven_sim_only"):
                     self.submit_fitness(cid, c, rec)
                 else:
                     self.finish_nonequiv(cid, rec, None)
                     self.maybe_repair(cid, c, rec)   # G5 item 1 (ii): one counterexample-guided repair call
+            elif stage == "sim":
+                js = self.job_state(c["sim_job_id"])
+                if js not in ("done", "failed"):
+                    continue
+                rec, rec_dir = self.eq_record(cid, which="sim")
+                changed = True
+                if rec is None:
+                    self.finish_nonequiv(cid, {"verdict": "error", "v1_status": "error"}, "no simulation record (job failed)")
+                    continue
+                c["sim_record"], c["sim_seconds"] = rec_dir, rec.get("seconds")
+                if rec.get("verdict") == "not_run":   # V1 + V2 passed: the proof and the fitness evaluation run in parallel (item 1)
+                    self.record_stages(cid, c, rec, final=False)
+                    self.submit_proof(cid, c)
+                    self.submit_fitness(cid, c, rec)
+                elif rec.get("verdict") == "proven_sim_only":   # a constant-offset pair without the latency mapping: the simulation stage decides, as in one job
+                    c["eq_record"] = rec_dir
+                    self.record_stages(cid, c, rec, final=True)
+                    self.submit_fitness(cid, c, rec)
+                else:
+                    c["eq_record"] = rec_dir
+                    self.record_stages(cid, c, rec, final=True)
+                    self.finish_nonequiv(cid, rec, None)
+                    self.maybe_repair(cid, c, rec)
             elif stage == "e4":
+                proof, proof_rec = self.proof_state(cid, c)
+                if proof == "not_proven":   # the proof failed before the fitness result: nonequiv now; the fitness job's result is not used
+                    changed = True
+                    self.finish_nonequiv(cid, proof_rec, None)
+                    self.maybe_repair(cid, c, proof_rec)
+                    continue
                 js = self.job_state(c["e4_job_id"])
                 if js not in ("done", "failed"):
                     continue
                 changed = True
                 row = self.fit_row(cid)
                 if row is None:
-                    c["state"], c["e4_failed"] = "final", True
-                    self.state["pending"].pop(cid, None)
+                    c["e4_failed"] = True
                     self.conn.execute("UPDATE candidates SET note=COALESCE(note,'') || ? WHERE cand_id=?", (f" [{self.fit_cfg} evaluation failed]", cid))
+                    if proof == "pending":   # the proof still decides the row's verdict columns
+                        c["state"], self.state["pending"][cid] = "proof_pending", "seq"
+                    else:
+                        c["state"] = "final"
+                        self.state["pending"].pop(cid, None)
                     continue
+                if proof == "pending":   # items 1-3: the fitness result before the proof
+                    self.provisional_diagnosis(cid, c, row)
+                    c["state"], self.state["pending"][cid] = "proof_pending", "seq"
+                    continue
+                if self.scalar:
+                    self.scalar_verdict(cid, c, row)
+                else:
+                    self.diagnose_candidate(cid, c, row)
+            elif stage == "seq":
+                proof, proof_rec = self.proof_state(cid, c)
+                if proof == "pending":
+                    continue
+                changed = True
+                if proof != "proven":
+                    self.finish_nonequiv(cid, proof_rec, None)
+                    self.maybe_repair(cid, c, proof_rec)
+                    continue
+                if c.get("e4_failed"):
+                    c["state"] = "final"
+                    self.state["pending"].pop(cid, None)
+                    continue
+                row = self.fit_row(cid)
                 if self.scalar:
                     self.scalar_verdict(cid, c, row)
                 else:
@@ -560,6 +620,108 @@ class SearchRun:
             self.slim_finished()
         return changed
 
+    def record_stages(self, cid, c, rec, final):
+        """The equivalence columns of the candidate row. After the split pipeline's sim job (final=False) the V1 / V2 stages
+        only — the verdict stays NULL while the proof runs; at the verdict (final=True) every column, the stack version stamped
+        (decision 2026-09-15 evening, item 5) and the (c2) class of a proof at constant output offsets."""
+        if not final:
+            self.conn.execute("UPDATE candidates SET v1_status=?, v2_status=?, v2_cycles=?, latency_offset_json=? WHERE cand_id=?",
+                              (rec.get("v1_status"), rec.get("v2_status"), rec.get("v2_cycles"), rec.get("latency_offset_json"), cid))
+            return
+        c["v3_seconds"] = rec.get("v3_seconds")
+        c["eq_seconds"] = rec.get("seconds") if not c.get("sim_seconds") else round(float(rec.get("seconds") or 0) + float(c["sim_seconds"]), 1)
+        c["time_to_verdict_s"] = round(self.clock() - float(c["issued_at"]), 1)
+        self.conn.execute("UPDATE candidates SET v1_status=?, v2_status=?, v2_cycles=?, latency_offset_json=?, v3_status=?, v3_seconds=?, v4_status=?, "
+                          "counterexample_path=?, verdict=?, time_to_verdict_s=?, proven_by=?, equiv_version=? WHERE cand_id=?",
+                          tuple(rec.get(k) for k in EQ_KEEP[:8]) + (rec.get("verdict"), c["time_to_verdict_s"], rec.get("proven_by"),
+                                                                     rec.get("equiv_version") or (self.cfg.get("equiv") or {}).get("version"), cid))
+        offsets = json.loads(rec.get("latency_offset_json") or "{}")
+        if rec.get("verdict") in ("proven", "proven_sim_only") and any(int(v) > 0 for v in offsets.values()):
+            c["class_final"] = "c2"
+            c["latency_mapped"] = bool(rec.get("latency_mapped"))   # G2.1 (b): SEQ-proven at the V2 offsets; population rule in c2_allowed()
+            self.conn.execute("UPDATE candidates SET class_final='c2' WHERE cand_id=?", (cid,))
+
+    # ------------------------------------------------------------------ split pipeline (DECISIONS 2026-09-16, operational scheduling change)
+    def submit_proof(self, cid, c):
+        """Items 1 / 2: the SEQ proof (V3, and V4 where the stack allows it) continues from the sim record on the vcf pool,
+        submitted at the undiagnosed tier and re-ordered once the provisional diagnosis is known (reprioritize_proof). The sim
+        job's id stays in the state; the row's eq_job_id becomes the proof's (the job whose time the analysis reads)."""
+        payload = dict(c["sim_payload"], sim_record=c["sim_record"])
+        c["eq_payload"] = payload
+        prev = self.conn.execute("SELECT eq_job_id FROM candidates WHERE cand_id=?", (cid,)).fetchone()
+        if prev is not None and prev[0] and prev[0] != c.get("sim_job_id"):   # submitted by an attempt that died before saving its state: reuse it
+            c["seq_job_id"] = prev[0]
+        else:
+            cap = int(c.get("seq_cap_min") or self.seq_cap_min("d"))
+            pri = self.priority + int(c.get("proof_boost") or 0) + int(self.early.get("priority_undiagnosed") or 0)
+            jid = self._q().submit("vcf", payload, design_id=self.row["design_id"], cand_id=cid, config="EQ", priority=pri, timeout_sec=cap * 60 + 900)
+            c["seq_job_id"], c["proof_priority"] = jid, pri
+            self.conn.execute("UPDATE candidates SET eq_job_id=? WHERE cand_id=?", (jid, cid))
+        c["proof_pending"], c["proof_submitted_at"] = True, self.clock()
+
+    def proof_state(self, cid, c):
+        """The split pipeline's proof. -> ("none", None) when the verdict was final before the fitness job (one-job pipeline,
+        or a pair the simulation stage decided); ("pending", None) while the proof job runs; else ("proven" | "not_proven",
+        record) — the record's columns are written on the row the first time the verdict is seen."""
+        if not c.get("proof_pending"):
+            if c.get("seq_job_id") is None:
+                return "none", None
+            ok = c.get("proof_verdict") in ("proven", "proven_sim_only")
+            return ("proven" if ok else "not_proven"), (c.get("proof_rec") or {"verdict": c.get("proof_verdict")})
+        if self.job_state(c["seq_job_id"]) not in ("done", "failed"):
+            return "pending", None
+        rec, rec_dir = self.eq_record(cid, which="eq")
+        if rec is None:
+            rec = {"verdict": "error", "v1_status": "ok", "v3_status": "error", "note": "no proof record (job failed)"}
+        else:
+            c["eq_record"] = rec_dir
+        self.record_stages(cid, c, rec, final=True)
+        c["proof_pending"], c["proof_verdict"] = False, rec.get("verdict")
+        c["proof_rec"] = {k: rec.get(k) for k in ("verdict", "v1_status", "v1_detail", "v2_status", "v2_detail", "v3_status", "counterexample_path", "v3")}
+        ok = rec.get("verdict") in ("proven", "proven_sim_only")
+        return ("proven" if ok else "not_proven"), rec
+
+    def provisional_diagnosis(self, cid, c, row):
+        """Items 1-3: the fitness result arrived before the proof. The diagnosis it would give (the same rule and thresholds; no
+        envelope, no fingerprint registration, no credit, no archive, no diagnosis row) goes to the model flagged
+        "equivalence": "pending" and orders the proof queue; the verdict on the proof replaces it (a nonequiv block, or the final
+        diagnosis on the same fitness record, which may still call for the envelope)."""
+        cand = record_from_row(row)
+        c["e4_raw_dir"], c["dc_seconds"] = cand.get("raw_dir"), cand.get("dc_seconds")
+        if self.scalar:
+            gains = self.scalar_gains(cand)
+            label = "improved" if self.scalar_improved(gains) else "no_gain"
+            fb = self.scalar_block(c, label, gains)
+        else:
+            fps = {k: v for k, v in self.state["fingerprints"].items() if k != cid}
+            diag = m3.diagnose(self.base, cand, self.sigma, self.phi, v3_status="proven", k_sigma=float(self.cfg["noise"]["k_sigma"]),
+                               fp_jaccard=float(self.cfg["diag"]["fp_jaccard"]), thresholds=self.thresholds, floor_class=self.floor_class,
+                               run_fingerprints=fps, envelope=None)
+            label = diag["label"]
+            fb = m3.feedback_block(diag, c.get("class_final"), [], prior=(self.prior or {}))
+            fb["floor_class"] = self.floor_class
+        fb["equivalence"] = "pending"
+        self.state["feedback"][cid] = fb
+        c["provisional"] = {"label": label, "at": db.now()}
+        self.state["provisional_count"] = int(self.state.get("provisional_count") or 0) + 1
+        self.conn.execute("UPDATE candidates SET note=COALESCE(note,'') || ? WHERE cand_id=?", (f" [provisional {label}: equivalence pending]", cid))
+        self.reprioritize_proof(cid, c, label)
+        return label
+
+    def reprioritize_proof(self, cid, c, label):
+        """Item 2: the queued proof takes the tier of its provisional label (config search.early_fitness.priority_by_label,
+        added to the run's job priority and the long_proof_first boost); a proof already running keeps its seat. -> the new
+        priority, or None."""
+        if not c.get("seq_job_id") or not c.get("proof_pending"):
+            return None
+        tiers = self.early.get("priority_by_label") or {}
+        tier = int(tiers.get(label, self.early.get("priority_undiagnosed") or 0))
+        pri = self.priority + int(c.get("proof_boost") or 0) + tier
+        if self._q().reprioritize(c["seq_job_id"], pri):
+            c["proof_priority"] = pri
+            return pri
+        return None
+
     def slim_finished(self):
         """Tiered retention (G5 item 5 (ii)): once a candidate has its final label and is neither accepted (ever archived) nor in
         the audit sample, its regenerable artifacts are removed (equivalence record, fitness and envelope records, classifier
@@ -569,11 +731,16 @@ class SearchRun:
         for cid, c in self.state["cands"].items():
             if c.get("state") != "final" or c.get("slimmed") is not None or c.get("repaired_by") == "pending":
                 continue
+            if c.get("e4_job_id") and self.job_state(c["e4_job_id"]) in ("queued", "backoff", "running"):
+                continue   # split pipeline: a proof that failed first leaves the fitness job running on the sim record's SAIF; slim once it has finished
             row = self.conn.execute("SELECT accepted, in_archive FROM candidates WHERE cand_id=?", (cid,)).fetchone()
             accepted = bool(row and (row[0] or row[1])) or any(m.get("cand_id") == cid for m in self.archive.members)
             fit_dirs = [c.get("e4_raw_dir")] + [r[0] for r in self.conn.execute("SELECT raw_dir FROM evaluations WHERE cand_id LIKE ? AND cand_id != ?", (f"{cid}_env%", cid))]
             res = RET.slim_candidate(self.cfg, cid, accepted, eq_dir=c.get("eq_record"), fit_dirs=[d for d in fit_dirs if d], m6_dir=self.dir / f"m6_{cid}")
-            c["slimmed"] = {"kept_full": res["kept_full"], "bytes": sum(res["freed"].values()) + res["m6"]}
+            freed = sum(res["freed"].values()) + res["m6"]
+            if c.get("sim_record") and c.get("sim_record") != c.get("eq_record"):   # the split pipeline's V1 / V2 record (SAIFs, VCS build) under the same policy
+                freed += sum(RET.slim_candidate(self.cfg, cid, accepted, eq_dir=c["sim_record"])["freed"].values())
+            c["slimmed"] = {"kept_full": res["kept_full"], "bytes": freed}
 
     def submit_fitness(self, cid, c, rec):
         """The fitness evaluation of a proven candidate: E4 (arm M, B1@E4, B2) or Y (arm B0, `yosys` kind on the local pool);
@@ -607,17 +774,15 @@ class SearchRun:
         only. No diagnosis row is written here: the M3 diagnosis at E4 of every object belongs to the analysis (PLAN 4.3)."""
         cand = record_from_row(row)
         c["e4_raw_dir"], c["dc_seconds"] = cand.get("raw_dir"), cand.get("dc_seconds")
-        gains = {k: v for k, v in m3.relative_gains(self.base, cand, self.phi).items() if v is not None}   # a metric the caliber lacks (Y power) is absent
-        improved = any(float(v) > 1e-12 for v in gains.values())
+        gains = self.scalar_gains(cand)
+        improved = self.scalar_improved(gains)
         label = "improved" if improved else "no_gain"
         credit = 1 if improved else 0
         cls_final = c.get("class_final")
         if not self.c2_allowed(c):   # a latency-mapped (c2) candidate is a map object only: no archive, no acceptance, no credit (spec 03 §2)
             improved, credit = False, 0
         self.bandit.credit(cls_final, credit)
-        fb = {"class": cls_final, "caliber": self.fit_cfg, "diagnosis": label,
-              "evidence": {"dA_pct": round(-100.0 * float(gains.get("area") or 0.0), 2), "dWNS_ns": round(float(gains.get("wns") or 0.0) * float(self.phi), 4),
-                           "dP_pct": round(-100.0 * float(gains.get("power") or 0.0), 2)}}
+        fb = self.scalar_block(c, label, gains)
         self.state["feedback"][cid] = fb
         c.update(state="final", label=label, gains=gains, credit=credit)
         self.state["pending"].pop(cid, None)
@@ -627,6 +792,18 @@ class SearchRun:
             self.state["retained"] += 1   # "accepted" for scalar arms
             self.state["last_retained_gen"], self.state["stall"] = c["gen"], 0
         self.conn.execute("UPDATE candidates SET label=?, in_archive=?, accepted=?, class_final=? WHERE cand_id=?", (label, in_archive, in_archive, cls_final, cid))
+
+    def scalar_gains(self, cand):
+        return {k: v for k, v in m3.relative_gains(self.base, cand, self.phi).items() if v is not None}   # a metric the caliber lacks (Y power) is absent
+
+    @staticmethod
+    def scalar_improved(gains):
+        return any(float(v) > 1e-12 for v in gains.values())
+
+    def scalar_block(self, c, label, gains):
+        return {"class": c.get("class_final"), "caliber": self.fit_cfg, "diagnosis": label,
+                "evidence": {"dA_pct": round(-100.0 * float(gains.get("area") or 0.0), 2), "dWNS_ns": round(float(gains.get("wns") or 0.0) * float(self.phi), 4),
+                             "dP_pct": round(-100.0 * float(gains.get("power") or 0.0), 2)}}
 
     def finish_nonequiv(self, cid, rec, note):
         c = self.state["cands"][cid]
@@ -816,10 +993,22 @@ class SearchRun:
         self.save_state()
         return "done" if st["done"] else "running"
 
+    def install_roll_handler(self):
+        """SIGUSR1 (2026-09-16): the operator rolls new code — the run leaves after the step in progress (state saved) with
+        status 'rolled' (exit 76) and the queue restarts it as a resumption without an attempt."""
+        try:
+            signal.signal(signal.SIGUSR1, lambda signum, frame: setattr(self, "roll", True))
+        except (ValueError, OSError):   # not the main thread: the roll is unavailable, nothing else changes
+            pass
+
     def run(self, poll_sec=None, sleep=time.sleep, max_steps=None):
         poll = float(poll_sec or self.cfg["search"].get("poll_sec", 30))
         steps = 0
+        self.install_roll_handler()
         while True:
+            if self.roll:
+                print(f"{self.run_id}: leaving for a code roll after {steps} steps (state saved); the queue resumes the run", flush=True)
+                return "rolled"
             if self.conn.execute("SELECT status FROM runs WHERE run_id=?", (self.run_id,)).fetchone()[0] == "superseded":
                 print(f"{self.run_id}: superseded by the operator, not continued", flush=True)   # a retried queue job must not revive a stopped run (2026-09-15)
                 return "superseded"
@@ -827,4 +1016,7 @@ class SearchRun:
             steps += 1
             if status == "done" or (max_steps and steps >= max_steps):
                 return status
+            if self.roll:
+                print(f"{self.run_id}: leaving for a code roll after {steps} steps (state saved); the queue resumes the run", flush=True)
+                return "rolled"
             sleep(poll)

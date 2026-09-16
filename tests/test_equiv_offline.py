@@ -1,5 +1,6 @@
 """Offline tests of the equivalence stack pieces (Yosys is local and fast; no license): port extraction and
 comparison, candidate renaming, harness generation, trace comparison with latency offsets."""
+import json
 import re
 from pathlib import Path
 
@@ -357,3 +358,50 @@ def test_equiv_version_is_stamped_on_the_record_but_not_hashed():
     rec = RE.stamp_version({"verdict": "proven"}, cfg)
     assert rec["equiv_version"] == "phase5"
     assert "equiv_version" not in RE.stamp_version({"verdict": "proven"}, {"equiv": {}}) and "version" not in RE.equiv_extra(cfg, {})
+
+
+def test_proof_continues_from_a_simulation_record(tmp_path, monkeypatch):
+    """Split pipeline (DECISIONS 2026-09-16): with `sim_record`, check_equivalence skips V1 / V2 (never calls the lock-step
+    simulation), copies the stages and SAIFs of the sim job's record and runs V3; a sim record that already decided
+    (sim_fail) is copied without a proof. The runner hashes such a job under stages `v3`, and reuses a decided `full` record
+    of the same pair instead of proving it again (both directions: an inconclusive full record is not reused)."""
+    from src.equiv import stack as ST
+    from src.equiv import run_equiv as RE
+    calls = {"seq": 0}
+
+    def no_lockstep(*a, **kw):
+        raise AssertionError("V2 must not run again")
+
+    def fake_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, **kw):
+        calls["seq"] += 1
+        calls["impl_top"], calls["sverilog"] = kw.get("impl_top"), kw.get("sverilog")
+        return {"v3_status": "proven", "v3_seconds": 1.0, "counterexample_path": None, "flow_status": "equivalent"}
+
+    monkeypatch.setattr(ST, "run_lockstep", no_lockstep)
+    monkeypatch.setattr(ST, "run_seq", fake_seq)
+    sim = {"top": "verified_accu", "verdict": "not_run", "v1_status": "ok", "v2_status": "identical", "v2_cycles": 200, "latency_offset_json": "{}", "clk": "clk", "rst": "rst_n",
+           "rst_sense": "low", "ports": {"clk": {"dir": "input", "width": 1}, "q": {"dir": "output", "width": 8}}, "sim_seed": 11, "c_top": "verified_accu",
+           "saif_c": str(tmp_path / "saif_c.saif"), "saif_d": str(tmp_path / "saif_d.saif"), "raw_dir": str(tmp_path / "simrec"), "vcd_path": str(tmp_path / "x.vcd"),
+           "v2": {"status": "identical", "offsets": {}, "cycles": 200, "sverilog": False}}
+    rec = ST.check_equivalence(tmp_path / "job", [ACCU], [ACCU], "verified_accu", CFG, run_v4=False, sim_record=sim)
+    assert rec["verdict"] == "proven" and rec["proven_by"] == "seq" and calls["seq"] == 1 and calls["impl_top"] is None
+    assert rec["v1_status"] == "ok" and rec["v2_status"] == "identical" and rec["v2_cycles"] == 200 and rec["saif_c"] == sim["saif_c"] and rec["sim_seed"] == 11
+    assert rec["sim_record"] == sim["raw_dir"] and rec["vcd_path"] is None and (tmp_path / "job" / "equiv.json").exists()
+    failed = dict(sim, verdict="sim_fail", v2_status="sim_fail", v2_detail="q differs")
+    rec2 = ST.check_equivalence(tmp_path / "job2", [ACCU], [ACCU], "verified_accu", CFG, run_v4=False, sim_record=failed)
+    assert rec2["verdict"] == "sim_fail" and rec2["sim_verdict_copied"] and rec2["v3_status"] == "not_run" and calls["seq"] == 1
+    # the runner: stage set `v3` for such a payload, `v1v2` for the sim job, `full` for the one-job pipeline; a decided full record is reused
+    payload = {"d_rtl": [str(ACCU)], "c_rtl": [str(ACCU)], "top": "verified_accu", "clk": "clk", "rst": "rst_n", "rst_sense": "low"}
+    assert RE.equiv_extra(CFG, payload, True)["stages"] == "full" and RE.equiv_extra(CFG, payload, False)["stages"] == "v1v2"
+    assert RE.equiv_extra(CFG, dict(payload, sim_record="/x"), True)["stages"] == "v3"
+    h_full = RE.equiv_hash(payload["d_rtl"], payload["c_rtl"], payload["top"], CFG, RE.equiv_extra(CFG, payload, True))
+    h_v3 = RE.equiv_hash(payload["d_rtl"], payload["c_rtl"], payload["top"], CFG, RE.equiv_extra(CFG, dict(payload, sim_record="/x"), True))
+    assert h_full != h_v3
+    root = tmp_path / "EQ"
+    (root / h_full).mkdir(parents=True)
+    (root / h_full / "equiv.json").write_text(json.dumps({"verdict": "inconclusive", "raw_dir": str(root / h_full)}))
+    assert RE.full_record(CFG, dict(payload, sim_record="/x"), root) is None                     # inconclusive: proved again
+    (root / h_full / "equiv.json").write_text(json.dumps({"verdict": "falsified", "raw_dir": str(root / h_full), "v3_status": "falsified"}))
+    reused = RE.full_record(CFG, dict(payload, sim_record="/x"), root)
+    assert reused and reused["verdict"] == "falsified"
+    assert RE.load_record(tmp_path / "nowhere") is None

@@ -277,6 +277,9 @@ def test_phase5_hidden_scope_registers_h1_h3_h5_for_all_and_h2_for_accepted_and_
     for j in jobs4:
         by4.setdefault(j["config"], set()).add(j["cand_id"])
     assert by4["H2a"] == {"r4_k_acc", "r4_k_no", "r4_k_audit"}                                 # Phase 4: every configuration for every candidate
+    # DECISIONS 2026-09-16 (scheduling change, item 4): the hidden loop passes the designs of the finished tiers only (both directions)
+    assert mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1"], designs=["other_design"]) == []
+    assert {j["cand_id"] for j in mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1"], designs=["rtllm_h5"])} == by5["H1"]
 
 
 def test_signoff_h4_jobs_for_the_baseline_and_kept_candidates_with_a_netlist_only(env, tmp_path, monkeypatch):
@@ -382,3 +385,40 @@ def test_phase5_audit_fraction_per_configuration(env, tmp_path, monkeypatch):
     assert by["H1"] == by["H5"] == {"a_acc", "a_audit10", "a_audit20"} and by["H2a"] == {"a_acc", "a_audit10"}
     cov = mod.candidate_coverage(cfg, "phase5", vis=vis, hid=hid, configs=["H1", "H2a"])["configs"]
     assert cov["H1"]["expected"] == 3 and cov["H2a"]["expected"] == 2 and cov["H1"]["missing"] == 3
+
+
+def test_hidden_loop_registers_finished_tiers_only(tmp_path, monkeypatch):
+    """DECISIONS 2026-09-16 (scheduling change, item 4): hidden-layer registrations pause while a tier's search runs are active and
+    resume in bulk when the tier finishes — the loop registers the designs of finished tiers only, and nothing while no tier has
+    finished; the probe experiment is not gated (both directions)."""
+    import sys
+    sys.path.insert(0, str(Path(C.ROOT) / "scripts"))
+    import phase5_stages as PS
+    spec = importlib.util.spec_from_file_location("hidden_loop", str(Path(C.ROOT) / "scripts" / "hidden_loop.py"))
+    loop = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(loop)
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    plan = [{"tier": "large", "design_id": "dL1", "model": "m", "arm": "M", "seed": 1}, {"tier": "large", "design_id": "dL2", "model": "m", "arm": "M", "seed": 1},
+            {"tier": "medium", "design_id": "dM1", "model": "m", "arm": "M", "seed": 1}]
+    monkeypatch.setattr(PS, "planned_runs", lambda cfg_, conn_: plan)
+    for r in plan[:2]:
+        db.insert(conn, "runs", {"run_id": "r_" + r["design_id"], "exp": "phase5", "arm": "M", "design_id": r["design_id"], "seed": 1, "llm_model": "m", "status": "done", "started_at": "t"})
+    db.insert(conn, "runs", {"run_id": "r_dM1", "exp": "phase5", "arm": "M", "design_id": "dM1", "seed": 1, "llm_model": "m", "status": "running", "started_at": "t"})
+    assert loop.eligible_designs(cfg, conn, "phase5") == (["large"], ["dL1", "dL2"], ["medium"])
+    cmds = []
+
+    class R:
+        returncode, stdout, stderr = 0, "ok", ""
+    monkeypatch.setattr(loop.subprocess, "run", lambda cmd, **kw: cmds.append(cmd) or R())
+    monkeypatch.setattr(db, "connect", lambda cfg=None, path=None: conn)
+    rc, out = loop.once(["phase5", "phase5_probe"], cfg=cfg)
+    assert rc == 0 and len(cmds) == 2
+    assert cmds[0][cmds[0].index("--design") + 1:] == ["dL1", "dL2"] and "--exp" in cmds[0] and cmds[0][cmds[0].index("--exp") + 1] == "phase5"
+    assert "--design" not in cmds[1] and cmds[1][cmds[1].index("--exp") + 1] == "phase5_probe"          # the probe is registered as before
+    assert "tiers finished: large" in out and "paused: medium" in out
+    conn.execute("UPDATE runs SET status='running' WHERE run_id='r_dL2'"); conn.commit()                    # the large tier is active again: nothing registered
+    cmds.clear()
+    rc, out = loop.once(["phase5"], cfg=cfg)
+    assert rc == 0 and cmds == [] and "registrations paused" in out and "large" in out

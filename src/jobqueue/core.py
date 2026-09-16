@@ -35,6 +35,8 @@ if ROOT not in sys.path:
 from src.db import core as db  # noqa: E402
 
 EX_TEMPFAIL = 75
+EX_RESTART = 76      # a search run leaving for a code roll (driver: SIGUSR1 -> state saved -> exit 76): requeued as a resumption, no attempt consumed (2026-09-16)
+ROLL_SIGNAL_RC = 128 + signal.SIGUSR1   # the same request delivered to a run whose driver predates the handler (the shell wrapper reports 128 + 10)
 TIMEOUT_RC = 124
 POOL_OF_KIND = {"shell": "local", "sim": "local", "yosys": "local", "llm": "local", "orfs": "local", "search": "search",   # search runs in their own pool (2026-09-15): they wait for local yosys jobs and must not fill the local pool
                 "dc": "dc", "pt": "pt", "vcf": "vcf", "dc_hidden": "dc"}
@@ -159,6 +161,12 @@ class Queue:
         return jid
 
     # ------------------------------------------------------------------ queries
+    def reprioritize(self, job_id, priority):
+        """A new priority for a job that has not started (queued / backoff): the proof queue is ordered by the provisional
+        diagnosis (DECISIONS 2026-09-16, scheduling change item 2). -> True when the job was still waiting."""
+        cur = self.conn.execute("UPDATE jobs SET priority=? WHERE job_id=? AND state IN ('queued','backoff')", (int(priority), job_id))
+        return cur.rowcount > 0
+
     def get(self, job_id):
         return self.conn.execute("SELECT * FROM jobs WHERE job_id=?", (job_id,)).fetchone()
 
@@ -283,6 +291,10 @@ class Queue:
 
     def _finish(self, job, rc, error=None):
         jid, pool = job["job_id"], job["pool"]
+        if job["kind"] == "search" and rc in (EX_RESTART, ROLL_SIGNAL_RC, -signal.SIGUSR1):   # a code roll (2026-09-16): the run resumes under the new code, no attempt consumed
+            self._set(jid, state="queued", host_pid=None, exit_code=rc, error="restarted for a code roll", finished_at=None)
+            self.log(f"{jid} requeued for a code roll (exit {rc})")
+            return
         if rc == EX_TEMPFAIL:
             level = self._backoff(pool)[1] + 1
             b = self.backoff_cfg
@@ -361,7 +373,7 @@ class Queue:
             running_kind = {r[0]: r[1] for r in self.conn.execute("SELECT kind, COUNT(*) FROM jobs WHERE state='running' AND pool=? GROUP BY kind", (pool,))} if per_kind else {}
             rows = self.conn.execute(
                 "SELECT * FROM jobs WHERE state IN ('queued','backoff') AND pool=? "
-                "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, -1 if (per_design or per_kind) else free)).fetchall()   # with a per-design cap the whole queue is scanned: a window of free + 200 rows starved every other design behind one design's backlog (2026-09-16, 480 queued proofs of one design)
+                "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, -1 if (per_design or per_kind or held) else free)).fetchall()   # with a per-design cap, or while backpressure holds fresh runs (a resumption behind them must be reached, 2026-09-16), the whole queue is scanned: a window of free + 200 rows starved every other design behind one design's backlog (2026-09-16, 480 queued proofs of one design)
             if per_design:
                 running_by_design = {r[0]: r[1] for r in self.conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE state='running' AND pool=? GROUP BY design_id", (pool,))}
                 rows = round_robin_by_design(rows, running_by_design)   # 2026-09-16: within a priority level the designs take turns, the design holding the fewest seats first

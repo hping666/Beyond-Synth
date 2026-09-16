@@ -99,6 +99,7 @@ def env(tmp_path, monkeypatch):
     cfg["project"]["results_dir"] = str(tmp_path / "results")
     cfg["search"]["gen_wait_sec"] = 10 ** 9
     cfg["search"]["map_prior_file"] = None   # the Phase 4 prior is tested on its own; the driver tests start without it
+    cfg["search"]["early_fitness"]["enabled"] = False   # the one-job pipeline; the split pipeline (DECISIONS 2026-09-16) has its own tests below
     conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
     from src.designs import catalog as K
     from src.search import candidates as CA
@@ -142,6 +143,47 @@ def finish_eq(conn, cfg, tmp_path, cand_id, design_id="rtllm_d", verdict="proven
     (d / "equiv.json").write_text(json.dumps(rec))
     jid = conn.execute("SELECT eq_job_id FROM candidates WHERE cand_id=?", (cand_id,)).fetchone()[0]
     conn.execute("UPDATE jobs SET state='done' WHERE job_id=?", (jid,))
+
+
+def finish_sim(conn, cfg, tmp_path, cand_id, verdict="not_run", v2_status="identical", design_id="rtllm_d", extra_rec=None):
+    """The test plays the split pipeline's sim job (V1 + V2 only, kind `sim`): a record under the `v1v2` hash and the job done.
+    verdict `not_run` = V2 passed, the proof is still to come."""
+    from src.equiv.run_equiv import equiv_extra, equiv_hash
+    jid = conn.execute("SELECT eq_job_id FROM candidates WHERE cand_id=?", (cand_id,)).fetchone()[0]
+    job = conn.execute("SELECT kind, payload_json FROM jobs WHERE job_id=?", (jid,)).fetchone()
+    assert job["kind"] == "sim"
+    p = json.loads(job["payload_json"])
+    d = Path(cfg["project"]["results_dir"]) / "raw" / design_id / "EQ" / equiv_hash(p["d_rtl"], p["c_rtl"], p["top"], cfg, equiv_extra(cfg, p, False))
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "saif_c.saif").write_text("saif")
+    rec = {"cand_id": cand_id, "kind": "sim", "verdict": verdict, "v1_status": "ok", "v2_status": v2_status, "v2_cycles": 100, "latency_offset_json": "{}",
+           "v3_status": "not_run", "v3_seconds": None, "v4_status": "not_run", "seconds": 3.0, "proven_by": None, "raw_dir": str(d), "saif_c": str(d / "saif_c.saif"),
+           "clk": "clk", "rst": "rst_n", "rst_sense": "low", "ports": {"clk": {"dir": "input", "width": 1}}, "v2": {"status": v2_status, "offsets": {}}}
+    if v2_status == "sim_fail":
+        rec.update(v2_detail=json.dumps({"q": {"d": 1, "c": 0, "first_cycle": 7}}), v3_status="not_run")
+    rec.update(extra_rec or {})
+    (d / "equiv.json").write_text(json.dumps(rec))
+    conn.execute("UPDATE jobs SET state='done' WHERE job_id=?", (jid,))
+    return jid
+
+
+def finish_seq(conn, cfg, tmp_path, cand_id, verdict="proven", design_id="rtllm_d", extra_rec=None):
+    """The test plays the split pipeline's proof job (V3 from the sim record, kind `vcf`): a record under the `v3` hash and the job done."""
+    from src.equiv.run_equiv import equiv_extra, equiv_hash
+    jid = conn.execute("SELECT eq_job_id FROM candidates WHERE cand_id=?", (cand_id,)).fetchone()[0]
+    job = conn.execute("SELECT kind, payload_json FROM jobs WHERE job_id=?", (jid,)).fetchone()
+    p = json.loads(job["payload_json"])
+    assert job["kind"] == "vcf" and p.get("sim_record")
+    d = Path(cfg["project"]["results_dir"]) / "raw" / design_id / "EQ" / equiv_hash(p["d_rtl"], p["c_rtl"], p["top"], cfg, equiv_extra(cfg, p, True))
+    d.mkdir(parents=True, exist_ok=True)
+    sim = json.loads((Path(p["sim_record"]) / "equiv.json").read_text())
+    rec = {**{k: sim.get(k) for k in ("v1_status", "v2_status", "v2_cycles", "latency_offset_json", "saif_c")}, "cand_id": cand_id, "kind": "vcf", "verdict": verdict,
+           "v3_status": verdict, "v3_seconds": 5.0, "v4_status": "not_run", "seconds": 6.0, "proven_by": "seq" if verdict == "proven" else None, "raw_dir": str(d),
+           "sim_record": p["sim_record"], "equiv_version": (cfg.get("equiv") or {}).get("version")}
+    rec.update(extra_rec or {})
+    (d / "equiv.json").write_text(json.dumps(rec))
+    conn.execute("UPDATE jobs SET state='done' WHERE job_id=?", (jid,))
+    return jid
 
 
 def finish_e4(conn, cand_id, area, hist=None, design_id="rtllm_d"):
@@ -915,3 +957,144 @@ def test_run_search_pauses_on_quota_exhaustion(env, monkeypatch):
     assert RS.main(["--job", jid]) == 75 and conn.execute("SELECT status FROM runs WHERE run_id='rq'").fetchone()[0] == "paused_quota"
     monkeypatch.setattr(D.SearchRun, "resume", classmethod(lambda cls, cfg_, conn_, rid: Stub(RuntimeError("boom"))))
     assert RS.main(["--job", jid]) == 1 and conn.execute("SELECT status FROM runs WHERE run_id='rq'").fetchone()[0] == "failed"
+
+
+# ----------------------------------------------------------------------------- split pipeline (DECISIONS 2026-09-16, operational scheduling change)
+def test_split_pipeline_fitness_before_the_proof_gives_a_provisional_diagnosis_and_orders_the_proof_queue(env):
+    """Items 1-3: V1 + V2 run as a `sim` job on the local pool; once V2 passes, the fitness job and the proof job (a `vcf` job
+    continuing from the sim record) run in parallel. A fitness result before the proof gives a provisional diagnosis (no
+    credit, no archive, no diagnosis row) that reaches the model flagged "equivalence pending" and re-orders the queued proof;
+    the verdict on the proof then gives the final diagnosis on the same fitness record. A proof that fails first ends the
+    candidate as nonequiv (one repair call) and the candidate is slimmed only once its fitness job has finished."""
+    cfg, conn, q, tmp_path = env
+    cfg["search"]["early_fitness"]["enabled"] = True
+    from src.search import prompts as PR
+    from src.search.driver import SearchRun
+    tr = FakeTransport()
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=1, model="gpt-5.6-luna", K=2, N=3, queue=q, transport=tr)
+    assert run.step() == "running" and run.state["gen"] == 1
+    pending = [cid for cid, st in run.state["pending"].items()]
+    assert len(pending) == 2 and all(run.state["pending"][c] == "sim" for c in pending)
+    sim_jobs = [conn.execute("SELECT kind, pool, priority FROM jobs WHERE job_id=(SELECT eq_job_id FROM candidates WHERE cand_id=?)", (c,)).fetchone() for c in pending]
+    assert all(j["kind"] == "sim" and j["pool"] == "local" and j["priority"] == cfg["search"]["job_priority"] for j in sim_jobs)
+    # --- candidate 0: V2 passes -> fitness job and proof job together; the proof waits at the undiagnosed tier
+    a = pending[0]
+    finish_sim(conn, cfg, tmp_path, a)
+    run.step()
+    ca = run.state["cands"][a]
+    assert run.state["pending"][a] == "e4" and ca["proof_pending"] and ca["seq_job_id"] and ca["e4_job_id"]
+    proof = conn.execute("SELECT * FROM jobs WHERE job_id=?", (ca["seq_job_id"],)).fetchone()
+    assert proof["kind"] == "vcf" and proof["pool"] == "vcf" and proof["state"] == "queued" and proof["priority"] == cfg["search"]["job_priority"] + 2
+    assert json.loads(proof["payload_json"])["sim_record"] == ca["sim_record"]
+    assert conn.execute("SELECT eq_job_id, verdict, v2_status FROM candidates WHERE cand_id=?", (a,)).fetchone()[:] == (ca["seq_job_id"], None, "identical")   # the verdict stays open while the proof runs
+    fit = conn.execute("SELECT payload_json FROM jobs WHERE job_id=?", (ca["e4_job_id"],)).fetchone()[0]
+    assert json.loads(fit)["saif"].endswith("saif_c.saif")                                                    # the fitness job uses the sim record's SAIF
+    # --- the fitness result arrives first: provisional retained, flagged, the proof promoted to the first tier; nothing final
+    finish_e4(conn, a, 90.0)
+    run.step()
+    assert run.state["pending"][a] == "seq" and ca["provisional"]["label"] == "retained" and ca.get("label") is None
+    assert run.state["feedback"][a]["equivalence"] == "pending" and run.state["feedback"][a]["diagnosis"] == "retained"
+    assert conn.execute("SELECT priority FROM jobs WHERE job_id=?", (ca["seq_job_id"],)).fetchone()[0] == cfg["search"]["job_priority"] + 4
+    assert conn.execute("SELECT COUNT(*) FROM diagnoses WHERE cand_id=?", (a,)).fetchone()[0] == 0 and not run.archive.members and run.bandit.reward.get("b", 0) == 0
+    assert "provisional retained: equivalence pending" in conn.execute("SELECT note FROM candidates WHERE cand_id=?", (a,)).fetchone()[0]
+    blocks = run.lineage_feedback(None)                                                                        # a fresh start sees the provisional block, explained
+    assert any(b.get("equivalence") == "pending" for b in blocks)
+    assert PR.PENDING_NOTE.strip() in PR.suffix("do x", "b", None, blocks, "d") and PR.PENDING_NOTE.strip() in PR.drrtl_suffix("paths", None, None, blocks)
+    assert PR.PENDING_NOTE.strip() not in PR.suffix("do x", "b", None, [{"diagnosis": "retained"}], "d")           # no flag, no note
+    # --- the proof arrives: the final diagnosis on the same E4 record, credited, archived, the row's verdict written and stamped
+    finish_seq(conn, cfg, tmp_path, a, verdict="proven")
+    run.step()
+    d1 = dict(conn.execute("SELECT * FROM diagnoses WHERE cand_id=?", (a,)).fetchone())
+    assert d1["label"] == "retained" and d1["credit"] == 1 and run.archive.members[0]["cand_id"] == a and ca["state"] == "final"
+    assert "equivalence" not in run.state["feedback"][a] and a not in run.state["pending"]
+    row = dict(conn.execute("SELECT verdict, v3_status, proven_by, equiv_version, eq_job_id FROM candidates WHERE cand_id=?", (a,)).fetchone())
+    assert row["verdict"] == "proven" and row["proven_by"] == "seq" and row["equiv_version"] == cfg["equiv"]["version"] and row["eq_job_id"] == ca["seq_job_id"]
+    assert ca["eq_seconds"] == 9.0 and ca["eq_record"] != ca["sim_record"]                                       # sim + proof seconds; two records
+    # --- candidate 1: the proof fails before the fitness result -> nonequiv now, one repair call; slimmed only after the fitness job ends
+    b = pending[1]
+    finish_sim(conn, cfg, tmp_path, b)
+    run.step()
+    cb = run.state["cands"][b]
+    finish_seq(conn, cfg, tmp_path, b, verdict="falsified")
+    calls_before = run.state["calls"]
+    run.step()
+    assert dict(conn.execute("SELECT * FROM diagnoses WHERE cand_id=?", (b,)).fetchone())["label"] == "nonequiv" and cb["state"] == "final"
+    assert run.state["repairs"][-1]["of"] == b and run.state["repairs"][-1]["failure"] == "falsified" and run.state["repairs"][-1]["unusable"]
+    assert run.state["gen"] == 2 and run.state["calls"] == calls_before + 3                                   # the repair call (unusable), then generation 2 (two calls left)
+    assert run.state["feedback"][b]["diagnosis"] == "nonequiv"
+    assert conn.execute("SELECT state FROM jobs WHERE job_id=?", (cb["e4_job_id"],)).fetchone()[0] == "queued" and cb.get("slimmed") is None
+    conn.execute("UPDATE jobs SET state='failed' WHERE job_id=?", (cb["e4_job_id"],))
+    run.process_verdicts(); run.slim_finished()
+    assert cb.get("slimmed") is not None
+    # resumption keeps the split state
+    run2 = SearchRun.resume(cfg, conn, run.run_id, queue=q, transport=tr)
+    assert run2.state["cands"][a]["seq_job_id"] == ca["seq_job_id"] and run2.archive.members == run.archive.members
+
+
+def test_split_pipeline_simulation_failures_and_scalar_arms(env):
+    """Both directions of the sim stage: a V2 mismatch ends the candidate (nonequiv, a repair call, no fitness job, no proof
+    job); a pass leads to both jobs. Scalar arms (B2 at E4) get the provisional `improved` / `no_gain` labels and the
+    matching proof tiers; the final scalar verdict follows the proof."""
+    cfg, conn, q, tmp_path = env
+    cfg["search"]["early_fitness"]["enabled"] = True
+    from src.search.driver import SearchRun
+    tr = FakeTransport()
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="B2", design_id="rtllm_d", seed=2, model="gpt-5.6-luna", K=2, N=3, queue=q, transport=tr)
+    run.step()
+    pending = list(run.state["pending"])
+    a, b = pending[0], pending[1]
+    finish_sim(conn, cfg, tmp_path, a, verdict="sim_fail", v2_status="sim_fail")
+    calls_before = run.state["calls"]
+    run.step()
+    ca = run.state["cands"][a]
+    assert ca["state"] == "final" and dict(conn.execute("SELECT * FROM diagnoses WHERE cand_id=?", (a,)).fetchone())["label"] == "nonequiv"
+    assert ca.get("e4_job_id") is None and ca.get("seq_job_id") is None and run.state["calls"] == calls_before + 1
+    assert conn.execute("SELECT verdict FROM candidates WHERE cand_id=?", (a,)).fetchone()[0] == "sim_fail"
+    finish_sim(conn, cfg, tmp_path, b)
+    run.step()
+    cb = run.state["cands"][b]
+    finish_e4(conn, b, 100.0)                                                       # no gain at all -> provisional no_gain, middle tier
+    run.step()
+    assert cb["provisional"]["label"] == "no_gain" and run.state["feedback"][b]["equivalence"] == "pending"
+    assert conn.execute("SELECT priority FROM jobs WHERE job_id=?", (cb["seq_job_id"],)).fetchone()[0] == cfg["search"]["job_priority"] + 2
+    finish_seq(conn, cfg, tmp_path, b, verdict="proven")
+    run.step()
+    assert cb["state"] == "final" and cb["label"] == "no_gain" and cb["credit"] == 0 and "equivalence" not in run.state["feedback"][b]
+    assert conn.execute("SELECT label, verdict FROM candidates WHERE cand_id=?", (b,)).fetchone()[:] == ("no_gain", "proven")
+
+
+def test_split_pipeline_reuses_a_proof_submitted_before_a_crash(env):
+    """A driver that died after submitting the proof job but before saving its state must not submit a second proof: the row's
+    eq_job_id (the proof's id, different from the sim job's) is reused on resumption."""
+    cfg, conn, q, tmp_path = env
+    cfg["search"]["early_fitness"]["enabled"] = True
+    from src.search.driver import SearchRun
+    tr = FakeTransport()
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=3, model="gpt-5.6-luna", K=2, N=3, queue=q, transport=tr)
+    run.step()
+    a = list(run.state["pending"])[0]
+    finish_sim(conn, cfg, tmp_path, a)
+    saved = json.loads(run.state_path.read_text())                                   # the state before the verdict was applied
+    run.step()
+    seq_job = run.state["cands"][a]["seq_job_id"]
+    run.state_path.write_text(json.dumps(saved))                                     # the crash: the jobs exist, the state does not know them
+    run2 = SearchRun.resume(cfg, conn, run.run_id, queue=q, transport=tr)
+    run2.step()
+    assert run2.state["cands"][a]["seq_job_id"] == seq_job and run2.state["cands"][a]["e4_job_id"] == run.state["cands"][a]["e4_job_id"]
+    assert conn.execute("SELECT COUNT(*) FROM jobs WHERE kind='vcf' AND cand_id=?", (a,)).fetchone()[0] == 1
+
+
+def test_code_roll_signal_leaves_after_a_completed_step(env):
+    """SIGUSR1 (2026-09-16): the run finishes the step in progress, saves its state and returns 'rolled' (exit 76 in the runner) so
+    that the queue restarts it under new code; without the signal the loop goes on."""
+    cfg, conn, q, tmp_path = env
+    from src.search.driver import SearchRun
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d", seed=4, model="gpt-5.6-luna", K=2, N=2, queue=q, transport=FakeTransport())
+    steps = []
+    assert run.run(poll_sec=0, sleep=lambda s: steps.append(s), max_steps=2) == "running" and len(steps) == 1
+    import os, signal
+    run.install_roll_handler()
+    os.kill(os.getpid(), signal.SIGUSR1)
+    assert run.run(poll_sec=0, sleep=lambda s: None, max_steps=5) == "rolled" and run.roll
+    assert json.loads(run.state_path.read_text())["gen"] == run.state["gen"]
+    signal.signal(signal.SIGUSR1, signal.SIG_DFL)

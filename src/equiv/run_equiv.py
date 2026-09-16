@@ -47,11 +47,40 @@ def equiv_extra(cfg, payload, stages_full=True):
     """The `extra` part of the record hash: the stage set, the control ports, the seed and the candidate top; the latency
     mapping switch is included only when it is on, so that every earlier record keeps its hash (2026-09-15)."""
     p = payload
-    extra = {"stages": "full" if stages_full else "v1v2", "clk": p.get("clk"), "rst": p.get("rst"), "rst_sense": p.get("rst_sense"),
+    stages = "v3" if p.get("sim_record") else ("full" if stages_full else "v1v2")   # DECISIONS 2026-09-16 (scheduling change): a proof continuing from a V1/V2 record has its own hash
+    extra = {"stages": stages, "clk": p.get("clk"), "rst": p.get("rst"), "rst_sense": p.get("rst_sense"),
              "sverilog": p.get("sverilog", False), "sim_seed": p.get("sim_seed"), "c_top": p.get("c_top")}
     if (cfg.get("equiv") or {}).get("seq_latency_mapping", False):
         extra["latency_mapping"] = True
     return extra
+
+
+def load_record(rec_dir):
+    """The equivalence record under `rec_dir` (None when absent or unreadable)."""
+    f = Path(rec_dir) / "equiv.json"
+    try:
+        return json.loads(f.read_text())
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+REUSABLE_VERDICTS = ("proven", "falsified", "rejected", "sim_fail")   # decided by the stack itself; inconclusive / error / proven_sim_only are run again
+
+
+def full_record(cfg, payload, eq_root):
+    """The `full` (V1 + V2 + V3 in one job) record of the same pair when one exists with a decided verdict: a V3 job of the
+    split pipeline copies it instead of proving the same RTL a second time (the same frozen stack; the record keeps the
+    `reused_from` pointer). None otherwise."""
+    p = {k: v for k, v in payload.items() if k != "sim_record"}
+    try:
+        h = equiv_hash(p["d_rtl"], p["c_rtl"], p["top"], cfg, equiv_extra(cfg, p, True))
+    except OSError:
+        return None
+    for eq in sorted(Path(eq_root).glob(f"{h}*/equiv.json")):
+        rec = load_record(eq.parent)
+        if rec and rec.get("verdict") in REUSABLE_VERDICTS and not rec.get("sim_record"):
+            return rec
+    return None
 
 
 def stamp_version(rec, cfg):
@@ -98,9 +127,19 @@ def main(argv=None):
         rec["cached"] = True
     else:
         job_dir.mkdir(parents=True, exist_ok=True)
-        rec = check_equivalence(job_dir, p["d_rtl"], p["c_rtl"], p["top"], cfg, clk=p.get("clk"), rst=p.get("rst"),
-                                rst_sense=p.get("rst_sense"), sverilog=p.get("sverilog", False), incdirs=p.get("incdirs"),
-                                run_v3=stages_full, timeout_sec=runner_timeout(job), design_id=p["design_id"], sim_seed=p.get("sim_seed"), c_top=p.get("c_top"))
+        sim_rec, full_rec = None, None
+        if p.get("sim_record"):   # the split pipeline (DECISIONS 2026-09-16): V1 / V2 come from the `sim` job's record; a full record of the same pair (an earlier run, the same stack) is reused when it decided
+            sim_rec = load_record(p["sim_record"])
+            full_rec = full_record(cfg, p, root.parent)
+        if full_rec is not None:
+            rec = dict(full_rec, reused_from=full_rec.get("raw_dir"), cached=False)
+        else:
+            rec = check_equivalence(job_dir, p["d_rtl"], p["c_rtl"], p["top"], cfg, clk=p.get("clk"), rst=p.get("rst"),
+                                    rst_sense=p.get("rst_sense"), sverilog=p.get("sverilog", False), incdirs=p.get("incdirs"),
+                                    run_v3=stages_full, timeout_sec=runner_timeout(job), design_id=p["design_id"], sim_seed=p.get("sim_seed"), c_top=p.get("c_top"),
+                                    sim_record=sim_rec)
+            if p.get("sim_record") and sim_rec is None:
+                rec["sim_record_missing"] = p["sim_record"]   # the record was gone (retention / relocation): the whole stack ran in this job
         rec.update(design_id=p["design_id"], cand_id=p.get("cand_id"), input_hash=h, raw_dir=str(job_dir),
                    git_sha=C.git_sha(), cfg_hash=C.cfg_hash(), job_id=a.job, kind=job["kind"])
         stamp_version(rec, cfg)

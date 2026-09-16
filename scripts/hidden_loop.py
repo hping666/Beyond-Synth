@@ -21,11 +21,35 @@ PID = os.path.join(ROOT, "results", "queue", "hidden_loop.pid")
 LOG = os.path.join(ROOT, "results", "queue", "hidden_loop.log")
 
 
-def once(exps, priority=1):
-    """One registration pass per experiment (decision 2026-09-15 evening, item 4: the probe's candidates as well as Phase 5's)."""
+GATED_EXPS = ("phase5",)   # experiments whose registrations follow the tier plan (the probe's runs are done: registered as before)
+
+
+def eligible_designs(cfg, conn, exp="phase5"):
+    """DECISIONS 2026-09-16 (scheduling change, item 4): hidden-layer registrations pause while a tier's search runs are active
+    and resume in bulk when the tier finishes -> (finished tiers, their designs, the tiers still running)."""
+    sys.path.insert(0, os.path.join(ROOT, "scripts"))
+    import phase5_stages as PS
+    plan = PS.planned_runs(cfg, conn)
+    tiers = sorted({r["tier"] for r in plan})
+    done = [t for t in tiers if PS.tier_complete(cfg, conn, t, exp=exp, plan=plan)]
+    designs = sorted({r["design_id"] for r in plan if r["tier"] in done})
+    return done, designs, [t for t in tiers if t not in done]
+
+
+def once(exps, priority=1, cfg=None):
+    """One registration pass per experiment (decision 2026-09-15 evening, item 4: the probe's candidates as well as Phase 5's);
+    a gated experiment registers the designs of its finished tiers only (item 4 of the 2026-09-16 scheduling change)."""
     rc_all, out_all = 0, []
     for exp in ([exps] if isinstance(exps, str) else exps):
         cmd = [sys.executable, os.path.join(ROOT, "scripts", "hidden_worker.py"), "--submit-candidates", "--exp", exp, "--priority", str(priority)]
+        if exp in GATED_EXPS:
+            from src.db import core as db
+            done, designs, active = eligible_designs(cfg or C.load(), db.connect(cfg=cfg or C.load()), exp)
+            if not designs:
+                out_all.append(f"[{exp}] registrations paused: no tier finished yet (active: {', '.join(active) or '-'})")
+                continue
+            cmd += ["--design"] + designs
+            out_all.append(f"[{exp}] tiers finished: {', '.join(done)} ({len(designs)} designs); paused: {', '.join(active) or '-'}")
         r = subprocess.run(cmd, capture_output=True, text=True)
         rc_all = rc_all or r.returncode
         out_all.append(f"[{exp}] " + (r.stdout + r.stderr).strip())
@@ -52,7 +76,7 @@ def loop(exp, interval_min):
             except Exception as e:   # the loop's registration must go on
                 log.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S')} relocation check failed: {type(e).__name__}: {e}\n")
             rc, out = once(exp)
-            log.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S')} rc={rc} {out[-400:]}\n")
+            log.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S')} rc={rc} {out[-600:]}\n")
             log.flush()
             for _ in range(int(interval_min * 60)):
                 if stop["flag"]:

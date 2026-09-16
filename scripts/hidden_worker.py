@@ -410,7 +410,7 @@ def candidate_coverage(cfg, exp="phase3", vis=None, hid=None, configs=None):
         out["configs"][config] = e
     return out
 
-def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, retry_failed=False, skipped=None):
+def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, retry_failed=False, skipped=None, designs=None):
     """DECISIONS 2026-09-14 (pre-Phase-4 c): the hidden configurations on every E4-evaluated candidate of the runs of `exp`
     (all of H1 / H2a / H2b / H3 / H5, full — not the light set), missing hidden records only. The candidate's SAIF comes
     from its equivalence record (saif_c); records go to the hidden database only (rule 3)."""
@@ -418,13 +418,15 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
     hid = hid or db.connect(path=hidden_db_path(cfg))
     configs = configs or [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")] + signoff_configs(cfg)
     signoff = set(signoff_configs(cfg))   # H4: accepted candidates and the audit sample in every experiment, only with the E4 netlist on disk (2026-09-15)
-    designs = {d["design_id"]: d for d in K.load_all()}
+    designs_all = {d["design_id"]: d for d in K.load_all()}
     jobs = []
     from src.eval.retention import audit_frac_for, is_audit_sample
     scope = (cfg.get("exp5") or {}).get("hidden_scope") or {}          # storage decision 2026-09-15 (D): every hidden configuration on accepted candidates and its audit sample (`exp5.hidden_audit_frac`, 20 % for H1 / H3 / H5)
     for c in vis.execute("SELECT c.cand_id, c.design_id, c.rtl_path, c.run_id, c.top, c.rtl_files_json, c.accepted, c.in_archive FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                          "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted' ORDER BY c.cand_id", (exp,)):
-        d = designs[c["design_id"]]
+        if designs is not None and c["design_id"] not in designs:   # DECISIONS 2026-09-16 (scheduling change, item 4): the hidden loop registers the designs of finished tiers only
+            continue
+        d = designs_all[c["design_id"]]
         kept_of = lambda config: bool(c["accepted"] or c["in_archive"]) or is_audit_sample(c["cand_id"], audit_frac_for(cfg, config))
         r = vis.execute("SELECT phi_main_ns_nangate45, phi_main_ns_asap7, phi_main_ns_sky130hd FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()
         design = {"phi_main_ns_nangate45": r[0], "phi_main_ns_asap7": r[1], "phi_main_ns_sky130hd": r[2]}
@@ -472,11 +474,11 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
     return jobs
 
 
-def submit_candidates(cfg, exp, priority, dry_run, retry_failed=False, configs=None):
+def submit_candidates(cfg, exp, priority, dry_run, retry_failed=False, configs=None, designs=None):
     from src.jobqueue.core import Queue
     vis = db.connect(cfg=cfg)
     skipped = {}
-    jobs = candidate_jobs(cfg, vis, exp, priority, retry_failed=retry_failed, skipped=skipped, configs=configs)
+    jobs = candidate_jobs(cfg, vis, exp, priority, retry_failed=retry_failed, skipped=skipped, configs=configs, designs=designs)
     by = {}
     for j in jobs:
         by[j["config"]] = by.get(j["config"], 0) + 1
@@ -576,7 +578,7 @@ def main(argv=None):
         print("hidden noise_floor rows written per configuration:", written)
         return 0
     if a.submit_candidates:
-        return submit_candidates(cfg, a.exp, a.priority, a.dry_run, retry_failed=a.retry_failed, configs=a.configs)
+        return submit_candidates(cfg, a.exp, a.priority, a.dry_run, retry_failed=a.retry_failed, configs=a.configs, designs=a.design)
     if a.coverage_candidates:
         cov = candidate_coverage(cfg, a.exp)
         print(json.dumps(cov, indent=1))
