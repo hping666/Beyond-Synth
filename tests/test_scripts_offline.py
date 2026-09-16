@@ -22,7 +22,7 @@ def test_hidden_report_needs_the_completion_marker(tmp_path):
     assert not mod.phase5_complete(status) and mod.main(["--status-file", str(status)]) == 3
     assert mod.main(["--check", "--status-file", str(status)]) == 0
     status.write_text("# status\nPHASE5_COMPLETE: yes\n")
-    assert mod.phase5_complete(status) and mod.main(["--status-file", str(status)]) == 4  # marker present, report not implemented yet
+    assert mod.phase5_complete(status) and mod.main(["--check", "--status-file", str(status)]) == 0  # marker present (the report itself: tests/test_report_hidden_offline.py on fake databases)
     assert not mod.phase5_complete(tmp_path / "missing.md")
 
 
