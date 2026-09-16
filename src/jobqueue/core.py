@@ -193,6 +193,9 @@ class Queue:
         cmd = self._command_for(job, payload)
         # the command runs in a subshell so that an `exit N` inside it cannot skip writing the done marker
         wrapper = f"( {cmd} ); rc=$?; echo $rc > {shlex.quote(done)}; exit $rc"
+        limit_gb = (self.cfg["queue"].get("max_file_gb") or {}).get(job["kind"])
+        if limit_gb:   # 2026-09-16: a lock-step simulation dumped a 36 GB VCD in 18 minutes; a file-size limit kills such a job (SIGXFSZ) instead of filling the disk
+            wrapper = f"ulimit -f {int(float(limit_gb) * 1048576)}; " + wrapper
         env = dict(self.env, BEYOND_SYNTH_JOB_ID=jid, BEYOND_SYNTH_ROOT=ROOT,
                    PYTHONPATH=ROOT + (":" + self.env["PYTHONPATH"] if self.env.get("PYTHONPATH") else ""))
         with open(log, "ab") as lf:

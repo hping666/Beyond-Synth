@@ -315,3 +315,22 @@ def test_per_design_fairness_scans_past_a_large_backlog(tmp_path):
     assert q.get(b1)["state"] == "running"
     assert conn.execute("SELECT COUNT(*) FROM jobs WHERE design_id='A' AND state='running'").fetchone()[0] == 1
     assert wait_state(q, b1, {"done"}, timeout=15) == "done"
+
+
+def test_file_size_limit_kills_a_runaway_writer(tmp_path):
+    """2026-09-16: config queue.max_file_gb caps the largest file a job of that kind may write (ulimit -f): a job writing past the
+    limit fails and the file stays at the limit; a kind without a limit writes freely (both directions)."""
+    cfg = make_cfg()
+    cfg["queue"]["max_file_gb"] = {"shell": 0.001}                                   # 1 MB
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    big = tmp_path / "big.bin"
+    j = q.submit("shell", {"cmd": f"head -c 5000000 /dev/zero > {big}"})
+    q.tick()
+    assert wait_state(q, j, {"done", "failed"}, timeout=20) == "failed" and big.stat().st_size <= 1048576 + 65536   # ulimit rounds to the write block
+    cfg["queue"].pop("max_file_gb")
+    q2 = Queue(cfg, conn, str(tmp_path / "logs2"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    free = tmp_path / "free.bin"
+    j2 = q2.submit("shell", {"cmd": f"head -c 3000000 /dev/zero > {free}"})
+    q2.tick()
+    assert wait_state(q2, j2, {"done", "failed"}, timeout=20) == "done" and free.stat().st_size == 3000000
