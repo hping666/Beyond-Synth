@@ -377,8 +377,8 @@ def candidate_coverage(cfg, exp="phase3", vis=None, hid=None, configs=None):
     hid = hid or db.connect(path=hidden_db_path(cfg))
     configs = configs or [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")] + signoff_configs(cfg)
     signoff = set(signoff_configs(cfg))
-    from src.eval.retention import is_audit_sample
-    audit_frac = float(((cfg.get("retention") or {}).get("tiered_audit_frac")) or 0.0)
+    from src.eval.retention import audit_frac_for, is_audit_sample
+    scope = (cfg.get("exp5") or {}).get("hidden_scope") or {}
     rows = [dict(r) for r in vis.execute("SELECT c.cand_id, c.design_id, c.accepted, c.in_archive FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                                          "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted'", (exp,))]
     phis = {}
@@ -395,8 +395,11 @@ def candidate_coverage(cfg, exp="phase3", vis=None, hid=None, configs=None):
             clock_ns = cdef.get("clock_ns") or (phis.get(r["design_id"]) or {}).get(lib)
             if clock_ns is None:
                 continue
-            if config in signoff and not (r["accepted"] or r["in_archive"] or is_audit_sample(r["cand_id"], audit_frac)):
+            kept = bool(r["accepted"] or r["in_archive"]) or is_audit_sample(r["cand_id"], audit_frac_for(cfg, config))
+            if config in signoff and not kept:
                 continue   # signoff certifies accepted candidates and the audit sample only (spec 06)
+            if exp.startswith("phase5") and scope.get(config, "all_e4") == "accepted_and_audit" and not kept:
+                continue   # Phase 5 scope: expected only for accepted candidates and the configuration's audit sample
             have = hid.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (r["design_id"], r["cand_id"], config, float(clock_ns))).fetchone() is not None
             skipped = (not have) and config in signoff and signoff_source(vis, r["design_id"], r["cand_id"], None, cdef, float(clock_ns)) is None   # the E4 netlist was pruned before the signoff run (decision 2026-09-15 evening, item 6): skipped, not missing
             e["expected"] += 1
@@ -417,13 +420,12 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
     signoff = set(signoff_configs(cfg))   # H4: accepted candidates and the audit sample in every experiment, only with the E4 netlist on disk (2026-09-15)
     designs = {d["design_id"]: d for d in K.load_all()}
     jobs = []
-    from src.eval.retention import is_audit_sample
-    scope = (cfg.get("exp5") or {}).get("hidden_scope") or {}          # decision 2026-09-15 item 2 (Phase 5 runs): H1 / H3 / H5 on every E4-evaluated candidate, the rest on accepted + audit sample
-    audit_frac = float(((cfg.get("retention") or {}).get("tiered_audit_frac")) or 0.0)
+    from src.eval.retention import audit_frac_for, is_audit_sample
+    scope = (cfg.get("exp5") or {}).get("hidden_scope") or {}          # storage decision 2026-09-15 (D): every hidden configuration on accepted candidates and its audit sample (`exp5.hidden_audit_frac`, 20 % for H1 / H3 / H5)
     for c in vis.execute("SELECT c.cand_id, c.design_id, c.rtl_path, c.run_id, c.top, c.rtl_files_json, c.accepted, c.in_archive FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                          "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted' ORDER BY c.cand_id", (exp,)):
         d = designs[c["design_id"]]
-        kept = bool(c["accepted"] or c["in_archive"]) or is_audit_sample(c["cand_id"], audit_frac)
+        kept_of = lambda config: bool(c["accepted"] or c["in_archive"]) or is_audit_sample(c["cand_id"], audit_frac_for(cfg, config))
         r = vis.execute("SELECT phi_main_ns_nangate45, phi_main_ns_asap7, phi_main_ns_sky130hd FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()
         design = {"phi_main_ns_nangate45": r[0], "phi_main_ns_asap7": r[1], "phi_main_ns_sky130hd": r[2]}
         saif = None
@@ -439,11 +441,12 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
             clock_ns = cdef.get("clock_ns") or design.get(f"phi_main_ns_{lib}")
             if clock_ns is None:
                 continue
+            kept = kept_of(config)
             if config in signoff:
                 if not kept:
                     continue   # signoff (spec 06): accepted candidates and the audit sample only, in every experiment
             elif exp.startswith("phase5") and scope.get(config, "all_e4") == "accepted_and_audit" and not kept:
-                continue   # Phase 5 scope: this configuration certifies accepted candidates and the audit sample only
+                continue   # Phase 5 scope: this configuration certifies accepted candidates and its audit sample only
             if config in cfg["noise"].get("configs_light", []) and lib == "nangate45" and not cfg["libs"][lib].get("physical_ref_for_spg"):
                 continue
             if hid.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["design_id"], c["cand_id"], config, float(clock_ns))).fetchone():

@@ -45,6 +45,12 @@ def loop(exp, interval_min):
         log.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S')} hidden loop started pid {os.getpid()} exp {exp if isinstance(exp, str) else ' '.join(exp)} interval {interval_min} min\n")
         log.flush()
         while not stop["flag"]:
+            try:   # storage contingency (storage decision 2026-09-15 item 3): the hidden raw tree moves to /hdd1 when the disk guard level is reached
+                r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "relocate_hidden_raw.py"), "auto"], capture_output=True, text=True, timeout=6 * 3600)
+                if (r.stdout or r.stderr).strip():
+                    log.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S')} relocation: {(r.stdout + r.stderr).strip()[-300:]}\n")
+            except Exception as e:   # the loop's registration must go on
+                log.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S')} relocation check failed: {type(e).__name__}: {e}\n")
             rc, out = once(exp)
             log.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S')} rc={rc} {out[-400:]}\n")
             log.flush()

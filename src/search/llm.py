@@ -55,6 +55,22 @@ def _usage_dict(resp):
             "reasoning_tokens": int(getattr(det_out, "reasoning_tokens", 0) or 0) if det_out else 0}
 
 
+TRANSIENT_NAMES = {"RateLimitError", "APIConnectionError", "APITimeoutError", "InternalServerError", "RuntimeError", "ConnectionError", "TimeoutError"}
+
+
+def transient_error(e):
+    """A failure worth waiting for (2026-09-15): a 429 / 408 / 409 / 5xx status, or a connection / timeout class; a 4xx request
+    error (bad request, authentication, not found) is never retried."""
+    code = getattr(e, "status_code", None)
+    if code is not None:
+        try:
+            code = int(code)
+        except (TypeError, ValueError):
+            return False
+        return code in (408, 409, 429) or code >= 500
+    return type(e).__name__ in TRANSIENT_NAMES
+
+
 class OpenAITransport:
     """Real transport: one Responses API call. Constructed lazily so that tests never import network code."""
 
@@ -107,7 +123,7 @@ class LLMClient:
         return spent
 
     def call(self, model, prefix, suffix, *, tag="", max_output_tokens=None, reasoning_effort=None, temperature=None,
-             service_tier=None, retries=3):
+             service_tier=None, retries=None):
         """prefix: the stable, cacheable part (system + design context); suffix: the variable part.
         -> dict(call_id, text, usage, cost_usd, response_id, status, path)."""
         requested_tier = service_tier or self.llm.get("service_tier_search") or "default"
@@ -127,17 +143,21 @@ class LLMClient:
         call_id = f"c{self.calls:05d}_{datetime.datetime.now():%H%M%S}"
         t0 = time.time()
         last_error = None
+        rp = self.llm.get("retry") or {}
+        if retries is None:
+            retries = int(rp.get("attempts", 3))
+        base, cap = float(rp.get("base_sec", 2.0)), float(rp.get("max_sec", 480.0))
         for attempt in range(retries + 1):
             try:
                 resp = self.transport.create(**kw)
                 break
-            except Exception as e:  # rate limits / transient failures: bounded backoff, then give up loudly
+            except Exception as e:  # transient failures (rate limits, connection, 5xx): exponential backoff, then give up loudly; request errors: at once
                 last_error = e
-                if attempt == retries:
+                if attempt == retries or not transient_error(e):
                     (self.dir / f"{call_id}.json").write_text(json.dumps({"call_id": call_id, "tag": tag, "request": kw, "error": f"{type(e).__name__}: {e}"[:500],
                                                                           "attempts": attempt + 1}, indent=1, default=str))
                     raise
-                self.sleep(2.0 * (attempt + 1))
+                self.sleep(min(cap, base * (2 ** attempt)))
         usage = _usage_dict(resp)
         used_tier = self.tier_of(getattr(resp, "service_tier", None) or requested_tier)  # flex may fall back to standard
         prices = self.prices_for(model, used_tier)

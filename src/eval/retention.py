@@ -52,6 +52,14 @@ def enabled(cfg):
     return bool(policy(cfg).get("tiered", False))
 
 
+def audit_frac_for(cfg, config=None):
+    """The audit fraction of non-accepted candidates for a hidden configuration: `exp5.hidden_audit_frac[config]` when set
+    (storage decision 2026-09-15: 0.20 for H1 / H3 / H5), else `retention.tiered_audit_frac`."""
+    per = ((cfg.get("exp5") or {}).get("hidden_audit_frac") or {}) if config else {}
+    v = per.get(config) if config else None
+    return float(v if v is not None else (policy(cfg).get("tiered_audit_frac") or 0.0))
+
+
 def is_audit_sample(cand_id, frac):
     """Deterministic audit sample by candidate id (the same rule the hidden layer's rejected-candidate sample uses)."""
     if not cand_id or frac <= 0:
@@ -127,13 +135,14 @@ def slim_dc_record(rec_dir, cfg, dry_run=False):
     return _slim(rec_dir, policy(cfg).get("tiered_dc_delete") or [], DC_CATEGORIES, "meta.json", dry_run)
 
 
-def slim_eq_record(rec_dir, cfg, dry_run=False):
+def slim_eq_record(rec_dir, cfg, dry_run=False, categories=None):
     """An equivalence record of a non-kept candidate: keep equiv.json, the logs, seq.tcl, the harness and the candidate copy;
-    a sim_fail record of the seeded VCD sample keeps its VCD as well."""
+    a sim_fail record of the seeded VCD sample keeps its VCD as well. `categories` overrides the deleted categories (the kept
+    candidates' list `tiered_eq_delete_kept`, storage decision 2026-09-15)."""
     f = Path(rec_dir) / "equiv.json"
     if not enabled(cfg) or not f.exists():
         return {}
-    cats = list(policy(cfg).get("tiered_eq_delete") or [])
+    cats = list(categories if categories is not None else (policy(cfg).get("tiered_eq_delete") or []))
     try:
         verdict = json.loads(f.read_text()).get("verdict")
     except (ValueError, OSError):
@@ -161,6 +170,10 @@ def slim_candidate(cfg, cand_id, accepted, *, eq_dir=None, fit_dirs=(), m6_dir=N
         return out
     if keep_full(cfg, cand_id, accepted):
         out["kept_full"] = True
+        kept_cats = list(policy(cfg).get("tiered_eq_delete_kept") or [])
+        if eq_dir and kept_cats:   # storage decision 2026-09-15 (C): the kept candidate's equivalence record loses its regenerable VCS build and VC Formal databases as well
+            for k, v in slim_eq_record(eq_dir, cfg, dry_run, categories=kept_cats).items():
+                out["freed"]["eq_" + k] = out["freed"].get("eq_" + k, 0) + v
         return out
     if eq_dir:
         for k, v in slim_eq_record(eq_dir, cfg, dry_run).items():

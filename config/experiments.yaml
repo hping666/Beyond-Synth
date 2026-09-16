@@ -161,6 +161,7 @@ llm:                         # LOCKED (budgets); the model is filled into `selec
   excluded: {gpt-5.4-mini: "31 truncated answers, 7.5 calls per retained candidate", gpt-5.4: "cost (4.3 retained per USD)"}
   ablations_model: gpt-5.6-luna
   review_model: gpt-5.6-luna           # M6 review, log summaries (Batch)
+  retry: {attempts: 6, base_sec: 15, max_sec: 480}   # 2026-09-15 (probe: a sol run died on two 429 "processing too many requests" answers in a row with the old 2 / 4 / 6 s backoff): transient failures (429, 408 / 409, 5xx, connection / timeout) wait 15, 30, 60, 120, 240, 480 s before the call gives up; request errors (4xx) are never retried; a model-call setting, not a budget
   service_tier_search: flex
   service_tier_offline: batch
   reasoning_effort: medium
@@ -309,11 +310,13 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
     small: [rtlopt_fsm_encode, rtlopt_ticket_machine]
     medium: [cktevo_spi__spi, drrtl_i2c, cktevo_vga_enh__vga_wb_master, cktevo_ethmac__eth_txethmac, cktevo_mem_ctrl__mc_obct_top]
     large: [cktevo_nn_engine__spikeLayer8_H7, drrtl_datapath, drrtl_pcie]
-  hidden_scope: {H1: all_e4, H3: all_e4, H5: all_e4, H2a: accepted_and_audit, H2b: accepted_and_audit, H4: accepted_and_audit}   # user 2026-09-15 item 2: H1 / H3 / H5 on every E4-evaluated candidate (+6 GB); the other configurations on accepted candidates and the audit sample (spec 06 §3)
+  hidden_scope: {H1: accepted_and_audit, H3: accepted_and_audit, H5: accepted_and_audit, H2a: accepted_and_audit, H2b: accepted_and_audit, H4: accepted_and_audit}   # storage decision 2026-09-15 (option D = B + C): every hidden configuration on accepted candidates and the seeded audit sample (spec 06 §3); "all_e4" (the 2026-09-15 item 2 enhancement) was dropped for the disk cap
+  hidden_audit_frac: {H1: 0.20, H3: 0.20, H5: 0.20}   # storage decision 2026-09-15: the audit sample of non-accepted E4-evaluated candidates for H1 / H3 / H5 (H2a / H2b / H4 use retention.tiered_audit_frac 0.10); the same hash threshold, so the 10 % sample is inside the 20 % one
   ladder_on_accepted: phase6                # user 2026-09-15 item 2: the Phase 4 ladder is repeated on the accepted Phase 5 candidates in Phase 6 (in Phase 5 only if ~/.cache is freed, option B)
   launch_caps:                              # decision 2026-09-15 item 6 (pre-authorised conditional launch): every pre-launch projection must sit inside its cap, else stop and report
     llm_usd: null                           # null = llm.budget_usd.phase5_main
     disk_margin_gb: 20                      # projected growth <= free space at launch minus this
+    disk_reserve_gb: 5                      # storage decision 2026-09-15 item 2: ... minus this reserve as well (cap = free − margin − reserve)
     vcf_hours: 4200                         # the Phase 3 projection accepted at G4 (4 121 h at 50 seats, reports/phase3.md §5c)
     dc_hours: 4000                          # operator derivation for the record: G3's full-E4 figure (766 h, reports/phase2.md) times the E4-clock runs per proven candidate under decision item 2 (fitness + H1 / H3 / H5 on every E4-evaluated candidate, H2a / H2b on accepted) ~ 3 500 h; at 50 seats ~ 70 h wall-clock
     bulk_seats_target: 50                   # vcf_seats_target and dc_seats_target during Phase 5 (decision item 6), restored to 24 afterwards
@@ -372,4 +375,6 @@ retention:                   # approved by the user 2026-09-12 (DECISIONS): resu
   tiered_audit_frac: 0.10            # deterministic sample by candidate id that keeps everything (the hidden layer's rejected-candidate sample, spec 06 §3)
   tiered_dc_delete: [netlist, ddc, saif, inputs_rtl]                          # DC / Yosys records: netlist.v, design.ddc, SAIFs, the RTL copy
   tiered_eq_delete: [vcd, trace, ports, seq_rtdb, seq_learnt, vcs_build, saif]   # equivalence records: VCDs, lock-step trace, port JSONs, VC Formal databases and learnt data, VCS builds, SAIFs
+  tiered_eq_delete_kept: [vcs_build, seq_rtdb, seq_learnt, vcd, trace, ports]   # storage decision 2026-09-15 (C): accepted / archived / audit-sample candidates keep equiv.json, logs, seq.tcl, the SEQ counterexample files and the candidate copy (the user's list) plus the SAIF (the hidden layer's power runs read it); the regenerable VCS build, VC Formal databases, lock-step VCD / trace / port files go (a sim_fail audit-sample record in the seeded VCD sample keeps its VCD); their DC records stay complete (netlist for H4)
+  relocate_hidden_raw: {enabled: true, dest: /hdd1/hping/beyond-synth-hidden-raw}   # storage decision 2026-09-15 item 3 (contingency): when free space on / drops below min_free_gb the hidden raw tree moves to /hdd1 behind a symlink (scripts/relocate_hidden_raw.py, run by the hidden loop); no other relocation
   m6_workdir_after_classification: delete   # the classifier's Yosys workdir of a candidate (features archived in candidates.features_json); D's statistics are computed once per run

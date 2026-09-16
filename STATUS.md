@@ -4,9 +4,9 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
-**Phase 5 is held before its launch (evening decisions of 2026-09-15, item 1): the autolaunch watcher is stopped (18:35:54) and stays stopped. Items 2–6 are implemented (DECISIONS "Implementation of the evening decisions"); the pre-launch check under item 7 is NO-GO on the disk projection: 101 GB against a 55 GB cap (75 GB free minus 20). The user has to choose a storage variant (STATUS "Open questions") before the watcher is restarted with `python3 scripts/phase5_autolaunch.py start`.** The probe (12 runs) is still running (10 running, 2 done at 18:58; 19 USD of 120).
+**Phase 5 launch re-armed under the storage decision of 2026-09-15 (DECISIONS "Implementation of the storage decision"): option D (hidden layer on accepted + audit sample, 20 % audit for H1 / H3 / H5; kept records lose their regenerable equivalence artifacts), a 5 GB reserve on the disk check, the relocation contingency for the hidden raw tree, and a longer LLM retry backoff. Pre-launch at 19:22: disk 44.0 GB against 53.5 GB (78.5 GB free), LLM 447.8 / 600 USD, VC Formal 2 192 / 4 200 h, DC 1 448 / 4 000 h — every cap holds; the watcher (restarted 19:24) launches automatically once the probe's last runs finish (3 running + the sol run on drrtl_datapath resubmitted after two 429 rate-limit failures).**
 
-What the launch will do on GO: 612 runs per `exp5.model_assignment` (large tier: terra on every arm = 90, luna on M as the contrast = 18; medium / small: luna on every arm = 360, terra on M / B2 = 144), large tier first; `queue.vcf_seats_target` and `dc_seats_target` set to 50 and the daemon restarted; `scripts/hidden_loop.py` registering the hidden configurations of the Phase 5 and probe candidates every 30 minutes. Projections at 18:58: LLM 447.8 USD of 600, VC Formal 2 141 h of 4 200, DC 2 238 h of 4 000, **disk 101.1 GB against 55.4 GB (NO-GO)**.
+What the launch will do on GO: 612 runs per `exp5.model_assignment` (large tier: terra on every arm = 90, luna on M as the contrast = 18; medium / small: luna on every arm = 360, terra on M / B2 = 144), large tier first; `queue.vcf_seats_target` and `dc_seats_target` set to 50 and the daemon restarted; `scripts/hidden_loop.py` registering the hidden configurations of the Phase 5 and probe candidates every 30 minutes (accepted + audit sample; 20 % audit for H1 / H3 / H5) and running the relocation check (`scripts/relocate_hidden_raw.py auto`) every pass. Stamps: equiv_version phase5, floor_version phase4.
 
 **Arm `DrRTL_reimpl` (PLAN 5.2) implemented at 17:55 (commit a00c7d4; DECISIONS "Arm DrRTL_reimpl implemented"):** Dr. RTL's optimizer role, the released skill library in the prefix, per call the ten worst E4 paths with slack and the critical path's cells plus a rotating diversity strategy, and one skill-extraction call per built round charged to the equal-call budget; B2's fitness and archive. The driver still refuses an arm without a definition. **H4 (PrimeTime / PrimePower) wired into the hidden worker at 18:12 (DECISIONS "H4 ... wired"):** signoff records for D baselines and accepted / audit-sample candidates in the queue's pt pool; the hidden loop covers it for Phase 5.
 
@@ -29,13 +29,14 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 | Storage decision | closed 2026-09-15 | reports/data/phase5_footprint.md | option A executed (86.8 GB free after the prune); ~/.cache stays (the user's) |
 | Pre-probe review | closed 2026-09-15 | static_complement.md v1 approved; prefix fixes applied | probe go; Phase 5 launch pre-authorised under the caps |
 | Evening decisions 2026-09-15 | items 2–6 done | DECISIONS "Implementation of the evening decisions" | recorded verbatim |
-| Phase 5 launch | **held: NO-GO on disk (101 GB vs 55 GB cap)** | reports/data/phase5_prelaunch.md | storage variant (B / C / D or a design-scale change) |
+| Storage decision 2026-09-15 | closed | DECISIONS "User storage decision" / "Implementation of the storage decision" | option D + 20 % audit, 5 GB reserve, relocation contingency |
+| Phase 5 launch | **automatic on GO** (watcher restarted 19:24; every cap holds, waits for the probe's last runs) | reports/data/phase5_prelaunch.md | none needed unless NO-GO |
 | G6+ | not reached | — | — |
 
 ## In-flight work
 
 - **Probe runs** (exp phase5_probe, 12 runs, search jobs on the local pool): gpt-5.6-terra and gpt-5.6-sol × 3 designs × 2 seeds, K 6 × N 5, cap 120 USD (10 USD spent at 17:42 including the 6.7 USD of the superseded first launch). `python3 scripts/phase5_probe.py status`.
-- **Autolaunch watcher**: stopped (evening decision item 1); restart with `python3 scripts/phase5_autolaunch.py start` only after the storage decision makes the pre-launch check GO.
+- **Autolaunch watcher**: restarted 19:24 (`python3 scripts/phase5_autolaunch.py status`); launches on GO after the probe finishes, then starts the hidden loop.
 - **Queue daemon**: restarted at 18:26 (pid 591986) so that it knows the new `search` pool (`queue.search_max` 16, DECISIONS "Search runs get their own queue pool"): search runs no longer share the local pool with the yosys fitness jobs that arm B0 runs wait for (a deadlock at the Phase 5 scale). Targets 24 / 24 until the launch sets 50 / 50 and restarts it again.
 - **Smoke runs before the launch (rule 7, exp `smoke`, luna, K 2 × N 3)**: `DrRTL_reimpl` on drrtl_controller finished 18:23 — the arm works end to end (timing block with the 10 worst paths and the critical cells, rotating strategy, skill-extraction call parsed into two [avoid] entries fed to round 2; 0.03 USD) but 3 of its 4 first-round answers were **scope violations** (the path list points at endpoints outside the block-level region, and the model rewrote those blocks too). Two arm M smoke runs at block-level scope (drrtl_controller, rtllm_traffic_light) were submitted at 18:26 to measure the base rate of the aid itself; the probe never exercised block-level scope (its designs are multi-module → module-level regions, 0 violations).
 - **Hidden loop**: started by the watcher on GO (`python3 scripts/hidden_loop.py status`).
@@ -59,8 +60,8 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 
 - Results database: 24 059 evaluations (+E1_authors), 3 035 + probe candidates; `db_check.py` 0 problems at the last check (17:00). Schema additions today: `candidates.repair_of`, `scope_json`, `features_json` at issue time; diagnoses label `scope_violation`; runs exp `phase5_probe`.
 - Snapshots: `phase4-20260915-review`, `phase4-20260915-1115`.
-- Retention: tiered policy on (`retention.tiered`), sim_fail VCD 5 % seeded sample, disk guard 15 GB; the retroactive prune of 2026-09-15 freed 60 GB of disk (86.8 GB free after it; 79.9 GB at 17:37 with the probe's records).
-- Tests: `pytest tests/` → **370 passed, 15 skipped**.
+- Retention: tiered policy on (`retention.tiered`), kept records slimmed of their regenerable equivalence artifacts (`tiered_eq_delete_kept`, storage decision 2026-09-15), sim_fail VCD 5 % seeded sample, disk guard 15 GB with the relocation contingency; the retroactive prune of 2026-09-15 freed 60 GB of disk (78.5 GB free at 19:22).
+- Tests: `pytest tests/` → **375 passed, 15 skipped**.
 
 ## Open questions and known risks
 
@@ -68,7 +69,8 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - H4 wired (18:12); the first Phase 5 H4 records come from the hidden loop; 13 kept Phase 4 candidates have no E4 netlist any more (pruned) and get no H4 record.
 - The large tier's proven rate: the probe shows terra and sol proving on drrtl_pcie and drrtl_datapath (≥ 13 each) and near zero on spikeLayer8_H7.
 - **Block-level scope**: amended per the evening decision (item 2): out-of-scope edits are restored from D and flagged, never discarded. Smoke rates under the canonical verifier: DrRTL_reimpl / drrtl_controller 3 of 4 (round 1), M / drrtl_controller 3 of 3, M / rtllm_traffic_light 0 of 3 — real edits of the FSM block outside the output-decode region.
-- **Disk projection NO-GO (item 7)**: 101 GB projected against 55 GB. The user's storage choice decides: (B) H1 / H3 / H5 on accepted + audit only → 75 GB; (C) accepted candidates' equivalence records slimmed like the others (regenerable VCS builds / VC Formal databases) → 66 GB; (D) both → 40 GB, inside the cap; design-scale variants: 2 seeds → 68 GB, 4 large designs → 82 GB. `python3 scripts/phase5_main.py prelaunch` recomputes after any config change.
+- **Disk**: the storage decision (option D + 20 % audit) brings the projection to 44.0 GB against 53.5 GB (free − 20 − 5). Contingency: when free space on / drops below 15 GB the hidden loop moves the hidden raw tree to /hdd1 (53 GB free) behind a symlink (`scripts/relocate_hidden_raw.py`; then `finalize` once no hidden job runs). Kept-record reading: the decision's list (equiv.json, logs, seq.tcl, counterexamples, candidate copy) plus the SAIF; the lock-step VCD / trace / ports of proven candidates go (keeping them would project 66.9 GB).
+- **LLM rate limits**: `llm.retry` waits 15 → 480 s on 429 / 5xx / connection errors (the old 2 / 4 / 6 s backoff killed a sol probe run twice); a run killed anyway keeps its state and can be resubmitted as a search job.
 - Transient disk footprint of in-flight proofs: the probe's equivalence records on spikeLayer8_H7 reach ≈ 0.5 GB each (VCS build + VC Formal databases) until the candidate is final and slimmed; 12 probe runs held ≈ 12 GB at 18:20. With 16 concurrent runs on large designs the transient can reach 20–40 GB on top of the retained footprint; the disk guard (15 GB) pauses submissions rather than failing.
 - DPV phase mapping (engineering item (v), "only if time remains"): deliberately not started today — a change of the equivalence stack under a pre-authorised launch would make Phase 5 verdicts heterogeneous; proposed for the user's decision as a Phase 6 / post-launch item.
 - The DC-hour cap (4 000 h) is an operator derivation (DECISIONS "Phase 5 launch tooling"); the VC Formal cap is the G4-accepted projection.
@@ -86,7 +88,7 @@ python3 scripts/phase5_autolaunch.py status   # waiting / launched / no-go, with
 python3 scripts/phase5_probe.py status        # per (model, design) proven, verdict, repair yield, scope violations
 python3 scripts/phase5_main.py status         # after the launch: runs by model / arm / tier
 python3 scripts/hidden_loop.py status
-pytest tests/ -x -q                  # 370 passed, 15 skipped
+pytest tests/ -x -q                  # 375 passed, 15 skipped
 git status --short && git log --oneline -3
 df -h / | tail -1
 ```

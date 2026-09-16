@@ -268,6 +268,17 @@ def summarize(args):
 
 # ----------------------------------------------------------------------------- projection (G5 item 5 (i)-(iii))
 EQ_KEEP_SLIM = {"record", "logs", "seq_cex", "seq_other", "sim_other"}         # tiered policy: what an equivalence record of a non-accepted candidate keeps
+EQ_ALL = {"record", "logs", "seq_cex", "seq_other", "sim_other", "saif", "v1_ports", "vcd", "vcd_gz", "trace", "vcs_build", "seq_rtdb", "seq_learnt", "v4", "other"}
+EQ_CAT_OF_RETENTION = {"vcs_build": {"vcs_build"}, "seq_rtdb": {"seq_rtdb"}, "seq_learnt": {"seq_learnt"}, "vcd": {"vcd", "vcd_gz"}, "trace": {"trace"}, "ports": {"v1_ports"}, "saif": {"saif"}}
+
+
+def eq_keep_kept(cfg):
+    """What the equivalence record of an accepted / audit-sample candidate keeps under `retention.tiered_eq_delete_kept`
+    (storage decision 2026-09-15 (C)); everything when the list is empty."""
+    drop = set()
+    for c in (cfg.get("retention") or {}).get("tiered_eq_delete_kept") or []:
+        drop |= EQ_CAT_OF_RETENTION.get(c, {c})
+    return EQ_ALL - drop
 DC_KEEP_SLIM = {"record", "small_reports", "logs"}                            # tiered policy: what a DC / Yosys record of a non-accepted candidate keeps
 LADDER_DC = ("E1", "E1d", "E2", "E2g", "E3")
 LADDER_YOSYS = ("Y", "O0", "O1", "O2", "Ycoevo")
@@ -368,13 +379,14 @@ def _cand_dir_bytes(results, conn, tiers):
     return {t: {"rtl": v["rtl"] / max(v["cands"], 1), "m6": v["m6"] / max(v["cands"], 1), "llm": v["llm"] / max(v["calls"], 1), "cands": v["cands"]} for t, v in acc.items()}
 
 
-def project(args, plan_runs=None, model_rates=None, slim_kept_eq=False):
+def project(args, plan_runs=None, model_rates=None, slim_kept_eq=False, cfg=None):
     """plan_runs: the launch matrix ([{model, arm, tier, ...}], scripts/phase5_main.plan) replaces the config-derived workload;
     model_rates: {(model, tier): {"proven_per_call", "accepted_per_call"}} measured rates that replace the tier's verdict mix
     and acceptance for that model (decision 2026-09-15 evening, item 3: the projection follows the amended assignment);
-    slim_kept_eq: a what-if variant in which the equivalence records of accepted / audit-sample candidates are slimmed like the
-    others (VCS builds and VC Formal databases are regenerable; equiv.json, logs, seq.tcl and the candidate copy stay)."""
-    cfg = load_config()
+    slim_kept_eq: a what-if variant in which the equivalence records of accepted / audit-sample candidates are slimmed exactly like
+    the others; by default they keep what `retention.tiered_eq_delete_kept` leaves (storage decision 2026-09-15 (C)).
+    cfg: the configuration to project under (default: the one on disk)."""
+    cfg = cfg or load_config()
     results = Path(cfg["project"]["results_dir"])
     m = json.loads(Path(args.measured).read_text())
     tiers = cfg["exp5"]["projection_reference_tiers"]
@@ -392,7 +404,10 @@ def project(args, plan_runs=None, model_rates=None, slim_kept_eq=False):
     probe = cfg["exp5"]["correctness_probe"]
     n_env = int(cfg["search"]["acceptance_envelope"]["n_perturbations"])
     hidden_cfgs = [n for n, c in cfg["configs"].items() if isinstance(c, dict) and c.get("hidden")]
-    rej_sample = 0.10                                    # spec 06 §3: a random 10 % of visible-layer rejected candidates run the hidden layer
+    rej_sample = float((cfg.get("retention") or {}).get("tiered_audit_frac") or 0.10)   # the retention audit sample (complete DC artifacts; spec 06 §3's 10 % of rejected candidates)
+    from src.eval.retention import audit_frac_for
+    h_scope = cfg["exp5"].get("hidden_scope") or {}
+    keep_kept = eq_keep_kept(cfg) if not slim_kept_eq else EQ_KEEP_SLIM
     large_proven = float(args.large_proven_rate)         # assumption for the models that carry the large tier (luna proved 0 there)
 
     # ---- workload: runs and calls by tier and arm family
@@ -439,37 +454,41 @@ def project(args, plan_runs=None, model_rates=None, slim_kept_eq=False):
         p_prov = v["proven"]
         fit_cfg = "Y" if family == "B0" else "E4"
         fit_kind = "yosys" if family == "B0" else "dc"
-        full = {"eq": 0.0, "eq_slim": 0.0}
+        full = {"eq": 0.0, "eq_slim": 0.0, "eq_kept": 0.0}
         for verdict, p in v.items():
             b, _ = sizes.mean(t, "eq", "EQ", verdict)
             bs, _ = sizes.mean(t, "eq", "EQ", verdict, keep=EQ_KEEP_SLIM)
+            bk, _ = sizes.mean(t, "eq", "EQ", verdict, keep=keep_kept)
             full["eq"] += (1 - p_dup) * p * b
             full["eq_slim"] += (1 - p_dup) * p * bs
+            full["eq_kept"] += (1 - p_dup) * p * bk
         e4, _ = sizes.mean(t, "dc", "E4", "ok")
         e4s, _ = sizes.mean(t, "dc", "E4", "ok", keep=DC_KEEP_SLIM)
         fit, _ = sizes.mean(t, fit_kind, fit_cfg, "ok")
         fits, _ = sizes.mean(t, fit_kind, fit_cfg, "ok", keep=DC_KEEP_SLIM)
         k7, _ = sizes.mean(t, "dc", "K_asap7", "ok")
         k130, _ = sizes.mean(t, "dc", "K_sky130hd", "ok")
-        hidden_full = 0.0
-        for h in hidden_cfgs:
-            hidden_full += {"H2a": k7, "H2b": k130, "H4": PT_RECORD_BYTES}.get(h, e4)
-        h_e4only = sum(e4 for h in hidden_cfgs if h in ("H1", "H3", "H5"))
+        h_size = {h: {"H2a": k7, "H2b": k130, "H4": PT_RECORD_BYTES}.get(h, e4) for h in hidden_cfgs}
+        h_audit = {h: audit_frac_for(cfg, h) for h in hidden_cfgs}
+        h_share = {h: (1.0 if h_scope.get(h) == "all_e4" else (p_acc + (1 - p_acc) * h_audit[h])) for h in hidden_cfgs}   # share of the proven candidates registered under each configuration
+        hidden_full = sum(h_size.values())
+        hidden_per_proven = sum(h_size[h] * h_share[h] for h in hidden_cfgs)
+        h_e4only_rest = sum(h_size[h] * (1 - h_share[h]) for h in hidden_cfgs if h in ("H1", "H3", "H5"))   # what-if: those three on every E4-evaluated candidate
         ladder = sum(sizes.mean(t, "dc", c, "ok")[0] for c in LADDER_DC) + sum(sizes.mean(t, "yosys", c, "ok")[0] for c in LADDER_YOSYS)
         env = (p_prov * p_spread * p_ret_m * n_env * e4) if family == "M" else 0.0
         env_slim = (p_prov * p_spread * p_ret_m * n_env * e4s) if family == "M" else 0.0
         cb = cand_bytes.get(t) or cand_bytes["medium"]
-        p_keep = p_prov * (p_acc + (1 - p_acc) * rej_sample)      # full artifacts: accepted candidates and the hidden-layer audit sample
-        jobs = (1 - p_dup) + p_prov * (1 + len(hidden_cfgs) * (p_acc + (1 - p_acc) * rej_sample)) + (env / e4 if e4 else 0)
+        p_keep = p_prov * (p_acc + (1 - p_acc) * rej_sample)      # complete DC artifacts and the kept-record equivalence policy: accepted candidates and the retention audit sample
+        jobs = (1 - p_dup) + p_prov * (1 + sum(h_share.values())) + (env / e4 if e4 else 0)
         common = cb["rtl"] + cb["llm"] + jobs * QUEUE_BYTES_PER_JOB + DB_BYTES_PER_CAND + jobs * DB_BYTES_PER_EVAL
         A = {"candidates_dir": cb["rtl"] + cb["m6"], "llm": cb["llm"], "eq": full["eq"], "fitness": p_prov * fit,
-             "envelope": env, "hidden": p_prov * (p_acc + (1 - p_acc) * rej_sample) * hidden_full,
+             "envelope": env, "hidden": p_prov * hidden_per_proven,
              "queue_db": jobs * (QUEUE_BYTES_PER_JOB + DB_BYTES_PER_EVAL) + DB_BYTES_PER_CAND}
         B = {"candidates_dir": cb["rtl"], "llm": cb["llm"],
-             "eq": full["eq_slim"] if slim_kept_eq else (1 - p_keep) * full["eq_slim"] + p_keep * full["eq"],
+             "eq": (1 - p_keep) * full["eq_slim"] + p_keep * full["eq_kept"],     # storage decision 2026-09-15 (C): kept records keep only what `tiered_eq_delete_kept` leaves
              "fitness": p_prov * ((p_acc + (1 - p_acc) * rej_sample) * fit + (1 - p_acc - (1 - p_acc) * rej_sample) * fits),
              "envelope": env_slim, "hidden": A["hidden"], "queue_db": A["queue_db"]}
-        extras = {"hidden_all_e4": p_prov * (1 - p_acc) * (1 - rej_sample) * h_e4only,     # deferred question of PLAN Phase 5: H1 / H3 / H5 on every E4-evaluated candidate
+        extras = {"hidden_all_e4": p_prov * h_e4only_rest,                                 # what-if: H1 / H3 / H5 on every E4-evaluated candidate beyond the registered share
                   "ladder_accepted": p_prov * p_acc * ladder}                              # the Phase 4 ladder repeated on the accepted candidates (final map, PLAN 6.2)
         return A, B, extras, {"p_dup": p_dup, "p_proven": p_prov, "p_acc": p_acc, "verdicts": v, "e4": e4, "e4_slim": e4s, "hidden_full": hidden_full, "ladder": ladder, "m6": cb["m6"], "llm": cb["llm"], "common": common}
 
@@ -530,7 +549,7 @@ def project(args, plan_runs=None, model_rates=None, slim_kept_eq=False):
         r = rates[t]
         v = r["verdicts"]
         L.append(f"| {t} | {r['n']} | {100 * r['p_dup']:.0f} % | {100 * v['proven']:.0f} % | {100 * v['sim_fail']:.0f} % | {100 * v['falsified']:.0f} % | {100 * v['rejected']:.0f} % | {100 * v['inconclusive']:.0f} % | {'-' if r['p_acc_b'] is None else f'{100 * r[chr(112) + chr(95) + chr(97) + chr(99) + chr(99) + chr(95) + chr(98)]:.0f} %'} |")
-    L.append(f"\nArm M accepts {100 * p_acc_m:.0f} % of its proven candidates (Phase 3, {m3[0]} proven; retained or trade-off {100 * p_ret_m:.0f} %); spread / offset designs are {100 * p_spread:.0f} % of the designs with an E4 floor, and only their retained / trade-off M candidates get the {n_env} envelope runs. The large tier's proven rate for the models of the correctness probe and the second model is an assumption: {100 * large_proven:.0f} % (luna proved 0 of 562; `--large-proven-rate`). Hidden layer per accepted candidate: {', '.join(hidden_cfgs)} plus a {100 * rej_sample:.0f} % sample of the rejected proven candidates (spec 06 §3). Prescreen not applied (upper bound).\n")
+    L.append(f"\nArm M accepts {100 * p_acc_m:.0f} % of its proven candidates (Phase 3, {m3[0]} proven; retained or trade-off {100 * p_ret_m:.0f} %); spread / offset designs are {100 * p_spread:.0f} % of the designs with an E4 floor, and only their retained / trade-off M candidates get the {n_env} envelope runs. The large tier's proven rate for the models of the correctness probe and the second model is an assumption: {100 * large_proven:.0f} % (luna proved 0 of 562; `--large-proven-rate`). Hidden layer per proven candidate under `exp5.hidden_scope`: {', '.join(f'{h} ({h_scope.get(h, 'all_e4')}, audit {100 * audit_frac_for(cfg, h):.0f} %)' for h in hidden_cfgs)}; complete DC artifacts for accepted candidates and the {100 * rej_sample:.0f} % retention audit sample. Prescreen not applied (upper bound).\n")
     L.append("## 4. Workload (G5: 30 starting points = 18 medium / 6 small / 6 large; " + ("the launch matrix of exp5.model_assignment (decision 2026-09-15 evening, item 3) with the measured rates per model and tier where they exist" if plan_runs else "5 arms × 3 seeds with luna; terra on M and B2") + "; Sky130 sub-experiment 8 modules × 2 arms; correctness probe)\n")
     L.append("| Tier | arm family | runs of | LLM calls | MB per call, current rules | MB per call, tiered policy | GB current | GB tiered | + H1/H3/H5 on all E4-evaluated (GB) | + ladder on accepted (GB) |\n|---|---|---|---|---|---|---|---|---|---|")
     for t, family, model, calls, a, b, x1, x2, info in rows:

@@ -216,6 +216,7 @@ def test_tiered_slimming_keeps_records_and_small_reports_and_removes_regenerable
 def test_tiered_slimming_spares_accepted_candidates_the_audit_sample_and_switched_off_runs(tmp_path):
     from src.eval import retention as R
     for name, cfg, accepted in (("accepted", tiered_cfg(), True), ("off", tiered_cfg(on=False), False), ("audit", tiered_cfg(audit=1.0), False)):
+        cfg["retention"]["tiered_eq_delete_kept"] = []                                   # the pre-storage-decision rule: kept records untouched
         eq, dc = make_eq(tmp_path / name), make_dc(tmp_path / name)
         res = R.slim_candidate(cfg, "c1", accepted=accepted, eq_dir=eq, fit_dirs=[dc], m6_dir=None)
         assert res["freed"] == {} and (eq / "v2_sim/sim.vcd.gz").exists() and (dc / "outputs/reports/netlist.v").exists(), name
@@ -355,3 +356,25 @@ def test_kept_candidates_keep_the_e4_netlist_and_constraints_for_h4(tmp_path):
     job3 = make_dc(tmp_path / "drop", cand_id="c_no")
     res3 = R.slim_candidate(cfg, "c_no", False, fit_dirs=[job3])
     assert not res3["kept_full"] and not (job3 / "outputs/reports/netlist.v").exists() and (job3 / "outputs/reports/design.sdc").exists()
+
+
+def test_kept_records_lose_regenerable_equivalence_artifacts_only(tmp_path):
+    """Storage decision 2026-09-15 (C): an accepted / audit-sample candidate's equivalence record loses the VCS build, the VC Formal
+    databases and learnt data and the lock-step VCD / trace / port files; equiv.json, logs, seq.tcl, the SAIF and the candidate
+    copy stay; its DC record stays complete; a non-kept candidate loses the SAIF as well (both directions)."""
+    from src.eval import retention as R
+    cfg = tiered_cfg()
+    cfg["retention"]["tiered_eq_delete_kept"] = ["vcs_build", "seq_rtdb", "seq_learnt", "vcd", "trace", "ports"]
+    eq, dc = make_eq(tmp_path / "kept"), make_dc(tmp_path / "kept")
+    res = R.slim_candidate(cfg, "c1", accepted=True, eq_dir=eq, fit_dirs=[dc])
+    assert res["kept_full"] and set(res["freed"]) == {"eq_vcs_build", "eq_seq_rtdb", "eq_seq_learnt", "eq_vcd", "eq_trace", "eq_ports"}
+    for gone in ("v2_sim/csrc", "v2_sim/simv", "v2_sim/simv.daidir", "v3_seq/vcst_rtdb", "v3_seq/learnt_data_to_server.gz", "v2_sim/sim.vcd.gz", "v2_sim/trace.txt", "v1_ports_c"):
+        assert not (eq / gone).exists(), gone
+    for kept in ("equiv.json", "saif_c.saif", "v2_sim/vcs.log", "v2_sim/harness.v", "v2_sim/c1__cand.v", "v3_seq/seq.tcl", "v3_seq/vcf.log"):
+        assert (eq / kept).exists(), kept
+    assert (dc / "outputs/reports/netlist.v").exists() and (dc / "outputs/reports/design.ddc").exists()               # the DC record complete (H4 reads the netlist)
+    eq2 = make_eq(tmp_path / "plain")
+    res2 = R.slim_candidate(cfg, "c1", accepted=False, eq_dir=eq2)
+    assert not res2["kept_full"] and not (eq2 / "saif_c.saif").exists() and (eq2 / "equiv.json").exists()
+    assert R.audit_frac_for(cfg, "H2a") == cfg["retention"]["tiered_audit_frac"] and R.audit_frac_for({"exp5": {"hidden_audit_frac": {"H1": 0.2}}, "retention": {"tiered_audit_frac": 0.1}}, "H1") == 0.2
+    assert R.audit_frac_for({"exp5": {"hidden_audit_frac": {"H1": 0.2}}, "retention": {"tiered_audit_frac": 0.1}}, "H2a") == 0.1

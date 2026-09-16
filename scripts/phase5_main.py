@@ -213,10 +213,9 @@ def projection(cfg, conn, pl, slim_kept_eq=False):
                 pp, s_p = _lookup(stats, cfg, r["model"], r["tier"], "proven_per_call", None)
                 pa, s_a = _lookup(stats, cfg, r["model"], r["tier"], "accepted_per_call", None)
                 model_rates[k] = {"proven_per_call": pp, "accepted_per_call": pa, "source": s_p}
-        totals = PF.project(ns, plan_runs=pl["runs"], model_rates=model_rates, slim_kept_eq=slim_kept_eq)   # the footprint follows the launch matrix and the measured rates (decision 2026-09-15 evening, item 3)
+        totals = PF.project(ns, plan_runs=pl["runs"], model_rates=model_rates, slim_kept_eq=slim_kept_eq, cfg=cfg)   # the footprint follows the launch matrix and the measured rates (decision 2026-09-15 evening, item 3)
         if totals:
-            n_all = len([h for h in ("H1", "H3", "H5") if (cfg["exp5"].get("hidden_scope") or {}).get(h) == "all_e4"])   # the all-E4 extra counts only the configurations registered for every E4-evaluated candidate
-            disk_gb = (totals["tiered"] + totals["hidden_all_e4"] * n_all / 3.0) / 1e9
+            disk_gb = totals["tiered"] / 1e9   # the registered hidden share is inside the tiered total (scope-driven since the storage decision 2026-09-15); `hidden_all_e4` stays a what-if
     except Exception as e:   # the footprint projection is optional; its absence is reported
         disk_gb = None
         sources["disk_error"] = f"{type(e).__name__}: {e}"[:200]
@@ -226,6 +225,7 @@ def projection(cfg, conn, pl, slim_kept_eq=False):
 def caps(cfg):
     lc = cfg["exp5"]["launch_caps"]
     return {"llm_usd": float(lc.get("llm_usd") or cfg["llm"]["budget_usd"]["phase5_main"]), "disk_margin_gb": float(lc["disk_margin_gb"]),
+            "disk_reserve_gb": float(lc.get("disk_reserve_gb") or 0.0),   # storage decision 2026-09-15 item 2
             "vcf_hours": float(lc["vcf_hours"]), "dc_hours": float(lc["dc_hours"])}
 
 
@@ -234,8 +234,9 @@ def prelaunch(cfg, conn, write=True):
     pr = projection(cfg, conn, pl)
     cp = caps(cfg)
     free = shutil.disk_usage(C.results_dir(cfg)).free / 1e9
+    disk_cap = free - cp["disk_margin_gb"] - cp["disk_reserve_gb"]
     checks = {"llm_usd": (pr["llm_usd"], cp["llm_usd"], pr["llm_usd"] <= cp["llm_usd"]),
-              "disk_gb": (pr["disk_gb"], free - cp["disk_margin_gb"], pr["disk_gb"] is not None and pr["disk_gb"] <= free - cp["disk_margin_gb"]),
+              "disk_gb": (pr["disk_gb"], disk_cap, pr["disk_gb"] is not None and pr["disk_gb"] <= disk_cap),
               "vcf_hours": (pr["vcf_hours"], cp["vcf_hours"], pr["vcf_hours"] <= cp["vcf_hours"]),
               "dc_hours": (pr["dc_hours"], cp["dc_hours"], pr["dc_hours"] <= cp["dc_hours"])}
     probe = pl["probe"]
@@ -264,7 +265,8 @@ def prelaunch(cfg, conn, write=True):
           "## Projections against the caps", "", "| quantity | projected | cap | inside |", "|---|---|---|---|"]
     for k, (v, c, ok) in checks.items():
         L.append(f"| {k} | {'-' if v is None else f'{v:.1f}'} | {c:.1f} | {'yes' if ok else 'NO'} |")
-    L += ["", f"Free space now {free:.1f} GB (cap = free minus {cp['disk_margin_gb']:.0f} GB); disk projection = the tiered policy plus H1 / H3 / H5 on every E4-evaluated candidate (reports/data/phase5_footprint.md). "
+    L += ["", f"Free space now {free:.1f} GB (cap = free minus the {cp['disk_margin_gb']:.0f} GB margin minus the {cp['disk_reserve_gb']:.0f} GB reserve of the storage decision 2026-09-15); disk projection = the tiered policy with the kept-record equivalence slimming and the hidden registrations of `exp5.hidden_scope` / `hidden_audit_frac` (reports/data/phase5_footprint.md). "
+          f"Stamps: equiv_version = {(cfg.get('equiv') or {}).get('version')}; floor_version = {cfg['noise'].get('floor_version')}. "
           "DC hours count the E4 fitness runs of the proven candidates (B0: its accepted candidates), the hidden configurations per `exp5.hidden_scope` and 10 % for envelope and single-flag runs; VC Formal hours are the measured seconds per LLM call of the same model and tier (or the main model's).", "",
           "## Per-call figures used (measured where a finished run of the model on the tier exists)", "", "| model | tier | USD / call | VCF s / call | proven / call | accepted / call | E4 s / proven |", "|---|---|---|---|---|---|---|"]
     for (m, tier), v in sorted((k, v) for k, v in pr["sources"].items() if isinstance(k, tuple)):
@@ -323,6 +325,34 @@ def cmd_launch(cfg, conn, dry_run=False):
     return 0
 
 
+def scope_report(conn, exp=EXP, gen=1):
+    """Block-level scope-violation rate per arm (storage decision 2026-09-15 item 5; evening item 2): candidates of generation `gen`
+    whose region is block-level, flagged (out-of-scope edits restored from D) over issued, per arm, and the same over every generation."""
+    from src.analysis.repair import scope_flagged
+    rows = conn.execute("SELECT r.arm, r.llm_model, c.gen, c.scope_json FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp=? AND r.status != 'superseded' AND c.scope_json IS NOT NULL", (exp,)).fetchall()
+    out = {}
+    for arm, model, g, sj in rows:
+        try:
+            region = (json.loads(sj) or {}).get("region") or {}
+        except (ValueError, TypeError):
+            region = {}
+        if region.get("kind") != "blocks":
+            continue
+        e = out.setdefault(arm, {"gen1_issued": 0, "gen1_flagged": 0, "all_issued": 0, "all_flagged": 0})
+        f = scope_flagged(sj)
+        e["all_issued"] += 1
+        e["all_flagged"] += int(f)
+        if int(g or 0) == gen:
+            e["gen1_issued"] += 1
+            e["gen1_flagged"] += int(f)
+    L = ["| arm | block-level answers, generation %d | flagged (restored) | rate | all generations | flagged | rate |" % gen, "|---|---|---|---|---|---|---|"]
+    for arm, e in sorted(out.items()):
+        r1 = f"{100.0 * e['gen1_flagged'] / e['gen1_issued']:.0f} %" if e["gen1_issued"] else "-"
+        ra = f"{100.0 * e['all_flagged'] / e['all_issued']:.0f} %" if e["all_issued"] else "-"
+        L.append(f"| {arm} | {e['gen1_issued']} | {e['gen1_flagged']} | {r1} | {e['all_issued']} | {e['all_flagged']} | {ra} |")
+    return out, L
+
+
 def cmd_status(cfg, conn):
     rows = [dict(r) for r in conn.execute("SELECT r.run_id, r.llm_model, r.arm, r.design_id, r.status, r.gens_done, r.llm_calls, r.spent_usd, r.spent_vcf_hours, r.spent_dc_hours FROM runs r WHERE r.exp=? AND r.status != 'superseded' ORDER BY r.run_id", (EXP,))]
     if not rows:
@@ -347,12 +377,14 @@ def cmd_status(cfg, conn):
     free = shutil.disk_usage(C.results_dir(cfg)).free / 1e9
     paused = conn.execute("SELECT COUNT(*) FROM runs WHERE status='paused_disk'").fetchone()[0]
     print(f"free space {free:.1f} GB; disk guard threshold {(cfg.get('retention') or {}).get('min_free_gb')} GB; paused runs {paused}")
+    print("block-level scope flags per arm (single-module designs; storage decision 2026-09-15 item 5):")
+    print("\n".join(scope_report(conn)[1]))
     return 0
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=["plan", "prelaunch", "launch", "status"])
+    ap.add_argument("what", choices=["plan", "prelaunch", "launch", "status", "scope-report"])
     ap.add_argument("--dry-run", action="store_true", help="launch: report and count only")
     a = ap.parse_args(argv)
     cfg = C.load()
@@ -369,6 +401,9 @@ def main(argv=None):
         return 0 if go else 2
     if a.what == "launch":
         return cmd_launch(cfg, conn, dry_run=a.dry_run)
+    if a.what == "scope-report":
+        print("\n".join(scope_report(conn)[1]))
+        return 0
     return cmd_status(cfg, conn)
 
 

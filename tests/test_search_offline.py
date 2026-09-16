@@ -620,7 +620,7 @@ def test_driver_slims_finished_candidates_unless_accepted(env, monkeypatch):
     labels = {r[0]: (r[1], r[2]) for r in conn.execute("SELECT cand_id, label, in_archive FROM candidates WHERE run_id=?", (run.run_id,))}
     assert labels[good] == ("retained", 1) and labels[bad][1] == 0
     g_eq, b_eq = Path(run.eq_record(good)[1]), Path(run.eq_record(bad)[1])
-    assert (g_eq / "v2_sim" / "trace.txt").exists() and (g_eq / "v2_sim" / "sim.vcd.gz").exists()                       # accepted: full artifacts
+    assert not (g_eq / "v2_sim" / "trace.txt").exists() and not (g_eq / "v2_sim" / "sim.vcd.gz").exists() and (g_eq / "equiv.json").exists()   # accepted: the record and its evidence stay, the regenerable lock-step files go too (storage decision 2026-09-15 (C))
     assert not (b_eq / "v2_sim" / "trace.txt").exists() and not (b_eq / "v2_sim" / "sim.vcd.gz").exists() and (b_eq / "equiv.json").exists()   # slimmed, record kept
     g_raw, b_raw = tmp_path / "results/raw/rtllm_d/E4" / f"fake_{good}", tmp_path / "results/raw/rtllm_d/E4" / f"fake_{bad}"
     assert (g_raw / "outputs/reports/netlist.v").exists() and not (b_raw / "outputs/reports/netlist.v").exists() and (b_raw / "outputs/reports/qor.rpt").exists() and (b_raw / "meta.json").exists()
@@ -630,7 +630,7 @@ def test_driver_slims_finished_candidates_unless_accepted(env, monkeypatch):
     run.save_state()
     run2 = SearchRun.resume(cfg, conn, run.run_id, queue=q, transport=ListTransport([]))
     run2.slim_finished()                                                                                                    # idempotent across resumption
-    assert (g_eq / "v2_sim" / "trace.txt").exists()
+    assert (g_eq / "equiv.json").exists() and run2.state["cands"][good]["slimmed"]["kept_full"] is True
 
 
 def test_map_prior_loads_for_arm_m_only_and_feeds_prescreen_prompt_and_bandit(env, tmp_path):

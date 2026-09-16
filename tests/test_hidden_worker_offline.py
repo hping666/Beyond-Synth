@@ -350,3 +350,35 @@ def test_signoff_h4_jobs_for_the_baseline_and_kept_candidates_with_a_netlist_onl
     jid = q.submit(jobs[0]["kind"], jobs[0]["payload"], design_id="rtllm_so", cand_id=jobs[0]["cand_id"], config="H4", timeout_sec=jobs[0]["timeout_sec"], pool=jobs[0]["pool"])
     row = vis.execute("SELECT pool, kind, timeout_sec FROM jobs WHERE job_id=?", (jid,)).fetchone()
     assert row["pool"] == "pt" and row["kind"] == "dc_hidden" and row["timeout_sec"] == cfg["timeouts"]["pt"] * 60
+
+
+def test_phase5_audit_fraction_per_configuration(env, tmp_path, monkeypatch):
+    """Storage decision 2026-09-15: H1 / H3 / H5 take a 20 % audit sample of the non-accepted E4-evaluated candidates, the other
+    configurations 10 %; the samples nest (same hash threshold); the coverage counts expect the same sets (both directions)."""
+    cfg, vis, hid, mod, rtl = env
+    from src.designs import catalog as K
+    from src.eval import retention as R
+    monkeypatch.setattr(K, "DESIGNS_DIR", tmp_path / "designs")
+    ddir = tmp_path / "designs" / "rtllm" / "a2"
+    (ddir / "rtl").mkdir(parents=True)
+    (ddir / "rtl" / "a2.v").write_text(rtl.read_text())
+    d = {"design_id": "rtllm_a2", "suite": "rtllm", "name": "a2", "top": "d", "files": ["rtl/a2.v"], "clk_ports": ["clk"], "rst_port": None, "rst_sense": None,
+         "sverilog": False, "incdirs": [], "tb": None, "reference": None, "source": {"url": "u", "commit": "c", "license": "l", "paths": []},
+         "sha256": {"rtl/a2.v": K.sha256_of(ddir / "rtl" / "a2.v")}, "loc": 1, "tags": ["rtllm"], "notes": [], "_dir": str(ddir)}
+    K.write_design(d)
+    vis.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, phi_main_ns_asap7, phi_main_ns_sky130hd, created_at, git_sha, cfg_hash) "
+                "VALUES ('rtllm_a2','rtllm','a2','x',1,1,'held',2.0,0.5,NULL,'t','g','c')")
+    cfg["exp5"]["hidden_scope"] = {"H1": "accepted_and_audit", "H3": "accepted_and_audit", "H5": "accepted_and_audit", "H2a": "accepted_and_audit", "H2b": "accepted_and_audit", "H4": "accepted_and_audit"}
+    cfg["exp5"]["hidden_audit_frac"] = {"H1": 0.20, "H3": 0.20, "H5": 0.20}
+    cfg["retention"]["tiered_audit_frac"] = 0.10
+    monkeypatch.setattr(R, "is_audit_sample", lambda cid, frac: (cid == "a_audit10" and frac >= 0.1) or (cid == "a_audit20" and frac >= 0.2))
+    db.insert(vis, "runs", {"run_id": "r5a", "exp": "phase5", "arm": "M", "design_id": "rtllm_a2", "seed": 1, "status": "done", "started_at": "t"})
+    for cid, acc in (("a_acc", 1), ("a_audit10", 0), ("a_audit20", 0), ("a_plain", 0)):
+        db.insert(vis, "candidates", {"cand_id": cid, "run_id": "r5a", "design_id": "rtllm_a2", "gen": 1, "arm": "M", "rtl_path": str(ddir / "rtl" / "a2.v"), "e4_job_id": "j", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc})
+    jobs = mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1", "H5", "H2a"])
+    by = {}
+    for j in jobs:
+        by.setdefault(j["config"], set()).add(j["cand_id"])
+    assert by["H1"] == by["H5"] == {"a_acc", "a_audit10", "a_audit20"} and by["H2a"] == {"a_acc", "a_audit10"}
+    cov = mod.candidate_coverage(cfg, "phase5", vis=vis, hid=hid, configs=["H1", "H2a"])["configs"]
+    assert cov["H1"]["expected"] == 3 and cov["H2a"]["expected"] == 2 and cov["H1"]["missing"] == 3

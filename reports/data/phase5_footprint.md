@@ -32,44 +32,44 @@ Fallbacks: a (tier, verdict) cell without records takes the medium tier's value 
 | medium | 696 | 11 % | 26 % | 31 % | 16 % | 21 % | 6 % | 46 % |
 | large | 562 | 0 % | 0 % | 40 % | 43 % | 17 % | 0 % | - |
 
-Arm M accepts 19 % of its proven candidates (Phase 3, 1192 proven; retained or trade-off 50 %); spread / offset designs are 20 % of the designs with an E4 floor, and only their retained / trade-off M candidates get the 3 envelope runs. The large tier's proven rate for the models of the correctness probe and the second model is an assumption: 10 % (luna proved 0 of 562; `--large-proven-rate`). Hidden layer per accepted candidate: H1, H2a, H2b, H3, H4, H5 plus a 10 % sample of the rejected proven candidates (spec 06 §3). Prescreen not applied (upper bound).
+Arm M accepts 19 % of its proven candidates (Phase 3, 1192 proven; retained or trade-off 50 %); spread / offset designs are 20 % of the designs with an E4 floor, and only their retained / trade-off M candidates get the 3 envelope runs. The large tier's proven rate for the models of the correctness probe and the second model is an assumption: 10 % (luna proved 0 of 562; `--large-proven-rate`). Hidden layer per proven candidate under `exp5.hidden_scope`: H1 (accepted_and_audit, audit 20 %), H2a (accepted_and_audit, audit 10 %), H2b (accepted_and_audit, audit 10 %), H3 (accepted_and_audit, audit 20 %), H4 (accepted_and_audit, audit 10 %), H5 (accepted_and_audit, audit 20 %); complete DC artifacts for accepted candidates and the 10 % retention audit sample. Prescreen not applied (upper bound).
 
 ## 4. Workload (G5: 30 starting points = 18 medium / 6 small / 6 large; the launch matrix of exp5.model_assignment (decision 2026-09-15 evening, item 3) with the measured rates per model and tier where they exist; Sky130 sub-experiment 8 modules × 2 arms; correctness probe)
 
 | Tier | arm family | runs of | LLM calls | MB per call, current rules | MB per call, tiered policy | GB current | GB tiered | + H1/H3/H5 on all E4-evaluated (GB) | + ladder on accepted (GB) |
 |---|---|---|---|---|---|---|---|---|---|
-| large | B | gpt-5.6-terra | 360 | 44.1 | 0.30 | 15.9 | 0.1 | 0.0 | 0.0 |
-| large | B | probe | 360 | 42.8 | 3.59 | 15.4 | 1.3 | 0.2 | 1.5 |
-| large | B | sky130 | 180 | 42.8 | 3.59 | 7.7 | 0.6 | 0.1 | 0.8 |
-| large | B0 | gpt-5.6-terra | 120 | 44.1 | 0.30 | 5.3 | 0.0 | 0.0 | 0.0 |
-| large | M | gpt-5.6-luna | 120 | 44.1 | 0.30 | 5.3 | 0.0 | 0.0 | 0.0 |
-| large | M | gpt-5.6-terra | 120 | 44.1 | 0.30 | 5.3 | 0.0 | 0.0 | 0.0 |
-| large | M | sky130 | 180 | 42.4 | 2.09 | 7.6 | 0.4 | 0.1 | 0.3 |
-| medium | B | gpt-5.6-luna | 360 | 3.5 | 1.04 | 1.3 | 0.4 | 0.0 | 0.1 |
-| medium | B | gpt-5.6-terra | 120 | 3.5 | 1.04 | 0.4 | 0.1 | 0.0 | 0.0 |
-| medium | B | sky130 | 300 | 3.5 | 1.04 | 1.1 | 0.3 | 0.0 | 0.1 |
-| medium | B0 | gpt-5.6-luna | 120 | 3.5 | 1.02 | 0.4 | 0.1 | 0.0 | 0.0 |
-| medium | M | gpt-5.6-luna | 120 | 3.4 | 0.74 | 0.4 | 0.1 | 0.0 | 0.0 |
-| medium | M | gpt-5.6-terra | 120 | 3.4 | 0.74 | 0.4 | 0.1 | 0.0 | 0.0 |
-| medium | M | sky130 | 300 | 3.4 | 0.74 | 1.0 | 0.2 | 0.1 | 0.0 |
-| small | B | gpt-5.6-luna | 720 | 1.5 | 0.82 | 1.1 | 0.6 | 0.1 | 0.2 |
-| small | B | gpt-5.6-terra | 240 | 1.5 | 0.82 | 0.4 | 0.2 | 0.0 | 0.1 |
-| small | B0 | gpt-5.6-luna | 240 | 1.5 | 0.78 | 0.4 | 0.2 | 0.0 | 0.1 |
-| small | M | gpt-5.6-luna | 240 | 1.4 | 0.53 | 0.3 | 0.1 | 0.0 | 0.0 |
-| small | M | gpt-5.6-terra | 240 | 1.4 | 0.53 | 0.3 | 0.1 | 0.0 | 0.0 |
-| **total** | | | **4560** | | | **70** | **5.1** | 0.8 | 3.3 |
+| large | B | gpt-5.6-terra | 3240 | 34.9 | 3.72 | 113.1 | 12.1 | 11.3 | 19.9 |
+| large | B | probe | 360 | 42.8 | 1.68 | 15.4 | 0.6 | 0.2 | 1.5 |
+| large | B | sky130 | 180 | 42.8 | 1.68 | 7.7 | 0.3 | 0.1 | 0.8 |
+| large | B0 | gpt-5.6-terra | 1080 | 34.0 | 3.71 | 36.7 | 4.0 | 3.8 | 6.6 |
+| large | M | gpt-5.6-luna | 1080 | 44.1 | 0.30 | 47.6 | 0.3 | 0.0 | 0.0 |
+| large | M | gpt-5.6-terra | 1080 | 35.4 | 3.79 | 38.2 | 4.1 | 3.8 | 6.6 |
+| large | M | sky130 | 180 | 42.5 | 1.13 | 7.6 | 0.2 | 0.1 | 0.3 |
+| medium | B | gpt-5.6-luna | 9720 | 3.8 | 0.79 | 36.9 | 7.7 | 1.4 | 4.0 |
+| medium | B | gpt-5.6-terra | 3240 | 3.8 | 0.79 | 12.3 | 2.6 | 0.5 | 1.3 |
+| medium | B | sky130 | 300 | 3.5 | 0.68 | 1.1 | 0.2 | 0.0 | 0.1 |
+| medium | B0 | gpt-5.6-luna | 3240 | 3.8 | 0.78 | 12.2 | 2.5 | 0.5 | 1.3 |
+| medium | M | gpt-5.6-luna | 3240 | 3.8 | 0.80 | 12.4 | 2.6 | 0.5 | 1.3 |
+| medium | M | gpt-5.6-terra | 3240 | 3.8 | 0.80 | 12.4 | 2.6 | 0.5 | 1.3 |
+| medium | M | sky130 | 300 | 3.4 | 0.56 | 1.0 | 0.2 | 0.0 | 0.0 |
+| small | B | gpt-5.6-luna | 3240 | 1.8 | 0.54 | 5.8 | 1.8 | 0.4 | 0.9 |
+| small | B | gpt-5.6-terra | 1080 | 1.8 | 0.54 | 1.9 | 0.6 | 0.1 | 0.3 |
+| small | B0 | gpt-5.6-luna | 1080 | 1.7 | 0.50 | 1.9 | 0.5 | 0.1 | 0.3 |
+| small | M | gpt-5.6-luna | 1080 | 1.8 | 0.56 | 2.0 | 0.6 | 0.1 | 0.3 |
+| small | M | gpt-5.6-terra | 1080 | 1.8 | 0.56 | 2.0 | 0.6 | 0.1 | 0.3 |
+| **total** | | | **38040** | | | **368** | **44.0** | 23.4 | 47.3 |
 
 Components of the totals (GB):
 
 | Component | current rules | tiered policy |
 |---|---|---|
-| eq | 67.9 | 3.2 |
-| candidates_dir | 0.0 | 0.0 |
-| fitness | 0.5 | 0.3 |
-| hidden | 1.3 | 1.3 |
-| envelope | 0.0 | 0.0 |
-| llm | 0.2 | 0.2 |
-| queue_db | 0.1 | 0.1 |
+| eq | 328.5 | 11.1 |
+| candidates_dir | 0.4 | 0.4 |
+| fitness | 11.3 | 5.2 |
+| hidden | 24.5 | 24.5 |
+| envelope | 0.8 | 0.2 |
+| llm | 1.9 | 1.9 |
+| queue_db | 0.8 | 0.8 |
 
 ## 5. Retroactive application of the tiered policy to the Phase 3 / Phase 4 records (regenerable artifacts of non-accepted candidates; records, accepted candidates, literature objects, perturbations and failed records untouched)
 
@@ -88,13 +88,13 @@ Components of the totals (GB):
 
 ## 6. Free space required
 
-Root filesystem free now: 80.2 GB. /hdd1 free: 53.3 GB.
+Root filesystem free now: 78.5 GB. /hdd1 free: 53.3 GB.
 
-| Scenario | projected growth (GB) | with a 25 % margin (GB) | fits in 80 GB? | fits after the retroactive prune (+53 GB)? | fits after freeing ~/.cache (+63 GB)? |
+| Scenario | projected growth (GB) | with a 25 % margin (GB) | fits in 79 GB? | fits after the retroactive prune (+53 GB)? | fits after freeing ~/.cache (+63 GB)? |
 |---|---|---|---|---|---|
-| current rules | 70 | 88 | no | yes | yes |
-| tiered policy | 5 | 6 | yes | yes | yes |
-| tiered + H1/H3/H5 on all E4-evaluated | 6 | 7 | yes | yes | yes |
-| tiered + ladder on accepted | 8 | 10 | yes | yes | yes |
-| tiered + both | 9 | 11 | yes | yes | yes |
+| current rules | 368 | 460 | no | no | no |
+| tiered policy | 44 | 55 | yes | yes | yes |
+| tiered + H1/H3/H5 on all E4-evaluated | 67 | 84 | no | yes | yes |
+| tiered + ladder on accepted | 91 | 114 | no | yes | yes |
+| tiered + both | 115 | 143 | no | no | yes |
 

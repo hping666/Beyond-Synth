@@ -113,3 +113,34 @@ def test_real_transport_needs_the_key_in_the_environment(monkeypatch, env):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     with pytest.raises(RuntimeError, match="not set"):
         L.OpenAITransport("OPENAI_API_KEY")
+
+
+def test_transient_failures_back_off_exponentially_and_request_errors_do_not_retry(env):
+    """2026-09-15 (probe): a 429 with a status code is retried with the configured exponential backoff (15, 30, 60 s ...) until it
+    succeeds; a 4xx request error raises at once without a wait (both directions)."""
+    cfg, conn = env[0], env[1]
+    cfg["llm"]["retry"] = {"attempts": 6, "base_sec": 15, "max_sec": 480}
+
+    class Err(Exception):
+        def __init__(self, code):
+            super().__init__(f"code {code}")
+            self.status_code = code
+
+    class T:
+        def __init__(self, codes):
+            self.codes, self.calls = list(codes), 0
+
+        def create(self, **kw):
+            self.calls += 1
+            if self.codes:
+                raise Err(self.codes.pop(0))
+            return fake_response()
+    slept = []
+    c = L.LLMClient(cfg, conn, "phase3_calibration", "run_r", transport=T([429, 503, 429]), sleep=slept.append)
+    r = c.call("m1", "p", "s")
+    assert r["text"] and slept == [15.0, 30.0, 60.0]
+    slept.clear()
+    bad = L.LLMClient(cfg, conn, "phase3_calibration", "run_r2", transport=T([400]), sleep=slept.append)
+    with pytest.raises(Err):
+        bad.call("m1", "p", "s")
+    assert slept == [] and L.transient_error(Err(429)) and L.transient_error(Err(500)) and not L.transient_error(Err(404)) and L.transient_error(RuntimeError("x")) and not L.transient_error(ValueError("x"))
