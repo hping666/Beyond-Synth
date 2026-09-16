@@ -144,3 +144,34 @@ def test_transient_failures_back_off_exponentially_and_request_errors_do_not_ret
     with pytest.raises(Err):
         bad.call("m1", "p", "s")
     assert slept == [] and L.transient_error(Err(429)) and L.transient_error(Err(500)) and not L.transient_error(Err(404)) and L.transient_error(RuntimeError("x")) and not L.transient_error(ValueError("x"))
+
+
+def test_quota_exhaustion_is_not_retried_and_raises_its_own_error(env):
+    """2026-09-16: a 429 with insufficient_quota / credit_balance_exhausted is the account running dry, not a transient failure:
+    no backoff, a QuotaExhausted error the runner turns into a pause (exit 75); an ordinary 429 is still retried."""
+    cfg, conn = env[0], env[1]
+    cfg["llm"]["retry"] = {"attempts": 3, "base_sec": 1, "max_sec": 8}
+
+    class Err(Exception):
+        def __init__(self, code, text):
+            super().__init__(text)
+            self.status_code = code
+
+    class T:
+        def __init__(self, errs):
+            self.errs, self.calls = list(errs), 0
+
+        def create(self, **kw):
+            self.calls += 1
+            if self.errs:
+                raise self.errs.pop(0)
+            return fake_response()
+    slept = []
+    t = T([Err(429, "Error code: 429 - {'error': {'message': 'You have no credits remaining.', 'type': 'insufficient_quota', 'code': 'credit_balance_exhausted'}}")])
+    c = L.LLMClient(cfg, conn, "phase3_calibration", "run_q", transport=t, sleep=slept.append)
+    with pytest.raises(L.QuotaExhausted):
+        c.call("m1", "p", "s")
+    assert slept == [] and t.calls == 1 and any(json.loads(p.read_text()).get("quota_exhausted") for p in Path(cfg["project"]["results_dir"]).glob("llm/run_q/*.json"))
+    t2 = T([Err(429, "Error code: 429 - rate_limit_exceeded: processing too many requests")])
+    assert L.LLMClient(cfg, conn, "phase3_calibration", "run_q2", transport=t2, sleep=slept.append).call("m1", "p", "s")["text"] and slept == [1.0]
+    assert L.quota_exhausted(Err(429, "insufficient_quota")) and not L.quota_exhausted(Err(429, "rate_limit_exceeded")) and not L.quota_exhausted(Err(500, "insufficient_quota"))

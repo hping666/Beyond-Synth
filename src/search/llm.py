@@ -22,6 +22,17 @@ class BudgetExceeded(RuntimeError):
     pass
 
 
+class QuotaExhausted(RuntimeError):
+    """The API account has no credits (429 insufficient_quota / credit_balance_exhausted, 2026-09-16): not a transient failure —
+    the run pauses (exit 75, the queue's backoff) instead of failing, and resumes from its state once the account is topped up."""
+
+
+def quota_exhausted(e):
+    code = getattr(e, "status_code", None)
+    text = str(e)
+    return (code == 429 or code is None) and ("insufficient_quota" in text or "credit_balance_exhausted" in text or "no credits remaining" in text)
+
+
 class PriceUnknown(ValueError):
     pass
 
@@ -153,6 +164,9 @@ class LLMClient:
                 break
             except Exception as e:  # transient failures (rate limits, connection, 5xx): exponential backoff, then give up loudly; request errors: at once
                 last_error = e
+                if quota_exhausted(e):
+                    (self.dir / f"{call_id}.json").write_text(json.dumps({"call_id": call_id, "tag": tag, "request": kw, "error": f"{type(e).__name__}: {e}"[:500], "attempts": attempt + 1, "quota_exhausted": True}, indent=1, default=str))
+                    raise QuotaExhausted(f"{type(e).__name__}: {e}"[:300]) from e
                 if attempt == retries or not transient_error(e):
                     (self.dir / f"{call_id}.json").write_text(json.dumps({"call_id": call_id, "tag": tag, "request": kw, "error": f"{type(e).__name__}: {e}"[:500],
                                                                           "attempts": attempt + 1}, indent=1, default=str))

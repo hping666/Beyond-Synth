@@ -90,7 +90,7 @@ class Queue:
         q = cfg["queue"]
         self.caps = {"dc": int(q["dc_seats_max"]), "pt": int(q["pt_seats_max"]),
                      "vcf": int(q["vcf_seats_max"]), "local": int(q["local_max"]),
-                     "search": int(q.get("search_max") or q["local_max"])}   # 2026-09-15: search runs poll for their queue jobs (yosys fitness of arm B0 in the local pool); sharing the local pool deadlocks once 16 such runs hold every seat
+                     "search": int(q["search_max"] if q.get("search_max") is not None else q["local_max"])}   # 0 = no search run dispatched (an outage stopgap)   # 2026-09-15: search runs poll for their queue jobs (yosys fitness of arm B0 in the local pool); sharing the local pool deadlocks once 16 such runs hold every seat
         # dispatch limits: an optional `<pool>_concurrency` below the seat cap (config queue.dc_concurrency, DECISIONS
         # 2026-09-12: 12 DC jobs at once on the 64-core host); the caps stay the hard ceiling
         # dispatch targets below the seat caps: `<pool>_seats_target` (DECISIONS 2026-09-14: 24 for Phases 3-4, 50 only for bulk

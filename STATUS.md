@@ -4,7 +4,7 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
-**Phase 5 is running since 21:48 (DECISIONS "Phase 5 launched at 21:48"): 609 runs (luna 375, terra 234; the pair B0 / cktevo_nn_engine__thresholds_128x4096 excluded — Yosys cannot evaluate that design), 16 search runs at a time (own pool), seat targets 50 / 50, daemon pid 1037487, hidden loop running (registers Phase 5 and probe candidates every 30 min, relocation check first). Watch with `python3 scripts/phase5_main.py status` (per model / arm / tier; disk guard; block-level scope flags per arm) and `scripts/status.py`. Concurrency raised to 40 search runs with a VC Formal backpressure rule (`queue.search_max`, `queue.backpressure`, DECISIONS 2026-09-16); the launch order interleaves designs. **Staged reports** (DECISIONS "Phase 5 report generator"): `scripts/phase5_stages.py` (detached, log results/queue/phase5_stages.log) renders reports/phase5_stage_A.md when the large tier completes (≈ 12 h after 02:00 on 2026-09-16), B (large + medium), C (every tier → reports/phase5.md, visible part); the hidden part (stage D, `report_hidden.py`, implemented and tested on fake databases) follows the completion marker `PHASE5_COMPLETE: yes` in this file, which the user writes once every Phase 5 run and its hidden registrations are done. Interim renderings every 3 h. `python3 scripts/report_phase.py phase5 --stage A` renders by hand. After Phase 5: seat targets back to 24 / 24 (`queue.dc_seats_target`, `vcf_seats_target`), `report_hidden.py` only after the completion marker.**
+**Phase 5 PAUSED since ≈ 03:50 on 2026-09-16: the OpenAI account has no credits (429 insufficient_quota). Spend so far: Phase 5 50.64 USD of the 600 cap, all phases 120.73 USD. `queue.search_max` is temporarily 0 (no search run starts); the VC Formal and DC pools keep finishing the candidates already issued; 10 runs failed before the pause logic existed (state intact). Runs now pause with status paused_quota and exit 75 on that error. After the user tops up: set `queue.search_max` back to 40, restart the daemon, resubmit the runs whose job is `failed` (DECISIONS "OpenAI account out of credits"). Launched 21:48 on 2026-09-15 with 609 runs (luna 375, terra 234; B0 / thresholds_128x4096 excluded), 40 concurrent search runs (own pool, VC Formal backpressure), seats 50 / 50, hidden loop and stages loop running.** Watch with `python3 scripts/phase5_main.py status` and `scripts/status.py`; the staged reports (A large tier, B + medium, C all → reports/phase5.md, D hidden after the completion marker) come from `scripts/phase5_stages.py` and `report_hidden.py`.
 
 What the launch did (21:48): 609 runs per `exp5.model_assignment` (large tier: terra on every arm = 90, luna on M as the contrast = 18; medium / small: luna on every arm = 360, terra on M / B2 = 144), large tier first; `queue.vcf_seats_target` and `dc_seats_target` set to 50 and the daemon restarted; `scripts/hidden_loop.py` registering the hidden configurations of the Phase 5 and probe candidates every 30 minutes (accepted + audit sample; 20 % audit for H1 / H3 / H5) and running the relocation check (`scripts/relocate_hidden_raw.py auto`) every pass. Stamps: equiv_version phase5, floor_version phase4.
 
@@ -63,7 +63,7 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - Results database: 24 059 evaluations (+E1_authors), 3 035 + probe candidates; `db_check.py` 0 problems at the last check (17:00). Schema additions today: `candidates.repair_of`, `scope_json`, `features_json` at issue time; diagnoses label `scope_violation`; runs exp `phase5_probe`.
 - Snapshots: `phase4-20260915-review`, `phase4-20260915-1115`.
 - Retention: tiered policy on (`retention.tiered`), kept records slimmed of their regenerable equivalence artifacts (`tiered_eq_delete_kept`, storage decision 2026-09-15), sim_fail VCD 5 % seeded sample, disk guard 15 GB with the relocation contingency; the retroactive prune of 2026-09-15 freed 60 GB of disk (78.5 GB free at 19:22).
-- Tests: `pytest tests/` → **382 passed, 15 skipped**.
+- Tests: `pytest tests/` → **385 passed, 15 skipped**.
 
 ## Open questions and known risks
 
@@ -90,7 +90,7 @@ python3 scripts/phase5_autolaunch.py status   # waiting / launched / no-go, with
 python3 scripts/phase5_probe.py status        # per (model, design) proven, verdict, repair yield, scope violations
 python3 scripts/phase5_main.py status         # after the launch: runs by model / arm / tier
 python3 scripts/hidden_loop.py status
-pytest tests/ -x -q                  # 382 passed, 15 skipped
+pytest tests/ -x -q                  # 385 passed, 15 skipped
 git status --short && git log --oneline -3
 df -h / | tail -1
 ```

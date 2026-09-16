@@ -891,3 +891,27 @@ def test_drrtl_paths_block_selection_strategies():
     rnd = PR.drrtl_paths_block(cp, {"paths": "random", "focus": "mixed"}, 2, rng=random.Random(3))
     assert rnd.count("- path ") == 2
     assert "no path data is available" in PR.drrtl_paths_block(None, {"paths": "top_slack"}, 5)
+
+
+def test_run_search_pauses_on_quota_exhaustion(env, monkeypatch):
+    """2026-09-16: the search job runner exits 75 (the queue's backoff, no attempt consumed) and marks the run paused_quota when
+    the API account has no credits; an ordinary error still marks the run failed and exits 1 (both directions)."""
+    cfg, conn, q, tmp_path = env
+    from src.search import run_search as RS
+    from src.search import llm as L
+    import src.search.driver as D
+    db.insert(conn, "runs", {"run_id": "rq", "exp": "smoke", "arm": "M", "design_id": "rtllm_d", "seed": 7, "llm_model": "gpt-5.6-luna", "status": "running", "started_at": "t"})
+    jid = q.submit("search", {"run_id": "rq"}, design_id="rtllm_d", config="search")
+    monkeypatch.setattr(RS.C, "load", lambda: cfg)
+    monkeypatch.setattr(RS.db, "connect", lambda **k: conn)
+
+    class Stub:
+        state = {"gen": 0, "calls": 0, "retained": 0}
+        def __init__(self, exc):
+            self.exc = exc
+        def run(self):
+            raise self.exc
+    monkeypatch.setattr(D.SearchRun, "resume", classmethod(lambda cls, cfg_, conn_, rid: Stub(L.QuotaExhausted("no credits"))))
+    assert RS.main(["--job", jid]) == 75 and conn.execute("SELECT status FROM runs WHERE run_id='rq'").fetchone()[0] == "paused_quota"
+    monkeypatch.setattr(D.SearchRun, "resume", classmethod(lambda cls, cfg_, conn_, rid: Stub(RuntimeError("boom"))))
+    assert RS.main(["--job", jid]) == 1 and conn.execute("SELECT status FROM runs WHERE run_id='rq'").fetchone()[0] == "failed"
