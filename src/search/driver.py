@@ -108,6 +108,8 @@ class SearchRun:
         self.arith_design = any(pat in self.row["design_id"] for pat in pats)   # arithmetic pipelines by name (as the Phase 5 projection)
         self.load_state()
         self.mark_orphans()
+        if self.scrub_provisional_feedback():
+            self.save_state()
 
     # ------------------------------------------------------------------ creation / resumption
     @classmethod
@@ -701,12 +703,32 @@ class SearchRun:
             fb = m3.feedback_block(diag, c.get("class_final"), [], prior=(self.prior or {}))
             fb["floor_class"] = self.floor_class
         fb["equivalence"] = "pending"
-        self.state["feedback"][cid] = fb
-        c["provisional"] = {"label": label, "at": db.now()}
+        fed = label in self.provisional_feedback_labels()   # user follow-up 2026-09-16: only a negative provisional verdict reaches the model; a positive one waits for the proof
+        if fed:
+            self.state["feedback"][cid] = fb
+        c["provisional"] = {"label": label, "at": db.now(), "fed_back": fed}
         self.state["provisional_count"] = int(self.state.get("provisional_count") or 0) + 1
-        self.conn.execute("UPDATE candidates SET note=COALESCE(note,'') || ? WHERE cand_id=?", (f" [provisional {label}: equivalence pending]", cid))
+        self.conn.execute("UPDATE candidates SET note=COALESCE(note,'') || ? WHERE cand_id=?", (f" [provisional {label}: equivalence pending{'' if fed else ', withheld'}]", cid))
         self.reprioritize_proof(cid, c, label)
         return label
+
+    def provisional_feedback_labels(self):
+        return set(self.early.get("feedback_labels") or ())
+
+    def scrub_provisional_feedback(self):
+        """User follow-up 2026-09-16 (item 1, 'apply now to every running run'): provisional blocks with a label outside
+        `search.early_fitness.feedback_labels` (retained / tradeoff / improved) are withdrawn from the lineage feedback until the
+        proof arrives; the candidate's provisional record keeps `fed_back` = True for the exposure accounting. -> withdrawn ids."""
+        allowed = self.provisional_feedback_labels()
+        gone = []
+        for cid, fb in list(self.state["feedback"].items()):
+            if isinstance(fb, dict) and fb.get("equivalence") == "pending" and fb.get("diagnosis") not in allowed:
+                del self.state["feedback"][cid]
+                gone.append(cid)
+                prov = (self.state["cands"].get(cid) or {}).get("provisional")
+                if isinstance(prov, dict):
+                    prov["withdrawn_at"] = db.now()
+        return gone
 
     def reprioritize_proof(self, cid, c, label):
         """Item 2: the queued proof takes the tier of its provisional label (config search.early_fitness.priority_by_label,

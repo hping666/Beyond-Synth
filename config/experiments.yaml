@@ -263,6 +263,7 @@ search:
     enabled: true
     priority_by_label: {retained: 4, tradeoff: 4, improved: 4, noise: 2, harmful: 2, no_gain: 2, fragile: 2, absorbed: 0, absorbed_identical: 0, duplicate: 0}   # added to job_priority (and the long_proof_first boost) once the provisional diagnosis is known: retained / tradeoff first, noise / harmful next, absorbed / duplicate last
     priority_undiagnosed: 2  # the proof's tier until the fitness result arrives (between the first and the last tier)
+    feedback_labels: [absorbed, absorbed_identical, duplicate, noise, harmful, no_gain]   # user follow-up 2026-09-16 (item 1): only these provisional labels reach the model before the proof; retained / tradeoff / improved wait for the proof (their proofs hold the top tier)
   arms:                      # spec 05 §5 (implementation differences between arms; the driver reads these keys): fitness source, feedback block, floor, credit rule
     M:     {fitness: E4, feedback: verdict, floor: rule_a, credit: retained_tradeoff, prescreen: true, envelope: true}
     B0:    {fitness: Y, feedback: scalar, floor: none, credit: any_gain, prescreen: false, envelope: false}          # literature caliber (EvolVE-style): Yosys + OpenSTA numbers, any positive gain, DC only at the end
@@ -325,9 +326,13 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
     llm_usd: null                           # null = llm.budget_usd.phase5_main
     disk_margin_gb: 20                      # projected growth <= free space at launch minus this
     disk_reserve_gb: 5                      # storage decision 2026-09-15 item 2: ... minus this reserve as well (cap = free − margin − reserve)
-    vcf_hours: 4200                         # the Phase 3 projection accepted at G4 (4 121 h at 50 seats, reports/phase3.md §5c)
+    vcf_hours: 5000                         # user follow-up 2026-09-16 (item 4): raised from 4 200 (the Phase 3 projection accepted at G4, 4 121 h at 50 seats, reports/phase3.md §5c); NOT a stop condition — a projection above it is reported and the experiment continues; the LLM and disk caps stay stop conditions
     dc_hours: 4000                          # operator derivation for the record: G3's full-E4 figure (766 h, reports/phase2.md) times the E4-clock runs per proven candidate under decision item 2 (fitness + H1 / H3 / H5 on every E4-evaluated candidate, H2a / H2b on accepted) ~ 3 500 h; at 50 seats ~ 70 h wall-clock
     bulk_seats_target: 50                   # vcf_seats_target and dc_seats_target during Phase 5 (decision item 6), restored to 24 afterwards
+  events:                                   # timestamps of the operational changes during the run (DECISIONS 2026-09-16), read by the stage reports (src/analysis/phase5.py)
+    hidden_throttle_at: "2026-09-16T14:30"        # hidden DC registrations capped at 8 (the hourly proven-to-inconclusive ratio is reported from here)
+    scheduling_change_at: "2026-09-16T15:14"      # split pipeline, provisional feedback, proof ordering live (daemon restart and roll)
+    provisional_fix_at: null                      # user follow-up item 1: positive provisional verdicts withheld from the model from this time on (filled at the roll)
   excluded_pairs:                           # (arm, design) pairs left out of the matrix with the reason (operator deviation 2026-09-15, DECISIONS "Launch: the pair B0 / thresholds_128x4096 excluded"): reversible by removing the entry
     - {arm: B0, design_id: cktevo_nn_engine__thresholds_128x4096, reason: "Yosys maps the 128x4096 threshold memory into 1.4 M cells (DC: 427); the Y-caliber baseline exceeds the 20-minute Yosys timeout and every B0 candidate evaluation would too"}
   model_assignment:                         # 2026-09-15 evening decision 3 (amends the G5 rule): the models of every arm per tier; sol is not used in Phase 5

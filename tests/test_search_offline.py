@@ -989,18 +989,28 @@ def test_split_pipeline_fitness_before_the_proof_gives_a_provisional_diagnosis_a
     assert conn.execute("SELECT eq_job_id, verdict, v2_status FROM candidates WHERE cand_id=?", (a,)).fetchone()[:] == (ca["seq_job_id"], None, "identical")   # the verdict stays open while the proof runs
     fit = conn.execute("SELECT payload_json FROM jobs WHERE job_id=?", (ca["e4_job_id"],)).fetchone()[0]
     assert json.loads(fit)["saif"].endswith("saif_c.saif")                                                    # the fitness job uses the sim record's SAIF
-    # --- the fitness result arrives first: provisional retained, flagged, the proof promoted to the first tier; nothing final
+    # --- the fitness result arrives first: provisional retained -> the proof promoted to the first tier, nothing final; the positive
+    #     provisional verdict is withheld from the model (user follow-up 2026-09-16, item 1) — only negative labels are fed back
     finish_e4(conn, a, 90.0)
     run.step()
-    assert run.state["pending"][a] == "seq" and ca["provisional"]["label"] == "retained" and ca.get("label") is None
-    assert run.state["feedback"][a]["equivalence"] == "pending" and run.state["feedback"][a]["diagnosis"] == "retained"
+    assert run.state["pending"][a] == "seq" and ca["provisional"]["label"] == "retained" and ca["provisional"]["fed_back"] is False and ca.get("label") is None
+    assert a not in run.state["feedback"]
     assert conn.execute("SELECT priority FROM jobs WHERE job_id=?", (ca["seq_job_id"],)).fetchone()[0] == cfg["search"]["job_priority"] + 4
     assert conn.execute("SELECT COUNT(*) FROM diagnoses WHERE cand_id=?", (a,)).fetchone()[0] == 0 and not run.archive.members and run.bandit.reward.get("b", 0) == 0
-    assert "provisional retained: equivalence pending" in conn.execute("SELECT note FROM candidates WHERE cand_id=?", (a,)).fetchone()[0]
-    blocks = run.lineage_feedback(None)                                                                        # a fresh start sees the provisional block, explained
-    assert any(b.get("equivalence") == "pending" for b in blocks)
+    assert "provisional retained: equivalence pending, withheld" in conn.execute("SELECT note FROM candidates WHERE cand_id=?", (a,)).fetchone()[0]
+    # a negative provisional block is fed back, flagged and explained in the prompt suffixes of every arm
+    neg = {"class": "b", "diagnosis": "absorbed", "equivalence": "pending"}
+    blocks = [neg]
     assert PR.PENDING_NOTE.strip() in PR.suffix("do x", "b", None, blocks, "d") and PR.PENDING_NOTE.strip() in PR.drrtl_suffix("paths", None, None, blocks)
     assert PR.PENDING_NOTE.strip() not in PR.suffix("do x", "b", None, [{"diagnosis": "retained"}], "d")           # no flag, no note
+    # the retroactive scrub: a positive pending block left by the earlier rule is withdrawn on resumption, a negative one stays
+    run.state["feedback"][a] = {"class": "b", "diagnosis": "retained", "equivalence": "pending"}
+    run.state["feedback"]["x_neg"] = dict(neg)
+    run.save_state()
+    run_s = SearchRun.resume(cfg, conn, run.run_id, queue=q, transport=tr)
+    assert a not in run_s.state["feedback"] and run_s.state["feedback"]["x_neg"] == neg and run_s.state["cands"][a]["provisional"].get("withdrawn_at")
+    assert a not in json.loads(run.state_path.read_text())["feedback"]                                            # persisted
+    del run.state["feedback"]["x_neg"]; run.state["cands"][a]["provisional"].pop("withdrawn_at", None)
     # --- the proof arrives: the final diagnosis on the same E4 record, credited, archived, the row's verdict written and stamped
     finish_seq(conn, cfg, tmp_path, a, verdict="proven")
     run.step()
@@ -1055,7 +1065,7 @@ def test_split_pipeline_simulation_failures_and_scalar_arms(env):
     cb = run.state["cands"][b]
     finish_e4(conn, b, 100.0)                                                       # no gain at all -> provisional no_gain, middle tier
     run.step()
-    assert cb["provisional"]["label"] == "no_gain" and run.state["feedback"][b]["equivalence"] == "pending"
+    assert cb["provisional"]["label"] == "no_gain" and cb["provisional"]["fed_back"] is True and run.state["feedback"][b]["equivalence"] == "pending"
     assert conn.execute("SELECT priority FROM jobs WHERE job_id=?", (cb["seq_job_id"],)).fetchone()[0] == cfg["search"]["job_priority"] + 2
     finish_seq(conn, cfg, tmp_path, b, verdict="proven")
     run.step()
