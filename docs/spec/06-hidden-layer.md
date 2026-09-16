@@ -4,6 +4,8 @@
 
 H1 (0.1 ns), H2a (ASAP7, its own knee constraint), H2b (sky130hd, its own knee constraint), H3 (`-spg`), H4 (PrimeTime timing + PrimePower power, reading the E4 netlist and the same SAIF), H5 (`compile_ultra -no_autoungroup -gate_clock`). Definitions in spec 01.
 
+H4 as wired (2026-09-15, config `noise.configs_signoff`): a signoff configuration has no perturbation runs (σ_D(H4) := σ_D(E4), §3); the hidden worker registers one PrimeTime / PrimePower job for D (the E4 baseline record at Φ_main, never a knee-sweep record at another period) and one for every accepted or archived candidate and every audit-sample candidate of an experiment — in every experiment, since the speculation rate is defined on accepted candidates — provided the object's E4 record still holds `netlist.v` and `design.sdc` (the tiered retention removes them for the other candidates; those are counted as skipped, not failed). The jobs run as the `dc_hidden` kind of the hidden worker in the queue's `pt` pool (`queue.pt_seats_max`, `timeouts.pt`); the record carries PrimeTime's WNS / TNS and PrimePower's power on the same SAIF as E4, no area of its own (the E4 netlist's area is E4's).
+
 ## 2. Isolation
 
 - `hidden_worker.py` is a separate process: it reads "candidates awaiting certification" from the queue table (the search process registers cand_id when a candidate enters the archive and passes no results), runs H1–H5, and writes `results/hidden/hidden.sqlite`.

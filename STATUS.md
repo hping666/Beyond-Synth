@@ -8,7 +8,7 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 What the launch will do on GO: 630 runs (luna on B0 / B1_E4 / B2 / M / DrRTL_reimpl over the 30 starting points × 3 seeds = 450; terra on M / B2 over all 30 × 3 = 180; the large tier's second model per the probe rule — both terra and sol already reached ≥ 5 proven on drrtl_pcie, so terra keeps it), large tier first; `queue.vcf_seats_target` and `dc_seats_target` set to 50 and the daemon restarted; `scripts/hidden_loop.py` registering H1 / H3 / H5 for every E4-evaluated candidate and H2a / H2b for accepted + audit-sample candidates every 30 minutes. Projections at 17:57 (probe unfinished, 630 runs): LLM 355 USD of 600, disk 43.7 GB against 61.0 (free 81.0 − 20; the footprint projection always counted five arms), VC Formal 2 059 h of 4 200, DC 1 912 h of 4 000 — all inside the caps.
 
-**Arm `DrRTL_reimpl` (PLAN 5.2) implemented at 17:55 (commit a00c7d4; DECISIONS "Arm DrRTL_reimpl implemented"):** Dr. RTL's optimizer role, the released skill library in the prefix, per call the ten worst E4 paths with slack and the critical path's cells plus a rotating diversity strategy, and one skill-extraction call per built round charged to the equal-call budget; B2's fitness and archive. The driver still refuses an arm without a definition. **Not in this launch:** H4 (PrimeTime) is not wired into the hidden worker (accepted-and-audit scope, so it can be registered later by the hidden loop).
+**Arm `DrRTL_reimpl` (PLAN 5.2) implemented at 17:55 (commit a00c7d4; DECISIONS "Arm DrRTL_reimpl implemented"):** Dr. RTL's optimizer role, the released skill library in the prefix, per call the ten worst E4 paths with slack and the critical path's cells plus a rotating diversity strategy, and one skill-extraction call per built round charged to the equal-call budget; B2's fitness and archive. The driver still refuses an arm without a definition. **H4 (PrimeTime / PrimePower) wired into the hidden worker at 18:12 (DECISIONS "H4 ... wired"):** signoff records for D baselines and accepted / audit-sample candidates in the queue's pt pool; the hidden loop covers it for Phase 5.
 
 **Deviation to know about (DECISIONS "Probe launched, stopped after 10 minutes, and the scope aid amended"):** the first probe launch produced only scope violations and unusable answers because both models return the named module alone on multi-module designs; the scope aid now splices the omitted modules from D and the prompt says the model may return only the region module. Its 12 runs are `superseded` (6.7 USD of the probe cap); the second launch produces proven candidates (terra and sol 10 each on drrtl_pcie within 10 minutes; repairs of lock-step mismatches 3 of 4 proven so far).
 
@@ -37,6 +37,7 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - **Autolaunch watcher**: `python3 scripts/phase5_autolaunch.py status` (pid file results/queue/phase5_autolaunch.pid). Stop with `stop` if the launch must not happen.
 - **Queue daemon**: running, pid 945587; targets 24 / 24 until the launch sets 50 / 50 and restarts it.
 - **Hidden loop**: started by the watcher on GO (`python3 scripts/hidden_loop.py status`).
+- **Hidden registrations submitted 18:12**: 616 H4 signoff jobs (pt pool, 8 seats: 179 D baselines, 257 Phase 3 + 155 Phase 4 + 25 probe candidates; 257 duplicates of the Phase 3 set return cached records) and 220 DC jobs for the 44 rtllm_multi_pipe_8bit candidates of Phase 3 that had no hidden record (priority 0). `python3 scripts/queue/daemon.py status`; coverage counts: `python3 scripts/hidden_worker.py --coverage-candidates --exp phase3|phase4|phase5_probe`.
 - Session-bound: a Monitor of this session prints the probe's progress every 5 minutes; nothing else.
 
 ## Budget and hours (2026-09-15 17:45)
@@ -56,16 +57,16 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - Results database: 24 059 evaluations (+E1_authors), 3 035 + probe candidates; `db_check.py` 0 problems at the last check (17:00). Schema additions today: `candidates.repair_of`, `scope_json`, `features_json` at issue time; diagnoses label `scope_violation`; runs exp `phase5_probe`.
 - Snapshots: `phase4-20260915-review`, `phase4-20260915-1115`.
 - Retention: tiered policy on (`retention.tiered`), sim_fail VCD 5 % seeded sample, disk guard 15 GB; the retroactive prune of 2026-09-15 freed 60 GB of disk (86.8 GB free after it; 79.9 GB at 17:37 with the probe's records).
-- Tests: `pytest tests/` → **361 passed, 15 skipped**.
+- Tests: `pytest tests/` → **363 passed, 15 skipped**.
 
 ## Open questions and known risks
 
 - `DrRTL_reimpl` arm: implemented offline (tests) but not yet run end-to-end against the API before the launch; its first Phase 5 runs are its smoke test (watch its unusable-answer and skill-call counts in `phase5_main.py status`).
-- H4 (PrimeTime) not wired into the hidden worker; `exp5.hidden_scope` lists it for accepted candidates.
+- H4 wired (18:12); the first Phase 5 H4 records come from the hidden loop; 13 kept Phase 4 candidates have no E4 netlist any more (pruned) and get no H4 record.
 - The large tier's proven rate: the probe shows terra and sol proving on drrtl_pcie (10 each in the first generation) and near zero on spikeLayer8_H7 / drrtl_datapath so far.
 - The DC-hour cap (4 000 h) is an operator derivation (DECISIONS "Phase 5 launch tooling"); the VC Formal cap is the G4-accepted projection.
 - `scripts/status.py` hour counters show 0 (ledger rows of kind dc / vcf never written) — engineering item.
-- Hidden registration completion counts for Phase 3 / Phase 4 objects not yet reported (counts only).
+- Hidden registration completion counts for Phase 3 / Phase 4 objects not yet reported (counts only); 49 hidden noise records (H1 16, H2a 7, H2b 7, H5 13, H3 6) are still missing per `--submit-noise --missing --dry-run` (not resubmitted today; check whether they are deterministic failures).
 
 ## Resume checklist (run first, in this order)
 
@@ -78,7 +79,7 @@ python3 scripts/phase5_autolaunch.py status   # waiting / launched / no-go, with
 python3 scripts/phase5_probe.py status        # per (model, design) proven, verdict, repair yield, scope violations
 python3 scripts/phase5_main.py status         # after the launch: runs by model / arm / tier
 python3 scripts/hidden_loop.py status
-pytest tests/ -x -q                  # 361 passed, 15 skipped
+pytest tests/ -x -q                  # 363 passed, 15 skipped
 git status --short && git log --oneline -3
 df -h / | tail -1
 ```
@@ -88,7 +89,7 @@ Then: `docs/DECISIONS.md` (tail, the entries after "Review and decisions after t
 
 - G5 recorded; storage footprint; B1@E4 prompt; SEQ latency mapping; scope-limited rewriting and repair; tiered retention; G5 item 4 (b) (c) (d).
 - Decisions of 2026-09-15: sim_fail VCD sample, sol prices from the live page, E2_1ns, hidden scope, probe script, map prior; prune applied (86.8 GB free); pilot re-run (26 / 28 proven); LLM review (23 objects, map shape unchanged); E2_1ns (13 / 4 / 16).
-- Review decisions: disk guard; B0 tool-neutral prefix; normalised E4 log line; E1_authors (25 / 1 / 7); PROPOSAL row; probe launched, stopped, scope splice, probe relaunched; starting points drawn; launch tooling; hidden scope and loop; autolaunch watcher started; arm DrRTL_reimpl implemented (plan 540 → 630 runs).
+- Review decisions: disk guard; B0 tool-neutral prefix; normalised E4 log line; E1_authors (25 / 1 / 7); PROPOSAL row; probe launched, stopped, scope splice, probe relaunched; starting points drawn; launch tooling; hidden scope and loop; autolaunch watcher started; arm DrRTL_reimpl implemented (plan 540 → 630 runs); H4 wired and 616 signoff jobs + 220 Phase 3 registrations submitted.
 
 
 ## Environment (filled by Claude Code in Phase 0 after reading eda-knowledge; afterwards updated only when the environment changes)

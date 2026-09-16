@@ -75,13 +75,18 @@ def db_is_hidden(conn):
     return "/hidden/" in path
 
 
-def source_evaluation(conn, design_id, cand_id, pert_id, input_spec):
-    """The latest ok evaluation whose netlist a signoff configuration reads (e.g. input 'E4_netlist' -> config E4)."""
+def source_evaluation(conn, design_id, cand_id, pert_id, input_spec, clock_ns=None):
+    """The latest ok evaluation whose netlist a signoff configuration reads (e.g. input 'E4_netlist' -> config E4); with
+    `clock_ns` the latest record at that period (D's E4 baselines exist at several knee-sweep periods, so the signoff run at
+    Phi_main must not pick up a tighter-period sweep record; 2026-09-15)."""
     config = str(input_spec).split("_")[0]
-    row = conn.execute(
-        "SELECT raw_dir, eval_id FROM evaluations WHERE design_id=? AND config=? AND status='ok' "
-        "AND COALESCE(cand_id,'')=COALESCE(?,'') AND COALESCE(pert_id,'')=COALESCE(?,'') ORDER BY eval_id DESC LIMIT 1",
-        (design_id, config, cand_id, pert_id)).fetchone()
+    q = ("SELECT raw_dir, eval_id, clock_ns FROM evaluations WHERE design_id=? AND config=? AND status='ok' "
+         "AND COALESCE(cand_id,'')=COALESCE(?,'') AND COALESCE(pert_id,'')=COALESCE(?,'')")
+    args = [design_id, config, cand_id, pert_id]
+    if clock_ns is not None:
+        q += " AND abs(clock_ns-?)<1e-6"
+        args.append(float(clock_ns))
+    row = conn.execute(q + " ORDER BY eval_id DESC LIMIT 1", args).fetchone()
     return dict(row) if row else None
 
 
@@ -142,9 +147,9 @@ def evaluate(cfg, conn, design_id, rtl_files, top, config_name, *, clock_ns=None
     extra = {"saif": str(saif) if saif else None, "sverilog": bool(sverilog), "cand_id": cand_id, "pert_id": pert_id}
     source = None
     if res["tool"] == "pt_primepower":
-        source = source_evaluation(source_conn or conn, design_id, cand_id, pert_id, res["input"])
+        source = source_evaluation(source_conn or conn, design_id, cand_id, pert_id, res["input"], clock_ns=res.get("clock_ns"))
         if source is None:
-            raise ValueError(f"{config_name} needs an ok {res['input']} evaluation of {design_id}/{cand_id}/{pert_id} first")
+            raise ValueError(f"{config_name} needs an ok {res['input']} evaluation of {design_id}/{cand_id}/{pert_id} at {res.get('clock_ns')} ns first")
         extra["source_raw_dir"] = source["raw_dir"]
     h = _hash_inputs(rtl_files, res, clk_port, cfg, extra)
     root = Path(C.results_dir(cfg)) / ("hidden/raw" if hidden else "raw") / design_id / config_name / h

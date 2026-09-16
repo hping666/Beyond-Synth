@@ -11,8 +11,10 @@ database and the hidden raw tree (src/eval/service.py refuses anything else). Pr
 metrics. Exit codes as src/eval/run_dc.py (0 ok, 75 license seat, 1 failed; eval_failed recorded on the last attempt).
 --submit-noise: Phase 2.2 hidden part: every original design of the sets (and rtlrewriter) plus its SEQ-proven
 perturbations under the hidden `noise.configs` at the design's knee periods; `noise.configs_light` (H3) only for
-the design and one perturbation per type. --noise-floor: sigma_D of the hidden configurations into the hidden
-database's noise_floor table (only counts are printed). Phase 5 adds the certification loop for archived candidates.
+the design and one perturbation per type; the signoff configurations (`noise.configs_signoff`, H4: PrimeTime on the E4
+netlist) get the D baseline only, and --submit-candidates registers them for accepted candidates and the audit sample whose
+E4 netlist is still on disk (pt pool). --noise-floor: sigma_D of the hidden configurations into the hidden database's
+noise_floor table (only counts are printed). Phase 5 adds the certification loop for archived candidates.
 --migrate-phase0 moved the Phase 0 smoke records of H1-H5 out of the visible database (done on 2026-09-12).
 """
 import os
@@ -50,6 +52,32 @@ def hidden_db_path(cfg):
 
 def hidden_configs(cfg):
     return sorted(n for n, c in cfg["configs"].items() if isinstance(c, dict) and c.get("hidden"))
+
+
+# ----------------------------------------------------------------------------- signoff configurations (H4; 2026-09-15)
+def signoff_configs(cfg):
+    """The hidden signoff configurations (config `noise.configs_signoff`, spec 06): PrimeTime / PrimePower on the E4 netlist of the
+    same object; D baseline and candidates only, no perturbation runs (sigma_D(H4) := sigma_D(E4))."""
+    return [c for c in (cfg["noise"].get("configs_signoff") or []) if cfg["configs"][c].get("hidden") and cfg["configs"][c].get("tool") == "pt_primepower"]
+
+
+def signoff_source(vis, design_id, cand_id, pert_id, cdef, clock_ns):
+    """The visible record whose netlist the signoff configuration reads (input E4_netlist -> the object's latest ok E4 record at the
+    configuration's period), or None when its netlist and constraints are no longer on disk (the tiered retention keeps them only for
+    accepted candidates and the audit sample)."""
+    from src.eval.service import source_evaluation
+    src = source_evaluation(vis, design_id, cand_id, pert_id, cdef.get("input"), clock_ns=clock_ns)
+    if not src:
+        return None
+    reports = Path(src["raw_dir"]) / "outputs" / "reports"
+    return src if (reports / "netlist.v").exists() and (reports / "design.sdc").exists() else None
+
+
+def signoff_job(cfg, d, config, clock_ns, priority):
+    """A PrimeTime job of the hidden worker: the dc_hidden runner (rule 3) dispatched in the `pt` pool with the PT timeout."""
+    j = J.dc_job(cfg, d, config, float(clock_ns), priority)
+    j.update(kind="dc_hidden", pool="pt", timeout_sec=int(cfg["timeouts"]["pt"]) * 60)
+    return j
 
 
 # ----------------------------------------------------------------------------- queue runner
@@ -108,12 +136,17 @@ def _proven(vis, design_id):
     return [dict(r) for r in vis.execute("SELECT pert_id, ptype, path FROM perturbations WHERE design_id=? AND seq_status IN ('proven', 'proven_rename') ORDER BY ptype, pert_id", (design_id,))]
 
 
-def noise_jobs(cfg, vis, suites=None, designs=None, priority=0, ptypes=None, missing=False, hid=None):
+def noise_jobs(cfg, vis, suites=None, designs=None, priority=0, ptypes=None, missing=False, hid=None, configs=None):
     """[(job dict)] for the hidden noise configurations; the knee periods travel in payload.design. ptypes: only these
     perturbation types and no D baseline (adds perturbations to an existing batch). missing: skip D / perturbation runs
-    that already have an ok record in the hidden database at the configuration's period."""
+    that already have an ok record in the hidden database at the configuration's period. configs: only these configurations.
+    The signoff configurations (`noise.configs_signoff`, H4) get the D baseline only, and only when D's E4 netlist at the knee
+    period is on disk (2026-09-15)."""
     full = [c for c in cfg["noise"]["configs"] if cfg["configs"][c].get("hidden")]
     light = [c for c in cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")]
+    signoff = signoff_configs(cfg)
+    if configs:
+        full, light, signoff = [c for c in full if c in configs], [c for c in light if c in configs], [c for c in signoff if c in configs]
     hid = hid or (db.connect(path=hidden_db_path(cfg)) if missing else None)
 
     def have(design_id, config, clock_ns, pert_id):
@@ -162,13 +195,28 @@ def noise_jobs(cfg, vis, suites=None, designs=None, priority=0, ptypes=None, mis
                 if ps.get("saif"):
                     j["payload"].update(saif=ps["saif"], saif_instance=ps["instance"])
                 jobs.append(j)
+        for config in signoff:
+            if ptypes:
+                continue   # signoff configurations have no perturbation runs
+            cdef = cfg["configs"][config]
+            lib = cdef.get("lib")
+            clock_ns = cdef.get("clock_ns") or design.get(f"phi_main_ns_{lib}")
+            if clock_ns is None or have(d["design_id"], config, clock_ns, None):
+                continue
+            if signoff_source(vis, d["design_id"], None, None, cdef, clock_ns) is None:
+                continue   # D's E4 netlist at the knee period is not on disk: nothing to sign off
+            base = signoff_job(cfg, d, config, clock_ns, priority)
+            base["payload"]["design"] = design
+            if d_saif.get("saif"):
+                base["payload"].update(saif=d_saif["saif"], saif_instance=d_saif["instance"])
+            jobs.append(base)
     return jobs
 
 
-def submit_noise(cfg, suites, designs, priority, dry_run, ptypes=None, missing=False):
+def submit_noise(cfg, suites, designs, priority, dry_run, ptypes=None, missing=False, configs=None):
     from src.jobqueue.core import Queue
     vis = db.connect(cfg=cfg)
-    jobs = noise_jobs(cfg, vis, suites, designs, priority, ptypes, missing=missing)
+    jobs = noise_jobs(cfg, vis, suites, designs, priority, ptypes, missing=missing, configs=configs)
     by_cfg = {}
     for j in jobs:
         by_cfg[j["config"]] = by_cfg.get(j["config"], 0) + 1
@@ -177,7 +225,7 @@ def submit_noise(cfg, suites, designs, priority, dry_run, ptypes=None, missing=F
         return 0
     q = Queue(cfg, vis, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
     for j in jobs:
-        q.submit(j["kind"], j["payload"], design_id=j["design_id"], config=j["config"], priority=j["priority"], timeout_sec=j["timeout_sec"])
+        q.submit(j["kind"], j["payload"], design_id=j["design_id"], config=j["config"], priority=j["priority"], timeout_sec=j["timeout_sec"], pool=j.get("pool"))
     print(f"submitted {len(jobs)} dc_hidden jobs")
     return 0
 
@@ -327,8 +375,11 @@ def candidate_coverage(cfg, exp="phase3", vis=None, hid=None, configs=None):
     database, and how many are missing. Nothing but counts leaves the hidden database."""
     vis = vis or db.connect(cfg=cfg)
     hid = hid or db.connect(path=hidden_db_path(cfg))
-    configs = configs or [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")]
-    rows = [dict(r) for r in vis.execute("SELECT c.cand_id, c.design_id, c.accepted FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+    configs = configs or [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")] + signoff_configs(cfg)
+    signoff = set(signoff_configs(cfg))
+    from src.eval.retention import is_audit_sample
+    audit_frac = float(((cfg.get("retention") or {}).get("tiered_audit_frac")) or 0.0)
+    rows = [dict(r) for r in vis.execute("SELECT c.cand_id, c.design_id, c.accepted, c.in_archive FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                                          "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted'", (exp,))]
     phis = {}
     for r in rows:
@@ -344,6 +395,8 @@ def candidate_coverage(cfg, exp="phase3", vis=None, hid=None, configs=None):
             clock_ns = cdef.get("clock_ns") or (phis.get(r["design_id"]) or {}).get(lib)
             if clock_ns is None:
                 continue
+            if config in signoff and not (r["accepted"] or r["in_archive"] or is_audit_sample(r["cand_id"], audit_frac)):
+                continue   # signoff certifies accepted candidates and the audit sample only (spec 06)
             have = hid.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (r["design_id"], r["cand_id"], config, float(clock_ns))).fetchone() is not None
             e["expected"] += 1
             e["ok" if have else "missing"] += 1
@@ -359,7 +412,8 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
     from its equivalence record (saif_c); records go to the hidden database only (rule 3)."""
     from src.designs import jobs as J
     hid = hid or db.connect(path=hidden_db_path(cfg))
-    configs = configs or [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")]
+    configs = configs or [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")] + signoff_configs(cfg)
+    signoff = set(signoff_configs(cfg))   # H4: accepted candidates and the audit sample in every experiment, only with the E4 netlist on disk (2026-09-15)
     designs = {d["design_id"]: d for d in K.load_all()}
     jobs = []
     from src.eval.retention import is_audit_sample
@@ -384,17 +438,24 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
             clock_ns = cdef.get("clock_ns") or design.get(f"phi_main_ns_{lib}")
             if clock_ns is None:
                 continue
-            if exp.startswith("phase5") and scope.get(config, "all_e4") == "accepted_and_audit" and not kept:
+            if config in signoff:
+                if not kept:
+                    continue   # signoff (spec 06): accepted candidates and the audit sample only, in every experiment
+            elif exp.startswith("phase5") and scope.get(config, "all_e4") == "accepted_and_audit" and not kept:
                 continue   # Phase 5 scope: this configuration certifies accepted candidates and the audit sample only
             if config in cfg["noise"].get("configs_light", []) and lib == "nangate45" and not cfg["libs"][lib].get("physical_ref_for_spg"):
                 continue
             if hid.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["design_id"], c["cand_id"], config, float(clock_ns))).fetchone():
                 continue
+            if config in signoff and signoff_source(vis, c["design_id"], c["cand_id"], None, cdef, float(clock_ns)) is None:
+                if skipped is not None:
+                    skipped[f"{config}_no_netlist"] = skipped.get(f"{config}_no_netlist", 0) + 1   # the E4 netlist is gone (retention): nothing to sign off
+                continue
             if not retry_failed and deterministic_failure(hid, c["cand_id"], config, float(clock_ns), design_id=c["design_id"]):   # the tool rejects the RTL: no re-run (2026-09-15)
                 if skipped is not None:
                     skipped[config] = skipped.get(config, 0) + 1
                 continue
-            j = J.dc_job(cfg, d, config, float(clock_ns), priority)
+            j = signoff_job(cfg, d, config, float(clock_ns), priority) if config in signoff else J.dc_job(cfg, d, config, float(clock_ns), priority)
             j["kind"] = "dc_hidden"
             files = json.loads(c["rtl_files_json"]) if c["rtl_files_json"] else [c["rtl_path"]]   # Phase 4 objects: several files, own top (PLAN 4.2)
             j["payload"].update(rtl=files, incdirs=[str(p) for p in K.abs_paths(d, d["incdirs"])], is_baseline=0, cand_id=c["cand_id"], design=design)   # candidates may `include D's files
@@ -407,11 +468,11 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
     return jobs
 
 
-def submit_candidates(cfg, exp, priority, dry_run, retry_failed=False):
+def submit_candidates(cfg, exp, priority, dry_run, retry_failed=False, configs=None):
     from src.jobqueue.core import Queue
     vis = db.connect(cfg=cfg)
     skipped = {}
-    jobs = candidate_jobs(cfg, vis, exp, priority, retry_failed=retry_failed, skipped=skipped)
+    jobs = candidate_jobs(cfg, vis, exp, priority, retry_failed=retry_failed, skipped=skipped, configs=configs)
     by = {}
     for j in jobs:
         by[j["config"]] = by.get(j["config"], 0) + 1
@@ -420,7 +481,7 @@ def submit_candidates(cfg, exp, priority, dry_run, retry_failed=False):
         return 0
     q = Queue(cfg, vis, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
     for j in jobs:
-        q.submit(j["kind"], j["payload"], design_id=j["design_id"], cand_id=j["cand_id"], config=j["config"], priority=j["priority"], timeout_sec=j["timeout_sec"])
+        q.submit(j["kind"], j["payload"], design_id=j["design_id"], cand_id=j["cand_id"], config=j["config"], priority=j["priority"], timeout_sec=j["timeout_sec"], pool=j.get("pool"))
     print(f"submitted {len(jobs)} dc_hidden jobs")
     return 0
 
@@ -499,18 +560,19 @@ def main(argv=None):
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--ptype", nargs="*", default=None)
     ap.add_argument("--missing", action="store_true", help="submit-noise: only D / perturbation runs without an ok hidden record at the configuration's period")
+    ap.add_argument("--configs", nargs="*", default=None, help="submit-noise / submit-candidates: only these hidden configurations (e.g. H4)")
     a = ap.parse_args(argv)
     cfg = C.load()
     if a.job:
         return run_job(cfg, a.job)
     if a.submit_noise:
-        return submit_noise(cfg, a.suite, a.design, a.priority, a.dry_run, a.ptype, a.missing)
+        return submit_noise(cfg, a.suite, a.design, a.priority, a.dry_run, a.ptype, a.missing, configs=a.configs)
     if a.noise_floor:
         written = noise_floor(cfg, a.suite, a.design)
         print("hidden noise_floor rows written per configuration:", written)
         return 0
     if a.submit_candidates:
-        return submit_candidates(cfg, a.exp, a.priority, a.dry_run, retry_failed=a.retry_failed)
+        return submit_candidates(cfg, a.exp, a.priority, a.dry_run, retry_failed=a.retry_failed, configs=a.configs)
     if a.coverage_candidates:
         cov = candidate_coverage(cfg, a.exp)
         print(json.dumps(cov, indent=1))

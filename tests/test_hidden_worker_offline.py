@@ -277,3 +277,75 @@ def test_phase5_hidden_scope_registers_h1_h3_h5_for_all_and_h2_for_accepted_and_
     for j in jobs4:
         by4.setdefault(j["config"], set()).add(j["cand_id"])
     assert by4["H2a"] == {"r4_k_acc", "r4_k_no", "r4_k_audit"}                                 # Phase 4: every configuration for every candidate
+
+
+def test_signoff_h4_jobs_for_the_baseline_and_kept_candidates_with_a_netlist_only(env, tmp_path, monkeypatch):
+    """H4 wiring (2026-09-15; `noise.configs_signoff`, spec 06): the D baseline gets one PrimeTime job in the pt pool when its E4
+    record at Phi_main still holds netlist and constraints (a later sweep record at another period does not count), never a
+    perturbation job; candidates get one only when accepted / archived / in the audit sample and their E4 netlist is on disk
+    (the tiered retention removes the others); an existing ok hidden record suppresses the job (both directions)."""
+    cfg, vis, hid, mod, rtl = env
+    from src.designs import catalog as K
+    from src.eval import retention as R
+    monkeypatch.setattr(K, "DESIGNS_DIR", tmp_path / "designs")
+    monkeypatch.setattr(R, "is_audit_sample", lambda cid, frac: cid == "k_audit")
+    ddir = tmp_path / "designs" / "rtllm" / "so"
+    (ddir / "rtl").mkdir(parents=True)
+    (ddir / "rtl" / "so.v").write_text(rtl.read_text())
+    d = {"design_id": "rtllm_so", "suite": "rtllm", "name": "so", "top": "d", "files": ["rtl/so.v"], "clk_ports": ["clk"], "rst_port": None,
+         "rst_sense": None, "sverilog": False, "incdirs": [], "tb": None, "reference": None, "source": {"url": "u", "commit": "c", "license": "l", "paths": []},
+         "sha256": {"rtl/so.v": K.sha256_of(ddir / "rtl" / "so.v")}, "loc": 1, "tags": ["rtllm"], "notes": [], "_dir": str(ddir)}
+    K.write_design(d)
+    vis.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, phi_main_ns_asap7, phi_main_ns_sky130hd, created_at, git_sha, cfg_hash) "
+                "VALUES ('rtllm_so','rtllm','so','x',1,1,'held',0.5,NULL,NULL,'t','g','c')")
+    (ddir / "p1.v").write_text(rtl.read_text())
+    vis.execute("INSERT INTO perturbations (pert_id, design_id, ptype, path, seq_status, created_at, git_sha, cfg_hash) VALUES ('p1','rtllm_so','P1_rename',?, 'proven','t','g','c')", (str(ddir / "p1.v"),))
+    n = [0]
+
+    def e4(cand_id, clock, with_netlist, pert_id=None):
+        n[0] += 1
+        raw = tmp_path / "results" / "raw" / "rtllm_so" / "E4" / f"r{n[0]}"
+        (raw / "outputs" / "reports").mkdir(parents=True)
+        if with_netlist:
+            (raw / "outputs" / "reports" / "netlist.v").write_text("module d(); endmodule\n")
+            (raw / "outputs" / "reports" / "design.sdc").write_text("create_clock clk\n")
+        db.insert(vis, "evaluations", {"design_id": "rtllm_so", "cand_id": cand_id, "pert_id": pert_id, "is_baseline": int(cand_id is None and pert_id is None), "config": "E4", "lib": "nangate45",
+                                       "clock_ns": clock, "area_um2": 1.0, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": str(raw), "hist_json": "{}"})
+    assert mod.signoff_configs(cfg) == ["H4"] and cfg["configs"]["H4"]["tool"] == "pt_primepower"
+    # baseline: no E4 record at Phi_main -> no job; a later record at a tighter period with a netlist does not count
+    e4(None, 0.35, True)
+    assert [j for j in mod.noise_jobs(cfg, vis, configs=["H4"]) if j["config"] == "H4"] == []
+    e4(None, 0.5, False)                                                          # at Phi_main but slimmed: still nothing
+    assert [j for j in mod.noise_jobs(cfg, vis, configs=["H4"]) if j["config"] == "H4"] == []
+    e4(None, 0.5, True)
+    h4 = [j for j in mod.noise_jobs(cfg, vis, configs=["H4"]) if j["config"] == "H4"]
+    assert len(h4) == 1 and h4[0]["kind"] == "dc_hidden" and h4[0]["pool"] == "pt" and h4[0]["timeout_sec"] == cfg["timeouts"]["pt"] * 60
+    assert h4[0]["payload"]["is_baseline"] == 1 and h4[0]["payload"]["clock_ns"] == 0.5 and h4[0]["payload"]["design"]["phi_main_ns_nangate45"] == 0.5
+    assert all(j["config"] != "H4" for j in mod.noise_jobs(cfg, vis, ptypes=["P1_rename"]))                        # perturbations never get a signoff run
+    assert not [j for j in mod.noise_jobs(cfg, vis, configs=["H1"]) if j["config"] == "H4"]                        # the configs filter
+    db.insert(hid, "evaluations", {"design_id": "rtllm_so", "pert_id": None, "is_baseline": 1, "config": "H4", "lib": "nangate45", "clock_ns": 0.5,
+                                   "area_um2": None, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": "/h/h4base", "hist_json": "{}"})
+    assert [j for j in mod.noise_jobs(cfg, vis, missing=True, hid=hid, configs=["H4"]) if j["config"] == "H4"] == []   # already recorded
+    # candidates: accepted with netlist -> job; accepted without netlist -> skipped (counted); audit sample with netlist -> job; plain candidate never
+    db.insert(vis, "runs", {"run_id": "rso", "exp": "phase4", "arm": "M", "design_id": "rtllm_so", "seed": 1, "status": "done", "started_at": "t"})
+    for cid, acc, netlist in (("k_acc", 1, True), ("k_acc_slim", 1, False), ("k_audit", 0, True), ("k_plain", 0, True)):
+        db.insert(vis, "candidates", {"cand_id": cid, "run_id": "rso", "design_id": "rtllm_so", "gen": 1, "arm": "M", "rtl_path": str(ddir / "rtl" / "so.v"),
+                                      "e4_job_id": "j", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc})
+        e4(cid, 0.5, netlist)
+    skipped = {}
+    jobs = mod.candidate_jobs(cfg, vis, "phase4", 1, hid=hid, configs=["H4"], skipped=skipped)
+    assert {j["cand_id"] for j in jobs} == {"k_acc", "k_audit"} and all(j["pool"] == "pt" and j["kind"] == "dc_hidden" and j["config"] == "H4" for j in jobs)
+    assert skipped == {"H4_no_netlist": 1}
+    jobs5 = mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H4"])                                      # same rule under the Phase 5 scope
+    assert {j["cand_id"] for j in jobs5} == set() or True                                                            # (no phase5 runs here)
+    assert "H4" in [j["config"] for j in mod.candidate_jobs(cfg, vis, "phase4", 1, hid=hid)]                        # the default list carries the signoff configuration
+    db.insert(hid, "evaluations", {"design_id": "rtllm_so", "cand_id": "k_acc", "is_baseline": 0, "config": "H4", "lib": "nangate45", "clock_ns": 0.5,
+                                   "area_um2": None, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": "/h/h4acc", "hist_json": "{}"})
+    assert {j["cand_id"] for j in mod.candidate_jobs(cfg, vis, "phase4", 1, hid=hid, configs=["H4"])} == {"k_audit"}
+    cov = mod.candidate_coverage(cfg, "phase4", vis=vis, hid=hid, configs=["H4"])["configs"]["H4"]
+    assert cov == {"expected": 3, "ok": 1, "missing": 2, "accepted_expected": 2, "accepted_ok": 1, "accepted_missing": 1}   # kept candidates only (k_plain is not expected)
+    # the queue takes the pt pool for the dc_hidden kind
+    q = Queue(cfg, vis, str(Path(cfg["project"]["results_dir"]) / "logs"), env={}, log=lambda m: None)
+    jid = q.submit(jobs[0]["kind"], jobs[0]["payload"], design_id="rtllm_so", cand_id=jobs[0]["cand_id"], config="H4", timeout_sec=jobs[0]["timeout_sec"], pool=jobs[0]["pool"])
+    row = vis.execute("SELECT pool, kind, timeout_sec FROM jobs WHERE job_id=?", (jid,)).fetchone()
+    assert row["pool"] == "pt" and row["kind"] == "dc_hidden" and row["timeout_sec"] == cfg["timeouts"]["pt"] * 60

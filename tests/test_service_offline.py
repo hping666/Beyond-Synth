@@ -96,3 +96,17 @@ def test_library_dont_use_cells_reach_dc(setup, monkeypatch):
     with pytest.raises(RuntimeError):
         SV.evaluate(cfg, vis, "d1", [rtl], "d", "E4", clock_ns=2.0, do_ingest=False)
     assert seen["env"]["EVAL_DONT_USE"] == ""
+
+
+def test_source_evaluation_prefers_the_record_at_the_period(setup):
+    """2026-09-15: a signoff configuration reads the E4 record at its own period; D's E4 baselines exist at several knee-sweep
+    periods, so the latest record is not necessarily the right one (both directions)."""
+    cfg, rtl, vis, hid = setup
+    for i, clock in enumerate((0.5, 0.35)):   # the later record is the tighter sweep period
+        db.insert(vis, "evaluations", {"design_id": "d1", "cand_id": None, "pert_id": None, "is_baseline": 1, "config": "E4", "lib": "nangate45", "clock_ns": clock,
+                                       "area_um2": 1.0, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": f"/v/e4_{i}", "hist_json": "{}"})
+    assert SV.source_evaluation(vis, "d1", None, None, "E4_netlist")["raw_dir"] == "/v/e4_1"                      # latest without a period
+    assert SV.source_evaluation(vis, "d1", None, None, "E4_netlist", clock_ns=0.5)["raw_dir"] == "/v/e4_0"       # the record at Phi_main
+    assert SV.source_evaluation(vis, "d1", None, None, "E4_netlist", clock_ns=0.35)["raw_dir"] == "/v/e4_1"
+    assert SV.source_evaluation(vis, "d1", None, None, "E4_netlist", clock_ns=1.0) is None                        # no record at that period
+    assert SV.source_evaluation(vis, "d1", "c9", None, "E4_netlist", clock_ns=0.5) is None                        # another object

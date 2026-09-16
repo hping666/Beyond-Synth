@@ -94,6 +94,7 @@ noise:
   types: [P1_rename, P2_reorder, P3_expr, P4_ctrl]
   configs: [E1, E2, E3, E4, H1, H2a, H2b, H5]
   configs_light: [H3]        # only D and one perturbation per type
+  configs_signoff: [H4]      # 2026-09-15: PrimeTime / PrimePower on the E4 netlist (spec 06): D baseline and candidates only, no perturbations (sigma_D(H4) := sigma_D(E4)); candidates: accepted + audit sample in every experiment, only where the E4 netlist is still on disk; pt pool
   k_sigma: 2.0
   k_sigma_sensitivity: [1.0, 2.0, 3.0]
   sigma_median_warn_pct: 5.0 # G1: warn above this median and propose an alternative truncation
