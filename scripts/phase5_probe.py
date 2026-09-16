@@ -72,6 +72,13 @@ def cmd_status(cfg, conn):
         by[k]["done"] += int(r["status"] == "done")
     spent = conn.execute("SELECT COALESCE(SUM(amount),0) FROM budget_ledger WHERE phase=? AND kind='llm'", (EXP,)).fetchone()[0]
     print(f"probe spend {float(spent):.2f} of {cfg['llm']['budget_usd']['phase5_probe']} USD")
+    from src.analysis.repair import repair_table, repair_yield
+    y = repair_yield(conn, exp=EXP, run_ids=[r["run_id"] for r in rows] or None)
+    print("repair yield per failure type (decision 2026-09-15 item 5):")
+    for line in repair_table(y):
+        print("  " + line)
+    sv = conn.execute("SELECT r.llm_model, c.design_id, COUNT(*) FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp=? AND r.status != 'superseded' AND c.label='scope_violation' GROUP BY 1, 2", (EXP,)).fetchall()
+    print("scope violations: " + (", ".join(f"{m} / {d}: {n}" for m, d, n in sv) if sv else "none"))
     for (model, did), v in sorted(by.items()):
         verdict = "carries the large tier" if v["proven"] >= int(pc["min_proven"]) else ("below min_proven" if v["done"] == v["runs"] else "pending")
         print(f"  {model:14s} {did:34s} runs {v['runs']} done {v['done']} candidates {v['cands']} proven {v['proven']} -> {verdict} (rule: >= {pc['min_proven']} proven on the design)")

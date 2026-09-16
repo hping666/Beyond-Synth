@@ -297,6 +297,12 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
     large: [cktevo_nn_engine__spikeLayer8_H7, drrtl_datapath, drrtl_pcie]
   hidden_scope: {H1: all_e4, H3: all_e4, H5: all_e4, H2a: accepted_and_audit, H2b: accepted_and_audit, H4: accepted_and_audit}   # user 2026-09-15 item 2: H1 / H3 / H5 on every E4-evaluated candidate (+6 GB); the other configurations on accepted candidates and the audit sample (spec 06 §3)
   ladder_on_accepted: phase6                # user 2026-09-15 item 2: the Phase 4 ladder is repeated on the accepted Phase 5 candidates in Phase 6 (in Phase 5 only if ~/.cache is freed, option B)
+  launch_caps:                              # decision 2026-09-15 item 6 (pre-authorised conditional launch): every pre-launch projection must sit inside its cap, else stop and report
+    llm_usd: null                           # null = llm.budget_usd.phase5_main
+    disk_margin_gb: 20                      # projected growth <= free space at launch minus this
+    vcf_hours: 4200                         # the Phase 3 projection accepted at G4 (4 121 h at 50 seats, reports/phase3.md §5c)
+    dc_hours: 4000                          # operator derivation for the record: G3's full-E4 figure (766 h, reports/phase2.md) times the E4-clock runs per proven candidate under decision item 2 (fitness + H1 / H3 / H5 on every E4-evaluated candidate, H2a / H2b on accepted) ~ 3 500 h; at 50 seats ~ 70 h wall-clock
+    bulk_seats_target: 50                   # vcf_seats_target and dc_seats_target during Phase 5 (decision item 6), restored to 24 afterwards
   correctness_probe:                        # G5 item 1: before Phase 5, terra and sol on the three large Exp1 designs; a model with >= min_proven proven candidates on a design carries the large tier for arms M and B2 (sol never the main model); starts after the prune and the user's review of the B1 prefix (decision 2026-09-15 item 6)
     arm: M                                  # the main method's arm (E4 fitness, verdict feedback, map prior, correctness aids), exp phase5_probe, budget llm.budget_usd.phase5_probe
     models: [gpt-5.6-terra, gpt-5.6-sol]

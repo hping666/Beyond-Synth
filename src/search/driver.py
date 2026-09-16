@@ -53,6 +53,8 @@ class SearchRun:
         self.cfg, self.conn, self.run_id = cfg, conn, run_id
         self.clock = clock
         self.row = dict(conn.execute("SELECT * FROM runs WHERE run_id=?", (run_id,)).fetchone())
+        if self.row["arm"] not in (cfg["search"].get("arms") or {}) and self.row["arm"] != "M":
+            raise ValueError(f"arm {self.row['arm']!r} has no definition in config search.arms (2026-09-15: an undefined arm must not run as M by default)")
         self.design = next(d for d in K.load_all() if d["design_id"] == self.row["design_id"])
         drow = conn.execute("SELECT * FROM designs WHERE design_id=?", (self.row["design_id"],)).fetchone()
         self.phi = float(drow["phi_main_ns_nangate45"])

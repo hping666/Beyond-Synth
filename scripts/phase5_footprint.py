@@ -541,8 +541,10 @@ def project(args):
     L.append("")
     out = Path(args.out)
     out.write_text("\n".join(L) + "\n")
-    print("\n".join(L))
-    print(f"written {out}")
+    if not getattr(args, "quiet", True):
+        print("\n".join(L))
+        print(f"written {out}")
+    return {"current": A_total, "tiered": B_total, "hidden_all_e4": totX["hidden_all_e4"], "ladder_accepted": totX["ladder_accepted"], "retro": retro_total}
 
 
 def _add_project(sub):
@@ -550,7 +552,8 @@ def _add_project(sub):
     s.add_argument("--measured", default=str(ROOT / "reports/data/phase5_footprint_measured.json"))
     s.add_argument("--out", default=str(ROOT / "reports/data/phase5_footprint.md"))
     s.add_argument("--large-proven-rate", default=0.10, type=float, help="assumed proven rate of the large tier for the probe / second models (luna: 0)")
-    s.set_defaults(fn=project)
+    s.add_argument("--quiet", action="store_true")
+    s.set_defaults(fn=lambda a: (project(a) and 0))
 
 
 def main(argv=None):

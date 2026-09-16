@@ -362,9 +362,13 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
     configs = configs or [c for c in cfg["noise"]["configs"] + cfg["noise"].get("configs_light", []) if cfg["configs"][c].get("hidden")]
     designs = {d["design_id"]: d for d in K.load_all()}
     jobs = []
-    for c in vis.execute("SELECT c.cand_id, c.design_id, c.rtl_path, c.run_id, c.top, c.rtl_files_json FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+    from src.eval.retention import is_audit_sample
+    scope = (cfg.get("exp5") or {}).get("hidden_scope") or {}          # decision 2026-09-15 item 2 (Phase 5 runs): H1 / H3 / H5 on every E4-evaluated candidate, the rest on accepted + audit sample
+    audit_frac = float(((cfg.get("retention") or {}).get("tiered_audit_frac")) or 0.0)
+    for c in vis.execute("SELECT c.cand_id, c.design_id, c.rtl_path, c.run_id, c.top, c.rtl_files_json, c.accepted, c.in_archive FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                          "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted' ORDER BY c.cand_id", (exp,)):
         d = designs[c["design_id"]]
+        kept = bool(c["accepted"] or c["in_archive"]) or is_audit_sample(c["cand_id"], audit_frac)
         r = vis.execute("SELECT phi_main_ns_nangate45, phi_main_ns_asap7, phi_main_ns_sky130hd FROM designs WHERE design_id=?", (c["design_id"],)).fetchone()
         design = {"phi_main_ns_nangate45": r[0], "phi_main_ns_asap7": r[1], "phi_main_ns_sky130hd": r[2]}
         saif = None
@@ -380,6 +384,8 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
             clock_ns = cdef.get("clock_ns") or design.get(f"phi_main_ns_{lib}")
             if clock_ns is None:
                 continue
+            if exp.startswith("phase5") and scope.get(config, "all_e4") == "accepted_and_audit" and not kept:
+                continue   # Phase 5 scope: this configuration certifies accepted candidates and the audit sample only
             if config in cfg["noise"].get("configs_light", []) and lib == "nangate45" and not cfg["libs"][lib].get("physical_ref_for_spg"):
                 continue
             if hid.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["design_id"], c["cand_id"], config, float(clock_ns))).fetchone():
