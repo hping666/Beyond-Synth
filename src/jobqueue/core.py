@@ -297,6 +297,19 @@ class Queue:
         waiting = self.conn.execute("SELECT COUNT(*) FROM jobs WHERE state IN ('queued','backoff') AND pool=?", (other,)).fetchone()[0]
         return waiting > int(bp.get("max_waiting", 0))
 
+    def is_resumption(self, job):
+        """A search job of a run that already made LLM calls (an interrupted run resuming from its state)."""
+        if job["kind"] != "search":
+            return False
+        try:
+            rid = json.loads(job["payload_json"] or "{}").get("run_id")
+        except (ValueError, TypeError):
+            return False
+        if not rid:
+            return False
+        r = self.conn.execute("SELECT llm_calls FROM runs WHERE run_id=?", (rid,)).fetchone()
+        return bool(r and int(r[0] or 0) > 0)
+
     def _dispatch(self):
         now = time.time()
         for pool, cap in self.limits.items():
@@ -306,8 +319,7 @@ class Queue:
             free = cap - self.running_in_pool(pool)
             if free <= 0:
                 continue
-            if self.backpressure_holds(pool):
-                continue
+            held = self.backpressure_holds(pool)   # fresh runs wait; a resumption (a run that already made calls) goes on — it has verdicts to process and records to slim (2026-09-16)
             per_design = int((self.cfg["queue"].get("per_design_max") or {}).get(pool) or 0)
             rows = self.conn.execute(
                 "SELECT * FROM jobs WHERE state IN ('queued','backoff') AND pool=? "
@@ -316,6 +328,8 @@ class Queue:
             for job in rows:
                 if spawned >= free:
                     break
+                if held and not self.is_resumption(job):
+                    continue
                 if per_design and job["design_id"]:
                     n = self.conn.execute("SELECT COUNT(*) FROM jobs WHERE state='running' AND pool=? AND design_id=?", (pool, job["design_id"])).fetchone()[0]
                     if n >= per_design:

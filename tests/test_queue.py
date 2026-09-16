@@ -279,6 +279,20 @@ def test_search_backpressure_from_the_vcf_queue(tmp_path):
     db.insert(conn, "jobs", {**base, "job_id": "v6", "state": "queued"})
     conn.execute("UPDATE jobs SET state='done' WHERE job_id='v1'"); conn.commit()   # one vcf seat free (fairness could be the reason): not saturated -> no backpressure
     assert not q.backpressure_holds("search")
+    # a resumption (a run that already made calls) is dispatched although the backpressure holds; a fresh run is not
+    db.insert(conn, "jobs", {**base, "job_id": "v7", "state": "queued"})
+    db.insert(conn, "jobs", {**base, "job_id": "v8", "state": "queued"})
+    conn.execute("UPDATE jobs SET state='running' WHERE job_id='v1'"); conn.commit()
+    assert q.backpressure_holds("search")
+    db.insert(conn, "runs", {"run_id": "r_old", "exp": "phase5", "arm": "M", "design_id": "d", "seed": 1, "llm_model": "m", "status": "failed", "llm_calls": 12})
+    db.insert(conn, "runs", {"run_id": "r_new", "exp": "phase5", "arm": "M", "design_id": "d", "seed": 2, "llm_model": "m", "status": "created", "llm_calls": 0})
+    old_job = q.submit("shell", {"cmd": "sleep 0.3", "run_id": "r_old"}, pool="search", priority=1)
+    new_job = q.submit("shell", {"cmd": "sleep 0.3", "run_id": "r_new"}, pool="search", priority=9)
+    conn.execute("UPDATE jobs SET kind='search' WHERE job_id IN (?, ?)", (old_job, new_job)); conn.commit()
+    monkey_spawned = []
+    q._spawn = lambda job: monkey_spawned.append(job["job_id"]) or conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (job["job_id"],))
+    q._dispatch()
+    assert monkey_spawned == [old_job] and q.get(new_job)["state"] == "queued"
     cfg["queue"].pop("backpressure")
     assert not Queue(cfg, conn, str(tmp_path / "logs2"), env={}, log=lambda m: None).backpressure_holds("search")
 
