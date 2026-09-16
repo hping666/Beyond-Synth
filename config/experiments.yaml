@@ -50,7 +50,8 @@ configs:
   E2_1ns: {tool: dc, compile: "compile_ultra", lib: nangate45, clock_ns: 1.0, synlib: dw}   # RTL-OPT authors' published setting (G5 item 4 (a), user 2026-09-15 item 5): compile_ultra at 1 ns, no retime, no gate clock, DesignWare Foundation as compile_ultra loads it; run on the 34 proven RTL-OPT pairs only
   # decision 2026-09-15 item 4: the settings found in the RTL-OPT authors' released scripts (evaluation_framework/DC/run_dc.tcl, Results/RTL-OPT_DC/*/command.log) on our DC version:
   # plain compile, 0.1 ns, set_max_delay from all inputs to all outputs, dont_retime, register merging off, sequential (timing) area recovery off, flatten after compile; standard synthetic library only (no DesignWare Foundation with plain compile)
-  E1_authors: {tool: dc, compile: "set_app_var compile_enable_register_merging false; set_app_var compile_sequential_area_recovery false; set_fix_multiple_port_nets -all -buffer_constants -feedthroughs [all_designs]; set_max_delay -from [all_inputs] -to [all_outputs] 0.1; set_transform_for_retiming [get_cells *] dont_retime; compile; ungroup -all -flatten", lib: nangate45, clock_ns: 0.1, synlib: standard}
+  # (the released script's `ungroup -all -flatten` after compile is left out: it returns 0 on a flat design, which the template's step proc reads as a failure, and it does not change the total cell area; the 33 records made before this change carry it)
+  E1_authors: {tool: dc, compile: "set_app_var compile_enable_register_merging false; set_app_var compile_sequential_area_recovery false; set_fix_multiple_port_nets -all -buffer_constants -feedthroughs [all_designs]; set_max_delay -from [all_inputs] -to [all_outputs] 0.1; set_transform_for_retiming [get_cells *] dont_retime; compile", lib: nangate45, clock_ns: 0.1, synlib: standard}
   H1:  {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: nangate45, clock_ns: 0.1, synlib: dw, hidden: true}
   H2a: {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: asap7, clock: phi_main_asap7, synlib: dw, hidden: true}
   H2b: {tool: dc, compile: "compile_ultra -retime -gate_clock", lib: sky130hd, clock: phi_main_sky130hd, synlib: dw, hidden: true}
@@ -216,6 +217,7 @@ design_sets:                 # counts and splits filled in Phase 1; dev contains
 
   split: {dev_count: 20, seed: 1, dev_suite: rtllm, stratify_by: category}   # PLAN 1.4: dev = seeded stratified sample of the synthesizable single-clock RTLLM designs; everything else held
   sky130_subset_count: 8      # PLAN 1.5: CktEvo modules tagged cktevo_sky130 (one per repository first, by size)
+  pool_suites: [cktevo, drrtl, rtlopt]   # Phase 5 starting-point pool (C1 scope: human-written RTL; RTLLM stays the contrast layer)
   phase5_pool_excludes_exp1: true   # DECISIONS 2026-09-14: the 10 Exp1 designs (map prior, predictor) never serve as Phase 5 starting points
   phase5_excluded: [cktevo_nn_engine__spikeLayer8_H7, cktevo_ethmac__eth_txethmac, cktevo_vga_enh__vga_wb_master, cktevo_mem_ctrl__mc_obct_top, cktevo_spi__spi, drrtl_datapath, drrtl_pcie, drrtl_i2c, rtlopt_ticket_machine, rtlopt_fsm_encode]         # filled by scripts/phase4_sets.py with the Exp1 designs
 
@@ -282,7 +284,13 @@ diag:
   threshold_rule: noise.floor_rule          # B.2 bands use the rule-A t_D per metric
 
 exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the pool selection is filled by scripts/phase5_sets.py)
-  tiers: {medium: 18, small: 6, large: 6}   # starting points by tier: medium = module-level CktEvo and mid-size Dr.RTL / RTL-OPT designs (B0 proven rate non-zero in Phase 4), small = human-written small designs, large = multi-module designs (kept: a zero proven rate there is a result about the LLM)
+  tiers: {medium: 18, small: 6, large: 6}
+  starting_points:                          # filled by scripts/phase5_sets.py (seed exp5.seed; DECISIONS 2026-09-15)
+    small: [cktevo_risc__stall_control_unit, rtlopt_mux_large, drrtl_controller, cktevo_hsm__MixColumns, rtlopt_sub_8bit, drrtl_ticket_machine]
+    medium: [rtlopt_alu_64bit, cktevo_risc__cpu, drrtl_UART, rtlopt_calculation, cktevo_mem_ctrl__mc_adr_sel, drrtl_SPI, rtlopt_register, cktevo_usb__usbf_sie_rx, drrtl_router, rtlopt_divider_8bit, cktevo_vga_enh__vga_wb_slave, drrtl_arm_cpu2, rtlopt_decoder_8bit, cktevo_nn_engine__thresholds_128x4096, drrtl_communication, rtlopt_sub_32bit, cktevo_ethmac__eth_cop, drrtl_simple_spi]
+    large: [cktevo_hsm__hsm, drrtl_aes, cktevo_nn_engine__spikeNeuron8_H7, drrtl_tv80, cktevo_risc__btb, drrtl_LSTM]   # starting points by tier: medium = module-level CktEvo and mid-size Dr.RTL / RTL-OPT designs (B0 proven rate non-zero in Phase 4), small = human-written small designs, large = multi-module designs (kept: a zero proven rate there is a result about the LLM)
+  tier_rule: {small_max_cells: 200, large_min_cells: 5000, large_multimodule_min_cells: 2000}   # scripts/phase5_sets.py: large = a multi-module design with an E4 baseline >= 2000 cells (G5: "large multi-module"); small = one module below 200 cells; single-module designs >= 5000 cells are neither and stay out of the draw (large_single); medium = the rest
+  seed: 1                                   # the seeded stratified draw of the starting points (round-robin over the suites of each tier)
   projection_reference_tiers:               # the Exp1 designs grouped by tier: reference for the Phase 5 projections by tier (proofs and calls per retained candidate, storage footprint); never Phase 5 starting points (design_sets.phase5_excluded)
     small: [rtlopt_fsm_encode, rtlopt_ticket_machine]
     medium: [cktevo_spi__spi, drrtl_i2c, cktevo_vga_enh__vga_wb_master, cktevo_ethmac__eth_txethmac, cktevo_mem_ctrl__mc_obct_top]

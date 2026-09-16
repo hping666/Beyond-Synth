@@ -35,7 +35,7 @@ def cmd_create(cfg, conn, do_submit):
         for tier in ("standard", "flex"):
             if model not in (cfg["llm"].get("prices_usd_per_1m") or {}).get(tier, {}):
                 raise SystemExit(f"{model}: no {tier} price in llm.prices_usd_per_1m (decision 2026-09-15 item 4: re-check the live page first)")
-    have = {(r["llm_model"], r["design_id"], int(r["seed"])) for r in existing_runs(conn)}
+    have = {(r["llm_model"], r["design_id"], int(r["seed"])) for r in existing_runs(conn) if r["status"] != "superseded"}
     q = Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
     created = []
     for model in pc["models"]:
@@ -56,7 +56,10 @@ def cmd_create(cfg, conn, do_submit):
 
 def cmd_status(cfg, conn):
     pc = probe_cfg(cfg)
-    rows = existing_runs(conn)
+    rows = [r for r in existing_runs(conn) if r["status"] != "superseded"]
+    superseded = [r for r in existing_runs(conn) if r["status"] == "superseded"]
+    if superseded:
+        print(f"({len(superseded)} superseded runs not shown: the first launch, stopped after the scope-splice fix)")
     by = {}
     for r in rows:
         n = conn.execute("SELECT COUNT(*), SUM(verdict='proven'), SUM(verdict='sim_fail'), SUM(verdict='falsified'), SUM(verdict='rejected'), SUM(verdict='inconclusive'), SUM(label='scope_violation'), SUM(repair_of IS NOT NULL) FROM candidates WHERE run_id=?", (r["run_id"],)).fetchone()

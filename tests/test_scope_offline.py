@@ -152,3 +152,23 @@ def test_failure_evidence_texts():
     f, t = SC.failure_evidence({"verdict": "falsified", "v3": {"properties": {"_map_output_MTxD": "falsified", "_map_output_TxDone": "proven"}, "cex_depths": {"_map_output_MTxD": 1}}})
     assert f == "falsified" and "MTxD" in t and "TxDone" not in t and "1 cycles" in t
     assert SC.failure_evidence({"verdict": "inconclusive"}) == (None, None) and SC.failure_evidence({"verdict": "proven"}) == (None, None)
+
+
+def test_splice_takes_the_omitted_modules_from_the_original():
+    """Operator decision 2026-09-15 (after the probe): with a module-level region an answer may return only the rewritten
+    module; the modules it leaves out come verbatim from D. The region module itself must be present; block-level regions
+    and complete answers are untouched (both directions)."""
+    d, text, des = _design("cktevo/ethmac__eth_txethmac")
+    region = {"module": "eth_txcounters", "kind": "module", "items": [], "registers": ["NibCnt"]}
+    spans = {n: (f, l) for n, f, l, _ in SC.V.module_spans(text)}
+    lines = text.splitlines()
+    only_region = "\n".join(lines[spans["eth_txcounters"][0] - 1:spans["eth_txcounters"][1]]).replace("NibCnt <= NibCnt + 1", "NibCnt <= NibCnt + 1'b1")
+    full, spliced = SC.splice(text, only_region, region)
+    assert sorted(spliced) == sorted(n for n in spans if n != "eth_txcounters") and set(SC.V.module_names(full)) == set(spans)
+    assert SC.verify(text, full, region) == [] and full.startswith(only_region.rstrip())              # the other modules are D's own text
+    assert SC.splice(text, text, region) == (text, [])                                                # a complete answer: nothing spliced
+    other_only = "\n".join(lines[spans["eth_random"][0] - 1:spans["eth_random"][1]])
+    assert SC.splice(text, other_only, region) == (other_only, [])                                   # the region module is absent: not a rewrite of the region
+    block_region = {"module": "eth_txcounters", "kind": "blocks", "items": [0], "registers": ["NibCnt"]}
+    assert SC.splice(text, only_region, block_region) == (only_region, [])                            # block-level scope: no splicing
+    assert SC.splice(text, only_region, None) == (only_region, [])

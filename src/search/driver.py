@@ -268,7 +268,10 @@ class SearchRun:
             if r.get("status") == "incomplete":
                 raise CA.BadAnswer("truncated at max_output_tokens (status incomplete)")
             rtl, note = CA.parse_answer(r["text"])
+            rtl, spliced = SC.splice(self.d_text, rtl, region)
             CA.check_top(rtl, self.design["top"])
+            if spliced:
+                meta["spliced_modules"] = spliced
         except CA.BadAnswer as e:
             rep["unusable"] = str(e)
             (self.dir / f"unusable_repair_{cid}.json").write_text(json.dumps({**meta, "unusable": str(e)}, indent=1, default=str))
@@ -282,7 +285,7 @@ class SearchRun:
         if region is not None and self.scope_violation(new_cid, path, rtl, note, cls, gen, c.get("parent_id"), r, region, index=99):
             rep["cand_id"], c["repaired_by"] = f"{new_cid} (scope_violation)", new_cid
         else:
-            issued = self.issue_candidate(new_cid, path, rtl, note, cls, gen, c.get("parent_id"), r, rng, index=99, region=region, repair_of=cid)
+            issued = self.issue_candidate(new_cid, path, rtl, note, cls, gen, c.get("parent_id"), r, rng, index=99, region=region, repair_of=cid, spliced=meta.get("spliced_modules"))
             rep["cand_id"], c["repaired_by"] = issued, issued
         self.conn.execute("UPDATE runs SET llm_calls=? WHERE run_id=?", (st["calls"], self.run_id))
         return rep["cand_id"]
@@ -339,6 +342,7 @@ class SearchRun:
                 if r.get("status") == "incomplete":
                     raise CA.BadAnswer(f"truncated at max_output_tokens (status incomplete, {(r.get('usage') or {}).get('output_tokens')} output tokens)")
                 rtl, note = CA.parse_answer(r["text"])
+                rtl, spliced = SC.splice(self.d_text, rtl, region)   # module-level scope: the modules the answer left out come from D
                 CA.check_top(rtl, self.design["top"])
             except CA.BadAnswer as e:
                 meta.update(unusable=str(e))
@@ -347,6 +351,8 @@ class SearchRun:
                 continue
             if region is not None:
                 meta["scope"] = region
+                if spliced:
+                    meta["spliced_modules"] = spliced
             answers.append((i, cls, rtl, note, r, meta))
         # DECISIONS 2026-09-14 item 2: on arithmetic designs the (c1) / (d) proofs (hours-long tails) are submitted before the
         # rest of the generation, so that their tails overlap with the other proofs; the produced class is known only after
@@ -360,14 +366,14 @@ class SearchRun:
             _cid, path = CA.store(self.run_id, self.design, rtl, {**meta, "note": note, "content_hash": CA.cand_id_of(rtl)}, root=self.dir.parent, cand_id=cid)
             if region is not None and self.scope_violation(cid, path, rtl, note, cls, gen, parent_id, r, region, index=i):
                 continue
-            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i, region=region))
+            issued.append(self.issue_candidate(cid, path, rtl, note, cls, gen, parent_id, r, rng, index=i, region=region, spliced=meta.get("spliced_modules")))
         st["gen"] = gen
         st["issued_at"] = self.clock()
         self.conn.execute("UPDATE runs SET llm_calls=?, gens_done=?, status='running' WHERE run_id=?", (st["calls"], gen, self.run_id))
         self.write_gen_summary(gen)
         return issued
 
-    def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng, index=0, region=None, repair_of=None):
+    def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng, index=0, region=None, repair_of=None, spliced=None):
         st = self.state
         if cid in st["cands"]:   # the same RTL came out twice: a duplicate of the earlier candidate, no evaluation
             self.record_label(f"{cid}_dup{gen}_{index}", None, "duplicate", {"duplicate_of": cid}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
@@ -401,7 +407,7 @@ class SearchRun:
                "tokens_in": (call["usage"] or {}).get("input_tokens"), "tokens_cached": (call["usage"] or {}).get("cached_tokens"),
                "tokens_out": (call["usage"] or {}).get("output_tokens"), "cost_usd": call["cost_usd"], "rtl_path": str(path), "prescreened": int(pre == "prescreened"),
                "seq_cap_min": cap, "note": note, "call_id": call["call_id"], "repair_of": repair_of,
-               "scope_json": json.dumps({"region": region, "violations": []}, default=str) if region is not None else None,
+               "scope_json": json.dumps({"region": region, "violations": [], "spliced": list(spliced or [])}, default=str) if region is not None else None,
                "features_json": json.dumps(feat, default=list, sort_keys=True) if feat else None, "rules_version": (feat or {}).get("rules_version")}
         db.insert(self.conn, "candidates", row)
         if pre == "prescreened":
@@ -738,6 +744,9 @@ class SearchRun:
         poll = float(poll_sec or self.cfg["search"].get("poll_sec", 30))
         steps = 0
         while True:
+            if self.conn.execute("SELECT status FROM runs WHERE run_id=?", (self.run_id,)).fetchone()[0] == "superseded":
+                print(f"{self.run_id}: superseded by the operator, not continued", flush=True)   # a retried queue job must not revive a stopped run (2026-09-15)
+                return "superseded"
             status = self.step()
             steps += 1
             if status == "done" or (max_steps and steps >= max_steps):

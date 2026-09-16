@@ -1,6 +1,6 @@
 # Phase 4 report — Exp1: ladder and map (C1)
 
-Generated 2026-09-15 16:49 by scripts/report_phase.py (git 9c3ef6772998, cfg c72fd1bc7965). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
+Generated 2026-09-15 17:25 by scripts/report_phase.py (git 19fa49cafb78, cfg f8b2ecbba79c). Data: reports/data/phase4_exp1.json (scripts/phase4_exp1.py collect).
 
 ## 1. Objects
 
@@ -125,46 +125,54 @@ Non-monotone objects (inside the band at a lower rung, above it at a higher one)
 | 8 | 133 | 15 | 11 % |
 | 9 | 136 | 12 | 9 % |
 
-## 4d. RTL-OPT pairs under the authors' published setting (G5 item 4 (a); config `E2_1ns`: compile_ultra, 1.0 ns, no retime, no gate clock)
+## 4d. RTL-OPT pairs under the settings of the authors' published work and released artifacts (G5 item 4 (a); decisions 2026-09-15 items 4 and 5)
 
-The 34 proven pairs under our reproduction of the authors' setting (compile_ultra at 1 ns, DesignWare, this project's SDC convention, DC W-2024.09): **13 better** (the optimized version smaller than the suboptimal start by area), 4 same, 16 worse, 1 not evaluated (the mux_dead reference does not link, §4a); the paper reports 35 of 36 better (RTL-OPT Table 1, compile_ultra 1 ns); the six pairs that are not equivalent under this project's protocol (§4a) are outside these counts. The authors' released DC reports (their setting: data/sources/RTL-OPT/Results/RTL-OPT_DC: `compile` (not compile_ultra) at CLOCK_PERIOD 0.1 ns with set_max_delay from all inputs to all outputs, set_transform_for_retiming dont_retime, register merging / sequential area recovery / clock gating through hierarchy off, ungroup -all -flatten, DC T-2022.03-SP2, the authors' own Nangate45 typical.db (their released run_dc.tcl and command.log)) give 34 better, 0 same, 0 worse by area over the same 34 pairs — a plain `compile` at a 0.1 ns clock keeps the RTL's structure, so the suboptimal version's redundancy survives; under compile_ultra (ours at 1 ns and at the knee period) DC removes most of it. Their Table 1 count for compile_ultra at 1 ns could not be reproduced with our flow; the released script covers the compile / 0.1 ns setting only, and the differences left (DC version, their set_max_delay input-to-output constraints versus this project's I/O delays, register merging and sequential area recovery switched off in their script) would need a run of their exact script to isolate.
+Objects: the 34 proven RTL-OPT pairs (the six pairs that are not equivalent under this project's protocol, §4a, are outside every count; the mux_dead reference does not link under DC). Criterion in every column: the reference version's total cell area against the suboptimal start's (better = smaller). Three settings side by side:
 
-| pair | phi_main (ns) | D area at 1 ns | reference area at 1 ns | rel. area at 1 ns | verdict at 1 ns | rel. area E2 (knee) | rel. area E4 (knee) | authors' released reports: D / ref / rel. |
-|---|---|---|---|---|---|---|---|---|
-| rtlopt_add_sub | 2.80 | 142.3 | 195.0 | +37.0 % | worse | +93.7 % | +93.7 % | 444.2 / 357.0 / -19.6 % |
-| rtlopt_adder | 4.00 | 532.3 | 469.5 | -11.8 % | better | +12.0 % | +12.0 % | 688.4 / 639.7 / -7.1 % |
-| rtlopt_adder_carry | 1.40 | 64.1 | 64.1 | +0.0 % | same | +0.0 % | +0.0 % | 98.7 / 54.0 / -45.3 % |
-| rtlopt_adder_select | 4.00 | 385.2 | 396.6 | +3.0 % | worse | +6.4 % | +6.4 % | 812.1 / 522.7 / -35.6 % |
-| rtlopt_addr_calcu | 2.00 | 158.8 | 158.3 | -0.3 % | better | +4.3 % | +4.3 % | 388.1 / 214.4 / -44.8 % |
-| rtlopt_alu_64bit | 2.00 | 1848.2 | 1879.3 | +1.7 % | worse | +4.0 % | +4.0 % | 3028.4 / 1748.9 / -42.2 % |
-| rtlopt_alu_8bit | 2.00 | 214.4 | 219.7 | +2.5 % | worse | -28.2 % | -28.2 % | 370.0 / 245.8 / -33.6 % |
-| rtlopt_calculation | 4.00 | 1161.9 | 895.9 | -22.9 % | better | -16.9 % | -17.6 % | 997.5 / 761.8 / -23.6 % |
-| rtlopt_comparator | 1.00 | 41.8 | 56.4 | +35.0 % | worse | +35.0 % | +35.0 % | 98.2 / 80.6 / -17.9 % |
-| rtlopt_comparator_16bit | 1.00 | 88.3 | 123.7 | +40.1 % | worse | +40.1 % | +40.1 % | 244.5 / 169.2 / -30.8 % |
-| rtlopt_comparator_2bit | 0.35 | 9.6 | 8.8 | -8.3 % | better | -8.3 % | -8.3 % | 14.4 / 13.0 / -9.3 % |
-| rtlopt_comparator_4bit | 0.50 | 21.3 | 18.4 | -13.8 % | better | -10.0 % | -10.0 % | 25.8 / 23.1 / -10.3 % |
-| rtlopt_comparator_8bit | 0.70 | 44.4 | 41.2 | -7.2 % | better | -7.2 % | -7.2 % | 71.3 / 67.3 / -5.6 % |
-| rtlopt_decoder_6bit | 0.35 | 71.6 | 76.6 | +7.1 % | worse | +8.6 % | +8.6 % | 208.0 / 106.7 / -48.7 % |
-| rtlopt_decoder_8bit | 0.50 | 246.8 | 257.2 | +4.2 % | worse | +12.8 % | +12.8 % | 856.0 / 373.2 / -56.4 % |
-| rtlopt_fsm | 1.00 | 128.7 | 92.0 | -28.5 % | better | -28.5 % | -28.5 % | 192.9 / 129.8 / -32.7 % |
-| rtlopt_fsm_encode | 1.40 | 396.9 | 300.6 | -24.3 % | better | -10.5 % | -13.5 % | 488.9 / 426.7 / -12.7 % |
-| rtlopt_gray | 0.50 | 68.6 | 69.2 | +0.8 % | worse | +0.8 % | +0.8 % | 109.1 / 94.7 / -13.2 % |
-| rtlopt_mul | 2.00 | 333.0 | 345.5 | +3.8 % | worse | +0.0 % | +0.0 % | 453.0 / 426.4 / -5.9 % |
-| rtlopt_mul_const | 1.00 | 42.0 | 42.0 | +0.0 % | same | +0.0 % | +0.0 % | 122.9 / 114.6 / -6.7 % |
-| rtlopt_mul_subexpression | 2.80 | 370.3 | 387.6 | +4.7 % | worse | +0.0 % | +0.0 % | 623.2 / 603.8 / -3.1 % |
-| rtlopt_mult_if | 0.50 | 10.9 | 10.1 | -7.3 % | better | -7.3 % | -7.3 % | 16.0 / 14.9 / -6.7 % |
-| rtlopt_mux_4to1_16bit | 0.50 | 60.6 | 60.6 | +0.0 % | same | +0.0 % | +0.0 % | 77.4 / 73.7 / -4.8 % |
-| rtlopt_mux_4to1_64bit | 0.50 | 234.1 | 234.1 | +0.0 % | same | -0.4 % | -0.4 % | 263.9 / 260.7 / -1.2 % |
-| rtlopt_mux_dead | 0.35 | 21.8 | - | - | missing | - | - | 38.3 / 31.9 / -16.7 % |
-| rtlopt_mux_large | 0.70 | 96.8 | 97.6 | +0.8 % | worse | +1.1 % | +1.1 % | 273.4 / 176.6 / -35.4 % |
-| rtlopt_register | 1.00 | 8986.8 | 9085.5 | +1.1 % | worse | +1.1 % | +0.8 % | 9780.0 / 9582.9 / -2.0 % |
-| rtlopt_saturating_add | 1.00 | 68.9 | 67.6 | -1.9 % | better | -1.9 % | -1.9 % | 176.6 / 141.0 / -20.2 % |
-| rtlopt_selector | 0.35 | 38.8 | 37.5 | -3.4 % | better | -3.4 % | -3.4 % | 56.4 / 49.7 / -11.8 % |
-| rtlopt_sub_16bit | 2.80 | 128.7 | 117.3 | -8.9 % | better | -10.7 % | -10.7 % | 263.1 / 223.2 / -15.2 % |
-| rtlopt_sub_32bit | 1.40 | 267.3 | 268.9 | +0.6 % | worse | +1.3 % | +1.3 % | 502.2 / 452.2 / -10.0 % |
-| rtlopt_sub_4bit | 0.70 | 17.8 | 18.4 | +3.0 % | worse | +43.3 % | +43.3 % | 36.7 / 29.8 / -18.8 % |
-| rtlopt_sub_8bit | 1.40 | 45.8 | 70.8 | +54.6 % | worse | +13.0 % | +13.0 % | 122.6 / 112.0 / -8.7 % |
-| rtlopt_ticket_machine | 0.50 | 58.5 | 32.5 | -44.5 % | better | -44.3 % | -44.3 % | 74.5 / 51.3 / -31.1 % |
+| setting | where it comes from | count over the proven pairs |
+|---|---|---|
+| authors' released reports | data/sources/RTL-OPT/Results/RTL-OPT_DC: `compile` (not compile_ultra) at CLOCK_PERIOD 0.1 ns with set_max_delay from all inputs to all outputs, set_transform_for_retiming dont_retime, register merging / sequential area recovery / clock gating through hierarchy off, ungroup -all -flatten, DC T-2022.03-SP2, the authors' own Nangate45 typical.db (their released run_dc.tcl and command.log) | 34 better / 0 same / 0 worse of 34 (their reports, their DC) |
+| `E1_authors` | the released scripts' settings reproduced on DC W-2024.09 with this project's SDC (I/O delays 20 % of the period added to their input-to-output max-delay; standard synthetic library); compile string `set_app_var compile_enable_register_merging false; set_app_var compile_sequential_area_recovery false; set_fix_multiple_port_nets -all -buffer_constants -feedthroughs [all_designs]; set_max_delay -from [all_inputs] -to [all_outputs] 0.1; set_transform_for_retiming [get_cells *] dont_retime; compile` | 25 better / 1 same / 7 worse / 1 not evaluated |
+| `E2_1ns` | the paper's Table 1 setting as described (compile_ultra, 1 ns, no retime, no gate clock; DesignWare Foundation; this project's SDC) reproduced on W-2024.09; compile string `compile_ultra` | 13 better / 4 same / 16 worse / 1 not evaluated |
+
+The paper's Table 1 reports 35 of 36 better (RTL-OPT Table 1, compile_ultra 1 ns) for the compile_ultra / 1 ns setting; the released artifacts document the plain-compile / 0.1 ns setting. The rows above state what each artifact and each reproduction shows; the remaining differences between the released scripts and this project's flow are the DC version, the I/O constraint form and the library compilation. At the knee period the same pairs under E2 and E4 are listed for reference.
+
+| pair | phi_main (ns) | authors' released: D / ref / rel. | E1_authors: D / ref / rel. | E2_1ns: D / ref / rel. | rel. area E2 (knee) | rel. area E4 (knee) |
+|---|---|---|---|---|---|---|
+| rtlopt_add_sub | 2.80 | 444.2 / 357.0 / -19.6 % | 409.4 / 347.4 / -15.1 % | 142.3 / 195.0 / +37.0 % | +93.7 % | +93.7 % |
+| rtlopt_adder | 4.00 | 688.4 / 639.7 / -7.1 % | 696.7 / 601.4 / -13.7 % | 532.3 / 469.5 / -11.8 % | +12.0 % | +12.0 % |
+| rtlopt_adder_carry | 1.40 | 98.7 / 54.0 / -45.3 % | 92.0 / 56.7 / -38.4 % | 64.1 / 64.1 / +0.0 % | +0.0 % | +0.0 % |
+| rtlopt_adder_select | 4.00 | 812.1 / 522.7 / -35.6 % | 796.4 / 562.3 / -29.4 % | 385.2 / 396.6 / +3.0 % | +6.4 % | +6.4 % |
+| rtlopt_addr_calcu | 2.00 | 388.1 / 214.4 / -44.8 % | 388.4 / 214.7 / -44.7 % | 158.8 / 158.3 / -0.3 % | +4.3 % | +4.3 % |
+| rtlopt_alu_64bit | 2.00 | 3028.4 / 1748.9 / -42.2 % | 2953.1 / 1752.1 / -40.7 % | 1848.2 / 1879.3 / +1.7 % | +4.0 % | +4.0 % |
+| rtlopt_alu_8bit | 2.00 | 370.0 / 245.8 / -33.6 % | 376.1 / 222.4 / -40.9 % | 214.4 / 219.7 / +2.5 % | -28.2 % | -28.2 % |
+| rtlopt_calculation | 4.00 | 997.5 / 761.8 / -23.6 % | 1017.7 / 787.1 / -22.7 % | 1161.9 / 895.9 / -22.9 % | -16.9 % | -17.6 % |
+| rtlopt_comparator | 1.00 | 98.2 / 80.6 / -17.9 % | 77.1 / 81.1 / +5.2 % | 41.8 / 56.4 / +35.0 % | +35.0 % | +35.0 % |
+| rtlopt_comparator_16bit | 1.00 | 244.5 / 169.2 / -30.8 % | 205.6 / 152.2 / -26.0 % | 88.3 / 123.7 / +40.1 % | +40.1 % | +40.1 % |
+| rtlopt_comparator_2bit | 0.35 | 14.4 / 13.0 / -9.3 % | 13.3 / 10.4 / -22.0 % | 9.6 / 8.8 / -8.3 % | -8.3 % | -8.3 % |
+| rtlopt_comparator_4bit | 0.50 | 25.8 / 23.1 / -10.3 % | 26.3 / 22.6 / -14.1 % | 21.3 / 18.4 / -13.8 % | -10.0 % | -10.0 % |
+| rtlopt_comparator_8bit | 0.70 | 71.3 / 67.3 / -5.6 % | 63.8 / 58.8 / -7.9 % | 44.4 / 41.2 / -7.2 % | -7.2 % | -7.2 % |
+| rtlopt_decoder_6bit | 0.35 | 208.0 / 106.7 / -48.7 % | 169.2 / 88.0 / -48.0 % | 71.6 / 76.6 / +7.1 % | +8.6 % | +8.6 % |
+| rtlopt_decoder_8bit | 0.50 | 856.0 / 373.2 / -56.4 % | 712.1 / 310.4 / -56.4 % | 246.8 / 257.2 / +4.2 % | +12.8 % | +12.8 % |
+| rtlopt_fsm | 1.00 | 192.9 / 129.8 / -32.7 % | 186.2 / 140.4 / -24.6 % | 128.7 / 92.0 / -28.5 % | -28.5 % | -28.5 % |
+| rtlopt_fsm_encode | 1.40 | 488.9 / 426.7 / -12.7 % | 528.8 / 449.3 / -15.0 % | 396.9 / 300.6 / -24.3 % | -10.5 % | -13.5 % |
+| rtlopt_gray | 0.50 | 109.1 / 94.7 / -13.2 % | 106.4 / 104.8 / -1.5 % | 68.6 / 69.2 / +0.8 % | +0.8 % | +0.8 % |
+| rtlopt_mul | 2.00 | 453.0 / 426.4 / -5.9 % | 461.2 / 469.5 / +1.8 % | 333.0 / 345.5 / +3.8 % | +0.0 % | +0.0 % |
+| rtlopt_mul_const | 1.00 | 122.9 / 114.6 / -6.7 % | 98.4 / 81.9 / -16.8 % | 42.0 / 42.0 / +0.0 % | +0.0 % | +0.0 % |
+| rtlopt_mul_subexpression | 2.80 | 623.2 / 603.8 / -3.1 % | 605.9 / 701.2 / +15.7 % | 370.3 / 387.6 / +4.7 % | +0.0 % | +0.0 % |
+| rtlopt_mult_if | 0.50 | 16.0 / 14.9 / -6.7 % | 14.4 / 18.6 / +29.6 % | 10.9 / 10.1 / -7.3 % | -7.3 % | -7.3 % |
+| rtlopt_mux_4to1_16bit | 0.50 | 77.4 / 73.7 / -4.8 % | 64.4 / 64.4 / +0.0 % | 60.6 / 60.6 / +0.0 % | +0.0 % | +0.0 % |
+| rtlopt_mux_4to1_64bit | 0.50 | 263.9 / 260.7 / -1.2 % | 261.7 / 258.6 / -1.2 % | 234.1 / 234.1 / +0.0 % | -0.4 % | -0.4 % |
+| rtlopt_mux_dead | 0.35 | 38.3 / 31.9 / -16.7 % | 31.9 / - / - | 21.8 / - / - | - | - |
+| rtlopt_mux_large | 0.70 | 273.4 / 176.6 / -35.4 % | 90.7 / 102.1 / +12.6 % | 96.8 / 97.6 / +0.8 % | +1.1 % | +1.1 % |
+| rtlopt_register | 1.00 | 9780.0 / 9582.9 / -2.0 % | 10241.3 / 9726.6 / -5.0 % | 8986.8 / 9085.5 / +1.1 % | +1.1 % | +0.8 % |
+| rtlopt_saturating_add | 1.00 | 176.6 / 141.0 / -20.2 % | 162.5 / 134.6 / -17.2 % | 68.9 / 67.6 / -1.9 % | -1.9 % | -1.9 % |
+| rtlopt_selector | 0.35 | 56.4 / 49.7 / -11.8 % | 57.7 / 45.5 / -21.2 % | 38.8 / 37.5 / -3.4 % | -3.4 % | -3.4 % |
+| rtlopt_sub_16bit | 2.80 | 263.1 / 223.2 / -15.2 % | 199.0 / 196.8 / -1.1 % | 128.7 / 117.3 / -8.9 % | -10.7 % | -10.7 % |
+| rtlopt_sub_32bit | 1.40 | 502.2 / 452.2 / -10.0 % | 497.2 / 379.3 / -23.7 % | 267.3 / 268.9 / +0.6 % | +1.3 % | +1.3 % |
+| rtlopt_sub_4bit | 0.70 | 36.7 / 29.8 / -18.8 % | 27.9 / 29.8 / +6.7 % | 17.8 / 18.4 / +3.0 % | +43.3 % | +43.3 % |
+| rtlopt_sub_8bit | 1.40 | 122.6 / 112.0 / -8.7 % | 88.6 / 92.3 / +4.2 % | 45.8 / 70.8 / +54.6 % | +13.0 % | +13.0 % |
+| rtlopt_ticket_machine | 0.50 | 74.5 / 51.3 / -31.1 % | 88.0 / 54.3 / -38.4 % | 58.5 / 32.5 / -44.5 % | -44.3 % | -44.3 % |
 
 The four RTL-OPT divider references of §4a were inspected by hand (G5 item 4 (c)): the pairs differ only on division by zero with the dividend's MSB set (non-restoring vs restoring algorithm) and agree for every non-zero divisor; analysis, traces and the confirming directed simulation in reports/data/phase4_divider_counterexamples.md.
 

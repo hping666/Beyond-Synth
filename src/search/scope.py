@@ -362,14 +362,35 @@ def region_text(design, region, top):
         if mod == top and len(design) == 1:
             return (f"Scope of this rewrite: the whole module `{mod}` (critical endpoints: {regs}). Return the complete file; "
                     f"module names, ports and the interface stay as given.\n")
-        return (f"Scope of this rewrite: rewrite only module `{mod}` (it holds the critical endpoint registers {regs}). Return the complete file(s) "
-                f"with every other module textually unchanged.\n")
+        return (f"Scope of this rewrite: rewrite only module `{mod}` (it holds the critical endpoint registers {regs}); every other module of the design stays "
+                f"as it is. Return the rewritten module `{mod}` in full (you may return only this module: every module you do not return is taken unchanged from the original; "
+                f"any other module you do return must be textually unchanged). The module's name and ports stay as given.\n")
     items = design[mod]["items"]
     blocks = [items[i] for i in region["items"]]
     desc = "; ".join(f"the always block at line {b['line']} assigning {', '.join(b['targets'][:6])}" for b in blocks)
     return (f"Scope of this rewrite: in module `{mod}` rewrite only {desc} (critical endpoints: {regs}). Return the complete file; every other "
             f"always block, assign statement, instantiation, function and task of the design must be returned textually unchanged "
             f"(declarations — wires, regs, localparams — may be added or changed).\n")
+
+
+def splice(d_text, c_text, region):
+    """Module-level regions (multi-module designs): an answer may return only the rewritten module(s); every module of D that
+    the answer does not contain is taken verbatim from D's text (operator decision 2026-09-15 after the probe: both models
+    returned the region module alone in 41 of 41 answers and 55 answers lacked the top module). -> (full_text, spliced
+    module names). Block-level regions and answers that contain every module are returned unchanged."""
+    if region is None or region.get("kind") != "module":
+        return c_text, []
+    d_mods = V.module_spans(d_text)
+    c_names = set(V.module_names(c_text))
+    missing = [m for m in d_mods if m[0] not in c_names]
+    if not missing or region["module"] in [m[0] for m in missing]:
+        return c_text, []            # nothing to add, or the region itself is absent (the answer is not a rewrite of the region)
+    d_raw = d_text
+    pieces = [c_text.rstrip() + "\n"]
+    for name, first, last, body in missing:
+        lines = d_raw.splitlines()
+        pieces.append("\n" + "\n".join(lines[first - 1:last]) + "\n")   # the original module text, comments included (line numbers from the comment-stripped scan match the raw text)
+    return "".join(pieces), [m[0] for m in missing]
 
 
 def verify(d_text, c_text, region):

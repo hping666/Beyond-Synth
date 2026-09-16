@@ -757,3 +757,48 @@ def test_disk_guard_pauses_submissions_and_resumes(env, monkeypatch):
     assert ok and f == 40.0 and thr == 15.0
     cfg["retention"]["min_free_gb"] = 0
     assert R.disk_ok(cfg)[0] is True                                                        # threshold 0: the guard never holds
+
+
+def test_module_scope_answers_with_only_the_region_module_are_spliced_and_issued(env):
+    """Operator decision 2026-09-15: on a multi-module design the model may return only the region module; the driver
+    splices D's other modules in, the top-module check passes, the candidate is issued with the spliced modules recorded;
+    an answer without the region module stays unusable; a returned other module that differs is still a violation."""
+    cfg, conn, q, tmp_path = env
+    from src.designs import catalog as K
+    from src.search.driver import SearchRun
+    two = ("module sub(input clk, input [3:0] a, output reg [3:0] s);\n  always @(posedge clk) s <= a + 4'd1;\nendmodule\n\n"
+           "module d3(input clk, input rst_n, input [3:0] x, output [3:0] y);\n  wire [3:0] s;\n  sub u0(.clk(clk), .a(x), .s(s));\n  assign y = s;\nendmodule\n")
+    ddir = tmp_path / "designs" / "rtllm" / "d3"
+    (ddir / "rtl").mkdir(parents=True)
+    (ddir / "rtl" / "d3.v").write_text(two)
+    d = {"design_id": "rtllm_d3", "suite": "rtllm", "name": "d3", "top": "d3", "files": ["rtl/d3.v"], "clk_ports": ["clk"], "rst_port": "rst_n", "rst_sense": "low",
+         "sverilog": False, "incdirs": [], "tb": None, "reference": None, "source": {"url": "u", "commit": "c", "license": "l", "paths": []},
+         "sha256": {"rtl/d3.v": K.sha256_of(ddir / "rtl" / "d3.v")}, "loc": 9, "tags": ["rtllm"], "notes": [], "_dir": str(ddir)}
+    K.write_design(d)
+    conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES ('rtllm_d3','rtllm','d3','x',9,1,'dev',1.0,'t','g','c')")
+    crit = {"critical": {"endpoint": "u0/s_reg[0]", "startpoint": "x[0]"}, "endpoints": [["x[0]", "u0/s_reg[0]", 0.1]]}
+    db.insert(conn, "evaluations", {"design_id": "rtllm_d3", "is_baseline": 1, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 100.0, "cells": 20, "wns_ns": 0.1, "tns_ns": 0.0,
+                                    "power_saif_mw": 1.0, "status": "ok", "raw_dir": "/x/base3", "hist_json": json.dumps({"DFF_X1": 4}), "crit_path_json": json.dumps(crit)})
+    from src.noise import stats as S
+    S.upsert_floor(conn, [{"design_id": "rtllm_d3", "config": "E4", "metric": m, "sigma_robust": 0.0, "sigma_std": 0.0, "q95_abs": 0.0, "max_abs": 0.0, "n": 4, "abs_unit_value": None,
+                           "t_d": t, "floor_class": "quiet", "floor_source": "measured", "pooled_min": t} for m, t in (("area", 0.003), ("wns", 0.001), ("power_saif", 0.014))])
+    region_only = "module sub(input clk, input [3:0] a, output reg [3:0] s);\n  always @(posedge clk) s <= {a[3:1], ~a[0]};\nendmodule\n"
+    top_only = "module d3(input clk, input rst_n, input [3:0] x, output [3:0] y);\n  assign y = x;\nendmodule\n"
+    changed_other = region_only + "\nmodule d3(input clk, input rst_n, input [3:0] x, output [3:0] y);\n  wire [3:0] s;\n  sub u0(.clk(clk), .a(x), .s(s));\n  assign y = ~s;\nendmodule\n"
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d3", seed=1, model="gpt-5.6-luna", K=1, N=3, queue=q, transport=ListTransport([region_only, top_only, changed_other]))
+    region, text = run.region_for(None)
+    assert region["kind"] == "module" and region["module"] == "sub" and "you may return only this module" in text
+    assert run.step() == "running"
+    rows = {r["cand_id"]: dict(r) for r in conn.execute("SELECT * FROM candidates WHERE run_id=?", (run.run_id,))}
+    issued = [r for r in rows.values() if r["eq_job_id"]]
+    viol = [r for r in rows.values() if r["label"] == "scope_violation"]
+    assert len(issued) == 1 and len(viol) == 2 and len(rows) == 3                                  # region-only: issued; top-only and changed-other: violations (the top module is outside the region)
+    sj = json.loads(issued[0]["scope_json"])
+    assert sj["spliced"] == ["d3"] and set(sj["region"]["registers"]) == {"s"}
+    stored = Path(issued[0]["rtl_path"]).read_text()
+    assert "module d3(" in stored and "assign y = s;" in stored and "~a[0]" in stored                # the full file: the rewritten sub plus D's top
+    assert not list(run.dir.glob("unusable_*.json"))                                                # nothing unusable: the splice made every answer a full file
+    assert all(json.loads(v["scope_json"])["violations"][0]["module"] == "d3" for v in viol)
+    superseded = SearchRun.create(cfg, conn, exp="smoke", arm="M", design_id="rtllm_d3", seed=2, model="gpt-5.6-luna", K=1, N=1, queue=q, transport=ListTransport([region_only]))
+    conn.execute("UPDATE runs SET status='superseded' WHERE run_id=?", (superseded.run_id,))
+    assert superseded.run(sleep=lambda s: None) == "superseded" and superseded.state["calls"] == 0     # a stopped run never continues when its job is retried
