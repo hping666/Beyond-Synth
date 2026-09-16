@@ -76,6 +76,7 @@ def test_prelaunch_caps_in_both_directions(env, monkeypatch, tmp_path):
     monkeypatch.setattr(PM, "per_call_stats", lambda cfg, conn: {("gpt-5.6-luna", t): {"usd_per_call": 0.01, "vcf_s_per_call": 60.0, "proven_per_call": 0.3, "accepted_per_call": 0.1, "e4_s_per_proven": 100.0} for t in ("small", "medium", "large")})
     monkeypatch.setattr(PM, "projection", lambda cfg, conn, pl: {"llm_usd": 50.0, "vcf_hours": 100.0, "dc_hours": 200.0, "disk_gb": 10.0, "by_model": {"gpt-5.6-luna": {"runs": len(pl["runs"]), "usd": 50.0}}, "sources": {}, "t_e4_by_tier": {}, "runs": len(pl["runs"]), "calls": 60 * len(pl["runs"])})
     monkeypatch.setattr(PM.shutil, "disk_usage", lambda p: type("U", (), {"free": 80e9, "total": 1e12, "used": 9e11})())
+    monkeypatch.setattr(PM, "preflight", lambda cfg_, conn_, pl: [])                                              # the prerequisites are the preflight test's subject
     go, pl, pr, checks, text = PM.prelaunch(cfg, conn, write=False)
     assert go and "**GO**" in text and all(v[2] for v in checks.values())
     cfg["exp5"]["launch_caps"]["vcf_hours"] = 50                                                                   # one projection outside its cap: no-go
@@ -127,3 +128,33 @@ def test_disk_reserve_and_scope_report(env, monkeypatch):
     out, lines = PM.scope_report(conn, "phase5")
     assert out["M"] == {"gen1_issued": 2, "gen1_flagged": 1, "all_issued": 3, "all_flagged": 2} and out["B2"] == {"gen1_issued": 1, "gen1_flagged": 0, "all_issued": 1, "all_flagged": 0}
     assert any("| M | 2 | 1 | 50 % | 3 | 2 | 67 % |" in ln for ln in lines)
+
+
+def test_preflight_catches_a_missing_fitness_baseline_before_any_run_is_created(env, tmp_path, monkeypatch):
+    """The launch of 2026-09-15 21:05 aborted on its first run (arm B0 without a Y baseline on a large-tier design): the preflight now
+    checks every (arm, design) pair up front and the pre-launch check is NO-GO while a pair is not ready (both directions)."""
+    cfg, conn = env
+    from src.designs import catalog as K
+    monkeypatch.setattr(K, "load_all", lambda: [{"design_id": d} for d in ("s1", "s2", "m1", "l1")])
+    for did, phi in (("s1", 1.0), ("s2", 1.0), ("m1", 2.0), ("l1", 0.5)):
+        conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES (?,?,?,?,?,?,?,?,?,?,?)", (did, "x", did, "p", 1, 1, "held", phi, "t", "g", "c"))
+        for cfgname in ("E4", "Y"):
+            if did == "l1" and cfgname == "Y":
+                continue                                                                                       # the large design never had a Yosys baseline
+            db.insert(conn, "evaluations", {"design_id": did, "is_baseline": 1, "config": cfgname, "lib": "nangate45", "clock_ns": phi, "area_um2": 1.0, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": f"/v/{did}_{cfgname}", "hist_json": "{}"})
+        if did != "s2":
+            db.insert(conn, "noise_floor", {"design_id": did, "config": "E4", "metric": "area", "sigma_robust": 0.0, "t_d": 0.01, "floor_source": "measured"})
+    probe_runs(conn, {"gpt-5.6-terra": {"p1": 6, "p2": 6, "p3": 6}, "gpt-5.6-sol": {"p1": 6, "p2": 6, "p3": 6}})
+    pl = PM.plan(cfg, conn)
+    pf = PM.preflight(cfg, conn, pl)
+    assert ("B0", "l1", "no Y baseline at Phi_main 0.5") in pf
+    assert {(a, d) for a, d, why in pf if "floor" in why} == {("M", "s2")}                                          # only arm M truncates by the rule-A floor; the baseline arms have floor none
+    assert not [x for x in pf if x[1] in ("s1", "m1")]
+    import shutil
+    monkeypatch.setattr(shutil, "disk_usage", lambda p: type("U", (), {"free": 200e9, "total": 1e12, "used": 8e11})())
+    monkeypatch.setattr(PM, "projection", lambda cfg_, conn_, pl: {"llm_usd": 1.0, "vcf_hours": 1.0, "dc_hours": 1.0, "disk_gb": 1.0, "by_model": {}, "sources": {}, "runs": 0, "calls": 0})
+    go, _, _, _, text = PM.prelaunch(cfg, conn, write=False)
+    assert not go and "preflight" in text and "B0 / l1: no Y baseline" in text
+    db.insert(conn, "evaluations", {"design_id": "l1", "is_baseline": 1, "config": "Y", "lib": "nangate45", "clock_ns": 0.5, "area_um2": 1.0, "cells": 1, "wns_ns": 0.0, "tns_ns": 0.0, "status": "ok", "raw_dir": "/v/l1_Y", "hist_json": "{}"})
+    db.insert(conn, "noise_floor", {"design_id": "s2", "config": "E4", "metric": "area", "sigma_robust": 0.0, "t_d": 0.01, "floor_source": "measured"})
+    assert PM.preflight(cfg, conn, PM.plan(cfg, conn)) == [] and PM.prelaunch(cfg, conn, write=False)[0]

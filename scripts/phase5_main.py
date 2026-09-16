@@ -93,6 +93,39 @@ def plan(cfg, conn):
             "probe": {"proven": proven, "qualifies": qualifies, "finished": finished, "zero": zero, "runs": n_probe}}
 
 
+def preflight(cfg, conn, pl):
+    """Every (arm, design) of the matrix checked before a single run is created (the launch of 21:05 aborted on the first run:
+    arm B0 needs a Yosys (Y) baseline at Phi_main, which the large-tier designs never had). -> [(arm, design_id, problem)]."""
+    from src.designs import catalog as K
+    defined = cfg["search"].get("arms") or {}
+    cat = {d["design_id"] for d in K.load_all()}
+    problems, seen = [], set()
+    for r in pl["runs"]:
+        key = (r["arm"], r["design_id"])
+        if key in seen:
+            continue
+        seen.add(key)
+        arm, did = key
+        armdef = defined.get(arm) or ({} if arm != "M" else {"fitness": "E4", "floor": "rule_a"})
+        if arm not in defined and arm != "M":
+            problems.append((arm, did, "no arm definition in config search.arms"))
+            continue
+        if did not in cat:
+            problems.append((arm, did, "not in the design catalog"))
+            continue
+        row = conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (did,)).fetchone()
+        if row is None or row[0] is None:
+            problems.append((arm, did, "no Phi_main"))
+            continue
+        phi = float(row[0])
+        fit = str(armdef.get("fitness") or "E4")
+        if not conn.execute("SELECT 1 FROM evaluations WHERE design_id=? AND config=? AND is_baseline=1 AND cand_id IS NULL AND pert_id IS NULL AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (did, fit, phi)).fetchone():
+            problems.append((arm, did, f"no {fit} baseline at Phi_main {phi}"))
+        if str(armdef.get("floor", "rule_a")) != "none" and not conn.execute("SELECT 1 FROM noise_floor WHERE design_id=? AND config='E4' AND metric='area' LIMIT 1", (did,)).fetchone():
+            problems.append((arm, did, "no E4 noise floor"))
+    return problems
+
+
 def matrix_tables(pl):
     """Markdown: runs per (model, arm) and per (tier, model, role) — the launch summary of decision 2026-09-15 evening, item 7."""
     from collections import Counter
@@ -240,8 +273,11 @@ def prelaunch(cfg, conn, write=True):
               "vcf_hours": (pr["vcf_hours"], cp["vcf_hours"], pr["vcf_hours"] <= cp["vcf_hours"]),
               "dc_hours": (pr["dc_hours"], cp["dc_hours"], pr["dc_hours"] <= cp["dc_hours"])}
     probe = pl["probe"]
-    go = all(v[2] for v in checks.values()) and probe["finished"] and not probe["zero"]
+    pf = preflight(cfg, conn, pl)
+    go = all(v[2] for v in checks.values()) and probe["finished"] and not probe["zero"] and not pf
     reasons = [k for k, v in checks.items() if not v[2]]
+    if pf:
+        reasons.append(f"preflight: {len(pf)} (arm, design) pairs lack a prerequisite, e.g. {pf[0][0]} / {pf[0][1]}: {pf[0][2]}")
     if not probe["finished"]:
         reasons.append("probe not finished")
     if probe["zero"]:
@@ -261,7 +297,8 @@ def prelaunch(cfg, conn, write=True):
           "## Run matrix", "", f"{pr['runs']} runs, {pr['calls']} LLM calls: " + ", ".join(f"{m} {v['runs']} runs" for m, v in pr["by_model"].items()) + "."
           + (f" Arms without a driver definition are not in this launch and follow once implemented: {', '.join(pl['skipped_arms'])}." if pl.get("skipped_arms") else ""), ""]
     L += matrix_tables(pl)
-    L += ["", f"Seat targets at launch: vcf_seats_target = dc_seats_target = {cfg['exp5']['launch_caps'].get('bulk_seats_target')} (restored to the Phase 3-4 targets afterwards); search runs in their own pool of {cfg['queue'].get('search_max')}.", "",
+    L += ["", f"Seat targets at launch: vcf_seats_target = dc_seats_target = {cfg['exp5']['launch_caps'].get('bulk_seats_target')} (restored to the Phase 3-4 targets afterwards); search runs in their own pool of {cfg['queue'].get('search_max')}.",
+          "", "Preflight (fitness baseline at Phi_main, E4 noise floor, arm definition for every (arm, design) of the matrix): " + ("every pair ready" if not pf else f"{len(pf)} pairs not ready — " + "; ".join(f"{a} / {d}: {why}" for a, d, why in pf[:8]) + (" ..." if len(pf) > 8 else "")), "",
           "## Projections against the caps", "", "| quantity | projected | cap | inside |", "|---|---|---|---|"]
     for k, (v, c, ok) in checks.items():
         L.append(f"| {k} | {'-' if v is None else f'{v:.1f}'} | {c:.1f} | {'yes' if ok else 'NO'} |")

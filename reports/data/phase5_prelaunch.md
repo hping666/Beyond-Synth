@@ -1,15 +1,15 @@
-# Phase 5 pre-launch report (2026-09-15T19:15; decisions 2026-09-15 item 6 and evening items 3 / 7)
+# Phase 5 pre-launch report (2026-09-15T21:05; decisions 2026-09-15 item 6 and evening items 3 / 7)
 
-**NO-GO** — probe not finished
+**GO**
 
 ## Probe (G5 item 1)
 
 | model | cktevo_nn_engine__spikeLayer8_H7 | drrtl_datapath | drrtl_pcie | qualifies (>= 5 proven on a design) |
 |---|---|---|---|---|
 | gpt-5.6-terra | 3 | 41 | 47 | yes |
-| gpt-5.6-sol | 0 | 50 | 47 | yes |
+| gpt-5.6-sol | 0 | 54 | 51 | yes |
 
-Probe runs: 12, finished: False. Model assignment by tier (decision 2026-09-15 evening, item 3; supersedes the probe rule for the large tier): small: gpt-5.6-luna on every arm, gpt-5.6-terra on M/B2 (second); medium: gpt-5.6-luna on every arm, gpt-5.6-terra on M/B2 (second); large: gpt-5.6-terra on every arm, gpt-5.6-luna on M (contrast). Probe designs below min_proven under every model: cktevo_nn_engine__spikeLayer8_H7 — kept in the large tier; their near-zero proven rate is the LLM-correctness limit and is reported as such (item 4).
+Probe runs: 12, finished: True. Model assignment by tier (decision 2026-09-15 evening, item 3; supersedes the probe rule for the large tier): small: gpt-5.6-luna on every arm, gpt-5.6-terra on M/B2 (second); medium: gpt-5.6-luna on every arm, gpt-5.6-terra on M/B2 (second); large: gpt-5.6-terra on every arm, gpt-5.6-luna on M (contrast). Probe designs below min_proven under every model: cktevo_nn_engine__spikeLayer8_H7 — kept in the large tier; their near-zero proven rate is the LLM-correctness limit and is reported as such (item 4).
 
 ## Run matrix
 
@@ -36,11 +36,11 @@ Seat targets at launch: vcf_seats_target = dc_seats_target = 50 (restored to the
 | quantity | projected | cap | inside |
 |---|---|---|---|
 | llm_usd | 447.8 | 600.0 | yes |
-| disk_gb | 44.0 | 53.5 | yes |
+| disk_gb | 44.0 | 59.8 | yes |
 | vcf_hours | 2192.0 | 4200.0 | yes |
 | dc_hours | 1447.9 | 4000.0 | yes |
 
-Free space now 78.5 GB (cap = free minus the 20 GB margin minus the 5 GB reserve of the storage decision 2026-09-15); disk projection = the tiered policy with the kept-record equivalence slimming and the hidden registrations of `exp5.hidden_scope` / `hidden_audit_frac` (reports/data/phase5_footprint.md). Stamps: equiv_version = phase5; floor_version = phase4. DC hours count the E4 fitness runs of the proven candidates (B0: its accepted candidates), the hidden configurations per `exp5.hidden_scope` and 10 % for envelope and single-flag runs; VC Formal hours are the measured seconds per LLM call of the same model and tier (or the main model's).
+Free space now 84.8 GB (cap = free minus the 20 GB margin minus the 5 GB reserve of the storage decision 2026-09-15); disk projection = the tiered policy with the kept-record equivalence slimming and the hidden registrations of `exp5.hidden_scope` / `hidden_audit_frac` (reports/data/phase5_footprint.md). Stamps: equiv_version = phase5; floor_version = phase4. DC hours count the E4 fitness runs of the proven candidates (B0: its accepted candidates), the hidden configurations per `exp5.hidden_scope` and 10 % for envelope and single-flag runs; VC Formal hours are the measured seconds per LLM call of the same model and tier (or the main model's).
 
 ## Per-call figures used (measured where a finished run of the model on the tier exists)
 
