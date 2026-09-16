@@ -63,7 +63,7 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - Results database: 24 059 evaluations (+E1_authors), 3 035 + probe candidates; `db_check.py` 0 problems at the last check (17:00). Schema additions today: `candidates.repair_of`, `scope_json`, `features_json` at issue time; diagnoses label `scope_violation`; runs exp `phase5_probe`.
 - Snapshots: `phase4-20260915-review`, `phase4-20260915-1115`.
 - Retention: tiered policy on (`retention.tiered`), kept records slimmed of their regenerable equivalence artifacts (`tiered_eq_delete_kept`, storage decision 2026-09-15), sim_fail VCD 5 % seeded sample, disk guard 15 GB with the relocation contingency; the retroactive prune of 2026-09-15 freed 60 GB of disk (78.5 GB free at 19:22).
-- Tests: `pytest tests/` → **385 passed, 15 skipped**.
+- Tests: `pytest tests/` → **386 passed, 15 skipped**.
 
 ## Open questions and known risks
 
@@ -72,6 +72,7 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - The large tier's proven rate: the probe shows terra and sol proving on drrtl_pcie and drrtl_datapath (≥ 13 each) and near zero on spikeLayer8_H7.
 - **Block-level scope**: amended per the evening decision (item 2): out-of-scope edits are restored from D and flagged, never discarded. Smoke rates under the canonical verifier: DrRTL_reimpl / drrtl_controller 3 of 4 (round 1), M / drrtl_controller 3 of 3, M / rtllm_traffic_light 0 of 3 — real edits of the FSM block outside the output-decode region.
 - **Disk**: the storage decision (option D + 20 % audit) brings the projection to 44.0 GB against 53.5 GB (free − 20 − 5). Contingency: when free space on / drops below 15 GB the hidden loop moves the hidden raw tree to /hdd1 (53 GB free) behind a symlink (`scripts/relocate_hidden_raw.py`; then `finalize` once no hidden job runs). Kept-record reading: the decision's list (equiv.json, logs, seq.tcl, counterexamples, candidate copy) plus the SAIF; the lock-step VCD / trace / ports of proven candidates go (keeping them would project 66.9 GB).
+- **Runaway simulations**: a candidate's lock-step VCD reached 36 GB in 18 minutes (a zero-delay loop, 2026-09-16 04:50; DECISIONS "Runaway lock-step simulation"); `queue.max_file_gb` now caps simulation / equivalence jobs at 8 GB per file (ulimit -f) — such a job fails cleanly.
 - **LLM rate limits**: `llm.retry` waits 15 → 480 s on 429 / 5xx / connection errors (the old 2 / 4 / 6 s backoff killed a sol probe run twice); a run killed anyway keeps its state and can be resubmitted as a search job.
 - Transient disk footprint of in-flight proofs: the probe's equivalence records on spikeLayer8_H7 reach ≈ 0.5 GB each (VCS build + VC Formal databases) until the candidate is final and slimmed; 12 probe runs held ≈ 12 GB at 18:20. With 16 concurrent runs on large designs the transient can reach 20–40 GB on top of the retained footprint; the disk guard (15 GB) pauses submissions rather than failing.
 - DPV phase mapping (engineering item (v), "only if time remains"): deliberately not started today — a change of the equivalence stack under a pre-authorised launch would make Phase 5 verdicts heterogeneous; proposed for the user's decision as a Phase 6 / post-launch item.
@@ -90,7 +91,7 @@ python3 scripts/phase5_autolaunch.py status   # waiting / launched / no-go, with
 python3 scripts/phase5_probe.py status        # per (model, design) proven, verdict, repair yield, scope violations
 python3 scripts/phase5_main.py status         # after the launch: runs by model / arm / tier
 python3 scripts/hidden_loop.py status
-pytest tests/ -x -q                  # 385 passed, 15 skipped
+pytest tests/ -x -q                  # 386 passed, 15 skipped
 git status --short && git log --oneline -3
 df -h / | tail -1
 ```
