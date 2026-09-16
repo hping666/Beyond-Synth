@@ -344,6 +344,7 @@ def test_dispatch_alternates_designs_within_a_priority_level(tmp_path):
     rows = [mk("a1", "A", 4, "01"), mk("a2", "A", 4, "02"), mk("a3", "A", 4, "03"), mk("b1", "B", 4, "04"), mk("b2", "B", 4, "05"), mk("c1", "C", 4, "06"), mk("hi", "A", 9, "07")]
     rows.sort(key=lambda r: (-r["priority"], r["submitted_at"]))
     assert [r["job_id"] for r in round_robin_by_design(rows)] == ["hi", "a1", "b1", "c1", "a2", "b2", "a3"]
+    assert [r["job_id"] for r in round_robin_by_design(rows, {"A": 5, "B": 2, "C": 0})] == ["hi", "c1", "b1", "a1", "b2", "a2", "a3"]   # the design with the fewest seats goes first
     cfg = make_cfg()
     cfg["queue"]["local_max"] = 4
     cfg["queue"]["per_design_max"] = {"local": 3}

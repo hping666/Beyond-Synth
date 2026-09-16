@@ -49,16 +49,19 @@ def _ts(iso):
     return datetime.datetime.fromisoformat(iso).timestamp()
 
 
-def round_robin_by_design(rows):
-    """Queued jobs re-ordered so that, within one priority level, designs alternate (each design's own jobs keep their order): the
-    per-design fairness cap bounds a design's seats, this gives every design a share of the seats that free up."""
+def round_robin_by_design(rows, running_by_design=None):
+    """Queued jobs re-ordered so that, within one priority level, designs alternate (each design's own jobs keep their order),
+    the design holding the fewest running seats first: the per-design fairness cap bounds a design's seats, this gives every
+    design a share of the seats that free up even when only a few free per tick."""
     from collections import OrderedDict
+    running_by_design = running_by_design or {}
     out = []
     by_pri = OrderedDict()
     for r in rows:
         by_pri.setdefault(r["priority"], OrderedDict()).setdefault(r["design_id"] or "", []).append(r)
     for pri, designs in by_pri.items():
-        queues = list(designs.values())
+        order = sorted(designs, key=lambda d: (int(running_by_design.get(d, 0)), list(designs).index(d)))
+        queues = [designs[d] for d in order]
         while any(queues):
             for q in queues:
                 if q:
@@ -345,7 +348,8 @@ class Queue:
                 "SELECT * FROM jobs WHERE state IN ('queued','backoff') AND pool=? "
                 "ORDER BY priority DESC, submitted_at ASC, job_id ASC LIMIT ?", (pool, -1 if per_design else free)).fetchall()   # with a per-design cap the whole queue is scanned: a window of free + 200 rows starved every other design behind one design's backlog (2026-09-16, 480 queued proofs of one design)
             if per_design:
-                rows = round_robin_by_design(rows)   # 2026-09-16: within a priority level the designs take turns, so no design waits behind another's older backlog
+                running_by_design = {r[0]: r[1] for r in self.conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE state='running' AND pool=? GROUP BY design_id", (pool,))}
+                rows = round_robin_by_design(rows, running_by_design)   # 2026-09-16: within a priority level the designs take turns, the design holding the fewest seats first
             spawned = 0
             for job in rows:
                 if spawned >= free:
