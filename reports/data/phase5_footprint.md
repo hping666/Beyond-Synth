@@ -89,9 +89,9 @@ Components of the totals (GB):
 
 ## 6. Free space required
 
-Root filesystem free now: 79.9 GB. /hdd1 free: 53.3 GB.
+Root filesystem free now: 81.0 GB. /hdd1 free: 53.3 GB.
 
-| Scenario | projected growth (GB) | with a 25 % margin (GB) | fits in 80 GB? | fits after the retroactive prune (+53 GB)? | fits after freeing ~/.cache (+63 GB)? |
+| Scenario | projected growth (GB) | with a 25 % margin (GB) | fits in 81 GB? | fits after the retroactive prune (+53 GB)? | fits after freeing ~/.cache (+63 GB)? |
 |---|---|---|---|---|---|
 | current rules | 454 | 567 | no | no | no |
 | tiered policy | 38 | 47 | yes | yes | yes |
