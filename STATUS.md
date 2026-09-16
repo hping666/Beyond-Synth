@@ -4,21 +4,17 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
-**Phase 4 complete; G5 decided; the storage decision of 2026-09-15 (option A) executed; the approved re-runs (pilot latency mapping, LLM review, RTL-OPT authors' setting) are done and reported. The next action is the user's: review the B1@E4 static complement text and the B1 prefix assembly (decision 2026-09-15 item 6, pasted in the session's final message and reproducible with the snippet below); after that review the large-design correctness probe starts (`python3 scripts/phase5_probe.py create --submit`, 12 runs, cap 120 USD).**
+**Phase 5 is in its pre-launch stage under the pre-authorised conditional launch (decisions 2026-09-15, "Review and decisions after the pre-probe review", item 6). The large-design correctness probe (12 runs, arm M, terra and sol on spikeLayer8_H7 / drrtl_datapath / drrtl_pcie) is running since 17:32; a detached watcher (`scripts/phase5_autolaunch.py`, log results/queue/phase5_autolaunch.log) checks every 10 minutes and, when every probe run has finished, writes reports/data/phase5_probe_report.md, runs `scripts/phase5_main.py launch` (pre-launch report reports/data/phase5_prelaunch.md; launch only on GO) and starts the hidden-layer loop. If the watcher logs NO-GO, nothing is launched and the user decides.**
 
-State of the decisions of 2026-09-15 (DECISIONS, verbatim entry + implementation entries):
-1. Storage (option A + the sim_fail VCD amendment): done. `prune_scratch.py --tiered --apply` freed 40.36 GB of record artifacts and 11.06 GB of M6 workdirs; root filesystem **86.8 GB free** (26.4 before); results/raw 35.9 GB; db_check 0 problems. The seeded 5 % sim_fail VCD sample (`retention.sim_fail_vcd_sample`) applies at record time and in the prune. ~/.cache (63.4 GB) untouched — the user's separate call (option B).
-2. Phase 5 scenarios: `exp5.hidden_scope` H1 / H3 / H5 on every E4-evaluated candidate, H2a / H2b / H4 on accepted + audit sample; `exp5.ladder_on_accepted: phase6` unless option B happens.
-3. Pilot latency re-run: done — 28 class-(c2) candidates × 2 seeds: 26 proven on both seeds, 2 falsified (rtllm_multi_16bit); reports/phase2.md §4b. (c2) enters the map row only.
-4. gpt-5.6-sol prices: the live page (developers.openai.com/api/docs/pricing, 2026-09-15) shows 4.00 / 0.40 / 20.00 standard and 2.00 / 0.20 / 10.00 Flex, not the 5.00 / 0.50 / 30.00 and 2.50 / 0.25 / 15.00 of the decision; config corrected per item 4 (DECISIONS entry with URL and date).
-5. LLM review: done — 23 Phase 4 objects, 8 class changes (b→a 2, c1→a 1, c1→c2 5), B0 map rows untouched, shape concentrated, predictor AUROC 0.717 → 0.710; snapshot phase4-20260915-review; 0.007 USD. RTL-OPT authors' setting: done — E2_1ns on the 34 proven pairs: 13 better / 4 same / 16 worse / 1 not linkable by area; the paper's 35 of 36 is not reproduced; the authors' released reports are `compile` at 0.1 ns (all 34 better there); reports/phase4.md §4d.
-6. Pre-probe review: the static complement text and the B1 prefix assembly were pasted for the user; the probe has not been created.
+What the launch will do on GO: 540 runs (luna on B0 / B1_E4 / B2 / M over the 30 starting points × 3 seeds = 360; terra on M / B2 over all 30 × 3 = 180; the large tier's second model per the probe rule — both terra and sol already reached ≥ 5 proven on drrtl_pcie, so terra keeps it), large tier first; `queue.vcf_seats_target` and `dc_seats_target` set to 50 and the daemon restarted; `scripts/hidden_loop.py` registering H1 / H3 / H5 for every E4-evaluated candidate and H2a / H2b for accepted + audit-sample candidates every 30 minutes. Projections at 17:37 (probe unfinished): LLM 327 USD of 600, disk 43.7 GB against 59.9 (free 79.9 − 20), VC Formal 1 746 h of 4 200, DC 1 593 h of 4 000.
 
-To reproduce the review material: `python3 - <<'EOF'` with the snippet in reports/data/b1_prefix_review_snippet.md (or read src/search/prompts/static_complement.md directly); the probe command afterwards: `python3 scripts/phase5_probe.py create --submit`, then `status`.
+**Not in this launch:** arm `DrRTL_reimpl` (PLAN 5.2) has no driver definition yet (Dr.RTL's prompts, top-k path feedback and in-run skill learning are not implemented); the driver refuses to run an undefined arm; its 90 runs follow once implemented. H4 (PrimeTime) is not wired into the hidden worker.
 
-**Still to do before Phase 5 (engineering, no user decision needed):** the Phase 5 hidden-layer certification loop in `scripts/hidden_worker.py` (accepted candidates + the audit sample by `retention.is_audit_sample`, H1 / H3 / H5 on all E4-evaluated per `exp5.hidden_scope`); `scripts/phase5_sets.py` (18 medium / 6 small / 6 large held starting points, `exp5.tiers`); the Phase 5 run creation for five arms × 30 × 3 seeds and terra on M / B2; `vcf_seats_target` 50 in bulk mode (config, on the user's word); the DPV phase mapping only if time remains (G5 item 2 (v)).
+**Deviation to know about (DECISIONS "Probe launched, stopped after 10 minutes, and the scope aid amended"):** the first probe launch produced only scope violations and unusable answers because both models return the named module alone on multi-module designs; the scope aid now splices the omitted modules from D and the prompt says the model may return only the region module. Its 12 runs are `superseded` (6.7 USD of the probe cap); the second launch produces proven candidates (terra and sol 10 each on drrtl_pcie within 10 minutes; repairs of lock-step mismatches 3 of 4 proven so far).
 
-G5 report: `reports/phase4.md` (regenerated 2026-09-15 after the review; §4c duplicates, §4d RTL-OPT setting), `reports/phase4_conclusions.md`; snapshots `phase4-20260915-1115` (the G5 submission) and `phase4-20260915-review`. Headline numbers unchanged: map shape **concentrated** (B0: (a) 6 %, (b) 49 %, (c1) 100 %, (d) 94 %; all objects 16 / 43 / 88 / 73 %); rule R 37 % / 6 %; B0 proven rate 24 % (0 on the three largest designs).
+Done since the previous STATUS: decisions of 2026-09-15 recorded and implemented (disk guard `retention.min_free_gb` 15; B0's tool-neutral prefix with the Y-caliber summary only; the normalised E4 log line; `E1_authors`: 25 better / 1 same / 7 worse of 33 against `E2_1ns` 13 / 4 / 16 and the released reports 34 / 0 / 0, reports/phase4.md §4d, PROPOSAL §3.2 row); the Phase 5 starting points drawn (`exp5.starting_points`, seed 1: 6 small / 18 medium / 6 large); the launch tooling and the hidden-layer scope; tests 358 + 1 passed.
+
+G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclusions.md`; snapshots `phase4-20260915-review`, `phase4-20260915-1115`.
 
 ## Pending STOP gates
 
@@ -26,51 +22,48 @@ G5 report: `reports/phase4.md` (regenerated 2026-09-15 after the review; §4c du
 |---|---|---|---|
 | G0 | closed 2026-09-12 | reports/phase0.md | recorded in DECISIONS |
 | G1 | closed 2026-09-13 | reports/phase2.md | rule A floors, floor classes, pooled minimum (DECISIONS 2026-09-14 G1.x) |
-| G2 | closed 2026-09-13 | reports/phase2.md §4 | SEQ protocol with the all-zero initial state (G2.2); the latency mapping G2.1(b) implemented and confirmed on the pilot (26 of 28 proven, §4b) |
-| G3 | closed 2026-09-14 | reports/phase3.md | screening stays out of the main method unless AUROC ≥ 0.75 (final Phase 3 AUROC 0.721: M_noscreen dropped) |
+| G2 | closed 2026-09-13 | reports/phase2.md §4 / §4b | SEQ protocol with the all-zero initial state; the latency mapping implemented and confirmed (26 of 28 proven) |
+| G3 | closed 2026-09-14 | reports/phase3.md | screening stays out of the main method (AUROC 0.721) |
 | G4 | closed 2026-09-14 | reports/phase3.md §7 | luna main model, terra second model on M and B2, C1 scope, floor versioning |
-| G5 | closed 2026-09-15 (decided) | reports/phase4.md, reports/phase4_conclusions.md | Phase 5 go with four adjustments; engineering order; map paper; four additional tasks; tiered storage policy (DECISIONS 2026-09-15 "G5 decisions") |
-| Storage decision | closed 2026-09-15 (option A executed) | reports/data/phase5_footprint.md | 86.8 GB free; ~/.cache the user's call |
-| Pre-probe review | **open** | src/search/prompts/static_complement.md, the B1 prefix assembly | the probe starts after the user's review (decision 2026-09-15 item 6) |
+| G5 | closed 2026-09-15 | reports/phase4.md, reports/phase4_conclusions.md | Phase 5 go with four adjustments; engineering order; map paper; additional tasks; tiered storage (DECISIONS "G5 decisions") |
+| Storage decision | closed 2026-09-15 | reports/data/phase5_footprint.md | option A executed (86.8 GB free after the prune); ~/.cache stays (the user's) |
+| Pre-probe review | closed 2026-09-15 | static_complement.md v1 approved; prefix fixes applied | probe go; Phase 5 launch pre-authorised under the caps |
+| Phase 5 launch | **automatic on GO** | reports/data/phase5_prelaunch.md (written by the watcher) | none needed unless NO-GO |
 | G6+ | not reached | — | — |
 
 ## In-flight work
 
-- **Queue daemon**: running, pid 945587; pools dc cap 50 / target 24, vcf cap 50 / target 24, pt 8, local 16. Queue empty after the E2_1ns runs (68 done, 1 failed: the mux_dead reference, LINK-3), the pilot re-run (56 done) and the review job (done).
-- **Hidden worker**: no persistent process; Phase 5 certification loop not written yet.
-- No session-bound monitors or chains.
+- **Probe runs** (exp phase5_probe, 12 runs, search jobs on the local pool): gpt-5.6-terra and gpt-5.6-sol × 3 designs × 2 seeds, K 6 × N 5, cap 120 USD (10 USD spent at 17:42 including the 6.7 USD of the superseded first launch). `python3 scripts/phase5_probe.py status`.
+- **Autolaunch watcher**: `python3 scripts/phase5_autolaunch.py status` (pid file results/queue/phase5_autolaunch.pid). Stop with `stop` if the launch must not happen.
+- **Queue daemon**: running, pid 945587; targets 24 / 24 until the launch sets 50 / 50 and restarts it.
+- **Hidden loop**: started by the watcher on GO (`python3 scripts/hidden_loop.py status`).
+- Session-bound: a Monitor of this session prints the probe's progress every 5 minutes; nothing else.
 
-## Budget and hours (to the cent, 2026-09-15 17:15)
+## Budget and hours (2026-09-15 17:45)
 
 | Item | Spent | Cap (config) | Note |
 |---|---|---|---|
 | LLM phase3_calibration | 41.85 USD | 60 | closed |
-| LLM phase4_generation | 4.02 USD | 40 | closed (+0.007 USD for the review of the Phase 4 objects) |
-| LLM phase5_probe | 0.00 USD | 120 | not started (waits for the pre-probe review) |
-| LLM phase5_main | 0.00 USD | 600 | not started |
+| LLM phase4_generation | 4.02 USD | 40 | closed |
+| LLM phase5_probe | ≈ 10 USD and rising | 120 | 6.7 USD of it in the superseded first launch |
+| LLM phase5_main | 0.00 USD | 600 | projected 327 USD for the 540 runs |
 | LLM phase6_ablation | 0.00 USD | 200 | not started |
-| LLM total | 45.86 USD | 1 000 | `budget_ledger` |
-| DC hours (visible evaluations, cumulative) | ≈ 541 h | reported, not budgeted | + 68 E2_1ns runs today |
-| VC Formal hours (search runs, cumulative) | 399.4 h | reported, not budgeted | the pilot re-run (56 jobs, ≈ 0.7 h) is not a run |
-| PT hours | 0 | — | PT not used yet |
-
-`scripts/status.py` prints "DC / PT / VCF hours cumulative 0.00" because those counters read `budget_ledger` rows of kind dc / vcf that nobody writes — a known gap (open item).
+| DC hours (visible, cumulative) | ≈ 546 h | reported, not budgeted | + E2_1ns and E1_authors (136 runs) today |
+| VC Formal hours (search runs, cumulative) | ≈ 400 h + probe | reported, not budgeted | |
 
 ## Data state
 
-- Results database `results/db/results.sqlite` (append-only): 23 956 evaluations (+68 E2_1ns), 1 951 perturbations, 265 designs, 3 035 candidates; `db_check.py`: 0 problems, 0 warnings after the prune. Schema additions of 2026-09-15: `candidates.repair_of`, `candidates.scope_json`, diagnoses label `scope_violation`, runs exp `phase5_probe` (older databases rebuilt on connect).
-- Snapshots: `phase4-20260915-review` (after the LLM review), `phase4-20260915-1115` (the G5 submission).
-- `noise.floor_version: phase4` in force. Hidden results only in the hidden database (rule 3).
-- Records slimmed under the tiered policy carry a `slimmed` marker; accepted candidates, the 10 % audit sample, literature objects and failed records keep their full artifacts.
-- Tests: `pytest tests/` → **349 passed, 15 skipped**.
-- Disk: root filesystem 86.8 GB free; `results/raw` 35.9 GB; `/hdd1` 53 GB free; `~/.cache` 63.4 GB.
+- Results database: 24 059 evaluations (+E1_authors), 3 035 + probe candidates; `db_check.py` 0 problems at the last check (17:00). Schema additions today: `candidates.repair_of`, `scope_json`, `features_json` at issue time; diagnoses label `scope_violation`; runs exp `phase5_probe`.
+- Snapshots: `phase4-20260915-review`, `phase4-20260915-1115`.
+- Retention: tiered policy on (`retention.tiered`), sim_fail VCD 5 % seeded sample, disk guard 15 GB; the retroactive prune of 2026-09-15 freed 60 GB of disk (86.8 GB free after it; 79.9 GB at 17:37 with the probe's records).
+- Tests: `pytest tests/` → **359 passed, 15 skipped**.
 
 ## Open questions and known risks
 
-- Pre-probe review pending (decision 2026-09-15 item 6); the probe needs it. gpt-5.6-sol prices differ from the decision's figures (config follows the live page; see DECISIONS).
-- The large tier's proven rate for terra / sol is unknown until the probe (the footprint projection assumes 10 %).
-- RTL-OPT's Table 1 count (35 of 36 under compile_ultra 1 ns) is not reproduced (13 of 33 better); a run of the authors' exact script would isolate the remaining differences (68 DC runs) — proposal, not scheduled.
-- Scope-limited rewriting on single-module designs restricts the model to the always blocks of the critical endpoints; the violation rate is a Phase 5 metric (`exp5.correctness_aids.scope.single_module: module` widens it, a recorded config change).
+- `DrRTL_reimpl` arm not implemented (90 runs missing from the launch); the comparison of PLAN 5.2 needs it before Phase 5 closes.
+- H4 (PrimeTime) not wired into the hidden worker; `exp5.hidden_scope` lists it for accepted candidates.
+- The large tier's proven rate: the probe shows terra and sol proving on drrtl_pcie (10 each in the first generation) and near zero on spikeLayer8_H7 / drrtl_datapath so far.
+- The DC-hour cap (4 000 h) is an operator derivation (DECISIONS "Phase 5 launch tooling"); the VC Formal cap is the G4-accepted projection.
 - `scripts/status.py` hour counters show 0 (ledger rows of kind dc / vcf never written) — engineering item.
 - Hidden registration completion counts for Phase 3 / Phase 4 objects not yet reported (counts only).
 
@@ -78,22 +71,24 @@ G5 report: `reports/phase4.md` (regenerated 2026-09-15 after the review; §4c du
 
 ```bash
 cd /home/hping/Beyond-Synth && source .venv/bin/activate
-python3 scripts/status.py            # healthy: "daemon: running", every pool running=0 waiting=0, LLM total 45.86 USD, key configured, 0 orphan EDA processes
-python3 scripts/queue/daemon.py status   # healthy: "daemon: running pid=945587" (if not running: python3 scripts/queue/daemon.py start)
-python3 scripts/db_check.py          # healthy: "0 problems, 0 warnings"
-pytest tests/ -x -q                  # healthy: 349 passed, 15 skipped
-git status --short && git log --oneline -3   # healthy: clean tree
-df -h / | tail -1                    # ≈ 87 GB free after the prune of 2026-09-15
-python3 scripts/phase5_probe.py status   # no runs until the user's review; afterwards `create --submit`
+python3 scripts/status.py            # daemon running; pools; LLM totals; disk guard line
+python3 scripts/queue/daemon.py status
+python3 scripts/db_check.py          # 0 problems, 0 warnings
+python3 scripts/phase5_autolaunch.py status   # waiting / launched / no-go, with the log tail
+python3 scripts/phase5_probe.py status        # per (model, design) proven, verdict, repair yield, scope violations
+python3 scripts/phase5_main.py status         # after the launch: runs by model / arm / tier
+python3 scripts/hidden_loop.py status
+pytest tests/ -x -q                  # 359 passed, 15 skipped
+git status --short && git log --oneline -3
+df -h / | tail -1
 ```
-Then: `docs/DECISIONS.md` (tail, the 2026-09-15 entries after "Decisions on the storage estimate"), `reports/phase4.md` §4b–§4d, `docs/PLAN.md` Phase 5.
+Then: `docs/DECISIONS.md` (tail, the entries after "Review and decisions after the pre-probe review"), `reports/data/phase5_prelaunch.md`, `reports/data/phase5_probe_report.md`, `docs/PLAN.md` Phase 5.
 
 ## Done on 2026-09-15 after the gate (chronological; details in DECISIONS)
 
-- Resume checklist green; G5 decisions recorded verbatim; config `scale.starting_points` 30, `exp5` section.
-- Phase 5 storage footprint measured and projected; B1@E4 static complement prompt; SEQ latency mapping; scope-limited rewriting and the repair call; tiered retention mechanism; G5 item 4 (b) (c) (d).
-- Decisions of 2026-09-15 recorded and implemented: sim_fail VCD 5 % sample, sol prices from the live page, E2_1ns, hidden scope, probe script, map prior for arm M.
-- Tiered prune applied (86.8 GB free); pilot latency re-run (26 / 28 proven); LLM review of 23 Phase 4 objects; E2_1ns on the 34 RTL-OPT pairs (13 better); reports regenerated; snapshot phase4-20260915-review.
+- G5 recorded; storage footprint; B1@E4 prompt; SEQ latency mapping; scope-limited rewriting and repair; tiered retention; G5 item 4 (b) (c) (d).
+- Decisions of 2026-09-15: sim_fail VCD sample, sol prices from the live page, E2_1ns, hidden scope, probe script, map prior; prune applied (86.8 GB free); pilot re-run (26 / 28 proven); LLM review (23 objects, map shape unchanged); E2_1ns (13 / 4 / 16).
+- Review decisions: disk guard; B0 tool-neutral prefix; normalised E4 log line; E1_authors (25 / 1 / 7); PROPOSAL row; probe launched, stopped, scope splice, probe relaunched; starting points drawn; launch tooling; hidden scope and loop; autolaunch watcher started.
 
 
 ## Environment (filled by Claude Code in Phase 0 after reading eda-knowledge; afterwards updated only when the environment changes)
