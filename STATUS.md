@@ -68,6 +68,7 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - Tests: `pytest tests/` → **386 passed, 15 skipped**.
 
 ## Open questions and known risks
+- **Disk (2026-09-16 17:50): free space on / fell from 57 GB to 47 GB in 40 minutes, not from Beyond-Synth (0.8 GB) but from another project on the host (`~/Latent_Communication/artifacts/exp_04b`, 42 GB, bursts of 4–6 GB per hour; its artifacts total 85 GB). /hdd1 (the hidden-raw relocation target) has 50 GB free. At that rate the 15 GB disk guard (search runs stop submitting; hidden raw relocates) is reached in ≈ 5–6 hours, before the stage A report. Reported to the user; nothing of the other project is touched.**
 
 - `DrRTL_reimpl` arm: implemented offline (tests) but not yet run end-to-end against the API before the launch; its first Phase 5 runs are its smoke test (watch its unusable-answer and skill-call counts in `phase5_main.py status`).
 - H4 wired (18:12); the first Phase 5 H4 records come from the hidden loop; 13 kept Phase 4 candidates have no E4 netlist any more (pruned) and get no H4 record.
