@@ -533,6 +533,8 @@ def test_search_hold_flag_and_round_robin_across_rows(tmp_path):
             payload["hold"] = "C2"
         jobs.append(q.submit("shell", payload, design_id=design, pool="search", priority=3))
     conn.execute("UPDATE jobs SET kind='search' WHERE pool='search'"); conn.commit()
+    for i, j in enumerate(jobs):   # a deterministic queue order (same-second submissions would otherwise tie-break on the random job id)
+        conn.execute("UPDATE jobs SET submitted_at=? WHERE job_id=?", (f"2026-09-18T00:01:{i:02d}", j))
     conn.execute("UPDATE jobs SET submitted_at=? WHERE job_id=?", ("2026-09-18T00:00:00", jobs[4])); conn.commit()   # the small-tier job was submitted first
     rows = conn.execute("SELECT * FROM jobs WHERE pool='search' AND state='queued' ORDER BY priority DESC, submitted_at ASC, job_id ASC").fetchall()
     assert [held_job(r) for r in rows].count(True) == 2
@@ -564,3 +566,22 @@ def test_per_kind_ceiling_applies_in_every_pool(tmp_path):
     q._spawn = lambda job: spawned.append(job["job_id"]) or conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (job["job_id"],))
     q._dispatch()
     assert spawned == [other]
+
+
+def test_round_robin_rows_least_loaded_first_catches_up():
+    """DECISION 2026-09-18 (b) item 6 ("the M rows are the priority once released") under item 5b's round-robin: a row with
+    fewer runs running receives every admission until it has caught up with the others, then the rows alternate; tiers keep
+    their order. Both directions: equal rows alternate from the first admission."""
+    from src.jobqueue.core import round_robin_by_row
+    def job(i, rid, pri=8600):
+        return {"job_id": f"j{i}", "priority": pri, "payload_json": json.dumps({"run_id": rid})}
+    rows_meta = {"r_b0_1": ("B0", "luna", "M1"), "r_b0_2": ("B0", "luna", "M2"), "r_b0_3": ("B0", "luna", "M1"),
+                 "r_m_1": ("M", "luna", "M1"), "r_m_2": ("M", "luna", "M2"), "r_m_3": ("M", "luna", "M1"), "r_s": ("B0", "luna", "S")}
+    rows = [job(0, "r_b0_1"), job(1, "r_b0_2"), job(2, "r_b0_3"), job(3, "r_m_1"), job(4, "r_m_2"), job(5, "r_m_3"), job(6, "r_s")]
+    tier_of = {"M1": "medium", "M2": "medium", "S": "small"}
+    run_rows = {"rows": rows_meta, "running": {("B0", "luna"): 2, ("M", "luna"): 0}}
+    out = [r["job_id"] for r in round_robin_by_row(rows, run_rows, tier_of)]
+    assert out == ["j3", "j4", "j0", "j5", "j1", "j2", "j6"]        # M catches up (0 -> 2), then B0 / M alternate, the small tier last
+    run_rows = {"rows": rows_meta, "running": {("B0", "luna"): 1, ("M", "luna"): 1}}
+    out = [r["job_id"] for r in round_robin_by_row(rows, run_rows, tier_of)]
+    assert out == ["j0", "j3", "j1", "j4", "j2", "j5", "j6"]        # equal rows alternate from the start (queue order breaks the tie)

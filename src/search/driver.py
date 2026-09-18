@@ -461,9 +461,17 @@ class SearchRun:
     def issue_candidate(self, cid, path, rtl, note, cls_requested, gen, parent_id, call, rng, index=0, region=None, repair_of=None, spliced=None, strategy=None):
         st = self.state
         scope_json = json.dumps({"region": region, "violations": list((spliced or {}).get("violations") or [])[:8], "spliced": {k: v for k, v in (spliced or {}).items() if k != "violations"}}, default=str) if region is not None else None
-        if cid in st["cands"]:   # the same RTL came out twice: a duplicate of the earlier candidate, no evaluation
+        earlier = None if cid in st["cands"] else self.conn.execute("SELECT label FROM candidates WHERE cand_id=?", (cid,)).fetchone()
+        if cid in st["cands"] or earlier is not None:   # the same RTL came out twice: a duplicate of the earlier candidate, no evaluation
             dup = f"{cid}_dup{gen}_{index}"
-            self.record_label(dup, None, "duplicate", {"duplicate_of": cid}, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
+            n = 0
+            while self.conn.execute("SELECT 1 FROM candidates WHERE cand_id=?", (dup,)).fetchone():   # a resumption after a crash can repeat (gen, index)
+                n += 1
+                dup = f"{cid}_dup{gen}_{index}_r{n}"
+            extra = {"duplicate_of": cid}
+            if earlier is not None:   # the earlier row is not in the ledger: issued by an attempt that died before saving its state (mark_orphans -> aborted) or by a
+                extra["earlier_row"] = earlier[0] or "unlabelled"   # second driver instance; the insert used to fail with IntegrityError and the run with it (UART B2 luna s1, 2026-09-18)
+            self.record_label(dup, None, "duplicate", extra, gen=gen, cls_requested=cls_requested, parent_id=parent_id, path=str(path), note=note, call=call)
             if scope_json:
                 self.conn.execute("UPDATE candidates SET scope_json=? WHERE cand_id=?", (scope_json, dup))
             return cid

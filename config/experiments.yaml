@@ -335,6 +335,15 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
     hidden_throttle_at: "2026-09-16T14:30"        # hidden DC registrations capped at 8 (the hourly proven-to-inconclusive ratio is reported from here)
     scheduling_change_at: "2026-09-16T15:14"      # split pipeline, provisional feedback, proof ordering live (daemon restart and roll)
     provisional_fix_at: "2026-09-16T16:03"      # user follow-up item 1: positive provisional verdicts withheld from the model from this time on (the last run restarted after the roll of 16:02:52)
+  design_notes:                             # DECISION 2026-09-18 (b) items 5c / 5d: the wording used verbatim in every report's design notes (§0a) until Phase 6 rules otherwise
+    cktevo_hsm__hsm: "mixed (sim_fail 65 %, inconclusive 30 %)"
+    drrtl_tv80: "verification limit (wall-clock cap under CPU contention)"
+    drrtl_LSTM: "harness limit — the catalog declared a reset port the module does not have, so every candidate (and D itself) failed the lock-step compile; fixed 2026-09-18 06:35; the 18 stored runs are not re-verified or re-run without a ruling"
+    drrtl_simple_spi: "harness limit — the staged tree lacked the included timescale.v (incdirs empty), so every candidate (and D itself) failed the lock-step compile; fixed 2026-09-18 06:52; the 5 finished runs and the first 7 calls of the sixth are not re-verified or re-run without a ruling; the later runs use the corrected harness"
+  disclosures:                              # DECISION 2026-09-18 (b) item 5e and D1: printed verbatim in every report (§0a)
+    - "B0 is absent on thresholds_128x4096 (Yosys maps the 128×4096 memory to 1.4 M cells; 20-minute timeout), and this design's E4 runtime and log size are anomalous: median 8.5 min per E4 record against 3.8 min for the other medium-tier designs, and ≈ 69 MB per dc_shell log (compressed to ≈ 1.6 MB after ingestion, DECISION 2026-09-18 (b) item 2)."
+    - "The sentence \"B0's gains are all absorbed by the synthesizer\" is withdrawn until visible E4 records exist for B0's proven candidates (offline pool, DECISION 2026-09-18 D1); B0 rows whose E4 records are pending read `pending`, never 0."
+    - "Hidden-configuration results are sealed until the Phase 5 completion marker; every hidden-form criterion reads `sealed` in this report."
   excluded_pairs:                           # (arm, design) pairs left out of the matrix with the reason (operator deviation 2026-09-15, DECISIONS "Launch: the pair B0 / thresholds_128x4096 excluded"): reversible by removing the entry
     - {arm: B0, design_id: cktevo_nn_engine__thresholds_128x4096, reason: "Yosys maps the 128x4096 threshold memory into 1.4 M cells (DC: 427); the Y-caliber baseline exceeds the 20-minute Yosys timeout and every B0 candidate evaluation would too"}
   model_assignment:                         # 2026-09-15 evening decision 3 (amends the G5 rule): the models of every arm per tier; sol is not used in Phase 5

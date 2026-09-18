@@ -93,3 +93,23 @@ def test_e4_timeout_reruns_get_the_long_guard_and_the_flag(tmp_path, monkeypatch
     assert j["payload"]["e4_rerun"] == 1 and j["payload"]["force_rerun"] is True and j["timeout_sec"] == 3600 + 180 and "offline_eval" not in j["payload"]
     j2 = mod.e4_job(cfg, conn, design, {"cand_id": "y", "group": "b0_e4", "design_id": "L1", "rtl_path": str(tmp_path / "c.v")})
     assert j2["payload"]["offline_eval"] == 1 and "e4_rerun" not in j2["payload"] and j2["timeout_sec"] != 3600 + 180
+
+
+def test_sync_candidate_row_both_directions(tmp_path):
+    """DECISION 2026-09-18 D2: the offline simulation's outcome is written into the prescreened candidate's row — a passed
+    simulation leaves the verdict NULL (proof pending) and records V1 / V2; a failed one records the verdict; a row that
+    already carries a V2 status is never overwritten."""
+    mod = load_pool()
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    db.insert(conn, "runs", {"run_id": "rm", "exp": "phase5", "arm": "M", "design_id": "L1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "done", "started_at": "t"})
+    for cid in ("cp", "cf", "cx"):
+        db.insert(conn, "candidates", {"cand_id": cid, "run_id": "rm", "design_id": "L1", "gen": 1, "arm": "M", "llm_model": "gpt-5.6-luna", "label": "prescreened", "note": "n"})
+    assert mod.sync_candidate_row(conn, "cp", {"verdict": "not_run", "v1_status": "ok", "v2_status": "identical", "v2_cycles": 20000}, "js1")
+    row = dict(conn.execute("SELECT * FROM candidates WHERE cand_id='cp'").fetchone())
+    assert row["verdict"] is None and row["v1_status"] == "ok" and row["v2_status"] == "identical" and row["v2_cycles"] == 20000 and row["eq_job_id"] == "js1" and "proof pending" in row["note"]
+    assert not mod.sync_candidate_row(conn, "cp", {"verdict": "rejected", "v1_status": "rejected", "v2_status": "compile_failed"}, "js9")   # idempotent: never overwritten
+    assert dict(conn.execute("SELECT * FROM candidates WHERE cand_id='cp'").fetchone())["v2_status"] == "identical"
+    assert mod.sync_candidate_row(conn, "cf", {"verdict": "rejected", "v1_status": "rejected", "v2_status": "compile_failed"}, "js2")
+    row = dict(conn.execute("SELECT * FROM candidates WHERE cand_id='cf'").fetchone())
+    assert row["verdict"] == "rejected" and row["v2_status"] == "compile_failed" and "rejected" in row["note"]
+    assert conn.execute("SELECT count(*) FROM candidates WHERE v2_status IS NULL").fetchone()[0] == 1                            # cx untouched

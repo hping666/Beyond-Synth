@@ -17,6 +17,7 @@ import argparse  # noqa: E402
 import collections  # noqa: E402
 import datetime  # noqa: E402
 import json  # noqa: E402
+import statistics  # noqa: E402
 from pathlib import Path  # noqa: E402
 
 from src import config as C  # noqa: E402
@@ -784,7 +785,35 @@ def _num(x, digits=2):
     return "-" if x is None else f"{x:.{digits}f}"
 
 
-def phase5_markdown(cfg, data, stage="all"):
+ZERO_CELLS = ("0", "-", "0.00", "0.000", "0.00 %", "0.0", "0 / 0", "0.00 % / 0.00 %")
+
+
+def _cell(txt, incomplete):
+    """DECISION 2026-09-18 D1: a result cell of a row whose evaluation is incomplete never reads 0 — it reads `pending`; a
+    non-zero interim value carries the dagger."""
+    if not incomplete:
+        return txt
+    return "pending" if txt in ZERO_CELLS else f"{txt} †"
+
+
+def phase5_notes_section(cfg, tiers, tier_of):
+    """§0a of every Phase 5 report: the design notes and disclosures of DECISION 2026-09-18 (b) items 5c–5e and D1 (wording from
+    config exp5.design_notes / exp5.disclosures, printed verbatim)."""
+    notes = (cfg.get("exp5") or {}).get("design_notes") or {}
+    disc = (cfg.get("exp5") or {}).get("disclosures") or []
+    L = ["## 0a. Design notes and disclosures (DECISION 2026-09-18 (b) items 5c–5e, D1)", ""]
+    shown = [(d, n) for d, n in sorted(notes.items()) if tier_of.get(d) in tiers]
+    if shown:
+        L += ["| design | tier | note |", "|---|---|---|"] + [f"| {d} | {tier_of.get(d)} | {n} |" for d, n in shown] + [""]
+    for s in disc:
+        L.append(f"- {s}")
+    if not shown and not disc:
+        L.append("(none)")
+    L.append("")
+    return L
+
+
+def phase5_markdown(cfg, data, stage="all", final=False):
     """The visible-layer report from the collector's data (src/analysis/phase5.collect). Stage A: the large tier; B: large + medium;
     C / all: every tier. Nothing here reads the hidden database; the hidden part is scripts/report_hidden.py after Phase 5 completes."""
     from src.analysis import phase5 as P5
@@ -792,7 +821,11 @@ def phase5_markdown(cfg, data, stage="all"):
     groups = data["groups"]
     planned = data.get("planned") or {}
     title = {"A": "Stage A — the large tier", "B": "Stage B — large and medium tiers", "C": "Stage C — every tier (full visible part)", "all": "visible part"}[stage]
-    L = [f"# Phase 5 report ({title})", "",
+    pend_total = sum((data.get("pending_total") or {}).values())
+    status_line = ("**Final for its tiers** (every planned run done, no pending evaluation, no open visible job — the completeness rule of DECISION 2026-09-18 D2 / D3)." if final else
+                   f"**Interim** ({pend_total} evaluations pending on the reported tiers: " + ", ".join(f"{t} {n}" for t, n in sorted((data.get("pending_total") or {}).items())) +
+                   "; rows marked † are incomplete and `pending` stands where a value would otherwise read 0 — DECISION 2026-09-18 D1 / D3).")
+    L = [f"# Phase 5 report ({title}) — {'final' if final else 'interim'}", "", status_line, "",
          f"Generated {data['generated_at']} by scripts/report_phase.py phase5 --stage {stage} (git {data['git_sha']}, cfg {data['cfg_hash']}). Data: reports/data/phase5_visible_{stage}.json (src/analysis/phase5.collect). "
          f"Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. "
          f"Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = {data['equiv_version']}, floor_version = {data['floor_version']}); an interim report changes nothing.", ""]
@@ -803,10 +836,13 @@ def phase5_markdown(cfg, data, stage="all"):
     for k in keys:
         g = groups[k]
         L.append(f"| {g['tier']} | {g['model']} | {g['arm']} | {g['done']} / {g['runs']} / {g['planned'] if g['planned'] is not None else '-'} | {g['calls']} | {g['usd']:.2f} | {g['dc_h']:.1f} | {g['vcf_h']:.1f} |")
-    unfinished = [k for k in keys if groups[k]["done"] < (groups[k]["planned"] or groups[k]["runs"])]
+    unfinished = [k for k in keys if groups[k].get("incomplete")]
     if unfinished:
-        L += ["", f"Unfinished groups: {len(unfinished)} of {len(keys)} — the numbers below are interim for those groups (runs still open, verdicts and fitness evaluations pending)."]
+        L += ["", f"Incomplete rows: {len(unfinished)} of {len(keys)} — runs still open or evaluations pending (proofs, offline simulations, E4 records); their result cells read `pending` or carry †."]
     L.append("")
+    tier_of = P5.tier_of_design(cfg)
+    L += phase5_notes_section(cfg, tiers, tier_of)
+    limits = {d: n.split(" — ")[0].split(" (")[0] for d, n in ((cfg.get("exp5") or {}).get("design_notes") or {}).items() if str(n).startswith(("harness limit", "verification limit"))}
     # arm comparison per tier
     L += ["## 1. Arm comparison per tier (uniform caliber: equal LLM calls; every proven candidate re-labelled offline under rule A with the design's frozen E4 floor)", ""]
     for tier in tiers:
@@ -814,11 +850,14 @@ def phase5_markdown(cfg, data, stage="all"):
         if not tk:
             L += [f"### {tier} tier: no runs yet", ""]
             continue
-        L += [f"### {tier} tier", "", "| model (role) | arm | runs | candidates | unusable | proven (rate / call) | inconclusive | latency-mapped (c2) | accepted (arm's own) | retained (rule A) | retained / run | runs with ≥ 1 retained | best area gain per run: mean / median | retained per 100 calls | retained per USD | retained per DC h | USD | DC h | VCF h |",
-              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        L += [f"### {tier} tier", "", "| model (role) | arm | runs | candidates | pending | unusable | proven (rate / call) | inconclusive | latency-mapped (c2) | accepted (arm's own) | retained (rule A) | retained / run | runs with ≥ 1 retained | best area gain per run: mean / median | retained per 100 calls | retained per USD | retained per DC h | USD | DC h | VCF h |",
+              "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for k in tk:
             g = groups[k]
-            L.append(f"| {g['model']} ({g['role']}) | {g['arm']} | {g['done']}/{g['runs']} | {g['cands']} | {g['unusable']} | {g['proven']} ({_num(g['proven_per_call'], 3)}) | {g['inconclusive']} | {g['latency_mapped']} | {g['accepted']} | {g['retained']} | {_num(g['retained_per_run'], 2)} | {g['runs_with_retained']} | {_pct(g['best_gain_mean'])} / {_pct(g['best_gain_median'])} | {_num(g['retained_per_100_calls'], 2)} | {_num(g['retained_per_usd'], 2)} | {_num(g['retained_per_dc_hour'], 2)} | {g['usd']:.2f} | {g['dc_h']:.1f} | {g['vcf_h']:.1f} |")
+            inc = bool(g.get("incomplete"))
+            pend = (f"{g['pending']} (" + ", ".join(f"{a} {n}" for a, n in sorted((g.get("pending_by") or {}).items())) + ")") if g["pending"] else "0"
+            pv = "pending" if (inc and not g["proven"]) else f"{g['proven']} ({_num(g['proven_per_call'], 3)})" + (" †" if inc else "")
+            L.append(f"| {g['model']} ({g['role']}) | {g['arm']} | {g['done']}/{g['runs']}{' †' if inc else ''} | {g['cands']} | {pend} | {g['unusable']} | {pv} | {g['inconclusive']} | {g['latency_mapped']} | {g['accepted']} | {_cell(str(g['retained']), inc)} | {_cell(_num(g['retained_per_run'], 2), inc)} | {_cell(str(g['runs_with_retained']), inc)} | {_cell(_pct(g['best_gain_mean']) + ' / ' + _pct(g['best_gain_median']), inc)} | {_cell(_num(g['retained_per_100_calls'], 2), inc)} | {_cell(_num(g['retained_per_usd'], 2), inc)} | {_cell(_num(g['retained_per_dc_hour'], 2), inc)} | {g['usd']:.2f} | {g['dc_h']:.1f} | {g['vcf_h']:.1f} |")
         L.append("")
         L += ["Verdict mix and labels:", "", "| model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for k in tk:
@@ -841,8 +880,37 @@ def phase5_markdown(cfg, data, stage="all"):
             cells = []
             for m, a in cols:
                 v = data["designs"].get(f"{tier}|{m}|{a}|{d}")
-                cells.append("-" if not v else (_pct(v["best_retained_area_gain"]) if v["best_retained_area_gain"] else "0"))
+                if not v:
+                    cells.append("-")
+                else:
+                    txt = _pct(v["best_retained_area_gain"]) if v["best_retained_area_gain"] else "0"
+                    txt = _cell(txt, bool(v.get("pending")))
+                    cells.append(limits[d] if (d in limits and txt in ("0", "pending")) else txt)   # DECISION 2026-09-18 (b) 5c / 5d: a design under a harness or verification limit never reads 0
             L.append(f"| {d} | " + " | ".join(cells) + " |")
+        L.append("")
+    # retained candidates: class, sub-tags, gains per metric (D2)
+    L += ["## 2a. Retained and tradeoff candidates under the uniform rule A: class, sub-tags, gains per metric (DECISION 2026-09-18 D2)", ""]
+    for tier in tiers:
+        rl = [x for x in (data.get("retained_list") or []) if x["tier"] == tier]
+        if not rl:
+            continue
+        L += [f"### {tier} tier ({sum(1 for x in rl if x['label'] == 'retained')} retained, {sum(1 for x in rl if x['label'] == 'tradeoff')} tradeoff)", "",
+              "| model | arm | design | candidate | uniform label | arm's label | class | sub-tags | area | WNS (clock periods) | power | tradeoff composition |", "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        for x in sorted(rl, key=lambda x: (x["arm"], x["model"], x["design_id"], -(x["gains"].get("area") or 0))):
+            gA, gW, gP = x["gains"].get("area"), x["gains"].get("wns"), x["gains"].get("power")
+            L.append(f"| {x['model']} | {x['arm']} | {x['design_id']} | {x['cand_id']} | {x['label']} | {x.get('stored_label') or '-'} | {x.get('class_final') or '-'} | {'; '.join(str(s) for s in x['subtags']) or '-'} | {_pct(gA)} | {_num(gW, 4) if gW is not None else '-'} | {_pct(gP)} | {x.get('sublabel') or '-'} |")
+        L.append("")
+        L += ["Per row: retained gains per metric (median / max over the retained candidates; WNS in clock periods) and the tradeoff composition:", "",
+              "| model | arm | retained | area: median / max | WNS: median / max | power: median / max | tradeoffs | composition (up = better, down = worse) |", "|---|---|---|---|---|---|---|---|"]
+        rows = sorted({(x["model"], x["arm"]) for x in rl}, key=lambda k: (k[1], k[0]))
+        for m, a in rows:
+            ret = [x for x in rl if x["model"] == m and x["arm"] == a and x["label"] == "retained"]
+            tr = [x for x in rl if x["model"] == m and x["arm"] == a and x["label"] == "tradeoff"]
+            def mm(metric, fmt):
+                vals = [x["gains"].get(metric) for x in ret if x["gains"].get(metric) is not None]
+                return f"{fmt(statistics.median(vals))} / {fmt(max(vals))}" if vals else "-"
+            comp = collections.Counter(x.get("sublabel") or "?" for x in tr)
+            L.append(f"| {m} | {a} | {len(ret)} | {mm('area', _pct)} | {mm('wns', lambda v: _num(v, 4))} | {mm('power', _pct)} | {len(tr)} | {'; '.join(f'{k}: {n}' for k, n in sorted(comp.items())) or '-'} |")
         L.append("")
     # model contrast
     L += ["## 3. Model contrast (the same arm under two models on the same tier)", ""]
@@ -868,7 +936,8 @@ def phase5_markdown(cfg, data, stage="all"):
         L += [f"### {tier} tier — by LLM calls (equal-call caliber)", "", "| model | arm | " + " | ".join(f"{x} calls" for x in pts) + " |", "|---|---|" + "---|" * len(pts)]
         for k in sorted(ck, key=lambda k: (k.split("|")[2], k.split("|")[1])):
             byc = {p["calls"]: p for p in data["curves"][k].get("by_calls", [])}
-            L.append(f"| {k.split('|')[1]} | {k.split('|')[2]} | " + " | ".join(_pct((byc.get(x) or {}).get("mean_best_gain")) for x in pts) + " |")
+            inc = bool((groups.get(k) or {}).get("incomplete"))
+            L.append(f"| {k.split('|')[1]} | {k.split('|')[2]}{' †' if inc else ''} | " + " | ".join(_cell(_pct((byc.get(x) or {}).get("mean_best_gain")), inc) for x in pts) + " |")
         L += ["", f"### {tier} tier — by visible DC hours per run", ""]
         for k in sorted(ck, key=lambda k: (k.split("|")[2], k.split("|")[1])):
             bd = data["curves"][k].get("by_dc_hours", [])
@@ -883,9 +952,24 @@ def phase5_markdown(cfg, data, stage="all"):
         if k.split("|")[0] not in tiers:
             continue
         v = data["correctness"][k]
-        L.append(f"| {k.split('|')[0]} | {k.split('|')[1]} | {k.split('|')[2]} | {v['runs']} | {v['cands']} | {v['proven']} | {_pct(v['proven_rate'], 1)} |")
-    low = [k for k, v in data["correctness"].items() if k.split("|")[0] in tiers and v["cands"] >= 30 and (v["proven_rate"] or 0) < 0.05]
-    L += ["", "LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): " + (", ".join(f"{k.split('|')[2]} under {k.split('|')[1]}" for k in low) if low else "none on the reported tiers") + ".", ""]
+        d = k.split("|")[2]
+        L.append(f"| {k.split('|')[0]} | {k.split('|')[1]} | {d}{' (' + limits[d] + ')' if d in limits else ''} | {v['runs']} | {v['cands']} | {v['proven']} | {_pct(v['proven_rate'], 1)} |")
+    inc = data.get("inconclusive") or {}
+    L += ["", "### 5a. Inconclusive proofs per class and per design (DECISION 2026-09-18 D2)", ""]
+    any_inc = False
+    for tier in tiers:
+        bc = {k.split("|")[1]: n for k, n in (inc.get("by_class") or {}).items() if k.split("|")[0] == tier}
+        bd = {k.split("|")[1]: n for k, n in (inc.get("by_design") or {}).items() if k.split("|")[0] == tier}
+        if bc or bd:
+            any_inc = True
+            L.append(f"- {tier} tier — by class: " + (", ".join(f"{c}: {n}" for c, n in sorted(bc.items())) or "none") + "; by design: " + (", ".join(f"{d}: {n}" for d, n in sorted(bd.items(), key=lambda kv: -kv[1])) or "none"))
+    if not any_inc:
+        L.append("(no inconclusive proof on the reported tiers)")
+    L.append("")
+    noted = (cfg.get("exp5") or {}).get("design_notes") or {}
+    low = [k for k, v in data["correctness"].items() if k.split("|")[0] in tiers and v["cands"] >= 30 and (v["proven_rate"] or 0) < 0.05 and k.split("|")[2] not in noted]   # a design with a note (5c / 5d) is described by the note, not by this rule
+    noted_low = sorted({k.split("|")[2] for k, v in data["correctness"].items() if k.split("|")[0] in tiers and v["cands"] >= 30 and (v["proven_rate"] or 0) < 0.05 and k.split("|")[2] in noted})
+    L += ["", "LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): " + (", ".join(f"{k.split('|')[2]} under {k.split('|')[1]}" for k in low) if low else "none on the reported tiers") + ("; designs below the rate whose note applies instead (§0a): " + ", ".join(f"{d} — {noted[d]}" for d in noted_low) if noted_low else "") + ".", ""]
     # classes
     L += ["## 6. Classes produced (rules v2) and requested → produced", ""]
     for k in keys:
@@ -899,9 +983,18 @@ def phase5_markdown(cfg, data, stage="all"):
     L += ["## 7. Runs and anomalies", "", f"Runs on the reported tiers: {len(data['runs'])} ({sum(1 for r in data['runs'] if r['status'] == 'done')} done, {sum(1 for r in data['runs'] if r['status'] == 'running')} running, {sum(1 for r in data['runs'] if r['status'] == 'created')} not started). "
           + (f"Abnormal statuses: " + ", ".join(f"{r['run_id']} {r['status']}" for r in bad[:20]) + "." if bad else "No run in an abnormal status."), ""]
     L += phase5_ops_section(data.get("ops") or {})
+    cond = data.get("conditions") or {}
+    L += ["## 7b. Verification conditions per arm-model row (DECISION 2026-09-18 item 5c: median host load and VC Formal wait during the row's runs)", "",
+          "| tier | model | arm | proofs | VC Formal queue wait: median / q95 (min) | median 1-min load over the row's run-minutes | run-minutes with a load sample (coverage) |", "|---|---|---|---|---|---|---|"]
+    for k in keys:
+        cnd = cond.get(k) or {}
+        g = groups[k]
+        cov = cnd.get("load_coverage")
+        L.append(f"| {g['tier']} | {g['model']} | {g['arm']} | {cnd.get('proofs', 0)} | {_num(cnd.get('vcf_wait_median_min'), 1)} / {_num(cnd.get('vcf_wait_q95_min'), 1)} | {_num(cnd.get('load_median'), 1)} | {cnd.get('load_samples', 0)} ({_pct(cov, 0) if cov is not None else '-'}) |")
+    L += ["", "The load log (scripts/load_logger.py, one sample per minute) starts 2026-09-18 05:49; rows whose runs predate it show a partial coverage — the VC Formal wait comes from the queue's own timestamps and covers every proof.", ""]
     if stage in ("C", "all"):
         L += ["## 8. Success criteria (PROPOSAL §7.2), visible-layer view", "",
-              "- C2 (M vs B2 and vs B1@E4 at equal calls; the hidden-configuration form of the criterion waits for scripts/report_hidden.py): see §1 (retained per run, best gain per run) and §2 (per-design best gains) per tier; the geometric-mean form and the 2σ_D test per design are computed in the final report once every tier is complete.",
+              "- C2 (M vs B2 and vs B1@E4 at equal calls; the hidden-configuration form of the criterion is **sealed** until the Phase 5 completion marker — scripts/report_hidden.py): see §1 (retained per run, best gain per run) and §2 (per-design best gains) per tier; the geometric-mean form and the 2σ_D test per design are computed in the final report once every tier is complete.",
               "- Dr.RTL re-implementation: arm DrRTL_reimpl against M and B2 in §1 / §2 (the original reference row, PLAN 5.4, is the user's manual run).",
               "- C1 (map): the produced-class distribution per arm in §6; the absorbed / retained map by class over the accepted candidates of every arm follows in Phase 6.2.",
               "- Screening: not part of Phase 5 (dropped at G3).", ""]
@@ -953,17 +1046,18 @@ def phase5_ops_section(ops):
     return L
 
 
-def phase5(cfg, stage="all", out_dir=None, conn=None):
+def phase5(cfg, stage="all", out_dir=None, conn=None, final=False):
     """Collect the visible-layer data of the stage's tiers and write reports/phase5_stage_<stage>.md (stage C / all also
     reports/phase5.md, the visible part of the Phase 5 report)."""
     from src.analysis import phase5 as P5
     from src.db import core as db
     conn = conn or db.connect(cfg=cfg)
     data = P5.collect(cfg, conn, tiers=P5.stage_tiers(stage))
+    data["final"] = bool(final)
     out = Path(out_dir or (Path(C.ROOT) / "reports"))
     (out / "data").mkdir(parents=True, exist_ok=True)
     (out / "data" / f"phase5_visible_{stage}.json").write_text(json.dumps(data, indent=1, sort_keys=True, default=str) + "\n")
-    text = phase5_markdown(cfg, data, stage)
+    text = phase5_markdown(cfg, data, stage, final=bool(final))
     (out / f"phase5_stage_{stage}.md").write_text(text)
     if stage in ("C", "all"):
         (out / "phase5.md").write_text(text)
@@ -976,10 +1070,11 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("phase", choices=["phase1", "phase2", "phase3", "phase4", "phase5"])
     ap.add_argument("--stage", default="all", choices=["A", "B", "C", "all"], help="phase5: A = large tier, B = large + medium, C / all = every tier (the full visible part)")
+    ap.add_argument("--final", action="store_true", help="phase5: render as the stage's final report (the stages loop passes it when the completeness rule holds)")
     a = ap.parse_args(argv)
     cfg = C.load()
     if a.phase == "phase5":
-        return phase5(cfg, stage=a.stage)
+        return phase5(cfg, stage=a.stage, final=a.final)
     return {"phase1": phase1, "phase2": phase2, "phase3": phase3, "phase4": phase4}[a.phase](cfg)
 
 

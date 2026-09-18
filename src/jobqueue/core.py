@@ -61,9 +61,10 @@ def held_job(job):
 
 
 def round_robin_by_row(rows, run_rows, tier_of, tier_order=("large", "medium", "small")):
-    """DECISION 2026-09-18 item 5b: queued search jobs re-ordered so that, within a priority level and a tier, the arm-model rows
-    take turns (the row with the fewest running runs first, then the queue order); tiers keep their order (large, medium, small,
-    then unknown). Jobs of runs the runs table does not know keep their place at the end of their level."""
+    """DECISION 2026-09-18 item 5b and (b) item 6: queued search jobs re-ordered so that, within a priority level and a tier, every
+    admission goes to the arm-model row with the fewest runs running or already placed ahead (ties: the queue order) — rows
+    behind the others catch up first (the released M rows), then the rows alternate; tiers keep their order (large, medium,
+    small, then unknown). Jobs of runs the runs table does not know keep their place at the end of their level."""
     from collections import OrderedDict
     out = []
     by_pri = OrderedDict()
@@ -85,12 +86,12 @@ def round_robin_by_row(rows, run_rows, tier_of, tier_order=("large", "medium", "
             by_tier.setdefault(tier_of.get(design, "?"), OrderedDict()).setdefault((arm, model), []).append(j)
         for tier in sorted(by_tier, key=lambda t: tier_order.index(t) if t in tier_order else len(tier_order)):
             rws = by_tier[tier]
-            order = sorted(rws, key=lambda k: (int(run_rows["running"].get(k, 0)), list(rws).index(k)))
-            queues = [rws[k] for k in order]
-            while any(queues):
-                for q in queues:
-                    if q:
-                        out.append(q.pop(0))
+            order = list(rws)
+            counts = {k: int(run_rows["running"].get(k, 0)) for k in order}
+            while any(rws.values()):
+                k = min((k for k in order if rws[k]), key=lambda k: (counts[k], order.index(k)))
+                out.append(rws[k].pop(0))
+                counts[k] += 1
         out.extend(unknown)
     return out
 

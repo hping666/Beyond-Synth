@@ -251,6 +251,7 @@ def test_driver_generations_verdicts_credit_and_resumption(env):
 
 def test_identical_text_and_prescreen_labels_without_evaluation(env, monkeypatch):
     cfg, conn, q, tmp_path = env
+    cfg["search"]["arms"]["M"]["prescreen"] = True   # the mechanism was switched off for the medium / small tiers (DECISION 2026-09-18 (b) 1a); the label path stays tested
     from src.search.driver import SearchRun
 
     class Identical:
@@ -319,6 +320,38 @@ def test_resume_is_idempotent_after_a_crash_between_diagnosis_and_state_save(env
     # gets distinct duplicate ids (dup<gen>_<index>)
     dups = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? AND label='duplicate'", (run.run_id,))]
     assert dups and all("_dup" in d for d in dups) and len(dups) == len(set(dups))
+
+
+def test_answer_equal_to_a_row_unknown_to_the_ledger_is_a_duplicate_not_a_crash(env):
+    """2026-09-18 (UART B2 luna s1): an attempt died after inserting a candidate row but before saving its state; the row is
+    marked aborted on resume; when the model later returns the same RTL (fixed seed, same prompt) the per-run id collides
+    with that row — the answer is recorded as a duplicate of it (a spent call, no evaluation) instead of an IntegrityError
+    that fails the run. Both directions: a fresh answer still gets its own row and evaluation."""
+    cfg, conn, q, tmp_path = env
+    from src.search import candidates as CA
+    from src.search.driver import SearchRun
+    tr = ListTransport([rewrite("a1"), rewrite("a2"), rewrite("a1"), rewrite("a3")])
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="B2", design_id="rtllm_d", seed=1, model="gpt-5.6-luna", K=2, N=2, queue=q, transport=tr)
+    assert run.step() == "running" and run.state["calls"] == 2
+    c1, c2 = [r[0] for r in conn.execute("SELECT cand_id FROM candidates WHERE run_id=? ORDER BY created_at, cand_id", (run.run_id,))]
+    a1 = [cid for cid in (c1, c2) if "t_a1" in Path(dict(conn.execute("SELECT rtl_path FROM candidates WHERE cand_id=?", (cid,)).fetchone())["rtl_path"]).read_text()]
+    assert len(a1) == 1
+    orphan = a1[0]
+    # the attempt that issued `orphan` died before saving: forget it in the ledger, its row stays (mark_orphans labels it aborted)
+    run.state["cands"].pop(orphan); run.state["pending"].pop(orphan, None)
+    for cid in (c1, c2):
+        if cid != orphan:
+            finish_eq(conn, cfg, tmp_path, cid, verdict="inconclusive", extra_rec={"v3_status": "inconclusive"})   # no repair, no E4: generation 2 is due
+    conn.execute("UPDATE candidates SET label='aborted' WHERE cand_id=?", (orphan,))
+    run.step()                                                # generation 2: call 3 repeats a1 (collides with the aborted row), call 4 is fresh
+    rows = {r[0]: r[1] for r in conn.execute("SELECT cand_id, label FROM candidates WHERE run_id=?", (run.run_id,))}
+    dups = [k for k, v in rows.items() if v == "duplicate"]
+    assert len(dups) == 1 and dups[0].startswith(orphan + "_dup2_") and rows[orphan] == "aborted"
+    ev = json.loads(conn.execute("SELECT evidence_json FROM diagnoses WHERE cand_id=?", (dups[0],)).fetchone()[0])
+    assert ev == {"duplicate_of": orphan, "earlier_row": "aborted"}
+    fresh = [k for k, v in rows.items() if v is None and k not in (c1, c2)]
+    assert len(fresh) == 1 and run.state["cands"][fresh[0]]["state"] != "final"   # the other answer of the generation is evaluated as usual
+    assert run.state["calls"] == 4 and conn.execute("SELECT llm_calls FROM runs WHERE run_id=?", (run.run_id,)).fetchone()[0] == 4
 
 
 def test_driver_b0_arm_uses_y_fitness_and_scalar_feedback(env):

@@ -49,6 +49,19 @@ def test_collect_and_render_stage_a(tmp_path, monkeypatch):
     cand("c_dup", "r_m", None, "duplicate", 0, None, gen=2)
     cand("c_b2", "r_b2", "proven", "improved", 1, (95.0, {"NAND2_X1": 80, "DFF_X1": 20}), extra={"latency_offset_json": json.dumps({"y": 2})})   # B2's own label improved; uniform: retained (5 % > t_d 1 %); latency-mapped
     cand("c_b2p", "r_b2", None, None, 0, None, gen=2)                                                                       # pending
+    cand("c_inc", "r_b2", "inconclusive", None, 0, None, gen=2, extra={"class_final": "c1"})                                 # inconclusive proof of a c1 candidate (D2 table)
+    db.insert(conn, "runs", {"run_id": "r_b0", "exp": "phase5", "arm": "B0", "design_id": "l1", "seed": 1, "llm_model": "gpt-5.6-terra", "status": "running", "started_at": "t", "llm_calls": 10})
+    cand("c_b0p", "r_b0", None, None, 0, None)                                                                              # a row with nothing decided yet: reads `pending`, never 0 (D1)
+    db.insert(conn, "jobs", {"job_id": "jv1", "kind": "vcf", "pool": "vcf", "design_id": "l1", "cand_id": "c_ret", "state": "done", "priority": 0, "payload_json": "{}",
+                             "submitted_at": "2026-09-18T01:00:00", "started_at": "2026-09-18T01:12:00"})
+    db.insert(conn, "jobs", {"job_id": "jv2", "kind": "vcf", "pool": "vcf", "design_id": "l1", "cand_id": "c_conv", "state": "done", "priority": 0, "payload_json": "{}",
+                             "submitted_at": "2026-09-18T01:00:00", "started_at": "2026-09-18T01:20:00"})
+    import datetime
+    now = datetime.datetime.now().isoformat(timespec="seconds")
+    (tmp_path / "results" / "queue").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "results" / "queue" / "load.log").write_text(f"{now} 100.0 1 1 search=1\n{now} 101.0 1 1 search=1\n")
+    cfg["exp5"]["design_notes"] = {"l1": "harness limit (test)", "s1": "not on this tier"}
+    cfg["exp5"]["disclosures"] = ["disclosure one"]
     (tmp_path / "results" / "candidates" / "r_m").mkdir(parents=True)
     (tmp_path / "results" / "candidates" / "r_m" / "unusable_g1_3.json").write_text("{}")
     data = P5.collect(cfg, conn, tiers=["large"])
@@ -59,7 +72,23 @@ def test_collect_and_render_stage_a(tmp_path, monkeypatch):
     assert gm["scope_flags"] == 1 and gm["block_answers"] == 2 and gm["block_flags"] == 1 and gm["repairs"] == 1 and gm["repairs_proven"] == 0
     assert gm["stored"] == {"retained": 1, "absorbed": 1, "nonequiv": 2} and gm["classes"] == {"b": 4} and gm["ttv"]["n"] == 4
     assert gb["runs"] == 1 and gb["done"] == 0 and gb["proven"] == 1 and gb["latency_mapped"] == 1 and gb["pending"] == 1 and gb["uniform"] == {"retained": 1} and gb["stored"] == {"improved": 1}
-    assert abs(gb["usd"] - 0.04) < 1e-9 and gm["usd"] == 1.5                                                                # a running run's spend from its candidate rows; a finished run's from the row
+    # DECISION 2026-09-18 D1 / D2: pending accounting, incomplete rows, the retained list, inconclusive by class / design, verification conditions
+    assert gb["pending_by"] == {"verdict": 1} and gb["incomplete"] and not gm["incomplete"] and data["pending_total"] == {"large": 2} and gb["inconclusive"] == 1
+    assert data["groups"]["large|gpt-5.6-terra|B0"]["pending_by"] == {"verdict": 1} and data["designs"]["large|gpt-5.6-terra|B0|l1"]["pending"] == 1
+    rl = {x["cand_id"]: x for x in data["retained_list"]}
+    assert set(rl) == {"c_ret", "c_b2"} and rl["c_ret"]["label"] == "retained" and rl["c_ret"]["class_final"] == "b" and rl["c_ret"]["gains"]["area"] == 0.08 and rl["c_ret"]["stored_label"] == "retained"
+    assert data["inconclusive"] == {"by_class": {"large|c1": 1}, "by_design": {"large|l1": 1}}
+    cm = data["conditions"]["large|gpt-5.6-terra|M"]
+    assert cm["proofs"] == 2 and cm["vcf_wait_median_min"] == 16.0 and cm["load_median"] == 100.5 and cm["load_samples"] == 2
+    s = P5.pending_summary(cfg, conn, ["large"])
+    assert s["pending"] == {"verdict": 2} and not s["complete"] and s["open_jobs"] == {}
+    assert P5.pending_kind({"label": "prescreened", "verdict": None}, lambda: False) == "sim"
+    assert P5.pending_kind({"label": "prescreened", "verdict": None, "v1_status": "ok", "v2_status": "identical"}, lambda: False) == "e4"
+    assert P5.pending_kind({"label": "prescreened", "verdict": None, "v1_status": "ok", "v2_status": "identical"}, lambda: True) == "proof"
+    assert P5.pending_kind({"label": "prescreened", "verdict": "rejected", "v1_status": "rejected", "v2_status": "compile_failed"}, lambda: False) is None
+    assert P5.pending_kind({"label": None, "verdict": "proven"}, lambda: False) == "e4" and P5.pending_kind({"label": None, "verdict": "proven"}, lambda: True) is None
+    assert P5.pending_kind({"label": "duplicate", "verdict": None}, lambda: False) is None and P5.pending_kind({"label": "aborted", "verdict": None}, lambda: False) is None
+    assert abs(gb["usd"] - 0.06) < 1e-9 and gm["usd"] == 1.5                                                                # a running run's spend from its candidate rows; a finished run's from the row
     assert data["designs"]["large|gpt-5.6-terra|M|l1"]["best_retained_area_gain"] == 0.08 and data["correctness"]["large|gpt-5.6-terra|l1"]["proven"] == 3
     assert "large|gpt-5.6-terra|M" in data["curves"] and data["curves"]["large|gpt-5.6-terra|M"]["by_calls"][0]["mean_best_gain"] == 0.08
     assert not [r for r in data["runs"] if r["run_id"] in ("r_old", "r_med")]                                                # superseded runs and other tiers stay out
@@ -68,7 +97,18 @@ def test_collect_and_render_stage_a(tmp_path, monkeypatch):
     out = tmp_path / "reports"
     assert R.phase5(cfg, stage="A", out_dir=str(out), conn=conn) == 0
     text = (out / "phase5_stage_A.md").read_text()
-    assert "Stage A" in text and "| gpt-5.6-terra (main) | M | 1/1 | 5 | 1 | 2 (0.033) |" in text and "8.00 %" in text and "block-level" in text and "improved: 1" in text
+    assert "Stage A" in text and "| gpt-5.6-terra (main) | M | 1/1 | 5 | 0 | 1 | 2 (0.033) |" in text and "8.00 %" in text and "block-level" in text and "improved: 1" in text
+    assert "— interim" in text and "2 evaluations pending" in text and "| gpt-5.6-terra (main) | B0 | 0/1 † | 1 | 1 (verdict 1) | 0 | pending | 0 | 0 | 0 | pending | pending |" in text   # D1: never 0 on an incomplete row
+    assert "| gpt-5.6-terra (main) | B2 | 0/1 † | 3 | 1 (verdict 1) | 0 | 1 (0.033) † |" in text and "| gpt-5.6-terra | B0 † | pending | pending |" in text
+    assert "| l1 | harness limit | 5.00 % † | 8.00 % |" in text and "| large | gpt-5.6-terra | l1 (harness limit) |" in text        # §2 / §5: a design under a harness limit never reads 0 or pending on an empty row (5c / 5d)
+    assert "LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): none" in text                                    # a harness limit is not an LLM limit
+    cfg["exp5"]["design_notes"] = {}
+    assert R.phase5(cfg, stage="A", out_dir=str(out), conn=conn) == 0 and "| l1 | pending | 5.00 % † | 8.00 % |" in (out / "phase5_stage_A.md").read_text()   # without the note: B0 pending, B2 interim, M final
+    cfg["exp5"]["design_notes"] = {"l1": "harness limit (test)", "s1": "not on this tier"}
+    assert "| l1 | large | harness limit (test) |" in text and "not on this tier" not in text and "- disclosure one" in text     # §0a notes (reported tiers only) and disclosures
+    assert "| c_ret | retained | retained | b |" in text and "by class: c1: 1; by design: l1: 1" in text                          # §2a retained list, §5a inconclusive
+    assert "| large | gpt-5.6-terra | M | 2 | 16.0 / 19.6 | 100.5 | 2 (100 %) |" in text                                                  # §7b verification conditions
+    assert R.phase5(cfg, stage="A", out_dir=str(out), conn=conn, final=True) == 0 and "— final" in (out / "phase5_stage_A.md").read_text()
     assert "Visible layer only" in text and not (out / "phase5.md").exists() and (out / "data" / "phase5_visible_A.json").exists()
     assert R.phase5(cfg, stage="C", out_dir=str(out), conn=conn) == 0 and (out / "phase5.md").exists() and "Success criteria" in (out / "phase5.md").read_text()
 
@@ -90,6 +130,20 @@ def test_tier_complete_both_directions(tmp_path, monkeypatch):
     assert ST.tier_complete(cfg, conn, "large", plan=plan) and not ST.tier_complete(cfg, conn, "small", plan=plan) and not ST.tier_complete(cfg, conn, "medium", plan=plan)
     db.insert(conn, "runs", {"run_id": "c", "exp": "phase5", "arm": "M", "design_id": "s1", "seed": 1, "llm_model": "m", "status": "superseded"})
     assert not ST.tier_complete(cfg, conn, "small", plan=plan)
+    # DECISION 2026-09-18 D2 / D3: the runs being done is not enough — pending evaluations and open visible jobs hold the final report back
+    cfg["exp5"]["starting_points"] = {"large": ["l1"], "medium": [], "small": ["s1"]}
+    ok, s = ST.evaluation_complete(cfg, conn, ["large"])
+    assert ok and s["pending"] == {} and s["open_jobs"] == {}
+    db.insert(conn, "candidates", {"cand_id": "cp", "run_id": "a", "design_id": "l1", "gen": 1, "arm": "M", "llm_model": "m", "verdict": "proven"})
+    ok, s = ST.evaluation_complete(cfg, conn, ["large"])
+    assert not ok and s["pending"] == {"e4": 1}                                       # a proven candidate without its E4 record
+    db.insert(conn, "evaluations", {"design_id": "l1", "cand_id": "cp", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 1.0, "status": "ok", "raw_dir": "/x"})
+    assert ST.evaluation_complete(cfg, conn, ["large"])[0]
+    db.insert(conn, "jobs", {"job_id": "js", "kind": "sim", "pool": "local", "design_id": "l1", "cand_id": "cp", "state": "queued", "priority": 0, "payload_json": "{}", "submitted_at": "t"})
+    ok, s = ST.evaluation_complete(cfg, conn, ["large"])
+    assert not ok and s["open_jobs"] == {"sim": 1}                                     # an open visible job on the tier's design
+    conn.execute("UPDATE jobs SET state='done' WHERE job_id='js'"); conn.commit()
+    assert ST.evaluation_complete(cfg, conn, ["large"])[0] and ST.evaluation_complete(cfg, conn, ["small"])[0]
 
 
 def test_operational_changes_section_agreement_exposure_reuse_and_hourly_ratio(tmp_path, monkeypatch):

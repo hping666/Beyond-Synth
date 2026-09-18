@@ -59,10 +59,12 @@
  },
  "loc": 135,
  "name": "LSTM",
- "notes": [],
+ "notes": [
+  "2026-09-18: rst_port corrected from 'rst' to null \u2014 the module has no reset (DECISION 2026-09-18 (b) item 5c: every Phase 5 candidate and D itself failed the lock-step compile on the phantom port; harness limit, disclosed)"
+ ],
  "reference": null,
- "rst_port": "rst",
- "rst_sense": "high",
+ "rst_port": null,
+ "rst_sense": null,
  "samples": [],
  "sha256": {
   "rtl/LSTM.v": "1b5f5a446a80003d898fbe5ac5d8d99d370236212395cc6b02995336961d7783",

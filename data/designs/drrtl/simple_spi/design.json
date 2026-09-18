@@ -6,7 +6,9 @@
  "files": [
   "rtl/simple_spi.v"
  ],
- "incdirs": [],
+ "incdirs": [
+  "rtl"
+ ],
  "includes": [],
  "inventory": {
   "async_resets": {
@@ -99,7 +101,9 @@
  },
  "loc": 463,
  "name": "simple_spi",
- "notes": [],
+ "notes": [
+  "2026-09-18: staging defect fixed - rtl/simple_spi.v has `include \"timescale.v\" but the staged tree had no timescale.v and incdirs was []; every V1/V2 compile of the search harness failed (Error-[SFCOR]) for every candidate and for D itself; added rtl/timescale.v (`timescale 1ns / 10ps, the OpenCores original) and incdirs [rtl]; harness limit, disclosed (DECISION 2026-09-18 (b) item 5c applied by analogy)"
+ ],
  "reference": null,
  "rst_port": "rst_i",
  "rst_sense": "low",

@@ -151,6 +151,22 @@ def e4_job(cfg, conn, design, cand, saif=None):
     return j
 
 
+def sync_candidate_row(conn, cand_id, rec, sim_job):
+    """The offline simulation's outcome written into the prescreened candidate's row the way the search would have (DECISION
+    2026-09-18 D2: the row shows V1 / V2 and, on a failure, the verdict; a passed simulation leaves the verdict NULL — the
+    proof is reported as pending until it is run). Idempotent: rows that already carry a V2 status are left alone."""
+    row = conn.execute("SELECT v2_status, verdict FROM candidates WHERE cand_id=?", (cand_id,)).fetchone()
+    if row is None or row["v2_status"] is not None or row["verdict"] is not None:
+        return False
+    passed = rec.get("verdict") in ("not_run", "proven_sim_only")
+    verdict = None if passed else rec.get("verdict")
+    note = (f" [offline sim {time.strftime('%Y-%m-%d')}: V1 {rec.get('v1_status')}, V2 {rec.get('v2_status')}; proof pending (DECISION 2026-09-18 D2)]" if passed
+            else f" [offline sim {time.strftime('%Y-%m-%d')}: {rec.get('verdict')} (V1 {rec.get('v1_status')} / V2 {rec.get('v2_status')})]")
+    conn.execute("UPDATE candidates SET v1_status=?, v2_status=?, v2_cycles=?, verdict=?, eq_job_id=COALESCE(eq_job_id, ?), note=COALESCE(note, '') || ? WHERE cand_id=?",
+                 (rec.get("v1_status"), rec.get("v2_status"), rec.get("v2_cycles"), verdict, sim_job, note, cand_id))
+    return True
+
+
 def sim_record(cfg, payload):
     from src.equiv.run_equiv import equiv_extra, equiv_hash
     try:
@@ -212,6 +228,9 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
                     c.update(stage="e4", sim_result=rec.get("v2_status"), saif=rec.get("saif_c"))
                 else:
                     c.update(stage="done", result=f"{rec.get('verdict')} ({rec.get('v1_status')}/{rec.get('v2_status')})", sim_result=rec.get("verdict"))
+                if rec is not None:
+                    sync_candidate_row(conn, cid, rec, c.get("sim_job"))
+                    c["synced"] = True
         elif c["stage"] == "e4_running":
             js = q.get(c["e4_job"])
             if js and js["state"] in ("done", "failed"):
@@ -225,6 +244,12 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
                         c["slimmed"] = {"kept_full": res["kept_full"], "bytes": sum(res["freed"].values())}
                     except Exception as e:   # retention must never stop the pool
                         c["slimmed"] = f"failed: {type(e).__name__}: {e}"[:120]
+    for cid, c in cands.items():   # entries simulated before the row sync existed (2026-09-18): synced once from their records
+        if c.get("sim_payload") and not c.get("synced") and c["stage"] in ("e4", "e4_running", "done"):
+            rec = sim_record(cfg, c["sim_payload"])
+            if rec is not None:
+                sync_candidate_row(conn, cid, rec, c.get("sim_job"))
+            c["synced"] = True
     ok, l1, q95 = throttle(cfg, conn, st)
     submitted = 0
     if ok:

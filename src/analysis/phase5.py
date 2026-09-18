@@ -84,7 +84,103 @@ def uniform_diagnosis(designs, conn, cand):
     label = out.get("label")
     if label == "retained" and out.get("envelope_required"):
         label = "retained"   # the envelope of the candidate's own perturbations is arm M's extra check; the uniform caliber stops at rule A
-    return label, (out.get("evidence") or {}).get("gains") or {}, {"envelope_required": bool(out.get("envelope_required")), "dc_seconds": ev["dc_seconds"], "eval_created": ev["created_at"]}
+    return label, (out.get("evidence") or {}).get("gains") or {}, {"envelope_required": bool(out.get("envelope_required")), "dc_seconds": ev["dc_seconds"], "eval_created": ev["created_at"],
+                                                                     "sublabel": out.get("sublabel")}
+
+
+def has_e4(conn, cand_id):
+    return conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' LIMIT 1", (cand_id,)).fetchone() is not None
+
+
+SIM_FAILED = ("compile_failed", "sim_fail", "mismatch", "error")
+
+
+def pending_kind(c, e4_ok):
+    """What a candidate still waits for (DECISION 2026-09-18 D1 / D2), or None when its evaluation is complete:
+    'verdict' — no verdict yet (proof or simulation in flight); 'e4' — proven (or an offline-simulated prescreened
+    candidate) without an E4 record; 'proof' — prescreened candidate whose offline simulation passed and whose proof has
+    not been run (reported as pending until it is); 'sim' — prescreened candidate not yet simulated. `e4_ok` is a callable
+    (the E4 lookup is made only when it matters). Duplicates, aborted rows and every failed verdict are complete."""
+    lab, ver = c.get("label"), c.get("verdict")
+    if lab in ("duplicate", "aborted"):
+        return None
+    if ver == "proven":
+        return None if e4_ok() else "e4"
+    if ver in ("proven_sim_only", "sim_fail", "falsified", "rejected", "inconclusive", "error"):
+        return None
+    if lab == "prescreened":   # offline pool: sim -> E4; the proof stays pending (D2)
+        if c.get("v1_status") in ("rejected", "error") or (c.get("v2_status") in SIM_FAILED):
+            return None
+        if c.get("v1_status") == "ok" and c.get("v2_status") and c.get("v2_status") not in SIM_FAILED:
+            return "e4" if not e4_ok() else "proof"
+        return "sim"
+    return "verdict"
+
+
+def pending_summary(cfg, conn, tiers, exp="phase5"):
+    """Pending evaluations and open visible jobs of the runs on `tiers` (the completeness rule of DECISION 2026-09-18 D2 / D3):
+    -> {"pending": {kind: n}, "pending_total": n, "open_jobs": {kind: n}, "complete": bool}. Cheap enough for the stages loop."""
+    tier_of = tier_of_design(cfg)
+    designs = sorted(d for d, t in tier_of.items() if t in tiers)
+    e4 = {r[0] for r in conn.execute("SELECT DISTINCT cand_id FROM evaluations WHERE config='E4' AND status='ok' AND cand_id IS NOT NULL")}
+    pend = Counter()
+    for c in conn.execute("SELECT c.cand_id, c.label, c.verdict, c.v1_status, c.v2_status FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                          "WHERE r.exp=? AND r.status != 'superseded' AND COALESCE(r.excluded_from_tables, 0) = 0", (exp,)):
+        c = dict(c)
+        if tier_of.get(conn.execute("SELECT design_id FROM candidates WHERE cand_id=?", (c["cand_id"],)).fetchone()[0]) not in tiers:
+            continue
+        k = pending_kind(c, lambda: c["cand_id"] in e4)
+        if k:
+            pend[k] += 1
+    open_jobs = Counter()
+    if designs:
+        marks = ",".join("?" * len(designs))
+        for r in conn.execute(f"SELECT kind, COUNT(*) FROM jobs WHERE state IN ('queued', 'running') AND kind IN ('sim', 'vcf', 'dc', 'dc_retry', 'yosys', 'search') AND design_id IN ({marks}) GROUP BY kind", designs):
+            open_jobs[r[0]] += r[1]
+    return {"pending": dict(pend), "pending_total": sum(pend.values()), "open_jobs": dict(open_jobs), "complete": not pend and not open_jobs}
+
+
+def load_samples(cfg):
+    """(timestamp, 1-minute load) samples of scripts/load_logger.py (results/queue/load.log), sorted; empty when absent."""
+    p = Path(C.results_dir(cfg)) / "queue" / "load.log"
+    out = []
+    if not p.exists():
+        return out
+    for line in p.read_text().splitlines():
+        parts = line.split()
+        if len(parts) >= 2:
+            try:
+                out.append((parts[0], float(parts[1])))
+            except ValueError:
+                pass
+    return sorted(out)
+
+
+def row_conditions(conn, run_ids, spans, samples):
+    """Verification conditions of one arm-model row (DECISION 2026-09-18 item 5c): the VC Formal queue wait of the row's
+    proofs (submitted -> started, minutes; median / q95 / n) and the median 1-minute host load over the row's run spans
+    (load.log samples inside [first candidate, finish]); `coverage` = the share of the spans' minutes with a sample."""
+    waits = []
+    if run_ids:
+        marks = ",".join("?" * len(run_ids))
+        for r in conn.execute(f"SELECT j.submitted_at, j.started_at FROM jobs j JOIN candidates c ON c.cand_id=j.cand_id WHERE c.run_id IN ({marks}) AND j.kind='vcf' AND j.started_at IS NOT NULL AND j.submitted_at IS NOT NULL", run_ids):
+            try:
+                waits.append((datetime.datetime.fromisoformat(r[1]) - datetime.datetime.fromisoformat(r[0])).total_seconds() / 60.0)
+            except ValueError:
+                pass
+    loads, minutes = [], 0.0
+    for a, b in spans:
+        if not a:
+            continue
+        b = b or datetime.datetime.now().isoformat(timespec="seconds")
+        loads += [v for ts, v in samples if a <= ts <= b]
+        try:
+            minutes += max(0.0, (datetime.datetime.fromisoformat(b) - datetime.datetime.fromisoformat(a)).total_seconds() / 60.0)
+        except ValueError:
+            pass
+    return {"vcf_wait_median_min": round(statistics.median(waits), 1) if waits else None, "vcf_wait_q95_min": round(_q(waits, 0.95), 1) if waits else None, "proofs": len(waits),
+            "load_median": round(statistics.median(loads), 1) if loads else None, "load_samples": len(loads),
+            "load_coverage": round(min(1.0, len(loads) / max(minutes, 1.0)), 3) if (minutes or loads) else None}   # one sample per minute: a span under a minute with a sample is covered
 
 
 def run_dc_hours(conn, run_id):
@@ -111,7 +207,8 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
         runs.append(r)
     out = {"generated_at": datetime.datetime.now().isoformat(timespec="minutes"), "exp": exp, "tiers": tiers, "git_sha": C.git_sha(), "cfg_hash": C.cfg_hash(),
            "equiv_version": (cfg.get("equiv") or {}).get("version"), "floor_version": cfg["noise"].get("floor_version"),
-           "planned": {}, "runs": [], "groups": {}, "designs": {}, "curves": {}, "correctness": {}, "classes": {}, "ttv": {}, "unfinished_note": None}
+           "planned": {}, "runs": [], "groups": {}, "designs": {}, "curves": {}, "correctness": {}, "classes": {}, "ttv": {}, "unfinished_note": None,
+           "retained_list": [], "inconclusive": {}, "conditions": {}, "pending_total": {}}
     # ---- planned counts per tier (from the plan) for the progress lines
     try:
         import sys
@@ -126,8 +223,9 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
                                   "proven": 0, "proven_sim_only": 0, "sim_fail": 0, "falsified": 0, "rejected": 0, "inconclusive": 0, "error": 0, "pending": 0,
                                   "accepted": 0, "scope_flags": 0, "block_answers": 0, "block_flags": 0, "repairs": 0, "repairs_proven": 0,
                                   "uniform": Counter(), "stored": Counter(), "retained_runs": 0, "best_gain_runs": [], "gains_retained": [], "ttv": [], "classes": Counter(), "confusion": Counter(),
-                                  "latency_mapped": 0})
-    by_design = defaultdict(lambda: {"best": None, "runs": 0, "retained": 0})
+                                  "latency_mapped": 0, "pending_by": Counter(), "run_ids": [], "spans": []})
+    by_design = defaultdict(lambda: {"best": None, "runs": 0, "retained": 0, "pending": 0})
+    inconclusive = {"by_class": Counter(), "by_design": Counter()}
     correctness = defaultdict(lambda: {"cands": 0, "proven": 0, "runs": 0})
     curves_calls = defaultdict(list)     # (tier|model|arm) -> per run: list of best-so-far retained area gain by call index
     curves_dc = defaultdict(list)        # (tier|model|arm) -> per run: [(cum dc hours, best so far)]
@@ -175,8 +273,14 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
                 g["proven_sim_only"] += 1
             elif ver in ("sim_fail", "falsified", "rejected", "inconclusive", "error"):
                 g[ver] += 1
-            elif ver is None and lab not in ("duplicate", "prescreened", "absorbed_identical"):
+                if ver == "inconclusive":
+                    inconclusive["by_class"][f"{r['tier']}|{c.get('class_final') or '?'}"] += 1
+                    inconclusive["by_design"][f"{r['tier']}|{r['design_id']}"] += 1
+            pk = pending_kind(c, lambda: has_e4(conn, c["cand_id"]))   # DECISION 2026-09-18 D1 / D2: what the candidate still waits for
+            if pk:
                 g["pending"] += 1
+                g["pending_by"][pk] += 1
+                by_design[f"{r['tier']}|{r['llm_model']}|{r['arm']}|{r['design_id']}"]["pending"] += 1
             g["accepted"] += int(bool(c.get("accepted")))
             if c.get("repair_of"):
                 g["repairs"] += 1
@@ -206,6 +310,13 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
                 ulabel, gains, extra = ud
                 g["uniform"][ulabel] += 1
                 if ulabel in ("retained", "tradeoff"):
+                    try:
+                        subtags = json.loads(c.get("subtags_json") or "[]")
+                    except (ValueError, TypeError):
+                        subtags = []
+                    out["retained_list"].append({"tier": r["tier"], "model": r["llm_model"], "arm": r["arm"], "design_id": r["design_id"], "run_id": r["run_id"], "cand_id": c["cand_id"],
+                                                 "label": ulabel, "class_final": c.get("class_final"), "subtags": subtags if isinstance(subtags, list) else [], "gains": {m: round(float(v), 5) for m, v in gains.items()},
+                                                 "sublabel": extra.get("sublabel"), "stored_label": lab})
                     gain_area = float(gains.get("area") or 0.0)
                     if ulabel == "retained":
                         g["gains_retained"].append(gain_area)
@@ -218,6 +329,8 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
             seq_dc.append((round(cum_dc, 3), best_run))
         g["best_gain_runs"].append(best_run)
         g["retained_runs"] += int(best_run > 0)
+        g["run_ids"].append(r["run_id"])
+        g["spans"].append((cands[0]["created_at"] if cands else r["started_at"], r["finished_at"] if r["status"] == "done" else None))
         bd = by_design[f"{r['tier']}|{r['llm_model']}|{r['arm']}|{r['design_id']}"]
         bd["runs"] += 1
         bd["best"] = best_run if bd["best"] is None else max(bd["best"], best_run)
@@ -228,6 +341,7 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
                             "status": r["status"], "calls": int(r["llm_calls"] or 0), "gens": int(r["gens_done"] or 0), "usd": round(float(r["spent_usd"] or 0.0) or usd_c, 4),
                             "dc_h": round(dc_h, 3), "vcf_h": round(vcf_h, 3), "cands": len(cands), "unusable": unusable, "best_retained_area_gain": round(best_run, 5)})
     # ---- aggregate the groups
+    samples = load_samples(cfg)
     for key, g in groups.items():
         tier, model, arm = key.split("|")
         planned = out["planned"].get(key)
@@ -253,8 +367,13 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
             "repairs": g["repairs"], "repairs_proven": g["repairs_proven"],
             "classes": dict(g["classes"]), "confusion": dict(g["confusion"]),
             "ttv": {"n": len(g["ttv"]), "median": round(statistics.median(g["ttv"]), 1) if g["ttv"] else None, "q95": round(_q(g["ttv"], 0.95), 1) if g["ttv"] else None},
+            "pending_by": dict(g["pending_by"]), "incomplete": bool(g["pending"] or g["done"] < n or (planned is not None and n < planned)),
         }
-    out["designs"] = {k: {"best_retained_area_gain": (None if v["best"] is None else round(v["best"], 5)), "runs": v["runs"], "retained": v["retained"]} for k, v in by_design.items()}
+        out["conditions"][key] = row_conditions(conn, g["run_ids"], g["spans"], samples)
+    out["designs"] = {k: {"best_retained_area_gain": (None if v["best"] is None else round(v["best"], 5)), "runs": v["runs"], "retained": v["retained"], "pending": v["pending"]} for k, v in by_design.items()}
+    out["inconclusive"] = {"by_class": dict(inconclusive["by_class"]), "by_design": dict(inconclusive["by_design"])}
+    for tier in tiers:
+        out["pending_total"][tier] = sum(g["pending"] for k, g in out["groups"].items() if k.startswith(tier + "|"))
     out["correctness"] = {k: {**v, "proven_rate": round(v["proven"] / v["cands"], 4) if v["cands"] else None} for k, v in correctness.items()}
     # ---- curves: best-so-far retained area gain averaged over the runs of a group, by call index (equal-call caliber) and by DC hours
     grid_calls = list(range(5, calls_per_run + 1, 5))
