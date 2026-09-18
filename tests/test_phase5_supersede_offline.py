@@ -39,7 +39,7 @@ def test_supersede_and_repeat(tmp_path, monkeypatch):
     assert (new["arm"], new["design_id"], new["seed"], new["llm_model"], new["status"]) == ("B2", "drrtl_LSTM", 2, "gpt-5.6-terra", "created")
     job = dict(conn.execute("SELECT * FROM jobs WHERE job_id=?", (res[0][2],)).fetchone())
     p = json.loads(job["payload_json"])
-    assert job["kind"] == "search" and job["priority"] == 8600 and p["run_id"] == res[0][1] and p["repeat_of"] == "r_old" and p["hold"] == "after C3"
+    assert job["kind"] == "search" and job["state"] == "queued" and job["priority"] == 8600 and p["run_id"] == res[0][1] and p["repeat_of"] == "r_old" and p["hold"] == "after C3"   # the repeat itself stays queued (2026-09-18 10:5x: a first version withdrew it with the old run's jobs)
     assert conn.execute("SELECT state FROM jobs WHERE job_id=?", (old_job,)).fetchone()[0] == "failed"         # the old run's queued job is withdrawn
     # the other direction: an already superseded run is skipped, nothing new is created
     n_runs = conn.execute("SELECT count(*) FROM runs").fetchone()[0]

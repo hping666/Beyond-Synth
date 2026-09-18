@@ -36,7 +36,7 @@ def supersede(cfg, conn, run_ids, reason, priority, hold=None, queue=None, dry_r
         if hold:
             payload["hold"] = hold
         jid = q.submit("search", payload, design_id=r["design_id"], config="search", priority=int(priority), timeout_sec=48 * 3600)
-        for j in conn.execute("SELECT job_id FROM jobs WHERE kind='search' AND state IN ('queued','backoff') AND payload_json LIKE ?", (f'%"{rid}"%',)).fetchall():
+        for j in conn.execute("SELECT job_id FROM jobs WHERE kind='search' AND state IN ('queued','backoff') AND job_id != ? AND payload_json LIKE ?", (jid, f'%"run_id": "{rid}"%')).fetchall():   # the old run's own jobs only (the repeat names it under repeat_of)
             conn.execute("UPDATE jobs SET state='failed', error=? , finished_at=? WHERE job_id=? AND state IN ('queued','backoff')", (f"not run: run superseded ({reason})", db.now(), j[0]))
         conn.commit()
         out.append((rid, run.run_id, jid))
