@@ -25,10 +25,30 @@ def _has_q(value):
     return "?" in value
 
 
+_TABLES_DIR = None   # the parser's LALR tables, generated once per process in a private directory
+
+
 def _parse(files, incdirs=()):
-    from pyverilog.vparser.parser import parse
-    ast, _ = parse([str(f) for f in files], preprocess_include=[str(d) for d in (incdirs or [])], preprocess_define=[])
-    return ast
+    """Pyverilog's preprocessor writes its output to a file named at construction (`preprocess.output` in the working directory by
+    default): every parse here gets a private file, and the parser's table directory is private to the process, so that parallel
+    parses — threads of one process, or the queue's proof jobs sharing a working directory — never read each other's output."""
+    global _TABLES_DIR
+    import os
+    import tempfile
+    from pyverilog.vparser.parser import VerilogCodeParser
+    if _TABLES_DIR is None:
+        _TABLES_DIR = tempfile.mkdtemp(prefix="pyverilog_tables_")
+    fd, pre = tempfile.mkstemp(prefix="preprocess_", suffix=".output")
+    os.close(fd)
+    try:
+        cp = VerilogCodeParser([str(Path(f).resolve()) for f in files], preprocess_output=pre, preprocess_include=[str(Path(d).resolve()) for d in (incdirs or [])],
+                               preprocess_define=[], outputdir=_TABLES_DIR, debug=False)
+        return cp.parse()
+    finally:
+        try:
+            os.remove(pre)
+        except OSError:
+            pass
 
 
 def _walk(node, ancestors, out):

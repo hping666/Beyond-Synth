@@ -85,3 +85,21 @@ def test_classifier_covers_every_literal_context(tmp_path):
     assert "f(4'b0010)" in out and "{2'b0, a[1:0]}" in out and "{4{2'b01}}" in out                      # rewritten
     assert "parameter P = 4'bx1x1;" in out and "localparam L = 8'hzz;" in out and "init = 4'bzz00;" in out   # untouched
     assert "4'b1x00: y" in out and "4'b1xz0: y" in out and rep["ambiguous"] == []                      # patterns untouched
+
+
+def test_parallel_parses_do_not_share_the_preprocessor_output(tmp_path):
+    """2026-09-18 13:0x: Pyverilog writes preprocess.output into its output directory; with a shared working directory two parallel
+    parses read each other's output (router's copy was reported ambiguous, tv80's copy failed with a missing file). Each parse now
+    uses a private temporary directory: eight parallel analyses of two different files all give their own correct plan."""
+    from concurrent.futures import ThreadPoolExecutor
+    a = tmp_path / "a.v"; a.write_text(RTL)
+    b = tmp_path / "b.v"; b.write_text(RTL2)
+    def run(i):
+        f = a if i % 2 == 0 else b
+        plan = X.analyze([f], rst_port="resetn" if f is a else "rstn")
+        return (f.name, plan["counts"], plan["errors"])
+    with ThreadPoolExecutor(max_workers=8) as ex:
+        res = list(ex.map(run, range(8)))
+    for name, counts, errors in res:
+        assert errors == []
+        assert counts == ({"continuous": 1, "procedural": 2, "reset_value": 3} if name == "a.v" else {"continuous": 2, "procedural": 1, "reset_value": 0})
