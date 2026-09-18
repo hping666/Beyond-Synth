@@ -1,6 +1,6 @@
 # Phase 5 report (Stage B — large and medium tiers)
 
-Generated 2026-09-18T01:20 by scripts/report_phase.py phase5 --stage B (git 2e44fe8719a3, cfg 3c7f3d2a961d). Data: reports/data/phase5_visible_B.json (src/analysis/phase5.collect). Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = phase5, floor_version = phase4); an interim report changes nothing.
+Generated 2026-09-18T04:24 by scripts/report_phase.py phase5 --stage B (git b4a15b569fc7, cfg 2530153494cf). Data: reports/data/phase5_visible_B.json (src/analysis/phase5.collect). Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = phase5, floor_version = phase4); an interim report changes nothing.
 
 ## 0. Progress
 
@@ -12,12 +12,12 @@ Generated 2026-09-18T01:20 by scripts/report_phase.py phase5 --stage B (git 2e44
 | large | gpt-5.6-terra | B2 | 18 / 18 / 18 | 1080 | 37.62 | 55.8 | 482.2 |
 | large | gpt-5.6-terra | DrRTL_reimpl | 18 / 18 / 18 | 1080 | 38.17 | 46.5 | 180.9 |
 | large | gpt-5.6-terra | M | 18 / 18 / 18 | 1080 | 34.40 | 38.9 | 450.7 |
-| medium | gpt-5.6-luna | B0 | 11 / 51 / 51 | 927 | 1.85 | 0.0 | 52.8 |
-| medium | gpt-5.6-luna | B1_E4 | 4 / 54 / 54 | 792 | 1.77 | 24.0 | 36.3 |
-| medium | gpt-5.6-luna | B2 | 0 / 54 / 54 | 249 | 0.64 | 9.5 | 3.0 |
-| medium | gpt-5.6-luna | DrRTL_reimpl | 0 / 54 / 54 | 0 | 0.00 | 0.0 | 0.0 |
+| medium | gpt-5.6-luna | B0 | 15 / 51 / 51 | 1013 | 2.00 | 0.0 | 86.4 |
+| medium | gpt-5.6-luna | B1_E4 | 14 / 54 / 54 | 1063 | 2.34 | 37.6 | 82.2 |
+| medium | gpt-5.6-luna | B2 | 7 / 54 / 54 | 903 | 2.09 | 37.4 | 48.5 |
+| medium | gpt-5.6-luna | DrRTL_reimpl | 0 / 54 / 54 | 31 | 0.06 | 4.0 | 0.3 |
 | medium | gpt-5.6-luna | M | 0 / 54 / 54 | 0 | 0.00 | 0.0 | 0.0 |
-| medium | gpt-5.6-terra | B2 | 0 / 54 / 54 | 17 | 0.40 | 0.8 | 0.1 |
+| medium | gpt-5.6-terra | B2 | 2 / 54 / 54 | 563 | 15.26 | 25.1 | 14.8 |
 | medium | gpt-5.6-terra | M | 0 / 54 / 54 | 0 | 0.00 | 0.0 | 0.0 |
 
 Unfinished groups: 7 of 13 — the numbers below are interim for those groups (runs still open, verdicts and fitness evaluations pending).
@@ -50,24 +50,24 @@ Verdict mix and labels:
 
 | model (role) | arm | runs | candidates | unusable | proven (rate / call) | inconclusive | latency-mapped (c2) | accepted (arm's own) | retained (rule A) | retained / run | runs with ≥ 1 retained | best area gain per run: mean / median | retained per 100 calls | retained per USD | retained per DC h | USD | DC h | VCF h |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna (main) | B0 | 11/51 | 927 | 0 | 447 (0.482) | 29 | 0 | 177 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | 0.00 | 0.00 | - | 1.85 | 0.0 | 52.8 |
-| gpt-5.6-luna (main) | B1_E4 | 4/54 | 786 | 6 | 365 (0.461) | 26 | 0 | 177 | 130 | 2.41 | 9 | 2.12 % / 0.00 % | 16.41 | 73.28 | 5.42 | 1.77 | 24.0 | 36.3 |
-| gpt-5.6-luna (main) | B2 | 0/54 | 257 | 3 | 117 (0.470) | 4 | 0 | 42 | 22 | 0.41 | 4 | 0.65 % / 0.00 % | 8.84 | 34.58 | 2.32 | 0.64 | 9.5 | 3.0 |
-| gpt-5.6-luna (main) | DrRTL_reimpl | 0/54 | 0 | 0 | 0 (-) | 0 | 0 | 0 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | - | - | - | 0.00 | 0.0 | 0.0 |
+| gpt-5.6-luna (main) | B0 | 15/51 | 1013 | 0 | 497 (0.491) | 45 | 0 | 189 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | 0.00 | 0.00 | - | 2.00 | 0.0 | 86.4 |
+| gpt-5.6-luna (main) | B1_E4 | 14/54 | 1057 | 6 | 508 (0.478) | 51 | 0 | 220 | 191 | 3.54 | 10 | 2.59 % / 0.00 % | 17.97 | 81.73 | 5.08 | 2.34 | 37.6 | 82.2 |
+| gpt-5.6-luna (main) | B2 | 7/54 | 901 | 9 | 451 (0.499) | 26 | 0 | 165 | 163 | 3.02 | 9 | 2.16 % / 0.00 % | 18.05 | 78.01 | 4.36 | 2.09 | 37.4 | 48.5 |
+| gpt-5.6-luna (main) | DrRTL_reimpl | 0/54 | 27 | 0 | 19 (0.613) | 0 | 0 | 0 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | 0.00 | 0.00 | 0.00 | 0.06 | 4.0 | 0.3 |
 | gpt-5.6-luna (main) | M | 0/54 | 0 | 0 | 0 (-) | 0 | 0 | 0 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | - | - | - | 0.00 | 0.0 | 0.0 |
-| gpt-5.6-terra (second) | B2 | 0/54 | 17 | 0 | 1 (0.059) | 0 | 0 | 0 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | 0.00 | 0.00 | 0.00 | 0.40 | 0.8 | 0.1 |
+| gpt-5.6-terra (second) | B2 | 2/54 | 587 | 6 | 241 (0.428) | 9 | 0 | 112 | 79 | 1.46 | 8 | 2.16 % / 0.00 % | 14.03 | 5.18 | 3.15 | 15.26 | 25.1 | 14.8 |
 | gpt-5.6-terra (second) | M | 0/54 | 0 | 0 | 0 (-) | 0 | 0 | 0 | 0 | 0.00 | 0 | 0.00 % / 0.00 % | - | - | - | 0.00 | 0.0 | 0.0 |
 
 Verdict mix and labels:
 
 | model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna | B0 | 150 | 95 | 122 | 29 | 0 | 8 | 76 | 0 | - | improved: 365, no_gain: 77, nonequiv: 396 | 0 (0 / 94 = 0 %) | 214 (71) | 271 / 3420 |
-| gpt-5.6-luna | B1_E4 | 133 | 65 | 135 | 26 | 0 | 39 | 23 | 0 | absorbed: 32, absorbed_identical: 40, harmful: 34, noise: 14, retained: 130, tradeoff: 115 | improved: 307, no_gain: 58, nonequiv: 359 | 3 (3 / 121 = 2 %) | 202 (63) | 357 / 3333 |
-| gpt-5.6-luna | B2 | 24 | 33 | 31 | 4 | 0 | 48 | 0 | 0 | absorbed: 12, absorbed_identical: 14, harmful: 21, noise: 9, retained: 22, tradeoff: 33 | improved: 72, no_gain: 39, nonequiv: 92 | 3 (3 / 52 = 6 %) | 59 (23) | 272 / 2375 |
-| gpt-5.6-luna | DrRTL_reimpl | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | - | - | 0 (no block-level answers) | 0 (0) | - / - |
+| gpt-5.6-luna | B0 | 153 | 98 | 124 | 45 | 0 | 19 | 77 | 0 | - | improved: 409, no_gain: 82, nonequiv: 420 | 0 (0 / 102 = 0 %) | 220 (74) | 274 / 3522 |
+| gpt-5.6-luna | B1_E4 | 172 | 114 | 152 | 51 | 0 | 21 | 39 | 0 | absorbed: 32, absorbed_identical: 63, harmful: 44, noise: 14, retained: 191, tradeoff: 164 | improved: 437, no_gain: 70, nonequiv: 489 | 6 (6 / 163 = 4 %) | 255 (83) | 455 / 3455 |
+| gpt-5.6-luna | B2 | 127 | 77 | 146 | 26 | 0 | 56 | 18 | 0 | absorbed: 17, absorbed_identical: 47, harmful: 42, noise: 14, retained: 163, tradeoff: 167 | improved: 370, no_gain: 80, nonequiv: 376 | 3 (3 / 161 = 2 %) | 214 (79) | 412 / 3081 |
+| gpt-5.6-luna | DrRTL_reimpl | 0 | 0 | 3 | 0 | 0 | 5 | 0 | 0 | absorbed: 5, absorbed_identical: 12, harmful: 2 | no_gain: 19, nonequiv: 3 | 0 (no block-level answers) | 2 (1) | 304 / 2102 |
 | gpt-5.6-luna | M | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | - | - | 0 (no block-level answers) | 0 (0) | - / - |
-| gpt-5.6-terra | B2 | 0 | 8 | 0 | 0 | 0 | 8 | 0 | 0 | absorbed_identical: 1 | nonequiv: 8 | 0 (no block-level answers) | 7 (1) | 939 / 3490 |
+| gpt-5.6-terra | B2 | 92 | 41 | 109 | 9 | 0 | 86 | 9 | 0 | absorbed: 6, absorbed_identical: 11, harmful: 25, noise: 10, retained: 79, tradeoff: 110 | improved: 221, no_gain: 20, nonequiv: 251 | 4 (4 / 96 = 4 %) | 147 (38) | 282 / 2250 |
 | gpt-5.6-terra | M | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | - | - | 0 (no block-level answers) | 0 (0) | - / - |
 
 ## 2. Best retained area gain per design (max over seeds; uniform rule A; '-' = no retained candidate; 0 = runs without one)
@@ -87,29 +87,29 @@ Verdict mix and labels:
 
 | design | B0 (luna) | B1_E4 (luna) | B2 (luna) | B2 (terra) | DrRTL_reimpl (luna) | M (luna) | M (terra) |
 |---|---|---|---|---|---|---|---|
-| cktevo_ethmac__eth_cop | 0 | 4.69 % | 0 | 0 | 0 | 0 | 0 |
-| cktevo_mem_ctrl__mc_adr_sel | 0 | 0.44 % | 1.25 % | 0 | 0 | 0 | 0 |
+| cktevo_ethmac__eth_cop | 0 | 5.76 % | 0 | 0 | 0 | 0 | 0 |
+| cktevo_mem_ctrl__mc_adr_sel | 0 | 0.44 % | 1.25 % | 1.35 % | 0 | 0 | 0 |
 | cktevo_nn_engine__thresholds_128x4096 | - | 0 | 0 | 0 | 0 | 0 | 0 |
 | cktevo_risc__cpu | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| cktevo_usb__usbf_sie_rx | 0 | 1.28 % | 0.95 % | 0 | 0 | 0 | 0 |
-| cktevo_vga_enh__vga_wb_slave | 0 | 1.93 % | 1.29 % | 0 | 0 | 0 | 0 |
-| drrtl_SPI | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| cktevo_usb__usbf_sie_rx | 0 | 1.28 % | 1.25 % | 1.32 % | 0 | 0 | 0 |
+| cktevo_vga_enh__vga_wb_slave | 0 | 1.93 % | 2.04 % | 1.90 % | 0 | 0 | 0 |
+| drrtl_SPI | 0 | 0 | 6.28 % | 6.28 % | 0 | 0 | 0 |
 | drrtl_UART | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | drrtl_arm_cpu2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | drrtl_communication | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | drrtl_router | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | drrtl_simple_spi | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| rtlopt_alu_64bit | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| rtlopt_calculation | 0 | 35.66 % | 31.55 % | 0 | 0 | 0 | 0 |
-| rtlopt_decoder_8bit | 0 | 0.32 % | 0 | 0 | 0 | 0 | 0 |
-| rtlopt_divider_8bit | 0 | 65.38 % | 0 | 0 | 0 | 0 | 0 |
-| rtlopt_register | 0 | 0.85 % | 0 | 0 | 0 | 0 | 0 |
-| rtlopt_sub_32bit | 0 | 3.83 % | 0 | 0 | 0 | 0 | 0 |
+| rtlopt_alu_64bit | 0 | 20.97 % | 0 | 0 | 0 | 0 | 0 |
+| rtlopt_calculation | 0 | 38.86 % | 35.66 % | 37.76 % | 0 | 0 | 0 |
+| rtlopt_decoder_8bit | 0 | 0.32 % | 0.32 % | 0.32 % | 0 | 0 | 0 |
+| rtlopt_divider_8bit | 0 | 65.38 % | 65.18 % | 64.04 % | 0 | 0 | 0 |
+| rtlopt_register | 0 | 0.87 % | 0.63 % | 0 | 0 | 0 | 0 |
+| rtlopt_sub_32bit | 0 | 3.83 % | 3.83 % | 3.83 % | 0 | 0 | 0 |
 
 ## 3. Model contrast (the same arm under two models on the same tier)
 
 - **large / M**: gpt-5.6-luna (contrast): proven 0.112 / call, retained 2.44 / run, best gain mean 0.24 %, unusable 6, USD 3.25; gpt-5.6-terra (main): proven 0.133 / call, retained 4.33 / run, best gain mean 0.62 %, unusable 1, USD 34.40
-- **medium / B2**: gpt-5.6-luna (main): proven 0.470 / call, retained 0.41 / run, best gain mean 0.65 %, unusable 3, USD 0.64; gpt-5.6-terra (second): proven 0.059 / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 0.40
+- **medium / B2**: gpt-5.6-luna (main): proven 0.499 / call, retained 3.02 / run, best gain mean 2.16 %, unusable 9, USD 2.09; gpt-5.6-terra (second): proven 0.428 / call, retained 1.46 / run, best gain mean 2.16 %, unusable 6, USD 15.26
 - **medium / M**: gpt-5.6-luna (main): proven - / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 0.00; gpt-5.6-terra (second): proven - / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 0.00
 
 ## 4. Retained-gain curves (mean over the group's runs of the best retained area gain so far)
@@ -138,18 +138,19 @@ Verdict mix and labels:
 | model | arm | 5 calls | 10 calls | 20 calls | 30 calls | 40 calls | 50 calls | 60 calls |
 |---|---|---|---|---|---|---|---|---|
 | gpt-5.6-luna | B0 | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % |
-| gpt-5.6-luna | B1_E4 | 1.20 % | 1.89 % | 2.06 % | 2.11 % | 2.12 % | 2.12 % | 2.12 % |
-| gpt-5.6-luna | B2 | 0.63 % | 0.63 % | 0.65 % | 0.65 % | 0.65 % | 0.65 % | 0.65 % |
-| gpt-5.6-terra | B2 | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % |
+| gpt-5.6-luna | B1_E4 | 1.20 % | 1.89 % | 2.06 % | 2.11 % | 2.14 % | 2.20 % | 2.59 % |
+| gpt-5.6-luna | B2 | 0.71 % | 0.71 % | 1.91 % | 2.13 % | 2.15 % | 2.16 % | 2.16 % |
+| gpt-5.6-terra | B2 | 0.78 % | 0.95 % | 2.14 % | 2.15 % | 2.15 % | 2.16 % | 2.16 % |
 | gpt-5.6-luna | DrRTL_reimpl | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % |
 | gpt-5.6-luna | M | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % |
 | gpt-5.6-terra | M | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % |
 
 ### medium tier — by visible DC hours per run
 
-- gpt-5.6-luna / B1_E4: 0.25 h → 1.89 %, 1.25 h → 2.12 %, 2.25 h → 2.12 %, 3.25 h → 2.12 %, 4.25 h → 2.12 %, 5.25 h → 2.12 %, 6.25 h → 2.12 %
-- gpt-5.6-luna / B2: 0.25 h → 0.63 %, 1.00 h → 0.65 %, 1.75 h → 0.65 %, 2.50 h → 0.65 %, 3.25 h → 0.65 %, 4.00 h → 0.65 %
-- gpt-5.6-terra / B2: 0.25 h → 0.00 %
+- gpt-5.6-luna / B1_E4: 0.25 h → 1.89 %, 1.25 h → 2.14 %, 2.25 h → 2.59 %, 3.25 h → 2.59 %, 4.25 h → 2.59 %, 5.25 h → 2.59 %, 6.25 h → 2.59 %
+- gpt-5.6-luna / B2: 0.25 h → 0.83 %, 1.00 h → 2.04 %, 1.75 h → 2.15 %, 2.50 h → 2.15 %, 3.25 h → 2.16 %, 4.00 h → 2.16 %, 4.75 h → 2.16 %
+- gpt-5.6-terra / B2: 0.25 h → 0.89 %, 0.75 h → 2.13 %, 1.25 h → 2.14 %, 1.75 h → 2.15 %, 2.25 h → 2.16 %, 2.75 h → 2.16 %, 3.25 h → 2.16 %
+- gpt-5.6-luna / DrRTL_reimpl: 0.25 h → 0.00 %, 0.75 h → 0.00 %, 1.25 h → 0.00 %, 1.75 h → 0.00 %, 2.25 h → 0.00 %, 2.75 h → 0.00 %, 3.25 h → 0.00 %
 
 ## 5. Correctness (the LLM's equivalence-preserving rate)
 
@@ -167,44 +168,44 @@ Verdict mix and labels:
 | large | gpt-5.6-terra | drrtl_aes | 15 | 870 | 518 | 59.5 % |
 | large | gpt-5.6-luna | drrtl_tv80 | 3 | 174 | 0 | 0.0 % |
 | large | gpt-5.6-terra | drrtl_tv80 | 15 | 870 | 0 | 0.0 % |
-| medium | gpt-5.6-luna | cktevo_ethmac__eth_cop | 15 | 125 | 57 | 45.6 % |
-| medium | gpt-5.6-terra | cktevo_ethmac__eth_cop | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | cktevo_mem_ctrl__mc_adr_sel | 15 | 149 | 102 | 68.5 % |
-| medium | gpt-5.6-terra | cktevo_mem_ctrl__mc_adr_sel | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | cktevo_nn_engine__thresholds_128x4096 | 12 | 115 | 84 | 73.0 % |
-| medium | gpt-5.6-terra | cktevo_nn_engine__thresholds_128x4096 | 6 | 17 | 1 | 5.9 % |
-| medium | gpt-5.6-luna | cktevo_risc__cpu | 15 | 122 | 14 | 11.5 % |
-| medium | gpt-5.6-terra | cktevo_risc__cpu | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | cktevo_usb__usbf_sie_rx | 15 | 130 | 88 | 67.7 % |
-| medium | gpt-5.6-terra | cktevo_usb__usbf_sie_rx | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | cktevo_vga_enh__vga_wb_slave | 15 | 122 | 69 | 56.6 % |
-| medium | gpt-5.6-terra | cktevo_vga_enh__vga_wb_slave | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | drrtl_SPI | 15 | 73 | 2 | 2.7 % |
-| medium | gpt-5.6-terra | drrtl_SPI | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | drrtl_UART | 15 | 70 | 56 | 80.0 % |
-| medium | gpt-5.6-terra | drrtl_UART | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | drrtl_arm_cpu2 | 15 | 127 | 0 | 0.0 % |
-| medium | gpt-5.6-terra | drrtl_arm_cpu2 | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | drrtl_communication | 15 | 129 | 21 | 16.3 % |
-| medium | gpt-5.6-terra | drrtl_communication | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | drrtl_router | 15 | 107 | 0 | 0.0 % |
-| medium | gpt-5.6-terra | drrtl_router | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | drrtl_simple_spi | 15 | 129 | 0 | 0.0 % |
-| medium | gpt-5.6-terra | drrtl_simple_spi | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | rtlopt_alu_64bit | 15 | 113 | 88 | 77.9 % |
-| medium | gpt-5.6-terra | rtlopt_alu_64bit | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | rtlopt_calculation | 15 | 86 | 71 | 82.6 % |
-| medium | gpt-5.6-terra | rtlopt_calculation | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | rtlopt_decoder_8bit | 15 | 113 | 87 | 77.0 % |
-| medium | gpt-5.6-terra | rtlopt_decoder_8bit | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | rtlopt_divider_8bit | 15 | 95 | 68 | 71.6 % |
-| medium | gpt-5.6-terra | rtlopt_divider_8bit | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | rtlopt_register | 15 | 78 | 51 | 65.4 % |
-| medium | gpt-5.6-terra | rtlopt_register | 6 | 0 | 0 | - |
-| medium | gpt-5.6-luna | rtlopt_sub_32bit | 15 | 87 | 71 | 81.6 % |
-| medium | gpt-5.6-terra | rtlopt_sub_32bit | 6 | 0 | 0 | - |
+| medium | gpt-5.6-luna | cktevo_ethmac__eth_cop | 15 | 180 | 94 | 52.2 % |
+| medium | gpt-5.6-terra | cktevo_ethmac__eth_cop | 6 | 48 | 37 | 77.1 % |
+| medium | gpt-5.6-luna | cktevo_mem_ctrl__mc_adr_sel | 15 | 179 | 124 | 69.3 % |
+| medium | gpt-5.6-terra | cktevo_mem_ctrl__mc_adr_sel | 6 | 50 | 39 | 78.0 % |
+| medium | gpt-5.6-luna | cktevo_nn_engine__thresholds_128x4096 | 12 | 147 | 111 | 75.5 % |
+| medium | gpt-5.6-terra | cktevo_nn_engine__thresholds_128x4096 | 6 | 40 | 17 | 42.5 % |
+| medium | gpt-5.6-luna | cktevo_risc__cpu | 15 | 180 | 17 | 9.4 % |
+| medium | gpt-5.6-terra | cktevo_risc__cpu | 6 | 22 | 0 | 0.0 % |
+| medium | gpt-5.6-luna | cktevo_usb__usbf_sie_rx | 15 | 173 | 117 | 67.6 % |
+| medium | gpt-5.6-terra | cktevo_usb__usbf_sie_rx | 6 | 50 | 40 | 80.0 % |
+| medium | gpt-5.6-luna | cktevo_vga_enh__vga_wb_slave | 15 | 180 | 112 | 62.2 % |
+| medium | gpt-5.6-terra | cktevo_vga_enh__vga_wb_slave | 6 | 38 | 29 | 76.3 % |
+| medium | gpt-5.6-luna | drrtl_SPI | 15 | 136 | 6 | 4.4 % |
+| medium | gpt-5.6-terra | drrtl_SPI | 6 | 15 | 2 | 13.3 % |
+| medium | gpt-5.6-luna | drrtl_UART | 15 | 141 | 107 | 75.9 % |
+| medium | gpt-5.6-terra | drrtl_UART | 6 | 21 | 4 | 19.1 % |
+| medium | gpt-5.6-luna | drrtl_arm_cpu2 | 15 | 166 | 0 | 0.0 % |
+| medium | gpt-5.6-terra | drrtl_arm_cpu2 | 6 | 54 | 0 | 0.0 % |
+| medium | gpt-5.6-luna | drrtl_communication | 15 | 162 | 29 | 17.9 % |
+| medium | gpt-5.6-terra | drrtl_communication | 6 | 59 | 0 | 0.0 % |
+| medium | gpt-5.6-luna | drrtl_router | 15 | 180 | 0 | 0.0 % |
+| medium | gpt-5.6-terra | drrtl_router | 6 | 16 | 0 | 0.0 % |
+| medium | gpt-5.6-luna | drrtl_simple_spi | 15 | 180 | 0 | 0.0 % |
+| medium | gpt-5.6-terra | drrtl_simple_spi | 6 | 60 | 0 | 0.0 % |
+| medium | gpt-5.6-luna | rtlopt_alu_64bit | 15 | 180 | 144 | 80.0 % |
+| medium | gpt-5.6-terra | rtlopt_alu_64bit | 6 | 29 | 19 | 65.5 % |
+| medium | gpt-5.6-luna | rtlopt_calculation | 15 | 151 | 121 | 80.1 % |
+| medium | gpt-5.6-terra | rtlopt_calculation | 6 | 15 | 10 | 66.7 % |
+| medium | gpt-5.6-luna | rtlopt_decoder_8bit | 15 | 168 | 127 | 75.6 % |
+| medium | gpt-5.6-terra | rtlopt_decoder_8bit | 6 | 25 | 16 | 64.0 % |
+| medium | gpt-5.6-luna | rtlopt_divider_8bit | 15 | 169 | 121 | 71.6 % |
+| medium | gpt-5.6-terra | rtlopt_divider_8bit | 6 | 20 | 13 | 65.0 % |
+| medium | gpt-5.6-luna | rtlopt_register | 15 | 167 | 127 | 76.0 % |
+| medium | gpt-5.6-terra | rtlopt_register | 6 | 14 | 8 | 57.1 % |
+| medium | gpt-5.6-luna | rtlopt_sub_32bit | 15 | 159 | 118 | 74.2 % |
+| medium | gpt-5.6-terra | rtlopt_sub_32bit | 6 | 11 | 7 | 63.6 % |
 
-LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): cktevo_hsm__hsm under gpt-5.6-terra, cktevo_hsm__hsm under gpt-5.6-luna, drrtl_LSTM under gpt-5.6-terra, drrtl_LSTM under gpt-5.6-luna, drrtl_tv80 under gpt-5.6-terra, drrtl_tv80 under gpt-5.6-luna, drrtl_SPI under gpt-5.6-luna, drrtl_arm_cpu2 under gpt-5.6-luna, drrtl_router under gpt-5.6-luna, drrtl_simple_spi under gpt-5.6-luna.
+LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): cktevo_hsm__hsm under gpt-5.6-terra, cktevo_hsm__hsm under gpt-5.6-luna, drrtl_LSTM under gpt-5.6-terra, drrtl_LSTM under gpt-5.6-luna, drrtl_tv80 under gpt-5.6-terra, drrtl_tv80 under gpt-5.6-luna, drrtl_SPI under gpt-5.6-luna, drrtl_arm_cpu2 under gpt-5.6-luna, drrtl_arm_cpu2 under gpt-5.6-terra, drrtl_communication under gpt-5.6-terra, drrtl_router under gpt-5.6-luna, drrtl_simple_spi under gpt-5.6-luna, drrtl_simple_spi under gpt-5.6-terra.
 
 ## 6. Classes produced (rules v2) and requested → produced
 
@@ -214,22 +215,23 @@ LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): cktevo_hs
 - large / gpt-5.6-terra / B2: produced {'a': 373, 'b': 516, 'c1': 66, 'd': 110}; requested → produced a->a: 46, a->b: 96, a->c1: 5, a->d: 2, b->a: 75, b->b: 58, b->d: 13, c1->a: 83, c1->b: 105, c1->c1: 11, c1->d: 19, d->a: 74, d->b: 134, d->c1: 30, d->d: 24, free->a: 95, free->b: 123, free->c1: 20, free->d: 52
 - large / gpt-5.6-terra / DrRTL_reimpl: produced {'a': 423, 'b': 288, 'c1': 20, 'd': 1, 'free': 3}; requested → produced free->a: 423, free->b: 288, free->c1: 20, free->d: 1, free->free: 3
 - large / gpt-5.6-terra / M: produced {'a': 336, 'b': 495, 'c1': 102, 'd': 78, 'free': 1}; requested → produced a->a: 8, a->b: 49, a->c1: 1, a->d: 2, b->a: 59, b->b: 33, b->d: 12, c1->a: 92, c1->b: 156, c1->c1: 40, c1->d: 32, d->a: 136, d->b: 205, d->c1: 47, d->d: 18, free->a: 41, free->b: 52, free->c1: 14, free->d: 14, free->free: 1
-- medium / gpt-5.6-luna / B0: produced {'a': 174, 'b': 244, 'c1': 197, 'd': 224, 'free': 12}; requested → produced a->a: 30, a->b: 49, a->c1: 44, a->d: 42, b->a: 46, b->b: 21, b->c1: 33, b->d: 47, c1->a: 26, c1->b: 47, c1->c1: 26, c1->d: 41, d->a: 34, d->b: 71, d->c1: 58, d->d: 45, free->a: 38, free->b: 56, free->c1: 36, free->d: 49, free->free: 12
-- medium / gpt-5.6-luna / B1_E4: produced {'a': 109, 'b': 329, 'c1': 155, 'd': 161, 'free': 9}; requested → produced a->a: 19, a->b: 43, a->c1: 16, a->d: 11, b->a: 19, b->b: 28, b->c1: 17, b->d: 30, c1->a: 28, c1->b: 53, c1->c1: 19, c1->d: 25, d->a: 16, d->b: 89, d->c1: 54, d->d: 34, free->a: 27, free->b: 116, free->c1: 49, free->d: 61, free->free: 9
-- medium / gpt-5.6-luna / B2: produced {'a': 81, 'b': 82, 'c1': 57, 'd': 35, 'free': 2}; requested → produced a->a: 11, a->b: 9, a->c1: 5, a->d: 3, b->a: 18, b->b: 12, b->c1: 11, b->d: 7, c1->a: 10, c1->b: 10, c1->c1: 13, c1->d: 5, d->a: 19, d->b: 27, d->c1: 14, d->d: 9, free->a: 23, free->b: 24, free->c1: 14, free->d: 11, free->free: 2
-- medium / gpt-5.6-terra / B2: produced {'b': 15, 'c1': 2}; requested → produced a->b: 2, c1->b: 3, c1->c1: 2, d->b: 2, free->b: 8
+- medium / gpt-5.6-luna / B0: produced {'a': 190, 'b': 273, 'c1': 206, 'd': 255, 'free': 12}; requested → produced a->a: 31, a->b: 51, a->c1: 46, a->d: 48, b->a: 50, b->b: 24, b->c1: 33, b->d: 48, c1->a: 27, c1->b: 49, c1->c1: 28, c1->d: 46, d->a: 37, d->b: 87, d->c1: 63, d->d: 49, free->a: 45, free->b: 62, free->c1: 36, free->d: 64, free->free: 12
+- medium / gpt-5.6-luna / B1_E4: produced {'a': 146, 'b': 461, 'c1': 177, 'd': 225, 'free': 9}; requested → produced a->a: 23, a->b: 67, a->c1: 16, a->d: 20, b->a: 20, b->b: 39, b->c1: 21, b->d: 44, c1->a: 35, c1->b: 68, c1->c1: 20, c1->d: 29, d->a: 25, d->b: 128, d->c1: 63, d->d: 44, free->a: 43, free->b: 159, free->c1: 57, free->d: 88, free->free: 9
+- medium / gpt-5.6-luna / B2: produced {'a': 169, 'b': 375, 'c1': 150, 'd': 184, 'free': 5}; requested → produced a->a: 24, a->b: 75, a->c1: 25, a->d: 31, b->a: 30, b->b: 30, b->c1: 25, b->d: 33, c1->a: 29, c1->b: 55, c1->c1: 27, c1->d: 26, d->a: 32, d->b: 109, d->c1: 37, d->d: 28, free->a: 54, free->b: 106, free->c1: 36, free->d: 66, free->free: 5
+- medium / gpt-5.6-luna / DrRTL_reimpl: produced {'a': 17, 'b': 3, 'd': 7}; requested → produced free->a: 17, free->b: 3, free->d: 7
+- medium / gpt-5.6-terra / B2: produced {'a': 105, 'b': 230, 'c1': 144, 'd': 91, 'free': 8}; requested → produced a->a: 32, a->b: 54, a->c1: 18, a->d: 13, b->a: 26, b->b: 31, b->c1: 11, b->d: 12, c1->a: 6, c1->b: 27, c1->c1: 25, c1->d: 12, d->a: 13, d->b: 60, d->c1: 52, d->d: 21, free->a: 28, free->b: 58, free->c1: 38, free->d: 33, free->free: 8
 
 ## 7. Runs and anomalies
 
-Runs on the reported tiers: 483 (123 done, 35 running, 325 not started). No run in an abnormal status.
+Runs on the reported tiers: 483 (146 done, 34 running, 303 not started). No run in an abnormal status.
 
 ## 7a. Operational changes during the run (DECISIONS 2026-09-16; verdict definitions, floors, budgets and the stack unchanged)
 
 Hidden DC registrations capped at 8 from 2026-09-16T14:30; split equivalence pipeline, provisional diagnosis and proof ordering from 2026-09-16T15:14; positive provisional verdicts withheld from the model from 2026-09-16T16:03.
 
-- Provisional-versus-final diagnosis agreement: 274 of 333 proven candidates with a final diagnosis agree (82.3 %); 2909 candidates received a provisional label (absorbed_identical 31, duplicate 38, harmful 112, improved 1756, no_gain 435, noise 73, retained 198, tradeoff 266), 1147 of them were not proven, 1429 still wait for the proof or the diagnosis, 2160 labels withheld from the model. Disagreements: tradeoff→duplicate; tradeoff→duplicate; retained→duplicate; harmful→duplicate; retained→duplicate; retained→duplicate; retained→duplicate; tradeoff→duplicate.
+- Provisional-versus-final diagnosis agreement: 274 of 333 proven candidates with a final diagnosis agree (82.3 %); 3666 candidates received a provisional label (absorbed_identical 31, duplicate 38, harmful 112, improved 2311, no_gain 637, noise 73, retained 198, tradeoff 266), 1305 of them were not proven, 2028 still wait for the proof or the diagnosis, 2715 labels withheld from the model. Disagreements: tradeoff→duplicate; tradeoff→duplicate; retained→duplicate; harmful→duplicate; retained→duplicate; retained→duplicate; retained→duplicate; tradeoff→duplicate.
 - Positive provisional feedback exposure (window 2026-09-16T15:14 to 2026-09-16T16:03): 15 LLM calls carried 25 positive pending blocks (2 runs); 8 candidates behind them — proofs since: inconclusive 8.
-- Cross-run verdict reuse since 2026-09-16T15:14: 0 proofs copied from a decided record of the same pair ({}), over 3360 split-pipeline proofs of 8415 equivalence records; sim records missing: 0.
+- Cross-run verdict reuse since 2026-09-16T15:14: 0 proofs copied from a decided record of the same pair ({}), over 4326 split-pipeline proofs of 10946 equivalence records; sim records missing: 0.
 
 Equivalence jobs finished per hour on the VC Formal pool since the throttle (2026-09-16T14:30), by the candidate's verdict:
 
@@ -270,5 +272,8 @@ Equivalence jobs finished per hour on the VC Formal pool since the throttle (202
 | 2026-09-17T22 | 289 | 216 | 20 | 10.8 | 51 | 1 | 1 |
 | 2026-09-17T23 | 253 | 197 | 25 | 7.88 | 31 | 0 | 0 |
 | 2026-09-18T00 | 257 | 196 | 16 | 12.25 | 45 | 0 | 0 |
-| 2026-09-18T01 | 142 | 82 | 17 | 4.82 | 15 | 0 | 0 |
+| 2026-09-18T01 | 292 | 209 | 36 | 5.81 | 47 | 0 | 0 |
+| 2026-09-18T02 | 292 | 239 | 20 | 11.95 | 33 | 0 | 0 |
+| 2026-09-18T03 | 357 | 282 | 23 | 12.26 | 52 | 0 | 0 |
+| 2026-09-18T04 | 167 | 145 | 10 | 14.5 | 12 | 0 | 0 |
 

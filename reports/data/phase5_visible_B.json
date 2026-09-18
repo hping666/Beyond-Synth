@@ -1,5 +1,5 @@
 {
- "cfg_hash": "3c7f3d2a961d",
+ "cfg_hash": "2530153494cf",
  "classes": {},
  "correctness": {
   "large|gpt-5.6-luna|cktevo_hsm__hsm": {
@@ -75,219 +75,219 @@
    "runs": 15
   },
   "medium|gpt-5.6-luna|cktevo_ethmac__eth_cop": {
-   "cands": 125,
-   "proven": 57,
-   "proven_rate": 0.456,
+   "cands": 180,
+   "proven": 94,
+   "proven_rate": 0.5222,
    "runs": 15
   },
   "medium|gpt-5.6-luna|cktevo_mem_ctrl__mc_adr_sel": {
-   "cands": 149,
-   "proven": 102,
-   "proven_rate": 0.6846,
+   "cands": 179,
+   "proven": 124,
+   "proven_rate": 0.6927,
    "runs": 15
   },
   "medium|gpt-5.6-luna|cktevo_nn_engine__thresholds_128x4096": {
-   "cands": 115,
-   "proven": 84,
-   "proven_rate": 0.7304,
+   "cands": 147,
+   "proven": 111,
+   "proven_rate": 0.7551,
    "runs": 12
   },
   "medium|gpt-5.6-luna|cktevo_risc__cpu": {
-   "cands": 122,
-   "proven": 14,
-   "proven_rate": 0.1148,
+   "cands": 180,
+   "proven": 17,
+   "proven_rate": 0.0944,
    "runs": 15
   },
   "medium|gpt-5.6-luna|cktevo_usb__usbf_sie_rx": {
-   "cands": 130,
-   "proven": 88,
-   "proven_rate": 0.6769,
+   "cands": 173,
+   "proven": 117,
+   "proven_rate": 0.6763,
    "runs": 15
   },
   "medium|gpt-5.6-luna|cktevo_vga_enh__vga_wb_slave": {
-   "cands": 122,
-   "proven": 69,
-   "proven_rate": 0.5656,
+   "cands": 180,
+   "proven": 112,
+   "proven_rate": 0.6222,
    "runs": 15
   },
   "medium|gpt-5.6-luna|drrtl_SPI": {
-   "cands": 73,
-   "proven": 2,
-   "proven_rate": 0.0274,
+   "cands": 136,
+   "proven": 6,
+   "proven_rate": 0.0441,
    "runs": 15
   },
   "medium|gpt-5.6-luna|drrtl_UART": {
-   "cands": 70,
-   "proven": 56,
-   "proven_rate": 0.8,
+   "cands": 141,
+   "proven": 107,
+   "proven_rate": 0.7589,
    "runs": 15
   },
   "medium|gpt-5.6-luna|drrtl_arm_cpu2": {
-   "cands": 127,
+   "cands": 166,
    "proven": 0,
    "proven_rate": 0.0,
    "runs": 15
   },
   "medium|gpt-5.6-luna|drrtl_communication": {
-   "cands": 129,
-   "proven": 21,
-   "proven_rate": 0.1628,
+   "cands": 162,
+   "proven": 29,
+   "proven_rate": 0.179,
    "runs": 15
   },
   "medium|gpt-5.6-luna|drrtl_router": {
-   "cands": 107,
+   "cands": 180,
    "proven": 0,
    "proven_rate": 0.0,
    "runs": 15
   },
   "medium|gpt-5.6-luna|drrtl_simple_spi": {
-   "cands": 129,
+   "cands": 180,
    "proven": 0,
    "proven_rate": 0.0,
    "runs": 15
   },
   "medium|gpt-5.6-luna|rtlopt_alu_64bit": {
-   "cands": 113,
-   "proven": 88,
-   "proven_rate": 0.7788,
+   "cands": 180,
+   "proven": 144,
+   "proven_rate": 0.8,
    "runs": 15
   },
   "medium|gpt-5.6-luna|rtlopt_calculation": {
-   "cands": 86,
-   "proven": 71,
-   "proven_rate": 0.8256,
+   "cands": 151,
+   "proven": 121,
+   "proven_rate": 0.8013,
    "runs": 15
   },
   "medium|gpt-5.6-luna|rtlopt_decoder_8bit": {
-   "cands": 113,
-   "proven": 87,
-   "proven_rate": 0.7699,
+   "cands": 168,
+   "proven": 127,
+   "proven_rate": 0.756,
    "runs": 15
   },
   "medium|gpt-5.6-luna|rtlopt_divider_8bit": {
-   "cands": 95,
-   "proven": 68,
-   "proven_rate": 0.7158,
+   "cands": 169,
+   "proven": 121,
+   "proven_rate": 0.716,
    "runs": 15
   },
   "medium|gpt-5.6-luna|rtlopt_register": {
-   "cands": 78,
-   "proven": 51,
-   "proven_rate": 0.6538,
+   "cands": 167,
+   "proven": 127,
+   "proven_rate": 0.7605,
    "runs": 15
   },
   "medium|gpt-5.6-luna|rtlopt_sub_32bit": {
-   "cands": 87,
-   "proven": 71,
-   "proven_rate": 0.8161,
+   "cands": 159,
+   "proven": 118,
+   "proven_rate": 0.7421,
    "runs": 15
   },
   "medium|gpt-5.6-terra|cktevo_ethmac__eth_cop": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 48,
+   "proven": 37,
+   "proven_rate": 0.7708,
    "runs": 6
   },
   "medium|gpt-5.6-terra|cktevo_mem_ctrl__mc_adr_sel": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 50,
+   "proven": 39,
+   "proven_rate": 0.78,
    "runs": 6
   },
   "medium|gpt-5.6-terra|cktevo_nn_engine__thresholds_128x4096": {
-   "cands": 17,
-   "proven": 1,
-   "proven_rate": 0.0588,
+   "cands": 40,
+   "proven": 17,
+   "proven_rate": 0.425,
    "runs": 6
   },
   "medium|gpt-5.6-terra|cktevo_risc__cpu": {
-   "cands": 0,
+   "cands": 22,
    "proven": 0,
-   "proven_rate": null,
+   "proven_rate": 0.0,
    "runs": 6
   },
   "medium|gpt-5.6-terra|cktevo_usb__usbf_sie_rx": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 50,
+   "proven": 40,
+   "proven_rate": 0.8,
    "runs": 6
   },
   "medium|gpt-5.6-terra|cktevo_vga_enh__vga_wb_slave": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 38,
+   "proven": 29,
+   "proven_rate": 0.7632,
    "runs": 6
   },
   "medium|gpt-5.6-terra|drrtl_SPI": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 15,
+   "proven": 2,
+   "proven_rate": 0.1333,
    "runs": 6
   },
   "medium|gpt-5.6-terra|drrtl_UART": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 21,
+   "proven": 4,
+   "proven_rate": 0.1905,
    "runs": 6
   },
   "medium|gpt-5.6-terra|drrtl_arm_cpu2": {
-   "cands": 0,
+   "cands": 54,
    "proven": 0,
-   "proven_rate": null,
+   "proven_rate": 0.0,
    "runs": 6
   },
   "medium|gpt-5.6-terra|drrtl_communication": {
-   "cands": 0,
+   "cands": 59,
    "proven": 0,
-   "proven_rate": null,
+   "proven_rate": 0.0,
    "runs": 6
   },
   "medium|gpt-5.6-terra|drrtl_router": {
-   "cands": 0,
+   "cands": 16,
    "proven": 0,
-   "proven_rate": null,
+   "proven_rate": 0.0,
    "runs": 6
   },
   "medium|gpt-5.6-terra|drrtl_simple_spi": {
-   "cands": 0,
+   "cands": 60,
    "proven": 0,
-   "proven_rate": null,
+   "proven_rate": 0.0,
    "runs": 6
   },
   "medium|gpt-5.6-terra|rtlopt_alu_64bit": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 29,
+   "proven": 19,
+   "proven_rate": 0.6552,
    "runs": 6
   },
   "medium|gpt-5.6-terra|rtlopt_calculation": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 15,
+   "proven": 10,
+   "proven_rate": 0.6667,
    "runs": 6
   },
   "medium|gpt-5.6-terra|rtlopt_decoder_8bit": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 25,
+   "proven": 16,
+   "proven_rate": 0.64,
    "runs": 6
   },
   "medium|gpt-5.6-terra|rtlopt_divider_8bit": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 20,
+   "proven": 13,
+   "proven_rate": 0.65,
    "runs": 6
   },
   "medium|gpt-5.6-terra|rtlopt_register": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 14,
+   "proven": 8,
+   "proven_rate": 0.5714,
    "runs": 6
   },
   "medium|gpt-5.6-terra|rtlopt_sub_32bit": {
-   "cands": 0,
-   "proven": 0,
-   "proven_rate": null,
+   "cands": 11,
+   "proven": 7,
+   "proven_rate": 0.6364,
    "runs": 6
   }
  },
@@ -1286,33 +1286,33 @@
     },
     {
      "calls": 35,
-     "mean_best_gain": 0.02118,
+     "mean_best_gain": 0.02138,
      "runs_with_retained": 9
     },
     {
      "calls": 40,
-     "mean_best_gain": 0.02118,
+     "mean_best_gain": 0.02138,
      "runs_with_retained": 9
     },
     {
      "calls": 45,
-     "mean_best_gain": 0.02118,
+     "mean_best_gain": 0.02198,
      "runs_with_retained": 9
     },
     {
      "calls": 50,
-     "mean_best_gain": 0.02118,
+     "mean_best_gain": 0.02198,
      "runs_with_retained": 9
     },
     {
      "calls": 55,
-     "mean_best_gain": 0.02118,
-     "runs_with_retained": 9
+     "mean_best_gain": 0.02586,
+     "runs_with_retained": 10
     },
     {
      "calls": 60,
-     "mean_best_gain": 0.02118,
-     "runs_with_retained": 9
+     "mean_best_gain": 0.02586,
+     "runs_with_retained": 10
     }
    ],
    "by_dc_hours": [
@@ -1326,103 +1326,103 @@
     },
     {
      "dc_hours": 0.75,
-     "mean_best_gain": 0.02109
+     "mean_best_gain": 0.02129
     },
     {
      "dc_hours": 1.0,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02138
     },
     {
      "dc_hours": 1.25,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02138
     },
     {
      "dc_hours": 1.5,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02138
     },
     {
      "dc_hours": 1.75,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02198
     },
     {
      "dc_hours": 2.0,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02198
     },
     {
      "dc_hours": 2.25,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 2.5,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 2.75,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 3.0,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 3.25,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 3.5,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 3.75,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 4.0,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 4.25,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 4.5,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 4.75,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 5.0,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 5.25,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 5.5,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 5.75,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 6.0,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 6.25,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 6.5,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     },
     {
      "dc_hours": 6.75,
-     "mean_best_gain": 0.02118
+     "mean_best_gain": 0.02586
     }
    ]
   },
@@ -1430,137 +1430,153 @@
    "by_calls": [
     {
      "calls": 5,
-     "mean_best_gain": 0.00631,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.00708,
+     "runs_with_retained": 6
     },
     {
      "calls": 10,
-     "mean_best_gain": 0.00634,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.00711,
+     "runs_with_retained": 6
     },
     {
      "calls": 15,
-     "mean_best_gain": 0.00649,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.01914,
+     "runs_with_retained": 7
     },
     {
      "calls": 20,
-     "mean_best_gain": 0.00649,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.01914,
+     "runs_with_retained": 7
     },
     {
      "calls": 25,
-     "mean_best_gain": 0.00649,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.02133,
+     "runs_with_retained": 8
     },
     {
      "calls": 30,
-     "mean_best_gain": 0.00649,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.02133,
+     "runs_with_retained": 8
     },
     {
      "calls": 35,
-     "mean_best_gain": 0.00649,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.02145,
+     "runs_with_retained": 8
     },
     {
      "calls": 40,
-     "mean_best_gain": 0.00649,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.02145,
+     "runs_with_retained": 8
     },
     {
      "calls": 45,
-     "mean_best_gain": 0.00649,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.02145,
+     "runs_with_retained": 8
     },
     {
      "calls": 50,
-     "mean_best_gain": 0.00649,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.02156,
+     "runs_with_retained": 9
     },
     {
      "calls": 55,
-     "mean_best_gain": 0.00649,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.02156,
+     "runs_with_retained": 9
     },
     {
      "calls": 60,
-     "mean_best_gain": 0.00649,
-     "runs_with_retained": 4
+     "mean_best_gain": 0.02156,
+     "runs_with_retained": 9
     }
    ],
    "by_dc_hours": [
     {
      "dc_hours": 0.25,
-     "mean_best_gain": 0.00634
+     "mean_best_gain": 0.00827
     },
     {
      "dc_hours": 0.5,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.01954
     },
     {
      "dc_hours": 0.75,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.01956
     },
     {
      "dc_hours": 1.0,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02038
     },
     {
      "dc_hours": 1.25,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02145
     },
     {
      "dc_hours": 1.5,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02145
     },
     {
      "dc_hours": 1.75,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02145
     },
     {
      "dc_hours": 2.0,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02145
     },
     {
      "dc_hours": 2.25,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02145
     },
     {
      "dc_hours": 2.5,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02145
     },
     {
      "dc_hours": 2.75,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02145
     },
     {
      "dc_hours": 3.0,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02145
     },
     {
      "dc_hours": 3.25,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02156
     },
     {
      "dc_hours": 3.5,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02156
     },
     {
      "dc_hours": 3.75,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02156
     },
     {
      "dc_hours": 4.0,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02156
     },
     {
      "dc_hours": 4.25,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02156
     },
     {
      "dc_hours": 4.5,
-     "mean_best_gain": 0.00649
+     "mean_best_gain": 0.02156
+    },
+    {
+     "dc_hours": 4.75,
+     "mean_best_gain": 0.02156
+    },
+    {
+     "dc_hours": 5.0,
+     "mean_best_gain": 0.02156
+    },
+    {
+     "dc_hours": 5.25,
+     "mean_best_gain": 0.02156
+    },
+    {
+     "dc_hours": 5.5,
+     "mean_best_gain": 0.02156
     }
    ]
   },
@@ -1627,7 +1643,60 @@
      "runs_with_retained": 0
     }
    ],
-   "by_dc_hours": []
+   "by_dc_hours": [
+    {
+     "dc_hours": 0.25,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 0.5,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 0.75,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 1.0,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 1.25,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 1.5,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 1.75,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 2.0,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 2.25,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 2.5,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 2.75,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 3.0,
+     "mean_best_gain": 0.0
+    },
+    {
+     "dc_hours": 3.25,
+     "mean_best_gain": 0.0
+    }
+   ]
   },
   "medium|gpt-5.6-luna|M": {
    "by_calls": [
@@ -1698,69 +1767,117 @@
    "by_calls": [
     {
      "calls": 5,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.00777,
+     "runs_with_retained": 6
     },
     {
      "calls": 10,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.00945,
+     "runs_with_retained": 7
     },
     {
      "calls": 15,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.02135,
+     "runs_with_retained": 8
     },
     {
      "calls": 20,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.02142,
+     "runs_with_retained": 8
     },
     {
      "calls": 25,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.02142,
+     "runs_with_retained": 8
     },
     {
      "calls": 30,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.02149,
+     "runs_with_retained": 8
     },
     {
      "calls": 35,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.02149,
+     "runs_with_retained": 8
     },
     {
      "calls": 40,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.0215,
+     "runs_with_retained": 8
     },
     {
      "calls": 45,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.02163,
+     "runs_with_retained": 8
     },
     {
      "calls": 50,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.02163,
+     "runs_with_retained": 8
     },
     {
      "calls": 55,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.02163,
+     "runs_with_retained": 8
     },
     {
      "calls": 60,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
+     "mean_best_gain": 0.02163,
+     "runs_with_retained": 8
     }
    ],
    "by_dc_hours": [
     {
      "dc_hours": 0.25,
-     "mean_best_gain": 0.0
+     "mean_best_gain": 0.00888
+    },
+    {
+     "dc_hours": 0.5,
+     "mean_best_gain": 0.00894
+    },
+    {
+     "dc_hours": 0.75,
+     "mean_best_gain": 0.02132
+    },
+    {
+     "dc_hours": 1.0,
+     "mean_best_gain": 0.02135
+    },
+    {
+     "dc_hours": 1.25,
+     "mean_best_gain": 0.02142
+    },
+    {
+     "dc_hours": 1.5,
+     "mean_best_gain": 0.02142
+    },
+    {
+     "dc_hours": 1.75,
+     "mean_best_gain": 0.02149
+    },
+    {
+     "dc_hours": 2.0,
+     "mean_best_gain": 0.0215
+    },
+    {
+     "dc_hours": 2.25,
+     "mean_best_gain": 0.02163
+    },
+    {
+     "dc_hours": 2.5,
+     "mean_best_gain": 0.02163
+    },
+    {
+     "dc_hours": 2.75,
+     "mean_best_gain": 0.02163
+    },
+    {
+     "dc_hours": 3.0,
+     "mean_best_gain": 0.02163
+    },
+    {
+     "dc_hours": 3.25,
+     "mean_best_gain": 0.02163
     }
    ]
   },
@@ -2097,8 +2214,8 @@
    "runs": 3
   },
   "medium|gpt-5.6-luna|B1_E4|cktevo_ethmac__eth_cop": {
-   "best_retained_area_gain": 0.04686,
-   "retained": 2,
+   "best_retained_area_gain": 0.05762,
+   "retained": 5,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B1_E4|cktevo_mem_ctrl__mc_adr_sel": {
@@ -2118,12 +2235,12 @@
   },
   "medium|gpt-5.6-luna|B1_E4|cktevo_usb__usbf_sie_rx": {
    "best_retained_area_gain": 0.01283,
-   "retained": 14,
+   "retained": 15,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B1_E4|cktevo_vga_enh__vga_wb_slave": {
    "best_retained_area_gain": 0.0193,
-   "retained": 22,
+   "retained": 26,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B1_E4|drrtl_SPI": {
@@ -2157,33 +2274,33 @@
    "runs": 3
   },
   "medium|gpt-5.6-luna|B1_E4|rtlopt_alu_64bit": {
-   "best_retained_area_gain": 0.0,
-   "retained": 6,
+   "best_retained_area_gain": 0.20968,
+   "retained": 10,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B1_E4|rtlopt_calculation": {
-   "best_retained_area_gain": 0.35661,
-   "retained": 16,
+   "best_retained_area_gain": 0.3886,
+   "retained": 37,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B1_E4|rtlopt_decoder_8bit": {
    "best_retained_area_gain": 0.00322,
-   "retained": 38,
+   "retained": 46,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B1_E4|rtlopt_divider_8bit": {
    "best_retained_area_gain": 0.65377,
-   "retained": 14,
+   "retained": 19,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B1_E4|rtlopt_register": {
-   "best_retained_area_gain": 0.0085,
-   "retained": 3,
+   "best_retained_area_gain": 0.00874,
+   "retained": 16,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B1_E4|rtlopt_sub_32bit": {
    "best_retained_area_gain": 0.03826,
-   "retained": 3,
+   "retained": 5,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|cktevo_ethmac__eth_cop": {
@@ -2193,7 +2310,7 @@
   },
   "medium|gpt-5.6-luna|B2|cktevo_mem_ctrl__mc_adr_sel": {
    "best_retained_area_gain": 0.01251,
-   "retained": 8,
+   "retained": 15,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|cktevo_nn_engine__thresholds_128x4096": {
@@ -2207,18 +2324,18 @@
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|cktevo_usb__usbf_sie_rx": {
-   "best_retained_area_gain": 0.00946,
-   "retained": 7,
+   "best_retained_area_gain": 0.0125,
+   "retained": 22,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|cktevo_vga_enh__vga_wb_slave": {
-   "best_retained_area_gain": 0.01294,
-   "retained": 4,
+   "best_retained_area_gain": 0.02044,
+   "retained": 31,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|drrtl_SPI": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.06278,
+   "retained": 1,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|drrtl_UART": {
@@ -2248,32 +2365,32 @@
   },
   "medium|gpt-5.6-luna|B2|rtlopt_alu_64bit": {
    "best_retained_area_gain": 0.0,
-   "retained": 1,
+   "retained": 9,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|rtlopt_calculation": {
-   "best_retained_area_gain": 0.31551,
-   "retained": 2,
+   "best_retained_area_gain": 0.35661,
+   "retained": 23,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|rtlopt_decoder_8bit": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.00322,
+   "retained": 32,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|rtlopt_divider_8bit": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.65177,
+   "retained": 23,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|rtlopt_register": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.00631,
+   "retained": 2,
    "runs": 3
   },
   "medium|gpt-5.6-luna|B2|rtlopt_sub_32bit": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.03826,
+   "retained": 5,
    "runs": 3
   },
   "medium|gpt-5.6-luna|DrRTL_reimpl|cktevo_ethmac__eth_cop": {
@@ -2462,8 +2579,8 @@
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|cktevo_mem_ctrl__mc_adr_sel": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.01353,
+   "retained": 14,
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|cktevo_nn_engine__thresholds_128x4096": {
@@ -2477,18 +2594,18 @@
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|cktevo_usb__usbf_sie_rx": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.01317,
+   "retained": 13,
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|cktevo_vga_enh__vga_wb_slave": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.01896,
+   "retained": 15,
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|drrtl_SPI": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.06278,
+   "retained": 2,
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|drrtl_UART": {
@@ -2522,18 +2639,18 @@
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|rtlopt_calculation": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.37763,
+   "retained": 10,
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|rtlopt_decoder_8bit": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.00322,
+   "retained": 15,
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|rtlopt_divider_8bit": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.64043,
+   "retained": 8,
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|rtlopt_register": {
@@ -2542,8 +2659,8 @@
    "runs": 3
   },
   "medium|gpt-5.6-terra|B2|rtlopt_sub_32bit": {
-   "best_retained_area_gain": 0.0,
-   "retained": 0,
+   "best_retained_area_gain": 0.03826,
+   "retained": 2,
    "runs": 3
   },
   "medium|gpt-5.6-terra|M|cktevo_ethmac__eth_cop": {
@@ -2640,8 +2757,8 @@
  "equiv_version": "phase5",
  "exp": "phase5",
  "floor_version": "phase4",
- "generated_at": "2026-09-18T01:20",
- "git_sha": "2e44fe8719a3",
+ "generated_at": "2026-09-18T04:24",
+ "git_sha": "b4a15b569fc7",
  "groups": {
   "large|gpt-5.6-luna|M": {
    "accepted": 29,
@@ -3170,64 +3287,64 @@
    "vcf_h": 450.72
   },
   "medium|gpt-5.6-luna|B0": {
-   "accepted": 177,
+   "accepted": 189,
    "arm": "B0",
    "best_gain_mean": 0.0,
    "best_gain_median": 0.0,
-   "block_answers": 94,
+   "block_answers": 102,
    "block_flag_rate": 0.0,
    "block_flags": 0,
-   "calls": 927,
-   "cands": 927,
+   "calls": 1013,
+   "cands": 1013,
    "classes": {
-    "a": 174,
-    "b": 244,
-    "c1": 197,
-    "d": 224,
+    "a": 190,
+    "b": 273,
+    "c1": 206,
+    "d": 255,
     "free": 12
    },
    "confusion": {
-    "a->a": 30,
-    "a->b": 49,
-    "a->c1": 44,
-    "a->d": 42,
-    "b->a": 46,
-    "b->b": 21,
+    "a->a": 31,
+    "a->b": 51,
+    "a->c1": 46,
+    "a->d": 48,
+    "b->a": 50,
+    "b->b": 24,
     "b->c1": 33,
-    "b->d": 47,
-    "c1->a": 26,
-    "c1->b": 47,
-    "c1->c1": 26,
-    "c1->d": 41,
-    "d->a": 34,
-    "d->b": 71,
-    "d->c1": 58,
-    "d->d": 45,
-    "free->a": 38,
-    "free->b": 56,
+    "b->d": 48,
+    "c1->a": 27,
+    "c1->b": 49,
+    "c1->c1": 28,
+    "c1->d": 46,
+    "d->a": 37,
+    "d->b": 87,
+    "d->c1": 63,
+    "d->d": 49,
+    "free->a": 45,
+    "free->b": 62,
     "free->c1": 36,
-    "free->d": 49,
+    "free->d": 64,
     "free->free": 12
    },
    "dc_h": 0.0,
-   "done": 11,
-   "duplicate": 76,
+   "done": 15,
+   "duplicate": 77,
    "error": 0,
-   "falsified": 95,
+   "falsified": 98,
    "gain_retained_max": null,
    "gain_retained_median": null,
-   "inconclusive": 29,
+   "inconclusive": 45,
    "latency_mapped": 0,
    "model": "gpt-5.6-luna",
-   "pending": 8,
+   "pending": 19,
    "planned": 51,
    "prescreened": 0,
-   "proven": 447,
-   "proven_per_call": 0.4822,
+   "proven": 497,
+   "proven_per_call": 0.4906,
    "proven_sim_only": 0,
-   "rejected": 122,
-   "repairs": 214,
-   "repairs_proven": 71,
+   "rejected": 124,
+   "repairs": 220,
+   "repairs_proven": 74,
    "retained": 0,
    "retained_per_100_calls": 0.0,
    "retained_per_dc_hour": null,
@@ -3237,206 +3354,206 @@
    "runs": 51,
    "runs_with_retained": 0,
    "scope_flags": 0,
-   "sim_fail": 150,
+   "sim_fail": 153,
    "stored": {
-    "improved": 365,
-    "no_gain": 77,
-    "nonequiv": 396
+    "improved": 409,
+    "no_gain": 82,
+    "nonequiv": 420
    },
    "tier": "medium",
    "ttv": {
-    "median": 270.7,
-    "n": 843,
-    "q95": 3420.5
+    "median": 273.6,
+    "n": 917,
+    "q95": 3522.0
    },
    "uniform": {},
    "unusable": 0,
-   "usd": 1.85,
-   "vcf_h": 52.77
+   "usd": 2.0,
+   "vcf_h": 86.39
   },
   "medium|gpt-5.6-luna|B1_E4": {
-   "accepted": 177,
+   "accepted": 220,
    "arm": "B1_E4",
-   "best_gain_mean": 0.02118,
+   "best_gain_mean": 0.02586,
    "best_gain_median": 0.0,
-   "block_answers": 121,
-   "block_flag_rate": 0.0248,
-   "block_flags": 3,
-   "calls": 792,
-   "cands": 786,
+   "block_answers": 163,
+   "block_flag_rate": 0.0368,
+   "block_flags": 6,
+   "calls": 1063,
+   "cands": 1057,
    "classes": {
-    "a": 109,
-    "b": 329,
-    "c1": 155,
-    "d": 161,
+    "a": 146,
+    "b": 461,
+    "c1": 177,
+    "d": 225,
     "free": 9
    },
    "confusion": {
-    "a->a": 19,
-    "a->b": 43,
+    "a->a": 23,
+    "a->b": 67,
     "a->c1": 16,
-    "a->d": 11,
-    "b->a": 19,
-    "b->b": 28,
-    "b->c1": 17,
-    "b->d": 30,
-    "c1->a": 28,
-    "c1->b": 53,
-    "c1->c1": 19,
-    "c1->d": 25,
-    "d->a": 16,
-    "d->b": 89,
-    "d->c1": 54,
-    "d->d": 34,
-    "free->a": 27,
-    "free->b": 116,
-    "free->c1": 49,
-    "free->d": 61,
+    "a->d": 20,
+    "b->a": 20,
+    "b->b": 39,
+    "b->c1": 21,
+    "b->d": 44,
+    "c1->a": 35,
+    "c1->b": 68,
+    "c1->c1": 20,
+    "c1->d": 29,
+    "d->a": 25,
+    "d->b": 128,
+    "d->c1": 63,
+    "d->d": 44,
+    "free->a": 43,
+    "free->b": 159,
+    "free->c1": 57,
+    "free->d": 88,
     "free->free": 9
    },
-   "dc_h": 23.97,
-   "done": 4,
-   "duplicate": 23,
+   "dc_h": 37.63,
+   "done": 14,
+   "duplicate": 39,
    "error": 0,
-   "falsified": 65,
+   "falsified": 114,
    "gain_retained_max": 0.65377,
-   "gain_retained_median": 0.00352,
+   "gain_retained_median": 0.0044,
+   "inconclusive": 51,
+   "latency_mapped": 0,
+   "model": "gpt-5.6-luna",
+   "pending": 21,
+   "planned": 54,
+   "prescreened": 0,
+   "proven": 508,
+   "proven_per_call": 0.4779,
+   "proven_sim_only": 0,
+   "rejected": 152,
+   "repairs": 255,
+   "repairs_proven": 83,
+   "retained": 191,
+   "retained_per_100_calls": 17.968,
+   "retained_per_dc_hour": 5.075,
+   "retained_per_run": 3.537,
+   "retained_per_usd": 81.727,
+   "role": "main",
+   "runs": 54,
+   "runs_with_retained": 10,
+   "scope_flags": 6,
+   "sim_fail": 172,
+   "stored": {
+    "improved": 437,
+    "no_gain": 70,
+    "nonequiv": 489
+   },
+   "tier": "medium",
+   "ttv": {
+    "median": 455.1,
+    "n": 997,
+    "q95": 3454.8
+   },
+   "uniform": {
+    "absorbed": 32,
+    "absorbed_identical": 63,
+    "harmful": 44,
+    "noise": 14,
+    "retained": 191,
+    "tradeoff": 164
+   },
+   "unusable": 6,
+   "usd": 2.34,
+   "vcf_h": 82.16
+  },
+  "medium|gpt-5.6-luna|B2": {
+   "accepted": 165,
+   "arm": "B2",
+   "best_gain_mean": 0.02156,
+   "best_gain_median": 0.0,
+   "block_answers": 161,
+   "block_flag_rate": 0.0186,
+   "block_flags": 3,
+   "calls": 903,
+   "cands": 901,
+   "classes": {
+    "a": 169,
+    "b": 375,
+    "c1": 150,
+    "d": 184,
+    "free": 5
+   },
+   "confusion": {
+    "a->a": 24,
+    "a->b": 75,
+    "a->c1": 25,
+    "a->d": 31,
+    "b->a": 30,
+    "b->b": 30,
+    "b->c1": 25,
+    "b->d": 33,
+    "c1->a": 29,
+    "c1->b": 55,
+    "c1->c1": 27,
+    "c1->d": 26,
+    "d->a": 32,
+    "d->b": 109,
+    "d->c1": 37,
+    "d->d": 28,
+    "free->a": 54,
+    "free->b": 106,
+    "free->c1": 36,
+    "free->d": 66,
+    "free->free": 5
+   },
+   "dc_h": 37.4,
+   "done": 7,
+   "duplicate": 18,
+   "error": 0,
+   "falsified": 77,
+   "gain_retained_max": 0.65177,
+   "gain_retained_median": 0.00946,
    "inconclusive": 26,
    "latency_mapped": 0,
    "model": "gpt-5.6-luna",
-   "pending": 39,
+   "pending": 56,
    "planned": 54,
    "prescreened": 0,
-   "proven": 365,
-   "proven_per_call": 0.4609,
+   "proven": 451,
+   "proven_per_call": 0.4994,
    "proven_sim_only": 0,
-   "rejected": 135,
-   "repairs": 202,
-   "repairs_proven": 63,
-   "retained": 130,
-   "retained_per_100_calls": 16.414,
-   "retained_per_dc_hour": 5.424,
-   "retained_per_run": 2.407,
-   "retained_per_usd": 73.279,
+   "rejected": 146,
+   "repairs": 214,
+   "repairs_proven": 79,
+   "retained": 163,
+   "retained_per_100_calls": 18.051,
+   "retained_per_dc_hour": 4.358,
+   "retained_per_run": 3.019,
+   "retained_per_usd": 78.014,
    "role": "main",
    "runs": 54,
    "runs_with_retained": 9,
    "scope_flags": 3,
-   "sim_fail": 133,
+   "sim_fail": 127,
    "stored": {
-    "improved": 307,
-    "no_gain": 58,
-    "nonequiv": 359
+    "improved": 370,
+    "no_gain": 80,
+    "nonequiv": 376
    },
    "tier": "medium",
    "ttv": {
-    "median": 356.6,
-    "n": 724,
-    "q95": 3333.3
+    "median": 411.5,
+    "n": 827,
+    "q95": 3080.9
    },
    "uniform": {
-    "absorbed": 32,
-    "absorbed_identical": 40,
-    "harmful": 34,
+    "absorbed": 17,
+    "absorbed_identical": 47,
+    "harmful": 42,
     "noise": 14,
-    "retained": 130,
-    "tradeoff": 115
+    "retained": 163,
+    "tradeoff": 167
    },
-   "unusable": 6,
-   "usd": 1.77,
-   "vcf_h": 36.33
-  },
-  "medium|gpt-5.6-luna|B2": {
-   "accepted": 42,
-   "arm": "B2",
-   "best_gain_mean": 0.00649,
-   "best_gain_median": 0.0,
-   "block_answers": 52,
-   "block_flag_rate": 0.0577,
-   "block_flags": 3,
-   "calls": 249,
-   "cands": 257,
-   "classes": {
-    "a": 81,
-    "b": 82,
-    "c1": 57,
-    "d": 35,
-    "free": 2
-   },
-   "confusion": {
-    "a->a": 11,
-    "a->b": 9,
-    "a->c1": 5,
-    "a->d": 3,
-    "b->a": 18,
-    "b->b": 12,
-    "b->c1": 11,
-    "b->d": 7,
-    "c1->a": 10,
-    "c1->b": 10,
-    "c1->c1": 13,
-    "c1->d": 5,
-    "d->a": 19,
-    "d->b": 27,
-    "d->c1": 14,
-    "d->d": 9,
-    "free->a": 23,
-    "free->b": 24,
-    "free->c1": 14,
-    "free->d": 11,
-    "free->free": 2
-   },
-   "dc_h": 9.49,
-   "done": 0,
-   "duplicate": 0,
-   "error": 0,
-   "falsified": 33,
-   "gain_retained_max": 0.31551,
-   "gain_retained_median": 0.00575,
-   "inconclusive": 4,
-   "latency_mapped": 0,
-   "model": "gpt-5.6-luna",
-   "pending": 48,
-   "planned": 54,
-   "prescreened": 0,
-   "proven": 117,
-   "proven_per_call": 0.4699,
-   "proven_sim_only": 0,
-   "rejected": 31,
-   "repairs": 59,
-   "repairs_proven": 23,
-   "retained": 22,
-   "retained_per_100_calls": 8.835,
-   "retained_per_dc_hour": 2.319,
-   "retained_per_run": 0.407,
-   "retained_per_usd": 34.584,
-   "role": "main",
-   "runs": 54,
-   "runs_with_retained": 4,
-   "scope_flags": 3,
-   "sim_fail": 24,
-   "stored": {
-    "improved": 72,
-    "no_gain": 39,
-    "nonequiv": 92
-   },
-   "tier": "medium",
-   "ttv": {
-    "median": 271.7,
-    "n": 209,
-    "q95": 2374.9
-   },
-   "uniform": {
-    "absorbed": 12,
-    "absorbed_identical": 14,
-    "harmful": 21,
-    "noise": 9,
-    "retained": 22,
-    "tradeoff": 33
-   },
-   "unusable": 3,
-   "usd": 0.64,
-   "vcf_h": 2.97
+   "unusable": 9,
+   "usd": 2.09,
+   "vcf_h": 48.49
   },
   "medium|gpt-5.6-luna|DrRTL_reimpl": {
    "accepted": 0,
@@ -3446,11 +3563,19 @@
    "block_answers": 0,
    "block_flag_rate": null,
    "block_flags": 0,
-   "calls": 0,
-   "cands": 0,
-   "classes": {},
-   "confusion": {},
-   "dc_h": 0.0,
+   "calls": 31,
+   "cands": 27,
+   "classes": {
+    "a": 17,
+    "b": 3,
+    "d": 7
+   },
+   "confusion": {
+    "free->a": 17,
+    "free->b": 3,
+    "free->d": 7
+   },
+   "dc_h": 4.02,
    "done": 0,
    "duplicate": 0,
    "error": 0,
@@ -3460,36 +3585,43 @@
    "inconclusive": 0,
    "latency_mapped": 0,
    "model": "gpt-5.6-luna",
-   "pending": 0,
+   "pending": 5,
    "planned": 54,
    "prescreened": 0,
-   "proven": 0,
-   "proven_per_call": null,
+   "proven": 19,
+   "proven_per_call": 0.6129,
    "proven_sim_only": 0,
-   "rejected": 0,
-   "repairs": 0,
-   "repairs_proven": 0,
+   "rejected": 3,
+   "repairs": 2,
+   "repairs_proven": 1,
    "retained": 0,
-   "retained_per_100_calls": null,
-   "retained_per_dc_hour": null,
+   "retained_per_100_calls": 0.0,
+   "retained_per_dc_hour": 0.0,
    "retained_per_run": 0.0,
-   "retained_per_usd": null,
+   "retained_per_usd": 0.0,
    "role": "main",
    "runs": 54,
    "runs_with_retained": 0,
    "scope_flags": 0,
    "sim_fail": 0,
-   "stored": {},
+   "stored": {
+    "no_gain": 19,
+    "nonequiv": 3
+   },
    "tier": "medium",
    "ttv": {
-    "median": null,
-    "n": 0,
-    "q95": null
+    "median": 303.7,
+    "n": 22,
+    "q95": 2101.8
    },
-   "uniform": {},
+   "uniform": {
+    "absorbed": 5,
+    "absorbed_identical": 12,
+    "harmful": 2
+   },
    "unusable": 0,
-   "usd": 0.0,
-   "vcf_h": 0.0
+   "usd": 0.06,
+   "vcf_h": 0.33
   },
   "medium|gpt-5.6-luna|M": {
    "accepted": 0,
@@ -3545,70 +3677,96 @@
    "vcf_h": 0.0
   },
   "medium|gpt-5.6-terra|B2": {
-   "accepted": 0,
+   "accepted": 112,
    "arm": "B2",
-   "best_gain_mean": 0.0,
+   "best_gain_mean": 0.02163,
    "best_gain_median": 0.0,
-   "block_answers": 0,
-   "block_flag_rate": null,
-   "block_flags": 0,
-   "calls": 17,
-   "cands": 17,
+   "block_answers": 96,
+   "block_flag_rate": 0.0417,
+   "block_flags": 4,
+   "calls": 563,
+   "cands": 587,
    "classes": {
-    "b": 15,
-    "c1": 2
+    "a": 105,
+    "b": 230,
+    "c1": 144,
+    "d": 91,
+    "free": 8
    },
    "confusion": {
-    "a->b": 2,
-    "c1->b": 3,
-    "c1->c1": 2,
-    "d->b": 2,
-    "free->b": 8
+    "a->a": 32,
+    "a->b": 54,
+    "a->c1": 18,
+    "a->d": 13,
+    "b->a": 26,
+    "b->b": 31,
+    "b->c1": 11,
+    "b->d": 12,
+    "c1->a": 6,
+    "c1->b": 27,
+    "c1->c1": 25,
+    "c1->d": 12,
+    "d->a": 13,
+    "d->b": 60,
+    "d->c1": 52,
+    "d->d": 21,
+    "free->a": 28,
+    "free->b": 58,
+    "free->c1": 38,
+    "free->d": 33,
+    "free->free": 8
    },
-   "dc_h": 0.78,
-   "done": 0,
-   "duplicate": 0,
+   "dc_h": 25.05,
+   "done": 2,
+   "duplicate": 9,
    "error": 0,
-   "falsified": 8,
-   "gain_retained_max": null,
-   "gain_retained_median": null,
-   "inconclusive": 0,
+   "falsified": 41,
+   "gain_retained_max": 0.64043,
+   "gain_retained_median": 0.00709,
+   "inconclusive": 9,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 8,
+   "pending": 86,
    "planned": 54,
    "prescreened": 0,
-   "proven": 1,
-   "proven_per_call": 0.0588,
+   "proven": 241,
+   "proven_per_call": 0.4281,
    "proven_sim_only": 0,
-   "rejected": 0,
-   "repairs": 7,
-   "repairs_proven": 1,
-   "retained": 0,
-   "retained_per_100_calls": 0.0,
-   "retained_per_dc_hour": 0.0,
-   "retained_per_run": 0.0,
-   "retained_per_usd": 0.0,
+   "rejected": 109,
+   "repairs": 147,
+   "repairs_proven": 38,
+   "retained": 79,
+   "retained_per_100_calls": 14.032,
+   "retained_per_dc_hour": 3.153,
+   "retained_per_run": 1.463,
+   "retained_per_usd": 5.176,
    "role": "second",
    "runs": 54,
-   "runs_with_retained": 0,
-   "scope_flags": 0,
-   "sim_fail": 0,
+   "runs_with_retained": 8,
+   "scope_flags": 4,
+   "sim_fail": 92,
    "stored": {
-    "nonequiv": 8
+    "improved": 221,
+    "no_gain": 20,
+    "nonequiv": 251
    },
    "tier": "medium",
    "ttv": {
-    "median": 939.3,
-    "n": 9,
-    "q95": 3490.2
+    "median": 281.9,
+    "n": 492,
+    "q95": 2249.8
    },
    "uniform": {
-    "absorbed_identical": 1
+    "absorbed": 6,
+    "absorbed_identical": 11,
+    "harmful": 25,
+    "noise": 10,
+    "retained": 79,
+    "tradeoff": 110
    },
-   "unusable": 0,
-   "usd": 0.4,
-   "vcf_h": 0.05
+   "unusable": 6,
+   "usd": 15.26,
+   "vcf_h": 14.8
   },
   "medium|gpt-5.6-terra|M": {
    "accepted": 0,
@@ -3672,8 +3830,8 @@
     "absorbed_identical": 31,
     "duplicate": 38,
     "harmful": 112,
-    "improved": 1756,
-    "no_gain": 435,
+    "improved": 2311,
+    "no_gain": 637,
     "noise": 73,
     "retained": 198,
     "tradeoff": 266
@@ -3930,11 +4088,11 @@
      "provisional": "noise"
     }
    ],
-   "n_provisional": 2909,
-   "not_proven": 1147,
-   "pending": 1429,
+   "n_provisional": 3666,
+   "not_proven": 1305,
+   "pending": 2028,
    "proven_final": 333,
-   "withheld": 2160
+   "withheld": 2715
   },
   "events": {
    "hidden_throttle_at": "2026-09-16T14:30",
@@ -4321,12 +4479,42 @@
      "sim_fail": 0
     },
     {
-     "falsified": 15,
-     "finished": 142,
+     "falsified": 47,
+     "finished": 292,
      "hour": "2026-09-18T01",
-     "inconclusive": 17,
-     "proven": 82,
-     "ratio": 4.82,
+     "inconclusive": 36,
+     "proven": 209,
+     "ratio": 5.81,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 33,
+     "finished": 292,
+     "hour": "2026-09-18T02",
+     "inconclusive": 20,
+     "proven": 239,
+     "ratio": 11.95,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 52,
+     "finished": 357,
+     "hour": "2026-09-18T03",
+     "inconclusive": 23,
+     "proven": 282,
+     "ratio": 12.26,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 12,
+     "finished": 167,
+     "hour": "2026-09-18T04",
+     "inconclusive": 10,
+     "proven": 145,
+     "ratio": 14.5,
      "rejected": 0,
      "sim_fail": 0
     }
@@ -4335,11 +4523,11 @@
   },
   "reuse": {
    "by_verdict": {},
-   "records_scanned": 8415,
+   "records_scanned": 10946,
    "reused": 0,
    "sim_record_missing": 0,
    "since": "2026-09-16T15:14",
-   "split_proofs": 3360
+   "split_proofs": 4326
   }
  },
  "planned": {
@@ -6329,57 +6517,57 @@
   },
   {
    "arm": "B1_E4",
-   "best_retained_area_gain": 0.04686,
-   "calls": 30,
-   "cands": 30,
-   "dc_h": 1.185,
+   "best_retained_area_gain": 0.05762,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.86,
    "design_id": "cktevo_ethmac__eth_cop",
-   "gens": 4,
+   "gens": 8,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214903_mac__eth_cop_B1_E4_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0851,
-   "vcf_h": 0.305
+   "usd": 0.2003,
+   "vcf_h": 1.071
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 35,
-   "cands": 35,
-   "dc_h": 1.348,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.958,
    "design_id": "cktevo_ethmac__eth_cop",
-   "gens": 5,
+   "gens": 10,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214903_mac__eth_cop_B2_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.116,
-   "vcf_h": 0.46
+   "usd": 0.1954,
+   "vcf_h": 1.889
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "calls": 43,
+   "cands": 48,
+   "dc_h": 2.31,
    "design_id": "cktevo_ethmac__eth_cop",
-   "gens": 0,
+   "gens": 8,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214903_mac__eth_cop_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 1.3908,
+   "vcf_h": 0.748
   },
   {
    "arm": "DrRTL_reimpl",
@@ -6726,38 +6914,38 @@
   {
    "arm": "B2",
    "best_retained_area_gain": 0.01251,
-   "calls": 24,
-   "cands": 29,
-   "dc_h": 0.774,
+   "calls": 60,
+   "cands": 59,
+   "dc_h": 2.033,
    "design_id": "cktevo_mem_ctrl__mc_adr_sel",
-   "gens": 4,
+   "gens": 10,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214904___mc_adr_sel_B2_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
-   "unusable": 0,
-   "usd": 0.0672,
-   "vcf_h": 0.198
+   "unusable": 1,
+   "usd": 0.1804,
+   "vcf_h": 0.765
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.01353,
+   "calls": 50,
+   "cands": 50,
+   "dc_h": 2.501,
    "design_id": "cktevo_mem_ctrl__mc_adr_sel",
-   "gens": 0,
+   "gens": 9,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214904___mc_adr_sel_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 1.5939,
+   "vcf_h": 0.828
   },
   {
    "arm": "DrRTL_reimpl",
@@ -7086,29 +7274,29 @@
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 55,
-   "cands": 55,
-   "dc_h": 4.433,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 5.447,
    "design_id": "cktevo_nn_engine__thresholds_128x4096",
-   "gens": 9,
+   "gens": 10,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214905_lds_128x4096_B2_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.1186,
-   "vcf_h": 0.49
+   "usd": 0.1298,
+   "vcf_h": 0.61
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 17,
-   "cands": 17,
-   "dc_h": 0.781,
+   "calls": 40,
+   "cands": 40,
+   "dc_h": 4.602,
    "design_id": "cktevo_nn_engine__thresholds_128x4096",
-   "gens": 2,
+   "gens": 5,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214905_lds_128x4096_B2_-terra_s1",
@@ -7116,26 +7304,26 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.3508,
-   "vcf_h": 0.054
+   "usd": 0.9539,
+   "vcf_h": 0.521
   },
   {
    "arm": "DrRTL_reimpl",
    "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "calls": 31,
+   "cands": 27,
+   "dc_h": 4.018,
    "design_id": "cktevo_nn_engine__thresholds_128x4096",
-   "gens": 0,
+   "gens": 5,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214905_lds_128x4096_DrRTL__6-luna_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.0571,
+   "vcf_h": 0.326
   },
   {
    "arm": "M",
@@ -7410,29 +7598,29 @@
   {
    "arm": "B1_E4",
    "best_retained_area_gain": 0.0,
-   "calls": 46,
-   "cands": 46,
-   "dc_h": 1.017,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 1.85,
    "design_id": "cktevo_risc__cpu",
-   "gens": 5,
+   "gens": 7,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214905_vo_risc__cpu_B1_E4_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.2084,
-   "vcf_h": 7.01
+   "usd": 0.2892,
+   "vcf_h": 12.189
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 16,
-   "cands": 16,
-   "dc_h": 0.447,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.317,
    "design_id": "cktevo_risc__cpu",
-   "gens": 2,
+   "gens": 7,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214905_vo_risc__cpu_B2_6-luna_s1",
@@ -7440,26 +7628,26 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0609,
-   "vcf_h": 0.408
+   "usd": 0.2767,
+   "vcf_h": 5.827
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "calls": 22,
+   "cands": 22,
+   "dc_h": 1.586,
    "design_id": "cktevo_risc__cpu",
-   "gens": 0,
+   "gens": 3,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214905_vo_risc__cpu_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.9305,
+   "vcf_h": 3.414
   },
   {
    "arm": "DrRTL_reimpl",
@@ -7788,29 +7976,29 @@
   {
    "arm": "B1_E4",
    "best_retained_area_gain": 0.01283,
-   "calls": 57,
-   "cands": 57,
-   "dc_h": 1.486,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 1.617,
    "design_id": "cktevo_usb__usbf_sie_rx",
-   "gens": 8,
+   "gens": 9,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214906__usbf_sie_rx_B1_E4_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.1664,
-   "vcf_h": 0.524
+   "usd": 0.1753,
+   "vcf_h": 0.637
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.00946,
-   "calls": 13,
-   "cands": 13,
-   "dc_h": 0.415,
+   "best_retained_area_gain": 0.0125,
+   "calls": 51,
+   "cands": 53,
+   "dc_h": 2.088,
    "design_id": "cktevo_usb__usbf_sie_rx",
-   "gens": 2,
+   "gens": 8,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214906__usbf_sie_rx_B2_6-luna_s1",
@@ -7818,26 +8006,26 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0327,
-   "vcf_h": 0.099
+   "usd": 0.147,
+   "vcf_h": 0.734
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.01317,
+   "calls": 45,
+   "cands": 50,
+   "dc_h": 2.503,
    "design_id": "cktevo_usb__usbf_sie_rx",
-   "gens": 0,
+   "gens": 8,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214906__usbf_sie_rx_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 1.4469,
+   "vcf_h": 0.761
   },
   {
    "arm": "DrRTL_reimpl",
@@ -8166,56 +8354,56 @@
   {
    "arm": "B1_E4",
    "best_retained_area_gain": 0.0193,
-   "calls": 49,
-   "cands": 49,
-   "dc_h": 1.378,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 1.78,
    "design_id": "cktevo_vga_enh__vga_wb_slave",
-   "gens": 7,
+   "gens": 9,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214907_vga_wb_slave_B1_E4_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.1417,
-   "vcf_h": 0.463
+   "usd": 0.1901,
+   "vcf_h": 0.688
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.01294,
-   "calls": 13,
-   "cands": 13,
-   "dc_h": 0.276,
+   "best_retained_area_gain": 0.02044,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.39,
    "design_id": "cktevo_vga_enh__vga_wb_slave",
-   "gens": 2,
+   "gens": 10,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214907_vga_wb_slave_B2_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.036,
-   "vcf_h": 0.036
+   "usd": 0.2081,
+   "vcf_h": 0.869
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.01896,
+   "calls": 38,
+   "cands": 38,
+   "dc_h": 2.101,
    "design_id": "cktevo_vga_enh__vga_wb_slave",
-   "gens": 0,
+   "gens": 6,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214907_vga_wb_slave_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 1.3525,
+   "vcf_h": 0.564
   },
   {
    "arm": "DrRTL_reimpl",
@@ -8526,11 +8714,11 @@
   {
    "arm": "B0",
    "best_retained_area_gain": 0.0,
-   "calls": 32,
-   "cands": 32,
+   "calls": 55,
+   "cands": 55,
    "dc_h": 0.0,
    "design_id": "drrtl_SPI",
-   "gens": 6,
+   "gens": 10,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214908_drrtl_SPI_B0_6-luna_s1",
@@ -8538,17 +8726,17 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0669,
-   "vcf_h": 16.826
+   "usd": 0.1131,
+   "vcf_h": 41.608
   },
   {
    "arm": "B1_E4",
    "best_retained_area_gain": 0.0,
-   "calls": 31,
-   "cands": 31,
-   "dc_h": 0.879,
+   "calls": 51,
+   "cands": 51,
+   "dc_h": 2.354,
    "design_id": "drrtl_SPI",
-   "gens": 6,
+   "gens": 10,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214908_drrtl_SPI_B1_E4_6-luna_s1",
@@ -8556,17 +8744,17 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0424,
-   "vcf_h": 16.108
+   "usd": 0.0714,
+   "vcf_h": 31.449
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 10,
-   "cands": 10,
-   "dc_h": 0.297,
+   "best_retained_area_gain": 0.06278,
+   "calls": 30,
+   "cands": 30,
+   "dc_h": 1.467,
    "design_id": "drrtl_SPI",
-   "gens": 2,
+   "gens": 6,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214908_drrtl_SPI_B2_6-luna_s1",
@@ -8574,26 +8762,26 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0131,
-   "vcf_h": 0.009
+   "usd": 0.0416,
+   "vcf_h": 16.131
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.06278,
+   "calls": 15,
+   "cands": 15,
+   "dc_h": 0.998,
    "design_id": "drrtl_SPI",
-   "gens": 0,
+   "gens": 3,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214908_drrtl_SPI_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.2649,
+   "vcf_h": 3.425
   },
   {
    "arm": "DrRTL_reimpl",
@@ -8904,11 +9092,11 @@
   {
    "arm": "B0",
    "best_retained_area_gain": 0.0,
-   "calls": 33,
-   "cands": 33,
+   "calls": 58,
+   "cands": 58,
    "dc_h": 0.0,
    "design_id": "drrtl_UART",
-   "gens": 6,
+   "gens": 11,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214908_drrtl_UART_B0_6-luna_s1",
@@ -8916,17 +9104,17 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0465,
-   "vcf_h": 5.628
+   "usd": 0.0828,
+   "vcf_h": 12.479
   },
   {
    "arm": "B1_E4",
    "best_retained_area_gain": 0.0,
-   "calls": 27,
-   "cands": 27,
-   "dc_h": 0.985,
+   "calls": 52,
+   "cands": 52,
+   "dc_h": 2.347,
    "design_id": "drrtl_UART",
-   "gens": 5,
+   "gens": 10,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214908_drrtl_UART_B1_E4_6-luna_s1",
@@ -8934,17 +9122,17 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0408,
-   "vcf_h": 4.944
+   "usd": 0.0795,
+   "vcf_h": 15.674
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 10,
-   "cands": 10,
-   "dc_h": 0.353,
+   "calls": 31,
+   "cands": 31,
+   "dc_h": 1.675,
    "design_id": "drrtl_UART",
-   "gens": 2,
+   "gens": 6,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214908_drrtl_UART_B2_6-luna_s1",
@@ -8952,26 +9140,26 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0131,
-   "vcf_h": 0.83
+   "usd": 0.0453,
+   "vcf_h": 6.701
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "calls": 21,
+   "cands": 21,
+   "dc_h": 1.188,
    "design_id": "drrtl_UART",
-   "gens": 0,
+   "gens": 4,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214908_drrtl_UART_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.3609,
+   "vcf_h": 2.655
   },
   {
    "arm": "DrRTL_reimpl",
@@ -9318,38 +9506,38 @@
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 15,
-   "cands": 13,
+   "calls": 60,
+   "cands": 52,
    "dc_h": 0.0,
    "design_id": "drrtl_arm_cpu2",
-   "gens": 2,
+   "gens": 7,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214910_rtl_arm_cpu2_B2_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
-   "unusable": 3,
-   "usd": 0.0252,
+   "unusable": 8,
+   "usd": 0.1019,
    "vcf_h": 0.0
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "calls": 60,
+   "cands": 54,
+   "dc_h": 0.085,
    "design_id": "drrtl_arm_cpu2",
-   "gens": 0,
+   "gens": 7,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214910_rtl_arm_cpu2_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "done",
    "tier": "medium",
-   "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "unusable": 6,
+   "usd": 1.8026,
+   "vcf_h": 0.409
   },
   {
    "arm": "DrRTL_reimpl",
@@ -9678,11 +9866,11 @@
   {
    "arm": "B1_E4",
    "best_retained_area_gain": 0.0,
-   "calls": 54,
-   "cands": 54,
-   "dc_h": 0.141,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 0.327,
    "design_id": "drrtl_communication",
-   "gens": 6,
+   "gens": 7,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214911_ommunication_B1_E4_6-luna_s1",
@@ -9690,17 +9878,17 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.1015,
+   "usd": 0.1183,
    "vcf_h": 0.241
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 15,
-   "cands": 15,
-   "dc_h": 0.084,
+   "calls": 42,
+   "cands": 42,
+   "dc_h": 0.855,
    "design_id": "drrtl_communication",
-   "gens": 2,
+   "gens": 5,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214911_ommunication_B2_6-luna_s1",
@@ -9708,26 +9896,26 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0292,
-   "vcf_h": 0.0
+   "usd": 0.0782,
+   "vcf_h": 3.284
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "calls": 54,
+   "cands": 59,
+   "dc_h": 0.229,
    "design_id": "drrtl_communication",
-   "gens": 0,
+   "gens": 6,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214911_ommunication_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 1.2154,
+   "vcf_h": 0.019
   },
   {
    "arm": "DrRTL_reimpl",
@@ -10056,29 +10244,29 @@
   {
    "arm": "B1_E4",
    "best_retained_area_gain": 0.0,
-   "calls": 30,
-   "cands": 30,
-   "dc_h": 1.09,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.967,
    "design_id": "drrtl_router",
-   "gens": 3,
+   "gens": 7,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214912_drrtl_router_B1_E4_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0408,
-   "vcf_h": 0.714
+   "usd": 0.0985,
+   "vcf_h": 3.27
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 17,
-   "cands": 17,
-   "dc_h": 0.539,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.723,
    "design_id": "drrtl_router",
-   "gens": 2,
+   "gens": 7,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214912_drrtl_router_B2_6-luna_s1",
@@ -10086,26 +10274,26 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0223,
-   "vcf_h": 0.188
+   "usd": 0.093,
+   "vcf_h": 1.978
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "calls": 16,
+   "cands": 16,
+   "dc_h": 1.075,
    "design_id": "drrtl_router",
-   "gens": 0,
+   "gens": 2,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214912_drrtl_router_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.1214,
+   "vcf_h": 0.352
   },
   {
    "arm": "DrRTL_reimpl",
@@ -10452,37 +10640,37 @@
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 9,
-   "cands": 9,
+   "calls": 60,
+   "cands": 60,
    "dc_h": 0.0,
    "design_id": "drrtl_simple_spi",
-   "gens": 1,
+   "gens": 6,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214913_l_simple_spi_B2_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0134,
+   "usd": 0.1478,
    "vcf_h": 0.0
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
+   "calls": 60,
+   "cands": 60,
    "dc_h": 0.0,
    "design_id": "drrtl_simple_spi",
-   "gens": 0,
+   "gens": 6,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214913_l_simple_spi_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
+   "usd": 1.309,
    "vcf_h": 0.0
   },
   {
@@ -10794,74 +10982,74 @@
   {
    "arm": "B0",
    "best_retained_area_gain": 0.0,
-   "calls": 52,
-   "cands": 52,
+   "calls": 60,
+   "cands": 60,
    "dc_h": 0.0,
    "design_id": "rtlopt_alu_64bit",
-   "gens": 9,
+   "gens": 11,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214915_pt_alu_64bit_B0_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0844,
-   "vcf_h": 0.399
+   "usd": 0.1008,
+   "vcf_h": 0.713
   },
   {
    "arm": "B1_E4",
-   "best_retained_area_gain": 0.0,
-   "calls": 49,
-   "cands": 49,
-   "dc_h": 1.839,
+   "best_retained_area_gain": 0.20968,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.577,
    "design_id": "rtlopt_alu_64bit",
-   "gens": 9,
+   "gens": 12,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214915_pt_alu_64bit_B1_E4_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.07,
-   "vcf_h": 0.564
+   "usd": 0.0898,
+   "vcf_h": 0.844
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 12,
-   "cands": 12,
-   "dc_h": 0.276,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.544,
    "design_id": "rtlopt_alu_64bit",
-   "gens": 2,
+   "gens": 9,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214915_pt_alu_64bit_B2_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0166,
-   "vcf_h": 0.08
+   "usd": 0.0836,
+   "vcf_h": 0.795
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "calls": 24,
+   "cands": 29,
+   "dc_h": 1.547,
    "design_id": "rtlopt_alu_64bit",
-   "gens": 0,
+   "gens": 4,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214915_pt_alu_64bit_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.3914,
+   "vcf_h": 0.284
   },
   {
    "arm": "DrRTL_reimpl",
@@ -11172,29 +11360,29 @@
   {
    "arm": "B0",
    "best_retained_area_gain": 0.0,
-   "calls": 53,
-   "cands": 53,
+   "calls": 60,
+   "cands": 60,
    "dc_h": 0.0,
    "design_id": "rtlopt_calculation",
-   "gens": 10,
+   "gens": 12,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916__calculation_B0_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0721,
-   "vcf_h": 1.955
+   "usd": 0.0839,
+   "vcf_h": 2.937
   },
   {
    "arm": "B1_E4",
-   "best_retained_area_gain": 0.35661,
-   "calls": 28,
-   "cands": 28,
-   "dc_h": 1.096,
+   "best_retained_area_gain": 0.3886,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.554,
    "design_id": "rtlopt_calculation",
-   "gens": 5,
+   "gens": 11,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916__calculation_B1_E4_6-luna_s1",
@@ -11202,17 +11390,17 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0332,
-   "vcf_h": 2.848
+   "usd": 0.0756,
+   "vcf_h": 11.772
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.31551,
-   "calls": 5,
-   "cands": 5,
-   "dc_h": 0.246,
+   "best_retained_area_gain": 0.35661,
+   "calls": 31,
+   "cands": 31,
+   "dc_h": 1.803,
    "design_id": "rtlopt_calculation",
-   "gens": 1,
+   "gens": 6,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916__calculation_B2_6-luna_s1",
@@ -11220,26 +11408,26 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0059,
-   "vcf_h": 0.074
+   "usd": 0.0374,
+   "vcf_h": 5.832
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.37763,
+   "calls": 10,
+   "cands": 15,
+   "dc_h": 0.783,
    "design_id": "rtlopt_calculation",
-   "gens": 0,
+   "gens": 2,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214916__calculation_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.1258,
+   "vcf_h": 0.122
   },
   {
    "arm": "DrRTL_reimpl",
@@ -11568,56 +11756,56 @@
   {
    "arm": "B1_E4",
    "best_retained_area_gain": 0.00322,
-   "calls": 48,
-   "cands": 48,
-   "dc_h": 1.459,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 1.943,
    "design_id": "rtlopt_decoder_8bit",
-   "gens": 9,
+   "gens": 12,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916_decoder_8bit_B1_E4_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0703,
-   "vcf_h": 0.451
+   "usd": 0.0885,
+   "vcf_h": 0.709
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 5,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.00322,
+   "calls": 43,
+   "cands": 48,
+   "dc_h": 1.834,
    "design_id": "rtlopt_decoder_8bit",
-   "gens": 0,
+   "gens": 8,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916_decoder_8bit_B2_6-luna_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0041,
-   "vcf_h": 0.102
+   "usd": 0.0637,
+   "vcf_h": 0.593
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.00322,
+   "calls": 20,
+   "cands": 25,
+   "dc_h": 0.908,
    "design_id": "rtlopt_decoder_8bit",
-   "gens": 0,
+   "gens": 4,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214916_decoder_8bit_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.2647,
+   "vcf_h": 0.219
   },
   {
    "arm": "DrRTL_reimpl",
@@ -11946,56 +12134,56 @@
   {
    "arm": "B1_E4",
    "best_retained_area_gain": 0.65377,
-   "calls": 35,
-   "cands": 35,
-   "dc_h": 0.969,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 1.711,
    "design_id": "rtlopt_divider_8bit",
-   "gens": 6,
+   "gens": 10,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214917_divider_8bit_B1_E4_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0703,
-   "vcf_h": 0.284
+   "usd": 0.1278,
+   "vcf_h": 0.544
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.65177,
+   "calls": 49,
+   "cands": 49,
+   "dc_h": 2.285,
    "design_id": "rtlopt_divider_8bit",
-   "gens": 0,
+   "gens": 8,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214917_divider_8bit_B2_6-luna_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.0761,
+   "vcf_h": 0.631
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.64043,
+   "calls": 20,
+   "cands": 20,
+   "dc_h": 1.027,
    "design_id": "rtlopt_divider_8bit",
-   "gens": 0,
+   "gens": 3,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214917_divider_8bit_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.3355,
+   "vcf_h": 0.216
   },
   {
    "arm": "DrRTL_reimpl",
@@ -12306,74 +12494,74 @@
   {
    "arm": "B0",
    "best_retained_area_gain": 0.0,
-   "calls": 47,
-   "cands": 47,
+   "calls": 60,
+   "cands": 60,
    "dc_h": 0.0,
    "design_id": "rtlopt_register",
-   "gens": 8,
+   "gens": 11,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214918_opt_register_B0_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0894,
-   "vcf_h": 0.465
+   "usd": 0.1141,
+   "vcf_h": 1.001
   },
   {
    "arm": "B1_E4",
-   "best_retained_area_gain": 0.0085,
-   "calls": 31,
-   "cands": 31,
-   "dc_h": 0.979,
+   "best_retained_area_gain": 0.00874,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.677,
    "design_id": "rtlopt_register",
-   "gens": 5,
+   "gens": 10,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214918_opt_register_B1_E4_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0584,
-   "vcf_h": 0.245
+   "usd": 0.1139,
+   "vcf_h": 1.191
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.00631,
+   "calls": 47,
+   "cands": 47,
+   "dc_h": 3.354,
    "design_id": "rtlopt_register",
-   "gens": 0,
+   "gens": 9,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214918_opt_register_B2_6-luna_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.1061,
+   "vcf_h": 1.32
   },
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "calls": 14,
+   "cands": 14,
+   "dc_h": 0.978,
    "design_id": "rtlopt_register",
-   "gens": 0,
+   "gens": 2,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214918_opt_register_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.216,
+   "vcf_h": 0.154
   },
   {
    "arm": "DrRTL_reimpl",
@@ -12684,74 +12872,74 @@
   {
    "arm": "B0",
    "best_retained_area_gain": 0.0,
-   "calls": 50,
-   "cands": 50,
+   "calls": 60,
+   "cands": 60,
    "dc_h": 0.0,
    "design_id": "rtlopt_sub_32bit",
-   "gens": 9,
+   "gens": 11,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214919_pt_sub_32bit_B0_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0779,
-   "vcf_h": 0.454
+   "usd": 0.0967,
+   "vcf_h": 0.601
   },
   {
    "arm": "B1_E4",
    "best_retained_area_gain": 0.03826,
-   "calls": 37,
-   "cands": 37,
-   "dc_h": 1.104,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 1.711,
    "design_id": "rtlopt_sub_32bit",
-   "gens": 7,
+   "gens": 11,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214919_pt_sub_32bit_B1_E4_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0563,
-   "vcf_h": 0.326
+   "usd": 0.0919,
+   "vcf_h": 0.58
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.03826,
+   "calls": 39,
+   "cands": 39,
+   "dc_h": 1.629,
    "design_id": "rtlopt_sub_32bit",
-   "gens": 0,
+   "gens": 7,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214919_pt_sub_32bit_B2_6-luna_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.0603,
+   "vcf_h": 0.525
   },
   {
    "arm": "B2",
-   "best_retained_area_gain": 0.0,
-   "calls": 0,
-   "cands": 0,
-   "dc_h": 0.0,
+   "best_retained_area_gain": 0.03826,
+   "calls": 11,
+   "cands": 11,
+   "dc_h": 0.629,
    "design_id": "rtlopt_sub_32bit",
-   "gens": 0,
+   "gens": 2,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214919_pt_sub_32bit_B2_-terra_s1",
    "seed": 1,
-   "status": "created",
+   "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0,
-   "vcf_h": 0.0
+   "usd": 0.1497,
+   "vcf_h": 0.108
   },
   {
    "arm": "DrRTL_reimpl",
