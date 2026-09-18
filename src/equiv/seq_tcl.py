@@ -36,7 +36,7 @@ def latency_lines(latency, clk):
     return out
 
 
-def seq_tcl(spec_files, impl_files, spec_top, impl_top, clk, rst, rst_sense, max_time, workers, fmt, zero_init, incdirs=(), latency=None):
+def seq_tcl(spec_files, impl_files, spec_top, impl_top, clk, rst, rst_sense, max_time, workers, fmt, zero_init, incdirs=(), latency=None, harness_version=1, structural_x=False):
     """The Tcl script text (identical to the flow's except for the optional zero-initialisation line, the include
     directories of designs with `include` files, passed to analyze as VCS options, and — with `latency` — the
     per-output latency mapping: inputs mapped by name only, every output asserted explicitly with its V2 offset)."""
@@ -51,15 +51,19 @@ def seq_tcl(spec_files, impl_files, spec_top, impl_top, clk, rst, rst_sense, max
         lines.append(f"create_reset spec.{rst} -sense {rst_sense}")
     if latency:
         lines += latency_lines(latency, clk)
+    if int(harness_version or 1) >= 2:   # DECISION 2026-09-18 (d) C1: every sequential — scalar, memory array, z-assigned — starts at 0 on both sides before the
+        lines.append("sim_config -report_uninit ON")   # reset run; the reset then sets the reset-valued registers; identical to the V2 (lock-step) rule
+        lines.append("sim_set_state -all -apply 0")
     lines.append("sim_run -stable")
     if zero_init:
         lines.append("sim_set_state -uninitialized -apply 0")   # DECISIONS 2026-09-14 G2.2: registers without reset start at 0
-    lines += ["sim_save_reset", "seq_config -map_uninit -map_x zero", "check_fv -block", "report_fv -verbose", "report_seq_mappings", "exit"]
+    lines += ["sim_save_reset", "seq_config -map_uninit -map_x zero" + (" -enable_structural_x true" if (int(harness_version or 1) >= 2 and structural_x) else ""),
+              "check_fv -block", "report_fv -verbose", "report_seq_mappings", "exit"]
     return "\n".join(lines) + "\n"
 
 
 def seq_equiv(spec_files, impl_files, spec_top, impl_top=None, clk="clk", rst=None, rst_sense="high", workdir=None,
-              max_time="20M", timeout=3600, sverilog=False, workers=1, zero_init=True, incdirs=None, latency=None):
+              max_time="20M", timeout=3600, sverilog=False, workers=1, zero_init=True, incdirs=None, latency=None, harness_version=1, structural_x=False):
     """Same contract as flow/vcf.py::seq_equiv (-> dict with status equivalent / not_equivalent / inconclusive / timeout /
     error, counts, regs_mapped / regs_unmapped, properties, workdir, runtime_s), with the zero-init line when zero_init
     and the per-output latency mapping when `latency` ({output: cycles}) is given."""
@@ -75,7 +79,7 @@ def seq_equiv(spec_files, impl_files, spec_top, impl_top=None, clk="clk", rst=No
     fmt = "sverilog" if sverilog else "verilog"
     tcl = wd / "seq.tcl"
     tcl.write_text(seq_tcl(spec_files, impl_files, spec_top, impl_top, clk, rst, rst_sense, max_time, workers, fmt, zero_init,
-                           [str(Path(d).resolve()) for d in (incdirs or [])], latency=latency))
+                           [str(Path(d).resolve()) for d in (incdirs or [])], latency=latency, harness_version=harness_version, structural_x=structural_x))
     vcf._check_workdir(wd)
     t0 = time.time()
     try:

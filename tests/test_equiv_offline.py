@@ -405,3 +405,24 @@ def test_proof_continues_from_a_simulation_record(tmp_path, monkeypatch):
     reused = RE.full_record(CFG, dict(payload, sim_record="/x"), root)
     assert reused and reused["verdict"] == "falsified"
     assert RE.load_record(tmp_path / "nowhere") is None
+
+
+def test_harness_version_2_zeroes_every_sequential_and_stamps_records(tmp_path):
+    """DECISION 2026-09-18 (d) C1: under harness_version 2 the SEQ script zeroes every sequential (memories and z-assigned registers
+    included) before the reset run and keeps the G2.2 line; the proof record's hash includes the version (a v2 proof never reuses a v1
+    record) while V1 / V2 records and v1 proofs keep their hashes; records carry harness_version. Both directions."""
+    from src.equiv import seq_tcl as ST
+    from src.equiv.run_equiv import equiv_extra
+    v1 = ST.seq_tcl(["d.v"], ["c.v"], "top", "top", "clk", "rst", "low", "24M", 1, "verilog", True)
+    v2 = ST.seq_tcl(["d.v"], ["c.v"], "top", "top", "clk", "rst", "low", "24M", 1, "verilog", True, harness_version=2)
+    assert "sim_set_state -all -apply 0" not in v1 and "sim_set_state -uninitialized -apply 0" in v1
+    lines = v2.splitlines()
+    assert lines.index("sim_set_state -all -apply 0") < lines.index("sim_run -stable") < lines.index("sim_set_state -uninitialized -apply 0") < lines.index("sim_save_reset")
+    assert "sim_config -report_uninit ON" in lines and "-enable_structural_x" not in v2
+    assert "-enable_structural_x true" in ST.seq_tcl(["d.v"], ["c.v"], "top", "top", "clk", "rst", "low", "24M", 1, "verilog", True, harness_version=2, structural_x=True)
+    cfg1 = {"equiv": {"harness_version": 1}, "sim": {}}
+    cfg2 = {"equiv": {"harness_version": 2}, "sim": {}}
+    payload = {"clk": "clk", "rst": "rst", "rst_sense": "low"}
+    assert "harness_version" not in equiv_extra(cfg1, payload, True)
+    assert equiv_extra(cfg2, payload, True)["harness_version"] == 2 and equiv_extra(cfg2, dict(payload, sim_record={"x": 1}), True)["harness_version"] == 2
+    assert "harness_version" not in equiv_extra(cfg2, payload, False)                       # a V1 / V2-only record is the same under both versions

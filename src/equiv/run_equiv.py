@@ -52,6 +52,9 @@ def equiv_extra(cfg, payload, stages_full=True):
              "sverilog": p.get("sverilog", False), "sim_seed": p.get("sim_seed"), "c_top": p.get("c_top")}
     if (cfg.get("equiv") or {}).get("seq_latency_mapping", False):
         extra["latency_mapping"] = True
+    hv = int((cfg.get("equiv") or {}).get("harness_version", 1) or 1)
+    if hv >= 2 and stages != "v1v2":   # DECISION 2026-09-18 (d) C1: a proof under harness_version 2 has its own record; V1 / V2 records are unchanged by it
+        extra["harness_version"] = hv
     return extra
 
 
@@ -89,6 +92,7 @@ def stamp_version(rec, cfg):
     v = (cfg.get("equiv") or {}).get("version")
     if v:
         rec["equiv_version"] = str(v)
+    rec["harness_version"] = int((cfg.get("equiv") or {}).get("harness_version", 1) or 1)   # (d) C1: every proof record carries the harness version
     return rec
 
 

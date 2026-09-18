@@ -37,7 +37,11 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
     ("evaluations", "prescreened_offline", "ALTER TABLE evaluations ADD COLUMN prescreened_offline INTEGER NOT NULL DEFAULT 0"), # DECISION 2026-09-18 item 1: E4 of the large tier's prescreened M candidates (provisional: no proof)
     ("evaluations", "e4_rerun", "ALTER TABLE evaluations ADD COLUMN e4_rerun INTEGER NOT NULL DEFAULT 0"),                       # DECISION 2026-09-18 (b) item 4: E4 re-run after a timeout (3600 s guard)
     ("runs", "prescreen_on", "ALTER TABLE runs ADD COLUMN prescreen_on INTEGER NOT NULL DEFAULT 0"),                             # DECISION 2026-09-18 (b) item 1c: the run executed with the map-prior prescreen active
-    ("runs", "excluded_from_tables", "ALTER TABLE runs ADD COLUMN excluded_from_tables INTEGER NOT NULL DEFAULT 0"),             # DECISION 2026-09-18 (b) item 1c: kept as a record, left out of the main tables (a replacement run exists)
+    ("runs", "excluded_from_tables", "ALTER TABLE runs ADD COLUMN excluded_from_tables INTEGER NOT NULL DEFAULT 0"),
+    ("runs", "superseded_reason", "ALTER TABLE runs ADD COLUMN superseded_reason TEXT"),                   # DECISION 2026-09-18 (d) D1: e.g. harness_fix
+    ("runs", "superseded_by", "ALTER TABLE runs ADD COLUMN superseded_by TEXT"),                           # (d) D1: the run that repeats it
+    ("candidates", "harness_version", "ALTER TABLE candidates ADD COLUMN harness_version INTEGER"),         # (d) C1: the harness version of the proof behind the verdict (NULL = 1, before 2026-09-18)
+    ("candidates", "superseded_by", "ALTER TABLE candidates ADD COLUMN superseded_by TEXT"),               # (d) C4: a v1 verdict re-proven under v2 keeps its row; this names the v2 record             # DECISION 2026-09-18 (b) item 1c: kept as a record, left out of the main tables (a replacement run exists)
     # Phase 3 (DECISIONS 2026-09-14, spec 07): requested class, prescreen, class-aware SEQ cap, time to verdict, job links, label
     ("candidates", "class_requested", "ALTER TABLE candidates ADD COLUMN class_requested TEXT"),
     ("candidates", "prescreened", "ALTER TABLE candidates ADD COLUMN prescreened INTEGER NOT NULL DEFAULT 0"),

@@ -121,6 +121,8 @@ sim:
   saif_coverage_min: 0.8
 
 equiv:                       # DECISIONS 2026-09-14 (G2, C2.5)
+  harness_version: 1        # DECISION 2026-09-18 (d) C1: 2 = V3 initial state zeroed for every sequential (memories, z-assigned registers) before the reset run; set at deployment (C3) after the D-vs-D check of C2; proof records and candidates carry it
+  harness_v2_structural_x: false   # (d) C1 experiment variant C (seq_config -enable_structural_x); set only if the D-vs-D check needs it
   version: phase5            # 2026-09-15 evening decision 5: the equivalence stack frozen for Phase 5 = V1 (interface / elaboration), the testbench where one exists, V2 lock-step simulation with the all-zero initial state, SEQ with the latency mapping for measured constant offsets, V4 (DPV) for clockless modules only; stamped on every equivalence record and every Phase 5 verdict (candidates.equiv_version); the DPV phase mapping is deferred to Phase 6; no change to the stack during Phase 5
   init_state_zero_no_reset: true   # G2.2: registers without a reset start at zero in V2 and V3, identically for D and the candidate (spec 03 §6)
   v4: {enabled: true, clockless_only: true}   # G2.3: DPV only on modules without a clock port, with the three guardrails of spec 03 §1

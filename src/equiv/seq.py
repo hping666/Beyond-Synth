@@ -36,15 +36,16 @@ def run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, *, impl_to
         minutes = max(1, int(float(timeout_sec) * 0.8 // 60)) if timeout_sec else seq_min
         max_time = f"{minutes}M"
     zero_init = bool((cfg.get("equiv") or {}).get("init_state_zero_no_reset", False))
-    use_project = zero_init or bool(latency)
+    hv = int((cfg.get("equiv") or {}).get("harness_version", 1) or 1)   # DECISION 2026-09-18 (d) C1: 2 = every sequential zeroed before the reset run
+    use_project = zero_init or bool(latency) or hv >= 2
     runner = seq_equiv_project if use_project else vcf.seq_equiv   # DECISIONS 2026-09-14 G2.2: the project-owned script adds the zero-init line
-    kw = {"zero_init": zero_init, "incdirs": incdirs, "latency": latency} if use_project else {}   # the flow's own runner has no include / latency option
+    kw = {"zero_init": zero_init, "incdirs": incdirs, "latency": latency, "harness_version": hv, "structural_x": bool((cfg.get("equiv") or {}).get("harness_v2_structural_x", False))} if use_project else {}   # the flow's own runner has no include / latency option
     r = runner([str(f) for f in d_files], [str(f) for f in c_files], top, impl_top=impl_top or top, clk=clk, rst=rst,
                rst_sense=rst_sense or "high", workdir=str(wd), max_time=max_time,
                timeout=float(timeout_sec or seq_min * 60 + 300), sverilog=sverilog,
                workers=int(cfg["tools"]["vcformal"].get("seq_workers", 1)), **kw)
     status = STATUS_MAP.get(r.get("status"), "error")
-    out = {"v3_status": status, "v3_seconds": r.get("runtime_s", round(time.time() - t0, 1)), "flow_status": r.get("status"), "zero_init": zero_init,
+    out = {"v3_status": status, "v3_seconds": r.get("runtime_s", round(time.time() - t0, 1)), "flow_status": r.get("status"), "zero_init": zero_init, "harness_version": hv,
            "error": r.get("error"), "proven": r.get("proven"), "falsified": r.get("failed"), "inconclusive": r.get("inconclusive"),
            "total": r.get("total"), "regs_mapped": r.get("regs_mapped"), "regs_unmapped": r.get("regs_unmapped"),
            "properties": r.get("properties"), "workdir": str(wd), "latency_mapped": bool(latency), "latency": dict(latency) if latency else None}

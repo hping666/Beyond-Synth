@@ -652,9 +652,10 @@ class SearchRun:
         c["eq_seconds"] = rec.get("seconds") if not c.get("sim_seconds") else round(float(rec.get("seconds") or 0) + float(c["sim_seconds"]), 1)
         c["time_to_verdict_s"] = round(self.clock() - float(c["issued_at"]), 1)
         self.conn.execute("UPDATE candidates SET v1_status=?, v2_status=?, v2_cycles=?, latency_offset_json=?, v3_status=?, v3_seconds=?, v4_status=?, "
-                          "counterexample_path=?, verdict=?, time_to_verdict_s=?, proven_by=?, equiv_version=? WHERE cand_id=?",
+                          "counterexample_path=?, verdict=?, time_to_verdict_s=?, proven_by=?, equiv_version=?, harness_version=? WHERE cand_id=?",
                           tuple(rec.get(k) for k in EQ_KEEP[:8]) + (rec.get("verdict"), c["time_to_verdict_s"], rec.get("proven_by"),
-                                                                     rec.get("equiv_version") or (self.cfg.get("equiv") or {}).get("version"), cid))
+                                                                     rec.get("equiv_version") or (self.cfg.get("equiv") or {}).get("version"),
+                                                                     rec.get("harness_version") or int((self.cfg.get("equiv") or {}).get("harness_version", 1) or 1), cid))
         offsets = json.loads(rec.get("latency_offset_json") or "{}")
         if rec.get("verdict") in ("proven", "proven_sim_only") and any(int(v) > 0 for v in offsets.values()):
             c["class_final"] = "c2"
