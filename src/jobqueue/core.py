@@ -51,6 +51,49 @@ def _ts(iso):
     return datetime.datetime.fromisoformat(iso).timestamp()
 
 
+def held_job(job):
+    """DECISION 2026-09-18 item 2: a search job whose payload carries `hold` (the reason) waits until the flag is removed."""
+    try:
+        return bool(json.loads(job["payload_json"] or "{}").get("hold"))
+    except (ValueError, TypeError):
+        return False
+
+
+def round_robin_by_row(rows, run_rows, tier_of, tier_order=("large", "medium", "small")):
+    """DECISION 2026-09-18 item 5b: queued search jobs re-ordered so that, within a priority level and a tier, the arm-model rows
+    take turns (the row with the fewest running runs first, then the queue order); tiers keep their order (large, medium, small,
+    then unknown). Jobs of runs the runs table does not know keep their place at the end of their level."""
+    from collections import OrderedDict
+    out = []
+    by_pri = OrderedDict()
+    for r in rows:
+        by_pri.setdefault(r["priority"], []).append(r)
+    for pri, jobs in by_pri.items():
+        by_tier = OrderedDict()
+        unknown = []
+        for j in jobs:
+            try:
+                rid = json.loads(j["payload_json"] or "{}").get("run_id")
+            except (ValueError, TypeError):
+                rid = None
+            k = run_rows["rows"].get(rid)
+            if not k:
+                unknown.append(j)
+                continue
+            arm, model, design = k
+            by_tier.setdefault(tier_of.get(design, "?"), OrderedDict()).setdefault((arm, model), []).append(j)
+        for tier in sorted(by_tier, key=lambda t: tier_order.index(t) if t in tier_order else len(tier_order)):
+            rws = by_tier[tier]
+            order = sorted(rws, key=lambda k: (int(run_rows["running"].get(k, 0)), list(rws).index(k)))
+            queues = [rws[k] for k in order]
+            while any(queues):
+                for q in queues:
+                    if q:
+                        out.append(q.pop(0))
+        out.extend(unknown)
+    return out
+
+
 def round_robin_by_design(rows, running_by_design=None):
     """Queued jobs re-ordered so that, within one priority level, designs alternate (each design's own jobs keep their order),
     the design holding the fewest running seats first: the per-design fairness cap bounds a design's seats, this gives every
@@ -189,6 +232,24 @@ class Queue:
                           "ON CONFLICT(pool) DO UPDATE SET backoff_until=excluded.backoff_until, "
                           "backoff_level=excluded.backoff_level, updated_at=excluded.updated_at",
                           (pool, float(until), int(level), db.now()))
+
+    def run_rows(self):
+        """run_id -> (arm, model, design_id, running count of that row) for the search jobs' round-robin across arm-model rows."""
+        rows = {r["run_id"]: (r["arm"], r["llm_model"], r["design_id"]) for r in self.conn.execute("SELECT run_id, arm, llm_model, design_id FROM runs")}
+        running = {}
+        for r in self.conn.execute("SELECT payload_json FROM jobs WHERE kind='search' AND state='running'"):
+            try:
+                rid = json.loads(r[0] or "{}").get("run_id")
+            except (ValueError, TypeError):
+                continue
+            k = rows.get(rid)
+            if k:
+                running[(k[0], k[1])] = running.get((k[0], k[1]), 0) + 1
+        return {"rows": rows, "running": running}
+
+    def tier_of_design(self):
+        sp = (self.cfg.get("exp5") or {}).get("starting_points") or {}
+        return {d: t for t, ds in sp.items() for d in (ds or [])}
 
     def running_in_pool(self, pool):
         return self.conn.execute("SELECT COUNT(*) FROM jobs WHERE state='running' AND pool=?", (pool,)).fetchone()[0]
@@ -383,7 +444,7 @@ class Queue:
             held = self.backpressure_holds(pool)   # fresh runs wait; a resumption (a run that already made calls) goes on — it has verdicts to process and records to slim (2026-09-16)
             admit_left = self.fresh_admissions_left(pool)   # and fresh runs are admitted a few per minute, so the concurrency ramps to what the proof seats sustain instead of bursting
             per_design = int((self.cfg["queue"].get("per_design_max") or {}).get(pool) or 0)
-            per_kind = {k: v for k, v in (self.cfg["queue"].get("per_kind_max") or {}).items() if POOL_OF_KIND.get(k) == pool}   # 2026-09-16: a kind's own ceiling inside this pool (hidden-layer DC jobs while the visible layer needs the CPU)
+            per_kind = dict(self.cfg["queue"].get("per_kind_max") or {})   # 2026-09-16: a kind's own ceiling inside a pool (hidden-layer DC jobs while the visible layer needs the CPU); 2026-09-18: applied in every pool the kind's jobs sit in (H4 signoff jobs are kind dc_hidden in the pt pool)
             running_kind = {r[0]: r[1] for r in self.conn.execute("SELECT kind, COUNT(*) FROM jobs WHERE state='running' AND pool=? GROUP BY kind", (pool,))} if per_kind else {}
             rows = self.conn.execute(
                 "SELECT * FROM jobs WHERE state IN ('queued','backoff') AND pool=? "
@@ -391,6 +452,10 @@ class Queue:
             if per_design:
                 running_by_design = {r[0]: r[1] for r in self.conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE state='running' AND pool=? GROUP BY design_id", (pool,))}
                 rows = round_robin_by_design(rows, running_by_design)   # 2026-09-16: within a priority level the designs take turns, the design holding the fewest seats first
+            if pool == "search":
+                rows = [r for r in rows if not held_job(r)]   # DECISION 2026-09-18 item 2: a run with `hold` in its payload is not submitted until released
+                if self.cfg["queue"].get("round_robin_rows"):
+                    rows = round_robin_by_row(rows, self.run_rows(), self.tier_of_design())   # DECISION 2026-09-18 item 5b: within a tier the seven arm-model rows take turns
             spawned = 0
             for job in rows:
                 if spawned >= free:

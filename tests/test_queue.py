@@ -511,3 +511,56 @@ def test_recovery_adopts_a_live_process_despite_a_stale_done_marker(tmp_path):
     q3._spawn(q3.get(s))
     assert not os.path.exists(done) or open(done).read().strip() != "76"
     q3._kill(q3.get(s)["host_pid"])
+
+
+def test_search_hold_flag_and_round_robin_across_rows(tmp_path):
+    """DECISION 2026-09-18 items 2 and 5b: a queued search job whose payload carries `hold` is never dispatched until the flag is
+    removed; with queue.round_robin_rows the queued runs of a tier are dispatched alternating across arm-model rows, the row with
+    the fewest running runs first, tiers in order large, medium, small (both directions: without the option the queue order stays)."""
+    from src.jobqueue.core import round_robin_by_row, held_job
+    cfg = make_cfg()
+    cfg["queue"]["search_max"] = 4
+    cfg["queue"]["round_robin_rows"] = True
+    cfg["exp5"] = dict(cfg.get("exp5") or {}, starting_points={"large": ["L"], "medium": ["M1", "M2"], "small": ["S"]})
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    jobs = []
+    for i, (arm, model, design) in enumerate([("B0", "luna", "M1"), ("B0", "luna", "M2"), ("B2", "terra", "M1"), ("M", "luna", "M1"), ("B0", "luna", "S"), ("M", "terra", "M2")]):
+        rid = f"r{i}"
+        db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": arm, "design_id": design, "seed": 1, "llm_model": model, "status": "created", "llm_calls": 0})
+        payload = {"cmd": "true", "run_id": rid}
+        if arm == "M":
+            payload["hold"] = "C2"
+        jobs.append(q.submit("shell", payload, design_id=design, pool="search", priority=3))
+    conn.execute("UPDATE jobs SET kind='search' WHERE pool='search'"); conn.commit()
+    conn.execute("UPDATE jobs SET submitted_at=? WHERE job_id=?", ("2026-09-18T00:00:00", jobs[4])); conn.commit()   # the small-tier job was submitted first
+    rows = conn.execute("SELECT * FROM jobs WHERE pool='search' AND state='queued' ORDER BY priority DESC, submitted_at ASC, job_id ASC").fetchall()
+    assert [held_job(r) for r in rows].count(True) == 2
+    ordered = round_robin_by_row([r for r in rows if not held_job(r)], q.run_rows(), q.tier_of_design())
+    assert [r["job_id"] for r in ordered] == [jobs[0], jobs[2], jobs[1], jobs[4]]   # medium: B0-luna, B2-terra, B0-luna again; then the small tier
+    spawned = []
+    q._spawn = lambda job: spawned.append(job["job_id"]) or conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (job["job_id"],))
+    q._dispatch()
+    assert spawned[:3] == [jobs[0], jobs[2], jobs[1]] and not {jobs[3], jobs[5]} & set(spawned)          # cap 4: three admissions per minute here (admit rate) ...
+    conn.execute("UPDATE jobs SET payload_json=? WHERE job_id=?", (json.dumps({"cmd": "true", "run_id": "r3"}), jobs[3])); conn.commit()  # released
+    assert not held_job(q.get(jobs[3]))
+    cfg["queue"]["round_robin_rows"] = False
+    q2 = Queue(cfg, conn, str(tmp_path / "logs2"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    rows2 = conn.execute("SELECT * FROM jobs WHERE pool='search' AND state='queued' ORDER BY priority DESC, submitted_at ASC, job_id ASC").fetchall()
+    assert [r["job_id"] for r in rows2][0] == jobs[4]                                                     # without the option the plain queue order (submission time) stays
+
+
+def test_per_kind_ceiling_applies_in_every_pool(tmp_path):
+    """DECISION 2026-09-18 item 3a: `per_kind_max.dc_hidden: 0` holds hidden jobs in the pt pool as well as in the dc pool."""
+    cfg = make_cfg()
+    cfg["queue"]["per_kind_max"] = {"dc_hidden": 0}
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    h_pt = q.submit("shell", {"cmd": "true"}, pool="pt")
+    h_dc = q.submit("shell", {"cmd": "true"}, pool="dc")
+    other = q.submit("shell", {"cmd": "true"}, pool="pt")
+    conn.execute("UPDATE jobs SET kind='dc_hidden' WHERE job_id IN (?, ?)", (h_pt, h_dc)); conn.commit()
+    spawned = []
+    q._spawn = lambda job: spawned.append(job["job_id"]) or conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (job["job_id"],))
+    q._dispatch()
+    assert spawned == [other]
