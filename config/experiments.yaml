@@ -141,7 +141,7 @@ timeouts:                    # minutes
 
 queue:                       # LOCKED (concurrency caps); automatic backoff when seats are exhausted
   dc_seats_max: 50           # license ceiling (50 seats measured, DECISIONS 2026-09-14); seats are site-shared; the daemon backs off on exit code 75
-  dc_seats_target: 50        # dispatch target for Phases 3-4 (DECISIONS 2026-09-14: 50 only for bulk Phase 5-6 runs on the user's confirmation; never back to 12)
+  dc_seats_target: 30        # DECISION 2026-09-18 item 3b: 50 -> 30 (1-minute load 125-132 fifteen minutes after hidden execution stopped, still above 100); back to 50 at the user's word; dispatch target for Phases 3-4 (DECISIONS 2026-09-14: 50 only for bulk Phase 5-6 runs on the user's confirmation; never back to 12)
   pt_seats_max: 8            # filled 2026-09-12 (DECISIONS): a PT run takes ~5 s, 100 seats licensed
   vcf_seats_max: 50          # 50 seats per SEQ feature, not shared with DC (eda-knowledge 01; DECISIONS 2026-09-14; was a 4-seat placeholder)
   vcf_seats_target: 50       # dispatch target for Phases 3-4 (single-worker SEQ runs, ~1 core each; restored from the temporary 50 of the multi_pipe_8bit backlog on 2026-09-14 21:45); Phase 5 proofs run in bulk mode at 50 (DECISIONS 2026-09-14 item 2)
