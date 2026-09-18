@@ -155,7 +155,7 @@ def run_dc(job_dir, rtl_files, top, lib, compile_cmd, clock_ns, clk_port, cfg, *
     # ---- reports and metrics ----
     def read(name):
         p = reports / name
-        return p.read_text(errors="replace") if p.exists() else ""
+        return _read_text(p) if p.exists() else ""
 
     qor = P.parse_qor(read("qor.rpt"))
     area = P.parse_area(read("area.rpt"))
