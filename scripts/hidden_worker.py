@@ -422,6 +422,7 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
     jobs = []
     from src.eval.retention import audit_frac_for, is_audit_sample
     scope = (cfg.get("exp5") or {}).get("hidden_scope") or {}          # storage decision 2026-09-15 (D): every hidden configuration on accepted candidates and its audit sample (`exp5.hidden_audit_frac`, 20 % for H1 / H3 / H5)
+    waiting = {(r[0], r[1]) for r in vis.execute("SELECT cand_id, config FROM jobs WHERE kind='dc_hidden' AND state IN ('queued','running','backoff')")}   # 2026-09-18: a pair whose job is already waiting or running is not registered again (the loop re-submitted 3 500 jobs every pass: 13 859 duplicates)
     for c in vis.execute("SELECT c.cand_id, c.design_id, c.rtl_path, c.run_id, c.top, c.rtl_files_json, c.accepted, c.in_archive FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                          "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted' ORDER BY c.cand_id", (exp,)):
         if designs is not None and c["design_id"] not in designs:   # DECISIONS 2026-09-16 (scheduling change, item 4): the hidden loop registers the designs of finished tiers only
@@ -452,6 +453,10 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
             if config in cfg["noise"].get("configs_light", []) and lib == "nangate45" and not cfg["libs"][lib].get("physical_ref_for_spg"):
                 continue
             if hid.execute("SELECT 1 FROM evaluations WHERE design_id=? AND cand_id=? AND config=? AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (c["design_id"], c["cand_id"], config, float(clock_ns))).fetchone():
+                continue
+            if (c["cand_id"], config) in waiting:
+                if skipped is not None:
+                    skipped["already_queued"] = skipped.get("already_queued", 0) + 1
                 continue
             if config in signoff and signoff_source(vis, c["design_id"], c["cand_id"], None, cdef, float(clock_ns)) is None:
                 if skipped is not None:

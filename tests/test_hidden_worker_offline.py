@@ -280,6 +280,14 @@ def test_phase5_hidden_scope_registers_h1_h3_h5_for_all_and_h2_for_accepted_and_
     # DECISIONS 2026-09-16 (scheduling change, item 4): the hidden loop passes the designs of the finished tiers only (both directions)
     assert mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1"], designs=["other_design"]) == []
     assert {j["cand_id"] for j in mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1"], designs=["rtllm_h5"])} == by5["H1"]
+    # 2026-09-18: a pair whose hidden job is already queued or running is not registered again; a finished or failed job does not block (both directions)
+    base = {"kind": "dc_hidden", "pool": "dc", "priority": 1, "attempts": 0, "payload_json": "{}", "submitted_at": "2026-09-18T03:00:00", "config": "H1"}
+    db.insert(vis, "jobs", {**base, "job_id": "jq", "cand_id": "r5_k_acc", "state": "queued"})
+    db.insert(vis, "jobs", {**base, "job_id": "jd", "cand_id": "r5_k_no", "state": "done"})
+    db.insert(vis, "jobs", {**base, "job_id": "jc", "cand_id": "k_audit", "state": "failed"})
+    skipped = {}
+    again = {j["cand_id"] for j in mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1"], skipped=skipped)}
+    assert again == {"r5_k_no", "k_audit"} and skipped["already_queued"] == 1
 
 
 def test_signoff_h4_jobs_for_the_baseline_and_kept_candidates_with_a_netlist_only(env, tmp_path, monkeypatch):
