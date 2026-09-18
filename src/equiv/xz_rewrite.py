@@ -57,6 +57,8 @@ def _classify(node, ancestors, rst_port):
         if isinstance(anc, comparison):
             return "comparison"
         if isinstance(anc, A.Assign):
+            if any(isinstance(a, A.Decl) for a in ancestors[:i]):   # `reg r = value;` — a declaration initializer, not an assignment of the rule (DECISION (h) item 2)
+                return "other"
             return "continuous" if child is anc.right else "other"
         if isinstance(anc, (A.NonblockingSubstitution, A.BlockingSubstitution)):
             if child is not anc.right:

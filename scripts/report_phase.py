@@ -1032,6 +1032,15 @@ def phase5_markdown(cfg, data, stage="all", final=False):
         cov = cnd.get("load_coverage")
         L.append(f"| {g['tier']} | {g['model']} | {g['arm']} | {cnd.get('proofs', 0)} | {_num(cnd.get('vcf_wait_median_min'), 1)} / {_num(cnd.get('vcf_wait_q95_min'), 1)} | {_num(cnd.get('load_median'), 1)} | {cnd.get('load_samples', 0)} ({_pct(cov, 0) if cov is not None else '-'}) |")
     L += ["", "The load log (scripts/load_logger.py, one sample per minute) starts 2026-09-18 05:49; rows whose runs predate it show a partial coverage — the VC Formal wait comes from the queue's own timestamps and covers every proof.", ""]
+    vc = data.get("verification_conditions") or {}
+    L += [f"## 7c. Verification conditions by host load (DECISION 2026-09-18 (h) item 1): inconclusive share of finished proofs at a 1-minute load above / at or below {vc.get('threshold', 100):.0f}, per design and class", "",
+          f"Proofs started from {vc.get('from') or '-'} (the load log's first sample) with a load sample within two minutes before the start: {vc.get('n', 0)}.", "",
+          "| design | class | proofs at load > threshold | inconclusive share | proofs at load ≤ threshold | inconclusive share |", "|---|---|---|---|---|---|"]
+    for d in sorted(vc.get("rows") or {}):
+        for k in sorted(vc["rows"][d]):
+            a, b = vc["rows"][d][k]["above"], vc["rows"][d][k]["below"]
+            L.append(f"| {d} | {k} | {sum(a)} | {_pct(a[1] / sum(a), 0) if sum(a) else '-'} | {sum(b)} | {_pct(b[1] / sum(b), 0) if sum(b) else '-'} |")
+    L.append("")
     if stage in ("C", "all"):
         L += ["## 8. Success criteria (PROPOSAL §7.2), visible-layer view", "",
               "- C2 (M vs B2 and vs B1@E4 at equal calls; the hidden-configuration form of the criterion is **sealed** until the Phase 5 completion marker — scripts/report_hidden.py): see §1 (retained per run, best gain per run) and §2 (per-design best gains) per tier; the geometric-mean form and the 2σ_D test per design are computed in the final report once every tier is complete.",

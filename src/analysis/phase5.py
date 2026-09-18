@@ -273,6 +273,37 @@ def completion_alert(cfg, conn, state_path=None, write=True, view=None, exp="pha
     return new, line, view
 
 
+def verification_conditions(cfg, conn, exp="phase5", tiers=None, threshold=100.0, window_s=120):
+    """DECISION 2026-09-18 (h) item 1 — the standing table for the paper: per design and class, the inconclusive share of the
+    finished proofs (proven or inconclusive) whose 1-minute host load at the proof's start was above `threshold` and at or below it
+    (the load from scripts/load_logger.py's log, the sample nearest before the start within `window_s`; proofs started before the log
+    began are left out). -> {"threshold": t, "rows": {design: {class: {"above": [proven, inconclusive], "below": [proven, inconclusive]}}}, "from": first sample, "n": counted}."""
+    import bisect
+    tier_of = tier_of_design(cfg)
+    tiers = list(tiers or STAGES["all"])
+    samples = load_samples(cfg)
+    ts = [s[0] for s in samples]
+    rows = defaultdict(lambda: defaultdict(lambda: {"above": [0, 0], "below": [0, 0]}))
+    n = 0
+    for r in conn.execute("SELECT c.design_id, c.class_final, c.verdict, j.started_at FROM candidates c JOIN jobs j ON j.cand_id=c.cand_id JOIN runs ru ON ru.run_id=c.run_id "
+                          "WHERE ru.exp=? AND ru.status != 'superseded' AND j.kind='vcf' AND j.state='done' AND j.started_at IS NOT NULL AND c.verdict IN ('proven', 'inconclusive')", (exp,)):
+        if tier_of.get(r["design_id"]) not in tiers or not samples:
+            continue
+        i = bisect.bisect_right(ts, r["started_at"]) - 1
+        if i < 0:
+            continue
+        try:
+            gap = (datetime.datetime.fromisoformat(r["started_at"]) - datetime.datetime.fromisoformat(ts[i])).total_seconds()
+        except ValueError:
+            continue
+        if gap > window_s:
+            continue
+        side = "above" if samples[i][1] > threshold else "below"
+        rows[r["design_id"]][r["class_final"] or "?"][side][0 if r["verdict"] == "proven" else 1] += 1
+        n += 1
+    return {"threshold": threshold, "from": ts[0] if ts else None, "n": n, "rows": {d: {k: v for k, v in cls.items()} for d, cls in rows.items()}}
+
+
 def load_samples(cfg):
     """(timestamp, 1-minute load) samples of scripts/load_logger.py (results/queue/load.log), sorted; empty when absent."""
     p = Path(C.results_dir(cfg)) / "queue" / "load.log"
@@ -533,6 +564,7 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
             pts.append({"dc_hours": h, "mean_best_gain": round(statistics.mean(vals), 5) if vals else None})
         out["curves"].setdefault(key, {})["by_dc_hours"] = pts
     out["ops"] = operations(cfg, conn, exp, results_dir)   # user follow-up 2026-09-16 (items 1 and 5)
+    out["verification_conditions"] = verification_conditions(cfg, conn, exp, tiers)   # DECISION 2026-09-18 (h) item 1
     return out
 
 

@@ -261,3 +261,24 @@ def test_complete_designs_tally_reachability_and_alert_both_directions(tmp_path,
     conn.execute("UPDATE evaluations SET area_um2=98.5 WHERE cand_id='c_m'"); conn.commit()
     view2 = P5.completion_view(cfg, conn)
     assert view2["comparisons"]["m1"]["m_exceeds"] is False and view2["tally"]["losses"] == ["m1"]
+
+
+def test_verification_conditions_by_load(tmp_path, monkeypatch):
+    """DECISION 2026-09-18 (h) item 1: per design and class, the inconclusive share of finished proofs started at a 1-minute load above
+    100 and at or below 100 (the load sample nearest before the start, within two minutes); proofs started before the log, or without
+    a sample nearby, are left out. Both directions."""
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"small": [], "medium": ["m1"], "large": []}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    db.insert(conn, "runs", {"run_id": "r", "exp": "phase5", "arm": "M", "design_id": "m1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "done", "started_at": "t"})
+    (tmp_path / "results" / "queue").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "results" / "queue" / "load.log").write_text("2026-09-18T10:00:00 120.0 1 1 x\n2026-09-18T10:01:00 90.0 1 1 x\n2026-09-18T10:02:00 130.0 1 1 x\n")
+    proofs = [("c1", "b", "proven", "2026-09-18T10:00:30"), ("c2", "b", "inconclusive", "2026-09-18T10:00:40"), ("c3", "b", "proven", "2026-09-18T10:01:20"),
+              ("c4", "a", "inconclusive", "2026-09-18T10:02:10"), ("c5", "a", "proven", "2026-09-18T09:30:00"), ("c6", "b", "proven", "2026-09-18T10:20:00")]   # c5 before the log, c6 no sample within 2 min
+    for cid, cls, verdict, start in proofs:
+        db.insert(conn, "candidates", {"cand_id": cid, "run_id": "r", "design_id": "m1", "gen": 1, "arm": "M", "llm_model": "gpt-5.6-luna", "verdict": verdict, "class_final": cls})
+        db.insert(conn, "jobs", {"job_id": f"j{cid}", "kind": "vcf", "pool": "vcf", "design_id": "m1", "cand_id": cid, "state": "done", "priority": 0, "payload_json": "{}", "submitted_at": start, "started_at": start, "finished_at": start})
+    vc = P5.verification_conditions(cfg, conn, tiers=["medium"])
+    assert vc["n"] == 4 and vc["from"] == "2026-09-18T10:00:00"
+    assert vc["rows"]["m1"]["b"] == {"above": [1, 1], "below": [1, 0]} and vc["rows"]["m1"]["a"] == {"above": [0, 1], "below": [0, 0]}
