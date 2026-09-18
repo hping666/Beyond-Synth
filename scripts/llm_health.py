@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """LLM call health over the last N minutes (user decision 2026-09-18: the global concurrency cap is tuned on this): calls,
-their durations, the wait for a global slot (recorded per call since 04:4x on 2026-09-18), retries (transient errors, 429s)
+their durations, the wait for a global slot (recorded per call since 03:58 on 2026-09-18), retries (transient errors, 429s)
 and failed calls.    .venv/bin/python scripts/llm_health.py [--minutes 60]"""
 import argparse
 import datetime
@@ -65,7 +65,7 @@ def main(argv=None):
         net = [s - w for s, w in zip(secs[-len(waits):], waits)]
         print(f"  request time without the wait: median {statistics.median(net) / 60:.1f} min, p90 {q(net, 0.9) / 60:.1f} min")
     else:
-        print("  slot wait: no call carries the field yet (recorded from 2026-09-18 04:4x)")
+        print("  slot wait: no call carries the field yet (recorded from 2026-09-18 03:58)")
     print(f"  retried calls (a transient error before success): {retried}, of which 429: {r429}; failed calls (no answer after the retries): {errors}"
           + (f"; attempts per call: mean {statistics.mean(attempts):.2f}, max {max(attempts)}" if attempts else ""))
     return 0
