@@ -103,6 +103,15 @@ def scope(cfg, conn, include_e4_timeouts=False):
                           f"AND c.rtl_path IS NOT NULL ORDER BY c.design_id, c.cand_id", (o["exp"],)):
         out.append({"cand_id": r["cand_id"], "group": "reverify", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"],
                     "force_rerun": r["design_id"] in force})
+    # (v) 2026-09-18 11:2x: candidates whose proof job failed for an operator cause (a transient syntax error in seq_tcl.py, 10:41) — marked
+    #     "[reproof pending" in their note; the proof is resubmitted from the failed job's payload, then E4 on proven (this group is not gated by proofs_enabled)
+    for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                          f"WHERE r.exp=? AND c.note LIKE '%[reproof pending%' AND c.verdict='error' ORDER BY c.cand_id", (o["exp"],)):
+        j = conn.execute("SELECT payload_json FROM jobs WHERE kind='vcf' AND cand_id=? AND state='failed' ORDER BY finished_at DESC LIMIT 1", (r["cand_id"],)).fetchone()
+        if j is None:
+            continue
+        out.append({"cand_id": r["cand_id"], "group": "reproof", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"],
+                    "proof_payload": json.loads(j["payload_json"])})
     # (iii) proven candidates whose visible E4 failed (timeouts) — only on the user's go
     if include_e4_timeouts:
         for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
@@ -158,6 +167,8 @@ def e4_job(cfg, conn, design, cand, saif=None):
     elif cand["group"] == "reverify":   # DECISION 2026-09-18 (d) D2: the C1-map record of a superseded run's candidate
         j["payload"]["offline_eval"] = 1
         j["payload"]["reverify"] = 1
+    elif cand["group"] == "reproof":    # the run's own fitness record, made by the pool because the run's proof job failed on an operator edit
+        j["payload"]["reproof"] = 1
     elif cand["group"] == "e4_timeout":   # DECISION 2026-09-18 (b) item 4: the re-run gets a 3600 s dc_shell guard and the e4_rerun flag
         j["payload"]["e4_rerun"] = 1
         j["payload"]["force_rerun"] = True   # the failed record of the same inputs is cached; the re-run gets its own directory
@@ -183,6 +194,31 @@ def sync_candidate_row(conn, cand_id, rec, sim_job):
     conn.execute("UPDATE candidates SET v1_status=?, v2_status=?, v2_cycles=?, verdict=?, eq_job_id=COALESCE(eq_job_id, ?), note=COALESCE(note, '') || ? WHERE cand_id=?",
                  (rec.get("v1_status"), rec.get("v2_status"), rec.get("v2_cycles"), verdict, sim_job, note, cand_id))
     return True
+
+
+def proof_record(cfg, payload):
+    """The proof record of a `vcf` job payload (the split pipeline's V3 stage: a sim_record payload) -> dict or None."""
+    from src.equiv.run_equiv import equiv_extra, equiv_hash
+    try:
+        h = equiv_hash(payload["d_rtl"], payload["c_rtl"], payload["top"], cfg, equiv_extra(cfg, payload, True))
+    except (OSError, KeyError):
+        return None
+    root = Path(C.results_dir(cfg)) / "raw" / payload["design_id"] / "EQ"
+    for eq in sorted(root.glob(f"{h}*/equiv.json")):
+        try:
+            return json.loads(eq.read_text())
+        except (OSError, ValueError):
+            continue
+    return None
+
+
+def write_reproof(conn, cand_id, rec, job_id):
+    """The re-proof's outcome into the candidate row (the row held `error` from the failed job): V3 fields, verdict, harness version, a note."""
+    conn.execute("UPDATE candidates SET v3_status=?, v3_seconds=?, verdict=?, proven_by=?, counterexample_path=?, harness_version=?, eq_job_id=?, "
+                 "note=COALESCE(note,'') || ? WHERE cand_id=?",
+                 (rec.get("v3_status"), rec.get("v3_seconds"), rec.get("verdict"), rec.get("proven_by"), rec.get("counterexample_path"), rec.get("harness_version"), job_id,
+                  f" [re-proven {time.strftime('%Y-%m-%d %H:%M')} by the offline pool: {rec.get('verdict')} (harness_version {rec.get('harness_version')})]", cand_id))
+    conn.commit()
 
 
 def sim_record(cfg, payload):
@@ -233,7 +269,7 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
     designs = {d["design_id"]: d for d in K.load_all()}
     cands = st.setdefault("cands", {})
     for it in scope(cfg, conn, include_e4_timeouts):
-        cands.setdefault(it["cand_id"], {**it, "stage": "sim" if it["group"] in ("prescreened", "reverify") else "e4", "sim_job": None, "e4_job": None, "result": None})
+        cands.setdefault(it["cand_id"], {**it, "stage": "sim" if it["group"] in ("prescreened", "reverify") else ("proof" if it["group"] == "reproof" else "e4"), "sim_job": None, "e4_job": None, "proof_job": None, "result": None})
     # progress of submitted jobs
     for cid, c in cands.items():
         if c["stage"] == "sim_running":
@@ -249,6 +285,18 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
                 if rec is not None and c.get("group") != "reverify":   # a superseded run's candidate keeps its harness-version-1 row (C4); the pool state holds the re-simulation
                     sync_candidate_row(conn, cid, rec, c.get("sim_job"))
                 c["synced"] = True
+        elif c["stage"] == "proof_running":
+            js = q.get(c["proof_job"])
+            if js and js["state"] in ("done", "failed"):
+                rec = proof_record(cfg, c["proof_payload"])
+                if rec is None:
+                    c.update(stage="done", result="proof job failed (no record)")
+                else:
+                    write_reproof(conn, cid, rec, c["proof_job"])
+                    if rec.get("verdict") == "proven":
+                        c.update(stage="e4", proof_result="proven", saif=rec.get("saif_c"))
+                    else:
+                        c.update(stage="done", result=f"reproof {rec.get('verdict')}", proof_result=rec.get("verdict"))
         elif c["stage"] == "e4_running":
             js = q.get(c["e4_job"])
             if js and js["state"] in ("done", "failed"):
@@ -287,6 +335,10 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
                 pl = sim_payload(cfg, d, c)
                 jid = q.submit("sim", pl, design_id=c["design_id"], cand_id=cid, config="EQ", priority=int(o["priority"]), timeout_sec=int(cfg["timeouts"]["sim"]) * 60 + 300)
                 c.update(stage="sim_running", sim_job=jid, sim_payload=pl); submitted += 1
+            elif c["stage"] == "proof":
+                pl = dict(c["proof_payload"]); pl["note"] = f"offline pool reproof {cid} (proof job failed on an operator edit, 2026-09-18 10:41)"; pl["offline_pool"] = True
+                jid = q.submit("vcf", pl, design_id=c["design_id"], cand_id=cid, config="EQ", priority=int(o.get("reproof_priority", 8)), timeout_sec=int(cfg["timeouts"]["seq_min"]) * 60 + 900)
+                c.update(stage="proof_running", proof_job=jid); submitted += 1
             elif c["stage"] == "e4":
                 saif = c.get("saif")
                 if saif is None and c["group"] != "prescreened":

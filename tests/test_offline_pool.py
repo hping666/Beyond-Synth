@@ -196,3 +196,45 @@ def test_reverify_group_sim_then_e4_then_awaits_the_proof(tmp_path, monkeypatch)
     monkeypatch.setattr("src.eval.retention.slim_candidate", lambda *a, **k: {"kept_full": False, "freed": {}})
     mod.once(cfg, conn, st, False, queue=FakeQ())
     assert st["cands"]["c_rej"]["stage"] == "await_proof"                                          # the proof waits for the pool's proofs to be enabled
+
+
+def test_reproof_group_resubmits_the_failed_proof_and_writes_the_row(tmp_path, monkeypatch):
+    """2026-09-18 11:2x: a candidate whose proof job failed for an operator cause (note "[reproof pending") is re-proven by the pool
+    from the failed job's payload — regardless of proofs_enabled — the verdict is written into its row, and a proven candidate goes on
+    to E4; a candidate without the marker, or without a failed proof job, is not touched. Both directions."""
+    mod = load_pool()
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["drrtl_SPI"], "small": []}
+    cfg["offline_pool"] = {"slots": 4, "priority": 1, "load_over_baseline": 0.10, "proofs_enabled": False}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES ('drrtl_SPI','drrtl','SPI','p',1,1,'held',1.0,'t','g','c')")
+    rtl = tmp_path / "c.v"; rtl.write_text("module m; endmodule")
+    db.insert(conn, "runs", {"run_id": "r1", "exp": "phase5", "arm": "M", "design_id": "drrtl_SPI", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "running", "started_at": "t"})
+    db.insert(conn, "candidates", {"cand_id": "c_err", "run_id": "r1", "design_id": "drrtl_SPI", "gen": 1, "arm": "M", "rtl_path": str(rtl), "verdict": "error", "v3_status": "error", "note": "n [reproof pending: x]"})
+    db.insert(conn, "candidates", {"cand_id": "c_err2", "run_id": "r1", "design_id": "drrtl_SPI", "gen": 1, "arm": "M", "rtl_path": str(rtl), "verdict": "error", "v3_status": "error", "note": "n"})
+    payload = {"design_id": "drrtl_SPI", "cand_id": "c_err", "d_rtl": [str(rtl)], "c_rtl": [str(rtl)], "top": "m", "clk": "clk", "rst": None, "rst_sense": None, "sim_record": {"v1_status": "ok"}}
+    db.insert(conn, "jobs", {"job_id": "jf", "kind": "vcf", "pool": "vcf", "design_id": "drrtl_SPI", "cand_id": "c_err", "state": "failed", "priority": 6, "payload_json": json.dumps(payload), "submitted_at": "t", "finished_at": "t", "exit_code": 1})
+    items = {it["cand_id"]: it for it in mod.scope(cfg, conn)}
+    assert set(items) == {"c_err"} and items["c_err"]["group"] == "reproof" and items["c_err"]["proof_payload"]["cand_id"] == "c_err"   # c_err2 has no marker
+    monkeypatch.setattr(mod, "STATE", str(tmp_path / "state.json")); monkeypatch.setattr(mod, "LOG", str(tmp_path / "pool.log"))
+    monkeypatch.setattr(mod, "throttle", lambda cfg, conn, st: (True, 50.0, 0.0))
+    monkeypatch.setattr("src.designs.catalog.load_all", lambda: [{"design_id": "drrtl_SPI", "top": "m", "files": ["c.v"], "clk_ports": ["clk"], "rst_port": None, "rst_sense": None, "incdirs": [], "_dir": str(tmp_path), "sverilog": False}])
+    monkeypatch.setattr("src.designs.catalog.abs_paths", lambda d, paths: [tmp_path / p for p in paths])
+    submitted = {}
+    class FakeQ:
+        def submit(self, kind, payload, **kw):
+            jid = f"j_{len(submitted)}"; submitted[jid] = (kind, payload, kw); return jid
+        def get(self, jid):
+            return {"state": "done"} if jid in submitted else None
+    st = {"cands": {}, "paused": False, "baseline": 100.0}
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    proofs = [v for v in submitted.values() if v[0] == "vcf"]
+    assert len(proofs) == 1 and proofs[0][1]["cand_id"] == "c_err" and proofs[0][1]["sim_record"] == {"v1_status": "ok"} and proofs[0][2]["priority"] == 8   # resubmitted although proofs_enabled is false
+    assert st["cands"]["c_err"]["stage"] == "proof_running"
+    monkeypatch.setattr(mod, "proof_record", lambda cfg, payload: {"verdict": "proven", "v3_status": "proven", "v3_seconds": 12.0, "proven_by": "seq", "harness_version": 1, "saif_c": None})
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    row = dict(conn.execute("SELECT verdict, v3_status, harness_version, note FROM candidates WHERE cand_id='c_err'").fetchone())
+    assert row["verdict"] == "proven" and row["v3_status"] == "proven" and row["harness_version"] == 1 and "re-proven" in row["note"]
+    assert st["cands"]["c_err"]["stage"] == "e4_running" and [v for v in submitted.values() if v[0] == "dc"][-1][1]["reproof"] == 1   # proven -> E4 with the reproof flag
+    assert dict(conn.execute("SELECT verdict FROM candidates WHERE cand_id='c_err2'").fetchone())["verdict"] == "error"                   # untouched
