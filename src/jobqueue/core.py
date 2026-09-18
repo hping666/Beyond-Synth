@@ -39,11 +39,12 @@ EX_RESTART = 76      # a search run leaving for a code roll (driver: SIGUSR1 -> 
 ROLL_SIGNAL_RC = 128 + signal.SIGUSR1   # the same request delivered to a run whose driver predates the handler (the shell wrapper reports 128 + 10)
 TIMEOUT_RC = 124
 POOL_OF_KIND = {"shell": "local", "sim": "local", "yosys": "local", "llm": "local", "orfs": "local", "search": "search",   # search runs in their own pool (2026-09-15): they wait for local yosys jobs and must not fill the local pool
-                "dc": "dc", "pt": "pt", "vcf": "vcf", "dc_hidden": "dc"}
+                "dc": "dc", "pt": "pt", "vcf": "vcf", "dc_hidden": "dc", "dc_retry": "dc"}   # dc_retry: the 4-slot retry lane of search-run E4 timeouts (DECISION 2026-09-18 (b) item 4)
 RUNNER_OF_KIND = {"dc": "src.eval.run_dc", "pt": "src.eval.run_pt", "yosys": "src.eval.run_yosys",
                   "orfs": "src.eval.run_orfs", "vcf": "src.equiv.run_equiv", "sim": "src.equiv.run_equiv",
                   "llm": "src.search.run_llm", "search": "src.search.run_search",   # Phase 3: one residual-guided evolution run per job
-                  "dc_hidden": "scripts.hidden_worker"}  # hidden configurations: recorded only by the hidden worker (rule 3)
+                  "dc_hidden": "scripts.hidden_worker",  # hidden configurations: recorded only by the hidden worker (rule 3)
+                  "dc_retry": "src.eval.run_dc"}
 KILL_GRACE_SEC = 3.0
 
 
@@ -187,7 +188,7 @@ class Queue:
     # ------------------------------------------------------------------ submission
     def default_timeout(self, kind, payload=None):
         t = self.cfg["timeouts"]
-        table = {"dc": t["dc_medium"] * 60, "dc_hidden": t["dc_medium"] * 60, "pt": t["pt"] * 60, "vcf": t["seq_min"] * 60,
+        table = {"dc": t["dc_medium"] * 60, "dc_hidden": t["dc_medium"] * 60, "dc_retry": 3600 + 180, "pt": t["pt"] * 60, "vcf": t["seq_min"] * 60,
                  "sim": t["sim"] * 60, "llm": t["llm_call_sec"], "yosys": t["sim"] * 60, "orfs": t["dc_large"] * 60}
         return float(table.get(kind, 3600))
 

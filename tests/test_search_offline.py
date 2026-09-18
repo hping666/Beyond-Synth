@@ -1160,3 +1160,46 @@ def test_generation_calls_go_out_together_when_parallel_is_on(env):
     t0 = time.time()
     run2.step()
     assert tr2.peak == 1 and time.time() - t0 >= 0.6
+
+
+def test_e4_timeout_is_retried_once_in_the_retry_lane(env, monkeypatch):
+    """DECISION 2026-09-18 (b) item 4: a fitness job that hit its wall-clock guard is requeued once as kind dc_retry (4-slot lane,
+    3600 s guard, e4_rerun and force_rerun in the payload, the retry noted on the candidate); a second failure ends as
+    'evaluation failed'; a non-timeout failure is not retried (both directions)."""
+    cfg, conn, q, tmp_path = env
+    from src.search.driver import SearchRun
+    tr = FakeTransport()
+    run = SearchRun.create(cfg, conn, exp="smoke", arm="B2", design_id="rtllm_d", seed=11, model="gpt-5.6-luna", K=2, N=3, queue=q, transport=tr)
+    run.step()
+    pending = list(run.state["pending"])
+    a, b = pending[0], pending[1]
+    for cid in (a, b):
+        finish_eq(conn, cfg, tmp_path, cid, verdict="proven")
+    run.step()
+    ca, cb = run.state["cands"][a], run.state["cands"][b]
+    # a: the E4 record says timeout -> one retry
+    d = tmp_path / "e4_timeout_a"; d.mkdir()
+    (d / "meta.json").write_text(json.dumps({"status": "eval_failed", "failed_status": "timeout"}))
+    db.insert(conn, "evaluations", {"design_id": "rtllm_d", "cand_id": a, "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": str(d)})
+    conn.execute("UPDATE jobs SET state='failed' WHERE job_id=?", (ca["e4_job_id"],))
+    old_job = ca["e4_job_id"]
+    run.step()
+    assert ca["e4_retry"]["of"] == old_job and ca["e4_job_id"] != old_job and run.state["pending"][a] == "e4"
+    j = conn.execute("SELECT kind, pool, timeout_sec, payload_json FROM jobs WHERE job_id=?", (ca["e4_job_id"],)).fetchone()
+    p = json.loads(j["payload_json"])
+    assert j["kind"] == "dc_retry" and j["pool"] == "dc" and j["timeout_sec"] == 3600 + 180 and p["e4_rerun"] == 1 and p["force_rerun"] is True
+    assert "retried once after the wall-clock guard" in conn.execute("SELECT note FROM candidates WHERE cand_id=?", (a,)).fetchone()[0]
+    # the retry times out as well -> evaluation failed, no third attempt
+    d2 = tmp_path / "e4_timeout_a2"; d2.mkdir()
+    (d2 / "meta.json").write_text(json.dumps({"status": "eval_failed", "failed_status": "timeout"}))
+    db.insert(conn, "evaluations", {"design_id": "rtllm_d", "cand_id": a, "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": str(d2)})
+    conn.execute("UPDATE jobs SET state='failed' WHERE job_id=?", (ca["e4_job_id"],))
+    run.step()
+    assert ca.get("e4_failed") and a not in run.state["pending"] and conn.execute("SELECT COUNT(*) FROM jobs WHERE kind='dc_retry' AND cand_id=?", (a,)).fetchone()[0] == 1
+    # b: an elaboration failure is not a timeout -> no retry
+    d3 = tmp_path / "e4_fail_b"; d3.mkdir()
+    (d3 / "meta.json").write_text(json.dumps({"status": "eval_failed", "failed_status": "elaborate_failed"}))
+    db.insert(conn, "evaluations", {"design_id": "rtllm_d", "cand_id": b, "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": str(d3)})
+    conn.execute("UPDATE jobs SET state='failed' WHERE job_id=?", (cb["e4_job_id"],))
+    run.step()
+    assert cb.get("e4_failed") and not cb.get("e4_retry") and conn.execute("SELECT COUNT(*) FROM jobs WHERE kind='dc_retry' AND cand_id=?", (b,)).fetchone()[0] == 0

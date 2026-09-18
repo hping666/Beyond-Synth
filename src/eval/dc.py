@@ -11,6 +11,7 @@ constraint_incomplete, compile_failed, empty_netlist, report_missing, license_fa
 setup_failed, library_missing.
 """
 import json
+from src.util_textio import read_text as _read_text   # DECISION 2026-09-18 (b) item 2: logs may be gzip-compressed in place
 import os
 import shutil
 import subprocess

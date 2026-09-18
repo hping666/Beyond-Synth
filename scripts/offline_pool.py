@@ -142,6 +142,7 @@ def e4_job(cfg, conn, design, cand, saif=None):
         j["payload"]["prescreened_offline"] = 1
     elif cand["group"] == "e4_timeout":   # DECISION 2026-09-18 (b) item 4: the re-run gets a 3600 s dc_shell guard and the e4_rerun flag
         j["payload"]["e4_rerun"] = 1
+        j["payload"]["force_rerun"] = True   # the failed record of the same inputs is cached; the re-run gets its own directory
         j["timeout_sec"] = int(o.get("rerun_guard_sec", 3600)) + 180
     else:
         j["payload"]["offline_eval"] = 1

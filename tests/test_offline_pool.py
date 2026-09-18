@@ -90,6 +90,6 @@ def test_e4_timeout_reruns_get_the_long_guard_and_the_flag(tmp_path, monkeypatch
     monkeypatch.setattr(K, "abs_paths", lambda d, paths: [tmp_path / p for p in paths])
     design = {"design_id": "L1", "top": "l1", "files": ["c.v"], "incdirs": [], "clk_ports": ["clk"], "sverilog": False, "loc": 1}
     j = mod.e4_job(cfg, conn, design, {"cand_id": "x", "group": "e4_timeout", "design_id": "L1", "rtl_path": str(tmp_path / "c.v")})
-    assert j["payload"]["e4_rerun"] == 1 and j["timeout_sec"] == 3600 + 180 and "offline_eval" not in j["payload"]
+    assert j["payload"]["e4_rerun"] == 1 and j["payload"]["force_rerun"] is True and j["timeout_sec"] == 3600 + 180 and "offline_eval" not in j["payload"]
     j2 = mod.e4_job(cfg, conn, design, {"cand_id": "y", "group": "b0_e4", "design_id": "L1", "rtl_path": str(tmp_path / "c.v")})
     assert j2["payload"]["offline_eval"] == 1 and "e4_rerun" not in j2["payload"] and j2["timeout_sec"] != 3600 + 180

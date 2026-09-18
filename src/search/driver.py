@@ -586,6 +586,8 @@ class SearchRun:
                 changed = True
                 row = self.fit_row(cid)
                 if row is None:
+                    if self.retry_e4_timeout(cid, c):   # DECISION 2026-09-18 (b) item 4: one retry in the 4-slot lane with the 3600 s guard
+                        continue
                     c["e4_failed"] = True
                     self.conn.execute("UPDATE candidates SET note=COALESCE(note,'') || ? WHERE cand_id=?", (f" [{self.fit_cfg} evaluation failed]", cid))
                     if proof == "pending":   # the proof still decides the row's verdict columns
@@ -793,6 +795,47 @@ class SearchRun:
         self.state["pending"][cid] = "e4"
 
     submit_e4 = submit_fitness
+
+    def e4_failure_status(self, cid, c):
+        """The failure status of the latest E4 attempt of a candidate (meta.json `failed_status` / `status` of its record), or None."""
+        ev = self.conn.execute("SELECT raw_dir FROM evaluations WHERE cand_id=? AND config=? ORDER BY eval_id DESC LIMIT 1", (cid, self.fit_cfg)).fetchone()
+        if ev and ev[0] and (Path(ev[0]) / "meta.json").exists():
+            try:
+                m = json.loads((Path(ev[0]) / "meta.json").read_text())
+                return m.get("failed_status") or m.get("status")
+            except (OSError, json.JSONDecodeError):
+                return None
+        j = self.conn.execute("SELECT log_path FROM jobs WHERE job_id=?", (c.get("e4_job_id"),)).fetchone()
+        if j and j[0] and Path(j[0]).exists():
+            tail = Path(j[0]).read_text(errors="replace")[-800:]
+            if "exceeded" in tail or '"status": "timeout"' in tail:
+                return "timeout"
+        return None
+
+    def retry_e4_timeout(self, cid, c):
+        """DECISION 2026-09-18 (b) item 4: a fitness job (E4 / DC) that hit its wall-clock guard is requeued once into the
+        `dc_retry` lane (4 slots, 3600 s guard, `e4_rerun` on the record, own directory); the retry is noted on the candidate.
+        -> True when a retry was submitted (the candidate stays in the e4 stage)."""
+        if c.get("e4_retry") or self.fit_cfg != "E4" or self.e4_failure_status(cid, c) != "timeout":
+            return False
+        j = J.dc_job(self.cfg, self.design, self.fit_cfg, self.phi, self.priority)
+        saif = None
+        rec_dir = c.get("sim_record") or c.get("eq_record")
+        if rec_dir and (Path(rec_dir) / "equiv.json").exists():
+            try:
+                saif = json.loads((Path(rec_dir) / "equiv.json").read_text()).get("saif_c")
+            except (OSError, json.JSONDecodeError):
+                saif = None
+        j["payload"].update(rtl=[c["path"]], incdirs=[str(p) for p in K.abs_paths(self.design, self.design["incdirs"])], is_baseline=0, cand_id=cid, e4_rerun=1, force_rerun=True)
+        if saif and Path(saif).exists():
+            j["payload"].update(saif=saif, saif_instance="bs_lockstep/u_c")
+        guard = int(((self.cfg["queue"].get("e4_retry") or {}).get("guard_sec")) or 3600)
+        jid = self._q().submit("dc_retry", j["payload"], design_id=self.row["design_id"], cand_id=cid, config=self.fit_cfg, priority=self.priority, timeout_sec=guard + 180)
+        c["e4_retry"] = {"of": c.get("e4_job_id"), "job": jid, "at": db.now(), "guard_sec": guard}
+        c["e4_job_id"], c["state"] = jid, "e4_pending"
+        self.state["pending"][cid] = "e4"
+        self.conn.execute("UPDATE candidates SET e4_job_id=?, note=COALESCE(note,'') || ? WHERE cand_id=?", (jid, f" [E4 retried once after the wall-clock guard: {guard} s lane]", cid))
+        return True
 
     def fit_row(self, cand_id):
         return self.conn.execute("SELECT * FROM evaluations WHERE cand_id=? AND config=? AND status='ok' ORDER BY eval_id DESC LIMIT 1", (cand_id, self.fit_cfg)).fetchone()
