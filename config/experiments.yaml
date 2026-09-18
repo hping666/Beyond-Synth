@@ -166,7 +166,7 @@ llm:                         # LOCKED (budgets); the model is filled into `selec
   ablations_model: gpt-5.6-luna
   review_model: gpt-5.6-luna           # M6 review, log summaries (Batch)
   retry: {attempts: 6, base_sec: 15, max_sec: 480}   # 2026-09-15 (probe: a sol run died on two 429 "processing too many requests" answers in a row with the old 2 / 4 / 6 s backoff): transient failures (429, 408 / 409, 5xx, connection / timeout) wait 15, 30, 60, 120, 240, 480 s before the call gives up; request errors (4xx) are never retried; a model-call setting, not a budget
-  parallel: {enabled: true, global_max: 8}   # user follow-up 2026-09-16 (item 2): the N calls of a generation are issued concurrently; at most global_max requests in flight over every run (lock-file slots under results/queue/llm_slots); the retry / 429 backoff rule above applies per call; the generation cadence is unchanged
+  parallel: {enabled: true, global_max: 40}   # user decision 2026-09-18 04:4x: 8 -> 40 (the slots were saturated: 653 calls per hour, a median 3.8 min of waiting per call); check the API for 429s and the slot wait, then 50 if calls still queue; user follow-up 2026-09-16 (item 2): the N calls of a generation are issued concurrently; at most global_max requests in flight over every run (lock-file slots under results/queue/llm_slots); the retry / 429 backoff rule above applies per call; the generation cadence is unchanged
   service_tier_search: flex
   service_tier_offline: batch
   reasoning_effort: medium

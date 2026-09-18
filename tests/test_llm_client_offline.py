@@ -225,8 +225,10 @@ def test_call_many_runs_the_requests_concurrently_under_the_global_slot_cap(env,
     tr1 = SlowTransport(delay=0.1)
     c1 = L.LLMClient(cfg, conn, "phase4_generation", "run_q", transport=tr1, sleep=lambda s: None)
     t0 = time.time()
-    c1.call_many(specs)
+    c1.call_many(specs, max_workers=4)                                              # four threads, one slot: the lock files serialize them
     assert tr1.peak == 1 and time.time() - t0 >= 0.4
+    recs = [json.loads(p.read_text()) for p in sorted((tmp_path / "results" / "llm" / "run_q").glob("c*.json"))]
+    assert all(r.get("attempts") == 1 for r in recs) and sum(1 for r in recs if r["slot_wait_s"] > 0.05) >= 3 and min(r["slot_wait_s"] for r in recs) < 0.05   # the slot wait is recorded per call: three of the four waited for the single slot
     assert (tmp_path / "results" / "queue" / "llm_slots" / "slot_0").exists()   # the lock files of the earlier, wider cap stay; only slot_0 was usable here
     # errors: a request error raises after the batch (the good answers are billed); an exhausted account raises QuotaExhausted
     cfg["llm"]["parallel"] = {"enabled": True, "global_max": 8}

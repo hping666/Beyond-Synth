@@ -166,7 +166,10 @@ class LLMClient:
         if retries is None:
             retries = int(rp.get("attempts", 3))
         base, cap = float(rp.get("base_sec", 2.0)), float(rp.get("max_sec", 480.0))
+        t_slot = time.time()
         slot = slots.acquire() if slots is not None else None
+        slot_wait = round(time.time() - t_slot, 2)   # time spent waiting for one of the global slots (reported per call; user decision 2026-09-18: the cap is tuned on this)
+        attempt = 0
         try:
             for attempt in range(retries + 1):
                 try:
@@ -185,7 +188,7 @@ class LLMClient:
         finally:
             if slot is not None:
                 slots.release(slot)
-        return dict(spec, resp=resp, last_error=last_error, t0=t0, seconds=round(time.time() - t0, 2))
+        return dict(spec, resp=resp, last_error=last_error, t0=t0, seconds=round(time.time() - t0, 2), slot_wait_s=slot_wait, attempts=attempt + 1)
 
     def finish(self, done):
         """The bookkeeping after a request (calling thread): the record file and the budget ledger. -> the call's result."""
@@ -197,7 +200,8 @@ class LLMClient:
         text = getattr(resp, "output_text", None) or ""
         rec = {"call_id": call_id, "tag": tag, "run_id": self.run_id, "phase": self.phase, "model": model, "tier": used_tier, "request": kw,
                "response_id": getattr(resp, "id", None), "status": getattr(resp, "status", None), "text": text, "usage": usage,
-               "cost_usd": cost, "seconds": done["seconds"], "at": db.now(), "last_error": str(done["last_error"]) if done["last_error"] else None}
+               "cost_usd": cost, "seconds": done["seconds"], "slot_wait_s": done.get("slot_wait_s"), "attempts": done.get("attempts"), "at": db.now(),
+               "last_error": str(done["last_error"]) if done["last_error"] else None}
         path = self.dir / f"{call_id}.json"
         path.write_text(json.dumps(rec, indent=1, default=str))
         db.insert(self.conn, "budget_ledger", {"ts": db.now(), "phase": self.phase, "kind": "llm", "amount": cost, "unit": "usd",
