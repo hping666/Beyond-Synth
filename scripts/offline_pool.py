@@ -211,8 +211,16 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
         elif c["stage"] == "e4_running":
             js = q.get(c["e4_job"])
             if js and js["state"] in ("done", "failed"):
-                ev = conn.execute("SELECT status, dc_seconds FROM evaluations WHERE cand_id=? AND config='E4' ORDER BY eval_id DESC LIMIT 1", (cid,)).fetchone()
+                ev = conn.execute("SELECT status, dc_seconds, raw_dir FROM evaluations WHERE cand_id=? AND config='E4' ORDER BY eval_id DESC LIMIT 1", (cid,)).fetchone()
                 c.update(stage="done", result=f"E4 {ev['status']}" if ev else f"E4 job {js['state']}", dc_seconds=(ev["dc_seconds"] if ev else None))
+                if ev and ev["raw_dir"]:   # the same tiered retention as the visible runs: full artifacts for accepted / audit candidates, the parsed record and reports otherwise
+                    try:
+                        from src.eval import retention as RET
+                        row = conn.execute("SELECT accepted, in_archive FROM candidates WHERE cand_id=?", (cid,)).fetchone()
+                        res = RET.slim_candidate(cfg, cid, bool(row and (row[0] or row[1])), fit_dirs=[ev["raw_dir"]])
+                        c["slimmed"] = {"kept_full": res["kept_full"], "bytes": sum(res["freed"].values())}
+                    except Exception as e:   # retention must never stop the pool
+                        c["slimmed"] = f"failed: {type(e).__name__}: {e}"[:120]
     ok, l1, q95 = throttle(cfg, conn, st)
     submitted = 0
     if ok:
