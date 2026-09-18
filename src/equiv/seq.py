@@ -23,38 +23,7 @@ def _vcf(cfg):
     return vcf
 
 
-_XZ_LITERAL = re.compile(r"(\b\d*\s*'\s*[sS]?[bBoOhHdD])([0-9a-fA-F_xXzZ?]*[xXzZ?][0-9a-fA-F_xXzZ?]*)")
-
-
-def rewrite_xz_literals(text):
-    """DECISION 2026-09-18 (e) item 1 (harness_version 2): every x / z / ? digit of a Verilog literal becomes 0 — z on compared outputs,
-    from registers or from combinational assignments, is treated as 0, identically on both sides; x the same. -> (new text, count)."""
-    n = 0
-    def sub(m):
-        nonlocal n
-        n += 1
-        return m.group(1) + re.sub(r"[xXzZ?]", "0", m.group(2))
-    return _XZ_LITERAL.sub(sub, text), n
-
-
-def xz_free_copies(files, out_dir):
-    """Copies of `files` under `out_dir` with their x / z literals rewritten (same base names); -> (paths, rewrites per file)."""
-    out_dir = Path(out_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
-    paths, counts = [], {}
-    for f in files:
-        src = Path(f)
-        txt, n = rewrite_xz_literals(src.read_text(errors="replace"))
-        dst = out_dir / src.name
-        if dst.exists() and dst.read_text(errors="replace") != txt:
-            dst = out_dir / f"{src.stem}_{len(paths)}{src.suffix}"
-        dst.write_text(txt)
-        paths.append(str(dst))
-        counts[src.name] = n
-    return paths, counts
-
-
-def run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, *, impl_top=None, sverilog=False, timeout_sec=None, max_time=None, incdirs=None, latency=None):
+def run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, *, impl_top=None, sverilog=False, timeout_sec=None, max_time=None, incdirs=None, latency=None, design_id=None):
     """`latency` ({output: cycles}, the constant per-output offsets found by V2) switches the run to the latency mapping of
     DECISIONS 2026-09-14 G2.1 (b): outputs asserted at their offsets instead of mapped by name (project script only)."""
     vcf = _vcf(cfg)
@@ -70,10 +39,17 @@ def run_seq(job_dir, d_files, c_files, top, clk, rst, rst_sense, cfg, *, impl_to
     hv = int((cfg.get("equiv") or {}).get("harness_version", 1) or 1)   # DECISION 2026-09-18 (d) C1: 2 = every sequential zeroed before the reset run
     use_project = zero_init or bool(latency) or hv >= 2
     xz = None
-    if hv >= 2:   # DECISION 2026-09-18 (e) item 1: the sources compiled for V3 have their x / z literals rewritten to 0, identically on both sides
-        d_files, cd = xz_free_copies(d_files, wd / "spec_src")
-        c_files, cc = xz_free_copies(c_files, wd / "impl_src")
-        xz = {"spec": cd, "impl": cc}
+    if hv >= 2:   # DECISION 2026-09-18 (e) item 1 / (f) item 1: the sources compiled for V3 are copies; for the designs listed in config
+        from src.equiv import xz_rewrite as XZ   # equiv.harness_v2_rewrite_designs the x / z literals in value positions are rewritten to 0 (Pyverilog AST),
+        listed = design_id in set((cfg.get("equiv") or {}).get("harness_v2_rewrite_designs") or [])   # identically on both sides; every other design's copy is byte-identical
+        if listed:
+            d_files, rd = XZ.rewrite_copies(d_files, wd / "spec_src", incdirs=incdirs or (), rst_port=rst)
+            c_files, rc = XZ.rewrite_copies(c_files, wd / "impl_src", incdirs=incdirs or (), rst_port=rst)
+            xz = {"rewritten_design": True, "spec": rd, "impl": rc}
+        else:
+            d_files = XZ.identical_copies(d_files, wd / "spec_src")
+            c_files = XZ.identical_copies(c_files, wd / "impl_src")
+            xz = {"rewritten_design": False}
     runner = seq_equiv_project if use_project else vcf.seq_equiv   # DECISIONS 2026-09-14 G2.2: the project-owned script adds the zero-init line
     kw = {"zero_init": zero_init, "incdirs": incdirs, "latency": latency, "harness_version": hv, "structural_x": bool((cfg.get("equiv") or {}).get("harness_v2_structural_x", False))} if use_project else {}   # the flow's own runner has no include / latency option
     r = runner([str(f) for f in d_files], [str(f) for f in c_files], top, impl_top=impl_top or top, clk=clk, rst=rst,

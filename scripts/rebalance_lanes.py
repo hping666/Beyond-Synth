@@ -4,7 +4,8 @@ queued in the search, the remaining proof work = proofs per call × mean proof m
 design's own records); lanes (config queue.lanes.vcf) get shares proportional to their remaining seat-hours, the rest goes to the
 window designs, so that every lane and the rest finish at the same time; the total never exceeds the pool cap. A lane with no
 work keeps 0 (its share is released). `--apply` writes the shares into config/experiments.yaml (the `share:` values only) and
-prints the table; without it the table is printed only. The daemon reads the config on every dispatch: no restart needed.
+prints the table; without it the table is printed only. The daemon holds its config from start-up: restart it after --apply
+(`scripts/queue/daemon.py stop` / `start`; recovery adopts the live drivers).
     .venv/bin/python scripts/rebalance_lanes.py [--apply] [--min-seats 4]"""
 import argparse
 import datetime
@@ -48,22 +49,34 @@ def remaining_seat_hours(cfg, conn, exp="phase5"):
     return out
 
 
-def shares(cfg, hours, cap, min_seats=4):
+def shares(cfg, hours, cap, min_seats=1):
+    """Integer seats per lane and for the rest that make the finish times (remaining seat-hours / seats) agree as closely as the
+    integers allow (DECISION 2026-09-18 (f) item 2: within 2 hours where possible): the allocation with the smallest spread of finish
+    times among those summing to `cap`, every lane with work getting at least `min_seats`; a lane without work gets 0."""
+    import itertools
     lanes = (cfg["queue"].get("lanes") or {}).get("vcf") or {}
     lane_hours = {name: sum(hours.get(d, {}).get("hours", 0.0) for d in (spec.get("designs") or [])) for name, spec in lanes.items()}
     lane_designs = {d for spec in lanes.values() for d in (spec.get("designs") or [])}
     others = sum(v["hours"] for d, v in hours.items() if d not in lane_designs)
-    total = sum(lane_hours.values()) + others
+    active = [n for n, h in lane_hours.items() if h > 0]
+    total = sum(lane_hours[n] for n in active) + others
     if total <= 0:
         return {name: 0 for name in lanes}, cap, lane_hours, others
-    out = {}
-    for name, h in lane_hours.items():
-        out[name] = 0 if h <= 0 else max(min_seats, int(round(cap * h / total)))
+    ideal = {n: cap * lane_hours[n] / total for n in active}
+    ranges = [range(max(min_seats, int(ideal[n]) - 2), int(ideal[n]) + 4) for n in active]
+    best, best_spread = None, None
+    for combo in itertools.product(*ranges) if active else [()]:
+        rest = cap - sum(combo)
+        if rest < (min_seats if others > 0 else 0):
+            continue
+        finishes = [lane_hours[n] / s for n, s in zip(active, combo)] + ([others / rest] if others > 0 and rest > 0 else [])
+        spread = (max(finishes) - min(finishes)) if finishes else 0.0
+        if best is None or spread < best_spread - 1e-9:
+            best, best_spread = combo, spread
+    out = {name: 0 for name in lanes}
+    for n, s in zip(active, best or ()):
+        out[n] = s
     rest = cap - sum(out.values())
-    if rest < min_seats and others > 0:   # keep the window designs alive: take the deficit from the largest lane
-        big = max(out, key=lambda n: out[n])
-        out[big] -= (min_seats - rest)
-        rest = min_seats
     return out, rest, lane_hours, others
 
 
@@ -80,7 +93,7 @@ def apply(cfg_path, new_shares):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true")
-    ap.add_argument("--min-seats", type=int, default=4)
+    ap.add_argument("--min-seats", type=int, default=1)
     a = ap.parse_args(argv)
     cfg = C.load()
     conn = db.connect(cfg=cfg)
@@ -90,6 +103,11 @@ def main(argv=None):
     lanes = (cfg["queue"].get("lanes") or {}).get("vcf") or {}
     print(f"{datetime.datetime.now().isoformat(timespec='minutes')} remaining proof seat-hours: " + ", ".join(f"{n} {lane_hours[n]:.0f}" for n in lanes) + f", others {others:.0f}; cap {cap}")
     print("shares: " + ", ".join(f"{n} {lanes[n].get('share')} -> {new[n]}" for n in lanes) + f"; others {rest}")
+    fin = {n: (lane_hours[n] / new[n] if new[n] else None) for n in lanes}
+    fin["others"] = others / rest if rest else None
+    print("implied finish (h): " + ", ".join(f"{n} {v:.1f}" if v is not None else f"{n} -" for n, v in fin.items()) + f"; spread {max(v for v in fin.values() if v is not None) - min(v for v in fin.values() if v is not None):.1f} h")
+    lane_runs = {n: sum(hours.get(d, {}).get("runs_left", 0) for d in lanes[n]["designs"]) for n in lanes}
+    print("remaining runs per lane: " + ", ".join(f"{n} {lane_runs[n]:.1f}" for n in lanes) + f"; others {sum(v['runs_left'] for d, v in hours.items() if d not in {x for s in lanes.values() for x in s['designs']}):.0f}")
     top = sorted(((d, v["hours"]) for d, v in hours.items()), key=lambda x: -x[1])[:8]
     print("largest remaining per design: " + ", ".join(f"{d} {h:.0f} h" for d, h in top))
     if a.apply:
