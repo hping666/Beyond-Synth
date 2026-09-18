@@ -90,13 +90,19 @@ def pool_hours(conn, now=None):
 
 
 def _alive(pid):
+    """True when the process exists and is not a zombie (2026-09-18: the recovery adopts live processes first, so a zombie
+    left by a daemon that spawned it must count as dead)."""
     try:
         os.kill(int(pid), 0)
     except ProcessLookupError:
         return False
     except PermissionError:
         return True
-    return True
+    try:
+        with open(f"/proc/{int(pid)}/stat") as f:
+            return f.read().rsplit(")", 1)[1].split()[0] != "Z"
+    except (OSError, IndexError):
+        return True
 
 
 def job_id_for(kind, payload, nonce):
@@ -218,6 +224,10 @@ class Queue:
         attempt = int(job["attempts"])
         log = os.path.join(self.log_dir, f"{jid}.a{attempt}.log")
         done = os.path.join(self.log_dir, f"{jid}.a{attempt}.done")
+        try:
+            os.remove(done)   # a marker left by an earlier start of the same attempt (a code roll keeps the attempt number) must not be read as this start's exit
+        except OSError:
+            pass
         cmd = self._command_for(job, payload)
         # the command runs in a subshell so that an `exit N` inside it cannot skip writing the done marker
         wrapper = f"( {cmd} ); rc=$?; echo $rc > {shlex.quote(done)}; exit $rc"
@@ -270,22 +280,26 @@ class Queue:
             self._finish(job, rc, error)
 
     def _recover(self):
-        """Jobs marked running that this process did not spawn: a previous daemon left them behind."""
+        """Jobs marked running that this process did not spawn: a previous daemon left them behind. A job whose process is
+        alive is adopted as it is — its done marker is consulted only once the process is gone (2026-09-18: a marker left by
+        an earlier attempt of the same job, e.g. the exit 76 of a code roll, made three daemon restarts re-spawn running runs,
+        so 22 runs had two or three drivers at once)."""
         for job in self.conn.execute("SELECT * FROM jobs WHERE state='running'").fetchall():
             jid = job["job_id"]
             if jid in self.children:
                 continue
+            if job["host_pid"] and _alive(job["host_pid"]):
+                if job["timeout_sec"] and job["started_at"] and time.time() - _ts(job["started_at"]) > float(job["timeout_sec"]):
+                    self._kill(job["host_pid"])
+                    self._finish(job, TIMEOUT_RC, f"timeout after {job['timeout_sec']} s (adopted job)")
+                continue
             done = job["done_path"]
-            if done and os.path.exists(done):
+            if done and os.path.exists(done) and (not job["started_at"] or os.path.getmtime(done) >= _ts(job["started_at"]) - 1.0):
                 try:
                     rc = int(open(done).read().strip())
                 except ValueError:
                     rc = -1
                 self._finish(job, rc, None if rc == 0 else "recovered after daemon restart")
-            elif job["host_pid"] and _alive(job["host_pid"]):
-                if job["timeout_sec"] and job["started_at"] and time.time() - _ts(job["started_at"]) > float(job["timeout_sec"]):
-                    self._kill(job["host_pid"])
-                    self._finish(job, TIMEOUT_RC, f"timeout after {job['timeout_sec']} s (adopted job)")
             else:
                 self._finish(job, -1, "process vanished without a done marker (daemon restart)")
 

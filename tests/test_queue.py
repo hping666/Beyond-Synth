@@ -467,3 +467,47 @@ def test_a_resumption_behind_held_fresh_runs_is_still_dispatched(tmp_path):
     q._spawn = lambda job: spawned.append(job["job_id"]) or conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (job["job_id"],))
     q._dispatch()
     assert spawned == [old_job] and all(q.get(j)["state"] == "queued" for j in fresh)
+
+
+def test_recovery_adopts_a_live_process_despite_a_stale_done_marker(tmp_path):
+    """2026-09-18: a code roll requeues a search run under the same attempt number, so the earlier exit's `.done` marker stays on
+    disk; a daemon restart must adopt the live process instead of reading that marker and spawning a second driver (both
+    directions: a dead process with a fresh marker is finished from the marker; a dead process with only a stale marker counts
+    as vanished; a new spawn removes the old marker first)."""
+    import subprocess as sp
+    cfg = make_cfg()
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    s = q.submit("shell", {"cmd": "sleep 5", "run_id": "r1"}, pool="search")
+    conn.execute("UPDATE jobs SET kind='search' WHERE job_id=?", (s,)); conn.commit()
+    q._dispatch()
+    job = q.get(s)
+    assert job["state"] == "running" and job["host_pid"]
+    done = job["done_path"]
+    with open(done, "w") as f:
+        f.write("76")                                                    # the marker of an earlier exit of this attempt
+    os.utime(done, (time.time() - 3600, time.time() - 3600))
+    q2 = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)   # "a new daemon"
+    q2._recover()
+    assert q2.get(s)["state"] == "running" and q2.get(s)["host_pid"] == job["host_pid"]   # adopted, not re-spawned
+    assert conn.execute("SELECT COUNT(*) FROM jobs WHERE job_id=? AND state='queued'", (s,)).fetchone()[0] == 0
+    q._kill(job["host_pid"]); q._reap()                                  # the process ends; its wrapper writes a fresh marker
+    time.sleep(0.5)
+    conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (s,)); conn.commit()
+    with open(done, "w") as f:
+        f.write("0")
+    q3 = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    q3._recover()
+    assert q3.get(s)["state"] == "done"                                  # dead process + fresh marker: finished from the marker
+    conn.execute("UPDATE jobs SET state='running', host_pid=999999999 WHERE job_id=?", (s,)); conn.commit()
+    os.utime(done, (time.time() - 7200, time.time() - 7200))
+    conn.execute("UPDATE jobs SET started_at=? WHERE job_id=?", (db.now(), s)); conn.commit()
+    q3._recover()
+    assert q3.get(s)["state"] in ("queued", "failed") and "vanished" in (q3.get(s)["error"] or "")   # dead process + stale marker: vanished
+    # a new spawn removes the stale marker of the same attempt before starting
+    with open(done, "w") as f:
+        f.write("76")
+    conn.execute("UPDATE jobs SET state='queued', attempts=0 WHERE job_id=?", (s,)); conn.commit()
+    q3._spawn(q3.get(s))
+    assert not os.path.exists(done) or open(done).read().strip() != "76"
+    q3._kill(q3.get(s)["host_pid"])
