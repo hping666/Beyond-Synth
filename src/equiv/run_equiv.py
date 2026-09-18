@@ -142,6 +142,9 @@ def main(argv=None):
                 rec["sim_record_missing"] = p["sim_record"]   # the record was gone (retention / relocation): the whole stack ran in this job
         rec.update(design_id=p["design_id"], cand_id=p.get("cand_id"), input_hash=h, raw_dir=str(job_dir),
                    git_sha=C.git_sha(), cfg_hash=C.cfg_hash(), job_id=a.job, kind=job["kind"])
+        for k in ("offline", "prescreened_offline"):   # DECISION 2026-09-18 item 1: the offline pool's records carry their origin
+            if p.get(k):
+                rec[k] = True
         stamp_version(rec, cfg)
         (job_dir / "equiv.json").write_text(json.dumps(rec, indent=1, sort_keys=True, default=str))
     print(json.dumps({k: rec.get(k) for k in ("design_id", "cand_id", "verdict", "v1_status", "v2_status", "v3_status",

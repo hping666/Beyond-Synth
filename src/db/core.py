@@ -33,6 +33,8 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
     ("noise_floor", "floor_class", "ALTER TABLE noise_floor ADD COLUMN floor_class TEXT"),   # quiet | spread | offset
     ("noise_floor", "floor_source", "ALTER TABLE noise_floor ADD COLUMN floor_source TEXT"), # measured | pooled
     ("noise_floor", "pooled_min", "ALTER TABLE noise_floor ADD COLUMN pooled_min REAL"),
+    ("evaluations", "offline_eval", "ALTER TABLE evaluations ADD COLUMN offline_eval INTEGER NOT NULL DEFAULT 0"),               # DECISION 2026-09-18 item 1: E4 of the large tier's proven B0 candidates, run by the offline pool
+    ("evaluations", "prescreened_offline", "ALTER TABLE evaluations ADD COLUMN prescreened_offline INTEGER NOT NULL DEFAULT 0"), # DECISION 2026-09-18 item 1: E4 of the large tier's prescreened M candidates (provisional: no proof)
     # Phase 3 (DECISIONS 2026-09-14, spec 07): requested class, prescreen, class-aware SEQ cap, time to verdict, job links, label
     ("candidates", "class_requested", "ALTER TABLE candidates ADD COLUMN class_requested TEXT"),
     ("candidates", "prescreened", "ALTER TABLE candidates ADD COLUMN prescreened INTEGER NOT NULL DEFAULT 0"),

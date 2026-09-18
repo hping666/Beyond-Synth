@@ -2,6 +2,7 @@
 configurations only through the hidden database and raw tree, visible ones never there; knee-sweep configurations
 only for original designs with an explicit clock; clock ports normalised. The DC runner is replaced by a fake."""
 import copy
+import json
 from pathlib import Path
 
 import pytest
@@ -110,3 +111,16 @@ def test_source_evaluation_prefers_the_record_at_the_period(setup):
     assert SV.source_evaluation(vis, "d1", None, None, "E4_netlist", clock_ns=0.35)["raw_dir"] == "/v/e4_1"
     assert SV.source_evaluation(vis, "d1", None, None, "E4_netlist", clock_ns=1.0) is None                        # no record at that period
     assert SV.source_evaluation(vis, "d1", "c9", None, "E4_netlist", clock_ns=0.5) is None                        # another object
+
+
+def test_offline_pool_flags_reach_the_evaluations_row(setup):
+    """DECISION 2026-09-18 item 1: an evaluation run by the offline pool carries offline_eval / prescreened_offline from the payload
+    through meta.json into the evaluations row; ordinary evaluations stay at 0 (both directions)."""
+    cfg, rtl, vis, hid = setup
+    meta = SV.evaluate(cfg, vis, "d1", [rtl], "d", "E4", clock_ns=3.0, cand_id="c_off", extra_meta={"offline_eval": 1})
+    row = vis.execute("SELECT offline_eval, prescreened_offline FROM evaluations WHERE eval_id=?", (meta["eval_id"],)).fetchone()
+    assert tuple(row) == (1, 0) and json.loads((Path(meta["raw_dir"]) / "meta.json").read_text())["offline_eval"] == 1
+    meta2 = SV.evaluate(cfg, vis, "d1", [rtl], "d", "E4", clock_ns=4.0, cand_id="c_pre", extra_meta={"prescreened_offline": 1})
+    assert tuple(vis.execute("SELECT offline_eval, prescreened_offline FROM evaluations WHERE eval_id=?", (meta2["eval_id"],)).fetchone()) == (0, 1)
+    meta3 = SV.evaluate(cfg, vis, "d1", [rtl], "d", "E4", clock_ns=5.0, cand_id="c_plain")
+    assert tuple(vis.execute("SELECT offline_eval, prescreened_offline FROM evaluations WHERE eval_id=?", (meta3["eval_id"],)).fetchone()) == (0, 0)

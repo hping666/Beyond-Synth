@@ -126,7 +126,7 @@ def job_directory(raw_root, force_rerun=False):
 
 def evaluate(cfg, conn, design_id, rtl_files, top, config_name, *, clock_ns=None, design=None, clk_port="clk",
              cand_id=None, pert_id=None, is_baseline=0, saif=None, saif_instance=None, sverilog=False,
-             incdirs=None, force_rerun=False, do_ingest=True, timeout_sec=None, source_conn=None):
+             incdirs=None, force_rerun=False, do_ingest=True, timeout_sec=None, source_conn=None, extra_meta=None):
     """clk_port: one port name, a whitespace-separated list of names or a list (all clocks get the same period).
     Hidden configurations (config `hidden: true`) may only be recorded through a connection to the hidden database
     (opened by scripts/hidden_worker.py) and write their raw directories under the hidden results tree; visible
@@ -188,6 +188,7 @@ def evaluate(cfg, conn, design_id, rtl_files, top, config_name, *, clock_ns=None
         "started_at": started, "finished_at": datetime.datetime.now().isoformat(timespec="seconds"),
         "cached": False,
     }
+    meta.update(extra_meta or {})   # DECISION 2026-09-18 item 1: offline_eval / prescreened_offline flags of the offline pool's records
     meta.update(rec)
     (job_dir / "meta.json").write_text(json.dumps(meta, indent=1, sort_keys=True, default=str))
     if do_ingest and conn is not None and meta["status"] == "ok":

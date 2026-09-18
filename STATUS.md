@@ -71,6 +71,7 @@ G5 report: `reports/phase4.md` (§4b–§4d added today), `reports/phase4_conclu
 - Results database: 24 059 evaluations (+E1_authors), 3 035 + probe candidates; `db_check.py` 0 problems at the last check (17:00). Schema additions today: `candidates.repair_of`, `scope_json`, `features_json` at issue time; diagnoses label `scope_violation`; runs exp `phase5_probe`.
 - Snapshots: `phase4-20260915-review`, `phase4-20260915-1115`.
 - Retention: tiered policy on (`retention.tiered`), kept records slimmed of their regenerable equivalence artifacts (`tiered_eq_delete_kept`, storage decision 2026-09-15), sim_fail VCD 5 % seeded sample, disk guard 15 GB with the relocation contingency; the retroactive prune of 2026-09-15 freed 60 GB of disk (78.5 GB free at 19:22).
+- **Hidden raw tree relocated** (2026-09-18 05:59): the hidden raw tree now lives at /hdd1/hping/beyond-synth-hidden-raw behind a symlink (free space was 40.3 GB, below the 15 GB guard); the old tree at /home/hping/Beyond-Synth/results/hidden/raw.moved-20260918T055933 awaits `scripts/relocate_hidden_raw.py finalize`.
 - Tests: `pytest tests/` → **386 passed, 15 skipped**.
 
 ## Open questions and known risks
