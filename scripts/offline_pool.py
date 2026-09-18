@@ -325,8 +325,13 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
     st["slots_now"] = slots
     if ok:
         inflight = sum(1 for c in cands.values() if c["stage"] in ("sim_running", "e4_running"))
+        proof_inflight = sum(1 for c in cands.values() if c["stage"] == "proof_running")
         for cid, c in cands.items():
-            if inflight + submitted >= slots:
+            if c["stage"] == "proof":   # proofs take VC Formal seats, not the pool's DC / sim slots: their own small cap (offline_pool.proof_slots)
+                if proof_inflight >= int(o.get("proof_slots", 4)):
+                    continue
+                proof_inflight += 1
+            elif inflight + submitted >= slots:
                 break
             d = designs.get(c["design_id"])
             if d is None:
