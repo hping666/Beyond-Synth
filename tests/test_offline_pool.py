@@ -147,3 +147,52 @@ def test_b0_scope_covers_every_tier_in_order_and_idle_seats_widen_the_pool(tmp_p
     conn.execute("UPDATE jobs SET state='done' WHERE job_id IN ('dc0','dc1','dc2','dc3','dc4','dc5','dc6','dc7','dc8','dc9')"); conn.commit()
     mod.once(cfg, conn, st, False)
     assert st["slots_now"] == 12                                         # 20 idle seats: the pool may use 12
+
+
+def test_reverify_group_sim_then_e4_then_awaits_the_proof(tmp_path, monkeypatch):
+    """DECISION 2026-09-18 (d) D2: the stored candidates of runs superseded by the harness fix are re-simulated (force_rerun where the
+    record hash did not change) and, on a pass, evaluated at E4 under the C1-map flag; the proof waits (await_proof) while the pool's
+    proofs are disabled; duplicates, aborted rows and prescreened candidates (their own group) stay out; the v1 row is not rewritten."""
+    mod = load_pool()
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": ["L1"], "medium": ["drrtl_simple_spi"], "small": []}
+    cfg["offline_pool"] = {"slots": 4, "priority": 1, "load_over_baseline": 0.10, "reverify_force_rerun": ["drrtl_simple_spi"], "proofs_enabled": False}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES ('drrtl_simple_spi','drrtl','simple_spi','p',1,1,'held',1.0,'t','g','c')")
+    rtl = tmp_path / "c.v"; rtl.write_text("module m; endmodule")
+    db.insert(conn, "runs", {"run_id": "r_sup", "exp": "phase5", "arm": "B2", "design_id": "drrtl_simple_spi", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "superseded", "started_at": "t", "superseded_reason": "harness_fix"})
+    db.insert(conn, "runs", {"run_id": "r_other", "exp": "phase5", "arm": "B2", "design_id": "drrtl_simple_spi", "seed": 2, "llm_model": "gpt-5.6-luna", "status": "superseded", "started_at": "t", "superseded_reason": "duplicate driver"})
+    db.insert(conn, "candidates", {"cand_id": "c_rej", "run_id": "r_sup", "design_id": "drrtl_simple_spi", "gen": 1, "arm": "B2", "rtl_path": str(rtl), "verdict": "rejected", "label": "nonequiv", "v1_status": "rejected", "v2_status": "compile_failed"})
+    db.insert(conn, "candidates", {"cand_id": "c_dup", "run_id": "r_sup", "design_id": "drrtl_simple_spi", "gen": 1, "arm": "B2", "rtl_path": str(rtl), "label": "duplicate"})
+    db.insert(conn, "candidates", {"cand_id": "c_pre", "run_id": "r_sup", "design_id": "drrtl_simple_spi", "gen": 1, "arm": "B2", "rtl_path": str(rtl), "label": "prescreened", "prescreened": 1})
+    db.insert(conn, "candidates", {"cand_id": "c_oth", "run_id": "r_other", "design_id": "drrtl_simple_spi", "gen": 1, "arm": "B2", "rtl_path": str(rtl), "verdict": "rejected"})
+    items = {it["cand_id"]: it for it in mod.scope(cfg, conn)}
+    assert set(items) == {"c_rej", "c_pre"} and items["c_rej"]["group"] == "reverify" and items["c_rej"]["force_rerun"] is True and items["c_pre"]["group"] == "prescreened"
+    monkeypatch.setattr(mod, "STATE", str(tmp_path / "state.json")); monkeypatch.setattr(mod, "LOG", str(tmp_path / "pool.log"))
+    monkeypatch.setattr(mod, "throttle", lambda cfg, conn, st: (True, 50.0, 0.0))
+    monkeypatch.setattr("src.designs.catalog.load_all", lambda: [{"design_id": "drrtl_simple_spi", "top": "simple_spi_top", "files": ["rtl/simple_spi.v"], "clk_ports": ["clk_i"], "rst_port": "rst_i", "rst_sense": "low", "incdirs": ["rtl"], "_dir": str(Path(C.ROOT) / "data/designs/drrtl/simple_spi"), "sverilog": False}])
+    submitted = {}
+    class FakeQ:
+        def submit(self, kind, payload, **kw):
+            jid = f"j_{len(submitted)}"; submitted[jid] = (kind, payload, kw); return jid
+        def get(self, jid):
+            return {"state": "done"} if jid in submitted else None
+    st = {"cands": {}, "paused": False, "baseline": 100.0}
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    sim = [v for v in submitted.values() if v[0] == "sim" and v[1]["cand_id"] == "c_rej"]
+    assert len(sim) == 1 and sim[0][1]["reverify"] is True and sim[0][1]["force_rerun"] is True
+    pre = [v for v in submitted.values() if v[0] == "sim" and v[1]["cand_id"] == "c_pre"]
+    assert len(pre) == 1 and pre[0][1]["reverify"] is False and pre[0][1]["prescreened_offline"] is True   # the prescreened candidate of the superseded run keeps its own group
+    assert st["cands"]["c_rej"]["stage"] == "sim_running"
+    monkeypatch.setattr(mod, "sim_record", lambda cfg, payload: {"verdict": "not_run", "v1_status": "ok", "v2_status": "identical", "v2_cycles": 20000, "saif_c": None})
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    assert st["cands"]["c_rej"]["stage"] == "e4_running"
+    e4 = [v for v in submitted.values() if v[0] == "dc"]
+    assert e4 and e4[-1][1]["reverify"] == 1 and e4[-1][1]["offline_eval"] == 1
+    row = dict(conn.execute("SELECT verdict, v2_status FROM candidates WHERE cand_id='c_rej'").fetchone())
+    assert row == {"verdict": "rejected", "v2_status": "compile_failed"}                              # the harness-version-1 row stays (C4)
+    db.insert(conn, "evaluations", {"design_id": "drrtl_simple_spi", "cand_id": "c_rej", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 1.0, "status": "ok", "raw_dir": "/x/r", "dc_seconds": 10})
+    monkeypatch.setattr("src.eval.retention.slim_candidate", lambda *a, **k: {"kept_full": False, "freed": {}})
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    assert st["cands"]["c_rej"]["stage"] == "await_proof"                                          # the proof waits for the pool's proofs to be enabled

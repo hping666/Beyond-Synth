@@ -91,10 +91,18 @@ def scope(cfg, conn, include_e4_timeouts=False):
     out.extend(b0)
     # (ii) prescreened M candidates (every tier: the large tier's 636 and the 5 of the replaced thresholds run, item 1c): sim first, then E4
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
-                          f"WHERE r.exp=? AND r.status!='superseded' AND COALESCE(c.prescreened,0)=1 ORDER BY c.cand_id", (o["exp"],)):
+                          f"WHERE r.exp=? AND (r.status!='superseded' OR r.superseded_reason='harness_fix') AND COALESCE(c.prescreened,0)=1 ORDER BY c.cand_id", (o["exp"],)):   # (d) D2: LSTM's prescreened candidates stay in scope after the supersession
         if conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' LIMIT 1", (r["cand_id"],)).fetchone():
             continue
         out.append({"cand_id": r["cand_id"], "group": "prescreened", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"]})
+    # (iv) DECISION 2026-09-18 (d) D2: the stored candidates of the runs superseded by the harness fix — simulation and E4 now under the
+    #      corrected harness (simple_spi with force_rerun: its record hash did not change), the proof only when the pool's proofs are enabled
+    force = set(o.get("reverify_force_rerun") or [])
+    for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                          f"WHERE r.exp=? AND r.superseded_reason='harness_fix' AND COALESCE(c.prescreened,0)=0 AND COALESCE(c.label,'') NOT IN ('duplicate','aborted') "
+                          f"AND c.rtl_path IS NOT NULL ORDER BY c.design_id, c.cand_id", (o["exp"],)):
+        out.append({"cand_id": r["cand_id"], "group": "reverify", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"],
+                    "force_rerun": r["design_id"] in force})
     # (iii) proven candidates whose visible E4 failed (timeouts) — only on the user's go
     if include_e4_timeouts:
         for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
@@ -134,7 +142,8 @@ def sim_payload(cfg, design, cand):
     return {"design_id": cand["design_id"], "cand_id": cand["cand_id"], "d_rtl": [str(p) for p in K.abs_paths(design, design["files"])], "c_rtl": [cand["rtl_path"]],
             "top": design["top"], "clk": (design.get("clk_ports") or [None])[0], "rst": design.get("rst_port"), "rst_sense": design.get("rst_sense"),
             "sverilog": design.get("sverilog", False), "incdirs": [str(p) for p in K.abs_paths(design, design["incdirs"])],
-            "note": f"offline pool (DECISION 2026-09-18 item 1) prescreened {cand['cand_id']}", "offline": True, "prescreened_offline": True, "offline_pool": True}
+            "note": (f"offline pool (DECISION 2026-09-18 (d) D2) re-verification {cand['cand_id']}" if cand.get("group") == "reverify" else f"offline pool (DECISION 2026-09-18 item 1) prescreened {cand['cand_id']}"),
+            "offline": True, "prescreened_offline": cand.get("group") != "reverify", "offline_pool": True, "reverify": cand.get("group") == "reverify", "force_rerun": bool(cand.get("force_rerun"))}
 
 
 def e4_job(cfg, conn, design, cand, saif=None):
@@ -146,6 +155,9 @@ def e4_job(cfg, conn, design, cand, saif=None):
     j["payload"].update(rtl=[cand["rtl_path"]], incdirs=[str(p) for p in K.abs_paths(design, design["incdirs"])], is_baseline=0, cand_id=cand["cand_id"], offline_pool=True)
     if cand["group"] == "prescreened":
         j["payload"]["prescreened_offline"] = 1
+    elif cand["group"] == "reverify":   # DECISION 2026-09-18 (d) D2: the C1-map record of a superseded run's candidate
+        j["payload"]["offline_eval"] = 1
+        j["payload"]["reverify"] = 1
     elif cand["group"] == "e4_timeout":   # DECISION 2026-09-18 (b) item 4: the re-run gets a 3600 s dc_shell guard and the e4_rerun flag
         j["payload"]["e4_rerun"] = 1
         j["payload"]["force_rerun"] = True   # the failed record of the same inputs is cached; the re-run gets its own directory
@@ -221,7 +233,7 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
     designs = {d["design_id"]: d for d in K.load_all()}
     cands = st.setdefault("cands", {})
     for it in scope(cfg, conn, include_e4_timeouts):
-        cands.setdefault(it["cand_id"], {**it, "stage": "sim" if it["group"] == "prescreened" else "e4", "sim_job": None, "e4_job": None, "result": None})
+        cands.setdefault(it["cand_id"], {**it, "stage": "sim" if it["group"] in ("prescreened", "reverify") else "e4", "sim_job": None, "e4_job": None, "result": None})
     # progress of submitted jobs
     for cid, c in cands.items():
         if c["stage"] == "sim_running":
@@ -234,14 +246,14 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
                     c.update(stage="e4", sim_result=rec.get("v2_status"), saif=rec.get("saif_c"))
                 else:
                     c.update(stage="done", result=f"{rec.get('verdict')} ({rec.get('v1_status')}/{rec.get('v2_status')})", sim_result=rec.get("verdict"))
-                if rec is not None:
+                if rec is not None and c.get("group") != "reverify":   # a superseded run's candidate keeps its harness-version-1 row (C4); the pool state holds the re-simulation
                     sync_candidate_row(conn, cid, rec, c.get("sim_job"))
-                    c["synced"] = True
+                c["synced"] = True
         elif c["stage"] == "e4_running":
             js = q.get(c["e4_job"])
             if js and js["state"] in ("done", "failed"):
                 ev = conn.execute("SELECT status, dc_seconds, raw_dir FROM evaluations WHERE cand_id=? AND config='E4' ORDER BY eval_id DESC LIMIT 1", (cid,)).fetchone()
-                c.update(stage="done", result=f"E4 {ev['status']}" if ev else f"E4 job {js['state']}", dc_seconds=(ev["dc_seconds"] if ev else None))
+                c.update(stage=("await_proof" if c.get("group") == "reverify" else "done"), result=f"E4 {ev['status']}" if ev else f"E4 job {js['state']}", dc_seconds=(ev["dc_seconds"] if ev else None))
                 if ev and ev["raw_dir"]:   # the same tiered retention as the visible runs: full artifacts for accepted / audit candidates, the parsed record and reports otherwise
                     try:
                         from src.eval import retention as RET

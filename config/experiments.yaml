@@ -418,3 +418,12 @@ retention:                   # approved by the user 2026-09-12 (DECISIONS): resu
   tiered_eq_delete_kept: [vcs_build, seq_rtdb, seq_learnt, vcd, trace, ports]   # storage decision 2026-09-15 (C): accepted / archived / audit-sample candidates keep equiv.json, logs, seq.tcl, the SEQ counterexample files and the candidate copy (the user's list) plus the SAIF (the hidden layer's power runs read it); the regenerable VCS build, VC Formal databases, lock-step VCD / trace / port files go (a sim_fail audit-sample record in the seeded VCD sample keeps its VCD); their DC records stay complete (netlist for H4)
   relocate_hidden_raw: {enabled: true, dest: /hdd1/hping/beyond-synth-hidden-raw}   # storage decision 2026-09-15 item 3 (contingency): when free space on / drops below min_free_gb the hidden raw tree moves to /hdd1 behind a symlink (scripts/relocate_hidden_raw.py, run by the hidden loop); no other relocation
   m6_workdir_after_classification: delete   # the classifier's Yosys workdir of a candidate (features archived in candidates.features_json); D's statistics are computed once per run
+
+offline_pool:                # DECISION 2026-09-18 item 1 / (d) B5, D2: the offline evaluation pool (scripts/offline_pool.py); priority 1 = below every search job
+  slots: 8                   # (d) B5: 8, and up to slots_when_idle while more than idle_dc_seats_for_extra DC seats sit idle
+  slots_when_idle: 12
+  idle_dc_seats_for_extra: 12
+  priority: 1
+  load_over_baseline: 0.10   # (d) B3 item 3: pause while the 1-minute load exceeds the measured baseline by more than 10 % (load-only throttle)
+  reverify_force_rerun: [drrtl_simple_spi]   # (d) D2: the design whose corrected harness left the record hash unchanged (include directory added): cached rejected records must not be reused
+  proofs_enabled: false      # (d) D2: no proof from the pool until the small tier's search runs have finished (the operator switches it on then)
