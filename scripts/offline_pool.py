@@ -332,7 +332,7 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
                     continue
                 proof_inflight += 1
             elif inflight + submitted >= slots:
-                break
+                continue   # the DC / sim slots are full: skip, but keep scanning for proof entries (they have their own cap)
             d = designs.get(c["design_id"])
             if d is None:
                 c.update(stage="done", result="design not in the catalog"); continue
