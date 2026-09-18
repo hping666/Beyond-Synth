@@ -668,3 +668,41 @@ def test_backpressure_counts_only_dispatchable_proofs_and_lane_shares(tmp_path):
     rows = conn.execute("SELECT * FROM jobs WHERE state='queued' AND pool='vcf'").fetchall()
     st = q.lane_state("vcf", cfg["queue"]["lanes"]["vcf"], rows)
     assert st["running"]["spi"] == 0 and st["queued"]["spi"] == 0 and q.lane_admits(st, cfg["queue"]["lanes"]["vcf"], "G", 10)
+
+
+def test_window_design_cap_grows_when_few_designs_remain_and_lane_search_cap_is_per_design():
+    """DECISION 2026-09-18 (e) item 3: inside the window the per-design VC Formal cap is max(16, floor(others' share / active window
+    designs)); the long-pole lane's search cap applies per lane design. Both directions."""
+    from src.jobqueue.core import Queue, window_dispatch
+    lanes = {"spi": {"designs": ["SPI"], "share": 20}, "uart": {"designs": ["UART"], "share": 10}}
+    st = {"running": {"spi": 20, "uart": 10}, "queued": {"spi": 5, "uart": 5}, "others_running": 10, "active_window": 2}
+    assert Queue.window_design_cap(st, lanes, 50, 16) == 16                      # others' share 20 over 2 designs = 10 < 16 -> the floor 16 holds
+    st["active_window"] = 1
+    assert Queue.window_design_cap(st, lanes, 50, 16) == 20                      # one design left: it may take the whole share
+    st["queued"]["uart"] = 0; st["running"]["uart"] = 0                            # an idle lane releases its share: 50 - 20 = 30 for the single window design
+    assert Queue.window_design_cap(st, lanes, 50, 16) == 30
+    def job(i, rid):
+        return {"job_id": f"j{i}", "priority": 8600, "payload_json": json.dumps({"run_id": rid})}
+    meta = {"r_spi": ("B0", "luna", "SPI"), "r_uart": ("B0", "luna", "UART"), "r_d1": ("B0", "luna", "d1")}
+    rows = [job(0, "r_spi"), job(1, "r_uart"), job(2, "r_d1")]
+    tier_of = {"SPI": "medium", "UART": "medium", "d1": "medium"}
+    out = window_dispatch(rows, {"rows": meta, "running": {}}, tier_of, {"medium": ["d1"]}, 5, lane_designs=("SPI", "UART"), lane_search_max=1, running_by_design={"SPI": 1})
+    picks = [meta[json.loads(j["payload_json"])["run_id"]][2] for j in out]
+    assert picks == ["UART", "d1"]                                                 # SPI at its own cap (1 running) is held back; UART's lane run still goes; the window run alternates
+
+
+def test_rebalance_shares_are_proportional_and_release_idle_lanes():
+    """DECISION 2026-09-18 (d) B3 / (e) 3: lane shares proportional to the remaining seat-hours, the rest to the window designs, total
+    at the cap; a lane without work gets 0; the window designs keep at least the minimum. Both directions."""
+    import importlib.util
+    from pathlib import Path
+    spec = importlib.util.spec_from_file_location("rebalance_lanes", str(Path(C.ROOT) / "scripts" / "rebalance_lanes.py"))
+    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    cfg = {"queue": {"lanes": {"vcf": {"spi": {"designs": ["SPI"], "share": 24}, "uart": {"designs": ["UART"], "share": 8}, "idle": {"designs": ["ROUTER"], "share": 8}}}}}
+    hours = {"SPI": {"hours": 700.0}, "UART": {"hours": 300.0}, "A": {"hours": 500.0}, "B": {"hours": 500.0}}
+    new, rest, lane_hours, others = mod.shares(cfg, hours, 50, min_seats=4)
+    assert new == {"spi": 18, "uart": 8, "idle": 0} and rest == 24 and others == 1000.0                      # 700 / 2000 * 50 = 17.5 -> 18; 300 -> 7.5 -> 8; the idle lane releases its seats
+    new2, rest2, _, _ = mod.shares(cfg, {"SPI": {"hours": 990.0}, "A": {"hours": 10.0}}, 50, min_seats=4)
+    assert new2["spi"] == 46 and rest2 == 4                                                                 # the window designs keep the minimum
+    new3, rest3, _, _ = mod.shares(cfg, {}, 50, min_seats=4)
+    assert new3 == {"spi": 0, "uart": 0, "idle": 0} and rest3 == 50                                          # nothing left: every seat to the rest

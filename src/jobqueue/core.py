@@ -103,8 +103,8 @@ def window_dispatch(rows, run_rows, tier_of, design_order, window, lane_designs=
     The row takes its next run from the earliest design, in the tier's fixed `design_order` (designs not listed come after, by name),
     among the `window` earliest designs that still have queued runs in any row; a row with no seed left inside the window takes its
     earliest design beyond it (so no row idles). Designs in `lane_designs` (the long-pole lane) sit outside the window: a row alternates
-    between its lane run and its window run while the lane's running + placed search runs stay below `lane_search_max` (0 = no lane);
-    lane runs beyond that cap are left out of the tick's order (the cap is enforced here).
+    between its lane run and its window run while that lane design's running + placed search runs stay below `lane_search_max`
+    (per lane design, 0 = no lane); lane runs beyond that cap are left out of the tick's order (the cap is enforced here).
     Tiers keep their order; jobs of runs the runs table does not know keep their place at the end of their level."""
     from collections import OrderedDict
     running_by_design = running_by_design or {}
@@ -138,16 +138,17 @@ def window_dispatch(rows, run_rows, tier_of, design_order, window, lane_designs=
             row_order = list(rws)
             counts = {k: int(run_rows["running"].get(k, 0)) for k in row_order}
             last = {k: None for k in row_order}
-            lane_load = sum(int(running_by_design.get(d, 0)) for d in lane_designs)
+            lane_load = {d: int(running_by_design.get(d, 0)) for d in lane_designs}   # (e) 3: the lane cap applies per lane design
             active = [k for k in row_order if lane[k] or win[k]]
             while active:
                 k = min(active, key=lambda k: (counts[k], row_order.index(k)))
                 pick = None
-                lane_ok = bool(lane[k]) and lane_search_max > 0 and lane_load < lane_search_max
+                lane_idx = next((i for i, (d, _) in enumerate(lane[k]) if lane_search_max > 0 and lane_load.get(d, 0) < lane_search_max), None)
+                lane_ok = lane_idx is not None
                 if lane_ok and (last[k] != "lane" or not win[k]):
-                    pick = lane[k].pop(0)
+                    pick = lane[k].pop(lane_idx)
                     last[k] = "lane"
-                    lane_load += 1
+                    lane_load[pick[0]] = lane_load.get(pick[0], 0) + 1
                 elif win[k]:
                     remaining = sorted({d for v in win.values() for d, _ in v}, key=rank)
                     wset = set(remaining[:max(1, int(window or 1))])
@@ -495,28 +496,42 @@ class Queue:
         if not per_design and not lanes:
             return self.conn.execute("SELECT COUNT(*) FROM jobs WHERE state IN ('queued','backoff') AND pool=?", (pool,)).fetchone()[0]
         running = {r[0]: r[1] for r in self.conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE state='running' AND pool=? GROUP BY design_id", (pool,))}
+        rows = self.conn.execute("SELECT design_id, COUNT(*) AS n FROM jobs WHERE state IN ('queued','backoff') AND pool=? GROUP BY design_id", (pool,)).fetchall()
+        st = self.lane_state(pool, lanes, [{"design_id": r[0]} for r in rows for _ in range(int(r[1]))]) if lanes else None
+        dyn = self.window_design_cap(st, lanes, self.limits.get(pool, 0), per_design) if st is not None else per_design
         n = 0
-        for r in self.conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE state IN ('queued','backoff') AND pool=? GROUP BY design_id", (pool,)):
+        for r in rows:
             d, q = r[0], int(r[1])
             name, spec = lane_of(lanes, d)
-            cap = int(spec.get("share") or 0) if spec and len(spec.get("designs") or []) == 1 else per_design
+            cap = int(spec.get("share") or 0) if spec and len(spec.get("designs") or []) == 1 else dyn
             room = max(0, cap - int(running.get(d, 0))) if cap else q
             n += min(q, room)
         return n
 
     def lane_state(self, pool, lanes, rows):
-        """Running and queued counts per lane and for the rest (DECISION 2026-09-18 (d) B3)."""
+        """Running and queued counts per lane and for the rest (DECISION 2026-09-18 (d) B3); `active_window` = the designs outside the
+        lanes with a job running or queued, for the dynamic per-design cap of DECISION 2026-09-18 (e) item 3."""
         running = {r[0]: r[1] for r in self.conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE state='running' AND pool=? GROUP BY design_id", (pool,))}
         queued = {}
         for r in rows:
             queued[r["design_id"]] = queued.get(r["design_id"], 0) + 1
         st = {"running": {}, "queued": {}, "others_running": 0}
+        lane_designs = {d for spec in lanes.values() for d in (spec.get("designs") or [])}
         for name, spec in lanes.items():
             ds = spec.get("designs") or []
             st["running"][name] = sum(int(running.get(d, 0)) for d in ds)
             st["queued"][name] = sum(int(queued.get(d, 0)) for d in ds)
         st["others_running"] = sum(running.values()) - sum(st["running"].values())
+        st["active_window"] = len({d for d in list(running) + list(queued) if d and d not in lane_designs and (running.get(d, 0) or queued.get(d, 0))})
         return st
+
+    @staticmethod
+    def window_design_cap(st, lanes, cap, per_design):
+        """DECISION 2026-09-18 (e) item 3: inside the window the per-design cap is max(per_design, floor(others' share / active window
+        designs)) — seats are not stranded when few designs remain."""
+        reserved = sum(min(int(s.get("share") or 0), st["running"].get(n, 0) + st["queued"].get(n, 0)) for n, s in lanes.items())
+        others_share = max(0, int(cap) - reserved)
+        return max(int(per_design), others_share // max(1, int(st.get("active_window") or 1)))
 
     @staticmethod
     def lane_admits(st, lanes, design_id, cap):
@@ -611,7 +626,8 @@ class Queue:
                     n = self.conn.execute("SELECT COUNT(*) FROM jobs WHERE state='running' AND pool=? AND design_id=?", (pool, job["design_id"])).fetchone()[0]
                     lname, lspec = lane_of(lanes, job["design_id"]) if lanes else (None, None)
                     single = bool(lspec) and len(lspec.get("designs") or []) == 1
-                    if n >= per_design and not single:
+                    cap_d = self.window_design_cap(lane_state, lanes, cap, per_design) if (lane_state is not None and not lspec) else per_design   # (e) 3: dynamic inside the window
+                    if n >= cap_d and not single:
                         continue  # fairness (config queue.per_design_max): another design's job goes first; this one waits
                 if lane_state is not None and not self.lane_admits(lane_state, lanes, job["design_id"], cap):
                     continue  # DECISION 2026-09-18 (d) B3: the lane is at its share, or the others would eat into a lane's reserved seats
