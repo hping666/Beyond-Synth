@@ -26,9 +26,12 @@ def remaining_seat_hours(cfg, conn, exp="phase5"):
     """-> {design_id: {"hours": h, "runs_left": n, "mean_min": m, "proofs_per_call": p}} over every design with runs not yet done."""
     tiers = {d: t for t, ds in (cfg["exp5"].get("starting_points") or {}).items() for d in ds}
     out = {}
+    held = {}   # runs whose search job carries `hold` are not dispatchable (router until C3, LSTM until the small tier): they are outside the split
+    for r in conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE kind='search' AND state='queued' AND payload_json LIKE '%\"hold\"%' GROUP BY design_id"):
+        held[r[0]] = int(r[1])
     for d in tiers:
         runs = [dict(r) for r in conn.execute("SELECT status, llm_calls FROM runs WHERE exp=? AND design_id=? AND status!='superseded' AND COALESCE(excluded_from_tables,0)=0", (exp, d))]
-        rem = sum(1 for r in runs if r["status"] == "created") + sum(max(0.0, 1 - int(r["llm_calls"] or 0) / 60) for r in runs if r["status"] == "running")
+        rem = max(0, sum(1 for r in runs if r["status"] == "created") - held.get(d, 0)) + sum(max(0.0, 1 - int(r["llm_calls"] or 0) / 60) for r in runs if r["status"] == "running")
         if rem <= 0:
             continue
         xs = [(P(r[1]) - P(r[0])).total_seconds() / 60 for r in conn.execute("SELECT started_at, finished_at FROM jobs WHERE kind='vcf' AND design_id=? AND state='done' AND started_at IS NOT NULL AND finished_at IS NOT NULL ORDER BY finished_at DESC LIMIT 400", (d,))]
@@ -38,6 +41,15 @@ def remaining_seat_hours(cfg, conn, exp="phase5"):
         mean = statistics.mean(xs) if xs else None
         out[d] = {"hours": (rem * ppc * 60 * mean / 60) if (ppc is not None and mean is not None and len(xs) >= 20) else None, "runs_left": round(rem, 1),
                   "mean_min": round(mean, 1) if mean is not None else None, "proofs_per_call": round(ppc, 2) if ppc is not None else None, "proofs": len(xs), "tier": tiers[d]}
+    # DECISION 2026-09-18 (g) item 2: a proxy for the seat-hours per run of a design without enough proofs under the current harness
+    # (config queue.lane_hours_per_run_override: {design: hours}) — used until the design has 20 finished proofs under harness_version 2
+    hv = int((cfg.get("equiv") or {}).get("harness_version", 1) or 1)
+    for d, h in ((cfg["queue"].get("lane_hours_per_run_override") or {}).items()):
+        if d in out:
+            n_v2 = conn.execute("SELECT count(*) FROM candidates WHERE design_id=? AND harness_version=? AND v3_status IS NOT NULL", (d, hv)).fetchone()[0] if hv >= 2 else 0
+            if n_v2 < 20:
+                out[d]["hours"] = out[d]["runs_left"] * float(h)
+                out[d]["proxy"] = True
     # a design with fewer than 20 finished proofs (a corrected harness, a tier not started) takes its tier's median seat-hours per run
     for tier in {v["tier"] for v in out.values()}:
         known = [v["hours"] / v["runs_left"] for v in out.values() if v["tier"] == tier and v["hours"] is not None and v["runs_left"] > 0]
@@ -54,10 +66,11 @@ def shares(cfg, hours, cap, min_seats=1):
     integers allow (DECISION 2026-09-18 (f) item 2: within 2 hours where possible): the allocation with the smallest spread of finish
     times among those summing to `cap`, every lane with work getting at least `min_seats`; a lane without work gets 0."""
     import itertools
-    lanes = (cfg["queue"].get("lanes") or {}).get("vcf") or {}
+    lanes = {n: s for n, s in ((cfg["queue"].get("lanes") or {}).get("vcf") or {}).items() if not s.get("leftover")}   # (g) item 1: the small tier's leftover lane is outside the equalisation
+    leftover_designs = {d for s in ((cfg["queue"].get("lanes") or {}).get("vcf") or {}).values() if s.get("leftover") for d in (s.get("designs") or [])}
     lane_hours = {name: sum(hours.get(d, {}).get("hours", 0.0) for d in (spec.get("designs") or [])) for name, spec in lanes.items()}
     lane_designs = {d for spec in lanes.values() for d in (spec.get("designs") or [])}
-    others = sum(v["hours"] for d, v in hours.items() if d not in lane_designs)
+    others = sum(v["hours"] for d, v in hours.items() if d not in lane_designs and d not in leftover_designs)
     active = [n for n, h in lane_hours.items() if h > 0]
     total = sum(lane_hours[n] for n in active) + others
     if total <= 0:
@@ -73,7 +86,7 @@ def shares(cfg, hours, cap, min_seats=1):
         spread = (max(finishes) - min(finishes)) if finishes else 0.0
         if best is None or spread < best_spread - 1e-9:
             best, best_spread = combo, spread
-    out = {name: 0 for name in lanes}
+    out = {name: 0 for name in ((cfg["queue"].get("lanes") or {}).get("vcf") or {})}   # leftover lanes keep share 0 (they take what the others cannot fill)
     for n, s in zip(active, best or ()):
         out[n] = s
     rest = cap - sum(out.values())
@@ -85,7 +98,7 @@ def apply(cfg_path, new_shares):
     for name, n in new_shares.items():
         pat = re.compile(r"(^\s+%s:\s*\{designs:\s*\[[^\]]*\],\s*share:\s*)(\d+)" % re.escape(name), re.M)
         text, k = pat.subn(lambda m: m.group(1) + str(n), text)
-        if k != 1:
+        if k != 1 and n:
             raise SystemExit(f"lane {name}: share line not found in {cfg_path}")
     open(cfg_path, "w").write(text)
 
@@ -100,14 +113,21 @@ def main(argv=None):
     cap = int(cfg["queue"].get("vcf_seats_target") or cfg["queue"]["vcf_seats_max"])
     hours = remaining_seat_hours(cfg, conn)
     new, rest, lane_hours, others = shares(cfg, hours, cap, a.min_seats)
-    lanes = (cfg["queue"].get("lanes") or {}).get("vcf") or {}
-    print(f"{datetime.datetime.now().isoformat(timespec='minutes')} remaining proof seat-hours: " + ", ".join(f"{n} {lane_hours[n]:.0f}" for n in lanes) + f", others {others:.0f}; cap {cap}")
+    all_lanes = (cfg["queue"].get("lanes") or {}).get("vcf") or {}
+    lanes = {n: s for n, s in all_lanes.items() if not s.get("leftover")}
+    leftover = {n: s for n, s in all_lanes.items() if s.get("leftover")}
+    print(f"{datetime.datetime.now().isoformat(timespec='minutes')} remaining proof seat-hours: " + ", ".join(f"{n} {lane_hours[n]:.0f}" for n in lanes) + f", others (medium window) {others:.0f}; cap {cap}")
     print("shares: " + ", ".join(f"{n} {lanes[n].get('share')} -> {new[n]}" for n in lanes) + f"; others {rest}")
     fin = {n: (lane_hours[n] / new[n] if new[n] else None) for n in lanes}
     fin["others"] = others / rest if rest else None
     print("implied finish (h): " + ", ".join(f"{n} {v:.1f}" if v is not None else f"{n} -" for n, v in fin.items()) + f"; spread {max(v for v in fin.values() if v is not None) - min(v for v in fin.values() if v is not None):.1f} h")
     lane_runs = {n: sum(hours.get(d, {}).get("runs_left", 0) for d in lanes[n]["designs"]) for n in lanes}
-    print("remaining runs per lane: " + ", ".join(f"{n} {lane_runs[n]:.1f}" for n in lanes) + f"; others {sum(v['runs_left'] for d, v in hours.items() if d not in {x for s in lanes.values() for x in s['designs']}):.0f}")
+    lane_designs = {x for s in all_lanes.values() for x in s["designs"]}
+    print("remaining runs per lane: " + ", ".join(f"{n} {lane_runs[n]:.1f}" for n in lanes) + f"; others {sum(v['runs_left'] for d, v in hours.items() if d not in lane_designs):.0f}")
+    for n, s in leftover.items():
+        h = sum(hours.get(d, {}).get("hours", 0.0) for d in s["designs"]); r = sum(hours.get(d, {}).get("runs_left", 0) for d in s["designs"])
+        med = max(v for v in fin.values() if v is not None) if any(v is not None for v in fin.values()) else 0.0
+        print(f"leftover lane {n}: {r:.0f} runs, {h:.0f} seat-h (estimates), seats only as the medium lanes leave them; with every seat after the medium tier ends ≈ {med:.1f} h + {h / cap:.1f} h = {med + h / cap:.1f} h at the latest")
     top = sorted(((d, v["hours"]) for d, v in hours.items()), key=lambda x: -x[1])[:8]
     print("largest remaining per design: " + ", ".join(f"{d} {h:.0f} h" for d, h in top))
     if a.apply:

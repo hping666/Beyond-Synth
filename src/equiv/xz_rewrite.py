@@ -72,7 +72,13 @@ def _classify(node, ancestors, rst_port):
                 if isinstance(a2, A.Always):
                     break
             return "procedural"
-        if isinstance(anc, (A.Parameter, A.Localparam, A.Ioport, A.Decl, A.Width, A.Length, A.Repeat, A.Partselect, A.Pointer)):
+        if isinstance(anc, A.Repeat):   # {n{value}}: the replicated value is a value position, the count is not (DECISION (g) item 3: tv80 line 100)
+            if child is anc.times:
+                return "other"
+            continue
+        if isinstance(anc, (A.Concat, A.LConcat, A.Cond, A.Plus, A.Minus, A.Times, A.And, A.Or, A.Xor, A.Land, A.Lor, A.Unot, A.Ulnot, A.Sll, A.Srl, A.Sra, A.Uminus, A.Uplus)):
+            continue   # an operator or concatenation inside an expression: keep walking up to the assignment that holds it
+        if isinstance(anc, (A.Parameter, A.Localparam, A.Ioport, A.Decl, A.Width, A.Length, A.Partselect, A.Pointer)):
             return "other"
     return "other"
 

@@ -522,7 +522,18 @@ class Queue:
             st["running"][name] = sum(int(running.get(d, 0)) for d in ds)
             st["queued"][name] = sum(int(queued.get(d, 0)) for d in ds)
         st["others_running"] = sum(running.values()) - sum(st["running"].values())
+        leftover_designs = {d for spec in lanes.values() if spec.get("leftover") for d in (spec.get("designs") or [])}
         st["active_window"] = len({d for d in list(running) + list(queued) if d and d not in lane_designs and (running.get(d, 0) or queued.get(d, 0))})
+        # (g) item 1: seats the medium lanes and window designs cannot fill this tick = free seats minus their dispatchable queue
+        free = int(self.limits.get(pool, 0)) - sum(running.values())
+        fillable = 0
+        for d, q_n in queued.items():
+            if d in leftover_designs:
+                continue
+            name, spec = lane_of(lanes, d)
+            capd = int(spec.get("share") or 0) if spec else max(int((self.cfg["queue"].get("per_design_max") or {}).get(pool) or 0), 1)
+            fillable += max(0, min(int(q_n), capd - int(running.get(d, 0))))
+        st["free_after_medium"] = max(0, free - fillable)
         return st
 
     @staticmethod
@@ -536,21 +547,30 @@ class Queue:
     @staticmethod
     def lane_admits(st, lanes, design_id, cap):
         """A lane job starts while its lane is below its share; another job starts while the rest stay within cap minus the seats the
-        lanes can use now (min(share, running + queued) each): an idle lane releases its share, a busy one keeps it."""
+        lanes can use now (min(share, running + queued) each): an idle lane releases its share, a busy one keeps it. A `leftover` lane
+        (DECISION 2026-09-18 (g) item 1: the small tier) starts a job only when the seats free this tick exceed what the other lanes
+        and the window designs can still fill (their dispatchable queue), never from a reserved share."""
         name, spec = lane_of(lanes, design_id)
+        if spec and spec.get("leftover"):
+            return int(st.get("free_after_medium", 0)) > 0
         if spec:
             return st["running"].get(name, 0) < int(spec.get("share") or 0)
-        reserved = sum(min(int(s.get("share") or 0), st["running"].get(n, 0) + st["queued"].get(n, 0)) for n, s in lanes.items())
+        reserved = sum(min(int(s.get("share") or 0), st["running"].get(n, 0) + st["queued"].get(n, 0)) for n, s in lanes.items() if not s.get("leftover"))
         return st["others_running"] < int(cap) - reserved
 
     @staticmethod
     def lane_count(st, lanes, design_id):
         name, spec = lane_of(lanes, design_id)
+        if spec and spec.get("leftover"):
+            st["free_after_medium"] = int(st.get("free_after_medium", 0)) - 1
+            st["running"][name] = st["running"].get(name, 0) + 1
+            return
         if spec:
             st["running"][name] = st["running"].get(name, 0) + 1
             st["queued"][name] = max(0, st["queued"].get(name, 0) - 1)
         else:
             st["others_running"] += 1
+        st["free_after_medium"] = int(st.get("free_after_medium", 0))   # unchanged: a medium job took a seat that was counted as fillable
 
     def fresh_admissions_left(self, pool):
         """How many fresh search runs may still start this tick under `queue.search_admit_per_min` (None = no limit): the limit minus

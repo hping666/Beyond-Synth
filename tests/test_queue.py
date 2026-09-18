@@ -701,8 +701,49 @@ def test_rebalance_shares_are_proportional_and_release_idle_lanes():
     cfg = {"queue": {"lanes": {"vcf": {"spi": {"designs": ["SPI"], "share": 24}, "uart": {"designs": ["UART"], "share": 8}, "idle": {"designs": ["ROUTER"], "share": 8}}}}}
     hours = {"SPI": {"hours": 700.0}, "UART": {"hours": 300.0}, "A": {"hours": 500.0}, "B": {"hours": 500.0}}
     new, rest, lane_hours, others = mod.shares(cfg, hours, 50, min_seats=4)
-    assert new == {"spi": 18, "uart": 8, "idle": 0} and rest == 24 and others == 1000.0                      # 700 / 2000 * 50 = 17.5 -> 18; 300 -> 7.5 -> 8; the idle lane releases its seats
-    new2, rest2, _, _ = mod.shares(cfg, {"SPI": {"hours": 990.0}, "A": {"hours": 10.0}}, 50, min_seats=4)
-    assert new2["spi"] == 46 and rest2 == 4                                                                 # the window designs keep the minimum
-    new3, rest3, _, _ = mod.shares(cfg, {}, 50, min_seats=4)
+    assert new == {"spi": 17, "uart": 8, "idle": 0} and rest == 25 and others == 1000.0                      # the integer split with the smallest spread of finish times (41.2 / 37.5 / 40.0 h); the idle lane releases its seats
+    new2, rest2, _, _ = mod.shares(cfg, {"SPI": {"hours": 990.0}, "A": {"hours": 10.0}}, 50, min_seats=1)
+    assert new2["spi"] == 49 and rest2 == 1                                                                 # the window designs keep the minimum seat
+    new3, rest3, _, _ = mod.shares(cfg, {}, 50, min_seats=1)
     assert new3 == {"spi": 0, "uart": 0, "idle": 0} and rest3 == 50                                          # nothing left: every seat to the rest
+
+
+def test_leftover_lane_takes_only_unfillable_seats(tmp_path):
+    """DECISION 2026-09-18 (g) item 1: the small tier's leftover lane starts a proof only with seats the medium lanes and window designs
+    cannot fill this tick (their dispatchable queue is shorter than the free seats); it never draws on a reserved share; the
+    re-balance equalises the medium lanes only. Both directions."""
+    from src.jobqueue.core import Queue
+    cfg = make_cfg()
+    cfg["queue"]["vcf_seats_max"] = 10; cfg["queue"]["vcf_seats_target"] = 10
+    cfg["queue"]["per_design_max"] = {"vcf": 2}
+    lanes = {"spi": {"designs": ["SPI"], "share": 4}, "small": {"designs": ["S1", "S2"], "share": 0, "leftover": True}}
+    cfg["queue"]["lanes"] = {"vcf": lanes}
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    k = {"n": 0}
+    def add(design, state, n):
+        for _ in range(n):
+            k["n"] += 1
+            db.insert(conn, "jobs", {"job_id": f"j{k['n']}", "kind": "vcf", "pool": "vcf", "design_id": design, "state": state, "priority": 0, "payload_json": "{}", "submitted_at": "t", "started_at": "t" if state == "running" else None})
+    add("SPI", "running", 2); add("SPI", "queued", 5)          # the lane can still fill 2 (share 4)
+    add("A", "running", 1); add("A", "queued", 3)              # a window design: can fill 1 more (cap 2)
+    add("S1", "queued", 4)                                     # the small tier waits
+    rows = conn.execute("SELECT * FROM jobs WHERE state='queued' AND pool='vcf'").fetchall()
+    st = q.lane_state("vcf", lanes, rows)
+    assert st["free_after_medium"] == 10 - 3 - (2 + 1) == 4                                    # 7 free seats, the medium side can fill 3 -> 4 left for the small tier
+    assert q.lane_admits(st, lanes, "S1", 10) and q.lane_admits(st, lanes, "SPI", 10) and q.lane_admits(st, lanes, "A", 10)
+    for _ in range(4):
+        q.lane_count(st, lanes, "S1")
+    assert not q.lane_admits(st, lanes, "S1", 10)                                              # the leftover is used up
+    add("B", "queued", 6); add("C", "queued", 6)                                               # the medium window now fills every free seat
+    rows = conn.execute("SELECT * FROM jobs WHERE state='queued' AND pool='vcf'").fetchall()
+    st = q.lane_state("vcf", lanes, rows)
+    assert st["free_after_medium"] == 0 and not q.lane_admits(st, lanes, "S2", 10)
+    # the re-balance leaves the leftover lane at 0 and equalises the medium lanes only
+    import importlib.util
+    from pathlib import Path
+    spec = importlib.util.spec_from_file_location("rebalance_lanes", str(Path(C.ROOT) / "scripts" / "rebalance_lanes.py"))
+    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    hours = {"SPI": {"hours": 600.0, "runs_left": 10}, "A": {"hours": 400.0, "runs_left": 10}, "S1": {"hours": 900.0, "runs_left": 20}, "S2": {"hours": 900.0, "runs_left": 20}}
+    new, rest, lane_hours, others = mod.shares(cfg, hours, 10)
+    assert new["small"] == 0 and others == 400.0 and new["spi"] == 6 and rest == 4                # 600 : 400 -> 6 : 4; the small tier's 1 800 h are outside the split

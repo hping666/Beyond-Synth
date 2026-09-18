@@ -12,6 +12,7 @@ RTL = """module t(input clk, input resetn, input rd, input en, input [3:0] sel, 
     if (!resetn) begin
       dout <= 8'bz;                                    // reset value
       flag <= 1'bx;                                    // reset value (x)
+      code <= {2{1'bz}};                               // reset value inside a replication (tv80 line 100 pattern)
     end else begin
       if (rd) dout <= din; else dout <= 8'bzz;         // procedural
       if (sel == 4'b1xx0) flag <= 1'b1;                // comparison: never rewritten
@@ -31,13 +32,13 @@ def test_value_positions_only(tmp_path):
     f = tmp_path / "t.v"; f.write_text(RTL)
     plan = X.analyze([f], rst_port="resetn")
     assert plan["errors"] == []
-    assert plan["counts"] == {"continuous": 1, "procedural": 2, "reset_value": 2}          # 8'bzzzzzzzz; 8'bzz and 2'bx; 8'bz and 1'bx
+    assert plan["counts"] == {"continuous": 1, "procedural": 2, "reset_value": 3}          # 8'bzzzzzzzz; 8'bzz and 2'bx; 8'bz, 1'bx and {2{1'bz}}
     assert plan["skipped"]["comparison"] == 1 and plan["skipped"]["pattern"] == 1 and plan["skipped"]["question"] == 2   # 4'b1xx0; 4'b0zz0; 4'b1z?? and 4'b1?01
     paths, rep = X.rewrite_copies([f], tmp_path / "out", rst_port="resetn")
     out = Path(paths[0]).read_text()
-    assert "8'b00000000" in out and "dout <= 8'b0;" in out and "flag <= 1'b0;" in out and "dout <= 8'b00;" in out and "code <= 2'b0;" in out
+    assert "8'b00000000" in out and "dout <= 8'b0;" in out and "flag <= 1'b0;" in out and "dout <= 8'b00;" in out and "code <= 2'b0;" in out and "code <= {2{1'b0}};" in out
     assert "4'b1xx0" in out and "4'b1z??" in out and "4'b0zz0" in out and "4'b1?01" in out             # untouched
-    assert rep["rewritten"] == {"t.v": 5} and rep["ambiguous"] == [] and rep["skipped"]["question"] == 2 and rep["skipped"]["pattern"] == 1
+    assert rep["rewritten"] == {"t.v": 6} and rep["ambiguous"] == [] and rep["skipped"]["question"] == 2 and rep["skipped"]["pattern"] == 1
     assert f.read_text() == RTL                                                                       # the source is never modified
     # the other direction: a design outside the list is copied byte for byte
     same = X.identical_copies([f], tmp_path / "same")
