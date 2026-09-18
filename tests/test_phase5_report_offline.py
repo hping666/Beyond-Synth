@@ -211,3 +211,53 @@ def test_operational_changes_section_agreement_exposure_reuse_and_hourly_ratio(t
     assert "## 7a." in text and "1 of 2 proven candidates with a final diagnosis agree (50.0 %)" in text and "3 LLM calls carried 3 positive pending blocks" in text
     assert "2 candidates behind them — proofs since: pending 1, proven 1" in text and "1 proofs copied from a decided record" in text and "| 2026-09-16T15 | 4 | 3 | 1 | 3.0 |" in text
     assert "not computed" in "\n".join(R.phase5_ops_section({"events": {}, "agreement": {"error": "boom"}}))
+
+
+def test_complete_designs_tally_reachability_and_alert_both_directions(tmp_path, monkeypatch):
+    """DECISION 2026-09-18 (d) F2 / F3: a design is complete when every planned row × seed is done with nothing pending (an offline
+    proof does not hold it back); M exceeds when its mean best retained gain beats both B1_E4 and B2 by more than the floor; the
+    alert fires once per new complete design and appends the line to STATUS.md."""
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"small": [], "medium": ["m1"], "large": []}
+    cfg["scale"]["seeds"] = 1
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES ('m1','x','m1','p',1,1,'held',1.0,'t','g','c')")
+    for metric, td in (("area", 0.01), ("wns", 0.005), ("power_saif", 0.02)):
+        db.insert(conn, "noise_floor", {"design_id": "m1", "config": "E4", "metric": metric, "sigma_robust": 0.002, "t_d": td, "floor_class": "quiet", "floor_source": "measured", "floor_version": cfg["noise"].get("floor_version"), "n": 8})
+    base_hist = json.dumps({"NAND2_X1": 100, "DFF_X1": 20})
+    db.insert(conn, "evaluations", {"design_id": "m1", "is_baseline": 1, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 100.0, "cells": 120, "wns_ns": 0.05, "tns_ns": 0.0, "power_saif_mw": 1.0, "dc_seconds": 60, "status": "ok", "raw_dir": "/x/base", "hist_json": base_hist})
+    plan = [{"tier": "medium", "model": "gpt-5.6-luna", "arm": a, "design_id": "m1", "seed": 1} for a in ("M", "B1_E4", "B2")]
+    def run(rid, arm, status="done"):
+        db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": arm, "design_id": "m1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": status, "started_at": "t", "llm_calls": 60})
+    def cand(cid, rid, area, verdict="proven", label=None):
+        db.insert(conn, "candidates", {"cand_id": cid, "run_id": rid, "design_id": "m1", "gen": 1, "arm": "M", "llm_model": "gpt-5.6-luna", "verdict": verdict, "label": label, "class_final": "b"})
+        if verdict == "proven" and area is not None:
+            db.insert(conn, "evaluations", {"design_id": "m1", "cand_id": cid, "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": area, "cells": 100, "wns_ns": 0.05, "tns_ns": 0.0, "power_saif_mw": 1.0, "dc_seconds": 60, "status": "ok", "raw_dir": f"/x/{cid}", "hist_json": json.dumps({"NAND2_X1": 70, "DFF_X1": 20})})
+    run("r_m", "M"); run("r_b1", "B1_E4"); run("r_b2", "B2", status="running")
+    cand("c_m", "r_m", 92.0); cand("c_b1", "r_b1", 98.0); cand("c_b2", "r_b2", 97.0)
+    cd = P5.complete_designs(cfg, conn, plan=plan)
+    assert cd["complete"] == [] and cd["rows"]["m1"]["gpt-5.6-luna|B2"] == {"done": 0, "planned": 1, "pending": 0}   # B2 still running
+    conn.execute("UPDATE runs SET status='done' WHERE run_id='r_b2'"); conn.commit()
+    cand("c_pend", "r_b2", None, verdict=None)                                                        # a verdict pending holds the design back
+    assert P5.complete_designs(cfg, conn, plan=plan)["complete"] == [] and P5.complete_designs(cfg, conn, plan=plan)["rows"]["m1"]["gpt-5.6-luna|B2"]["pending"] == 1
+    conn.execute("UPDATE candidates SET verdict='rejected' WHERE cand_id='c_pend'"); conn.commit()
+    cand("c_pre", "r_m", None, verdict=None, label="prescreened"); conn.execute("UPDATE candidates SET v1_status='ok', v2_status='identical' WHERE cand_id='c_pre'")
+    db.insert(conn, "evaluations", {"design_id": "m1", "cand_id": "c_pre", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 99.0, "cells": 100, "wns_ns": 0.05, "tns_ns": 0.0, "power_saif_mw": 1.0, "dc_seconds": 60, "status": "ok", "raw_dir": "/x/p", "hist_json": base_hist})
+    conn.commit()
+    assert P5.complete_designs(cfg, conn, plan=plan)["complete"] == ["m1"]                           # an offline proof pending (D3) does not hold it back
+    monkeypatch.setattr(P5, "complete_designs", lambda cfg, conn, exp="phase5", plan=None, _cd=P5.complete_designs: _cd(cfg, conn, exp, plan=plan if plan is not None else [dict(x) for x in [{"tier": "medium", "model": "gpt-5.6-luna", "arm": a, "design_id": "m1", "seed": 1} for a in ("M", "B1_E4", "B2")]]))
+    view = P5.completion_view(cfg, conn)
+    comp = view["comparisons"]["m1"]
+    assert comp["model"] == "gpt-5.6-luna" and abs(comp["rows"]["gpt-5.6-luna|M"]["best_gain_mean"] - 0.08) < 1e-6 and comp["m_exceeds"] is True   # 8 % vs 2 % / 3 %, floor 1 %
+    assert view["tally"]["wins"] == ["m1"] and view["reachability"]["wins"] == 1 and view["reachability"]["wins_still_needed"] == 17 and view["reachability"]["remaining_designs"] == 0 and not view["reachability"]["reachable"]
+    state = tmp_path / "complete.json"; status = tmp_path / "STATUS.md"; status.write_text("# S\n")
+    monkeypatch.setattr(C, "ROOT", str(tmp_path))
+    new, line, _ = P5.completion_alert(cfg, conn, state_path=state, write=True)
+    assert new == ["m1"] and line.startswith("New complete designs since last render") and "1 of 1 complete designs" in line and "m1" in status.read_text()
+    new2, line2, _ = P5.completion_alert(cfg, conn, state_path=state, write=True)
+    assert new2 == [] and line2 is None and status.read_text().count("New complete designs") == 1     # fires once
+    # the other direction of the tally: M no better than the floor over B1_E4 / B2
+    conn.execute("UPDATE evaluations SET area_um2=98.5 WHERE cand_id='c_m'"); conn.commit()
+    view2 = P5.completion_view(cfg, conn)
+    assert view2["comparisons"]["m1"]["m_exceeds"] is False and view2["tally"]["losses"] == ["m1"]

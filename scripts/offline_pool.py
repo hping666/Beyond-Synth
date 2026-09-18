@@ -77,12 +77,18 @@ def scope(cfg, conn, include_e4_timeouts=False):
     designs = [d for d, t in tiers.items() if t == o["tier"]]
     marks = ",".join("?" * len(designs))
     out = []
-    # (i) proven B0 candidates without a visible E4 record
+    # (i) proven B0 candidates without a visible E4 record — DECISION 2026-09-18 (d) B5: every tier, continuously as runs finish;
+    #     order large (with the prescreened group), then medium, then small; a candidate of a superseded run is not evaluated here (D2 covers those)
+    tier_rank = {"large": 0, "medium": 1, "small": 2}
+    b0 = []
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
-                          f"WHERE r.exp=? AND r.status!='superseded' AND r.arm='B0' AND c.verdict IN ('proven','proven_sim_only') AND c.design_id IN ({marks}) ORDER BY c.cand_id", (o["exp"], *designs)):
+                          f"WHERE r.exp=? AND r.status='done' AND r.arm='B0' AND c.verdict IN ('proven','proven_sim_only') ORDER BY c.cand_id", (o["exp"],)):
         if conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' LIMIT 1", (r["cand_id"],)).fetchone():
             continue
-        out.append({"cand_id": r["cand_id"], "group": "b0_e4", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"]})
+        b0.append({"cand_id": r["cand_id"], "group": "b0_e4", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"],
+                   "tier": tiers.get(r["design_id"], "?")})
+    b0.sort(key=lambda it: (tier_rank.get(it["tier"], 3), it["cand_id"]))
+    out.extend(b0)
     # (ii) prescreened M candidates (every tier: the large tier's 636 and the 5 of the replaced thresholds run, item 1c): sim first, then E4
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                           f"WHERE r.exp=? AND r.status!='superseded' AND COALESCE(c.prescreened,0)=1 ORDER BY c.cand_id", (o["exp"],)):
@@ -252,10 +258,15 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
             c["synced"] = True
     ok, l1, q95 = throttle(cfg, conn, st)
     submitted = 0
+    slots = int(o["slots"])
+    idle_dc = int(cfg["queue"].get("dc_seats_target") or cfg["queue"].get("dc_seats_max") or 0) - conn.execute("SELECT COUNT(*) FROM jobs WHERE state='running' AND pool='dc'").fetchone()[0]
+    if idle_dc > int(o.get("idle_dc_seats_for_extra", 12)):   # DECISION 2026-09-18 (d) B5: up to 12 slots while more than 12 DC seats sit idle
+        slots = max(slots, int(o.get("slots_when_idle", 12)))
+    st["slots_now"] = slots
     if ok:
         inflight = sum(1 for c in cands.values() if c["stage"] in ("sim_running", "e4_running"))
         for cid, c in cands.items():
-            if inflight + submitted >= int(o["slots"]):
+            if inflight + submitted >= slots:
                 break
             d = designs.get(c["design_id"])
             if d is None:

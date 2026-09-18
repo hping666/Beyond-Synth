@@ -454,7 +454,7 @@ def test_a_resumption_behind_held_fresh_runs_is_still_dispatched(tmp_path):
     base = {"kind": "vcf", "priority": 0, "payload_json": "{}", "attempts": 0, "pool": "vcf", "design_id": "d"}
     for i in range(cfg["queue"]["vcf_seats_max"]):
         db.insert(conn, "jobs", {**base, "job_id": f"v{i}", "state": "running", "submitted_at": "2026-09-16T00:00:00"})
-    db.insert(conn, "jobs", {**base, "job_id": "vq", "state": "queued", "submitted_at": "2026-09-16T00:00:01"})
+    db.insert(conn, "jobs", {**base, "job_id": "vq", "state": "queued", "submitted_at": "2026-09-16T00:00:01", "design_id": "e"})   # another design: dispatchable, so it counts (DECISION (d) B1)
     assert q.backpressure_holds("search")
     db.insert(conn, "runs", {"run_id": "r_old", "exp": "phase5", "arm": "M", "design_id": "d", "seed": 1, "llm_model": "m", "status": "failed", "llm_calls": 12})
     fresh = []
@@ -585,3 +585,86 @@ def test_round_robin_rows_least_loaded_first_catches_up():
     run_rows = {"rows": rows_meta, "running": {("B0", "luna"): 1, ("M", "luna"): 1}}
     out = [r["job_id"] for r in round_robin_by_row(rows, run_rows, tier_of)]
     assert out == ["j0", "j3", "j1", "j4", "j2", "j5", "j6"]        # equal rows alternate from the start (queue order breaks the tie)
+
+
+def test_window_dispatch_fixed_order_window_lane_and_catch_up():
+    """DECISION 2026-09-18 (d) B2 / B3: rows take their next run from the earliest design of the fixed order inside the sliding window
+    of the next 5 designs with runs left (a row with no seed in the window takes its earliest design beyond it); the long-pole lane
+    is dispatched outside the window, alternating with window runs per row, while its search runs stay below the lane cap; rows
+    alternate least-loaded first; tiers keep their order. Both directions: without a lane every pick is a window pick."""
+    from src.jobqueue.core import window_dispatch
+    def job(i, rid, pri=8600):
+        return {"job_id": f"j{i}", "priority": pri, "payload_json": json.dumps({"run_id": rid})}
+    order = {"medium": ["d1", "d2", "d3", "d4", "d5", "d6", "d7"]}
+    tier_of = {d: "medium" for d in order["medium"]}; tier_of["spi"] = "medium"; tier_of["s1"] = "small"
+    meta = {}
+    rows = []
+    i = 0
+    for arm in ("B0", "M"):
+        for d in ("d7", "d6", "d5", "d4", "d3", "d2", "d1"):            # queue order is the reverse of the design order: the order must come from the config, not the queue
+            meta[f"r_{arm}_{d}"] = (arm, "luna", d); rows.append(job(i, f"r_{arm}_{d}")); i += 1
+        meta[f"r_{arm}_spi"] = (arm, "luna", "spi"); rows.append(job(i, f"r_{arm}_spi")); i += 1
+    meta["r_B0_s1"] = ("B0", "luna", "s1"); rows.append(job(i, "r_B0_s1"))
+    run_rows = {"rows": meta, "running": {("B0", "luna"): 1, ("M", "luna"): 0}}
+    out = window_dispatch(rows, run_rows, tier_of, order, 5, lane_designs=("spi",), lane_search_max=1, running_by_design={})
+    picks = [(meta[json.loads(j["payload_json"])["run_id"]][0], meta[json.loads(j["payload_json"])["run_id"]][2]) for j in out]
+    assert picks[0] == ("M", "spi")                                     # M is behind (0 vs 1 running): first, and its lane run comes first
+    assert picks[1] == ("B0", "d1") and picks[2] == ("M", "d1")         # rows level at 1: queue order breaks the tie (B0), the earliest window design; the lane is at its cap of 1
+    assert picks[3] == ("B0", "d2") and picks[4] == ("M", "d2")         # rows alternate, designs in the fixed order
+    assert picks[-1] == ("B0", "s1") and ("B0", "spi") not in picks     # the small tier last; B0's lane run is held back by the lane cap (left out of this tick's order)
+    # without a lane: every design goes through the window in order, rows alternating
+    out2 = window_dispatch(rows, run_rows, tier_of, order, 5, lane_designs=(), lane_search_max=0)
+    picks2 = [meta[json.loads(j["payload_json"])["run_id"]][2] for j in out2]
+    assert picks2[:4] == ["d1", "d1", "d2", "d2"] and picks2.index("spi") > picks2.index("d7")   # spi is not in the order: after the listed designs
+    # a row with no seed inside the window takes its earliest design beyond it: B0 has only d6 / d7 left while M still has d1..d5
+    rows3 = [job(0, "r_B0_d7"), job(1, "r_B0_d6"), job(2, "r_M_d1"), job(3, "r_M_d2"), job(4, "r_M_d3"), job(5, "r_M_d4"), job(6, "r_M_d5"), job(7, "r_M_d6")]
+    out3 = window_dispatch(rows3, {"rows": meta, "running": {}}, tier_of, order, 5)
+    picks3 = [meta[json.loads(j["payload_json"])["run_id"]][:3:2] for j in out3]
+    assert picks3[0] == ("B0", "d6") and picks3[1] == ("M", "d1")       # B0's earliest beyond the window (d6), not idle; M inside the window
+
+
+def test_backpressure_counts_only_dispatchable_proofs_and_lane_shares(tmp_path):
+    """DECISION 2026-09-18 (d) B1 / B3: proofs blocked by a per-design cap or waiting behind a lane's share do not count towards the
+    backpressure; a lane's jobs start up to the lane's share regardless of the global per-design cap; the other designs stay within
+    cap minus the seats the busy lanes can use (an idle lane releases its share). Both directions."""
+    cfg = make_cfg()
+    cfg["queue"]["vcf_seats_max"] = 10; cfg["queue"]["vcf_seats_target"] = 10
+    cfg["queue"]["per_design_max"] = {"vcf": 2}
+    cfg["queue"]["lanes"] = {"vcf": {"spi": {"designs": ["SPI"], "share": 4}}}
+    cfg["queue"]["backpressure"] = {"search": {"pool": "vcf", "max_waiting": 3}}
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    def running(design, n):
+        for k in range(n):
+            db.insert(conn, "jobs", {"job_id": f"run_{design}_{k}", "kind": "vcf", "pool": "vcf", "design_id": design, "state": "running", "priority": 0, "payload_json": "{}", "submitted_at": "t", "started_at": "t"})
+    seq = {"n": 0}
+    def queued(design, n):
+        for k in range(n):
+            seq["n"] += 1
+            db.insert(conn, "jobs", {"job_id": f"q_{design}_{seq['n']}", "kind": "vcf", "pool": "vcf", "design_id": design, "state": "queued", "priority": 0, "payload_json": "{}", "submitted_at": "t"})
+    running("A", 2); queued("A", 6)                     # A at its cap of 2: its 6 waiting proofs are blocked, not dispatchable
+    running("SPI", 4); queued("SPI", 10)                # SPI at its lane share of 4: blocked as well
+    running("B", 1); queued("B", 1)                     # B below its cap: 1 dispatchable
+    running("C", 1); running("D", 1); running("E", 1)   # 10 seats busy
+    assert q.running_in_pool("vcf") == 10 and q.dispatchable_waiting("vcf") == 1 and not q.backpressure_holds("search")
+    queued("B", 3)                                      # B: 4 waiting, room for 1 -> still 1 dispatchable
+    assert q.dispatchable_waiting("vcf") == 1
+    conn.execute("UPDATE jobs SET state='done' WHERE job_id='run_B_0'"); conn.commit()
+    assert q.dispatchable_waiting("vcf") == 2           # B now has room for 2 (of its 4 waiting)
+    running("F", 1)
+    queued("G", 5)                                      # G: nothing running, cap 2 -> 2 dispatchable => 4 > 3: holds
+    assert q.backpressure_holds("search")
+    # lane admission: the others' limit is cap - min(share, running + queued) of the busy lane
+    rows = conn.execute("SELECT * FROM jobs WHERE state='queued' AND pool='vcf'").fetchall()
+    st = q.lane_state("vcf", cfg["queue"]["lanes"]["vcf"], rows)
+    assert st["running"]["spi"] == 4 and st["queued"]["spi"] == 10 and st["others_running"] == 6
+    assert not q.lane_admits(st, cfg["queue"]["lanes"]["vcf"], "SPI", 10)          # the lane is at its share
+    assert not q.lane_admits(st, cfg["queue"]["lanes"]["vcf"], "G", 10)            # others: 6 running, limit 10 - 4 = 6 -> full
+    conn.execute("UPDATE jobs SET state='done' WHERE job_id IN ('run_SPI_0','run_SPI_1')"); conn.commit()
+    rows = conn.execute("SELECT * FROM jobs WHERE state='queued' AND pool='vcf'").fetchall()
+    st = q.lane_state("vcf", cfg["queue"]["lanes"]["vcf"], rows)
+    assert q.lane_admits(st, cfg["queue"]["lanes"]["vcf"], "SPI", 10) and not q.lane_admits(st, cfg["queue"]["lanes"]["vcf"], "G", 10)   # SPI may refill its share; others still capped at 6
+    conn.execute("UPDATE jobs SET state='done' WHERE design_id='SPI'"); conn.commit()   # the lane goes idle: its share is released
+    rows = conn.execute("SELECT * FROM jobs WHERE state='queued' AND pool='vcf'").fetchall()
+    st = q.lane_state("vcf", cfg["queue"]["lanes"]["vcf"], rows)
+    assert st["running"]["spi"] == 0 and st["queued"]["spi"] == 0 and q.lane_admits(st, cfg["queue"]["lanes"]["vcf"], "G", 10)

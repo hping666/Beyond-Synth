@@ -140,6 +140,139 @@ def pending_summary(cfg, conn, tiers, exp="phase5"):
     return {"pending": dict(pend), "pending_total": sum(pend.values()), "open_jobs": dict(open_jobs), "complete": not pend and not open_jobs}
 
 
+def complete_designs(cfg, conn, exp="phase5", plan=None):
+    """DECISION 2026-09-18 (d) F2: the designs whose every planned arm-model row × seed is done (superseded and excluded rows aside),
+    with no candidate pending a verdict, an offline simulation or an E4 record (B0's offline E4 included); an offline-pool proof
+    of a prescreened candidate does not hold a design back (D3). -> {"complete": [design_id...], "rows": {design_id: {row: {"done": n, "planned": n, "pending": n}}}}."""
+    tier_of = tier_of_design(cfg)
+    if plan is None:
+        import sys
+        sys.path.insert(0, str(Path(C.ROOT) / "scripts"))
+        import phase5_main as PM
+        plan = PM.plan(cfg, conn)["runs"]
+    planned = defaultdict(lambda: defaultdict(int))
+    for pr in plan:
+        planned[pr["design_id"]][f"{pr['model']}|{pr['arm']}"] += 1
+    done = defaultdict(lambda: defaultdict(int))
+    for r in conn.execute("SELECT design_id, llm_model, arm FROM runs WHERE exp=? AND status='done' AND COALESCE(excluded_from_tables, 0) = 0", (exp,)):
+        done[r["design_id"]][f"{r['llm_model']}|{r['arm']}"] += 1
+    e4 = {r[0] for r in conn.execute("SELECT DISTINCT cand_id FROM evaluations WHERE config='E4' AND status='ok' AND cand_id IS NOT NULL")}
+    pending = defaultdict(lambda: defaultdict(int))
+    for c in conn.execute("SELECT c.cand_id, c.design_id, c.label, c.verdict, c.v1_status, c.v2_status, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                          "WHERE r.exp=? AND r.status != 'superseded' AND COALESCE(r.excluded_from_tables, 0) = 0", (exp,)):
+        c = dict(c)
+        k = pending_kind(c, lambda: c["cand_id"] in e4)
+        if k and k != "proof":
+            pending[c["design_id"]][f"{c['llm_model']}|{c['arm']}"] += 1
+    out = {"complete": [], "rows": {}}
+    for d in sorted(planned):
+        rows = {}
+        ok = True
+        for row, n in planned[d].items():
+            rows[row] = {"done": done[d].get(row, 0), "planned": n, "pending": pending[d].get(row, 0)}
+            if rows[row]["done"] < n or rows[row]["pending"]:
+                ok = False
+        out["rows"][d] = rows
+        if ok:
+            out["complete"].append(d)
+    return out
+
+
+def design_arm_comparison(cfg, conn, designs_cache, design_id, exp="phase5"):
+    """F2: the arm comparison of one design (uniform rule A): per arm-model row the runs, proven, retained, tradeoff, the best retained
+    area gain per run (mean over seeds) and the best over the design; the design's rule-A area floor (t_d)."""
+    d = designs_cache.get(design_id)
+    rows = defaultdict(lambda: {"runs": 0, "cands": 0, "proven": 0, "retained": 0, "tradeoff": 0, "best_runs": []})
+    for r in conn.execute("SELECT run_id, llm_model, arm FROM runs WHERE exp=? AND design_id=? AND status='done' AND COALESCE(excluded_from_tables, 0) = 0", (exp, design_id)):
+        g = rows[f"{r['llm_model']}|{r['arm']}"]
+        g["runs"] += 1
+        best = 0.0
+        for c in conn.execute("SELECT * FROM candidates WHERE run_id=?", (r["run_id"],)):
+            c = dict(c)
+            if c.get("label") in ("duplicate", "aborted"):
+                continue
+            g["cands"] += 1
+            if c.get("verdict") == "proven":
+                g["proven"] += 1
+                ud = uniform_diagnosis(designs_cache, conn, c)
+                if ud:
+                    lab, gains, _ = ud
+                    if lab == "retained":
+                        g["retained"] += 1
+                        best = max(best, float(gains.get("area") or 0.0))
+                    elif lab == "tradeoff":
+                        g["tradeoff"] += 1
+        g["best_runs"].append(best)
+    out = {}
+    for k, g in rows.items():
+        out[k] = {"runs": g["runs"], "cands": g["cands"], "proven": g["proven"], "retained": g["retained"], "tradeoff": g["tradeoff"],
+                  "best_gain_mean": round(statistics.mean(g["best_runs"]), 5) if g["best_runs"] else None, "best_gain_max": round(max(g["best_runs"]), 5) if g["best_runs"] else None}
+    return {"rows": out, "t_d_area": (d or {}).get("thresholds", {}).get("area") if d else None}
+
+
+def m_exceeds(comparison, model):
+    """F2 tally rule: under `model`, M's mean best retained area gain exceeds both B1_E4's and B2's by more than the design's rule-A area
+    floor (t_d). -> True / False, or None when a row is missing."""
+    rows = comparison["rows"]
+    m, b1, b2 = rows.get(f"{model}|M"), rows.get(f"{model}|B1_E4"), rows.get(f"{model}|B2")
+    if not (m and b1 and b2) or m["best_gain_mean"] is None:
+        return None
+    t = float(comparison.get("t_d_area") or 0.0)
+    return (m["best_gain_mean"] - max(b1["best_gain_mean"] or 0.0, b2["best_gain_mean"] or 0.0)) > t
+
+
+def completion_view(cfg, conn, exp="phase5"):
+    """F2 / F3 data: the complete designs with their arm comparisons and the M tally, the reachability of the pre-registered
+    criterion (18 of 30 under the hidden configurations — read here as the visible-layer proxy, the hidden form stays sealed),
+    and the per-row completion counts of every design."""
+    cd = complete_designs(cfg, conn, exp)
+    tier_of = tier_of_design(cfg)
+    designs = _Designs(cfg, conn)
+    main_model = {t: (m.get("all_arms") or cfg["llm"]["selected"]) for t, m in ((cfg["exp5"].get("model_assignment") or {}).items())}
+    comps, tally = {}, {"wins": [], "losses": [], "undecided": []}
+    for d in cd["complete"]:
+        comp = design_arm_comparison(cfg, conn, designs, d, exp)
+        model = main_model.get(tier_of.get(d), cfg["llm"]["selected"])
+        verdict = m_exceeds(comp, model)
+        comp["model"], comp["m_exceeds"] = model, verdict
+        comps[d] = comp
+        (tally["wins"] if verdict else tally["undecided"] if verdict is None else tally["losses"]).append(d)
+    total = sum(len(v) for v in (cfg["exp5"].get("starting_points") or {}).values())
+    need = int(cfg["exp5"].get("criterion_wins", 18))
+    remaining = total - len(cd["complete"])
+    reach = {"total_designs": total, "criterion_wins": need, "wins": len(tally["wins"]), "lost": len(tally["losses"]), "undecided": len(tally["undecided"]),
+             "remaining_designs": remaining, "wins_still_needed": max(0, need - len(tally["wins"])), "reachable": (len(tally["wins"]) + remaining + len(tally["undecided"])) >= need}
+    return {"complete": cd["complete"], "rows": cd["rows"], "comparisons": comps, "tally": tally, "reachability": reach}
+
+
+def completion_alert(cfg, conn, state_path=None, write=True, view=None, exp="phase5"):
+    """DECISION 2026-09-18 (d) F3: compare the complete-design set with the last recorded one (reports/data/phase5_complete_designs.json);
+    -> (new designs, alert line or None, view). With `write`, the state file is updated and the line appended to STATUS.md."""
+    view = view or completion_view(cfg, conn, exp)
+    state_path = Path(state_path or (Path(C.ROOT) / "reports" / "data" / "phase5_complete_designs.json"))
+    try:
+        prev = json.loads(state_path.read_text())
+    except (OSError, ValueError):
+        prev = {"designs": [], "history": []}
+    new = [d for d in view["complete"] if d not in set(prev.get("designs") or [])]
+    now = datetime.datetime.now().isoformat(timespec="minutes")
+    line = None
+    if new:
+        r = view["reachability"]
+        wins = [d for d in new if d in view["tally"]["wins"]]
+        line = (f"New complete designs since last render ({now}): " + ", ".join(new) + f" — M exceeds both B1_E4 and B2 by more than the floor on {len(wins)} of them; "
+                f"tally {r['wins']} of {len(view['complete'])} complete designs (visible layer), {r['wins_still_needed']} wins still needed of {r['remaining_designs'] + r['undecided']} remaining / undecided"
+                + ("" if r["reachable"] else " — the 18-of-30 criterion is no longer reachable in the visible layer") + ".")
+    if write and new:
+        state = {"designs": list(view["complete"]), "at": now, "history": (prev.get("history") or []) + [{"at": now, "new": new}]}
+        state_path.parent.mkdir(parents=True, exist_ok=True)
+        state_path.write_text(json.dumps(state, indent=1))
+        status = Path(C.ROOT) / "STATUS.md"
+        if status.exists():
+            status.write_text(status.read_text().rstrip("\n") + "\n\n- " + line + "\n")
+    return new, line, view
+
+
 def load_samples(cfg):
     """(timestamp, 1-minute load) samples of scripts/load_logger.py (results/queue/load.log), sorted; empty when absent."""
     p = Path(C.results_dir(cfg)) / "queue" / "load.log"

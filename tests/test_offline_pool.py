@@ -37,7 +37,7 @@ def test_scope_chaining_and_throttle(tmp_path, monkeypatch):
     db.insert(conn, "candidates", {"cand_id": "m_timeout", "run_id": "rm", "design_id": "L1", "gen": 1, "arm": "M", "rtl_path": str(rtl), "verdict": "proven", "label": None, "note": "[E4 evaluation failed]"})
     db.insert(conn, "candidates", {"cand_id": "med_b0", "run_id": "rmed", "design_id": "M1", "gen": 1, "arm": "B0", "rtl_path": str(rtl), "verdict": "proven", "label": "improved"})
     items = {it["cand_id"]: it["group"] for it in mod.scope(cfg, conn)}
-    assert items == {"b0_proven": "b0_e4", "m_pre": "prescreened"}                          # large tier only; existing E4 records, unproven B0 and the timeout skipped
+    assert items == {"b0_proven": "b0_e4", "m_pre": "prescreened", "med_b0": "b0_e4"}        # every tier's finished B0 runs (DECISION (d) B5); existing E4 records, unproven B0 and the timeout skipped
     assert {it["cand_id"]: it["group"] for it in mod.scope(cfg, conn, include_e4_timeouts=True)}["m_timeout"] == "e4_timeout"
     assert mod.projection(cfg, conn, mod.scope(cfg, conn))["b0_e4"] == 120.0 / 3600
     # one pass: the design catalog and the queue are stubbed; the sim goes first for the prescreened one, E4 at once for B0, both at priority 1 below the search's 4
@@ -49,7 +49,7 @@ def test_scope_chaining_and_throttle(tmp_path, monkeypatch):
     monkeypatch.setattr(mod, "load1", lambda: 100.0)
     st = mod.load_state(); st["baseline"] = 100.0
     counts = mod.once(cfg, conn, st, queue=q)
-    assert counts == {"sim_running": 1, "e4_running": 1}
+    assert counts == {"sim_running": 1, "e4_running": 1, "done": 1}   # the medium-tier B0 candidate is in scope (DECISION (d) B5) and, with M1 absent from the stubbed catalog, ends at once
     jobs = {r["cand_id"]: dict(r) for r in conn.execute("SELECT * FROM jobs")}
     assert jobs["m_pre"]["kind"] == "sim" and jobs["m_pre"]["pool"] == "local" and json.loads(jobs["m_pre"]["payload_json"])["prescreened_offline"] is True
     assert jobs["b0_proven"]["kind"] == "dc" and jobs["b0_proven"]["priority"] == 1 < cfg["search"]["job_priority"] and json.loads(jobs["b0_proven"]["payload_json"])["offline_eval"] == 1
@@ -113,3 +113,37 @@ def test_sync_candidate_row_both_directions(tmp_path):
     row = dict(conn.execute("SELECT * FROM candidates WHERE cand_id='cf'").fetchone())
     assert row["verdict"] == "rejected" and row["v2_status"] == "compile_failed" and "rejected" in row["note"]
     assert conn.execute("SELECT count(*) FROM candidates WHERE v2_status IS NULL").fetchone()[0] == 1                            # cx untouched
+
+
+def test_b0_scope_covers_every_tier_in_order_and_idle_seats_widen_the_pool(tmp_path, monkeypatch):
+    """DECISION 2026-09-18 (d) B5: proven B0 candidates of every finished run, large first (with the prescreened group), then
+    medium, then small — a running run's candidates wait until it finishes; with more than 12 idle DC seats the pool may use 12
+    slots instead of 8. Both directions."""
+    mod = load_pool()
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": ["L1"], "medium": ["M1"], "small": ["S1"]}
+    cfg["offline_pool"] = {"slots": 8, "priority": 1, "load_over_baseline": 0.10}
+    cfg["queue"]["dc_seats_target"] = 30
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    for d in ("L1", "M1", "S1"):
+        conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES (?,'x',?,'p',1,1,'held',1.0,'t','g','c')", (d, d))
+    rtl = tmp_path / "c.v"; rtl.write_text("module m; endmodule")
+    for rid, d, status in (("rl", "L1", "done"), ("rm", "M1", "done"), ("rs", "S1", "done"), ("rm_run", "M1", "running")):
+        db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": "B0", "design_id": d, "seed": 1, "llm_model": "gpt-5.6-luna", "status": status, "started_at": "t"})
+        db.insert(conn, "candidates", {"cand_id": f"c_{rid}", "run_id": rid, "design_id": d, "gen": 1, "arm": "B0", "rtl_path": str(rtl), "verdict": "proven"})
+    items = [(it["cand_id"], it["group"], it.get("tier")) for it in mod.scope(cfg, conn)]
+    assert items == [("c_rl", "b0_e4", "large"), ("c_rm", "b0_e4", "medium"), ("c_rs", "b0_e4", "small")]   # every tier, in order; the running run's candidate not yet
+    conn.execute("UPDATE runs SET status='done' WHERE run_id='rm_run'"); conn.commit()
+    assert [it["cand_id"] for it in mod.scope(cfg, conn)] == ["c_rl", "c_rm", "c_rm_run", "c_rs"]
+    # the slot rule: 8 slots while 12 or fewer DC seats idle, 12 when more are idle
+    st = {"cands": {}, "paused": False, "baseline": 100.0}
+    monkeypatch.setattr(mod, "STATE", str(tmp_path / "state.json")); monkeypatch.setattr(mod, "LOG", str(tmp_path / "pool.log"))
+    monkeypatch.setattr(mod, "throttle", lambda cfg, conn, st: (False, 50.0, 0.0))    # paused: nothing submitted, the slot count is still computed
+    for k in range(20):
+        db.insert(conn, "jobs", {"job_id": f"dc{k}", "kind": "dc", "pool": "dc", "design_id": "L1", "state": "running", "priority": 0, "payload_json": "{}", "submitted_at": "t", "started_at": "t"})
+    mod.once(cfg, conn, st, False)
+    assert st["slots_now"] == 8                                          # 30 - 20 = 10 idle seats: not more than 12
+    conn.execute("UPDATE jobs SET state='done' WHERE job_id IN ('dc0','dc1','dc2','dc3','dc4','dc5','dc6','dc7','dc8','dc9')"); conn.commit()
+    mod.once(cfg, conn, st, False)
+    assert st["slots_now"] == 12                                         # 20 idle seats: the pool may use 12

@@ -813,6 +813,42 @@ def phase5_notes_section(cfg, tiers, tier_of):
     return L
 
 
+def phase5_completion_section(cfg, view, tiers, tier_of):
+    """§0b (DECISION 2026-09-18 (d) F2): the complete designs of the reported tiers with their arm comparison, the M tally and the
+    reachability of the pre-registered criterion; incomplete designs only with per-row completion counts."""
+    if not view:
+        return []
+    L = ["## 0b. Complete designs (DECISION 2026-09-18 (d) F2: every planned row × seed done, no verdict / E4 / offline simulation pending, B0 offline E4 in)", ""]
+    complete = [d for d in view.get("complete") or [] if tier_of.get(d) in tiers]
+    comps = view.get("comparisons") or {}
+    tally = view.get("tally") or {}
+    r = view.get("reachability") or {}
+    wins = [d for d in tally.get("wins") or [] if d in complete]
+    L.append(f"Complete designs on the reported tiers: {len(complete)}" + (" — " + ", ".join(complete) if complete else "") + ".")
+    L.append("")
+    for d in complete:
+        c = comps.get(d) or {}
+        rows = c.get("rows") or {}
+        L += [f"### {d} ({tier_of.get(d)} tier; main model {c.get('model')}; rule-A area floor t_d = {_pct(c.get('t_d_area')) if c.get('t_d_area') is not None else '-'}; M exceeds both B1_E4 and B2: {'yes' if c.get('m_exceeds') else 'no' if c.get('m_exceeds') is False else 'undecided (a row is missing)'})", "",
+              "| model | arm | runs | candidates | proven | retained | tradeoff | best retained area gain per run: mean / max |", "|---|---|---|---|---|---|---|---|"]
+        for k in sorted(rows, key=lambda k: (k.split("|")[1], k.split("|")[0])):
+            g = rows[k]
+            L.append(f"| {k.split('|')[0]} | {k.split('|')[1]} | {g['runs']} | {g['cands']} | {g['proven']} | {g['retained']} | {g['tradeoff']} | {_pct(g['best_gain_mean'])} / {_pct(g['best_gain_max'])} |")
+        L.append("")
+    L += [f"**Tally: M exceeds both B1_E4 and B2 by more than the design's floor on {len(wins)} of {len(complete)} complete designs (visible layer).**",
+          f"Reachability of the pre-registered criterion ({r.get('criterion_wins', 18)} of {r.get('total_designs', 30)} designs under the hidden configurations — sealed; the visible layer is the proxy): "
+          f"wins so far {r.get('wins', 0)}, already lost by M {r.get('lost', 0)}, undecided {r.get('undecided', 0)}, designs not yet complete {r.get('remaining_designs', 0)}; "
+          f"M still needs {r.get('wins_still_needed', 0)} of the {r.get('remaining_designs', 0) + r.get('undecided', 0)} remaining or undecided designs — {'reachable' if r.get('reachable') else 'no longer reachable'} in the visible layer.", ""]
+    inc = [(d, rows) for d, rows in (view.get("rows") or {}).items() if tier_of.get(d) in tiers and d not in complete]
+    if inc:
+        L += ["Incomplete designs (per-row completion counts only, no arm comparison):", "", "| design | tier | rows: done / planned (pending evaluations) |", "|---|---|---|"]
+        for d, rows in sorted(inc, key=lambda x: (tier_of.get(x[0], "?"), x[0])):
+            cells = ", ".join(f"{k.split('|')[1]}-{k.split('|')[0].split('-')[-1]} {v['done']}/{v['planned']}" + (f" ({v['pending']} pending)" if v["pending"] else "") for k, v in sorted(rows.items(), key=lambda kv: (kv[0].split('|')[1], kv[0])))
+            L.append(f"| {d} | {tier_of.get(d)} | {cells} |")
+        L.append("")
+    return L
+
+
 def phase5_markdown(cfg, data, stage="all", final=False):
     """The visible-layer report from the collector's data (src/analysis/phase5.collect). Stage A: the large tier; B: large + medium;
     C / all: every tier. Nothing here reads the hidden database; the hidden part is scripts/report_hidden.py after Phase 5 completes."""
@@ -825,7 +861,10 @@ def phase5_markdown(cfg, data, stage="all", final=False):
     status_line = ("**Final for its tiers** (every planned run done, no pending evaluation, no open visible job — the completeness rule of DECISION 2026-09-18 D2 / D3)." if final else
                    f"**Interim** ({pend_total} evaluations pending on the reported tiers: " + ", ".join(f"{t} {n}" for t, n in sorted((data.get("pending_total") or {}).items())) +
                    "; rows marked † are incomplete and `pending` stands where a value would otherwise read 0 — DECISION 2026-09-18 D1 / D3).")
-    L = [f"# Phase 5 report ({title}) — {'final' if final else 'interim'}", "", status_line, "",
+    L = [f"# Phase 5 report ({title}) — {'final' if final else 'interim'}", ""]
+    if data.get("alert_line"):
+        L += [f"**{data['alert_line']}**", ""]
+    L += [status_line, "",
          f"Generated {data['generated_at']} by scripts/report_phase.py phase5 --stage {stage} (git {data['git_sha']}, cfg {data['cfg_hash']}). Data: reports/data/phase5_visible_{stage}.json (src/analysis/phase5.collect). "
          f"Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. "
          f"Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = {data['equiv_version']}, floor_version = {data['floor_version']}); an interim report changes nothing.", ""]
@@ -842,6 +881,7 @@ def phase5_markdown(cfg, data, stage="all", final=False):
     L.append("")
     tier_of = P5.tier_of_design(cfg)
     L += phase5_notes_section(cfg, tiers, tier_of)
+    L += phase5_completion_section(cfg, data.get("completion") or {}, tiers, tier_of)
     limits = {d: n.split(" — ")[0].split(" (")[0] for d, n in ((cfg.get("exp5") or {}).get("design_notes") or {}).items() if str(n).startswith(("harness limit", "verification limit"))}
     # arm comparison per tier
     L += ["## 1. Arm comparison per tier (uniform caliber: equal LLM calls; every proven candidate re-labelled offline under rule A with the design's frozen E4 floor)", ""]
@@ -1054,6 +1094,8 @@ def phase5(cfg, stage="all", out_dir=None, conn=None, final=False):
     conn = conn or db.connect(cfg=cfg)
     data = P5.collect(cfg, conn, tiers=P5.stage_tiers(stage))
     data["final"] = bool(final)
+    new, line, view = P5.completion_alert(cfg, conn, state_path=(Path(out_dir) / "data" / "phase5_complete_designs.json") if out_dir else None, write=True)   # (d) F2 / F3
+    data["completion"], data["alert_line"] = view, line
     out = Path(out_dir or (Path(C.ROOT) / "reports"))
     (out / "data").mkdir(parents=True, exist_ok=True)
     (out / "data" / f"phase5_visible_{stage}.json").write_text(json.dumps(data, indent=1, sort_keys=True, default=str) + "\n")
