@@ -424,7 +424,8 @@ def candidate_jobs(cfg, vis, exp="phase3", priority=0, hid=None, configs=None, r
     scope = (cfg.get("exp5") or {}).get("hidden_scope") or {}          # storage decision 2026-09-15 (D): every hidden configuration on accepted candidates and its audit sample (`exp5.hidden_audit_frac`, 20 % for H1 / H3 / H5)
     waiting = {(r[0], r[1]) for r in vis.execute("SELECT cand_id, config FROM jobs WHERE kind='dc_hidden' AND state IN ('queued','running','backoff')")}   # 2026-09-18: a pair whose job is already waiting or running is not registered again (the loop re-submitted 3 500 jobs every pass: 13 859 duplicates)
     for c in vis.execute("SELECT c.cand_id, c.design_id, c.rtl_path, c.run_id, c.top, c.rtl_files_json, c.accepted, c.in_archive FROM candidates c JOIN runs r ON r.run_id=c.run_id "
-                         "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted' ORDER BY c.cand_id", (exp,)):
+                         "WHERE r.exp=? AND r.status != 'superseded' AND c.e4_job_id IS NOT NULL AND c.label IS NOT NULL AND c.label != 'aborted' "
+                         "AND c.verdict IN ('proven', 'proven_sim_only') ORDER BY c.cand_id", (exp,)):   # user decision 2026-09-18: proven candidates only (the split pipeline evaluates E4 before the proof, so e4_job_id alone no longer means proven)
         if designs is not None and c["design_id"] not in designs:   # DECISIONS 2026-09-16 (scheduling change, item 4): the hidden loop registers the designs of finished tiers only
             continue
         d = designs_all[c["design_id"]]

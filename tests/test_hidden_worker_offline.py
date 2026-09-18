@@ -219,7 +219,7 @@ def test_candidate_coverage_counts_only(env):
                 "VALUES ('rtllm_cov','rtllm','cov','x',1,1,'dev',2.0,NULL,'t','g','c')")
     db.insert(vis, "runs", {"run_id": "rcov", "exp": "phase3", "arm": "M", "design_id": "rtllm_cov", "seed": 1, "status": "done", "started_at": "t"})
     for cid, acc in (("k1", 1), ("k2", 0), ("k3", 1)):
-        db.insert(vis, "candidates", {"cand_id": cid, "run_id": "rcov", "design_id": "rtllm_cov", "gen": 1, "arm": "M", "rtl_path": "/x", "e4_job_id": "j", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc})
+        db.insert(vis, "candidates", {"cand_id": cid, "run_id": "rcov", "design_id": "rtllm_cov", "gen": 1, "arm": "M", "rtl_path": "/x", "e4_job_id": "j", "verdict": "proven", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc})
     db.insert(vis, "candidates", {"cand_id": "k4", "run_id": "rcov", "design_id": "rtllm_cov", "gen": 1, "arm": "M", "rtl_path": "/x", "label": "nonequiv"})   # never evaluated at E4: not expected
     n = [0]
 
@@ -264,7 +264,10 @@ def test_phase5_hidden_scope_registers_h1_h3_h5_for_all_and_h2_for_accepted_and_
         db.insert(vis, "runs", {"run_id": rid, "exp": exp, "arm": "M", "design_id": "rtllm_h5", "seed": 1, "status": "done", "started_at": "t"})
         for cid, acc in ((f"{rid}_k_acc", 1), (f"{rid}_k_no", 0), (f"{rid}_k_audit", 0)):
             db.insert(vis, "candidates", {"cand_id": cid if cid != f"{rid}_k_audit" else "k_audit" if exp == "phase5" else cid, "run_id": rid, "design_id": "rtllm_h5", "gen": 1, "arm": "M",
-                                          "rtl_path": str(ddir / "rtl" / "h5.v"), "e4_job_id": "j", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc})
+                                          "rtl_path": str(ddir / "rtl" / "h5.v"), "e4_job_id": "j", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc, "verdict": "proven"})
+        # user decision 2026-09-18: an E4-evaluated but unproven candidate (the split pipeline runs E4 before the proof) is never registered
+        db.insert(vis, "candidates", {"cand_id": f"{rid}_k_unproven", "run_id": rid, "design_id": "rtllm_h5", "gen": 1, "arm": "M", "rtl_path": str(ddir / "rtl" / "h5.v"),
+                                      "e4_job_id": "j", "label": "nonequiv", "accepted": 0, "in_archive": 0, "verdict": "inconclusive"})
     jobs5 = mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1", "H3", "H5", "H2a", "H2b"])
     by5 = {}
     for j in jobs5:
@@ -277,6 +280,7 @@ def test_phase5_hidden_scope_registers_h1_h3_h5_for_all_and_h2_for_accepted_and_
     for j in jobs4:
         by4.setdefault(j["config"], set()).add(j["cand_id"])
     assert by4["H2a"] == {"r4_k_acc", "r4_k_no", "r4_k_audit"}                                 # Phase 4: every configuration for every candidate
+    assert not [j for j in jobs5 + jobs4 if "unproven" in j["cand_id"]]                        # never an unproven candidate, in any experiment
     # DECISIONS 2026-09-16 (scheduling change, item 4): the hidden loop passes the designs of the finished tiers only (both directions)
     assert mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1"], designs=["other_design"]) == []
     assert {j["cand_id"] for j in mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1"], designs=["rtllm_h5"])} == by5["H1"]
@@ -341,7 +345,7 @@ def test_signoff_h4_jobs_for_the_baseline_and_kept_candidates_with_a_netlist_onl
     db.insert(vis, "runs", {"run_id": "rso", "exp": "phase4", "arm": "M", "design_id": "rtllm_so", "seed": 1, "status": "done", "started_at": "t"})
     for cid, acc, netlist in (("k_acc", 1, True), ("k_acc_slim", 1, False), ("k_audit", 0, True), ("k_plain", 0, True)):
         db.insert(vis, "candidates", {"cand_id": cid, "run_id": "rso", "design_id": "rtllm_so", "gen": 1, "arm": "M", "rtl_path": str(ddir / "rtl" / "so.v"),
-                                      "e4_job_id": "j", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc})
+                                      "e4_job_id": "j", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc, "verdict": "proven"})
         e4(cid, 0.5, netlist)
     skipped = {}
     jobs = mod.candidate_jobs(cfg, vis, "phase4", 1, hid=hid, configs=["H4"], skipped=skipped)
@@ -385,7 +389,7 @@ def test_phase5_audit_fraction_per_configuration(env, tmp_path, monkeypatch):
     monkeypatch.setattr(R, "is_audit_sample", lambda cid, frac: (cid == "a_audit10" and frac >= 0.1) or (cid == "a_audit20" and frac >= 0.2))
     db.insert(vis, "runs", {"run_id": "r5a", "exp": "phase5", "arm": "M", "design_id": "rtllm_a2", "seed": 1, "status": "done", "started_at": "t"})
     for cid, acc in (("a_acc", 1), ("a_audit10", 0), ("a_audit20", 0), ("a_plain", 0)):
-        db.insert(vis, "candidates", {"cand_id": cid, "run_id": "r5a", "design_id": "rtllm_a2", "gen": 1, "arm": "M", "rtl_path": str(ddir / "rtl" / "a2.v"), "e4_job_id": "j", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc})
+        db.insert(vis, "candidates", {"cand_id": cid, "run_id": "r5a", "design_id": "rtllm_a2", "gen": 1, "arm": "M", "rtl_path": str(ddir / "rtl" / "a2.v"), "e4_job_id": "j", "verdict": "proven", "label": "retained" if acc else "noise", "accepted": acc, "in_archive": acc})
     jobs = mod.candidate_jobs(cfg, vis, "phase5", 1, hid=hid, configs=["H1", "H5", "H2a"])
     by = {}
     for j in jobs:
