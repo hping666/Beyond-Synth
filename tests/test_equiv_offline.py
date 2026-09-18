@@ -426,3 +426,16 @@ def test_harness_version_2_zeroes_every_sequential_and_stamps_records(tmp_path):
     assert "harness_version" not in equiv_extra(cfg1, payload, True)
     assert equiv_extra(cfg2, payload, True)["harness_version"] == 2 and equiv_extra(cfg2, dict(payload, sim_record={"x": 1}), True)["harness_version"] == 2
     assert "harness_version" not in equiv_extra(cfg2, payload, False)                       # a V1 / V2-only record is the same under both versions
+
+
+def test_harness_version_2_rewrites_xz_literals_identically(tmp_path):
+    """DECISION 2026-09-18 (e) item 1: every x / z / ? digit of a Verilog literal in the V3 sources becomes 0 (both sides, same base
+    names); values, sizes, bases and everything else are untouched. Both directions."""
+    from src.equiv.seq import rewrite_xz_literals, xz_free_copies
+    src = "always @(posedge clk) if (!rstn) dout <= 8'bz; else if (rd) dout <= 8'bzz; assign bus = en ? d : 4'bZZZZ; wire [3:0] k = 4'b1x0?; wire h = 8'hzF; wire ok = 8'hA5 + 3'd7 - 1'b1;\n"
+    out, n = rewrite_xz_literals(src)
+    assert n == 5 and "8'b0" in out and "8'b00" in out and "4'b0000" in out and "4'b1000" in out and "8'h0F" in out and "8'hA5 + 3'd7 - 1'b1" in out
+    assert rewrite_xz_literals("assign y = a & 8'hff; // no x or z\n") == ("assign y = a & 8'hff; // no x or z\n", 0)
+    f = tmp_path / "d.v"; f.write_text(src)
+    paths, counts = xz_free_copies([str(f)], tmp_path / "spec_src")
+    assert Path(paths[0]).name == "d.v" and counts == {"d.v": 5} and "'bz" not in Path(paths[0]).read_text() and f.read_text() == src   # the original file is untouched
