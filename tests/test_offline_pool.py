@@ -59,12 +59,15 @@ def test_scope_chaining_and_throttle(tmp_path, monkeypatch):
     monkeypatch.setattr(mod, "load1", lambda: 105.0)
     assert mod.throttle(cfg, conn, st)[0] is True and not st["paused"] and "RESUME" in open(tmp_path / "pool.log").read()
     monkeypatch.setattr(mod, "medium_vcf_wait_q95", lambda cfg_, conn_, hours=1.0: 25.0)
+    assert mod.throttle(cfg, conn, st)[0] is True                                            # DECISION 2026-09-18 (b) item 3: load only; the VC Formal wait is logged, not applied
+    monkeypatch.setattr(mod, "load1", lambda: 140.0)
     assert mod.throttle(cfg, conn, st)[0] is False
     # a paused pool submits nothing
     st["cands"]["extra"] = {"cand_id": "extra", "group": "b0_e4", "run_id": "rb0", "design_id": "L1", "rtl_path": str(rtl), "model": "m", "arm": "B0", "stage": "e4", "sim_job": None, "e4_job": None, "result": None}
     counts = mod.once(cfg, conn, st, queue=q)
     assert counts["e4"] == 1 and st["paused"]
     # the sim finished with V2 passing -> the E4 follows with the record's SAIF; a rejected sim ends the candidate
+    monkeypatch.setattr(mod, "load1", lambda: 100.0)
     monkeypatch.setattr(mod, "medium_vcf_wait_q95", lambda cfg_, conn_, hours=1.0: 0.0)
     conn.execute("UPDATE jobs SET state='done' WHERE cand_id='m_pre'"); conn.commit()
     monkeypatch.setattr(mod, "sim_record", lambda cfg_, pl: {"verdict": "not_run", "v1_status": "ok", "v2_status": "identical", "saif_c": str(rtl)})
@@ -74,3 +77,19 @@ def test_scope_chaining_and_throttle(tmp_path, monkeypatch):
     monkeypatch.setattr(mod, "sim_record", lambda cfg_, pl: {"verdict": "rejected", "v1_status": "rejected", "v2_status": None})
     mod.once(cfg, conn, st, queue=q)
     assert st["cands"]["m_pre"]["stage"] == "done" and st["cands"]["m_pre"]["result"].startswith("rejected")
+
+
+def test_e4_timeout_reruns_get_the_long_guard_and_the_flag(tmp_path, monkeypatch):
+    """DECISION 2026-09-18 (b) item 4: a timeout re-run's E4 job carries e4_rerun = 1 and a 3600 s guard (+ margin); a B0 job keeps the design's timeout."""
+    mod = load_pool()
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES ('L1','x','l1','p',1,1,'held',1.0,'t','g','c')")
+    from src.designs import catalog as K
+    monkeypatch.setattr(K, "abs_paths", lambda d, paths: [tmp_path / p for p in paths])
+    design = {"design_id": "L1", "top": "l1", "files": ["c.v"], "incdirs": [], "clk_ports": ["clk"], "sverilog": False, "loc": 1}
+    j = mod.e4_job(cfg, conn, design, {"cand_id": "x", "group": "e4_timeout", "design_id": "L1", "rtl_path": str(tmp_path / "c.v")})
+    assert j["payload"]["e4_rerun"] == 1 and j["timeout_sec"] == 3600 + 180 and "offline_eval" not in j["payload"]
+    j2 = mod.e4_job(cfg, conn, design, {"cand_id": "y", "group": "b0_e4", "design_id": "L1", "rtl_path": str(tmp_path / "c.v")})
+    assert j2["payload"]["offline_eval"] == 1 and "e4_rerun" not in j2["payload"] and j2["timeout_sec"] != 3600 + 180

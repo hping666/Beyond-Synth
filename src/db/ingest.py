@@ -33,6 +33,7 @@ def ingest_evaluation(conn, meta):
         "design_id": meta["design_id"], "cand_id": meta.get("cand_id"), "pert_id": meta.get("pert_id"),
         "is_baseline": int(meta.get("is_baseline") or 0), "config": meta["config"], "lib": on_disk.get("lib"),
         "offline_eval": int(meta.get("offline_eval") or 0), "prescreened_offline": int(meta.get("prescreened_offline") or 0),   # DECISION 2026-09-18 item 1
+        "e4_rerun": int(meta.get("e4_rerun") or 0),   # DECISION 2026-09-18 (b) item 4
         "clock_ns": on_disk.get("clock_ns"),
         "area_um2": m.get("area"), "cells": m.get("cells"), "wns_ns": m.get("wns_ns"), "tns_ns": m.get("tns_ns"),
         "crit_delay_ns": m.get("crit_delay_ns"), "power_saif_mw": m.get("power_saif_mw"),

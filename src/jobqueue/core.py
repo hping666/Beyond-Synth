@@ -291,6 +291,8 @@ class Queue:
             pass
         cmd = self._command_for(job, payload)
         # the command runs in a subshell so that an `exit N` inside it cannot skip writing the done marker
+        if payload.get("offline_pool"):   # DECISION 2026-09-18 (b) item 3: offline-pool jobs run under nice 19 and the idle I/O class
+            cmd = f"nice -n 19 ionice -c 3 {cmd}"
         wrapper = f"( {cmd} ); rc=$?; echo $rc > {shlex.quote(done)}; exit $rc"
         limit_gb = (self.cfg["queue"].get("max_file_gb") or {}).get(job["kind"])
         if limit_gb:   # 2026-09-16: a lock-step simulation dumped a 36 GB VCD in 18 minutes; a file-size limit kills such a job (SIGXFSZ) instead of filling the disk

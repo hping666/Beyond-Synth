@@ -35,6 +35,9 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
     ("noise_floor", "pooled_min", "ALTER TABLE noise_floor ADD COLUMN pooled_min REAL"),
     ("evaluations", "offline_eval", "ALTER TABLE evaluations ADD COLUMN offline_eval INTEGER NOT NULL DEFAULT 0"),               # DECISION 2026-09-18 item 1: E4 of the large tier's proven B0 candidates, run by the offline pool
     ("evaluations", "prescreened_offline", "ALTER TABLE evaluations ADD COLUMN prescreened_offline INTEGER NOT NULL DEFAULT 0"), # DECISION 2026-09-18 item 1: E4 of the large tier's prescreened M candidates (provisional: no proof)
+    ("evaluations", "e4_rerun", "ALTER TABLE evaluations ADD COLUMN e4_rerun INTEGER NOT NULL DEFAULT 0"),                       # DECISION 2026-09-18 (b) item 4: E4 re-run after a timeout (3600 s guard)
+    ("runs", "prescreen_on", "ALTER TABLE runs ADD COLUMN prescreen_on INTEGER NOT NULL DEFAULT 0"),                             # DECISION 2026-09-18 (b) item 1c: the run executed with the map-prior prescreen active
+    ("runs", "excluded_from_tables", "ALTER TABLE runs ADD COLUMN excluded_from_tables INTEGER NOT NULL DEFAULT 0"),             # DECISION 2026-09-18 (b) item 1c: kept as a record, left out of the main tables (a replacement run exists)
     # Phase 3 (DECISIONS 2026-09-14, spec 07): requested class, prescreen, class-aware SEQ cap, time to verdict, job links, label
     ("candidates", "class_requested", "ALTER TABLE candidates ADD COLUMN class_requested TEXT"),
     ("candidates", "prescreened", "ALTER TABLE candidates ADD COLUMN prescreened INTEGER NOT NULL DEFAULT 0"),

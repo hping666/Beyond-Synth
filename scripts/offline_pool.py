@@ -45,7 +45,7 @@ def log(msg):
 def settings(cfg):
     o = dict(cfg.get("offline_pool") or {})
     o.setdefault("slots", 8); o.setdefault("priority", 1); o.setdefault("load_over_baseline", 0.10); o.setdefault("vcf_wait_q95_max_min", 20.0)
-    o.setdefault("poll_sec", 60); o.setdefault("exp", "phase5"); o.setdefault("tier", "large")
+    o.setdefault("poll_sec", 60); o.setdefault("exp", "phase5"); o.setdefault("tier", "large"); o.setdefault("rerun_guard_sec", 3600)
     return o
 
 
@@ -83,9 +83,9 @@ def scope(cfg, conn, include_e4_timeouts=False):
         if conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' LIMIT 1", (r["cand_id"],)).fetchone():
             continue
         out.append({"cand_id": r["cand_id"], "group": "b0_e4", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"]})
-    # (ii) prescreened M candidates: sim first, then E4
+    # (ii) prescreened M candidates (every tier: the large tier's 636 and the 5 of the replaced thresholds run, item 1c): sim first, then E4
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
-                          f"WHERE r.exp=? AND r.status!='superseded' AND COALESCE(c.prescreened,0)=1 AND c.design_id IN ({marks}) ORDER BY c.cand_id", (o["exp"], *designs)):
+                          f"WHERE r.exp=? AND r.status!='superseded' AND COALESCE(c.prescreened,0)=1 ORDER BY c.cand_id", (o["exp"],)):
         if conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' LIMIT 1", (r["cand_id"],)).fetchone():
             continue
         out.append({"cand_id": r["cand_id"], "group": "prescreened", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"]})
@@ -140,6 +140,9 @@ def e4_job(cfg, conn, design, cand, saif=None):
     j["payload"].update(rtl=[cand["rtl_path"]], incdirs=[str(p) for p in K.abs_paths(design, design["incdirs"])], is_baseline=0, cand_id=cand["cand_id"], offline_pool=True)
     if cand["group"] == "prescreened":
         j["payload"]["prescreened_offline"] = 1
+    elif cand["group"] == "e4_timeout":   # DECISION 2026-09-18 (b) item 4: the re-run gets a 3600 s dc_shell guard and the e4_rerun flag
+        j["payload"]["e4_rerun"] = 1
+        j["timeout_sec"] = int(o.get("rerun_guard_sec", 3600)) + 180
     else:
         j["payload"]["offline_eval"] = 1
     if saif and Path(saif).exists():
@@ -178,7 +181,7 @@ def throttle(cfg, conn, st):
     o = settings(cfg)
     l1, q95 = load1(), medium_vcf_wait_q95(cfg, conn)
     base = st.get("baseline") or l1
-    over = l1 > base * (1.0 + float(o["load_over_baseline"])) or q95 > float(o["vcf_wait_q95_max_min"])
+    over = l1 > base * (1.0 + float(o["load_over_baseline"]))   # DECISION 2026-09-18 (b) item 3: load only (the pool submits no proofs; q95 is logged, not applied)
     if over and not st.get("paused"):
         st["paused"] = True; log(f"PAUSE load1 {l1:.0f} (baseline {base:.0f}), medium VC Formal wait q95 {q95:.1f} min")
     elif not over and st.get("paused"):

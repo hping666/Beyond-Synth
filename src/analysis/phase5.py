@@ -105,7 +105,7 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
     for r in conn.execute("SELECT * FROM runs WHERE exp=? AND status != 'superseded' ORDER BY created_at", (exp,)):
         r = dict(r)
         t = tier_of.get(r["design_id"])
-        if t not in tiers:
+        if t not in tiers or int(r.get("excluded_from_tables") or 0):   # DECISION 2026-09-18 (b) item 1c: a run kept as a record but replaced (prescreen on) stays out of the tables
             continue
         r["tier"], r["role"] = t, role_of(cfg, t, r["llm_model"])
         runs.append(r)

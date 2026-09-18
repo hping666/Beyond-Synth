@@ -10,7 +10,7 @@ Per generation:
 1. Parent selection: sample from A by crowding distance; after `search.stall_gens` generations without retained improvement -> switch parent / restart (another element of A, or D).
 2. Generation: the bandit draws N classes (UCB-softmax, config), one prompt per class, the LLM generates N candidates in parallel; each candidate carries the feedback blocks of its parent lineage (the most recent `search.feedback_depth`).
 3. M6 classification (produced class).
-4. Prescreen (`config: prescreen`): a candidate whose produced class has a map-prior absorption probability ≥ `prescreen.p_min` is not evaluated with probability 1 − `prescreen.audit_frac` and receives immediate feedback with the prior (label `prescreened`, audited candidates continue).
+4. ~~Prescreen~~ — removed 2026-09-18 (DECISION 2026-09-18 (b) item 1a): the candidate-level map-prior prescreen was introduced under the 2026-09-14 C2 redefinition item 3, orphaned by the 2026-09-15 G5 demotion of the class prior and removed on 2026-09-18; the large-tier M runs executed with it active and their 636 prescreened candidates are evaluated offline (see the offline pool). No cutoff discards a candidate.
 5. Equivalence stack V1 → testbench → V2 → V3 (V4 for clockless modules); class-aware SEQ caps (spec 03); non-proven candidates are recorded and discarded from the population, `inconclusive` ones are reported.
 6. E4 evaluation; M3 diagnosis (spec 04 §B.2, including `absorbed_identical`, `duplicate`, `fragile`); feedback blocks written; bandit credit by the produced class.
 7. Acceptance check on spread / offset designs: `search.acceptance_envelope.n_perturbations` surface perturbations of the candidate are generated and run at E4; the candidate's gain must exceed their envelope, otherwise `fragile`.
@@ -28,7 +28,7 @@ Template files: `src/search/prompts/*.md`, versioned; changes are recorded in DE
 
 ## 3. Prescreen, and synthesis-rung screening as an experiment only
 
-**Prescreen (classifier-based, part of the main method; DECISIONS 2026-09-14 C2.3)**: after M6, the produced class's map-prior absorption probability decides whether the candidate is evaluated at all (§1 step 4); the audited fraction measures the prescreen's miss rate, which is reported per design.
+**Prescreen — removed 2026-09-18** (DECISION 2026-09-18 (b) item 1a). Former text: : after M6, the produced class's map-prior absorption probability decides whether the candidate is evaluated at all (§1 step 4); the audited fraction measures the prescreen's miss rate, which is reported per design. The mechanism is off (`search.arms.M.prescreen: false`) for every run from the medium tier on; the map prior lives only in the bandit initialization.
 
 **Synthesis-rung screening (not in the main method; DECISIONS 2026-09-14 G3.1)**: E4 is cheap for 90 % of the designs and no DC rung is cheaper where E4 is expensive (Phase 2 §3). The only candidate screening rung is Y (`screen.candidates_es = [Y]`). Its AUROC for E4 retention is measured in Phases 3 / 4 from the E4-evaluated candidates; if AUROC < `screen.auroc_min` the M_noscreen arm is dropped and its budget reallocated to starting points (`screen.noscreen_arm`). If Y qualifies, the earlier rung-control rules (τ from the E4 quota, audit miss-rate correction, per-design predictor) apply to the M_noscreen comparison only.
 
@@ -43,7 +43,7 @@ The primary caliber is **equal LLM calls** (`scale.budget.primary`, `scale.budge
 | B0 | three-component gain at Y caliber (no truncation) | none | scalar (Y numbers) | any positive gain |
 | B1@E4 | three-component E4 gain (no truncation) | none | scalar + static complement text | any positive gain |
 | B2 | three-component E4 gain (no truncation) | none | scalar (E4 numbers) | any positive gain |
-| M | E4 retained gain (rule-A floor) | none (prescreen only) | synthesizer verdict + prior | retained / trade-off improvement, by produced class |
+| M | E4 retained gain (rule-A floor) | none (the prescreen was removed 2026-09-18) | synthesizer verdict + prior | retained / trade-off improvement, by produced class |
 | M-noscreen (conditional) | same as M | Y rung, only if AUROC(Y) ≥ `screen.auroc_min` | same as M | same as M |
 | Dr.RTL-reimpl | E4 scalar | none | Dr.RTL's top-k path feedback + in-run skill learning (implemented as in its paper) | — |
 
