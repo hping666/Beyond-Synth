@@ -249,7 +249,7 @@ def main(argv=None):
             print(post_slack(cfg, line))
     else:
         print(f"No new complete design ({len(view['complete'])} complete: " + (", ".join(view["complete"]) or "none") + f"; {len(view.get('preliminary') or [])} B0 pending: " + (", ".join(view.get("preliminary") or []) or "none")
-              + f"; tally {r['wins']} wins, {r['lost']} lost, {r['undecided']} undecided; {r['wins_still_needed']} wins still needed).")
+              + f"; tally {r['wins']} wins, {r.get('ties', 0)} ties, {r['lost']} lost, {r['undecided']} undecided; {r['wins_still_needed']} wins still needed).")
     return 0
 
 
