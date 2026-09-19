@@ -108,7 +108,7 @@ def pending_kind(c, e4_ok):
     if lab in ("duplicate", "aborted", "absorbed_identical"):
         return None
     if ver == "proven":
-        return None if e4_ok() else "e4"
+        return None if (e4_ok() or c.get("e4_failure")) else "e4"   # DECISION 2026-09-19 (n) 1: a terminal DC rejection is resolved
     if ver in ("proven_sim_only", "sim_fail", "falsified", "rejected", "inconclusive", "error"):
         return None
     if lab == "prescreened":   # offline pool: sim -> E4; the proof stays pending (D2)
@@ -131,7 +131,7 @@ def pending_summary(cfg, conn, tiers, exp="phase5"):
     designs = sorted(d for d, t in tier_of.items() if t in tiers)
     e4 = {r[0] for r in conn.execute("SELECT DISTINCT cand_id FROM evaluations WHERE config='E4' AND status='ok' AND cand_id IS NOT NULL")}
     pend = Counter()
-    for c in conn.execute("SELECT c.cand_id, c.label, c.verdict, c.v1_status, c.v2_status FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+    for c in conn.execute("SELECT c.cand_id, c.label, c.verdict, c.v1_status, c.v2_status, c.e4_failure FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                           "WHERE r.exp=? AND r.status != 'superseded' AND COALESCE(r.excluded_from_tables, 0) = 0", (exp,)):
         c = dict(c)
         if tier_of.get(conn.execute("SELECT design_id FROM candidates WHERE cand_id=?", (c["cand_id"],)).fetchone()[0]) not in tiers:
@@ -170,15 +170,16 @@ def complete_designs(cfg, conn, exp="phase5", plan=None):
         done[r["design_id"]][f"{r['llm_model']}|{r['arm']}"] += 1
     e4 = {r[0] for r in conn.execute("SELECT DISTINCT cand_id FROM evaluations WHERE config='E4' AND status='ok' AND cand_id IS NOT NULL")}
     e4_failed = {r[0] for r in conn.execute("SELECT DISTINCT cand_id FROM evaluations WHERE config='E4' AND status != 'ok' AND cand_id IS NOT NULL")}
+    e4_exhausted = {r[0] for r in conn.execute("SELECT cand_id FROM evaluations WHERE config='E4' AND status != 'ok' AND cand_id IS NOT NULL GROUP BY cand_id HAVING COUNT(*) >= 3")}   # (n) 1: the pool stops after three attempts
     pending = defaultdict(lambda: defaultdict(int))
     blockers = defaultdict(Counter)
-    for c in conn.execute("SELECT c.cand_id, c.design_id, c.label, c.verdict, c.v1_status, c.v2_status, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+    for c in conn.execute("SELECT c.cand_id, c.design_id, c.label, c.verdict, c.v1_status, c.v2_status, c.e4_failure, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                           "WHERE r.exp=? AND r.status != 'superseded' AND COALESCE(r.excluded_from_tables, 0) = 0", (exp,)):
         c = dict(c)
         k = pending_kind(c, lambda: c["cand_id"] in e4)
         if not k:
             continue
-        kind = k if k != "e4" else ("b0_e4" if c["arm"] == "B0" else ("e4_retry" if c["cand_id"] in e4_failed else "e4_late"))
+        kind = k if k != "e4" else ("b0_e4" if c["arm"] == "B0" else ("e4_exhausted" if c["cand_id"] in e4_exhausted else "e4_retry" if c["cand_id"] in e4_failed else "e4_late"))
         blockers[c["design_id"]][kind] += 1
         if k != "proof":
             pending[c["design_id"]][f"{c['llm_model']}|{c['arm']}"] += 1
@@ -235,9 +236,10 @@ def design_arm_comparison(cfg, conn, designs_cache, design_id, exp="phase5"):
 
 
 def m_outcome(comparison, model):
-    """DECISION 2026-09-19 (m) item 4 (the F2 tally categories under `model`): 'win' — M's mean best retained area gain exceeds both
-    B1_E4's and B2's by more than the design's rule-A area floor (t_d); 'loss' — worse than either by more than the floor; 'tie' —
-    otherwise (within the floor of both, or separated from one baseline only); None when a row is missing."""
+    """DECISION 2026-09-19 (m) item 4 and (n) item 2 (the F2 tally categories under `model`): 'win' — M's mean best retained area gain
+    exceeds both B1_E4's and B2's by more than the design's rule-A area floor (t_d); 'loss' — worse than either by more than the floor;
+    'partial' — separated from exactly one baseline by more than the floor and within the floor of the other; 'tie' — within the
+    floor of both; None when a row is missing."""
     rows = comparison["rows"]
     m, b1, b2 = rows.get(f"{model}|M"), rows.get(f"{model}|B1_E4"), rows.get(f"{model}|B2")
     if not (m and b1 and b2) or m["best_gain_mean"] is None:
@@ -248,6 +250,8 @@ def m_outcome(comparison, model):
         return "loss"
     if d1 > t and d2 > t:
         return "win"
+    if d1 > t or d2 > t:
+        return "partial"
     return "tie"
 
 
@@ -255,6 +259,16 @@ def m_exceeds(comparison, model):
     """F2 tally rule (kept for the callers): True when M wins, False otherwise, None when a row is missing (see m_outcome)."""
     o = m_outcome(comparison, model)
     return None if o is None else o == "win"
+
+
+def dc_rejected(conn, cfg, exp="phase5"):
+    """DECISION 2026-09-19 (n) item 1: the candidates whose E4 failed terminally (candidates.e4_failure, e.g. "DC rejected (ELAB-366)"),
+    per design -> {design_id: [(cand_id, arm, text)]} over the non-superseded runs."""
+    out = {}
+    for r in conn.execute("SELECT c.design_id, c.cand_id, r.arm, c.e4_failure FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp=? AND r.status != 'superseded' "
+                          "AND c.e4_failure IS NOT NULL ORDER BY c.design_id, r.arm, c.cand_id", (exp,)):
+        out.setdefault(r[0], []).append((r[1], r[2], r[3]))
+    return out
 
 
 def completion_view(cfg, conn, exp="phase5"):
@@ -266,19 +280,19 @@ def completion_view(cfg, conn, exp="phase5"):
     tier_of = tier_of_design(cfg)
     designs = _Designs(cfg, conn)
     main_model = {t: (m.get("all_arms") or cfg["llm"]["selected"]) for t, m in ((cfg["exp5"].get("model_assignment") or {}).items())}
-    comps, tally = {}, {"wins": [], "ties": [], "losses": [], "undecided": []}
+    comps, tally = {}, {"wins": [], "ties": [], "partials": [], "losses": [], "undecided": []}
     for d in cd["complete"] + cd["preliminary"]:
         comp = design_arm_comparison(cfg, conn, designs, d, exp)
         model = main_model.get(tier_of.get(d), cfg["llm"]["selected"])
         outcome = m_outcome(comp, model)   # DECISION 2026-09-19 (m) 4: win / tie / loss
         comp["model"], comp["m_outcome"], comp["m_exceeds"], comp["b0_pending"] = model, outcome, (None if outcome is None else outcome == "win"), d in cd["preliminary"]
         comps[d] = comp
-        {"win": tally["wins"], "tie": tally["ties"], "loss": tally["losses"], None: tally["undecided"]}[outcome].append(d)
+        {"win": tally["wins"], "tie": tally["ties"], "partial": tally["partials"], "loss": tally["losses"], None: tally["undecided"]}[outcome].append(d)
     total = sum(len(v) for v in (cfg["exp5"].get("starting_points") or {}).values())
     need = int(cfg["exp5"].get("criterion_wins", 18))
     counted = len(cd["complete"]) + len(cd["preliminary"])
     remaining = total - counted
-    reach = {"total_designs": total, "criterion_wins": need, "wins": len(tally["wins"]), "ties": len(tally["ties"]), "lost": len(tally["losses"]), "undecided": len(tally["undecided"]),
+    reach = {"total_designs": total, "criterion_wins": need, "wins": len(tally["wins"]), "ties": len(tally["ties"]), "partial": len(tally["partials"]), "lost": len(tally["losses"]), "undecided": len(tally["undecided"]),
              "remaining_designs": remaining, "wins_still_needed": max(0, need - len(tally["wins"])), "reachable": (len(tally["wins"]) + remaining + len(tally["undecided"])) >= need,
              "preliminary": len(cd["preliminary"])}
     open_proofs = {r[0]: r[1] for r in conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE kind='vcf' AND state IN ('queued', 'running', 'held') GROUP BY design_id")}
@@ -305,11 +319,12 @@ def completion_alert(cfg, conn, state_path=None, write=True, view=None, exp="pha
         r = view["reachability"]
         wins = [d for d in new + new_p if d in view["tally"]["wins"]]
         ties = [d for d in new + new_p if d in view["tally"].get("ties", [])]
+        partials = [d for d in new + new_p if d in view["tally"].get("partials", [])]
         n_all = len(view["complete"]) + len(view.get("preliminary") or [])
         line = (f"New complete designs since last render ({now}): " + (", ".join(new) or "none")
                 + (f"; B0 pending (complete except for B0's offline E4, DECISION 2026-09-19 (l) 3): {', '.join(new_p)}" if new_p else "")
-                + f" — M wins (exceeds both B1_E4 and B2 by more than the floor) on {len(wins)} of them, ties on {len(ties)}; "
-                f"tally {r['wins']} wins, {r.get('ties', 0)} ties, {r['lost']} losses of {n_all} complete designs (visible layer" + (f"; {len(view['preliminary'])} of them B0 pending" if view.get("preliminary") else "") + f"), "
+                + f" — M wins (exceeds both B1_E4 and B2 by more than the floor) on {len(wins)} of them, ties on {len(ties)}, partial on {len(partials)}; "
+                f"tally {r['wins']} wins, {r.get('ties', 0)} ties, {r.get('partial', 0)} partial, {r['lost']} losses of {n_all} complete designs (visible layer" + (f"; {len(view['preliminary'])} of them B0 pending" if view.get("preliminary") else "") + f"), "
                 f"{r['wins_still_needed']} wins still needed of {r['remaining_designs'] + r['undecided']} remaining / undecided"
                 + ("" if r["reachable"] else " — the 18-of-30 criterion is no longer reachable in the visible layer") + ".")
     if write and (new or new_p):

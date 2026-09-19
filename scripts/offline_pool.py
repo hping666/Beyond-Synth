@@ -102,17 +102,21 @@ def scope(cfg, conn, include_e4_timeouts=True):
     # (i) proven B0 candidates without a visible E4 record — DECISION 2026-09-18 (d) B5: every tier, continuously as runs finish;
     #     a candidate of a superseded run is not evaluated here (D2 covers those)
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
-                          f"WHERE r.exp=? AND r.status='done' AND r.arm='B0' AND c.verdict IN ('proven','proven_sim_only') ORDER BY c.cand_id", (o["exp"],)):
+                          f"WHERE r.exp=? AND r.status='done' AND r.arm='B0' AND c.verdict IN ('proven','proven_sim_only') AND c.e4_failure IS NULL ORDER BY c.cand_id", (o["exp"],)):
         if has_ok_e4(r["cand_id"]):
+            continue
+        if conn.execute("SELECT COUNT(*) FROM evaluations WHERE cand_id=? AND config='E4' AND status != 'ok'", (r["cand_id"],)).fetchone()[0] >= int(o.get("e4_max_attempts", 3)):
             continue
         out.append(item(r, "b0_e4"))
     # (m) 3: proven candidates of finished runs, any arm but B0, not prescreened, not identical-text / duplicate / aborted, without an ok E4 record:
     #     an E4 that was tried (an evaluation record of any status or a DC job) is retried with the long guard; one never submitted is run
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
-                          f"WHERE r.exp=? AND r.status='done' AND r.arm!='B0' AND COALESCE(c.prescreened,0)=0 AND c.verdict='proven' "
-                          f"AND COALESCE(c.label,'') NOT IN ('duplicate','aborted','absorbed_identical') ORDER BY c.cand_id", (o["exp"],)):
+                          f"WHERE r.exp=? AND r.status='done' AND r.arm!='B0' AND COALESCE(c.prescreened,0)=0 AND c.verdict='proven' AND c.e4_failure IS NULL "
+                          f"AND COALESCE(c.label,'') NOT IN ('duplicate','aborted','absorbed_identical') ORDER BY c.cand_id", (o["exp"],)):   # (n) 1: a terminal DC rejection is not retried
         if has_ok_e4(r["cand_id"]):
             continue
+        if conn.execute("SELECT COUNT(*) FROM evaluations WHERE cand_id=? AND config='E4' AND status != 'ok'", (r["cand_id"],)).fetchone()[0] >= int(o.get("e4_max_attempts", 3)):
+            continue   # retries exhausted: reported as such, an operator decision
         tried = conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' LIMIT 1", (r["cand_id"],)).fetchone() or \
             conn.execute("SELECT 1 FROM jobs WHERE cand_id=? AND pool='dc' LIMIT 1", (r["cand_id"],)).fetchone()
         out.append(item(r, "e4_timeout" if tried else "e4_late"))
@@ -247,6 +251,31 @@ def write_reproof(conn, cand_id, rec, job_id):
                  (rec.get("v3_status"), rec.get("v3_seconds"), rec.get("verdict"), rec.get("proven_by"), rec.get("counterexample_path"), rec.get("harness_version"), job_id,
                   f" [re-proven {time.strftime('%Y-%m-%d %H:%M')} by the offline pool: {rec.get('verdict')} (harness_version {rec.get('harness_version')})]", cand_id))
     conn.commit()
+
+
+def classify_e4_failure(cfg, conn, cand_id, job_id):
+    """DECISION 2026-09-19 (n) 1: after a failed pool E4 job, read the DC error id from the job log's result line; an id of a rejection
+    class (config offline_pool.dc_reject_prefixes: ELAB, VER, LINK — elaboration, unsupported construct, link) is terminal: the row gets
+    candidates.e4_failure = "DC rejected (ID)" and is counted as resolved; anything else (a timeout, a licence or host failure) is left
+    for a retry. -> ("rejected", id) | ("retry", id or None)."""
+    import re as _re
+    o = settings(cfg)
+    prefixes = tuple(o.get("dc_reject_prefixes") or ["ELAB", "VER", "LINK"])
+    row = conn.execute("SELECT log_path FROM jobs WHERE job_id=?", (job_id,)).fetchone()
+    txt = ""
+    if row and row["log_path"] and os.path.exists(row["log_path"]):
+        try:
+            txt = open(row["log_path"], errors="replace").read()[-20000:]
+        except OSError:
+            txt = ""
+    ids = _re.findall(r"\(([A-Z]{2,5}-\d+)\)", txt)
+    rid = ids[-1] if ids else None
+    if rid and rid.split("-")[0] in prefixes and "exceeded" not in txt:
+        conn.execute("UPDATE candidates SET e4_failure=?, note=COALESCE(note,'') || ? WHERE cand_id=?",
+                     (f"DC rejected ({rid})", f" [evaluation failed (DC rejected): {rid}, terminal — DECISION 2026-09-19 (n) 1]", cand_id))
+        conn.commit()
+        return "rejected", rid
+    return "retry", rid
 
 
 def sync_resim_row(conn, cand_id, rec, sim_job, passed):
@@ -402,6 +431,9 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
                 if js and js["state"] in ("done", "failed"):
                     ev = conn.execute("SELECT status, dc_seconds FROM evaluations WHERE cand_id=? AND config='E4' ORDER BY eval_id DESC LIMIT 1", (cid,)).fetchone()
                     c["e4_result"] = (f"E4 {ev['status']}" if ev else f"E4 job {js['state']}"); c["dc_seconds"] = ev["dc_seconds"] if ev else None
+                    if not ev or ev["status"] != "ok":
+                        kind, rid = classify_e4_failure(cfg, conn, cid, c["e4_job"])
+                        c["e4_result"] = f"E4 DC rejected ({rid}), terminal" if kind == "rejected" else f"{c['e4_result']} ({rid or 'no DC error id'}; retry)"
             if c.get("proof_result") is not None and c.get("e4_result") is not None:
                 c.update(stage="done", result=f"resim: proof {c['proof_result']}, {c['e4_result']}")
                 if c.get("sim_payload") and not c.get("sim_slimmed"):
@@ -411,6 +443,9 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
             if js and js["state"] in ("done", "failed"):
                 ev = conn.execute("SELECT status, dc_seconds, raw_dir FROM evaluations WHERE cand_id=? AND config='E4' ORDER BY eval_id DESC LIMIT 1", (cid,)).fetchone()
                 c.update(stage=("await_proof" if c.get("group") == "reverify" else "done"), result=f"E4 {ev['status']}" if ev else f"E4 job {js['state']}", dc_seconds=(ev["dc_seconds"] if ev else None))
+                if not ev or ev["status"] != "ok":   # DECISION 2026-09-19 (n) 1: a DC rejection is terminal, anything else waits for a retry
+                    kind, rid = classify_e4_failure(cfg, conn, cid, c["e4_job"])
+                    c["result"] = f"E4 DC rejected ({rid}), terminal" if kind == "rejected" else f"{c['result']} ({rid or 'no DC error id'}; retry)"
                 if c.get("sim_payload") and not c.get("sim_slimmed"):
                     c["sim_slimmed"] = str(slim_sim_record(cfg, c["sim_payload"]))[:120]
                 if ev and ev["raw_dir"]:   # the same tiered retention as the visible runs: full artifacts for accepted / audit candidates, the parsed record and reports otherwise

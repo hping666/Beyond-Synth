@@ -263,9 +263,9 @@ def test_complete_designs_tally_reachability_and_alert_both_directions(tmp_path,
     view_p = P5.completion_view(cfg, conn)
     assert view_p["preliminary"] == ["m1"] and view_p["comparisons"]["m1"]["b0_pending"] is True and view_p["tally"]["wins"] == ["m1"] and view_p["reachability"]["preliminary"] == 1 and view_p["reachability"]["remaining_designs"] == 0
     new_p, line_p, _ = P5.completion_alert(cfg, conn, state_path=tmp_path / "prelim.json", write=False)
-    assert new_p == ["m1"] and "B0 pending" in line_p and "tally 1 wins, 0 ties, 0 losses of 1 complete designs (visible layer; 1 of them B0 pending)" in line_p
+    assert new_p == ["m1"] and "B0 pending" in line_p and "tally 1 wins, 0 ties, 0 partial, 0 losses of 1 complete designs (visible layer; 1 of them B0 pending)" in line_p
     sec = "\n".join(load_report().phase5_completion_section(cfg, view_p, ["medium"], {"m1": "medium"}))
-    assert "B0 pending: 1 — m1" in sec and "| gpt-5.6-luna | B0 | 1 | 1 | pending | pending | pending | pending (B0 offline E4) |" in sec and "on 1 of 1 complete designs (visible layer; ties 0, M loses 0; 1 of them B0 pending)" in sec and "| gpt-5.6-luna | M | 1 | 2 | 1 | 1 | 0 |" in sec
+    assert "B0 pending: 1 — m1" in sec and "| gpt-5.6-luna | B0 | 1 | 1 | pending | pending | pending | pending (B0 offline E4) |" in sec and "on 1 of 1 complete designs (visible layer; ties 0, partial 0, M loses 0; 1 of them B0 pending)" in sec and "| gpt-5.6-luna | M | 1 | 2 | 1 | 1 | 0 |" in sec
     db.insert(conn, "evaluations", ev_b0); conn.commit()                                              # B0's E4 in -> the design moves to the full table
     assert P5.complete_designs(cfg, conn, plan=plan)["complete"] == ["m1"] and P5.complete_designs(cfg, conn, plan=plan)["preliminary"] == []   # an offline proof pending (D3) does not hold it back
     view = P5.completion_view(cfg, conn)
@@ -275,7 +275,7 @@ def test_complete_designs_tally_reachability_and_alert_both_directions(tmp_path,
     state = tmp_path / "complete.json"; status = tmp_path / "STATUS.md"; status.write_text("# S\n")
     monkeypatch.setattr(C, "ROOT", str(tmp_path))
     new, line, _ = P5.completion_alert(cfg, conn, state_path=state, write=True)
-    assert new == ["m1"] and line.startswith("New complete designs since last render") and "tally 1 wins, 0 ties, 0 losses of 1 complete designs" in line and "m1" in status.read_text()
+    assert new == ["m1"] and line.startswith("New complete designs since last render") and "tally 1 wins, 0 ties, 0 partial, 0 losses of 1 complete designs" in line and "m1" in status.read_text()
     new2, line2, _ = P5.completion_alert(cfg, conn, state_path=state, write=True)
     assert new2 == [] and line2 is None and status.read_text().count("New complete designs") == 1     # fires once
     # the other direction of the tally: M no better than the floor over B1_E4 / B2
@@ -398,13 +398,13 @@ def test_completion_section_lists_what_blocks_the_all_done_designs():
             "reachability": {"total_designs": 3, "criterion_wins": 2, "wins": 0, "ties": 1, "lost": 0, "undecided": 0, "remaining_designs": 2, "wins_still_needed": 2, "reachable": True, "preliminary": 1}}
     view["comparisons"]["d2"]["m_outcome"] = "tie"
     sec = "\n".join(R.phase5_completion_section({"exp5": {"mechanism_notes": ["note X about M's archive"]}}, view, ["medium"], {"d1": "medium", "d2": "medium", "d3": "medium"}))
-    assert "M: tie — no arm separates from the others on this design)" in sec and "Ties — no arm separates from the others on this design: d2." in sec and "ties 1, M loses 0" in sec   # DECISION 2026-09-19 (m) 4
-    assert "- Mechanism note (C2): note X about M's archive" in sec and "mean over seeds of each run's best retained area gain (the tally rule of F2) and the max over seeds; §2 shows the max over seeds only" in sec   # (m) 5 / 6
+    assert "M: tie — no arm separates from the others on this design)" in sec and "Ties — no arm separates from the others on this design: d2." in sec and "ties 1, partial 0, M loses 0" in sec   # DECISION 2026-09-19 (m) 4 / (n) 2
+    assert "- Mechanism note (C2): note X about M's archive" in sec and "the mean over seeds of each run's best retained area gain is the primary statistic (the tally rule of F2), with the max over seeds alongside; §2 shows the max over seeds only" in sec.splitlines()[0]   # (m) 5 / 6, (n) 4: stated once, in the header
     assert "| d1 | medium | 3 / 3 | 4 | E4 never submitted for 2 candidates (run finished before the proof returned; pool group e4_late); failed evaluation jobs 7 (sim jobs of the 2026-09-18 10:41 operator edit; re-run not yet decided) |" in sec
     assert "| d2 | medium | 3 / 3 | 0 | B0 offline E4 5 (offline pool) — B0 pending |" in sec
     assert "No design is complete, so no completion alert has fired: the 2 designs with every run done are held by B0 offline E4 5, E4 never submitted for 2 candidates, failed evaluation jobs 7." in sec
     assert "| d3 | medium | M-luna 1/3 |" in sec and "| d1 | medium | M-luna" not in sec
-    assert "| gpt-5.6-luna | B0 | 3 | 9 | pending | pending | pending | pending (B0 offline E4) |" in sec and "on 0 of 1 complete designs (visible layer; ties 1, M loses 0; 1 of them B0 pending)" in sec
+    assert "| gpt-5.6-luna | B0 | 3 | 9 | pending | pending | pending | pending (B0 offline E4) |" in sec and "on 0 of 1 complete designs (visible layer; ties 1, partial 0, M loses 0; 1 of them B0 pending)" in sec
 
 
 def test_tally_categories_win_tie_loss_both_directions():
@@ -417,7 +417,8 @@ def test_tally_categories_win_tie_loss_both_directions():
     assert P5.m_outcome(comp(0.0191, 0.0212, 0.0197, 0.0028), "gpt-5.6-luna") == "tie"      # btb: within the floor of both
     assert P5.m_outcome(comp(0.0032, 0.0032, 0.0032, 0.0028), "gpt-5.6-luna") == "tie"      # decoder_8bit: equal
     assert P5.m_outcome(comp(0.01, 0.03, 0.01), "gpt-5.6-luna") == "loss"                   # worse than B1_E4 by more than the floor
-    assert P5.m_outcome(comp(0.03, 0.01, 0.025), "gpt-5.6-luna") == "tie"                   # separated from B1_E4 only: neither win nor loss
+    assert P5.m_outcome(comp(0.03, 0.01, 0.025), "gpt-5.6-luna") == "partial"               # DECISION 2026-09-19 (n) 2: separated from B1_E4 only, within the floor of B2
+    assert P5.m_outcome(comp(0.03, 0.025, 0.01), "gpt-5.6-luna") == "partial" and P5.m_outcome(comp(0.03, 0.025, 0.021), "gpt-5.6-luna") == "tie"
     assert P5.m_outcome({"rows": {"gpt-5.6-luna|M": {"best_gain_mean": 0.1}}, "t_d_area": 0.01}, "gpt-5.6-luna") is None
     assert P5.m_exceeds(comp(0.05, 0.03, 0.02), "gpt-5.6-luna") is True and P5.m_exceeds(comp(0.0191, 0.0212, 0.0197, 0.0028), "gpt-5.6-luna") is False and P5.m_exceeds(comp(0.01, 0.03, 0.01), "gpt-5.6-luna") is False
 
@@ -452,7 +453,7 @@ def test_lane_threshold_raise_and_pool_progress_line(tmp_path, monkeypatch):
     assert len(g) == 1 and "spi: 100 idle seat-minutes in the last hour with 3 queued runs, mean proof 57 min -> proof-wait threshold 60 -> 86 min" in g[0] and "uart" not in g[0] and "(dry run: not applied)" in g[0] and restarted == []
     lines = AL.slot_report(cfg, conn, write=True, restart=lambda: restarted.append(1) or True)
     assert restarted == [1] and "proof_wait_max_min_by_lane: {spi: 85.5}" in (tmp_path / "config" / "experiments.yaml").read_text()
-    assert any(l.startswith("offline pool (m 1):") and "unknown (no throughput in 3 h)" in l for l in lines), [l for l in lines if "offline pool" in l]
+    assert any(l.startswith("offline pool (m 1 / n 3):") and "unknown (no throughput)" in l for l in lines), [l for l in lines if "offline pool" in l]
     # the other direction: the raised lane at its new threshold is not raised again; uart with idle minutes but no queued runs is left alone
     cfg["queue"]["admission_guard"]["proof_wait_max_min_by_lane"] = {"spi": 85.5}
     monkeypatch.setattr(core, "idle_seat_minutes", lambda conn, cfg, hours=1.0: {"spi": {"seats": 15, "occupied_min": 800, "idle_min": 100.0}, "uart": {"seats": 5, "occupied_min": 200, "idle_min": 100.0}})
@@ -477,3 +478,65 @@ def test_lane_threshold_raise_and_pool_progress_line(tmp_path, monkeypatch):
     (tmp_path / "pool_state.json").write_text(json.dumps(state))
     pp = AL.pool_progress(cfg, conn, state_path=str(tmp_path / "pool_state.json"))
     assert pp["h1"]["medium_b0"] == 3 and pp["waiting"] == 6 and pp["rate_per_h"] == 1.0 and pp["eta_hours"] == 6.0 and pp["unfinished_runs"] == 0
+
+
+def test_dc_rejection_is_terminal_and_listed(tmp_path):
+    """DECISION 2026-09-19 (n) 1: a proven candidate whose E4 failed terminally (candidates.e4_failure) is resolved for completeness and
+    listed per design in §0a with its DC error id; one without the marker still waits for E4. Both directions."""
+    no = lambda: False
+    assert P5.pending_kind({"label": None, "verdict": "proven", "e4_failure": "DC rejected (ELAB-366)"}, no) is None
+    assert P5.pending_kind({"label": None, "verdict": "proven", "e4_failure": None}, no) == "e4"
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["m1", "m2"], "small": []}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    db.insert(conn, "runs", {"run_id": "r1", "exp": "phase5", "arm": "B2", "design_id": "m1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "done", "started_at": "t"})
+    db.insert(conn, "candidates", {"cand_id": "c_rej", "run_id": "r1", "design_id": "m1", "gen": 1, "arm": "B2", "verdict": "proven", "e4_failure": "DC rejected (ELAB-366)"})
+    db.insert(conn, "candidates", {"cand_id": "c_rej2", "run_id": "r1", "design_id": "m1", "gen": 1, "arm": "B2", "verdict": "proven", "e4_failure": "DC rejected (VER-262)"})
+    db.insert(conn, "candidates", {"cand_id": "c_wait", "run_id": "r1", "design_id": "m1", "gen": 1, "arm": "B2", "verdict": "proven"})
+    s = P5.pending_summary(cfg, conn, ["medium"])
+    assert s["pending"] == {"e4": 1} and not s["complete"]                     # the terminal ones are resolved; c_wait still holds
+    rej = P5.dc_rejected(conn, cfg)
+    assert rej == {"m1": [("c_rej", "B2", "DC rejected (ELAB-366)"), ("c_rej2", "B2", "DC rejected (VER-262)")]}
+    R = load_report()
+    sec = "\n".join(R.phase5_notes_section(cfg, ["medium"], {"m1": "medium", "m2": "medium"}, dc_rejected=rej))
+    assert "| m1 | medium | evaluation failed (DC rejected): 2 proven candidates (ELAB-366, VER-262; B2 2) — rejected by DC at elaboration, terminal, counted as resolved (DECISION 2026-09-19 (n) 1) |" in sec and "| m2 |" not in sec
+
+
+def test_pool_progress_reestimates_after_the_proof_drain(tmp_path, monkeypatch):
+    """DECISION 2026-09-19 (n) 3: while medium proofs are open the rate is the 3-hour rate; once none is queued or running the drain time is
+    recorded and, from ten minutes on, the rate is re-estimated over the time since the drain; the line says so and reads 'drained'."""
+    import importlib.util, datetime
+    spec = importlib.util.spec_from_file_location("phase5_alerts", str(Path(C.ROOT) / "scripts" / "phase5_alerts.py"))
+    AL = importlib.util.module_from_spec(spec); spec.loader.exec_module(AL)
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["m1"], "small": []}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    db.insert(conn, "runs", {"run_id": "rb0", "exp": "phase5", "arm": "B0", "design_id": "m1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "done", "started_at": "t"})
+    now = datetime.datetime.now()
+    state = {"cands": {}}
+    for k in range(8):
+        db.insert(conn, "candidates", {"cand_id": f"c{k}", "run_id": "rb0", "design_id": "m1", "gen": 1, "arm": "B0", "verdict": "proven"})
+        if k < 4:   # four records: two in the last 20 min, two 2 h ago
+            db.insert(conn, "evaluations", {"design_id": "m1", "cand_id": f"c{k}", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "ok", "raw_dir": f"/x/{k}", "dc_seconds": 60.0,
+                                            "created_at": (now - datetime.timedelta(minutes=(15 if k < 2 else 120))).isoformat(timespec="seconds")})
+        else:
+            state["cands"][f"c{k}"] = {"group": "b0_e4", "design_id": "m1", "stage": "e4"}
+    sp = tmp_path / "pool_state.json"; sp.write_text(json.dumps(state))
+    db.insert(conn, "jobs", {"job_id": "p1", "kind": "vcf", "pool": "vcf", "design_id": "m1", "state": "queued", "priority": 4, "payload_json": "{}", "submitted_at": "t"})
+    pp = AL.pool_progress(cfg, conn, state_path=str(sp))
+    assert pp["open_medium_proofs"] == 1 and pp["proofs_drained_at"] is None and pp["rate_basis"] == "last 3 h" and abs(pp["rate_per_h"] - 4 / 3) < 0.05 and pp["waiting"] == 4
+    conn.execute("UPDATE jobs SET state='done' WHERE job_id='p1'"); conn.commit()
+    pp = AL.pool_progress(cfg, conn, state_path=str(sp))                          # first check after the drain: recorded, re-estimate announced for the next check
+    assert pp["open_medium_proofs"] == 0 and pp["proofs_drained_at"] and "re-estimate at the next check" in pp["rate_basis"]
+    es = json.loads((tmp_path / "pool_eta_state.json").read_text()); es["proofs_drained_at"] = (now - datetime.timedelta(minutes=30)).isoformat(timespec="minutes")
+    (tmp_path / "pool_eta_state.json").write_text(json.dumps(es))
+    pp = AL.pool_progress(cfg, conn, state_path=str(sp))                          # 30 min after the drain: the two recent records over 30 min -> 4/h
+    import re
+    assert re.search(r"re-estimated over the 3[01] min since the medium proofs drained", pp["rate_basis"]) and abs(pp["rate_per_h"] - 4.0) < 0.15 and abs(pp["eta_hours"] - 1.0) < 0.05
+    monkeypatch.setattr(AL, "ROOT", str(tmp_path))
+    monkeypatch.setattr(AL, "pool_progress", lambda cfg, conn, state_path=None: pp)
+    monkeypatch.setattr(AL, "stage_b_proof_eta", lambda cfg, conn: 5.0)
+    line = AL.pool_progress_line(cfg, conn)
+    assert "Stage B proof ETA drained (" in line and "LATER" not in line and re.search(r"rate 4\.[0-9]/h medium B0 \(re-estimated over the 3[01] min", line)

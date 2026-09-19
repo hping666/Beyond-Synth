@@ -357,3 +357,51 @@ def test_submissions_follow_the_scope_order_not_the_state_file(tmp_path, monkeyp
     cfg["offline_pool"]["slots"] = 2
     mod.once(cfg, conn, st, queue=FakeQ())
     assert submitted == ["c_rm", "c_rl"]
+
+
+def test_e4_failure_classification_terminal_or_retry_and_scope_skips(tmp_path, monkeypatch):
+    """DECISION 2026-09-19 (n) 1: a failed pool E4 whose job log carries a DC rejection id (ELAB / VER / LINK) marks the row terminal
+    (candidates.e4_failure) and the scope never retries it; a timeout or an unknown failure is left for a retry, at most three attempts;
+    the scope also skips candidates with three failed attempts. Both directions."""
+    mod = load_pool()
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["M1"], "small": []}
+    cfg["offline_pool"] = {"slots": 4, "priority": 1, "load_over_baseline": 0.10}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES ('M1','x','m1','p',1,1,'held',1.0,'t','g','c')")
+    rtl = tmp_path / "c.v"; rtl.write_text("module m; endmodule")
+    db.insert(conn, "runs", {"run_id": "r1", "exp": "phase5", "arm": "B2", "design_id": "M1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "done", "started_at": "t"})
+    for cid in ("c_rej", "c_tmo", "c_exh"):
+        db.insert(conn, "candidates", {"cand_id": cid, "run_id": "r1", "design_id": "M1", "gen": 1, "arm": "B2", "rtl_path": str(rtl), "verdict": "proven"})
+    for k in range(3):   # three failed attempts on c_exh
+        db.insert(conn, "evaluations", {"design_id": "M1", "cand_id": "c_exh", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": f"/x/{k}", "dc_seconds": 10.0})
+    db.insert(conn, "evaluations", {"design_id": "M1", "cand_id": "c_rej", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": "/x/r", "dc_seconds": 10.0})
+    db.insert(conn, "evaluations", {"design_id": "M1", "cand_id": "c_tmo", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": "/x/t", "dc_seconds": 1020.0})
+    (tmp_path / "rej.log").write_text('.venv/bin/python3 -m src.eval.run_dc\n{"status": "eval_failed", "error": "Error: ... Net x is driven by more than one source. (ELAB-366)", "raw_dir": "/x/r"}\n')
+    (tmp_path / "tmo.log").write_text('.venv/bin/python3 -m src.eval.run_dc\n{"status": "timeout", "error": "dc_shell exceeded 1020 s", "raw_dir": "/x/t"}\n')
+    db.insert(conn, "jobs", {"job_id": "j_rej", "kind": "dc", "pool": "dc", "design_id": "M1", "cand_id": "c_rej", "state": "failed", "priority": 1, "payload_json": "{}", "submitted_at": "t", "log_path": str(tmp_path / "rej.log")})
+    db.insert(conn, "jobs", {"job_id": "j_tmo", "kind": "dc", "pool": "dc", "design_id": "M1", "cand_id": "c_tmo", "state": "failed", "priority": 1, "payload_json": "{}", "submitted_at": "t", "log_path": str(tmp_path / "tmo.log")})
+    assert mod.classify_e4_failure(cfg, conn, "c_rej", "j_rej") == ("rejected", "ELAB-366")
+    assert mod.classify_e4_failure(cfg, conn, "c_tmo", "j_tmo") == ("retry", None)
+    row = dict(conn.execute("SELECT e4_failure, note FROM candidates WHERE cand_id='c_rej'").fetchone())
+    assert row["e4_failure"] == "DC rejected (ELAB-366)" and "terminal" in row["note"]
+    assert dict(conn.execute("SELECT e4_failure FROM candidates WHERE cand_id='c_tmo'").fetchone())["e4_failure"] is None
+    items = {it["cand_id"]: it["group"] for it in mod.scope(cfg, conn)}
+    assert items == {"c_tmo": "e4_timeout"}                                        # the terminal one and the exhausted one are out of scope
+    # the pool's own completion path: a failed E4 job with a rejection id ends the entry as terminal, a timeout as a retry
+    monkeypatch.setattr(mod, "STATE", str(tmp_path / "state.json")); monkeypatch.setattr(mod, "LOG", str(tmp_path / "pool.log"))
+    class FakeQ:
+        def submit(self, kind, payload, **kw):
+            return "j_new"
+        def get(self, jid):
+            return {"state": "failed"}
+    conn.execute("UPDATE candidates SET e4_failure=NULL WHERE cand_id='c_rej'"); conn.commit()
+    st = {"cands": {"c_rej": {"cand_id": "c_rej", "group": "e4_timeout", "run_id": "r1", "design_id": "M1", "rtl_path": str(rtl), "model": "gpt-5.6-luna", "arm": "B2", "tier": "medium", "stage": "e4_running", "e4_job": "j_rej", "sim_job": None, "proof_job": None, "result": None},
+                    "c_tmo": {"cand_id": "c_tmo", "group": "e4_timeout", "run_id": "r1", "design_id": "M1", "rtl_path": str(rtl), "model": "gpt-5.6-luna", "arm": "B2", "tier": "medium", "stage": "e4_running", "e4_job": "j_tmo", "sim_job": None, "proof_job": None, "result": None}},
+          "paused": True, "baseline": 100.0}
+    monkeypatch.setattr(mod, "throttle", lambda cfg, conn, st: (False, 50.0, 0.0))
+    monkeypatch.setattr("src.designs.catalog.load_all", lambda: [])
+    mod.once(cfg, conn, st, queue=FakeQ())
+    assert st["cands"]["c_rej"]["result"] == "E4 DC rejected (ELAB-366), terminal" and st["cands"]["c_tmo"]["result"].endswith("(no DC error id; retry)")
+    assert dict(conn.execute("SELECT e4_failure FROM candidates WHERE cand_id='c_rej'").fetchone())["e4_failure"] == "DC rejected (ELAB-366)"

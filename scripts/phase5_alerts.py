@@ -178,13 +178,37 @@ def pool_progress(cfg, conn, state_path=None):
     waiting = sum(1 for c in (st.get("cands") or {}).values() if c.get("group") == "b0_e4" and tiers.get(c.get("design_id")) == "medium" and c.get("stage") in ("e4", "e4_running"))
     med = [d for d, t in tiers.items() if t == "medium"]
     marks = ",".join("?" * len(med)) or "''"
+    # DECISION 2026-09-19 (n) 3: once the medium-tier proofs have drained, the throughput is re-estimated over the time since the drain
+    open_proofs = conn.execute(f"SELECT COUNT(*) FROM jobs WHERE kind='vcf' AND state IN ('queued', 'running') AND design_id IN ({marks})", med).fetchone()[0] if med else 0
+    eta_state_path = os.path.join(os.path.dirname(state_path) if state_path else os.path.join(ROOT, "results", "queue"), "pool_eta_state.json")
+    try:
+        es = json.load(open(eta_state_path))
+    except (OSError, ValueError):
+        es = {}
+    drained_at = es.get("proofs_drained_at")
+    if open_proofs == 0 and not drained_at:
+        drained_at = now.isoformat(timespec="minutes"); es["proofs_drained_at"] = drained_at
+        try:
+            json.dump(es, open(eta_state_path, "w"))
+        except OSError:
+            pass
+    since_drain_min = None
+    if drained_at:
+        since_drain_min = max(0.0, (now - _dt.datetime.fromisoformat(drained_at)).total_seconds() / 60.0)
     unfinished = conn.execute(f"SELECT COUNT(*) FROM runs WHERE exp='phase5' AND arm='B0' AND status IN ('created', 'running') AND superseded_by IS NULL AND design_id IN ({marks})", med).fetchone()[0] if med else 0
     done_runs = conn.execute(f"SELECT COUNT(*) FROM runs WHERE exp='phase5' AND arm='B0' AND status='done' AND design_id IN ({marks})", med).fetchone()[0] if med else 0
     proven = conn.execute(f"SELECT COUNT(*) FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase5' AND r.arm='B0' AND r.status='done' AND c.verdict='proven' AND r.design_id IN ({marks})", med).fetchone()[0] if med else 0
     expected = (proven / done_runs * unfinished) if done_runs else 0.0
-    rate = h3["medium_b0"] / 3.0
+    if since_drain_min is not None and since_drain_min >= 10.0:
+        window_h = min(3.0, since_drain_min / 60.0)
+        rate = count(window_h)["medium_b0"] / window_h
+        basis = f"re-estimated over the {since_drain_min:.0f} min since the medium proofs drained at {drained_at} (DECISION 2026-09-19 (n) 3)"
+    else:
+        rate = h3["medium_b0"] / 3.0
+        basis = ("medium proofs drained at " + drained_at + ", re-estimate at the next check" if drained_at else "last 3 h")
     eta_h = ((waiting + expected) / rate) if rate > 0 else None
-    return {"h1": h1, "h3": h3, "rate_per_h": round(rate, 1), "waiting": waiting, "expected": round(expected, 1), "unfinished_runs": unfinished, "eta_hours": (round(eta_h, 1) if eta_h is not None else None),
+    return {"h1": h1, "h3": h3, "rate_per_h": round(rate, 1), "rate_basis": basis, "open_medium_proofs": open_proofs, "proofs_drained_at": drained_at,
+            "waiting": waiting, "expected": round(expected, 1), "unfinished_runs": unfinished, "eta_hours": (round(eta_h, 1) if eta_h is not None else None),
             "eta": (now + _dt.timedelta(hours=eta_h)).isoformat(timespec="minutes") if eta_h is not None else None}
 
 
@@ -220,8 +244,11 @@ def pool_progress_line(cfg, conn):
     sb_txt = f"{(_dt.datetime.now() + _dt.timedelta(hours=sb)).isoformat(timespec='minutes')} ({sb:.1f} h)" if sb is not None else "unknown"
     verdict = ("" if pp["eta_hours"] is None or sb is None else
                (" — the B0 E4 ETA is LATER than the Stage B proof ETA: Stage B final waits for it (D3)" if pp["eta_hours"] > sb else " — the B0 E4 ETA is earlier than the Stage B proof ETA"))
-    return (f"offline pool (m 1): E4 records last hour — medium B0 {pp['h1']['medium_b0']}, large B0 {pp['h1']['large_b0']}, other pool groups {pp['h1']['other']}; last 3 h medium B0 {pp['h3']['medium_b0']} ({pp['rate_per_h']}/h); "
-            f"medium B0 E4 waiting {pp['waiting']} (+ about {pp['expected']:.0f} from {pp['unfinished_runs']} medium B0 runs not done) -> ETA " + (f"{pp['eta']} ({pp['eta_hours']} h)" if pp["eta"] else "unknown (no throughput in 3 h)")
+    if pp.get("open_medium_proofs") == 0:
+        sb_txt = f"drained ({pp.get('proofs_drained_at')})"
+        verdict = ""
+    return (f"offline pool (m 1 / n 3): E4 records last hour — medium B0 {pp['h1']['medium_b0']}, large B0 {pp['h1']['large_b0']}, other pool groups {pp['h1']['other']}; rate {pp['rate_per_h']}/h medium B0 ({pp['rate_basis']}); "
+            f"medium B0 E4 waiting {pp['waiting']} (+ about {pp['expected']:.0f} from {pp['unfinished_runs']} medium B0 runs not done) -> ETA " + (f"{pp['eta']} ({pp['eta_hours']} h)" if pp["eta"] else "unknown (no throughput)")
             + f"; Stage B proof ETA {sb_txt}" + verdict)
 
 
