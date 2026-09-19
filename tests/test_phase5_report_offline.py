@@ -518,9 +518,9 @@ def test_pool_progress_reestimates_after_the_proof_drain(tmp_path, monkeypatch):
     state = {"cands": {}}
     for k in range(8):
         db.insert(conn, "candidates", {"cand_id": f"c{k}", "run_id": "rb0", "design_id": "m1", "gen": 1, "arm": "B0", "verdict": "proven"})
-        if k < 4:   # four records: two in the last 20 min, two 2 h ago
-            db.insert(conn, "evaluations", {"design_id": "m1", "cand_id": f"c{k}", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "ok", "raw_dir": f"/x/{k}", "dc_seconds": 60.0,
-                                            "created_at": (now - datetime.timedelta(minutes=(15 if k < 2 else 120))).isoformat(timespec="seconds")})
+        if k < 4:   # four records: two in the last 20 min, two 2 h ago (the insert helper stamps created_at itself, so it is set afterwards)
+            db.insert(conn, "evaluations", {"design_id": "m1", "cand_id": f"c{k}", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "ok", "raw_dir": f"/x/{k}", "dc_seconds": 60.0})
+            conn.execute("UPDATE evaluations SET created_at=? WHERE cand_id=?", ((now - datetime.timedelta(minutes=(15 if k < 2 else 120))).isoformat(timespec="seconds"), f"c{k}")); conn.commit()
         else:
             state["cands"][f"c{k}"] = {"group": "b0_e4", "design_id": "m1", "stage": "e4"}
     sp = tmp_path / "pool_state.json"; sp.write_text(json.dumps(state))
