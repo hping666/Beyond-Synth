@@ -4,6 +4,8 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
+**2026-09-19 05:55 — DECISION (o) live:** Stage B's completeness check now covers the medium tier only (the large tier's 256 pending sims and 291 E4 records belong to Stage A); stages loop restarted. Medium-only blocking: E4 1 071 (B0 offline E4), verdicts 699. **Stage B final ETA ≈ 09-20 12:00 (range 10:00–14:00).** §1 carries the formal-accepted / synthesis-rejected column with DC error ids; PLAN 6.8 (Yosys check -assert lint at V1) recorded.
+
 **2026-09-19 05:35 — DECISION (n) live:** the 8 exit-1 E4 failures are DC rejections of the candidate (ELAB-366 ×4, ELAB-298, LINK-3, VER-262 ×2) — terminal on their rows (candidates.e4_failure), resolved for completeness, listed in §0a; the pool classifies future E4 failures by DC error id and retries transient ones at most three times. Tally categories win / tie / partial / loss (arm_cpu2, btb, decoder_8bit: ties). Hourly line carries both ETAs until the medium proofs drain, then re-estimates the pool rate: at 05:29 B0 E4 ETA ≈ 09-20 10:20 (45 / h) vs Stage B proof ETA ≈ 09-20 12:00.
 
 **2026-09-19 05:15 — first complete design:** the re-simulations ran at 05:12 (10 of 11 submitted, the 11th right after): 7 failed V2 (sim_fail, nonequiv — all 7 of arm_cpu2), 3 of eth_cop passed (V1 ok, V2 identical) and are in E4 ∥ SEQ (proofs queued in the normal VC Formal queue at priority 4). arm_cpu2 is therefore **complete** (21/21, nothing pending): every arm's best retained area gain is 0 — a tie (no arm separates). Tally: 0 wins, 3 ties (arm_cpu2; btb, decoder_8bit B0 pending), 0 losses; 18 wins still needed of 27 remaining.
