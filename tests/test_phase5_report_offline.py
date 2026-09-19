@@ -454,8 +454,8 @@ def test_lane_threshold_raise_and_pool_progress_line(tmp_path, monkeypatch):
     lines = AL.slot_report(cfg, conn, write=True, restart=lambda: restarted.append(1) or True)
     assert restarted == [1] and "proof_wait_max_min_by_lane: {spi: 85.5}" in (tmp_path / "config" / "experiments.yaml").read_text()
     assert any(l.startswith("offline pool (m 1 / n 3):") and "unknown (no throughput)" in l for l in lines), [l for l in lines if "offline pool" in l]
-    # the other direction: the raised lane at its new threshold is not raised again; uart with idle minutes but no queued runs is left alone
-    cfg["queue"]["admission_guard"]["proof_wait_max_min_by_lane"] = {"spi": 85.5}
+    # the other direction: the raised lane at its new threshold is not raised again (a drift of the mean below one minute changes nothing and restarts nothing); uart with idle minutes but no queued runs is left alone
+    cfg["queue"]["admission_guard"]["proof_wait_max_min_by_lane"] = {"spi": 85.0}
     monkeypatch.setattr(core, "idle_seat_minutes", lambda conn, cfg, hours=1.0: {"spi": {"seats": 15, "occupied_min": 800, "idle_min": 100.0}, "uart": {"seats": 5, "occupied_min": 200, "idle_min": 100.0}})
     monkeypatch.setattr(core, "queued_runs_by_lane", lambda conn, cfg: {"spi": 3})
     lines = AL.slot_report(cfg, conn, write=True, restart=lambda: restarted.append(1) or True)

@@ -70,7 +70,7 @@ def slot_report(cfg, conn, write=True, restart=None):
         if v.get("idle_min") is not None and v["idle_min"] > 0.5 and qr.get(n, 0) > 0:
             mean = float((waits.get(n) or {}).get("mean_min") or 0.0)
             cur, new = by_lane.get(n, wmax), round(1.5 * mean, 1)
-            if new > cur:
+            if new >= cur + 1.0:   # a raise of at least one minute; a lane already at 1.5 x its mean is left alone (no needless daemon restart, 2026-09-19 15:10)
                 raised[n] = (v["idle_min"], qr[n], mean, cur, new)
     if raised:
         applied = ""
