@@ -27,7 +27,9 @@ STAGES = (("A", ["large"]), ("B", ["large", "medium"]), ("C", ["large", "medium"
 # DECISION 2026-09-19 (o) item 1: the completeness check of a stage's final considers the stage's own tier only — Stage B waits for the
 # medium tier's runs, proofs, E4 including retries and B0 offline E4; the large tier's pool work belongs to Stage A and never delays it.
 # Stage C (every tier, the full report) waits for every tier.
-COMPLETENESS_TIERS = {"A": ["large"], "B": ["medium"], "C": ["large", "medium", "small"]}
+# DECISION 2026-09-19 (p) item 1: Stage C's final considers the small tier only; the Phase 5 completion condition below is separate.
+COMPLETENESS_TIERS = {"A": ["large"], "B": ["medium"], "C": ["small"]}
+CONDITION_MARKER = os.path.join(ROOT, "reports", "data", "phase5_completion_condition.json")
 
 
 def planned_runs(cfg, conn):
@@ -48,6 +50,28 @@ def tier_complete(cfg, conn, tier, exp="phase5", plan=None):
 
 def marker(stage):
     return os.path.join(ROOT, "reports", "data", f"phase5_stage_{stage}.done")
+
+
+def phase5_completion_condition(cfg, conn, pool_state_path=None, plan=None):
+    """DECISION 2026-09-19 (p) item 1: the Phase 5 completion condition, separate from the stage finals — every tier's planned runs done,
+    every evaluation resolved including the offline pool's proofs (D2 re-verification, prescreened, reproof) and every E4 retry (a
+    terminal DC rejection counts as resolved), no open visible job, and no offline-pool entry left unfinished (await_proof included).
+    The human then writes `PHASE5_COMPLETE: yes` into STATUS.md, which is what scripts/report_hidden.py waits for. -> (met, detail)."""
+    from src.analysis import phase5 as P5
+    tiers = ["large", "medium", "small"]
+    plan = plan if plan is not None else planned_runs(cfg, conn)
+    runs_done = all(tier_complete(cfg, conn, t, plan=plan) for t in tiers)
+    s = P5.pending_summary(cfg, conn, tiers)
+    pool_left = {}
+    try:
+        st = json.load(open(pool_state_path or os.path.join(ROOT, "results", "queue", "offline_pool_state.json")))
+        for c in (st.get("cands") or {}).values():
+            if c.get("stage") != "done":
+                pool_left[c.get("stage")] = pool_left.get(c.get("stage"), 0) + 1
+    except (OSError, ValueError):
+        pass
+    met = bool(runs_done and not s["pending"] and not s["open_jobs"] and not pool_left)
+    return met, {"runs_done": runs_done, "pending": s["pending"], "open_jobs": s["open_jobs"], "pool_unfinished": pool_left}
 
 
 def render(cfg, stage, final=False):
@@ -105,6 +129,20 @@ def once(cfg, interim_hours=3.0, log=print):
         if runs_done:
             log(f"stage {stage}: every run done, evaluations pending {summary['pending']}, open jobs {summary['open_jobs']} -> interim")
         current = current or stage
+    # DECISION 2026-09-19 (p) item 1: once every stage is final, the Phase 5 completion condition is checked and announced once
+    if all(os.path.exists(marker(s)) for s, _ in STAGES) and not os.path.exists(CONDITION_MARKER):
+        met, detail = phase5_completion_condition(cfg, conn, plan=plan)
+        if met:
+            with open(CONDITION_MARKER, "w") as f:
+                json.dump({"at": time.strftime("%Y-%m-%dT%H:%M:%S"), "detail": detail}, f)
+            line = f"Phase 5 completion condition met ({time.strftime('%Y-%m-%d %H:%M')}): every tier complete, offline-pool proofs and E4 retries resolved — the human writes `PHASE5_COMPLETE: yes` into STATUS.md (DECISION 2026-09-19 (p) 1)."
+            log("PHASE 5 COMPLETION CONDITION MET: " + line)
+            status = os.path.join(ROOT, "STATUS.md")
+            if os.path.exists(status):
+                with open(status, "a") as f:
+                    f.write("\n- " + line + "\n")
+        else:
+            log(f"every stage final; Phase 5 completion condition not met yet: {detail}")
     # DECISION 2026-09-18 D3: every stage that is not final yet and whose newest tier has started is re-rendered as an interim
     # report (pending columns) every --interim hours — B while the medium tier runs, C once the small tier starts
     started = {r[0] for r in conn.execute("SELECT DISTINCT design_id FROM runs WHERE exp='phase5' AND status NOT IN ('created', 'superseded')")}

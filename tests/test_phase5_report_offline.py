@@ -547,7 +547,7 @@ def test_stage_b_completeness_considers_the_medium_tier_only(tmp_path, monkeypat
     hold it; a medium-tier one does. Stage A keeps the large tier, Stage C every tier."""
     spec = importlib.util.spec_from_file_location("phase5_stages", str(Path(C.ROOT) / "scripts" / "phase5_stages.py"))
     ST = importlib.util.module_from_spec(spec); spec.loader.exec_module(ST)
-    assert ST.COMPLETENESS_TIERS == {"A": ["large"], "B": ["medium"], "C": ["large", "medium", "small"]}
+    assert ST.COMPLETENESS_TIERS == {"A": ["large"], "B": ["medium"], "C": ["small"]}   # DECISION 2026-09-19 (p) 1
     cfg = copy.deepcopy(C.load())
     cfg["project"]["results_dir"] = str(tmp_path / "results")
     cfg["exp5"]["starting_points"] = {"large": ["l1"], "medium": ["m1"], "small": []}
@@ -557,7 +557,7 @@ def test_stage_b_completeness_considers_the_medium_tier_only(tmp_path, monkeypat
     db.insert(conn, "candidates", {"cand_id": "cl", "run_id": "rl", "design_id": "l1", "gen": 1, "arm": "M", "llm_model": "m", "verdict": "proven"})   # large-tier E4 pending
     ok_b, s = ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["B"])
     assert ok_b and s["pending"] == {}
-    assert not ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["A"])[0] and not ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["C"])[0]
+    assert not ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["A"])[0] and ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["C"])[0]   # C: the small tier only (empty here)
     db.insert(conn, "candidates", {"cand_id": "cm", "run_id": "rm", "design_id": "m1", "gen": 1, "arm": "M", "llm_model": "m", "verdict": "proven"})   # medium-tier E4 pending
     ok_b, s = ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["B"])
     assert not ok_b and s["pending"] == {"e4": 1}
@@ -591,3 +591,36 @@ def test_synthesis_rejected_subcategory_in_the_verdict_mix(tmp_path, monkeypatch
     assert row_b2 and "| 2 (m1 ELAB-366 ×2) |" in row_b2[0]
     row_m = [l for l in txt.splitlines() if l.startswith("| gpt-5.6-luna | M | 0 | 1 |")]
     assert row_m and "| 0 | 0 | 0 | -" in row_m[0]
+
+
+def test_phase5_completion_condition_both_directions(tmp_path, monkeypatch):
+    """DECISION 2026-09-19 (p) item 1: the Phase 5 completion condition is met only when every tier's planned runs are done, nothing is
+    pending including an offline-pool proof, no visible job is open and the offline pool has no unfinished entry (await_proof included)."""
+    spec = importlib.util.spec_from_file_location("phase5_stages", str(Path(C.ROOT) / "scripts" / "phase5_stages.py"))
+    ST = importlib.util.module_from_spec(spec); spec.loader.exec_module(ST)
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": ["l1"], "medium": ["m1"], "small": ["s1"]}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    plan = [{"tier": t, "model": "m", "arm": "M", "design_id": d, "seed": 1} for t, d in (("large", "l1"), ("medium", "m1"), ("small", "s1"))]
+    for rid, d in (("rl", "l1"), ("rm", "m1"), ("rs", "s1")):
+        db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": "M", "design_id": d, "seed": 1, "llm_model": "m", "status": "done"})
+    pool = tmp_path / "pool_state.json"; pool.write_text(json.dumps({"cands": {}}))
+    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)
+    assert met and detail["runs_done"] and detail["pending"] == {} and detail["pool_unfinished"] == {}
+    # a prescreened candidate whose offline proof is still pending holds the condition (not the Stage C final)
+    db.insert(conn, "candidates", {"cand_id": "cp", "run_id": "rs", "design_id": "s1", "gen": 1, "arm": "M", "llm_model": "m", "label": "prescreened", "prescreened": 1, "v1_status": "ok", "v2_status": "identical"})
+    db.insert(conn, "evaluations", {"design_id": "s1", "cand_id": "cp", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 1.0, "status": "ok", "raw_dir": "/x"})
+    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)
+    assert not met and detail["pending"] == {"proof": 1} and ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["C"])[0]
+    conn.execute("UPDATE candidates SET verdict='proven' WHERE cand_id='cp'"); conn.commit()
+    assert ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)[0]
+    # an offline-pool entry still awaiting its proof (a superseded run's re-verification, D2) holds it too
+    pool.write_text(json.dumps({"cands": {"x": {"group": "reverify", "stage": "await_proof"}}}))
+    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)
+    assert not met and detail["pool_unfinished"] == {"await_proof": 1}
+    pool.write_text(json.dumps({"cands": {"x": {"group": "reverify", "stage": "done"}}}))
+    assert ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)[0]
+    # a planned run not done holds it
+    conn.execute("UPDATE runs SET status='running' WHERE run_id='rs'"); conn.commit()
+    assert not ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)[0]
