@@ -166,6 +166,74 @@ def window_dispatch(rows, run_rows, tier_of, design_order, window, lane_designs=
     return out
 
 
+def search_slot_state(conn, cfg):
+    """DECISION 2026-09-19 (j) item 1: running search runs split into generating (LLM calls left) and waiting (every call made, verdicts
+    pending), plus the queued ones -> {"generating": n, "waiting": n, "queued": n}."""
+    gen = wait = 0
+    for r in conn.execute("SELECT r.llm_calls, r.budget_llm_calls FROM jobs j JOIN runs r ON r.run_id = json_extract(j.payload_json, '$.run_id') WHERE j.kind='search' AND j.state='running'"):
+        budget = int(r[1] or cfg["scale"]["budget"]["llm_calls_per_run"])
+        if int(r[0] or 0) < budget:
+            gen += 1
+        else:
+            wait += 1
+    queued = conn.execute("SELECT COUNT(*) FROM jobs WHERE kind='search' AND state IN ('queued','backoff')").fetchone()[0]
+    return {"generating": gen, "waiting": wait, "queued": queued}
+
+
+def unverified_at_build(conn, cfg, minutes=60, tier="medium", by_row=False):
+    """(j) item 1b / 1c: over the generations built in the last `minutes`, the share of the previous generation's candidates that had no
+    verdict when the next generation was built (gen_summary.pending_json), averaged per generation; the medium tier by default.
+    -> the mean fraction (None without generations), or {row: fraction} with by_row."""
+    tier_of = {d: t for t, ds in ((cfg.get("exp5") or {}).get("starting_points") or {}).items() for d in (ds or [])}
+    lo = (datetime.datetime.now() - datetime.timedelta(minutes=minutes)).isoformat(timespec="seconds")
+    fr = {}
+    for rid, gen, pj, arm, model, design in conn.execute("SELECT g.run_id, g.gen, g.pending_json, r.arm, r.llm_model, r.design_id FROM gen_summary g JOIN runs r ON r.run_id=g.run_id WHERE g.built_at > ? AND g.gen > 1", (lo,)):
+        if tier and tier_of.get(design) != tier:
+            continue
+        try:
+            pending = json.loads(pj or "[]")
+        except (ValueError, TypeError):
+            pending = []
+        prev = conn.execute("SELECT COUNT(*) FROM candidates WHERE run_id=? AND gen=?", (rid, gen - 1)).fetchone()[0]
+        if not prev:
+            continue
+        marks = ",".join("?" * len(pending))
+        prev_pending = conn.execute(f"SELECT COUNT(*) FROM candidates WHERE run_id=? AND gen=? AND cand_id IN ({marks})", (rid, gen - 1, *pending)).fetchone()[0] if pending else 0
+        fr.setdefault(f"{model}|{arm}", []).append(prev_pending / prev)
+    if by_row:
+        return {k: round(sum(v) / len(v), 4) for k, v in fr.items()}
+    allv = [x for v in fr.values() for x in v]
+    return (sum(allv) / len(allv)) if allv else None
+
+
+def proof_wait_estimate(conn, cfg, design_id=None, hours=6):
+    """(j) item 1b / 1c: the estimated queue wait, in minutes, of a proof submitted now — per lane (and for the window designs as one
+    group): queued proofs of the lane × its mean proof minutes over the last `hours` / its seats (a leftover lane counts one seat).
+    -> {lane: {"queued": n, "mean_min": m, "seats": s, "wait_min": w}} or, with design_id, that design's lane figure."""
+    lanes = (cfg["queue"].get("lanes") or {}).get("vcf") or {}
+    cap = int(cfg["queue"].get("vcf_seats_target") or cfg["queue"].get("vcf_seats_max") or 50)
+    lane_designs = {d: n for n, s in lanes.items() for d in (s.get("designs") or [])}
+    reserved = sum(int(s.get("share") or 0) for n, s in lanes.items() if not s.get("leftover"))
+    groups = {n: list(s.get("designs") or []) for n, s in lanes.items()}
+    tier_of = {d: t for t, ds in ((cfg.get("exp5") or {}).get("starting_points") or {}).items() for d in (ds or [])}
+    groups["window"] = [d for d in tier_of if d not in lane_designs]
+    lo = (datetime.datetime.now() - datetime.timedelta(hours=hours)).isoformat(timespec="seconds")
+    out = {}
+    for name, ds in groups.items():
+        if not ds:
+            continue
+        marks = ",".join("?" * len(ds))
+        queued = conn.execute(f"SELECT COUNT(*) FROM jobs WHERE kind='vcf' AND state IN ('queued','backoff') AND design_id IN ({marks})", ds).fetchone()[0]
+        mins = [(datetime.datetime.fromisoformat(r[1]) - datetime.datetime.fromisoformat(r[0])).total_seconds() / 60 for r in conn.execute(f"SELECT started_at, finished_at FROM jobs WHERE kind='vcf' AND state='done' AND finished_at > ? AND started_at IS NOT NULL AND design_id IN ({marks})", (lo, *ds))]
+        mean = (sum(mins) / len(mins)) if mins else 5.0
+        spec = lanes.get(name) or {}
+        seats = 1 if spec.get("leftover") else (int(spec.get("share") or 0) if name in lanes else max(1, cap - reserved))
+        out[name] = {"queued": int(queued), "mean_min": round(mean, 1), "seats": max(1, int(seats)), "wait_min": round(queued * mean / max(1, seats), 1)}
+    if design_id is not None:
+        return out.get(lane_designs.get(design_id, "window"))
+    return out
+
+
 def lane_of(lanes, design_id):
     """(lane name, spec) of a design under config queue.lanes[pool] = {name: {designs: [...], share: n}}, or (None, None)."""
     for name, spec in (lanes or {}).items():
@@ -330,6 +398,8 @@ class Queue:
     def tier_of_design(self):
         sp = (self.cfg.get("exp5") or {}).get("starting_points") or {}
         return {d: t for t, ds in sp.items() for d in (ds or [])}
+
+    _guard_paused = False
 
     def running_in_pool(self, pool):
         return self.conn.execute("SELECT COUNT(*) FROM jobs WHERE state='running' AND pool=?", (pool,)).fetchone()[0]
@@ -604,6 +674,24 @@ class Queue:
             if until > now:
                 continue
             free = cap - self.running_in_pool(pool)
+            guard = None
+            if pool == "search" and not self.cfg["queue"].get("count_waiting_runs", False):   # DECISION 2026-09-19 (j) item 1: only generating runs hold a slot
+                slots = search_slot_state(self.conn, self.cfg)
+                gen_cap = min(int(cap), int(self.cfg["queue"].get("generating_max") or cap))
+                free = gen_cap - slots["generating"]
+                g = self.cfg["queue"].get("admission_guard") or {}
+                if g:
+                    frac = unverified_at_build(self.conn, self.cfg, minutes=int(g.get("window_min", 60)), tier=g.get("tier", "medium"))
+                    waits = proof_wait_estimate(self.conn, self.cfg)
+                    guard = {"frac": frac, "frac_max": float(g.get("unverified_at_build_max", 0.35)), "waits": waits, "wait_max": float(g.get("proof_wait_max_min", 60))}
+                    if frac is not None and frac > guard["frac_max"]:
+                        if not self._guard_paused:
+                            self.log(f"admission paused: unverified-at-build fraction {frac:.2f} > {guard['frac_max']:.2f} (DECISION 2026-09-19 (j) 1b)")
+                        self._guard_paused = True
+                        continue
+                    if self._guard_paused and (frac is None or frac <= guard["frac_max"]):
+                        self.log(f"admission resumed: unverified-at-build fraction {frac if frac is None else round(frac, 2)}")
+                        self._guard_paused = False
             if free <= 0:
                 continue
             held = self.backpressure_holds(pool)   # fresh runs wait; a resumption (a run that already made calls) goes on — it has verdicts to process and records to slim (2026-09-16)
@@ -638,6 +726,11 @@ class Queue:
                 fresh = not self.is_resumption(job)
                 if held and fresh:
                     continue
+                if guard is not None and fresh and job["kind"] == "search":   # (j) 1b: a fresh run whose lane's proof queue would keep a new candidate waiting over the limit
+                    lane_designs = {d: n for n, s in ((self.cfg["queue"].get("lanes") or {}).get("vcf") or {}).items() for d in (s.get("designs") or [])}
+                    w = (guard["waits"] or {}).get(lane_designs.get(job["design_id"], "window")) or {}
+                    if w and w.get("wait_min", 0) > guard["wait_max"]:
+                        continue
                 if fresh and job["kind"] == "search":
                     if admit_left <= 0:
                         continue

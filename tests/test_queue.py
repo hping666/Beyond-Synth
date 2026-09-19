@@ -747,3 +747,59 @@ def test_leftover_lane_takes_only_unfillable_seats(tmp_path):
     hours = {"SPI": {"hours": 600.0, "runs_left": 10}, "A": {"hours": 400.0, "runs_left": 10}, "S1": {"hours": 900.0, "runs_left": 20}, "S2": {"hours": 900.0, "runs_left": 20}}
     new, rest, lane_hours, others = mod.shares(cfg, hours, 10)
     assert new["small"] == 0 and others == 400.0 and new["spi"] == 6 and rest == 4                # 600 : 400 -> 6 : 4; the small tier's 1 800 h are outside the split
+
+
+def test_generating_only_slot_accounting_with_guardrails(tmp_path, monkeypatch):
+    """DECISION 2026-09-19 (j) item 1: only generating runs hold a search slot (waiting runs do not), at most generating_max generate at
+    once; admission pauses while the medium tier's unverified-at-build fraction exceeds the threshold, and a fresh run of a lane whose
+    estimated proof wait exceeds the limit is skipped while a window run with a short wait is admitted; count_waiting_runs restores
+    the old accounting. Both directions."""
+    from src.jobqueue import core as Q
+    cfg = make_cfg()
+    cfg["queue"]["search_max"] = 48; cfg["queue"]["generating_max"] = 2; cfg["queue"]["count_waiting_runs"] = False
+    cfg["queue"]["round_robin_rows"] = False; cfg["queue"].pop("dispatch_window", None); cfg["queue"]["search_admit_per_min"] = None
+    cfg["queue"]["backpressure"] = {}
+    cfg["queue"]["lanes"] = {"vcf": {"spi": {"designs": ["SPI"], "share": 4}}}
+    cfg["queue"]["admission_guard"] = {"unverified_at_build_max": 0.35, "proof_wait_max_min": 60, "window_min": 60, "tier": "medium"}
+    cfg["exp5"] = dict(cfg.get("exp5") or {}, starting_points={"large": [], "medium": ["SPI", "W1"], "small": []})
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    q = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None)
+    # two running runs: one generating (10 of 60 calls), one waiting (60 of 60)
+    for rid, calls in (("r_gen", 10), ("r_wait", 60)):
+        db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": "M", "design_id": "W1", "seed": 1, "llm_model": "m", "status": "running", "llm_calls": calls, "budget_llm_calls": 60})
+        db.insert(conn, "jobs", {"job_id": f"j_{rid}", "kind": "search", "pool": "search", "design_id": "W1", "state": "running", "priority": 3, "payload_json": json.dumps({"run_id": rid}), "submitted_at": "t", "started_at": "t"})
+    assert Q.search_slot_state(conn, cfg) == {"generating": 1, "waiting": 1, "queued": 0}
+    # queued fresh runs: one on SPI (a lane with a long proof queue), one on the window design
+    for rid, design in (("r_spi", "SPI"), ("r_w", "W1")):
+        db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": "B2", "design_id": design, "seed": 2, "llm_model": "m", "status": "created", "llm_calls": 0, "budget_llm_calls": 60})
+    jobs = {design: q.submit("shell", {"cmd": "true", "run_id": rid}, design_id=design, pool="search", priority=3) for rid, design in (("r_spi", "SPI"), ("r_w", "W1"))}
+    conn.execute("UPDATE jobs SET kind='search' WHERE pool='search' AND state='queued'"); conn.commit()
+    for k in range(10):   # SPI's lane: 10 queued proofs of 50 minutes on 4 seats -> a new proof waits ≈ 125 min
+        db.insert(conn, "jobs", {"job_id": f"p{k}", "kind": "vcf", "pool": "vcf", "design_id": "SPI", "state": "queued", "priority": 4, "payload_json": "{}", "submitted_at": "t"})
+    db.insert(conn, "jobs", {"job_id": "pd", "kind": "vcf", "pool": "vcf", "design_id": "SPI", "state": "done", "priority": 4, "payload_json": "{}", "submitted_at": "t", "started_at": "2026-09-19T01:00:00", "finished_at": "2026-09-19T01:50:00"})
+    conn.execute("UPDATE jobs SET finished_at=? WHERE job_id='pd'", ((__import__('datetime').datetime.now() - __import__('datetime').timedelta(minutes=10)).isoformat(timespec="seconds"),)); conn.commit()
+    conn.execute("UPDATE jobs SET started_at=? WHERE job_id='pd'", ((__import__('datetime').datetime.now() - __import__('datetime').timedelta(minutes=60)).isoformat(timespec="seconds"),)); conn.commit()
+    w = Q.proof_wait_estimate(conn, cfg)
+    assert w["spi"]["queued"] == 10 and w["spi"]["seats"] == 4 and w["spi"]["wait_min"] > 60 and w["window"]["wait_min"] == 0.0
+    spawned = []
+    q._spawn = lambda job: (spawned.append(job["job_id"]) if job["pool"] == "search" else None) or conn.execute("UPDATE jobs SET state='running' WHERE job_id=?", (job["job_id"],))
+    q._dispatch()
+    assert spawned == [jobs["W1"]]                          # one free generating slot (2 - 1): the window run goes; the SPI run is held by its lane's wait
+    # the fraction guard: a generation built in the last hour with every previous candidate unverified -> admission paused
+    spawned.clear()
+    conn.execute("UPDATE jobs SET state='queued' WHERE job_id=?", (jobs["W1"],)); conn.commit()
+    db.insert(conn, "candidates", {"cand_id": "c1", "run_id": "r_gen", "design_id": "W1", "gen": 1, "arm": "M", "llm_model": "m"})
+    db.insert(conn, "candidates", {"cand_id": "c2", "run_id": "r_gen", "design_id": "W1", "gen": 1, "arm": "M", "llm_model": "m"})
+    db.insert(conn, "gen_summary", {"run_id": "r_gen", "gen": 2, "pending_json": json.dumps(["c1", "c2"]), "built_at": db.now()})
+    assert abs(Q.unverified_at_build(conn, cfg) - 1.0) < 1e-9 and Q.unverified_at_build(conn, cfg, by_row=True) == {"m|M": 1.0}
+    q._dispatch()
+    assert spawned == [] and q._guard_paused                # paused
+    conn.execute("UPDATE gen_summary SET pending_json='[]'"); conn.commit()
+    q._dispatch()
+    assert spawned == [jobs["W1"]] and not q._guard_paused  # resumed once the fraction is back under the threshold
+    # the revert switch: every running run holds a slot again -> with search_max 2 nothing is free
+    spawned.clear(); conn.execute("UPDATE jobs SET state='queued' WHERE job_id=?", (jobs["W1"],)); conn.commit()
+    cfg["queue"]["count_waiting_runs"] = True; cfg["queue"]["search_max"] = 2
+    q2 = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None); q2._spawn = q._spawn
+    q2._dispatch()
+    assert spawned == []

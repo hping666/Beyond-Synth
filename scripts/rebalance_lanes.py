@@ -34,7 +34,15 @@ def remaining_seat_hours(cfg, conn, exp="phase5"):
         rem = max(0, sum(1 for r in runs if r["status"] == "created") - held.get(d, 0)) + sum(max(0.0, 1 - int(r["llm_calls"] or 0) / 60) for r in runs if r["status"] == "running")
         if rem <= 0:
             continue
-        xs = [(P(r[1]) - P(r[0])).total_seconds() / 60 for r in conn.execute("SELECT started_at, finished_at FROM jobs WHERE kind='vcf' AND design_id=? AND state='done' AND started_at IS NOT NULL AND finished_at IS NOT NULL ORDER BY finished_at DESC LIMIT 400", (d,))]
+        hv_now = int((cfg.get("equiv") or {}).get("harness_version", 1) or 1)
+        xs = []
+        if hv_now >= 2:   # DECISION 2026-09-19 (j) item 3: once a design has 20 proofs under the current harness version, only those count
+            xs = [(P(r[1]) - P(r[0])).total_seconds() / 60 for r in conn.execute("SELECT j.started_at, j.finished_at FROM jobs j JOIN candidates x ON x.cand_id=j.cand_id WHERE j.kind='vcf' AND j.design_id=? AND j.state='done' "
+                                                                                 "AND x.harness_version=? AND j.started_at IS NOT NULL AND j.finished_at IS NOT NULL ORDER BY j.finished_at DESC LIMIT 400", (d, hv_now))]
+            if len(xs) < 20:
+                xs = []
+        if not xs:
+            xs = [(P(r[1]) - P(r[0])).total_seconds() / 60 for r in conn.execute("SELECT started_at, finished_at FROM jobs WHERE kind='vcf' AND design_id=? AND state='done' AND started_at IS NOT NULL AND finished_at IS NOT NULL ORDER BY finished_at DESC LIMIT 400", (d,))]
         calls = sum(int(r["llm_calls"] or 0) for r in runs)
         proofs = conn.execute("SELECT count(*) FROM jobs j JOIN candidates x ON x.cand_id=j.cand_id JOIN runs r ON r.run_id=x.run_id WHERE j.kind='vcf' AND r.exp=? AND r.status!='superseded' AND r.design_id=?", (exp, d)).fetchone()[0]
         ppc = (proofs / calls) if calls else None

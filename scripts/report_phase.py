@@ -1041,6 +1041,15 @@ def phase5_markdown(cfg, data, stage="all", final=False):
             a, b = vc["rows"][d][k]["above"], vc["rows"][d][k]["below"]
             L.append(f"| {d} | {k} | {sum(a)} | {_pct(a[1] / sum(a), 0) if sum(a) else '-'} | {sum(b)} | {_pct(b[1] / sum(b), 0) if sum(b) else '-'} |")
     L.append("")
+    sl = data.get("slots") or {}
+    if sl and not sl.get("error"):
+        s = sl["state"]
+        L += [f"Search slots at render time (DECISION 2026-09-19 (j) item 1c): generating {s['generating']} (max {sl.get('generating_max')}), waiting for verdicts {s['waiting']}, queued {s['queued']}; waiting runs counted against the cap: {'yes' if sl.get('count_waiting_runs') else 'no'}.", "",
+              "| arm-model row | unverified-at-build fraction (generations built in the last hour, medium tier) |", "|---|---|"]
+        L += [f"| {k} | {_pct(v, 0)} |" for k, v in sorted((sl.get("unverified_by_row") or {}).items())] or ["| (no generation built in the last hour) | - |"]
+        L += ["", "| lane | queued proofs | seats | mean proof minutes (6 h) | estimated wait of a new proof (min) |", "|---|---|---|---|---|"]
+        L += [f"| {n} | {v['queued']} | {v['seats']} | {v['mean_min']:.0f} | {v['wait_min']:.0f} |" for n, v in (sl.get("waits") or {}).items()]
+        L.append("")
     if stage in ("C", "all"):
         L += ["## 8. Success criteria (PROPOSAL §7.2), visible-layer view", "",
               "- C2 (M vs B2 and vs B1@E4 at equal calls; the hidden-configuration form of the criterion is **sealed** until the Phase 5 completion marker — scripts/report_hidden.py): see §1 (retained per run, best gain per run) and §2 (per-design best gains) per tier; the geometric-mean form and the 2σ_D test per design are computed in the final report once every tier is complete.",
@@ -1105,6 +1114,13 @@ def phase5(cfg, stage="all", out_dir=None, conn=None, final=False):
     data["final"] = bool(final)
     new, line, view = P5.completion_alert(cfg, conn, state_path=(Path(out_dir) / "data" / "phase5_complete_designs.json") if out_dir else None, write=True)   # (d) F2 / F3
     data["completion"], data["alert_line"] = view, line
+    try:   # DECISION 2026-09-19 (j) item 1c: the slot figures of the moment join §7c
+        from src.jobqueue.core import proof_wait_estimate, search_slot_state, unverified_at_build
+        g = cfg["queue"].get("admission_guard") or {}
+        data["slots"] = {"state": search_slot_state(conn, cfg), "unverified_by_row": unverified_at_build(conn, cfg, minutes=int(g.get("window_min", 60)), tier=g.get("tier", "medium"), by_row=True),
+                         "waits": proof_wait_estimate(conn, cfg), "count_waiting_runs": bool(cfg["queue"].get("count_waiting_runs")), "generating_max": cfg["queue"].get("generating_max")}
+    except Exception as e:
+        data["slots"] = {"error": f"{type(e).__name__}: {e}"[:120]}
     out = Path(out_dir or (Path(C.ROOT) / "reports"))
     (out / "data").mkdir(parents=True, exist_ok=True)
     (out / "data" / f"phase5_visible_{stage}.json").write_text(json.dumps(data, indent=1, sort_keys=True, default=str) + "\n")
