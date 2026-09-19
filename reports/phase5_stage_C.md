@@ -1,8 +1,8 @@
 # Phase 5 report (Stage C — every tier (full visible part)) — interim
 
-**Interim** (2485 evaluations pending on the reported tiers: large 605, medium 1740, small 140; rows marked † are incomplete and `pending` stands where a value would otherwise read 0 — DECISION 2026-09-18 D1 / D3).
+**Interim** (1877 evaluations pending on the reported tiers: large 605, medium 1005, small 267; rows marked † are incomplete and `pending` stands where a value would otherwise read 0 — DECISION 2026-09-18 D1 / D3).
 
-Generated 2026-09-19T05:45 by scripts/report_phase.py phase5 --stage C (git 7dad1a6e5a31, cfg a3a994ddca04). Data: reports/data/phase5_visible_C.json (src/analysis/phase5.collect). Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = phase5, floor_version = phase4); an interim report changes nothing.
+Generated 2026-09-19T12:18 by scripts/report_phase.py phase5 --stage C (git e010891cff1e, cfg 5b801024a26e). Data: reports/data/phase5_visible_C.json (src/analysis/phase5.collect). Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = phase5, floor_version = phase4); an interim report changes nothing.
 
 ## 0. Progress
 
@@ -14,16 +14,16 @@ Generated 2026-09-19T05:45 by scripts/report_phase.py phase5 --stage C (git 7dad
 | large | gpt-5.6-terra | B2 | 15 / 18 / 18 | 900 | 34.25 | 57.3 | 482.2 |
 | large | gpt-5.6-terra | DrRTL_reimpl | 15 / 18 / 18 | 900 | 35.32 | 49.1 | 180.9 |
 | large | gpt-5.6-terra | M | 15 / 18 / 18 | 900 | 31.32 | 45.2 | 450.7 |
-| medium | gpt-5.6-luna | B0 | 43 / 51 / 51 | 2845 | 5.67 | 43.2 | 358.2 |
-| medium | gpt-5.6-luna | B1_E4 | 42 / 54 / 54 | 2878 | 6.50 | 108.2 | 243.3 |
-| medium | gpt-5.6-luna | B2 | 35 / 55 / 54 | 2340 | 5.35 | 93.9 | 205.6 |
-| medium | gpt-5.6-luna | DrRTL_reimpl | 42 / 54 / 54 | 2880 | 5.62 | 89.6 | 86.5 |
-| medium | gpt-5.6-luna | M | 11 / 54 / 54 | 1090 | 2.26 | 34.4 | 13.3 |
-| medium | gpt-5.6-terra | B2 | 37 / 54 / 54 | 2608 | 64.81 | 102.5 | 208.0 |
-| medium | gpt-5.6-terra | M | 14 / 54 / 54 | 1275 | 30.29 | 44.5 | 30.7 |
-| small | gpt-5.6-luna | B0 | 0 / 18 / 18 | 29 | 0.03 | 0.0 | 0.0 |
-| small | gpt-5.6-luna | B1_E4 | 0 / 18 / 18 | 34 | 0.05 | 1.0 | 0.0 |
-| small | gpt-5.6-luna | B2 | 0 / 18 / 18 | 116 | 0.15 | 3.9 | 0.0 |
+| medium | gpt-5.6-luna | B0 | 48 / 51 / 51 | 3022 | 5.96 | 121.0 | 462.2 |
+| medium | gpt-5.6-luna | B1_E4 | 45 / 54 / 54 | 3007 | 6.71 | 113.5 | 322.8 |
+| medium | gpt-5.6-luna | B2 | 37 / 55 / 54 | 2515 | 5.70 | 100.9 | 269.8 |
+| medium | gpt-5.6-luna | DrRTL_reimpl | 50 / 54 / 54 | 3184 | 6.10 | 95.2 | 115.3 |
+| medium | gpt-5.6-luna | M | 13 / 54 / 54 | 1215 | 2.52 | 38.4 | 42.2 |
+| medium | gpt-5.6-terra | B2 | 40 / 54 / 54 | 2796 | 67.56 | 109.2 | 289.7 |
+| medium | gpt-5.6-terra | M | 20 / 54 / 54 | 1511 | 38.93 | 52.5 | 42.7 |
+| small | gpt-5.6-luna | B0 | 0 / 18 / 18 | 60 | 0.07 | 0.0 | 0.0 |
+| small | gpt-5.6-luna | B1_E4 | 0 / 18 / 18 | 60 | 0.09 | 1.8 | 0.0 |
+| small | gpt-5.6-luna | B2 | 0 / 18 / 18 | 240 | 0.31 | 7.5 | 0.0 |
 | small | gpt-5.6-luna | DrRTL_reimpl | 0 / 18 / 18 | 0 | 0.00 | 0.0 | 0.0 |
 | small | gpt-5.6-luna | M | 0 / 18 / 18 | 0 | 0.00 | 0.0 | 0.0 |
 | small | gpt-5.6-terra | B2 | 0 / 18 / 18 | 0 | 0.00 | 0.0 | 0.0 |
@@ -41,11 +41,11 @@ Incomplete rows: 20 of 20 — runs still open or evaluations pending (proofs, of
 | cktevo_nn_engine__thresholds_128x4096 | medium | evaluation failed (DC rejected): 1 proven candidate (VER-262; B2 1) — rejected by DC at elaboration, terminal, counted as resolved (DECISION 2026-09-19 (n) 1) |
 | cktevo_risc__cpu | medium | proof-latency-bound search (median proof latency 51 min above the 1 800 s generation window): on this design the archive stayed empty during generation for all arms; parents were D; the search reduces to E4-guided one-shot rewriting |
 | drrtl_LSTM | large | harness defect (catalog reset port), fixed 2026-09-18, runs superseded and repeated |
-| drrtl_SPI | medium | verification limit (class cap exhausted on 85 % of proofs; D-vs-D proven); proof-latency-bound search (median proof latency 51 min above the 1 800 s generation window): on this design the archive was empty at 51 of 130 generation builds (B0-luna 34/34, B1_E4-luna 4/24, B2-luna 5/24, B2-terra 3/24, DrRTL_reimpl-luna 3/22, M-luna 2/2); parents were D at those builds and the search reduced to E4-guided one-shot rewriting there; at the other builds the archive held proven candidates (wording qualified to the data, DECISION 2026-09-19 (l) 4) |
+| drrtl_SPI | medium | verification limit (class cap exhausted on 85 % of proofs; D-vs-D proven); proof-latency-bound search (median proof latency 51 min above the 1 800 s generation window): on this design the archive was empty at 66 of 173 generation builds (B0-luna 34/34, B1_E4-luna 6/36, B2-luna 8/36, B2-terra 3/24, DrRTL_reimpl-luna 3/31, M-luna 12/12); parents were D at those builds and the search reduced to E4-guided one-shot rewriting there; at the other builds the archive held proven candidates (wording qualified to the data, DECISION 2026-09-19 (l) 4) |
 | drrtl_UART | medium | evaluation failed (DC rejected): 1 proven candidate (VER-262; B2 1) — rejected by DC at elaboration, terminal, counted as resolved (DECISION 2026-09-19 (n) 1) |
 | drrtl_aes | large | proof-latency-bound search (median proof latency 31 min above the 1 800 s generation window): on this design the archive was empty at 90 of 189 generation builds (B0-terra 8/35, B1_E4-terra 9/33, B2-terra 8/31, DrRTL_reimpl-terra 16/32, M-luna 27/29, M-terra 22/29); parents were D at those builds and the search reduced to E4-guided one-shot rewriting there; at the other builds the archive held proven candidates (wording qualified to the data, DECISION 2026-09-19 (l) 4) |
 | drrtl_router | medium | formal step corrected (harness_version 2), runs superseded and repeated |
-| drrtl_simple_spi | medium | harness defect (missing include file in the staged tree), fixed 2026-09-18, runs superseded and repeated; proof-latency-bound search (median proof latency 51 min above the 1 800 s generation window): on this design the archive was empty at 78 of 115 generation builds (B0-luna 11/31, B1_E4-luna 33/33, B2-terra 21/21, DrRTL_reimpl-luna 13/30); parents were D at those builds and the search reduced to E4-guided one-shot rewriting there; at the other builds the archive held proven candidates (wording qualified to the data, DECISION 2026-09-19 (l) 4) |
+| drrtl_simple_spi | medium | harness defect (missing include file in the staged tree), fixed 2026-09-18, runs superseded and repeated; proof-latency-bound search (median proof latency 51 min above the 1 800 s generation window): on this design the archive was empty at 79 of 116 generation builds (B0-luna 11/31, B1_E4-luna 33/33, B2-terra 22/22, DrRTL_reimpl-luna 13/30); parents were D at those builds and the search reduced to E4-guided one-shot rewriting there; at the other builds the archive held proven candidates (wording qualified to the data, DECISION 2026-09-19 (l) 4); evaluation failed (DC rejected): 5 proven candidates (VER-294 ×5; B0 5) — rejected by DC at elaboration, terminal, counted as resolved (DECISION 2026-09-19 (n) 1) |
 | drrtl_tv80 | large | verification limit (wall-clock cap under CPU contention); proof-latency-bound search (median proof latency 51 min above the 1 800 s generation window): on this design the archive stayed empty during generation for all arms; parents were D; the search reduces to E4-guided one-shot rewriting |
 | rtlopt_sub_32bit | medium | evaluation failed (DC rejected): 2 proven candidates (ELAB-298, ELAB-366; B1_E4 2) — rejected by DC at elaboration, terminal, counted as resolved (DECISION 2026-09-19 (n) 1) |
 
@@ -56,7 +56,7 @@ Incomplete rows: 20 of 20 — runs still open or evaluations pending (proofs, of
 
 ## 0b. Complete designs (DECISION 2026-09-18 (d) F2: every planned row × seed done, no verdict / E4 / offline simulation pending, B0 offline E4 in; DECISION 2026-09-19 (l) 3: a design complete except for B0's offline E4 is listed as B0 pending, its B0 column reads pending, and it counts in the tally and the reachability line. Per-row figures: the mean over seeds of each run's best retained area gain is the primary statistic (the tally rule of F2), with the max over seeds alongside; §2 shows the max over seeds only — the same record set, uniform rule A and floor; DECISION 2026-09-19 (n) 4)
 
-Complete designs on the reported tiers: 1 — drrtl_arm_cpu2; B0 pending: 2 — cktevo_risc__btb, rtlopt_decoder_8bit.
+Complete designs on the reported tiers: 1 — drrtl_arm_cpu2; B0 pending: 3 — cktevo_ethmac__eth_cop, cktevo_risc__btb, rtlopt_decoder_8bit.
 
 ### drrtl_arm_cpu2 (medium tier; complete; main model gpt-5.6-luna; rule-A area floor t_d = 0.28 %; M: tie — no arm separates from the others on this design)
 
@@ -69,6 +69,18 @@ Complete designs on the reported tiers: 1 — drrtl_arm_cpu2; B0 pending: 2 — 
 | gpt-5.6-luna | DrRTL_reimpl | 3 | 147 | 0 | 0 | 0 | 0.00 % / 0.00 % |
 | gpt-5.6-luna | M | 3 | 156 | 0 | 0 | 0 | 0.00 % / 0.00 % |
 | gpt-5.6-terra | M | 3 | 151 | 0 | 0 | 0 | 0.00 % / 0.00 % |
+
+### cktevo_ethmac__eth_cop (medium tier; B0 pending — complete except for B0 offline E4; main model gpt-5.6-luna; rule-A area floor t_d = 1.12 %; M: partial — M separates from one baseline only)
+
+| model | arm | runs | candidates | proven | retained | tradeoff | best retained area gain per run: mean / max |
+|---|---|---|---|---|---|---|---|
+| gpt-5.6-luna | B0 | 3 | 180 | pending | pending | pending | pending (B0 offline E4) |
+| gpt-5.6-luna | B1_E4 | 3 | 180 | 119 | 7 | 100 | 2.08 % / 5.76 % |
+| gpt-5.6-luna | B2 | 3 | 178 | 130 | 3 | 107 | 1.17 % / 1.93 % |
+| gpt-5.6-terra | B2 | 3 | 154 | 139 | 0 | 120 | 0.00 % / 0.00 % |
+| gpt-5.6-luna | DrRTL_reimpl | 3 | 134 | 87 | 15 | 62 | 1.34 % / 2.20 % |
+| gpt-5.6-luna | M | 3 | 174 | 54 | 8 | 45 | 2.38 % / 3.52 % |
+| gpt-5.6-terra | M | 3 | 155 | 98 | 9 | 84 | 4.64 % / 4.69 % |
 
 ### cktevo_risc__btb (large tier; B0 pending — complete except for B0 offline E4; main model gpt-5.6-terra; rule-A area floor t_d = 0.28 %; M: tie — no arm separates from the others on this design)
 
@@ -93,9 +105,10 @@ Complete designs on the reported tiers: 1 — drrtl_arm_cpu2; B0 pending: 2 — 
 | gpt-5.6-luna | M | 3 | 44 | 25 | 9 | 6 | 0.32 % / 0.32 % |
 | gpt-5.6-terra | M | 3 | 26 | 24 | 9 | 7 | 0.32 % / 0.32 % |
 
-**Tally (DECISION 2026-09-19 (m) 4, (n) 2): M wins — exceeds both B1_E4 and B2 by more than the design's floor — on 0 of 3 complete designs (visible layer; ties 3, partial 0, M loses 0; 2 of them B0 pending).**
+**Tally (DECISION 2026-09-19 (m) 4, (n) 2): M wins — exceeds both B1_E4 and B2 by more than the design's floor — on 0 of 4 complete designs (visible layer; ties 3, partial 1, M loses 0; 3 of them B0 pending).**
 Ties — no arm separates from the others on this design: drrtl_arm_cpu2, cktevo_risc__btb, rtlopt_decoder_8bit.
-Reachability of the pre-registered criterion (18 of 30 designs under the hidden configurations — sealed; the visible layer is the proxy): wins so far 0, already lost by M 0, undecided 0, designs not yet complete 27; M still needs 18 of the 27 remaining or undecided designs — reachable in the visible layer.
+Partial — M separates from exactly one baseline by more than the floor and is within the floor of the other: cktevo_ethmac__eth_cop.
+Reachability of the pre-registered criterion (18 of 30 designs under the hidden configurations — sealed; the visible layer is the proxy): wins so far 0, already lost by M 0, undecided 0, designs not yet complete 26; M still needs 18 of the 26 remaining or undecided designs — reachable in the visible layer.
 
 - Mechanism note (C2): On aes M's archive was empty in 22/29 (terra) and 27/29 (luna) generations versus 8–9/33 for B1_E4 and B2, because M admits retained candidates only.
 
@@ -108,35 +121,35 @@ Designs with every planned run done — what still blocks "complete" (DECISION 2
 | cktevo_risc__btb | large | 18 / 18 | 0 | B0 offline E4 109 (offline pool) — B0 pending |
 | drrtl_aes | large | 18 / 18 | 0 | B0 offline E4 136 (offline pool); E4 retries 43 (failed or timed-out E4; pool group e4_timeout); offline simulations pending 86; offline proofs 7 (D3, not blocking) |
 | drrtl_tv80 | large | 18 / 18 | 0 | offline simulations pending 7; offline proofs 3 (D3, not blocking) |
-| cktevo_ethmac__eth_cop | medium | 21 / 21 | 4 | B0 offline E4 71 (offline pool); verdicts pending 4 |
-| rtlopt_decoder_8bit | medium | 21 / 21 | 0 | B0 offline E4 91 (offline pool) — B0 pending |
+| cktevo_ethmac__eth_cop | medium | 21 / 21 | 0 | B0 offline E4 22 (offline pool) — B0 pending |
+| rtlopt_decoder_8bit | medium | 21 / 21 | 0 | B0 offline E4 27 (offline pool) — B0 pending |
 
 Incomplete designs (runs still open; per-row completion counts only, no arm comparison):
 
 | design | tier | rows: done / planned (pending evaluations) |
 |---|---|---|
 | drrtl_LSTM | large | B0-terra 0/3, B1_E4-terra 0/3, B2-terra 0/3, DrRTL_reimpl-terra 0/3, M-luna 0/3, M-terra 0/3 |
-| cktevo_mem_ctrl__mc_adr_sel | medium | B0-luna 3/3 (84 pending), B1_E4-luna 3/3, B2-luna 3/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 2/3, M-terra 3/3 |
+| cktevo_mem_ctrl__mc_adr_sel | medium | B0-luna 3/3 (26 pending), B1_E4-luna 3/3, B2-luna 3/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 2/3, M-terra 3/3 |
 | cktevo_nn_engine__thresholds_128x4096 | medium | B1_E4-luna 3/3, B2-luna 2/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 |
-| cktevo_risc__cpu | medium | B0-luna 2/3 (34 pending), B1_E4-luna 3/3, B2-luna 1/3 (1 pending), B2-terra 0/3 (5 pending), DrRTL_reimpl-luna 1/3 (6 pending), M-luna 0/3 (13 pending), M-terra 0/3 (17 pending) |
-| cktevo_usb__usbf_sie_rx | medium | B0-luna 3/3 (74 pending), B1_E4-luna 3/3, B2-luna 2/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 |
-| cktevo_vga_enh__vga_wb_slave | medium | B0-luna 3/3 (76 pending), B1_E4-luna 3/3, B2-luna 3/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 (23 pending) |
-| drrtl_SPI | medium | B0-luna 2/3 (17 pending), B1_E4-luna 2/3, B2-luna 1/3 (1 pending), B2-terra 1/3 (1 pending), DrRTL_reimpl-luna 1/3 (6 pending), M-luna 0/3 (10 pending), M-terra 0/3 |
-| drrtl_UART | medium | B0-luna 3/3 (103 pending), B1_E4-luna 1/3 (39 pending), B2-luna 2/3 (76 pending), B2-terra 1/3 (77 pending), DrRTL_reimpl-luna 3/3, M-luna 0/3 (51 pending), M-terra 0/3 |
-| drrtl_communication | medium | B0-luna 2/3 (36 pending), B1_E4-luna 1/3 (3 pending), B2-luna 1/3, B2-terra 2/3 (2 pending), DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 |
-| drrtl_router | medium | B0-luna 1/3 (19 pending), B1_E4-luna 0/3, B2-luna 3/3, B2-terra 0/3, DrRTL_reimpl-luna 0/3, M-luna 0/3 (22 pending), M-terra 0/3 (13 pending) |
-| drrtl_simple_spi | medium | B0-luna 1/3 (35 pending), B1_E4-luna 0/3 (114 pending), B2-luna 0/3, B2-terra 0/3 (92 pending), DrRTL_reimpl-luna 0/3 (26 pending), M-luna 0/3, M-terra 0/3 |
-| rtlopt_alu_64bit | medium | B0-luna 3/3 (106 pending), B1_E4-luna 3/3, B2-luna 1/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 |
-| rtlopt_calculation | medium | B0-luna 2/3 (66 pending), B1_E4-luna 2/3 (2 pending), B2-luna 0/3, B2-terra 0/3, DrRTL_reimpl-luna 1/3 (9 pending), M-luna 0/3, M-terra 0/3 |
-| rtlopt_divider_8bit | medium | B0-luna 3/3 (84 pending), B1_E4-luna 3/3, B2-luna 3/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 (11 pending) |
-| rtlopt_register | medium | B0-luna 3/3 (88 pending), B1_E4-luna 3/3, B2-luna 1/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 |
-| rtlopt_sub_32bit | medium | B0-luna 3/3 (83 pending), B1_E4-luna 3/3, B2-luna 3/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3 (48 pending), M-terra 2/3 (4 pending) |
+| cktevo_risc__cpu | medium | B0-luna 3/3 (11 pending), B1_E4-luna 3/3, B2-luna 2/3, B2-terra 1/3, DrRTL_reimpl-luna 2/3 (4 pending), M-luna 0/3 (6 pending), M-terra 0/3 (23 pending) |
+| cktevo_usb__usbf_sie_rx | medium | B0-luna 3/3 (23 pending), B1_E4-luna 3/3, B2-luna 2/3 (1 pending), B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 (34 pending) |
+| cktevo_vga_enh__vga_wb_slave | medium | B0-luna 3/3 (23 pending), B1_E4-luna 3/3, B2-luna 3/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 1/3 (39 pending) |
+| drrtl_SPI | medium | B0-luna 3/3, B1_E4-luna 2/3 (22 pending), B2-luna 2/3 (23 pending), B2-terra 2/3, DrRTL_reimpl-luna 3/3, M-luna 0/3 (44 pending), M-terra 0/3 |
+| drrtl_UART | medium | B0-luna 3/3 (25 pending), B1_E4-luna 1/3 (22 pending), B2-luna 2/3 (45 pending), B2-terra 1/3 (57 pending), DrRTL_reimpl-luna 3/3, M-luna 0/3 (51 pending), M-terra 0/3 |
+| drrtl_communication | medium | B0-luna 3/3 (14 pending), B1_E4-luna 3/3, B2-luna 1/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 |
+| drrtl_router | medium | B0-luna 2/3 (43 pending), B1_E4-luna 0/3 (10 pending), B2-luna 3/3, B2-terra 0/3 (5 pending), DrRTL_reimpl-luna 2/3 (1 pending), M-luna 2/3 (27 pending), M-terra 1/3 |
+| drrtl_simple_spi | medium | B0-luna 2/3 (19 pending), B1_E4-luna 0/3 (71 pending), B2-luna 0/3, B2-terra 0/3 (55 pending), DrRTL_reimpl-luna 1/3 (22 pending), M-luna 0/3, M-terra 0/3 |
+| rtlopt_alu_64bit | medium | B0-luna 3/3 (30 pending), B1_E4-luna 3/3, B2-luna 1/3 (3 pending), B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 |
+| rtlopt_calculation | medium | B0-luna 2/3 (60 pending), B1_E4-luna 3/3, B2-luna 0/3, B2-terra 0/3 (14 pending), DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 |
+| rtlopt_divider_8bit | medium | B0-luna 3/3 (22 pending), B1_E4-luna 3/3, B2-luna 3/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 3/3 |
+| rtlopt_register | medium | B0-luna 3/3 (22 pending), B1_E4-luna 3/3, B2-luna 1/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3, M-terra 0/3 |
+| rtlopt_sub_32bit | medium | B0-luna 3/3 (24 pending), B1_E4-luna 3/3, B2-luna 3/3, B2-terra 3/3, DrRTL_reimpl-luna 3/3, M-luna 0/3 (22 pending), M-terra 3/3 |
 | cktevo_hsm__MixColumns | small | B0-luna 0/3, B1_E4-luna 0/3, B2-luna 0/3, B2-terra 0/3, DrRTL_reimpl-luna 0/3, M-luna 0/3, M-terra 0/3 |
 | cktevo_risc__stall_control_unit | small | B0-luna 0/3, B1_E4-luna 0/3, B2-luna 0/3, B2-terra 0/3, DrRTL_reimpl-luna 0/3, M-luna 0/3, M-terra 0/3 |
 | drrtl_controller | small | B0-luna 0/3, B1_E4-luna 0/3, B2-luna 0/3, B2-terra 0/3, DrRTL_reimpl-luna 0/3, M-luna 0/3, M-terra 0/3 |
 | drrtl_ticket_machine | small | B0-luna 0/3, B1_E4-luna 0/3, B2-luna 0/3, B2-terra 0/3, DrRTL_reimpl-luna 0/3, M-luna 0/3, M-terra 0/3 |
-| rtlopt_mux_large | small | B0-luna 0/3, B1_E4-luna 0/3, B2-luna 0/3 (20 pending), B2-terra 0/3, DrRTL_reimpl-luna 0/3, M-luna 0/3, M-terra 0/3 |
-| rtlopt_sub_8bit | small | B0-luna 0/3 (22 pending), B1_E4-luna 0/3 (25 pending), B2-luna 0/3 (73 pending), B2-terra 0/3, DrRTL_reimpl-luna 0/3, M-luna 0/3, M-terra 0/3 |
+| rtlopt_mux_large | small | B0-luna 0/3, B1_E4-luna 0/3, B2-luna 0/3 (38 pending), B2-terra 0/3, DrRTL_reimpl-luna 0/3, M-luna 0/3, M-terra 0/3 |
+| rtlopt_sub_8bit | small | B0-luna 0/3 (43 pending), B1_E4-luna 0/3 (46 pending), B2-luna 0/3 (140 pending), B2-terra 0/3, DrRTL_reimpl-luna 0/3, M-luna 0/3, M-terra 0/3 |
 
 ## 1. Arm comparison per tier (uniform caliber: equal LLM calls; every proven candidate re-labelled offline under rule A with the design's frozen E4 floor)
 
@@ -168,35 +181,35 @@ Note (DECISION 2026-09-19 (k) 3 / (l) 4): on drrtl_tv80 the archive stayed empty
 
 | model (role) | arm | runs | candidates | pending | unusable | proven (rate / call) | inconclusive | latency-mapped (c2) | accepted (arm's own) | retained (rule A) | retained / run | runs with ≥ 1 retained | best area gain per run: mean / median | retained per 100 calls | retained per USD | retained per DC h | USD | DC h | VCF h |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna (main) | B0 | 43/51 † | 2842 | 1071 (e4 1043, verdict 28) | 3 | 1521 (0.535) † | 247 | 0 | 597 | 203 † | 3.98 † | 24 † | 6.06 % / 0.00 % † | 7.13 † | 35.81 † | 4.70 † | 5.67 | 43.2 | 358.2 |
-| gpt-5.6-luna (main) | B1_E4 | 42/54 † | 2862 | 158 (verdict 158) | 21 | 1535 (0.533) † | 198 | 0 | 658 | 613 † | 11.35 † | 30 † | 7.58 % / 0.38 % † | 21.30 † | 94.26 † | 5.67 † | 6.50 | 108.2 | 243.3 |
-| gpt-5.6-luna (main) | B2 | 35/55 † | 2331 | 78 (verdict 78) | 19 | 1370 (0.586) † | 137 | 0 | 496 | 393 † | 7.14 † | 22 † | 4.29 % / 0.00 % † | 16.80 † | 73.51 † | 4.19 † | 5.35 | 93.9 | 205.6 |
-| gpt-5.6-luna (main) | DrRTL_reimpl | 42/54 † | 2469 | 43 (verdict 43) | 14 | 1305 (0.453) † | 108 | 0 | 561 | 529 † | 9.80 † | 26 † | 4.86 % / 0.00 % † | 18.37 † | 94.08 † | 5.90 † | 5.62 | 89.6 | 86.5 |
-| gpt-5.6-luna (main) | M | 11/54 † | 1065 | 144 (e4 1, verdict 143) | 25 | 218 (0.200) † | 1 | 1 | 6 | 28 † | 0.52 † | 11 † | 0.40 % / 0.00 % † | 2.57 † | 12.41 † | 0.81 † | 2.26 | 34.4 | 13.3 |
-| gpt-5.6-terra (second) | B2 | 37/54 † | 2584 | 178 (verdict 178) | 29 | 1488 (0.571) † | 128 | 0 | 606 | 472 † | 8.74 † | 26 † | 5.08 % / 0.00 % † | 18.10 † | 7.28 † | 4.61 † | 64.81 | 102.5 | 208.0 |
-| gpt-5.6-terra (second) | M | 14/54 † | 1246 | 68 (verdict 68) | 29 | 416 (0.326) † | 19 | 0 | 57 | 130 † | 2.41 † | 17 † | 4.33 % / 0.00 % † | 10.20 † | 4.29 † | 2.92 † | 30.29 | 44.5 | 30.7 |
+| gpt-5.6-luna (main) | B0 | 48/51 † | 3020 | 398 (e4 390, verdict 8) | 3 | 1647 (0.545) † | 268 | 0 | 682 | 479 † | 9.39 † | 28 † | 6.30 % / 0.32 % † | 15.85 † | 80.30 † | 3.96 † | 5.96 | 121.0 | 462.2 |
+| gpt-5.6-luna (main) | B1_E4 | 45/54 † | 2989 | 125 (e4 3, verdict 122) | 21 | 1588 (0.528) † | 271 | 0 | 680 | 630 † | 11.67 † | 31 † | 7.73 % / 0.46 % † | 20.95 † | 93.91 † | 5.55 † | 6.71 | 113.5 | 322.8 |
+| gpt-5.6-luna (main) | B2 | 37/55 † | 2511 | 75 (verdict 75) | 19 | 1485 (0.591) † | 170 | 0 | 548 | 432 † | 7.86 † | 24 † | 4.69 % / 0.00 % † | 17.18 † | 75.83 † | 4.28 † | 5.70 | 100.9 | 269.8 |
+| gpt-5.6-luna (main) | DrRTL_reimpl | 50/54 † | 2731 | 27 (e4 1, verdict 26) | 14 | 1438 (0.452) † | 118 | 0 | 590 | 586 † | 10.85 † | 26 † | 5.13 % / 0.00 % † | 18.41 † | 96.13 † | 6.16 † | 6.10 | 95.2 | 115.3 |
+| gpt-5.6-luna (main) | M | 13/54 † | 1195 | 150 (e4 1, verdict 149) | 25 | 259 (0.213) † | 22 | 1 | 6 | 28 † | 0.52 † | 11 † | 0.40 % / 0.00 % † | 2.31 † | 11.12 † | 0.73 † | 2.52 | 38.4 | 42.2 |
+| gpt-5.6-terra (second) | B2 | 40/54 † | 2767 | 133 (verdict 133) | 29 | 1617 (0.578) † | 171 | 0 | 665 | 571 † | 10.57 † | 29 † | 7.17 % / 0.32 % † | 20.42 † | 8.45 † | 5.23 † | 67.56 | 109.2 | 289.7 |
+| gpt-5.6-terra (second) | M | 20/54 † | 1490 | 97 (verdict 97) | 29 | 521 (0.345) † | 29 | 0 | 78 | 164 † | 3.04 † | 20 † | 4.40 % / 0.00 % † | 10.85 † | 4.21 † | 3.13 † | 38.93 | 52.5 | 42.7 |
 
 Verdict mix and labels:
 
 | model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | formal-accepted, synthesis-rejected (DC error id; DECISION 2026-09-19 (o) 2) | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna | B0 | 439 | 142 | 211 | 247 | 2 | 1071 | 252 | 0 | 0 | absorbed: 12, absorbed_identical: 55, harmful: 59, noise: 4, retained: 203, tradeoff: 145 | improved: 1220, no_gain: 291, nonequiv: 1041 | 0 (0 / 315 = 0 %) | 514 (259) | 215 / 14259 |
-| gpt-5.6-luna | B1_E4 | 437 | 150 | 295 | 198 | 0 | 158 | 88 | 0 | 2 (rtlopt_sub_32bit ELAB-298, rtlopt_sub_32bit ELAB-366) | absorbed: 44, absorbed_identical: 187, harmful: 127, noise: 34, retained: 613, tradeoff: 528 | absorbed_identical: 1, improved: 1306, no_gain: 227, nonequiv: 1080 | 8 (8 / 507 = 2 %) | 566 (258) | 274 / 7786 |
-| gpt-5.6-luna | B2 | 333 | 114 | 247 | 137 | 0 | 78 | 42 | 0 | 3 (cktevo_ethmac__eth_cop ELAB-366 ×2, drrtl_UART VER-262) | absorbed: 43, absorbed_identical: 226, harmful: 146, noise: 63, retained: 393, tradeoff: 496 | improved: 1095, no_gain: 270, nonequiv: 833 | 10 (10 / 391 = 3 %) | 436 (219) | 387 / 14924 |
-| gpt-5.6-luna | DrRTL_reimpl | 228 | 75 | 255 | 108 | 0 | 43 | 454 | 0 | 1 (cktevo_ethmac__eth_cop ELAB-366) | absorbed: 35, absorbed_identical: 309, harmful: 92, noise: 12, retained: 529, tradeoff: 327 | absorbed_identical: 1, improved: 967, no_gain: 337, nonequiv: 666 | 10 (10 / 297 = 3 %) | 348 (152) | 268 / 15533 |
-| gpt-5.6-luna | M | 166 | 137 | 140 | 1 | 0 | 144 | 260 | 0 | 0 | absorbed_identical: 70, harmful: 32, noise: 11, retained: 28, tradeoff: 76 | absorbed_identical: 70, fragile: 16, harmful: 32, noise: 11, nonequiv: 444, retained: 12, tradeoff: 76 | 27 (27 / 218 = 12 %) | 233 (65) | 301 / 48608 |
-| gpt-5.6-terra | B2 | 378 | 152 | 151 | 128 | 2 | 178 | 107 | 0 | 1 (cktevo_nn_engine__thresholds_128x4096 VER-262) | absorbed: 12, absorbed_identical: 104, harmful: 150, noise: 41, retained: 472, tradeoff: 708 | improved: 1296, no_gain: 191, nonequiv: 811 | 15 (15 / 465 = 3 %) | 413 (152) | 304 / 10815 |
-| gpt-5.6-terra | M | 119 | 66 | 122 | 19 | 3 | 68 | 431 | 0 | 1 (cktevo_mem_ctrl__mc_adr_sel LINK-3) | absorbed: 1, absorbed_identical: 70, harmful: 36, noise: 24, retained: 130, tradeoff: 154 | absorbed: 1, absorbed_identical: 72, fragile: 25, harmful: 36, noise: 24, nonequiv: 329, retained: 105, tradeoff: 154 | 7 (7 / 181 = 4 %) | 168 (62) | 182 / 12332 |
+| gpt-5.6-luna | B0 | 462 | 147 | 224 | 268 | 2 | 398 | 262 | 0 | 5 (drrtl_simple_spi VER-294 ×5) | absorbed: 38, absorbed_identical: 155, harmful: 172, noise: 12, retained: 479, tradeoff: 396 | improved: 1334, no_gain: 303, nonequiv: 1103 | 0 (0 / 315 = 0 %) | 543 (281) | 225 / 15724 |
+| gpt-5.6-luna | B1_E4 | 437 | 178 | 299 | 271 | 0 | 125 | 93 | 0 | 2 (rtlopt_sub_32bit ELAB-298, rtlopt_sub_32bit ELAB-366) | absorbed: 45, absorbed_identical: 211, harmful: 131, noise: 35, retained: 630, tradeoff: 531 | absorbed_identical: 1, improved: 1354, no_gain: 229, nonequiv: 1185 | 8 (8 / 507 = 2 %) | 582 (265) | 302 / 13723 |
+| gpt-5.6-luna | B2 | 346 | 133 | 250 | 170 | 0 | 75 | 42 | 0 | 3 (cktevo_ethmac__eth_cop ELAB-366 ×2, drrtl_UART VER-262) | absorbed: 43, absorbed_identical: 254, harmful: 150, noise: 64, retained: 432, tradeoff: 539 | improved: 1207, no_gain: 273, nonequiv: 901 | 10 (10 / 451 = 2 %) | 462 (241) | 403 / 15572 |
+| gpt-5.6-luna | DrRTL_reimpl | 232 | 76 | 277 | 118 | 0 | 27 | 563 | 0 | 1 (cktevo_ethmac__eth_cop ELAB-366) | absorbed: 35, absorbed_identical: 375, harmful: 92, noise: 12, retained: 586, tradeoff: 336 | absorbed_identical: 1, improved: 1033, no_gain: 403, nonequiv: 703 | 10 (10 / 297 = 3 %) | 366 (159) | 279 / 15622 |
+| gpt-5.6-luna | M | 171 | 138 | 169 | 22 | 0 | 150 | 287 | 0 | 0 | absorbed_identical: 107, harmful: 33, noise: 12, retained: 28, tradeoff: 78 | absorbed_identical: 107, fragile: 16, harmful: 33, noise: 12, nonequiv: 500, retained: 12, tradeoff: 78 | 27 (27 / 218 = 12 %) | 247 (71) | 331 / 49327 |
+| gpt-5.6-terra | B2 | 402 | 169 | 154 | 171 | 2 | 133 | 119 | 0 | 1 (cktevo_nn_engine__thresholds_128x4096 VER-262) | absorbed: 12, absorbed_identical: 115, harmful: 161, noise: 41, retained: 571, tradeoff: 716 | improved: 1411, no_gain: 205, nonequiv: 898 | 15 (15 / 465 = 3 %) | 439 (165) | 334 / 14712 |
+| gpt-5.6-terra | M | 146 | 72 | 139 | 29 | 7 | 97 | 477 | 0 | 1 (cktevo_mem_ctrl__mc_adr_sel LINK-3) | absorbed: 1, absorbed_identical: 87, harmful: 37, noise: 24, retained: 164, tradeoff: 207 | absorbed: 1, absorbed_identical: 89, fragile: 25, harmful: 37, noise: 24, nonequiv: 393, retained: 139, tradeoff: 207 | 7 (7 / 181 = 4 %) | 207 (75) | 244 / 39209 |
 
-Note (DECISION 2026-09-19 (k) 3 / (l) 4): on cktevo_risc__cpu the archive stayed empty during generation for all arms (proof-latency-bound search, §0a): parents were D and the search reduced to E4-guided one-shot rewriting; on drrtl_SPI at 51 of 130 generation builds (B0-luna 34/34, B1_E4-luna 4/24, B2-luna 5/24, B2-terra 3/24, DrRTL_reimpl-luna 3/22, M-luna 2/2); drrtl_simple_spi at 78 of 115 generation builds (B0-luna 11/31, B1_E4-luna 33/33, B2-terra 21/21, DrRTL_reimpl-luna 13/30) the archive was empty at that share of generation builds only — parents were D at those builds, proven candidates were in the archive at the others (wording qualified to the data).
+Note (DECISION 2026-09-19 (k) 3 / (l) 4): on cktevo_risc__cpu the archive stayed empty during generation for all arms (proof-latency-bound search, §0a): parents were D and the search reduced to E4-guided one-shot rewriting; on drrtl_SPI at 66 of 173 generation builds (B0-luna 34/34, B1_E4-luna 6/36, B2-luna 8/36, B2-terra 3/24, DrRTL_reimpl-luna 3/31, M-luna 12/12); drrtl_simple_spi at 79 of 116 generation builds (B0-luna 11/31, B1_E4-luna 33/33, B2-terra 22/22, DrRTL_reimpl-luna 13/30) the archive was empty at that share of generation builds only — parents were D at those builds, proven candidates were in the archive at the others (wording qualified to the data).
 
 ### small tier
 
 | model (role) | arm | runs | candidates | pending | unusable | proven (rate / call) | inconclusive | latency-mapped (c2) | accepted (arm's own) | retained (rule A) | retained / run | runs with ≥ 1 retained | best area gain per run: mean / median | retained per 100 calls | retained per USD | retained per DC h | USD | DC h | VCF h |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna (main) | B0 | 0/18 † | 29 | 22 (verdict 22) | 0 | pending | 0 | 0 | 0 | pending | pending | pending | pending | pending | pending | pending | 0.03 | 0.0 | 0.0 |
-| gpt-5.6-luna (main) | B1_E4 | 0/18 † | 34 | 25 (verdict 25) | 0 | pending | 0 | 0 | 0 | pending | pending | pending | pending | pending | pending | pending | 0.05 | 1.0 | 0.0 |
-| gpt-5.6-luna (main) | B2 | 0/18 † | 116 | 93 (verdict 93) | 0 | pending | 0 | 0 | 0 | pending | pending | pending | pending | pending | pending | pending | 0.15 | 3.9 | 0.0 |
+| gpt-5.6-luna (main) | B0 | 0/18 † | 60 | 43 (verdict 43) | 0 | pending | 0 | 0 | 0 | pending | pending | pending | pending | pending | pending | pending | 0.07 | 0.0 | 0.0 |
+| gpt-5.6-luna (main) | B1_E4 | 0/18 † | 60 | 46 (verdict 46) | 0 | pending | 0 | 0 | 0 | pending | pending | pending | pending | pending | pending | pending | 0.09 | 1.8 | 0.0 |
+| gpt-5.6-luna (main) | B2 | 0/18 † | 240 | 178 (verdict 178) | 0 | pending | 0 | 0 | 0 | pending | pending | pending | pending | pending | pending | pending | 0.31 | 7.5 | 0.0 |
 | gpt-5.6-luna (main) | DrRTL_reimpl | 0/18 † | 0 | 0 | 0 | pending | 0 | 0 | 0 | pending | pending | pending | pending | pending | pending | pending | 0.00 | 0.0 | 0.0 |
 | gpt-5.6-luna (main) | M | 0/18 † | 0 | 0 | 0 | pending | 0 | 0 | 0 | pending | pending | pending | pending | pending | pending | pending | 0.00 | 0.0 | 0.0 |
 | gpt-5.6-terra (second) | B2 | 0/18 † | 0 | 0 | 0 | pending | 0 | 0 | 0 | pending | pending | pending | pending | pending | pending | pending | 0.00 | 0.0 | 0.0 |
@@ -206,9 +219,9 @@ Verdict mix and labels:
 
 | model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | formal-accepted, synthesis-rejected (DC error id; DECISION 2026-09-19 (o) 2) | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna | B0 | 2 | 0 | 3 | 0 | 0 | 22 | 2 | 0 | 0 | - | nonequiv: 5 | 0 (no block-level answers) | 4 (0) | 34 / 53 |
-| gpt-5.6-luna | B1_E4 | 2 | 0 | 7 | 0 | 0 | 25 | 0 | 0 | 0 | - | nonequiv: 9 | 0 (no block-level answers) | 9 (0) | 35 / 82 |
-| gpt-5.6-luna | B2 | 12 | 0 | 5 | 0 | 0 | 93 | 6 | 0 | 0 | - | nonequiv: 17 | 0 (0 / 25 = 0 %) | 16 (0) | 32 / 81 |
+| gpt-5.6-luna | B0 | 4 | 0 | 6 | 0 | 0 | 43 | 7 | 0 | 0 | - | nonequiv: 10 | 0 (no block-level answers) | 8 (0) | 34 / 53 |
+| gpt-5.6-luna | B1_E4 | 5 | 0 | 9 | 0 | 0 | 46 | 0 | 0 | 0 | - | nonequiv: 14 | 0 (no block-level answers) | 14 (0) | 41 / 88 |
+| gpt-5.6-luna | B2 | 24 | 0 | 18 | 0 | 0 | 178 | 20 | 0 | 0 | - | nonequiv: 42 | 0 (0 / 47 = 0 %) | 36 (0) | 35 / 80 |
 | gpt-5.6-luna | DrRTL_reimpl | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | - | - | 0 (no block-level answers) | 0 (0) | - / - |
 | gpt-5.6-luna | M | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | - | - | 0 (no block-level answers) | 0 (0) | - / - |
 | gpt-5.6-terra | B2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | - | - | 0 (no block-level answers) | 0 (0) | - / - |
@@ -233,26 +246,26 @@ Note (DECISION 2026-09-19 (k) 3 / (l) 4): on drrtl_tv80 the archive stayed empty
 
 | design | B0 (luna) | B1_E4 (luna) | B2 (luna) | B2 (terra) | DrRTL_reimpl (luna) | M (luna) | M (terra) |
 |---|---|---|---|---|---|---|---|
-| cktevo_ethmac__eth_cop | pending | 5.76 % | 1.93 % | 0 | 2.20 % | 3.52 % | 4.69 % † |
-| cktevo_mem_ctrl__mc_adr_sel | 1.83 % † | 1.69 % | 2.40 % | 2.50 % | 2.40 % | 1.56 % | 2.27 % |
+| cktevo_ethmac__eth_cop | 1.34 % † | 5.76 % | 1.93 % | 0 | 2.20 % | 3.52 % | 4.69 % |
+| cktevo_mem_ctrl__mc_adr_sel | 2.40 % † | 1.69 % | 2.40 % | 2.50 % | 2.40 % | 1.56 % | 2.27 % |
 | cktevo_nn_engine__thresholds_128x4096 | - | 0 | 0 | 0 | 0 | 0 | 0 |
-| cktevo_risc__cpu | pending | 0 | pending | pending | pending | pending | pending |
-| cktevo_usb__usbf_sie_rx | 1.11 % † | 1.45 % | 1.49 % | 1.69 % | 0.64 % | 0 | 0 |
+| cktevo_risc__cpu | pending | 0 | 0 | 0 | pending | pending | pending |
+| cktevo_usb__usbf_sie_rx | 2.40 % † | 1.45 % | 1.49 % † | 1.69 % | 0.64 % | 0 | 1.25 % † |
 | cktevo_vga_enh__vga_wb_slave | 2.33 % † | 2.33 % | 2.04 % | 2.35 % | 1.32 % | 0 | 2.05 % † |
-| drrtl_SPI | verification limit | 8.20 % | 6.28 % † | 8.20 % † | 8.63 % † | verification limit | verification limit |
+| drrtl_SPI | verification limit | 8.20 % † | 6.28 % † | 8.20 % | 8.63 % | verification limit | verification limit |
 | drrtl_UART | pending | pending | pending | pending | 0 | pending | 0 |
 | drrtl_arm_cpu2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| drrtl_communication | 0.76 % † | 1.98 % † | 0 | pending | 0 | 0 | 0 |
-| drrtl_router | pending | 0 | 0.13 % | 0 | 0 | pending | pending |
+| drrtl_communication | 0.76 % † | 1.98 % | 0 | 0 | 0 | 0 | 0 |
+| drrtl_router | pending | pending | 0.13 % | pending | pending | pending | 0 |
 | drrtl_simple_spi | pending | pending | 0 | pending | pending | 0 | 0 |
-| rtlopt_alu_64bit | pending | 28.88 % | 0 | 15.95 % | 0 | 0 | 0 |
-| rtlopt_calculation | 36.83 % † | 40.49 % † | 0 | 0 | 20.29 % † | 0 | 0 |
+| rtlopt_alu_64bit | 1.71 % † | 28.88 % | 20.97 % † | 15.95 % | 0 | 0 | 0 |
+| rtlopt_calculation | 36.83 % † | 40.49 % | 0 | 39.65 % † | 34.84 % | 0 | 0 |
 | rtlopt_decoder_8bit | 0.32 % † | 0.32 % | 0.32 % | 0.32 % | 0.32 % | 0.32 % | 0.32 % |
-| rtlopt_divider_8bit | 65.51 % † | 65.38 % | 65.51 % | 65.84 % | 66.44 % | 0 | 66.58 % † |
-| rtlopt_register | 8.48 % † | 8.70 % | 0.63 % | 7.14 % | 0.59 % | 0 | 0 |
-| rtlopt_sub_32bit | 3.83 % † | 3.83 % | 3.83 % | 3.83 % | 3.83 % | 3.83 % † | 3.83 % † |
+| rtlopt_divider_8bit | 65.51 % † | 65.38 % | 65.51 % | 65.84 % | 66.44 % | 0 | 66.58 % |
+| rtlopt_register | 10.29 % † | 8.70 % | 0.63 % | 7.14 % | 0.59 % | 0 | 0 |
+| rtlopt_sub_32bit | 3.83 % † | 3.83 % | 3.83 % | 3.83 % | 3.83 % | 3.83 % † | 3.83 % |
 
-Note (DECISION 2026-09-19 (k) 3 / (l) 4): on cktevo_risc__cpu the archive stayed empty during generation for all arms (proof-latency-bound search, §0a): parents were D and the search reduced to E4-guided one-shot rewriting; on drrtl_SPI at 51 of 130 generation builds (B0-luna 34/34, B1_E4-luna 4/24, B2-luna 5/24, B2-terra 3/24, DrRTL_reimpl-luna 3/22, M-luna 2/2); drrtl_simple_spi at 78 of 115 generation builds (B0-luna 11/31, B1_E4-luna 33/33, B2-terra 21/21, DrRTL_reimpl-luna 13/30) the archive was empty at that share of generation builds only — parents were D at those builds, proven candidates were in the archive at the others (wording qualified to the data).
+Note (DECISION 2026-09-19 (k) 3 / (l) 4): on cktevo_risc__cpu the archive stayed empty during generation for all arms (proof-latency-bound search, §0a): parents were D and the search reduced to E4-guided one-shot rewriting; on drrtl_SPI at 66 of 173 generation builds (B0-luna 34/34, B1_E4-luna 6/36, B2-luna 8/36, B2-terra 3/24, DrRTL_reimpl-luna 3/31, M-luna 12/12); drrtl_simple_spi at 79 of 116 generation builds (B0-luna 11/31, B1_E4-luna 33/33, B2-terra 22/22, DrRTL_reimpl-luna 13/30) the archive was empty at that share of generation builds only — parents were D at those builds, proven candidates were in the archive at the others (wording qualified to the data).
 
 ### small tier
 
@@ -833,303 +846,768 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | M | 44 | 0.67 % / 1.76 % | 0.0005 / 0.0027 | 4.88 % / 47.76 % | 22 | up=area,power down=wns: 17; up=power down=area,wns: 2; up=power down=wns: 1; up=wns down=area: 2 |
 | gpt-5.6-terra | M | 78 | 1.47 % / 4.67 % | 0.0003 / 0.0049 | 6.31 % / 80.83 % | 31 | up=area,power down=wns: 21; up=power down=area: 2; up=power down=area,wns: 2; up=power down=wns: 1; up=wns down=area: 1; up=wns down=area,power: 1; up=wns,power down=area: 3 |
 
-### medium tier (2368 retained, 2434 tradeoff)
+### medium tier (2890 retained, 2803 tradeoff)
 
 | model | arm | design | candidate | uniform label | arm's label | class | sub-tags | area | WNS (clock periods) | power | tradeoff composition |
 |---|---|---|---|---|---|---|---|---|---|---|---|
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c56dd4e0803a2ef | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | 3.34 % | 0.0171 | -3.89 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c01ce06eb892689 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | 2.60 % | -0.0003 | -17.88 % | up=area down=power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c5fa83728f04522 | retained | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | 1.34 % | 0.0004 | 27.96 % | - |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c96f6b38dd4edce | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | 1.12 % | 0.0006 | -6.40 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cb8c90f0c6b4b0e | retained | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | 1.03 % | 0.0020 | 3.44 % | - |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c96e6d3937e2969 | retained | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | 0.85 % | 0.0009 | 26.66 % | - |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | ca90105ab1ffc2d | retained | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -0.20 % | 0.0014 | 20.61 % | - |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cb47a54979d12dd | retained | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -0.22 % | 0.0042 | 35.63 % | - |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cc8d143ebc35d33 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -0.22 % | 0.0042 | -2.39 % | up=wns down=power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | ccd932b2bb7926c | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -1.26 % | 0.0021 | 9.66 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c93eb996fdbaef2 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -3.32 % | 0.0016 | 30.91 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c4f1c20d070bcf3 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -3.63 % | 0.0010 | 25.57 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c4f6471e312d169 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -3.77 % | -0.0002 | 29.30 % | up=power down=area |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c3ad620fb5c60d7 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -4.08 % | -0.0001 | 22.05 % | up=power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c7cf0db518cbf57 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -4.08 % | -0.0001 | 22.06 % | up=power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c7d7cba23e28f20 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -4.17 % | 0.0036 | 24.85 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c52a0439450753d | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -4.66 % | 0.0047 | 28.58 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c761220173739c8 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -4.82 % | 0.0039 | 13.55 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c7cc9c0d2622c05 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -4.91 % | -0.0000 | 19.22 % | up=power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cb9b20ca974b802 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -5.20 % | 0.0004 | 13.45 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c7db5209d34f207 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -5.25 % | 0.0007 | -49.17 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c08d57a5ace47de | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -5.34 % | 0.0006 | 25.36 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cce79f1276a2277 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -5.40 % | 0.0009 | -14.21 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c343e399180613a | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -5.67 % | 0.0031 | -14.72 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c0f30bff71ff199 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -5.81 % | 0.0007 | -14.51 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c3038672171a47c | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -5.83 % | 0.0008 | -28.30 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c9db0f0ca688207 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -5.85 % | 0.0006 | -57.62 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | ca307c95045264d | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -5.96 % | 0.0001 | 7.55 % | up=power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cc189aca3396cf3 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -6.79 % | 0.0014 | -20.03 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c0132e8ec2019b1 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -6.79 % | 0.0001 | 9.05 % | up=power down=area |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c28ccd4302fdd3c | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -7.15 % | 0.0035 | 18.90 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c7aafd3f2394024 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -7.15 % | 0.0006 | -24.84 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c43b0a230c5864f | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -7.42 % | 0.0015 | 0.47 % | up=wns down=area |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c18e9b787b3ee31 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -7.56 % | 0.0007 | 18.10 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c81c12a771608bf | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -7.56 % | 0.0007 | -23.81 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cc260de076abbb5 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -7.56 % | 0.0007 | 18.13 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c654b0ede1b8e41 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -7.56 % | 0.0007 | -23.77 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cb854a395ae45b2 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -7.56 % | 0.0007 | -23.77 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c4d69aaefaa9be8 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -7.80 % | 0.0046 | -1.27 % | up=wns down=area |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c363abca42a62a3 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -7.80 % | 0.0021 | 23.37 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c87ce3b53ff6875 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.39 % | 0.0027 | 22.56 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c6f912eaa40bebb | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.52 % | 0.0006 | -51.82 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | ca3a2cefde5b408 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.72 % | 0.0011 | -26.88 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c6f01d4b8315f50 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.72 % | 0.0011 | -26.88 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cbdd75f4b189878 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.72 % | 0.0011 | -26.88 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c4fd7fca6a51728 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.72 % | 0.0011 | 10.88 % | up=wns,power down=area |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c3cd13164bff12e | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.72 % | 0.0011 | 10.88 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c7763e7f71ff97d | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.72 % | 0.0011 | -26.83 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c4a14cdef8d2434 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -8.81 % | 0.0016 | 8.25 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c62414668332264 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.99 % | 0.0012 | 11.68 % | up=wns,power down=area |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c43184ef1ea5cfb | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.99 % | 0.0012 | 11.68 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | ca2003e4bd4c8dc | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.99 % | 0.0012 | 11.68 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cccbc64364ce47f | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.99 % | 0.0012 | 11.68 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c8c52a1f21cd96d | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -8.99 % | 0.0012 | 11.68 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | cc00bf7fcce590a | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -9.08 % | 0.0014 | 11.29 % | up=wns,power down=area |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c137d98062cd47d | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -9.46 % | 0.0036 | 23.40 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c9ec04096fc37db | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -9.57 % | 0.0035 | -39.68 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c27febb1fda0b71 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -11.14 % | 0.0046 | -34.41 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c6ca41c56409448 | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 11 with identical latency (no offset) | -12.56 % | 0.0009 | -22.31 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | c75a06f7682f60c | tradeoff | improved | c1 | flip-flop bits 174 -> 142 and register cells 13 -> 12 with identical latency (no offset) | -12.56 % | 0.0054 | -116.91 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_ethmac__eth_cop | ca65f8d97d55507 | tradeoff | improved | c1 | flip-flop bits 174 -> 144 and register cells 13 -> 14 with identical latency (no offset) | -18.09 % | 0.0149 | -118.80 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c7497dec29d7d82 | tradeoff | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 2.44 % | -0.0360 | 14.16 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c64c47f5f6841f7 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 2.40 % | 0.0368 | 5.90 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c542310b29c8cee | retained | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 2.40 % | 0.0368 | 13.43 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c3f2467f4060c52 | retained | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.83 % | 0.0372 | 6.87 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c13650cd0ac998d | tradeoff | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.79 % | -0.0387 | 13.71 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | cb7e50270aa7c5b | retained | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.66 % | 0.0178 | 2.33 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c0045232e2ec5bb | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.56 % | 0.0369 | 8.45 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c5285aa1959caea | tradeoff | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 5 with identical latency (no offset) | 1.35 % | -0.0360 | 13.37 % | up=power down=wns |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c218e9779ecfcf0 | tradeoff | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.35 % | -0.0360 | 13.37 % | up=power down=wns |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c34c581429d24ee | tradeoff | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.35 % | -0.0360 | 13.37 % | up=power down=wns |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c0e6d7d4519b85f | retained | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.32 % | 0.0189 | 13.42 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c46cd367146a54c | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.32 % | 0.0188 | 10.64 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c9510f32b29aeae | retained | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.15 % | 0.0186 | 12.75 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c5816bbbeff8f26 | retained | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.08 % | 0.0178 | 13.02 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c6a2042d3a89dd4 | retained | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 1.05 % | 0.0186 | 12.84 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c3346d0c0dcd3df | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.84 % | 0.0206 | 9.12 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c41bb21ffc544e8 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.61 % | -0.0004 | 7.03 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c15d2d79bc430e5 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.51 % | -0.0004 | 13.67 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c06b79318b456f9 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.44 % | -0.0007 | 14.09 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c57ee03d1519061 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.44 % | 0.0178 | 14.69 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c407fe2c49e86d3 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.44 % | 0.0202 | 4.18 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c3a9bd786b67e6b | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.44 % | -0.0007 | 14.09 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | ca01a8f4c4bd0b7 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.44 % | -0.0007 | 14.09 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c4e834cf5b9e45c | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.41 % | -0.0007 | 14.73 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c6f4a3aced69b82 | retained | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.34 % | -0.0004 | 13.74 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c462874036787a0 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.30 % | 0.0204 | 5.45 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c544be296820abf | retained | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 5 with identical latency (no offset) | 0.30 % | 0.0204 | 14.35 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c83d387a0f67bec | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.30 % | 0.0204 | 5.45 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c750efb4ce901d4 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.30 % | 0.0204 | 14.54 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c3a0ffffdbcf344 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.30 % | 0.0204 | 5.45 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c0692a6cc0e80a1 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.30 % | 0.0204 | 14.54 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c6a60ef8d96a71a | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.30 % | 0.0204 | 5.45 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c26db262c51492d | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 5 with identical latency (no offset) | 0.30 % | 0.0204 | 14.35 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | cb0fb399d152f4a | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 5 with identical latency (no offset) | 0.30 % | 0.0204 | 14.35 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c925ccbe32b6bc3 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.27 % | 0.0204 | 14.41 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c19f49133cbdbc0 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.27 % | 0.0204 | 14.41 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c1d69b87f94848c | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.27 % | 0.0204 | 14.41 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c2c6333024793e7 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.27 % | 0.0204 | 4.14 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | cc4040aa48e6bbb | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.27 % | 0.0204 | 4.14 % | - |
 | gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c3bd65486b61560 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.27 % | 0.0204 | 3.60 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | c63e58911d7a467 | retained | improved | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | -0.07 % | 0.0173 | 9.05 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | cbb49bf48c9c949 | retained | no_gain | d | operator family gained: shift (present in C, absent in D) | -0.44 % | -0.0151 | 10.32 % | - |
+| gpt-5.6-luna | B0 | cktevo_mem_ctrl__mc_adr_sel | ca878d57c2ee097 | retained | no_gain | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 5 with identical latency (no offset) | -0.57 % | -0.0009 | 9.46 % | - |
+| gpt-5.6-luna | B0 | cktevo_risc__cpu | c843e84bbde7754 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.68 % | 0.0001 | -6.14 % | up=area down=power |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c95a28231458896 | retained | improved | b | flip-flop bits 109 -> 108 in the same register cells (widths), latency unchanged | 2.40 % | 0.0269 | 0.40 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | cc0bc6dd99d6196 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.22 % | 0.0222 | 0.61 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | ca6a0e3f97cb9d2 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.11 % | 0.0052 | 0.15 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c48f529843e4ef7 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.11 % | 0.0052 | 0.15 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c545029f4c4db65 | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 1.01 % | 0.0139 | 0.24 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c466b373b7ef2bd | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.81 % | 0.0210 | -1.12 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c8fa66fe5bbd65f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.78 % | 0.0203 | -1.23 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | cb7bb35fa592f73 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.74 % | 0.0016 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c95b10bbb6a5568 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.74 % | 0.0016 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c871511dc38a415 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.74 % | 0.0016 | -1.21 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c37fde34027f672 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.74 % | 0.0016 | -1.21 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c0c83737dd9c73f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.74 % | 0.0016 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c8f323c50e99c19 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.74 % | 0.0016 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | ccc749d056efd3e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.71 % | 0.0004 | 0.09 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c91fb7dd99a7429 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.71 % | 0.0103 | 0.61 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c175d41f56219a2 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.71 % | 0.0004 | 0.09 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c138bf560d288de | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.68 % | -0.0002 | 0.23 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c47ded7837130d1 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.68 % | -0.0002 | 0.23 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c1418172f82c1aa | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.57 % | 0.0502 | 0.60 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c809d0460dfdb0e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.57 % | 0.0502 | 0.60 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | cbc1845afc56b07 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.57 % | 0.0502 | 0.60 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c2f57f4425752f7 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.57 % | 0.0502 | 0.60 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c2a952c3a75442f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.44 % | 0.0057 | 0.04 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c295b5bc29ba27e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.34 % | 0.0102 | -1.08 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c6157eb1bccea72 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0046 | 0.17 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | cb3a2313577f99b | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0046 | 0.17 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c81095baa5e3c5d | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0046 | 0.17 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c84f7d41936ada5 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0046 | 0.17 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c9c22cc8359ddea | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0046 | 0.17 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c0308a955f0fed3 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0009 | -0.05 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | caba33d2f7a190c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0046 | 0.17 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c10fce3ad1161b8 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0003 | -0.15 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c376c538570c247 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0046 | 0.17 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | cb8e6ba8fc2eb67 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0046 | 0.17 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c234166050dd186 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0046 | 0.17 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c161dbbca300724 | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 0.27 % | 0.0078 | 0.64 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c70c1606f1f2892 | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 0.27 % | 0.0078 | 0.64 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c9250c566e57d17 | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 0.27 % | 0.0078 | 0.64 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c4533c148a224af | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 0.27 % | 0.0078 | 0.64 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c9aaeb32ef55f2c | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 0.27 % | 0.0078 | 0.64 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c4494523583f98f | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 0.27 % | 0.0078 | 0.64 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | ca2201673e6f538 | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 0.27 % | 0.0078 | 0.64 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c1819e995a2c2f6 | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 0.27 % | 0.0078 | 0.64 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c13407eb6e8959a | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.24 % | 0.0114 | -1.21 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c348ca3042204dd | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 0.14 % | 0.0174 | -0.30 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c2ab76ce70c5fcc | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.14 % | 0.0019 | -0.01 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c31905d2c6aa560 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.14 % | 0.0019 | -0.01 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c314b05e4061325 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.14 % | 0.0020 | -1.33 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | cd1be288a2558c2 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.14 % | 0.0020 | -1.33 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c6231d463a8b726 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c38c0835ac65711 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | cb4923b0cc3db2c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | cc0e6fe46477b5f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c0e4ab6d1eb1478 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c5cfc3b99cfdb9c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c682743758e1380 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c3172c3b9946ba3 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c0bf6dc64eccf41 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c6d0b54f8ca8ec0 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c9c28e27044722e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c0d7335e0cea437 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c8e1d3d2356e89c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c10daa8dcbda329 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c7bc5c1413a335e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | ca2a7b87bff2f89 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0016 | -1.21 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c2ea51f8e107417 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0063 | -1.21 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c8458a9926dabbc | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.00 % | 0.0013 | -0.22 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c700ac9b62a8c1c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.00 % | 0.0013 | -0.22 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c1a36c5ea656438 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.00 % | 0.0013 | -0.22 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c937ffb48b4cf2f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.00 % | 0.0013 | -0.90 % | - |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | ca7db02ea82d690 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.14 % | 0.0005 | -0.15 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c454fe8df84076b | retained | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 42 with identical latency (no offset) | -0.17 % | 0.0029 | -0.83 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c2f1edcaacdb068 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.27 % | 0.0287 | -2.11 % | - |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c48b45b53329207 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.37 % | 0.0159 | -2.01 % | up=wns down=area |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c1621e3bb9504b9 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.68 % | 0.0121 | -0.43 % | up=wns down=area |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | cc18133818b1b49 | tradeoff | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | -0.78 % | 0.0099 | -2.11 % | up=wns down=area |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c0d8262bd42333d | tradeoff | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | -0.78 % | 0.0099 | -2.11 % | up=wns down=area |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c652459e45af93d | tradeoff | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | -0.78 % | 0.0099 | -2.11 % | up=wns down=area |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c7d07a6f1eb188f | tradeoff | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 42 with identical latency (no offset) | -0.78 % | 0.0099 | -2.11 % | up=wns down=area |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c27e74551f489f9 | tradeoff | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | -0.78 % | 0.0099 | -2.11 % | up=wns down=area |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c9ab3ec2b4817da | tradeoff | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | -0.78 % | 0.0099 | -2.11 % | up=wns down=area |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c28d1493a07e152 | tradeoff | improved | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | -0.78 % | 0.0099 | -2.11 % | up=wns down=area |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c6717067a97873f | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.78 % | 0.0018 | -0.80 % | up=wns down=area |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | cd00a9913b25b9d | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -1.35 % | 0.0107 | -1.27 % | up=wns down=area |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c98a4b378594da9 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.16 % | 0.0022 | -3.04 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c6fe9aae6e3cef8 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -3.82 % | 0.0084 | -5.55 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | cktevo_usb__usbf_sie_rx | c0c4b12b0b4aec1 | tradeoff | improved | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -5.20 % | 0.0344 | -4.93 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c78738bbc27f0db | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.76 % | -0.0033 | -15.39 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | ca23d038b4706b9 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.76 % | -0.0033 | -15.39 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c8b2187825d2265 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.76 % | -0.0033 | -15.37 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c5e964802396d98 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.42 % | 0.0110 | -11.11 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cb70c065e7d1989 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 2.33 % | 0.0017 | 2.37 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c30cb07ccd465da | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 2.33 % | 0.0017 | 0.24 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c8de93629f8d829 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.21 % | -0.0041 | -11.06 % | up=area down=wns,power |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c0c0180d1db925b | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 2.21 % | -0.0041 | -11.06 % | up=area down=wns,power |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c1caca082b28823 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.21 % | -0.0041 | -11.06 % | up=area down=wns,power |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c08f8890d3b5a15 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.21 % | -0.0041 | -11.06 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c6dad29657d6625 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.08 % | -0.0020 | 2.54 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c9a02bad2265917 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.04 % | -0.0019 | 2.88 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c3c2b1f688757ac | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.04 % | -0.0019 | 2.88 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | ca342f403902c66 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.04 % | -0.0019 | 2.88 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cbe160bcf252d62 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.04 % | -0.0019 | 2.87 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c46d77eb2ca3042 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.04 % | -0.0019 | 2.88 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cbd33151e1816c5 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.04 % | -0.0019 | 2.87 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c26e933e434832d | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.04 % | -0.0019 | 2.87 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cd23ee4033ee091 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 2.04 % | -0.0019 | 2.87 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c0e8013b74511ba | retained | improved | c1 | flip-flop bits 340 -> 364 and register cells 20 -> 21 with identical latency (no offset) | 1.95 % | 0.0181 | -0.03 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c644d9886427722 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.93 % | -0.0041 | 2.85 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | ca48c4038bea851 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.91 % | 0.0168 | -0.34 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c597b59e4d2057a | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.85 % | 0.0048 | 2.17 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c40686d34895363 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.84 % | -0.0041 | 3.41 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c53d914694f5eb8 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.84 % | -0.0041 | 3.41 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c4a3d60d2c17eb3 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.84 % | -0.0041 | 3.41 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cce6525f1f046fa | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.84 % | -0.0041 | 3.41 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c15215072e157a3 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.48 % | 0.0104 | 2.52 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c0cd7a3f27ebb72 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.42 % | -0.0080 | 2.42 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cc6830fe3fb8200 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.42 % | -0.0080 | 2.42 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c11f818a8da90d0 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.42 % | -0.0080 | 2.42 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c2aba62e7ec4204 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.42 % | -0.0080 | 2.42 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cbb110d01b316f7 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.42 % | -0.0080 | 2.42 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c2ad9afa9a8fcb4 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.33 % | 0.0048 | 2.36 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c7c21bd11e6eec5 | retained | improved | c1 | flip-flop bits 340 -> 364 and register cells 20 -> 21 with identical latency (no offset) | 1.32 % | 0.0221 | 0.02 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | ca7e8fac181ebab | retained | improved | c1 | flip-flop bits 340 -> 364 and register cells 20 -> 21 with identical latency (no offset) | 1.32 % | 0.0221 | 0.02 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c6442acb3865880 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c5a6bcc6a0c3998 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c42ec025fdf8db6 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cad13bbc0a412eb | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c155b35843e1663 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c2296d109560d22 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.44 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | ccf4795034ac261 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c1d78fb105b8067 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.44 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c75d3d37a11607e | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | caa2f7d5d6823b9 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c0e3fd2518d1f4d | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c002ef762d66b96 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c38e4a8b05bc00f | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.44 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c751aca38805046 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c0bed83e8d50cf5 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c0e6893f4a9a1e2 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c4c6b792929368f | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c9d798ec5c690cf | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cb71802461c6b24 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c14a2d9c60da0bf | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.44 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c4a4a39237224e3 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c9c47bb5ba0bebd | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c508bc08c2da00d | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | ccd3e1b6006a85d | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.44 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c9865a0a81ed5bd | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cd22a8a0b6a5355 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cb724dffbd86d4c | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c3525eaad715dd2 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c2adc3a2f57c106 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c0d3938a6e86b77 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.28 % | 0.0010 | 2.39 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c87da714c53ac91 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 1.02 % | -0.0065 | -13.17 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cb3c84a0bc19fe3 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.74 % | 0.0156 | 2.70 % | - |
 | gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c437c2e459f6484 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.35 % | 0.0064 | 0.48 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c63c90d413e900b | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.04 % | 0.0073 | -0.03 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | c97c7bdc02078d7 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.04 % | 0.0073 | -0.03 % | - |
+| gpt-5.6-luna | B0 | cktevo_vga_enh__vga_wb_slave | cb6948324328a8a | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -1.50 % | 0.0144 | -19.23 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_UART | c479683d47f662d | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 5.98 % | 0.0071 | -4.99 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | drrtl_UART | ccafb87f36a1079 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 5.77 % | 0.0075 | -4.22 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | drrtl_UART | c2b95b9572b38ac | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 5.39 % | -0.0125 | -36.06 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | drrtl_UART | c8155d7e54af3a2 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | 4.50 % | -0.0039 | -2.69 % | up=area down=wns,power |
 | gpt-5.6-luna | B0 | drrtl_UART | c1d2aff7117c7c2 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 2.77 % | -0.0097 | -6.96 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | drrtl_UART | c6cbdb7d1f3f56c | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | 2.15 % | -0.0119 | -6.62 % | up=area down=wns,power |
 | gpt-5.6-luna | B0 | drrtl_UART | c10311a21acddc7 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.80 % | -0.0114 | -8.19 % | up=area down=wns,power |
 | gpt-5.6-luna | B0 | drrtl_UART | c28713f32418259 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.56 % | -0.0035 | -7.34 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | drrtl_UART | c5d733c0453823b | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.56 % | -0.0035 | -7.34 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | drrtl_UART | ca473182faab98e | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | c58432ab78f6e7d | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c401d1bcb506db0 | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | cc31c5ef89b7aca | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | c56b3a4d65cd53a | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | c9e81091478c17e | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.34 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | c9a5d7f56ab361f | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c0086545b4265e3 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | ccd420e48fdd71b | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c0e23b082214150 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c369b20f2c90297 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | cb32132ceccdd2c | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c2ed4e903dc7307 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.34 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c4935c8285b7e06 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | ca77a6fa60430c4 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | c7a5578b5351660 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | c4f3d2e31c2251a | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.41 % | 0.0101 | -0.34 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | c60a78760fab833 | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c1b0494fb708eca | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.41 % | 0.0101 | -0.34 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | c760c6ce893c1fe | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.41 % | 0.0101 | -0.26 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | c6322e8146f34f7 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.47 % | 0.0087 | 0.38 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c33dc2b0e1d5f29 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.47 % | 0.0087 | -0.10 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | c9d3f847e2a4241 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.59 % | 0.0087 | -0.16 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c282fea94fb0465 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.59 % | 0.0087 | -0.16 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | cbdc2cd4a1e2a0b | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.59 % | 0.0087 | 0.14 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c2d98e5e525fe81 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -1.41 % | 0.0245 | -1.42 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_UART | ccfa01984091028 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -1.41 % | 0.0238 | -1.45 % | up=wns down=area |
 | gpt-5.6-luna | B0 | drrtl_UART | c248552355ed1e5 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -8.30 % | 0.0100 | -15.91 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_UART | c65436b846f165b | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -8.30 % | 0.0100 | -15.91 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_UART | c2289fa9a9a790d | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -8.30 % | 0.0100 | -15.91 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_UART | c8251bfeb588abf | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -8.30 % | 0.0100 | -15.91 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_UART | c436f1794b645bf | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged | -8.30 % | 0.0100 | -13.21 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_UART | c50afb34b1d0f4e | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -8.30 % | 0.0100 | -15.91 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_UART | cbe61a24d94945d | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -8.30 % | 0.0100 | -13.21 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_UART | cc2cc25b48b0177 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -8.30 % | 0.0100 | -15.91 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_UART | c3fb8c90829ee17 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -8.30 % | 0.0100 | -15.91 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_UART | c466a5e9bc6ad44 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -13.49 % | 0.0005 | -26.39 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_communication | c043f4a8de09153 | retained | no_gain | a | flip-flop bits, register names and clocked targets unchanged | 0.76 % | 0.0010 | 2.83 % | - |
+| gpt-5.6-luna | B0 | drrtl_communication | c0286a5bcf0fb30 | retained | no_gain | a | flip-flop bits, register names and clocked targets unchanged | 0.76 % | 0.0010 | 2.83 % | - |
 | gpt-5.6-luna | B0 | drrtl_communication | c2d5ff780ca37af | retained | no_gain | a | flip-flop bits, register names and clocked targets unchanged | -0.09 % | -0.0000 | 2.65 % | - |
 | gpt-5.6-luna | B0 | drrtl_communication | c23f41c81482fba | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.62 % | 0.0091 | -22.91 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_communication | cb69905e465267c | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -22.58 % | 0.0098 | -59.67 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_communication | c1e558c3515afaf | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -23.08 % | 0.0029 | -33.62 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_communication | caab29983e4a7f2 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -23.47 % | 0.0004 | -43.82 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_communication | cce672354eb0723 | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged | -24.83 % | 0.0014 | -50.79 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_router | c0e743f17d228ea | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.11 % | 0.0005 | -0.39 % | - |
+| gpt-5.6-luna | B0 | drrtl_router | c4e195700f96a75 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.26 % | 0.0031 | -0.67 % | - |
+| gpt-5.6-luna | B0 | drrtl_router | c14b0357a419b10 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.31 % | 0.0052 | -1.36 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_router | c9e219658106140 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.31 % | 0.0052 | -1.34 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_router | c293be041b9dd30 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.31 % | 0.0052 | -0.80 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_router | c022d00a05abea1 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.31 % | 0.0052 | -1.36 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_router | c80182268862dfd | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.31 % | 0.0052 | -0.80 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_router | c63cd00fa9650bf | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.31 % | 0.0052 | -0.80 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_router | cc364713c3adf48 | tradeoff | improved | c1 | flip-flop bits 587 -> 590 and register cells 86 -> 87 with identical latency (no offset) | -1.85 % | 0.0009 | -1.57 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_router | c0d880a0d1e5d0f | tradeoff | improved | c1 | flip-flop bits 587 -> 590 and register cells 86 -> 87 with identical latency (no offset) | -1.85 % | 0.0009 | -1.57 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_router | c76e637be7651de | tradeoff | improved | c1 | flip-flop bits 587 -> 590 and register cells 86 -> 87 with identical latency (no offset) | -1.85 % | 0.0009 | -0.61 % | up=wns down=area |
+| gpt-5.6-luna | B0 | drrtl_simple_spi | c550ec0b256d2c8 | tradeoff | improved | c1 | flip-flop bits 131 -> 130 and register cells 29 -> 30 with identical latency (no offset) | -1.05 % | 0.0042 | -6.80 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_simple_spi | cb52553c8d03045 | tradeoff | improved | c1 | flip-flop bits 131 -> 130 and register cells 29 -> 30 with identical latency (no offset) | -1.05 % | 0.0042 | -6.80 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_simple_spi | c68a7ba2aecbf69 | tradeoff | improved | c1 | flip-flop bits 131 -> 130 and register cells 29 -> 28 with identical latency (no offset) | -1.28 % | 0.0005 | -6.40 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_simple_spi | c01b19edd83e295 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.86 % | 0.0009 | -11.79 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_simple_spi | c09351a6c7bcf91 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.86 % | 0.0009 | -11.79 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_simple_spi | c37e8ce60b24097 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.86 % | 0.0009 | -11.79 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | drrtl_simple_spi | c03c41e98b57e2d | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.86 % | 0.0009 | -11.79 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_simple_spi | cab35fe2ac9d6f2 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.86 % | 0.0009 | -11.79 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_simple_spi | ca5f9cd32c35ed0 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.86 % | 0.0009 | -11.79 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_simple_spi | c69895f3b97b03a | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.86 % | 0.0009 | -11.79 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_simple_spi | c3c4dd07a0e72b2 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.86 % | 0.0009 | -11.79 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_simple_spi | c1f488240bb5d58 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.86 % | 0.0009 | -11.79 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | drrtl_simple_spi | c2d6b3c3f2ab494 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.86 % | 0.0009 | -11.79 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c4eb5b24deab5f4 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5075) without operator or topology evidence -> review | 13.12 % | -0.0004 | -2.88 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c66d15c2219d241 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 9.31 % | 0.0022 | -16.64 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c755d57cfaa2c89 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 9.31 % | 0.0022 | -16.64 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c1dad853fe29eb6 | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 8.26 % | 0.0047 | -7.67 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c5c38bd9c8fd89a | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 8.25 % | 0.0037 | -16.22 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c3151c82d121a7f | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | 6.88 % | 0.0003 | -16.17 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c0c0b9c67ba5d5a | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | 6.80 % | -0.0000 | -32.36 % | up=area down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c68714783c4cbdd | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | 6.80 % | -0.0000 | -32.36 % | up=area down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c2b2258c28b4e59 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | ca0e74c1c2f70cf | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 6.27 % | 0.0019 | -19.81 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c3ae6c2601dee63 | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 6.27 % | 0.0019 | -19.81 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cbe80b0cb38e19e | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | 6.27 % | 0.0019 | -19.81 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c5a304b576e7850 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c7e6e848936968b | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | 6.27 % | 0.0019 | -19.81 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c88ff393be3a74a | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | caa0a6647fd2edf | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cc9df022eb556f4 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c14a6ed8ba0dc05 | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | 6.27 % | 0.0019 | -19.81 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c48206cb3fdef3f | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | 6.27 % | 0.0019 | -19.81 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | ca30e233bfdd790 | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | 6.27 % | 0.0019 | -19.81 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | ccf807b1a170670 | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 5.91 % | 0.0158 | -20.77 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c0ef7270da6c700 | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 4.56 % | 0.0022 | -9.99 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cc28854558f3ca7 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 4.56 % | 0.0022 | -19.04 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c18ad512ceab18b | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | 4.41 % | -0.0006 | 4.57 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | caf123d11b2d9b0 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 3.97 % | 0.0032 | -21.64 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c1cfa4a029b2824 | tradeoff | improved | d | longest combinational path 2 -> 21 cells (ratio 10.5 >= 3.0) | 3.80 % | 0.0014 | -40.22 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c36921bd83d4dd2 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 3.46 % | -0.0005 | -22.68 % | up=area down=wns,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c3c000350fb07e2 | tradeoff | improved | d | longest combinational path 2 -> 17 cells (ratio 8.5 >= 3.0) | 2.09 % | -0.0002 | -46.08 % | up=area down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cb981d523b745d7 | retained | improved | d | longest combinational path 2 -> 43 cells (ratio 21.5 >= 3.0) | 1.71 % | -0.0001 | 16.62 % | - |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c84560b6b68950a | retained | improved | d | longest combinational path 2 -> 43 cells (ratio 21.5 >= 3.0) | 1.71 % | -0.0001 | 16.62 % | - |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c5086b31a978478 | retained | improved | d | longest combinational path 2 -> 31 cells (ratio 15.5 >= 3.0) | 1.32 % | 0.0024 | 16.64 % | - |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cb437b64169d487 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.10 % | 0.0051 | -13.07 % | up=wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | ccbd5b14b2791e9 | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 9.20 % | - |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c5a86f0cd1a1d3d | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -0.86 % | 0.0011 | 1.44 % | up=wns down=area |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c1fb3c8df024d24 | tradeoff | improved | d | longest combinational path 2 -> 28 cells (ratio 14.0 >= 3.0) | -1.02 % | 0.0011 | -17.99 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c7522299f3d33ac | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | -1.07 % | 0.0012 | -22.02 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c8c134135b8e276 | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | -1.07 % | 0.0012 | -22.02 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cc4869a76ea27c4 | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | -1.07 % | 0.0012 | -22.02 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c210a8105846ce7 | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | -1.07 % | 0.0012 | -13.43 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c7c56dc22d55c5d | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | -1.07 % | 0.0012 | -13.43 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cc2e0c4200626a8 | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | -1.07 % | 0.0012 | -22.02 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cc8cb980dc321c9 | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | -1.07 % | 0.0012 | -22.02 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c2c4d58c1b97776 | tradeoff | improved | d | longest combinational path 2 -> 26 cells (ratio 13.0 >= 3.0) | -2.75 % | 0.0023 | 14.74 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c7a5ac5dada62b7 | tradeoff | improved | d | longest combinational path 2 -> 47 cells (ratio 23.5 >= 3.0) | -3.46 % | 0.0014 | 6.04 % | up=wns,power down=area |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c2a148c273ae24f | tradeoff | improved | d | longest combinational path 2 -> 27 cells (ratio 13.5 >= 3.0) | -3.46 % | 0.0014 | 14.23 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c9afe078a818e14 | tradeoff | improved | d | longest combinational path 2 -> 27 cells (ratio 13.5 >= 3.0) | -3.46 % | 0.0014 | 14.23 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c81ce5c24d3f2fd | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -4.03 % | 0.0020 | 17.85 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c8c8d4f724397dd | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -4.03 % | 0.0020 | 17.85 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c9c96105485f400 | tradeoff | improved | d | longest combinational path 2 -> 40 cells (ratio 20.0 >= 3.0) | -4.97 % | 0.0034 | 8.45 % | up=wns,power down=area |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c4d4640add72701 | tradeoff | improved | d | longest combinational path 2 -> 31 cells (ratio 15.5 >= 3.0) | -5.18 % | 0.0022 | -23.38 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c37198b6f240863 | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | -5.32 % | 0.0006 | -13.76 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c9110b2e0b36413 | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | -5.32 % | 0.0006 | -8.63 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c9636e9e3766082 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -5.32 % | 0.0006 | -8.63 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c0571778d48c411 | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | -5.92 % | 0.0020 | -18.57 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c8f46499d7fb303 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -5.92 % | 0.0020 | -27.30 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c1a27ea38d46675 | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | -5.92 % | 0.0020 | -18.57 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c549b3074f6bed9 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -5.92 % | 0.0020 | -27.30 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cb6cfc3e004f87f | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -5.92 % | 0.0020 | -27.30 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cba7a3775d2909d | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -5.92 % | 0.0020 | -27.30 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c6f67385646b5d2 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -5.92 % | 0.0020 | -27.30 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c119ff41323788e | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -5.92 % | 0.0020 | -27.30 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cbe0c03531d7240 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -5.92 % | 0.0020 | -27.30 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | ca06c0682bacf69 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -5.92 % | 0.0020 | -18.57 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c36d7afc70faa25 | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | -5.92 % | 0.0020 | -27.30 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c6bc914b5048481 | tradeoff | improved | d | longest combinational path 2 -> 29 cells (ratio 14.5 >= 3.0) | -8.97 % | 0.0037 | -34.64 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c1920c40ba6c781 | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | -9.20 % | 0.0069 | -30.99 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | ca74ac46c0b3ef8 | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | -9.20 % | 0.0069 | -23.93 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c8e570f95068c1c | tradeoff | improved | d | longest combinational path 2 -> 29 cells (ratio 14.5 >= 3.0) | -9.33 % | 0.0025 | -27.71 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cbe7af14bbbd0ba | tradeoff | improved | d | longest combinational path 2 -> 29 cells (ratio 14.5 >= 3.0) | -9.33 % | 0.0025 | -27.71 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cc14f687496e595 | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -11.06 % | 0.0007 | -37.18 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c79e503ce5b9815 | tradeoff | improved | d | longest combinational path 2 -> 213 cells (ratio 106.5 >= 3.0) | -11.22 % | 0.0010 | -25.06 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c5290bbd30b1d7f | tradeoff | improved | d | longest combinational path 2 -> 40 cells (ratio 20.0 >= 3.0) | -11.93 % | 0.0015 | -26.01 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c9a044f5aeb0f46 | tradeoff | improved | d | longest combinational path 2 -> 27 cells (ratio 13.5 >= 3.0) | -12.66 % | 0.0030 | -33.27 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cc102033a942c35 | tradeoff | improved | d | longest combinational path 2 -> 41 cells (ratio 20.5 >= 3.0) | -14.11 % | 0.0009 | -31.62 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | ca046879bc11ec0 | tradeoff | improved | d | longest combinational path 2 -> 41 cells (ratio 20.5 >= 3.0) | -14.11 % | 0.0009 | -31.62 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c8eec95290c0a01 | tradeoff | improved | d | longest combinational path 2 -> 150 cells (ratio 75.0 >= 3.0) | -14.11 % | 0.0009 | -37.68 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c533f38494343c2 | tradeoff | improved | d | longest combinational path 2 -> 41 cells (ratio 20.5 >= 3.0) | -16.67 % | 0.0005 | -43.85 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c2eea1963d40bfe | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | -19.36 % | 0.0013 | -48.36 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cc7686015737528 | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | -19.36 % | 0.0013 | -48.36 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c6e2ba248c8a3d5 | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | -19.36 % | 0.0013 | -48.36 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cc3780f27515b17 | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | -19.36 % | 0.0013 | -48.36 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c9523fdb764bb6a | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | -19.36 % | 0.0013 | -55.88 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c9fbe2f4f160bd3 | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -21.58 % | 0.0009 | -55.74 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c4796093afd3702 | tradeoff | improved | d | longest combinational path 2 -> 17 cells (ratio 8.5 >= 3.0) | -21.95 % | 0.0015 | -54.82 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | cb972e08c247874 | tradeoff | improved | d | longest combinational path 2 -> 17 cells (ratio 8.5 >= 3.0) | -21.95 % | 0.0015 | -47.63 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c3f8fdb6f8fa2fe | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -23.85 % | 0.0021 | -12.70 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c96ac65fbc01c09 | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -24.74 % | 0.0006 | -53.74 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c3568a70fa1ab5d | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -24.74 % | 0.0006 | -60.06 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c6c9a1278442953 | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -25.43 % | 0.0009 | -13.82 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c0b3d2f695d7106 | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -25.43 % | 0.0009 | -13.82 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_alu_64bit | c332ee4f55c95bd | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -25.43 % | 0.0009 | -13.82 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c528056b910b45c | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -25.43 % | 0.0009 | -13.82 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c5000cc8f719501 | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -25.43 % | 0.0009 | -3.79 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_alu_64bit | c52649e73bdc152 | tradeoff | improved | d | longest combinational path 2 -> 21 cells (ratio 10.5 >= 3.0) | -29.54 % | 0.0009 | -15.01 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c2c836666dffb4e | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0026 | 38.40 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c801a1a5a946441 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 36.71 % | 0.0017 | 34.71 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c386daba0ad646d | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 36.24 % | 0.0001 | 48.58 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | ca8bb2a88292df0 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 36.24 % | 0.0001 | 37.38 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cab5f54c7d21310 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 35.66 % | 0.0003 | 36.99 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c6e92ab2837ee51 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 35.66 % | 0.0003 | 36.99 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c789ed89254c2e0 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 35.66 % | 0.0003 | 36.99 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c11ce749425bd72 | retained | improved | d | longest combinational path 5 -> 39 cells (ratio 7.8 >= 3.0) | 35.66 % | 0.0003 | 36.99 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c3284647eff1e46 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 35.66 % | 0.0003 | 45.91 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c9874f99eaae741 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 35.66 % | 0.0003 | 45.91 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c1e94d2afd63ef0 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 35.66 % | 0.0003 | 45.91 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cb60e99729331cf | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 35.66 % | 0.0003 | 36.99 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c20363e208c47c0 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 35.66 % | 0.0003 | 36.99 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cd15c609cdf9588 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 35.66 % | 0.0003 | 36.99 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cce236201da2841 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 35.19 % | -0.0000 | 35.84 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c2ebb0420e62366 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 35.19 % | -0.0000 | 44.56 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c889973bd140128 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 34.96 % | -0.0000 | 49.73 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cb0a4bcf3ba5cd5 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 34.10 % | -0.0001 | 50.33 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cc9cb6776faf213 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 33.14 % | 0.0034 | 42.94 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c12ce415a7f2b3e | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cac3e3c3af5dd5b | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c5c0396f3a6d721 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cc1c56af72c9f88 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c830af7f412252d | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c2504ae0c6735ed | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c18052203a8d7c2 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 32.04 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c43af5e6d8df61f | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c02bacdbbe13d51 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c1324467bce83dd | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c8c1e5c040f15f8 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c28b82add433a48 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cb2cf7afb48932b | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cbe885602473295 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c26ed090496c34f | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 32.04 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c693fbf769b2eb9 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 32.04 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c2622ec2fd714aa | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c282e7220a66e8c | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c495a5097dc93a8 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 31.55 % | -0.0001 | 32.04 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c9244bc7c111f0c | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c1082412b74d216 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cc372c8888b04a8 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c4dc793db76d632 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c4e2a5d4abd435e | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 31.55 % | -0.0001 | 32.04 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c5674ed7239ae15 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c8f925261a1d061 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c308580115ea87c | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c5253fbca9bbefd | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c7835db61c6dc5b | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c47209d7cacab8e | retained | improved | d | longest combinational path 5 -> 26 cells (ratio 5.2 >= 3.0) | 20.20 % | 0.0011 | 34.14 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | ca9b88ea65ae735 | retained | improved | d | longest combinational path 5 -> 26 cells (ratio 5.2 >= 3.0) | 18.75 % | 0.0003 | 38.40 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c173c7169b66bee | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c3e901d01cb398d | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c9c72140ec0f379 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c8ccb053a1151f4 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c108d82fb761c52 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 19.31 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c60e2360a638b9a | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c90049c81826a4c | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c1080ff20f9780d | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c8d6d33a49da1e2 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c2f531a4d7e9c6e | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cbd8b049296188e | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c328cfee39e4d08 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c3e4086b5707a67 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c5437371c30b656 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 19.31 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c70603845e3bc97 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_calculation | c2c180e9699f1b8 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | ca328241e4d9856 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 19.31 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | c705231b28b989e | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.09 % | 0.0046 | 18.08 % | - |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cc8202be6f2f44e | tradeoff | improved | d | longest combinational path 5 -> 37 cells (ratio 7.4 >= 3.0) | 14.11 % | -0.1583 | 14.65 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cb233eb5f8323cb | tradeoff | improved | d | longest combinational path 5 -> 27 cells (ratio 5.4 >= 3.0) | 10.39 % | -0.2842 | -1.05 % | up=area down=wns |
+| gpt-5.6-luna | B0 | rtlopt_calculation | cb99ca65b92559d | tradeoff | no_gain | d | longest combinational path 5 -> 19 cells (ratio 3.8 >= 3.0) | 7.24 % | -0.1854 | -1.24 % | up=area down=wns |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c3eb130fb60c289 | retained | no_gain | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 6.16 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c7b064c747c87a0 | retained | no_gain | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 1.21 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | caa9c1ab253dd58 | retained | no_gain | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 1.21 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cc932899d94e5ce | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c2ae81784510bf9 | retained | improved | d | longest combinational path 1 -> 5 cells (ratio 5.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c76ad88ecaba3d0 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c8a73adf5577063 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.23 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | ca72567dba95302 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c36778935738f30 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 1.21 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c2fd50e94f5e25b | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c5f205d5b2edcd8 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c72d7c38c1f66e2 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | caa009ef91ae46e | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.72 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cd13709d0c63ab3 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5825) without operator or topology evidence -> review | 0.32 % | 0.0098 | 0.23 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c97b75d9ce2cac3 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.72 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c01633a1b4c9af4 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c9d903e8f0cddc8 | retained | no_gain | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 1.21 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c42ac90085d06ad | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.72 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | ca6f7e384f9e64a | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.23 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c2ae357cf696159 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 6.16 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c6e27b331481fc8 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.23 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cc330747494f2e4 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c6a2ee7ed53d6cc | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.72 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c573c4c533189f1 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.72 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | ccbc69c6c9dfaa9 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.72 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c36e38db8e9d93c | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.72 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c591b3c54cf0de7 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c4a530c6779ea75 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.72 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c898e2b55d19ef6 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.72 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c27197d1bd18512 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.23 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c1a9628c5fa2da0 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c41d2344773bdb4 | retained | no_gain | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 1.21 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c7f45c0dce0bafd | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 1.21 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c2a7ca12928ed9d | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 6.16 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c77e4d2266de472 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c899819c3a73f58 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | ca5b0cc2d3176bb | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cc76dede3f805c2 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c22c38ff5577bf0 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | ca9825da7d41cad | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5285) without operator or topology evidence -> review | 0.32 % | 0.0098 | 5.80 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c68c9a773d6947c | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c96b61177128b02 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.554) without operator or topology evidence -> review | 0.32 % | 0.0098 | 5.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c4594043ed461ea | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.554) without operator or topology evidence -> review | 0.32 % | 0.0098 | 5.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c084e5478c50bbf | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c53cdd0ec5af687 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c484f7660ad454d | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.23 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c87db8f3d6d611b | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c9aaa052a16daa3 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c83ae559a5e385f | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c058a2fd82a5287 | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c5bfba9a01db224 | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | ca434b98c02d4df | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5474) without operator or topology evidence -> review | 0.32 % | 0.0098 | 0.72 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c531bae9ca81837 | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c92773638bd0c25 | retained | improved | c1 | flip-flop bits 0 -> 512 and register cells 0 -> 32 with identical latency (no offset); text differs widely (ratio 0.83) without operator or topology evidence -> review | 0.32 % | 0.0179 | 6.16 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cd0c094ab5c2439 | retained | improved | c1 | flip-flop bits 0 -> 512 and register cells 0 -> 32 with identical latency (no offset); text differs widely (ratio 0.7583) without operator or topology evidence -> review | 0.32 % | 0.0098 | 0.72 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c0fc24fe6d26f72 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 1.21 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c309b1cb2fdff72 | retained | improved | c1 | flip-flop bits 0 -> 256 and register cells 0 -> 16 with identical latency (no offset); text differs widely (ratio 0.7955) without operator or topology evidence -> review | 0.32 % | 0.0098 | 0.23 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c0d79cd24416ae2 | retained | improved | c1 | flip-flop bits 0 -> 512 and register cells 0 -> 32 with identical latency (no offset); text differs widely (ratio 0.7637) without operator or topology evidence -> review | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c77d4671b41084b | retained | improved | d | longest combinational path 1 -> 5 cells (ratio 5.0 >= 3.0) | 0.32 % | 0.0098 | 0.23 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cadf38cf5766a3a | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cc7c33132124952 | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cd3113f52c0c370 | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cbd3d5c01a58a28 | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c5a050b6b5e3b17 | retained | improved | c1 | flip-flop bits 0 -> 512 and register cells 0 -> 32 with identical latency (no offset); text differs widely (ratio 0.7606) without operator or topology evidence -> review | 0.32 % | 0.0098 | 0.72 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c70986c1dc30ab3 | retained | improved | c1 | flip-flop bits 0 -> 512 and register cells 0 -> 32 with identical latency (no offset); text differs widely (ratio 0.7748) without operator or topology evidence -> review | 0.32 % | 0.0098 | 0.72 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c9a5fd0c54b6991 | retained | improved | c1 | flip-flop bits 0 -> 256 and register cells 0 -> 16 with identical latency (no offset); text differs widely (ratio 0.7971) without operator or topology evidence -> review | 0.32 % | 0.0098 | 0.23 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | ccdd242e6ffe4d2 | retained | improved | c1 | flip-flop bits 0 -> 256 and register cells 0 -> 16 with identical latency (no offset); text differs widely (ratio 0.7868) without operator or topology evidence -> review | 0.32 % | 0.0098 | 0.23 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c47a2d4ebf6ada7 | retained | no_gain | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 1.21 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c4b1ec67012ab3c | retained | no_gain | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 1.21 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c50d36d5b9e3ce3 | retained | no_gain | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 1.21 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c7d366b7736bd53 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c2f22f8fab4891f | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c604266c973788f | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c7aab799a5f0dec | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c37312b8315d2a0 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c32b0bbf70dd0cf | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c3ff1f410ee5c0f | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c4364ad22c97096 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5556) without operator or topology evidence -> review | 0.32 % | 0.0098 | 5.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c1eb31aee6555e5 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5615) without operator or topology evidence -> review | 0.32 % | 0.0098 | 5.80 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c22dfe19908d613 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c612ba87086c117 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | caaf106adf20626 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c35ee4aa74fb365 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.23 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c5da22eed0333ce | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | ca6d00c9b15ccbb | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c16fdccd36976cd | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.23 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c7cda7ee2f63e64 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cd18b0b2a897fe4 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c0ddd0ed6adebb4 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 5 cells (ratio 5.0 >= 3.0) | 0.32 % | 0.0098 | 0.23 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c5ac357ee0d1675 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 5.85 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c3132d542020893 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5285) without operator or topology evidence -> review | 0.32 % | 0.0098 | 5.80 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c103a3b4346d46a | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 0.23 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cd0dcb46045d352 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 4 cells (ratio 4.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c0920924400bcb4 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 4 cells (ratio 4.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c422282413afa5d | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c44ef8ecfb7e7f8 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 4 cells (ratio 4.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c8aa11294c438dd | retained | improved | d | longest combinational path 1 -> 4 cells (ratio 4.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | ca3f19f4f11107a | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 4 cells (ratio 4.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c36a9305b8c9b56 | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 0.72 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cae00de907c943f | retained | improved | d | longest combinational path 1 -> 4 cells (ratio 4.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | cc1a3748f8f3ed3 | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0179 | 0.72 % | - |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c1572d627b749de | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c4e9d5c87e72813 | retained | improved | d | longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c76586ed835737b | tradeoff | improved | d | longest combinational path 1 -> 4 cells (ratio 4.0 >= 3.0) | -9.45 % | 0.0253 | -9.89 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_decoder_8bit | c3af6fd95345867 | tradeoff | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 4 cells (ratio 4.0 >= 3.0) | -9.67 % | 0.0253 | -126.97 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c775f81f241316f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5189) without operator or topology evidence -> review | 65.51 % | 0.0248 | 74.16 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c52a027376793f8 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5122) without operator or topology evidence -> review | 65.51 % | 0.0248 | 72.74 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c3fe52a114b083a | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5561) without operator or topology evidence -> review | 65.51 % | 0.0248 | 74.16 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c6e5c37a1d4b0d1 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5083) without operator or topology evidence -> review | 65.51 % | 0.0248 | 72.74 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cb3e867c3217bf4 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5399) without operator or topology evidence -> review | 65.51 % | 0.0248 | 72.74 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c8afe2742567ef1 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5048) without operator or topology evidence -> review | 65.24 % | 0.0251 | 74.12 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c4cb54a857277a1 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5126) without operator or topology evidence -> review | 65.24 % | 0.0251 | 74.12 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c9d149559050791 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 65.24 % | 0.0251 | 74.12 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cabee6f03698a8c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5381) without operator or topology evidence -> review | 65.24 % | 0.0251 | 71.51 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c2fb105307c18ff | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5264) without operator or topology evidence -> review | 65.18 % | 0.0260 | 74.82 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c59db6d612165cf | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6194) without operator or topology evidence -> review | 65.18 % | 0.0339 | 71.78 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c62e80b5b6d23f6 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8305) without operator or topology evidence -> review | 64.04 % | 0.0274 | 73.68 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c9a074c0becd1d6 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7149) without operator or topology evidence -> review | 64.04 % | 0.0274 | 73.68 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c9e1b5c9c874d95 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8458) without operator or topology evidence -> review | 64.04 % | 0.0274 | 69.92 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c5143e68e00b72e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8445) without operator or topology evidence -> review | 64.04 % | 0.0274 | 69.92 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cc5678ecf833fb1 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8437) without operator or topology evidence -> review | 63.84 % | 0.0291 | 73.32 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c6d060a012bb937 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.541) without operator or topology evidence -> review | 62.71 % | 0.0461 | 71.94 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c64390cdf3305a8 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5429) without operator or topology evidence -> review | 62.71 % | 0.0461 | 71.94 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c0f973dfe9e5a42 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7642) without operator or topology evidence -> review | 62.58 % | 0.0254 | 68.62 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c3f04b56415c110 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 61.57 % | 0.0249 | 71.46 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c617681275cbafc | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 60.64 % | 0.0263 | 68.44 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cb0ff502d426a61 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 60.57 % | 0.0270 | 71.63 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cc22da2be631682 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 60.57 % | 0.0270 | 71.63 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c266fe05aaa509f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5262) without operator or topology evidence -> review | 60.57 % | 0.0270 | 71.63 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cca4f3c5ec239c8 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 60.24 % | 0.0303 | 67.80 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c23488ba2e4f102 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5012) without operator or topology evidence -> review | 60.11 % | 0.0259 | 68.35 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c44fbdb342a5490 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8254) without operator or topology evidence -> review | 60.04 % | 0.0622 | 71.66 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c3f9b4d11c932e0 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6897) without operator or topology evidence -> review | 60.04 % | 0.0622 | 71.66 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c75750aa741cc93 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7309) without operator or topology evidence -> review | 60.04 % | 0.0622 | 71.66 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c2ba71c48f3030a | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8007) without operator or topology evidence -> review | 60.04 % | 0.0622 | 71.66 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c45bc14732de381 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6886) without operator or topology evidence -> review | 60.04 % | 0.0622 | 71.66 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c7b884b32875b48 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 60.04 % | 0.0622 | 71.66 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c1ade5e121f9b7e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7816) without operator or topology evidence -> review | 60.04 % | 0.0622 | 71.66 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c879fca2373927a | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7793) without operator or topology evidence -> review | 60.04 % | 0.0622 | 71.66 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c3e9dab28eac44e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8111) without operator or topology evidence -> review | 60.04 % | 0.0622 | 71.66 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cd1c69f866269f0 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8198) without operator or topology evidence -> review | 60.04 % | 0.0622 | 68.28 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c3b1b00358e19ad | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8066) without operator or topology evidence -> review | 60.04 % | 0.0622 | 68.28 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cbd32a5d99ca542 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8111) without operator or topology evidence -> review | 60.04 % | 0.0622 | 71.66 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c508a2d2f3ef3ff | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5822) without operator or topology evidence -> review | 59.97 % | 0.0252 | 67.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c654ebabded090f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5822) without operator or topology evidence -> review | 59.97 % | 0.0252 | 67.49 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c520e1e77f6e5f4 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5756) without operator or topology evidence -> review | 59.77 % | 0.0273 | 69.76 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cb55c7630446564 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5723) without operator or topology evidence -> review | 59.77 % | 0.0273 | 69.76 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c202199cbfecaef | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5631) without operator or topology evidence -> review | 59.24 % | 0.0314 | 69.36 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c9409dc8444985f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 58.97 % | 0.0314 | 66.75 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cac10da9e8818ac | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 57.77 % | 0.0508 | 68.55 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c58f5fff609f995 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8187) without operator or topology evidence -> review | 57.77 % | 0.0508 | 68.55 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c19a08192750d52 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 57.77 % | 0.0508 | 68.55 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c4000af72408c5c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 57.77 % | 0.0508 | 68.55 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c4ba8936e407bbd | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 55.04 % | 0.0303 | 62.20 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c40a377c61a395a | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5034) without operator or topology evidence -> review | 54.44 % | 0.0275 | 62.09 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c3d5dab1d9f1b8c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8022) without operator or topology evidence -> review | 51.17 % | 0.0300 | 61.46 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c0a0672700318c6 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8411) without operator or topology evidence -> review | 51.17 % | 0.0300 | 58.04 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c96120b804880fe | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8458) without operator or topology evidence -> review | 46.50 % | 0.0482 | 55.32 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c8313cc2ac6639b | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7127) without operator or topology evidence -> review | 45.83 % | 0.1130 | 58.07 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c5b57b7fc27d141 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7193) without operator or topology evidence -> review | 45.83 % | 0.1130 | 58.07 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c3e1423e02c931b | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8) without operator or topology evidence -> review | 44.63 % | 0.0786 | 49.89 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c420d583172ed28 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6913) without operator or topology evidence -> review | 44.63 % | 0.0786 | 49.89 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c5b4939864d7155 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.714) without operator or topology evidence -> review | 44.63 % | 0.0786 | 49.89 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c3389c60cbf4fab | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.774) without operator or topology evidence -> review | 43.76 % | 0.0910 | 49.05 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c749e18ed41e90c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8059) without operator or topology evidence -> review | 43.16 % | 0.0868 | 56.27 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c32768b9bf69842 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7997) without operator or topology evidence -> review | 43.16 % | 0.0868 | 49.76 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c89e7fe95545789 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8059) without operator or topology evidence -> review | 43.16 % | 0.0868 | 56.27 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cce830f0876fb2c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5799) without operator or topology evidence -> review | 41.89 % | 0.0448 | 47.52 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c23c0732d233ab3 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 39.29 % | 0.0421 | 43.32 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c148870ad4956d2 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7075) without operator or topology evidence -> review | 30.29 % | 0.0651 | 47.18 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cc1ce8b4e535195 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7236) without operator or topology evidence -> review | 29.69 % | 0.0547 | 49.46 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c2a74b89741560f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7431) without operator or topology evidence -> review | 26.35 % | 0.0246 | 29.46 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cacec102e32c047 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7671) without operator or topology evidence -> review | 13.14 % | 0.0877 | 38.13 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c946d02358ff11e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7467) without operator or topology evidence -> review | 13.14 % | 0.0877 | 34.02 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c6e2901ed68a3bb | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7648) without operator or topology evidence -> review | 13.14 % | 0.0877 | 38.17 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cd17a63688ac7a5 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7639) without operator or topology evidence -> review | 13.14 % | 0.0877 | 33.94 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c176804f6749b48 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7704) without operator or topology evidence -> review | 11.67 % | 0.0747 | 37.39 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c1bd587a919d415 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7646) without operator or topology evidence -> review | 11.67 % | 0.0747 | 33.09 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c5ddbb6181e269b | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7716) without operator or topology evidence -> review | 11.67 % | 0.0747 | 33.10 % | - |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c2656c3efc957c1 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7672) without operator or topology evidence -> review | 11.67 % | 0.0747 | 37.39 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c9e48869d7b8d0c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7861) without operator or topology evidence -> review | 11.67 % | 0.0747 | 33.09 % | - |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c8779de91dc394e | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.60 % | -0.0746 | 1.61 % | up=area down=wns |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cc1c7413a0ede37 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.40 % | 0.0248 | -5.24 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c93900e8c6cd851 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8625) without operator or topology evidence -> review | -3.34 % | 0.0259 | -4.18 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c1464b946390502 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7717) without operator or topology evidence -> review | -3.34 % | 0.0259 | -4.18 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c82e41a8c65df4e | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.866) without operator or topology evidence -> review | -3.34 % | 0.0259 | -4.18 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c31eb107e478424 | tradeoff | improved | d | operator family gained: mul (present in C, absent in D); longest combinational path 17 -> 2 cells (ratio 8.5 >= 3.0) | -38.63 % | 0.1752 | -17.18 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | ca88b56361a3e0f | tradeoff | improved | d | operator family gained: mul (present in C, absent in D); longest combinational path 17 -> 2 cells (ratio 8.5 >= 3.0) | -38.63 % | 0.1752 | -17.18 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c2a4521a7f7fde9 | tradeoff | improved | d | operator family gained: mul (present in C, absent in D); longest combinational path 17 -> 2 cells (ratio 8.5 >= 3.0) | -38.63 % | 0.1752 | -17.18 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cb29095f783d4f3 | tradeoff | improved | d | operator family gained: mul (present in C, absent in D); longest combinational path 17 -> 2 cells (ratio 8.5 >= 3.0) | -38.63 % | 0.1752 | -17.18 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_divider_8bit | c28dbe05c363815 | tradeoff | improved | d | operator family gained: mul (present in C, absent in D); longest combinational path 17 -> 4 cells (ratio 4.2 >= 3.0) | -66.51 % | 0.0504 | -13.62 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | cc65c9a12793417 | tradeoff | no_gain | d | operator family gained: mul (present in C, absent in D); longest combinational path 17 -> 4 cells (ratio 4.2 >= 3.0) | -66.51 % | 0.0504 | -13.62 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_divider_8bit | c950f628fafb9a3 | tradeoff | no_gain | d | operator family gained: mul (present in C, absent in D); longest combinational path 17 -> 4 cells (ratio 4.2 >= 3.0) | -66.51 % | 0.0504 | -0.72 % | up=wns down=area |
+| gpt-5.6-luna | B0 | rtlopt_register | cbf7c28c086c628 | retained | improved | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset) | 10.29 % | 0.0032 | 16.00 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c927a0f98d49cda | retained | improved | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset) | 10.13 % | 0.0032 | 14.07 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c35075f87ea56e2 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 8.48 % | 0.0066 | 4.41 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c28309d2a657ff8 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 8.48 % | 0.0066 | 4.41 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c08edc935c6b469 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 8.48 % | 0.0066 | 4.41 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c49dacd989a2e4a | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.93 % | 0.0047 | 36.73 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | cc6f26949232585 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.91 % | 0.0059 | 33.19 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c92cebeea9149f2 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.89 % | 0.0050 | 37.12 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c13eecc09b4bcae | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.89 % | 0.0050 | 37.12 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c818dc9b0a45bc1 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.89 % | 0.0050 | 37.12 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c6bd969104989cf | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.66 % | 0.0057 | 35.65 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c1c566510126440 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.46 % | 0.0045 | 7.07 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c48ada1ed496c6b | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.46 % | 0.0045 | -10.65 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_register | cbfaa83879b2d64 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.46 % | 0.0045 | 7.07 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c936b76302bdaa3 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.34 % | -0.0271 | 2.40 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | c95f790a574d958 | tradeoff | - | b | flip-flop bits 992 -> 1022 in the same register cells (widths), latency unchanged; text differs widely (ratio 0.6902) without operator or topology evidence -> review | 7.22 % | -0.0032 | 14.53 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c0c907b73dd3693 | tradeoff | - | b | flip-flop bits 992 -> 1022 in the same register cells (widths), latency unchanged; text differs widely (ratio 0.6877) without operator or topology evidence -> review | 7.22 % | -0.0032 | 6.70 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | cc390310ff0c405 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.21 % | -0.0327 | -3.39 % | up=area down=wns,power |
 | gpt-5.6-luna | B0 | rtlopt_register | c1ef0ce5d48f432 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 7.17 % | 0.0034 | -8.23 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_register | c4cc15bed85e507 | tradeoff | - | c1 | flip-flop bits 992 -> 1054 and register cells 31 -> 32 with identical latency (no offset) | 7.11 % | -0.1689 | 33.02 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c4ce2d37e6129b7 | retained | - | c1 | flip-flop bits 992 -> 1055 and register cells 31 -> 32 with identical latency (no offset) | 7.06 % | 0.0032 | 14.99 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c784865279e7497 | tradeoff | improved | c1 | flip-flop bits 992 -> 1022 and register cells 31 -> 61 with identical latency (no offset); text differs widely (ratio 0.841) without operator or topology evidence -> review | 6.93 % | -0.0346 | 33.84 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | c8c9cfb0a650011 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.90 % | -0.0377 | 33.00 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c0c096c3fa53362 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.87 % | -0.0355 | 31.27 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | c7863774d0243a9 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.83 % | -0.0975 | 32.46 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c2964023d3695e5 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.79 % | -0.0137 | -9.72 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | rtlopt_register | c903b582487b323 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.75 % | -0.0307 | 0.73 % | up=area down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c3ee9008783ceb3 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.64 % | 0.0037 | 7.14 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c734d1bc959307a | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.51 % | 0.0020 | 10.80 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c4d0d4b06e53038 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.40 % | -0.0377 | 29.77 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c115f43749e5e51 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.39 % | 0.0043 | 11.46 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c514d6103953f42 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.36 % | -0.0069 | -2.90 % | up=area down=wns,power |
+| gpt-5.6-luna | B0 | rtlopt_register | c671ab6b2d6caad | tradeoff | improved | c1 | flip-flop bits 992 -> 1054 and register cells 31 -> 62 with identical latency (no offset) | 6.27 % | -0.1442 | 29.27 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | c6908a03b5da688 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 6.23 % | -0.1744 | 29.12 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | c581c668996a342 | retained | - | b | flip-flop bits 992 -> 1022 in the same register cells (widths), latency unchanged | 6.20 % | 0.0038 | 6.80 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c785a28756ec49e | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 5.73 % | -0.2044 | 23.54 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | ca604ca3f17625d | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 5.73 % | -0.1517 | 26.41 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | cafcdde1d8a783b | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 5.66 % | -0.0248 | 32.45 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c20f95d7660e431 | tradeoff | - | b | flip-flop bits 992 -> 1022 in the same register cells (widths), latency unchanged | 5.60 % | -0.0818 | 4.98 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c1f663de7fc6527 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 5.33 % | -0.0180 | 30.92 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c3cad65c7d85c85 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 5.33 % | -0.0180 | 31.88 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c18d889957d20d0 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 5.33 % | -0.0180 | 30.97 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c4a8d24abbfb87b | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 5.33 % | -0.0180 | 30.92 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | cacea557de8c619 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 4.97 % | -0.0942 | 2.57 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c22ca4d97052cca | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 4.78 % | -0.0850 | 3.26 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | cac6726cdd22898 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 4.78 % | -0.0850 | 3.26 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | c9c6be5cc195260 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 4.78 % | -0.0850 | 13.79 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | ccf2b8a7aac8264 | tradeoff | improved | c1 | flip-flop bits 992 -> 1054 and register cells 31 -> 62 with identical latency (no offset) | 4.73 % | -0.0855 | 3.47 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c18f339ab9dcc4a | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 4.71 % | -0.0651 | 2.52 % | up=area,power down=wns |
 | gpt-5.6-luna | B0 | rtlopt_register | c359ddcf391ff95 | tradeoff | - | b | flip-flop bits 992 -> 1022 in the same register cells (widths), latency unchanged; text differs widely (ratio 0.5691) without operator or topology evidence -> review | 1.14 % | -0.1495 | 23.49 % | up=area,power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | c959d7d2d42e361 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.5304) without operator or topology evidence -> review | 0.84 % | 0.0086 | 3.03 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c781ee7db36af76 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6409) without operator or topology evidence -> review | 0.80 % | 0.0093 | -0.23 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c4b1f3724b782ae | retained | improved | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.5172) without operator or topology evidence -> review | 0.80 % | 0.0093 | -0.27 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c7ac06f2c156388 | tradeoff | improved | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset) | 0.66 % | 0.0078 | -17.49 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_register | c3eefcee01215cb | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7624) without operator or topology evidence -> review | 0.63 % | 0.0034 | -31.95 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_register | c7b2b706ca02ad9 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8029) without operator or topology evidence -> review | 0.61 % | 0.0051 | 11.49 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c3870eb695fb9e3 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7455) without operator or topology evidence -> review | 0.51 % | 0.0043 | -7.95 % | up=area,wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_register | c9e41bff6c66438 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6885) without operator or topology evidence -> review | 0.49 % | 0.0046 | -7.97 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_register | c2c82a923f375c1 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6867) without operator or topology evidence -> review | 0.49 % | 0.0046 | -7.97 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_register | c103013fb3f571f | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6722) without operator or topology evidence -> review | 0.48 % | 0.0075 | -8.91 % | up=area,wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_register | c3046f2b8fa8427 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6434) without operator or topology evidence -> review | 0.48 % | 0.0075 | -8.91 % | up=area,wns down=power |
@@ -1137,9 +1615,20 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B0 | rtlopt_register | c3539b0903e4acd | retained | no_gain | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.6448) without operator or topology evidence -> review | 0.48 % | 0.0043 | 0.05 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c45ce2d921944e7 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8123) without operator or topology evidence -> review | 0.48 % | 0.0043 | 0.08 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c023561d516c603 | retained | no_gain | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.5316) without operator or topology evidence -> review | 0.46 % | 0.0063 | 3.34 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c9aa4265c6df223 | tradeoff | no_gain | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset); text differs widely (ratio 0.5566) without operator or topology evidence -> review | 0.42 % | -0.0340 | 3.23 % | up=power down=wns |
+| gpt-5.6-luna | B0 | rtlopt_register | c630a732976c874 | retained | improved | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset) | 0.38 % | 0.0075 | 2.06 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c404380276c0269 | retained | improved | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset) | 0.38 % | 0.0075 | 2.06 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c59738cfe74ceb1 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7222) without operator or topology evidence -> review | 0.34 % | 0.0044 | -7.27 % | up=wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_register | c769adf6671e94d | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6716) without operator or topology evidence -> review | 0.30 % | 0.0084 | -7.85 % | up=wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_register | c0e20c2a43af560 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7765) without operator or topology evidence -> review | 0.30 % | 0.0084 | 3.89 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c56bd401166bc1e | retained | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7766) without operator or topology evidence -> review | 0.29 % | 0.0046 | 3.68 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c5d232a40dafe5c | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.783) without operator or topology evidence -> review | 0.27 % | 0.0063 | -7.43 % | up=wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_register | c393c5a106b8ebb | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.7838) without operator or topology evidence -> review | 0.27 % | 0.0063 | -28.79 % | up=wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_register | caefb8cbb5df3dc | retained | no_gain | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset); text differs widely (ratio 0.5703) without operator or topology evidence -> review | 0.25 % | 0.0041 | 4.12 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | cc3a30493e4d97e | retained | no_gain | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset); text differs widely (ratio 0.5351) without operator or topology evidence -> review | 0.17 % | 0.0053 | 3.45 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | caf02e69a9a49a5 | retained | no_gain | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 128 with identical latency (no offset); text differs widely (ratio 0.7466) without operator or topology evidence -> review | 0.11 % | 0.0035 | 3.11 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | c719f7589782571 | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.5517) without operator or topology evidence -> review | 0.10 % | 0.0059 | -8.56 % | up=wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_register | cc4d207f56ba950 | retained | no_gain | d | longest combinational path 4 -> 12 cells (ratio 3.0 >= 3.0) | 0.08 % | 0.0044 | 2.72 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c090af050235c0d | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6305) without operator or topology evidence -> review | 0.05 % | 0.0077 | 3.81 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c12b463a41aeddb | retained | improved | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.5074) without operator or topology evidence -> review | 0.05 % | 0.0077 | 3.83 % | - |
 | gpt-5.6-luna | B0 | rtlopt_register | c243a79f8f8b41f | retained | no_gain | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 64 with identical latency (no offset); text differs widely (ratio 0.6167) without operator or topology evidence -> review | -0.00 % | 0.0040 | 2.97 % | - |
@@ -1147,44 +1636,95 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B0 | rtlopt_register | c25173eda85dd80 | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.5883) without operator or topology evidence -> review | -0.07 % | 0.0105 | -7.94 % | up=wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_register | c06ce9f68604a9c | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7784) without operator or topology evidence -> review | -0.09 % | 0.0059 | -8.44 % | up=wns down=power |
 | gpt-5.6-luna | B0 | rtlopt_register | c049b822a8ab968 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6871) without operator or topology evidence -> review | -0.19 % | 0.0034 | -9.09 % | up=wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_register | c4fd5c7f2e014b1 | tradeoff | no_gain | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.7305) without operator or topology evidence -> review | -0.25 % | 0.0061 | -8.86 % | up=wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_register | c95307ef5d3b3e4 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6186) without operator or topology evidence -> review | -0.27 % | 0.0044 | 2.86 % | - |
+| gpt-5.6-luna | B0 | rtlopt_register | cbfd3a2f0876b51 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.648) without operator or topology evidence -> review | -0.29 % | 0.0036 | -11.23 % | up=wns down=power |
+| gpt-5.6-luna | B0 | rtlopt_register | c64685c0ec5b80f | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7384) without operator or topology evidence -> review | -0.48 % | 0.0065 | -9.31 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_register | c8d00def3ad3c88 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7471) without operator or topology evidence -> review | -0.48 % | 0.0065 | -9.31 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_register | c047062d94acb0a | tradeoff | no_gain | c1 | flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset); text differs widely (ratio 0.7288) without operator or topology evidence -> review | -0.56 % | 0.0093 | -9.07 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_register | c00d45c5477ade4 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7379) without operator or topology evidence -> review | -0.56 % | 0.0041 | -9.24 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_register | c6a6bc8f1c6ea92 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7875) without operator or topology evidence -> review | -0.57 % | 0.0049 | -9.53 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_register | c99b594369ba72f | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7341) without operator or topology evidence -> review | -0.58 % | 0.0054 | -9.41 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c0830e491c4f517 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c2542ddabd75a5c | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c245efc1d496488 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | 3.83 % | 0.0006 | 2.13 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c6d4709d09ef571 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.13 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | ccdfb32ec7e636b | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.13 % | - |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c43a388dbf68189 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.13 % | - |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c2e4f780361a467 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c439f4c5012c9a9 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c5b2eafc6c90036 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c0f465b570680f5 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c5f9d5be07d6bab | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c9824e061ecf103 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c0ef6e44c0cd60c | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | cc37f250bcccdf4 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c55af5345ca661a | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c5c749f906b985b | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c77463ea944d452 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c1ef554df84d832 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c1762a96f040a3b | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c6224b66e73d2b1 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.42 % | - |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c11c589509540da | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.13 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | cb2c11d840b92ab | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 5 cells (ratio 13.0 >= 3.0) | 3.83 % | 0.0006 | 2.13 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | cce5b773ab25998 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | 3.83 % | 0.0006 | 2.13 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c715b2acb510fcb | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 3 cells (ratio 21.7 >= 3.0) | 3.83 % | 0.0006 | 2.13 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c60525468b3a7b5 | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 5 cells (ratio 13.0 >= 3.0) | 3.83 % | 0.0006 | 2.13 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c78043ecbc7b81a | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 5 cells (ratio 13.0 >= 3.0) | 3.83 % | 0.0006 | 2.13 % | - |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c76a3f6d1374f31 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8977) without operator or topology evidence -> review | -0.32 % | 0.0015 | -0.39 % | up=wns down=area |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c64c523c89b977d | tradeoff | improved | d | longest combinational path 65 -> 16 cells (ratio 4.1 >= 3.0) | -0.32 % | 0.0015 | -0.39 % | up=wns down=area |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c00e22e1063583c | tradeoff | improved | d | longest combinational path 65 -> 15 cells (ratio 4.3 >= 3.0) | -0.32 % | 0.0015 | -0.39 % | up=wns down=area |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | cc3ca8e010992f9 | tradeoff | improved | d | longest combinational path 65 -> 15 cells (ratio 4.3 >= 3.0) | -0.32 % | 0.0015 | -0.39 % | up=wns down=area |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c5306c8b55f24c4 | tradeoff | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | -0.64 % | 0.0197 | -1.06 % | up=wns down=area |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c4b9c0ef422c9aa | tradeoff | no_gain | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | -0.64 % | 0.0197 | -1.06 % | up=wns down=area |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c79cca2a0915b57 | tradeoff | no_gain | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | -0.64 % | 0.0197 | -1.06 % | up=wns down=area |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | cb22e0c75dc1c9d | tradeoff | no_gain | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | -0.64 % | 0.0197 | -1.06 % | up=wns down=area |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c901e3b234f6a26 | tradeoff | no_gain | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | -0.64 % | 0.0197 | -1.22 % | up=wns down=area |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c7f197af861c130 | tradeoff | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | -0.64 % | 0.0197 | -1.06 % | up=wns down=area |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c3e40f8cfab5ec4 | tradeoff | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 4 cells (ratio 16.2 >= 3.0) | -0.64 % | 0.0197 | -1.06 % | up=wns down=area |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | ca985521490b2e4 | tradeoff | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 65 -> 6 cells (ratio 10.8 >= 3.0) | -0.74 % | 0.0009 | -0.45 % | up=wns down=area |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c223d1d47bf9b89 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.9233) without operator or topology evidence -> review | -1.81 % | 0.0012 | -2.98 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c68323995162a72 | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.9214) without operator or topology evidence -> review | -1.81 % | 0.0012 | -2.98 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | cad56233599673c | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -1.81 % | 0.0012 | -2.40 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c33416b098cef76 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7087) without operator or topology evidence -> review | -1.81 % | 0.0012 | -2.98 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c7842d5a5ce3091 | tradeoff | improved | d | longest combinational path 65 -> 16 cells (ratio 4.1 >= 3.0) | -2.02 % | 0.0014 | -1.93 % | up=wns down=area |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c4c2a9f9fc6aadc | tradeoff | improved | d | longest combinational path 65 -> 17 cells (ratio 3.8 >= 3.0) | -2.76 % | 0.0075 | -10.90 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c40afaba366eaaa | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7009) without operator or topology evidence -> review | -3.29 % | 0.0056 | -3.92 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c1deda77b88646a | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.9196) without operator or topology evidence -> review | -3.29 % | 0.0056 | -4.93 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c1a732175d8c945 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.9196) without operator or topology evidence -> review | -3.29 % | 0.0051 | -3.97 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c48092745f701ad | tradeoff | improved | d | longest combinational path 65 -> 16 cells (ratio 4.1 >= 3.0) | -3.83 % | 0.0505 | -7.52 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c9d2a4a03d62425 | tradeoff | improved | d | longest combinational path 65 -> 16 cells (ratio 4.1 >= 3.0) | -3.83 % | 0.0505 | -7.52 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c1241ca8ad04b56 | tradeoff | improved | d | longest combinational path 65 -> 16 cells (ratio 4.1 >= 3.0) | -4.04 % | 0.0506 | -11.01 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c61b0cd435fc595 | tradeoff | improved | d | longest combinational path 65 -> 15 cells (ratio 4.3 >= 3.0) | -4.04 % | 0.0506 | -11.01 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | cc5f7f75549f645 | tradeoff | improved | d | longest combinational path 65 -> 15 cells (ratio 4.3 >= 3.0) | -4.04 % | 0.0506 | -7.93 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c01df4980e82d8d | tradeoff | improved | d | longest combinational path 65 -> 15 cells (ratio 4.3 >= 3.0) | -4.04 % | 0.0506 | -7.93 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c35dc6d81b94fcd | tradeoff | improved | d | longest combinational path 65 -> 15 cells (ratio 4.3 >= 3.0) | -4.04 % | 0.0506 | -7.93 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c01df9f22862ad8 | tradeoff | improved | d | longest combinational path 65 -> 20 cells (ratio 3.2 >= 3.0) | -4.04 % | 0.0506 | -11.01 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c1bcbd16da82315 | tradeoff | improved | d | longest combinational path 65 -> 20 cells (ratio 3.2 >= 3.0) | -4.04 % | 0.0506 | -7.93 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c6a4bd988ccfc93 | tradeoff | improved | d | longest combinational path 65 -> 16 cells (ratio 4.1 >= 3.0) | -4.04 % | 0.0506 | -11.01 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c78ac3c6ac78b8a | tradeoff | improved | d | longest combinational path 65 -> 15 cells (ratio 4.3 >= 3.0) | -4.04 % | 0.0506 | -11.01 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c34edcd22e523ed | tradeoff | improved | d | longest combinational path 65 -> 16 cells (ratio 4.1 >= 3.0) | -4.04 % | 0.0506 | -7.93 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c9fb0ffa01c9ca9 | tradeoff | improved | d | longest combinational path 65 -> 20 cells (ratio 3.2 >= 3.0) | -4.04 % | 0.0506 | -11.01 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c0da0b64e6e4ba1 | tradeoff | improved | d | longest combinational path 65 -> 20 cells (ratio 3.2 >= 3.0) | -4.04 % | 0.0506 | -7.93 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c21ecdd04714ffb | tradeoff | improved | d | longest combinational path 65 -> 18 cells (ratio 3.6 >= 3.0) | -13.07 % | 0.0906 | -24.36 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c75118210e30a07 | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -14.98 % | 0.0068 | -17.75 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c512fa76688833a | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -16.90 % | 0.0284 | -19.72 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c28f698d7d32f20 | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -16.90 % | 0.0284 | -19.72 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c36fcee76836b86 | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -16.90 % | 0.0284 | -19.72 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c7287c30605b338 | tradeoff | improved | d | longest combinational path 65 -> 15 cells (ratio 4.3 >= 3.0) | -16.90 % | 0.0284 | -15.99 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c3e2ce0a5d2ce8e | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -16.90 % | 0.0284 | -15.99 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c975a5cc88689a9 | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -16.90 % | 0.0284 | -19.72 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c2a1439601ea090 | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -16.90 % | 0.0284 | -15.99 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | ca614653a55c680 | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -16.90 % | 0.0284 | -15.99 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c08574b1140b1ba | tradeoff | no_gain | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.8397) without operator or topology evidence -> review | -20.19 % | 0.0004 | -22.63 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c191769fb231098 | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -29.22 % | 0.0004 | -22.09 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | cb7ad1dd53b6397 | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -33.37 % | 0.0012 | -27.84 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c90cd8d01e758b9 | tradeoff | improved | d | longest combinational path 65 -> 13 cells (ratio 5.0 >= 3.0) | -41.13 % | 0.0038 | -49.25 % | up=wns down=area,power |
 | gpt-5.6-luna | B0 | rtlopt_sub_32bit | c2b2f1dbee4fc55 | tradeoff | improved | d | longest combinational path 65 -> 15 cells (ratio 4.3 >= 3.0) | -45.70 % | 0.0231 | -77.39 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c4e5ca5c2ad14fa | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -48.78 % | 0.0030 | -60.92 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | c79630b12a6da9c | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -48.78 % | 0.0030 | -60.92 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | cb0e186cbca0c68 | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -48.78 % | 0.0030 | -60.92 % | up=wns down=area,power |
+| gpt-5.6-luna | B0 | rtlopt_sub_32bit | cc30b7b97405dbb | tradeoff | improved | d | longest combinational path 65 -> 14 cells (ratio 4.6 >= 3.0) | -48.78 % | 0.0030 | -60.92 % | up=wns down=area,power |
 | gpt-5.6-luna | B1_E4 | cktevo_ethmac__eth_cop | cfd5ad594efd1ee | retained | improved | c1 | flip-flop bits 174 -> 139 and register cells 13 -> 14 with identical latency (no offset) | 5.76 % | 0.0007 | 43.62 % | - |
 | gpt-5.6-luna | B1_E4 | cktevo_ethmac__eth_cop | cbc1c8df9292729 | retained | improved | c1 | flip-flop bits 174 -> 159 and register cells 13 -> 14 with identical latency (no offset) | 4.89 % | 0.0058 | 5.13 % | - |
 | gpt-5.6-luna | B1_E4 | cktevo_ethmac__eth_cop | c532ad5425d3930 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 4.69 % | 0.0012 | 7.08 % | - |
@@ -1601,9 +2141,13 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B1_E4 | cktevo_vga_enh__vga_wb_slave | cb5d314a841f0e4 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -15.25 % | 0.0372 | -29.57 % | up=wns down=area,power |
 | gpt-5.6-luna | B1_E4 | cktevo_vga_enh__vga_wb_slave | c097adcb6cb970f | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -15.25 % | 0.0372 | -29.57 % | up=wns down=area,power |
 | gpt-5.6-luna | B1_E4 | drrtl_SPI | ce2b2fdd7c73878 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 8.20 % | -0.0018 | 9.99 % | - |
+| gpt-5.6-luna | B1_E4 | drrtl_SPI | ce40838ac08164e | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 8.11 % | -0.0036 | 8.25 % | - |
+| gpt-5.6-luna | B1_E4 | drrtl_SPI | cf6941f09fc5146 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 6.73 % | 0.0083 | -3.72 % | up=area down=power |
 | gpt-5.6-luna | B1_E4 | drrtl_SPI | c4f8252c3f71f6b | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
 | gpt-5.6-luna | B1_E4 | drrtl_SPI | c9df7fb93abc892 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
 | gpt-5.6-luna | B1_E4 | drrtl_SPI | cabdd8922ffbea1 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | B1_E4 | drrtl_SPI | c334ae884ce3493 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | B1_E4 | drrtl_SPI | c8b8d27dccf916a | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.45 % | -0.0028 | 9.07 % | up=power down=area |
 | gpt-5.6-luna | B1_E4 | drrtl_communication | c8fa91273bd753b | retained | improved | c1 | flip-flop bits 232 -> 219 and register cells 11 -> 12 with identical latency (no offset) | 1.98 % | 0.0105 | 7.39 % | - |
 | gpt-5.6-luna | B1_E4 | drrtl_communication | ce919bacd6bb9b7 | retained | improved | c1 | flip-flop bits 232 -> 219 and register cells 11 -> 12 with identical latency (no offset) | 1.98 % | 0.0105 | 7.45 % | - |
 | gpt-5.6-luna | B1_E4 | drrtl_communication | c53ae8aa4d10bdd | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -2.21 % | 0.0042 | -10.98 % | up=wns down=area,power |
@@ -1753,6 +2297,8 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c8afaa4dab9d221 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 38.86 % | 0.0009 | 47.97 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | cdac6de169f1f9e | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 38.86 % | 0.0009 | 47.97 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | ceb4f0bab816782 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 37.88 % | 0.0013 | 51.45 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c5067a26b86437f | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 37.88 % | 0.0013 | 51.45 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c8ac874f611fd39 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 37.88 % | 0.0013 | 51.45 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | cae109fdff3a0b1 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0005 | 47.36 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | cd61853454b244c | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0026 | 49.06 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | cec3bd2e725ee15 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0026 | 49.06 % | - |
@@ -1762,6 +2308,9 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | cc01661cb8c133d | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0026 | 49.06 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c459266d8ed554b | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0026 | 49.06 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | cc1966897cb04c9 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0026 | 49.06 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c39a7fb1a049071 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0026 | 49.06 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c52e5117c8fba1b | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0026 | 49.06 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | ce23f9a8f8bc03c | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0026 | 49.06 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c1befdb4c5e4328 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.71 % | 0.0016 | 47.69 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c20c220a21a1e0f | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.24 % | 0.0001 | 48.58 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | cb127c1f3dd03b8 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 35.66 % | 0.0003 | 45.91 % | - |
@@ -1777,6 +2326,8 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | ce72ed527b00584 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 35.19 % | -0.0000 | 44.56 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c68f5346e02822f | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 35.19 % | -0.0000 | 44.56 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c54f0c0900b0ae0 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 35.19 % | -0.0000 | 44.56 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c5091d807679ddd | retained | improved | d | longest combinational path 5 -> 29 cells (ratio 5.8 >= 3.0) | 34.54 % | 0.0002 | 43.99 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c2c4126ba2df1c2 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 33.47 % | 0.0007 | 47.44 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | ce23a5cd69840c9 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 33.14 % | 0.0010 | 41.85 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c04ff64f4206946 | retained | improved | d | longest combinational path 5 -> 28 cells (ratio 5.6 >= 3.0) | 31.83 % | 0.0005 | 43.91 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c6423a7cf254f0f | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
@@ -1807,6 +2358,13 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c7b71c297fc22b7 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c2e6fa9cf4384cb | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c98c53d06bb56d8 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c55dcd5a57a855c | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | ccddba48174f2cd | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c0d7607f3e35119 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c25b43dee45bc2f | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c246a3f20b613b2 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c506d1c1b4a72c6 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c84f17968cb436f | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 25.25 % | 0.0003 | 37.68 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c982b6bf6f58e59 | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 21.62 % | 0.0031 | 35.02 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c077ee0fba110b3 | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 21.44 % | 0.0014 | 39.62 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | ce2127332debfe3 | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 21.44 % | 0.0014 | 39.62 % | - |
@@ -1820,6 +2378,7 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c284aaa30b90dbe | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 18.75 % | 0.0003 | 38.40 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c5e37dc47b3bf51 | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 18.75 % | 0.0003 | 38.40 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | ce242ea06966b29 | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 18.75 % | 0.0003 | 38.40 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c938d36d2bc683a | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 18.75 % | 0.0003 | 38.40 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c6d4b99d017c0f8 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c99cbb88ad552af | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | cff1e28d95e0551 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
@@ -1829,6 +2388,7 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c68d27875773afe | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c60fed7061f1c06 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | cbed769ab5d18aa | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | B1_E4 | rtlopt_calculation | c2959106715294a | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c61222369b4fce5 | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 15.88 % | 0.0013 | 34.10 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | c2e8f4fc4127ebc | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 15.88 % | 0.0013 | 34.10 % | - |
 | gpt-5.6-luna | B1_E4 | rtlopt_calculation | cc7fa282a22e9dd | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 15.88 % | 0.0013 | 34.10 % | - |
@@ -2520,14 +3080,29 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B2 | cktevo_nn_engine__thresholds_128x4096 | c2be5befd79d6c8 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -27.00 % | -0.0133 | 10.34 % | up=power down=area,wns |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c3f2c38c78232fa | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.49 % | 0.0359 | -0.95 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c6088415b1f053c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.25 % | 0.0044 | -1.29 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ccb302f8dcd2b13 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.22 % | 0.0018 | -1.01 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c38eabe52789611 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.22 % | 0.0018 | -1.02 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c8b54c300d3b01e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.22 % | 0.0018 | -1.01 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c699310c465e26a | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.22 % | 0.0018 | -1.01 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c90f229c7a82deb | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.22 % | 0.0018 | -1.01 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cbb6243de1641e1 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.22 % | 0.0018 | -1.01 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c81cf2f238d1762 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.22 % | 0.0018 | -1.01 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cdc2dffb5d783ca | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.08 % | 0.0223 | -0.50 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c8cbb557332839d | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.95 % | 0.0232 | -1.14 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c130f3e6178c420 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.95 % | 0.0232 | -1.14 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ceb3e06bfc4096e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.95 % | 0.0232 | -1.14 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c4815e548ca937e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.91 % | 0.0232 | -1.14 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cab6d04e34fb760 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.88 % | 0.0243 | 0.11 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c774a39e8d55efd | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.84 % | 0.0130 | -1.02 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c53d301b8550e80 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.84 % | 0.0130 | -1.02 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ccfa779e79b1a54 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.84 % | 0.0128 | -1.01 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cb17279e87ece26 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.84 % | 0.0130 | -1.02 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c7e596afb7563e1 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.84 % | 0.0130 | -1.02 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cb7c7a0a221f9c5 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.84 % | 0.0128 | -1.01 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cc7754f4dca79b9 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.81 % | 0.0397 | -1.24 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c205c012aeee58e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.81 % | 0.0024 | -1.19 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c3fb8e45d7ed85d | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.74 % | 0.0016 | -1.21 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ca76be6c6b1e229 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.74 % | 0.0171 | -1.16 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cff349d510cb1eb | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.71 % | 0.0004 | 0.09 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cf29e27beadb3b8 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.71 % | 0.0375 | -0.54 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c96d6d5f6f4a4ef | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.71 % | 0.0375 | -0.54 % | - |
@@ -2535,8 +3110,13 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cc90e8866efd9a4 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.71 % | 0.0557 | -1.20 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c7b6b9123b0fbd7 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.71 % | 0.0004 | 0.09 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c3ca27bb6f735d7 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.68 % | 0.0218 | 0.28 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c8066a17074647d | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.68 % | 0.0053 | -1.15 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c7b4c2243f3596a | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.64 % | 0.0227 | -1.07 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c9f1f4fc5a936ef | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.57 % | 0.0502 | 0.60 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c731d65befda22b | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.57 % | 0.0245 | -1.09 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ced6f6679ba2575 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.57 % | 0.0245 | -1.09 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c1814d61d1e8c09 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.54 % | 0.0377 | -1.20 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c39f7c842fa41c3 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.47 % | 0.0157 | -0.69 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cc5648c45299a47 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.44 % | 0.0227 | -1.63 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c72c1c951cbc241 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.44 % | 0.0057 | 0.04 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cd55cb19e75e2f5 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.37 % | 0.0098 | 0.05 % | - |
@@ -2549,13 +3129,22 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ccb384c46bfec7e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.20 % | 0.0143 | 0.62 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cfa6f14ff77357f | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.20 % | 0.0210 | -0.67 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c17458b00dc4d54 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.20 % | 0.0058 | -0.96 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c1197d61139fdfe | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.20 % | 0.0134 | -1.16 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cc1116399cf72d3 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.20 % | 0.0264 | -0.91 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c39f733802454af | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.20 % | 0.0046 | 0.11 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c80712e6dfe5f63 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.17 % | 0.0024 | -0.83 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c99a0aecfdb4a76 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.14 % | 0.0077 | -0.54 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cd4d89e8d146e0c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.14 % | 0.0277 | -0.05 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c0d9b92850b03be | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.14 % | 0.0161 | -1.33 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c52882104fc6ce3 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.10 % | 0.0421 | -0.10 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c8bde2bd51bbd85 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.10 % | 0.0069 | -0.60 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c08f16bd8543143 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.10 % | 0.0310 | -0.14 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cb6d996da96587c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0167 | -0.78 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c1032baa33c15c1 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0009 | 0.63 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ceba7a9b5ebed98 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0051 | -1.28 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c6bd8d901703b72 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0051 | -1.28 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cdba7d3a28ce06e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0051 | -1.28 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cfbae20abc23f48 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0016 | -1.21 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c65cba48872a26c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.03 % | 0.0354 | -0.06 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cafe8115ccdb383 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.03 % | 0.0354 | -0.06 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c985f70d0a19b25 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.00 % | 0.0207 | 0.70 % | - |
@@ -2563,12 +3152,16 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c96109f13edcefe | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.03 % | 0.0323 | -0.90 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c0c2eeb66bbc36e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.03 % | 0.0059 | -0.69 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c33cf13da0d85d2 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.07 % | 0.0206 | -1.52 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c1d2307fcf0fa04 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.10 % | 0.0025 | -0.05 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c1dfe764ef8dc29 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.14 % | 0.0045 | -1.05 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c2dd5ccde4eef7a | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.20 % | 0.0013 | -0.37 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ca7f1db91c0a7e5 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.20 % | 0.0153 | -1.43 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cfa624ecb3fd02c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.24 % | 0.0109 | -1.53 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c931426b3b13431 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.24 % | 0.0394 | -0.85 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c86d4a7b21fab0b | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.24 % | 0.0207 | 0.65 % | - |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c134ea7eae6bf0a | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.24 % | 0.0207 | 0.65 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cd4ecc1da4fca99 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.24 % | 0.0025 | -1.24 % | - |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cdc9385dcdfa949 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.37 % | 0.0159 | -2.01 % | up=wns down=area |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c20dbbc867eed37 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.40 % | 0.0163 | -0.82 % | up=wns down=area |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cc09bb2200735e3 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.40 % | 0.0063 | -1.44 % | up=wns down=area |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c1b6e236e89dc70 | tradeoff | improved | c1 | flip-flop bits 109 -> 110 and register cells 23 -> 24 with identical latency (no offset) | -0.47 % | 0.0016 | -1.22 % | up=wns down=area |
@@ -2580,13 +3173,17 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cabe8888312760d | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.64 % | 0.0343 | -0.45 % | up=wns down=area |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c8dbe058c25e13d | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.64 % | 0.0343 | -0.45 % | up=wns down=area |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c745cb4a0c0857b | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.71 % | 0.0058 | -2.11 % | up=wns down=area |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ce9d6bf6b2d7499 | tradeoff | improved | c1 | flip-flop bits 109 -> 110 and register cells 23 -> 24 with identical latency (no offset) | -1.05 % | 0.0064 | -3.10 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cab1457ca936cab | tradeoff | improved | c1 | flip-flop bits 109 -> 110 and register cells 23 -> 24 with identical latency (no offset) | -1.39 % | 0.0050 | -0.89 % | up=wns down=area |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cdf4d8d66f33c4e | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -1.45 % | 0.0683 | -3.07 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c4cefa34358f41c | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -1.49 % | 0.0083 | -1.22 % | up=wns down=area |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c8a39bb424541c7 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.03 % | 0.0007 | -3.22 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c2a7798a1c16415 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.26 % | 0.0038 | -3.22 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | cae90c456d01c76 | tradeoff | improved | c1 | flip-flop bits 109 -> 114 and register cells 23 -> 30 with identical latency (no offset) | -2.87 % | 0.0129 | -4.33 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c26eb00a675f6a4 | tradeoff | improved | c1 | flip-flop bits 109 -> 114 and register cells 23 -> 30 with identical latency (no offset) | -3.04 % | 0.0285 | -4.42 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c0bd3e8a508d5f7 | tradeoff | improved | c1 | flip-flop bits 109 -> 110 and register cells 23 -> 24 with identical latency (no offset) | -3.14 % | 0.0032 | -3.04 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ced25a896bd445e | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -4.66 % | 0.0376 | -4.50 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | ccc9bfad0d7ccef | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -4.93 % | 0.0193 | -8.63 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c55a24c5a6d243e | tradeoff | improved | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -6.69 % | 0.0053 | -4.52 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c023ef12ef24382 | tradeoff | improved | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -8.85 % | 0.0088 | -7.37 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | cktevo_usb__usbf_sie_rx | c7eee86fb608620 | tradeoff | improved | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -10.27 % | 0.0161 | -8.89 % | up=wns down=area,power |
@@ -2785,8 +3382,11 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B2 | drrtl_router | ccb4603006e3c2f | tradeoff | improved | c1 | flip-flop bits 587 -> 590 and register cells 86 -> 87 with identical latency (no offset) | -5.04 % | 0.0039 | -5.55 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | drrtl_router | c74cd7177e560c7 | tradeoff | improved | c1 | flip-flop bits 587 -> 591 and register cells 86 -> 88 with identical latency (no offset) | -5.16 % | 0.0039 | -6.74 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | drrtl_router | c82a03f2a14bb1d | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -11.62 % | 0.0108 | -17.18 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cbc7efd1591cc6c | retained | improved | d | longest combinational path 2 -> 36 cells (ratio 18.0 >= 3.0) | 20.97 % | 0.0036 | 25.48 % | - |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cea932997f36e5f | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 14.75 % | 0.0009 | -12.15 % | up=area,wns down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c75d9ca9ca98085 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5073) without operator or topology evidence -> review | 12.29 % | 0.0098 | -5.73 % | up=area,wns down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c7e13fdef1ae853 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 12.29 % | 0.0098 | -5.73 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c2e4e732fcf7f57 | tradeoff | improved | d | longest combinational path 2 -> 10 cells (ratio 5.0 >= 3.0) | 11.50 % | 0.0032 | -3.96 % | up=area,wns down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c5c2d1bbecdc6cb | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 9.07 % | 0.0002 | -6.21 % | up=area down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c829888d5084a48 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5807) without operator or topology evidence -> review | 8.92 % | -0.0001 | -9.11 % | up=area down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c49826e15028302 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 8.26 % | 0.0047 | -7.67 % | up=area,wns down=power |
@@ -2795,6 +3395,16 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | cb91b9f5d7729a8 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 8.26 % | 0.0047 | -7.67 % | up=area,wns down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | ca3ee3162fae2b9 | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | 7.93 % | 0.0007 | -18.19 % | up=area,wns down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | cb23409ae066884 | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | 6.78 % | 0.0030 | -11.07 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c8ae15580a0e0ec | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cc06df1913ac73e | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c1f21193c3d624e | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c0b1e3d16a0d67c | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cc73cabfbd7e6bb | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | ce2f6645528e0b2 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c1b64388e8f4661 | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cdd8921454a1db3 | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c0da1a15c90aee3 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 6.27 % | 0.0019 | -10.92 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c41555775083892 | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | 6.04 % | -0.0000 | -33.39 % | up=area down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c477534d3013bfa | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 5.91 % | 0.0158 | -12.26 % | up=area,wns down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | ca888ab321c000d | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 5.91 % | 0.0158 | -12.26 % | up=area,wns down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | cb45e30b04feccc | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 5.91 % | 0.0158 | -12.26 % | up=area,wns down=power |
@@ -2803,7 +3413,16 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c398e90cf6f614d | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 5.83 % | -0.0003 | -12.36 % | up=area down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c6f90fd940dcf9f | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 5.83 % | -0.0003 | -12.36 % | up=area down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c242c02b547464c | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 3.67 % | 0.0026 | -13.83 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c2ec840ef3a9db7 | retained | improved | d | longest combinational path 2 -> 548 cells (ratio 274.0 >= 3.0) | 3.67 % | 0.0011 | 13.25 % | - |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c12a2f409cb17fc | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 3.67 % | 0.0026 | -13.83 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cda070a285b222d | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 3.54 % | 0.0009 | -5.46 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c8928ef27f9e175 | tradeoff | improved | d | longest combinational path 2 -> 11 cells (ratio 5.5 >= 3.0) | 2.22 % | 0.0017 | -11.63 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c471344cc0e2a72 | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | 1.23 % | 0.0151 | -10.68 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c2ff5d1b6003aff | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | 1.23 % | 0.0151 | -10.68 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | ce4c053fbfc3a63 | tradeoff | improved | d | longest combinational path 2 -> 9 cells (ratio 4.5 >= 3.0) | 1.23 % | 0.0151 | -10.68 % | up=area,wns down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | ca9babd0b0f93eb | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | 0.53 % | 0.0018 | -12.69 % | up=area,wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c05887c2c5b2a4a | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 0.18 % | 0.0035 | -23.82 % | up=wns down=power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c5c285cc5273412 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.10 % | 0.0051 | -13.07 % | up=wns down=power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | ca0fdf9a0322253 | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c768c62ffe0081e | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c987be4ab27a408 | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
@@ -2813,14 +3432,37 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | ce1b6d183c0355b | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | ce4ffc40456b33f | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c9b7cbea26ead54 | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c70a203d5e222bb | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c442c8225824901 | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cac7a42ed6a9996 | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cbde1ffaaa7381f | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cf644987b81a40a | retained | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -0.23 % | 0.0057 | 18.06 % | - |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c49c62ae99791eb | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -1.07 % | 0.0012 | -13.43 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c044af6908f064c | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | -1.20 % | -0.0001 | 14.86 % | up=power down=area |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c80399a815d7ca5 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -1.50 % | 0.0007 | -4.30 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cc3818a69b35e7d | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -2.19 % | 0.0013 | -1.47 % | up=wns down=area |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c9d01bfdbb98bbb | tradeoff | improved | d | longest combinational path 2 -> 6 cells (ratio 3.0 >= 3.0) | -3.01 % | 0.0055 | -15.49 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c2aeacf09cec974 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -3.01 % | 0.0055 | -15.49 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cb643f4ea825f5b | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -3.11 % | 0.0010 | -26.31 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c92c19488e3d0b8 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -3.11 % | 0.0010 | -26.31 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | ccf2c96f8da35a0 | tradeoff | improved | d | longest combinational path 2 -> 35 cells (ratio 17.5 >= 3.0) | -3.34 % | -0.0005 | 11.01 % | up=power down=area,wns |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c37713737bd78c2 | tradeoff | improved | d | longest combinational path 2 -> 41 cells (ratio 20.5 >= 3.0) | -3.46 % | 0.0014 | 14.23 % | up=wns,power down=area |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c918fbf8d23e3b2 | tradeoff | improved | d | longest combinational path 2 -> 8 cells (ratio 4.0 >= 3.0) | -4.76 % | 0.0076 | -14.40 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c9249653a01d8bb | tradeoff | improved | d | longest combinational path 2 -> 47 cells (ratio 23.5 >= 3.0) | -6.09 % | 0.0019 | 3.31 % | up=wns,power down=area |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c0757f2543e4692 | tradeoff | improved | d | longest combinational path 2 -> 43 cells (ratio 21.5 >= 3.0) | -7.22 % | 0.0008 | -26.30 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c8d6b5ef96aee16 | tradeoff | improved | d | longest combinational path 2 -> 28 cells (ratio 14.0 >= 3.0) | -7.74 % | 0.0068 | -25.66 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cf665818dc2c5ec | tradeoff | improved | d | longest combinational path 2 -> 28 cells (ratio 14.0 >= 3.0) | -10.11 % | 0.0009 | 7.17 % | up=wns,power down=area |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c28cfc6af23abe2 | tradeoff | improved | d | longest combinational path 2 -> 35 cells (ratio 17.5 >= 3.0) | -10.11 % | 0.0009 | 7.17 % | up=wns,power down=area |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c6ea764c4b8157a | tradeoff | improved | d | longest combinational path 2 -> 35 cells (ratio 17.5 >= 3.0) | -10.11 % | 0.0009 | 7.17 % | up=wns,power down=area |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | cc832cfe3fb1922 | tradeoff | improved | d | longest combinational path 2 -> 35 cells (ratio 17.5 >= 3.0) | -10.11 % | 0.0009 | 7.17 % | up=wns,power down=area |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c339989b3503084 | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -11.04 % | -0.0001 | 7.83 % | up=power down=area |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c31e5d69cee88ca | tradeoff | improved | d | longest combinational path 2 -> 14 cells (ratio 7.0 >= 3.0) | -11.83 % | -0.0003 | 5.30 % | up=power down=area |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c35bb71647b9860 | tradeoff | improved | d | longest combinational path 2 -> 28 cells (ratio 14.0 >= 3.0) | -14.48 % | 0.0012 | 4.64 % | up=wns,power down=area |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c540f1371a679d5 | tradeoff | improved | d | longest combinational path 2 -> 28 cells (ratio 14.0 >= 3.0) | -17.07 % | 0.0007 | 2.03 % | up=wns down=area |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c46de3e4162fb0c | tradeoff | improved | d | longest combinational path 2 -> 17 cells (ratio 8.5 >= 3.0) | -17.53 % | -0.0005 | 4.25 % | up=power down=area,wns |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | cfebfc61c6175ab | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -18.71 % | 0.0029 | -0.63 % | up=wns down=area |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c2ef8ec1ca0db0c | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | -23.85 % | 0.0021 | -3.08 % | up=wns down=area,power |
+| gpt-5.6-luna | B2 | rtlopt_alu_64bit | c3732c41c6d7337 | tradeoff | improved | d | longest combinational path 2 -> 18 cells (ratio 9.0 >= 3.0) | -23.85 % | 0.0021 | -3.08 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | rtlopt_alu_64bit | c9d57a50e41400f | tradeoff | improved | d | longest combinational path 2 -> 129 cells (ratio 64.5 >= 3.0) | -39.91 % | 0.0025 | -44.04 % | up=wns down=area,power |
 | gpt-5.6-luna | B2 | rtlopt_decoder_8bit | c0d11fbfb5df309 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 6.16 % | - |
 | gpt-5.6-luna | B2 | rtlopt_decoder_8bit | cb886a05b6bd7b1 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 6.16 % | - |
@@ -3738,6 +4380,12 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-terra | B2 | drrtl_UART | cd8aaa202cf4b74 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.62 % | -0.0054 | -6.26 % | up=area down=wns,power |
 | gpt-5.6-terra | B2 | drrtl_UART | c3211c5c295077f | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.09 % | -0.0107 | -8.98 % | up=area down=wns,power |
 | gpt-5.6-terra | B2 | drrtl_simple_spi | c596d12bde7ded7 | tradeoff | improved | b | flip-flop bits 131 -> 130 in the same register cells (widths), latency unchanged | -1.08 % | 0.0032 | -6.38 % | up=wns down=area,power |
+| gpt-5.6-terra | B2 | drrtl_simple_spi | c1d91069ed64ad6 | tradeoff | improved | b | flip-flop bits 131 -> 130 in the same register cells (widths), latency unchanged | -1.08 % | 0.0032 | -6.38 % | up=wns down=area,power |
+| gpt-5.6-terra | B2 | drrtl_simple_spi | c0f2bcbb984971e | tradeoff | improved | c1 | flip-flop bits 131 -> 322 and register cells 29 -> 45 with identical latency (no offset) | -1.69 % | 0.0039 | -6.46 % | up=wns down=area,power |
+| gpt-5.6-terra | B2 | drrtl_simple_spi | c7914df581f7e2b | tradeoff | improved | c1 | flip-flop bits 131 -> 339 and register cells 29 -> 46 with identical latency (no offset) | -2.01 % | 0.0042 | -10.83 % | up=wns down=area,power |
+| gpt-5.6-terra | B2 | drrtl_simple_spi | c2656f72cdb54a0 | tradeoff | improved | c1 | flip-flop bits 131 -> 132 and register cells 29 -> 30 with identical latency (no offset) | -6.45 % | 0.0133 | -22.25 % | up=wns down=area,power |
+| gpt-5.6-terra | B2 | drrtl_simple_spi | c3aec1ed4b1fed8 | tradeoff | improved | c1 | flip-flop bits 131 -> 339 and register cells 29 -> 45 with identical latency (no offset) | -9.63 % | -0.0008 | 6.57 % | up=power down=area,wns |
+| gpt-5.6-terra | B2 | drrtl_simple_spi | c2c5576bc3b17bd | tradeoff | improved | c1 | flip-flop bits 131 -> 144 and register cells 29 -> 31 with identical latency (no offset) | -11.79 % | 0.0041 | -34.53 % | up=wns down=area,power |
 | gpt-5.6-terra | B2 | rtlopt_alu_64bit | cc4e80419c24397 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 23.29 % | 0.0004 | -9.24 % | up=area,wns down=power |
 | gpt-5.6-terra | B2 | rtlopt_alu_64bit | c9d963a4aba4a84 | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | 18.93 % | -0.0005 | -13.54 % | up=area down=wns,power |
 | gpt-5.6-terra | B2 | rtlopt_alu_64bit | c317964921524c2 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.00 % | 0.0125 | -10.75 % | up=area,wns down=power |
@@ -3887,6 +4535,107 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-terra | B2 | rtlopt_alu_64bit | ca8cb53b132da3a | tradeoff | improved | d | longest combinational path 2 -> 7 cells (ratio 3.5 >= 3.0) | -6.94 % | -0.0004 | 14.94 % | up=power down=area,wns |
 | gpt-5.6-terra | B2 | rtlopt_alu_64bit | c07cbad221e2cc0 | tradeoff | improved | d | longest combinational path 2 -> 139 cells (ratio 69.5 >= 3.0) | -14.83 % | 0.0022 | -29.79 % | up=wns down=area,power |
 | gpt-5.6-terra | B2 | rtlopt_alu_64bit | c7ba8f00ca665db | tradeoff | improved | d | longest combinational path 2 -> 19 cells (ratio 9.5 >= 3.0) | -25.43 % | 0.0009 | -3.79 % | up=wns down=area,power |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ccb7643116b3d77 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 39.65 % | 0.0007 | 48.00 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c94490e1606fe70 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0005 | 47.36 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c82d1356c873de0 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.83 % | 0.0026 | 49.06 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c40b52e21315c78 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 36.24 % | 0.0001 | 48.58 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ca7c548fefcf308 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 36.24 % | 0.0001 | 48.58 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c14ced2fe7b9df6 | retained | improved | d | longest combinational path 5 -> 32 cells (ratio 6.4 >= 3.0) | 35.66 % | 0.0003 | 45.91 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c4683db521cb105 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 35.66 % | 0.0003 | 45.91 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c2f9e040a99110b | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 35.19 % | -0.0000 | 44.56 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c7599aed19dc8e6 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 35.19 % | -0.0000 | 44.56 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c1edbacd24ad35c | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 35.19 % | -0.0000 | 44.56 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c094ef9d2ee74fe | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 33.68 % | 0.0018 | 43.08 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cc0353be1071905 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 33.35 % | 0.0007 | 38.27 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c92eb7fcb543188 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c56dd7dc7ae8233 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ce92a8ef75c596c | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cec0845356636e4 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cdc23769f5e0c57 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ce1bdf13ef54107 | retained | improved | d | longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0) | 31.55 % | -0.0001 | 41.06 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c7991d332575cb9 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 28.98 % | 0.0008 | 33.95 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cb3b05ec4151213 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 27.39 % | 0.0013 | 41.63 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c15c578a674c52c | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 27.39 % | 0.0013 | 41.63 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cd1eb2cf3a550a9 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 27.39 % | 0.0013 | 41.63 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c9f2d0bb0da8869 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 27.39 % | 0.0013 | 41.63 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cdeee38070039c7 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 27.39 % | 0.0013 | 41.63 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c7dcc1998442100 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 27.39 % | 0.0013 | 41.63 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cba1dedfd30a3ed | retained | improved | d | longest combinational path 5 -> 26 cells (ratio 5.2 >= 3.0) | 26.58 % | 0.0017 | 39.24 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c93036ad91df20e | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 25.50 % | 0.0003 | 33.35 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cd529ded7d7611e | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 25.45 % | 0.0365 | 32.26 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ce1b1a6e04103e3 | retained | improved | d | longest combinational path 5 -> 29 cells (ratio 5.8 >= 3.0) | 21.04 % | 0.0018 | 35.75 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ca8f147b1eb6976 | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 20.20 % | 0.0011 | 34.14 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c501973b611afa9 | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 20.20 % | 0.0011 | 34.14 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | caeead8772defdf | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 20.20 % | 0.0011 | 34.14 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c2f74fbae13850f | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 20.20 % | 0.0011 | 34.14 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c34c8cff90905f8 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 20.20 % | 0.0011 | 34.14 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c0a237632456225 | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 20.20 % | 0.0011 | 34.14 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c0a057681fa59fb | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 20.20 % | 0.0011 | 34.14 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c2b8650e9f1778c | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 20.20 % | 0.0011 | 34.14 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c7709dbaaded665 | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 18.94 % | 0.0005 | 31.94 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c4076f5c9882afe | retained | improved | d | longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0) | 18.94 % | 0.0005 | 31.94 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c31a9f14176e365 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c51031a147aae3c | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c64ac3ade36e5e2 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c1d444ab792731f | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cd9c529f20a7aa0 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cb0e644edfdcb83 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c24752eb97cd8db | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c3f5c940a97ccaf | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c7fd71196d278f3 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c84c48dee9891e4 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cd08efef787e737 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c23dbe7a3b0b6c8 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c9fdc9139a1bd4d | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c3fad342b3a7819 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c777a64c8ca4be3 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ce50bf059d546b8 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c37de64ba44206f | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c9f7ee2f7926a41 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ca483ddf2aeb3f1 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cab861452bd75e9 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c7b65b75e24a2fa | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | caa3fd8291a4772 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c13275d042d877c | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c2779ca06eb897f | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c4d69344596bcb0 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c54834b616e80a8 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c731a479a985091 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cec187e7e8430a6 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c2baf8d7f360255 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c6a289294b95712 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c8dc295db8c9830 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c97ce2b9fd188fc | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ce9b2fa0ec5dac2 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c2bfa5dbb02beb2 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cec40a464bbf705 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c2ff5834436731c | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cccd8403fb0806c | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c75a15cd15cc815 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c7c33f0a04beb82 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ce22e6711e0e0fe | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c4438e17ffa5a52 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c525a7deffb1cd2 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c802cefa8af7222 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c8bd80a27e4cdbb | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c2cdad194751549 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ca1e161b02166a8 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ca7c68584f9ee5f | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c196b019758605a | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c26140a21b6bfd9 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c4b4866550af4c6 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c6498df1fee6288 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c6fb7a7d09a997d | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c8609a471410257 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cc3b3550ac11330 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cc8d56fbf3419b3 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c7775feaa73406a | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cc81eb2d31ac2fc | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c1a3d9da25fdc35 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.5154) without operator or topology evidence -> review | 11.44 % | 0.0011 | 19.41 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c9c3f8178988e24 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 7.99 % | 0.0008 | 15.94 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | ccfc03c1723b1fc | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 7.31 % | 0.0015 | 14.99 % | - |
+| gpt-5.6-terra | B2 | rtlopt_calculation | c99c85f192d5111 | tradeoff | improved | d | longest combinational path 5 -> 35 cells (ratio 7.0 >= 3.0) | 3.60 % | -0.2027 | -0.39 % | up=area down=wns |
+| gpt-5.6-terra | B2 | rtlopt_calculation | cf9dcfe6a0cf49f | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.6099) without operator or topology evidence -> review | -2.66 % | 0.0142 | -1.20 % | up=wns down=area |
 | gpt-5.6-terra | B2 | rtlopt_decoder_8bit | c448b3274594569 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.5672) without operator or topology evidence -> review | 0.32 % | 0.0098 | 5.49 % | - |
 | gpt-5.6-terra | B2 | rtlopt_decoder_8bit | ccde66e8169cf0c | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 6.16 % | - |
 | gpt-5.6-terra | B2 | rtlopt_decoder_8bit | cc36ceb04a078fc | retained | improved | d | operator family gained: add (present in C, absent in D); longest combinational path 1 -> 3 cells (ratio 3.0 >= 3.0) | 0.32 % | 0.0098 | 5.79 % | - |
@@ -4750,6 +5499,16 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | cd7444f2bfc3d68 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 6.09 % | -0.0065 | 9.68 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | ce7c2523051abef | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 6.09 % | -0.0065 | 9.68 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c13e3690d7f43d4 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 3.92 % | -0.0015 | 1.32 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c86a409b80f8ff9 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.00 % | -0.0010 | 15.28 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c565ecd6b73381c | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.00 % | -0.0010 | 15.28 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | cadef621b0d2b92 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.00 % | -0.0010 | 15.28 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c4cfb697715cc80 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.00 % | -0.0010 | 15.28 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | cd91577fb0d030f | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.00 % | -0.0010 | 15.28 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c4a56add5f4a2bb | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.00 % | -0.0010 | 15.28 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c801991e75c9047 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.00 % | -0.0010 | 15.28 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | cd0115481d264a8 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.00 % | -0.0010 | 15.28 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c5ae8b64b97e2c9 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.00 % | -0.0010 | 15.28 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | ce5d115cda8255a | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.00 % | -0.0010 | 15.28 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c63a48416a7db7a | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c0bd4279e54a258 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c2aa928293de155 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
@@ -4757,6 +5516,15 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | ccddfc90a975bd9 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c4e311bfc466578 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c09a15a07ae6a9c | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c2ca7998c8d498a | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c4c16f9bb76ee8a | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c4b0f9b8836bc2b | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c60e7ddb5f59787 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c6f256866994f8a | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | cecb6bdc90ca751 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | ce067ba5f1bc80b | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c0f99f6dcdf5334 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
+| gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c26501bd9ca7ba5 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c225e4241d99848 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | c9d115d6a669a70 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
 | gpt-5.6-luna | DrRTL_reimpl | drrtl_SPI | cf354c41d007734 | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -0.36 % | -0.0034 | 4.87 % | up=power down=area |
@@ -4864,6 +5632,12 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_alu_64bit | c9669e7a7ceb38c | tradeoff | improved | a | flip-flop bits, register names and clocked targets unchanged | -4.39 % | 0.0006 | -36.57 % | up=wns down=area,power |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_alu_64bit | c8121da4f8f07be | tradeoff | improved | d | longest combinational path 2 -> 10 cells (ratio 5.0 >= 3.0) | -35.22 % | 0.0007 | -45.55 % | up=wns down=area,power |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_alu_64bit | ca035fbfc83dd79 | tradeoff | improved | d | longest combinational path 2 -> 10 cells (ratio 5.0 >= 3.0) | -35.22 % | 0.0007 | -45.55 % | up=wns down=area,power |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c81a6f272ee0cb8 | retained | improved | d | longest combinational path 5 -> 20 cells (ratio 4.0 >= 3.0) | 34.84 % | 0.0019 | 41.77 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cdd70277fdd0c0b | retained | improved | d | longest combinational path 5 -> 20 cells (ratio 4.0 >= 3.0) | 34.84 % | 0.0019 | 41.77 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cbf3c0f16a77277 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 34.45 % | 0.0003 | 43.21 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c14d4c2312b112b | retained | improved | d | longest combinational path 5 -> 22 cells (ratio 4.4 >= 3.0) | 34.03 % | 0.0008 | 45.88 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | ca894cfa78df36e | retained | improved | d | longest combinational path 5 -> 29 cells (ratio 5.8 >= 3.0) | 33.37 % | 0.0003 | 42.97 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c227f558c689cbe | retained | improved | d | longest combinational path 5 -> 20 cells (ratio 4.0 >= 3.0) | 31.32 % | 0.0000 | 42.60 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cd0eea03fd92195 | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 20.29 % | 0.0018 | 31.11 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c2fd00b383978ff | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c848a635ca27389 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
@@ -4886,9 +5660,27 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c498a0cc7fbffb5 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | ccb4b0991fd94e8 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | ccc89565440cbee | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c9cc5dd25a734d5 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | ca33ad8cbb6718e | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cbb450d54aac38e | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c0324b16a22c4bb | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cc6c4cabb279b88 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c786aa0804876c6 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cb8470bd1714a26 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cc15134a8468130 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c190849e413f753 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c19375c98e37c36 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cafe262f9ec2afc | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cc7ebb88aa76e69 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | ca0e21acd7a2614 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cdbe7542325f4ce | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c2bfb75b4022ca5 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cf3267ab8451f0d | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 17.56 % | 0.0035 | 23.49 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c3185fa44d80cd1 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.5359) without operator or topology evidence -> review | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c6866b5f05d91cf | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c09aef83ff2ea23 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cb5fc577fd456eb | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cf571096fbeea07 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged; text differs widely (ratio 0.5158) without operator or topology evidence -> review | 16.79 % | 0.0014 | 19.10 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c1c1ca5291ad335 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c318d599665cfe0 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c9b5157d9f58604 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
@@ -4904,6 +5696,29 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c7f822c738f8dc4 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cd8c72429eb4839 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cf9c933daf6086f | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c0a5b8e8b707ffa | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c913fa5841de75a | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | ca7058ca4756f91 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cda35c9d1ed4f8f | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cf323700226af89 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c2fbc4a4e8eec24 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c450717d914c326 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cd5e85d5acbac80 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c86647dbfb2ded9 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cd584c612476006 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c1dfb27c40c8bbe | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c69cd001d232de4 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c8acb7eff9d2670 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c966d917865b989 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | cfec6bc7eec184b | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c1eb55bc11fd754 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c3648824f6d4865 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c8852b4fc1221c5 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | ce624a3fa10f906 | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 16.79 % | 0.0014 | 19.10 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c15b31be2bf621f | retained | improved | d | longest combinational path 5 -> 20 cells (ratio 4.0 >= 3.0) | 16.39 % | 0.0020 | 22.47 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c8e27c617cbe1b3 | retained | improved | d | longest combinational path 5 -> 20 cells (ratio 4.0 >= 3.0) | 16.39 % | 0.0020 | 22.47 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c99696749d2d9e8 | retained | improved | d | longest combinational path 5 -> 20 cells (ratio 4.0 >= 3.0) | 16.39 % | 0.0020 | 22.47 % | - |
+| gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c00a51b14cd54ce | retained | improved | d | longest combinational path 5 -> 20 cells (ratio 4.0 >= 3.0) | 16.16 % | 0.0000 | 24.03 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | ca480f35114058e | retained | improved | d | longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0) | 13.50 % | -0.0003 | 21.58 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_calculation | c676c1fea64b7cf | retained | improved | a | flip-flop bits, register names and clocked targets unchanged | 0.47 % | 0.0012 | 2.68 % | - |
 | gpt-5.6-luna | DrRTL_reimpl | rtlopt_decoder_8bit | c354e9d584081d1 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.32 % | 0.0179 | 6.16 % | - |
@@ -5313,7 +6128,9 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-luna | M | cktevo_mem_ctrl__mc_adr_sel | c7d035250a2bdb3 | retained | fragile | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | 0.27 % | 0.0204 | 4.14 % | - |
 | gpt-5.6-luna | M | cktevo_mem_ctrl__mc_adr_sel | ca58033ecffc46e | retained | fragile | c2 | flip-flop bits 262 -> 97 and register cells 22 -> 7 with identical latency (no offset); text differs widely (ratio 0.6006) without operator or topology evidence -> review | -0.57 % | -0.0009 | 10.32 % | - |
 | gpt-5.6-luna | M | cktevo_mem_ctrl__mc_adr_sel | c588440ae09471c | retained | fragile | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | -0.64 % | -0.0007 | 10.45 % | - |
+| gpt-5.6-luna | M | drrtl_SPI | c68a77300504962 | tradeoff | tradeoff | a | flip-flop bits, register names and clocked targets unchanged | -0.45 % | -0.0028 | 9.07 % | up=power down=area |
 | gpt-5.6-luna | M | drrtl_router | ce2bb7d47f51137 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.87 % | 0.0081 | -11.38 % | up=area,wns down=power |
+| gpt-5.6-luna | M | drrtl_router | cb34eabdb3cc027 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.31 % | 0.0052 | -1.36 % | up=wns down=area |
 | gpt-5.6-luna | M | drrtl_router | c23a9a346d1398b | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.31 % | 0.0052 | -1.36 % | up=wns down=area |
 | gpt-5.6-luna | M | drrtl_router | c367bc471716065 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.31 % | 0.0052 | -1.36 % | up=wns down=area |
 | gpt-5.6-luna | M | drrtl_router | c1624e441ef4df3 | tradeoff | tradeoff | c1 | flip-flop bits 587 -> 591 and register cells 86 -> 87 with identical latency (no offset) | -1.85 % | 0.0009 | -0.61 % | up=wns down=area |
@@ -5467,30 +6284,117 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | gpt-5.6-terra | M | cktevo_mem_ctrl__mc_adr_sel | c9b8317b982e36c | retained | fragile | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 9 with identical latency (no offset) | -0.95 % | 0.0682 | 1.80 % | - |
 | gpt-5.6-terra | M | cktevo_mem_ctrl__mc_adr_sel | c9ccfa119836e4b | retained | fragile | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 9 with identical latency (no offset) | -0.95 % | 0.0682 | 1.80 % | - |
 | gpt-5.6-terra | M | cktevo_mem_ctrl__mc_adr_sel | c72ecbaa8960860 | retained | fragile | c1 | flip-flop bits 262 -> 86 and register cells 22 -> 6 with identical latency (no offset) | -1.22 % | 0.0731 | 3.67 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c55524ca45ef60e | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.25 % | 0.0123 | -1.57 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c1d929ed79f759e | retained | retained | c1 | flip-flop bits 109 -> 157 and register cells 23 -> 39 with identical latency (no offset) | 0.78 % | 0.0017 | -0.44 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c71c49662e0b07e | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.78 % | 0.0163 | 0.64 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cf8fef57cff8abd | retained | retained | c1 | flip-flop bits 109 -> 157 and register cells 23 -> 39 with identical latency (no offset) | 0.74 % | 0.0316 | -0.65 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c2dfd42c96b7edc | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.71 % | 0.0578 | 0.54 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c370b7fbc6e7a91 | retained | retained | c1 | flip-flop bits 109 -> 173 and register cells 23 -> 39 with identical latency (no offset) | 0.64 % | 0.0264 | 0.37 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | ce8aa6eeace48af | retained | retained | c1 | flip-flop bits 109 -> 157 and register cells 23 -> 39 with identical latency (no offset) | 0.57 % | 0.0194 | -0.60 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c1d12f958d23fa1 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.54 % | 0.0152 | -0.59 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cb8d0ba884decb7 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.54 % | 0.0152 | -0.60 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c596b6c02a931ec | retained | retained | c1 | flip-flop bits 109 -> 157 and register cells 23 -> 39 with identical latency (no offset) | 0.40 % | 0.0077 | -0.50 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c459d5a3f31d820 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.37 % | 0.0196 | -0.63 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c681bef83bcb256 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.37 % | 0.0364 | 0.12 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cec8a0589b3c0ef | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.30 % | 0.0205 | -0.08 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cb3803a3ef71fe8 | retained | retained | c1 | flip-flop bits 109 -> 157 and register cells 23 -> 39 with identical latency (no offset) | 0.30 % | 0.0034 | -1.27 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c5248fc627dc729 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.27 % | 0.0255 | 0.11 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | ca721d1167bdd04 | retained | retained | a | flip-flop bits, register names and clocked targets unchanged | 0.27 % | 0.0193 | 0.11 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | ce68e4df7ca8020 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.17 % | 0.0288 | -0.74 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cd45a9f92827652 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0201 | 0.62 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c79dfcc859320ee | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.07 % | 0.0117 | 0.65 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c883d451ca1de5d | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.03 % | 0.0277 | -0.10 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c80309586e04f54 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.00 % | 0.0451 | 0.62 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c6946e46976469c | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.03 % | 0.0004 | 0.01 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c8c30674c447d41 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.17 % | 0.0016 | 0.61 % | - |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cc1b530c826aa9c | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.40 % | 0.0048 | -1.49 % | up=wns down=area |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c3893367b63883e | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.40 % | 0.0223 | 0.53 % | up=wns down=area |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | ca1a713d13f05fe | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 110 and register cells 23 -> 24 with identical latency (no offset) | -0.71 % | 0.0072 | -1.80 % | up=wns down=area |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c54f77e591b961f | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 110 and register cells 23 -> 24 with identical latency (no offset) | -0.98 % | 0.0116 | -1.17 % | up=wns down=area |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cc2bbe1c5892667 | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 110 and register cells 23 -> 24 with identical latency (no offset) | -1.25 % | 0.0025 | -1.42 % | up=wns down=area |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c23a8b913bee255 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -1.65 % | 0.0012 | -2.55 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cf55627f3e0b8d7 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -1.93 % | 0.0004 | -1.31 % | up=wns down=area |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cec2fc914e1e1f4 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.16 % | 0.0169 | -1.93 % | up=wns down=area |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cf628955101183e | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 114 and register cells 23 -> 30 with identical latency (no offset) | -2.80 % | 0.0249 | -3.41 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c5bb438e760ad9b | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 114 and register cells 23 -> 30 with identical latency (no offset) | -3.21 % | 0.0221 | -3.72 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c615dc95fbe7afe | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 162 and register cells 23 -> 46 with identical latency (no offset) | -3.51 % | 0.0034 | -4.50 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cd5029f5dda5ffb | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 114 and register cells 23 -> 30 with identical latency (no offset) | -3.58 % | 0.0181 | -3.98 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c8421a737edb9be | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 114 and register cells 23 -> 24 with identical latency (no offset) | -4.02 % | 0.0311 | -3.93 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c3fa92be0368aa7 | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 114 and register cells 23 -> 30 with identical latency (no offset) | -4.49 % | 0.0080 | -3.06 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c31a431793db580 | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 162 and register cells 23 -> 39 with identical latency (no offset) | -4.73 % | 0.0153 | -5.01 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cb9e267ecc0ac50 | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -4.76 % | 0.0032 | -4.20 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cd8f04a499dadae | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 114 and register cells 23 -> 30 with identical latency (no offset) | -4.80 % | 0.0110 | -4.38 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c51082bd0243520 | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -5.13 % | 0.0180 | -4.84 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cb7970d7c7c9fe5 | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 162 and register cells 23 -> 39 with identical latency (no offset) | -5.17 % | 0.0023 | -5.31 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | ce1dd2ed54bc53a | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -5.98 % | 0.0041 | -4.87 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c24566de043c8a1 | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -6.35 % | 0.0095 | -6.57 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cafe636e49f177f | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -7.09 % | 0.0076 | -6.88 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c70b09a84e6c08f | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -7.67 % | 0.0259 | -7.87 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cba3610ffbbffe1 | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -7.77 % | 0.0161 | -8.15 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c9f4f5d3bd76957 | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 114 and register cells 23 -> 32 with identical latency (no offset) | -7.94 % | 0.0045 | -4.68 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c6498e02d19c05e | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -8.58 % | 0.0256 | -8.23 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | caf297e05a603b9 | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -8.61 % | 0.0056 | -7.43 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c5e1ecb6c7c5ab3 | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 162 and register cells 23 -> 39 with identical latency (no offset) | -9.22 % | 0.0362 | -10.32 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c0a2e96f224c9cf | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -9.66 % | 0.0056 | -6.79 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | cc576b558f4ee3f | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -9.66 % | 0.0056 | -6.79 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c0ee083c061a512 | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -10.27 % | 0.0161 | -8.89 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | ccc40e6f433dd48 | tradeoff | tradeoff | c1 | flip-flop bits 109 -> 115 and register cells 23 -> 24 with identical latency (no offset) | -10.40 % | 0.0032 | -8.09 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c92e8659e99f8eb | tradeoff | tradeoff | b | flip-flop bits 109 -> 114 in the same register cells (widths), latency unchanged | -13.41 % | 0.0052 | -5.30 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c2248d5f393ba88 | tradeoff | tradeoff | d | operator family gained: add (present in C, absent in D) | -14.96 % | 0.0058 | 0.47 % | up=wns down=area |
+| gpt-5.6-terra | M | cktevo_usb__usbf_sie_rx | c5837108f4135ad | tradeoff | tradeoff | d | operator family gained: add (present in C, absent in D) | -15.13 % | 0.0026 | -4.45 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c3b00f10d041494 | tradeoff | tradeoff | a | flip-flop bits, register names and clocked targets unchanged | 2.07 % | -0.0077 | 2.54 % | up=area,power down=wns |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | cc9d87a84f63f17 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 2.05 % | 0.0292 | 2.70 % | - |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c8109f3001e27c1 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 2.04 % | 0.0134 | 2.77 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c91d4063127058a | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 2.04 % | -0.0071 | 2.48 % | up=area,power down=wns |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c9f61d51dc1a5b5 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.96 % | -0.0069 | 2.59 % | up=area,power down=wns |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c1daf4949b2214d | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.94 % | -0.0072 | 2.54 % | up=area,power down=wns |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c40e6802ad7a4d0 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.94 % | -0.0072 | 2.54 % | up=area,power down=wns |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c269e7dc3ee2f00 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.91 % | -0.0069 | 2.70 % | up=area,power down=wns |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c963795358abe55 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.90 % | 0.0057 | 2.63 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c49b30bbdc0f5dd | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.86 % | -0.0063 | 2.45 % | up=area,power down=wns |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c3041a0029f2332 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.85 % | 0.0024 | 2.72 % | - |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c3a4a78a5f4c935 | retained | retained | a | flip-flop bits, register names and clocked targets unchanged | 1.85 % | 0.0133 | 2.56 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | cd115a19c1b8997 | retained | retained | a | flip-flop bits, register names and clocked targets unchanged | 1.82 % | 0.0035 | 3.41 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c5054eda35c1723 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.77 % | 0.0150 | 2.44 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c99d20c83c0dceb | tradeoff | tradeoff | a | flip-flop bits, register names and clocked targets unchanged | 1.77 % | -0.0020 | 2.49 % | up=area,power down=wns |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c0a22ca0838aef0 | tradeoff | tradeoff | a | flip-flop bits, register names and clocked targets unchanged | 1.77 % | -0.0024 | 2.50 % | up=area,power down=wns |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c644bca5c489540 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.76 % | 0.0123 | 2.71 % | - |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c2722a321cef675 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.76 % | 0.0123 | 2.71 % | - |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c7e76a080938fc5 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.68 % | -0.0040 | 2.64 % | up=area,power down=wns |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c338e148feaffd7 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.68 % | -0.0040 | 2.64 % | up=area,power down=wns |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c508905ae1ed0e7 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.64 % | -0.0062 | 2.21 % | up=area down=wns |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c35528ca3453dee | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.53 % | 0.0071 | 2.72 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c432c9e7a652ae2 | retained | retained | a | flip-flop bits, register names and clocked targets unchanged | 1.53 % | 0.0071 | 2.72 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c34bb7c55790ad0 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.52 % | -0.0039 | 1.78 % | up=area down=wns |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c59d94a0a8df31d | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.48 % | 0.0400 | 2.37 % | - |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c04ac0a5ab36d12 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 1.44 % | 0.0051 | 2.69 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | cf23771a7352782 | retained | retained | a | flip-flop bits, register names and clocked targets unchanged | 1.44 % | 0.0051 | 2.69 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | cab67c4f7bbe1f2 | tradeoff | tradeoff | b | flip-flop bits 340 -> 366 in the same register cells (widths), latency unchanged | 1.36 % | -0.0013 | 2.54 % | up=area,power down=wns |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c451e61fdee2b9b | retained | retained | a | flip-flop bits, register names and clocked targets unchanged | 1.29 % | 0.0022 | 2.39 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c9ce1e6cae427cd | retained | retained | a | flip-flop bits, register names and clocked targets unchanged | 0.57 % | 0.0013 | -1.87 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | cb1e9e13c220340 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.52 % | 0.0227 | -1.90 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c51c79f65cabc84 | tradeoff | tradeoff | b | flip-flop bits 340 -> 366 in the same register cells (widths), latency unchanged | 0.51 % | -0.0011 | -1.35 % | up=area down=wns |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c570097bc740fea | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.51 % | -0.0001 | -1.87 % | - |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c56701b985571c7 | retained | retained | a | flip-flop bits, register names and clocked targets unchanged | 0.50 % | 0.0379 | -1.33 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c2a833d431a2913 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.02 % | 0.0099 | -1.40 % | - |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | cf447fa39284bbc | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.02 % | 0.0099 | -1.40 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c8a61c848c9f442 | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.02 % | 0.0099 | -1.40 % | - |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | cbfceb8f9142f5d | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.01 % | 0.0279 | 0.45 % | - |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | cc1a4dbb58bbb3d | retained | retained | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.14 % | 0.0030 | -1.42 % | - |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | cecd4c422e975a2 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.33 % | 0.0011 | -1.52 % | up=wns down=area |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c089a6f6435e098 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -1.42 % | 0.0038 | -3.44 % | up=wns down=area,power |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c9453520159fe03 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -2.07 % | 0.0111 | -5.78 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c8a69dbcbb4c5b4 | tradeoff | tradeoff | c1 | flip-flop bits 340 -> 365 and register cells 20 -> 21 with identical latency (no offset) | -2.66 % | 0.0117 | -4.04 % | up=wns down=area,power |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c1791a2d68a7fcf | tradeoff | tradeoff | a | flip-flop bits, register names and clocked targets unchanged | -5.62 % | 0.0034 | -12.76 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c7a2f80171ec07f | tradeoff | tradeoff | c1 | flip-flop bits 340 -> 374 and register cells 20 -> 40 with identical latency (no offset) | -6.47 % | 0.0177 | -9.57 % | up=wns down=area,power |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c3812a2c2e4c6be | tradeoff | tradeoff | c1 | flip-flop bits 340 -> 373 and register cells 20 -> 21 with identical latency (no offset) | -6.96 % | 0.0152 | -7.61 % | up=wns down=area,power |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | cc68f5c92c523b1 | tradeoff | tradeoff | c1 | flip-flop bits 340 -> 403 and register cells 20 -> 23 with identical latency (no offset) | -11.38 % | 0.0126 | -19.28 % | up=wns down=area,power |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c80c8010693feed | tradeoff | tradeoff | c1 | flip-flop bits 340 -> 399 and register cells 20 -> 22 with identical latency (no offset) | -12.39 % | 0.0648 | -0.44 % | up=wns down=area |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c7d89a8773dd17c | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -15.25 % | 0.0372 | -29.57 % | up=wns down=area,power |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c54f5c403e76465 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | -15.25 % | 0.0372 | -29.57 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c55641d7f3df534 | tradeoff | tradeoff | a | flip-flop bits, register names and clocked targets unchanged | -15.25 % | 0.0372 | -29.57 % | up=wns down=area,power |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c99bac491456b62 | tradeoff | tradeoff | a | flip-flop bits, register names and clocked targets unchanged | -22.35 % | 0.0312 | -59.14 % | up=wns down=area,power |
+| gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | c46d0a250c84955 | tradeoff | tradeoff | c1 | flip-flop bits 340 -> 641 and register cells 20 -> 32 with identical latency (no offset) | -56.09 % | 0.0134 | -105.79 % | up=wns down=area,power |
 | gpt-5.6-terra | M | cktevo_vga_enh__vga_wb_slave | ca2ca44c26f31c0 | tradeoff | tradeoff | c1 | flip-flop bits 340 -> 641 and register cells 20 -> 32 with identical latency (no offset) | -56.48 % | 0.0315 | -105.70 % | up=wns down=area,power |
 | gpt-5.6-terra | M | drrtl_router | c5389c746762064 | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 3.12 % | 0.0062 | -6.39 % | up=area,wns down=power |
 | gpt-5.6-terra | M | drrtl_router | ce3c3f771996f4c | tradeoff | tradeoff | b | register names or clocked targets changed, flip-flop count and latency unchanged | 2.30 % | 0.0101 | -9.35 % | up=area,wns down=power |
@@ -5644,20 +6548,20 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 
 | model | arm | retained | area: median / max | WNS: median / max | power: median / max | tradeoffs | composition (up = better, down = worse) |
 |---|---|---|---|---|---|---|---|
-| gpt-5.6-luna | B0 | 203 | 1.28 % / 65.51 % | 0.0077 / 0.0910 | 5.49 % / 74.82 % | 145 | up=area down=power: 3; up=area down=wns,power: 9; up=area,power down=wns: 20; up=area,wns down=power: 16; up=power down=area: 2; up=power down=wns: 2; up=wns down=area: 19; up=wns down=area,power: 59; up=wns down=power: 5; up=wns,power down=area: 10 |
-| gpt-5.6-luna | B1_E4 | 613 | 0.44 % / 65.38 % | 0.0098 / 0.2028 | 6.16 % / 74.68 % | 528 | up=area down=power: 2; up=area down=wns: 8; up=area,power down=wns: 22; up=area,wns down=power: 88; up=power down=area: 32; up=power down=area,wns: 23; up=power down=wns: 6; up=wns down=area: 53; up=wns down=area,power: 244; up=wns down=power: 20; up=wns,power down=area: 30 |
-| gpt-5.6-luna | B2 | 393 | 0.44 % / 65.51 % | 0.0179 / 0.1374 | 5.80 % / 74.82 % | 496 | up=area down=power: 11; up=area down=wns: 2; up=area down=wns,power: 15; up=area,power down=wns: 5; up=area,wns down=power: 67; up=power down=area: 9; up=power down=area,wns: 11; up=power down=wns: 20; up=wns down=area: 105; up=wns down=area,power: 214; up=wns down=power: 20; up=wns,power down=area: 17 |
-| gpt-5.6-terra | B2 | 472 | 0.57 % / 65.84 % | 0.0179 / 0.1650 | 5.85 % / 74.07 % | 708 | up=area down=power: 15; up=area down=wns: 24; up=area down=wns,power: 42; up=area,power down=wns: 49; up=area,wns down=power: 100; up=power down=area: 10; up=power down=area,wns: 18; up=power down=wns: 11; up=wns down=area: 57; up=wns down=area,power: 287; up=wns down=power: 45; up=wns,power down=area: 50 |
-| gpt-5.6-luna | DrRTL_reimpl | 529 | 1.32 % / 66.44 % | 0.0098 / 0.1316 | 8.07 % / 74.38 % | 327 | up=area down=wns: 1; up=area down=wns,power: 1; up=area,power down=wns: 9; up=area,wns down=power: 57; up=power down=area: 29; up=power down=area,wns: 4; up=power down=wns: 1; up=wns down=area: 30; up=wns down=area,power: 139; up=wns down=power: 25; up=wns,power down=area: 31 |
-| gpt-5.6-luna | M | 28 | 0.32 % / 3.83 % | 0.0041 / 0.0369 | 5.49 % / 44.46 % | 76 | up=area,wns down=power: 1; up=power down=area: 2; up=power down=area,wns: 1; up=power down=wns: 1; up=wns down=area: 7; up=wns down=area,power: 41; up=wns down=power: 1; up=wns,power down=area: 22 |
-| gpt-5.6-terra | M | 130 | 42.93 % / 66.58 % | 0.0280 / 0.1316 | 54.37 % / 74.40 % | 154 | up=area,power down=wns: 5; up=area,wns down=power: 5; up=power down=area: 6; up=power down=area,wns: 1; up=power down=wns: 3; up=wns down=area: 12; up=wns down=area,power: 87; up=wns down=power: 1; up=wns,power down=area: 34 |
+| gpt-5.6-luna | B0 | 479 | 1.22 % / 65.51 % | 0.0078 / 0.1130 | 5.79 % / 74.82 % | 396 | up=area down=power: 5; up=area down=wns: 4; up=area down=wns,power: 20; up=area,power down=wns: 49; up=area,wns down=power: 36; up=power down=area: 6; up=power down=wns: 4; up=wns down=area: 64; up=wns down=area,power: 165; up=wns down=power: 13; up=wns,power down=area: 30 |
+| gpt-5.6-luna | B1_E4 | 630 | 0.44 % / 65.38 % | 0.0098 / 0.2028 | 6.16 % / 74.68 % | 531 | up=area down=power: 3; up=area down=wns: 8; up=area,power down=wns: 22; up=area,wns down=power: 88; up=power down=area: 34; up=power down=area,wns: 23; up=power down=wns: 6; up=wns down=area: 53; up=wns down=area,power: 244; up=wns down=power: 20; up=wns,power down=area: 30 |
+| gpt-5.6-luna | B2 | 432 | 0.44 % / 65.51 % | 0.0148 / 0.1374 | 5.79 % / 74.82 % | 539 | up=area down=power: 12; up=area down=wns: 2; up=area down=wns,power: 15; up=area,power down=wns: 5; up=area,wns down=power: 84; up=power down=area: 10; up=power down=area,wns: 13; up=power down=wns: 20; up=wns down=area: 108; up=wns down=area,power: 225; up=wns down=power: 22; up=wns,power down=area: 23 |
+| gpt-5.6-terra | B2 | 571 | 1.85 % / 65.84 % | 0.0133 / 0.1650 | 6.16 % / 74.07 % | 716 | up=area down=power: 15; up=area down=wns: 25; up=area down=wns,power: 42; up=area,power down=wns: 49; up=area,wns down=power: 100; up=power down=area: 10; up=power down=area,wns: 19; up=power down=wns: 11; up=wns down=area: 58; up=wns down=area,power: 292; up=wns down=power: 45; up=wns,power down=area: 50 |
+| gpt-5.6-luna | DrRTL_reimpl | 586 | 1.59 % / 66.44 % | 0.0073 / 0.1316 | 8.87 % / 74.38 % | 336 | up=area down=wns: 1; up=area down=wns,power: 1; up=area,power down=wns: 9; up=area,wns down=power: 57; up=power down=area: 38; up=power down=area,wns: 4; up=power down=wns: 1; up=wns down=area: 30; up=wns down=area,power: 139; up=wns down=power: 25; up=wns,power down=area: 31 |
+| gpt-5.6-luna | M | 28 | 0.32 % / 3.83 % | 0.0041 / 0.0369 | 5.49 % / 44.46 % | 78 | up=area,wns down=power: 1; up=power down=area: 3; up=power down=area,wns: 1; up=power down=wns: 1; up=wns down=area: 8; up=wns down=area,power: 41; up=wns down=power: 1; up=wns,power down=area: 22 |
+| gpt-5.6-terra | M | 164 | 4.18 % / 66.58 % | 0.0267 / 0.1316 | 8.78 % / 74.40 % | 207 | up=area down=wns: 3; up=area,power down=wns: 15; up=area,wns down=power: 5; up=power down=area: 6; up=power down=area,wns: 1; up=power down=wns: 3; up=wns down=area: 21; up=wns down=area,power: 118; up=wns down=power: 1; up=wns,power down=area: 34 |
 
 ## 3. Model contrast (the same arm under two models on the same tier)
 
 - **large / M**: gpt-5.6-luna (contrast): proven 0.134 / call, retained 2.44 / run, best gain mean 0.24 %, unusable 6, USD 2.98; gpt-5.6-terra (main): proven 0.160 / call, retained 4.33 / run, best gain mean 0.62 %, unusable 1, USD 31.32
-- **medium / B2**: gpt-5.6-luna (main): proven 0.586 / call, retained 7.14 / run, best gain mean 4.29 %, unusable 19, USD 5.35; gpt-5.6-terra (second): proven 0.571 / call, retained 8.74 / run, best gain mean 5.08 %, unusable 29, USD 64.81
-- **medium / M**: gpt-5.6-luna (main): proven 0.200 / call, retained 0.52 / run, best gain mean 0.40 %, unusable 25, USD 2.26; gpt-5.6-terra (second): proven 0.326 / call, retained 2.41 / run, best gain mean 4.33 %, unusable 29, USD 30.29
-- **small / B2**: gpt-5.6-luna (main): proven 0.000 / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 0.15; gpt-5.6-terra (second): proven - / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 0.00
+- **medium / B2**: gpt-5.6-luna (main): proven 0.591 / call, retained 7.86 / run, best gain mean 4.69 %, unusable 19, USD 5.70; gpt-5.6-terra (second): proven 0.578 / call, retained 10.57 / run, best gain mean 7.17 %, unusable 29, USD 67.56
+- **medium / M**: gpt-5.6-luna (main): proven 0.213 / call, retained 0.52 / run, best gain mean 0.40 %, unusable 25, USD 2.52; gpt-5.6-terra (second): proven 0.345 / call, retained 3.04 / run, best gain mean 4.40 %, unusable 29, USD 38.93
+- **small / B2**: gpt-5.6-luna (main): proven 0.000 / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 0.31; gpt-5.6-terra (second): proven - / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 0.00
 - **small / M**: gpt-5.6-luna (main): proven - / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 0.00; gpt-5.6-terra (second): proven - / call, retained 0.00 / run, best gain mean 0.00 %, unusable 0, USD 0.00
 
 ## 4. Retained-gain curves (mean over the group's runs of the best retained area gain so far)
@@ -5686,23 +6590,23 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 
 | model | arm | 5 calls | 10 calls | 20 calls | 30 calls | 40 calls | 50 calls | 60 calls |
 |---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna | B0 † | 2.10 % † | 2.78 % † | 3.17 % † | 5.72 % † | 5.84 % † | 6.00 % † | 6.06 % † |
-| gpt-5.6-luna | B1_E4 † | 2.57 % † | 5.15 % † | 6.23 % † | 6.44 % † | 6.91 % † | 7.18 % † | 7.58 % † |
-| gpt-5.6-luna | B2 † | 2.38 % † | 2.46 % † | 3.92 % † | 4.18 % † | 4.25 % † | 4.27 % † | 4.29 % † |
-| gpt-5.6-terra | B2 † | 1.48 % † | 2.39 % † | 3.03 % † | 4.46 % † | 4.94 % † | 4.98 % † | 5.08 % † |
-| gpt-5.6-luna | DrRTL_reimpl † | 3.51 % † | 3.95 % † | 4.19 % † | 4.80 % † | 4.86 % † | 4.86 % † | 4.86 % † |
+| gpt-5.6-luna | B0 † | 2.16 % † | 4.00 % † | 4.71 % † | 5.95 % † | 6.15 % † | 6.26 % † | 6.30 % † |
+| gpt-5.6-luna | B1_E4 † | 2.72 % † | 5.30 % † | 6.38 % † | 6.59 % † | 7.06 % † | 7.33 % † | 7.73 % † |
+| gpt-5.6-luna | B2 † | 2.46 % † | 2.54 % † | 4.33 % † | 4.58 % † | 4.65 % † | 4.67 % † | 4.69 % † |
+| gpt-5.6-terra | B2 † | 2.71 % † | 3.97 % † | 4.94 % † | 6.45 % † | 6.96 % † | 7.07 % † | 7.17 % † |
+| gpt-5.6-luna | DrRTL_reimpl † | 3.51 % † | 3.95 % † | 4.19 % † | 4.80 % † | 5.12 % † | 5.13 % † | 5.13 % † |
 | gpt-5.6-luna | M † | 0.28 % † | 0.36 % † | 0.38 % † | 0.39 % † | 0.40 % † | 0.40 % † | 0.40 % † |
-| gpt-5.6-terra | M † | 2.14 % † | 3.37 % † | 4.02 % † | 4.14 % † | 4.22 % † | 4.32 % † | 4.33 % † |
+| gpt-5.6-terra | M † | 2.15 % † | 3.38 % † | 4.07 % † | 4.21 % † | 4.29 % † | 4.39 % † | 4.40 % † |
 
 ### medium tier — by visible DC hours per run
 
-- gpt-5.6-luna / B0: 0.25 h → 3.69 %, 0.50 h → 5.42 %, 0.75 h → 5.69 %, 1.00 h → 6.01 %, 1.25 h → 6.05 %, 1.50 h → 6.05 %, 1.75 h → 6.05 %
-- gpt-5.6-luna / B1_E4: 0.25 h → 5.06 %, 1.25 h → 6.54 %, 2.25 h → 7.43 %, 3.25 h → 7.58 %, 4.25 h → 7.58 %, 5.25 h → 7.58 %, 6.25 h → 7.58 %
-- gpt-5.6-luna / B2: 0.25 h → 2.63 %, 1.25 h → 4.25 %, 2.25 h → 4.28 %, 3.25 h → 4.28 %, 4.25 h → 4.29 %, 5.25 h → 4.29 %, 6.25 h → 4.29 %
-- gpt-5.6-terra / B2: 0.25 h → 2.70 %, 1.00 h → 4.23 %, 1.75 h → 5.03 %, 2.50 h → 5.08 %, 3.25 h → 5.08 %, 4.00 h → 5.08 %
-- gpt-5.6-luna / DrRTL_reimpl: 0.25 h → 3.52 %, 1.25 h → 4.85 %, 2.25 h → 4.86 %, 3.25 h → 4.86 %, 4.25 h → 4.86 %, 5.25 h → 4.86 %, 6.25 h → 4.86 %
+- gpt-5.6-luna / B0: 0.25 h → 2.17 %, 1.00 h → 4.36 %, 1.75 h → 6.13 %, 2.50 h → 6.21 %, 3.25 h → 6.25 %, 4.00 h → 6.29 %, 4.75 h → 6.30 %
+- gpt-5.6-luna / B1_E4: 0.25 h → 5.21 %, 1.25 h → 6.69 %, 2.25 h → 7.58 %, 3.25 h → 7.73 %, 4.25 h → 7.73 %, 5.25 h → 7.73 %, 6.25 h → 7.73 %
+- gpt-5.6-luna / B2: 0.25 h → 2.71 %, 1.25 h → 4.66 %, 2.25 h → 4.68 %, 3.25 h → 4.68 %, 4.25 h → 4.69 %, 5.25 h → 4.69 %, 6.25 h → 4.69 %
+- gpt-5.6-terra / B2: 0.25 h → 3.93 %, 1.00 h → 6.21 %, 1.75 h → 7.12 %, 2.50 h → 7.17 %, 3.25 h → 7.17 %, 4.00 h → 7.17 %
+- gpt-5.6-luna / DrRTL_reimpl: 0.25 h → 3.52 %, 1.25 h → 4.85 %, 2.25 h → 5.13 %, 3.25 h → 5.13 %, 4.25 h → 5.13 %, 5.25 h → 5.13 %, 6.25 h → 5.13 %
 - gpt-5.6-luna / M: 0.25 h → 0.29 %, 0.50 h → 0.39 %, 0.75 h → 0.40 %, 1.00 h → 0.40 %, 1.25 h → 0.40 %, 1.50 h → 0.40 %, 1.75 h → 0.40 %
-- gpt-5.6-terra / M: 0.25 h → 3.64 %, 0.50 h → 4.02 %, 0.75 h → 4.10 %, 1.00 h → 4.22 %, 1.25 h → 4.27 %, 1.50 h → 4.33 %, 1.75 h → 4.33 %
+- gpt-5.6-terra / M: 0.25 h → 3.65 %, 0.50 h → 4.06 %, 0.75 h → 4.17 %, 1.00 h → 4.28 %, 1.25 h → 4.34 %, 1.50 h → 4.40 %, 1.75 h → 4.40 %
 
 ### small tier — by LLM calls (equal-call caliber)
 
@@ -5741,36 +6645,36 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | medium | gpt-5.6-terra | cktevo_mem_ctrl__mc_adr_sel | 6 | 360 | 297 | 82.5 % |
 | medium | gpt-5.6-luna | cktevo_nn_engine__thresholds_128x4096 | 12 | 454 | 353 | 77.8 % |
 | medium | gpt-5.6-terra | cktevo_nn_engine__thresholds_128x4096 | 6 | 180 | 87 | 48.3 % |
-| medium | gpt-5.6-luna | cktevo_risc__cpu | 15 | 650 | 59 | 9.1 % |
-| medium | gpt-5.6-terra | cktevo_risc__cpu | 6 | 120 | 7 | 5.8 % |
-| medium | gpt-5.6-luna | cktevo_usb__usbf_sie_rx | 15 | 641 | 402 | 62.7 % |
-| medium | gpt-5.6-terra | cktevo_usb__usbf_sie_rx | 6 | 180 | 139 | 77.2 % |
+| medium | gpt-5.6-luna | cktevo_risc__cpu | 15 | 690 | 65 | 9.4 % |
+| medium | gpt-5.6-terra | cktevo_risc__cpu | 6 | 150 | 11 | 7.3 % |
+| medium | gpt-5.6-luna | cktevo_usb__usbf_sie_rx | 15 | 701 | 439 | 62.6 % |
+| medium | gpt-5.6-terra | cktevo_usb__usbf_sie_rx | 6 | 289 | 201 | 69.5 % |
 | medium | gpt-5.6-luna | cktevo_vga_enh__vga_wb_slave | 15 | 696 | 425 | 61.1 % |
-| medium | gpt-5.6-terra | cktevo_vga_enh__vga_wb_slave | 6 | 255 | 178 | 69.8 % |
-| medium | gpt-5.6-luna | drrtl_SPI (verification limit) | 15 | 537 | 80 | 14.9 % |
+| medium | gpt-5.6-terra | cktevo_vga_enh__vga_wb_slave | 6 | 360 | 235 | 65.3 % |
+| medium | gpt-5.6-luna | drrtl_SPI (verification limit) | 15 | 752 | 110 | 14.6 % |
 | medium | gpt-5.6-terra | drrtl_SPI (verification limit) | 6 | 120 | 6 | 5.0 % |
-| medium | gpt-5.6-luna | drrtl_UART | 16 | 752 | 458 | 60.9 % |
-| medium | gpt-5.6-terra | drrtl_UART | 6 | 180 | 88 | 48.9 % |
+| medium | gpt-5.6-luna | drrtl_UART | 16 | 760 | 513 | 67.5 % |
+| medium | gpt-5.6-terra | drrtl_UART | 6 | 180 | 108 | 60.0 % |
 | medium | gpt-5.6-luna | drrtl_arm_cpu2 | 15 | 804 | 0 | 0.0 % |
 | medium | gpt-5.6-terra | drrtl_arm_cpu2 | 6 | 302 | 0 | 0.0 % |
-| medium | gpt-5.6-luna | drrtl_communication | 15 | 539 | 160 | 29.7 % |
-| medium | gpt-5.6-terra | drrtl_communication | 6 | 160 | 5 | 3.1 % |
-| medium | gpt-5.6-luna | drrtl_router | 15 | 360 | 244 | 67.8 % |
-| medium | gpt-5.6-terra | drrtl_router | 6 | 60 | 36 | 60.0 % |
-| medium | gpt-5.6-luna | drrtl_simple_spi | 15 | 513 | 80 | 15.6 % |
-| medium | gpt-5.6-terra | drrtl_simple_spi | 6 | 113 | 1 | 0.9 % |
-| medium | gpt-5.6-luna | rtlopt_alu_64bit | 15 | 573 | 428 | 74.7 % |
+| medium | gpt-5.6-luna | drrtl_communication | 15 | 574 | 177 | 30.8 % |
+| medium | gpt-5.6-terra | drrtl_communication | 6 | 180 | 5 | 2.8 % |
+| medium | gpt-5.6-luna | drrtl_router | 15 | 669 | 417 | 62.3 % |
+| medium | gpt-5.6-terra | drrtl_router | 6 | 65 | 50 | 76.9 % |
+| medium | gpt-5.6-luna | drrtl_simple_spi | 15 | 513 | 89 | 17.3 % |
+| medium | gpt-5.6-terra | drrtl_simple_spi | 6 | 120 | 7 | 5.8 % |
+| medium | gpt-5.6-luna | rtlopt_alu_64bit | 15 | 633 | 474 | 74.9 % |
 | medium | gpt-5.6-terra | rtlopt_alu_64bit | 6 | 180 | 159 | 88.3 % |
-| medium | gpt-5.6-luna | rtlopt_calculation | 15 | 349 | 243 | 69.6 % |
-| medium | gpt-5.6-terra | rtlopt_calculation | 6 | 0 | 0 | - |
+| medium | gpt-5.6-luna | rtlopt_calculation | 15 | 499 | 339 | 67.9 % |
+| medium | gpt-5.6-terra | rtlopt_calculation | 6 | 151 | 101 | 66.9 % |
 | medium | gpt-5.6-luna | rtlopt_decoder_8bit | 15 | 870 | 615 | 70.7 % |
 | medium | gpt-5.6-terra | rtlopt_decoder_8bit | 6 | 360 | 282 | 78.3 % |
 | medium | gpt-5.6-luna | rtlopt_divider_8bit | 15 | 696 | 516 | 74.1 % |
-| medium | gpt-5.6-terra | rtlopt_divider_8bit | 6 | 360 | 253 | 70.3 % |
+| medium | gpt-5.6-terra | rtlopt_divider_8bit | 6 | 360 | 264 | 73.3 % |
 | medium | gpt-5.6-luna | rtlopt_register | 15 | 574 | 475 | 82.8 % |
 | medium | gpt-5.6-terra | rtlopt_register | 6 | 180 | 156 | 86.7 % |
-| medium | gpt-5.6-luna | rtlopt_sub_32bit | 15 | 873 | 555 | 63.6 % |
-| medium | gpt-5.6-terra | rtlopt_sub_32bit | 6 | 360 | 291 | 80.8 % |
+| medium | gpt-5.6-luna | rtlopt_sub_32bit | 15 | 873 | 581 | 66.5 % |
+| medium | gpt-5.6-terra | rtlopt_sub_32bit | 6 | 360 | 295 | 81.9 % |
 | small | gpt-5.6-luna | cktevo_hsm__MixColumns | 15 | 0 | 0 | - |
 | small | gpt-5.6-terra | cktevo_hsm__MixColumns | 6 | 0 | 0 | - |
 | small | gpt-5.6-luna | cktevo_risc__stall_control_unit | 15 | 0 | 0 | - |
@@ -5779,18 +6683,18 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 | small | gpt-5.6-terra | drrtl_controller | 6 | 0 | 0 | - |
 | small | gpt-5.6-luna | drrtl_ticket_machine | 15 | 0 | 0 | - |
 | small | gpt-5.6-terra | drrtl_ticket_machine | 6 | 0 | 0 | - |
-| small | gpt-5.6-luna | rtlopt_mux_large | 15 | 29 | 0 | 0.0 % |
+| small | gpt-5.6-luna | rtlopt_mux_large | 15 | 60 | 0 | 0.0 % |
 | small | gpt-5.6-terra | rtlopt_mux_large | 6 | 0 | 0 | - |
-| small | gpt-5.6-luna | rtlopt_sub_8bit | 15 | 150 | 0 | 0.0 % |
+| small | gpt-5.6-luna | rtlopt_sub_8bit | 15 | 300 | 0 | 0.0 % |
 | small | gpt-5.6-terra | rtlopt_sub_8bit | 6 | 0 | 0 | - |
 
 ### 5a. Inconclusive proofs per class and per design (DECISION 2026-09-18 D2)
 
 - large tier — by class: a: 188, b: 1031, c1: 141, d: 102; by design: drrtl_tv80: 669, cktevo_nn_engine__spikeNeuron8_H7: 311, cktevo_hsm__hsm: 273, drrtl_aes: 125, cktevo_risc__btb: 84
-- medium tier — by class: a: 204, b: 538, c1: 68, d: 28; by design: drrtl_SPI: 489, drrtl_simple_spi: 200, cktevo_risc__cpu: 108, drrtl_communication: 24, drrtl_UART: 11, cktevo_mem_ctrl__mc_adr_sel: 5, drrtl_router: 1
+- medium tier — by class: a: 229, b: 708, c1: 82, d: 30; by design: drrtl_SPI: 582, drrtl_simple_spi: 282, cktevo_risc__cpu: 134, drrtl_communication: 27, drrtl_UART: 11, rtlopt_calculation: 6, cktevo_mem_ctrl__mc_adr_sel: 5, drrtl_router: 2
 
 
-LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): drrtl_arm_cpu2 under gpt-5.6-luna, drrtl_arm_cpu2 under gpt-5.6-terra, drrtl_communication under gpt-5.6-terra, rtlopt_sub_8bit under gpt-5.6-luna; designs below the rate whose note applies instead (§0a): cktevo_hsm__hsm — mixed (sim_fail 65 %, inconclusive 30 %), drrtl_simple_spi — harness defect (missing include file in the staged tree), fixed 2026-09-18, runs superseded and repeated, drrtl_tv80 — verification limit (wall-clock cap under CPU contention).
+LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): drrtl_arm_cpu2 under gpt-5.6-luna, drrtl_arm_cpu2 under gpt-5.6-terra, drrtl_communication under gpt-5.6-terra, rtlopt_mux_large under gpt-5.6-luna, rtlopt_sub_8bit under gpt-5.6-luna; designs below the rate whose note applies instead (§0a): cktevo_hsm__hsm — mixed (sim_fail 65 %, inconclusive 30 %), drrtl_tv80 — verification limit (wall-clock cap under CPU contention).
 
 ## 6. Classes produced (rules v2) and requested → produced
 
@@ -5800,28 +6704,28 @@ LLM-correctness limit (proven rate below 5 % after ≥ 30 candidates): drrtl_arm
 - large / gpt-5.6-terra / B2: produced {'a': 202, 'b': 507, 'c1': 66, 'd': 110}; requested → produced a->a: 30, a->b: 96, a->c1: 5, a->d: 2, b->a: 52, b->b: 57, b->d: 13, c1->a: 32, c1->b: 103, c1->c1: 11, c1->d: 19, d->a: 42, d->b: 129, d->c1: 30, d->d: 24, free->a: 46, free->b: 122, free->c1: 20, free->d: 52
 - large / gpt-5.6-terra / DrRTL_reimpl: produced {'a': 269, 'b': 288, 'c1': 20, 'd': 1, 'free': 2}; requested → produced free->a: 269, free->b: 288, free->c1: 20, free->d: 1, free->free: 2
 - large / gpt-5.6-terra / M: produced {'a': 181, 'b': 480, 'c1': 102, 'd': 74, 'free': 1}; requested → produced a->a: 7, a->b: 49, a->c1: 1, a->d: 2, b->a: 55, b->b: 29, b->d: 12, c1->a: 37, c1->b: 152, c1->c1: 40, c1->d: 32, d->a: 69, d->b: 198, d->c1: 47, d->d: 14, free->a: 13, free->b: 52, free->c1: 14, free->d: 14, free->free: 1
-- medium / gpt-5.6-luna / B0: produced {'a': 459, 'b': 890, 'c1': 582, 'd': 634, 'free': 25}; requested → produced a->a: 106, a->b: 142, a->c1: 92, a->d: 93, b->a: 96, b->b: 90, b->c1: 110, b->d: 124, c1->a: 50, c1->b: 159, c1->c1: 63, c1->d: 112, d->a: 73, d->b: 292, d->c1: 175, d->d: 117, free->a: 134, free->b: 207, free->c1: 142, free->d: 188, free->free: 25
-- medium / gpt-5.6-luna / B1_E4: produced {'a': 279, 'b': 1246, 'c1': 559, 'd': 667, 'free': 23}; requested → produced a->a: 73, a->b: 216, a->c1: 70, a->d: 101, b->a: 52, b->b: 122, b->c1: 67, b->d: 121, c1->a: 42, c1->b: 191, c1->c1: 77, c1->d: 84, d->a: 46, d->b: 324, d->c1: 177, d->d: 113, free->a: 66, free->b: 393, free->c1: 168, free->d: 248, free->free: 23
-- medium / gpt-5.6-luna / B2: produced {'a': 345, 'b': 1033, 'c1': 404, 'd': 482, 'free': 25}; requested → produced a->a: 85, a->b: 180, a->c1: 71, a->d: 81, b->a: 61, b->b: 113, b->c1: 77, b->d: 73, c1->a: 39, c1->b: 207, c1->c1: 75, c1->d: 78, d->a: 56, d->b: 210, d->c1: 87, d->d: 82, free->a: 104, free->b: 323, free->c1: 94, free->d: 168, free->free: 25
-- medium / gpt-5.6-luna / DrRTL_reimpl: produced {'a': 791, 'b': 469, 'c1': 345, 'd': 319, 'free': 91}; requested → produced free->a: 791, free->b: 469, free->c1: 345, free->d: 319, free->free: 91
-- medium / gpt-5.6-luna / M: produced {'a': 210, 'b': 233, 'c1': 147, 'c2': 1, 'd': 201, 'free': 13}; requested → produced a->a: 19, a->b: 3, a->c1: 26, a->d: 23, b->a: 18, b->b: 31, b->c1: 28, b->c2: 1, b->d: 31, c1->a: 41, c1->b: 54, c1->c1: 23, c1->d: 63, d->a: 101, d->b: 108, d->c1: 44, d->d: 26, free->a: 31, free->b: 37, free->c1: 26, free->d: 58, free->free: 13
-- medium / gpt-5.6-terra / B2: produced {'a': 279, 'b': 1028, 'c1': 556, 'd': 590, 'free': 24}; requested → produced a->a: 90, a->b: 167, a->c1: 66, a->d: 100, b->a: 71, b->b: 120, b->c1: 64, b->d: 100, c1->a: 24, c1->b: 168, c1->c1: 110, c1->d: 95, d->a: 26, d->b: 275, d->c1: 173, d->d: 111, free->a: 68, free->b: 298, free->c1: 143, free->d: 184, free->free: 24
-- medium / gpt-5.6-terra / M: produced {'a': 180, 'b': 321, 'c1': 147, 'd': 158, 'free': 9}; requested → produced a->a: 16, a->b: 33, a->c1: 12, a->d: 15, b->a: 16, b->b: 45, b->c1: 35, b->d: 19, c1->a: 35, c1->b: 69, c1->c1: 34, c1->d: 26, d->a: 90, d->b: 103, d->c1: 56, d->d: 37, free->a: 23, free->b: 71, free->c1: 10, free->d: 61, free->free: 9
-- small / gpt-5.6-luna / B0: produced {'a': 1, 'b': 17, 'd': 9}; requested → produced b->a: 1, b->b: 2, c1->b: 1, c1->d: 6, d->b: 9, d->d: 3, free->b: 5
-- small / gpt-5.6-luna / B1_E4: produced {'a': 2, 'b': 28, 'c1': 1, 'd': 2, 'free': 1}; requested → produced a->a: 2, a->b: 2, a->d: 1, b->b: 7, c1->b: 5, c1->c1: 1, d->b: 10, d->d: 1, free->b: 4, free->free: 1
-- small / gpt-5.6-luna / B2: produced {'a': 16, 'b': 70, 'c1': 1, 'd': 21, 'free': 2}; requested → produced a->a: 5, a->b: 6, a->d: 14, b->a: 1, b->b: 9, c1->a: 6, c1->b: 13, c1->c1: 1, c1->d: 5, d->a: 3, d->b: 17, d->d: 2, free->a: 1, free->b: 25, free->free: 2
+- medium / gpt-5.6-luna / B0: produced {'a': 542, 'b': 923, 'c1': 591, 'd': 676, 'free': 26}; requested → produced a->a: 114, a->b: 142, a->c1: 93, a->d: 98, b->a: 120, b->b: 94, b->c1: 110, b->d: 132, c1->a: 63, c1->b: 163, c1->c1: 67, c1->d: 115, d->a: 98, d->b: 310, d->c1: 179, d->d: 126, free->a: 147, free->b: 214, free->c1: 142, free->d: 205, free->free: 26
+- medium / gpt-5.6-luna / B1_E4: produced {'a': 305, 'b': 1294, 'c1': 560, 'd': 712, 'free': 25}; requested → produced a->a: 85, a->b: 216, a->c1: 70, a->d: 113, b->a: 55, b->b: 123, b->c1: 67, b->d: 131, c1->a: 45, c1->b: 203, c1->c1: 77, c1->d: 85, d->a: 50, d->b: 340, d->c1: 177, d->d: 120, free->a: 70, free->b: 412, free->c1: 169, free->d: 263, free->free: 25
+- medium / gpt-5.6-luna / B2: produced {'a': 352, 'b': 1148, 'c1': 408, 'd': 536, 'free': 25}; requested → produced a->a: 89, a->b: 187, a->c1: 71, a->d: 92, b->a: 62, b->b: 121, b->c1: 78, b->d: 83, c1->a: 40, c1->b: 243, c1->c1: 75, c1->d: 91, d->a: 56, d->b: 242, d->c1: 89, d->d: 89, free->a: 105, free->b: 355, free->c1: 95, free->d: 181, free->free: 25
+- medium / gpt-5.6-luna / DrRTL_reimpl: produced {'a': 915, 'b': 477, 'c1': 347, 'd': 329, 'free': 100}; requested → produced free->a: 915, free->b: 477, free->c1: 347, free->d: 329, free->free: 100
+- medium / gpt-5.6-luna / M: produced {'a': 252, 'b': 307, 'c1': 151, 'c2': 1, 'd': 182, 'free': 15}; requested → produced a->a: 21, a->b: 3, a->c1: 26, a->d: 22, b->a: 22, b->b: 33, b->c1: 28, b->c2: 1, b->d: 31, c1->a: 58, c1->b: 84, c1->c1: 25, c1->d: 50, d->a: 109, d->b: 148, d->c1: 46, d->d: 27, free->a: 42, free->b: 39, free->c1: 26, free->d: 52, free->free: 15
+- medium / gpt-5.6-terra / B2: produced {'a': 363, 'b': 1033, 'c1': 569, 'd': 659, 'free': 24}; requested → produced a->a: 112, a->b: 167, a->c1: 66, a->d: 104, b->a: 92, b->b: 120, b->c1: 64, b->d: 114, c1->a: 41, c1->b: 168, c1->c1: 112, c1->d: 99, d->a: 33, d->b: 276, d->c1: 182, d->d: 134, free->a: 85, free->b: 302, free->c1: 145, free->d: 208, free->free: 24
+- medium / gpt-5.6-terra / M: produced {'a': 194, 'b': 452, 'c1': 195, 'd': 163, 'free': 9}; requested → produced a->a: 16, a->b: 42, a->c1: 14, a->d: 15, b->a: 20, b->b: 45, b->c1: 35, b->d: 19, c1->a: 37, c1->b: 81, c1->c1: 55, c1->d: 26, d->a: 94, d->b: 192, d->c1: 79, d->d: 43, free->a: 27, free->b: 92, free->c1: 12, free->d: 60, free->free: 9
+- small / gpt-5.6-luna / B0: produced {'a': 6, 'b': 27, 'c1': 1, 'd': 18, 'free': 1}; requested → produced a->a: 3, a->d: 2, b->a: 2, b->b: 2, b->d: 1, c1->b: 3, c1->c1: 1, c1->d: 9, d->b: 11, d->d: 5, free->a: 1, free->b: 11, free->d: 1, free->free: 1
+- small / gpt-5.6-luna / B1_E4: produced {'a': 4, 'b': 52, 'c1': 1, 'd': 2, 'free': 1}; requested → produced a->a: 4, a->b: 5, a->d: 1, b->b: 9, c1->b: 8, c1->c1: 1, d->b: 15, d->d: 1, free->b: 15, free->free: 1
+- small / gpt-5.6-luna / B2: produced {'a': 25, 'b': 149, 'c1': 4, 'd': 38, 'free': 4}; requested → produced a->a: 6, a->b: 12, a->d: 25, b->a: 5, b->b: 21, c1->a: 8, c1->b: 30, c1->c1: 4, c1->d: 7, d->a: 4, d->b: 43, d->d: 6, free->a: 2, free->b: 43, free->free: 4
 
 ## 7. Runs and anomalies
 
-Runs on the reported tiers: 610 (314 done, 53 running, 243 not started). No run in an abnormal status.
+Runs on the reported tiers: 610 (343 done, 48 running, 219 not started). No run in an abnormal status.
 
 ## 7a. Operational changes during the run (DECISIONS 2026-09-16; verdict definitions, floors, budgets and the stack unchanged)
 
 Hidden DC registrations capped at 8 from 2026-09-16T14:30; split equivalence pipeline, provisional diagnosis and proof ordering from 2026-09-16T15:14; positive provisional verdicts withheld from the model from 2026-09-16T16:03.
 
-- Provisional-versus-final diagnosis agreement: 777 of 889 proven candidates with a final diagnosis agree (87.4 %); 9582 candidates received a provisional label (absorbed 5, absorbed_identical 231, duplicate 293, harmful 181, improved 6133, no_gain 1803, noise 101, retained 327, tradeoff 508), 2584 of them were not proven, 6109 still wait for the proof or the diagnosis, 6908 labels withheld from the model. Disagreements: tradeoff→duplicate; tradeoff→duplicate; retained→duplicate; harmful→duplicate; retained→duplicate; retained→duplicate; retained→duplicate; tradeoff→duplicate.
+- Provisional-versus-final diagnosis agreement: 982 of 1100 proven candidates with a final diagnosis agree (89.3 %); 10657 candidates received a provisional label (absorbed 21, absorbed_identical 301, duplicate 356, harmful 200, improved 6715, no_gain 2012, noise 102, retained 379, tradeoff 571), 2829 of them were not proven, 6728 still wait for the proof or the diagnosis, 7605 labels withheld from the model. Disagreements: tradeoff→duplicate; tradeoff→duplicate; retained→duplicate; harmful→duplicate; retained→duplicate; retained→duplicate; retained→duplicate; tradeoff→duplicate.
 - Positive provisional feedback exposure (window 2026-09-16T15:14 to 2026-09-16T16:03): 15 LLM calls carried 25 positive pending blocks (2 runs); 8 candidates behind them — proofs since: inconclusive 8.
-- Cross-run verdict reuse since 2026-09-16T15:14: 0 proofs copied from a decided record of the same pair ({}), over 13183 split-pipeline proofs of 32837 equivalence records; sim records missing: 0.
+- Cross-run verdict reuse since 2026-09-16T15:14: 0 proofs copied from a decided record of the same pair ({}), over 14246 split-pipeline proofs of 35220 equivalence records; sim records missing: 0.
 
 Equivalence jobs finished per hour on the VC Formal pool since the throttle (2026-09-16T14:30), by the candidate's verdict:
 
@@ -5890,38 +6794,45 @@ Equivalence jobs finished per hour on the VC Formal pool since the throttle (202
 | 2026-09-19T02 | 99 | 60 | 37 | 1.62 | 2 | 0 | 0 |
 | 2026-09-19T03 | 122 | 84 | 32 | 2.62 | 6 | 0 | 0 |
 | 2026-09-19T04 | 140 | 97 | 35 | 2.77 | 8 | 0 | 0 |
-| 2026-09-19T05 | 131 | 96 | 26 | 3.69 | 8 | 0 | 0 |
+| 2026-09-19T05 | 139 | 102 | 28 | 3.64 | 9 | 0 | 0 |
+| 2026-09-19T06 | 161 | 110 | 35 | 3.14 | 16 | 0 | 0 |
+| 2026-09-19T07 | 162 | 131 | 22 | 5.95 | 9 | 0 | 0 |
+| 2026-09-19T08 | 149 | 110 | 34 | 3.24 | 5 | 0 | 0 |
+| 2026-09-19T09 | 182 | 134 | 33 | 4.06 | 15 | 0 | 0 |
+| 2026-09-19T10 | 135 | 89 | 33 | 2.7 | 13 | 0 | 0 |
+| 2026-09-19T11 | 189 | 140 | 35 | 4.0 | 14 | 0 | 0 |
+| 2026-09-19T12 | 77 | 55 | 19 | 2.89 | 3 | 0 | 0 |
 
 ## 7b. Verification conditions per arm-model row (DECISION 2026-09-18 item 5c: median host load and VC Formal wait during the row's runs)
 
 | tier | model | arm | proofs | VC Formal queue wait: median / q95 (min) | median 1-min load over the row's run-minutes | run-minutes with a load sample (coverage) |
 |---|---|---|---|---|---|---|
-| large | gpt-5.6-luna | M | 573 | 158.2 / 661.6 | 104.0 | 3441 (22 %) |
-| large | gpt-5.6-terra | B0 | 825 | 106.3 / 507.1 | 104.0 | 3441 (24 %) |
-| large | gpt-5.6-terra | B1_E4 | 802 | 139.9 / 510.4 | 104.0 | 3441 (24 %) |
-| large | gpt-5.6-terra | B2 | 814 | 120.2 / 483.9 | 104.0 | 3441 (24 %) |
-| large | gpt-5.6-terra | DrRTL_reimpl | 578 | 149.9 / 481.0 | 104.0 | 3441 (27 %) |
-| large | gpt-5.6-terra | M | 619 | 139.9 / 635.0 | 104.0 | 3441 (22 %) |
-| medium | gpt-5.6-luna | B0 | 1929 | 0.9 / 252.4 | 107.2 | 13214 (63 %) |
-| medium | gpt-5.6-luna | B1_E4 | 1891 | 2.2 / 139.1 | 106.2 | 15765 (46 %) |
-| medium | gpt-5.6-luna | B2 | 1626 | 4.8 / 253.7 | 106.9 | 32502 (39 %) |
-| medium | gpt-5.6-luna | DrRTL_reimpl | 1495 | 3.7 / 259.4 | 107.0 | 15942 (61 %) |
-| medium | gpt-5.6-luna | M | 568 | 5.9 / 807.7 | 106.6 | 59084 (34 %) |
-| medium | gpt-5.6-terra | B2 | 1791 | 4.5 / 162.1 | 106.6 | 23843 (53 %) |
-| medium | gpt-5.6-terra | M | 846 | 3.7 / 533.9 | 106.6 | 55108 (34 %) |
-| small | gpt-5.6-luna | B0 | 0 | - / - | 106.7 | 24732 (30 %) |
-| small | gpt-5.6-luna | B1_E4 | 0 | - / - | 106.7 | 24732 (30 %) |
-| small | gpt-5.6-luna | B2 | 0 | - / - | 106.5 | 20847 (31 %) |
-| small | gpt-5.6-luna | DrRTL_reimpl | 0 | - / - | 106.8 | 26028 (30 %) |
-| small | gpt-5.6-luna | M | 0 | - / - | 106.8 | 26028 (30 %) |
-| small | gpt-5.6-terra | B2 | 0 | - / - | 106.8 | 26028 (30 %) |
-| small | gpt-5.6-terra | M | 0 | - / - | 106.8 | 26028 (30 %) |
+| large | gpt-5.6-luna | M | 573 | 158.2 / 661.6 | 101.1 | 4626 (27 %) |
+| large | gpt-5.6-terra | B0 | 825 | 106.3 / 507.1 | 101.1 | 4626 (29 %) |
+| large | gpt-5.6-terra | B1_E4 | 802 | 139.9 / 510.4 | 101.1 | 4626 (29 %) |
+| large | gpt-5.6-terra | B2 | 814 | 120.2 / 483.9 | 101.1 | 4626 (30 %) |
+| large | gpt-5.6-terra | DrRTL_reimpl | 578 | 149.9 / 481.0 | 101.1 | 4626 (34 %) |
+| large | gpt-5.6-terra | M | 619 | 139.9 / 635.0 | 101.1 | 4626 (27 %) |
+| medium | gpt-5.6-luna | B0 | 2066 | 1.1 / 263.1 | 106.3 | 11420 (72 %) |
+| medium | gpt-5.6-luna | B1_E4 | 2058 | 2.8 / 254.0 | 102.4 | 14615 (63 %) |
+| medium | gpt-5.6-luna | B2 | 1801 | 5.2 / 278.7 | 103.7 | 35073 (46 %) |
+| medium | gpt-5.6-luna | DrRTL_reimpl | 1635 | 4.0 / 264.6 | 104.8 | 13025 (99 %) |
+| medium | gpt-5.6-luna | M | 655 | 6.5 / 813.9 | 103.0 | 72400 (40 %) |
+| medium | gpt-5.6-terra | B2 | 1977 | 5.2 / 212.9 | 103.1 | 23023 (68 %) |
+| medium | gpt-5.6-terra | M | 1022 | 4.5 / 775.5 | 103.1 | 61072 (40 %) |
+| small | gpt-5.6-luna | B0 | 0 | - / - | 103.1 | 31842 (36 %) |
+| small | gpt-5.6-luna | B1_E4 | 0 | - / - | 103.1 | 31842 (36 %) |
+| small | gpt-5.6-luna | B2 | 0 | - / - | 102.3 | 27957 (37 %) |
+| small | gpt-5.6-luna | DrRTL_reimpl | 0 | - / - | 103.2 | 33138 (35 %) |
+| small | gpt-5.6-luna | M | 0 | - / - | 103.2 | 33138 (35 %) |
+| small | gpt-5.6-terra | B2 | 0 | - / - | 103.2 | 33138 (35 %) |
+| small | gpt-5.6-terra | M | 0 | - / - | 103.2 | 33138 (35 %) |
 
 The load log (scripts/load_logger.py, one sample per minute) starts 2026-09-18 05:49; rows whose runs predate it show a partial coverage — the VC Formal wait comes from the queue's own timestamps and covers every proof.
 
 ## 7c. Verification conditions by host load (DECISION 2026-09-18 (h) item 1): inconclusive share of finished proofs at a 1-minute load above / at or below 100, per design and class
 
-Proofs started from 2026-09-18T05:49:54 (the load log's first sample) with a load sample within two minutes before the start: 7541.
+Proofs started from 2026-09-18T05:49:54 (the load log's first sample) with a load sample within two minutes before the start: 8529.
 
 | design | class | proofs at load > threshold | inconclusive share | proofs at load ≤ threshold | inconclusive share |
 |---|---|---|---|---|---|
@@ -5937,83 +6848,83 @@ Proofs started from 2026-09-18T05:49:54 (the load log's first sample) with a loa
 | cktevo_nn_engine__thresholds_128x4096 | b | 104 | 0 % | 10 | 0 % |
 | cktevo_nn_engine__thresholds_128x4096 | c1 | 38 | 0 % | 9 | 0 % |
 | cktevo_nn_engine__thresholds_128x4096 | d | 84 | 0 % | 8 | 0 % |
-| cktevo_risc__cpu | a | 7 | 14 % | 7 | 43 % |
-| cktevo_risc__cpu | b | 76 | 63 % | 38 | 74 % |
+| cktevo_risc__cpu | a | 8 | 25 % | 11 | 45 % |
+| cktevo_risc__cpu | b | 92 | 65 % | 52 | 73 % |
 | cktevo_risc__cpu | c1 | 1 | 100 % | 0 | - |
-| cktevo_usb__usbf_sie_rx | a | 4 | 0 % | 2 | 0 % |
-| cktevo_usb__usbf_sie_rx | b | 273 | 0 % | 68 | 0 % |
-| cktevo_usb__usbf_sie_rx | c1 | 52 | 0 % | 8 | 0 % |
-| cktevo_usb__usbf_sie_rx | d | 5 | 0 % | 1 | 0 % |
-| cktevo_vga_enh__vga_wb_slave | a | 217 | 0 % | 17 | 0 % |
-| cktevo_vga_enh__vga_wb_slave | b | 194 | 0 % | 44 | 0 % |
-| cktevo_vga_enh__vga_wb_slave | c1 | 15 | 0 % | 1 | 0 % |
-| drrtl_SPI | a | 137 | 67 % | 83 | 64 % |
-| drrtl_SPI | b | 77 | 100 % | 64 | 100 % |
-| drrtl_SPI | c1 | 24 | 92 % | 4 | 100 % |
-| drrtl_SPI | d | 15 | 100 % | 7 | 86 % |
-| drrtl_UART | a | 100 | 0 % | 36 | 0 % |
-| drrtl_UART | b | 199 | 0 % | 88 | 0 % |
+| cktevo_usb__usbf_sie_rx | a | 4 | 0 % | 3 | 0 % |
+| cktevo_usb__usbf_sie_rx | b | 293 | 0 % | 122 | 0 % |
+| cktevo_usb__usbf_sie_rx | c1 | 59 | 0 % | 26 | 0 % |
+| cktevo_usb__usbf_sie_rx | d | 5 | 0 % | 3 | 0 % |
+| cktevo_vga_enh__vga_wb_slave | a | 219 | 0 % | 25 | 0 % |
+| cktevo_vga_enh__vga_wb_slave | b | 204 | 0 % | 77 | 0 % |
+| cktevo_vga_enh__vga_wb_slave | c1 | 18 | 0 % | 2 | 0 % |
+| drrtl_SPI | a | 152 | 64 % | 114 | 55 % |
+| drrtl_SPI | b | 106 | 100 % | 107 | 100 % |
+| drrtl_SPI | c1 | 25 | 92 % | 9 | 100 % |
+| drrtl_SPI | d | 16 | 100 % | 8 | 88 % |
+| drrtl_UART | a | 106 | 0 % | 38 | 0 % |
+| drrtl_UART | b | 225 | 0 % | 129 | 0 % |
 | drrtl_UART | c1 | 2 | 50 % | 1 | 0 % |
-| drrtl_communication | a | 32 | 0 % | 53 | 2 % |
+| drrtl_communication | a | 35 | 0 % | 65 | 2 % |
 | drrtl_communication | b | 16 | 0 % | 19 | 0 % |
-| drrtl_communication | c1 | 7 | 57 % | 20 | 55 % |
-| drrtl_router | a | 48 | 0 % | 67 | 0 % |
-| drrtl_router | b | 64 | 0 % | 37 | 0 % |
-| drrtl_router | c1 | 37 | 0 % | 28 | 4 % |
+| drrtl_communication | c1 | 7 | 57 % | 23 | 61 % |
+| drrtl_router | a | 93 | 0 % | 180 | 0 % |
+| drrtl_router | b | 73 | 0 % | 52 | 2 % |
+| drrtl_router | c1 | 39 | 0 % | 31 | 3 % |
 | drrtl_router | d | 1 | 0 % | 0 | - |
 | drrtl_simple_spi | a | 5 | 0 % | 16 | 19 % |
-| drrtl_simple_spi | b | 103 | 83 % | 143 | 75 % |
-| drrtl_simple_spi | c1 | 4 | 0 % | 11 | 36 % |
-| rtlopt_alu_64bit | a | 78 | 0 % | 6 | 0 % |
-| rtlopt_alu_64bit | b | 36 | 0 % | 16 | 0 % |
-| rtlopt_alu_64bit | d | 258 | 0 % | 49 | 0 % |
-| rtlopt_calculation | a | 49 | 0 % | 22 | 0 % |
-| rtlopt_calculation | d | 45 | 0 % | 30 | 0 % |
+| drrtl_simple_spi | b | 139 | 85 % | 191 | 80 % |
+| drrtl_simple_spi | c1 | 5 | 0 % | 22 | 41 % |
+| rtlopt_alu_64bit | a | 78 | 0 % | 7 | 0 % |
+| rtlopt_alu_64bit | b | 38 | 0 % | 19 | 0 % |
+| rtlopt_alu_64bit | d | 279 | 0 % | 68 | 0 % |
+| rtlopt_calculation | a | 86 | 5 % | 92 | 2 % |
+| rtlopt_calculation | d | 84 | 0 % | 89 | 0 % |
 | rtlopt_decoder_8bit | a | 48 | 0 % | 5 | 0 % |
 | rtlopt_decoder_8bit | b | 92 | 0 % | 1 | 0 % |
 | rtlopt_decoder_8bit | c1 | 71 | 0 % | 0 | - |
 | rtlopt_decoder_8bit | d | 576 | 0 % | 12 | 0 % |
 | rtlopt_divider_8bit | a | 1 | 0 % | 0 | - |
-| rtlopt_divider_8bit | b | 504 | 0 % | 55 | 0 % |
+| rtlopt_divider_8bit | b | 506 | 0 % | 64 | 0 % |
 | rtlopt_divider_8bit | d | 75 | 0 % | 3 | 0 % |
 | rtlopt_register | a | 49 | 0 % | 18 | 0 % |
 | rtlopt_register | b | 94 | 0 % | 29 | 0 % |
 | rtlopt_register | c1 | 162 | 0 % | 38 | 0 % |
 | rtlopt_register | d | 63 | 0 % | 40 | 0 % |
 | rtlopt_sub_32bit | a | 2 | 0 % | 0 | - |
-| rtlopt_sub_32bit | b | 154 | 0 % | 10 | 0 % |
-| rtlopt_sub_32bit | d | 551 | 0 % | 40 | 0 % |
+| rtlopt_sub_32bit | b | 154 | 0 % | 15 | 0 % |
+| rtlopt_sub_32bit | d | 554 | 0 % | 62 | 0 % |
 
-Search slots at render time (DECISION 2026-09-19 (j) item 1c): generating 16 (max 24), waiting for verdicts 37, queued 243; waiting runs counted against the cap: no.
+Search slots at render time (DECISION 2026-09-19 (j) item 1c): generating 15 (max 24), waiting for verdicts 33, queued 219; waiting runs counted against the cap: no.
 
 | arm-model row | unverified-at-build fraction (generations built in the last hour, medium tier) |
 |---|---|
-| gpt-5.6-luna|B0 | 6 % |
-| gpt-5.6-luna|B1_E4 | 72 % |
+| gpt-5.6-luna|B0 | 41 % |
+| gpt-5.6-luna|B1_E4 | 100 % |
 | gpt-5.6-luna|B2 | 100 % |
-| gpt-5.6-luna|DrRTL_reimpl | 2 % |
-| gpt-5.6-luna|M | 100 % |
-| gpt-5.6-terra|B2 | 46 % |
-| gpt-5.6-terra|M | 7 % |
+| gpt-5.6-luna|DrRTL_reimpl | 7 % |
+| gpt-5.6-luna|M | 30 % |
+| gpt-5.6-terra|B2 | 80 % |
+| gpt-5.6-terra|M | 46 % |
 
 | lane | queued proofs | seats | mean proof minutes (6 h) | estimated wait of a new proof (min) | unverified-at-build (lane, last hour) | idle seat-minutes (last hour) |
 |---|---|---|---|---|---|---|
-| spi | 20 | 15 | 57 | 76 | 60 % | 0.1 of 900 |
-| uart | 238 | 5 | 26 | 1217 | 100 % | 0.0 of 300 |
-| cpu | 41 | 4 | 35 | 355 | - | 0.0 of 240 |
-| router | 30 | 4 | 10 | 78 | - | 0.1 of 240 |
-| simple_spi | 224 | 14 | 39 | 628 | 89 % | 0.1 of 840 |
-| small | 140 | 1 | 5 | 700 | - | - |
-| window | 97 | 8 | 7 | 87 | 4 % | 0.3 of 480 |
+| spi | 74 | 15 | 48 | 240 | 100 % | 0.0 of 900 |
+| uart | 171 | 4 | 22 | 963 | - | 0.0 of 240 |
+| cpu | 29 | 4 | 42 | 308 | 45 % | 0.0 of 240 |
+| router | 40 | 4 | 8 | 84 | 3 % | 0.1 of 240 |
+| simple_spi | 129 | 15 | 60 | 518 | - | 0.1 of 900 |
+| small | 267 | 1 | 5 | 1335 | - | - |
+| window | 110 | 8 | 6 | 80 | 63 % | 0.3 of 480 |
 
 | design | unverified-at-build (last hour) |
 |---|---|
-| cktevo_vga_enh__vga_wb_slave | 7 % |
-| drrtl_SPI | 60 % |
-| drrtl_UART | 100 % |
-| drrtl_communication | 4 % |
-| drrtl_simple_spi | 89 % |
-| rtlopt_calculation | 2 % |
+| cktevo_risc__cpu | 45 % |
+| cktevo_usb__usbf_sie_rx | 37 % |
+| cktevo_vga_enh__vga_wb_slave | 46 % |
+| drrtl_SPI | 100 % |
+| drrtl_router | 3 % |
+| rtlopt_calculation | 80 % |
 
 ## 8. Success criteria (PROPOSAL §7.2), visible-layer view
 

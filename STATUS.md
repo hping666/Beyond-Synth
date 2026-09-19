@@ -4,6 +4,8 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
+**2026-09-19 13:58 — re-balance 13:55 applied:** SPI 14 / UART 5 / cpu 3 / router 2 / simple_spi 19 / window 7 (implied finish 19.7–22.4 h, spread 2.6 h); daemon restarted 13:56; idle seat-minutes 0 everywhere 09:10–13:10. Pool 136 / h, medium B0 E4 ETA today 15:28. Tally 0 wins, 3 ties, 1 partial. **ETA: Stage B final ≈ 09-20 12:30 (11:00–14:00; simple_spi's remaining seat-hours grew); Stage C final ≈ 09-20 19:00 (17:00–21:00).** Hourly checks from 15:10; next re-balance 19:54.
+
 **2026-09-19 08:15:** (m) 7 fired at 08:11 — simple_spi had 45 idle seat-minutes with 10 queued runs → its proof-wait threshold is 67 min (1.5 × mean proof), daemon restarted; other lanes 60 min.
 
 **2026-09-19 07:58 — re-balance 07:55 applied:** SPI 15 / UART 4 / cpu 4 / router 4 / simple_spi 15 / window 8 (implied finish 21.7–25.6 h, spread 4.0 h); daemon restarted 07:56; idle seat-minutes 0 in every lane except 1 minute in the window lane at 07:10 (no threshold raised). Pool: medium B0 E4 114 / h, ETA today 16:29. eth_cop B0 pending (partial); tally 0 wins, 3 ties, 1 partial. **ETA: Stage B final ≈ 09-20 09:30–10:00; Stage C final ≈ 09-20 16:00 (14:00–19:00).** Hourly checks from 09:10; next re-balance 13:54.

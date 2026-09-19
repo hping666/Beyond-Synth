@@ -2,7 +2,7 @@
 
 **Interim** (605 evaluations pending on the reported tiers: large 605; rows marked † are incomplete and `pending` stands where a value would otherwise read 0 — DECISION 2026-09-18 D1 / D3).
 
-Generated 2026-09-19T05:30 by scripts/report_phase.py phase5 --stage A (git f873b8c585de, cfg a3a994ddca04). Data: reports/data/phase5_visible_A.json (src/analysis/phase5.collect). Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = phase5, floor_version = phase4); an interim report changes nothing.
+Generated 2026-09-19T11:48 by scripts/report_phase.py phase5 --stage A (git e010891cff1e, cfg 5b801024a26e). Data: reports/data/phase5_visible_A.json (src/analysis/phase5.collect). Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = phase5, floor_version = phase4); an interim report changes nothing.
 
 ## 0. Progress
 
@@ -48,7 +48,7 @@ Complete designs on the reported tiers: 0; B0 pending: 1 — cktevo_risc__btb.
 
 **Tally (DECISION 2026-09-19 (m) 4, (n) 2): M wins — exceeds both B1_E4 and B2 by more than the design's floor — on 0 of 1 complete designs (visible layer; ties 1, partial 0, M loses 0; 1 of them B0 pending).**
 Ties — no arm separates from the others on this design: cktevo_risc__btb.
-Reachability of the pre-registered criterion (18 of 30 designs under the hidden configurations — sealed; the visible layer is the proxy): wins so far 0, already lost by M 0, undecided 0, designs not yet complete 27; M still needs 18 of the 27 remaining or undecided designs — reachable in the visible layer.
+Reachability of the pre-registered criterion (18 of 30 designs under the hidden configurations — sealed; the visible layer is the proxy): wins so far 0, already lost by M 0, undecided 0, designs not yet complete 26; M still needs 18 of the 26 remaining or undecided designs — reachable in the visible layer.
 
 - Mechanism note (C2): On aes M's archive was empty in 22/29 (terra) and 27/29 (luna) generations versus 8–9/33 for B1_E4 and B2, because M admits retained candidates only.
 
@@ -85,14 +85,14 @@ Incomplete designs (runs still open; per-row completion counts only, no arm comp
 
 Verdict mix and labels:
 
-| model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna | M | 244 | 68 | 87 | 130 | 0 | 171 | 74 | 189 | absorbed_identical: 19, harmful: 19, noise: 16, retained: 44, tradeoff: 22 | absorbed_identical: 19, harmful: 19, noise: 16, nonequiv: 510, retained: 44, tradeoff: 22 | 235 (no block-level answers) | 183 (26) | 5332 / 28732 |
-| gpt-5.6-terra | B0 | 178 | 29 | 18 | 344 | 2 | 248 | 40 | 0 | absorbed: 1, harmful: 13, noise: 7, retained: 10, tradeoff: 10 | improved: 247, no_gain: 42, nonequiv: 571 | 316 (no block-level answers) | 86 (18) | 8243 / 39100 |
-| gpt-5.6-terra | B1_E4 | 198 | 34 | 14 | 282 | 1 | 6 | 44 | 0 | absorbed: 1, absorbed_identical: 41, harmful: 75, noise: 38, retained: 120, tradeoff: 46 | improved: 256, no_gain: 62, nonequiv: 529 | 323 (no block-level answers) | 93 (30) | 10771 / 33905 |
-| gpt-5.6-terra | B2 | 218 | 25 | 13 | 311 | 0 | 8 | 15 | 0 | absorbed_identical: 50, harmful: 81, noise: 45, retained: 96, tradeoff: 38 | improved: 208, no_gain: 98, nonequiv: 567 | 327 (no block-level answers) | 129 (44) | 8682 / 30652 |
-| gpt-5.6-terra | DrRTL_reimpl | 92 | 7 | 9 | 130 | 1 | 13 | 177 | 0 | absorbed: 37, absorbed_identical: 40, harmful: 106, noise: 90, retained: 44, tradeoff: 11 | improved: 224, no_gain: 98, nonequiv: 239 | 255 (no block-level answers) | 39 (8) | 10491 / 31130 |
-| gpt-5.6-terra | M | 220 | 35 | 18 | 265 | 0 | 159 | 61 | 165 | absorbed_identical: 8, harmful: 13, noise: 11, retained: 78, tradeoff: 31 | absorbed_identical: 8, harmful: 13, noise: 11, nonequiv: 529, retained: 78, tradeoff: 31 | 135 (no block-level answers) | 124 (28) | 5964 / 39366 |
+| model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | formal-accepted, synthesis-rejected (DC error id; DECISION 2026-09-19 (o) 2) | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| gpt-5.6-luna | M | 244 | 68 | 87 | 130 | 0 | 171 | 74 | 189 | 0 | absorbed_identical: 19, harmful: 19, noise: 16, retained: 44, tradeoff: 22 | absorbed_identical: 19, harmful: 19, noise: 16, nonequiv: 510, retained: 44, tradeoff: 22 | 235 (no block-level answers) | 183 (26) | 5332 / 28732 |
+| gpt-5.6-terra | B0 | 178 | 29 | 18 | 344 | 2 | 248 | 40 | 0 | 0 | absorbed: 1, harmful: 13, noise: 7, retained: 10, tradeoff: 10 | improved: 247, no_gain: 42, nonequiv: 571 | 316 (no block-level answers) | 86 (18) | 8243 / 39100 |
+| gpt-5.6-terra | B1_E4 | 198 | 34 | 14 | 282 | 1 | 6 | 44 | 0 | 0 | absorbed: 1, absorbed_identical: 41, harmful: 75, noise: 38, retained: 120, tradeoff: 46 | improved: 256, no_gain: 62, nonequiv: 529 | 323 (no block-level answers) | 93 (30) | 10771 / 33905 |
+| gpt-5.6-terra | B2 | 218 | 25 | 13 | 311 | 0 | 8 | 15 | 0 | 0 | absorbed_identical: 50, harmful: 81, noise: 45, retained: 96, tradeoff: 38 | improved: 208, no_gain: 98, nonequiv: 567 | 327 (no block-level answers) | 129 (44) | 8682 / 30652 |
+| gpt-5.6-terra | DrRTL_reimpl | 92 | 7 | 9 | 130 | 1 | 13 | 177 | 0 | 0 | absorbed: 37, absorbed_identical: 40, harmful: 106, noise: 90, retained: 44, tradeoff: 11 | improved: 224, no_gain: 98, nonequiv: 239 | 255 (no block-level answers) | 39 (8) | 10491 / 31130 |
+| gpt-5.6-terra | M | 220 | 35 | 18 | 265 | 0 | 159 | 61 | 165 | 0 | absorbed_identical: 8, harmful: 13, noise: 11, retained: 78, tradeoff: 31 | absorbed_identical: 8, harmful: 13, noise: 11, nonequiv: 529, retained: 78, tradeoff: 31 | 135 (no block-level answers) | 124 (28) | 5964 / 39366 |
 
 Note (DECISION 2026-09-19 (k) 3 / (l) 4): on drrtl_tv80 the archive stayed empty during generation for all arms (proof-latency-bound search, §0a): parents were D and the search reduced to E4-guided one-shot rewriting; on drrtl_aes at 90 of 189 generation builds (B0-terra 8/35, B1_E4-terra 9/33, B2-terra 8/31, DrRTL_reimpl-terra 16/32, M-luna 27/29, M-terra 22/29) the archive was empty at that share of generation builds only — parents were D at those builds, proven candidates were in the archive at the others (wording qualified to the data).
 
@@ -746,9 +746,9 @@ Runs on the reported tiers: 108 (90 done, 0 running, 18 not started). No run in 
 
 Hidden DC registrations capped at 8 from 2026-09-16T14:30; split equivalence pipeline, provisional diagnosis and proof ordering from 2026-09-16T15:14; positive provisional verdicts withheld from the model from 2026-09-16T16:03.
 
-- Provisional-versus-final diagnosis agreement: 767 of 879 proven candidates with a final diagnosis agree (87.3 %); 9536 candidates received a provisional label (absorbed 4, absorbed_identical 229, duplicate 293, harmful 181, improved 6113, no_gain 1782, noise 101, retained 326, tradeoff 507), 2574 of them were not proven, 6083 still wait for the proof or the diagnosis, 6886 labels withheld from the model. Disagreements: tradeoff→duplicate; tradeoff→duplicate; retained→duplicate; harmful→duplicate; retained→duplicate; retained→duplicate; retained→duplicate; tradeoff→duplicate.
+- Provisional-versus-final diagnosis agreement: 967 of 1085 proven candidates with a final diagnosis agree (89.1 %); 10556 candidates received a provisional label (absorbed 21, absorbed_identical 290, duplicate 350, harmful 192, improved 6673, no_gain 1992, noise 102, retained 374, tradeoff 562), 2810 of them were not proven, 6661 still wait for the proof or the diagnosis, 7549 labels withheld from the model. Disagreements: tradeoff→duplicate; tradeoff→duplicate; retained→duplicate; harmful→duplicate; retained→duplicate; retained→duplicate; retained→duplicate; tradeoff→duplicate.
 - Positive provisional feedback exposure (window 2026-09-16T15:14 to 2026-09-16T16:03): 15 LLM calls carried 25 positive pending blocks (2 runs); 8 candidates behind them — proofs since: inconclusive 8.
-- Cross-run verdict reuse since 2026-09-16T15:14: 0 proofs copied from a decided record of the same pair ({}), over 13142 split-pipeline proofs of 32742 equivalence records; sim records missing: 0.
+- Cross-run verdict reuse since 2026-09-16T15:14: 0 proofs copied from a decided record of the same pair ({}), over 14139 split-pipeline proofs of 34991 equivalence records; sim records missing: 0.
 
 Equivalence jobs finished per hour on the VC Formal pool since the throttle (2026-09-16T14:30), by the candidate's verdict:
 
@@ -817,18 +817,24 @@ Equivalence jobs finished per hour on the VC Formal pool since the throttle (202
 | 2026-09-19T02 | 99 | 60 | 37 | 1.62 | 2 | 0 | 0 |
 | 2026-09-19T03 | 122 | 84 | 32 | 2.62 | 6 | 0 | 0 |
 | 2026-09-19T04 | 140 | 97 | 35 | 2.77 | 8 | 0 | 0 |
-| 2026-09-19T05 | 90 | 66 | 20 | 3.3 | 3 | 0 | 0 |
+| 2026-09-19T05 | 139 | 102 | 28 | 3.64 | 9 | 0 | 0 |
+| 2026-09-19T06 | 161 | 110 | 35 | 3.14 | 16 | 0 | 0 |
+| 2026-09-19T07 | 162 | 131 | 22 | 5.95 | 9 | 0 | 0 |
+| 2026-09-19T08 | 149 | 110 | 34 | 3.24 | 5 | 0 | 0 |
+| 2026-09-19T09 | 182 | 134 | 33 | 4.06 | 15 | 0 | 0 |
+| 2026-09-19T10 | 135 | 89 | 33 | 2.7 | 13 | 0 | 0 |
+| 2026-09-19T11 | 159 | 117 | 29 | 4.03 | 12 | 0 | 0 |
 
 ## 7b. Verification conditions per arm-model row (DECISION 2026-09-18 item 5c: median host load and VC Formal wait during the row's runs)
 
 | tier | model | arm | proofs | VC Formal queue wait: median / q95 (min) | median 1-min load over the row's run-minutes | run-minutes with a load sample (coverage) |
 |---|---|---|---|---|---|---|
-| large | gpt-5.6-luna | M | 573 | 158.2 / 661.6 | 104.2 | 3375 (21 %) |
-| large | gpt-5.6-terra | B0 | 825 | 106.3 / 507.1 | 104.2 | 3375 (23 %) |
-| large | gpt-5.6-terra | B1_E4 | 802 | 139.9 / 510.4 | 104.2 | 3375 (23 %) |
-| large | gpt-5.6-terra | B2 | 814 | 120.2 / 483.9 | 104.2 | 3375 (24 %) |
-| large | gpt-5.6-terra | DrRTL_reimpl | 578 | 149.9 / 481.0 | 104.2 | 3375 (27 %) |
-| large | gpt-5.6-terra | M | 619 | 139.9 / 635.0 | 104.2 | 3375 (22 %) |
+| large | gpt-5.6-luna | M | 573 | 158.2 / 661.6 | 101.3 | 4506 (26 %) |
+| large | gpt-5.6-terra | B0 | 825 | 106.3 / 507.1 | 101.3 | 4506 (29 %) |
+| large | gpt-5.6-terra | B1_E4 | 802 | 139.9 / 510.4 | 101.3 | 4506 (29 %) |
+| large | gpt-5.6-terra | B2 | 814 | 120.2 / 483.9 | 101.3 | 4506 (30 %) |
+| large | gpt-5.6-terra | DrRTL_reimpl | 578 | 149.9 / 481.0 | 101.3 | 4506 (33 %) |
+| large | gpt-5.6-terra | M | 619 | 139.9 / 635.0 | 101.3 | 4506 (27 %) |
 
 The load log (scripts/load_logger.py, one sample per minute) starts 2026-09-18 05:49; rows whose runs predate it show a partial coverage — the VC Formal wait comes from the queue's own timestamps and covers every proof.
 
@@ -839,32 +845,34 @@ Proofs started from 2026-09-18T05:49:54 (the load log's first sample) with a loa
 | design | class | proofs at load > threshold | inconclusive share | proofs at load ≤ threshold | inconclusive share |
 |---|---|---|---|---|---|
 
-Search slots at render time (DECISION 2026-09-19 (j) item 1c): generating 16 (max 24), waiting for verdicts 37, queued 243; waiting runs counted against the cap: no.
+Search slots at render time (DECISION 2026-09-19 (j) item 1c): generating 15 (max 24), waiting for verdicts 31, queued 222; waiting runs counted against the cap: no.
 
 | arm-model row | unverified-at-build fraction (generations built in the last hour, medium tier) |
 |---|---|
-| gpt-5.6-luna|B0 | 12 % |
-| gpt-5.6-luna|B1_E4 | 72 % |
-| gpt-5.6-luna|B2 | 100 % |
-| gpt-5.6-luna|DrRTL_reimpl | 0 % |
-| gpt-5.6-terra|B2 | 54 % |
-| gpt-5.6-terra|M | 0 % |
+| gpt-5.6-luna|B0 | 36 % |
+| gpt-5.6-luna|B1_E4 | 80 % |
+| gpt-5.6-luna|B2 | 44 % |
+| gpt-5.6-luna|DrRTL_reimpl | 9 % |
+| gpt-5.6-luna|M | 62 % |
+| gpt-5.6-terra|B2 | 90 % |
+| gpt-5.6-terra|M | 36 % |
 
 | lane | queued proofs | seats | mean proof minutes (6 h) | estimated wait of a new proof (min) | unverified-at-build (lane, last hour) | idle seat-minutes (last hour) |
 |---|---|---|---|---|---|---|
-| spi | 13 | 15 | 55 | 48 | - | 0.0 of 900 |
-| uart | 235 | 5 | 25 | 1186 | 100 % | 0.0 of 300 |
-| cpu | 43 | 4 | 34 | 367 | - | 0.0 of 240 |
-| router | 41 | 4 | 11 | 108 | - | 0.1 of 240 |
-| simple_spi | 224 | 14 | 40 | 644 | 79 % | 0.0 of 840 |
-| small | 140 | 1 | 5 | 700 | - | - |
-| window | 94 | 8 | 7 | 81 | 4 % | 0.3 of 480 |
+| spi | 74 | 15 | 47 | 232 | 93 % | 0.1 of 900 |
+| uart | 181 | 4 | 25 | 1125 | - | 0.1 of 240 |
+| cpu | 14 | 4 | 40 | 141 | - | 0.0 of 240 |
+| router | 37 | 4 | 8 | 78 | 11 % | 0.1 of 240 |
+| simple_spi | 143 | 15 | 60 | 575 | - | 0.0 of 900 |
+| small | 267 | 1 | 5 | 1335 | - | - |
+| window | 122 | 8 | 7 | 100 | 57 % | 0.3 of 480 |
 
 | design | unverified-at-build (last hour) |
 |---|---|
-| cktevo_vga_enh__vga_wb_slave | 0 % |
-| drrtl_UART | 100 % |
-| drrtl_communication | 8 % |
-| drrtl_simple_spi | 79 % |
-| rtlopt_calculation | 3 % |
+| cktevo_usb__usbf_sie_rx | 18 % |
+| cktevo_vga_enh__vga_wb_slave | 55 % |
+| drrtl_SPI | 93 % |
+| drrtl_router | 11 % |
+| rtlopt_alu_64bit | 10 % |
+| rtlopt_calculation | 90 % |
 
