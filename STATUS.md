@@ -4,6 +4,8 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
+**2026-09-19 01:58:** re-balance with simple_spi as a lane (SPI 18 / UART 4 / cpu 3 / router 3 / simple_spi 14 / window 8); medium 214 done / 48 running / 114 queued, proof queue 796; **ETA medium ≈ 09-20 08:40, Stage B final ≈ 09-20 10:40, small ≈ 09-20 13:40**; 39 of 48 running runs wait for verdicts with all calls made — proposal pending: exclude verdict-waiting runs from the search cap. Disk 98 GB free.
+
 **Disk incident 20:02:** root fell to 9.9 GB (thresholds E4 logs uncompressed for 13 h: 28 GB; the offline pool's unslimmed simulation records: 9.6 GB); 48 medium runs paused by the guard for about an hour, resumed at 20:00 after compression and slimming (26 GB free, ≈ 45 GB after the running second compression pass). The pool now slims its records and compresses logs hourly on its own. Re-balance 19:54: SPI 18 / UART 5 / cpu 3 / router 2 / window 22. Router: 107 v2 proofs, all proven.
 
 **C3 deployed 13:23: harness_version 2 live** (every new proof; 30/30 designs pass D-against-D under it), 50 VC Formal seats, router in the long-pole lane (21 runs: 16 released + 5 repeats), lanes SPI 16 / UART 4 / cpu 2 / router 15 / medium window 13, the small tier on leftover seats. F4 revision 13:55 (router's first 28 v2 proofs all proven in ≈ 10 min — not SPI-like; shares SPI 21 / UART 6 / cpu 3 / router 2 / medium window 18): **medium tier ≈ 09-20 03:00, Stage B final ≈ 09-20 05:00, small tier ≈ 09-20 08:00 at the latest**; next re-balance ≈ 19:54. Cumulative LLM ≈ 276 USD of 600; VC Formal ≈ 5 900 seat-hours projected against the 5 000 reference (not a stop condition).
