@@ -4,6 +4,8 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
+**2026-09-19 02:09 — DECISION (j) live:** only generating runs hold search slots (max 24), admission guarded by the unverified-at-build fraction (35 %) and the lane proof-wait (60 min) — paused from the start (fraction 0.59); hourly `phase5_alerts.py --slots` reports and applies the three-hour revert. Re-balance on v2 proofs: SPI 15 / UART 5 / cpu 4 / router 4 / simple_spi 14 / window 8. **ETA: medium ≈ 09-20 09:40, Stage B final ≈ 09-20 11:40, small ≈ 09-20 14:40.**
+
 **2026-09-19 01:58:** re-balance with simple_spi as a lane (SPI 18 / UART 4 / cpu 3 / router 3 / simple_spi 14 / window 8); medium 214 done / 48 running / 114 queued, proof queue 796; **ETA medium ≈ 09-20 08:40, Stage B final ≈ 09-20 10:40, small ≈ 09-20 13:40**; 39 of 48 running runs wait for verdicts with all calls made — proposal pending: exclude verdict-waiting runs from the search cap. Disk 98 GB free.
 
 **Disk incident 20:02:** root fell to 9.9 GB (thresholds E4 logs uncompressed for 13 h: 28 GB; the offline pool's unslimmed simulation records: 9.6 GB); 48 medium runs paused by the guard for about an hour, resumed at 20:00 after compression and slimming (26 GB free, ≈ 45 GB after the running second compression pass). The pool now slims its records and compresses logs hourly on its own. Re-balance 19:54: SPI 18 / UART 5 / cpu 3 / router 2 / window 22. Router: 107 v2 proofs, all proven.
