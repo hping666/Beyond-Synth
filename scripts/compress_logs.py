@@ -51,6 +51,8 @@ def candidates(conn, min_bytes, design=None, configs=("E4",)):
 
 
 def compress_one(meta_path, log):
+    if not log.exists():   # another instance (the offline pool's hourly run) compressed it meanwhile
+        return None
     orig = log.stat().st_size
     digest = sha256(log)
     gz = Path(str(log) + ".gz")
@@ -70,6 +72,20 @@ def compress_one(meta_path, log):
     return orig, gz.stat().st_size
 
 
+def _lock():
+    """One instance at a time (the offline pool runs this hourly; a manual run must not race it): a non-blocking flock on
+    results/queue/compress_logs.lock, or None when another instance holds it."""
+    import fcntl
+    path = Path(__file__).resolve().parent.parent / "results" / "queue" / "compress_logs.lock"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fh = open(path, "w")
+    try:
+        fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        return None
+    return fh
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--apply", action="store_true")
@@ -81,17 +97,29 @@ def main(argv=None):
     cfg = C.load()
     min_mb = a.min_mb if a.min_mb is not None else float((cfg.get("retention") or {}).get("gzip_logs_over_mb", 5))
     conn = db.connect(cfg=cfg)
+    lock = _lock() if a.apply else True
+    if lock is None:
+        print(json.dumps({"logs": 0, "skipped": "another compress_logs instance holds the lock", "applied": False}))
+        return 0
     n = 0; total = 0; saved = 0
     for raw_dir, meta_path, log in candidates(conn, int(min_mb * 1e6), a.design):
         if a.limit and n >= a.limit:
             break
-        n += 1; total += log.stat().st_size
+        try:
+            size = log.stat().st_size
+        except OSError:   # compressed by another instance meanwhile
+            continue
+        n += 1; total += size
         if a.apply:
-            orig, gzb = compress_one(meta_path, log)
+            res = compress_one(meta_path, log)
+            if res is None:
+                n -= 1; total -= size
+                continue
+            orig, gzb = res
             saved += orig - gzb
             print(f"compressed {log} {orig/1e6:.1f} MB -> {gzb/1e6:.1f} MB")
         else:
-            print(f"would compress {log} ({log.stat().st_size/1e6:.1f} MB)")
+            print(f"would compress {log} ({size/1e6:.1f} MB)")
     print(json.dumps({"logs": n, "bytes": total, "saved_bytes": saved if a.apply else None, "min_mb": min_mb, "applied": bool(a.apply)}))
     return 0
 
