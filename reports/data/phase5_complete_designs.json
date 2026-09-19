@@ -3,10 +3,11 @@
   "drrtl_arm_cpu2"
  ],
  "preliminary": [
+  "cktevo_ethmac__eth_cop",
   "cktevo_risc__btb",
   "rtlopt_decoder_8bit"
  ],
- "at": "2026-09-19T05:14",
+ "at": "2026-09-19T07:11",
  "history": [
   {
    "at": "2026-09-19T04:10",
@@ -22,6 +23,13 @@
     "drrtl_arm_cpu2"
    ],
    "new_preliminary": []
+  },
+  {
+   "at": "2026-09-19T07:11",
+   "new": [],
+   "new_preliminary": [
+    "cktevo_ethmac__eth_cop"
+   ]
   }
  ]
 }
