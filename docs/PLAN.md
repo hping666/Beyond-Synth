@@ -182,6 +182,8 @@ Tasks:
 6.3 Physical layer: place and route the final designs with ORFS (`docs/spec/06-hidden-layer.md` §4), report the shrinkage from E4 to post-layout signoff; report the retention fraction under the open-source reproduction layer O.
 6.4 Paper tables and figures: `scripts/paper_tables.py` generates all tables (LaTeX) and figures (PDF) from snapshots, each annotated with the source snapshot and git sha.
 6.5 Release package: scripts, SDCs, library configuration notes, candidate RTL, results database (including the hidden table), map data, predictor, diagnoser, open-source ladder and reproduction-layer scripts; Synopsys files excluded.
+6.6 Ablation recorded 2026-09-19 (DECISION 2026-09-19 (k) item 4), proof-latency-bound designs (median proof latency above the 1 800 s generation window in Phase 5: SPI, simple_spi, cpu at least): a verdict-synchronous cadence — generate the next round only when at least 60 % of the previous generation has a verdict, capped at 4 h per round — against the Phase 5 cadence, to measure informed versus blind search on those designs (in Phase 5 the archive stayed empty during generation for every arm on them; parents were D; the search reduced to E4-guided one-shot rewriting).
+6.7 Proof-order ablation recorded 2026-09-19 (DECISION 2026-09-19 (k) item 4): a map_by_name-first proof for classes a and b — targeted at the class-b inconclusive concentration under harness_version 2 (SPI 99 %, simple_spi 84 %) — against the Phase 5 proof order; measures the inconclusive share and the seat-hours per proof.
 
 Acceptance:
 - Ablation table complete, each row with mean and standard deviation over 3 seeds.

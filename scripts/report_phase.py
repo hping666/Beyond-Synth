@@ -796,12 +796,32 @@ def _cell(txt, incomplete):
     return "pending" if txt in ZERO_CELLS else f"{txt} †"
 
 
-def phase5_notes_section(cfg, tiers, tier_of):
+def proof_latency_bound(conn, cfg, exp="phase5", window_s=1800):
+    """(k) item 3: designs whose median proof latency (start to finish of the finished Phase 5 proofs) exceeds the generation window."""
+    import datetime as _dt
+    out = {}
+    for d, in [(r[0],) for r in conn.execute("SELECT DISTINCT design_id FROM jobs WHERE kind='vcf'")]:
+        xs = []
+        for r in conn.execute("SELECT j.started_at, j.finished_at FROM jobs j JOIN candidates c ON c.cand_id=j.cand_id JOIN runs ru ON ru.run_id=c.run_id WHERE j.kind='vcf' AND j.state='done' AND ru.exp=? AND j.design_id=? AND j.started_at IS NOT NULL AND j.finished_at IS NOT NULL", (exp, d)):
+            try:
+                xs.append((_dt.datetime.fromisoformat(r[1]) - _dt.datetime.fromisoformat(r[0])).total_seconds())
+            except ValueError:
+                pass
+        if len(xs) >= 20:
+            med = statistics.median(xs)
+            if med > window_s:
+                out[d] = round(med, 1)
+    return out
+
+
+def phase5_notes_section(cfg, tiers, tier_of, latency_bound=None):
     """§0a of every Phase 5 report: the design notes and disclosures of DECISION 2026-09-18 (b) items 5c–5e and D1 (wording from
     config exp5.design_notes / exp5.disclosures, printed verbatim)."""
-    notes = (cfg.get("exp5") or {}).get("design_notes") or {}
+    notes = dict((cfg.get("exp5") or {}).get("design_notes") or {})
     disc = (cfg.get("exp5") or {}).get("disclosures") or []
-    L = ["## 0a. Design notes and disclosures (DECISION 2026-09-18 (b) items 5c–5e, D1)", ""]
+    for d, med in sorted((latency_bound or {}).items()):   # DECISION 2026-09-19 (k) item 3
+        notes[d] = (notes.get(d, "") + "; " if notes.get(d) else "") + f"proof-latency-bound search (median proof latency {med / 60:.0f} min above the 1 800 s generation window): on this design the archive stayed empty during generation for all arms; parents were D; the search reduces to E4-guided one-shot rewriting"
+    L = ["## 0a. Design notes and disclosures (DECISION 2026-09-18 (b) items 5c–5e, D1; DECISION 2026-09-19 (k) item 3)", ""]
     shown = [(d, n) for d, n in sorted(notes.items()) if tier_of.get(d) in tiers]
     if shown:
         L += ["| design | tier | note |", "|---|---|---|"] + [f"| {d} | {tier_of.get(d)} | {n} |" for d, n in shown] + [""]
@@ -880,7 +900,7 @@ def phase5_markdown(cfg, data, stage="all", final=False):
         L += ["", f"Incomplete rows: {len(unfinished)} of {len(keys)} — runs still open or evaluations pending (proofs, offline simulations, E4 records); their result cells read `pending` or carry †."]
     L.append("")
     tier_of = P5.tier_of_design(cfg)
-    L += phase5_notes_section(cfg, tiers, tier_of)
+    L += phase5_notes_section(cfg, tiers, tier_of, latency_bound=data.get("proof_latency_bound"))
     L += phase5_completion_section(cfg, data.get("completion") or {}, tiers, tier_of)
     limits = {d: n.split(" — ")[0].split(" (")[0] for d, n in ((cfg.get("exp5") or {}).get("design_notes") or {}).items() if str(n).startswith(("harness limit", "verification limit"))}
     # arm comparison per tier
@@ -1047,8 +1067,11 @@ def phase5_markdown(cfg, data, stage="all", final=False):
         L += [f"Search slots at render time (DECISION 2026-09-19 (j) item 1c): generating {s['generating']} (max {sl.get('generating_max')}), waiting for verdicts {s['waiting']}, queued {s['queued']}; waiting runs counted against the cap: {'yes' if sl.get('count_waiting_runs') else 'no'}.", "",
               "| arm-model row | unverified-at-build fraction (generations built in the last hour, medium tier) |", "|---|---|"]
         L += [f"| {k} | {_pct(v, 0)} |" for k, v in sorted((sl.get("unverified_by_row") or {}).items())] or ["| (no generation built in the last hour) | - |"]
-        L += ["", "| lane | queued proofs | seats | mean proof minutes (6 h) | estimated wait of a new proof (min) |", "|---|---|---|---|---|"]
-        L += [f"| {n} | {v['queued']} | {v['seats']} | {v['mean_min']:.0f} | {v['wait_min']:.0f} |" for n, v in (sl.get("waits") or {}).items()]
+        L += ["", "| lane | queued proofs | seats | mean proof minutes (6 h) | estimated wait of a new proof (min) | unverified-at-build (lane, last hour) | idle seat-minutes (last hour) |", "|---|---|---|---|---|---|---|"]
+        idle = sl.get("idle") or {}; lf = sl.get("unverified_by_lane") or {}
+        L += [f"| {n} | {v['queued']} | {v['seats']} | {v['mean_min']:.0f} | {v['wait_min']:.0f} | {_pct(lf[n], 0) if n in lf else '-'} | {(str(idle[n]['idle_min']) + ' of ' + str((idle[n]['seats'] or 0) * 60)) if n in idle and idle[n].get('idle_min') is not None else '-'} |" for n, v in (sl.get("waits") or {}).items()]
+        L += ["", "| design | unverified-at-build (last hour) |", "|---|---|"]
+        L += [f"| {d} | {_pct(v, 0)} |" for d, v in sorted((sl.get("unverified_by_design") or {}).items())] or ["| (none) | - |"]
         L.append("")
     if stage in ("C", "all"):
         L += ["## 8. Success criteria (PROPOSAL §7.2), visible-layer view", "",
@@ -1114,11 +1137,14 @@ def phase5(cfg, stage="all", out_dir=None, conn=None, final=False):
     data["final"] = bool(final)
     new, line, view = P5.completion_alert(cfg, conn, state_path=(Path(out_dir) / "data" / "phase5_complete_designs.json") if out_dir else None, write=True)   # (d) F2 / F3
     data["completion"], data["alert_line"] = view, line
-    try:   # DECISION 2026-09-19 (j) item 1c: the slot figures of the moment join §7c
-        from src.jobqueue.core import proof_wait_estimate, search_slot_state, unverified_at_build
+    data["proof_latency_bound"] = proof_latency_bound(conn, cfg)   # DECISION 2026-09-19 (k) item 3
+    try:   # DECISION 2026-09-19 (j) item 1c and (k) item 3: the slot figures of the moment join §7c
+        from src.jobqueue.core import idle_seat_minutes, proof_wait_estimate, search_slot_state, unverified_at_build
         g = cfg["queue"].get("admission_guard") or {}
-        data["slots"] = {"state": search_slot_state(conn, cfg), "unverified_by_row": unverified_at_build(conn, cfg, minutes=int(g.get("window_min", 60)), tier=g.get("tier", "medium"), by_row=True),
-                         "waits": proof_wait_estimate(conn, cfg), "count_waiting_runs": bool(cfg["queue"].get("count_waiting_runs")), "generating_max": cfg["queue"].get("generating_max")}
+        data["slots"] = {"state": search_slot_state(conn, cfg), "unverified_by_row": unverified_at_build(conn, cfg, minutes=int(g.get("window_min", 60)), tier=g.get("tier", "medium"), by="row"),
+                         "unverified_by_design": unverified_at_build(conn, cfg, minutes=int(g.get("window_min", 60)), tier=g.get("tier", "medium"), by="design"),
+                         "unverified_by_lane": unverified_at_build(conn, cfg, minutes=int(g.get("window_min", 60)), tier=g.get("tier", "medium"), by="lane"),
+                         "waits": proof_wait_estimate(conn, cfg), "idle": idle_seat_minutes(conn, cfg, hours=1.0), "count_waiting_runs": bool(cfg["queue"].get("count_waiting_runs")), "generating_max": cfg["queue"].get("generating_max")}
     except Exception as e:
         data["slots"] = {"error": f"{type(e).__name__}: {e}"[:120]}
     out = Path(out_dir or (Path(C.ROOT) / "reports"))

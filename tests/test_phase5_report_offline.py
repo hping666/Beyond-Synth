@@ -282,3 +282,44 @@ def test_verification_conditions_by_load(tmp_path, monkeypatch):
     vc = P5.verification_conditions(cfg, conn, tiers=["medium"])
     assert vc["n"] == 4 and vc["from"] == "2026-09-18T10:00:00"
     assert vc["rows"]["m1"]["b"] == {"above": [1, 1], "below": [1, 0]} and vc["rows"]["m1"]["a"] == {"above": [0, 1], "below": [0, 0]}
+
+
+def test_relative_revert_and_latency_bound_marking(tmp_path, monkeypatch):
+    """DECISION 2026-09-19 (k) items 2 and 3: the revert fires only for a row more than 20 points worse than its own baseline for three
+    consecutive checks (a row at 100 % with a 100 % baseline never triggers); a design whose median proof latency exceeds the
+    generation window carries the proof-latency-bound wording in §0a, others do not. Both directions."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("phase5_alerts", str(Path(C.ROOT) / "scripts" / "phase5_alerts.py"))
+    AL = importlib.util.module_from_spec(spec); spec.loader.exec_module(AL)
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["m1", "m2"], "small": []}
+    cfg["queue"]["lanes"] = {"vcf": {}}; cfg["queue"]["count_waiting_runs"] = False
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    (tmp_path / "results" / "queue").mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(AL, "SLOT_STATE", str(tmp_path / "slot_state.json"))
+    monkeypatch.setattr(AL, "ROOT", str(tmp_path))
+    (tmp_path / "config").mkdir(); (tmp_path / "config" / "experiments.yaml").write_text("queue:\n  count_waiting_runs: false\n")
+    # two rows: A was at 100 % in the baseline window and stays there; B was at 20 % and is now at 60 %
+    def gen(rid, design, model, arm, gen_no, pending_frac, built):
+        db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": arm, "design_id": design, "seed": 1, "llm_model": model, "status": "running"}) if not conn.execute("SELECT 1 FROM runs WHERE run_id=?", (rid,)).fetchone() else None
+        ids = [f"{rid}_g{gen_no - 1}_{k}" for k in range(5)]
+        for cid in ids:
+            db.insert(conn, "candidates", {"cand_id": cid, "run_id": rid, "design_id": design, "gen": gen_no - 1, "arm": arm, "llm_model": model})
+        db.insert(conn, "gen_summary", {"run_id": rid, "gen": gen_no, "pending_json": json.dumps(ids[:int(5 * pending_frac)]), "built_at": built})
+    gen("rA", "m1", "luna", "A", 2, 1.0, "2026-09-18T12:00:00")                    # baseline A = 100 %
+    gen("rB", "m2", "luna", "B", 2, 0.2, "2026-09-18T12:00:00")                    # baseline B = 20 %
+    import datetime
+    now = datetime.datetime.now().isoformat(timespec="seconds")
+    gen("rA", "m1", "luna", "A", 3, 1.0, now); gen("rB", "m2", "luna", "B", 3, 0.6, now)   # now: A 100 % (no worse), B 60 % (+40 points)
+    restarted = []
+    for k in range(3):
+        lines = AL.slot_report(cfg, conn, write=True, restart=lambda: restarted.append(1) or True)
+    assert any("REVERT" in l and "luna|B" in l and "luna|A" not in l for l in lines) and restarted == [1]
+    assert "count_waiting_runs: true" in (tmp_path / "config" / "experiments.yaml").read_text()
+    st = json.loads((tmp_path / "slot_state.json").read_text())
+    assert st["consecutive"]["luna|B"] == 3 and st["consecutive"]["luna|A"] == 0 and abs(st["baseline"]["luna|A"] - 1.0) < 1e-9 and abs(st["baseline"]["luna|B"] - 0.2) < 1e-9
+    # §0a wording for a proof-latency-bound design only
+    R = load_report()
+    sec = "\n".join(R.phase5_notes_section(cfg, ["medium"], {"m1": "medium", "m2": "medium"}, latency_bound={"m1": 3000.0}))
+    assert "| m1 | medium |" in sec and "proof-latency-bound search (median proof latency 50 min" in sec and "parents were D" in sec and "| m2 |" not in sec

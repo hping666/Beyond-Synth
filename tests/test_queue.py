@@ -792,11 +792,14 @@ def test_generating_only_slot_accounting_with_guardrails(tmp_path, monkeypatch):
     db.insert(conn, "candidates", {"cand_id": "c2", "run_id": "r_gen", "design_id": "W1", "gen": 1, "arm": "M", "llm_model": "m"})
     db.insert(conn, "gen_summary", {"run_id": "r_gen", "gen": 2, "pending_json": json.dumps(["c1", "c2"]), "built_at": db.now()})
     assert abs(Q.unverified_at_build(conn, cfg) - 1.0) < 1e-9 and Q.unverified_at_build(conn, cfg, by_row=True) == {"m|M": 1.0}
+    assert Q.unverified_at_build(conn, cfg, by="lane") == {"window": 1.0} and Q.unverified_at_build(conn, cfg, by="design") == {"W1": 1.0}
     q._dispatch()
-    assert spawned == [] and q._guard_paused                # paused
+    assert spawned == [] and q._lane_paused.get("window") is True   # the window lane is paused on its own fraction (DECISION (k) 1); SPI's lane on its wait
     conn.execute("UPDATE gen_summary SET pending_json='[]'"); conn.commit()
     q._dispatch()
-    assert spawned == [jobs["W1"]] and not q._guard_paused  # resumed once the fraction is back under the threshold
+    assert spawned == [jobs["W1"]] and q._lane_paused.get("window") is False   # the window lane resumed; SPI still held by its wait (per lane, no tier-wide pause)
+    idle = Q.idle_seat_minutes(conn, cfg, hours=1.0)
+    assert idle["spi"]["seats"] == 4 and idle["spi"]["occupied_min"] == 50.0 and idle["spi"]["idle_min"] == 190.0   # one 50-minute proof in the hour on 4 seats
     # the revert switch: every running run holds a slot again -> with search_max 2 nothing is free
     spawned.clear(); conn.execute("UPDATE jobs SET state='queued' WHERE job_id=?", (jobs["W1"],)); conn.commit()
     cfg["queue"]["count_waiting_runs"] = True; cfg["queue"]["search_max"] = 2
