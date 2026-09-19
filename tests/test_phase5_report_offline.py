@@ -227,7 +227,7 @@ def test_complete_designs_tally_reachability_and_alert_both_directions(tmp_path,
         db.insert(conn, "noise_floor", {"design_id": "m1", "config": "E4", "metric": metric, "sigma_robust": 0.002, "t_d": td, "floor_class": "quiet", "floor_source": "measured", "floor_version": cfg["noise"].get("floor_version"), "n": 8})
     base_hist = json.dumps({"NAND2_X1": 100, "DFF_X1": 20})
     db.insert(conn, "evaluations", {"design_id": "m1", "is_baseline": 1, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 100.0, "cells": 120, "wns_ns": 0.05, "tns_ns": 0.0, "power_saif_mw": 1.0, "dc_seconds": 60, "status": "ok", "raw_dir": "/x/base", "hist_json": base_hist})
-    plan = [{"tier": "medium", "model": "gpt-5.6-luna", "arm": a, "design_id": "m1", "seed": 1} for a in ("M", "B1_E4", "B2")]
+    plan = [{"tier": "medium", "model": "gpt-5.6-luna", "arm": a, "design_id": "m1", "seed": 1} for a in ("M", "B1_E4", "B2", "B0")]
     def run(rid, arm, status="done"):
         db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": arm, "design_id": "m1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": status, "started_at": "t", "llm_calls": 60})
     def cand(cid, rid, area, verdict="proven", label=None):
@@ -245,8 +245,20 @@ def test_complete_designs_tally_reachability_and_alert_both_directions(tmp_path,
     cand("c_pre", "r_m", None, verdict=None, label="prescreened"); conn.execute("UPDATE candidates SET v1_status='ok', v2_status='identical' WHERE cand_id='c_pre'")
     db.insert(conn, "evaluations", {"design_id": "m1", "cand_id": "c_pre", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 99.0, "cells": 100, "wns_ns": 0.05, "tns_ns": 0.0, "power_saif_mw": 1.0, "dc_seconds": 60, "status": "ok", "raw_dir": "/x/p", "hist_json": base_hist})
     conn.commit()
-    assert P5.complete_designs(cfg, conn, plan=plan)["complete"] == ["m1"]                           # an offline proof pending (D3) does not hold it back
-    monkeypatch.setattr(P5, "complete_designs", lambda cfg, conn, exp="phase5", plan=None, _cd=P5.complete_designs: _cd(cfg, conn, exp, plan=plan if plan is not None else [dict(x) for x in [{"tier": "medium", "model": "gpt-5.6-luna", "arm": a, "design_id": "m1", "seed": 1} for a in ("M", "B1_E4", "B2")]]))
+    monkeypatch.setattr(P5, "complete_designs", lambda cfg, conn, exp="phase5", plan=None, _cd=P5.complete_designs: _cd(cfg, conn, exp, plan=plan if plan is not None else [dict(x) for x in [{"tier": "medium", "model": "gpt-5.6-luna", "arm": a, "design_id": "m1", "seed": 1} for a in ("M", "B1_E4", "B2", "B0")]]))
+    run("r_b0", "B0"); cand("c_b0", "r_b0", 99.0)                                                    # DECISION 2026-09-19 (l) 3: B0 proven, its offline E4 not yet in -> B0 pending
+    ev_b0 = {k: v for k, v in dict(conn.execute("SELECT * FROM evaluations WHERE cand_id='c_b0'").fetchone()).items() if k not in {r[1] for r in conn.execute("PRAGMA table_info(evaluations)") if r[5]}}
+    conn.execute("DELETE FROM evaluations WHERE cand_id='c_b0'"); conn.commit()
+    cd = P5.complete_designs(cfg, conn, plan=plan)
+    assert cd["complete"] == [] and cd["preliminary"] == ["m1"] and cd["blockers"]["m1"] == {"b0_e4": 1, "proof": 1} and cd["runs_done"]["m1"] is True
+    view_p = P5.completion_view(cfg, conn)
+    assert view_p["preliminary"] == ["m1"] and view_p["comparisons"]["m1"]["b0_pending"] is True and view_p["tally"]["wins"] == ["m1"] and view_p["reachability"]["preliminary"] == 1 and view_p["reachability"]["remaining_designs"] == 0
+    new_p, line_p, _ = P5.completion_alert(cfg, conn, state_path=tmp_path / "prelim.json", write=False)
+    assert new_p == ["m1"] and "B0 pending" in line_p and "1 of 1 complete designs (visible layer; 1 of them B0 pending)" in line_p
+    sec = "\n".join(load_report().phase5_completion_section(cfg, view_p, ["medium"], {"m1": "medium"}))
+    assert "B0 pending: 1 — m1" in sec and "| gpt-5.6-luna | B0 | 1 | 1 | pending | pending | pending | pending (B0 offline E4) |" in sec and "on 1 of 1 complete designs (visible layer; 1 of them B0 pending)" in sec and "| gpt-5.6-luna | M | 1 | 2 | 1 | 1 | 0 |" in sec
+    db.insert(conn, "evaluations", ev_b0); conn.commit()                                              # B0's E4 in -> the design moves to the full table
+    assert P5.complete_designs(cfg, conn, plan=plan)["complete"] == ["m1"] and P5.complete_designs(cfg, conn, plan=plan)["preliminary"] == []   # an offline proof pending (D3) does not hold it back
     view = P5.completion_view(cfg, conn)
     comp = view["comparisons"]["m1"]
     assert comp["model"] == "gpt-5.6-luna" and abs(comp["rows"]["gpt-5.6-luna|M"]["best_gain_mean"] - 0.08) < 1e-6 and comp["m_exceeds"] is True   # 8 % vs 2 % / 3 %, floor 1 %
@@ -284,9 +296,11 @@ def test_verification_conditions_by_load(tmp_path, monkeypatch):
     assert vc["rows"]["m1"]["b"] == {"above": [1, 1], "below": [1, 0]} and vc["rows"]["m1"]["a"] == {"above": [0, 1], "below": [0, 0]}
 
 
-def test_relative_revert_and_latency_bound_marking(tmp_path, monkeypatch):
-    """DECISION 2026-09-19 (k) items 2 and 3: the revert fires only for a row more than 20 points worse than its own baseline for three
-    consecutive checks (a row at 100 % with a 100 % baseline never triggers); a design whose median proof latency exceeds the
+def test_relative_revert_suspended_cohort_line_and_latency_bound_marking(tmp_path, monkeypatch):
+    """DECISION 2026-09-19 (k) items 2 and 3 and (l) item 1: the automatic revert is suspended by default (three checks with a row 40
+    points worse do nothing; the config keeps count_waiting_runs false); with auto_revert true it fires for that row only (a row at
+    100 % with a 100 % baseline never triggers). The hourly line compares, per design, the runs admitted after the split with those
+    admitted before (a design with one cohort shows "no runs" for the other). A design whose median proof latency exceeds the
     generation window carries the proof-latency-bound wording in §0a, others do not. Both directions."""
     import importlib.util
     spec = importlib.util.spec_from_file_location("phase5_alerts", str(Path(C.ROOT) / "scripts" / "phase5_alerts.py"))
@@ -295,24 +309,34 @@ def test_relative_revert_and_latency_bound_marking(tmp_path, monkeypatch):
     cfg["project"]["results_dir"] = str(tmp_path / "results")
     cfg["exp5"]["starting_points"] = {"large": [], "medium": ["m1", "m2"], "small": []}
     cfg["queue"]["lanes"] = {"vcf": {}}; cfg["queue"]["count_waiting_runs"] = False
+    cfg["queue"]["admission_guard"] = {"unverified_at_build_max": 0.35, "proof_wait_max_min": 60, "window_min": 60, "tier": "medium", "auto_revert": False, "admission_split": "2026-09-19T02:09"}
     conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
     (tmp_path / "results" / "queue").mkdir(parents=True, exist_ok=True)
     monkeypatch.setattr(AL, "SLOT_STATE", str(tmp_path / "slot_state.json"))
     monkeypatch.setattr(AL, "ROOT", str(tmp_path))
     (tmp_path / "config").mkdir(); (tmp_path / "config" / "experiments.yaml").write_text("queue:\n  count_waiting_runs: false\n")
-    # two rows: A was at 100 % in the baseline window and stays there; B was at 20 % and is now at 60 %
-    def gen(rid, design, model, arm, gen_no, pending_frac, built):
-        db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": arm, "design_id": design, "seed": 1, "llm_model": model, "status": "running"}) if not conn.execute("SELECT 1 FROM runs WHERE run_id=?", (rid,)).fetchone() else None
+    # two rows: A (design m1, admitted before the split) was at 100 % in the baseline window and stays there; B (design m2, admitted after) was at 20 % and is now at 60 %
+    def gen(rid, design, model, arm, gen_no, pending_frac, built, started):
+        if not conn.execute("SELECT 1 FROM runs WHERE run_id=?", (rid,)).fetchone():
+            db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": arm, "design_id": design, "seed": 1, "llm_model": model, "status": "running", "started_at": started})
         ids = [f"{rid}_g{gen_no - 1}_{k}" for k in range(5)]
         for cid in ids:
             db.insert(conn, "candidates", {"cand_id": cid, "run_id": rid, "design_id": design, "gen": gen_no - 1, "arm": arm, "llm_model": model})
         db.insert(conn, "gen_summary", {"run_id": rid, "gen": gen_no, "pending_json": json.dumps(ids[:int(5 * pending_frac)]), "built_at": built})
-    gen("rA", "m1", "luna", "A", 2, 1.0, "2026-09-18T12:00:00")                    # baseline A = 100 %
-    gen("rB", "m2", "luna", "B", 2, 0.2, "2026-09-18T12:00:00")                    # baseline B = 20 %
     import datetime
     now = datetime.datetime.now().isoformat(timespec="seconds")
-    gen("rA", "m1", "luna", "A", 3, 1.0, now); gen("rB", "m2", "luna", "B", 3, 0.6, now)   # now: A 100 % (no worse), B 60 % (+40 points)
+    gen("rA", "m1", "luna", "A", 2, 1.0, "2026-09-18T12:00:00", "2026-09-18T11:00:00")    # baseline A = 100 %
+    gen("rB", "m2", "luna", "B", 2, 0.2, "2026-09-18T12:00:00", "2026-09-19T02:30:00")    # baseline B = 20 %
+    gen("rA", "m1", "luna", "A", 3, 1.0, now, None); gen("rB", "m2", "luna", "B", 3, 0.6, now, None)   # now: A 100 % (no worse), B 60 % (+40 points)
     restarted = []
+    for k in range(3):
+        lines = AL.slot_report(cfg, conn, write=True, restart=lambda: restarted.append(1) or True)
+    assert not any("REVERT" in l for l in lines) and restarted == [] and any("automatic revert suspended" in l for l in lines)
+    assert "count_waiting_runs: false" in (tmp_path / "config" / "experiments.yaml").read_text() and not (tmp_path / "slot_state.json").exists()
+    coh = [l for l in lines if l.startswith("unverified-at-build per design, runs admitted after 02:09 vs before")]
+    assert len(coh) == 1 and "m1: after no runs vs before 100% (2 gens / 1 runs) [100%]" in coh[0] and "m2: after 40% (2 gens / 1 runs) vs before no runs" in coh[0]
+    # re-enabled: the revert fires for B only, after three checks
+    cfg["queue"]["admission_guard"]["auto_revert"] = True
     for k in range(3):
         lines = AL.slot_report(cfg, conn, write=True, restart=lambda: restarted.append(1) or True)
     assert any("REVERT" in l and "luna|B" in l and "luna|A" not in l for l in lines) and restarted == [1]
@@ -323,3 +347,49 @@ def test_relative_revert_and_latency_bound_marking(tmp_path, monkeypatch):
     R = load_report()
     sec = "\n".join(R.phase5_notes_section(cfg, ["medium"], {"m1": "medium", "m2": "medium"}, latency_bound={"m1": 3000.0}))
     assert "| m1 | medium |" in sec and "proof-latency-bound search (median proof latency 50 min" in sec and "parents were D" in sec and "| m2 |" not in sec
+
+
+def test_pending_kind_failed_job_and_identical_text_both_directions():
+    """DECISION 2026-09-19 (l) 2: an identical-text candidate (absorbed_identical) is never evaluated itself and counts as complete; a
+    nonequiv label without a verdict is a failed evaluation job (reported as failed_job, blocking until decided); every failed
+    verdict is complete; a proven candidate waits for E4 only while it has none."""
+    yes, no = (lambda: True), (lambda: False)
+    assert P5.pending_kind({"label": "absorbed_identical", "verdict": None}, no) is None
+    assert P5.pending_kind({"label": "nonequiv", "verdict": None}, no) == "failed_job"
+    assert P5.pending_kind({"label": "nonequiv", "verdict": "falsified"}, no) is None and P5.pending_kind({"label": "nonequiv", "verdict": "error"}, no) is None
+    assert P5.pending_kind({"label": None, "verdict": None}, no) == "verdict"
+    assert P5.pending_kind({"label": "improved", "verdict": "proven"}, no) == "e4" and P5.pending_kind({"label": "improved", "verdict": "proven"}, yes) is None
+
+
+def test_latency_bound_wording_follows_the_archive_data():
+    """DECISION 2026-09-19 (k) 3 / (l) 4: the decided wording where the archive stayed empty at every generation build of every arm; the
+    measured share of empty-archive builds otherwise; the tier note under the tables lists both kinds and only the tier's designs."""
+    R = load_report()
+    tier_of = {"a": "large", "b": "large", "c": "medium"}
+    lb = {"a": {"median_s": 3000.0, "empty": {"B0-terra": [10, 10], "M-luna": [4, 4]}}, "b": {"median_s": 1900.0, "empty": {"B0-terra": [8, 35], "M-luna": [27, 29]}}, "c": {"median_s": 3060.0, "empty": {"B0-luna": [5, 5]}}}
+    sec = "\n".join(R.phase5_notes_section({"exp5": {}}, ["large"], tier_of, latency_bound=lb))
+    assert "| a | large | proof-latency-bound search (median proof latency 50 min above the 1 800 s generation window): on this design the archive stayed empty during generation for all arms; parents were D; the search reduces to E4-guided one-shot rewriting |" in sec
+    assert "| b | large | proof-latency-bound search (median proof latency 32 min" in sec and "the archive was empty at 35 of 64 generation builds (B0-terra 8/35, M-luna 27/29); parents were D at those builds" in sec and "wording qualified to the data" in sec
+    assert "| c |" not in sec
+    note = R.latency_note_lines(lb, "large", tier_of)
+    assert len(note) == 2 and "on a the archive stayed empty during generation for all arms" in note[0] and "on b at 35 of 64 generation builds (B0-terra 8/35, M-luna 27/29) the archive was empty at that share of generation builds only" in note[0] and "on c" not in note[0]
+    assert R.latency_note_lines(lb, "small", tier_of) == [] and R.latency_note_lines({"c": 3060.0}, "medium", tier_of)[0].startswith("Note (DECISION 2026-09-19 (k) 3 / (l) 4): on c the archive stayed empty")
+
+
+def test_completion_section_lists_what_blocks_the_all_done_designs():
+    """DECISION 2026-09-19 (l) 2: every design whose planned runs are all done appears with its open proofs and what blocks "complete";
+    the B0-pending design is marked; the sentence on the absent completion alert names the blockers; designs with open runs stay in
+    the incomplete table only."""
+    R = load_report()
+    view = {"complete": [], "preliminary": ["d2"],
+            "rows": {"d1": {"gpt-5.6-luna|M": {"done": 3, "planned": 3, "pending": 9}}, "d2": {"gpt-5.6-luna|B0": {"done": 3, "planned": 3, "pending": 5}}, "d3": {"gpt-5.6-luna|M": {"done": 1, "planned": 3, "pending": 0}}},
+            "blockers": {"d1": {"failed_job": 7, "e4_late": 2}, "d2": {"b0_e4": 5}, "d3": {}}, "runs_done": {"d1": True, "d2": True, "d3": False}, "open_proofs": {"d1": 4},
+            "comparisons": {"d2": {"rows": {"gpt-5.6-luna|B0": {"runs": 3, "cands": 9, "proven": 5, "retained": 0, "tradeoff": 0, "best_gain_mean": None, "best_gain_max": None}}, "model": "gpt-5.6-luna", "m_exceeds": None, "t_d_area": 0.01}},
+            "tally": {"wins": [], "losses": [], "undecided": ["d2"]},
+            "reachability": {"total_designs": 3, "criterion_wins": 2, "wins": 0, "lost": 0, "undecided": 1, "remaining_designs": 2, "wins_still_needed": 2, "reachable": True, "preliminary": 1}}
+    sec = "\n".join(R.phase5_completion_section({}, view, ["medium"], {"d1": "medium", "d2": "medium", "d3": "medium"}))
+    assert "| d1 | medium | 3 / 3 | 4 | E4 of 2 candidates proven after their run finished (no evaluator; pool scope decision pending); failed evaluation jobs 7 (sim jobs of the 2026-09-18 10:41 operator edit; re-run not yet decided) |" in sec
+    assert "| d2 | medium | 3 / 3 | 0 | B0 offline E4 5 (offline pool) — B0 pending |" in sec
+    assert "No design is complete, so no completion alert has fired: the 2 designs with every run done are held by B0 offline E4 5, E4 of 2 candidates proven after their run finished, failed evaluation jobs 7." in sec
+    assert "| d3 | medium | M-luna 1/3 |" in sec and "| d1 | medium | M-luna" not in sec
+    assert "| gpt-5.6-luna | B0 | 3 | 9 | pending | pending | pending | pending (B0 offline E4) |" in sec and "on 0 of 1 complete designs (visible layer; 1 of them B0 pending)" in sec

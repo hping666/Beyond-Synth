@@ -163,3 +163,5 @@ Then: `docs/DECISIONS.md` (tail, the entries after "Review and decisions after t
 ## Decision summary (details in docs/DECISIONS.md)
 
 -
+
+- New complete designs since last render (2026-09-19T04:10): none; B0 pending (complete except for B0's offline E4, DECISION 2026-09-19 (l) 3): cktevo_risc__btb, rtlopt_decoder_8bit — M exceeds both B1_E4 and B2 by more than the floor on 0 of them; tally 0 of 2 complete designs (visible layer; 2 of them B0 pending), 18 wins still needed of 28 remaining / undecided.

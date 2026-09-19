@@ -219,6 +219,38 @@ def unverified_at_build(conn, cfg, minutes=60, tier="medium", by_row=False, by=N
     return (sum(allv) / len(allv)) if allv else None
 
 
+def admission_cohorts(conn, cfg, split, tier="medium", exp="phase5"):
+    """DECISION 2026-09-19 (l) item 1: per design, the unverified-at-build fraction (as in `unverified_at_build`, averaged over every
+    generation built, superseded runs included as there) of the runs admitted (runs.started_at) at or after `split` against that of
+    the runs admitted before it; the before cohort also restricted to its generations built before `split` (the builds under the old
+    accounting only). -> {design: {"after": {"frac", "gens", "runs"} | None, "before": ..., "before_builds_before_split": ...}}."""
+    tier_of = {d: t for t, ds in ((cfg.get("exp5") or {}).get("starting_points") or {}).items() for d in (ds or [])}
+    acc = {}
+    for rid, gen, pj, design, started, built in conn.execute("SELECT g.run_id, g.gen, g.pending_json, r.design_id, r.started_at, g.built_at FROM gen_summary g JOIN runs r ON r.run_id=g.run_id WHERE r.exp=? AND g.gen > 1 AND g.built_at IS NOT NULL", (exp,)):
+        if (tier and tier_of.get(design) != tier) or not started:
+            continue
+        try:
+            pending = json.loads(pj or "[]")
+        except (ValueError, TypeError):
+            pending = []
+        prev = conn.execute("SELECT COUNT(*) FROM candidates WHERE run_id=? AND gen=?", (rid, gen - 1)).fetchone()[0]
+        if not prev:
+            continue
+        marks = ",".join("?" * len(pending))
+        prev_pending = conn.execute(f"SELECT COUNT(*) FROM candidates WHERE run_id=? AND gen=? AND cand_id IN ({marks})", (rid, gen - 1, *pending)).fetchone()[0] if pending else 0
+        cohort = "after" if started >= split else "before"
+        for k in [cohort] + (["before_builds_before_split"] if cohort == "before" and built < split else []):
+            e = acc.setdefault(design, {}).setdefault(k, {"fr": [], "runs": set()})
+            e["fr"].append(prev_pending / prev)
+            e["runs"].add(rid)
+    out = {}
+    for d, ks in acc.items():
+        out[d] = {k: {"frac": round(sum(e["fr"]) / len(e["fr"]), 4), "gens": len(e["fr"]), "runs": len(e["runs"])} for k, e in ks.items()}
+        for k in ("after", "before", "before_builds_before_split"):
+            out[d].setdefault(k, None)
+    return out
+
+
 def idle_seat_minutes(conn, cfg, hours=1.0):
     """(k) item 3: per lane, the seat-minutes of the last `hours` not occupied by a running proof of the lane's designs (seats × minutes
     minus the occupied minutes from the proofs' start / finish timestamps); the window designs as one group with cap minus the busy

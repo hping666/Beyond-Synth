@@ -797,7 +797,9 @@ def _cell(txt, incomplete):
 
 
 def proof_latency_bound(conn, cfg, exp="phase5", window_s=1800):
-    """(k) item 3: designs whose median proof latency (start to finish of the finished Phase 5 proofs) exceeds the generation window."""
+    """(k) item 3 and (l) item 4: designs whose median proof latency (start to finish of the finished Phase 5 proofs) exceeds the
+    generation window, with the archive-at-build data: per arm-model row the generation builds whose archive was empty over all
+    builds (gen_summary.archive_json). -> {design: {"median_s": s, "empty": {"arm-model": [empty_builds, builds]}}}."""
     import datetime as _dt
     out = {}
     for d, in [(r[0],) for r in conn.execute("SELECT DISTINCT design_id FROM jobs WHERE kind='vcf'")]:
@@ -807,21 +809,65 @@ def proof_latency_bound(conn, cfg, exp="phase5", window_s=1800):
                 xs.append((_dt.datetime.fromisoformat(r[1]) - _dt.datetime.fromisoformat(r[0])).total_seconds())
             except ValueError:
                 pass
-        if len(xs) >= 20:
-            med = statistics.median(xs)
-            if med > window_s:
-                out[d] = round(med, 1)
+        if len(xs) >= 20 and statistics.median(xs) > window_s:
+            emp = {}
+            for arm, model, aj in conn.execute("SELECT r.arm, r.llm_model, g.archive_json FROM gen_summary g JOIN runs r ON r.run_id=g.run_id WHERE r.exp=? AND r.design_id=? AND r.status != 'superseded' AND r.superseded_by IS NULL AND g.gen > 0", (exp, d)):
+                try:
+                    members = (json.loads(aj or "null") or {}).get("members")
+                except (ValueError, TypeError, AttributeError):
+                    members = None
+                e = emp.setdefault(f"{arm}-{model.split('-')[-1]}", [0, 0])
+                e[1] += 1
+                e[0] += 0 if members else 1
+            out[d] = {"median_s": round(statistics.median(xs), 1), "empty": emp}
     return out
+
+
+def archive_empty_summary(v):
+    """-> (empty_builds, builds, per-row text) from a proof_latency_bound entry (a float from older callers reads as no archive data)."""
+    emp = (v.get("empty") if isinstance(v, dict) else None) or {}
+    e, tot = sum(x for x, _ in emp.values()), sum(n for _, n in emp.values())
+    return e, tot, ", ".join(f"{k} {x}/{n}" for k, (x, n) in sorted(emp.items()))
+
+
+def latency_note_lines(latency_bound, tier, tier_of):
+    """DECISION 2026-09-19 (l) item 4: the note under a tier's tables on its proof-latency-bound designs — where the archive stayed empty
+    during generation for all arms (the decided wording) and where it did not (the measured share of generation builds)."""
+    allempty, mixed = [], []
+    for d, v in sorted((latency_bound or {}).items()):
+        if tier_of.get(d) != tier:
+            continue
+        e, tot, per = archive_empty_summary(v)
+        if not tot or e == tot:
+            allempty.append(d)
+        else:
+            mixed.append(f"{d} at {e} of {tot} generation builds ({per})")
+    if not allempty and not mixed:
+        return []
+    parts = []
+    if allempty:
+        parts.append("on " + ", ".join(allempty) + " the archive stayed empty during generation for all arms (proof-latency-bound search, §0a): parents were D and the search reduced to E4-guided one-shot rewriting")
+    if mixed:
+        parts.append("on " + "; ".join(mixed) + " the archive was empty at that share of generation builds only — parents were D at those builds, proven candidates were in the archive at the others (wording qualified to the data)")
+    return ["Note (DECISION 2026-09-19 (k) 3 / (l) 4): " + "; ".join(parts) + ".", ""]
 
 
 def phase5_notes_section(cfg, tiers, tier_of, latency_bound=None):
     """§0a of every Phase 5 report: the design notes and disclosures of DECISION 2026-09-18 (b) items 5c–5e and D1 (wording from
-    config exp5.design_notes / exp5.disclosures, printed verbatim)."""
+    config exp5.design_notes / exp5.disclosures, printed verbatim) and the proof-latency-bound marks of DECISION 2026-09-19 (k) 3 /
+    (l) 4 (the decided wording where the archive stayed empty for all arms; the measured share of empty-archive builds otherwise)."""
     notes = dict((cfg.get("exp5") or {}).get("design_notes") or {})
     disc = (cfg.get("exp5") or {}).get("disclosures") or []
-    for d, med in sorted((latency_bound or {}).items()):   # DECISION 2026-09-19 (k) item 3
-        notes[d] = (notes.get(d, "") + "; " if notes.get(d) else "") + f"proof-latency-bound search (median proof latency {med / 60:.0f} min above the 1 800 s generation window): on this design the archive stayed empty during generation for all arms; parents were D; the search reduces to E4-guided one-shot rewriting"
-    L = ["## 0a. Design notes and disclosures (DECISION 2026-09-18 (b) items 5c–5e, D1; DECISION 2026-09-19 (k) item 3)", ""]
+    for d, v in sorted((latency_bound or {}).items()):
+        med = float(v["median_s"]) if isinstance(v, dict) else float(v)
+        e, tot, per = archive_empty_summary(v)
+        if not tot or e == tot:
+            body = "on this design the archive stayed empty during generation for all arms; parents were D; the search reduces to E4-guided one-shot rewriting"
+        else:
+            body = (f"on this design the archive was empty at {e} of {tot} generation builds ({per}); parents were D at those builds and the search reduced to E4-guided one-shot rewriting there; "
+                    "at the other builds the archive held proven candidates (wording qualified to the data, DECISION 2026-09-19 (l) 4)")
+        notes[d] = (notes.get(d, "") + "; " if notes.get(d) else "") + f"proof-latency-bound search (median proof latency {med / 60:.0f} min above the 1 800 s generation window): {body}"
+    L = ["## 0a. Design notes and disclosures (DECISION 2026-09-18 (b) items 5c–5e, D1; DECISION 2026-09-19 (k) item 3, (l) item 4)", ""]
     shown = [(d, n) for d, n in sorted(notes.items()) if tier_of.get(d) in tiers]
     if shown:
         L += ["| design | tier | note |", "|---|---|---|"] + [f"| {d} | {tier_of.get(d)} | {n} |" for d, n in shown] + [""]
@@ -834,36 +880,65 @@ def phase5_notes_section(cfg, tiers, tier_of, latency_bound=None):
 
 
 def phase5_completion_section(cfg, view, tiers, tier_of):
-    """§0b (DECISION 2026-09-18 (d) F2): the complete designs of the reported tiers with their arm comparison, the M tally and the
-    reachability of the pre-registered criterion; incomplete designs only with per-row completion counts."""
+    """§0b (DECISION 2026-09-18 (d) F2; DECISION 2026-09-19 (l) items 2–3): the complete designs of the reported tiers and the designs
+    complete except for B0's offline E4 ("B0 pending": the B0 column reads pending; counted in the tally and the reachability line),
+    each with its arm comparison; the status of every design whose planned runs are all done (what still blocks "complete" and why
+    no completion alert fired); the incomplete designs with per-row completion counts only."""
     if not view:
         return []
-    L = ["## 0b. Complete designs (DECISION 2026-09-18 (d) F2: every planned row × seed done, no verdict / E4 / offline simulation pending, B0 offline E4 in)", ""]
+    L = ["## 0b. Complete designs (DECISION 2026-09-18 (d) F2: every planned row × seed done, no verdict / E4 / offline simulation pending, B0 offline E4 in; "
+         "DECISION 2026-09-19 (l) 3: a design complete except for B0's offline E4 is listed as B0 pending, its B0 column reads pending, and it counts in the tally and the reachability line)", ""]
     complete = [d for d in view.get("complete") or [] if tier_of.get(d) in tiers]
+    prelim = [d for d in view.get("preliminary") or [] if tier_of.get(d) in tiers]
     comps = view.get("comparisons") or {}
     tally = view.get("tally") or {}
     r = view.get("reachability") or {}
-    wins = [d for d in tally.get("wins") or [] if d in complete]
-    L.append(f"Complete designs on the reported tiers: {len(complete)}" + (" — " + ", ".join(complete) if complete else "") + ".")
+    wins = [d for d in tally.get("wins") or [] if d in complete or d in prelim]
+    L.append(f"Complete designs on the reported tiers: {len(complete)}" + (" — " + ", ".join(complete) if complete else "")
+             + f"; B0 pending: {len(prelim)}" + (" — " + ", ".join(prelim) if prelim else "") + ".")
     L.append("")
-    for d in complete:
+    for d in complete + prelim:
         c = comps.get(d) or {}
         rows = c.get("rows") or {}
-        L += [f"### {d} ({tier_of.get(d)} tier; main model {c.get('model')}; rule-A area floor t_d = {_pct(c.get('t_d_area')) if c.get('t_d_area') is not None else '-'}; M exceeds both B1_E4 and B2: {'yes' if c.get('m_exceeds') else 'no' if c.get('m_exceeds') is False else 'undecided (a row is missing)'})", "",
+        L += [f"### {d} ({tier_of.get(d)} tier; {'B0 pending — complete except for B0 offline E4' if d in prelim else 'complete'}; main model {c.get('model')}; rule-A area floor t_d = {_pct(c.get('t_d_area')) if c.get('t_d_area') is not None else '-'}; "
+              f"M exceeds both B1_E4 and B2: {'yes' if c.get('m_exceeds') else 'undecided' if c.get('m_exceeds') is None else 'no'})", "",
               "| model | arm | runs | candidates | proven | retained | tradeoff | best retained area gain per run: mean / max |", "|---|---|---|---|---|---|---|---|"]
         for k in sorted(rows, key=lambda k: (k.split("|")[1], k.split("|")[0])):
             g = rows[k]
-            L.append(f"| {k.split('|')[0]} | {k.split('|')[1]} | {g['runs']} | {g['cands']} | {g['proven']} | {g['retained']} | {g['tradeoff']} | {_pct(g['best_gain_mean'])} / {_pct(g['best_gain_max'])} |")
+            if d in prelim and k.split("|")[1] == "B0":
+                L.append(f"| {k.split('|')[0]} | B0 | {g['runs']} | {g['cands']} | pending | pending | pending | pending (B0 offline E4) |")
+            else:
+                L.append(f"| {k.split('|')[0]} | {k.split('|')[1]} | {g['runs']} | {g['cands']} | {g['proven']} | {g['retained']} | {g['tradeoff']} | {_pct(g['best_gain_mean'])} / {_pct(g['best_gain_max'])} |")
         L.append("")
-    L += [f"**Tally: M exceeds both B1_E4 and B2 by more than the design's floor on {len(wins)} of {len(complete)} complete designs (visible layer).**",
+    L += [f"**Tally: M exceeds both B1_E4 and B2 by more than the design's floor on {len(wins)} of {len(complete) + len(prelim)} complete designs (visible layer" + (f"; {len(prelim)} of them B0 pending" if prelim else "") + ").**",
           f"Reachability of the pre-registered criterion ({r.get('criterion_wins', 18)} of {r.get('total_designs', 30)} designs under the hidden configurations — sealed; the visible layer is the proxy): "
           f"wins so far {r.get('wins', 0)}, already lost by M {r.get('lost', 0)}, undecided {r.get('undecided', 0)}, designs not yet complete {r.get('remaining_designs', 0)}; "
           f"M still needs {r.get('wins_still_needed', 0)} of the {r.get('remaining_designs', 0) + r.get('undecided', 0)} remaining or undecided designs — {'reachable' if r.get('reachable') else 'no longer reachable'} in the visible layer.", ""]
-    inc = [(d, rows) for d, rows in (view.get("rows") or {}).items() if tier_of.get(d) in tiers and d not in complete]
+    # DECISION 2026-09-19 (l) 2: the designs whose planned runs are all done — what still blocks "complete"
+    names = {"b0_e4": "B0 offline E4 {n} (offline pool)", "e4_retry": "E4 retries {n}", "e4_late": "E4 of {n} candidates proven after their run finished (no evaluator; pool scope decision pending)",
+             "verdict": "verdicts pending {n}", "sim": "offline simulations pending {n}", "failed_job": "failed evaluation jobs {n} (sim jobs of the 2026-09-18 10:41 operator edit; re-run not yet decided)",
+             "proof": "offline proofs {n} (D3, not blocking)"}
+    done_designs = [d for d, ok in (view.get("runs_done") or {}).items() if ok and tier_of.get(d) in tiers and d not in complete]
+    if done_designs:
+        L += ["Designs with every planned run done — what still blocks \"complete\" (DECISION 2026-09-19 (l) 2; proofs drained = no proof job queued or running for the design):", "",
+              "| design | tier | runs done / planned | proofs open | blocks complete |", "|---|---|---|---|---|"]
+        totals = collections.Counter()
+        for d in sorted(done_designs, key=lambda x: (tier_of.get(x, "?"), x)):
+            rows = (view.get("rows") or {}).get(d) or {}
+            b = (view.get("blockers") or {}).get(d) or {}
+            totals.update({k: n for k, n in b.items() if k != "proof"})
+            parts = [names[k].format(n=n) for k, n in sorted(b.items(), key=lambda kv: list(names).index(kv[0]) if kv[0] in names else 99)]
+            L.append(f"| {d} | {tier_of.get(d)} | {sum(v['done'] for v in rows.values())} / {sum(v['planned'] for v in rows.values())} | {(view.get('open_proofs') or {}).get(d, 0)} | "
+                     f"{'; '.join(parts) or 'nothing'}{' — B0 pending' if d in prelim else ''} |")
+        L.append("")
+        if not complete:
+            L.append(f"No design is complete, so no completion alert has fired: the {len(done_designs)} designs with every run done are held by " + ", ".join(names[k].format(n=n).split(" (")[0] for k, n in sorted(totals.items(), key=lambda kv: list(names).index(kv[0]) if kv[0] in names else 99)) + ".")
+            L.append("")
+    inc = [(d, rows) for d, rows in (view.get("rows") or {}).items() if tier_of.get(d) in tiers and d not in complete and d not in prelim and not (view.get("runs_done") or {}).get(d)]
     if inc:
-        L += ["Incomplete designs (per-row completion counts only, no arm comparison):", "", "| design | tier | rows: done / planned (pending evaluations) |", "|---|---|---|"]
+        L += ["Incomplete designs (runs still open; per-row completion counts only, no arm comparison):", "", "| design | tier | rows: done / planned (pending evaluations) |", "|---|---|---|"]
         for d, rows in sorted(inc, key=lambda x: (tier_of.get(x[0], "?"), x[0])):
-            cells = ", ".join(f"{k.split('|')[1]}-{k.split('|')[0].split('-')[-1]} {v['done']}/{v['planned']}" + (f" ({v['pending']} pending)" if v["pending"] else "") for k, v in sorted(rows.items(), key=lambda kv: (kv[0].split('|')[1], kv[0])))
+            cells = ", ".join(f"{k.split('|')[1]}-{k.split('|')[0].split('-')[-1]} {v['done']}/{v['planned']}" + (f" ({v['pending']} pending)" if v["pending"] else "") for k, v in sorted(rows.items(), key=lambda kv: (kv[0].split('|')[1], kv[0].split('|')[0])))
             L.append(f"| {d} | {tier_of.get(d)} | {cells} |")
         L.append("")
     return L
@@ -927,6 +1002,7 @@ def phase5_markdown(cfg, data, stage="all", final=False):
             bl = f"{g['block_flags']} / {g['block_answers']} = {_pct(g['block_flag_rate'], 0)}" if g["block_answers"] else "no block-level answers"
             L.append(f"| {g['model']} | {g['arm']} | {g['sim_fail']} | {g['falsified']} | {g['rejected']} | {g['inconclusive']} | {g['error']} | {g['pending']} | {g['duplicate']} | {g['prescreened']} | {uni or '-'} | {sto or '-'} | {g['scope_flags']} ({bl}) | {g['repairs']} ({g['repairs_proven']}) | {_num(g['ttv']['median'], 0)} / {_num(g['ttv']['q95'], 0)} |")
         L.append("")
+        L += latency_note_lines(data.get("proof_latency_bound"), tier, tier_of)   # DECISION 2026-09-19 (l) 4
     # best gain per design
     L += ["## 2. Best retained area gain per design (max over seeds; uniform rule A; '-' = no retained candidate; 0 = runs without one)", ""]
     for tier in tiers:
@@ -948,6 +1024,7 @@ def phase5_markdown(cfg, data, stage="all", final=False):
                     cells.append(limits[d] if (d in limits and txt in ("0", "pending")) else txt)   # DECISION 2026-09-18 (b) 5c / 5d: a design under a harness or verification limit never reads 0
             L.append(f"| {d} | " + " | ".join(cells) + " |")
         L.append("")
+        L += latency_note_lines(data.get("proof_latency_bound"), tier, tier_of)   # DECISION 2026-09-19 (l) 4
     # retained candidates: class, sub-tags, gains per metric (D2)
     L += ["## 2a. Retained and tradeoff candidates under the uniform rule A: class, sub-tags, gains per metric (DECISION 2026-09-18 D2)", ""]
     for tier in tiers:

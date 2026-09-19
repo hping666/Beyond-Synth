@@ -96,13 +96,16 @@ SIM_FAILED = ("compile_failed", "sim_fail", "mismatch", "error")
 
 
 def pending_kind(c, e4_ok):
-    """What a candidate still waits for (DECISION 2026-09-18 D1 / D2), or None when its evaluation is complete:
+    """What a candidate still waits for (DECISION 2026-09-18 D1 / D2; 2026-09-19 (l) 2), or None when its evaluation is complete:
     'verdict' — no verdict yet (proof or simulation in flight); 'e4' — proven (or an offline-simulated prescreened
     candidate) without an E4 record; 'proof' — prescreened candidate whose offline simulation passed and whose proof has
-    not been run (reported as pending until it is); 'sim' — prescreened candidate not yet simulated. `e4_ok` is a callable
-    (the E4 lookup is made only when it matters). Duplicates, aborted rows and every failed verdict are complete."""
+    not been run (reported as pending until it is); 'sim' — prescreened candidate not yet simulated; 'failed_job' — a
+    nonequiv label without a verdict, i.e. the evaluation job itself failed (the sim jobs of the 2026-09-18 10:41 operator
+    edit): neither pending nor complete until re-run or recorded as an evaluation failure. `e4_ok` is a callable (the E4
+    lookup is made only when it matters). Duplicates, identical-text candidates (never evaluated themselves), aborted rows
+    and every failed verdict are complete."""
     lab, ver = c.get("label"), c.get("verdict")
-    if lab in ("duplicate", "aborted"):
+    if lab in ("duplicate", "aborted", "absorbed_identical"):
         return None
     if ver == "proven":
         return None if e4_ok() else "e4"
@@ -114,6 +117,8 @@ def pending_kind(c, e4_ok):
         if c.get("v1_status") == "ok" and c.get("v2_status") and c.get("v2_status") not in SIM_FAILED:
             return "e4" if not e4_ok() else "proof"
         return "sim"
+    if lab == "nonequiv":
+        return "failed_job"
     return "verdict"
 
 
@@ -141,9 +146,13 @@ def pending_summary(cfg, conn, tiers, exp="phase5"):
 
 
 def complete_designs(cfg, conn, exp="phase5", plan=None):
-    """DECISION 2026-09-18 (d) F2: the designs whose every planned arm-model row × seed is done (superseded and excluded rows aside),
-    with no candidate pending a verdict, an offline simulation or an E4 record (B0's offline E4 included); an offline-pool proof
-    of a prescreened candidate does not hold a design back (D3). -> {"complete": [design_id...], "rows": {design_id: {row: {"done": n, "planned": n, "pending": n}}}}."""
+    """DECISION 2026-09-18 (d) F2 and 2026-09-19 (l) items 2–3: the designs whose every planned arm-model row × seed is done (superseded
+    and excluded rows aside) with no candidate pending a verdict, an offline simulation or an E4 record (B0's offline E4 included);
+    an offline-pool proof of a prescreened candidate does not hold a design back (D3). "preliminary": every run done and the only
+    blocker is B0's offline E4 (listed as B0 pending). "blockers" per design by kind: b0_e4 (B0's offline E4 in the pool), e4_retry
+    (a non-B0 proven candidate whose E4 failed or timed out), e4_late (a non-B0 candidate proven after its run finished, without an
+    E4 record), verdict, sim, failed_job, proof (offline proof, D3: does not block). -> {"complete": [...], "preliminary": [...],
+    "rows": {design: {row: {"done", "planned", "pending"}}}, "blockers": {design: {kind: n}}, "runs_done": {design: bool}}."""
     tier_of = tier_of_design(cfg)
     if plan is None:
         import sys
@@ -157,24 +166,36 @@ def complete_designs(cfg, conn, exp="phase5", plan=None):
     for r in conn.execute("SELECT design_id, llm_model, arm FROM runs WHERE exp=? AND status='done' AND COALESCE(excluded_from_tables, 0) = 0", (exp,)):
         done[r["design_id"]][f"{r['llm_model']}|{r['arm']}"] += 1
     e4 = {r[0] for r in conn.execute("SELECT DISTINCT cand_id FROM evaluations WHERE config='E4' AND status='ok' AND cand_id IS NOT NULL")}
+    e4_failed = {r[0] for r in conn.execute("SELECT DISTINCT cand_id FROM evaluations WHERE config='E4' AND status != 'ok' AND cand_id IS NOT NULL")}
     pending = defaultdict(lambda: defaultdict(int))
+    blockers = defaultdict(Counter)
     for c in conn.execute("SELECT c.cand_id, c.design_id, c.label, c.verdict, c.v1_status, c.v2_status, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                           "WHERE r.exp=? AND r.status != 'superseded' AND COALESCE(r.excluded_from_tables, 0) = 0", (exp,)):
         c = dict(c)
         k = pending_kind(c, lambda: c["cand_id"] in e4)
-        if k and k != "proof":
+        if not k:
+            continue
+        kind = k if k != "e4" else ("b0_e4" if c["arm"] == "B0" else ("e4_retry" if c["cand_id"] in e4_failed else "e4_late"))
+        blockers[c["design_id"]][kind] += 1
+        if k != "proof":
             pending[c["design_id"]][f"{c['llm_model']}|{c['arm']}"] += 1
-    out = {"complete": [], "rows": {}}
+    out = {"complete": [], "preliminary": [], "rows": {}, "blockers": {}, "runs_done": {}}
     for d in sorted(planned):
         rows = {}
-        ok = True
+        ok = runs_ok = True
         for row, n in planned[d].items():
             rows[row] = {"done": done[d].get(row, 0), "planned": n, "pending": pending[d].get(row, 0)}
-            if rows[row]["done"] < n or rows[row]["pending"]:
+            if rows[row]["done"] < n:
+                runs_ok = ok = False
+            if rows[row]["pending"]:
                 ok = False
         out["rows"][d] = rows
+        out["blockers"][d] = dict(blockers.get(d) or {})
+        out["runs_done"][d] = runs_ok
         if ok:
             out["complete"].append(d)
+        elif runs_ok and {k for k in blockers[d] if k != "proof"} == {"b0_e4"}:
+            out["preliminary"].append(d)
     return out
 
 
@@ -222,55 +243,68 @@ def m_exceeds(comparison, model):
 
 
 def completion_view(cfg, conn, exp="phase5"):
-    """F2 / F3 data: the complete designs with their arm comparisons and the M tally, the reachability of the pre-registered
-    criterion (18 of 30 under the hidden configurations — read here as the visible-layer proxy, the hidden form stays sealed),
-    and the per-row completion counts of every design."""
+    """F2 / F3 data (and DECISION 2026-09-19 (l) items 2–3): the complete designs and the B0-pending ones with their arm comparisons
+    and the M tally (both counted), the reachability of the pre-registered criterion (18 of 30 under the hidden configurations —
+    read here as the visible-layer proxy, the hidden form stays sealed), the per-row completion counts, the blockers and the open
+    proofs of every design."""
     cd = complete_designs(cfg, conn, exp)
     tier_of = tier_of_design(cfg)
     designs = _Designs(cfg, conn)
     main_model = {t: (m.get("all_arms") or cfg["llm"]["selected"]) for t, m in ((cfg["exp5"].get("model_assignment") or {}).items())}
     comps, tally = {}, {"wins": [], "losses": [], "undecided": []}
-    for d in cd["complete"]:
+    for d in cd["complete"] + cd["preliminary"]:
         comp = design_arm_comparison(cfg, conn, designs, d, exp)
         model = main_model.get(tier_of.get(d), cfg["llm"]["selected"])
         verdict = m_exceeds(comp, model)
-        comp["model"], comp["m_exceeds"] = model, verdict
+        comp["model"], comp["m_exceeds"], comp["b0_pending"] = model, verdict, d in cd["preliminary"]
         comps[d] = comp
         (tally["wins"] if verdict else tally["undecided"] if verdict is None else tally["losses"]).append(d)
     total = sum(len(v) for v in (cfg["exp5"].get("starting_points") or {}).values())
     need = int(cfg["exp5"].get("criterion_wins", 18))
-    remaining = total - len(cd["complete"])
+    counted = len(cd["complete"]) + len(cd["preliminary"])
+    remaining = total - counted
     reach = {"total_designs": total, "criterion_wins": need, "wins": len(tally["wins"]), "lost": len(tally["losses"]), "undecided": len(tally["undecided"]),
-             "remaining_designs": remaining, "wins_still_needed": max(0, need - len(tally["wins"])), "reachable": (len(tally["wins"]) + remaining + len(tally["undecided"])) >= need}
-    return {"complete": cd["complete"], "rows": cd["rows"], "comparisons": comps, "tally": tally, "reachability": reach}
+             "remaining_designs": remaining, "wins_still_needed": max(0, need - len(tally["wins"])), "reachable": (len(tally["wins"]) + remaining + len(tally["undecided"])) >= need,
+             "preliminary": len(cd["preliminary"])}
+    open_proofs = {r[0]: r[1] for r in conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE kind='vcf' AND state IN ('queued', 'running', 'held') GROUP BY design_id")}
+    return {"complete": cd["complete"], "preliminary": cd["preliminary"], "rows": cd["rows"], "blockers": cd["blockers"], "runs_done": cd["runs_done"],
+            "open_proofs": open_proofs, "comparisons": comps, "tally": tally, "reachability": reach}
 
 
 def completion_alert(cfg, conn, state_path=None, write=True, view=None, exp="phase5"):
-    """DECISION 2026-09-18 (d) F3: compare the complete-design set with the last recorded one (reports/data/phase5_complete_designs.json);
-    -> (new designs, alert line or None, view). With `write`, the state file is updated and the line appended to STATUS.md."""
+    """DECISION 2026-09-18 (d) F3 and 2026-09-19 (l) 3: compare the complete and the B0-pending design sets with the last recorded ones
+    (reports/data/phase5_complete_designs.json); -> (new designs, alert line or None, view). A design is announced when it becomes
+    B0 pending and again when it moves to the full table. With `write`, the state file is updated and the line appended to STATUS.md."""
     view = view or completion_view(cfg, conn, exp)
     state_path = Path(state_path or (Path(C.ROOT) / "reports" / "data" / "phase5_complete_designs.json"))
     try:
         prev = json.loads(state_path.read_text())
     except (OSError, ValueError):
         prev = {"designs": [], "history": []}
-    new = [d for d in view["complete"] if d not in set(prev.get("designs") or [])]
+    prev_c, prev_p = set(prev.get("designs") or []), set(prev.get("preliminary") or [])
+    new = [d for d in view["complete"] if d not in prev_c]
+    new_p = [d for d in view.get("preliminary") or [] if d not in prev_p and d not in prev_c]
     now = datetime.datetime.now().isoformat(timespec="minutes")
     line = None
-    if new:
+    if new or new_p:
         r = view["reachability"]
-        wins = [d for d in new if d in view["tally"]["wins"]]
-        line = (f"New complete designs since last render ({now}): " + ", ".join(new) + f" — M exceeds both B1_E4 and B2 by more than the floor on {len(wins)} of them; "
-                f"tally {r['wins']} of {len(view['complete'])} complete designs (visible layer), {r['wins_still_needed']} wins still needed of {r['remaining_designs'] + r['undecided']} remaining / undecided"
+        wins = [d for d in new + new_p if d in view["tally"]["wins"]]
+        n_all = len(view["complete"]) + len(view.get("preliminary") or [])
+        line = (f"New complete designs since last render ({now}): " + (", ".join(new) or "none")
+                + (f"; B0 pending (complete except for B0's offline E4, DECISION 2026-09-19 (l) 3): {', '.join(new_p)}" if new_p else "")
+                + f" — M exceeds both B1_E4 and B2 by more than the floor on {len(wins)} of them; "
+                f"tally {r['wins']} of {n_all} complete designs (visible layer" + (f"; {len(view['preliminary'])} of them B0 pending" if view.get("preliminary") else "") + f"), "
+                f"{r['wins_still_needed']} wins still needed of {r['remaining_designs'] + r['undecided']} remaining / undecided"
                 + ("" if r["reachable"] else " — the 18-of-30 criterion is no longer reachable in the visible layer") + ".")
-    if write and new:
-        state = {"designs": list(view["complete"]), "at": now, "history": (prev.get("history") or []) + [{"at": now, "new": new}]}
+    if write and (new or new_p):
+        state = {"designs": list(view["complete"]), "preliminary": list(view.get("preliminary") or []), "at": now,
+                 "history": (prev.get("history") or []) + [{"at": now, "new": new, "new_preliminary": new_p}]}
         state_path.parent.mkdir(parents=True, exist_ok=True)
         state_path.write_text(json.dumps(state, indent=1))
         status = Path(C.ROOT) / "STATUS.md"
         if status.exists():
             status.write_text(status.read_text().rstrip("\n") + "\n\n- " + line + "\n")
-    return new, line, view
+    return new + new_p, line, view
 
 
 def verification_conditions(cfg, conn, exp="phase5", tiers=None, threshold=100.0, window_s=120):
