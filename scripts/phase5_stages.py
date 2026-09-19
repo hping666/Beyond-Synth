@@ -24,6 +24,10 @@ from src.db import core as db  # noqa: E402
 PID = os.path.join(ROOT, "results", "queue", "phase5_stages.pid")
 LOG = os.path.join(ROOT, "results", "queue", "phase5_stages.log")
 STAGES = (("A", ["large"]), ("B", ["large", "medium"]), ("C", ["large", "medium", "small"]))
+# DECISION 2026-09-19 (o) item 1: the completeness check of a stage's final considers the stage's own tier only — Stage B waits for the
+# medium tier's runs, proofs, E4 including retries and B0 offline E4; the large tier's pool work belongs to Stage A and never delays it.
+# Stage C (every tier, the full report) waits for every tier.
+COMPLETENESS_TIERS = {"A": ["large"], "B": ["medium"], "C": ["large", "medium", "small"]}
 
 
 def planned_runs(cfg, conn):
@@ -86,13 +90,14 @@ def once(cfg, interim_hours=3.0, log=print):
     for stage, tiers in STAGES:
         if os.path.exists(marker(stage)):
             continue
-        runs_done = all(tier_complete(cfg, conn, t, plan=plan) for t in tiers)
-        evals_done, summary = evaluation_complete(cfg, conn, tiers) if runs_done else (False, None)
+        ctiers = COMPLETENESS_TIERS.get(stage, tiers)   # DECISION 2026-09-19 (o) 1
+        runs_done = all(tier_complete(cfg, conn, t, plan=plan) for t in ctiers)
+        evals_done, summary = evaluation_complete(cfg, conn, ctiers) if runs_done else (False, None)
         if runs_done and evals_done:   # DECISION 2026-09-18 D2 / D3: final only when the runs are done and nothing is pending
             rc, out = render(cfg, stage, final=True)
             if rc == 0:
                 with open(marker(stage), "w") as f:
-                    json.dump({"at": time.strftime("%Y-%m-%dT%H:%M:%S"), "tiers": tiers, "pending": summary}, f)
+                    json.dump({"at": time.strftime("%Y-%m-%dT%H:%M:%S"), "tiers": tiers, "completeness_tiers": ctiers, "pending": summary}, f)
                 log(f"STAGE {stage} WRITTEN (final for its tiers): reports/phase5_stage_{stage}.md")
             else:
                 log(f"stage {stage} render failed rc={rc}: {out}")

@@ -1016,13 +1016,15 @@ def phase5_markdown(cfg, data, stage="all", final=False):
             pv = "pending" if (inc and not g["proven"]) else f"{g['proven']} ({_num(g['proven_per_call'], 3)})" + (" †" if inc else "")
             L.append(f"| {g['model']} ({g['role']}) | {g['arm']} | {g['done']}/{g['runs']}{' †' if inc else ''} | {g['cands']} | {pend} | {g['unusable']} | {pv} | {g['inconclusive']} | {g['latency_mapped']} | {g['accepted']} | {_cell(str(g['retained']), inc)} | {_cell(_num(g['retained_per_run'], 2), inc)} | {_cell(str(g['runs_with_retained']), inc)} | {_cell(_pct(g['best_gain_mean']) + ' / ' + _pct(g['best_gain_median']), inc)} | {_cell(_num(g['retained_per_100_calls'], 2), inc)} | {_cell(_num(g['retained_per_usd'], 2), inc)} | {_cell(_num(g['retained_per_dc_hour'], 2), inc)} | {g['usd']:.2f} | {g['dc_h']:.1f} | {g['vcf_h']:.1f} |")
         L.append("")
-        L += ["Verdict mix and labels:", "", "| model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        L += ["Verdict mix and labels:", "", "| model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | formal-accepted, synthesis-rejected (DC error id; DECISION 2026-09-19 (o) 2) | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for k in tk:
             g = groups[k]
             uni = ", ".join(f"{a}: {n}" for a, n in sorted(g["uniform"].items()))
             sto = ", ".join(f"{a}: {n}" for a, n in sorted(g["stored"].items()))
             bl = f"{g['block_flags']} / {g['block_answers']} = {_pct(g['block_flag_rate'], 0)}" if g["block_answers"] else "no block-level answers"
-            L.append(f"| {g['model']} | {g['arm']} | {g['sim_fail']} | {g['falsified']} | {g['rejected']} | {g['inconclusive']} | {g['error']} | {g['pending']} | {g['duplicate']} | {g['prescreened']} | {uni or '-'} | {sto or '-'} | {g['scope_flags']} ({bl}) | {g['repairs']} ({g['repairs_proven']}) | {_num(g['ttv']['median'], 0)} / {_num(g['ttv']['q95'], 0)} |")
+            sr = g.get("synth_rejected") or {}
+            srt = (f"{sum(sr.values())} (" + ", ".join(f"{k.split('|')[0]} {k.split('|')[1]}" + (f" ×{n}" if n > 1 else "") for k, n in sorted(sr.items())) + ")") if sr else "0"
+            L.append(f"| {g['model']} | {g['arm']} | {g['sim_fail']} | {g['falsified']} | {g['rejected']} | {g['inconclusive']} | {g['error']} | {g['pending']} | {g['duplicate']} | {g['prescreened']} | {srt} | {uni or '-'} | {sto or '-'} | {g['scope_flags']} ({bl}) | {g['repairs']} ({g['repairs_proven']}) | {_num(g['ttv']['median'], 0)} / {_num(g['ttv']['q95'], 0)} |")
         L.append("")
         L += latency_note_lines(data.get("proof_latency_bound"), tier, tier_of)   # DECISION 2026-09-19 (l) 4
     # best gain per design

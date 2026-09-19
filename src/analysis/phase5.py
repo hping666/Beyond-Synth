@@ -452,10 +452,10 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
                                   "proven": 0, "proven_sim_only": 0, "sim_fail": 0, "falsified": 0, "rejected": 0, "inconclusive": 0, "error": 0, "pending": 0,
                                   "accepted": 0, "scope_flags": 0, "block_answers": 0, "block_flags": 0, "repairs": 0, "repairs_proven": 0,
                                   "uniform": Counter(), "stored": Counter(), "retained_runs": 0, "best_gain_runs": [], "gains_retained": [], "ttv": [], "classes": Counter(), "confusion": Counter(),
-                                  "latency_mapped": 0, "pending_by": Counter(), "run_ids": [], "spans": []})
+                                  "latency_mapped": 0, "pending_by": Counter(), "run_ids": [], "spans": [], "synth_rejected": Counter()})
     by_design = defaultdict(lambda: {"best": None, "runs": 0, "retained": 0, "pending": 0})
     inconclusive = {"by_class": Counter(), "by_design": Counter()}
-    correctness = defaultdict(lambda: {"cands": 0, "proven": 0, "runs": 0})
+    correctness = defaultdict(lambda: {"cands": 0, "proven": 0, "runs": 0, "synth_rejected": 0})
     curves_calls = defaultdict(list)     # (tier|model|arm) -> per run: list of best-so-far retained area gain by call index
     curves_dc = defaultdict(list)        # (tier|model|arm) -> per run: [(cum dc hours, best so far)]
     for r in runs:
@@ -483,6 +483,10 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
             cd = correctness[f"{r['tier']}|{r['llm_model']}|{r['design_id']}"]
             cd["cands"] += 1
             cd["proven"] += int(ver == "proven")
+            if c.get("e4_failure"):   # DECISION 2026-09-19 (o) 2: formal-accepted, synthesis-rejected (terminal DC rejection, (n) 1), with the DC error id
+                rid = re.sub(r"^.*\(([A-Z]+-\d+)\).*$", r"\1", str(c["e4_failure"]))
+                g["synth_rejected"][f"{r['design_id']}|{rid}"] += 1
+                cd["synth_rejected"] += 1
             if lab == "duplicate":   # the same RTL again: a spent call, no verdict, no class of its own
                 g["duplicate"] += 1
                 seq_calls.append(best_run)
@@ -596,7 +600,7 @@ def collect(cfg, conn, exp="phase5", tiers=None, results_dir=None):
             "repairs": g["repairs"], "repairs_proven": g["repairs_proven"],
             "classes": dict(g["classes"]), "confusion": dict(g["confusion"]),
             "ttv": {"n": len(g["ttv"]), "median": round(statistics.median(g["ttv"]), 1) if g["ttv"] else None, "q95": round(_q(g["ttv"], 0.95), 1) if g["ttv"] else None},
-            "pending_by": dict(g["pending_by"]), "incomplete": bool(g["pending"] or g["done"] < n or (planned is not None and n < planned)),
+            "pending_by": dict(g["pending_by"]), "synth_rejected": dict(g["synth_rejected"]), "incomplete": bool(g["pending"] or g["done"] < n or (planned is not None and n < planned)),
         }
         out["conditions"][key] = row_conditions(conn, g["run_ids"], g["spans"], samples)
     out["designs"] = {k: {"best_retained_area_gain": (None if v["best"] is None else round(v["best"], 5)), "runs": v["runs"], "retained": v["retained"], "pending": v["pending"]} for k, v in by_design.items()}

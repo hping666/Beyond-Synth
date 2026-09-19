@@ -539,4 +539,55 @@ def test_pool_progress_reestimates_after_the_proof_drain(tmp_path, monkeypatch):
     monkeypatch.setattr(AL, "pool_progress", lambda cfg, conn, state_path=None: pp)
     monkeypatch.setattr(AL, "stage_b_proof_eta", lambda cfg, conn: 5.0)
     line = AL.pool_progress_line(cfg, conn)
-    assert "Stage B proof ETA drained (" in line and "LATER" not in line and re.search(r"rate 4\.[0-9]/h medium B0 \(re-estimated over the 3[01] min", line)
+    assert "Stage B proof ETA drained (" in line and "LATER" not in line and re.search(r"rate (3\.[5-9]|4\.[0-4])/h medium B0 \(re-estimated over the 3[01] min", line)
+
+
+def test_stage_b_completeness_considers_the_medium_tier_only(tmp_path, monkeypatch):
+    """DECISION 2026-09-19 (o) item 1: Stage B's final waits for the medium tier's items only — a large-tier candidate pending E4 does not
+    hold it; a medium-tier one does. Stage A keeps the large tier, Stage C every tier."""
+    spec = importlib.util.spec_from_file_location("phase5_stages", str(Path(C.ROOT) / "scripts" / "phase5_stages.py"))
+    ST = importlib.util.module_from_spec(spec); spec.loader.exec_module(ST)
+    assert ST.COMPLETENESS_TIERS == {"A": ["large"], "B": ["medium"], "C": ["large", "medium", "small"]}
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": ["l1"], "medium": ["m1"], "small": []}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    db.insert(conn, "runs", {"run_id": "rl", "exp": "phase5", "arm": "M", "design_id": "l1", "seed": 1, "llm_model": "m", "status": "done"})
+    db.insert(conn, "runs", {"run_id": "rm", "exp": "phase5", "arm": "M", "design_id": "m1", "seed": 1, "llm_model": "m", "status": "done"})
+    db.insert(conn, "candidates", {"cand_id": "cl", "run_id": "rl", "design_id": "l1", "gen": 1, "arm": "M", "llm_model": "m", "verdict": "proven"})   # large-tier E4 pending
+    ok_b, s = ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["B"])
+    assert ok_b and s["pending"] == {}
+    assert not ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["A"])[0] and not ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["C"])[0]
+    db.insert(conn, "candidates", {"cand_id": "cm", "run_id": "rm", "design_id": "m1", "gen": 1, "arm": "M", "llm_model": "m", "verdict": "proven"})   # medium-tier E4 pending
+    ok_b, s = ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["B"])
+    assert not ok_b and s["pending"] == {"e4": 1}
+
+
+def test_synthesis_rejected_subcategory_in_the_verdict_mix(tmp_path, monkeypatch):
+    """DECISION 2026-09-19 (o) item 2: a candidate with a terminal DC rejection is counted per arm-model row (with design and DC error id)
+    and per design in the correctness data; a row without one reads 0."""
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["m1", "m2"], "small": []}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    for d in ("m1", "m2"):
+        conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES (?,'x',?,'p',1,1,'held',1.0,'t','g','c')", (d, d))
+    db.insert(conn, "runs", {"run_id": "r1", "exp": "phase5", "arm": "B2", "design_id": "m1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "done", "started_at": "t", "llm_calls": 60})
+    db.insert(conn, "runs", {"run_id": "r2", "exp": "phase5", "arm": "M", "design_id": "m2", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "done", "started_at": "t", "llm_calls": 60})
+    db.insert(conn, "candidates", {"cand_id": "c1", "run_id": "r1", "design_id": "m1", "gen": 1, "arm": "B2", "llm_model": "gpt-5.6-luna", "verdict": "proven", "e4_failure": "DC rejected (ELAB-366)"})
+    db.insert(conn, "candidates", {"cand_id": "c2", "run_id": "r1", "design_id": "m1", "gen": 1, "arm": "B2", "llm_model": "gpt-5.6-luna", "verdict": "proven", "e4_failure": "DC rejected (ELAB-366)"})
+    db.insert(conn, "candidates", {"cand_id": "c3", "run_id": "r2", "design_id": "m2", "gen": 1, "arm": "M", "llm_model": "gpt-5.6-luna", "verdict": "falsified", "label": "nonequiv"})
+    data = P5.collect(cfg, conn, tiers=["medium"])
+    assert data["groups"]["medium|gpt-5.6-luna|B2"]["synth_rejected"] == {"m1|ELAB-366": 2} and data["groups"]["medium|gpt-5.6-luna|M"]["synth_rejected"] == {}
+    assert data["correctness"]["medium|gpt-5.6-luna|m1"]["synth_rejected"] == 2 and data["correctness"]["medium|gpt-5.6-luna|m2"]["synth_rejected"] == 0
+    R = load_report()
+    out = tmp_path / "reports"; out.mkdir()
+    monkeypatch.setattr(P5, "completion_view", lambda cfg, conn, exp="phase5": {"complete": [], "preliminary": [], "rows": {}, "blockers": {}, "runs_done": {}, "open_proofs": {}, "comparisons": {}, "tally": {"wins": [], "ties": [], "partials": [], "losses": [], "undecided": []},
+                                                                                 "reachability": {"total_designs": 2, "criterion_wins": 18, "wins": 0, "ties": 0, "partial": 0, "lost": 0, "undecided": 0, "remaining_designs": 2, "wins_still_needed": 18, "reachable": False, "preliminary": 0}})
+    assert R.phase5(cfg, stage="B", out_dir=str(out), conn=conn) == 0
+    txt = (out / "phase5_stage_B.md").read_text()
+    assert "| formal-accepted, synthesis-rejected (DC error id; DECISION 2026-09-19 (o) 2) |" in txt
+    row_b2 = [l for l in txt.splitlines() if l.startswith("| gpt-5.6-luna | B2 |") and "ELAB-366" in l]
+    assert row_b2 and "| 2 (m1 ELAB-366 ×2) |" in row_b2[0]
+    row_m = [l for l in txt.splitlines() if l.startswith("| gpt-5.6-luna | M | 0 | 1 |")]
+    assert row_m and "| 0 | 0 | 0 | -" in row_m[0]
