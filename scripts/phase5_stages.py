@@ -30,6 +30,7 @@ STAGES = (("A", ["large"]), ("B", ["large", "medium"]), ("C", ["large", "medium"
 # DECISION 2026-09-19 (p) item 1: Stage C's final considers the small tier only; the Phase 5 completion condition below is separate.
 COMPLETENESS_TIERS = {"A": ["large"], "B": ["medium"], "C": ["small"]}
 CONDITION_MARKER = os.path.join(ROOT, "reports", "data", "phase5_completion_condition.json")
+E1_AB_MARKER = os.path.join(ROOT, "reports", "data", "phase5_e1_ab.done")   # DECISION 2026-09-19 (q) 2: written when the E1 (a) / (b) reconciliation report is issued
 
 
 def planned_runs(cfg, conn):
@@ -52,11 +53,15 @@ def marker(stage):
     return os.path.join(ROOT, "reports", "data", f"phase5_stage_{stage}.done")
 
 
-def phase5_completion_condition(cfg, conn, pool_state_path=None, plan=None):
-    """DECISION 2026-09-19 (p) item 1: the Phase 5 completion condition, separate from the stage finals — every tier's planned runs done,
-    every evaluation resolved including the offline pool's proofs (D2 re-verification, prescreened, reproof) and every E4 retry (a
-    terminal DC rejection counts as resolved), no open visible job, and no offline-pool entry left unfinished (await_proof included).
-    The human then writes `PHASE5_COMPLETE: yes` into STATUS.md, which is what scripts/report_hidden.py waits for. -> (met, detail)."""
+def phase5_completion_condition(cfg, conn, pool_state_path=None, plan=None, e1_marker=None):
+    """DECISION 2026-09-19 (p) item 1 and (q) item 2: the Phase 5 completion condition, separate from the stage finals. Required: every
+    tier's planned search runs done; their proofs drained and E4 resolved (a terminal DC rejection counts as resolved); B0 offline E4
+    in for every tier; the prescreened candidates' simulation, E4 and proofs done (pending_summary over every tier empty — verdict,
+    e4, sim and proof kinds — and no open visible job); no offline-pool entry of the required groups left unfinished (b0_e4,
+    e4_timeout, e4_late, prescreened, reproof, resim); the E1 (a) / (b) reconciliation report issued (marker reports/data/
+    phase5_e1_ab.done). Not required: the D2 re-verification of superseded runs' stored candidates (pool group reverify) and the E1 (c)
+    audit — they continue after the marker. The human then writes `PHASE5_COMPLETE: yes` into STATUS.md, which is what
+    scripts/report_hidden.py waits for. -> (met, detail)."""
     from src.analysis import phase5 as P5
     tiers = ["large", "medium", "small"]
     plan = plan if plan is not None else planned_runs(cfg, conn)
@@ -66,12 +71,13 @@ def phase5_completion_condition(cfg, conn, pool_state_path=None, plan=None):
     try:
         st = json.load(open(pool_state_path or os.path.join(ROOT, "results", "queue", "offline_pool_state.json")))
         for c in (st.get("cands") or {}).values():
-            if c.get("stage") != "done":
+            if c.get("stage") != "done" and c.get("group") != "reverify":   # (q) 2: D2 re-verification is not required
                 pool_left[c.get("stage")] = pool_left.get(c.get("stage"), 0) + 1
     except (OSError, ValueError):
         pass
-    met = bool(runs_done and not s["pending"] and not s["open_jobs"] and not pool_left)
-    return met, {"runs_done": runs_done, "pending": s["pending"], "open_jobs": s["open_jobs"], "pool_unfinished": pool_left}
+    e1_done = os.path.exists(e1_marker or E1_AB_MARKER)
+    met = bool(runs_done and not s["pending"] and not s["open_jobs"] and not pool_left and e1_done)
+    return met, {"runs_done": runs_done, "pending": s["pending"], "open_jobs": s["open_jobs"], "pool_unfinished": pool_left, "e1_ab_done": e1_done}
 
 
 def render(cfg, stage, final=False):
@@ -135,7 +141,7 @@ def once(cfg, interim_hours=3.0, log=print):
         if met:
             with open(CONDITION_MARKER, "w") as f:
                 json.dump({"at": time.strftime("%Y-%m-%dT%H:%M:%S"), "detail": detail}, f)
-            line = f"Phase 5 completion condition met ({time.strftime('%Y-%m-%d %H:%M')}): every tier complete, offline-pool proofs and E4 retries resolved — the human writes `PHASE5_COMPLETE: yes` into STATUS.md (DECISION 2026-09-19 (p) 1)."
+            line = f"Phase 5 completion condition met ({time.strftime('%Y-%m-%d %H:%M')}): every tier's runs done, proofs drained, E4 resolved, B0 offline E4 in, prescreened candidates done, E1 (a) / (b) reported — the human writes `PHASE5_COMPLETE: yes` into STATUS.md (DECISION 2026-09-19 (p) 1, (q) 2)."
             log("PHASE 5 COMPLETION CONDITION MET: " + line)
             status = os.path.join(ROOT, "STATUS.md")
             if os.path.exists(status):

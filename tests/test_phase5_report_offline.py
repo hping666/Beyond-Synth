@@ -606,21 +606,26 @@ def test_phase5_completion_condition_both_directions(tmp_path, monkeypatch):
     for rid, d in (("rl", "l1"), ("rm", "m1"), ("rs", "s1")):
         db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": "M", "design_id": d, "seed": 1, "llm_model": "m", "status": "done"})
     pool = tmp_path / "pool_state.json"; pool.write_text(json.dumps({"cands": {}}))
-    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)
-    assert met and detail["runs_done"] and detail["pending"] == {} and detail["pool_unfinished"] == {}
+    e1 = tmp_path / "e1_ab.done"
+    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan, e1_marker=str(e1))
+    assert not met and detail["e1_ab_done"] is False                                   # DECISION 2026-09-19 (q) 2: the E1 (a) / (b) report must be issued
+    e1.write_text("{}")
+    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan, e1_marker=str(e1))
+    assert met and detail["runs_done"] and detail["pending"] == {} and detail["pool_unfinished"] == {} and detail["e1_ab_done"]
     # a prescreened candidate whose offline proof is still pending holds the condition (not the Stage C final)
     db.insert(conn, "candidates", {"cand_id": "cp", "run_id": "rs", "design_id": "s1", "gen": 1, "arm": "M", "llm_model": "m", "label": "prescreened", "prescreened": 1, "v1_status": "ok", "v2_status": "identical"})
     db.insert(conn, "evaluations", {"design_id": "s1", "cand_id": "cp", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 1.0, "status": "ok", "raw_dir": "/x"})
-    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)
+    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan, e1_marker=str(e1))
     assert not met and detail["pending"] == {"proof": 1} and ST.evaluation_complete(cfg, conn, ST.COMPLETENESS_TIERS["C"])[0]
     conn.execute("UPDATE candidates SET verdict='proven' WHERE cand_id='cp'"); conn.commit()
-    assert ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)[0]
-    # an offline-pool entry still awaiting its proof (a superseded run's re-verification, D2) holds it too
+    assert ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan, e1_marker=str(e1))[0]
+    # a prescreened pool entry still unfinished holds it; a D2 re-verification entry (group reverify) does not (DECISION 2026-09-19 (q) 2)
+    pool.write_text(json.dumps({"cands": {"x": {"group": "prescreened", "stage": "e4_running"}}}))
+    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan, e1_marker=str(e1))
+    assert not met and detail["pool_unfinished"] == {"e4_running": 1}
     pool.write_text(json.dumps({"cands": {"x": {"group": "reverify", "stage": "await_proof"}}}))
-    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)
-    assert not met and detail["pool_unfinished"] == {"await_proof": 1}
-    pool.write_text(json.dumps({"cands": {"x": {"group": "reverify", "stage": "done"}}}))
-    assert ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)[0]
+    met, detail = ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan, e1_marker=str(e1))
+    assert met and detail["pool_unfinished"] == {}
     # a planned run not done holds it
     conn.execute("UPDATE runs SET status='running' WHERE run_id='rs'"); conn.commit()
-    assert not ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan)[0]
+    assert not ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan, e1_marker=str(e1))[0]

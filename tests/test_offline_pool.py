@@ -38,7 +38,7 @@ def test_scope_chaining_and_throttle(tmp_path, monkeypatch):
     db.insert(conn, "candidates", {"cand_id": "med_b0", "run_id": "rmed", "design_id": "M1", "gen": 1, "arm": "B0", "rtl_path": str(rtl), "verdict": "proven", "label": "improved"})
     items = {it["cand_id"]: it["group"] for it in mod.scope(cfg, conn)}
     assert items == {"b0_proven": "b0_e4", "m_pre": "prescreened", "med_b0": "b0_e4", "m_timeout": "e4_late"}   # every tier's finished B0 runs (DECISION (d) B5); existing E4 records and unproven B0 skipped; a proven candidate without any E4 attempt: e4_late ((m) 3)
-    assert [it["cand_id"] for it in mod.scope(cfg, conn)] == ["med_b0", "m_timeout", "b0_proven", "m_pre"]   # (m) 1: medium B0 first, then the E4 gaps, then large B0, then prescreened
+    assert [it["cand_id"] for it in mod.scope(cfg, conn)] == ["med_b0", "b0_proven", "m_timeout", "m_pre"]   # DECISION 2026-09-19 (q) 1: medium B0, (small B0,) large B0, then the E4 retries / gaps, then prescreened
     db.insert(conn, "evaluations", {"design_id": "L1", "cand_id": "m_timeout", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": "/x/t", "dc_seconds": 1020.0})
     assert {it["cand_id"]: it["group"] for it in mod.scope(cfg, conn, include_e4_timeouts=True)}["m_timeout"] == "e4_timeout"   # a failed attempt on record: retry with the long guard
     conn.execute("DELETE FROM evaluations WHERE cand_id='m_timeout'"); conn.commit()
@@ -136,9 +136,9 @@ def test_b0_scope_covers_every_tier_in_order_and_idle_seats_widen_the_pool(tmp_p
         db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": "B0", "design_id": d, "seed": 1, "llm_model": "gpt-5.6-luna", "status": status, "started_at": "t"})
         db.insert(conn, "candidates", {"cand_id": f"c_{rid}", "run_id": rid, "design_id": d, "gen": 1, "arm": "B0", "rtl_path": str(rtl), "verdict": "proven"})
     items = [(it["cand_id"], it["group"], it.get("tier")) for it in mod.scope(cfg, conn)]
-    assert items == [("c_rm", "b0_e4", "medium"), ("c_rl", "b0_e4", "large"), ("c_rs", "b0_e4", "small")]   # every tier; medium first (DECISION 2026-09-19 (m) 1); the running run's candidate not yet
+    assert items == [("c_rm", "b0_e4", "medium"), ("c_rs", "b0_e4", "small"), ("c_rl", "b0_e4", "large")]   # every tier; medium, then small, then large (DECISION 2026-09-19 (q) 1); the running run's candidate not yet
     conn.execute("UPDATE runs SET status='done' WHERE run_id='rm_run'"); conn.commit()
-    assert [it["cand_id"] for it in mod.scope(cfg, conn)] == ["c_rm", "c_rm_run", "c_rl", "c_rs"]
+    assert [it["cand_id"] for it in mod.scope(cfg, conn)] == ["c_rm", "c_rm_run", "c_rs", "c_rl"]
     # the slot rule: 8 slots while 12 or fewer DC seats idle, 12 when more are idle
     st = {"cands": {}, "paused": False, "baseline": 100.0}
     monkeypatch.setattr(mod, "STATE", str(tmp_path / "state.json")); monkeypatch.setattr(mod, "LOG", str(tmp_path / "pool.log"))

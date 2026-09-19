@@ -434,8 +434,8 @@ retention:                   # approved by the user 2026-09-12 (DECISIONS): resu
 offline_pool:                # DECISION 2026-09-18 item 1 / (d) B5, D2: the offline evaluation pool (scripts/offline_pool.py); priority 1 = below every search job
   slots: 8                   # (d) B5: 8, and up to slots_when_idle while more than idle_dc_seats_for_extra DC seats sit idle
   slots_when_idle: 16       # DECISION 2026-09-19 (m) 1: 16 whenever idle DC seats allow (nice 19 stays)
-  b0_tier_order: [medium, large, small]   # (m) 1: medium-tier B0 E4 first (Stage B critical path)
-  group_order: [resim, 'b0_e4:medium', e4_timeout, e4_late, 'b0_e4:large', prescreened, 'b0_e4:small', reverify, reproof]   # (m) 1–3: the pool's order (group or group:tier)
+  b0_tier_order: [medium, small, large]   # (q) 1: within a group, medium, then small, then large
+  group_order: [resim, 'b0_e4:medium', 'b0_e4:small', 'b0_e4:large', e4_timeout, e4_late, prescreened, reverify, reproof]   # DECISION 2026-09-19 (q) 1: medium B0 -> small B0 -> large B0 -> E4 retries (all tiers) -> prescreened -> the rest
   idle_dc_seats_for_extra: 12
   priority: 1
   load_over_baseline: 0.10   # (d) B3 item 3: pause while the 1-minute load exceeds the measured baseline by more than 10 % (load-only throttle)

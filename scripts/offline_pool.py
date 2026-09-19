@@ -47,8 +47,8 @@ def settings(cfg):
     o.setdefault("slots", 8); o.setdefault("priority", 1); o.setdefault("load_over_baseline", 0.10); o.setdefault("vcf_wait_q95_max_min", 20.0)
     o.setdefault("poll_sec", 60); o.setdefault("exp", "phase5"); o.setdefault("tier", "large"); o.setdefault("rerun_guard_sec", 3600)
     o.setdefault("slots_when_idle", 12); o.setdefault("idle_dc_seats_for_extra", 12)
-    o.setdefault("b0_tier_order", ["medium", "large", "small"])   # DECISION 2026-09-19 (m) 1
-    o.setdefault("group_order", ["resim", "b0_e4:medium", "e4_timeout", "e4_late", "b0_e4:large", "prescreened", "b0_e4:small", "reverify", "reproof"])
+    o.setdefault("b0_tier_order", ["medium", "small", "large"])   # DECISION 2026-09-19 (m) 1 / (q) 1
+    o.setdefault("group_order", ["resim", "b0_e4:medium", "b0_e4:small", "b0_e4:large", "e4_timeout", "e4_late", "prescreened", "reverify", "reproof"])
     return o
 
 
