@@ -800,6 +800,19 @@ def test_generating_only_slot_accounting_with_guardrails(tmp_path, monkeypatch):
     assert spawned == [jobs["W1"]] and q._lane_paused.get("window") is False   # the window lane resumed; SPI still held by its wait (per lane, no tier-wide pause)
     idle = Q.idle_seat_minutes(conn, cfg, hours=1.0)
     assert idle["spi"]["seats"] == 4 and idle["spi"]["occupied_min"] == 50.0 and idle["spi"]["idle_min"] == 190.0   # one 50-minute proof in the hour on 4 seats
+    # DECISION 2026-09-19 (m) 7: a raised proof-wait threshold for SPI's lane lets its fresh run through while the default still holds a lane above 60 min
+    spawned.clear(); conn.execute("UPDATE jobs SET state='queued' WHERE job_id IN (?, ?)", (jobs["W1"], jobs["SPI"])); conn.commit()
+    assert Q.queued_runs_by_lane(conn, cfg) == {"spi": 1, "window": 1}
+    cfg3 = copy.deepcopy(cfg); cfg3["queue"]["generating_max"] = 4
+    cfg3["queue"]["admission_guard"]["proof_wait_max_min_by_lane"] = {"spi": 1000}
+    q3 = Queue(cfg3, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None); q3._spawn = q._spawn
+    q3._dispatch()
+    assert set(spawned) == {jobs["W1"], jobs["SPI"]} and not q3._lane_paused.get("spi") and Q.queued_runs_by_lane(conn, cfg) == {}
+    spawned.clear(); conn.execute("UPDATE jobs SET state='queued' WHERE job_id IN (?, ?)", (jobs["W1"], jobs["SPI"])); conn.commit()
+    cfg3["queue"]["admission_guard"]["proof_wait_max_min_by_lane"] = {"spi": 70}     # below SPI's ≈ 75 min wait (4 of its 10 proofs started on the first dispatch): held again
+    q4 = Queue(cfg3, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None); q4._spawn = q._spawn
+    q4._dispatch()
+    assert spawned == [jobs["W1"]] and q4._lane_paused.get("spi") is True, (spawned, jobs, Q.proof_wait_estimate(conn, cfg3), q4._lane_paused)
     # the revert switch: every running run holds a slot again -> with search_max 2 nothing is free
     spawned.clear(); conn.execute("UPDATE jobs SET state='queued' WHERE job_id=?", (jobs["W1"],)); conn.commit()
     cfg["queue"]["count_waiting_runs"] = True; cfg["queue"]["search_max"] = 2

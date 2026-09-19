@@ -46,6 +46,9 @@ def settings(cfg):
     o = dict(cfg.get("offline_pool") or {})
     o.setdefault("slots", 8); o.setdefault("priority", 1); o.setdefault("load_over_baseline", 0.10); o.setdefault("vcf_wait_q95_max_min", 20.0)
     o.setdefault("poll_sec", 60); o.setdefault("exp", "phase5"); o.setdefault("tier", "large"); o.setdefault("rerun_guard_sec", 3600)
+    o.setdefault("slots_when_idle", 12); o.setdefault("idle_dc_seats_for_extra", 12)
+    o.setdefault("b0_tier_order", ["medium", "large", "small"])   # DECISION 2026-09-19 (m) 1
+    o.setdefault("group_order", ["resim", "b0_e4:medium", "e4_timeout", "e4_late", "b0_e4:large", "prescreened", "b0_e4:small", "reverify", "reproof"])
     return o
 
 
@@ -69,40 +72,63 @@ def save_state(st):
 
 
 # ----------------------------------------------------------------------------- scope
-def scope(cfg, conn, include_e4_timeouts=False):
-    """-> list of {cand_id, group, run_id, design_id, rtl_path, model, arm} for the candidates the pool evaluates (records that
-    already exist are skipped)."""
+def scope(cfg, conn, include_e4_timeouts=True):
+    """-> the candidates the pool evaluates, in the pool's order — DECISION 2026-09-19 (m) 1: medium-tier B0 E4 first, then the proven
+    candidates of finished runs without an E4 record on every tier (an E4 that failed or timed out: group `e4_timeout`, re-run with
+    the long guard and the e4_rerun flag; an E4 never submitted: group `e4_late`), then large-tier B0 E4, prescreened sims and the
+    rest (config offline_pool.group_order with keys "group" or "group:tier"; within a group medium, large, small). Records that
+    already exist are skipped. Other groups: resim ((m) 2: the sim jobs that crashed on the 2026-09-18 10:41 edit, marker
+    "[resim pending" on the candidate — sim, then E4 and the proof in parallel, at the run pipeline's priorities), prescreened,
+    reverify ((d) D2), reproof. `include_e4_timeouts` is kept for the callers; the retry group is always in scope ((m) 3: every
+    proven candidate gets an E4 record or a retry regardless of its run's state)."""
     o = settings(cfg)
     tiers = tier_of_design(cfg)
-    designs = [d for d, t in tiers.items() if t == o["tier"]]
-    marks = ",".join("?" * len(designs))
+    tier_rank = {t: i for i, t in enumerate(o["b0_tier_order"])}
     out = []
+
+    def has_ok_e4(cid):
+        return conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' LIMIT 1", (cid,)).fetchone() is not None
+
+    def item(r, group, **extra):
+        return {"cand_id": r["cand_id"], "group": group, "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"],
+                "tier": tiers.get(r["design_id"], "?"), **extra}
+    # (m) 2: re-simulation of the crashed sim jobs (marker on the candidate; the failed job's payload is reused)
+    for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                          f"WHERE r.exp=? AND c.note LIKE '%[resim pending%' AND c.verdict IS NULL ORDER BY c.cand_id", (o["exp"],)):
+        j = conn.execute("SELECT payload_json FROM jobs WHERE kind='sim' AND cand_id=? AND state='failed' ORDER BY finished_at DESC LIMIT 1", (r["cand_id"],)).fetchone()
+        if j is None:
+            continue
+        out.append(item(r, "resim", sim_payload_src=json.loads(j["payload_json"])))
     # (i) proven B0 candidates without a visible E4 record — DECISION 2026-09-18 (d) B5: every tier, continuously as runs finish;
-    #     order large (with the prescreened group), then medium, then small; a candidate of a superseded run is not evaluated here (D2 covers those)
-    tier_rank = {"large": 0, "medium": 1, "small": 2}
-    b0 = []
+    #     a candidate of a superseded run is not evaluated here (D2 covers those)
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                           f"WHERE r.exp=? AND r.status='done' AND r.arm='B0' AND c.verdict IN ('proven','proven_sim_only') ORDER BY c.cand_id", (o["exp"],)):
-        if conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' LIMIT 1", (r["cand_id"],)).fetchone():
+        if has_ok_e4(r["cand_id"]):
             continue
-        b0.append({"cand_id": r["cand_id"], "group": "b0_e4", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"],
-                   "tier": tiers.get(r["design_id"], "?")})
-    b0.sort(key=lambda it: (tier_rank.get(it["tier"], 3), it["cand_id"]))
-    out.extend(b0)
+        out.append(item(r, "b0_e4"))
+    # (m) 3: proven candidates of finished runs, any arm but B0, not prescreened, not identical-text / duplicate / aborted, without an ok E4 record:
+    #     an E4 that was tried (an evaluation record of any status or a DC job) is retried with the long guard; one never submitted is run
+    for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
+                          f"WHERE r.exp=? AND r.status='done' AND r.arm!='B0' AND COALESCE(c.prescreened,0)=0 AND c.verdict='proven' "
+                          f"AND COALESCE(c.label,'') NOT IN ('duplicate','aborted','absorbed_identical') ORDER BY c.cand_id", (o["exp"],)):
+        if has_ok_e4(r["cand_id"]):
+            continue
+        tried = conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' LIMIT 1", (r["cand_id"],)).fetchone() or \
+            conn.execute("SELECT 1 FROM jobs WHERE cand_id=? AND pool='dc' LIMIT 1", (r["cand_id"],)).fetchone()
+        out.append(item(r, "e4_timeout" if tried else "e4_late"))
     # (ii) prescreened M candidates (every tier: the large tier's 636 and the 5 of the replaced thresholds run, item 1c): sim first, then E4
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                           f"WHERE r.exp=? AND (r.status!='superseded' OR r.superseded_reason='harness_fix') AND COALESCE(c.prescreened,0)=1 ORDER BY c.cand_id", (o["exp"],)):   # (d) D2: LSTM's prescreened candidates stay in scope after the supersession
-        if conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' LIMIT 1", (r["cand_id"],)).fetchone():
+        if has_ok_e4(r["cand_id"]):
             continue
-        out.append({"cand_id": r["cand_id"], "group": "prescreened", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"]})
+        out.append(item(r, "prescreened"))
     # (iv) DECISION 2026-09-18 (d) D2: the stored candidates of the runs superseded by the harness fix — simulation and E4 now under the
     #      corrected harness (simple_spi with force_rerun: its record hash did not change), the proof only when the pool's proofs are enabled
     force = set(o.get("reverify_force_rerun") or [])
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                           f"WHERE r.exp=? AND r.superseded_reason='harness_fix' AND COALESCE(c.prescreened,0)=0 AND COALESCE(c.label,'') NOT IN ('duplicate','aborted') "
                           f"AND c.rtl_path IS NOT NULL ORDER BY c.design_id, c.cand_id", (o["exp"],)):
-        out.append({"cand_id": r["cand_id"], "group": "reverify", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"],
-                    "force_rerun": r["design_id"] in force})
+        out.append(item(r, "reverify", force_rerun=r["design_id"] in force))
     # (v) 2026-09-18 11:2x: candidates whose proof job failed for an operator cause (a transient syntax error in seq_tcl.py, 10:41) — marked
     #     "[reproof pending" in their note; the proof is resubmitted from the failed job's payload, then E4 on proven (this group is not gated by proofs_enabled)
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
@@ -110,15 +136,14 @@ def scope(cfg, conn, include_e4_timeouts=False):
         j = conn.execute("SELECT payload_json FROM jobs WHERE kind='vcf' AND cand_id=? AND state='failed' ORDER BY finished_at DESC LIMIT 1", (r["cand_id"],)).fetchone()
         if j is None:
             continue
-        out.append({"cand_id": r["cand_id"], "group": "reproof", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"],
-                    "proof_payload": json.loads(j["payload_json"])})
-    # (iii) proven candidates whose visible E4 failed (timeouts) — only on the user's go
-    if include_e4_timeouts:
-        for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
-                              f"WHERE r.exp=? AND r.status!='superseded' AND c.label IS NULL AND COALESCE(c.prescreened,0)=0 AND c.verdict IN ('proven','proven_sim_only') AND c.design_id IN ({marks}) ORDER BY c.cand_id", (o["exp"], *designs)):
-            if conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' LIMIT 1", (r["cand_id"],)).fetchone():
-                continue
-            out.append({"cand_id": r["cand_id"], "group": "e4_timeout", "run_id": r["run_id"], "design_id": r["design_id"], "rtl_path": r["rtl_path"], "model": r["llm_model"], "arm": r["arm"]})
+        out.append(item(r, "reproof", proof_payload=json.loads(j["payload_json"])))
+    order = list(o["group_order"])
+
+    def key(it):
+        g, tr = it["group"], it.get("tier", "?")
+        idx = order.index(f"{g}:{tr}") if f"{g}:{tr}" in order else (order.index(g) if g in order else len(order))
+        return (idx, tier_rank.get(tr, 9), it["cand_id"])
+    out.sort(key=key)
     return out
 
 
@@ -160,7 +185,8 @@ def e4_job(cfg, conn, design, cand, saif=None):
     from src.designs import catalog as K
     o = settings(cfg)
     phi = conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (cand["design_id"],)).fetchone()[0]
-    j = J.dc_job(cfg, design, "E4", float(phi), int(o["priority"]))
+    pri = int(cfg["search"].get("job_priority", 4)) if cand.get("group") == "resim" else int(o["priority"])   # (m) 2: the run pipeline's priority
+    j = J.dc_job(cfg, design, "E4", float(phi), pri)
     j["payload"].update(rtl=[cand["rtl_path"]], incdirs=[str(p) for p in K.abs_paths(design, design["incdirs"])], is_baseline=0, cand_id=cand["cand_id"], offline_pool=True)
     if cand["group"] == "prescreened":
         j["payload"]["prescreened_offline"] = 1
@@ -169,7 +195,9 @@ def e4_job(cfg, conn, design, cand, saif=None):
         j["payload"]["reverify"] = 1
     elif cand["group"] == "reproof":    # the run's own fitness record, made by the pool because the run's proof job failed on an operator edit
         j["payload"]["reproof"] = 1
-    elif cand["group"] == "e4_timeout":   # DECISION 2026-09-18 (b) item 4: the re-run gets a 3600 s dc_shell guard and the e4_rerun flag
+    elif cand["group"] == "resim":      # DECISION 2026-09-19 (m) 2: the run's own fitness record, made by the pool after the re-simulation
+        j["payload"]["resim"] = 1
+    elif cand["group"] in ("e4_timeout", "e4_late"):   # DECISION 2026-09-18 (b) item 4 / 2026-09-19 (m) 3: the re-run gets a 3600 s dc_shell guard and the e4_rerun flag
         j["payload"]["e4_rerun"] = 1
         j["payload"]["force_rerun"] = True   # the failed record of the same inputs is cached; the re-run gets its own directory
         j["timeout_sec"] = int(o.get("rerun_guard_sec", 3600)) + 180
@@ -218,6 +246,27 @@ def write_reproof(conn, cand_id, rec, job_id):
                  "note=COALESCE(note,'') || ? WHERE cand_id=?",
                  (rec.get("v3_status"), rec.get("v3_seconds"), rec.get("verdict"), rec.get("proven_by"), rec.get("counterexample_path"), rec.get("harness_version"), job_id,
                   f" [re-proven {time.strftime('%Y-%m-%d %H:%M')} by the offline pool: {rec.get('verdict')} (harness_version {rec.get('harness_version')})]", cand_id))
+    conn.commit()
+
+
+def sync_resim_row(conn, cand_id, rec, sim_job, passed):
+    """DECISION 2026-09-19 (m) 2: the re-simulation's outcome into the candidate's row as the run would have written it — V1 / V2 fields;
+    a failure keeps the nonequiv label with the verdict; a pass clears the label (the proof and E4 decide) and leaves the verdict NULL."""
+    note = (f" [re-simulated {time.strftime('%Y-%m-%d %H:%M')} (DECISION 2026-09-19 (m) 2; the sim job crashed on the 2026-09-18 10:41 edit): V1 {rec.get('v1_status')}, V2 {rec.get('v2_status')}; "
+            + ("proof and E4 submitted" if passed else str(rec.get("verdict"))) + "]")
+    conn.execute("UPDATE candidates SET v1_status=?, v2_status=?, v2_cycles=?, verdict=?, label=?, eq_job_id=?, note=COALESCE(note,'') || ? WHERE cand_id=?",
+                 (rec.get("v1_status"), rec.get("v2_status"), rec.get("v2_cycles"), None if passed else rec.get("verdict"), None if passed else "nonequiv", sim_job, note, cand_id))
+    conn.commit()
+
+
+def write_resim_proof(conn, cand_id, rec, job_id):
+    """DECISION 2026-09-19 (m) 2: the re-run proof's outcome into the candidate's row (a proof job without a record is an evaluation error);
+    anything but proven restores the nonequiv label; a proven candidate keeps no arm label (uniform rule A labels it in the reports)."""
+    rec = rec or {"verdict": "error", "v3_status": "error"}
+    conn.execute("UPDATE candidates SET v3_status=?, v3_seconds=?, verdict=?, proven_by=?, counterexample_path=?, harness_version=?, eq_job_id=?, "
+                 "label=CASE WHEN ?='proven' THEN label ELSE 'nonequiv' END, note=COALESCE(note,'') || ? WHERE cand_id=?",
+                 (rec.get("v3_status"), rec.get("v3_seconds"), rec.get("verdict"), rec.get("proven_by"), rec.get("counterexample_path"), rec.get("harness_version"), job_id, rec.get("verdict"),
+                  f" [re-proven {time.strftime('%Y-%m-%d %H:%M')} (DECISION 2026-09-19 (m) 2): {rec.get('verdict')} (harness_version {rec.get('harness_version')})]", cand_id))
     conn.commit()
 
 
@@ -294,13 +343,29 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
     q = queue or Queue(cfg, conn, os.path.join(C.results_dir(cfg), "queue", "logs"), env={})
     designs = {d["design_id"]: d for d in K.load_all()}
     cands = st.setdefault("cands", {})
+    order = []   # DECISION 2026-09-19 (m) 1: submissions follow the scope's order, not the state file's insertion order
     for it in scope(cfg, conn, include_e4_timeouts):
-        cands.setdefault(it["cand_id"], {**it, "stage": "sim" if it["group"] in ("prescreened", "reverify") else ("proof" if it["group"] == "reproof" else "e4"), "sim_job": None, "e4_job": None, "proof_job": None, "result": None})
+        order.append(it["cand_id"])
+        cands.setdefault(it["cand_id"], {**it, "stage": "sim" if it["group"] in ("prescreened", "reverify", "resim") else ("proof" if it["group"] == "reproof" else "e4"), "sim_job": None, "e4_job": None, "proof_job": None, "result": None})
+    seen = set(order)
+    order += [cid for cid in cands if cid not in seen]
     # progress of submitted jobs
     for cid, c in cands.items():
         if c["stage"] == "sim_running":
             js = q.get(c["sim_job"])
-            if js and js["state"] in ("done", "failed"):
+            if js and js["state"] in ("done", "failed") and c.get("group") == "resim":   # DECISION 2026-09-19 (m) 2: sim -> E4 and the proof in parallel
+                rec = sim_record(cfg, c["sim_payload"])
+                if rec is None:
+                    c.update(stage="done", result="re-simulation job failed (no record)")
+                elif rec.get("verdict") in ("not_run", "proven_sim_only"):
+                    sync_resim_row(conn, cid, rec, c["sim_job"], True)
+                    c.update(stage="e4_proof", sim_result=rec.get("v2_status"), saif=rec.get("saif_c"), sim_record=rec)
+                else:
+                    sync_resim_row(conn, cid, rec, c["sim_job"], False)
+                    c.update(stage="done", result=f"re-simulation {rec.get('verdict')} ({rec.get('v1_status')}/{rec.get('v2_status')})", sim_result=rec.get("verdict"))
+                    c["sim_slimmed"] = str(slim_sim_record(cfg, c["sim_payload"]))[:120]
+                c["synced"] = True
+            elif js and js["state"] in ("done", "failed"):
                 rec = sim_record(cfg, c["sim_payload"])
                 if rec is None:
                     c.update(stage="done", result="sim job failed (no record)")
@@ -325,6 +390,22 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
                         c.update(stage="e4", proof_result="proven", saif=rec.get("saif_c"))
                     else:
                         c.update(stage="done", result=f"reproof {rec.get('verdict')}", proof_result=rec.get("verdict"))
+        elif c["stage"] == "e4_proof_running":   # (m) 2: both jobs of the run pipeline in flight
+            if c.get("proof_result") is None:
+                js = q.get(c["proof_job"])
+                if js and js["state"] in ("done", "failed"):
+                    rec = proof_record(cfg, c["proof_payload"])
+                    write_resim_proof(conn, cid, rec, c["proof_job"])
+                    c["proof_result"] = (rec or {}).get("verdict") or "error"
+            if c.get("e4_result") is None:
+                js = q.get(c["e4_job"])
+                if js and js["state"] in ("done", "failed"):
+                    ev = conn.execute("SELECT status, dc_seconds FROM evaluations WHERE cand_id=? AND config='E4' ORDER BY eval_id DESC LIMIT 1", (cid,)).fetchone()
+                    c["e4_result"] = (f"E4 {ev['status']}" if ev else f"E4 job {js['state']}"); c["dc_seconds"] = ev["dc_seconds"] if ev else None
+            if c.get("proof_result") is not None and c.get("e4_result") is not None:
+                c.update(stage="done", result=f"resim: proof {c['proof_result']}, {c['e4_result']}")
+                if c.get("sim_payload") and not c.get("sim_slimmed"):
+                    c["sim_slimmed"] = str(slim_sim_record(cfg, c["sim_payload"]))[:120]
         elif c["stage"] == "e4_running":
             js = q.get(c["e4_job"])
             if js and js["state"] in ("done", "failed"):
@@ -350,13 +431,14 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
     submitted = 0
     slots = int(o["slots"])
     idle_dc = int(cfg["queue"].get("dc_seats_target") or cfg["queue"].get("dc_seats_max") or 0) - conn.execute("SELECT COUNT(*) FROM jobs WHERE state='running' AND pool='dc'").fetchone()[0]
-    if idle_dc > int(o.get("idle_dc_seats_for_extra", 12)):   # DECISION 2026-09-18 (d) B5: up to 12 slots while more than 12 DC seats sit idle
+    if idle_dc > int(o.get("idle_dc_seats_for_extra", 12)):   # DECISION 2026-09-18 (d) B5 / 2026-09-19 (m) 1: up to slots_when_idle (16) while more than 12 DC seats sit idle
         slots = max(slots, int(o.get("slots_when_idle", 12)))
     st["slots_now"] = slots
     if ok:
-        inflight = sum(1 for c in cands.values() if c["stage"] in ("sim_running", "e4_running"))
+        inflight = sum(1 for c in cands.values() if c["stage"] in ("sim_running", "e4_running", "e4_proof_running"))
         proof_inflight = sum(1 for c in cands.values() if c["stage"] == "proof_running")
-        for cid, c in cands.items():
+        for cid in order:
+            c = cands[cid]
             if c["stage"] == "proof":   # proofs take VC Formal seats, not the pool's DC / sim slots: their own small cap (offline_pool.proof_slots)
                 if proof_inflight >= int(o.get("proof_slots", 4)):
                     continue
@@ -366,10 +448,23 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
             d = designs.get(c["design_id"])
             if d is None:
                 c.update(stage="done", result="design not in the catalog"); continue
-            if c["stage"] == "sim":
+            if c["stage"] == "sim" and c.get("group") == "resim":   # (m) 2: the crashed job's payload, at the run pipeline's priority, not niced
+                pl = dict(c["sim_payload_src"]); pl["note"] = f"{pl.get('note', '')} [resim (DECISION 2026-09-19 (m) 2)]"; pl["resim"] = 1
+                jid = q.submit("sim", pl, design_id=c["design_id"], cand_id=cid, config="EQ", priority=int(cfg["search"].get("job_priority", 4)), timeout_sec=int(cfg["timeouts"]["sim"]) * 60 + 300)
+                c.update(stage="sim_running", sim_job=jid, sim_payload=pl); submitted += 1
+            elif c["stage"] == "sim":
                 pl = sim_payload(cfg, d, c)
                 jid = q.submit("sim", pl, design_id=c["design_id"], cand_id=cid, config="EQ", priority=int(o["priority"]), timeout_sec=int(cfg["timeouts"]["sim"]) * 60 + 300)
                 c.update(stage="sim_running", sim_job=jid, sim_payload=pl); submitted += 1
+            elif c["stage"] == "e4_proof":   # (m) 2: E4 and the SEQ proof in parallel, as the run would (the proof takes no DC slot; it enters the normal VC Formal queue)
+                j = e4_job(cfg, conn, d, c, saif=c.get("saif"))
+                ejid = q.submit(j["kind"], j["payload"], design_id=c["design_id"], cand_id=cid, config="E4", priority=j["priority"], timeout_sec=j["timeout_sec"])
+                pl = dict(c["sim_payload"], sim_record=c["sim_record"]); pl["note"] = f"{pl.get('note', '')} proof"
+                cap = conn.execute("SELECT seq_cap_min FROM candidates WHERE cand_id=?", (cid,)).fetchone()
+                cap = int((cap[0] if cap and cap[0] else 0) or cfg["timeouts"]["seq_min"])
+                pri = int(cfg["search"].get("job_priority", 4)) + int((cfg["search"].get("early") or {}).get("priority_undiagnosed") or 0)
+                pjid = q.submit("vcf", pl, design_id=c["design_id"], cand_id=cid, config="EQ", priority=pri, timeout_sec=cap * 60 + 900)
+                c.update(stage="e4_proof_running", e4_job=ejid, proof_job=pjid, proof_payload=pl); submitted += 1
             elif c["stage"] == "proof":
                 pl = dict(c["proof_payload"]); pl["note"] = f"offline pool reproof {cid} (proof job failed on an operator edit, 2026-09-18 10:41)"; pl["offline_pool"] = True
                 jid = q.submit("vcf", pl, design_id=c["design_id"], cand_id=cid, config="EQ", priority=int(o.get("reproof_priority", 8)), timeout_sec=int(cfg["timeouts"]["seq_min"]) * 60 + 900)

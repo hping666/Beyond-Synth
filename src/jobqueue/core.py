@@ -251,6 +251,15 @@ def admission_cohorts(conn, cfg, split, tier="medium", exp="phase5"):
     return out
 
 
+def queued_runs_by_lane(conn, cfg):
+    """DECISION 2026-09-19 (m) 7: the runs waiting for admission (queued search jobs, held ones aside) per lane. -> {lane: n}."""
+    out = {}
+    for d, n in conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE kind='search' AND state='queued' AND payload_json NOT LIKE '%\"hold\"%' GROUP BY design_id"):
+        lane = lane_name_of(cfg, d)
+        out[lane] = out.get(lane, 0) + int(n)
+    return out
+
+
 def idle_seat_minutes(conn, cfg, hours=1.0):
     """(k) item 3: per lane, the seat-minutes of the last `hours` not occupied by a running proof of the lane's designs (seats × minutes
     minus the occupied minutes from the proofs' start / finish timestamps); the window designs as one group with cap minus the busy
@@ -762,10 +771,11 @@ class Queue:
                 if g:   # DECISION 2026-09-19 (k) item 1: per lane — a lane pauses on its own fraction or its own wait, no tier-wide pause
                     fracs = unverified_at_build(self.conn, self.cfg, minutes=int(g.get("window_min", 60)), tier=g.get("tier", "medium"), by="lane")
                     waits = proof_wait_estimate(self.conn, self.cfg)
-                    guard = {"fracs": fracs, "frac_max": float(g.get("unverified_at_build_max", 0.35)), "waits": waits, "wait_max": float(g.get("proof_wait_max_min", 60))}
+                    guard = {"fracs": fracs, "frac_max": float(g.get("unverified_at_build_max", 0.35)), "waits": waits, "wait_max": float(g.get("proof_wait_max_min", 60)),
+                             "wait_max_by_lane": {k: float(v) for k, v in (g.get("proof_wait_max_min_by_lane") or {}).items()}}   # DECISION 2026-09-19 (m) 7: a lane's raised threshold
                     for lane in set(fracs) | set(waits):
                         f = fracs.get(lane); w = (waits.get(lane) or {}).get("wait_min", 0.0)
-                        paused = (f is not None and f > guard["frac_max"]) or (w > guard["wait_max"])
+                        paused = (f is not None and f > guard["frac_max"]) or (w > guard["wait_max_by_lane"].get(lane, guard["wait_max"]))
                         if paused != self._lane_paused.get(lane, False):
                             self.log(f"lane {lane}: admission {'paused' if paused else 'resumed'} (unverified-at-build {f if f is None else round(f, 2)}, proof wait {w:.0f} min; DECISION 2026-09-19 (k) 1)")
                             self._lane_paused[lane] = paused
@@ -806,7 +816,7 @@ class Queue:
                 if guard is not None and fresh and job["kind"] == "search":   # (k) 1: a fresh run of a paused lane waits
                     lane = lane_name_of(self.cfg, job["design_id"])
                     f = (guard["fracs"] or {}).get(lane); w = ((guard["waits"] or {}).get(lane) or {}).get("wait_min", 0.0)
-                    if (f is not None and f > guard["frac_max"]) or w > guard["wait_max"]:
+                    if (f is not None and f > guard["frac_max"]) or w > guard["wait_max_by_lane"].get(lane, guard["wait_max"]):
                         continue
                 if fresh and job["kind"] == "search":
                     if admit_left <= 0:

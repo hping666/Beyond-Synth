@@ -231,15 +231,27 @@ def design_arm_comparison(cfg, conn, designs_cache, design_id, exp="phase5"):
     return {"rows": out, "t_d_area": (d or {}).get("thresholds", {}).get("area") if d else None}
 
 
-def m_exceeds(comparison, model):
-    """F2 tally rule: under `model`, M's mean best retained area gain exceeds both B1_E4's and B2's by more than the design's rule-A area
-    floor (t_d). -> True / False, or None when a row is missing."""
+def m_outcome(comparison, model):
+    """DECISION 2026-09-19 (m) item 4 (the F2 tally categories under `model`): 'win' — M's mean best retained area gain exceeds both
+    B1_E4's and B2's by more than the design's rule-A area floor (t_d); 'loss' — worse than either by more than the floor; 'tie' —
+    otherwise (within the floor of both, or separated from one baseline only); None when a row is missing."""
     rows = comparison["rows"]
     m, b1, b2 = rows.get(f"{model}|M"), rows.get(f"{model}|B1_E4"), rows.get(f"{model}|B2")
     if not (m and b1 and b2) or m["best_gain_mean"] is None:
         return None
     t = float(comparison.get("t_d_area") or 0.0)
-    return (m["best_gain_mean"] - max(b1["best_gain_mean"] or 0.0, b2["best_gain_mean"] or 0.0)) > t
+    d1, d2 = m["best_gain_mean"] - (b1["best_gain_mean"] or 0.0), m["best_gain_mean"] - (b2["best_gain_mean"] or 0.0)
+    if d1 < -t or d2 < -t:
+        return "loss"
+    if d1 > t and d2 > t:
+        return "win"
+    return "tie"
+
+
+def m_exceeds(comparison, model):
+    """F2 tally rule (kept for the callers): True when M wins, False otherwise, None when a row is missing (see m_outcome)."""
+    o = m_outcome(comparison, model)
+    return None if o is None else o == "win"
 
 
 def completion_view(cfg, conn, exp="phase5"):
@@ -251,19 +263,19 @@ def completion_view(cfg, conn, exp="phase5"):
     tier_of = tier_of_design(cfg)
     designs = _Designs(cfg, conn)
     main_model = {t: (m.get("all_arms") or cfg["llm"]["selected"]) for t, m in ((cfg["exp5"].get("model_assignment") or {}).items())}
-    comps, tally = {}, {"wins": [], "losses": [], "undecided": []}
+    comps, tally = {}, {"wins": [], "ties": [], "losses": [], "undecided": []}
     for d in cd["complete"] + cd["preliminary"]:
         comp = design_arm_comparison(cfg, conn, designs, d, exp)
         model = main_model.get(tier_of.get(d), cfg["llm"]["selected"])
-        verdict = m_exceeds(comp, model)
-        comp["model"], comp["m_exceeds"], comp["b0_pending"] = model, verdict, d in cd["preliminary"]
+        outcome = m_outcome(comp, model)   # DECISION 2026-09-19 (m) 4: win / tie / loss
+        comp["model"], comp["m_outcome"], comp["m_exceeds"], comp["b0_pending"] = model, outcome, (None if outcome is None else outcome == "win"), d in cd["preliminary"]
         comps[d] = comp
-        (tally["wins"] if verdict else tally["undecided"] if verdict is None else tally["losses"]).append(d)
+        {"win": tally["wins"], "tie": tally["ties"], "loss": tally["losses"], None: tally["undecided"]}[outcome].append(d)
     total = sum(len(v) for v in (cfg["exp5"].get("starting_points") or {}).values())
     need = int(cfg["exp5"].get("criterion_wins", 18))
     counted = len(cd["complete"]) + len(cd["preliminary"])
     remaining = total - counted
-    reach = {"total_designs": total, "criterion_wins": need, "wins": len(tally["wins"]), "lost": len(tally["losses"]), "undecided": len(tally["undecided"]),
+    reach = {"total_designs": total, "criterion_wins": need, "wins": len(tally["wins"]), "ties": len(tally["ties"]), "lost": len(tally["losses"]), "undecided": len(tally["undecided"]),
              "remaining_designs": remaining, "wins_still_needed": max(0, need - len(tally["wins"])), "reachable": (len(tally["wins"]) + remaining + len(tally["undecided"])) >= need,
              "preliminary": len(cd["preliminary"])}
     open_proofs = {r[0]: r[1] for r in conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE kind='vcf' AND state IN ('queued', 'running', 'held') GROUP BY design_id")}
@@ -289,11 +301,12 @@ def completion_alert(cfg, conn, state_path=None, write=True, view=None, exp="pha
     if new or new_p:
         r = view["reachability"]
         wins = [d for d in new + new_p if d in view["tally"]["wins"]]
+        ties = [d for d in new + new_p if d in view["tally"].get("ties", [])]
         n_all = len(view["complete"]) + len(view.get("preliminary") or [])
         line = (f"New complete designs since last render ({now}): " + (", ".join(new) or "none")
                 + (f"; B0 pending (complete except for B0's offline E4, DECISION 2026-09-19 (l) 3): {', '.join(new_p)}" if new_p else "")
-                + f" — M exceeds both B1_E4 and B2 by more than the floor on {len(wins)} of them; "
-                f"tally {r['wins']} of {n_all} complete designs (visible layer" + (f"; {len(view['preliminary'])} of them B0 pending" if view.get("preliminary") else "") + f"), "
+                + f" — M wins (exceeds both B1_E4 and B2 by more than the floor) on {len(wins)} of them, ties on {len(ties)}; "
+                f"tally {r['wins']} wins, {r.get('ties', 0)} ties, {r['lost']} losses of {n_all} complete designs (visible layer" + (f"; {len(view['preliminary'])} of them B0 pending" if view.get("preliminary") else "") + f"), "
                 f"{r['wins_still_needed']} wins still needed of {r['remaining_designs'] + r['undecided']} remaining / undecided"
                 + ("" if r["reachable"] else " — the 18-of-30 criterion is no longer reachable in the visible layer") + ".")
     if write and (new or new_p):

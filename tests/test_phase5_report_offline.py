@@ -254,9 +254,9 @@ def test_complete_designs_tally_reachability_and_alert_both_directions(tmp_path,
     view_p = P5.completion_view(cfg, conn)
     assert view_p["preliminary"] == ["m1"] and view_p["comparisons"]["m1"]["b0_pending"] is True and view_p["tally"]["wins"] == ["m1"] and view_p["reachability"]["preliminary"] == 1 and view_p["reachability"]["remaining_designs"] == 0
     new_p, line_p, _ = P5.completion_alert(cfg, conn, state_path=tmp_path / "prelim.json", write=False)
-    assert new_p == ["m1"] and "B0 pending" in line_p and "1 of 1 complete designs (visible layer; 1 of them B0 pending)" in line_p
+    assert new_p == ["m1"] and "B0 pending" in line_p and "tally 1 wins, 0 ties, 0 losses of 1 complete designs (visible layer; 1 of them B0 pending)" in line_p
     sec = "\n".join(load_report().phase5_completion_section(cfg, view_p, ["medium"], {"m1": "medium"}))
-    assert "B0 pending: 1 — m1" in sec and "| gpt-5.6-luna | B0 | 1 | 1 | pending | pending | pending | pending (B0 offline E4) |" in sec and "on 1 of 1 complete designs (visible layer; 1 of them B0 pending)" in sec and "| gpt-5.6-luna | M | 1 | 2 | 1 | 1 | 0 |" in sec
+    assert "B0 pending: 1 — m1" in sec and "| gpt-5.6-luna | B0 | 1 | 1 | pending | pending | pending | pending (B0 offline E4) |" in sec and "on 1 of 1 complete designs (visible layer; ties 0, M loses 0; 1 of them B0 pending)" in sec and "| gpt-5.6-luna | M | 1 | 2 | 1 | 1 | 0 |" in sec
     db.insert(conn, "evaluations", ev_b0); conn.commit()                                              # B0's E4 in -> the design moves to the full table
     assert P5.complete_designs(cfg, conn, plan=plan)["complete"] == ["m1"] and P5.complete_designs(cfg, conn, plan=plan)["preliminary"] == []   # an offline proof pending (D3) does not hold it back
     view = P5.completion_view(cfg, conn)
@@ -266,7 +266,7 @@ def test_complete_designs_tally_reachability_and_alert_both_directions(tmp_path,
     state = tmp_path / "complete.json"; status = tmp_path / "STATUS.md"; status.write_text("# S\n")
     monkeypatch.setattr(C, "ROOT", str(tmp_path))
     new, line, _ = P5.completion_alert(cfg, conn, state_path=state, write=True)
-    assert new == ["m1"] and line.startswith("New complete designs since last render") and "1 of 1 complete designs" in line and "m1" in status.read_text()
+    assert new == ["m1"] and line.startswith("New complete designs since last render") and "tally 1 wins, 0 ties, 0 losses of 1 complete designs" in line and "m1" in status.read_text()
     new2, line2, _ = P5.completion_alert(cfg, conn, state_path=state, write=True)
     assert new2 == [] and line2 is None and status.read_text().count("New complete designs") == 1     # fires once
     # the other direction of the tally: M no better than the floor over B1_E4 / B2
@@ -385,11 +385,86 @@ def test_completion_section_lists_what_blocks_the_all_done_designs():
             "rows": {"d1": {"gpt-5.6-luna|M": {"done": 3, "planned": 3, "pending": 9}}, "d2": {"gpt-5.6-luna|B0": {"done": 3, "planned": 3, "pending": 5}}, "d3": {"gpt-5.6-luna|M": {"done": 1, "planned": 3, "pending": 0}}},
             "blockers": {"d1": {"failed_job": 7, "e4_late": 2}, "d2": {"b0_e4": 5}, "d3": {}}, "runs_done": {"d1": True, "d2": True, "d3": False}, "open_proofs": {"d1": 4},
             "comparisons": {"d2": {"rows": {"gpt-5.6-luna|B0": {"runs": 3, "cands": 9, "proven": 5, "retained": 0, "tradeoff": 0, "best_gain_mean": None, "best_gain_max": None}}, "model": "gpt-5.6-luna", "m_exceeds": None, "t_d_area": 0.01}},
-            "tally": {"wins": [], "losses": [], "undecided": ["d2"]},
-            "reachability": {"total_designs": 3, "criterion_wins": 2, "wins": 0, "lost": 0, "undecided": 1, "remaining_designs": 2, "wins_still_needed": 2, "reachable": True, "preliminary": 1}}
-    sec = "\n".join(R.phase5_completion_section({}, view, ["medium"], {"d1": "medium", "d2": "medium", "d3": "medium"}))
-    assert "| d1 | medium | 3 / 3 | 4 | E4 of 2 candidates proven after their run finished (no evaluator; pool scope decision pending); failed evaluation jobs 7 (sim jobs of the 2026-09-18 10:41 operator edit; re-run not yet decided) |" in sec
+            "tally": {"wins": [], "ties": ["d2"], "losses": [], "undecided": []},
+            "reachability": {"total_designs": 3, "criterion_wins": 2, "wins": 0, "ties": 1, "lost": 0, "undecided": 0, "remaining_designs": 2, "wins_still_needed": 2, "reachable": True, "preliminary": 1}}
+    view["comparisons"]["d2"]["m_outcome"] = "tie"
+    sec = "\n".join(R.phase5_completion_section({"exp5": {"mechanism_notes": ["note X about M's archive"]}}, view, ["medium"], {"d1": "medium", "d2": "medium", "d3": "medium"}))
+    assert "M: tie — no arm separates from the others on this design)" in sec and "Ties — no arm separates from the others on this design: d2." in sec and "ties 1, M loses 0" in sec   # DECISION 2026-09-19 (m) 4
+    assert "- Mechanism note (C2): note X about M's archive" in sec and "mean over seeds of each run's best retained area gain (the tally rule of F2) and the max over seeds; §2 shows the max over seeds only" in sec   # (m) 5 / 6
+    assert "| d1 | medium | 3 / 3 | 4 | E4 never submitted for 2 candidates (run finished before the proof returned; pool group e4_late); failed evaluation jobs 7 (sim jobs of the 2026-09-18 10:41 operator edit; re-run not yet decided) |" in sec
     assert "| d2 | medium | 3 / 3 | 0 | B0 offline E4 5 (offline pool) — B0 pending |" in sec
-    assert "No design is complete, so no completion alert has fired: the 2 designs with every run done are held by B0 offline E4 5, E4 of 2 candidates proven after their run finished, failed evaluation jobs 7." in sec
+    assert "No design is complete, so no completion alert has fired: the 2 designs with every run done are held by B0 offline E4 5, E4 never submitted for 2 candidates, failed evaluation jobs 7." in sec
     assert "| d3 | medium | M-luna 1/3 |" in sec and "| d1 | medium | M-luna" not in sec
-    assert "| gpt-5.6-luna | B0 | 3 | 9 | pending | pending | pending | pending (B0 offline E4) |" in sec and "on 0 of 1 complete designs (visible layer; 1 of them B0 pending)" in sec
+    assert "| gpt-5.6-luna | B0 | 3 | 9 | pending | pending | pending | pending (B0 offline E4) |" in sec and "on 0 of 1 complete designs (visible layer; ties 1, M loses 0; 1 of them B0 pending)" in sec
+
+
+def test_tally_categories_win_tie_loss_both_directions():
+    """DECISION 2026-09-19 (m) 4: M wins when its mean best retained gain exceeds both B1_E4's and B2's by more than the floor, loses when
+    worse than either by more than the floor, ties otherwise (within the floor of both — btb, decoder_8bit — or separated from one
+    baseline only); None with a row missing. m_exceeds stays True only for a win."""
+    def comp(m, b1, b2, t=0.01):
+        return {"rows": {f"gpt-5.6-luna|{a}": {"best_gain_mean": v} for a, v in (("M", m), ("B1_E4", b1), ("B2", b2))}, "t_d_area": t}
+    assert P5.m_outcome(comp(0.05, 0.03, 0.02), "gpt-5.6-luna") == "win"
+    assert P5.m_outcome(comp(0.0191, 0.0212, 0.0197, 0.0028), "gpt-5.6-luna") == "tie"      # btb: within the floor of both
+    assert P5.m_outcome(comp(0.0032, 0.0032, 0.0032, 0.0028), "gpt-5.6-luna") == "tie"      # decoder_8bit: equal
+    assert P5.m_outcome(comp(0.01, 0.03, 0.01), "gpt-5.6-luna") == "loss"                   # worse than B1_E4 by more than the floor
+    assert P5.m_outcome(comp(0.03, 0.01, 0.025), "gpt-5.6-luna") == "tie"                   # separated from B1_E4 only: neither win nor loss
+    assert P5.m_outcome({"rows": {"gpt-5.6-luna|M": {"best_gain_mean": 0.1}}, "t_d_area": 0.01}, "gpt-5.6-luna") is None
+    assert P5.m_exceeds(comp(0.05, 0.03, 0.02), "gpt-5.6-luna") is True and P5.m_exceeds(comp(0.0191, 0.0212, 0.0197, 0.0028), "gpt-5.6-luna") is False and P5.m_exceeds(comp(0.01, 0.03, 0.01), "gpt-5.6-luna") is False
+
+
+def test_lane_threshold_raise_and_pool_progress_line(tmp_path, monkeypatch):
+    """DECISION 2026-09-19 (m) 7: a lane with idle seat-minutes in the last hour and queued runs gets its proof-wait threshold raised to
+    1.5 x its mean proof time (config merged, daemon restarted); a lane without queued runs, or without idle seat-minutes, does not;
+    a dry run applies nothing. (m) 1: the pool progress line renders on an empty database ("unknown") and with records."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("phase5_alerts", str(Path(C.ROOT) / "scripts" / "phase5_alerts.py"))
+    AL = importlib.util.module_from_spec(spec); spec.loader.exec_module(AL)
+    from src.jobqueue import core as core
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["m1"], "small": []}
+    cfg["queue"]["lanes"] = {"vcf": {"spi": {"designs": ["m1"], "share": 15}, "uart": {"designs": [], "share": 5}}}
+    cfg["queue"]["admission_guard"] = {"unverified_at_build_max": 0.35, "proof_wait_max_min": 60, "window_min": 60, "tier": "medium", "auto_revert": False, "admission_split": "2026-09-19T02:09", "proof_wait_max_min_by_lane": {}}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    (tmp_path / "results" / "queue").mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(AL, "SLOT_STATE", str(tmp_path / "slot_state.json")); monkeypatch.setattr(AL, "ROOT", str(tmp_path))
+    (tmp_path / "config").mkdir()
+    (tmp_path / "config" / "experiments.yaml").write_text("queue:\n  count_waiting_runs: false\n  admission_guard: {unverified_at_build_max: 0.35, proof_wait_max_min: 60, auto_revert: false}\n")
+    monkeypatch.setattr(core, "idle_seat_minutes", lambda conn, cfg, hours=1.0: {"spi": {"seats": 15, "occupied_min": 800, "idle_min": 100.0}, "uart": {"seats": 5, "occupied_min": 300, "idle_min": 0.0}})
+    monkeypatch.setattr(core, "queued_runs_by_lane", lambda conn, cfg: {"spi": 3, "uart": 2})
+    monkeypatch.setattr(core, "proof_wait_estimate", lambda conn, cfg, design_id=None, hours=6: {"spi": {"wait_min": 70.0, "queued": 10, "seats": 15, "mean_min": 57.0}, "uart": {"wait_min": 700.0, "queued": 100, "seats": 5, "mean_min": 20.0}})
+    monkeypatch.setattr(core, "search_slot_state", lambda conn, cfg: {"generating": 1, "waiting": 2, "queued": 3})
+    monkeypatch.setattr(core, "unverified_at_build", lambda *a, **k: {})
+    monkeypatch.setattr(core, "admission_cohorts", lambda *a, **k: {})
+    restarted = []
+    lines = AL.slot_report(cfg, conn, write=False, restart=lambda: restarted.append(1) or True)
+    g = [l for l in lines if l.startswith("lane guardrail")]
+    assert len(g) == 1 and "spi: 100 idle seat-minutes in the last hour with 3 queued runs, mean proof 57 min -> proof-wait threshold 60 -> 86 min" in g[0] and "uart" not in g[0] and "(dry run: not applied)" in g[0] and restarted == []
+    lines = AL.slot_report(cfg, conn, write=True, restart=lambda: restarted.append(1) or True)
+    assert restarted == [1] and "proof_wait_max_min_by_lane: {spi: 85.5}" in (tmp_path / "config" / "experiments.yaml").read_text()
+    assert any(l.startswith("offline pool (m 1):") and "unknown (no throughput in 3 h)" in l for l in lines), [l for l in lines if "offline pool" in l]
+    # the other direction: the raised lane at its new threshold is not raised again; uart with idle minutes but no queued runs is left alone
+    cfg["queue"]["admission_guard"]["proof_wait_max_min_by_lane"] = {"spi": 85.5}
+    monkeypatch.setattr(core, "idle_seat_minutes", lambda conn, cfg, hours=1.0: {"spi": {"seats": 15, "occupied_min": 800, "idle_min": 100.0}, "uart": {"seats": 5, "occupied_min": 200, "idle_min": 100.0}})
+    monkeypatch.setattr(core, "queued_runs_by_lane", lambda conn, cfg: {"spi": 3})
+    lines = AL.slot_report(cfg, conn, write=True, restart=lambda: restarted.append(1) or True)
+    assert not any(l.startswith("lane guardrail") for l in lines) and restarted == [1]
+    wl = [l for l in lines if l.startswith("estimated proof-queue wait per lane")][0]
+    assert "PAUSED" not in wl.split("spi 70")[1].split("uart")[0] and "PAUSED" in wl.split("uart 700")[1].split(" — ")[0] and "thresholds raised (m 7): spi 86 min" in wl   # spi at 70 min is below its raised threshold; uart above the default
+    # the merge keeps other lanes' values
+    assert AL.set_lane_thresholds(str(tmp_path / "config" / "experiments.yaml"), {"uart": 30}) == {"spi": 85.5, "uart": 30.0}
+    # pool progress with records: 3 medium B0 E4 records in the last hour, 6 waiting -> rate 1/h, ETA 6 h
+    import datetime
+    now = datetime.datetime.now().isoformat(timespec="seconds")
+    db.insert(conn, "runs", {"run_id": "rb0", "exp": "phase5", "arm": "B0", "design_id": "m1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "done", "started_at": "t"})
+    state = {"cands": {}}
+    for k in range(9):
+        db.insert(conn, "candidates", {"cand_id": f"c{k}", "run_id": "rb0", "design_id": "m1", "gen": 1, "arm": "B0", "verdict": "proven"})
+        if k < 3:
+            db.insert(conn, "evaluations", {"design_id": "m1", "cand_id": f"c{k}", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "ok", "raw_dir": f"/x/{k}", "dc_seconds": 60.0, "created_at": now})
+        else:
+            state["cands"][f"c{k}"] = {"group": "b0_e4", "design_id": "m1", "stage": "e4"}
+    (tmp_path / "pool_state.json").write_text(json.dumps(state))
+    pp = AL.pool_progress(cfg, conn, state_path=str(tmp_path / "pool_state.json"))
+    assert pp["h1"]["medium_b0"] == 3 and pp["waiting"] == 6 and pp["rate_per_h"] == 1.0 and pp["eta_hours"] == 6.0 and pp["unfinished_runs"] == 0

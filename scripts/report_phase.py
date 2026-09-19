@@ -900,8 +900,9 @@ def phase5_completion_section(cfg, view, tiers, tier_of):
     for d in complete + prelim:
         c = comps.get(d) or {}
         rows = c.get("rows") or {}
+        oc = c.get("m_outcome") or ("win" if c.get("m_exceeds") else None if c.get("m_exceeds") is None else "loss")
         L += [f"### {d} ({tier_of.get(d)} tier; {'B0 pending — complete except for B0 offline E4' if d in prelim else 'complete'}; main model {c.get('model')}; rule-A area floor t_d = {_pct(c.get('t_d_area')) if c.get('t_d_area') is not None else '-'}; "
-              f"M exceeds both B1_E4 and B2: {'yes' if c.get('m_exceeds') else 'undecided' if c.get('m_exceeds') is None else 'no'})", "",
+              f"M: {'wins' if oc == 'win' else 'tie — no arm separates from the others on this design' if oc == 'tie' else 'loses' if oc == 'loss' else 'undecided'})", "",
               "| model | arm | runs | candidates | proven | retained | tradeoff | best retained area gain per run: mean / max |", "|---|---|---|---|---|---|---|---|"]
         for k in sorted(rows, key=lambda k: (k.split("|")[1], k.split("|")[0])):
             g = rows[k]
@@ -910,12 +911,22 @@ def phase5_completion_section(cfg, view, tiers, tier_of):
             else:
                 L.append(f"| {k.split('|')[0]} | {k.split('|')[1]} | {g['runs']} | {g['cands']} | {g['proven']} | {g['retained']} | {g['tradeoff']} | {_pct(g['best_gain_mean'])} / {_pct(g['best_gain_max'])} |")
         L.append("")
-    L += [f"**Tally: M exceeds both B1_E4 and B2 by more than the design's floor on {len(wins)} of {len(complete) + len(prelim)} complete designs (visible layer" + (f"; {len(prelim)} of them B0 pending" if prelim else "") + ").**",
+    ties = [d for d in tally.get("ties") or [] if d in complete or d in prelim]
+    losses = [d for d in tally.get("losses") or [] if d in complete or d in prelim]
+    L += [f"**Tally (DECISION 2026-09-19 (m) 4): M wins — exceeds both B1_E4 and B2 by more than the design's floor — on {len(wins)} of {len(complete) + len(prelim)} complete designs (visible layer; "
+          f"ties {len(ties)}, M loses {len(losses)}" + (f"; {len(prelim)} of them B0 pending" if prelim else "") + ").**"]
+    if ties:
+        L.append("Ties — no arm separates from the others on this design: " + ", ".join(ties) + ".")
+    L += ["Per-row figures above: the mean over seeds of each run's best retained area gain (the tally rule of F2) and the max over seeds; §2 shows the max over seeds only — the same record set, uniform rule A and floor.",
           f"Reachability of the pre-registered criterion ({r.get('criterion_wins', 18)} of {r.get('total_designs', 30)} designs under the hidden configurations — sealed; the visible layer is the proxy): "
           f"wins so far {r.get('wins', 0)}, already lost by M {r.get('lost', 0)}, undecided {r.get('undecided', 0)}, designs not yet complete {r.get('remaining_designs', 0)}; "
           f"M still needs {r.get('wins_still_needed', 0)} of the {r.get('remaining_designs', 0) + r.get('undecided', 0)} remaining or undecided designs — {'reachable' if r.get('reachable') else 'no longer reachable'} in the visible layer.", ""]
+    for s in ((cfg.get("exp5") or {}).get("mechanism_notes") or []):   # DECISION 2026-09-19 (m) 6
+        L.append(f"- Mechanism note (C2): {s}")
+    if (cfg.get("exp5") or {}).get("mechanism_notes"):
+        L.append("")
     # DECISION 2026-09-19 (l) 2: the designs whose planned runs are all done — what still blocks "complete"
-    names = {"b0_e4": "B0 offline E4 {n} (offline pool)", "e4_retry": "E4 retries {n}", "e4_late": "E4 of {n} candidates proven after their run finished (no evaluator; pool scope decision pending)",
+    names = {"b0_e4": "B0 offline E4 {n} (offline pool)", "e4_retry": "E4 retries {n} (failed or timed-out E4; pool group e4_timeout)", "e4_late": "E4 never submitted for {n} candidates (run finished before the proof returned; pool group e4_late)",
              "verdict": "verdicts pending {n}", "sim": "offline simulations pending {n}", "failed_job": "failed evaluation jobs {n} (sim jobs of the 2026-09-18 10:41 operator edit; re-run not yet decided)",
              "proof": "offline proofs {n} (D3, not blocking)"}
     done_designs = [d for d, ok in (view.get("runs_done") or {}).items() if ok and tier_of.get(d) in tiers and d not in complete]

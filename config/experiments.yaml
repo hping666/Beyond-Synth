@@ -168,7 +168,7 @@ queue:                       # LOCKED (concurrency caps); automatic backoff when
   lane_hours_per_run_override: {drrtl_router: 35}   # (g) item 2: router's proxy until 20 proofs under harness_version 2 (≈ 3 × the v2 D-vs-D time of 702 s per candidate, capped by the class caps)
   generating_max: 24         # DECISION 2026-09-19 (j) 1a: at most this many runs generating (calls left) at once; runs waiting for verdicts hold no search slot
   count_waiting_runs: false  # (j) 1d: the revert switch — true restores the old accounting (every running run holds a slot); flipped by the hourly check after 3 consecutive hours of a row above the threshold
-  admission_guard: {unverified_at_build_max: 0.35, proof_wait_max_min: 60, window_min: 60, tier: medium, auto_revert: false, admission_split: '2026-09-19T02:09'}   # (j) 1b: admission pauses while the medium tier's unverified-at-build fraction (last hour) exceeds 35 %, and a fresh run is not admitted while its lane's estimated proof-queue wait exceeds 60 min
+  admission_guard: {unverified_at_build_max: 0.35, proof_wait_max_min: 60, window_min: 60, tier: medium, auto_revert: false, admission_split: '2026-09-19T02:09', proof_wait_max_min_by_lane: {}}   # (j) 1b: admission pauses while the medium tier's unverified-at-build fraction (last hour) exceeds 35 %, and a fresh run is not admitted while its lane's estimated proof-queue wait exceeds 60 min
   round_robin_rows: true     # DECISION 2026-09-18 item 5b: queued search runs are dispatched round-robin across the arm-model rows within a tier (the row with the fewest running runs first)
   search_admit_per_min: 3    # 2026-09-16 (DECISIONS): fresh search runs start at most this many per minute (resumptions exempt); with the backpressure this ramps the run concurrency to what the 50 VC Formal seats digest instead of bursting to 40 and building a 3-hour verdict lag
   per_kind_max: {dc_hidden: 0, dc_retry: 4}   # dc_retry: DECISION 2026-09-18 (b) item 4 — a search-run E4 that hits its guard is requeued once into this 4-slot lane with a 3600 s guard; DECISION 2026-09-18 item 3a: hidden-layer DC and PrimeTime (H4) jobs do not execute while a Phase 5 search run is active (registrations continue; execution resumes in bulk after the small tier); applied in every pool the kind sits in; user decision 2026-09-18 05:1x: 8 -> 2 until the visible layer completes (the hidden layer is off the critical path; ≈ 15 cores back to E4 and the proofs; raise again for the D stage)   # 2026-09-16 (DECISIONS): hidden-layer DC registrations at most this many at once while Phase 5 runs — at 50 they took ~27 of the 64 cores (load 129) and halved the speed of the VC Formal proofs, whose 60-minute caps then produced inconclusives; the registrations are not on the critical path and catch up during the cheaper tiers
@@ -362,6 +362,8 @@ exp5:                        # Phase 5 (G5 decisions, DECISIONS 2026-09-15; the 
     drrtl_router: "formal step corrected (harness_version 2), runs superseded and repeated"
     drrtl_simple_spi: "harness defect (missing include file in the staged tree), fixed 2026-09-18, runs superseded and repeated"
     drrtl_SPI: "verification limit (class cap exhausted on 85 % of proofs; D-vs-D proven)"
+  mechanism_notes:                          # DECISION 2026-09-19 (m) 6: mechanism notes for C2, printed verbatim under the §0b tally
+    - "On aes M's archive was empty in 22/29 (terra) and 27/29 (luna) generations versus 8–9/33 for B1_E4 and B2, because M admits retained candidates only."
   disclosures:                              # DECISION 2026-09-18 (b) item 5e and D1: printed verbatim in every report (§0a)
     - "B0 is absent on thresholds_128x4096 (Yosys maps the 128×4096 memory to 1.4 M cells; 20-minute timeout), and this design's E4 runtime and log size are anomalous: median 8.5 min per E4 record against 3.8 min for the other medium-tier designs, and ≈ 69 MB per dc_shell log (compressed to ≈ 1.6 MB after ingestion, DECISION 2026-09-18 (b) item 2)."
     - "The sentence \"B0's gains are all absorbed by the synthesizer\" is withdrawn until visible E4 records exist for B0's proven candidates (offline pool, DECISION 2026-09-18 D1); B0 rows whose E4 records are pending read `pending`, never 0."
@@ -431,7 +433,9 @@ retention:                   # approved by the user 2026-09-12 (DECISIONS): resu
 
 offline_pool:                # DECISION 2026-09-18 item 1 / (d) B5, D2: the offline evaluation pool (scripts/offline_pool.py); priority 1 = below every search job
   slots: 8                   # (d) B5: 8, and up to slots_when_idle while more than idle_dc_seats_for_extra DC seats sit idle
-  slots_when_idle: 12
+  slots_when_idle: 16       # DECISION 2026-09-19 (m) 1: 16 whenever idle DC seats allow (nice 19 stays)
+  b0_tier_order: [medium, large, small]   # (m) 1: medium-tier B0 E4 first (Stage B critical path)
+  group_order: [resim, 'b0_e4:medium', e4_timeout, e4_late, 'b0_e4:large', prescreened, 'b0_e4:small', reverify, reproof]   # (m) 1–3: the pool's order (group or group:tier)
   idle_dc_seats_for_extra: 12
   priority: 1
   load_over_baseline: 0.10   # (d) B3 item 3: pause while the 1-minute load exceeds the measured baseline by more than 10 % (load-only throttle)
