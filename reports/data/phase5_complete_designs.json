@@ -1,10 +1,12 @@
 {
- "designs": [],
+ "designs": [
+  "drrtl_arm_cpu2"
+ ],
  "preliminary": [
   "cktevo_risc__btb",
   "rtlopt_decoder_8bit"
  ],
- "at": "2026-09-19T04:10",
+ "at": "2026-09-19T05:14",
  "history": [
   {
    "at": "2026-09-19T04:10",
@@ -13,6 +15,13 @@
     "cktevo_risc__btb",
     "rtlopt_decoder_8bit"
    ]
+  },
+  {
+   "at": "2026-09-19T05:14",
+   "new": [
+    "drrtl_arm_cpu2"
+   ],
+   "new_preliminary": []
   }
  ]
 }
