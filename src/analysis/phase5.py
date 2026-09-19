@@ -123,8 +123,10 @@ def pending_kind(c, e4_ok):
 
 
 def pending_summary(cfg, conn, tiers, exp="phase5"):
-    """Pending evaluations and open visible jobs of the runs on `tiers` (the completeness rule of DECISION 2026-09-18 D2 / D3):
-    -> {"pending": {kind: n}, "pending_total": n, "open_jobs": {kind: n}, "complete": bool}. Cheap enough for the stages loop."""
+    """Pending evaluations and open visible jobs of the runs on `tiers` (the completeness rule of DECISION 2026-09-18 D2 / D3: verdicts,
+    offline simulations, E4 records including retries and B0's offline E4 hold a final report back; an offline-pool proof of a
+    prescreened candidate is reported pending but does not): -> {"pending": {kind: n}, "pending_total": n, "blocking": {kind: n},
+    "open_jobs": {kind: n}, "complete": bool}. Cheap enough for the stages loop."""
     tier_of = tier_of_design(cfg)
     designs = sorted(d for d, t in tier_of.items() if t in tiers)
     e4 = {r[0] for r in conn.execute("SELECT DISTINCT cand_id FROM evaluations WHERE config='E4' AND status='ok' AND cand_id IS NOT NULL")}
@@ -142,7 +144,8 @@ def pending_summary(cfg, conn, tiers, exp="phase5"):
         marks = ",".join("?" * len(designs))
         for r in conn.execute(f"SELECT kind, COUNT(*) FROM jobs WHERE state IN ('queued', 'running') AND kind IN ('sim', 'vcf', 'dc', 'dc_retry', 'yosys', 'search') AND design_id IN ({marks}) GROUP BY kind", designs):
             open_jobs[r[0]] += r[1]
-    return {"pending": dict(pend), "pending_total": sum(pend.values()), "open_jobs": dict(open_jobs), "complete": not pend and not open_jobs}
+    blocking = {k: n for k, n in pend.items() if k != "proof"}   # DECISION 2026-09-18 (d) D3: a final report does not wait for any offline-pool proof
+    return {"pending": dict(pend), "pending_total": sum(pend.values()), "blocking": blocking, "open_jobs": dict(open_jobs), "complete": not blocking and not open_jobs}
 
 
 def complete_designs(cfg, conn, exp="phase5", plan=None):

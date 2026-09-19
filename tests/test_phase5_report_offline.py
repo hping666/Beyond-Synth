@@ -144,6 +144,15 @@ def test_tier_complete_both_directions(tmp_path, monkeypatch):
     assert not ok and s["open_jobs"] == {"sim": 1}                                     # an open visible job on the tier's design
     conn.execute("UPDATE jobs SET state='done' WHERE job_id='js'"); conn.commit()
     assert ST.evaluation_complete(cfg, conn, ["large"])[0] and ST.evaluation_complete(cfg, conn, ["small"])[0]
+    # DECISION 2026-09-18 (d) D3: a prescreened candidate's missing offline simulation holds the final report back; once simulated and E4-evaluated,
+    # its offline-pool proof is reported pending but does not
+    db.insert(conn, "candidates", {"cand_id": "cpre", "run_id": "a", "design_id": "l1", "gen": 1, "arm": "M", "llm_model": "m", "label": "prescreened", "prescreened": 1})
+    ok, s = ST.evaluation_complete(cfg, conn, ["large"])
+    assert not ok and s["pending"] == {"sim": 1} and s["blocking"] == {"sim": 1}
+    conn.execute("UPDATE candidates SET v1_status='ok', v2_status='identical' WHERE cand_id='cpre'"); conn.commit()
+    db.insert(conn, "evaluations", {"design_id": "l1", "cand_id": "cpre", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 1.0, "status": "ok", "raw_dir": "/y"})
+    ok, s = ST.evaluation_complete(cfg, conn, ["large"])
+    assert ok and s["pending"] == {"proof": 1} and s["blocking"] == {}
 
 
 def test_operational_changes_section_agreement_exposure_reuse_and_hourly_ratio(tmp_path, monkeypatch):
