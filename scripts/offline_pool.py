@@ -221,6 +221,32 @@ def write_reproof(conn, cand_id, rec, job_id):
     conn.commit()
 
 
+def sim_record_dir(cfg, payload):
+    """The directory of the simulation record of a `sim` payload, or None."""
+    from src.equiv.run_equiv import equiv_extra, equiv_hash
+    try:
+        h = equiv_hash(payload["d_rtl"], payload["c_rtl"], payload["top"], cfg, equiv_extra(cfg, payload, False))
+    except (OSError, KeyError):
+        return None
+    root = Path(C.results_dir(cfg)) / "raw" / payload["design_id"] / "EQ"
+    for eq in sorted(root.glob(f"{h}*/equiv.json")):
+        return eq.parent
+    return None
+
+
+def slim_sim_record(cfg, payload):
+    """2026-09-18 19:5x: the pool's simulation records keep their VCS build (simv, csrc, daidir) and traces until slimmed — the
+    driver slims its own candidates' records, the pool must slim the ones it makes (spikeNeuron8_H7: 440 MB per record)."""
+    d = sim_record_dir(cfg, payload)
+    if d is None:
+        return None
+    try:
+        from src.eval import retention as RET
+        return RET.slim_eq_record(str(d), cfg)
+    except Exception as e:   # slimming must never stop the pool
+        return f"failed: {type(e).__name__}: {e}"[:120]
+
+
 def sim_record(cfg, payload):
     from src.equiv.run_equiv import equiv_extra, equiv_hash
     try:
@@ -285,6 +311,8 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
                 if rec is not None and c.get("group") != "reverify":   # a superseded run's candidate keeps its harness-version-1 row (C4); the pool state holds the re-simulation
                     sync_candidate_row(conn, cid, rec, c.get("sim_job"))
                 c["synced"] = True
+                if rec is not None and c.get("saif") is None:   # the record's build artefacts go once its result is read; a record still needed for E4 (its SAIF) is slimmed after E4
+                    c["sim_slimmed"] = str(slim_sim_record(cfg, c["sim_payload"]))[:120]
         elif c["stage"] == "proof_running":
             js = q.get(c["proof_job"])
             if js and js["state"] in ("done", "failed"):
@@ -302,6 +330,8 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
             if js and js["state"] in ("done", "failed"):
                 ev = conn.execute("SELECT status, dc_seconds, raw_dir FROM evaluations WHERE cand_id=? AND config='E4' ORDER BY eval_id DESC LIMIT 1", (cid,)).fetchone()
                 c.update(stage=("await_proof" if c.get("group") == "reverify" else "done"), result=f"E4 {ev['status']}" if ev else f"E4 job {js['state']}", dc_seconds=(ev["dc_seconds"] if ev else None))
+                if c.get("sim_payload") and not c.get("sim_slimmed"):
+                    c["sim_slimmed"] = str(slim_sim_record(cfg, c["sim_payload"]))[:120]
                 if ev and ev["raw_dir"]:   # the same tiered retention as the visible runs: full artifacts for accepted / audit candidates, the parsed record and reports otherwise
                     try:
                         from src.eval import retention as RET
@@ -375,8 +405,17 @@ def loop(cfg, baseline, include_e4_timeouts):
     st.setdefault("started_at", datetime.datetime.now().isoformat(timespec="seconds"))
     conn = db.connect(cfg=cfg)
     log(f"offline pool started pid {os.getpid()} baseline {st.get('baseline')} slots {settings(cfg)['slots']} e4_timeouts {include_e4_timeouts}")
+    passes = 0
     while not stop["flag"]:
         try:
+            passes += 1
+            if passes % 60 == 1:   # 2026-09-18 19:5x: compress the ingested DC logs about once an hour from here (the session's hourly check missed 13 hours: 28 GB of thresholds logs)
+                try:
+                    import subprocess as _sp
+                    r = _sp.run([sys.executable, os.path.join(ROOT, "scripts", "compress_logs.py"), "--apply"], capture_output=True, text=True, timeout=3300)
+                    log(f"compress_logs: {(r.stdout.strip().splitlines() or ['no output'])[-1][:160]}")
+                except Exception as e:
+                    log(f"compress_logs failed: {type(e).__name__}: {e}")
             counts = once(cfg, conn, st, include_e4_timeouts)
             if counts and all(k == "done" for k in counts):
                 log("every candidate of the scope is done; the pool stops"); break

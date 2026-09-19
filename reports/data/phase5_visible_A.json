@@ -1,6 +1,6 @@
 {
  "alert_line": null,
- "cfg_hash": "16bbba3fcebd",
+ "cfg_hash": "0b979a9101c9",
  "classes": {},
  "completion": {
   "comparisons": {},
@@ -18,8 +18,8 @@
   "rows": {
    "cktevo_ethmac__eth_cop": {
     "gpt-5.6-luna|B0": {
-     "done": 2,
-     "pending": 91,
+     "done": 3,
+     "pending": 89,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
@@ -139,13 +139,13 @@
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 2,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 1,
-     "pending": 3,
+     "done": 2,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -154,8 +154,8 @@
      "planned": 3
     },
     "gpt-5.6-terra|M": {
-     "done": 0,
-     "pending": 9,
+     "done": 3,
+     "pending": 1,
      "planned": 3
     }
    },
@@ -204,7 +204,7 @@
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
      "done": 1,
-     "pending": 0,
+     "pending": 9,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
@@ -258,17 +258,17 @@
    "cktevo_risc__cpu": {
     "gpt-5.6-luna|B0": {
      "done": 2,
-     "pending": 39,
+     "pending": 46,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
      "done": 2,
-     "pending": 8,
+     "pending": 3,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
      "done": 1,
-     "pending": 9,
+     "pending": 14,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -278,12 +278,12 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 12,
+     "pending": 15,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
      "done": 0,
-     "pending": 9,
+     "pending": 31,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -331,12 +331,12 @@
    },
    "cktevo_usb__usbf_sie_rx": {
     "gpt-5.6-luna|B0": {
-     "done": 2,
-     "pending": 75,
+     "done": 3,
+     "pending": 116,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
-     "done": 2,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
@@ -346,8 +346,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 1,
-     "pending": 4,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
@@ -357,7 +357,7 @@
     },
     "gpt-5.6-terra|B2": {
      "done": 0,
-     "pending": 0,
+     "pending": 5,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -368,13 +368,13 @@
    },
    "cktevo_vga_enh__vga_wb_slave": {
     "gpt-5.6-luna|B0": {
-     "done": 2,
-     "pending": 82,
+     "done": 3,
+     "pending": 115,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
-     "done": 1,
-     "pending": 8,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
@@ -383,8 +383,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 1,
-     "pending": 6,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
@@ -393,13 +393,13 @@
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
-     "done": 0,
-     "pending": 0,
+     "done": 2,
+     "pending": 5,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 0,
+     "pending": 1,
      "planned": 3
     }
    },
@@ -438,22 +438,22 @@
    "drrtl_SPI": {
     "gpt-5.6-luna|B0": {
      "done": 0,
-     "pending": 42,
+     "pending": 12,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
-     "done": 0,
-     "pending": 2,
+     "done": 1,
+     "pending": 14,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
-     "done": 0,
-     "pending": 4,
+     "done": 1,
+     "pending": 5,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 0,
-     "pending": 3,
+     "done": 1,
+     "pending": 5,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
@@ -462,8 +462,8 @@
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
-     "done": 0,
-     "pending": 4,
+     "done": 1,
+     "pending": 5,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -475,7 +475,7 @@
    "drrtl_UART": {
     "gpt-5.6-luna|B0": {
      "done": 2,
-     "pending": 124,
+     "pending": 154,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
@@ -485,22 +485,22 @@
     },
     "gpt-5.6-luna|B2": {
      "done": 1,
-     "pending": 9,
+     "pending": 29,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
      "done": 1,
-     "pending": 5,
+     "pending": 9,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 23,
+     "pending": 57,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
      "done": 0,
-     "pending": 11,
+     "pending": 20,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -543,8 +543,8 @@
    },
    "drrtl_arm_cpu2": {
     "gpt-5.6-luna|B0": {
-     "done": 2,
-     "pending": 4,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
@@ -563,8 +563,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 1,
-     "pending": 7,
+     "done": 3,
+     "pending": 4,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -573,7 +573,7 @@
      "planned": 3
     },
     "gpt-5.6-terra|M": {
-     "done": 2,
+     "done": 3,
      "pending": 0,
      "planned": 3
     }
@@ -665,7 +665,7 @@
     },
     "gpt-5.6-luna|B2": {
      "done": 0,
-     "pending": 8,
+     "pending": 56,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -675,7 +675,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 7,
+     "pending": 63,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -685,14 +685,14 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 5,
+     "pending": 27,
      "planned": 3
     }
    },
    "drrtl_simple_spi": {
     "gpt-5.6-luna|B0": {
      "done": 1,
-     "pending": 11,
+     "pending": 23,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
@@ -797,13 +797,13 @@
    },
    "rtlopt_alu_64bit": {
     "gpt-5.6-luna|B0": {
-     "done": 2,
-     "pending": 101,
+     "done": 3,
+     "pending": 144,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
      "done": 1,
-     "pending": 0,
+     "pending": 8,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
@@ -812,7 +812,7 @@
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 1,
+     "done": 3,
      "pending": 1,
      "planned": 3
     },
@@ -871,8 +871,8 @@
    },
    "rtlopt_decoder_8bit": {
     "gpt-5.6-luna|B0": {
-     "done": 2,
-     "pending": 87,
+     "done": 3,
+     "pending": 132,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
@@ -891,6 +891,43 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
+     "done": 3,
+     "pending": 0,
+     "planned": 3
+    },
+    "gpt-5.6-terra|B2": {
+     "done": 3,
+     "pending": 0,
+     "planned": 3
+    },
+    "gpt-5.6-terra|M": {
+     "done": 3,
+     "pending": 2,
+     "planned": 3
+    }
+   },
+   "rtlopt_divider_8bit": {
+    "gpt-5.6-luna|B0": {
+     "done": 3,
+     "pending": 127,
+     "planned": 3
+    },
+    "gpt-5.6-luna|B1_E4": {
+     "done": 3,
+     "pending": 0,
+     "planned": 3
+    },
+    "gpt-5.6-luna|B2": {
+     "done": 1,
+     "pending": 1,
+     "planned": 3
+    },
+    "gpt-5.6-luna|DrRTL_reimpl": {
+     "done": 3,
+     "pending": 0,
+     "planned": 3
+    },
+    "gpt-5.6-luna|M": {
      "done": 0,
      "pending": 0,
      "planned": 3
@@ -902,44 +939,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 0,
-     "planned": 3
-    }
-   },
-   "rtlopt_divider_8bit": {
-    "gpt-5.6-luna|B0": {
-     "done": 2,
-     "pending": 90,
-     "planned": 3
-    },
-    "gpt-5.6-luna|B1_E4": {
-     "done": 1,
-     "pending": 9,
-     "planned": 3
-    },
-    "gpt-5.6-luna|B2": {
-     "done": 1,
-     "pending": 0,
-     "planned": 3
-    },
-    "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 2,
-     "pending": 4,
-     "planned": 3
-    },
-    "gpt-5.6-luna|M": {
-     "done": 0,
-     "pending": 0,
-     "planned": 3
-    },
-    "gpt-5.6-terra|B2": {
-     "done": 0,
-     "pending": 3,
-     "planned": 3
-    },
-    "gpt-5.6-terra|M": {
-     "done": 0,
-     "pending": 0,
+     "pending": 5,
      "planned": 3
     }
    },
@@ -983,12 +983,12 @@
    "rtlopt_register": {
     "gpt-5.6-luna|B0": {
      "done": 2,
-     "pending": 90,
+     "pending": 131,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
      "done": 1,
-     "pending": 0,
+     "pending": 10,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
@@ -998,7 +998,7 @@
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
      "done": 1,
-     "pending": 0,
+     "pending": 10,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
@@ -1019,18 +1019,18 @@
    },
    "rtlopt_sub_32bit": {
     "gpt-5.6-luna|B0": {
-     "done": 2,
-     "pending": 83,
+     "done": 3,
+     "pending": 125,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
-     "done": 2,
+     "done": 3,
      "pending": 2,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
-     "done": 1,
-     "pending": 3,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -1040,17 +1040,17 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 0,
+     "pending": 7,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
-     "done": 0,
-     "pending": 9,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
-     "done": 0,
-     "pending": 0,
+     "done": 2,
+     "pending": 4,
      "planned": 3
     }
    },
@@ -1100,49 +1100,49 @@
  },
  "conditions": {
   "large|gpt-5.6-luna|M": {
-   "load_coverage": 0.043,
-   "load_median": 113.2,
-   "load_samples": 558,
+   "load_coverage": 0.083,
+   "load_median": 112.0,
+   "load_samples": 1137,
    "proofs": 573,
    "vcf_wait_median_min": 158.2,
    "vcf_wait_q95_min": 661.6
   },
   "large|gpt-5.6-terra|B0": {
-   "load_coverage": 0.047,
-   "load_median": 113.2,
-   "load_samples": 558,
+   "load_coverage": 0.092,
+   "load_median": 112.0,
+   "load_samples": 1137,
    "proofs": 825,
    "vcf_wait_median_min": 106.3,
    "vcf_wait_q95_min": 507.1
   },
   "large|gpt-5.6-terra|B1_E4": {
-   "load_coverage": 0.047,
-   "load_median": 113.2,
-   "load_samples": 558,
+   "load_coverage": 0.092,
+   "load_median": 112.0,
+   "load_samples": 1137,
    "proofs": 802,
    "vcf_wait_median_min": 139.9,
    "vcf_wait_q95_min": 510.4
   },
   "large|gpt-5.6-terra|B2": {
-   "load_coverage": 0.05,
-   "load_median": 113.2,
-   "load_samples": 558,
+   "load_coverage": 0.097,
+   "load_median": 112.0,
+   "load_samples": 1137,
    "proofs": 814,
    "vcf_wait_median_min": 120.2,
    "vcf_wait_q95_min": 483.9
   },
   "large|gpt-5.6-terra|DrRTL_reimpl": {
-   "load_coverage": 0.057,
-   "load_median": 113.2,
-   "load_samples": 558,
+   "load_coverage": 0.111,
+   "load_median": 112.0,
+   "load_samples": 1137,
    "proofs": 578,
    "vcf_wait_median_min": 149.9,
    "vcf_wait_q95_min": 481.0
   },
   "large|gpt-5.6-terra|M": {
-   "load_coverage": 0.043,
-   "load_median": 113.2,
-   "load_samples": 558,
+   "load_coverage": 0.084,
+   "load_median": 112.0,
+   "load_samples": 1137,
    "proofs": 619,
    "vcf_wait_median_min": 139.9,
    "vcf_wait_q95_min": 635.0
@@ -2362,8 +2362,8 @@
  "exp": "phase5",
  "final": false,
  "floor_version": "phase4",
- "generated_at": "2026-09-18T13:52",
- "git_sha": "f241157d52e6",
+ "generated_at": "2026-09-18T17:05",
+ "git_sha": "3f8952e8b48c",
  "groups": {
   "large|gpt-5.6-luna|M": {
    "accepted": 29,
@@ -2940,18 +2940,18 @@
  },
  "ops": {
   "agreement": {
-   "agree": 519,
-   "agree_rate": 0.8412,
+   "agree": 553,
+   "agree_rate": 0.8482,
    "by_label": {
-    "absorbed": 1,
-    "absorbed_identical": 93,
-    "duplicate": 148,
-    "harmful": 157,
-    "improved": 4064,
-    "no_gain": 1149,
+    "absorbed": 3,
+    "absorbed_identical": 184,
+    "duplicate": 176,
+    "harmful": 171,
+    "improved": 4511,
+    "no_gain": 1281,
     "noise": 99,
-    "retained": 264,
-    "tradeoff": 464
+    "retained": 271,
+    "tradeoff": 479
    },
    "disagree": [
     {
@@ -3205,11 +3205,11 @@
      "provisional": "noise"
     }
    ],
-   "n_provisional": 6439,
-   "not_proven": 1957,
-   "pending": 3865,
-   "proven_final": 617,
-   "withheld": 4732
+   "n_provisional": 7175,
+   "not_proven": 2032,
+   "pending": 4491,
+   "proven_final": 652,
+   "withheld": 5201
   },
   "events": {
    "hidden_throttle_at": "2026-09-16T14:30",
@@ -3716,12 +3716,52 @@
      "sim_fail": 0
     },
     {
-     "falsified": 13,
-     "finished": 575,
+     "falsified": 14,
+     "finished": 613,
      "hour": "2026-09-18T13",
-     "inconclusive": 18,
-     "proven": 539,
-     "ratio": 29.94,
+     "inconclusive": 21,
+     "proven": 578,
+     "ratio": 27.52,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 23,
+     "finished": 705,
+     "hour": "2026-09-18T14",
+     "inconclusive": 16,
+     "proven": 662,
+     "ratio": 41.38,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 32,
+     "finished": 700,
+     "hour": "2026-09-18T15",
+     "inconclusive": 17,
+     "proven": 651,
+     "ratio": 38.29,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 11,
+     "finished": 425,
+     "hour": "2026-09-18T16",
+     "inconclusive": 20,
+     "proven": 394,
+     "ratio": 19.7,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 1,
+     "finished": 49,
+     "hour": "2026-09-18T17",
+     "inconclusive": 4,
+     "proven": 41,
+     "ratio": 10.25,
      "rejected": 0,
      "sim_fail": 0
     }
@@ -3730,11 +3770,11 @@
   },
   "reuse": {
    "by_verdict": {},
-   "records_scanned": 22078,
+   "records_scanned": 26715,
    "reused": 0,
    "sim_record_missing": 0,
    "since": "2026-09-16T15:14",
-   "split_proofs": 8960
+   "split_proofs": 10878
   }
  },
  "pending_total": {

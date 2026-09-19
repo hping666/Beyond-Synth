@@ -238,3 +238,23 @@ def test_reproof_group_resubmits_the_failed_proof_and_writes_the_row(tmp_path, m
     assert row["verdict"] == "proven" and row["v3_status"] == "proven" and row["harness_version"] == 1 and "re-proven" in row["note"]
     assert st["cands"]["c_err"]["stage"] == "e4_running" and [v for v in submitted.values() if v[0] == "dc"][-1][1]["reproof"] == 1   # proven -> E4 with the reproof flag
     assert dict(conn.execute("SELECT verdict FROM candidates WHERE cand_id='c_err2'").fetchone())["verdict"] == "error"                   # untouched
+
+
+def test_pool_slims_its_simulation_records(tmp_path, monkeypatch):
+    """2026-09-18 19:5x: the VCS build of a pool simulation record (simv, csrc, daidir) is removed once the result is read (a record whose
+    SAIF is still needed for E4 is slimmed after E4); the parsed record stays. Both directions."""
+    mod = load_pool()
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    payload = {"design_id": "D1", "d_rtl": [str(tmp_path / "d.v")], "c_rtl": [str(tmp_path / "c.v")], "top": "t", "clk": "clk", "rst": None, "rst_sense": None}
+    (tmp_path / "d.v").write_text("module t; endmodule"); (tmp_path / "c.v").write_text("module t; endmodule")
+    from src.equiv.run_equiv import equiv_extra, equiv_hash
+    h = equiv_hash(payload["d_rtl"], payload["c_rtl"], "t", cfg, equiv_extra(cfg, payload, False))
+    rec = tmp_path / "results" / "raw" / "D1" / "EQ" / h
+    (rec / "v2_sim" / "csrc").mkdir(parents=True); (rec / "v2_sim" / "csrc" / "x.o").write_bytes(b"0" * 1000)
+    (rec / "v2_sim" / "simv").write_bytes(b"0" * 1000); (rec / "v2_sim" / "simv.daidir").mkdir(); (rec / "v2_sim" / "simv.daidir" / "a").write_bytes(b"0" * 100)
+    (rec / "equiv.json").write_text(json.dumps({"verdict": "not_run", "v1_status": "ok", "v2_status": "identical"}))
+    assert mod.sim_record_dir(cfg, payload) == rec
+    res = mod.slim_sim_record(cfg, payload)
+    assert not (rec / "v2_sim" / "simv").exists() and not (rec / "v2_sim" / "csrc").exists() and (rec / "equiv.json").exists() and res is not None
+    assert mod.sim_record_dir(cfg, {**payload, "top": "other"}) is None and mod.slim_sim_record(cfg, {**payload, "top": "other"}) is None   # no record: nothing to slim

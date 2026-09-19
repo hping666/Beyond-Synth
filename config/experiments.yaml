@@ -159,8 +159,8 @@ queue:                       # LOCKED (concurrency caps); automatic backoff when
   long_pole_lane: {designs: [drrtl_SPI, drrtl_UART, cktevo_risc__cpu, drrtl_router], search_max: 6}   # (d) B3 / (e) 3: dispatched outside the window, all rows round-robin, at most this many search runs in flight per lane design (router joins after C3)
   lanes:                     # (d) B3: reserved VC Formal seat shares per lane (re-balanced every 6 h from the remaining seat-hours; total never above the pool cap); the rest of the designs share cap minus the busy lanes' shares
     vcf:                     # (e) 3: proportional shares from the remaining seat-hours (scripts/rebalance_lanes.py --apply, every 6 h); inside the window the per-design cap is max(per_design_max, floor(others' share / active window designs))
-      spi: {designs: [drrtl_SPI], share: 21}
-      uart: {designs: [drrtl_UART], share: 6}
+      spi: {designs: [drrtl_SPI], share: 18}
+      uart: {designs: [drrtl_UART], share: 5}
       cpu: {designs: [cktevo_risc__cpu], share: 3}
       router: {designs: [drrtl_router], share: 2}   # (d) B3 / (g) 2: joins at C3 with the proxy of 35 seat-hours per run until its 20th harness_version 2 proof
       small: {designs: [rtlopt_sub_8bit, rtlopt_mux_large, drrtl_controller, drrtl_ticket_machine, cktevo_risc__stall_control_unit, cktevo_hsm__MixColumns], share: 0, leftover: true}   # (g) item 1: the small tier takes only the seats the medium lanes and window designs cannot fill
