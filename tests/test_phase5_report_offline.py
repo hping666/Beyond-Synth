@@ -461,7 +461,7 @@ def test_lane_threshold_raise_and_pool_progress_line(tmp_path, monkeypatch):
     lines = AL.slot_report(cfg, conn, write=True, restart=lambda: restarted.append(1) or True)
     assert not any(l.startswith("lane guardrail") for l in lines) and restarted == [1]
     wl = [l for l in lines if l.startswith("estimated proof-queue wait per lane")][0]
-    assert "PAUSED" not in wl.split("spi 70")[1].split("uart")[0] and "PAUSED" in wl.split("uart 700")[1].split(" — ")[0] and "thresholds raised (m 7): spi 86 min" in wl   # spi at 70 min is below its raised threshold; uart above the default
+    assert "PAUSED" not in wl.split("spi 70")[1].split("uart")[0] and "PAUSED" in wl.split("uart 700")[1].split(" — ")[0] and "thresholds raised (m 7): spi 85 min" in wl   # spi at 70 min is below its raised threshold; uart above the default
     # the merge keeps other lanes' values
     assert AL.set_lane_thresholds(str(tmp_path / "config" / "experiments.yaml"), {"uart": 30}) == {"spi": 85.5, "uart": 30.0}
     # pool progress with records: 3 medium B0 E4 records in the last hour, 6 waiting -> rate 1/h, ETA 6 h
