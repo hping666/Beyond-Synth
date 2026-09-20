@@ -1,0 +1,5556 @@
+{
+ "date": "2026-09-20",
+ "generated_at": "2026-09-20T05:52",
+ "basis": "offline_saif",
+ "materiality": {
+  "area": 0.01,
+  "power": 0.02,
+  "wns": 0.01
+ },
+ "versions": {
+  "git_sha": "749fd3b976aa",
+  "cfg_hash": "dfff3bb6022f",
+  "floor_version": "phase4",
+  "equiv_version": "phase5",
+  "harness_version": 2
+ },
+ "default_power_basis": [
+  "cktevo_hsm__MixColumns",
+  "cktevo_hsm__hsm",
+  "cktevo_nn_engine__thresholds_128x4096",
+  "cktevo_risc__btb",
+  "cktevo_risc__cpu",
+  "cktevo_risc__stall_control_unit",
+  "cktevo_usb__usbf_sie_rx",
+  "cktevo_vga_enh__vga_wb_slave",
+  "drrtl_LSTM",
+  "drrtl_aes",
+  "drrtl_arm_cpu2",
+  "drrtl_simple_spi",
+  "drrtl_tv80"
+ ],
+ "pooled_floor_designs": [
+  "cktevo_hsm__hsm",
+  "cktevo_nn_engine__thresholds_128x4096",
+  "cktevo_risc__btb",
+  "cktevo_risc__cpu",
+  "cktevo_risc__stall_control_unit",
+  "cktevo_usb__usbf_sie_rx",
+  "cktevo_vga_enh__vga_wb_slave",
+  "drrtl_LSTM",
+  "drrtl_aes",
+  "drrtl_arm_cpu2",
+  "drrtl_router",
+  "drrtl_simple_spi",
+  "drrtl_tv80"
+ ],
+ "phase5_runs": {
+  "medium": {
+   "done": 298,
+   "created": 35,
+   "running": 43
+  },
+  "small": {
+   "created": 120,
+   "done": 1,
+   "running": 5
+  },
+  "large": {
+   "done": 90,
+   "created": 18
+  }
+ },
+ "floor_version_preferred": null,
+ "n_evaluated": 11363,
+ "n_e4_pending": 172,
+ "n_dc_rejected": 48,
+ "n_duplicates": 2623,
+ "class_tables": {
+  "by_tier": {
+   "large": {
+    "current": {
+     "a": {
+      "n": 463,
+      "labels": {
+       "absorbed_identical": 144,
+       "absorbed": 37,
+       "noise": 77,
+       "harmful": 205
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 0,
+      "survival_rate": 0.0,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 663,
+      "labels": {
+       "retained": 266,
+       "tradeoff": 184,
+       "absorbed_identical": 25,
+       "absorbed": 10,
+       "noise": 54,
+       "harmful": 124
+      },
+      "retained": 266,
+      "retained_rate": 0.40120663650075417,
+      "survival": 450,
+      "survival_rate": 0.6787330316742082,
+      "material_any": 212,
+      "material_rate": 0.31975867269984914,
+      "material_per_metric": {
+       "area": 116,
+       "power": 212,
+       "wns": 0
+      }
+     },
+     "c1": {
+      "n": 47,
+      "labels": {
+       "retained": 10,
+       "tradeoff": 26,
+       "noise": 4,
+       "harmful": 7
+      },
+      "retained": 10,
+      "retained_rate": 0.2127659574468085,
+      "survival": 36,
+      "survival_rate": 0.7659574468085106,
+      "material_any": 6,
+      "material_rate": 0.1276595744680851,
+      "material_per_metric": {
+       "area": 3,
+       "power": 6,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 248,
+      "labels": {
+       "retained": 100,
+       "tradeoff": 57,
+       "noise": 34,
+       "harmful": 57
+      },
+      "retained": 100,
+      "retained_rate": 0.4032258064516129,
+      "survival": 157,
+      "survival_rate": 0.6330645161290323,
+      "material_any": 39,
+      "material_rate": 0.15725806451612903,
+      "material_per_metric": {
+       "area": 30,
+       "power": 39,
+       "wns": 0
+      }
+     }
+    },
+    "a": {
+     "a": {
+      "n": 463,
+      "labels": {
+       "absorbed_identical": 144,
+       "absorbed": 37,
+       "noise": 96,
+       "harmful": 186
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 0,
+      "survival_rate": 0.0,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 663,
+      "labels": {
+       "retained": 287,
+       "tradeoff": 110,
+       "absorbed_identical": 25,
+       "absorbed": 12,
+       "noise": 123,
+       "harmful": 106
+      },
+      "retained": 287,
+      "retained_rate": 0.43288084464555054,
+      "survival": 397,
+      "survival_rate": 0.5987933634992458,
+      "material_any": 148,
+      "material_rate": 0.22322775263951736,
+      "material_per_metric": {
+       "area": 148,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "c1": {
+      "n": 47,
+      "labels": {
+       "retained": 12,
+       "tradeoff": 6,
+       "noise": 4,
+       "harmful": 25
+      },
+      "retained": 12,
+      "retained_rate": 0.2553191489361702,
+      "survival": 18,
+      "survival_rate": 0.3829787234042553,
+      "material_any": 3,
+      "material_rate": 0.06382978723404255,
+      "material_per_metric": {
+       "area": 3,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 248,
+      "labels": {
+       "retained": 110,
+       "tradeoff": 13,
+       "noise": 35,
+       "harmful": 90
+      },
+      "retained": 110,
+      "retained_rate": 0.4435483870967742,
+      "survival": 123,
+      "survival_rate": 0.4959677419354839,
+      "material_any": 30,
+      "material_rate": 0.12096774193548387,
+      "material_per_metric": {
+       "area": 30,
+       "power": 0,
+       "wns": 0
+      }
+     }
+    },
+    "area": {
+     "a": {
+      "n": 463,
+      "labels": {
+       "absorbed_identical": 144,
+       "absorbed": 37,
+       "noise": 129,
+       "harmful": 153
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 0,
+      "survival_rate": 0.0,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 663,
+      "labels": {
+       "retained": 318,
+       "absorbed_identical": 25,
+       "absorbed": 13,
+       "noise": 213,
+       "harmful": 94
+      },
+      "retained": 318,
+      "retained_rate": 0.4796380090497738,
+      "survival": 318,
+      "survival_rate": 0.4796380090497738,
+      "material_any": 194,
+      "material_rate": 0.29260935143288086,
+      "material_per_metric": {
+       "area": 194,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "c1": {
+      "n": 47,
+      "labels": {
+       "retained": 14,
+       "noise": 5,
+       "harmful": 28
+      },
+      "retained": 14,
+      "retained_rate": 0.2978723404255319,
+      "survival": 14,
+      "survival_rate": 0.2978723404255319,
+      "material_any": 6,
+      "material_rate": 0.1276595744680851,
+      "material_per_metric": {
+       "area": 6,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 248,
+      "labels": {
+       "retained": 111,
+       "noise": 45,
+       "harmful": 92
+      },
+      "retained": 111,
+      "retained_rate": 0.4475806451612903,
+      "survival": 111,
+      "survival_rate": 0.4475806451612903,
+      "material_any": 36,
+      "material_rate": 0.14516129032258066,
+      "material_per_metric": {
+       "area": 36,
+       "power": 0,
+       "wns": 0
+      }
+     }
+    },
+    "wns": {
+     "a": {
+      "n": 463,
+      "labels": {
+       "absorbed_identical": 144,
+       "absorbed": 37,
+       "noise": 252,
+       "harmful": 30
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 0,
+      "survival_rate": 0.0,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 663,
+      "labels": {
+       "retained": 219,
+       "absorbed_identical": 25,
+       "absorbed": 12,
+       "noise": 241,
+       "harmful": 166
+      },
+      "retained": 219,
+      "retained_rate": 0.33031674208144796,
+      "survival": 219,
+      "survival_rate": 0.33031674208144796,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "c1": {
+      "n": 47,
+      "labels": {
+       "retained": 7,
+       "noise": 28,
+       "harmful": 12
+      },
+      "retained": 7,
+      "retained_rate": 0.14893617021276595,
+      "survival": 7,
+      "survival_rate": 0.14893617021276595,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 248,
+      "labels": {
+       "retained": 38,
+       "absorbed": 2,
+       "noise": 163,
+       "harmful": 45
+      },
+      "retained": 38,
+      "retained_rate": 0.1532258064516129,
+      "survival": 38,
+      "survival_rate": 0.1532258064516129,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     }
+    },
+    "power": {
+     "a": {
+      "n": 463,
+      "labels": {
+       "absorbed_identical": 144,
+       "absorbed": 37,
+       "noise": 81,
+       "harmful": 201
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 0,
+      "survival_rate": 0.0,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 663,
+      "labels": {
+       "retained": 339,
+       "absorbed_identical": 25,
+       "absorbed": 11,
+       "noise": 147,
+       "harmful": 141
+      },
+      "retained": 339,
+      "retained_rate": 0.5113122171945701,
+      "survival": 339,
+      "survival_rate": 0.5113122171945701,
+      "material_any": 339,
+      "material_rate": 0.5113122171945701,
+      "material_per_metric": {
+       "area": 0,
+       "power": 339,
+       "wns": 0
+      }
+     },
+     "c1": {
+      "n": 47,
+      "labels": {
+       "retained": 30,
+       "noise": 13,
+       "harmful": 4
+      },
+      "retained": 30,
+      "retained_rate": 0.6382978723404256,
+      "survival": 30,
+      "survival_rate": 0.6382978723404256,
+      "material_any": 30,
+      "material_rate": 0.6382978723404256,
+      "material_per_metric": {
+       "area": 0,
+       "power": 30,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 248,
+      "labels": {
+       "retained": 83,
+       "absorbed": 2,
+       "noise": 135,
+       "harmful": 28
+      },
+      "retained": 83,
+      "retained_rate": 0.3346774193548387,
+      "survival": 83,
+      "survival_rate": 0.3346774193548387,
+      "material_any": 83,
+      "material_rate": 0.3346774193548387,
+      "material_per_metric": {
+       "area": 0,
+       "power": 83,
+       "wns": 0
+      }
+     }
+    }
+   },
+   "medium": {
+    "current": {
+     "a": {
+      "n": 2212,
+      "labels": {
+       "retained": 417,
+       "tradeoff": 622,
+       "absorbed_identical": 891,
+       "absorbed": 36,
+       "noise": 12,
+       "harmful": 234
+      },
+      "retained": 417,
+      "retained_rate": 0.18851717902350815,
+      "survival": 1039,
+      "survival_rate": 0.46971066907775766,
+      "material_any": 391,
+      "material_rate": 0.1767631103074141,
+      "material_per_metric": {
+       "area": 346,
+       "power": 347,
+       "wns": 17
+      }
+     },
+     "b": {
+      "n": 3584,
+      "labels": {
+       "retained": 1152,
+       "tradeoff": 1135,
+       "absorbed_identical": 709,
+       "absorbed": 141,
+       "noise": 6,
+       "harmful": 441
+      },
+      "retained": 1152,
+      "retained_rate": 0.32142857142857145,
+      "survival": 2287,
+      "survival_rate": 0.6381138392857143,
+      "material_any": 924,
+      "material_rate": 0.2578125,
+      "material_per_metric": {
+       "area": 662,
+       "power": 723,
+       "wns": 762
+      }
+     },
+     "c1": {
+      "n": 1610,
+      "labels": {
+       "retained": 586,
+       "tradeoff": 577,
+       "absorbed_identical": 14,
+       "absorbed": 5,
+       "noise": 185,
+       "harmful": 243
+      },
+      "retained": 586,
+      "retained_rate": 0.3639751552795031,
+      "survival": 1163,
+      "survival_rate": 0.7223602484472049,
+      "material_any": 567,
+      "material_rate": 0.3521739130434783,
+      "material_per_metric": {
+       "area": 199,
+       "power": 513,
+       "wns": 322
+      }
+     },
+     "c2": {
+      "n": 1,
+      "labels": {
+       "retained": 1
+      },
+      "retained": 1,
+      "retained_rate": 1.0,
+      "survival": 1,
+      "survival_rate": 1.0,
+      "material_any": 1,
+      "material_rate": 1.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 1,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 2417,
+      "labels": {
+       "retained": 1082,
+       "tradeoff": 1048,
+       "absorbed_identical": 103,
+       "absorbed": 19,
+       "noise": 5,
+       "harmful": 160
+      },
+      "retained": 1082,
+      "retained_rate": 0.4476623913942904,
+      "survival": 2130,
+      "survival_rate": 0.8812577575506827,
+      "material_any": 1044,
+      "material_rate": 0.43194042201075716,
+      "material_per_metric": {
+       "area": 561,
+       "power": 1028,
+       "wns": 267
+      }
+     }
+    },
+    "a": {
+     "a": {
+      "n": 2212,
+      "labels": {
+       "retained": 430,
+       "tradeoff": 608,
+       "absorbed_identical": 891,
+       "absorbed": 36,
+       "noise": 14,
+       "harmful": 233
+      },
+      "retained": 430,
+      "retained_rate": 0.19439421338155516,
+      "survival": 1038,
+      "survival_rate": 0.4692585895117541,
+      "material_any": 390,
+      "material_rate": 0.1763110307414105,
+      "material_per_metric": {
+       "area": 351,
+       "power": 278,
+       "wns": 21
+      }
+     },
+     "b": {
+      "n": 3584,
+      "labels": {
+       "retained": 1309,
+       "tradeoff": 975,
+       "absorbed_identical": 709,
+       "absorbed": 141,
+       "noise": 8,
+       "harmful": 442
+      },
+      "retained": 1309,
+      "retained_rate": 0.365234375,
+      "survival": 2284,
+      "survival_rate": 0.6372767857142857,
+      "material_any": 1009,
+      "material_rate": 0.28152901785714285,
+      "material_per_metric": {
+       "area": 694,
+       "power": 611,
+       "wns": 819
+      }
+     },
+     "c1": {
+      "n": 1610,
+      "labels": {
+       "retained": 579,
+       "tradeoff": 560,
+       "absorbed_identical": 14,
+       "absorbed": 5,
+       "noise": 201,
+       "harmful": 251
+      },
+      "retained": 579,
+      "retained_rate": 0.3596273291925466,
+      "survival": 1139,
+      "survival_rate": 0.7074534161490683,
+      "material_any": 540,
+      "material_rate": 0.33540372670807456,
+      "material_per_metric": {
+       "area": 198,
+       "power": 464,
+       "wns": 319
+      }
+     },
+     "c2": {
+      "n": 1,
+      "labels": {
+       "retained": 1
+      },
+      "retained": 1,
+      "retained_rate": 1.0,
+      "survival": 1,
+      "survival_rate": 1.0,
+      "material_any": 1,
+      "material_rate": 1.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 1,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 2417,
+      "labels": {
+       "retained": 1099,
+       "tradeoff": 1030,
+       "absorbed_identical": 103,
+       "absorbed": 19,
+       "noise": 6,
+       "harmful": 160
+      },
+      "retained": 1099,
+      "retained_rate": 0.45469590401323956,
+      "survival": 2129,
+      "survival_rate": 0.8808440215142739,
+      "material_any": 1061,
+      "material_rate": 0.43897393462970624,
+      "material_per_metric": {
+       "area": 576,
+       "power": 969,
+       "wns": 269
+      }
+     }
+    },
+    "area": {
+     "a": {
+      "n": 2212,
+      "labels": {
+       "retained": 483,
+       "absorbed_identical": 891,
+       "absorbed": 48,
+       "noise": 87,
+       "harmful": 703
+      },
+      "retained": 483,
+      "retained_rate": 0.21835443037974683,
+      "survival": 483,
+      "survival_rate": 0.21835443037974683,
+      "material_any": 417,
+      "material_rate": 0.18851717902350815,
+      "material_per_metric": {
+       "area": 417,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 3584,
+      "labels": {
+       "retained": 1369,
+       "absorbed_identical": 709,
+       "absorbed": 154,
+       "noise": 413,
+       "harmful": 939
+      },
+      "retained": 1369,
+      "retained_rate": 0.38197544642857145,
+      "survival": 1369,
+      "survival_rate": 0.38197544642857145,
+      "material_any": 952,
+      "material_rate": 0.265625,
+      "material_per_metric": {
+       "area": 952,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "c1": {
+      "n": 1610,
+      "labels": {
+       "retained": 360,
+       "absorbed_identical": 14,
+       "absorbed": 6,
+       "noise": 653,
+       "harmful": 577
+      },
+      "retained": 360,
+      "retained_rate": 0.2236024844720497,
+      "survival": 360,
+      "survival_rate": 0.2236024844720497,
+      "material_any": 200,
+      "material_rate": 0.12422360248447205,
+      "material_per_metric": {
+       "area": 200,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "c2": {
+      "n": 1,
+      "labels": {
+       "noise": 1
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 0,
+      "survival_rate": 0.0,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 2417,
+      "labels": {
+       "retained": 1274,
+       "absorbed_identical": 103,
+       "absorbed": 19,
+       "noise": 92,
+       "harmful": 929
+      },
+      "retained": 1274,
+      "retained_rate": 0.5270997103847745,
+      "survival": 1274,
+      "survival_rate": 0.5270997103847745,
+      "material_any": 812,
+      "material_rate": 0.3359536615639222,
+      "material_per_metric": {
+       "area": 812,
+       "power": 0,
+       "wns": 0
+      }
+     }
+    },
+    "wns": {
+     "a": {
+      "n": 2212,
+      "labels": {
+       "retained": 860,
+       "absorbed_identical": 891,
+       "absorbed": 48,
+       "noise": 196,
+       "harmful": 217
+      },
+      "retained": 860,
+      "retained_rate": 0.3887884267631103,
+      "survival": 860,
+      "survival_rate": 0.3887884267631103,
+      "material_any": 81,
+      "material_rate": 0.036618444846292945,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 81
+      }
+     },
+     "b": {
+      "n": 3584,
+      "labels": {
+       "retained": 2093,
+       "absorbed_identical": 709,
+       "absorbed": 183,
+       "noise": 96,
+       "harmful": 503
+      },
+      "retained": 2093,
+      "retained_rate": 0.583984375,
+      "survival": 2093,
+      "survival_rate": 0.583984375,
+      "material_any": 1021,
+      "material_rate": 0.28487723214285715,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 1021
+      }
+     },
+     "c1": {
+      "n": 1610,
+      "labels": {
+       "retained": 960,
+       "absorbed_identical": 14,
+       "absorbed": 6,
+       "noise": 405,
+       "harmful": 225
+      },
+      "retained": 960,
+      "retained_rate": 0.5962732919254659,
+      "survival": 960,
+      "survival_rate": 0.5962732919254659,
+      "material_any": 412,
+      "material_rate": 0.25590062111801243,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 412
+      }
+     },
+     "c2": {
+      "n": 1,
+      "labels": {
+       "noise": 1
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 0,
+      "survival_rate": 0.0,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 2417,
+      "labels": {
+       "retained": 1708,
+       "absorbed_identical": 103,
+       "absorbed": 21,
+       "noise": 364,
+       "harmful": 221
+      },
+      "retained": 1708,
+      "retained_rate": 0.7066611501861813,
+      "survival": 1708,
+      "survival_rate": 0.7066611501861813,
+      "material_any": 615,
+      "material_rate": 0.25444766239139427,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 615
+      }
+     }
+    },
+    "power": {
+     "a": {
+      "n": 2212,
+      "labels": {
+       "retained": 532,
+       "absorbed_identical": 891,
+       "absorbed": 45,
+       "noise": 125,
+       "harmful": 619
+      },
+      "retained": 532,
+      "retained_rate": 0.24050632911392406,
+      "survival": 532,
+      "survival_rate": 0.24050632911392406,
+      "material_any": 532,
+      "material_rate": 0.24050632911392406,
+      "material_per_metric": {
+       "area": 0,
+       "power": 532,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 3584,
+      "labels": {
+       "retained": 840,
+       "absorbed_identical": 709,
+       "absorbed": 208,
+       "noise": 706,
+       "harmful": 1121
+      },
+      "retained": 840,
+      "retained_rate": 0.234375,
+      "survival": 840,
+      "survival_rate": 0.234375,
+      "material_any": 840,
+      "material_rate": 0.234375,
+      "material_per_metric": {
+       "area": 0,
+       "power": 840,
+       "wns": 0
+      }
+     },
+     "c1": {
+      "n": 1610,
+      "labels": {
+       "retained": 521,
+       "absorbed_identical": 14,
+       "absorbed": 8,
+       "noise": 635,
+       "harmful": 432
+      },
+      "retained": 521,
+      "retained_rate": 0.3236024844720497,
+      "survival": 521,
+      "survival_rate": 0.3236024844720497,
+      "material_any": 521,
+      "material_rate": 0.3236024844720497,
+      "material_per_metric": {
+       "area": 0,
+       "power": 521,
+       "wns": 0
+      }
+     },
+     "c2": {
+      "n": 1,
+      "labels": {
+       "retained": 1
+      },
+      "retained": 1,
+      "retained_rate": 1.0,
+      "survival": 1,
+      "survival_rate": 1.0,
+      "material_any": 1,
+      "material_rate": 1.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 1,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 2417,
+      "labels": {
+       "retained": 1223,
+       "absorbed_identical": 103,
+       "absorbed": 40,
+       "noise": 180,
+       "harmful": 871
+      },
+      "retained": 1223,
+      "retained_rate": 0.5059991725279271,
+      "survival": 1223,
+      "survival_rate": 0.5059991725279271,
+      "material_any": 1223,
+      "material_rate": 0.5059991725279271,
+      "material_per_metric": {
+       "area": 0,
+       "power": 1223,
+       "wns": 0
+      }
+     }
+    }
+   },
+   "small": {
+    "current": {
+     "a": {
+      "n": 21,
+      "labels": {
+       "retained": 1,
+       "tradeoff": 17,
+       "absorbed_identical": 1,
+       "harmful": 2
+      },
+      "retained": 1,
+      "retained_rate": 0.047619047619047616,
+      "survival": 18,
+      "survival_rate": 0.8571428571428571,
+      "material_any": 1,
+      "material_rate": 0.047619047619047616,
+      "material_per_metric": {
+       "area": 1,
+       "power": 1,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 82,
+      "labels": {
+       "retained": 6,
+       "tradeoff": 20,
+       "absorbed_identical": 48,
+       "harmful": 8
+      },
+      "retained": 6,
+      "retained_rate": 0.07317073170731707,
+      "survival": 26,
+      "survival_rate": 0.3170731707317073,
+      "material_any": 6,
+      "material_rate": 0.07317073170731707,
+      "material_per_metric": {
+       "area": 6,
+       "power": 6,
+       "wns": 1
+      }
+     },
+     "d": {
+      "n": 15,
+      "labels": {
+       "tradeoff": 2,
+       "harmful": 13
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 2,
+      "survival_rate": 0.13333333333333333,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     }
+    },
+    "a": {
+     "a": {
+      "n": 21,
+      "labels": {
+       "retained": 1,
+       "tradeoff": 17,
+       "absorbed_identical": 1,
+       "harmful": 2
+      },
+      "retained": 1,
+      "retained_rate": 0.047619047619047616,
+      "survival": 18,
+      "survival_rate": 0.8571428571428571,
+      "material_any": 1,
+      "material_rate": 0.047619047619047616,
+      "material_per_metric": {
+       "area": 1,
+       "power": 1,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 82,
+      "labels": {
+       "retained": 6,
+       "tradeoff": 20,
+       "absorbed_identical": 48,
+       "harmful": 8
+      },
+      "retained": 6,
+      "retained_rate": 0.07317073170731707,
+      "survival": 26,
+      "survival_rate": 0.3170731707317073,
+      "material_any": 6,
+      "material_rate": 0.07317073170731707,
+      "material_per_metric": {
+       "area": 6,
+       "power": 6,
+       "wns": 1
+      }
+     },
+     "d": {
+      "n": 15,
+      "labels": {
+       "tradeoff": 2,
+       "harmful": 13
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 2,
+      "survival_rate": 0.13333333333333333,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     }
+    },
+    "area": {
+     "a": {
+      "n": 21,
+      "labels": {
+       "retained": 13,
+       "absorbed_identical": 1,
+       "harmful": 7
+      },
+      "retained": 13,
+      "retained_rate": 0.6190476190476191,
+      "survival": 13,
+      "survival_rate": 0.6190476190476191,
+      "material_any": 13,
+      "material_rate": 0.6190476190476191,
+      "material_per_metric": {
+       "area": 13,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 82,
+      "labels": {
+       "retained": 20,
+       "absorbed_identical": 48,
+       "harmful": 14
+      },
+      "retained": 20,
+      "retained_rate": 0.24390243902439024,
+      "survival": 20,
+      "survival_rate": 0.24390243902439024,
+      "material_any": 15,
+      "material_rate": 0.18292682926829268,
+      "material_per_metric": {
+       "area": 15,
+       "power": 0,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 15,
+      "labels": {
+       "retained": 2,
+       "harmful": 13
+      },
+      "retained": 2,
+      "retained_rate": 0.13333333333333333,
+      "survival": 2,
+      "survival_rate": 0.13333333333333333,
+      "material_any": 2,
+      "material_rate": 0.13333333333333333,
+      "material_per_metric": {
+       "area": 2,
+       "power": 0,
+       "wns": 0
+      }
+     }
+    },
+    "wns": {
+     "a": {
+      "n": 21,
+      "labels": {
+       "retained": 17,
+       "absorbed_identical": 1,
+       "harmful": 3
+      },
+      "retained": 17,
+      "retained_rate": 0.8095238095238095,
+      "survival": 17,
+      "survival_rate": 0.8095238095238095,
+      "material_any": 16,
+      "material_rate": 0.7619047619047619,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 16
+      }
+     },
+     "b": {
+      "n": 82,
+      "labels": {
+       "retained": 17,
+       "absorbed_identical": 48,
+       "noise": 1,
+       "harmful": 16
+      },
+      "retained": 17,
+      "retained_rate": 0.2073170731707317,
+      "survival": 17,
+      "survival_rate": 0.2073170731707317,
+      "material_any": 8,
+      "material_rate": 0.0975609756097561,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 8
+      }
+     },
+     "d": {
+      "n": 15,
+      "labels": {
+       "harmful": 15
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 0,
+      "survival_rate": 0.0,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     }
+    },
+    "power": {
+     "a": {
+      "n": 21,
+      "labels": {
+       "retained": 1,
+       "absorbed_identical": 1,
+       "harmful": 19
+      },
+      "retained": 1,
+      "retained_rate": 0.047619047619047616,
+      "survival": 1,
+      "survival_rate": 0.047619047619047616,
+      "material_any": 1,
+      "material_rate": 0.047619047619047616,
+      "material_per_metric": {
+       "area": 0,
+       "power": 1,
+       "wns": 0
+      }
+     },
+     "b": {
+      "n": 82,
+      "labels": {
+       "retained": 13,
+       "absorbed_identical": 48,
+       "noise": 4,
+       "harmful": 17
+      },
+      "retained": 13,
+      "retained_rate": 0.15853658536585366,
+      "survival": 13,
+      "survival_rate": 0.15853658536585366,
+      "material_any": 13,
+      "material_rate": 0.15853658536585366,
+      "material_per_metric": {
+       "area": 0,
+       "power": 13,
+       "wns": 0
+      }
+     },
+     "d": {
+      "n": 15,
+      "labels": {
+       "noise": 1,
+       "harmful": 14
+      },
+      "retained": 0,
+      "retained_rate": 0.0,
+      "survival": 0,
+      "survival_rate": 0.0,
+      "material_any": 0,
+      "material_rate": 0.0,
+      "material_per_metric": {
+       "area": 0,
+       "power": 0,
+       "wns": 0
+      }
+     }
+    }
+   }
+  },
+  "n_by_tier": {
+   "large": 1421,
+   "medium": 9824,
+   "small": 118
+  },
+  "pooled": {
+   "current": {
+    "a": {
+     "n": 2696,
+     "labels": {
+      "retained": 418,
+      "tradeoff": 639,
+      "absorbed_identical": 1036,
+      "absorbed": 73,
+      "noise": 89,
+      "harmful": 441
+     },
+     "retained": 418,
+     "retained_rate": 0.15504451038575667,
+     "survival": 1057,
+     "survival_rate": 0.39206231454005935,
+     "material_any": 392,
+     "material_rate": 0.14540059347181009,
+     "material_per_metric": {
+      "area": 347,
+      "power": 348,
+      "wns": 17
+     }
+    },
+    "b": {
+     "n": 4329,
+     "labels": {
+      "retained": 1424,
+      "tradeoff": 1339,
+      "absorbed_identical": 782,
+      "absorbed": 151,
+      "noise": 60,
+      "harmful": 573
+     },
+     "retained": 1424,
+     "retained_rate": 0.32894432894432896,
+     "survival": 2763,
+     "survival_rate": 0.6382536382536382,
+     "material_any": 1142,
+     "material_rate": 0.2638022638022638,
+     "material_per_metric": {
+      "area": 784,
+      "power": 941,
+      "wns": 763
+     }
+    },
+    "c1": {
+     "n": 1657,
+     "labels": {
+      "retained": 596,
+      "tradeoff": 603,
+      "absorbed_identical": 14,
+      "absorbed": 5,
+      "noise": 189,
+      "harmful": 250
+     },
+     "retained": 596,
+     "retained_rate": 0.3596861798430899,
+     "survival": 1199,
+     "survival_rate": 0.7235968617984309,
+     "material_any": 573,
+     "material_rate": 0.3458056729028364,
+     "material_per_metric": {
+      "area": 202,
+      "power": 519,
+      "wns": 322
+     }
+    },
+    "c2": {
+     "n": 1,
+     "labels": {
+      "retained": 1
+     },
+     "retained": 1,
+     "retained_rate": 1.0,
+     "survival": 1,
+     "survival_rate": 1.0,
+     "material_any": 1,
+     "material_rate": 1.0,
+     "material_per_metric": {
+      "area": 0,
+      "power": 1,
+      "wns": 0
+     }
+    },
+    "d": {
+     "n": 2680,
+     "labels": {
+      "retained": 1182,
+      "tradeoff": 1107,
+      "absorbed_identical": 103,
+      "absorbed": 19,
+      "noise": 39,
+      "harmful": 230
+     },
+     "retained": 1182,
+     "retained_rate": 0.44104477611940296,
+     "survival": 2289,
+     "survival_rate": 0.8541044776119403,
+     "material_any": 1083,
+     "material_rate": 0.4041044776119403,
+     "material_per_metric": {
+      "area": 591,
+      "power": 1067,
+      "wns": 267
+     }
+    }
+   },
+   "a": {
+    "a": {
+     "n": 2696,
+     "labels": {
+      "retained": 431,
+      "tradeoff": 625,
+      "absorbed_identical": 1036,
+      "absorbed": 73,
+      "noise": 110,
+      "harmful": 421
+     },
+     "retained": 431,
+     "retained_rate": 0.15986646884272998,
+     "survival": 1056,
+     "survival_rate": 0.3916913946587537,
+     "material_any": 391,
+     "material_rate": 0.14502967359050445,
+     "material_per_metric": {
+      "area": 352,
+      "power": 279,
+      "wns": 21
+     }
+    },
+    "b": {
+     "n": 4329,
+     "labels": {
+      "retained": 1602,
+      "tradeoff": 1105,
+      "absorbed_identical": 782,
+      "absorbed": 153,
+      "noise": 131,
+      "harmful": 556
+     },
+     "retained": 1602,
+     "retained_rate": 0.3700623700623701,
+     "survival": 2707,
+     "survival_rate": 0.6253176253176254,
+     "material_any": 1163,
+     "material_rate": 0.26865326865326866,
+     "material_per_metric": {
+      "area": 848,
+      "power": 617,
+      "wns": 820
+     }
+    },
+    "c1": {
+     "n": 1657,
+     "labels": {
+      "retained": 591,
+      "tradeoff": 566,
+      "absorbed_identical": 14,
+      "absorbed": 5,
+      "noise": 205,
+      "harmful": 276
+     },
+     "retained": 591,
+     "retained_rate": 0.3566686783343392,
+     "survival": 1157,
+     "survival_rate": 0.6982498491249246,
+     "material_any": 543,
+     "material_rate": 0.3277006638503319,
+     "material_per_metric": {
+      "area": 201,
+      "power": 464,
+      "wns": 319
+     }
+    },
+    "c2": {
+     "n": 1,
+     "labels": {
+      "retained": 1
+     },
+     "retained": 1,
+     "retained_rate": 1.0,
+     "survival": 1,
+     "survival_rate": 1.0,
+     "material_any": 1,
+     "material_rate": 1.0,
+     "material_per_metric": {
+      "area": 0,
+      "power": 1,
+      "wns": 0
+     }
+    },
+    "d": {
+     "n": 2680,
+     "labels": {
+      "retained": 1209,
+      "tradeoff": 1045,
+      "absorbed_identical": 103,
+      "absorbed": 19,
+      "noise": 41,
+      "harmful": 263
+     },
+     "retained": 1209,
+     "retained_rate": 0.45111940298507464,
+     "survival": 2254,
+     "survival_rate": 0.841044776119403,
+     "material_any": 1091,
+     "material_rate": 0.407089552238806,
+     "material_per_metric": {
+      "area": 606,
+      "power": 969,
+      "wns": 269
+     }
+    }
+   },
+   "area": {
+    "a": {
+     "n": 2696,
+     "labels": {
+      "retained": 496,
+      "absorbed_identical": 1036,
+      "absorbed": 85,
+      "noise": 216,
+      "harmful": 863
+     },
+     "retained": 496,
+     "retained_rate": 0.18397626112759644,
+     "survival": 496,
+     "survival_rate": 0.18397626112759644,
+     "material_any": 430,
+     "material_rate": 0.15949554896142434,
+     "material_per_metric": {
+      "area": 430,
+      "power": 0,
+      "wns": 0
+     }
+    },
+    "b": {
+     "n": 4329,
+     "labels": {
+      "retained": 1707,
+      "absorbed_identical": 782,
+      "absorbed": 167,
+      "noise": 626,
+      "harmful": 1047
+     },
+     "retained": 1707,
+     "retained_rate": 0.3943173943173943,
+     "survival": 1707,
+     "survival_rate": 0.3943173943173943,
+     "material_any": 1161,
+     "material_rate": 0.2681912681912682,
+     "material_per_metric": {
+      "area": 1161,
+      "power": 0,
+      "wns": 0
+     }
+    },
+    "c1": {
+     "n": 1657,
+     "labels": {
+      "retained": 374,
+      "absorbed_identical": 14,
+      "absorbed": 6,
+      "noise": 658,
+      "harmful": 605
+     },
+     "retained": 374,
+     "retained_rate": 0.22570911285455642,
+     "survival": 374,
+     "survival_rate": 0.22570911285455642,
+     "material_any": 206,
+     "material_rate": 0.12432106216053108,
+     "material_per_metric": {
+      "area": 206,
+      "power": 0,
+      "wns": 0
+     }
+    },
+    "c2": {
+     "n": 1,
+     "labels": {
+      "noise": 1
+     },
+     "retained": 0,
+     "retained_rate": 0.0,
+     "survival": 0,
+     "survival_rate": 0.0,
+     "material_any": 0,
+     "material_rate": 0.0,
+     "material_per_metric": {
+      "area": 0,
+      "power": 0,
+      "wns": 0
+     }
+    },
+    "d": {
+     "n": 2680,
+     "labels": {
+      "retained": 1387,
+      "absorbed_identical": 103,
+      "absorbed": 19,
+      "noise": 137,
+      "harmful": 1034
+     },
+     "retained": 1387,
+     "retained_rate": 0.5175373134328358,
+     "survival": 1387,
+     "survival_rate": 0.5175373134328358,
+     "material_any": 850,
+     "material_rate": 0.31716417910447764,
+     "material_per_metric": {
+      "area": 850,
+      "power": 0,
+      "wns": 0
+     }
+    }
+   },
+   "wns": {
+    "a": {
+     "n": 2696,
+     "labels": {
+      "retained": 877,
+      "absorbed_identical": 1036,
+      "absorbed": 85,
+      "noise": 448,
+      "harmful": 250
+     },
+     "retained": 877,
+     "retained_rate": 0.3252967359050445,
+     "survival": 877,
+     "survival_rate": 0.3252967359050445,
+     "material_any": 97,
+     "material_rate": 0.035979228486646884,
+     "material_per_metric": {
+      "area": 0,
+      "power": 0,
+      "wns": 97
+     }
+    },
+    "b": {
+     "n": 4329,
+     "labels": {
+      "retained": 2329,
+      "absorbed_identical": 782,
+      "absorbed": 195,
+      "noise": 338,
+      "harmful": 685
+     },
+     "retained": 2329,
+     "retained_rate": 0.537999537999538,
+     "survival": 2329,
+     "survival_rate": 0.537999537999538,
+     "material_any": 1029,
+     "material_rate": 0.2376992376992377,
+     "material_per_metric": {
+      "area": 0,
+      "power": 0,
+      "wns": 1029
+     }
+    },
+    "c1": {
+     "n": 1657,
+     "labels": {
+      "retained": 967,
+      "absorbed_identical": 14,
+      "absorbed": 6,
+      "noise": 433,
+      "harmful": 237
+     },
+     "retained": 967,
+     "retained_rate": 0.5835847917923959,
+     "survival": 967,
+     "survival_rate": 0.5835847917923959,
+     "material_any": 412,
+     "material_rate": 0.24864212432106217,
+     "material_per_metric": {
+      "area": 0,
+      "power": 0,
+      "wns": 412
+     }
+    },
+    "c2": {
+     "n": 1,
+     "labels": {
+      "noise": 1
+     },
+     "retained": 0,
+     "retained_rate": 0.0,
+     "survival": 0,
+     "survival_rate": 0.0,
+     "material_any": 0,
+     "material_rate": 0.0,
+     "material_per_metric": {
+      "area": 0,
+      "power": 0,
+      "wns": 0
+     }
+    },
+    "d": {
+     "n": 2680,
+     "labels": {
+      "retained": 1746,
+      "absorbed_identical": 103,
+      "absorbed": 23,
+      "noise": 527,
+      "harmful": 281
+     },
+     "retained": 1746,
+     "retained_rate": 0.6514925373134328,
+     "survival": 1746,
+     "survival_rate": 0.6514925373134328,
+     "material_any": 615,
+     "material_rate": 0.2294776119402985,
+     "material_per_metric": {
+      "area": 0,
+      "power": 0,
+      "wns": 615
+     }
+    }
+   },
+   "power": {
+    "a": {
+     "n": 2696,
+     "labels": {
+      "retained": 533,
+      "absorbed_identical": 1036,
+      "absorbed": 82,
+      "noise": 206,
+      "harmful": 839
+     },
+     "retained": 533,
+     "retained_rate": 0.19770029673590506,
+     "survival": 533,
+     "survival_rate": 0.19770029673590506,
+     "material_any": 533,
+     "material_rate": 0.19770029673590506,
+     "material_per_metric": {
+      "area": 0,
+      "power": 533,
+      "wns": 0
+     }
+    },
+    "b": {
+     "n": 4329,
+     "labels": {
+      "retained": 1192,
+      "absorbed_identical": 782,
+      "absorbed": 219,
+      "noise": 857,
+      "harmful": 1279
+     },
+     "retained": 1192,
+     "retained_rate": 0.27535227535227536,
+     "survival": 1192,
+     "survival_rate": 0.27535227535227536,
+     "material_any": 1192,
+     "material_rate": 0.27535227535227536,
+     "material_per_metric": {
+      "area": 0,
+      "power": 1192,
+      "wns": 0
+     }
+    },
+    "c1": {
+     "n": 1657,
+     "labels": {
+      "retained": 551,
+      "absorbed_identical": 14,
+      "absorbed": 8,
+      "noise": 648,
+      "harmful": 436
+     },
+     "retained": 551,
+     "retained_rate": 0.33252866626433314,
+     "survival": 551,
+     "survival_rate": 0.33252866626433314,
+     "material_any": 551,
+     "material_rate": 0.33252866626433314,
+     "material_per_metric": {
+      "area": 0,
+      "power": 551,
+      "wns": 0
+     }
+    },
+    "c2": {
+     "n": 1,
+     "labels": {
+      "retained": 1
+     },
+     "retained": 1,
+     "retained_rate": 1.0,
+     "survival": 1,
+     "survival_rate": 1.0,
+     "material_any": 1,
+     "material_rate": 1.0,
+     "material_per_metric": {
+      "area": 0,
+      "power": 1,
+      "wns": 0
+     }
+    },
+    "d": {
+     "n": 2680,
+     "labels": {
+      "retained": 1306,
+      "absorbed_identical": 103,
+      "absorbed": 42,
+      "noise": 316,
+      "harmful": 913
+     },
+     "retained": 1306,
+     "retained_rate": 0.4873134328358209,
+     "survival": 1306,
+     "survival_rate": 0.4873134328358209,
+     "material_any": 1306,
+     "material_rate": 0.4873134328358209,
+     "material_per_metric": {
+      "area": 0,
+      "power": 1306,
+      "wns": 0
+     }
+    }
+   }
+  }
+ },
+ "families": {
+  "current": {
+   "Dr.RTL": {
+    "evaluated": 2371,
+    "retained": 147,
+    "retained_rate": 0.061999156474061574,
+    "material": 82,
+    "designs": 6
+   },
+   "CktEvo": {
+    "evaluated": 4508,
+    "retained": 1321,
+    "retained_rate": 0.2930346051464064,
+    "material": 1012,
+    "designs": 8
+   },
+   "RTL-OPT": {
+    "evaluated": 4484,
+    "retained": 2153,
+    "retained_rate": 0.48015165031222123,
+    "material": 2097,
+    "designs": 8
+   }
+  },
+  "a": {
+   "Dr.RTL": {
+    "evaluated": 2371,
+    "retained": 158,
+    "retained_rate": 0.06663854913538592,
+    "material": 77,
+    "designs": 6
+   },
+   "CktEvo": {
+    "evaluated": 4508,
+    "retained": 1489,
+    "retained_rate": 0.330301685891748,
+    "material": 1014,
+    "designs": 8
+   },
+   "RTL-OPT": {
+    "evaluated": 4484,
+    "retained": 2187,
+    "retained_rate": 0.4877341659232828,
+    "material": 2098,
+    "designs": 8
+   }
+  },
+  "area": {
+   "Dr.RTL": {
+    "evaluated": 2371,
+    "retained": 250,
+    "retained_rate": 0.10544074230282581,
+    "material": 152,
+    "designs": 6
+   },
+   "CktEvo": {
+    "evaluated": 4508,
+    "retained": 1143,
+    "retained_rate": 0.2535492457852706,
+    "material": 748,
+    "designs": 8
+   },
+   "RTL-OPT": {
+    "evaluated": 4484,
+    "retained": 2571,
+    "retained_rate": 0.5733719892952721,
+    "material": 1747,
+    "designs": 8
+   }
+  },
+  "wns": {
+   "Dr.RTL": {
+    "evaluated": 2371,
+    "retained": 420,
+    "retained_rate": 0.17714044706874738,
+    "material": 97,
+    "designs": 6
+   },
+   "CktEvo": {
+    "evaluated": 4508,
+    "retained": 2255,
+    "retained_rate": 0.5002218278615794,
+    "material": 837,
+    "designs": 8
+   },
+   "RTL-OPT": {
+    "evaluated": 4484,
+    "retained": 3244,
+    "retained_rate": 0.7234611953612846,
+    "material": 1219,
+    "designs": 8
+   }
+  },
+  "power": {
+   "Dr.RTL": {
+    "evaluated": 2371,
+    "retained": 144,
+    "retained_rate": 0.060733867566427666,
+    "material": 144,
+    "designs": 6
+   },
+   "CktEvo": {
+    "evaluated": 4508,
+    "retained": 1143,
+    "retained_rate": 0.2535492457852706,
+    "material": 1143,
+    "designs": 8
+   },
+   "RTL-OPT": {
+    "evaluated": 4484,
+    "retained": 2296,
+    "retained_rate": 0.512042818911686,
+    "material": 2296,
+    "designs": 8
+   }
+  }
+ },
+ "per_design": {
+  "cktevo_nn_engine__spikeNeuron8_H7": {
+   "tier": "large",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 4,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 4
+     }
+    },
+    "B1_E4": {
+     "evaluated": 92,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 92
+     }
+    },
+    "B2": {
+     "evaluated": 92,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 92
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 99,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 99
+     }
+    },
+    "M": {
+     "evaluated": 18,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 18
+     }
+    }
+   },
+   "totals": {
+    "current": 0,
+    "a": 0,
+    "area": 0,
+    "wns": 0,
+    "power": 0
+   },
+   "evaluated": 305
+  },
+  "cktevo_risc__btb": {
+   "tier": "large",
+   "default_basis": true,
+   "by_arm": {
+    "B0": {
+     "evaluated": 130,
+     "current": {
+      "retained": 39,
+      "material": 27
+     },
+     "a": {
+      "retained": 29,
+      "material": 6
+     },
+     "area": {
+      "retained": 16,
+      "material": 9
+     },
+     "wns": {
+      "retained": 36,
+      "material": 0
+     },
+     "power": {
+      "retained": 77,
+      "material": 77
+     },
+     "power_basis": {
+      "default": 90,
+      "saif": 40
+     }
+    },
+    "B1_E4": {
+     "evaluated": 133,
+     "current": {
+      "retained": 74,
+      "material": 70
+     },
+     "a": {
+      "retained": 78,
+      "material": 58
+     },
+     "area": {
+      "retained": 108,
+      "material": 76
+     },
+     "wns": {
+      "retained": 54,
+      "material": 0
+     },
+     "power": {
+      "retained": 119,
+      "material": 119
+     },
+     "power_basis": {
+      "saif": 133
+     }
+    },
+    "B2": {
+     "evaluated": 135,
+     "current": {
+      "retained": 56,
+      "material": 48
+     },
+     "a": {
+      "retained": 78,
+      "material": 52
+     },
+     "area": {
+      "retained": 96,
+      "material": 67
+     },
+     "wns": {
+      "retained": 57,
+      "material": 0
+     },
+     "power": {
+      "retained": 78,
+      "material": 78
+     },
+     "power_basis": {
+      "saif": 135
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 119,
+     "current": {
+      "retained": 41,
+      "material": 9
+     },
+     "a": {
+      "retained": 43,
+      "material": 0
+     },
+     "area": {
+      "retained": 14,
+      "material": 0
+     },
+     "wns": {
+      "retained": 38,
+      "material": 0
+     },
+     "power": {
+      "retained": 12,
+      "material": 12
+     },
+     "power_basis": {
+      "saif": 119
+     }
+    },
+    "M": {
+     "evaluated": 185,
+     "current": {
+      "retained": 103,
+      "material": 97
+     },
+     "a": {
+      "retained": 106,
+      "material": 60
+     },
+     "area": {
+      "retained": 134,
+      "material": 79
+     },
+     "wns": {
+      "retained": 76,
+      "material": 0
+     },
+     "power": {
+      "retained": 145,
+      "material": 145
+     },
+     "power_basis": {
+      "saif": 185
+     }
+    }
+   },
+   "totals": {
+    "current": 313,
+    "a": 334,
+    "area": 368,
+    "wns": 261,
+    "power": 431
+   },
+   "evaluated": 702
+  },
+  "drrtl_aes": {
+   "tier": "large",
+   "default_basis": true,
+   "by_arm": {
+    "B0": {
+     "evaluated": 37,
+     "current": {
+      "retained": 4,
+      "material": 0
+     },
+     "a": {
+      "retained": 4,
+      "material": 0
+     },
+     "area": {
+      "retained": 4,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "default": 28,
+      "saif": 9
+     }
+    },
+    "B1_E4": {
+     "evaluated": 102,
+     "current": {
+      "retained": 35,
+      "material": 0
+     },
+     "a": {
+      "retained": 40,
+      "material": 0
+     },
+     "area": {
+      "retained": 40,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 1,
+      "material": 1
+     },
+     "power_basis": {
+      "saif": 94,
+      "default": 8
+     }
+    },
+    "B2": {
+     "evaluated": 90,
+     "current": {
+      "retained": 8,
+      "material": 0
+     },
+     "a": {
+      "retained": 15,
+      "material": 0
+     },
+     "area": {
+      "retained": 15,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 2,
+      "material": 2
+     },
+     "power_basis": {
+      "saif": 80,
+      "default": 10
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 123,
+     "current": {
+      "retained": 1,
+      "material": 1
+     },
+     "a": {
+      "retained": 1,
+      "material": 0
+     },
+     "area": {
+      "retained": 1,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 10,
+      "material": 10
+     },
+     "power_basis": {
+      "saif": 107,
+      "default": 16
+     }
+    },
+    "M": {
+     "evaluated": 62,
+     "current": {
+      "retained": 15,
+      "material": 5
+     },
+     "a": {
+      "retained": 15,
+      "material": 5
+     },
+     "area": {
+      "retained": 15,
+      "material": 5
+     },
+     "wns": {
+      "retained": 3,
+      "material": 0
+     },
+     "power": {
+      "retained": 8,
+      "material": 8
+     },
+     "power_basis": {
+      "saif": 58,
+      "default": 4
+     }
+    }
+   },
+   "totals": {
+    "current": 63,
+    "a": 75,
+    "area": 75,
+    "wns": 3,
+    "power": 21
+   },
+   "evaluated": 414
+  },
+  "cktevo_ethmac__eth_cop": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 88,
+     "current": {
+      "retained": 7,
+      "material": 7
+     },
+     "a": {
+      "retained": 9,
+      "material": 7
+     },
+     "area": {
+      "retained": 6,
+      "material": 6
+     },
+     "wns": {
+      "retained": 71,
+      "material": 2
+     },
+     "power": {
+      "retained": 47,
+      "material": 47
+     },
+     "power_basis": {
+      "saif": 44,
+      "default": 44
+     }
+    },
+    "B1_E4": {
+     "evaluated": 119,
+     "current": {
+      "retained": 7,
+      "material": 7
+     },
+     "a": {
+      "retained": 7,
+      "material": 7
+     },
+     "area": {
+      "retained": 7,
+      "material": 7
+     },
+     "wns": {
+      "retained": 101,
+      "material": 10
+     },
+     "power": {
+      "retained": 17,
+      "material": 17
+     },
+     "power_basis": {
+      "saif": 119
+     }
+    },
+    "B2": {
+     "evaluated": 267,
+     "current": {
+      "retained": 3,
+      "material": 3
+     },
+     "a": {
+      "retained": 3,
+      "material": 3
+     },
+     "area": {
+      "retained": 5,
+      "material": 5
+     },
+     "wns": {
+      "retained": 222,
+      "material": 22
+     },
+     "power": {
+      "retained": 48,
+      "material": 48
+     },
+     "power_basis": {
+      "saif": 265,
+      "default": 2
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 86,
+     "current": {
+      "retained": 15,
+      "material": 13
+     },
+     "a": {
+      "retained": 15,
+      "material": 13
+     },
+     "area": {
+      "retained": 14,
+      "material": 14
+     },
+     "wns": {
+      "retained": 65,
+      "material": 1
+     },
+     "power": {
+      "retained": 50,
+      "material": 50
+     },
+     "power_basis": {
+      "saif": 86
+     }
+    },
+    "M": {
+     "evaluated": 152,
+     "current": {
+      "retained": 17,
+      "material": 15
+     },
+     "a": {
+      "retained": 17,
+      "material": 15
+     },
+     "area": {
+      "retained": 15,
+      "material": 15
+     },
+     "wns": {
+      "retained": 134,
+      "material": 4
+     },
+     "power": {
+      "retained": 76,
+      "material": 76
+     },
+     "power_basis": {
+      "saif": 152
+     }
+    }
+   },
+   "totals": {
+    "current": 49,
+    "a": 51,
+    "area": 47,
+    "wns": 593,
+    "power": 238
+   },
+   "evaluated": 712
+  },
+  "cktevo_mem_ctrl__mc_adr_sel": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 120,
+     "current": {
+      "retained": 46,
+      "material": 45
+     },
+     "a": {
+      "retained": 29,
+      "material": 29
+     },
+     "area": {
+      "retained": 8,
+      "material": 8
+     },
+     "wns": {
+      "retained": 26,
+      "material": 26
+     },
+     "power": {
+      "retained": 38,
+      "material": 38
+     },
+     "power_basis": {
+      "saif": 53,
+      "default": 67
+     }
+    },
+    "B1_E4": {
+     "evaluated": 121,
+     "current": {
+      "retained": 70,
+      "material": 70
+     },
+     "a": {
+      "retained": 70,
+      "material": 70
+     },
+     "area": {
+      "retained": 4,
+      "material": 4
+     },
+     "wns": {
+      "retained": 36,
+      "material": 36
+     },
+     "power": {
+      "retained": 56,
+      "material": 56
+     },
+     "power_basis": {
+      "saif": 121
+     }
+    },
+    "B2": {
+     "evaluated": 277,
+     "current": {
+      "retained": 76,
+      "material": 76
+     },
+     "a": {
+      "retained": 76,
+      "material": 76
+     },
+     "area": {
+      "retained": 24,
+      "material": 24
+     },
+     "wns": {
+      "retained": 73,
+      "material": 73
+     },
+     "power": {
+      "retained": 55,
+      "material": 55
+     },
+     "power_basis": {
+      "saif": 277
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 127,
+     "current": {
+      "retained": 119,
+      "material": 119
+     },
+     "a": {
+      "retained": 119,
+      "material": 119
+     },
+     "area": {
+      "retained": 71,
+      "material": 71
+     },
+     "wns": {
+      "retained": 101,
+      "material": 101
+     },
+     "power": {
+      "retained": 72,
+      "material": 72
+     },
+     "power_basis": {
+      "saif": 127
+     }
+    },
+    "M": {
+     "evaluated": 83,
+     "current": {
+      "retained": 24,
+      "material": 23
+     },
+     "a": {
+      "retained": 24,
+      "material": 23
+     },
+     "area": {
+      "retained": 5,
+      "material": 5
+     },
+     "wns": {
+      "retained": 15,
+      "material": 15
+     },
+     "power": {
+      "retained": 16,
+      "material": 16
+     },
+     "power_basis": {
+      "saif": 83
+     }
+    }
+   },
+   "totals": {
+    "current": 335,
+    "a": 318,
+    "area": 112,
+    "wns": 251,
+    "power": 237
+   },
+   "evaluated": 728
+  },
+  "cktevo_nn_engine__thresholds_128x4096": {
+   "tier": "medium",
+   "default_basis": true,
+   "by_arm": {
+    "B1_E4": {
+     "evaluated": 129,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 9,
+      "material": 9
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 129
+     }
+    },
+    "B2": {
+     "evaluated": 227,
+     "current": {
+      "retained": 1,
+      "material": 0
+     },
+     "a": {
+      "retained": 1,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 48,
+      "material": 31
+     },
+     "power": {
+      "retained": 22,
+      "material": 22
+     },
+     "power_basis": {
+      "saif": 227
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 130,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 19,
+      "material": 19
+     },
+     "power": {
+      "retained": 16,
+      "material": 16
+     },
+     "power_basis": {
+      "saif": 130
+     }
+    },
+    "M": {
+     "evaluated": 36,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 3,
+      "material": 3
+     },
+     "power": {
+      "retained": 1,
+      "material": 1
+     },
+     "power_basis": {
+      "saif": 36
+     }
+    }
+   },
+   "totals": {
+    "current": 1,
+    "a": 1,
+    "area": 0,
+    "wns": 79,
+    "power": 39
+   },
+   "evaluated": 522
+  },
+  "cktevo_risc__cpu": {
+   "tier": "medium",
+   "default_basis": true,
+   "by_arm": {
+    "B0": {
+     "evaluated": 41,
+     "current": {
+      "retained": 1,
+      "material": 1
+     },
+     "a": {
+      "retained": 1,
+      "material": 0
+     },
+     "area": {
+      "retained": 1,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 1,
+      "material": 1
+     },
+     "power_basis": {
+      "default": 35,
+      "saif": 6
+     }
+    },
+    "B1_E4": {
+     "evaluated": 9,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 9
+     }
+    },
+    "B2": {
+     "evaluated": 16,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 16
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 11,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 11
+     }
+    },
+    "M": {
+     "evaluated": 14,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 14
+     }
+    }
+   },
+   "totals": {
+    "current": 1,
+    "a": 1,
+    "area": 1,
+    "wns": 0,
+    "power": 1
+   },
+   "evaluated": 91
+  },
+  "cktevo_usb__usbf_sie_rx": {
+   "tier": "medium",
+   "default_basis": true,
+   "by_arm": {
+    "B0": {
+     "evaluated": 116,
+     "current": {
+      "retained": 76,
+      "material": 24
+     },
+     "a": {
+      "retained": 94,
+      "material": 18
+     },
+     "area": {
+      "retained": 45,
+      "material": 7
+     },
+     "wns": {
+      "retained": 109,
+      "material": 19
+     },
+     "power": {
+      "retained": 8,
+      "material": 8
+     },
+     "power_basis": {
+      "saif": 60,
+      "default": 56
+     }
+    },
+    "B1_E4": {
+     "evaluated": 113,
+     "current": {
+      "retained": 46,
+      "material": 24
+     },
+     "a": {
+      "retained": 61,
+      "material": 34
+     },
+     "area": {
+      "retained": 45,
+      "material": 6
+     },
+     "wns": {
+      "retained": 99,
+      "material": 45
+     },
+     "power": {
+      "retained": 2,
+      "material": 2
+     },
+     "power_basis": {
+      "saif": 113
+     }
+    },
+    "B2": {
+     "evaluated": 261,
+     "current": {
+      "retained": 110,
+      "material": 66
+     },
+     "a": {
+      "retained": 138,
+      "material": 94
+     },
+     "area": {
+      "retained": 77,
+      "material": 18
+     },
+     "wns": {
+      "retained": 232,
+      "material": 145
+     },
+     "power": {
+      "retained": 1,
+      "material": 1
+     },
+     "power_basis": {
+      "saif": 261
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 89,
+     "current": {
+      "retained": 34,
+      "material": 18
+     },
+     "a": {
+      "retained": 65,
+      "material": 29
+     },
+     "area": {
+      "retained": 39,
+      "material": 0
+     },
+     "wns": {
+      "retained": 74,
+      "material": 34
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 89
+     }
+    },
+    "M": {
+     "evaluated": 182,
+     "current": {
+      "retained": 79,
+      "material": 50
+     },
+     "a": {
+      "retained": 103,
+      "material": 69
+     },
+     "area": {
+      "retained": 62,
+      "material": 17
+     },
+     "wns": {
+      "retained": 171,
+      "material": 100
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 182
+     }
+    }
+   },
+   "totals": {
+    "current": 345,
+    "a": 461,
+    "area": 268,
+    "wns": 685,
+    "power": 11
+   },
+   "evaluated": 761
+  },
+  "cktevo_vga_enh__vga_wb_slave": {
+   "tier": "medium",
+   "default_basis": true,
+   "by_arm": {
+    "B0": {
+     "evaluated": 115,
+     "current": {
+      "retained": 50,
+      "material": 47
+     },
+     "a": {
+      "retained": 51,
+      "material": 48
+     },
+     "area": {
+      "retained": 85,
+      "material": 83
+     },
+     "wns": {
+      "retained": 52,
+      "material": 8
+     },
+     "power": {
+      "retained": 53,
+      "material": 53
+     },
+     "power_basis": {
+      "saif": 46,
+      "default": 69
+     }
+    },
+    "B1_E4": {
+     "evaluated": 103,
+     "current": {
+      "retained": 67,
+      "material": 22
+     },
+     "a": {
+      "retained": 72,
+      "material": 23
+     },
+     "area": {
+      "retained": 43,
+      "material": 30
+     },
+     "wns": {
+      "retained": 74,
+      "material": 19
+     },
+     "power": {
+      "retained": 19,
+      "material": 19
+     },
+     "power_basis": {
+      "saif": 103
+     }
+    },
+    "B2": {
+     "evaluated": 226,
+     "current": {
+      "retained": 88,
+      "material": 75
+     },
+     "a": {
+      "retained": 117,
+      "material": 99
+     },
+     "area": {
+      "retained": 128,
+      "material": 118
+     },
+     "wns": {
+      "retained": 161,
+      "material": 83
+     },
+     "power": {
+      "retained": 69,
+      "material": 69
+     },
+     "power_basis": {
+      "saif": 226
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 111,
+     "current": {
+      "retained": 35,
+      "material": 28
+     },
+     "a": {
+      "retained": 35,
+      "material": 28
+     },
+     "area": {
+      "retained": 30,
+      "material": 28
+     },
+     "wns": {
+      "retained": 35,
+      "material": 0
+     },
+     "power": {
+      "retained": 23,
+      "material": 23
+     },
+     "power_basis": {
+      "saif": 111
+     }
+    },
+    "M": {
+     "evaluated": 132,
+     "current": {
+      "retained": 37,
+      "material": 28
+     },
+     "a": {
+      "retained": 48,
+      "material": 34
+     },
+     "area": {
+      "retained": 61,
+      "material": 51
+     },
+     "wns": {
+      "retained": 64,
+      "material": 32
+     },
+     "power": {
+      "retained": 22,
+      "material": 22
+     },
+     "power_basis": {
+      "saif": 132
+     }
+    }
+   },
+   "totals": {
+    "current": 277,
+    "a": 323,
+    "area": 347,
+    "wns": 386,
+    "power": 186
+   },
+   "evaluated": 687
+  },
+  "drrtl_SPI": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B1_E4": {
+     "evaluated": 20,
+     "current": {
+      "retained": 2,
+      "material": 2
+     },
+     "a": {
+      "retained": 2,
+      "material": 2
+     },
+     "area": {
+      "retained": 3,
+      "material": 3
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 7,
+      "material": 7
+     },
+     "power_basis": {
+      "saif": 20
+     }
+    },
+    "B2": {
+     "evaluated": 19,
+     "current": {
+      "retained": 11,
+      "material": 11
+     },
+     "a": {
+      "retained": 11,
+      "material": 11
+     },
+     "area": {
+      "retained": 12,
+      "material": 12
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 11,
+      "material": 11
+     },
+     "power_basis": {
+      "saif": 19
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 78,
+     "current": {
+      "retained": 40,
+      "material": 40
+     },
+     "a": {
+      "retained": 40,
+      "material": 40
+     },
+     "area": {
+      "retained": 30,
+      "material": 30
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 71,
+      "material": 71
+     },
+     "power_basis": {
+      "saif": 78
+     }
+    },
+    "M": {
+     "evaluated": 14,
+     "current": {
+      "retained": 5,
+      "material": 5
+     },
+     "a": {
+      "retained": 5,
+      "material": 5
+     },
+     "area": {
+      "retained": 5,
+      "material": 5
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 10,
+      "material": 10
+     },
+     "power_basis": {
+      "saif": 14
+     }
+    }
+   },
+   "totals": {
+    "current": 58,
+    "a": 58,
+    "area": 50,
+    "wns": 0,
+    "power": 99
+   },
+   "evaluated": 131
+  },
+  "drrtl_UART": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 160,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 13,
+      "material": 13
+     },
+     "wns": {
+      "retained": 49,
+      "material": 27
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "default": 122,
+      "saif": 38
+     }
+    },
+    "B1_E4": {
+     "evaluated": 153,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 153
+     }
+    },
+    "B2": {
+     "evaluated": 378,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 37,
+      "material": 37
+     },
+     "wns": {
+      "retained": 18,
+      "material": 14
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 378
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 80,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 80
+     }
+    },
+    "M": {
+     "evaluated": 74,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 5,
+      "material": 3
+     },
+     "wns": {
+      "retained": 1,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 74
+     }
+    }
+   },
+   "totals": {
+    "current": 0,
+    "a": 0,
+    "area": 55,
+    "wns": 68,
+    "power": 0
+   },
+   "evaluated": 845
+  },
+  "drrtl_communication": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 66,
+     "current": {
+      "retained": 4,
+      "material": 4
+     },
+     "a": {
+      "retained": 3,
+      "material": 0
+     },
+     "area": {
+      "retained": 3,
+      "material": 0
+     },
+     "wns": {
+      "retained": 9,
+      "material": 0
+     },
+     "power": {
+      "retained": 4,
+      "material": 4
+     },
+     "power_basis": {
+      "default": 23,
+      "saif": 43
+     }
+    },
+    "B1_E4": {
+     "evaluated": 46,
+     "current": {
+      "retained": 2,
+      "material": 2
+     },
+     "a": {
+      "retained": 2,
+      "material": 2
+     },
+     "area": {
+      "retained": 2,
+      "material": 2
+     },
+     "wns": {
+      "retained": 17,
+      "material": 2
+     },
+     "power": {
+      "retained": 2,
+      "material": 2
+     },
+     "power_basis": {
+      "saif": 46
+     }
+    },
+    "B2": {
+     "evaluated": 61,
+     "current": {
+      "retained": 5,
+      "material": 5
+     },
+     "a": {
+      "retained": 5,
+      "material": 5
+     },
+     "area": {
+      "retained": 7,
+      "material": 6
+     },
+     "wns": {
+      "retained": 16,
+      "material": 1
+     },
+     "power": {
+      "retained": 4,
+      "material": 4
+     },
+     "power_basis": {
+      "saif": 61
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 46,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 4,
+      "material": 0
+     },
+     "wns": {
+      "retained": 22,
+      "material": 13
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 46
+     }
+    }
+   },
+   "totals": {
+    "current": 11,
+    "a": 10,
+    "area": 16,
+    "wns": 64,
+    "power": 10
+   },
+   "evaluated": 219
+  },
+  "drrtl_router": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 122,
+     "current": {
+      "retained": 2,
+      "material": 0
+     },
+     "a": {
+      "retained": 2,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 12,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "default": 25,
+      "saif": 97
+     }
+    },
+    "B1_E4": {
+     "evaluated": 115,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 2,
+      "material": 0
+     },
+     "wns": {
+      "retained": 50,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 115
+     }
+    },
+    "B2": {
+     "evaluated": 217,
+     "current": {
+      "retained": 9,
+      "material": 4
+     },
+     "a": {
+      "retained": 9,
+      "material": 4
+     },
+     "area": {
+      "retained": 47,
+      "material": 34
+     },
+     "wns": {
+      "retained": 138,
+      "material": 33
+     },
+     "power": {
+      "retained": 14,
+      "material": 14
+     },
+     "power_basis": {
+      "saif": 217
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 74,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 74
+     }
+    },
+    "M": {
+     "evaluated": 147,
+     "current": {
+      "retained": 2,
+      "material": 1
+     },
+     "a": {
+      "retained": 2,
+      "material": 1
+     },
+     "area": {
+      "retained": 5,
+      "material": 2
+     },
+     "wns": {
+      "retained": 13,
+      "material": 3
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 147
+     }
+    }
+   },
+   "totals": {
+    "current": 13,
+    "a": 13,
+    "area": 54,
+    "wns": 213,
+    "power": 14
+   },
+   "evaluated": 675
+  },
+  "drrtl_simple_spi": {
+   "tier": "medium",
+   "default_basis": true,
+   "by_arm": {
+    "B0": {
+     "evaluated": 13,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 13,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 10,
+      "default": 3
+     }
+    },
+    "B1_E4": {
+     "evaluated": 2,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 0,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 2
+     }
+    },
+    "B2": {
+     "evaluated": 17,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 12,
+      "material": 1
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 17
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 55,
+     "current": {
+      "retained": 2,
+      "material": 2
+     },
+     "a": {
+      "retained": 2,
+      "material": 2
+     },
+     "area": {
+      "retained": 0,
+      "material": 0
+     },
+     "wns": {
+      "retained": 47,
+      "material": 3
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 55
+     }
+    }
+   },
+   "totals": {
+    "current": 2,
+    "a": 2,
+    "area": 0,
+    "wns": 72,
+    "power": 0
+   },
+   "evaluated": 87
+  },
+  "rtlopt_alu_64bit": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 144,
+     "current": {
+      "retained": 5,
+      "material": 5
+     },
+     "a": {
+      "retained": 23,
+      "material": 22
+     },
+     "area": {
+      "retained": 41,
+      "material": 41
+     },
+     "wns": {
+      "retained": 107,
+      "material": 1
+     },
+     "power": {
+      "retained": 18,
+      "material": 18
+     },
+     "power_basis": {
+      "saif": 72,
+      "default": 72
+     }
+    },
+    "B1_E4": {
+     "evaluated": 149,
+     "current": {
+      "retained": 30,
+      "material": 30
+     },
+     "a": {
+      "retained": 30,
+      "material": 30
+     },
+     "area": {
+      "retained": 40,
+      "material": 40
+     },
+     "wns": {
+      "retained": 101,
+      "material": 2
+     },
+     "power": {
+      "retained": 64,
+      "material": 64
+     },
+     "power_basis": {
+      "saif": 149
+     }
+    },
+    "B2": {
+     "evaluated": 293,
+     "current": {
+      "retained": 46,
+      "material": 46
+     },
+     "a": {
+      "retained": 46,
+      "material": 46
+     },
+     "area": {
+      "retained": 165,
+      "material": 164
+     },
+     "wns": {
+      "retained": 225,
+      "material": 7
+     },
+     "power": {
+      "retained": 81,
+      "material": 81
+     },
+     "power_basis": {
+      "saif": 293
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 93,
+     "current": {
+      "retained": 0,
+      "material": 0
+     },
+     "a": {
+      "retained": 0,
+      "material": 0
+     },
+     "area": {
+      "retained": 5,
+      "material": 5
+     },
+     "wns": {
+      "retained": 22,
+      "material": 0
+     },
+     "power": {
+      "retained": 0,
+      "material": 0
+     },
+     "power_basis": {
+      "saif": 93
+     }
+    },
+    "M": {
+     "evaluated": 64,
+     "current": {
+      "retained": 3,
+      "material": 3
+     },
+     "a": {
+      "retained": 3,
+      "material": 3
+     },
+     "area": {
+      "retained": 17,
+      "material": 17
+     },
+     "wns": {
+      "retained": 42,
+      "material": 1
+     },
+     "power": {
+      "retained": 23,
+      "material": 23
+     },
+     "power_basis": {
+      "saif": 64
+     }
+    }
+   },
+   "totals": {
+    "current": 84,
+    "a": 102,
+    "area": 268,
+    "wns": 497,
+    "power": 186
+   },
+   "evaluated": 743
+  },
+  "rtlopt_calculation": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 144,
+     "current": {
+      "retained": 131,
+      "material": 131
+     },
+     "a": {
+      "retained": 131,
+      "material": 131
+     },
+     "area": {
+      "retained": 135,
+      "material": 135
+     },
+     "wns": {
+      "retained": 39,
+      "material": 0
+     },
+     "power": {
+      "retained": 133,
+      "material": 133
+     },
+     "power_basis": {
+      "saif": 93,
+      "default": 51
+     }
+    },
+    "B1_E4": {
+     "evaluated": 114,
+     "current": {
+      "retained": 105,
+      "material": 105
+     },
+     "a": {
+      "retained": 105,
+      "material": 105
+     },
+     "area": {
+      "retained": 106,
+      "material": 106
+     },
+     "wns": {
+      "retained": 57,
+      "material": 0
+     },
+     "power": {
+      "retained": 106,
+      "material": 106
+     },
+     "power_basis": {
+      "saif": 114
+     }
+    },
+    "B2": {
+     "evaluated": 243,
+     "current": {
+      "retained": 237,
+      "material": 237
+     },
+     "a": {
+      "retained": 237,
+      "material": 237
+     },
+     "area": {
+      "retained": 240,
+      "material": 240
+     },
+     "wns": {
+      "retained": 133,
+      "material": 5
+     },
+     "power": {
+      "retained": 238,
+      "material": 238
+     },
+     "power_basis": {
+      "saif": 243
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 93,
+     "current": {
+      "retained": 89,
+      "material": 89
+     },
+     "a": {
+      "retained": 89,
+      "material": 89
+     },
+     "area": {
+      "retained": 89,
+      "material": 88
+     },
+     "wns": {
+      "retained": 84,
+      "material": 0
+     },
+     "power": {
+      "retained": 89,
+      "material": 89
+     },
+     "power_basis": {
+      "saif": 93
+     }
+    }
+   },
+   "totals": {
+    "current": 562,
+    "a": 562,
+    "area": 570,
+    "wns": 313,
+    "power": 566
+   },
+   "evaluated": 594
+  },
+  "rtlopt_decoder_8bit": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 131,
+     "current": {
+      "retained": 129,
+      "material": 88
+     },
+     "a": {
+      "retained": 129,
+      "material": 88
+     },
+     "area": {
+      "retained": 129,
+      "material": 0
+     },
+     "wns": {
+      "retained": 131,
+      "material": 42
+     },
+     "power": {
+      "retained": 71,
+      "material": 71
+     },
+     "power_basis": {
+      "default": 59,
+      "saif": 72
+     }
+    },
+    "B1_E4": {
+     "evaluated": 156,
+     "current": {
+      "retained": 140,
+      "material": 140
+     },
+     "a": {
+      "retained": 140,
+      "material": 140
+     },
+     "area": {
+      "retained": 140,
+      "material": 0
+     },
+     "wns": {
+      "retained": 143,
+      "material": 85
+     },
+     "power": {
+      "retained": 140,
+      "material": 140
+     },
+     "power_basis": {
+      "saif": 156
+     }
+    },
+    "B2": {
+     "evaluated": 289,
+     "current": {
+      "retained": 257,
+      "material": 257
+     },
+     "a": {
+      "retained": 257,
+      "material": 257
+     },
+     "area": {
+      "retained": 257,
+      "material": 0
+     },
+     "wns": {
+      "retained": 266,
+      "material": 122
+     },
+     "power": {
+      "retained": 257,
+      "material": 257
+     },
+     "power_basis": {
+      "saif": 289
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 62,
+     "current": {
+      "retained": 61,
+      "material": 61
+     },
+     "a": {
+      "retained": 61,
+      "material": 61
+     },
+     "area": {
+      "retained": 61,
+      "material": 0
+     },
+     "wns": {
+      "retained": 61,
+      "material": 35
+     },
+     "power": {
+      "retained": 61,
+      "material": 61
+     },
+     "power_basis": {
+      "saif": 62
+     }
+    },
+    "M": {
+     "evaluated": 49,
+     "current": {
+      "retained": 18,
+      "material": 18
+     },
+     "a": {
+      "retained": 18,
+      "material": 18
+     },
+     "area": {
+      "retained": 18,
+      "material": 0
+     },
+     "wns": {
+      "retained": 31,
+      "material": 10
+     },
+     "power": {
+      "retained": 18,
+      "material": 18
+     },
+     "power_basis": {
+      "saif": 49
+     }
+    }
+   },
+   "totals": {
+    "current": 605,
+    "a": 605,
+    "area": 605,
+    "wns": 632,
+    "power": 547
+   },
+   "evaluated": 687
+  },
+  "rtlopt_divider_8bit": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 127,
+     "current": {
+      "retained": 93,
+      "material": 93
+     },
+     "a": {
+      "retained": 93,
+      "material": 93
+     },
+     "area": {
+      "retained": 94,
+      "material": 93
+     },
+     "wns": {
+      "retained": 104,
+      "material": 104
+     },
+     "power": {
+      "retained": 93,
+      "material": 93
+     },
+     "power_basis": {
+      "default": 66,
+      "saif": 61
+     }
+    },
+    "B1_E4": {
+     "evaluated": 130,
+     "current": {
+      "retained": 67,
+      "material": 67
+     },
+     "a": {
+      "retained": 67,
+      "material": 67
+     },
+     "area": {
+      "retained": 68,
+      "material": 68
+     },
+     "wns": {
+      "retained": 117,
+      "material": 117
+     },
+     "power": {
+      "retained": 78,
+      "material": 78
+     },
+     "power_basis": {
+      "saif": 130
+     }
+    },
+    "B2": {
+     "evaluated": 267,
+     "current": {
+      "retained": 212,
+      "material": 212
+     },
+     "a": {
+      "retained": 212,
+      "material": 212
+     },
+     "area": {
+      "retained": 217,
+      "material": 215
+     },
+     "wns": {
+      "retained": 240,
+      "material": 239
+     },
+     "power": {
+      "retained": 216,
+      "material": 216
+     },
+     "power_basis": {
+      "saif": 267
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 116,
+     "current": {
+      "retained": 69,
+      "material": 69
+     },
+     "a": {
+      "retained": 69,
+      "material": 69
+     },
+     "area": {
+      "retained": 78,
+      "material": 78
+     },
+     "wns": {
+      "retained": 99,
+      "material": 97
+     },
+     "power": {
+      "retained": 78,
+      "material": 78
+     },
+     "power_basis": {
+      "saif": 116
+     }
+    },
+    "M": {
+     "evaluated": 147,
+     "current": {
+      "retained": 104,
+      "material": 104
+     },
+     "a": {
+      "retained": 104,
+      "material": 104
+     },
+     "area": {
+      "retained": 107,
+      "material": 106
+     },
+     "wns": {
+      "retained": 119,
+      "material": 119
+     },
+     "power": {
+      "retained": 110,
+      "material": 110
+     },
+     "power_basis": {
+      "saif": 147
+     }
+    }
+   },
+   "totals": {
+    "current": 545,
+    "a": 545,
+    "area": 564,
+    "wns": 679,
+    "power": 575
+   },
+   "evaluated": 787
+  },
+  "rtlopt_register": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 136,
+     "current": {
+      "retained": 47,
+      "material": 41
+     },
+     "a": {
+      "retained": 63,
+      "material": 25
+     },
+     "area": {
+      "retained": 74,
+      "material": 58
+     },
+     "wns": {
+      "retained": 78,
+      "material": 1
+     },
+     "power": {
+      "retained": 71,
+      "material": 71
+     },
+     "power_basis": {
+      "default": 91,
+      "saif": 45
+     }
+    },
+    "B1_E4": {
+     "evaluated": 148,
+     "current": {
+      "retained": 56,
+      "material": 56
+     },
+     "a": {
+      "retained": 56,
+      "material": 56
+     },
+     "area": {
+      "retained": 100,
+      "material": 31
+     },
+     "wns": {
+      "retained": 130,
+      "material": 9
+     },
+     "power": {
+      "retained": 59,
+      "material": 59
+     },
+     "power_basis": {
+      "saif": 148
+     }
+    },
+    "B2": {
+     "evaluated": 298,
+     "current": {
+      "retained": 40,
+      "material": 31
+     },
+     "a": {
+      "retained": 40,
+      "material": 31
+     },
+     "area": {
+      "retained": 151,
+      "material": 78
+     },
+     "wns": {
+      "retained": 216,
+      "material": 0
+     },
+     "power": {
+      "retained": 64,
+      "material": 64
+     },
+     "power_basis": {
+      "saif": 298
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 135,
+     "current": {
+      "retained": 59,
+      "material": 59
+     },
+     "a": {
+      "retained": 59,
+      "material": 59
+     },
+     "area": {
+      "retained": 42,
+      "material": 0
+     },
+     "wns": {
+      "retained": 118,
+      "material": 1
+     },
+     "power": {
+      "retained": 61,
+      "material": 61
+     },
+     "power_basis": {
+      "saif": 135
+     }
+    },
+    "M": {
+     "evaluated": 78,
+     "current": {
+      "retained": 18,
+      "material": 18
+     },
+     "a": {
+      "retained": 18,
+      "material": 18
+     },
+     "area": {
+      "retained": 32,
+      "material": 24
+     },
+     "wns": {
+      "retained": 47,
+      "material": 0
+     },
+     "power": {
+      "retained": 35,
+      "material": 35
+     },
+     "power_basis": {
+      "saif": 78
+     }
+    }
+   },
+   "totals": {
+    "current": 220,
+    "a": 236,
+    "area": 399,
+    "wns": 589,
+    "power": 290
+   },
+   "evaluated": 795
+  },
+  "rtlopt_sub_32bit": {
+   "tier": "medium",
+   "default_basis": false,
+   "by_arm": {
+    "B0": {
+     "evaluated": 125,
+     "current": {
+      "retained": 36,
+      "material": 36
+     },
+     "a": {
+      "retained": 36,
+      "material": 36
+     },
+     "area": {
+      "retained": 36,
+      "material": 36
+     },
+     "wns": {
+      "retained": 101,
+      "material": 37
+     },
+     "power": {
+      "retained": 24,
+      "material": 24
+     },
+     "power_basis": {
+      "saif": 58,
+      "default": 67
+     }
+    },
+    "B1_E4": {
+     "evaluated": 135,
+     "current": {
+      "retained": 18,
+      "material": 18
+     },
+     "a": {
+      "retained": 18,
+      "material": 18
+     },
+     "area": {
+      "retained": 18,
+      "material": 18
+     },
+     "wns": {
+      "retained": 91,
+      "material": 41
+     },
+     "power": {
+      "retained": 18,
+      "material": 18
+     },
+     "power_basis": {
+      "saif": 135
+     }
+    },
+    "B2": {
+     "evaluated": 280,
+     "current": {
+      "retained": 36,
+      "material": 36
+     },
+     "a": {
+      "retained": 36,
+      "material": 36
+     },
+     "area": {
+      "retained": 36,
+      "material": 36
+     },
+     "wns": {
+      "retained": 198,
+      "material": 94
+     },
+     "power": {
+      "retained": 36,
+      "material": 36
+     },
+     "power_basis": {
+      "saif": 280
+     }
+    },
+    "DrRTL_reimpl": {
+     "evaluated": 73,
+     "current": {
+      "retained": 34,
+      "material": 34
+     },
+     "a": {
+      "retained": 34,
+      "material": 34
+     },
+     "area": {
+      "retained": 34,
+      "material": 34
+     },
+     "wns": {
+      "retained": 52,
+      "material": 2
+     },
+     "power": {
+      "retained": 34,
+      "material": 34
+     },
+     "power_basis": {
+      "saif": 73
+     }
+    },
+    "M": {
+     "evaluated": 147,
+     "current": {
+      "retained": 6,
+      "material": 6
+     },
+     "a": {
+      "retained": 6,
+      "material": 6
+     },
+     "area": {
+      "retained": 6,
+      "material": 6
+     },
+     "wns": {
+      "retained": 58,
+      "material": 24
+     },
+     "power": {
+      "retained": 6,
+      "material": 6
+     },
+     "power_basis": {
+      "saif": 147
+     }
+    }
+   },
+   "totals": {
+    "current": 130,
+    "a": 130,
+    "area": 130,
+    "wns": 500,
+    "power": 118
+   },
+   "evaluated": 760
+  },
+  "rtlopt_mux_large": {
+   "tier": "small",
+   "default_basis": false,
+   "by_arm": {
+    "B2": {
+     "evaluated": 38,
+     "current": {
+      "retained": 1,
+      "material": 1
+     },
+     "a": {
+      "retained": 1,
+      "material": 1
+     },
+     "area": {
+      "retained": 24,
+      "material": 24
+     },
+     "wns": {
+      "retained": 27,
+      "material": 24
+     },
+     "power": {
+      "retained": 2,
+      "material": 2
+     },
+     "power_basis": {
+      "saif": 38
+     }
+    }
+   },
+   "totals": {
+    "current": 1,
+    "a": 1,
+    "area": 24,
+    "wns": 27,
+    "power": 2
+   },
+   "evaluated": 38
+  },
+  "rtlopt_sub_8bit": {
+   "tier": "small",
+   "default_basis": false,
+   "by_arm": {
+    "B1_E4": {
+     "evaluated": 19,
+     "current": {
+      "retained": 3,
+      "material": 3
+     },
+     "a": {
+      "retained": 3,
+      "material": 3
+     },
+     "area": {
+      "retained": 3,
+      "material": 3
+     },
+     "wns": {
+      "retained": 3,
+      "material": 0
+     },
+     "power": {
+      "retained": 3,
+      "material": 3
+     },
+     "power_basis": {
+      "saif": 19
+     }
+    },
+    "B2": {
+     "evaluated": 61,
+     "current": {
+      "retained": 3,
+      "material": 3
+     },
+     "a": {
+      "retained": 3,
+      "material": 3
+     },
+     "area": {
+      "retained": 8,
+      "material": 3
+     },
+     "wns": {
+      "retained": 4,
+      "material": 0
+     },
+     "power": {
+      "retained": 9,
+      "material": 9
+     },
+     "power_basis": {
+      "saif": 61
+     }
+    }
+   },
+   "totals": {
+    "current": 6,
+    "a": 6,
+    "area": 11,
+    "wns": 7,
+    "power": 12
+   },
+   "evaluated": 80
+  }
+ },
+ "b0": {
+  "n_b0_proven": 1987,
+  "current": {
+   "improved|absorbed": 34,
+   "improved|absorbed_identical": 143,
+   "improved|dc_rejected": 20,
+   "improved|e4_pending": 105,
+   "improved|harmful": 184,
+   "improved|noise": 31,
+   "improved|retained": 627,
+   "improved|tradeoff": 471,
+   "no_gain|absorbed": 17,
+   "no_gain|absorbed_identical": 112,
+   "no_gain|dc_rejected": 2,
+   "no_gain|e4_pending": 41,
+   "no_gain|harmful": 57,
+   "no_gain|noise": 10,
+   "no_gain|retained": 40,
+   "no_gain|tradeoff": 83,
+   "none|retained": 3,
+   "none|tradeoff": 7
+  },
+  "a": {
+   "improved|absorbed": 34,
+   "improved|absorbed_identical": 143,
+   "improved|dc_rejected": 20,
+   "improved|e4_pending": 105,
+   "improved|harmful": 221,
+   "improved|noise": 56,
+   "improved|retained": 647,
+   "improved|tradeoff": 389,
+   "no_gain|absorbed": 17,
+   "no_gain|absorbed_identical": 112,
+   "no_gain|dc_rejected": 2,
+   "no_gain|e4_pending": 41,
+   "no_gain|harmful": 60,
+   "no_gain|noise": 19,
+   "no_gain|retained": 47,
+   "no_gain|tradeoff": 64,
+   "none|retained": 3,
+   "none|tradeoff": 7
+  },
+  "per_metric": {
+   "area": {
+    "improved -> absorbed": 34,
+    "improved -> absorbed_identical": 143,
+    "improved -> harmful": 485,
+    "improved -> noise": 184,
+    "improved -> retained": 644,
+    "no_gain -> absorbed": 17,
+    "no_gain -> absorbed_identical": 112,
+    "no_gain -> harmful": 104,
+    "no_gain -> noise": 50,
+    "no_gain -> retained": 36,
+    "none -> retained": 10,
+    "pending": 168
+   },
+   "power": {
+    "improved -> absorbed (default)": 25,
+    "improved -> absorbed (saif)": 21,
+    "improved -> absorbed_identical (default)": 30,
+    "improved -> absorbed_identical (saif)": 113,
+    "improved -> harmful (default)": 150,
+    "improved -> harmful (saif)": 194,
+    "improved -> noise (default)": 241,
+    "improved -> noise (saif)": 121,
+    "improved -> retained (default)": 225,
+    "improved -> retained (saif)": 370,
+    "no_gain -> absorbed (default)": 18,
+    "no_gain -> absorbed (saif)": 1,
+    "no_gain -> absorbed_identical (default)": 101,
+    "no_gain -> absorbed_identical (saif)": 11,
+    "no_gain -> harmful (default)": 73,
+    "no_gain -> harmful (saif)": 5,
+    "no_gain -> noise (default)": 68,
+    "no_gain -> noise (saif)": 9,
+    "no_gain -> retained (default)": 30,
+    "no_gain -> retained (saif)": 3,
+    "none -> retained (default)": 7,
+    "none -> retained (saif)": 3,
+    "pending": 168
+   },
+   "wns": {
+    "improved -> absorbed": 42,
+    "improved -> absorbed_identical": 143,
+    "improved -> harmful": 215,
+    "improved -> noise": 254,
+    "improved -> retained": 836,
+    "no_gain -> absorbed": 18,
+    "no_gain -> absorbed_identical": 112,
+    "no_gain -> harmful": 55,
+    "no_gain -> noise": 36,
+    "no_gain -> retained": 98,
+    "none -> harmful": 7,
+    "none -> retained": 3,
+    "pending": 168
+   }
+  }
+ },
+ "power_only_losses": {
+  "retained_on_default_basis_designs": 1002,
+  "power_only": 18,
+  "becomes": {
+   "noise": 16,
+   "absorbed": 2
+  },
+  "material_power": 18,
+  "per_design": {
+   "cktevo_risc__btb": 18
+  },
+  "per_arm": {
+   "B0": 10,
+   "B1_E4": 3,
+   "B2": 3,
+   "M": 2
+  },
+  "per_design_arm": {
+   "cktevo_risc__btb": {
+    "B0": 10,
+    "B1_E4": 3,
+    "B2": 3,
+    "M": 2
+   }
+  }
+ },
+ "default_pairs_elsewhere": {
+  "cktevo_ethmac__eth_cop": {
+   "default_pairs": 46,
+   "retained_current": 3,
+   "retained_a": 5
+  },
+  "cktevo_mem_ctrl__mc_adr_sel": {
+   "default_pairs": 67,
+   "retained_current": 28,
+   "retained_a": 11
+  },
+  "drrtl_UART": {
+   "default_pairs": 122,
+   "retained_current": 0,
+   "retained_a": 0
+  },
+  "drrtl_communication": {
+   "default_pairs": 23,
+   "retained_current": 4,
+   "retained_a": 3
+  },
+  "drrtl_router": {
+   "default_pairs": 25,
+   "retained_current": 2,
+   "retained_a": 2
+  },
+  "rtlopt_alu_64bit": {
+   "default_pairs": 72,
+   "retained_current": 1,
+   "retained_a": 19
+  },
+  "rtlopt_calculation": {
+   "default_pairs": 51,
+   "retained_current": 41,
+   "retained_a": 41
+  },
+  "rtlopt_decoder_8bit": {
+   "default_pairs": 59,
+   "retained_current": 58,
+   "retained_a": 58
+  },
+  "rtlopt_divider_8bit": {
+   "default_pairs": 66,
+   "retained_current": 40,
+   "retained_a": 40
+  },
+  "rtlopt_register": {
+   "default_pairs": 91,
+   "retained_current": 32,
+   "retained_a": 48
+  },
+  "rtlopt_sub_32bit": {
+   "default_pairs": 67,
+   "retained_current": 12,
+   "retained_a": 12
+  }
+ },
+ "saif_changes": {
+  "cktevo_nn_engine__thresholds_128x4096": {
+   "evaluated": 522,
+   "power_label_changed": 297,
+   "retained_current": 1,
+   "retained_saif": 1,
+   "power_only_saif": 0
+  },
+  "cktevo_risc__btb": {
+   "evaluated": 702,
+   "power_label_changed": 167,
+   "retained_current": 351,
+   "retained_saif": 313,
+   "power_only_saif": 18
+  },
+  "cktevo_risc__cpu": {
+   "evaluated": 91,
+   "power_label_changed": 91,
+   "retained_current": 0,
+   "retained_saif": 1,
+   "power_only_saif": 0
+  },
+  "cktevo_usb__usbf_sie_rx": {
+   "evaluated": 761,
+   "power_label_changed": 214,
+   "retained_current": 461,
+   "retained_saif": 345,
+   "power_only_saif": 0
+  },
+  "cktevo_vga_enh__vga_wb_slave": {
+   "evaluated": 687,
+   "power_label_changed": 279,
+   "retained_current": 298,
+   "retained_saif": 277,
+   "power_only_saif": 0
+  },
+  "drrtl_aes": {
+   "evaluated": 414,
+   "power_label_changed": 104,
+   "retained_current": 75,
+   "retained_saif": 63,
+   "power_only_saif": 0
+  },
+  "drrtl_simple_spi": {
+   "evaluated": 87,
+   "power_label_changed": 14,
+   "retained_current": 0,
+   "retained_saif": 2,
+   "power_only_saif": 0
+  }
+ },
+ "offline_baselines": {
+  "cktevo_hsm__MixColumns": 45132,
+  "cktevo_hsm__hsm": 45140,
+  "cktevo_nn_engine__thresholds_128x4096": 45142,
+  "cktevo_risc__btb": 45153,
+  "cktevo_risc__cpu": 45148,
+  "cktevo_risc__stall_control_unit": 45136,
+  "cktevo_usb__usbf_sie_rx": 45130,
+  "cktevo_vga_enh__vga_wb_slave": 45131,
+  "drrtl_LSTM": 45143,
+  "drrtl_aes": 45192,
+  "drrtl_arm_cpu2": 45133,
+  "drrtl_simple_spi": 45129,
+  "drrtl_tv80": 45147
+ },
+ "item4": {
+  "rules_v2": {
+   "b": "class (b), latency-preserving coding / structural refactor: V2 identical every cycle (no lock-step offset), no (d) evidence (no operator family gained, combinational depth ratio below classify.d_depth_ratio), and either the register names / clocked targets change with the flip-flop bit count unchanged, or the flip-flop bits change while the number of register cells is unchanged (bit widths may change inside the same cells) \u2014 evidence tag \"flip-flop bits N -> M in the same register cells (widths), latency unchanged\"",
+   "c1": "class (c1), latency-preserving sequential restructuring: V2 identical every cycle, no (d) evidence, and the flip-flop bits AND the number of register cells both change (ff_c != ff_d and reg_cells_c != reg_cells_d, registers cross logic, are duplicated, merged or removed) \u2014 evidence tag \"flip-flop bits N -> M and register cells K -> L with identical latency (no offset)\"",
+   "counting": "flip-flop bits and register cells counted by Yosys after `proc; flatten; opt` (memories included); precedence in classify(): offset > 0 -> c2; operator family gained or depth ratio -> d; bits and registers unchanged -> a; bits and cells changed -> c1; else b",
+   "source": "src/classify/rules.py classify() (RULES_VERSION 2, DECISIONS 2026-09-14 / 2026-09-15); docs/spec/04-classifier-diagnoser.md \u00a7A.1"
+  },
+  "phase4_objects": {
+   "n": 255,
+   "b_all": {
+    "n": 109,
+    "retained": 38,
+    "retained_rate": 0.3486238532110092
+   },
+   "b_reencoding_ff_count_changed": {
+    "n": 38,
+    "retained": 32,
+    "retained_rate": 0.8421052631578947
+   },
+   "b_ff_count_unchanged": {
+    "n": 71,
+    "retained": 6,
+    "retained_rate": 0.08450704225352113
+   },
+   "c1_all": {
+    "n": 24,
+    "retained": 20,
+    "retained_rate": 0.8333333333333334
+   },
+   "c1_with_cells_tag": {
+    "n": 24,
+    "retained": 20,
+    "retained_rate": 0.8333333333333334
+   }
+  },
+  "phase5_evaluated": {
+   "all": {
+    "n": 11363,
+    "b_all": {
+     "n": 4329,
+     "retained": 1424,
+     "retained_rate": 0.32894432894432896
+    },
+    "b_reencoding_ff_count_changed": {
+     "n": 116,
+     "retained": 11,
+     "retained_rate": 0.09482758620689655
+    },
+    "b_ff_count_unchanged": {
+     "n": 4213,
+     "retained": 1413,
+     "retained_rate": 0.3353904581058628
+    },
+    "c1_all": {
+     "n": 1657,
+     "retained": 596,
+     "retained_rate": 0.3596861798430899
+    },
+    "c1_with_cells_tag": {
+     "n": 1657,
+     "retained": 596,
+     "retained_rate": 0.3596861798430899
+    }
+   },
+   "large": {
+    "n": 1421,
+    "b_all": {
+     "n": 663,
+     "retained": 266,
+     "retained_rate": 0.40120663650075417
+    },
+    "b_reencoding_ff_count_changed": {
+     "n": 1,
+     "retained": 1,
+     "retained_rate": 1.0
+    },
+    "b_ff_count_unchanged": {
+     "n": 662,
+     "retained": 265,
+     "retained_rate": 0.4003021148036254
+    },
+    "c1_all": {
+     "n": 47,
+     "retained": 10,
+     "retained_rate": 0.2127659574468085
+    },
+    "c1_with_cells_tag": {
+     "n": 47,
+     "retained": 10,
+     "retained_rate": 0.2127659574468085
+    }
+   },
+   "medium": {
+    "n": 9824,
+    "b_all": {
+     "n": 3584,
+     "retained": 1152,
+     "retained_rate": 0.32142857142857145
+    },
+    "b_reencoding_ff_count_changed": {
+     "n": 115,
+     "retained": 10,
+     "retained_rate": 0.08695652173913043
+    },
+    "b_ff_count_unchanged": {
+     "n": 3469,
+     "retained": 1142,
+     "retained_rate": 0.3292014989910637
+    },
+    "c1_all": {
+     "n": 1610,
+     "retained": 586,
+     "retained_rate": 0.3639751552795031
+    },
+    "c1_with_cells_tag": {
+     "n": 1610,
+     "retained": 586,
+     "retained_rate": 0.3639751552795031
+    }
+   },
+   "small": {
+    "n": 118,
+    "b_all": {
+     "n": 82,
+     "retained": 6,
+     "retained_rate": 0.07317073170731707
+    },
+    "b_reencoding_ff_count_changed": {
+     "n": 0,
+     "retained": 0,
+     "retained_rate": null
+    },
+    "b_ff_count_unchanged": {
+     "n": 82,
+     "retained": 6,
+     "retained_rate": 0.07317073170731707
+    },
+    "c1_all": {
+     "n": 0,
+     "retained": 0,
+     "retained_rate": null
+    },
+    "c1_with_cells_tag": {
+     "n": 0,
+     "retained": 0,
+     "retained_rate": null
+    }
+   }
+  },
+  "fsm_objects": {
+   "c634baa4b8fa859": {
+    "design_id": "rtlopt_ticket_machine",
+    "class_final": "b",
+    "tags": [
+     "register widths changed, same cells",
+     "wide text difference without operator / topology evidence"
+    ],
+    "in_reencoding_subpopulation": true
+   },
+   "c92a0b6177cf6f6": {
+    "design_id": "rtlopt_fsm_encode",
+    "class_final": "b",
+    "tags": [
+     "register widths changed, same cells"
+    ],
+    "in_reencoding_subpopulation": true
+   }
+  }
+ },
+ "item5": {
+  "design": "cktevo_mem_ctrl__mc_rf",
+  "phi": 0.7,
+  "configs": {
+   "E1": {
+    "baseline": {
+     "eval_id": 4796,
+     "area_um2": 3114.328003,
+     "cells": 1732,
+     "power_saif_mw": 0.473054779
+    },
+    "n_records": 28,
+    "records_at_d_area": 0,
+    "d_unique": true,
+    "distinct_areas": [
+     {
+      "area_um2": 3328.458,
+      "n": 1,
+      "delta_vs_d": 0.06875640484680187
+     },
+     {
+      "area_um2": 3323.67,
+      "n": 1,
+      "delta_vs_d": 0.06721899453055137
+     },
+     {
+      "area_um2": 3322.606,
+      "n": 1,
+      "delta_vs_d": 0.06687734779360686
+     },
+     {
+      "area_um2": 3318.616,
+      "n": 1,
+      "delta_vs_d": 0.06559617253006471
+     },
+     {
+      "area_um2": 3306.646,
+      "n": 1,
+      "delta_vs_d": 0.061752646739438546
+     },
+     {
+      "area_um2": 3261.958,
+      "n": 1,
+      "delta_vs_d": 0.04740348378776723
+     },
+     {
+      "area_um2": 3234.56,
+      "n": 12,
+      "delta_vs_d": 0.03860608031144491
+     },
+     {
+      "area_um2": 3230.304,
+      "n": 1,
+      "delta_vs_d": 0.03723949336366674
+     },
+     {
+      "area_um2": 3227.112,
+      "n": 1,
+      "delta_vs_d": 0.036214553152833076
+     },
+     {
+      "area_um2": 3225.516,
+      "n": 1,
+      "delta_vs_d": 0.03570208304741625
+     },
+     {
+      "area_um2": 3225.25,
+      "n": 1,
+      "delta_vs_d": 0.035616671363180086
+     },
+     {
+      "area_um2": 3222.59,
+      "n": 1,
+      "delta_vs_d": 0.03476255452081874
+     },
+     {
+      "area_um2": 3218.6,
+      "n": 1,
+      "delta_vs_d": 0.03348137925727659
+     },
+     {
+      "area_um2": 3212.482,
+      "n": 1,
+      "delta_vs_d": 0.031516910519845426
+     },
+     {
+      "area_um2": 3201.31,
+      "n": 1,
+      "delta_vs_d": 0.027929619781927595
+     },
+     {
+      "area_um2": 3197.32,
+      "n": 1,
+      "delta_vs_d": 0.026648444518385588
+     },
+     {
+      "area_um2": 3154.76,
+      "n": 1,
+      "delta_vs_d": 0.012982575040603433
+     }
+    ],
+    "delta_min": 0.01298257664608618,
+    "delta_max": 0.0687564061311881,
+    "all_above_d": true
+   },
+   "E2": {
+    "baseline": {
+     "eval_id": 3688,
+     "area_um2": 2652.552015,
+     "cells": 1087,
+     "power_saif_mw": 0.401882874
+    },
+    "n_records": 28,
+    "records_at_d_area": 0,
+    "d_unique": true,
+    "distinct_areas": [
+     {
+      "area_um2": 2814.28,
+      "n": 1,
+      "delta_vs_d": 0.060970712010712434
+     },
+     {
+      "area_um2": 2774.114,
+      "n": 2,
+      "delta_vs_d": 0.04582831337993567
+     },
+     {
+      "area_um2": 2768.528,
+      "n": 1,
+      "delta_vs_d": 0.043722416881615635
+     },
+     {
+      "area_um2": 2756.824,
+      "n": 13,
+      "delta_vs_d": 0.039310062313707296
+     },
+     {
+      "area_um2": 2755.76,
+      "n": 4,
+      "delta_vs_d": 0.03890893917117022
+     },
+     {
+      "area_um2": 2755.494,
+      "n": 3,
+      "delta_vs_d": 0.03880865838553591
+     },
+     {
+      "area_um2": 2754.43,
+      "n": 1,
+      "delta_vs_d": 0.03840753524299866
+     },
+     {
+      "area_um2": 2748.844,
+      "n": 1,
+      "delta_vs_d": 0.0363016387446788
+     },
+     {
+      "area_um2": 2737.406,
+      "n": 1,
+      "delta_vs_d": 0.031989564962404606
+     },
+     {
+      "area_um2": 2737.14,
+      "n": 1,
+      "delta_vs_d": 0.03188928417677029
+     }
+    ],
+    "delta_min": 0.031889290585692794,
+    "delta_max": 0.060970717288648425,
+    "all_above_d": true
+   },
+   "E3": {
+    "baseline": {
+     "eval_id": 3992,
+     "area_um2": 3580.626045,
+     "cells": 1287,
+     "power_saif_mw": 0.786892151
+    },
+    "n_records": 28,
+    "records_at_d_area": 0,
+    "d_unique": true,
+    "distinct_areas": [
+     {
+      "area_um2": 4102.252,
+      "n": 3,
+      "delta_vs_d": 0.1456800985203135
+     },
+     {
+      "area_um2": 4038.678,
+      "n": 13,
+      "delta_vs_d": 0.12792510282932937
+     },
+     {
+      "area_um2": 4037.082,
+      "n": 4,
+      "delta_vs_d": 0.1274793707199323
+     },
+     {
+      "area_um2": 3880.674,
+      "n": 1,
+      "delta_vs_d": 0.08379762399901775
+     },
+     {
+      "area_um2": 3868.97,
+      "n": 1,
+      "delta_vs_d": 0.08052892186343906
+     },
+     {
+      "area_um2": 3826.942,
+      "n": 1,
+      "delta_vs_d": 0.06879130964931582
+     },
+     {
+      "area_um2": 3764.698,
+      "n": 1,
+      "delta_vs_d": 0.05140775738282937
+     },
+     {
+      "area_um2": 3764.432,
+      "n": 1,
+      "delta_vs_d": 0.05133346869792984
+     },
+     {
+      "area_um2": 3656.17,
+      "n": 1,
+      "delta_vs_d": 0.021097973943827494
+     },
+     {
+      "area_um2": 3622.122,
+      "n": 1,
+      "delta_vs_d": 0.01158902227668957
+     },
+     {
+      "area_um2": 3600.842,
+      "n": 1,
+      "delta_vs_d": 0.005645927484728476
+     }
+    ],
+    "delta_min": 0.005645940052363076,
+    "delta_max": 0.1456801113672287,
+    "all_above_d": true
+   },
+   "E4": {
+    "baseline": {
+     "eval_id": 3770,
+     "area_um2": 2373.518011,
+     "cells": 937,
+     "power_saif_mw": 0.161787338
+    },
+    "n_records": 28,
+    "records_at_d_area": 0,
+    "d_unique": true,
+    "distinct_areas": [
+     {
+      "area_um2": 2816.408,
+      "n": 15,
+      "delta_vs_d": 0.18659643067692724
+     },
+     {
+      "area_um2": 2816.142,
+      "n": 7,
+      "delta_vs_d": 0.18648436074580926
+     },
+     {
+      "area_um2": 2815.61,
+      "n": 1,
+      "delta_vs_d": 0.18626022088357347
+     },
+     {
+      "area_um2": 2812.684,
+      "n": 1,
+      "delta_vs_d": 0.185027451641276
+     },
+     {
+      "area_um2": 2806.566,
+      "n": 1,
+      "delta_vs_d": 0.18244984322556282
+     },
+     {
+      "area_um2": 2785.818,
+      "n": 3,
+      "delta_vs_d": 0.17370838859836235
+     }
+    ],
+    "delta_min": 0.17370839870993504,
+    "delta_max": 0.18659644120981564,
+    "all_above_d": true
+   }
+  },
+  "e4_plateaus": {
+   "at_2816_4": 23,
+   "at_17_4_pct": 3,
+   "between": 2,
+   "n_records_plus_d": 29
+  }
+ },
+ "sources": {
+  "Phase 5 scan": "scripts/report_c1.scan_phase5: every non-superseded Phase 5 candidate of the started tiers; evaluated = proven with an ok E4 record; duplicates (label duplicate) collapsed",
+  "class tables": "class_final \u00d7 rule-A label per version; retained rate = retained / evaluated of the class; material = retained candidates with a gain above the materiality threshold on some metric of the version and none below",
+  "B0 Yosys vs E4": "candidates.label of the B0 arm (improved = a positive Y-caliber component, Yosys + OpenSTA, spec 05 \u00a75) against the rule-A label of the same proven candidate's E4 record under each version; proven candidates without an E4 record are pending (e4_pending / dc_rejected as in paper_sec3.md \u00a7G)",
+  "item 4": "rules v2 as implemented (src/classify/rules.py classify(); docs/spec/04 \u00a7A.1): Phase 4 objects from reports/data/phase4_exp1.json objects[] (verdict proven / proven_sim_only, label = rule A at E4 under the frozen floors) joined with candidates.subtags_json; Phase 5 evaluated candidates from the scan with their normalised evidence tags (report_c1.norm_subtag)",
+  "item 5": "evaluations of cktevo_mem_ctrl__mc_rf at \u03a6_main (designs.phi_main_ns_nangate45): D = is_baseline 1, pert_id / cand_id NULL, status ok (SAIF-backed record preferred, latest among equals); perturbations = status ok records joined with perturbations.seq_status in (proven, proven_rename); one record per (perturbation, config) counted \u2014 distinct areas with their counts"
+ }
+}
