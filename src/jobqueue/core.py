@@ -260,13 +260,30 @@ def queued_runs_by_lane(conn, cfg):
     return out
 
 
-def idle_seat_minutes(conn, cfg, hours=1.0):
+def lane_share_change(cfg, state_path=None):
+    """The last re-balance as scripts/rebalance_lanes.py --apply recorded it (results/queue/lane_shares.json): {at: datetime, previous:
+    {lane: share}} or None."""
+    if state_path is None:
+        from src import config as C
+        state_path = os.path.join(C.results_dir(cfg), "queue", "lane_shares.json")
+    try:
+        with open(state_path) as f:
+            st = json.load(f)
+        return {"at": datetime.datetime.fromisoformat(st["at"]), "previous": {k: int(v) for k, v in (st.get("previous") or {}).items()}}
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
+def idle_seat_minutes(conn, cfg, hours=1.0, state_path=None):
     """(k) item 3: per lane, the seat-minutes of the last `hours` not occupied by a running proof of the lane's designs (seats × minutes
     minus the occupied minutes from the proofs' start / finish timestamps); the window designs as one group with cap minus the busy
-    lanes' shares; a leftover lane reports its occupied minutes only. -> {lane: {"seats": s, "occupied_min": m, "idle_min": i}}."""
+    lanes' shares; a leftover lane reports its occupied minutes only. When a re-balance fell inside the window (lane_share_change), the
+    seat-minutes are counted with the share in force at each minute — the previous share before it, the current one after — so that a
+    share raise does not read as idleness (2026-09-20 07:56). -> {lane: {"seats": s, "seat_min": total, "occupied_min": m, "idle_min": i}}."""
     lanes = (cfg["queue"].get("lanes") or {}).get("vcf") or {}
     cap = int(cfg["queue"].get("vcf_seats_target") or cfg["queue"].get("vcf_seats_max") or 50)
     reserved = sum(int(s.get("share") or 0) for s in lanes.values() if not s.get("leftover"))
+    change = lane_share_change(cfg, state_path)
     tier_of = {d: t for t, ds in ((cfg.get("exp5") or {}).get("starting_points") or {}).items() for d in (ds or [])}
     lane_designs = {d: n for n, s in lanes.items() for d in (s.get("designs") or [])}
     groups = {n: list(s.get("designs") or []) for n, s in lanes.items()}
@@ -288,7 +305,18 @@ def idle_seat_minutes(conn, cfg, hours=1.0):
             occ += max(0.0, (b - a).total_seconds() / 60)
         spec = lanes.get(name) or {}
         seats = None if spec.get("leftover") else (int(spec.get("share") or 0) if name in lanes else max(0, cap - reserved))
-        out[name] = {"seats": seats, "occupied_min": round(occ, 1), "idle_min": (round(max(0.0, seats * 60 * hours - occ), 1) if seats is not None else None)}
+        seat_min = None if seats is None else seats * 60 * hours
+        if seats is not None and change and lo < change["at"] < now:   # the share in force before the re-balance for the minutes before it
+            prev = change["previous"]
+            if name in lanes:
+                before = int(prev.get(name, seats))
+            else:
+                reserved_before = sum(int(prev.get(n, int(s.get("share") or 0))) for n, s in lanes.items() if not s.get("leftover"))
+                before = max(0, cap - reserved_before)
+            min_before = (change["at"] - lo).total_seconds() / 60
+            seat_min = before * min_before + seats * (60 * hours - min_before)
+        out[name] = {"seats": seats, "seat_min": (round(seat_min, 1) if seat_min is not None else None), "occupied_min": round(occ, 1),
+                     "idle_min": (round(max(0.0, seat_min - occ), 1) if seat_min is not None else None)}
     return out
 
 

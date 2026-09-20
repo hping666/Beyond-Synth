@@ -798,8 +798,18 @@ def test_generating_only_slot_accounting_with_guardrails(tmp_path, monkeypatch):
     conn.execute("UPDATE gen_summary SET pending_json='[]'"); conn.commit()
     q._dispatch()
     assert spawned == [jobs["W1"]] and q._lane_paused.get("window") is False   # the window lane resumed; SPI still held by its wait (per lane, no tier-wide pause)
-    idle = Q.idle_seat_minutes(conn, cfg, hours=1.0)
+    idle = Q.idle_seat_minutes(conn, cfg, hours=1.0, state_path=str(tmp_path / "none.json"))
     assert idle["spi"]["seats"] == 4 and idle["spi"]["occupied_min"] == 50.0 and idle["spi"]["idle_min"] == 190.0   # one 50-minute proof in the hour on 4 seats
+    # 2026-09-20 07:56: a re-balance 30 minutes ago raised SPI's share 2 -> 4: the 30 minutes before it count 2 seats, after it 4 -> 180 seat-minutes, idle 130, not 190
+    import datetime as _dt
+    sp = tmp_path / "lane_shares.json"
+    sp.write_text(json.dumps({"at": (_dt.datetime.now() - _dt.timedelta(minutes=30)).isoformat(timespec="seconds"), "previous": {"spi": 2}, "current": {"spi": 4}}))
+    idle2 = Q.idle_seat_minutes(conn, cfg, hours=1.0, state_path=str(sp))
+    assert abs(idle2["spi"]["seat_min"] - 180.0) < 1.0 and abs(idle2["spi"]["idle_min"] - 130.0) < 1.0 and idle2["spi"]["seats"] == 4
+    assert abs(idle2["window"]["seat_min"] - (idle["window"]["seat_min"] + 2 * 30)) < 1.0                       # the window group had two more seats before the change
+    sp.write_text(json.dumps({"at": (_dt.datetime.now() - _dt.timedelta(minutes=90)).isoformat(timespec="seconds"), "previous": {"spi": 2}, "current": {"spi": 4}}))
+    assert Q.idle_seat_minutes(conn, cfg, hours=1.0, state_path=str(sp))["spi"]["idle_min"] == 190.0              # a change before the window changes nothing
+    assert Q.idle_seat_minutes(conn, cfg, hours=1.0, state_path=str(tmp_path / "none.json"))["spi"]["idle_min"] == 190.0   # no record: the current share throughout
     # DECISION 2026-09-19 (m) 7: a raised proof-wait threshold for SPI's lane lets its fresh run through while the default still holds a lane above 60 min
     spawned.clear(); conn.execute("UPDATE jobs SET state='queued' WHERE job_id IN (?, ?)", (jobs["W1"], jobs["SPI"])); conn.commit()
     assert Q.queued_runs_by_lane(conn, cfg) == {"spi": 1, "window": 1}

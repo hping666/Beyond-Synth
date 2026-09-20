@@ -101,14 +101,28 @@ def shares(cfg, hours, cap, min_seats=1):
     return out, rest, lane_hours, others
 
 
-def apply(cfg_path, new_shares):
+def apply(cfg_path, new_shares, state_path=None):
+    """Writes the shares into the config (share: values only) and the change into results/queue/lane_shares.json — {at, previous,
+    current} — so that idle-seat-minute accounting (src.jobqueue.core.idle_seat_minutes) uses the share in force at each minute
+    of its window instead of reading the past hour against the new shares (the re-balance artefact of 2026-09-19 14:11 / 2026-09-20 07:56)."""
     text = open(cfg_path).read()
+    previous = {}
     for name, n in new_shares.items():
         pat = re.compile(r"(^\s+%s:\s*\{designs:\s*\[[^\]]*\],\s*share:\s*)(\d+)" % re.escape(name), re.M)
+        m = pat.search(text)
+        if m:
+            previous[name] = int(m.group(2))
         text, k = pat.subn(lambda m: m.group(1) + str(n), text)
         if k != 1 and n:
             raise SystemExit(f"lane {name}: share line not found in {cfg_path}")
     open(cfg_path, "w").write(text)
+    sp = state_path or os.path.join(C.results_dir(C.load()), "queue", "lane_shares.json")
+    try:
+        os.makedirs(os.path.dirname(sp), exist_ok=True)
+        with open(sp, "w") as f:
+            json.dump({"at": datetime.datetime.now().isoformat(timespec="minutes"), "previous": previous, "current": dict(new_shares)}, f, indent=1)
+    except OSError:
+        pass
 
 
 def main(argv=None):

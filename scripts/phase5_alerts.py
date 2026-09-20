@@ -60,14 +60,15 @@ def slot_report(cfg, conn, write=True, restart=None):
              "per lane (last hour): " + ", ".join(f"{n}: unverified-at-build {lanes_f[n]:.0%}" if n in lanes_f else f"{n}: no generation" for n in waits) ,
              "estimated proof-queue wait per lane (min): " + ", ".join(f"{n} {v['wait_min']:.0f} ({v['queued']} queued, {v['seats']} seats, {v['mean_min']:.0f} min mean){' PAUSED' if (v['wait_min'] > by_lane.get(n, wmax) or (lanes_f.get(n) or 0) > thr) else ''}" for n, v in waits.items())
              + (" — thresholds raised (m 7): " + ", ".join(f"{k} {v:.0f} min" for k, v in sorted(by_lane.items())) if by_lane else ""),
-             "idle seat-minutes per lane (last hour): " + ", ".join(f"{n} {v['idle_min']:.0f} of {v['seats'] * 60}" if v["idle_min"] is not None else f"{n} occupied {v['occupied_min']:.0f} (leftover)" for n, v in idle.items()),
+             "idle seat-minutes per lane (last hour): " + ", ".join(f"{n} {v['idle_min']:.0f} of {(v.get('seat_min') if v.get('seat_min') is not None else v['seats'] * 60):.0f}" if v["idle_min"] is not None else f"{n} occupied {v['occupied_min']:.0f} (leftover)" for n, v in idle.items()),
              "unverified-at-build per row: " + (", ".join(f"{k} {v:.0%}" for k, v in sorted(rows.items())) or "no generation built"),
              "unverified-at-build per design: " + (", ".join(f"{k.split('_')[-1]} {v:.0%}" for k, v in sorted(designs_f.items())) or "-")]
     # DECISION 2026-09-19 (m) 7: idle seat-minutes in a lane that has queued runs -> its proof-wait threshold becomes 1.5 x its mean proof time
     qr = queued_runs_by_lane(conn, cfg)
     raised = {}
+    grace = float(g.get("idle_grace_min_per_seat", 1.0))   # 2026-09-20 08:00: one minute per seat is the dispatch gap after a daemon restart / re-balance, not idleness
     for n, v in idle.items():
-        if v.get("idle_min") is not None and v["idle_min"] > 0.5 and qr.get(n, 0) > 0:
+        if v.get("idle_min") is not None and v["idle_min"] > max(0.5, grace * float(v.get("seats") or 0)) and qr.get(n, 0) > 0:
             mean = float((waits.get(n) or {}).get("mean_min") or 0.0)
             cur, new = by_lane.get(n, wmax), round(1.5 * mean, 1)
             if new >= cur + 1.0:   # a raise of at least one minute; a lane already at 1.5 x its mean is left alone (no needless daemon restart, 2026-09-19 15:10)
