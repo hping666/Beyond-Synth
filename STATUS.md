@@ -4,6 +4,8 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
+**2026-09-20 05:30 — reports delivered:** C1 interim evidence report (reports/c1_interim_2026-09-20.md, duplicates collapsed) and the Section III data (reports/paper_sec3.md, reports/data/paper_sec3.json; scripts/report_paper_sec3.py). Discrepancies for the paper text: the pooled minima's basis (set designs, design-weighted q90), the 255th object (proven_sim_only, harmful), the absorption split 28 / 0 / 46 (not 28 / 14 / 32), AUROC 0.733 / 0.710, released baseline ratios median 1.66 × — details in DECISIONS.
+
 **2026-09-20 02:00 — re-balance 01:55 applied:** SPI 14 / UART 3 / cpu 4 / router 2 / simple_spi 18 / window 9 (implied finish 13.9–16.3 h, spread 2.4 h); daemon restarted 01:56; idle seat-minutes 0 everywhere 21:10–01:11. Pool: medium and large B0 E4 and the large retries done; prescreened large 240 sims left (required), then D2 (not required). sub_32bit complete (tie): 2 complete, 3 B0 pending; tally 0 wins, 4 ties, 1 partial. **ETA: Stage B final ≈ 09-20 18:00 (16:00–19:30; drift-adjusted ≈ 20:00); Stage C final ≈ 09-21 01:00 (09-20 23:00 – 09-21 03:00).** Hourly checks from 03:10; next re-balance 07:54.
 
 **2026-09-19 20:00 — re-balance 19:55 applied:** SPI 13 / UART 6 / cpu 3 / router 2 / simple_spi 18 / window 8 (implied finish 16.8–18.6 h, spread 1.8 h); daemon restarted 19:56; idle seat-minutes 0 everywhere 16:11–19:11. Medium B0 E4 backlog drained ≈ 17:00; pool on large B0, then E4 retries, then prescreened sims. Tally 0 wins, 3 ties, 1 partial. **ETA: Stage B final ≈ 09-20 14:30 (13:00–16:00); Stage C final ≈ 09-20 22:00 (20:00–24:00).** Hourly checks from 21:10; next re-balance 01:54.

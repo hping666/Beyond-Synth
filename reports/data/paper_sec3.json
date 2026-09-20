@@ -1,0 +1,3009 @@
+{
+ "date": "2026-09-20",
+ "generated_at": "2026-09-20T04:40",
+ "git_sha": "e0322cf7dff0",
+ "cfg_hash": "de7d24d19295",
+ "phase5_runs": {
+  "medium": {
+   "done": 297,
+   "created": 35,
+   "running": 44
+  },
+  "small": {
+   "created": 120,
+   "done": 1,
+   "running": 5
+  },
+  "large": {
+   "done": 90,
+   "created": 18
+  }
+ },
+ "a": {
+  "floor_version": "phase4",
+  "quiet_max_abs": 0.001,
+  "k_sigma": 2.0,
+  "definitions": {
+   "source": "docs/spec/02-noise-floor.md (floor class) and reports/phase2.md \u00a72 (rule A)",
+   "floor_class": "quiet (every |\u03b4_area| \u2264 noise.quiet_max_abs), offset (median |\u03b4| above that and MAD \u2248 0: every perturbation shifted together), spread otherwise; stored next to the floor. A retained gain on an offset design is flagged",
+   "rule_A": "t_D = max(2.0 \u00d7 \u03c3_robust, the design's own max |\u03b4| incl. P0, pooled q90); designs without a measured floor carry the pooled minimum (floor_source = pooled)",
+   "quiet_max_abs_value": 0.001
+  },
+  "designs_in_table": 173,
+  "measured": 148,
+  "pooled": 25,
+  "classes": {
+   "spread": 29,
+   "pooled": 25,
+   "quiet": 114,
+   "offset": 5
+  },
+  "pooled_min": {
+   "area": 0.0027938146505548643,
+   "power_saif": 0.022227533067402338,
+   "wns": 0.0003017775,
+   "tns": 0.0
+  },
+  "records": {
+   "E1": 1831,
+   "E2": 1823,
+   "E3": 1827,
+   "E4": 1827
+  },
+  "designs_with_records_E4": 150,
+  "unchanged_E4": {
+   "n": 1827,
+   "unchanged": 1575,
+   "share": 0.8620689655172413,
+   "phase2": "88 % (reports/phase2.md \u00a76 G1, 99 designs)"
+  },
+  "rename_changes": {
+   "E1": {
+    "n": 678,
+    "changed": 187,
+    "share": 0.275811209439528
+   },
+   "E4": {
+    "n": 678,
+    "changed": 36,
+    "share": 0.05309734513274336
+   },
+   "phase2": "E1 29 %, E4 5 % (reports/phase2.md \u00a76 G1)"
+  },
+  "tail_designs_E4": {
+   "designs_with_records": 150,
+   "over_1pct": 24,
+   "over_5pct": 12,
+   "max": 0.18659644120981564,
+   "phase2": "18 of 99 > 1 %, 9 > 5 %, max 18.7 % (reports/phase2.md \u00a76 G1)"
+  },
+  "pooled_quantiles_E4_area": {
+   "design_weighted": {
+    "0.9": 0.0,
+    "0.95": 0.014541766721929255,
+    "0.99": 0.16244856946157846
+   },
+   "record_weighted": {
+    "0.9": 0.0034746302722547303,
+    "0.95": 0.046086730701206016,
+    "0.99": 0.18648437127869766
+   },
+   "n_records": 1827,
+   "n_designs": 150,
+   "note": "design-weighted: each design's records weighted 1 / n_design (reports/data/phase2_noise_floor.json pooled_weighting = design); the frozen pooled minimum is the design-weighted q90 of the phase4 snapshot"
+  },
+  "largest_effect_E4": {
+   "design": "cktevo_mem_ctrl__mc_rf",
+   "ptype": "P3_expr",
+   "area_rel": 0.18659644120981564,
+   "power_rel": 0.6424991490990476
+  },
+  "largest_effect_phase2": "mc_rf +18.7 % area and +64 % power from the re-print P0 (reports/phase2.md \u00a76 G1)",
+  "tail_records_E4": {
+   "n_over_1pct": 142,
+   "by_ptype": {
+    "P2_reorder": 88,
+    "P4_ctrl": 19,
+    "P1_rename": 16,
+    "P3_expr": 17,
+    "P0_roundtrip": 2
+   },
+   "by_ptype_all_records": {
+    "P2_reorder": 482,
+    "P1_rename": 678,
+    "P4_ctrl": 210,
+    "P0_roundtrip": 175,
+    "P3_expr": 254,
+    "P1_text": 28
+   },
+   "by_family": {
+    "CktEvo": {
+     "P2_reorder": 73,
+     "P4_ctrl": 12,
+     "P1_rename": 16,
+     "P3_expr": 16,
+     "P0_roundtrip": 2
+    },
+    "RTL-OPT": {
+     "P4_ctrl": 4,
+     "P2_reorder": 8
+    },
+    "RTLLM": {
+     "P2_reorder": 4
+    },
+    "RTLRewriter": {
+     "P2_reorder": 3,
+     "P4_ctrl": 3,
+     "P3_expr": 1
+    }
+   },
+   "records_by_family": {
+    "CktEvo": 386,
+    "Dr.RTL": 214,
+    "RTLLM": 445,
+    "RTL-OPT": 338,
+    "RTLRewriter": 444
+   }
+  },
+  "floor_basis": {
+   "designs_with_records": 150,
+   "records": 1571,
+   "unchanged": 1321,
+   "rename_records": 578,
+   "rename_changed": 36,
+   "tail_designs_1pct": 24,
+   "tail_designs_5pct": 12,
+   "max": 0.18659644120981564,
+   "tail_by_ptype": {
+    "P2_reorder": 87,
+    "P4_ctrl": 19,
+    "P1_rename": 16,
+    "P3_expr": 17,
+    "P0_roundtrip": 2
+   },
+   "tail_by_family": {
+    "CktEvo": {
+     "P2_reorder": 72,
+     "P4_ctrl": 12,
+     "P1_rename": 16,
+     "P3_expr": 16,
+     "P0_roundtrip": 2
+    },
+    "RTLLM": {
+     "P2_reorder": 4
+    },
+    "RTL-OPT": {
+     "P4_ctrl": 4,
+     "P2_reorder": 8
+    },
+    "RTLRewriter": {
+     "P2_reorder": 3,
+     "P4_ctrl": 3,
+     "P3_expr": 1
+    }
+   },
+   "unchanged_share": 0.8408656906429026,
+   "rename_changed_share_E4": 0.06228373702422145,
+   "rename_E1": {
+    "rename_records": 574,
+    "rename_changed": 171,
+    "share": 0.2979094076655052
+   },
+   "pooled_quantiles": {
+    "area": {
+     "design_weighted": {
+      "0.9": 0.0,
+      "0.95": 0.014541766721929255,
+      "0.99": 0.16244856946157846
+     },
+     "record_weighted": {
+      "0.9": 0.004919208105970796,
+      "0.95": 0.056795673512791384,
+      "0.99": 0.18648437127869766
+     },
+     "n_records": 1571,
+     "n_designs": 150,
+     "zero_records": 1324,
+     "design_weighted_zero_mass": 0.9008366721642296
+    },
+    "wns": {
+     "design_weighted": {
+      "0.9": 2.1278999999999997e-05,
+      "0.95": 0.0046983500000000004,
+      "0.99": 0.08205680000000001
+     },
+     "record_weighted": {
+      "0.9": 0.0009675600000000001,
+      "0.95": 0.020168707857142858,
+      "0.99": 0.08205680000000001
+     },
+     "n_records": 1571,
+     "n_designs": 150,
+     "zero_records": 1321,
+     "design_weighted_zero_mass": 0.8960943061968635
+    },
+    "tns": {
+     "design_weighted": {
+      "0.9": 0.0,
+      "0.95": 0.0,
+      "0.99": 0.0
+     },
+     "record_weighted": {
+      "0.9": 0.0,
+      "0.95": 0.0,
+      "0.99": 0.0
+     },
+     "n_records": 1571,
+     "n_designs": 150,
+     "zero_records": 1562,
+     "design_weighted_zero_mass": 0.9943107787274453
+    },
+    "power_saif": {
+     "design_weighted": {
+      "0.9": 0.014559224392983941,
+      "0.95": 0.0709101792200722,
+      "0.99": 0.5250729687074697
+     },
+     "record_weighted": {
+      "0.9": 0.04149280562492453,
+      "0.95": 0.11767927217553224,
+      "0.99": 0.6424991490990476
+     },
+     "n_records": 1305,
+     "n_designs": 115,
+     "zero_records": 900,
+     "design_weighted_zero_mass": 0.7919913920681888
+    }
+   },
+   "set_basis": {
+    "designs": 128,
+    "quantiles": {
+     "area": {
+      "design_weighted": {
+       "0.9": 0.0027938146505548643,
+       "0.95": 0.04695490562258318,
+       "0.99": 0.16249999999999992
+      },
+      "record_weighted": {
+       "0.9": 0.013715654976061706,
+       "0.95": 0.0774430320610993,
+       "0.99": 0.18659644120981564
+      },
+      "n_records": 1247,
+      "n_designs": 105,
+      "zero_records": 1013,
+      "design_weighted_zero_mass": 0.8797402194938728
+     },
+     "wns": {
+      "design_weighted": {
+       "0.9": 0.0003017775,
+       "0.95": 0.007734857142857143,
+       "0.99": 0.12694207
+      },
+      "record_weighted": {
+       "0.9": 0.0034754850000000143,
+       "0.95": 0.052355200000000005,
+       "0.99": 0.08205680000000001
+      },
+      "n_records": 1247,
+      "n_designs": 105,
+      "zero_records": 1014,
+      "design_weighted_zero_mass": 0.879087859948656
+     },
+     "tns": {
+      "design_weighted": {
+       "0.9": 0.0,
+       "0.95": 0.0,
+       "0.99": 0.0
+      },
+      "record_weighted": {
+       "0.9": 0.0,
+       "0.95": 0.0,
+       "0.99": 0.0
+      },
+      "n_records": 1247,
+      "n_designs": 105,
+      "zero_records": 1241,
+      "design_weighted_zero_mass": 0.9975868267534933
+     },
+     "power_saif": {
+      "design_weighted": {
+       "0.9": 0.022227533067402338,
+       "0.95": 0.11767927217553224,
+       "0.99": 0.5250729687074697
+      },
+      "record_weighted": {
+       "0.9": 0.059187718228726045,
+       "0.95": 0.12132777063242507,
+       "0.99": 0.6424991490990476
+      },
+      "n_records": 1101,
+      "n_designs": 85,
+      "zero_records": 721,
+      "design_weighted_zero_mass": 0.7685719207346458
+     }
+    },
+    "pooled_minimum_reproduced": {
+     "area": 0.0027938146505548643,
+     "wns": 0.0003017775,
+     "tns": 0.0,
+     "power_saif": 0.022227533067402338
+    }
+   }
+  },
+  "phase2_snapshot": {
+   "source": "reports/data/phase2_noise_floor.json (generated 2026-09-14, 148 set designs at E4)",
+   "pooled_min_E4": {
+    "area": 0.0027938146505548643,
+    "power_saif": 0.022227533067402338,
+    "tns": 0.0,
+    "wns": 0.0003017775
+   },
+   "floor_classes_E4": {
+    "none": 6,
+    "offset": 5,
+    "pooled": 25,
+    "quiet": 114,
+    "spread": 29
+   },
+   "summary_t_d_E4": {
+    "area": {
+     "max": 0.18659644120981564,
+     "median": 0.0027938146505548643,
+     "n": 148,
+     "q75": 0.0027938146505548643
+    },
+    "power_saif": {
+     "max": 0.6653366841353183,
+     "median": 0.022227533067402338,
+     "n": 114,
+     "q75": 0.022227533067402338
+    },
+    "tns": {
+     "max": 0.311958,
+     "median": 0.0,
+     "n": 148,
+     "q75": 0.0
+    },
+    "wns": {
+     "max": 0.18820431298199997,
+     "median": 0.0003017775,
+     "n": 148,
+     "q75": 0.0003017775
+    }
+   }
+  }
+ },
+ "b": {
+  "n_objects": 255,
+  "n_b0": 168,
+  "labels": {
+   "harmful": 20,
+   "tradeoff": 54,
+   "absorbed_identical": 59,
+   "retained": 75,
+   "absorbed": 15,
+   "noise": 32
+  },
+  "panels": {
+   "b0": {
+    "rule_a_any": {
+     "a": {
+      "E1": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      },
+      "E4": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      }
+     },
+     "b": {
+      "E1": {
+       "n": 84,
+       "survive": 51,
+       "rate": 0.6071428571428571
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 84,
+       "survive": 56,
+       "rate": 0.6666666666666666
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 84,
+       "survive": 50,
+       "rate": 0.5952380952380952
+      },
+      "E4": {
+       "n": 84,
+       "survive": 44,
+       "rate": 0.5238095238095238
+      }
+     },
+     "c1": {
+      "E1": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E4": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      }
+     },
+     "c2": {
+      "E1": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E4": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      }
+     },
+     "d": {
+      "E1": {
+       "n": 32,
+       "survive": 27,
+       "rate": 0.84375
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 32,
+       "survive": 20,
+       "rate": 0.625
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 32,
+       "survive": 15,
+       "rate": 0.46875
+      },
+      "E4": {
+       "n": 32,
+       "survive": 32,
+       "rate": 1.0
+      }
+     }
+    },
+    "area_only": {
+     "a": {
+      "E1": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      },
+      "E4": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      }
+     },
+     "b": {
+      "E1": {
+       "n": 84,
+       "survive": 41,
+       "rate": 0.4880952380952381
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 84,
+       "survive": 41,
+       "rate": 0.4880952380952381
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 84,
+       "survive": 39,
+       "rate": 0.4642857142857143
+      },
+      "E4": {
+       "n": 84,
+       "survive": 41,
+       "rate": 0.4880952380952381
+      }
+     },
+     "c1": {
+      "E1": {
+       "n": 19,
+       "survive": 17,
+       "rate": 0.8947368421052632
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E4": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      }
+     },
+     "c2": {
+      "E1": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E4": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      }
+     },
+     "d": {
+      "E1": {
+       "n": 32,
+       "survive": 27,
+       "rate": 0.84375
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 32,
+       "survive": 19,
+       "rate": 0.59375
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 32,
+       "survive": 6,
+       "rate": 0.1875
+      },
+      "E4": {
+       "n": 32,
+       "survive": 30,
+       "rate": 0.9375
+      }
+     }
+    },
+    "mat_area": {
+     "a": {
+      "E1": {
+       "n": 33,
+       "survive": 9,
+       "rate": 0.2727272727272727
+      },
+      "E1d": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      },
+      "E2": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      },
+      "E2g": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      },
+      "E3": {
+       "n": 33,
+       "survive": 6,
+       "rate": 0.18181818181818182
+      },
+      "E4": {
+       "n": 33,
+       "survive": 6,
+       "rate": 0.18181818181818182
+      }
+     },
+     "b": {
+      "E1": {
+       "n": 84,
+       "survive": 48,
+       "rate": 0.5714285714285714
+      },
+      "E1d": {
+       "n": 84,
+       "survive": 47,
+       "rate": 0.5595238095238095
+      },
+      "E2": {
+       "n": 84,
+       "survive": 40,
+       "rate": 0.47619047619047616
+      },
+      "E2g": {
+       "n": 84,
+       "survive": 36,
+       "rate": 0.42857142857142855
+      },
+      "E3": {
+       "n": 84,
+       "survive": 65,
+       "rate": 0.7738095238095238
+      },
+      "E4": {
+       "n": 84,
+       "survive": 39,
+       "rate": 0.4642857142857143
+      }
+     },
+     "c1": {
+      "E1": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E1d": {
+       "n": 19,
+       "survive": 17,
+       "rate": 0.8947368421052632
+      },
+      "E2": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E2g": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E3": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E4": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      }
+     },
+     "c2": {
+      "E1": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E4": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      }
+     },
+     "d": {
+      "E1": {
+       "n": 32,
+       "survive": 25,
+       "rate": 0.78125
+      },
+      "E1d": {
+       "n": 32,
+       "survive": 14,
+       "rate": 0.4375
+      },
+      "E2": {
+       "n": 32,
+       "survive": 19,
+       "rate": 0.59375
+      },
+      "E2g": {
+       "n": 32,
+       "survive": 25,
+       "rate": 0.78125
+      },
+      "E3": {
+       "n": 32,
+       "survive": 6,
+       "rate": 0.1875
+      },
+      "E4": {
+       "n": 32,
+       "survive": 26,
+       "rate": 0.8125
+      }
+     }
+    },
+    "mat_any": {
+     "a": {
+      "E1": {
+       "n": 33,
+       "survive": 20,
+       "rate": 0.6060606060606061
+      },
+      "E1d": {
+       "n": 33,
+       "survive": 3,
+       "rate": 0.09090909090909091
+      },
+      "E2": {
+       "n": 33,
+       "survive": 7,
+       "rate": 0.21212121212121213
+      },
+      "E2g": {
+       "n": 33,
+       "survive": 2,
+       "rate": 0.06060606060606061
+      },
+      "E3": {
+       "n": 33,
+       "survive": 9,
+       "rate": 0.2727272727272727
+      },
+      "E4": {
+       "n": 33,
+       "survive": 10,
+       "rate": 0.30303030303030304
+      }
+     },
+     "b": {
+      "E1": {
+       "n": 84,
+       "survive": 57,
+       "rate": 0.6785714285714286
+      },
+      "E1d": {
+       "n": 84,
+       "survive": 52,
+       "rate": 0.6190476190476191
+      },
+      "E2": {
+       "n": 84,
+       "survive": 46,
+       "rate": 0.5476190476190477
+      },
+      "E2g": {
+       "n": 84,
+       "survive": 39,
+       "rate": 0.4642857142857143
+      },
+      "E3": {
+       "n": 84,
+       "survive": 68,
+       "rate": 0.8095238095238095
+      },
+      "E4": {
+       "n": 84,
+       "survive": 48,
+       "rate": 0.5714285714285714
+      }
+     },
+     "c1": {
+      "E1": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E1d": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E2": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E2g": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E3": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      },
+      "E4": {
+       "n": 19,
+       "survive": 19,
+       "rate": 1.0
+      }
+     },
+     "c2": {
+      "E1": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E4": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      }
+     },
+     "d": {
+      "E1": {
+       "n": 32,
+       "survive": 27,
+       "rate": 0.84375
+      },
+      "E1d": {
+       "n": 32,
+       "survive": 14,
+       "rate": 0.4375
+      },
+      "E2": {
+       "n": 32,
+       "survive": 20,
+       "rate": 0.625
+      },
+      "E2g": {
+       "n": 32,
+       "survive": 25,
+       "rate": 0.78125
+      },
+      "E3": {
+       "n": 32,
+       "survive": 18,
+       "rate": 0.5625
+      },
+      "E4": {
+       "n": 32,
+       "survive": 28,
+       "rate": 0.875
+      }
+     }
+    }
+   },
+   "all": {
+    "rule_a_any": {
+     "a": {
+      "E1": {
+       "n": 75,
+       "survive": 31,
+       "rate": 0.41333333333333333
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 75,
+       "survive": 17,
+       "rate": 0.22666666666666666
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 75,
+       "survive": 17,
+       "rate": 0.22666666666666666
+      },
+      "E4": {
+       "n": 75,
+       "survive": 17,
+       "rate": 0.22666666666666666
+      }
+     },
+     "b": {
+      "E1": {
+       "n": 109,
+       "survive": 66,
+       "rate": 0.6055045871559633
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 109,
+       "survive": 65,
+       "rate": 0.5963302752293578
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 109,
+       "survive": 59,
+       "rate": 0.5412844036697247
+      },
+      "E4": {
+       "n": 109,
+       "survive": 54,
+       "rate": 0.4954128440366973
+      }
+     },
+     "c1": {
+      "E1": {
+       "n": 24,
+       "survive": 23,
+       "rate": 0.9583333333333334
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 24,
+       "survive": 22,
+       "rate": 0.9166666666666666
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 24,
+       "survive": 22,
+       "rate": 0.9166666666666666
+      },
+      "E4": {
+       "n": 24,
+       "survive": 23,
+       "rate": 0.9583333333333334
+      }
+     },
+     "c2": {
+      "E1": {
+       "n": 2,
+       "survive": 0,
+       "rate": 0.0
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E4": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      }
+     },
+     "d": {
+      "E1": {
+       "n": 45,
+       "survive": 37,
+       "rate": 0.8222222222222222
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 45,
+       "survive": 25,
+       "rate": 0.5555555555555556
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 45,
+       "survive": 20,
+       "rate": 0.4444444444444444
+      },
+      "E4": {
+       "n": 45,
+       "survive": 37,
+       "rate": 0.8222222222222222
+      }
+     }
+    },
+    "area_only": {
+     "a": {
+      "E1": {
+       "n": 75,
+       "survive": 25,
+       "rate": 0.3333333333333333
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 75,
+       "survive": 11,
+       "rate": 0.14666666666666667
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 75,
+       "survive": 11,
+       "rate": 0.14666666666666667
+      },
+      "E4": {
+       "n": 75,
+       "survive": 12,
+       "rate": 0.16
+      }
+     },
+     "b": {
+      "E1": {
+       "n": 109,
+       "survive": 54,
+       "rate": 0.4954128440366973
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 109,
+       "survive": 46,
+       "rate": 0.42201834862385323
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 109,
+       "survive": 44,
+       "rate": 0.4036697247706422
+      },
+      "E4": {
+       "n": 109,
+       "survive": 47,
+       "rate": 0.43119266055045874
+      }
+     },
+     "c1": {
+      "E1": {
+       "n": 24,
+       "survive": 21,
+       "rate": 0.875
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 24,
+       "survive": 22,
+       "rate": 0.9166666666666666
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 24,
+       "survive": 21,
+       "rate": 0.875
+      },
+      "E4": {
+       "n": 24,
+       "survive": 21,
+       "rate": 0.875
+      }
+     },
+     "c2": {
+      "E1": {
+       "n": 2,
+       "survive": 0,
+       "rate": 0.0
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E4": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      }
+     },
+     "d": {
+      "E1": {
+       "n": 45,
+       "survive": 34,
+       "rate": 0.7555555555555555
+      },
+      "E1d": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E2": {
+       "n": 45,
+       "survive": 22,
+       "rate": 0.4888888888888889
+      },
+      "E2g": {
+       "n": 0,
+       "survive": 0,
+       "rate": null
+      },
+      "E3": {
+       "n": 45,
+       "survive": 9,
+       "rate": 0.2
+      },
+      "E4": {
+       "n": 45,
+       "survive": 33,
+       "rate": 0.7333333333333333
+      }
+     }
+    },
+    "mat_area": {
+     "a": {
+      "E1": {
+       "n": 75,
+       "survive": 32,
+       "rate": 0.4266666666666667
+      },
+      "E1d": {
+       "n": 75,
+       "survive": 23,
+       "rate": 0.30666666666666664
+      },
+      "E2": {
+       "n": 75,
+       "survive": 11,
+       "rate": 0.14666666666666667
+      },
+      "E2g": {
+       "n": 75,
+       "survive": 12,
+       "rate": 0.16
+      },
+      "E3": {
+       "n": 75,
+       "survive": 15,
+       "rate": 0.2
+      },
+      "E4": {
+       "n": 75,
+       "survive": 16,
+       "rate": 0.21333333333333335
+      }
+     },
+     "b": {
+      "E1": {
+       "n": 109,
+       "survive": 60,
+       "rate": 0.5504587155963303
+      },
+      "E1d": {
+       "n": 109,
+       "survive": 58,
+       "rate": 0.5321100917431193
+      },
+      "E2": {
+       "n": 109,
+       "survive": 44,
+       "rate": 0.4036697247706422
+      },
+      "E2g": {
+       "n": 109,
+       "survive": 40,
+       "rate": 0.3669724770642202
+      },
+      "E3": {
+       "n": 109,
+       "survive": 69,
+       "rate": 0.6330275229357798
+      },
+      "E4": {
+       "n": 109,
+       "survive": 43,
+       "rate": 0.3944954128440367
+      }
+     },
+     "c1": {
+      "E1": {
+       "n": 24,
+       "survive": 23,
+       "rate": 0.9583333333333334
+      },
+      "E1d": {
+       "n": 24,
+       "survive": 21,
+       "rate": 0.875
+      },
+      "E2": {
+       "n": 24,
+       "survive": 22,
+       "rate": 0.9166666666666666
+      },
+      "E2g": {
+       "n": 24,
+       "survive": 22,
+       "rate": 0.9166666666666666
+      },
+      "E3": {
+       "n": 24,
+       "survive": 21,
+       "rate": 0.875
+      },
+      "E4": {
+       "n": 24,
+       "survive": 21,
+       "rate": 0.875
+      }
+     },
+     "c2": {
+      "E1": {
+       "n": 2,
+       "survive": 0,
+       "rate": 0.0
+      },
+      "E1d": {
+       "n": 2,
+       "survive": 0,
+       "rate": 0.0
+      },
+      "E2": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E2g": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E3": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E4": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      }
+     },
+     "d": {
+      "E1": {
+       "n": 45,
+       "survive": 32,
+       "rate": 0.7111111111111111
+      },
+      "E1d": {
+       "n": 45,
+       "survive": 18,
+       "rate": 0.4
+      },
+      "E2": {
+       "n": 45,
+       "survive": 24,
+       "rate": 0.5333333333333333
+      },
+      "E2g": {
+       "n": 45,
+       "survive": 30,
+       "rate": 0.6666666666666666
+      },
+      "E3": {
+       "n": 45,
+       "survive": 11,
+       "rate": 0.24444444444444444
+      },
+      "E4": {
+       "n": 45,
+       "survive": 31,
+       "rate": 0.6888888888888889
+      }
+     }
+    },
+    "mat_any": {
+     "a": {
+      "E1": {
+       "n": 75,
+       "survive": 49,
+       "rate": 0.6533333333333333
+      },
+      "E1d": {
+       "n": 75,
+       "survive": 30,
+       "rate": 0.4
+      },
+      "E2": {
+       "n": 75,
+       "survive": 20,
+       "rate": 0.26666666666666666
+      },
+      "E2g": {
+       "n": 75,
+       "survive": 15,
+       "rate": 0.2
+      },
+      "E3": {
+       "n": 75,
+       "survive": 22,
+       "rate": 0.29333333333333333
+      },
+      "E4": {
+       "n": 75,
+       "survive": 23,
+       "rate": 0.30666666666666664
+      }
+     },
+     "b": {
+      "E1": {
+       "n": 109,
+       "survive": 71,
+       "rate": 0.6513761467889908
+      },
+      "E1d": {
+       "n": 109,
+       "survive": 64,
+       "rate": 0.5871559633027523
+      },
+      "E2": {
+       "n": 109,
+       "survive": 54,
+       "rate": 0.4954128440366973
+      },
+      "E2g": {
+       "n": 109,
+       "survive": 46,
+       "rate": 0.42201834862385323
+      },
+      "E3": {
+       "n": 109,
+       "survive": 76,
+       "rate": 0.6972477064220184
+      },
+      "E4": {
+       "n": 109,
+       "survive": 56,
+       "rate": 0.5137614678899083
+      }
+     },
+     "c1": {
+      "E1": {
+       "n": 24,
+       "survive": 23,
+       "rate": 0.9583333333333334
+      },
+      "E1d": {
+       "n": 24,
+       "survive": 23,
+       "rate": 0.9583333333333334
+      },
+      "E2": {
+       "n": 24,
+       "survive": 22,
+       "rate": 0.9166666666666666
+      },
+      "E2g": {
+       "n": 24,
+       "survive": 23,
+       "rate": 0.9583333333333334
+      },
+      "E3": {
+       "n": 24,
+       "survive": 22,
+       "rate": 0.9166666666666666
+      },
+      "E4": {
+       "n": 24,
+       "survive": 23,
+       "rate": 0.9583333333333334
+      }
+     },
+     "c2": {
+      "E1": {
+       "n": 2,
+       "survive": 0,
+       "rate": 0.0
+      },
+      "E1d": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E2": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E2g": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E3": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      },
+      "E4": {
+       "n": 2,
+       "survive": 1,
+       "rate": 0.5
+      }
+     },
+     "d": {
+      "E1": {
+       "n": 45,
+       "survive": 37,
+       "rate": 0.8222222222222222
+      },
+      "E1d": {
+       "n": 45,
+       "survive": 24,
+       "rate": 0.5333333333333333
+      },
+      "E2": {
+       "n": 45,
+       "survive": 26,
+       "rate": 0.5777777777777777
+      },
+      "E2g": {
+       "n": 45,
+       "survive": 30,
+       "rate": 0.6666666666666666
+      },
+      "E3": {
+       "n": 45,
+       "survive": 24,
+       "rate": 0.5333333333333333
+      },
+      "E4": {
+       "n": 45,
+       "survive": 34,
+       "rate": 0.7555555555555555
+      }
+     }
+    }
+   }
+  },
+  "labels_e4": {
+   "b0": {
+    "a": {
+     "absorbed_identical": 19,
+     "tradeoff": 1,
+     "noise": 7,
+     "absorbed": 5,
+     "retained": 1
+    },
+    "b": {
+     "tradeoff": 10,
+     "retained": 34,
+     "noise": 22,
+     "absorbed": 7,
+     "absorbed_identical": 5,
+     "harmful": 6
+    },
+    "c1": {
+     "retained": 17,
+     "tradeoff": 2
+    },
+    "c2": {},
+    "d": {
+     "tradeoff": 29,
+     "retained": 3
+    }
+   },
+   "all": {
+    "a": {
+     "harmful": 5,
+     "tradeoff": 4,
+     "absorbed_identical": 40,
+     "retained": 11,
+     "absorbed": 7,
+     "noise": 8
+    },
+    "b": {
+     "harmful": 9,
+     "tradeoff": 15,
+     "retained": 38,
+     "absorbed_identical": 16,
+     "noise": 23,
+     "absorbed": 8
+    },
+    "c1": {
+     "retained": 20,
+     "tradeoff": 3,
+     "noise": 1
+    },
+    "c2": {
+     "retained": 1,
+     "harmful": 1
+    },
+    "d": {
+     "tradeoff": 32,
+     "harmful": 5,
+     "retained": 5,
+     "absorbed_identical": 3
+    }
+   }
+  },
+  "phase4_md": {
+   "b0_E4_area_only": {
+    "a": "6 % (33)",
+    "b": "49 % (84)",
+    "c1": "100 % (19)",
+    "d": "94 % (32)"
+   },
+   "all_E4_area_only": {
+    "a": "16 % (75) in \u00a72; 15 % in \u00a711",
+    "b": "43 % (109)",
+    "c1": "88 % (24)",
+    "d": "73 % (45)"
+   },
+   "materiality_E4_area": {
+    "a": "21 % (75)",
+    "b": "39 % (109)",
+    "c1": "88 % (24)",
+    "d": "69 % (45)"
+   },
+   "source": "reports/phase4.md \u00a72 tables and \u00a711 'Map shape'"
+  },
+  "evaluated_on_all_four_rungs": 255,
+  "diagnosed_count_note": "the map counts 255 diagnosed objects (verdict proven or proven_sim_only, label not duplicate, E4 record present); the strictly proven set has 254 \u2014 the object that differs is [('c50bcff7d1f3960', 'rtlrewriter_fsm_small_case__example3', 'llm', 'c2', 'harmful')] (proven by simulation only, class c2, harmful at E4); 255 of the 255 carry a record at every rung E1\u2013E4",
+  "class_final_differs_from_json": []
+ },
+ "c": {
+  "n_absorbed": 74,
+  "by_label": {
+   "absorbed_identical": 59,
+   "absorbed": 15
+  },
+  "categories": {
+   "plain_compile": 28,
+   "single_flag_only": 0,
+   "compile_ultra_only": 46
+  },
+  "single_flag_counts_any_order": {
+   "designware": 14,
+   "gate_clock": 4,
+   "retime": 4
+  },
+  "plain_compile_also_single_flag": {
+   "n": 14,
+   "by_flag": {
+    "designware": 14,
+    "gate_clock": 4,
+    "retime": 4
+   }
+  },
+  "by_class": {
+   "a": {
+    "plain": 15,
+    "ultra": 32
+   },
+   "b": {
+    "plain": 12,
+    "ultra": 12
+   },
+   "c1": {},
+   "c2": {},
+   "d": {
+    "ultra": 2,
+    "plain": 1
+   }
+  },
+  "phase4_md": "28 plain compile, 14 single flag (designware 14, gate_clock 4, retime 4, some by several), 32 full-effort only (reports/phase4.md \u00a79 / \u00a711)",
+  "reconciliation": "in the data every object reproduced by a single flag is also converged under a plain compile (the 14 are a subset of the 28), so the exclusive split is 28 plain compile / 0 single-flag-only / 46 compile_ultra only; phase4.md's 32 assumed the 14 outside the 28 (28 + 14 + 32 = 74) and is a double count",
+  "permanence": {
+   "violations": 45,
+   "n": 255,
+   "share": 0.17647058823529413,
+   "patterns": {
+    "-RRR": 14,
+    "R--R": 16,
+    "RR-R": 14,
+    "-RR-": 1
+   },
+   "definition": "an object inside the band at a lower rung and above it at a higher one (area gain against the rung's t_D), over objects with a record at every rung E1\u2013E4"
+  },
+  "class_a": {
+   "absorbed_or_identical": 47,
+   "identical": 40,
+   "converged": 7,
+   "n_with_e4": 75,
+   "n_on_all_rungs": 75,
+   "not_on_all_rungs": [],
+   "note": "47 of 75 = class-(a) objects with an E4 record; a denominator of 73 counts only those with a record at every rung E1\u2013E4 (the map's non-monotone denominator)"
+  }
+ },
+ "d": {
+  "designs": {
+   "rtlopt_ticket_machine": {
+    "cand_id": "c634baa4b8fa859",
+    "label_E4": "retained",
+    "cls": "b",
+    "levels": {
+     "E1": {
+      "gains": {
+       "area": 0.5887,
+       "wns": 0.2438,
+       "power": 0.7384
+      },
+      "band": {
+       "area": 0.0045,
+       "wns": 0.0052,
+       "power": 0.0128
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     },
+     "E1d": {
+      "gains": {
+       "area": 0.5887,
+       "wns": 0.2438,
+       "power": 0.5129
+      },
+      "band": {
+       "area": 0.01,
+       "wns": 0.01,
+       "power": 0.02
+      },
+      "band_source": "materiality",
+      "verdict": "retained"
+     },
+     "E2": {
+      "gains": {
+       "area": 0.5845,
+       "wns": 0.3095,
+       "power": 0.3395
+      },
+      "band": {
+       "area": 0.001,
+       "wns": 0.0002,
+       "power": 0.0112
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     },
+     "E2g": {
+      "gains": {
+       "area": 0.5845,
+       "wns": 0.3095,
+       "power": 0.5012
+      },
+      "band": {
+       "area": 0.01,
+       "wns": 0.01,
+       "power": 0.02
+      },
+      "band_source": "materiality",
+      "verdict": "retained"
+     },
+     "E3": {
+      "gains": {
+       "area": 0.5845,
+       "wns": 0.3095,
+       "power": 0.3395
+      },
+      "band": {
+       "area": 0.0019,
+       "wns": 0.0003,
+       "power": 0.0112
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     },
+     "E4": {
+      "gains": {
+       "area": 0.5845,
+       "wns": 0.3095,
+       "power": 0.3395
+      },
+      "band": {
+       "area": 0.0028,
+       "wns": 0.0003,
+       "power": 0.0222
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     }
+    }
+   },
+   "rtlopt_fsm_encode": {
+    "cand_id": "c92a0b6177cf6f6",
+    "label_E4": "retained",
+    "cls": "b",
+    "levels": {
+     "E1": {
+      "gains": {
+       "area": 0.4413,
+       "wns": 0.2203,
+       "power": 0.3924
+      },
+      "band": {
+       "area": 0.0086,
+       "wns": 0.0052,
+       "power": 0.0896
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     },
+     "E1d": {
+      "gains": {
+       "area": 0.4413,
+       "wns": 0.2203,
+       "power": 0.4396
+      },
+      "band": {
+       "area": 0.01,
+       "wns": 0.01,
+       "power": 0.02
+      },
+      "band_source": "materiality",
+      "verdict": "retained"
+     },
+     "E2": {
+      "gains": {
+       "area": 0.4345,
+       "wns": 0.4786,
+       "power": 0.4736
+      },
+      "band": {
+       "area": 0.0016,
+       "wns": 0.0435,
+       "power": 0.0132
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     },
+     "E2g": {
+      "gains": {
+       "area": 0.4642,
+       "wns": 0.4793,
+       "power": 0.5396
+      },
+      "band": {
+       "area": 0.01,
+       "wns": 0.01,
+       "power": 0.02
+      },
+      "band_source": "materiality",
+      "verdict": "retained"
+     },
+     "E3": {
+      "gains": {
+       "area": 0.4345,
+       "wns": 0.4786,
+       "power": 0.4736
+      },
+      "band": {
+       "area": 0.0019,
+       "wns": 0.0435,
+       "power": 0.0132
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     },
+     "E4": {
+      "gains": {
+       "area": 0.4642,
+       "wns": 0.4793,
+       "power": 0.5892
+      },
+      "band": {
+       "area": 0.0028,
+       "wns": 0.0003,
+       "power": 0.0222
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     }
+    }
+   },
+   "drrtl_i2c": {
+    "cand_id": "c677509c91318c2",
+    "label_E4": "retained",
+    "cls": "c1",
+    "levels": {
+     "E1": {
+      "gains": {
+       "area": 0.0421,
+       "wns": -0.0259,
+       "power": 0.1062
+      },
+      "band": {
+       "area": 0.0185,
+       "wns": 0.0674,
+       "power": 0.0128
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     },
+     "E1d": {
+      "gains": {
+       "area": 0.0511,
+       "wns": -0.0308,
+       "power": 0.1063
+      },
+      "band": {
+       "area": 0.01,
+       "wns": 0.01,
+       "power": 0.02
+      },
+      "band_source": "materiality",
+      "verdict": "tradeoff"
+     },
+     "E2": {
+      "gains": {
+       "area": 0.0455,
+       "wns": -0.0433,
+       "power": 0.0976
+      },
+      "band": {
+       "area": 0.001,
+       "wns": 0.0002,
+       "power": 0.01
+      },
+      "band_source": "rule A",
+      "verdict": "tradeoff"
+     },
+     "E2g": {
+      "gains": {
+       "area": 0.0742,
+       "wns": 0.0013,
+       "power": 0.0957
+      },
+      "band": {
+       "area": 0.01,
+       "wns": 0.01,
+       "power": 0.02
+      },
+      "band_source": "materiality",
+      "verdict": "retained"
+     },
+     "E3": {
+      "gains": {
+       "area": 0.2763,
+       "wns": 0.0507,
+       "power": 0.3592
+      },
+      "band": {
+       "area": 0.0019,
+       "wns": 0.0003,
+       "power": 0.0112
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     },
+     "E4": {
+      "gains": {
+       "area": 0.0783,
+       "wns": 0.0029,
+       "power": 0.1051
+      },
+      "band": {
+       "area": 0.0028,
+       "wns": 0.0003,
+       "power": 0.0222
+      },
+      "band_source": "rule A",
+      "verdict": "retained"
+     }
+    }
+   }
+  },
+  "rtllm_d": {
+   "source": "reports/data/phase4_exp1.json contrast_phase3.d_by_design (run-time M3 verdicts of the Phase 3 calibration candidates; reports/phase4.md \u00a78)",
+   "d_by_design": {
+    "rtllm_adder_16bit": {
+     "absorbed_identical": 152,
+     "tradeoff": 29
+    },
+    "rtllm_multi_pipe_8bit": {
+     "retained": 41,
+     "harmful": 1,
+     "tradeoff": 7
+    }
+   },
+   "identical_adder_16bit": 152,
+   "class_d_total": 230
+  }
+ },
+ "e": {
+  "json": {
+   "n_forbidden": 184,
+   "n_allowed": 71,
+   "p_retained_given_forbidden": 0.3695652173913043,
+   "p_absorbed_given_allowed": 0.056338028169014086,
+   "forbidden_classes": [
+    "a",
+    "b"
+   ],
+   "allowed_classes": [
+    "c1",
+    "c2",
+    "d"
+   ]
+  },
+  "recomputed_json_class": {
+   "n_forbidden": 184,
+   "n_allowed": 71,
+   "p_retained_given_forbidden": 0.3695652173913043,
+   "p_absorbed_given_allowed": 0.056338028169014086,
+   "forbidden_classes": [
+    "a",
+    "b"
+   ],
+   "allowed_classes": [
+    "c1",
+    "c2",
+    "d"
+   ]
+  },
+  "recomputed_db_class_final": {
+   "n_forbidden": 184,
+   "n_allowed": 71,
+   "p_retained_given_forbidden": 0.3695652173913043,
+   "p_absorbed_given_allowed": 0.056338028169014086,
+   "forbidden_classes": [
+    "a",
+    "b"
+   ],
+   "allowed_classes": [
+    "c1",
+    "c2",
+    "d"
+   ]
+  },
+  "predictor": {
+   "with_class": {
+    "n": 255,
+    "n_pos": 129,
+    "auroc": 0.7102866986587917,
+    "precision_at_85": 0.541871921182266,
+    "miss_rate_at_85": 0.1472868217054264
+   },
+   "class_blind": {
+    "n": 255,
+    "n_pos": 129,
+    "auroc": 0.7333579426602682,
+    "precision_at_85": 0.5472636815920398,
+    "miss_rate_at_85": 0.1472868217054264
+   }
+  },
+  "phase4_md": {
+   "static_rule": "P(retained | forbidden) 37 % (n 183), P(absorbed | allowed) 6 % (n 72) \u2014 reports/phase4.md \u00a711",
+   "predictor_\u00a76": "with class 0.710, class-blind 0.733 (reports/phase4.md \u00a76, lines 205\u2013206)",
+   "predictor_\u00a711": "0.717 with the class features and 0.733 without (reports/phase4.md \u00a711)"
+  },
+  "which_applies": "reports/data/phase4_exp1.json (the file the map is built from) holds AUROC 0.7103 with the class features and 0.7334 without; \u00a76 of phase4.md quotes 0.710 / 0.733 from it; the 0.717 of \u00a711 is not in the data file \u2014 the version consistent with the map is 0.733 / 0.710"
+ },
+ "f": {
+  "released_all_pairs": {
+   "pairs_with_reports": 40,
+   "ref_smaller": 40,
+   "same": 0,
+   "ref_larger": 0
+  },
+  "released_proven_pairs": {
+   "better_by_area": 34,
+   "n": 34,
+   "same": 0,
+   "setting": "data/sources/RTL-OPT/Results/RTL-OPT_DC: `compile` (not compile_ultra) at CLOCK_PERIOD 0.1 ns with set_max_delay from all inputs to all outputs, set_transform_for_retiming dont_retime, register merging / sequential area recovery / clock gating through hierarchy off, ungroup -all -flatten, DC T-2022.03-SP2, the authors' own Nangate45 typical.db (their released run_dc.tcl and command.log)",
+   "worse": 0
+  },
+  "paper_claim": "35 of 36 better (RTL-OPT Table 1, compile_ultra 1 ns)",
+  "baseline_area_ratio_released_over_ours_E2_1ns": {
+   "n": 34,
+   "min": 0.8585164840118406,
+   "median": 1.6608953297395523,
+   "max": 3.467672491872356,
+   "extremes": [
+    [
+     "rtlopt_calculation",
+     0.8585164840118406
+    ],
+    [
+     "rtlopt_register",
+     1.0882640205176124
+    ],
+    [
+     "rtlopt_decoder_8bit",
+     3.467672491872356
+    ],
+    [
+     "rtlopt_add_sub",
+     3.121495342864104
+    ]
+   ]
+  },
+  "baseline_area_ratio_released_over_E1_authors": {
+   "n": 34,
+   "min": 0.8459214484010796,
+   "median": 1.0539843162164875,
+   "max": 3.0146627454119597
+  },
+  "counts_by_setting": {
+   "E1_authors": {
+    "better": 25,
+    "missing": 1,
+    "same": 1,
+    "worse": 7
+   },
+   "E2_1ns": {
+    "better": 13,
+    "missing": 1,
+    "same": 4,
+    "worse": 16
+   }
+  },
+  "mux_dead": "rtlopt_mux_dead's reference does not link under DC (LINK-3): the 'missing 1' of every setting; the released reports carry it (their DC T-2022.03 links it)",
+  "rtlrewriter": {
+   "pairs": 54,
+   "proven": 43,
+   "better": {
+    "E1": 24,
+    "E1d": 21,
+    "E2": 11,
+    "E3": 10,
+    "E2g": 11,
+    "E4": 10
+   },
+   "retained": {
+    "E1": 24,
+    "E1d": 0,
+    "E2": 10,
+    "E3": 9,
+    "E2g": 0,
+    "E4": 10
+   },
+   "evaluated": {
+    "E1": 42,
+    "E1d": 42,
+    "E2": 42,
+    "E3": 42,
+    "E2g": 42,
+    "E4": 42
+   }
+  },
+  "rtlopt": {
+   "pairs": 40,
+   "proven": 34,
+   "better": {
+    "E1": 20,
+    "E1d": 17,
+    "E2": 13,
+    "E3": 13,
+    "E2g": 13,
+    "E4": 13
+   },
+   "retained": {
+    "E1": 20,
+    "E1d": 0,
+    "E2": 11,
+    "E3": 11,
+    "E2g": 0,
+    "E4": 11
+   },
+   "evaluated": {
+    "E1": 33,
+    "E1d": 33,
+    "E2": 33,
+    "E3": 33,
+    "E2g": 33,
+    "E4": 33
+   }
+  },
+  "memory_sharing": [
+   {
+    "design": "rtlrewriter_memory__memory_sharing",
+    "role": "reference",
+    "verdict": "proven",
+    "label": "noise",
+    "gains": {
+     "E1": {
+      "area": 0.4063,
+      "wns": -0.006,
+      "power": 0.3459
+     },
+     "E1d": {
+      "area": 0.4063,
+      "wns": -0.006,
+      "power": 0.4739
+     },
+     "E2": {
+      "area": 0.0,
+      "wns": 0.0,
+      "power": 0.0
+     },
+     "E2g": {
+      "area": -0.0015,
+      "wns": 0.0,
+      "power": 0.0296
+     },
+     "E3": {
+      "area": 0.0,
+      "wns": 0.0,
+      "power": -0.0
+     },
+     "E4": {
+      "area": -0.0015,
+      "wns": 0.0,
+      "power": -0.0089
+     }
+    }
+   }
+  ]
+ },
+ "g": {
+  "n_evaluated": 11312,
+  "n_duplicates_collapsed": 2617,
+  "n_proven_pending_e4": 175,
+  "n_dc_rejected": 44,
+  "by_tier": {
+   "large": {
+    "a": {
+     "n": 463,
+     "labels": {
+      "absorbed_identical": 144,
+      "harmful": 186,
+      "noise": 96,
+      "absorbed": 37
+     },
+     "survival": 0,
+     "survival_rate": 0.0,
+     "retained": 0,
+     "retained_rate": 0.0,
+     "material_any": 0,
+     "material_rate": 0.0,
+     "material_per_metric": {
+      "area": 0,
+      "power": 0,
+      "wns": 0
+     }
+    },
+    "b": {
+     "n": 663,
+     "labels": {
+      "noise": 108,
+      "harmful": 79,
+      "absorbed_identical": 25,
+      "retained": 304,
+      "absorbed": 10,
+      "tradeoff": 137
+     },
+     "survival": 441,
+     "survival_rate": 0.665158371040724,
+     "retained": 304,
+     "retained_rate": 0.45852187028657615,
+     "material_any": 247,
+     "material_rate": 0.37254901960784315,
+     "material_per_metric": {
+      "area": 148,
+      "power": 247,
+      "wns": 0
+     }
+    },
+    "c1": {
+     "n": 47,
+     "labels": {
+      "tradeoff": 22,
+      "retained": 12,
+      "harmful": 9,
+      "noise": 4
+     },
+     "survival": 34,
+     "survival_rate": 0.723404255319149,
+     "retained": 12,
+     "retained_rate": 0.2553191489361702,
+     "material_any": 6,
+     "material_rate": 0.1276595744680851,
+     "material_per_metric": {
+      "area": 3,
+      "power": 6,
+      "wns": 0
+     }
+    },
+    "d": {
+     "n": 248,
+     "labels": {
+      "tradeoff": 42,
+      "retained": 110,
+      "harmful": 61,
+      "noise": 35
+     },
+     "survival": 152,
+     "survival_rate": 0.6129032258064516,
+     "retained": 110,
+     "retained_rate": 0.4435483870967742,
+     "material_any": 37,
+     "material_rate": 0.14919354838709678,
+     "material_per_metric": {
+      "area": 30,
+      "power": 37,
+      "wns": 0
+     }
+    }
+   },
+   "medium": {
+    "a": {
+     "n": 2207,
+     "labels": {
+      "tradeoff": 643,
+      "retained": 422,
+      "harmful": 205,
+      "absorbed_identical": 889,
+      "absorbed": 36,
+      "noise": 12
+     },
+     "survival": 1065,
+     "survival_rate": 0.48255550521069324,
+     "retained": 422,
+     "retained_rate": 0.19120978704123245,
+     "material_any": 393,
+     "material_rate": 0.17806977797915724,
+     "material_per_metric": {
+      "area": 346,
+      "power": 384,
+      "wns": 18
+     }
+    },
+    "b": {
+     "n": 3569,
+     "labels": {
+      "tradeoff": 1036,
+      "harmful": 409,
+      "retained": 1269,
+      "absorbed_identical": 706,
+      "noise": 8,
+      "absorbed": 141
+     },
+     "survival": 2305,
+     "survival_rate": 0.6458391706360325,
+     "retained": 1269,
+     "retained_rate": 0.355561782011768,
+     "material_any": 982,
+     "material_rate": 0.27514710002801906,
+     "material_per_metric": {
+      "area": 670,
+      "power": 732,
+      "wns": 812
+     }
+    },
+    "c1": {
+     "n": 1604,
+     "labels": {
+      "tradeoff": 567,
+      "retained": 593,
+      "harmful": 240,
+      "absorbed_identical": 14,
+      "noise": 185,
+      "absorbed": 5
+     },
+     "survival": 1160,
+     "survival_rate": 0.7231920199501247,
+     "retained": 593,
+     "retained_rate": 0.3697007481296758,
+     "material_any": 563,
+     "material_rate": 0.35099750623441395,
+     "material_per_metric": {
+      "area": 201,
+      "power": 507,
+      "wns": 325
+     }
+    },
+    "c2": {
+     "n": 1,
+     "labels": {
+      "retained": 1
+     },
+     "survival": 1,
+     "survival_rate": 1.0,
+     "retained": 1,
+     "retained_rate": 1.0,
+     "material_any": 1,
+     "material_rate": 1.0,
+     "material_per_metric": {
+      "area": 0,
+      "power": 1,
+      "wns": 0
+     }
+    },
+    "d": {
+     "n": 2392,
+     "labels": {
+      "harmful": 153,
+      "retained": 1059,
+      "absorbed_identical": 103,
+      "absorbed": 19,
+      "tradeoff": 1053,
+      "noise": 5
+     },
+     "survival": 2112,
+     "survival_rate": 0.882943143812709,
+     "retained": 1059,
+     "retained_rate": 0.4427257525083612,
+     "material_any": 1024,
+     "material_rate": 0.4280936454849498,
+     "material_per_metric": {
+      "area": 536,
+      "power": 1003,
+      "wns": 268
+     }
+    }
+   },
+   "small": {
+    "a": {
+     "n": 21,
+     "labels": {
+      "tradeoff": 17,
+      "harmful": 2,
+      "absorbed_identical": 1,
+      "retained": 1
+     },
+     "survival": 18,
+     "survival_rate": 0.8571428571428571,
+     "retained": 1,
+     "retained_rate": 0.047619047619047616,
+     "material_any": 1,
+     "material_rate": 0.047619047619047616,
+     "material_per_metric": {
+      "area": 1,
+      "power": 1,
+      "wns": 0
+     }
+    },
+    "b": {
+     "n": 82,
+     "labels": {
+      "tradeoff": 20,
+      "harmful": 8,
+      "absorbed_identical": 48,
+      "retained": 6
+     },
+     "survival": 26,
+     "survival_rate": 0.3170731707317073,
+     "retained": 6,
+     "retained_rate": 0.07317073170731707,
+     "material_any": 6,
+     "material_rate": 0.07317073170731707,
+     "material_per_metric": {
+      "area": 6,
+      "power": 6,
+      "wns": 1
+     }
+    },
+    "d": {
+     "n": 15,
+     "labels": {
+      "tradeoff": 2,
+      "harmful": 13
+     },
+     "survival": 2,
+     "survival_rate": 0.13333333333333333,
+     "retained": 0,
+     "retained_rate": 0.0,
+     "material_any": 0,
+     "material_rate": 0.0,
+     "material_per_metric": {
+      "area": 0,
+      "power": 0,
+      "wns": 0
+     }
+    }
+   }
+  },
+  "pooled": {
+   "a": {
+    "n": 2691,
+    "labels": {
+     "absorbed_identical": 1034,
+     "harmful": 393,
+     "noise": 108,
+     "absorbed": 73,
+     "tradeoff": 660,
+     "retained": 423
+    },
+    "survival": 1083,
+    "survival_rate": 0.40245261984392416,
+    "retained": 423,
+    "retained_rate": 0.15719063545150502,
+    "material_any": 394,
+    "material_rate": 0.14641397250092902,
+    "material_per_metric": {
+     "area": 347,
+     "power": 385,
+     "wns": 18
+    }
+   },
+   "b": {
+    "n": 4314,
+    "labels": {
+     "noise": 116,
+     "harmful": 496,
+     "absorbed_identical": 779,
+     "retained": 1579,
+     "absorbed": 151,
+     "tradeoff": 1193
+    },
+    "survival": 2772,
+    "survival_rate": 0.6425591098748261,
+    "retained": 1579,
+    "retained_rate": 0.3660176170607325,
+    "material_any": 1235,
+    "material_rate": 0.2862772369031062,
+    "material_per_metric": {
+     "area": 824,
+     "power": 985,
+     "wns": 813
+    }
+   },
+   "c1": {
+    "n": 1651,
+    "labels": {
+     "tradeoff": 589,
+     "retained": 605,
+     "harmful": 249,
+     "noise": 189,
+     "absorbed_identical": 14,
+     "absorbed": 5
+    },
+    "survival": 1194,
+    "survival_rate": 0.723198061780739,
+    "retained": 605,
+    "retained_rate": 0.36644457904300426,
+    "material_any": 569,
+    "material_rate": 0.34463961235614776,
+    "material_per_metric": {
+     "area": 204,
+     "power": 513,
+     "wns": 325
+    }
+   },
+   "c2": {
+    "n": 1,
+    "labels": {
+     "retained": 1
+    },
+    "survival": 1,
+    "survival_rate": 1.0,
+    "retained": 1,
+    "retained_rate": 1.0,
+    "material_any": 1,
+    "material_rate": 1.0,
+    "material_per_metric": {
+     "area": 0,
+     "power": 1,
+     "wns": 0
+    }
+   },
+   "d": {
+    "n": 2655,
+    "labels": {
+     "tradeoff": 1097,
+     "retained": 1169,
+     "harmful": 227,
+     "noise": 40,
+     "absorbed_identical": 103,
+     "absorbed": 19
+    },
+    "survival": 2266,
+    "survival_rate": 0.8534839924670433,
+    "retained": 1169,
+    "retained_rate": 0.44030131826741997,
+    "material_any": 1061,
+    "material_rate": 0.39962335216572503,
+    "material_per_metric": {
+     "area": 566,
+     "power": 1040,
+     "wns": 268
+    }
+   }
+  },
+  "families": {
+   "table": {
+    "Dr.RTL": {
+     "proven_evaluated": 2349,
+     "retained": 155,
+     "retained_rate": 0.06598552575564069,
+     "material": 78,
+     "designs": 6
+    },
+    "CktEvo": {
+     "proven_evaluated": 4506,
+     "retained": 1495,
+     "retained_rate": 0.3317798490901021,
+     "material": 1111,
+     "designs": 8
+    },
+    "RTL-OPT": {
+     "proven_evaluated": 4457,
+     "retained": 2127,
+     "retained_rate": 0.4772268341934036,
+     "material": 2071,
+     "designs": 8
+    }
+   },
+   "medium_retained_from_rtlopt": {
+    "n": 2120,
+    "of": 3344,
+    "share": 0.6339712918660287
+   }
+  },
+  "b0_yosys_vs_e4": {
+   "any_metric_cross": {
+    "improved|absorbed": 34,
+    "improved|absorbed_identical": 143,
+    "improved|dc_rejected": 20,
+    "improved|e4_pending": 105,
+    "improved|harmful": 183,
+    "improved|noise": 36,
+    "improved|retained": 645,
+    "improved|tradeoff": 449,
+    "no_gain|absorbed": 17,
+    "no_gain|absorbed_identical": 112,
+    "no_gain|dc_rejected": 2,
+    "no_gain|e4_pending": 41,
+    "no_gain|harmful": 57,
+    "no_gain|noise": 10,
+    "no_gain|retained": 39,
+    "no_gain|tradeoff": 84,
+    "none|retained": 3,
+    "none|tradeoff": 7
+   },
+   "per_metric": {
+    "area: Y improved -> E4 not above t_D": 565,
+    "delay: Y improved -> E4 pending": 90,
+    "delay: Y improved -> E4 retained on that metric": 530,
+    "delay: Y improved -> E4 not above t_D": 313,
+    "area: Y improved -> E4 retained on that metric": 617,
+    "area: Y improved -> E4 pending": 75,
+    "no_y_record": 10
+   },
+   "n_b0_proven": 1987,
+   "per_design": {
+    "drrtl_router": {
+     "delay: Y improved -> E4 not above t_D": 89,
+     "area: Y improved -> E4 not above t_D": 13,
+     "delay: Y improved -> E4 retained on that metric": 3
+    },
+    "drrtl_UART": {
+     "area: Y improved -> E4 not above t_D": 35,
+     "delay: Y improved -> E4 retained on that metric": 2,
+     "delay: Y improved -> E4 not above t_D": 2,
+     "area: Y improved -> E4 retained on that metric": 1
+    },
+    "drrtl_communication": {
+     "area: Y improved -> E4 not above t_D": 46,
+     "delay: Y improved -> E4 not above t_D": 20,
+     "delay: Y improved -> E4 retained on that metric": 4,
+     "delay: Y improved -> E4 pending": 1
+    },
+    "cktevo_risc__cpu": {},
+    "rtlopt_calculation": {
+     "area: Y improved -> E4 retained on that metric": 134,
+     "delay: Y improved -> E4 retained on that metric": 25,
+     "delay: Y improved -> E4 not above t_D": 16,
+     "area: Y improved -> E4 pending": 2,
+     "area: Y improved -> E4 not above t_D": 3
+    }
+   }
+  },
+  "large_class_a": {
+   "n": 463,
+   "retained": 0,
+   "harmful": 186,
+   "harmful_share": 0.4017278617710583,
+   "labels": {
+    "absorbed_identical": 144,
+    "harmful": 186,
+    "noise": 96,
+    "absorbed": 37
+   }
+  },
+  "large_wns_material_by_arm": {
+   "B0": {
+    "retained": 43,
+    "wns_material": 0
+   },
+   "B1_E4": {
+    "retained": 121,
+    "wns_material": 0
+   },
+   "B2": {
+    "retained": 96,
+    "wns_material": 0
+   },
+   "DrRTL_reimpl": {
+    "retained": 44,
+    "wns_material": 0
+   },
+   "M": {
+    "retained": 122,
+    "wns_material": 0
+   }
+  }
+ },
+ "h": {
+  "pooled_floor_designs": {
+   "n": 13,
+   "of": 30,
+   "designs": {
+    "cktevo_risc__stall_control_unit": {
+     "retained": 0,
+     "evaluated": 0
+    },
+    "cktevo_risc__cpu": {
+     "retained": 0,
+     "evaluated": 89
+    },
+    "cktevo_usb__usbf_sie_rx": {
+     "retained": 461,
+     "evaluated": 761
+    },
+    "drrtl_router": {
+     "retained": 11,
+     "evaluated": 665
+    },
+    "cktevo_vga_enh__vga_wb_slave": {
+     "retained": 298,
+     "evaluated": 687
+    },
+    "drrtl_arm_cpu2": {
+     "retained": 0,
+     "evaluated": 0
+    },
+    "cktevo_nn_engine__thresholds_128x4096": {
+     "retained": 1,
+     "evaluated": 522
+    },
+    "drrtl_simple_spi": {
+     "retained": 0,
+     "evaluated": 87
+    },
+    "cktevo_hsm__hsm": {
+     "retained": 0,
+     "evaluated": 0
+    },
+    "drrtl_aes": {
+     "retained": 75,
+     "evaluated": 414
+    },
+    "drrtl_tv80": {
+     "retained": 0,
+     "evaluated": 0
+    },
+    "cktevo_risc__btb": {
+     "retained": 351,
+     "evaluated": 702
+    },
+    "drrtl_LSTM": {
+     "retained": 0,
+     "evaluated": 0
+    }
+   }
+  },
+  "offset_designs": {
+   "cktevo_mem_ctrl__mc_adr_sel": {
+    "retained": 335,
+    "evaluated": 728
+   }
+  },
+  "icg_insertion": {
+   "retained_with_material_power_gain": 2924,
+   "with_more_icgs_than_D": 88,
+   "share": 0.030095759233926128,
+   "by_design": {
+    "cktevo_risc__btb": 1,
+    "cktevo_mem_ctrl__mc_adr_sel": 40,
+    "rtlopt_register": 47
+   },
+   "note": "request (b) item 5 is not in this session's record; computed here as retained candidates with a power gain above 2 % whose E4 netlist carries more clock-gating cells than D's E4 netlist"
+  },
+  "proof_coverage_designs": {
+   "drrtl_SPI": {
+    "with_verdict": 969,
+    "proven": 130,
+    "inconclusive": 778,
+    "evaluated": 130,
+    "retained": 58
+   },
+   "drrtl_simple_spi": {
+    "with_verdict": 858,
+    "proven": 141,
+    "inconclusive": 536,
+    "evaluated": 87,
+    "retained": 0
+   },
+   "drrtl_tv80": {
+    "with_verdict": 824,
+    "proven": 0,
+    "inconclusive": 669,
+    "evaluated": 0,
+    "retained": 0
+   },
+   "cktevo_hsm__hsm": {
+    "with_verdict": 1054,
+    "proven": 0,
+    "inconclusive": 273,
+    "evaluated": 0,
+    "retained": 0
+   }
+  }
+ },
+ "sources": [
+  {
+   "table": "A frozen floor table",
+   "source": "SELECT design_id, floor_source, floor_class, t_d, pooled_min FROM noise_floor WHERE floor_version='phase4' AND config='E4' AND metric='area' (one row per design; the table the Phase 5 experiments use)"
+  },
+  {
+   "table": "A pooled minima",
+   "source": "SELECT metric, MAX(pooled_min) FROM noise_floor WHERE floor_version='phase4' AND config='E4' GROUP BY metric (the same value on every design row of the configuration and metric)"
+  },
+  {
+   "table": "A perturbation records",
+   "source": "SELECT e.design_id, e.config, e.pert_id, p.ptype, e.area_um2, e.cells, e.wns_ns, e.power_saif_mw, e.clock_ns FROM evaluations e JOIN perturbations p ON p.pert_id=e.pert_id WHERE e.status='ok' AND e.config IN ('E1','E2','E3','E4') AND e.design_id IN (frozen-table designs); baseline = is_baseline=1, pert_id IS NULL, cand_id IS NULL, same config and clock"
+  },
+  {
+   "table": "A floor-basis records",
+   "source": "src.noise.stats.proven_by_design + pick_records(conn, design, config, proven, phi_main, eps) for every frozen-table design: the baseline and the latest E4 record of each SEQ-proven perturbation at \u03a6_main (the records the floor rows were computed from); pooled quantiles by stats.pooled_quantile (design-weighted: every design's records weighted 1 / n_design; record-weighted for comparison)"
+  },
+  {
+   "table": "A pooled-minimum basis",
+   "source": "scripts/phase2_noise.py cmd_collect: S.pooled_minimum over the set designs (designs.split IN ('dev','held')), SEQ-proven perturbations at \u03a6_main, quantile noise.pooled_quantile = 0.90, weighting noise.pooled_weighting = design; the frozen table then applies the minima to every design without a measured floor"
+  },
+  {
+   "table": "B Fig. 3 matrices",
+   "source": "reports/data/phase4_exp1.json objects[] (proven, label not duplicate, E4 gains present; n = 255) with per-level thresholds from src.analysis.objects.thresholds(conn, design, level, 'phase4'); survival modes: rule_a_any (some metric above t, the label retained or trade-off), area_only (the \u00a72 map cell: area gain above t_area), mat_area (area gain > 1 %), mat_any (some metric above materiality)"
+  },
+  {
+   "table": "C absorption attribution",
+   "source": "reports/data/phase4_diagnoser_sample.json reproduction.rows (74 absorbed objects: D compiled with one flag alone \u2014 E1d designware, E2g gate_clock, E3 retime \u2014 or with a plain compile E1, against the object's plain-compile netlist C@E1; spec 04 \u00a7B.5) and phase4_exp1.json objects (label, rung, class); permanence = src.analysis.map.non_monotone over E1\u2013E4 (reports/phase4.md \u00a73)"
+  },
+  {
+   "table": "D best objects",
+   "source": "reports/data/phase4_exp1.json objects (role b0, label retained or trade-off; the object with the largest E4 area gain of the design), gains per level; per-level rule-A verdict from the gains and the level's thresholds (retained: some metric above t and none below; trade-off: some above and some below; noise: all within; harmful: some below, none above); E1d / E2g carry no measured floor: verdict under the materiality thresholds there"
+  },
+  {
+   "table": "E static rule and predictor",
+   "source": "src.analysis.map.misclassification_rates on the 255 objects \u2014 rule R forbids classes a / b and allows c1 / c2 / d; retained = label retained or trade-off; absorbed = absorbed, absorbed_identical, noise or duplicate \u2014 on (i) the class of phase4_exp1.json (the map's class_final at generation) and (ii) candidates.class_final as stored now; predictor AUROC from phase4_exp1.json predictor (leave-one-design-out logistic model, n = 255, 129 retained)"
+  },
+  {
+   "table": "F RTL-OPT released reports",
+   "source": "data/sources/RTL-OPT/Results/RTL-OPT_DC/<pair>/report/area.rpt and <pair>_ref/report/area.rpt, 'Total cell area' (the authors' released DC runs: plain compile at 0.1 ns, their Nangate45 typical.db); reports/data/phase4_rtlopt_setting.json rows (authors_released, E1_authors, E2_1ns per proven pair); reports/data/phase4_exp1.json literature"
+  },
+  {
+   "table": "G Phase 5 scan",
+   "source": "scripts/report_c1.scan_phase5 (every non-superseded Phase 5 candidate; rule A at E4 via src.analysis.phase5.uniform_diagnosis; duplicates collapsed: label duplicate never counted); evaluated = proven with an E4 record"
+  },
+  {
+   "table": "G B0 Yosys vs E4",
+   "source": "candidates.label of the B0 arm (improved = any positive Y-caliber component); per metric: the candidate's Y record (evaluations config Y, same clock as the design's Y baseline) against the Y baseline \u2014 area gain (base \u2212 cand) / base, delay gain (cand WNS \u2212 base WNS) / clock \u2014 crossed with the rule-A E4 gains of the same candidate against the design's frozen t_D per metric"
+  },
+  {
+   "table": "H caveats",
+   "source": "noise_floor (frozen phase4, E4 area row: floor_source / floor_class per design) joined with the Phase 5 scan; ICG insertion: log_summary_json.icg_count of the candidate's E4 record against the design's E4 baseline record; proof coverage: candidates with a verdict per design"
+  }
+ ]
+}

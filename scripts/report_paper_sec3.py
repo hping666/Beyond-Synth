@@ -25,6 +25,7 @@ from src.db import core as db  # noqa: E402
 from src.analysis import phase5 as P5  # noqa: E402
 from src.analysis import objects as OBJ  # noqa: E402
 from src.analysis import map as MAP  # noqa: E402
+from src.noise import stats as S  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location("report_c1", os.path.join(ROOT, "scripts", "report_c1.py"))
 C1 = importlib.util.module_from_spec(_spec)
@@ -128,6 +129,59 @@ def section_a(cfg, conn):
     out["tail_records_E4"] = {"n_over_1pct": len(tail), "by_ptype": dict(collections.Counter(x["ptype"] for x in tail)), "by_ptype_all_records": dict(collections.Counter(x["ptype"] for x in e4)),
                               "by_family": {fam: dict(collections.Counter(x["ptype"] for x in tail if C1.family(x["design"]) == fam)) for fam in sorted({C1.family(x["design"]) for x in tail})},
                               "records_by_family": dict(collections.Counter(C1.family(x["design"]) for x in e4))}
+    # the floor table's own basis: SEQ-proven perturbations (incl. the re-print P0) at Φ_main, the latest record per perturbation (src.noise.stats.pick_records / pooled_abs)
+    src("A floor-basis records", "src.noise.stats.proven_by_design + pick_records(conn, design, config, proven, phi_main, eps) for every frozen-table design: the baseline and the latest E4 record of each SEQ-proven perturbation at Φ_main (the records the floor rows were computed from); pooled quantiles by stats.pooled_quantile (design-weighted: every design's records weighted 1 / n_design; record-weighted for comparison)")
+    proven = S.proven_by_design(conn)
+    dlist = [{"design_id": r[0], "phi": float(r[1])} for r in conn.execute(f"SELECT design_id, phi_main_ns_nangate45 FROM designs WHERE design_id IN ({marks}) AND phi_main_ns_nangate45 IS NOT NULL", designs)]
+    fb = {"designs_with_records": 0, "records": 0, "unchanged": 0, "rename_records": 0, "rename_changed": 0, "tail_designs_1pct": 0, "tail_designs_5pct": 0, "max": 0.0, "tail_by_ptype": collections.Counter(), "tail_by_family": collections.defaultdict(collections.Counter)}
+    ptype_of = {r[0]: r[1] for r in conn.execute("SELECT pert_id, ptype FROM perturbations")}
+    fb_e1 = {"rename_records": 0, "rename_changed": 0}
+    for dd in dlist:
+        try:
+            base_r, latest = S.pick_records(conn, dd["design_id"], "E4", proven.get(dd["design_id"], set()), dd["phi"], 1e-6)
+        except Exception:
+            base_r, latest = None, {}
+        if base_r is None or not latest:
+            continue
+        fb["designs_with_records"] += 1
+        dmax = 0.0
+        for pid, rec in latest.items():
+            fb["records"] += 1
+            same = (rec.get("cells") == base_r.get("cells")) and abs(float(rec.get("area_um2") or 0) - float(base_r.get("area_um2") or 0)) < 1e-6
+            fb["unchanged"] += int(same)
+            pt = ptype_of.get(pid)
+            if pt == "P1_rename":
+                fb["rename_records"] += 1; fb["rename_changed"] += int(not same)
+            rel = (float(rec.get("area_um2")) - float(base_r.get("area_um2"))) / float(base_r.get("area_um2")) if base_r.get("area_um2") else 0.0
+            dmax = max(dmax, abs(rel))
+            if abs(rel) > 0.01:
+                fb["tail_by_ptype"][pt] += 1; fb["tail_by_family"][C1.family(dd["design_id"])][pt] += 1
+        fb["max"] = max(fb["max"], dmax); fb["tail_designs_1pct"] += int(dmax > 0.01); fb["tail_designs_5pct"] += int(dmax > 0.05)
+        try:
+            base1, latest1 = S.pick_records(conn, dd["design_id"], "E1", proven.get(dd["design_id"], set()), dd["phi"], 1e-6)
+        except Exception:
+            base1, latest1 = None, {}
+        if base1 is not None:
+            for pid, rec in latest1.items():
+                if ptype_of.get(pid) == "P1_rename":
+                    fb_e1["rename_records"] += 1
+                    fb_e1["rename_changed"] += int(not ((rec.get("cells") == base1.get("cells")) and abs(float(rec.get("area_um2") or 0) - float(base1.get("area_um2") or 0)) < 1e-6))
+    fb["tail_by_ptype"] = dict(fb["tail_by_ptype"]); fb["tail_by_family"] = {k: dict(v) for k, v in fb["tail_by_family"].items()}
+    fb["unchanged_share"] = rate(fb["unchanged"], fb["records"]); fb["rename_changed_share_E4"] = rate(fb["rename_changed"], fb["rename_records"]); fb["rename_E1"] = {**fb_e1, "share": rate(fb_e1["rename_changed"], fb_e1["rename_records"])}
+    pooled = S.pooled_abs(conn, dlist, "E4", proven, 1e-6)
+
+    def qtab(pooled_pairs):
+        return {m: {"design_weighted": {pq: S.pooled_quantile(v, pq, "design") for pq in (0.90, 0.95, 0.99)}, "record_weighted": {pq: S.pooled_quantile(v, pq, "record") for pq in (0.90, 0.95, 0.99)},
+                    "n_records": len(v), "n_designs": len({d for _, d in v}), "zero_records": sum(1 for x, _ in v if x < 1e-9),
+                    "design_weighted_zero_mass": (sum(1.0 / collections.Counter(d for _, d in v)[d1] for x, d1 in v if x < 1e-9) / len({d for _, d in v})) if v else None} for m, v in pooled_pairs.items()}
+    fb["pooled_quantiles"] = qtab(pooled)
+    # the frozen pooled minima's own basis (scripts/phase2_noise.py collect): the set designs (split dev / held), design-weighted q90 = noise.pooled_quantile
+    src("A pooled-minimum basis", "scripts/phase2_noise.py cmd_collect: S.pooled_minimum over the set designs (designs.split IN ('dev','held')), SEQ-proven perturbations at Φ_main, quantile noise.pooled_quantile = 0.90, weighting noise.pooled_weighting = design; the frozen table then applies the minima to every design without a measured floor")
+    set_ids = [r[0] for r in conn.execute("SELECT design_id FROM designs WHERE split IN ('dev','held')")]
+    set_list = [{"design_id": r[0], "phi": float(r[1])} for r in conn.execute(f"SELECT design_id, phi_main_ns_nangate45 FROM designs WHERE design_id IN ({','.join('?' * len(set_ids))}) AND phi_main_ns_nangate45 IS NOT NULL", set_ids)]
+    pooled_set = S.pooled_abs(conn, set_list, "E4", proven, 1e-6)
+    fb["set_basis"] = {"designs": len(set_list), "quantiles": qtab(pooled_set), "pooled_minimum_reproduced": S.pooled_minimum(conn, set_list, "E4", proven, float(cfg["noise"].get("pooled_quantile", 0.90)), 1e-6, cfg["noise"].get("pooled_weighting", "design"))}
+    out["floor_basis"] = fb
     p2 = json.load(open(os.path.join(ROOT, "reports", "data", "phase2_noise_floor.json")))
     out["phase2_snapshot"] = {"source": "reports/data/phase2_noise_floor.json (generated 2026-09-14, 148 set designs at E4)", "pooled_min_E4": p2["pooled_min"]["E4"], "floor_classes_E4": p2["floor_classes"]["E4"], "summary_t_d_E4": p2["summary_t_d"]["E4"]}
     return out
@@ -136,7 +190,7 @@ def section_a(cfg, conn):
 # ----------------------------------------------------------------------------- B. Fig. 3
 def phase4_objects(conn, fv):
     p4 = json.load(open(os.path.join(ROOT, "reports", "data", "phase4_exp1.json")))
-    objs = [o for o in p4["objects"] if o.get("verdict") == "proven" and o.get("label") and o["label"] != "duplicate" and (o.get("gains") or {}).get("E4")]
+    objs = [o for o in p4["objects"] if o.get("verdict") in ("proven", "proven_sim_only") and o.get("label") and o["label"] != "duplicate" and (o.get("gains") or {}).get("E4")]
     thr = {}
     for o in objs:
         for lv in LEVELS:
@@ -200,8 +254,9 @@ def section_b(cfg, conn, p4, objs):
                         "materiality_E4_area": {"a": "21 % (75)", "b": "39 % (109)", "c1": "88 % (24)", "d": "69 % (45)"}, "source": "reports/phase4.md §2 tables and §11 'Map shape'"}
     on_all = [o for o in objs if all((o.get("gains") or {}).get(lv, {}).get("area") is not None for lv in ("E1", "E2", "E3", "E4"))]
     out["evaluated_on_all_four_rungs"] = len(on_all)
-    out["diagnosed_count_note"] = (f"{len(objs)} diagnosed objects with an E4 record (labels retained / trade-off / absorbed_identical / absorbed / noise / harmful), {len(on_all)} of them with a record at every rung E1–E4; "
-                                   f"objects lacking a rung: {[(o['cand_id'], o['design_id'], o['label']) for o in objs if o not in on_all]}")
+    pso = [(o["cand_id"], o["design_id"], o["role"], o["cls"], o["label"]) for o in objs if o.get("verdict") == "proven_sim_only"]
+    out["diagnosed_count_note"] = (f"the map counts {len(objs)} diagnosed objects (verdict proven or proven_sim_only, label not duplicate, E4 record present); the strictly proven set has {len(objs) - len(pso)} — the object that differs is {pso} (proven by simulation only, class c2, harmful at E4); "
+                                   f"{len(on_all)} of the {len(objs)} carry a record at every rung E1–E4" + (f"; lacking a rung: {[(o['cand_id'], o['design_id'], o['label']) for o in objs if o not in on_all]}" if len(on_all) != len(objs) else ""))
     diff = [(o["cand_id"], o["design_id"], o["cls"], o["cls_db"], o["label"]) for o in objs if o.get("cls_db") and o["cls_db"] != o["cls"]]
     out["class_final_differs_from_json"] = diff
     return out
@@ -213,8 +268,9 @@ def section_c(cfg, conn, p4, objs):
     rep = json.load(open(os.path.join(ROOT, "reports", "data", "phase4_diagnoser_sample.json")))["reproduction"]
     rows = rep["rows"]
     cls_of = {o["cand_id"]: o["cls"] for o in p4["objects"]}
-    cats = {"plain_compile": [], "single_flag": [], "compile_ultra_only": []}
+    cats = {"plain_compile": [], "single_flag_only": [], "compile_ultra_only": []}
     flags = collections.Counter()
+    plain_and_single = []
     for r in rows:
         rp = r.get("repro") or {}
         none_conv = bool((rp.get("none") or {}).get("converged"))
@@ -223,14 +279,17 @@ def section_c(cfg, conn, p4, objs):
             flags[f] += 1
         if none_conv:
             cats["plain_compile"].append(r["cand_id"])
+            if single:
+                plain_and_single.append((r["cand_id"], single))
         elif single:
-            cats["single_flag"].append(r["cand_id"])
+            cats["single_flag_only"].append(r["cand_id"])
         else:
             cats["compile_ultra_only"].append(r["cand_id"])
     out = {"n_absorbed": len(rows), "by_label": dict(collections.Counter(r["label"] for r in rows)), "categories": {k: len(v) for k, v in cats.items()}, "single_flag_counts_any_order": dict(flags),
-           "single_flag_exclusive_of_plain": dict(collections.Counter(f for r in rows if not ((r.get("repro") or {}).get("none") or {}).get("converged") for f in ("designware", "gate_clock", "retime") if ((r.get("repro") or {}).get(f) or {}).get("converged"))),
-           "by_class": {cls: dict(collections.Counter(("plain" if r["cand_id"] in cats["plain_compile"] else "single" if r["cand_id"] in cats["single_flag"] else "ultra") for r in rows if cls_of.get(r["cand_id"]) == cls)) for cls in CLASSES},
-           "phase4_md": "28 plain compile, 14 single flag (designware 14, gate_clock 4, retime 4, some by several), 32 full-effort only (reports/phase4.md §9 / §11)"}
+           "plain_compile_also_single_flag": {"n": len(plain_and_single), "by_flag": dict(collections.Counter(f for _, fl in plain_and_single for f in fl))},
+           "by_class": {cls: dict(collections.Counter(("plain" if r["cand_id"] in cats["plain_compile"] else "single" if r["cand_id"] in cats["single_flag_only"] else "ultra") for r in rows if cls_of.get(r["cand_id"]) == cls)) for cls in CLASSES},
+           "phase4_md": "28 plain compile, 14 single flag (designware 14, gate_clock 4, retime 4, some by several), 32 full-effort only (reports/phase4.md §9 / §11)",
+           "reconciliation": "in the data every object reproduced by a single flag is also converged under a plain compile (the 14 are a subset of the 28), so the exclusive split is 28 plain compile / 0 single-flag-only / 46 compile_ultra only; phase4.md's 32 assumed the 14 outside the 28 (28 + 14 + 32 = 74) and is a double count"}
     nm = MAP.non_monotone(objs)
     out["permanence"] = {"violations": len(nm["cases"]), "n": nm["n_evaluated_on_all"], "share": nm["fraction"], "patterns": dict(collections.Counter(c[1] for c in nm["cases"])),
                          "definition": "an object inside the band at a lower rung and above it at a higher one (area gain against the rung's t_D), over objects with a record at every rung E1–E4"}
@@ -452,6 +511,16 @@ def render(data):
           f"| design-weighted pooled q90 / q95 / q99 of \\|δ_area\\| at E4 | {pct(a['pooled_quantiles_E4_area']['design_weighted'][0.9], 2)} / {pct(a['pooled_quantiles_E4_area']['design_weighted'][0.95], 2)} / {pct(a['pooled_quantiles_E4_area']['design_weighted'][0.99], 2)} (record-weighted {pct(a['pooled_quantiles_E4_area']['record_weighted'][0.9], 2)} / {pct(a['pooled_quantiles_E4_area']['record_weighted'][0.95], 2)} / {pct(a['pooled_quantiles_E4_area']['record_weighted'][0.99], 2)}) | {a['pooled_quantiles_E4_area']['n_records']} records, {a['pooled_quantiles_E4_area']['n_designs']} designs | frozen pooled minimum (design-weighted q90 of the phase4 snapshot) {pct(a['pooled_min'].get('area'), 3)} |",
           f"| pooled minima area / power / WNS (exact) | {a['pooled_min'].get('area'):.7f} = {pct(a['pooled_min'].get('area'), 2)} / {a['pooled_min'].get('power_saif'):.7f} = {pct(a['pooled_min'].get('power_saif'), 2)} / {a['pooled_min'].get('wns'):.7f} = {pct(a['pooled_min'].get('wns'), 3)} of the period | frozen table | Phase 2 snapshot identical ({a['phase2_snapshot']['pooled_min_E4']}); G1 text (99 designs): 0.29 % / 1.4 % / 0.07 % |",
           f"| largest single effect at E4 | {a['largest_effect_E4']['design']} ({a['largest_effect_E4']['ptype']}): area {pct(a['largest_effect_E4']['area_rel'])}, power {pct(a['largest_effect_E4']['power_rel'])} | 1 record | {a['largest_effect_phase2']} |", "",
+          "The rows above use every ok E4 record of the table's designs (any clock). On the floor table's own basis — SEQ-proven perturbations at Φ_main, the latest record per perturbation, the records the floor rows were computed from — the same quantities read:", "",
+          "| quantity (floor basis) | value | n |", "|---|---|---|",
+          f"| records leaving E4 area and cell count unchanged | {pct(a['floor_basis']['unchanged_share'])} | {a['floor_basis']['records']} records, {a['floor_basis']['designs_with_records']} designs |",
+          f"| netlists changed by renaming alone at E1 / at E4 | {pct(a['floor_basis']['rename_E1']['share'])} / {pct(a['floor_basis']['rename_changed_share_E4'])} | {a['floor_basis']['rename_E1']['rename_records']} / {a['floor_basis']['rename_records']} rename records |",
+          f"| designs with a perturbation moving E4 area by > 1 % / > 5 % | {a['floor_basis']['tail_designs_1pct']} / {a['floor_basis']['tail_designs_5pct']} (max {pct(a['floor_basis']['max'])}) | {a['floor_basis']['designs_with_records']} designs |",
+          f"| pooled q90 / q95 / q99 of \\|δ_area\\| at E4, design-weighted (record-weighted) | " + " / ".join(pct(a['floor_basis']['pooled_quantiles'].get('area', {}).get('design_weighted', {}).get(pq), 3) for pq in (0.9, 0.95, 0.99)) + " (" + " / ".join(pct(a['floor_basis']['pooled_quantiles'].get('area', {}).get('record_weighted', {}).get(pq), 3) for pq in (0.9, 0.95, 0.99)) + f") | {a['floor_basis']['pooled_quantiles'].get('area', {}).get('n_records')} records, {a['floor_basis']['pooled_quantiles'].get('area', {}).get('n_designs')} designs |",
+          f"| pooled q90 design-weighted, power / WNS | {pct(a['floor_basis']['pooled_quantiles'].get('power_saif', {}).get('design_weighted', {}).get(0.9), 3)} / {pct(a['floor_basis']['pooled_quantiles'].get('wns', {}).get('design_weighted', {}).get(0.9), 3)} | {a['floor_basis']['pooled_quantiles'].get('power_saif', {}).get('n_records')} / {a['floor_basis']['pooled_quantiles'].get('wns', {}).get('n_records')} records |",
+          "| **the frozen pooled minima's own basis: the set designs (split dev / held)** — design-weighted q90 / q95 / q99 of \\|δ_area\\| (record-weighted) | " + " / ".join(pct(a['floor_basis']['set_basis']['quantiles'].get('area', {}).get('design_weighted', {}).get(pq), 3) for pq in (0.9, 0.95, 0.99)) + " (" + " / ".join(pct(a['floor_basis']['set_basis']['quantiles'].get('area', {}).get('record_weighted', {}).get(pq), 3) for pq in (0.9, 0.95, 0.99)) + f") | {a['floor_basis']['set_basis']['designs']} set designs, {a['floor_basis']['set_basis']['quantiles'].get('area', {}).get('n_designs')} with records, {a['floor_basis']['set_basis']['quantiles'].get('area', {}).get('n_records')} records |",
+          f"| pooled minima reproduced on that basis (area / power / WNS) | " + " / ".join(pct(a['floor_basis']['set_basis']['pooled_minimum_reproduced'].get(m), 3) for m in ('area', 'power_saif', 'wns')) + f" — the frozen values exactly | design-weighted zero mass {pct(a['floor_basis']['set_basis']['quantiles'].get('area', {}).get('design_weighted_zero_mass'))} of \\|δ_area\\| is 0 on the set basis, {pct(a['floor_basis']['pooled_quantiles'].get('area', {}).get('design_weighted_zero_mass'))} over all table designs (q90 = 0 there) |",
+          f"| E4 tail (> 1 %) by type / by family | {a['floor_basis']['tail_by_ptype']} / {a['floor_basis']['tail_by_family']} | |", "",
           f"E4 tail (records with |δ_area| > 1 %) by perturbation type over the whole frozen table: {a['tail_records_E4']['by_ptype']} of {a['tail_records_E4']['n_over_1pct']} tail records (all E4 records by type {a['tail_records_E4']['by_ptype_all_records']}); per design family: {a['tail_records_E4']['by_family']} (records per family {a['tail_records_E4']['records_by_family']}).", ""]
     # B
     L += ["## B. Fig. 3 — survival per class and level (Phase 4 objects)", "",
@@ -470,7 +539,7 @@ def render(data):
           f"Objects whose stored class_final differs from the class in phase4_exp1.json: {b['class_final_differs_from_json'] or 'none'}.", ""]
     # C
     L += ["## C. O1 — absorption attribution over the 74 absorbed objects", "",
-          f"n = {c['n_absorbed']} ({c['by_label']}). Exclusive categories in order: plain compile (converged with C@E1 under E1) {c['categories']['plain_compile']}; single capability (not plain, reproduced by one flag alone) {c['categories']['single_flag']} — flags among these {c['single_flag_exclusive_of_plain']}; only compile_ultra as a whole (no single option reproduces) {c['categories']['compile_ultra_only']}. Any-order single-flag counts (overlapping, incl. objects also plain-compile) {c['single_flag_counts_any_order']}. By class: {c['by_class']}. phase4.md: {c['phase4_md']}.",
+          f"n = {c['n_absorbed']} ({c['by_label']}). Exclusive categories: plain compile (converged with C@E1 under E1) {c['categories']['plain_compile']} — of these {c['plain_compile_also_single_flag']['n']} are also reproduced by a single flag alone ({c['plain_compile_also_single_flag']['by_flag']}); single capability without plain-compile convergence {c['categories']['single_flag_only']}; only compile_ultra as a whole (no single option reproduces) {c['categories']['compile_ultra_only']}. Single-flag counts in any order {c['single_flag_counts_any_order']}. By class: {c['by_class']}. phase4.md: {c['phase4_md']}. Reconciliation: {c['reconciliation']}.",
           f"Permanence: {c['permanence']['violations']} of {c['permanence']['n']} objects ({pct(c['permanence']['share'])}) violate it — {c['permanence']['definition']}; patterns (E1 E2 E3 E4, R = above the band) {c['permanence']['patterns']}.",
           f"Class (a): {c['class_a']['absorbed_or_identical']} objects collapse to D's E4 netlist ({c['class_a']['identical']}) or converge ({c['class_a']['converged']}); denominator {c['class_a']['n_with_e4']} class-(a) objects with an E4 record, {c['class_a']['n_on_all_rungs']} with a record at every rung ({c['class_a']['note']}); the class-(a) objects without a record at some rung: {c['class_a']['not_on_all_rungs']}.", ""]
     # D
