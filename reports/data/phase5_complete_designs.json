@@ -1,8 +1,11 @@
 {
  "designs": [
   "cktevo_hsm__hsm",
+  "cktevo_usb__usbf_sie_rx",
+  "cktevo_vga_enh__vga_wb_slave",
   "drrtl_arm_cpu2",
   "drrtl_tv80",
+  "rtlopt_divider_8bit",
   "rtlopt_sub_32bit"
  ],
  "preliminary": [
@@ -10,7 +13,7 @@
   "cktevo_risc__btb",
   "rtlopt_decoder_8bit"
  ],
- "at": "2026-09-20T06:11",
+ "at": "2026-09-20T10:57",
  "history": [
   {
    "at": "2026-09-19T04:10",
@@ -52,6 +55,21 @@
    "at": "2026-09-20T06:11",
    "new": [
     "drrtl_tv80"
+   ],
+   "new_preliminary": []
+  },
+  {
+   "at": "2026-09-20T10:26",
+   "new": [
+    "cktevo_vga_enh__vga_wb_slave",
+    "rtlopt_divider_8bit"
+   ],
+   "new_preliminary": []
+  },
+  {
+   "at": "2026-09-20T10:57",
+   "new": [
+    "cktevo_usb__usbf_sie_rx"
    ],
    "new_preliminary": []
   }
