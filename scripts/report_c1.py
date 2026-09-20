@@ -172,7 +172,9 @@ def section_floors(cfg, conn, held, exp1):
 # ----------------------------------------------------------------------------- Phase 5 candidate scan (rule A at E4)
 def scan_phase5(cfg, conn, held):
     """Every non-superseded Phase 5 candidate of the started tiers with its rule-A label at E4 (uniform_diagnosis) where the E4
-    record exists; proven-without-E4 marked pending; prescreened class-(a) candidates with sim + E4 done labelled 'proof pending'."""
+    record exists; proven-without-E4 marked pending; prescreened class-(a) candidates with sim + E4 done labelled 'proof pending';
+    duplicates (label duplicate: the E4 fingerprint of an earlier candidate of the same run, spec 04 §B step 3) collapsed — state
+    'duplicate', never evaluated or counted."""
     tier_of = P5.tier_of_design(cfg)
     designs = P5._Designs(cfg, conn)
     rows = []
@@ -189,6 +191,10 @@ def scan_phase5(cfg, conn, held):
             tags = []
         c["tags"] = sorted({t for t in (norm_subtag(s) for s in tags if isinstance(s, (str, int, float))) if t})
         c["ulabel"], c["gains"], c["state"] = None, {}, None
+        if c.get("label") == "duplicate":   # spec 04 §B step 3: an E4 fingerprint identical to an earlier candidate's of the same run is collapsed, never counted (REQUEST 2026-09-20 (c))
+            c["state"] = "duplicate"
+            rows.append(c)
+            continue
         if c["verdict"] == "proven":
             ud = P5.uniform_diagnosis(designs, conn, c)
             if ud:
