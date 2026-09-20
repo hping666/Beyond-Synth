@@ -1,8 +1,8 @@
 {
  "date": "2026-09-20",
- "generated_at": "2026-09-20T03:31",
+ "generated_at": "2026-09-20T04:30",
  "versions": {
-  "git_sha": "3c7dcd899e9b",
+  "git_sha": "97ccdeaaa066",
   "cfg_hash": "de7d24d19295",
   "floor_version": "phase4",
   "equiv_version": "phase5",
@@ -792,10 +792,10 @@
   }
  },
  "retained_on_offset": {
-  "n": 371,
-  "retained_total": 4223,
+  "n": 335,
+  "retained_total": 3771,
   "designs": {
-   "cktevo_mem_ctrl__mc_adr_sel": 371
+   "cktevo_mem_ctrl__mc_adr_sel": 335
   }
  },
  "map": {
@@ -1857,11 +1857,11 @@
       "M": {
        "table": {
         "a": {
-         "n": 22,
+         "n": 18,
          "labels": {
           "absorbed_identical": 13,
-          "noise": 6,
-          "harmful": 3
+          "noise": 3,
+          "harmful": 2
          },
          "retained": 0,
          "retention_rate": 0.0,
@@ -1874,22 +1874,22 @@
          }
         },
         "b": {
-         "n": 268,
+         "n": 188,
          "labels": {
-          "retained": 104,
-          "tradeoff": 58,
+          "retained": 89,
+          "tradeoff": 47,
           "absorbed_identical": 14,
-          "noise": 60,
-          "harmful": 32
+          "noise": 18,
+          "harmful": 20
          },
-         "retained": 104,
-         "retention_rate": 0.3880597014925373,
+         "retained": 89,
+         "retention_rate": 0.4734042553191489,
          "material": {
-          "any": 97,
-          "area": 60,
-          "power": 97,
+          "any": 83,
+          "area": 53,
+          "power": 83,
           "wns": 0,
-          "rate_any": 0.3619402985074627
+          "rate_any": 0.44148936170212766
          }
         },
         "c1": {
@@ -1909,26 +1909,26 @@
          }
         },
         "d": {
-         "n": 73,
+         "n": 54,
          "labels": {
-          "retained": 46,
-          "tradeoff": 7,
-          "noise": 7,
-          "harmful": 13
+          "retained": 33,
+          "tradeoff": 4,
+          "noise": 6,
+          "harmful": 11
          },
-         "retained": 46,
-         "retention_rate": 0.6301369863013698,
+         "retained": 33,
+         "retention_rate": 0.6111111111111112,
          "material": {
-          "any": 26,
-          "area": 15,
-          "power": 26,
+          "any": 19,
+          "area": 12,
+          "power": 19,
           "wns": 0,
-          "rate_any": 0.3561643835616438
+          "rate_any": 0.35185185185185186
          }
         }
        },
        "proven": 368,
-       "evaluated": 368,
+       "evaluated": 265,
        "e4_pending": 0,
        "dc_rejected": 0,
        "harness": {
@@ -1943,12 +1943,12 @@
      },
      "all_arms": {
       "a": {
-       "n": 467,
+       "n": 463,
        "labels": {
         "absorbed_identical": 144,
         "absorbed": 37,
-        "noise": 99,
-        "harmful": 187
+        "noise": 96,
+        "harmful": 186
        },
        "retained": 0,
        "retention_rate": 0.0,
@@ -1961,23 +1961,23 @@
        }
       },
       "b": {
-       "n": 743,
+       "n": 663,
        "labels": {
-        "retained": 319,
-        "tradeoff": 148,
+        "retained": 304,
+        "tradeoff": 137,
         "absorbed_identical": 25,
         "absorbed": 10,
-        "noise": 150,
-        "harmful": 91
+        "noise": 108,
+        "harmful": 79
        },
-       "retained": 319,
-       "retention_rate": 0.42934051144010765,
+       "retained": 304,
+       "retention_rate": 0.45852187028657615,
        "material": {
-        "any": 261,
-        "area": 155,
-        "power": 261,
+        "any": 247,
+        "area": 148,
+        "power": 247,
         "wns": 0,
-        "rate_any": 0.351278600269179
+        "rate_any": 0.37254901960784315
        }
       },
       "c1": {
@@ -1999,38 +1999,38 @@
        }
       },
       "d": {
-       "n": 267,
+       "n": 248,
        "labels": {
-        "retained": 123,
-        "tradeoff": 45,
-        "noise": 36,
-        "harmful": 63
+        "retained": 110,
+        "tradeoff": 42,
+        "noise": 35,
+        "harmful": 61
        },
-       "retained": 123,
-       "retention_rate": 0.4606741573033708,
+       "retained": 110,
+       "retention_rate": 0.4435483870967742,
        "material": {
-        "any": 44,
-        "area": 33,
-        "power": 44,
+        "any": 37,
+        "area": 30,
+        "power": 37,
         "wns": 0,
-        "rate_any": 0.1647940074906367
+        "rate_any": 0.14919354838709678
        }
       }
      },
      "prescreened_proof_pending": {
-      "n": 143,
+      "n": 157,
       "table": {
        "a": {
-        "n": 143,
+        "n": 157,
         "labels": {
          "retained": 1,
          "tradeoff": 3,
-         "absorbed_identical": 79,
-         "noise": 15,
-         "harmful": 45
+         "absorbed_identical": 88,
+         "noise": 16,
+         "harmful": 49
         },
         "retained": 1,
-        "retention_rate": 0.006993006993006993,
+        "retention_rate": 0.006369426751592357,
         "material": {
          "any": 0,
          "area": 0,
@@ -2041,8 +2041,8 @@
        }
       }
      },
-     "prescreened_sim_pending": 78,
-     "prescreened_e4_pending": 48
+     "prescreened_sim_pending": 42,
+     "prescreened_e4_pending": 64
     },
     "medium": {
      "by_arm": {
@@ -2157,43 +2157,43 @@
          }
         },
         "b": {
-         "n": 703,
+         "n": 710,
          "labels": {
           "retained": 218,
-          "tradeoff": 198,
-          "absorbed_identical": 164,
+          "tradeoff": 199,
+          "absorbed_identical": 169,
           "absorbed": 40,
           "noise": 1,
-          "harmful": 82
+          "harmful": 83
          },
          "retained": 218,
-         "retention_rate": 0.310099573257468,
+         "retention_rate": 0.30704225352112674,
          "material": {
           "any": 150,
           "area": 77,
           "power": 111,
           "wns": 112,
-          "rate_any": 0.21337126600284495
+          "rate_any": 0.2112676056338028
          }
         },
         "c1": {
-         "n": 293,
+         "n": 298,
          "labels": {
           "retained": 135,
-          "tradeoff": 94,
+          "tradeoff": 99,
           "absorbed_identical": 3,
           "absorbed": 1,
           "noise": 30,
           "harmful": 30
          },
          "retained": 135,
-         "retention_rate": 0.46075085324232085,
+         "retention_rate": 0.45302013422818793,
          "material": {
           "any": 133,
           "area": 36,
           "power": 123,
           "wns": 59,
-          "rate_any": 0.4539249146757679
+          "rate_any": 0.4463087248322148
          }
         },
         "d": {
@@ -2217,105 +2217,105 @@
          }
         }
        },
-       "proven": 1744,
-       "evaluated": 1738,
+       "proven": 1756,
+       "evaluated": 1750,
        "e4_pending": 0,
        "dc_rejected": 6,
        "harness": {
         "v1": 978,
-        "v2": 766
+        "v2": 778
        }
       },
       "B2": {
        "table": {
         "a": {
-         "n": 547,
+         "n": 550,
          "labels": {
-          "retained": 113,
+          "retained": 115,
           "tradeoff": 223,
-          "absorbed_identical": 131,
+          "absorbed_identical": 132,
           "absorbed": 12,
           "noise": 2,
           "harmful": 66
          },
-         "retained": 113,
-         "retention_rate": 0.20658135283363802,
+         "retained": 115,
+         "retention_rate": 0.20909090909090908,
          "material": {
-          "any": 109,
-          "area": 106,
-          "power": 109,
+          "any": 111,
+          "area": 108,
+          "power": 111,
           "wns": 7,
-          "rate_any": 0.19926873857404023
+          "rate_any": 0.2018181818181818
          }
         },
         "b": {
-         "n": 1476,
+         "n": 1482,
          "labels": {
-          "retained": 477,
-          "tradeoff": 494,
+          "retained": 478,
+          "tradeoff": 499,
           "absorbed_identical": 274,
           "absorbed": 43,
           "noise": 5,
           "harmful": 183
          },
-         "retained": 477,
-         "retention_rate": 0.3231707317073171,
+         "retained": 478,
+         "retention_rate": 0.3225371120107962,
          "material": {
-          "any": 407,
+          "any": 408,
           "area": 279,
           "power": 311,
-          "wns": 326,
-          "rate_any": 0.2757452574525745
+          "wns": 327,
+          "rate_any": 0.27530364372469635
          }
         },
         "c1": {
-         "n": 583,
+         "n": 585,
          "labels": {
           "retained": 135,
-          "tradeoff": 239,
+          "tradeoff": 241,
           "absorbed_identical": 7,
           "absorbed": 4,
           "noise": 97,
           "harmful": 101
          },
          "retained": 135,
-         "retention_rate": 0.23156089193825044,
+         "retention_rate": 0.23076923076923078,
          "material": {
           "any": 133,
           "area": 37,
           "power": 115,
           "wns": 85,
-          "rate_any": 0.2281303602058319
+          "rate_any": 0.22735042735042735
          }
         },
         "d": {
-         "n": 962,
+         "n": 983,
          "labels": {
-          "retained": 384,
-          "tradeoff": 470,
+          "retained": 404,
+          "tradeoff": 471,
           "absorbed_identical": 39,
           "absorbed": 11,
           "noise": 3,
           "harmful": 55
          },
-         "retained": 384,
-         "retention_rate": 0.3991683991683992,
+         "retained": 404,
+         "retention_rate": 0.41098677517802645,
          "material": {
-          "any": 380,
-          "area": 165,
-          "power": 375,
+          "any": 400,
+          "area": 185,
+          "power": 395,
           "wns": 106,
-          "rate_any": 0.39501039501039503
+          "rate_any": 0.4069175991861648
          }
         }
        },
-       "proven": 3598,
-       "evaluated": 3568,
-       "e4_pending": 18,
+       "proven": 3632,
+       "evaluated": 3600,
+       "e4_pending": 20,
        "dc_rejected": 12,
        "harness": {
         "v1": 1424,
-        "v2": 2174
+        "v2": 2208
        }
       },
       "DrRTL_reimpl": {
@@ -2409,62 +2409,62 @@
       "M": {
        "table": {
         "a": {
-         "n": 391,
+         "n": 328,
          "labels": {
-          "retained": 33,
-          "tradeoff": 154,
+          "retained": 27,
+          "tradeoff": 130,
           "absorbed_identical": 152,
           "absorbed": 1,
           "noise": 2,
-          "harmful": 49
+          "harmful": 16
          },
-         "retained": 33,
-         "retention_rate": 0.08439897698209718,
+         "retained": 27,
+         "retention_rate": 0.08231707317073171,
          "material": {
-          "any": 29,
-          "area": 23,
-          "power": 24,
-          "wns": 7,
-          "rate_any": 0.0741687979539642
+          "any": 24,
+          "area": 18,
+          "power": 20,
+          "wns": 5,
+          "rate_any": 0.07317073170731707
          }
         },
         "b": {
-         "n": 888,
+         "n": 571,
          "labels": {
-          "retained": 416,
-          "tradeoff": 244,
-          "absorbed_identical": 144,
-          "absorbed": 10,
+          "retained": 234,
+          "tradeoff": 137,
+          "absorbed_identical": 145,
+          "absorbed": 5,
           "noise": 1,
-          "harmful": 73
+          "harmful": 49
          },
-         "retained": 416,
-         "retention_rate": 0.46846846846846846,
+         "retained": 234,
+         "retention_rate": 0.4098073555166375,
          "material": {
-          "any": 351,
-          "area": 244,
-          "power": 243,
-          "wns": 292,
-          "rate_any": 0.3952702702702703
+          "any": 191,
+          "area": 136,
+          "power": 122,
+          "wns": 169,
+          "rate_any": 0.3345008756567426
          }
         },
         "c1": {
-         "n": 375,
+         "n": 207,
          "labels": {
-          "retained": 104,
-          "tradeoff": 86,
+          "retained": 54,
+          "tradeoff": 80,
           "absorbed_identical": 2,
-          "noise": 141,
-          "harmful": 42
+          "noise": 35,
+          "harmful": 36
          },
-         "retained": 104,
-         "retention_rate": 0.2773333333333333,
+         "retained": 54,
+         "retention_rate": 0.2608695652173913,
          "material": {
-          "any": 97,
-          "area": 23,
-          "power": 81,
-          "wns": 42,
-          "rate_any": 0.25866666666666666
+          "any": 48,
+          "area": 16,
+          "power": 36,
+          "wns": 25,
+          "rate_any": 0.2318840579710145
          }
         },
         "c2": {
@@ -2483,33 +2483,33 @@
          }
         },
         "d": {
-         "n": 527,
+         "n": 199,
          "labels": {
-          "retained": 239,
-          "tradeoff": 206,
+          "retained": 30,
+          "tradeoff": 115,
           "absorbed_identical": 30,
           "absorbed": 1,
           "noise": 1,
-          "harmful": 50
+          "harmful": 22
          },
-         "retained": 239,
-         "retention_rate": 0.45351043643263755,
+         "retained": 30,
+         "retention_rate": 0.1507537688442211,
          "material": {
-          "any": 239,
-          "area": 51,
-          "power": 239,
-          "wns": 70,
-          "rate_any": 0.45351043643263755
+          "any": 30,
+          "area": 11,
+          "power": 30,
+          "wns": 12,
+          "rate_any": 0.1507537688442211
          }
         }
        },
-       "proven": 2190,
-       "evaluated": 2182,
-       "e4_pending": 6,
+       "proven": 2207,
+       "evaluated": 1306,
+       "e4_pending": 8,
        "dc_rejected": 2,
        "harness": {
         "v1": 413,
-        "v2": 1777
+        "v2": 1794
        }
       }
      },
@@ -2520,63 +2520,63 @@
      },
      "all_arms": {
       "a": {
-       "n": 2265,
+       "n": 2205,
        "labels": {
-        "retained": 424,
-        "tradeoff": 667,
-        "absorbed_identical": 888,
+        "retained": 420,
+        "tradeoff": 643,
+        "absorbed_identical": 889,
         "absorbed": 36,
         "noise": 12,
-        "harmful": 238
+        "harmful": 205
        },
-       "retained": 424,
-       "retention_rate": 0.18719646799116998,
+       "retained": 420,
+       "retention_rate": 0.19047619047619047,
        "material": {
-        "any": 394,
-        "area": 347,
-        "power": 384,
-        "wns": 20,
-        "rate_any": 0.1739514348785872
+        "any": 391,
+        "area": 344,
+        "power": 382,
+        "wns": 18,
+        "rate_any": 0.17732426303854876
        }
       },
       "b": {
-       "n": 3870,
+       "n": 3566,
        "labels": {
-        "retained": 1450,
-        "tradeoff": 1137,
-        "absorbed_identical": 700,
-        "absorbed": 146,
+        "retained": 1269,
+        "tradeoff": 1036,
+        "absorbed_identical": 706,
+        "absorbed": 141,
         "noise": 8,
-        "harmful": 429
+        "harmful": 406
        },
-       "retained": 1450,
-       "retention_rate": 0.37467700258397935,
+       "retained": 1269,
+       "retention_rate": 0.3558609085810432,
        "material": {
-        "any": 1141,
-        "area": 778,
-        "power": 853,
-        "wns": 934,
-        "rate_any": 0.29483204134366925
+        "any": 982,
+        "area": 670,
+        "power": 732,
+        "wns": 812,
+        "rate_any": 0.2753785754346607
        }
       },
       "c1": {
-       "n": 1764,
+       "n": 1603,
        "labels": {
-        "retained": 643,
-        "tradeoff": 565,
+        "retained": 593,
+        "tradeoff": 566,
         "absorbed_identical": 14,
         "absorbed": 5,
-        "noise": 291,
-        "harmful": 246
+        "noise": 185,
+        "harmful": 240
        },
-       "retained": 643,
-       "retention_rate": 0.3645124716553288,
+       "retained": 593,
+       "retention_rate": 0.36993137866500314,
        "material": {
-        "any": 612,
-        "area": 208,
-        "power": 552,
-        "wns": 342,
-        "rate_any": 0.3469387755102041
+        "any": 563,
+        "area": 201,
+        "power": 507,
+        "wns": 325,
+        "rate_any": 0.3512164691203993
        }
       },
       "c2": {
@@ -2595,23 +2595,23 @@
        }
       },
       "d": {
-       "n": 2695,
+       "n": 2388,
        "labels": {
-        "retained": 1244,
-        "tradeoff": 1143,
+        "retained": 1055,
+        "tradeoff": 1053,
         "absorbed_identical": 103,
         "absorbed": 19,
         "noise": 5,
-        "harmful": 181
+        "harmful": 153
        },
-       "retained": 1244,
-       "retention_rate": 0.46159554730983304,
+       "retained": 1055,
+       "retention_rate": 0.4417922948073702,
        "material": {
-        "any": 1209,
-        "area": 552,
-        "power": 1188,
-        "wns": 326,
-        "rate_any": 0.44860853432282005
+        "any": 1020,
+        "area": 532,
+        "power": 999,
+        "wns": 268,
+        "rate_any": 0.4271356783919598
        }
       }
      },
@@ -2816,63 +2816,63 @@
    "by_family": {
     "CktEvo": {
      "a": {
-      "n": 1273,
+      "n": 1238,
       "labels": {
-       "retained": 155,
-       "tradeoff": 493,
+       "retained": 147,
+       "tradeoff": 467,
        "absorbed_identical": 375,
        "absorbed": 32,
        "noise": 1,
-       "harmful": 217
+       "harmful": 216
       },
-      "retained": 155,
-      "retention_rate": 0.12175962293794187,
+      "retained": 147,
+      "retention_rate": 0.11873990306946688,
       "material": {
-       "any": 127,
-       "area": 111,
-       "power": 118,
-       "wns": 17,
-       "rate_any": 0.0997643362136685
+       "any": 120,
+       "area": 105,
+       "power": 112,
+       "wns": 15,
+       "rate_any": 0.09693053311793215
       }
      },
      "b": {
-      "n": 2117,
+      "n": 1934,
       "labels": {
-       "retained": 1005,
-       "tradeoff": 581,
-       "absorbed_identical": 183,
-       "absorbed": 105,
+       "retained": 899,
+       "tradeoff": 527,
+       "absorbed_identical": 184,
+       "absorbed": 100,
        "noise": 62,
-       "harmful": 181
+       "harmful": 162
       },
-      "retained": 1005,
-      "retention_rate": 0.4747283892300425,
+      "retained": 899,
+      "retention_rate": 0.46483971044467426,
       "material": {
-       "any": 658,
-       "area": 325,
-       "power": 373,
-       "wns": 317,
-       "rate_any": 0.3108171941426547
+       "any": 575,
+       "area": 277,
+       "power": 329,
+       "wns": 265,
+       "rate_any": 0.297311271975181
       }
      },
      "c1": {
-      "n": 1288,
+      "n": 1125,
       "labels": {
-       "retained": 443,
-       "tradeoff": 342,
+       "retained": 399,
+       "tradeoff": 335,
        "absorbed_identical": 7,
        "absorbed": 5,
-       "noise": 289,
-       "harmful": 202
+       "noise": 183,
+       "harmful": 196
       },
-      "retained": 443,
-      "retention_rate": 0.343944099378882,
+      "retained": 399,
+      "retention_rate": 0.3546666666666667,
       "material": {
-       "any": 421,
-       "area": 185,
-       "power": 362,
-       "wns": 308,
-       "rate_any": 0.3268633540372671
+       "any": 378,
+       "area": 179,
+       "power": 323,
+       "wns": 293,
+       "rate_any": 0.336
       }
      },
      "c2": {
@@ -2891,226 +2891,226 @@
       }
      },
      "d": {
-      "n": 220,
+      "n": 208,
       "labels": {
-       "retained": 58,
-       "tradeoff": 108,
+       "retained": 49,
+       "tradeoff": 105,
        "absorbed_identical": 17,
        "absorbed": 19,
        "noise": 6,
        "harmful": 12
       },
-      "retained": 58,
-      "retention_rate": 0.2636363636363636,
+      "retained": 49,
+      "retention_rate": 0.23557692307692307,
       "material": {
-       "any": 43,
-       "area": 27,
-       "power": 39,
+       "any": 37,
+       "area": 25,
+       "power": 33,
        "wns": 5,
-       "rate_any": 0.19545454545454546
+       "rate_any": 0.1778846153846154
       }
      }
     },
     "Dr.RTL": {
      "a": {
-      "n": 1006,
+      "n": 1003,
       "labels": {
-       "retained": 61,
+       "retained": 62,
        "tradeoff": 95,
-       "absorbed_identical": 575,
+       "absorbed_identical": 576,
        "absorbed": 41,
-       "noise": 110,
-       "harmful": 124
+       "noise": 107,
+       "harmful": 122
       },
-      "retained": 61,
-      "retention_rate": 0.06063618290258449,
+      "retained": 62,
+      "retention_rate": 0.06181455633100698,
       "material": {
-       "any": 61,
-       "area": 47,
-       "power": 60,
+       "any": 62,
+       "area": 48,
+       "power": 61,
        "wns": 0,
-       "rate_any": 0.06063618290258449
+       "rate_any": 0.06181455633100698
       }
      },
      "b": {
-      "n": 1050,
+      "n": 992,
       "labels": {
-       "retained": 11,
-       "tradeoff": 277,
-       "absorbed_identical": 325,
+       "retained": 12,
+       "tradeoff": 271,
+       "absorbed_identical": 330,
        "absorbed": 47,
-       "noise": 96,
-       "harmful": 294
+       "noise": 54,
+       "harmful": 278
       },
-      "retained": 11,
-      "retention_rate": 0.010476190476190476,
+      "retained": 12,
+      "retention_rate": 0.012096774193548387,
       "material": {
-       "any": 3,
+       "any": 4,
        "area": 2,
        "power": 1,
-       "wns": 1,
-       "rate_any": 0.002857142857142857
+       "wns": 2,
+       "rate_any": 0.004032258064516129
       }
      },
      "c1": {
-      "n": 167,
+      "n": 174,
       "labels": {
        "retained": 13,
-       "tradeoff": 111,
+       "tradeoff": 118,
        "noise": 6,
        "harmful": 37
       },
       "retained": 13,
-      "retention_rate": 0.07784431137724551,
+      "retention_rate": 0.07471264367816093,
       "material": {
        "any": 7,
        "area": 5,
        "power": 7,
        "wns": 2,
-       "rate_any": 0.041916167664670656
+       "rate_any": 0.040229885057471264
       }
      },
      "d": {
-      "n": 183,
+      "n": 176,
       "labels": {
-       "retained": 72,
+       "retained": 68,
        "tradeoff": 17,
-       "noise": 35,
-       "harmful": 59
+       "noise": 34,
+       "harmful": 57
       },
-      "retained": 72,
-      "retention_rate": 0.39344262295081966,
+      "retained": 68,
+      "retention_rate": 0.38636363636363635,
       "material": {
-       "any": 6,
-       "area": 6,
-       "power": 6,
+       "any": 5,
+       "area": 5,
+       "power": 5,
        "wns": 0,
-       "rate_any": 0.03278688524590164
+       "rate_any": 0.028409090909090908
       }
      }
     },
     "RTL-OPT": {
      "a": {
-      "n": 474,
+      "n": 448,
       "labels": {
-       "retained": 209,
-       "tradeoff": 96,
+       "retained": 212,
+       "tradeoff": 98,
        "absorbed_identical": 83,
-       "harmful": 86
+       "harmful": 55
       },
-      "retained": 209,
-      "retention_rate": 0.4409282700421941,
+      "retained": 212,
+      "retention_rate": 0.4732142857142857,
       "material": {
-       "any": 207,
-       "area": 190,
-       "power": 207,
+       "any": 210,
+       "area": 192,
+       "power": 210,
        "wns": 3,
-       "rate_any": 0.43670886075949367
+       "rate_any": 0.46875
       }
      },
      "b": {
-      "n": 1528,
+      "n": 1385,
       "labels": {
-       "retained": 759,
-       "tradeoff": 447,
+       "retained": 668,
+       "tradeoff": 395,
        "absorbed_identical": 265,
        "absorbed": 4,
        "harmful": 53
       },
-      "retained": 759,
-      "retention_rate": 0.4967277486910995,
+      "retained": 668,
+      "retention_rate": 0.48231046931407945,
       "material": {
-       "any": 747,
-       "area": 612,
-       "power": 746,
-       "wns": 617,
-       "rate_any": 0.48887434554973824
+       "any": 656,
+       "area": 545,
+       "power": 655,
+       "wns": 546,
+       "rate_any": 0.4736462093862816
       }
      },
      "c1": {
-      "n": 356,
+      "n": 351,
       "labels": {
-       "retained": 199,
-       "tradeoff": 134,
+       "retained": 193,
+       "tradeoff": 135,
        "absorbed_identical": 7,
        "harmful": 16
       },
-      "retained": 199,
-      "retention_rate": 0.5589887640449438,
+      "retained": 193,
+      "retention_rate": 0.5498575498575499,
       "material": {
-       "any": 190,
-       "area": 21,
-       "power": 189,
-       "wns": 32,
-       "rate_any": 0.5337078651685393
+       "any": 184,
+       "area": 20,
+       "power": 183,
+       "wns": 30,
+       "rate_any": 0.5242165242165242
       }
      },
      "d": {
-      "n": 2574,
+      "n": 2267,
       "labels": {
-       "retained": 1237,
-       "tradeoff": 1065,
+       "retained": 1048,
+       "tradeoff": 975,
        "absorbed_identical": 86,
-       "harmful": 186
+       "harmful": 158
       },
-      "retained": 1237,
-      "retention_rate": 0.48057498057498055,
+      "retained": 1048,
+      "retention_rate": 0.4622849580943979,
       "material": {
-       "any": 1204,
-       "area": 552,
-       "power": 1187,
-       "wns": 321,
-       "rate_any": 0.4677544677544678
+       "any": 1015,
+       "area": 532,
+       "power": 998,
+       "wns": 263,
+       "rate_any": 0.4477282752536392
       }
      }
     }
    },
    "evidence_tags": {
     "registers renamed / retargeted, count and latency unchanged": {
-     "noise": 158,
-     "harmful": 493,
-     "absorbed_identical": 771,
-     "retained": 1764,
-     "tradeoff": 1232
+     "noise": 116,
+     "harmful": 458,
+     "absorbed_identical": 777,
+     "retained": 1568,
+     "tradeoff": 1125
     },
     "state elements unchanged": {
-     "absorbed_identical": 1033,
-     "harmful": 427,
-     "noise": 111,
-     "tradeoff": 684,
-     "retained": 425
+     "absorbed_identical": 1034,
+     "harmful": 393,
+     "noise": 108,
+     "tradeoff": 660,
+     "retained": 421
     },
     "combinational depth ratio >= threshold": {
      "noise": 3,
-     "retained": 1052,
-     "harmful": 186,
+     "retained": 903,
+     "harmful": 158,
      "absorbed_identical": 98,
-     "tradeoff": 978
+     "tradeoff": 888
     },
     "wide text difference without operator / topology evidence": {
-     "retained": 1052,
-     "tradeoff": 591,
-     "harmful": 95,
+     "retained": 952,
+     "tradeoff": 549,
+     "harmful": 94,
      "noise": 2,
      "absorbed_identical": 191
     },
     "flip-flop count and register cells changed": {
-     "tradeoff": 587,
-     "retained": 656,
-     "harmful": 255,
-     "noise": 295,
+     "tradeoff": 588,
+     "retained": 606,
+     "harmful": 249,
+     "noise": 189,
      "absorbed_identical": 14
     },
     "operator family gained: add": {
-     "retained": 719,
-     "tradeoff": 65,
-     "harmful": 85,
-     "noise": 33,
+     "retained": 548,
+     "tradeoff": 61,
+     "harmful": 83,
+     "noise": 32,
      "absorbed_identical": 2
     },
     "operator family gained: add, shift": {
-     "tradeoff": 133,
-     "retained": 63,
+     "tradeoff": 130,
+     "retained": 57,
      "noise": 5,
      "harmful": 4,
      "absorbed_identical": 5
@@ -3119,11 +3119,11 @@
      "retained": 11,
      "harmful": 35,
      "absorbed_identical": 2,
-     "tradeoff": 73
+     "tradeoff": 68
     },
     "operator family gained: mul": {
-     "tradeoff": 92,
-     "retained": 11
+     "tradeoff": 89,
+     "retained": 10
     },
     "operator family gained: shift": {
      "harmful": 8,
@@ -3902,8 +3902,8 @@
        }
       },
       "M": {
-       "proven_evaluated": 117,
-       "retained": 19,
+       "proven_evaluated": 62,
+       "retained": 15,
        "best_retained_gain": {
         "area": 0.04669,
         "power": 0.05811,
@@ -4783,12 +4783,12 @@
       "mean": {
        "area": 0.00322,
        "power": 0.06159,
-       "wns": 0.0179
+       "wns": 0.01786
       },
       "max": {
        "area": 0.00322,
        "power": 0.06159,
-       "wns": 0.0179
+       "wns": 0.01786
       },
       "runs_with_material_retention": 3
      },
@@ -4798,12 +4798,12 @@
       "mean": {
        "area": 0.00322,
        "power": 0.06159,
-       "wns": 0.0179
+       "wns": 0.01786
       },
       "max": {
        "area": 0.00322,
        "power": 0.06159,
-       "wns": 0.0179
+       "wns": 0.01786
       },
       "runs_with_material_retention": 3
      }
@@ -5047,22 +5047,22 @@
     "absorbed_identical_share": 0.14018691588785046
    },
    "B1_E4": {
-    "evaluated": 2084,
-    "harmful": 249,
-    "absorbed_identical": 344,
+    "evaluated": 2096,
+    "harmful": 250,
+    "absorbed_identical": 349,
     "retained": 754,
-    "tradeoff": 616,
-    "harmful_share": 0.11948176583493282,
-    "absorbed_identical_share": 0.16506717850287908
+    "tradeoff": 622,
+    "harmful_share": 0.11927480916030535,
+    "absorbed_identical_share": 0.16650763358778625
    },
    "B2": {
-    "evaluated": 3984,
+    "evaluated": 4016,
     "harmful": 509,
-    "absorbed_identical": 537,
-    "retained": 1209,
-    "tradeoff": 1504,
-    "harmful_share": 0.12776104417670683,
-    "absorbed_identical_share": 0.13478915662650603
+    "absorbed_identical": 538,
+    "retained": 1232,
+    "tradeoff": 1512,
+    "harmful_share": 0.1267430278884462,
+    "absorbed_identical_share": 0.1339641434262948
    },
    "DrRTL_reimpl": {
     "evaluated": 1800,
@@ -5074,51 +5074,51 @@
     "absorbed_identical_share": 0.24
    },
    "M": {
-    "evaluated": 2550,
-    "harmful": 263,
-    "absorbed_identical": 355,
-    "retained": 943,
-    "tradeoff": 759,
-    "harmful_share": 0.10313725490196078,
-    "absorbed_identical_share": 0.1392156862745098
+    "evaluated": 1571,
+    "harmful": 157,
+    "absorbed_identical": 356,
+    "retained": 468,
+    "tradeoff": 517,
+    "harmful_share": 0.09993634627625717,
+    "absorbed_identical_share": 0.2266072565245067
    }
   },
   "retained_vs_tradeoff_by_tag": {
    "registers renamed / retargeted, count and latency unchanged": {
-    "retained": 1764,
-    "tradeoff": 1232
+    "retained": 1568,
+    "tradeoff": 1125
    },
    "combinational depth ratio >= threshold": {
-    "retained": 1052,
-    "tradeoff": 978
+    "retained": 903,
+    "tradeoff": 888
    },
    "wide text difference without operator / topology evidence": {
-    "retained": 1052,
-    "tradeoff": 591
+    "retained": 952,
+    "tradeoff": 549
    },
    "flip-flop count and register cells changed": {
-    "retained": 656,
-    "tradeoff": 587
+    "retained": 606,
+    "tradeoff": 588
    },
    "state elements unchanged": {
-    "retained": 425,
-    "tradeoff": 684
+    "retained": 421,
+    "tradeoff": 660
    },
    "operator family gained: add": {
-    "retained": 719,
-    "tradeoff": 65
+    "retained": 548,
+    "tradeoff": 61
    },
    "operator family gained: add, shift": {
-    "retained": 63,
-    "tradeoff": 133
+    "retained": 57,
+    "tradeoff": 130
    },
    "operator family gained: mul": {
-    "retained": 11,
-    "tradeoff": 92
+    "retained": 10,
+    "tradeoff": 89
    },
    "register widths changed, same cells": {
     "retained": 11,
-    "tradeoff": 73
+    "tradeoff": 68
    },
    "operator family gained: shift": {
     "retained": 6,
@@ -5140,12 +5140,12 @@
   "per_design": {
    "cktevo_hsm__hsm": {
     "tier": "large",
-    "with_verdict": 1053,
+    "with_verdict": 1054,
     "proven": 0,
     "inconclusive": 273,
     "by_class": {
      "a": {
-      "n": 4,
+      "n": 5,
       "proven": 0,
       "inconclusive": 0
      },
@@ -5168,12 +5168,12 @@
    },
    "cktevo_nn_engine__spikeNeuron8_H7": {
     "tier": "large",
-    "with_verdict": 832,
+    "with_verdict": 835,
     "proven": 314,
     "inconclusive": 311,
     "by_class": {
      "a": {
-      "n": 525,
+      "n": 528,
       "proven": 294,
       "inconclusive": 122
      },
@@ -5224,12 +5224,12 @@
    },
    "drrtl_aes": {
     "tier": "large",
-    "with_verdict": 936,
+    "with_verdict": 938,
     "proven": 577,
     "inconclusive": 125,
     "by_class": {
      "a": {
-      "n": 252,
+      "n": 254,
       "proven": 196,
       "inconclusive": 9
      },
@@ -5364,9 +5364,9 @@
    },
    "cktevo_risc__cpu": {
     "tier": "medium",
-    "with_verdict": 856,
-    "proven": 88,
-    "inconclusive": 177,
+    "with_verdict": 861,
+    "proven": 89,
+    "inconclusive": 180,
     "by_class": {
      "a": {
       "n": 103,
@@ -5374,9 +5374,9 @@
       "inconclusive": 13
      },
      "b": {
-      "n": 564,
-      "proven": 68,
-      "inconclusive": 159
+      "n": 569,
+      "proven": 69,
+      "inconclusive": 162
      },
      "c1": {
       "n": 87,
@@ -5392,8 +5392,8 @@
    },
    "cktevo_usb__usbf_sie_rx": {
     "tier": "medium",
-    "with_verdict": 1197,
-    "proven": 819,
+    "with_verdict": 1202,
+    "proven": 820,
     "inconclusive": 0,
     "by_class": {
      "a": {
@@ -5402,12 +5402,12 @@
       "inconclusive": 0
      },
      "b": {
-      "n": 853,
-      "proven": 664,
+      "n": 855,
+      "proven": 665,
       "inconclusive": 0
      },
      "c1": {
-      "n": 324,
+      "n": 327,
       "proven": 139,
       "inconclusive": 0
      },
@@ -5448,22 +5448,22 @@
    },
    "drrtl_SPI": {
     "tier": "medium",
-    "with_verdict": 950,
-    "proven": 129,
-    "inconclusive": 763,
+    "with_verdict": 966,
+    "proven": 130,
+    "inconclusive": 775,
     "by_class": {
      "a": {
-      "n": 369,
-      "proven": 123,
-      "inconclusive": 234
+      "n": 372,
+      "proven": 124,
+      "inconclusive": 236
      },
      "b": {
-      "n": 459,
+      "n": 469,
       "proven": 2,
-      "inconclusive": 439
+      "inconclusive": 449
      },
      "c1": {
-      "n": 63,
+      "n": 66,
       "proven": 2,
       "inconclusive": 43
      },
@@ -5476,18 +5476,18 @@
    },
    "drrtl_UART": {
     "tier": "medium",
-    "with_verdict": 906,
-    "proven": 842,
+    "with_verdict": 918,
+    "proven": 853,
     "inconclusive": 11,
     "by_class": {
      "a": {
-      "n": 198,
-      "proven": 197,
+      "n": 199,
+      "proven": 198,
       "inconclusive": 0
      },
      "b": {
-      "n": 666,
-      "proven": 642,
+      "n": 676,
+      "proven": 652,
       "inconclusive": 10
      },
      "c1": {
@@ -5496,7 +5496,7 @@
       "inconclusive": 1
      },
      "d": {
-      "n": 17,
+      "n": 18,
       "proven": 0,
       "inconclusive": 0
      }
@@ -5560,23 +5560,23 @@
    },
    "drrtl_router": {
     "tier": "medium",
-    "with_verdict": 814,
-    "proven": 667,
+    "with_verdict": 829,
+    "proven": 682,
     "inconclusive": 2,
     "by_class": {
      "a": {
-      "n": 406,
-      "proven": 368,
+      "n": 407,
+      "proven": 369,
       "inconclusive": 0
      },
      "b": {
-      "n": 252,
-      "proven": 181,
+      "n": 259,
+      "proven": 188,
       "inconclusive": 1
      },
      "c1": {
-      "n": 126,
-      "proven": 102,
+      "n": 133,
+      "proven": 109,
       "inconclusive": 1
      },
      "d": {
@@ -5588,27 +5588,27 @@
    },
    "drrtl_simple_spi": {
     "tier": "medium",
-    "with_verdict": 833,
-    "proven": 139,
-    "inconclusive": 517,
+    "with_verdict": 855,
+    "proven": 141,
+    "inconclusive": 533,
     "by_class": {
      "a": {
-      "n": 34,
+      "n": 35,
       "proven": 21,
-      "inconclusive": 5
+      "inconclusive": 6
      },
      "b": {
-      "n": 671,
-      "proven": 89,
-      "inconclusive": 488
+      "n": 685,
+      "proven": 91,
+      "inconclusive": 499
      },
      "c1": {
-      "n": 127,
+      "n": 133,
       "proven": 29,
-      "inconclusive": 24
+      "inconclusive": 28
      },
      "d": {
-      "n": 1,
+      "n": 2,
       "proven": 0,
       "inconclusive": 0
      }
@@ -5639,13 +5639,13 @@
    },
    "rtlopt_calculation": {
     "tier": "medium",
-    "with_verdict": 690,
-    "proven": 541,
+    "with_verdict": 715,
+    "proven": 564,
     "inconclusive": 11,
     "by_class": {
      "a": {
-      "n": 224,
-      "proven": 202,
+      "n": 226,
+      "proven": 204,
       "inconclusive": 11
      },
      "b": {
@@ -5654,8 +5654,8 @@
       "inconclusive": 0
      },
      "d": {
-      "n": 449,
-      "proven": 339,
+      "n": 471,
+      "proven": 360,
       "inconclusive": 0
      }
     }
@@ -5718,13 +5718,13 @@
    },
    "rtlopt_register": {
     "tier": "medium",
-    "with_verdict": 954,
-    "proven": 792,
+    "with_verdict": 964,
+    "proven": 801,
     "inconclusive": 0,
     "by_class": {
      "a": {
-      "n": 137,
-      "proven": 94,
+      "n": 141,
+      "proven": 97,
       "inconclusive": 0
      },
      "b": {
@@ -5733,13 +5733,13 @@
       "inconclusive": 0
      },
      "c1": {
-      "n": 288,
-      "proven": 268,
+      "n": 292,
+      "proven": 272,
       "inconclusive": 0
      },
      "d": {
-      "n": 180,
-      "proven": 150,
+      "n": 182,
+      "proven": 152,
       "inconclusive": 0
      }
     }
@@ -5831,9 +5831,9 @@
     "share": 0.17682926829268292
    },
    "a|v2": {
-    "finished": 1436,
-    "inconclusive": 133,
-    "share": 0.09261838440111421
+    "finished": 1447,
+    "inconclusive": 136,
+    "share": 0.09398756046993781
    },
    "b|v1": {
     "finished": 3296,
@@ -5841,9 +5841,9 @@
     "share": 0.3759101941747573
    },
    "b|v2": {
-    "finished": 3610,
-    "inconclusive": 889,
-    "share": 0.24626038781163434
+    "finished": 3655,
+    "inconclusive": 913,
+    "share": 0.24979480164158688
    },
    "c1|v1": {
     "finished": 1455,
@@ -5851,9 +5851,9 @@
     "share": 0.12714776632302405
    },
    "c1|v2": {
-    "finished": 641,
-    "inconclusive": 78,
-    "share": 0.12168486739469579
+    "finished": 656,
+    "inconclusive": 82,
+    "share": 0.125
    },
    "c2|v1": {
     "finished": 1,
@@ -5866,62 +5866,62 @@
     "share": 0.07503152585119799
    },
    "d|v2": {
-    "finished": 1616,
+    "finished": 1639,
     "inconclusive": 31,
-    "share": 0.019183168316831683
+    "share": 0.018913971934106162
    }
   },
   "inconclusive_by_load": {
    "threshold": 100.0,
-   "n": 10636,
+   "n": 10730,
    "from": "2026-09-18T05:49:54",
    "by_class": {
     "b": {
      "above": {
-      "proven": 2392,
-      "inconclusive": 438,
-      "share": 0.15477031802120142
+      "proven": 2400,
+      "inconclusive": 451,
+      "share": 0.15819010873377762
      },
      "below": {
-      "proven": 1052,
-      "inconclusive": 530,
-      "share": 0.3350189633375474
+      "proven": 1065,
+      "inconclusive": 541,
+      "share": 0.3368617683686177
      }
     },
     "d": {
      "above": {
-      "proven": 1881,
+      "proven": 1894,
       "inconclusive": 24,
-      "share": 0.012598425196850394
+      "share": 0.01251303441084463
      },
      "below": {
-      "proven": 428,
+      "proven": 438,
       "inconclusive": 17,
-      "share": 0.038202247191011236
+      "share": 0.03736263736263736
      }
     },
     "a": {
      "above": {
-      "proven": 1331,
-      "inconclusive": 118,
-      "share": 0.08143547273982056
+      "proven": 1337,
+      "inconclusive": 119,
+      "share": 0.08173076923076923
      },
      "below": {
-      "proven": 722,
-      "inconclusive": 95,
-      "share": 0.11627906976744186
+      "proven": 724,
+      "inconclusive": 97,
+      "share": 0.11814859926918392
      }
     },
     "c1": {
      "above": {
-      "proven": 1267,
-      "inconclusive": 54,
-      "share": 0.0408781226343679
+      "proven": 1271,
+      "inconclusive": 57,
+      "share": 0.04292168674698795
      },
      "below": {
-      "proven": 233,
-      "inconclusive": 53,
-      "share": 0.1853146853146853
+      "proven": 240,
+      "inconclusive": 54,
+      "share": 0.1836734693877551
      }
     },
     "c2": {
@@ -5960,6 +5960,13 @@
    "cktevo_mem_ctrl__mc_adr_sel": [
     [
      "c1ca0b2f6aaedef",
+     "M",
+     "DC rejected (LINK-3)"
+    ]
+   ],
+   "cktevo_nn_engine__spikeNeuron8_H7": [
+    [
+     "cc161641bb4a5f7",
      "M",
      "DC rejected (LINK-3)"
     ]
@@ -6254,8 +6261,8 @@
   "proof_latency_bound": {
    "drrtl_SPI": {
     "median_min": 51.0,
-    "empty_archive_builds": 88,
-    "builds": 206
+    "empty_archive_builds": 94,
+    "builds": 212
    },
    "drrtl_tv80": {
     "median_min": 50.9,
@@ -6274,8 +6281,8 @@
    },
    "drrtl_simple_spi": {
     "median_min": 51.0,
-    "empty_archive_builds": 116,
-    "builds": 158
+    "empty_archive_builds": 120,
+    "builds": 162
    }
   },
   "proof_latency_bound_source": "scripts/report_phase.proof_latency_bound (median proof latency over the finished Phase 5 proofs above the 1 800 s generation window; archive-at-build from gen_summary.archive_json; DECISION 2026-09-19 (k) 3, (l) 4)"
@@ -6298,7 +6305,7 @@
     "item": "prescreened candidates' simulation, E4 and proofs (large-tier M)",
     "owner": "offline pool (prescreened group; proofs after the small tier, DECISION 2026-09-18 (d) B5 / (q) 2)",
     "stage": "Phase 5 completion condition",
-    "status": "sim pending 78, E4 pending 48, proof pending 143"
+    "status": "sim pending 42, E4 pending 64, proof pending 157"
    },
    {
     "item": "E1 (a) / (b) reconciliation (router and tv80 harness_version-1 falsified records re-proven under v2)",
@@ -6610,10 +6617,10 @@
   }
  ],
  "summary": [
-  "1. **Supportable today.** The residual is defined against a measured floor: at E4 the pooled minimum is 0.28 % area / 2.2 % power / 0.03 % WNS of the period; 13 of the 30 Phase 5 designs carry the pooled floor (no measured perturbations at E4), 1 of the 30 is an offset design (mc_adr_sel; its 371 retained verdicts so far are flagged).",
+  "1. **Supportable today.** The residual is defined against a measured floor: at E4 the pooled minimum is 0.28 % area / 2.2 % power / 0.03 % WNS of the period; 13 of the 30 Phase 5 designs carry the pooled floor (no measured perturbations at E4), 1 of the 30 is an offset design (mc_adr_sel; its 335 retained verdicts so far are flagged).",
   "2. **Supportable.** The ladder is real but not monotone: E1 \u2192 E2 is the large step (\u22126 % to \u221237 % area on the probe), the high-effort flags are no-ops, DesignWare is a capability of its own (3\u20136 % either way), retiming and clock gating act only where their structures exist; D's area grows on 10 of 127 designs from E1 to E4.",
   "3. **Supportable (interim).** Rule A at E4 on the Phase 4 B0 objects (10 human-written designs): 55 of 168 proven objects retained (32.7 %), 49 of them above the materiality threshold; map shape 'concentrated' (reports/phase4.md \u00a72) with E4 retention by class a 6 %, b 49 %, c1 100 %, d 94 %.",
-  "4. **Supportable (interim, incomplete).** Phase 5 so far: 4223 of 12237 evaluated proven candidates retained (34.5 %), 3675 above materiality, across 13 tier-arm rows; the large tier's runs are done, the medium tier stands at 35 created, 297 done, 44 running (interim), B0's offline E4 is in for all but 146 proven B0 candidates.",
+  "4. **Supportable (interim, incomplete).** Phase 5 so far: 3771 of 11302 evaluated proven candidates retained (33.4 %), 3254 above materiality, across 13 tier-arm rows; the large tier's runs are done, the medium tier stands at 35 created, 297 done, 44 running (interim), B0's offline E4 is in for all but 146 proven B0 candidates.",
   "5. **Supportable.** The literature's caliber: of B0's Yosys-'improved' candidates with an E4 record, 645 of 1490 are retained at E4 (43.3 %), 179 are absorbed_identical or noise, 183 harmful; on the literature pairs, RTL-OPT better at E1 20 \u2192 retained at E4 11 of 34 proven pairs, RTLRewriter 24 \u2192 10 of 43; under the authors' released RTL-OPT setting (plain compile, 0.1 ns) reproduced on this DC 25 of 33 pairs are better, under the paper's described setting (compile_ultra, 1 ns) 13.",
   "6. **Not yet.** Whether retained gains survive the hidden configurations (C1's certification column) \u2014 sealed until PHASE5_COMPLETE; the final map with rung attribution on Phase 5 candidates (Phase 6 ladder runs); the Dr.RTL per-design comparison (paper numbers not transcribed; the reference row not run); the large-tier M row (641 prescreened candidates await their proofs after the small tier).",
   "7. **Not yet.** Retention on the proof-latency-bound and verification-limited designs (SPI, simple_spi, tv80, cpu; hsm): the proven denominators there are too small, and E1 (a) / (b) may still flip router's and tv80's v1-falsified records.",
