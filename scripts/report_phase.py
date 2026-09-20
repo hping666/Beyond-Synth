@@ -857,6 +857,7 @@ def phase5_notes_section(cfg, tiers, tier_of, latency_bound=None, dc_rejected=No
     """§0a of every Phase 5 report: the design notes and disclosures of DECISION 2026-09-18 (b) items 5c–5e and D1 (wording from
     config exp5.design_notes / exp5.disclosures, printed verbatim) and the proof-latency-bound marks of DECISION 2026-09-19 (k) 3 /
     (l) 4 (the decided wording where the archive stayed empty for all arms; the measured share of empty-archive builds otherwise)."""
+    from src.analysis import phase5 as P5   # imported here as everywhere else in this module (2026-09-20: the §0a power-basis line needs it)
     notes = dict((cfg.get("exp5") or {}).get("design_notes") or {})
     disc = (cfg.get("exp5") or {}).get("disclosures") or []
     for d, v in sorted((latency_bound or {}).items()):
