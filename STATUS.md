@@ -4,6 +4,8 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
+**2026-09-19 20:00 — re-balance 19:55 applied:** SPI 13 / UART 6 / cpu 3 / router 2 / simple_spi 18 / window 8 (implied finish 16.8–18.6 h, spread 1.8 h); daemon restarted 19:56; idle seat-minutes 0 everywhere 16:11–19:11. Medium B0 E4 backlog drained ≈ 17:00; pool on large B0, then E4 retries, then prescreened sims. Tally 0 wins, 3 ties, 1 partial. **ETA: Stage B final ≈ 09-20 14:30 (13:00–16:00); Stage C final ≈ 09-20 22:00 (20:00–24:00).** Hourly checks from 21:10; next re-balance 01:54.
+
 **2026-09-19 15:20:** (m) 7 fired at 14:11 on restart-induced idle seat-minutes — simple_spi threshold 67 → 86 min (its cap); a needless re-fire at 15:10 (0.2-min drift) is fixed by a one-minute minimum raise. Medium B0 E4 backlog 67 left (ETA 16:05).
 
 **2026-09-19 13:58 — re-balance 13:55 applied:** SPI 14 / UART 5 / cpu 3 / router 2 / simple_spi 19 / window 7 (implied finish 19.7–22.4 h, spread 2.6 h); daemon restarted 13:56; idle seat-minutes 0 everywhere 09:10–13:10. Pool 136 / h, medium B0 E4 ETA today 15:28. Tally 0 wins, 3 ties, 1 partial. **ETA: Stage B final ≈ 09-20 12:30 (11:00–14:00; simple_spi's remaining seat-hours grew); Stage C final ≈ 09-20 19:00 (17:00–21:00).** Hourly checks from 15:10; next re-balance 19:54.
