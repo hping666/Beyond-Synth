@@ -1,0 +1,6737 @@
+{
+ "date": "2026-09-20",
+ "generated_at": "2026-09-20T10:24",
+ "materiality": {
+  "area": 0.01,
+  "power": 0.02,
+  "wns": 0.01
+ },
+ "default_power_basis": [
+  "cktevo_hsm__MixColumns",
+  "cktevo_hsm__hsm",
+  "cktevo_nn_engine__thresholds_128x4096",
+  "cktevo_risc__btb",
+  "cktevo_risc__cpu",
+  "cktevo_risc__stall_control_unit",
+  "cktevo_usb__usbf_sie_rx",
+  "cktevo_vga_enh__vga_wb_slave",
+  "drrtl_LSTM",
+  "drrtl_aes",
+  "drrtl_arm_cpu2",
+  "drrtl_simple_spi",
+  "drrtl_tv80"
+ ],
+ "versions": {
+  "git_sha": "d57d8c978997",
+  "cfg_hash": "0e5ba32a034a",
+  "floor_version": "phase4",
+  "equiv_version": "phase5",
+  "harness_version": 2,
+  "calls_per_run": 60
+ },
+ "completion": {
+  "designs": {
+   "cktevo_hsm__hsm": {
+    "tier": "large",
+    "planned": 18,
+    "done": 18,
+    "running": 0,
+    "queued": 0,
+    "blockers": {},
+    "state": "complete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "cktevo_nn_engine__spikeNeuron8_H7": {
+    "tier": "large",
+    "planned": 18,
+    "done": 18,
+    "running": 0,
+    "queued": 0,
+    "blockers": {
+     "proof": 155,
+     "e4_retry": 1
+    },
+    "state": "incomplete",
+    "proofs": 155,
+    "e4": 1,
+    "b0_e4": 0
+   },
+   "cktevo_risc__btb": {
+    "tier": "large",
+    "planned": 18,
+    "done": 18,
+    "running": 0,
+    "queued": 0,
+    "blockers": {
+     "b0_e4": 11
+    },
+    "state": "B0 pending",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 11
+   },
+   "drrtl_LSTM": {
+    "tier": "large",
+    "planned": 18,
+    "done": 0,
+    "running": 0,
+    "queued": 18,
+    "blockers": {},
+    "state": "incomplete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "drrtl_aes": {
+    "tier": "large",
+    "planned": 18,
+    "done": 18,
+    "running": 0,
+    "queued": 0,
+    "blockers": {
+     "b0_e4": 107,
+     "e4_retry": 64,
+     "proof": 20
+    },
+    "state": "incomplete",
+    "proofs": 20,
+    "e4": 64,
+    "b0_e4": 107
+   },
+   "drrtl_tv80": {
+    "tier": "large",
+    "planned": 18,
+    "done": 18,
+    "running": 0,
+    "queued": 0,
+    "blockers": {
+     "proof": 10
+    },
+    "state": "complete",
+    "proofs": 10,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "cktevo_ethmac__eth_cop": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 21,
+    "running": 0,
+    "queued": 0,
+    "blockers": {
+     "b0_e4": 1
+    },
+    "state": "B0 pending",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 1
+   },
+   "cktevo_mem_ctrl__mc_adr_sel": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 20,
+    "running": 1,
+    "queued": 0,
+    "blockers": {
+     "b0_e4": 1,
+     "verdict": 18
+    },
+    "state": "incomplete",
+    "proofs": 18,
+    "e4": 0,
+    "b0_e4": 1
+   },
+   "cktevo_nn_engine__thresholds_128x4096": {
+    "tier": "medium",
+    "planned": 18,
+    "done": 13,
+    "running": 5,
+    "queued": 0,
+    "blockers": {
+     "verdict": 52
+    },
+    "state": "incomplete",
+    "proofs": 52,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "cktevo_risc__cpu": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 15,
+    "running": 6,
+    "queued": 0,
+    "blockers": {
+     "verdict": 64
+    },
+    "state": "incomplete",
+    "proofs": 64,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "cktevo_usb__usbf_sie_rx": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 19,
+    "running": 2,
+    "queued": 0,
+    "blockers": {
+     "verdict": 15
+    },
+    "state": "incomplete",
+    "proofs": 15,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "cktevo_vga_enh__vga_wb_slave": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 21,
+    "running": 0,
+    "queued": 0,
+    "blockers": {},
+    "state": "complete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "drrtl_SPI": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 16,
+    "running": 4,
+    "queued": 1,
+    "blockers": {
+     "verdict": 87
+    },
+    "state": "incomplete",
+    "proofs": 87,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "drrtl_UART": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 16,
+    "running": 5,
+    "queued": 1,
+    "blockers": {
+     "verdict": 171,
+     "e4_retry": 11
+    },
+    "state": "incomplete",
+    "proofs": 171,
+    "e4": 11,
+    "b0_e4": 0
+   },
+   "drrtl_arm_cpu2": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 21,
+    "running": 0,
+    "queued": 0,
+    "blockers": {},
+    "state": "complete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "drrtl_communication": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 16,
+    "running": 2,
+    "queued": 3,
+    "blockers": {
+     "verdict": 6,
+     "b0_e4": 1
+    },
+    "state": "incomplete",
+    "proofs": 6,
+    "e4": 0,
+    "b0_e4": 1
+   },
+   "drrtl_router": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 15,
+    "running": 4,
+    "queued": 2,
+    "blockers": {
+     "verdict": 102
+    },
+    "state": "incomplete",
+    "proofs": 102,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "drrtl_simple_spi": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 15,
+    "running": 6,
+    "queued": 0,
+    "blockers": {
+     "e4_retry": 15,
+     "verdict": 45,
+     "b0_e4": 1
+    },
+    "state": "incomplete",
+    "proofs": 45,
+    "e4": 15,
+    "b0_e4": 1
+   },
+   "rtlopt_alu_64bit": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 17,
+    "running": 4,
+    "queued": 0,
+    "blockers": {
+     "verdict": 60
+    },
+    "state": "incomplete",
+    "proofs": 60,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "rtlopt_calculation": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 15,
+    "running": 3,
+    "queued": 3,
+    "blockers": {
+     "b0_e4": 2,
+     "verdict": 70
+    },
+    "state": "incomplete",
+    "proofs": 70,
+    "e4": 0,
+    "b0_e4": 2
+   },
+   "rtlopt_decoder_8bit": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 21,
+    "running": 0,
+    "queued": 0,
+    "blockers": {
+     "b0_e4": 1
+    },
+    "state": "B0 pending",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 1
+   },
+   "rtlopt_divider_8bit": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 21,
+    "running": 0,
+    "queued": 0,
+    "blockers": {},
+    "state": "complete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "rtlopt_register": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 16,
+    "running": 4,
+    "queued": 1,
+    "blockers": {
+     "b0_e4": 2,
+     "verdict": 23
+    },
+    "state": "incomplete",
+    "proofs": 23,
+    "e4": 0,
+    "b0_e4": 2
+   },
+   "rtlopt_sub_32bit": {
+    "tier": "medium",
+    "planned": 21,
+    "done": 21,
+    "running": 0,
+    "queued": 0,
+    "blockers": {},
+    "state": "complete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "cktevo_hsm__MixColumns": {
+    "tier": "small",
+    "planned": 21,
+    "done": 0,
+    "running": 0,
+    "queued": 21,
+    "blockers": {},
+    "state": "incomplete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "cktevo_risc__stall_control_unit": {
+    "tier": "small",
+    "planned": 21,
+    "done": 0,
+    "running": 0,
+    "queued": 21,
+    "blockers": {},
+    "state": "incomplete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "drrtl_controller": {
+    "tier": "small",
+    "planned": 21,
+    "done": 0,
+    "running": 0,
+    "queued": 21,
+    "blockers": {},
+    "state": "incomplete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "drrtl_ticket_machine": {
+    "tier": "small",
+    "planned": 21,
+    "done": 0,
+    "running": 0,
+    "queued": 21,
+    "blockers": {},
+    "state": "incomplete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "rtlopt_mux_large": {
+    "tier": "small",
+    "planned": 21,
+    "done": 1,
+    "running": 0,
+    "queued": 20,
+    "blockers": {},
+    "state": "incomplete",
+    "proofs": 0,
+    "e4": 0,
+    "b0_e4": 0
+   },
+   "rtlopt_sub_8bit": {
+    "tier": "small",
+    "planned": 21,
+    "done": 0,
+    "running": 5,
+    "queued": 16,
+    "blockers": {
+     "b0_e4": 19,
+     "verdict": 130
+    },
+    "state": "incomplete",
+    "proofs": 130,
+    "e4": 0,
+    "b0_e4": 19
+   }
+  },
+  "complete": [
+   "cktevo_hsm__hsm",
+   "cktevo_vga_enh__vga_wb_slave",
+   "drrtl_arm_cpu2",
+   "drrtl_tv80",
+   "rtlopt_divider_8bit",
+   "rtlopt_sub_32bit"
+  ],
+  "preliminary": [
+   "cktevo_ethmac__eth_cop",
+   "cktevo_risc__btb",
+   "rtlopt_decoder_8bit"
+  ],
+  "incomplete": [
+   "cktevo_nn_engine__spikeNeuron8_H7",
+   "drrtl_LSTM",
+   "drrtl_aes",
+   "cktevo_mem_ctrl__mc_adr_sel",
+   "cktevo_nn_engine__thresholds_128x4096",
+   "cktevo_risc__cpu",
+   "cktevo_usb__usbf_sie_rx",
+   "drrtl_SPI",
+   "drrtl_UART",
+   "drrtl_communication",
+   "drrtl_router",
+   "drrtl_simple_spi",
+   "rtlopt_alu_64bit",
+   "rtlopt_calculation",
+   "rtlopt_register",
+   "cktevo_hsm__MixColumns",
+   "cktevo_risc__stall_control_unit",
+   "drrtl_controller",
+   "drrtl_ticket_machine",
+   "rtlopt_mux_large",
+   "rtlopt_sub_8bit"
+  ],
+  "criterion": null
+ },
+ "criterion": {
+  "per_mode": {
+   "decided": {
+    "description": "the decided tally rule: rule A as run (all three metrics), the arms separated on area (DECISION 2026-09-19 (m) 4 / (n) 2)",
+    "tally": {
+     "tie": 6,
+     "partial": 2,
+     "loss": 1
+    },
+    "designs": {
+     "cktevo_hsm__hsm": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0
+       },
+       "B2": {
+        "area": 0.0
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_vga_enh__vga_wb_slave": {
+      "model": "gpt-5.6-luna",
+      "outcome": "partial",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.01832,
+        "power": 0.02554,
+        "wns": 0.01584
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.016123333333333333,
+        "power": 0.015616666666666666,
+        "wns": 0.02228
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.013286666666666667,
+        "power": 0.020096666666666665,
+        "wns": 0.01687
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.00424,
+        "power": 0.01132,
+        "wns": 0.004773333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.016503333333333335,
+        "power": 0.03142333333333333,
+        "wns": 0.04907666666666667
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.01828,
+        "power": 0.02966,
+        "wns": 0.03571333333333333
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.023086666666666665,
+        "power": 0.03621666666666667,
+        "wns": 0.028996666666666667
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.00038000000000000186
+       },
+       "B2": {
+        "area": 0.003216666666666668
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "drrtl_arm_cpu2": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0
+       },
+       "B2": {
+        "area": 0.0
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "drrtl_tv80": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0
+       },
+       "B2": {
+        "area": 0.0
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_divider_8bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "loss",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.6551,
+        "power": 0.7437666666666667,
+        "wns": 0.12399333333333333
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.63976,
+        "power": 0.72851,
+        "wns": 0.14711
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.65399,
+        "power": 0.7437666666666667,
+        "wns": 0.12928666666666666
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.5485866666666667,
+        "power": 0.63425,
+        "wns": 0.08454666666666666
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.6308633333333333,
+        "power": 0.72215,
+        "wns": 0.10442
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.6602166666666667,
+        "power": 0.7423566666666667,
+        "wns": 0.11477
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.6506566666666667,
+        "power": 0.73636,
+        "wns": 0.13727333333333333
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": -0.008896666666666664
+       },
+       "B2": {
+        "area": -0.02312666666666663
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_sub_32bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0
+       },
+       "B2": {
+        "area": 0.0
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_ethmac__eth_cop": {
+      "model": "gpt-5.6-luna",
+      "outcome": "partial",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.02399,
+        "power": 0.27897666666666665,
+        "wns": 0.004083333333333334
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.020776666666666666,
+        "power": 0.29771,
+        "wns": 0.00301
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.011659999999999998,
+        "power": 0.014113333333333334,
+        "wns": 0.0037366666666666668
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.012629999999999999,
+        "power": 0.23036,
+        "wns": 0.004613333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.02384,
+        "power": 0.1798,
+        "wns": 0.00291
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.046413333333333334,
+        "power": 0.07040333333333333,
+        "wns": 0.00269
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0030633333333333346
+       },
+       "B2": {
+        "area": 0.012180000000000002
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.01121075786212397,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_risc__btb": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.011826666666666666,
+        "power": 0.81724,
+        "wns": 0.002606666666666667
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.021236666666666668,
+        "power": 0.45725,
+        "wns": 0.002416666666666667
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.01965,
+        "power": 0.6844033333333334,
+        "wns": 0.0032333333333333333
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0035466666666666667,
+        "power": 0.018936666666666668,
+        "wns": 0.0012733333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.011593333333333334,
+        "power": 0.19263666666666668,
+        "wns": 0.0018866666666666667
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.019106666666666668,
+        "power": 0.69179,
+        "wns": 0.004156666666666666
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": -0.00213
+       },
+       "B2": {
+        "area": -0.0005433333333333332
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_decoder_8bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.017886666666666665
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06182666666666667,
+        "wns": 0.01813333333333333
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.017873333333333335
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0
+       },
+       "B2": {
+        "area": 0.0
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     }
+    }
+   },
+   "as_run": {
+    "description": "rule A as run (all three metrics), the arms separated on any metric",
+    "tally": {
+     "tie": 5,
+     "win": 2,
+     "loss": 2
+    },
+    "designs": {
+     "cktevo_hsm__hsm": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_vga_enh__vga_wb_slave": {
+      "model": "gpt-5.6-luna",
+      "outcome": "win",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.01832,
+        "power": 0.02554,
+        "wns": 0.01584
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.016123333333333333,
+        "power": 0.015616666666666666,
+        "wns": 0.02228
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.013286666666666667,
+        "power": 0.020096666666666665,
+        "wns": 0.01687
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.00424,
+        "power": 0.01132,
+        "wns": 0.004773333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.016503333333333335,
+        "power": 0.03142333333333333,
+        "wns": 0.04907666666666667
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.01828,
+        "power": 0.02966,
+        "wns": 0.03571333333333333
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.023086666666666665,
+        "power": 0.03621666666666667,
+        "wns": 0.028996666666666667
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.00038000000000000186,
+        "power": 0.015806666666666663,
+        "wns": 0.02679666666666667
+       },
+       "B2": {
+        "area": 0.003216666666666668,
+        "power": 0.011326666666666665,
+        "wns": 0.032206666666666675
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "drrtl_arm_cpu2": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "drrtl_tv80": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_divider_8bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "loss",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.6551,
+        "power": 0.7437666666666667,
+        "wns": 0.12399333333333333
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.63976,
+        "power": 0.72851,
+        "wns": 0.14711
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.65399,
+        "power": 0.7437666666666667,
+        "wns": 0.12928666666666666
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.5485866666666667,
+        "power": 0.63425,
+        "wns": 0.08454666666666666
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.6308633333333333,
+        "power": 0.72215,
+        "wns": 0.10442
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.6602166666666667,
+        "power": 0.7423566666666667,
+        "wns": 0.11477
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.6506566666666667,
+        "power": 0.73636,
+        "wns": 0.13727333333333333
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": -0.008896666666666664,
+        "power": -0.006360000000000032,
+        "wns": -0.04268999999999999
+       },
+       "B2": {
+        "area": -0.02312666666666663,
+        "power": -0.02161666666666673,
+        "wns": -0.024866666666666662
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_sub_32bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_ethmac__eth_cop": {
+      "model": "gpt-5.6-luna",
+      "outcome": "loss",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.02399,
+        "power": 0.27897666666666665,
+        "wns": 0.004083333333333334
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.020776666666666666,
+        "power": 0.29771,
+        "wns": 0.00301
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.011659999999999998,
+        "power": 0.014113333333333334,
+        "wns": 0.0037366666666666668
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.012629999999999999,
+        "power": 0.23036,
+        "wns": 0.004613333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.02384,
+        "power": 0.1798,
+        "wns": 0.00291
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.046413333333333334,
+        "power": 0.07040333333333333,
+        "wns": 0.00269
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0030633333333333346,
+        "power": -0.11790999999999999,
+        "wns": -0.00010000000000000026
+       },
+       "B2": {
+        "area": 0.012180000000000002,
+        "power": 0.16568666666666665,
+        "wns": -0.000826666666666667
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.01121075786212397,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_risc__btb": {
+      "model": "gpt-5.6-terra",
+      "outcome": "win",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.011826666666666666,
+        "power": 0.81724,
+        "wns": 0.002606666666666667
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.021236666666666668,
+        "power": 0.45725,
+        "wns": 0.002416666666666667
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.01965,
+        "power": 0.6844033333333334,
+        "wns": 0.0032333333333333333
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0035466666666666667,
+        "power": 0.018936666666666668,
+        "wns": 0.0012733333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.011593333333333334,
+        "power": 0.19263666666666668,
+        "wns": 0.0018866666666666667
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.019106666666666668,
+        "power": 0.69179,
+        "wns": 0.004156666666666666
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": -0.00213,
+        "power": 0.23454000000000003,
+        "wns": 0.0017399999999999994
+       },
+       "B2": {
+        "area": -0.0005433333333333332,
+        "power": 0.0073866666666666525,
+        "wns": 0.0009233333333333329
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_decoder_8bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.017886666666666665
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06182666666666667,
+        "wns": 0.01813333333333333
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.017873333333333335
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0,
+        "power": -0.00023666666666666974,
+        "wns": -0.00023333333333333192
+       },
+       "B2": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     }
+    }
+   },
+   "saif_any": {
+    "description": "(i) any metric, power only where both records carry SAIF power (excluded on the default-basis designs), rule A applied on the same subset",
+    "tally": {
+     "tie": 5,
+     "win": 2,
+     "loss": 2
+    },
+    "designs": {
+     "cktevo_hsm__hsm": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0,
+        "wns": 0.0
+       },
+       "B2": {
+        "area": 0.0,
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "area",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_vga_enh__vga_wb_slave": {
+      "model": "gpt-5.6-luna",
+      "outcome": "win",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.021993333333333333,
+        "power": 0.0,
+        "wns": 0.01584
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.016123333333333333,
+        "power": 0.0,
+        "wns": 0.02228
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.020666666666666667,
+        "power": 0.0,
+        "wns": 0.02802333333333333
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.00424,
+        "power": 0.0,
+        "wns": 0.004773333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.019683333333333334,
+        "power": 0.0,
+        "wns": 0.04947
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.01828,
+        "power": 0.0,
+        "wns": 0.03571333333333333
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.024486666666666667,
+        "power": 0.0,
+        "wns": 0.028996666666666667
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0035600000000000007,
+        "wns": 0.02719
+       },
+       "B2": {
+        "area": -0.0009833333333333326,
+        "wns": 0.02144666666666667
+       }
+      },
+      "metrics": [
+       "area",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "drrtl_arm_cpu2": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0,
+        "wns": 0.0
+       },
+       "B2": {
+        "area": 0.0,
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "area",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "drrtl_tv80": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0,
+        "wns": 0.0
+       },
+       "B2": {
+        "area": 0.0,
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "area",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_divider_8bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "loss",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.6551,
+        "power": 0.7437666666666667,
+        "wns": 0.12399333333333333
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.63976,
+        "power": 0.72851,
+        "wns": 0.14711
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.65399,
+        "power": 0.7437666666666667,
+        "wns": 0.12928666666666666
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.5485866666666667,
+        "power": 0.63425,
+        "wns": 0.08454666666666666
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.6308633333333333,
+        "power": 0.72215,
+        "wns": 0.10442
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.6602166666666667,
+        "power": 0.7423566666666667,
+        "wns": 0.11477
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.6506566666666667,
+        "power": 0.73636,
+        "wns": 0.13727333333333333
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": -0.008896666666666664,
+        "power": -0.006360000000000032,
+        "wns": -0.04268999999999999
+       },
+       "B2": {
+        "area": -0.02312666666666663,
+        "power": -0.02161666666666673,
+        "wns": -0.024866666666666662
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_sub_32bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.03826,
+        "power": 0.02421,
+        "wns": 0.00055
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_ethmac__eth_cop": {
+      "model": "gpt-5.6-luna",
+      "outcome": "loss",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.028176666666666666,
+        "power": 0.18747,
+        "wns": 0.004083333333333334
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.020776666666666666,
+        "power": 0.29771,
+        "wns": 0.00301
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.011659999999999998,
+        "power": 0.014113333333333334,
+        "wns": 0.0037366666666666668
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.012629999999999999,
+        "power": 0.23036,
+        "wns": 0.004613333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.02384,
+        "power": 0.1798,
+        "wns": 0.00291
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.046413333333333334,
+        "power": 0.07040333333333333,
+        "wns": 0.00269
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0030633333333333346,
+        "power": -0.11790999999999999,
+        "wns": -0.00010000000000000026
+       },
+       "B2": {
+        "area": 0.012180000000000002,
+        "power": 0.16568666666666665,
+        "wns": -0.000826666666666667
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.01121075786212397,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_risc__btb": {
+      "model": "gpt-5.6-terra",
+      "outcome": "win",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.011826666666666666,
+        "power": 0.0,
+        "wns": 0.002606666666666667
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.021236666666666668,
+        "power": 0.0,
+        "wns": 0.002416666666666667
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.01965,
+        "power": 0.0,
+        "wns": 0.0032333333333333333
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0035466666666666667,
+        "power": 0.0,
+        "wns": 0.0012733333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.011593333333333334,
+        "power": 0.0,
+        "wns": 0.0018866666666666667
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.019106666666666668,
+        "power": 0.0,
+        "wns": 0.004156666666666666
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": -0.00213,
+        "wns": 0.0017399999999999994
+       },
+       "B2": {
+        "area": -0.0005433333333333332,
+        "wns": 0.0009233333333333329
+       }
+      },
+      "metrics": [
+       "area",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_decoder_8bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.017886666666666665
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06182666666666667,
+        "wns": 0.01813333333333333
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.017873333333333335
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.00322,
+        "power": 0.06159,
+        "wns": 0.0179
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0,
+        "power": -0.00023666666666666974,
+        "wns": -0.00023333333333333192
+       },
+       "B2": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "area",
+       "power",
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     }
+    }
+   },
+   "area": {
+    "description": "(ii) area only: rule A on area alone, the arms separated on area",
+    "tally": {
+     "tie": 7,
+     "win": 1,
+     "loss": 1
+    },
+    "designs": {
+     "cktevo_hsm__hsm": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0
+       },
+       "B2": {
+        "area": 0.0
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_vga_enh__vga_wb_slave": {
+      "model": "gpt-5.6-luna",
+      "outcome": "win",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.02759,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.020666666666666667,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.020893333333333333,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.00439,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.025206666666666665,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0201,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.024486666666666667,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.004539999999999999
+       },
+       "B2": {
+        "area": 0.004313333333333332
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "drrtl_arm_cpu2": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0
+       },
+       "B2": {
+        "area": 0.0
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "drrtl_tv80": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0
+       },
+       "B2": {
+        "area": 0.0
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_divider_8bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "loss",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.6551,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.63976,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.65399,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.5485866666666667,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.6308633333333333,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.6602166666666667,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.6506566666666667,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": -0.008896666666666664
+       },
+       "B2": {
+        "area": -0.02312666666666663
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_sub_32bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.03826,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.03826,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.03826,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0
+       },
+       "B2": {
+        "area": 0.0
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_ethmac__eth_cop": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.028176666666666666,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.019206666666666667,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.01644333333333333,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.009716666666666667,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.022793333333333332,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.021673333333333333,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.046413333333333334,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0024666666666666656
+       },
+       "B2": {
+        "area": 0.005230000000000002
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.01121075786212397,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_risc__btb": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.012029999999999999,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.021456666666666666,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.019986666666666666,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.002943333333333333,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.015009999999999999,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.020083333333333335,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": -0.0013733333333333306
+       },
+       "B2": {
+        "area": 9.666666666666851e-05
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_decoder_8bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.00322,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.00322,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.00322,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "area": 0.0
+       },
+       "B2": {
+        "area": 0.0
+       }
+      },
+      "metrics": [
+       "area"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     }
+    }
+   },
+   "wns": {
+    "description": "(iii) WNS only: rule A on WNS alone, the arms separated on WNS",
+    "tally": {
+     "tie": 4,
+     "win": 2,
+     "loss": 2,
+     "partial": 1
+    },
+    "designs": {
+     "cktevo_hsm__hsm": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "wns": 0.0
+       },
+       "B2": {
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_vga_enh__vga_wb_slave": {
+      "model": "gpt-5.6-luna",
+      "outcome": "win",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.018206666666666666
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.028053333333333336
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.02802333333333333
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.004773333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.05401333333333334
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.047573333333333336
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.06587666666666667
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "wns": 0.02596
+       },
+       "B2": {
+        "wns": 0.025990000000000006
+       }
+      },
+      "metrics": [
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "drrtl_arm_cpu2": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "wns": 0.0
+       },
+       "B2": {
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "drrtl_tv80": {
+      "model": "gpt-5.6-terra",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "wns": 0.0
+       },
+       "B2": {
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_divider_8bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "loss",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.15198333333333333
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.19762
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.17279
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.16473333333333334
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.17524
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.11477
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.13727333333333333
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "wns": -0.022379999999999983
+       },
+       "B2": {
+        "wns": 0.0024500000000000077
+       }
+      },
+      "metrics": [
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_sub_32bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "loss",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.056536666666666666
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.07727666666666666
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.01517
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.06394333333333334
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.05061
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.06394333333333334
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.054966666666666664
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "wns": -0.013333333333333322
+       },
+       "B2": {
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_ethmac__eth_cop": {
+      "model": "gpt-5.6-luna",
+      "outcome": "partial",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.01381
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.014023333333333334
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.01796
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.015300000000000001
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.008446666666666667
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.017883333333333334
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.009680000000000001
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "wns": 0.0038600000000000006
+       },
+       "B2": {
+        "wns": -7.666666666666586e-05
+       }
+      },
+      "metrics": [
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.01121075786212397,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "cktevo_risc__btb": {
+      "model": "gpt-5.6-terra",
+      "outcome": "win",
+      "means": {
+       "B0|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.002606666666666667
+       },
+       "B1_E4|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.002416666666666667
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0032333333333333333
+       },
+       "DrRTL_reimpl|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0012733333333333333
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0018866666666666667
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.004156666666666666
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "wns": 0.0017399999999999994
+       },
+       "B2": {
+        "wns": 0.0009233333333333329
+       }
+      },
+      "metrics": [
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-terra": 3,
+       "B1_E4|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-terra": 3,
+       "DrRTL_reimpl|gpt-5.6-terra": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3
+      }
+     },
+     "rtlopt_decoder_8bit": {
+      "model": "gpt-5.6-luna",
+      "outcome": "tie",
+      "means": {
+       "B0|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.022826666666666665
+       },
+       "B1_E4|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.01813333333333333
+       },
+       "DrRTL_reimpl|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.017873333333333335
+       },
+       "M|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0179
+       },
+       "M|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.020923333333333332
+       },
+       "B2|gpt-5.6-luna": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0179
+       },
+       "B2|gpt-5.6-terra": {
+        "area": 0.0,
+        "power": 0.0,
+        "wns": 0.0179
+       }
+      },
+      "separations": {
+       "B1_E4": {
+        "wns": -0.00023333333333333192
+       },
+       "B2": {
+        "wns": 0.0
+       }
+      },
+      "metrics": [
+       "wns"
+      ],
+      "t_d": {
+       "area": 0.0027938146505548643,
+       "wns": 0.0003017775,
+       "power": 0.022227533067402338
+      },
+      "runs": {
+       "B0|gpt-5.6-luna": 3,
+       "B1_E4|gpt-5.6-luna": 3,
+       "DrRTL_reimpl|gpt-5.6-luna": 3,
+       "M|gpt-5.6-luna": 3,
+       "M|gpt-5.6-terra": 3,
+       "B2|gpt-5.6-luna": 3,
+       "B2|gpt-5.6-terra": 3
+      }
+     }
+    }
+   }
+  },
+  "designs": {},
+  "reachability": {
+   "designs_total": 30,
+   "decided": 9,
+   "wins_so_far": 0,
+   "wins_needed": 18,
+   "tally_basis": "the decided rule (rule A as run, area separation); the three readings are in item 2",
+   "wins_still_available": 21,
+   "reachable": true,
+   "note": "the criterion is stated under the hidden configurations; this is its visible-layer proxy (DECISION 2026-09-18 (d) F2), the hidden layer stays sealed until the Phase 5 completion marker"
+  },
+  "decided_differently": {
+   "cktevo_vga_enh__vga_wb_slave": {
+    "decided": "partial",
+    "as_run": "win",
+    "saif_any": "win",
+    "area": "win",
+    "wns": "win"
+   },
+   "rtlopt_sub_32bit": {
+    "decided": "tie",
+    "as_run": "tie",
+    "saif_any": "tie",
+    "area": "tie",
+    "wns": "loss"
+   },
+   "cktevo_ethmac__eth_cop": {
+    "decided": "partial",
+    "as_run": "loss",
+    "saif_any": "loss",
+    "area": "tie",
+    "wns": "partial"
+   },
+   "cktevo_risc__btb": {
+    "decided": "tie",
+    "as_run": "win",
+    "saif_any": "win",
+    "area": "tie",
+    "wns": "win"
+   }
+  },
+  "criterion_text": "C2: under hidden configurations at equal DC hours, M's geometric-mean gain exceeds B2's by more than 2\u03c3_D on \u2265 60% of designs; M has an advantage of the same order over B1@E4 (otherwise the static prompt suffices); on Dr.RTL's 20 designs, M is not below Dr.RTL, or reaches the same level with \u2264 1/3 of the DC hours.",
+  "criterion_source": "docs/PROPOSAL.md \u00a77.2 'Success criteria', first bullet (verbatim)"
+ },
+ "reachability": {
+  "designs_total": 30,
+  "decided": 9,
+  "wins_so_far": 0,
+  "wins_needed": 18,
+  "tally_basis": "the decided rule (rule A as run, area separation); the three readings are in item 2",
+  "wins_still_available": 21,
+  "reachable": true,
+  "note": "the criterion is stated under the hidden configurations; this is its visible-layer proxy (DECISION 2026-09-18 (d) F2), the hidden layer stays sealed until the Phase 5 completion marker"
+ },
+ "arms": {
+  "pooled": {
+   "B0|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 16.17,
+    "dc_h": 18.0,
+    "cands": 502,
+    "unusable": 0,
+    "duplicate": 38,
+    "inconclusive": 181,
+    "proven": 141,
+    "proven_per_call": 0.2611111111111111,
+    "retained": 39,
+    "tradeoff": 50,
+    "material": 26,
+    "retained_per_run": 4.333333333333333,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 7.222222222222222,
+    "retained_per_usd": 2.4124273560132066,
+    "retained_per_dc_hour": 2.1607645782353755,
+    "best_mean": {
+     "area": 0.003942222222222222,
+     "power": 0.27241333333333334,
+     "wns": 0.0008688888888888889
+    },
+    "best_max": {
+     "area": 0.01713,
+     "power": 0.82758,
+     "wns": 0.00312
+    }
+   },
+   "B1_E4|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 18.71,
+    "dc_h": 18.1,
+    "cands": 515,
+    "unusable": 0,
+    "duplicate": 25,
+    "inconclusive": 202,
+    "proven": 133,
+    "proven_per_call": 0.2462962962962963,
+    "retained": 81,
+    "tradeoff": 45,
+    "material": 77,
+    "retained_per_run": 9.0,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 15.0,
+    "retained_per_usd": 4.328664497262933,
+    "retained_per_dc_hour": 4.484063582668387,
+    "best_mean": {
+     "area": 0.007078888888888889,
+     "power": 0.15241666666666667,
+     "wns": 0.0008055555555555556
+    },
+    "best_max": {
+     "area": 0.02359,
+     "power": 0.79927,
+     "wns": 0.00391
+    }
+   },
+   "B2|gpt-5.6-terra": {
+    "runs": 27,
+    "runs_done": 27,
+    "designs": 9,
+    "calls": 1620,
+    "usd": 45.82,
+    "dc_h": 52.2,
+    "cands": 1506,
+    "unusable": 29,
+    "duplicate": 85,
+    "inconclusive": 215,
+    "proven": 825,
+    "proven_per_call": 0.5092592592592593,
+    "retained": 396,
+    "tradeoff": 327,
+    "material": 383,
+    "retained_per_run": 14.666666666666666,
+    "runs_with_retained": 15,
+    "share_runs_with_retained": 0.5555555555555556,
+    "retained_per_100_calls": 24.444444444444443,
+    "retained_per_usd": 8.641959625624462,
+    "retained_per_dc_hour": 7.58948226379094,
+    "best_mean": {
+     "area": 0.0816525925925926,
+     "power": 0.17142,
+     "wns": 0.020883703703703703
+    },
+    "best_max": {
+     "area": 0.65844,
+     "power": 0.80486,
+     "wns": 0.16501
+    }
+   },
+   "DrRTL_reimpl|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 16.81,
+    "dc_h": 11.2,
+    "cands": 330,
+    "unusable": 3,
+    "duplicate": 126,
+    "inconclusive": 106,
+    "proven": 119,
+    "proven_per_call": 0.22037037037037038,
+    "retained": 43,
+    "tradeoff": 5,
+    "material": 11,
+    "retained_per_run": 4.777777777777778,
+    "runs_with_retained": 2,
+    "share_runs_with_retained": 0.2222222222222222,
+    "retained_per_100_calls": 7.962962962962963,
+    "retained_per_usd": 2.5587173566426533,
+    "retained_per_dc_hour": 3.8536892602061767,
+    "best_mean": {
+     "area": 0.0011822222222222223,
+     "power": 0.0063122222222222225,
+     "wns": 0.00042444444444444447
+    },
+    "best_max": {
+     "area": 0.00817,
+     "power": 0.05254,
+     "wns": 0.00265
+    }
+   },
+   "M|gpt-5.6-luna": {
+    "runs": 27,
+    "runs_done": 27,
+    "designs": 9,
+    "calls": 1620,
+    "usd": 4.01,
+    "dc_h": 53.3,
+    "cands": 1221,
+    "unusable": 30,
+    "duplicate": 369,
+    "inconclusive": 126,
+    "proven": 354,
+    "proven_per_call": 0.21851851851851853,
+    "retained": 108,
+    "tradeoff": 116,
+    "material": 90,
+    "retained_per_run": 4.0,
+    "runs_with_retained": 18,
+    "share_runs_with_retained": 0.6666666666666666,
+    "retained_per_100_calls": 6.666666666666667,
+    "retained_per_usd": 26.920788910079718,
+    "retained_per_dc_hour": 2.0260953578028125,
+    "best_mean": {
+     "area": 0.08047555555555555,
+     "power": 0.13464555555555555,
+     "wns": 0.019633703703703705
+    },
+    "best_max": {
+     "area": 0.63843,
+     "power": 0.73325,
+     "wns": 0.11385
+    }
+   },
+   "M|gpt-5.6-terra": {
+    "runs": 27,
+    "runs_done": 27,
+    "designs": 9,
+    "calls": 1620,
+    "usd": 43.19,
+    "dc_h": 53.6,
+    "cands": 1145,
+    "unusable": 29,
+    "duplicate": 446,
+    "inconclusive": 196,
+    "proven": 466,
+    "proven_per_call": 0.2876543209876543,
+    "retained": 190,
+    "tradeoff": 193,
+    "material": 182,
+    "retained_per_run": 7.037037037037037,
+    "runs_with_retained": 18,
+    "share_runs_with_retained": 0.6666666666666666,
+    "retained_per_100_calls": 11.728395061728396,
+    "retained_per_usd": 4.3992107357496,
+    "retained_per_dc_hour": 3.542273984535177,
+    "best_mean": {
+     "area": 0.08727740740740741,
+     "power": 0.1800011111111111,
+     "wns": 0.019526666666666668
+    },
+    "best_max": {
+     "area": 0.66578,
+     "power": 0.80826,
+     "wns": 0.13157
+    }
+   },
+   "B0|gpt-5.6-luna": {
+    "runs": 18,
+    "runs_done": 18,
+    "designs": 6,
+    "calls": 1080,
+    "usd": 2.28,
+    "dc_h": 52.2,
+    "cands": 990,
+    "unusable": 3,
+    "duplicate": 87,
+    "inconclusive": 0,
+    "proven": 588,
+    "proven_per_call": 0.5444444444444444,
+    "retained": 315,
+    "tradeoff": 191,
+    "material": 271,
+    "retained_per_run": 17.5,
+    "runs_with_retained": 15,
+    "share_runs_with_retained": 0.8333333333333334,
+    "retained_per_100_calls": 29.166666666666668,
+    "retained_per_usd": 138.21183038817043,
+    "retained_per_dc_hour": 6.039875964169794,
+    "best_mean": {
+     "area": 0.12314833333333333,
+     "power": 0.1890138888888889,
+     "wns": 0.02705888888888889
+    },
+    "best_max": {
+     "area": 0.6551,
+     "power": 0.74818,
+     "wns": 0.15352
+    }
+   },
+   "B1_E4|gpt-5.6-luna": {
+    "runs": 18,
+    "runs_done": 18,
+    "designs": 6,
+    "calls": 1080,
+    "usd": 2.36,
+    "dc_h": 33.2,
+    "cands": 1023,
+    "unusable": 21,
+    "duplicate": 36,
+    "inconclusive": 0,
+    "proven": 645,
+    "proven_per_call": 0.5972222222222222,
+    "retained": 304,
+    "tradeoff": 247,
+    "material": 255,
+    "retained_per_run": 16.88888888888889,
+    "runs_with_retained": 14,
+    "share_runs_with_retained": 0.7777777777777778,
+    "retained_per_100_calls": 28.14814814814815,
+    "retained_per_usd": 128.990114814971,
+    "retained_per_dc_hour": 9.149048228124293,
+    "best_mean": {
+     "area": 0.11969,
+     "power": 0.1879788888888889,
+     "wns": 0.03184722222222222
+    },
+    "best_max": {
+     "area": 0.65377,
+     "power": 0.74683,
+     "wns": 0.20278
+    }
+   },
+   "B2|gpt-5.6-luna": {
+    "runs": 18,
+    "runs_done": 18,
+    "designs": 6,
+    "calls": 1080,
+    "usd": 2.35,
+    "dc_h": 34.0,
+    "cands": 1028,
+    "unusable": 18,
+    "duplicate": 34,
+    "inconclusive": 0,
+    "proven": 641,
+    "proven_per_call": 0.5935185185185186,
+    "retained": 288,
+    "tradeoff": 242,
+    "material": 275,
+    "retained_per_run": 16.0,
+    "runs_with_retained": 13,
+    "share_runs_with_retained": 0.7222222222222222,
+    "retained_per_100_calls": 26.666666666666668,
+    "retained_per_usd": 122.30472943152155,
+    "retained_per_dc_hour": 8.472360232205428,
+    "best_mean": {
+     "area": 0.12006944444444445,
+     "power": 0.14396277777777777,
+     "wns": 0.028057222222222223
+    },
+    "best_max": {
+     "area": 0.6551,
+     "power": 0.74818,
+     "wns": 0.13738
+    }
+   },
+   "DrRTL_reimpl|gpt-5.6-luna": {
+    "runs": 18,
+    "runs_done": 18,
+    "designs": 6,
+    "calls": 1080,
+    "usd": 2.05,
+    "dc_h": 24.3,
+    "cands": 733,
+    "unusable": 14,
+    "duplicate": 188,
+    "inconclusive": 0,
+    "proven": 449,
+    "proven_per_call": 0.41574074074074074,
+    "retained": 214,
+    "tradeoff": 119,
+    "material": 207,
+    "retained_per_run": 11.88888888888889,
+    "runs_with_retained": 14,
+    "share_runs_with_retained": 0.7777777777777778,
+    "retained_per_100_calls": 19.814814814814813,
+    "retained_per_usd": 104.64033506891472,
+    "retained_per_dc_hour": 8.795353897686653,
+    "best_mean": {
+     "area": 0.10115611111111111,
+     "power": 0.16028833333333334,
+     "wns": 0.01872611111111111
+    },
+    "best_max": {
+     "area": 0.66444,
+     "power": 0.74382,
+     "wns": 0.13157
+    }
+   }
+  },
+  "by_tier": {
+   "large": {
+    "B0|gpt-5.6-terra": {
+     "runs": 9,
+     "runs_done": 9,
+     "designs": 3,
+     "calls": 540,
+     "usd": 16.17,
+     "dc_h": 18.0,
+     "cands": 502,
+     "unusable": 0,
+     "duplicate": 38,
+     "inconclusive": 181,
+     "proven": 141,
+     "proven_per_call": 0.2611111111111111,
+     "retained": 39,
+     "tradeoff": 50,
+     "material": 26,
+     "retained_per_run": 4.333333333333333,
+     "runs_with_retained": 3,
+     "share_runs_with_retained": 0.3333333333333333,
+     "retained_per_100_calls": 7.222222222222222,
+     "retained_per_usd": 2.4124273560132066,
+     "retained_per_dc_hour": 2.1607645782353755,
+     "best_mean": {
+      "area": 0.003942222222222222,
+      "power": 0.27241333333333334,
+      "wns": 0.0008688888888888889
+     },
+     "best_max": {
+      "area": 0.01713,
+      "power": 0.82758,
+      "wns": 0.00312
+     }
+    },
+    "B1_E4|gpt-5.6-terra": {
+     "runs": 9,
+     "runs_done": 9,
+     "designs": 3,
+     "calls": 540,
+     "usd": 18.71,
+     "dc_h": 18.1,
+     "cands": 515,
+     "unusable": 0,
+     "duplicate": 25,
+     "inconclusive": 202,
+     "proven": 133,
+     "proven_per_call": 0.2462962962962963,
+     "retained": 81,
+     "tradeoff": 45,
+     "material": 77,
+     "retained_per_run": 9.0,
+     "runs_with_retained": 3,
+     "share_runs_with_retained": 0.3333333333333333,
+     "retained_per_100_calls": 15.0,
+     "retained_per_usd": 4.328664497262933,
+     "retained_per_dc_hour": 4.484063582668387,
+     "best_mean": {
+      "area": 0.007078888888888889,
+      "power": 0.15241666666666667,
+      "wns": 0.0008055555555555556
+     },
+     "best_max": {
+      "area": 0.02359,
+      "power": 0.79927,
+      "wns": 0.00391
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "runs": 9,
+     "runs_done": 9,
+     "designs": 3,
+     "calls": 540,
+     "usd": 18.95,
+     "dc_h": 17.9,
+     "cands": 527,
+     "unusable": 0,
+     "duplicate": 13,
+     "inconclusive": 215,
+     "proven": 135,
+     "proven_per_call": 0.25,
+     "retained": 81,
+     "tradeoff": 37,
+     "material": 73,
+     "retained_per_run": 9.0,
+     "runs_with_retained": 3,
+     "share_runs_with_retained": 0.3333333333333333,
+     "retained_per_100_calls": 15.0,
+     "retained_per_usd": 4.273384441076796,
+     "retained_per_dc_hour": 4.5172114120003535,
+     "best_mean": {
+      "area": 0.00655,
+      "power": 0.22813444444444445,
+      "wns": 0.0010777777777777778
+     },
+     "best_max": {
+      "area": 0.02159,
+      "power": 0.80486,
+      "wns": 0.00432
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-terra": {
+     "runs": 9,
+     "runs_done": 9,
+     "designs": 3,
+     "calls": 540,
+     "usd": 16.81,
+     "dc_h": 11.2,
+     "cands": 330,
+     "unusable": 3,
+     "duplicate": 126,
+     "inconclusive": 106,
+     "proven": 119,
+     "proven_per_call": 0.22037037037037038,
+     "retained": 43,
+     "tradeoff": 5,
+     "material": 11,
+     "retained_per_run": 4.777777777777778,
+     "runs_with_retained": 2,
+     "share_runs_with_retained": 0.2222222222222222,
+     "retained_per_100_calls": 7.962962962962963,
+     "retained_per_usd": 2.5587173566426533,
+     "retained_per_dc_hour": 3.8536892602061767,
+     "best_mean": {
+      "area": 0.0011822222222222223,
+      "power": 0.0063122222222222225,
+      "wns": 0.00042444444444444447
+     },
+     "best_max": {
+      "area": 0.00817,
+      "power": 0.05254,
+      "wns": 0.00265
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "runs": 9,
+     "runs_done": 9,
+     "designs": 3,
+     "calls": 540,
+     "usd": 1.79,
+     "dc_h": 19.5,
+     "cands": 503,
+     "unusable": 6,
+     "duplicate": 31,
+     "inconclusive": 126,
+     "proven": 83,
+     "proven_per_call": 0.1537037037037037,
+     "retained": 40,
+     "tradeoff": 22,
+     "material": 32,
+     "retained_per_run": 4.444444444444445,
+     "runs_with_retained": 3,
+     "share_runs_with_retained": 0.3333333333333333,
+     "retained_per_100_calls": 7.407407407407407,
+     "retained_per_usd": 22.294252474829236,
+     "retained_per_dc_hour": 2.047665092998123,
+     "best_mean": {
+      "area": 0.0038644444444444447,
+      "power": 0.06421222222222223,
+      "wns": 0.0006288888888888889
+     },
+     "best_max": {
+      "area": 0.01763,
+      "power": 0.47757,
+      "wns": 0.00272
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "runs": 9,
+     "runs_done": 9,
+     "designs": 3,
+     "calls": 540,
+     "usd": 18.45,
+     "dc_h": 19.0,
+     "cands": 501,
+     "unusable": 0,
+     "duplicate": 39,
+     "inconclusive": 196,
+     "proven": 102,
+     "proven_per_call": 0.18888888888888888,
+     "retained": 67,
+     "tradeoff": 30,
+     "material": 65,
+     "retained_per_run": 7.444444444444445,
+     "runs_with_retained": 3,
+     "share_runs_with_retained": 0.3333333333333333,
+     "retained_per_100_calls": 12.407407407407407,
+     "retained_per_usd": 3.630501219249648,
+     "retained_per_dc_hour": 3.5262436148967704,
+     "best_mean": {
+      "area": 0.006368888888888889,
+      "power": 0.23059666666666667,
+      "wns": 0.0013855555555555555
+     },
+     "best_max": {
+      "area": 0.02175,
+      "power": 0.80826,
+      "wns": 0.00488
+     }
+    }
+   },
+   "medium": {
+    "B0|gpt-5.6-luna": {
+     "runs": 18,
+     "runs_done": 18,
+     "designs": 6,
+     "calls": 1080,
+     "usd": 2.28,
+     "dc_h": 52.2,
+     "cands": 990,
+     "unusable": 3,
+     "duplicate": 87,
+     "inconclusive": 0,
+     "proven": 588,
+     "proven_per_call": 0.5444444444444444,
+     "retained": 315,
+     "tradeoff": 191,
+     "material": 271,
+     "retained_per_run": 17.5,
+     "runs_with_retained": 15,
+     "share_runs_with_retained": 0.8333333333333334,
+     "retained_per_100_calls": 29.166666666666668,
+     "retained_per_usd": 138.21183038817043,
+     "retained_per_dc_hour": 6.039875964169794,
+     "best_mean": {
+      "area": 0.12314833333333333,
+      "power": 0.1890138888888889,
+      "wns": 0.02705888888888889
+     },
+     "best_max": {
+      "area": 0.6551,
+      "power": 0.74818,
+      "wns": 0.15352
+     }
+    },
+    "B1_E4|gpt-5.6-luna": {
+     "runs": 18,
+     "runs_done": 18,
+     "designs": 6,
+     "calls": 1080,
+     "usd": 2.36,
+     "dc_h": 33.2,
+     "cands": 1023,
+     "unusable": 21,
+     "duplicate": 36,
+     "inconclusive": 0,
+     "proven": 645,
+     "proven_per_call": 0.5972222222222222,
+     "retained": 304,
+     "tradeoff": 247,
+     "material": 255,
+     "retained_per_run": 16.88888888888889,
+     "runs_with_retained": 14,
+     "share_runs_with_retained": 0.7777777777777778,
+     "retained_per_100_calls": 28.14814814814815,
+     "retained_per_usd": 128.990114814971,
+     "retained_per_dc_hour": 9.149048228124293,
+     "best_mean": {
+      "area": 0.11969,
+      "power": 0.1879788888888889,
+      "wns": 0.03184722222222222
+     },
+     "best_max": {
+      "area": 0.65377,
+      "power": 0.74683,
+      "wns": 0.20278
+     }
+    },
+    "B2|gpt-5.6-luna": {
+     "runs": 18,
+     "runs_done": 18,
+     "designs": 6,
+     "calls": 1080,
+     "usd": 2.35,
+     "dc_h": 34.0,
+     "cands": 1028,
+     "unusable": 18,
+     "duplicate": 34,
+     "inconclusive": 0,
+     "proven": 641,
+     "proven_per_call": 0.5935185185185186,
+     "retained": 288,
+     "tradeoff": 242,
+     "material": 275,
+     "retained_per_run": 16.0,
+     "runs_with_retained": 13,
+     "share_runs_with_retained": 0.7222222222222222,
+     "retained_per_100_calls": 26.666666666666668,
+     "retained_per_usd": 122.30472943152155,
+     "retained_per_dc_hour": 8.472360232205428,
+     "best_mean": {
+      "area": 0.12006944444444445,
+      "power": 0.14396277777777777,
+      "wns": 0.028057222222222223
+     },
+     "best_max": {
+      "area": 0.6551,
+      "power": 0.74818,
+      "wns": 0.13738
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "runs": 18,
+     "runs_done": 18,
+     "designs": 6,
+     "calls": 1080,
+     "usd": 26.87,
+     "dc_h": 34.2,
+     "cands": 979,
+     "unusable": 29,
+     "duplicate": 72,
+     "inconclusive": 0,
+     "proven": 690,
+     "proven_per_call": 0.6388888888888888,
+     "retained": 315,
+     "tradeoff": 290,
+     "material": 310,
+     "retained_per_run": 17.5,
+     "runs_with_retained": 12,
+     "share_runs_with_retained": 0.6666666666666666,
+     "retained_per_100_calls": 29.166666666666668,
+     "retained_per_usd": 11.723805542217299,
+     "retained_per_dc_hour": 9.198139607318929,
+     "best_mean": {
+      "area": 0.11920388888888889,
+      "power": 0.1430627777777778,
+      "wns": 0.030786666666666667
+     },
+     "best_max": {
+      "area": 0.65844,
+      "power": 0.7407,
+      "wns": 0.16501
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-luna": {
+     "runs": 18,
+     "runs_done": 18,
+     "designs": 6,
+     "calls": 1080,
+     "usd": 2.05,
+     "dc_h": 24.3,
+     "cands": 733,
+     "unusable": 14,
+     "duplicate": 188,
+     "inconclusive": 0,
+     "proven": 449,
+     "proven_per_call": 0.41574074074074074,
+     "retained": 214,
+     "tradeoff": 119,
+     "material": 207,
+     "retained_per_run": 11.88888888888889,
+     "runs_with_retained": 14,
+     "share_runs_with_retained": 0.7777777777777778,
+     "retained_per_100_calls": 19.814814814814813,
+     "retained_per_usd": 104.64033506891472,
+     "retained_per_dc_hour": 8.795353897686653,
+     "best_mean": {
+      "area": 0.10115611111111111,
+      "power": 0.16028833333333334,
+      "wns": 0.01872611111111111
+     },
+     "best_max": {
+      "area": 0.66444,
+      "power": 0.74382,
+      "wns": 0.13157
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "runs": 18,
+     "runs_done": 18,
+     "designs": 6,
+     "calls": 1080,
+     "usd": 2.22,
+     "dc_h": 33.8,
+     "cands": 718,
+     "unusable": 24,
+     "duplicate": 338,
+     "inconclusive": 0,
+     "proven": 271,
+     "proven_per_call": 0.25092592592592594,
+     "retained": 68,
+     "tradeoff": 94,
+     "material": 58,
+     "retained_per_run": 3.7777777777777777,
+     "runs_with_retained": 15,
+     "share_runs_with_retained": 0.8333333333333334,
+     "retained_per_100_calls": 6.296296296296297,
+     "retained_per_usd": 30.663986625216804,
+     "retained_per_dc_hour": 2.0136182449606075,
+     "best_mean": {
+      "area": 0.11878111111111112,
+      "power": 0.16986222222222222,
+      "wns": 0.029136111111111113
+     },
+     "best_max": {
+      "area": 0.63843,
+      "power": 0.73325,
+      "wns": 0.11385
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "runs": 18,
+     "runs_done": 18,
+     "designs": 6,
+     "calls": 1080,
+     "usd": 24.73,
+     "dc_h": 34.6,
+     "cands": 644,
+     "unusable": 29,
+     "duplicate": 407,
+     "inconclusive": 0,
+     "proven": 364,
+     "proven_per_call": 0.337037037037037,
+     "retained": 123,
+     "tradeoff": 163,
+     "material": 117,
+     "retained_per_run": 6.833333333333333,
+     "runs_with_retained": 15,
+     "share_runs_with_retained": 0.8333333333333334,
+     "retained_per_100_calls": 11.38888888888889,
+     "retained_per_usd": 4.9727482580740805,
+     "retained_per_dc_hour": 3.551067445420783,
+     "best_mean": {
+      "area": 0.12773166666666666,
+      "power": 0.15470333333333333,
+      "wns": 0.028597222222222222
+     },
+     "best_max": {
+      "area": 0.66578,
+      "power": 0.74401,
+      "wns": 0.13157
+     }
+    }
+   }
+  }
+ },
+ "large": {
+  "designs": [
+   "cktevo_hsm__hsm",
+   "drrtl_tv80",
+   "cktevo_risc__btb"
+  ],
+  "a_as_run": {
+   "B0|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 16.17,
+    "dc_h": 18.0,
+    "cands": 502,
+    "unusable": 0,
+    "duplicate": 38,
+    "inconclusive": 181,
+    "proven": 141,
+    "proven_per_call": 0.2611111111111111,
+    "retained": 39,
+    "tradeoff": 50,
+    "material": 26,
+    "retained_per_run": 4.333333333333333,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 7.222222222222222,
+    "retained_per_usd": 2.4124273560132066,
+    "retained_per_dc_hour": 2.1607645782353755,
+    "best_mean": {
+     "area": 0.003942222222222222,
+     "power": 0.27241333333333334,
+     "wns": 0.0008688888888888889
+    },
+    "best_max": {
+     "area": 0.01713,
+     "power": 0.82758,
+     "wns": 0.00312
+    }
+   },
+   "B1_E4|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 18.71,
+    "dc_h": 18.1,
+    "cands": 515,
+    "unusable": 0,
+    "duplicate": 25,
+    "inconclusive": 202,
+    "proven": 133,
+    "proven_per_call": 0.2462962962962963,
+    "retained": 81,
+    "tradeoff": 45,
+    "material": 77,
+    "retained_per_run": 9.0,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 15.0,
+    "retained_per_usd": 4.328664497262933,
+    "retained_per_dc_hour": 4.484063582668387,
+    "best_mean": {
+     "area": 0.007078888888888889,
+     "power": 0.15241666666666667,
+     "wns": 0.0008055555555555556
+    },
+    "best_max": {
+     "area": 0.02359,
+     "power": 0.79927,
+     "wns": 0.00391
+    }
+   },
+   "B2|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 18.95,
+    "dc_h": 17.9,
+    "cands": 527,
+    "unusable": 0,
+    "duplicate": 13,
+    "inconclusive": 215,
+    "proven": 135,
+    "proven_per_call": 0.25,
+    "retained": 81,
+    "tradeoff": 37,
+    "material": 73,
+    "retained_per_run": 9.0,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 15.0,
+    "retained_per_usd": 4.273384441076796,
+    "retained_per_dc_hour": 4.5172114120003535,
+    "best_mean": {
+     "area": 0.00655,
+     "power": 0.22813444444444445,
+     "wns": 0.0010777777777777778
+    },
+    "best_max": {
+     "area": 0.02159,
+     "power": 0.80486,
+     "wns": 0.00432
+    }
+   },
+   "DrRTL_reimpl|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 16.81,
+    "dc_h": 11.2,
+    "cands": 330,
+    "unusable": 3,
+    "duplicate": 126,
+    "inconclusive": 106,
+    "proven": 119,
+    "proven_per_call": 0.22037037037037038,
+    "retained": 43,
+    "tradeoff": 5,
+    "material": 11,
+    "retained_per_run": 4.777777777777778,
+    "runs_with_retained": 2,
+    "share_runs_with_retained": 0.2222222222222222,
+    "retained_per_100_calls": 7.962962962962963,
+    "retained_per_usd": 2.5587173566426533,
+    "retained_per_dc_hour": 3.8536892602061767,
+    "best_mean": {
+     "area": 0.0011822222222222223,
+     "power": 0.0063122222222222225,
+     "wns": 0.00042444444444444447
+    },
+    "best_max": {
+     "area": 0.00817,
+     "power": 0.05254,
+     "wns": 0.00265
+    }
+   },
+   "M|gpt-5.6-luna": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 1.79,
+    "dc_h": 19.5,
+    "cands": 503,
+    "unusable": 6,
+    "duplicate": 31,
+    "inconclusive": 126,
+    "proven": 83,
+    "proven_per_call": 0.1537037037037037,
+    "retained": 40,
+    "tradeoff": 22,
+    "material": 32,
+    "retained_per_run": 4.444444444444445,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 7.407407407407407,
+    "retained_per_usd": 22.294252474829236,
+    "retained_per_dc_hour": 2.047665092998123,
+    "best_mean": {
+     "area": 0.0038644444444444447,
+     "power": 0.06421222222222223,
+     "wns": 0.0006288888888888889
+    },
+    "best_max": {
+     "area": 0.01763,
+     "power": 0.47757,
+     "wns": 0.00272
+    }
+   },
+   "M|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 18.45,
+    "dc_h": 19.0,
+    "cands": 501,
+    "unusable": 0,
+    "duplicate": 39,
+    "inconclusive": 196,
+    "proven": 102,
+    "proven_per_call": 0.18888888888888888,
+    "retained": 67,
+    "tradeoff": 30,
+    "material": 65,
+    "retained_per_run": 7.444444444444445,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 12.407407407407407,
+    "retained_per_usd": 3.630501219249648,
+    "retained_per_dc_hour": 3.5262436148967704,
+    "best_mean": {
+     "area": 0.006368888888888889,
+     "power": 0.23059666666666667,
+     "wns": 0.0013855555555555555
+    },
+    "best_max": {
+     "area": 0.02175,
+     "power": 0.80826,
+     "wns": 0.00488
+    }
+   }
+  },
+  "b_with_prescreened": {
+   "B0|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 16.17,
+    "dc_h": 18.0,
+    "cands": 502,
+    "unusable": 0,
+    "duplicate": 38,
+    "inconclusive": 181,
+    "proven": 141,
+    "proven_per_call": 0.2611111111111111,
+    "retained": 39,
+    "tradeoff": 50,
+    "material": 26,
+    "retained_per_run": 4.333333333333333,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 7.222222222222222,
+    "retained_per_usd": 2.4124273560132066,
+    "retained_per_dc_hour": 2.1607645782353755,
+    "best_mean": {
+     "area": 0.003942222222222222,
+     "power": 0.27241333333333334,
+     "wns": 0.0008688888888888889
+    },
+    "best_max": {
+     "area": 0.01713,
+     "power": 0.82758,
+     "wns": 0.00312
+    }
+   },
+   "B1_E4|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 18.71,
+    "dc_h": 18.1,
+    "cands": 515,
+    "unusable": 0,
+    "duplicate": 25,
+    "inconclusive": 202,
+    "proven": 133,
+    "proven_per_call": 0.2462962962962963,
+    "retained": 81,
+    "tradeoff": 45,
+    "material": 77,
+    "retained_per_run": 9.0,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 15.0,
+    "retained_per_usd": 4.328664497262933,
+    "retained_per_dc_hour": 4.484063582668387,
+    "best_mean": {
+     "area": 0.007078888888888889,
+     "power": 0.15241666666666667,
+     "wns": 0.0008055555555555556
+    },
+    "best_max": {
+     "area": 0.02359,
+     "power": 0.79927,
+     "wns": 0.00391
+    }
+   },
+   "B2|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 18.95,
+    "dc_h": 17.9,
+    "cands": 527,
+    "unusable": 0,
+    "duplicate": 13,
+    "inconclusive": 215,
+    "proven": 135,
+    "proven_per_call": 0.25,
+    "retained": 81,
+    "tradeoff": 37,
+    "material": 73,
+    "retained_per_run": 9.0,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 15.0,
+    "retained_per_usd": 4.273384441076796,
+    "retained_per_dc_hour": 4.5172114120003535,
+    "best_mean": {
+     "area": 0.00655,
+     "power": 0.22813444444444445,
+     "wns": 0.0010777777777777778
+    },
+    "best_max": {
+     "area": 0.02159,
+     "power": 0.80486,
+     "wns": 0.00432
+    }
+   },
+   "DrRTL_reimpl|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 16.81,
+    "dc_h": 11.2,
+    "cands": 330,
+    "unusable": 3,
+    "duplicate": 126,
+    "inconclusive": 106,
+    "proven": 119,
+    "proven_per_call": 0.22037037037037038,
+    "retained": 43,
+    "tradeoff": 5,
+    "material": 11,
+    "retained_per_run": 4.777777777777778,
+    "runs_with_retained": 2,
+    "share_runs_with_retained": 0.2222222222222222,
+    "retained_per_100_calls": 7.962962962962963,
+    "retained_per_usd": 2.5587173566426533,
+    "retained_per_dc_hour": 3.8536892602061767,
+    "best_mean": {
+     "area": 0.0011822222222222223,
+     "power": 0.0063122222222222225,
+     "wns": 0.00042444444444444447
+    },
+    "best_max": {
+     "area": 0.00817,
+     "power": 0.05254,
+     "wns": 0.00265
+    }
+   },
+   "M|gpt-5.6-luna": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 1.79,
+    "dc_h": 19.5,
+    "cands": 503,
+    "unusable": 6,
+    "duplicate": 31,
+    "inconclusive": 126,
+    "proven": 83,
+    "proven_per_call": 0.1537037037037037,
+    "retained": 40,
+    "tradeoff": 24,
+    "material": 32,
+    "retained_per_run": 4.444444444444445,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 7.407407407407407,
+    "retained_per_usd": 22.294252474829236,
+    "retained_per_dc_hour": 2.047665092998123,
+    "best_mean": {
+     "area": 0.0038644444444444447,
+     "power": 0.06421222222222223,
+     "wns": 0.0006288888888888889
+    },
+    "best_max": {
+     "area": 0.01763,
+     "power": 0.47757,
+     "wns": 0.00272
+    },
+    "provisional": 2
+   },
+   "M|gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 18.45,
+    "dc_h": 19.0,
+    "cands": 501,
+    "unusable": 0,
+    "duplicate": 39,
+    "inconclusive": 196,
+    "proven": 102,
+    "proven_per_call": 0.18888888888888888,
+    "retained": 68,
+    "tradeoff": 31,
+    "material": 65,
+    "retained_per_run": 7.555555555555555,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 12.407407407407407,
+    "retained_per_usd": 3.630501219249648,
+    "retained_per_dc_hour": 3.5262436148967704,
+    "best_mean": {
+     "area": 0.006368888888888889,
+     "power": 0.23059666666666667,
+     "wns": 0.0013855555555555555
+    },
+    "best_max": {
+     "area": 0.02175,
+     "power": 0.80826,
+     "wns": 0.00488
+    },
+    "provisional": 2
+   }
+  },
+  "prescreened": {
+   "M|gpt-5.6-luna": {
+    "n": 10,
+    "sim_failed": 6,
+    "e4_pending": 0,
+    "retained": 0,
+    "tradeoff": 2,
+    "other": {
+     "absorbed_identical": 1,
+     "noise": 1
+    }
+   },
+   "M|gpt-5.6-terra": {
+    "n": 6,
+    "sim_failed": 0,
+    "e4_pending": 0,
+    "retained": 1,
+    "tradeoff": 1,
+    "other": {
+     "noise": 3,
+     "absorbed_identical": 1
+    }
+   }
+  },
+  "c_prescreen_off_runs": [
+   {
+    "run_id": "r20260918_104856_drrtl_LSTM_M_-terra_s1",
+    "design": "drrtl_LSTM",
+    "model": "gpt-5.6-terra",
+    "status": "created",
+    "calls": 0
+   },
+   {
+    "run_id": "r20260918_104856_drrtl_LSTM_M_-terra_s2",
+    "design": "drrtl_LSTM",
+    "model": "gpt-5.6-terra",
+    "status": "created",
+    "calls": 0
+   },
+   {
+    "run_id": "r20260918_104856_drrtl_LSTM_M_-terra_s3",
+    "design": "drrtl_LSTM",
+    "model": "gpt-5.6-terra",
+    "status": "created",
+    "calls": 0
+   },
+   {
+    "run_id": "r20260918_104856_drrtl_LSTM_M_6-luna_s1",
+    "design": "drrtl_LSTM",
+    "model": "gpt-5.6-luna",
+    "status": "created",
+    "calls": 0
+   },
+   {
+    "run_id": "r20260918_104857_drrtl_LSTM_M_6-luna_s2",
+    "design": "drrtl_LSTM",
+    "model": "gpt-5.6-luna",
+    "status": "created",
+    "calls": 0
+   },
+   {
+    "run_id": "r20260918_104857_drrtl_LSTM_M_6-luna_s3",
+    "design": "drrtl_LSTM",
+    "model": "gpt-5.6-luna",
+    "status": "created",
+    "calls": 0
+   }
+  ],
+  "ordering_a": [
+   "B1_E4|gpt-5.6-terra",
+   "B2|gpt-5.6-terra",
+   "M|gpt-5.6-terra",
+   "DrRTL_reimpl|gpt-5.6-terra",
+   "M|gpt-5.6-luna",
+   "B0|gpt-5.6-terra"
+  ],
+  "ordering_b": [
+   "B1_E4|gpt-5.6-terra",
+   "B2|gpt-5.6-terra",
+   "M|gpt-5.6-terra",
+   "DrRTL_reimpl|gpt-5.6-terra",
+   "M|gpt-5.6-luna",
+   "B0|gpt-5.6-terra"
+  ],
+  "ordering_changes": false,
+  "proof_note": "the provisional counts are E4 labels without a proof; a prescreened candidate enters the tables only if its SEQ proof comes back proven \u2014 to change the ordering, enough of M's provisionally retained candidates would have to be proven to move M's retained-per-run past the next row, and none of them counts until then",
+  "prescreened_total": 16,
+  "prescreened_all_large": 641
+ },
+ "mechanism": {
+  "rows": {
+   "B0|gpt-5.6-terra": {
+    "proven": 130,
+    "fate": {
+     "retained": 39,
+     "tradeoff": 50,
+     "absorbed": 8,
+     "absorbed_identical": 7,
+     "harmful": 25,
+     "noise": 1
+    },
+    "fate_share": {
+     "retained": 0.3,
+     "tradeoff": 0.38461538461538464,
+     "absorbed": 0.06153846153846154,
+     "absorbed_identical": 0.05384615384615385,
+     "harmful": 0.19230769230769232,
+     "noise": 0.007692307692307693
+    },
+    "calls": 540,
+    "calls_per_retained": 13.846153846153847,
+    "parents_D": 355,
+    "parents_archived": 147,
+    "share_parent_D": 0.7071713147410359,
+    "retained": 39,
+    "retained_gen1": 4,
+    "retained_later": 35,
+    "share_retained_gen1": 0.10256410256410256,
+    "retained_after_verdict_feedback": null,
+    "share_retained_after_verdict_feedback": null
+   },
+   "B1_E4|gpt-5.6-terra": {
+    "proven": 133,
+    "fate": {
+     "harmful": 5,
+     "tradeoff": 45,
+     "noise": 1,
+     "retained": 81,
+     "absorbed": 1
+    },
+    "fate_share": {
+     "harmful": 0.03759398496240601,
+     "tradeoff": 0.3383458646616541,
+     "noise": 0.007518796992481203,
+     "retained": 0.6090225563909775,
+     "absorbed": 0.007518796992481203
+    },
+    "calls": 540,
+    "calls_per_retained": 6.666666666666667,
+    "parents_D": 375,
+    "parents_archived": 140,
+    "share_parent_D": 0.7281553398058253,
+    "retained": 81,
+    "retained_gen1": 4,
+    "retained_later": 77,
+    "share_retained_gen1": 0.04938271604938271,
+    "retained_after_verdict_feedback": null,
+    "share_retained_after_verdict_feedback": null
+   },
+   "B2|gpt-5.6-terra": {
+    "proven": 825,
+    "fate": {
+     "retained": 396,
+     "noise": 6,
+     "harmful": 52,
+     "tradeoff": 327,
+     "absorbed_identical": 44
+    },
+    "fate_share": {
+     "retained": 0.48,
+     "noise": 0.007272727272727273,
+     "harmful": 0.06303030303030303,
+     "tradeoff": 0.39636363636363636,
+     "absorbed_identical": 0.05333333333333334
+    },
+    "calls": 1620,
+    "calls_per_retained": 4.090909090909091,
+    "parents_D": 634,
+    "parents_archived": 872,
+    "share_parent_D": 0.4209827357237716,
+    "retained": 396,
+    "retained_gen1": 26,
+    "retained_later": 370,
+    "share_retained_gen1": 0.06565656565656566,
+    "retained_after_verdict_feedback": null,
+    "share_retained_after_verdict_feedback": null
+   },
+   "DrRTL_reimpl|gpt-5.6-terra": {
+    "proven": 119,
+    "fate": {
+     "noise": 43,
+     "harmful": 26,
+     "retained": 43,
+     "absorbed": 2,
+     "tradeoff": 5
+    },
+    "fate_share": {
+     "noise": 0.36134453781512604,
+     "harmful": 0.2184873949579832,
+     "retained": 0.36134453781512604,
+     "absorbed": 0.01680672268907563,
+     "tradeoff": 0.04201680672268908
+    },
+    "calls": 540,
+    "calls_per_retained": 12.55813953488372,
+    "parents_D": 228,
+    "parents_archived": 102,
+    "share_parent_D": 0.6909090909090909,
+    "retained": 43,
+    "retained_gen1": 3,
+    "retained_later": 40,
+    "share_retained_gen1": 0.06976744186046512,
+    "retained_after_verdict_feedback": null,
+    "share_retained_after_verdict_feedback": null
+   },
+   "M|gpt-5.6-luna": {
+    "proven": 352,
+    "fate": {
+     "harmful": 32,
+     "retained": 108,
+     "tradeoff": 116,
+     "noise": 5,
+     "absorbed_identical": 91
+    },
+    "fate_share": {
+     "harmful": 0.09090909090909091,
+     "retained": 0.3068181818181818,
+     "tradeoff": 0.32954545454545453,
+     "noise": 0.014204545454545454,
+     "absorbed_identical": 0.2585227272727273
+    },
+    "calls": 1620,
+    "calls_per_retained": 15.0,
+    "parents_D": 869,
+    "parents_archived": 352,
+    "share_parent_D": 0.7117117117117117,
+    "retained": 108,
+    "retained_gen1": 15,
+    "retained_later": 93,
+    "share_retained_gen1": 0.1388888888888889,
+    "retained_after_verdict_feedback": 85,
+    "share_retained_after_verdict_feedback": 0.7870370370370371
+   },
+   "M|gpt-5.6-terra": {
+    "proven": 466,
+    "fate": {
+     "retained": 190,
+     "tradeoff": 193,
+     "harmful": 28,
+     "noise": 1,
+     "absorbed_identical": 54
+    },
+    "fate_share": {
+     "retained": 0.40772532188841204,
+     "tradeoff": 0.41416309012875535,
+     "harmful": 0.060085836909871244,
+     "noise": 0.002145922746781116,
+     "absorbed_identical": 0.11587982832618025
+    },
+    "calls": 1620,
+    "calls_per_retained": 8.526315789473685,
+    "parents_D": 771,
+    "parents_archived": 374,
+    "share_parent_D": 0.6733624454148471,
+    "retained": 190,
+    "retained_gen1": 21,
+    "retained_later": 169,
+    "share_retained_gen1": 0.11052631578947368,
+    "retained_after_verdict_feedback": 110,
+    "share_retained_after_verdict_feedback": 0.5789473684210527
+   },
+   "B0|gpt-5.6-luna": {
+    "proven": 586,
+    "fate": {
+     "tradeoff": 191,
+     "retained": 315,
+     "harmful": 16,
+     "absorbed_identical": 64
+    },
+    "fate_share": {
+     "tradeoff": 0.32593856655290104,
+     "retained": 0.537542662116041,
+     "harmful": 0.027303754266211604,
+     "absorbed_identical": 0.10921501706484642
+    },
+    "calls": 1080,
+    "calls_per_retained": 3.4285714285714284,
+    "parents_D": 302,
+    "parents_archived": 688,
+    "share_parent_D": 0.30505050505050507,
+    "retained": 315,
+    "retained_gen1": 24,
+    "retained_later": 291,
+    "share_retained_gen1": 0.0761904761904762,
+    "retained_after_verdict_feedback": null,
+    "share_retained_after_verdict_feedback": null
+   },
+   "B1_E4|gpt-5.6-luna": {
+    "proven": 643,
+    "fate": {
+     "retained": 304,
+     "tradeoff": 247,
+     "harmful": 35,
+     "absorbed_identical": 56,
+     "noise": 1
+    },
+    "fate_share": {
+     "retained": 0.4727838258164852,
+     "tradeoff": 0.38413685847589424,
+     "harmful": 0.05443234836702955,
+     "absorbed_identical": 0.08709175738724728,
+     "noise": 0.0015552099533437014
+    },
+    "calls": 1080,
+    "calls_per_retained": 3.5526315789473686,
+    "parents_D": 264,
+    "parents_archived": 759,
+    "share_parent_D": 0.25806451612903225,
+    "retained": 304,
+    "retained_gen1": 20,
+    "retained_later": 284,
+    "share_retained_gen1": 0.06578947368421052,
+    "retained_after_verdict_feedback": null,
+    "share_retained_after_verdict_feedback": null
+   },
+   "B2|gpt-5.6-luna": {
+    "proven": 639,
+    "fate": {
+     "harmful": 48,
+     "tradeoff": 242,
+     "retained": 288,
+     "absorbed_identical": 61
+    },
+    "fate_share": {
+     "harmful": 0.07511737089201878,
+     "tradeoff": 0.37871674491392804,
+     "retained": 0.4507042253521127,
+     "absorbed_identical": 0.09546165884194054
+    },
+    "calls": 1080,
+    "calls_per_retained": 3.75,
+    "parents_D": 283,
+    "parents_archived": 745,
+    "share_parent_D": 0.27529182879377434,
+    "retained": 288,
+    "retained_gen1": 18,
+    "retained_later": 270,
+    "share_retained_gen1": 0.0625,
+    "retained_after_verdict_feedback": null,
+    "share_retained_after_verdict_feedback": null
+   },
+   "DrRTL_reimpl|gpt-5.6-luna": {
+    "proven": 448,
+    "fate": {
+     "tradeoff": 119,
+     "retained": 214,
+     "harmful": 18,
+     "absorbed_identical": 97
+    },
+    "fate_share": {
+     "tradeoff": 0.265625,
+     "retained": 0.47767857142857145,
+     "harmful": 0.04017857142857143,
+     "absorbed_identical": 0.21651785714285715
+    },
+    "calls": 1080,
+    "calls_per_retained": 5.046728971962617,
+    "parents_D": 338,
+    "parents_archived": 395,
+    "share_parent_D": 0.461118690313779,
+    "retained": 214,
+    "retained_gen1": 21,
+    "retained_later": 193,
+    "share_retained_gen1": 0.09813084112149532,
+    "retained_after_verdict_feedback": null,
+    "share_retained_after_verdict_feedback": null
+   }
+  },
+  "unverified_at_build_by_tier_row": {
+   "large": {
+    "gpt-5.6-terra|B1_E4": 0.7442,
+    "gpt-5.6-terra|B0": 0.7558,
+    "gpt-5.6-terra|B2": 0.7572,
+    "gpt-5.6-terra|M": 0.4787,
+    "gpt-5.6-terra|DrRTL_reimpl": 0.5529,
+    "gpt-5.6-luna|M": 0.4244
+   },
+   "medium": {
+    "gpt-5.6-luna|B0": 0.1966,
+    "gpt-5.6-luna|B1_E4": 0.2803,
+    "gpt-5.6-luna|B2": 0.3078,
+    "gpt-5.6-terra|B2": 0.2659,
+    "gpt-5.6-luna|DrRTL_reimpl": 0.1554,
+    "gpt-5.6-luna|M": 0.4036,
+    "gpt-5.6-terra|M": 0.3589
+   },
+   "small": {
+    "gpt-5.6-luna|DrRTL_reimpl": 0.0,
+    "gpt-5.6-luna|M": 0.0,
+    "gpt-5.6-luna|B2": 0.7619,
+    "gpt-5.6-luna|B0": 0.7343,
+    "gpt-5.6-luna|B1_E4": 0.7844
+   }
+  }
+ },
+ "latency_bound": {
+  "window_s": 1800,
+  "designs": {
+   "cktevo_risc__cpu": {
+    "tier": "medium",
+    "median_min": 51.15,
+    "empty": "156 of 156 (B0-luna 36/36, B1_E4-luna 21/21, B2-luna 19/19, B2-terra 19/19, DrRTL_reimpl-luna 18/18, M-luna 19/19, M-terra 24/24)",
+    "complete": false
+   },
+   "drrtl_SPI": {
+    "tier": "medium",
+    "median_min": 51.05,
+    "empty": "115 of 233 (B0-luna 34/34, B1_E4-luna 6/36, B2-luna 8/36, B2-terra 4/36, DrRTL_reimpl-luna 3/31, M-luna 24/24, M-terra 36/36)",
+    "complete": false
+   },
+   "drrtl_aes": {
+    "tier": "large",
+    "median_min": 31.4,
+    "empty": "90 of 189 (B0-terra 8/35, B1_E4-terra 9/33, B2-terra 8/31, DrRTL_reimpl-terra 16/32, M-luna 27/29, M-terra 22/29)",
+    "complete": false
+   },
+   "drrtl_simple_spi": {
+    "tier": "medium",
+    "median_min": 51.0,
+    "empty": "142 of 184 (B0-luna 11/31, B1_E4-luna 33/33, B2-luna 30/30, B2-terra 27/32, DrRTL_reimpl-luna 13/30, M-luna 22/22, M-terra 6/6)",
+    "complete": false
+   },
+   "drrtl_tv80": {
+    "tier": "large",
+    "median_min": 50.9,
+    "empty": "195 of 195 (B0-terra 35/35, B1_E4-terra 33/33, B2-terra 32/32, DrRTL_reimpl-terra 33/33, M-luna 30/30, M-terra 32/32)",
+    "complete": true
+   }
+  },
+  "tally_excluding": {
+   "tie": 5,
+   "partial": 2,
+   "loss": 1
+  },
+  "tally_excluding_as_run": {
+   "tie": 4,
+   "win": 2,
+   "loss": 2
+  },
+  "n_after": 8
+ },
+ "zero_proven": {
+  "n": 3,
+  "designs": [
+   "cktevo_hsm__hsm",
+   "drrtl_arm_cpu2",
+   "drrtl_tv80"
+  ]
+ },
+ "designs": {
+  "cktevo_hsm__hsm": {
+   "tier": "large",
+   "family": "CktEvo",
+   "floor_class": null,
+   "t_d": {
+    "area": 0.0027938146505548643,
+    "wns": 0.0003017775,
+    "power": 0.022227533067402338
+   },
+   "power_basis": "default",
+   "candidates": 1055,
+   "proven": 0,
+   "proven_rate": 0.0,
+   "best": {
+    "B0|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "B1_E4|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "outcome": "tie",
+   "deciders": []
+  },
+  "cktevo_vga_enh__vga_wb_slave": {
+   "tier": "medium",
+   "family": "CktEvo",
+   "floor_class": null,
+   "t_d": {
+    "area": 0.0027938146505548643,
+    "wns": 0.0003017775,
+    "power": 0.022227533067402338
+   },
+   "power_basis": "default",
+   "candidates": 1114,
+   "proven": 693,
+   "proven_rate": 0.6220825852782765,
+   "best": {
+    "B0|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.01832,
+      "power": 0.02554,
+      "wns": 0.01584
+     },
+     "max": {
+      "area": 0.02328,
+      "power": 0.02703,
+      "wns": 0.02211
+     }
+    },
+    "B1_E4|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.016123333333333333,
+      "power": 0.015616666666666666,
+      "wns": 0.02228
+     },
+     "max": {
+      "area": 0.02328,
+      "power": 0.03371,
+      "wns": 0.03588
+     }
+    },
+    "B2|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.013286666666666667,
+      "power": 0.020096666666666665,
+      "wns": 0.01687
+     },
+     "max": {
+      "area": 0.02044,
+      "power": 0.03501,
+      "wns": 0.03875
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.00424,
+      "power": 0.01132,
+      "wns": 0.004773333333333333
+     },
+     "max": {
+      "area": 0.01317,
+      "power": 0.0344,
+      "wns": 0.00727
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.016503333333333335,
+      "power": 0.03142333333333333,
+      "wns": 0.04907666666666667
+     },
+     "max": {
+      "area": 0.02044,
+      "power": 0.03371,
+      "wns": 0.11385
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.01828,
+      "power": 0.02966,
+      "wns": 0.03571333333333333
+     },
+     "max": {
+      "area": 0.02055,
+      "power": 0.03409,
+      "wns": 0.03999
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.023086666666666665,
+      "power": 0.03621666666666667,
+      "wns": 0.028996666666666667
+     },
+     "max": {
+      "area": 0.0235,
+      "power": 0.04286,
+      "wns": 0.04875
+     }
+    }
+   },
+   "outcome": "win",
+   "deciders": [
+    {
+     "cand_id": "c47c376845c7d0d",
+     "class": "b",
+     "tags": [
+      "registers renamed / retargeted, count and latency unchanged"
+     ],
+     "gains": {
+      "area": 0.02044,
+      "power": 0.01896,
+      "wns": 0.00468
+     },
+     "gen": 1
+    },
+    {
+     "cand_id": "c46ed7eb3ba5dce",
+     "class": "c1",
+     "tags": [
+      "flip-flop count and register cells changed"
+     ],
+     "gains": {
+      "area": 0.02021,
+      "power": 0.00444,
+      "wns": 0.00453
+     },
+     "gen": 7
+    },
+    {
+     "cand_id": "cfc5316b0c74c7f",
+     "class": "c1",
+     "tags": [
+      "flip-flop count and register cells changed"
+     ],
+     "gains": {
+      "area": 0.01919,
+      "power": 0.03272,
+      "wns": 0.01484
+     },
+     "gen": 5
+    }
+   ]
+  },
+  "drrtl_arm_cpu2": {
+   "tier": "medium",
+   "family": "Dr.RTL",
+   "floor_class": null,
+   "t_d": {
+    "area": 0.0027938146505548643,
+    "wns": 0.0003017775,
+    "power": 0.022227533067402338
+   },
+   "power_basis": "default",
+   "candidates": 1102,
+   "proven": 0,
+   "proven_rate": 0.0,
+   "best": {
+    "B0|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "B1_E4|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "B2|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "outcome": "tie",
+   "deciders": []
+  },
+  "drrtl_tv80": {
+   "tier": "large",
+   "family": "Dr.RTL",
+   "floor_class": null,
+   "t_d": {
+    "area": 0.0027938146505548643,
+    "wns": 0.0003017775,
+    "power": 0.022227533067402338
+   },
+   "power_basis": "default",
+   "candidates": 834,
+   "proven": 0,
+   "proven_rate": 0.0,
+   "best": {
+    "B0|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "B1_E4|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    }
+   },
+   "outcome": "tie",
+   "deciders": []
+  },
+  "rtlopt_divider_8bit": {
+   "tier": "medium",
+   "family": "RTL-OPT",
+   "floor_class": "quiet",
+   "t_d": {
+    "area": 0.0027938146505548643,
+    "wns": 0.0003017775,
+    "power": 0.022227533067402338
+   },
+   "power_basis": "saif",
+   "candidates": 1082,
+   "proven": 788,
+   "proven_rate": 0.7282809611829945,
+   "best": {
+    "B0|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.6551,
+      "power": 0.7437666666666667,
+      "wns": 0.12399333333333333
+     },
+     "max": {
+      "area": 0.6551,
+      "power": 0.74818,
+      "wns": 0.15352
+     }
+    },
+    "B1_E4|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.63976,
+      "power": 0.72851,
+      "wns": 0.14711
+     },
+     "max": {
+      "area": 0.65377,
+      "power": 0.74683,
+      "wns": 0.20278
+     }
+    },
+    "B2|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.65399,
+      "power": 0.7437666666666667,
+      "wns": 0.12928666666666666
+     },
+     "max": {
+      "area": 0.6551,
+      "power": 0.74818,
+      "wns": 0.13738
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.5485866666666667,
+      "power": 0.63425,
+      "wns": 0.08454666666666666
+     },
+     "max": {
+      "area": 0.66444,
+      "power": 0.74382,
+      "wns": 0.13157
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.6308633333333333,
+      "power": 0.72215,
+      "wns": 0.10442
+     },
+     "max": {
+      "area": 0.63843,
+      "power": 0.73325,
+      "wns": 0.11383
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.6602166666666667,
+      "power": 0.7423566666666667,
+      "wns": 0.11477
+     },
+     "max": {
+      "area": 0.66578,
+      "power": 0.74401,
+      "wns": 0.13157
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.6506566666666667,
+      "power": 0.73636,
+      "wns": 0.13727333333333333
+     },
+     "max": {
+      "area": 0.65844,
+      "power": 0.7407,
+      "wns": 0.16501
+     }
+    }
+   },
+   "outcome": "loss",
+   "deciders": [
+    {
+     "cand_id": "cf0fd9e3c86d7cf",
+     "class": "b",
+     "tags": [
+      "registers renamed / retargeted, count and latency unchanged",
+      "wide text difference without operator / topology evidence"
+     ],
+     "gains": {
+      "area": 0.63843,
+      "power": 0.73325,
+      "wns": 0.02912
+     },
+     "gen": 9
+    },
+    {
+     "cand_id": "cb44bbd80315040",
+     "class": "b",
+     "tags": [
+      "registers renamed / retargeted, count and latency unchanged",
+      "wide text difference without operator / topology evidence"
+     ],
+     "gains": {
+      "area": 0.62708,
+      "power": 0.7127,
+      "wns": 0.02616
+     },
+     "gen": 2
+    },
+    {
+     "cand_id": "c3c0f0560f9db66",
+     "class": "b",
+     "tags": [
+      "registers renamed / retargeted, count and latency unchanged",
+      "wide text difference without operator / topology evidence"
+     ],
+     "gains": {
+      "area": 0.62708,
+      "power": 0.7127,
+      "wns": 0.02616
+     },
+     "gen": 5
+    }
+   ]
+  },
+  "rtlopt_sub_32bit": {
+   "tier": "medium",
+   "family": "RTL-OPT",
+   "floor_class": "quiet",
+   "t_d": {
+    "area": 0.0027938146505548643,
+    "wns": 0.0003017775,
+    "power": 0.022227533067402338
+   },
+   "power_basis": "saif",
+   "candidates": 918,
+   "proven": 763,
+   "proven_rate": 0.8311546840958606,
+   "best": {
+    "B0|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     },
+     "max": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     }
+    },
+    "B1_E4|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     },
+     "max": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     },
+     "max": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     },
+     "max": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     },
+     "max": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     }
+    },
+    "B2|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     },
+     "max": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     },
+     "max": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     }
+    }
+   },
+   "outcome": "tie",
+   "deciders": [
+    {
+     "cand_id": "cd27ba37efa222d",
+     "class": "d",
+     "tags": [
+      "combinational depth ratio >= threshold",
+      "operator family gained: add"
+     ],
+     "gains": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     },
+     "gen": 1
+    },
+    {
+     "cand_id": "c1ebb813ae19f9b",
+     "class": "d",
+     "tags": [
+      "combinational depth ratio >= threshold",
+      "operator family gained: add"
+     ],
+     "gains": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     },
+     "gen": 1
+    },
+    {
+     "cand_id": "c4ee7712ad9f8f1",
+     "class": "d",
+     "tags": [
+      "combinational depth ratio >= threshold",
+      "operator family gained: add"
+     ],
+     "gains": {
+      "area": 0.03826,
+      "power": 0.02421,
+      "wns": 0.00055
+     },
+     "gen": 2
+    }
+   ]
+  },
+  "cktevo_ethmac__eth_cop": {
+   "tier": "medium",
+   "family": "CktEvo",
+   "floor_class": "spread",
+   "t_d": {
+    "area": 0.01121075786212397,
+    "wns": 0.0003017775,
+    "power": 0.022227533067402338
+   },
+   "power_basis": "saif",
+   "candidates": 1155,
+   "proven": 716,
+   "proven_rate": 0.6199134199134199,
+   "best": {
+    "B0|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.02399,
+      "power": 0.27897666666666665,
+      "wns": 0.004083333333333334
+     },
+     "max": {
+      "area": 0.037,
+      "power": 0.35631,
+      "wns": 0.00525
+     }
+    },
+    "B1_E4|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.020776666666666666,
+      "power": 0.29771,
+      "wns": 0.00301
+     },
+     "max": {
+      "area": 0.05762,
+      "power": 0.45697,
+      "wns": 0.00579
+     }
+    },
+    "B2|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.011659999999999998,
+      "power": 0.014113333333333334,
+      "wns": 0.0037366666666666668
+     },
+     "max": {
+      "area": 0.01928,
+      "power": 0.02539,
+      "wns": 0.00696
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     },
+     "max": {
+      "area": 0.0,
+      "power": 0.0,
+      "wns": 0.0
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.012629999999999999,
+      "power": 0.23036,
+      "wns": 0.004613333333333333
+     },
+     "max": {
+      "area": 0.02197,
+      "power": 0.35631,
+      "wns": 0.0055
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.02384,
+      "power": 0.1798,
+      "wns": 0.00291
+     },
+     "max": {
+      "area": 0.0352,
+      "power": 0.44464,
+      "wns": 0.00603
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.046413333333333334,
+      "power": 0.07040333333333333,
+      "wns": 0.00269
+     },
+     "max": {
+      "area": 0.04686,
+      "power": 0.07104,
+      "wns": 0.00493
+     }
+    }
+   },
+   "outcome": "loss",
+   "deciders": [
+    {
+     "cand_id": "c53a58ec26e4f65",
+     "class": "b",
+     "tags": [
+      "registers renamed / retargeted, count and latency unchanged"
+     ],
+     "gains": {
+      "area": 0.0352,
+      "power": 0.02372,
+      "wns": 0.00603
+     },
+     "gen": 1
+    },
+    {
+     "cand_id": "cc1066fb9d2ab8d",
+     "class": "b",
+     "tags": [
+      "registers renamed / retargeted, count and latency unchanged"
+     ],
+     "gains": {
+      "area": 0.02982,
+      "power": 0.07104,
+      "wns": 0.00011
+     },
+     "gen": 4
+    },
+    {
+     "cand_id": "cf1f9393150350c",
+     "class": "c1",
+     "tags": [
+      "flip-flop count and register cells changed"
+     ],
+     "gains": {
+      "area": 0.02399,
+      "power": 0.04842,
+      "wns": 0.0007
+     },
+     "gen": 1
+    }
+   ]
+  },
+  "cktevo_risc__btb": {
+   "tier": "large",
+   "family": "CktEvo",
+   "floor_class": null,
+   "t_d": {
+    "area": 0.0027938146505548643,
+    "wns": 0.0003017775,
+    "power": 0.022227533067402338
+   },
+   "power_basis": "default",
+   "candidates": 989,
+   "proven": 713,
+   "proven_rate": 0.7209302325581395,
+   "best": {
+    "B0|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.011826666666666666,
+      "power": 0.81724,
+      "wns": 0.002606666666666667
+     },
+     "max": {
+      "area": 0.01713,
+      "power": 0.82758,
+      "wns": 0.00312
+     }
+    },
+    "B1_E4|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.021236666666666668,
+      "power": 0.45725,
+      "wns": 0.002416666666666667
+     },
+     "max": {
+      "area": 0.02359,
+      "power": 0.79927,
+      "wns": 0.00391
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.01965,
+      "power": 0.6844033333333334,
+      "wns": 0.0032333333333333333
+     },
+     "max": {
+      "area": 0.02159,
+      "power": 0.80486,
+      "wns": 0.00432
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.0035466666666666667,
+      "power": 0.018936666666666668,
+      "wns": 0.0012733333333333333
+     },
+     "max": {
+      "area": 0.00817,
+      "power": 0.05254,
+      "wns": 0.00265
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.011593333333333334,
+      "power": 0.19263666666666668,
+      "wns": 0.0018866666666666667
+     },
+     "max": {
+      "area": 0.01763,
+      "power": 0.47757,
+      "wns": 0.00272
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.019106666666666668,
+      "power": 0.69179,
+      "wns": 0.004156666666666666
+     },
+     "max": {
+      "area": 0.02175,
+      "power": 0.80826,
+      "wns": 0.00488
+     }
+    }
+   },
+   "outcome": "win",
+   "deciders": [
+    {
+     "cand_id": "cb0d66d8ab42a3a",
+     "class": "b",
+     "tags": [
+      "registers renamed / retargeted, count and latency unchanged",
+      "wide text difference without operator / topology evidence"
+     ],
+     "gains": {
+      "area": 0.02175,
+      "power": 0.47467,
+      "wns": -0.00013
+     },
+     "gen": 10
+    },
+    {
+     "cand_id": "cb2f1ad787f355f",
+     "class": "b",
+     "tags": [
+      "registers renamed / retargeted, count and latency unchanged",
+      "wide text difference without operator / topology evidence"
+     ],
+     "gains": {
+      "area": 0.02166,
+      "power": 0.46982,
+      "wns": 0.00051
+     },
+     "gen": 9
+    },
+    {
+     "cand_id": "cb6e128d0630345",
+     "class": "b",
+     "tags": [
+      "registers renamed / retargeted, count and latency unchanged",
+      "wide text difference without operator / topology evidence"
+     ],
+     "gains": {
+      "area": 0.01886,
+      "power": 0.03756,
+      "wns": 0.00161
+     },
+     "gen": 2
+    }
+   ]
+  },
+  "rtlopt_decoder_8bit": {
+   "tier": "medium",
+   "family": "RTL-OPT",
+   "floor_class": "quiet",
+   "t_d": {
+    "area": 0.0027938146505548643,
+    "wns": 0.0003017775,
+    "power": 0.022227533067402338
+   },
+   "power_basis": "saif",
+   "candidates": 744,
+   "proven": 688,
+   "proven_rate": 0.9247311827956989,
+   "best": {
+    "B0|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.017886666666666665
+     },
+     "max": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.0179
+     }
+    },
+    "B1_E4|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.00322,
+      "power": 0.06182666666666667,
+      "wns": 0.01813333333333333
+     },
+     "max": {
+      "area": 0.00322,
+      "power": 0.0623,
+      "wns": 0.0186
+     }
+    },
+    "DrRTL_reimpl|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.017873333333333335
+     },
+     "max": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.0179
+     }
+    },
+    "M|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.0179
+     },
+     "max": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.01786
+     }
+    },
+    "M|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.0179
+     },
+     "max": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.01786
+     }
+    },
+    "B2|gpt-5.6-luna": {
+     "mean": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.0179
+     },
+     "max": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.0179
+     }
+    },
+    "B2|gpt-5.6-terra": {
+     "mean": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.0179
+     },
+     "max": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.0179
+     }
+    }
+   },
+   "outcome": "tie",
+   "deciders": [
+    {
+     "cand_id": "cd95e8a910508ff",
+     "class": "d",
+     "tags": [
+      "operator family gained: add"
+     ],
+     "gains": {
+      "area": 0.00322,
+      "power": 0.06159,
+      "wns": 0.01786
+     },
+     "gen": 1
+    },
+    {
+     "cand_id": "c6bd927d0eb6a1c",
+     "class": "d",
+     "tags": [
+      "combinational depth ratio >= threshold",
+      "operator family gained: add"
+     ],
+     "gains": {
+      "area": 0.00322,
+      "power": 0.0549,
+      "wns": 0.00978
+     },
+     "gen": 2
+    },
+    {
+     "cand_id": "c98dc2bb89e2b95",
+     "class": "d",
+     "tags": [
+      "combinational depth ratio >= threshold",
+      "operator family gained: add"
+     ],
+     "gains": {
+      "area": 0.00322,
+      "power": 0.05854,
+      "wns": 0.01786
+     },
+     "gen": 7
+    }
+   ]
+  }
+ },
+ "model_contrast": {
+  "B0": {
+   "gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 16.17,
+    "dc_h": 18.0,
+    "cands": 502,
+    "unusable": 0,
+    "duplicate": 38,
+    "inconclusive": 181,
+    "proven": 141,
+    "proven_per_call": 0.2611111111111111,
+    "retained": 39,
+    "tradeoff": 50,
+    "material": 26,
+    "retained_per_run": 4.333333333333333,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 7.222222222222222,
+    "retained_per_usd": 2.4124273560132066,
+    "retained_per_dc_hour": 2.1607645782353755,
+    "best_mean": {
+     "area": 0.003942222222222222,
+     "power": 0.27241333333333334,
+     "wns": 0.0008688888888888889
+    },
+    "best_max": {
+     "area": 0.01713,
+     "power": 0.82758,
+     "wns": 0.00312
+    }
+   },
+   "gpt-5.6-luna": {
+    "runs": 18,
+    "runs_done": 18,
+    "designs": 6,
+    "calls": 1080,
+    "usd": 2.28,
+    "dc_h": 52.2,
+    "cands": 990,
+    "unusable": 3,
+    "duplicate": 87,
+    "inconclusive": 0,
+    "proven": 588,
+    "proven_per_call": 0.5444444444444444,
+    "retained": 315,
+    "tradeoff": 191,
+    "material": 271,
+    "retained_per_run": 17.5,
+    "runs_with_retained": 15,
+    "share_runs_with_retained": 0.8333333333333334,
+    "retained_per_100_calls": 29.166666666666668,
+    "retained_per_usd": 138.21183038817043,
+    "retained_per_dc_hour": 6.039875964169794,
+    "best_mean": {
+     "area": 0.12314833333333333,
+     "power": 0.1890138888888889,
+     "wns": 0.02705888888888889
+    },
+    "best_max": {
+     "area": 0.6551,
+     "power": 0.74818,
+     "wns": 0.15352
+    }
+   },
+   "designs": 6
+  },
+  "B1_E4": {
+   "gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 18.71,
+    "dc_h": 18.1,
+    "cands": 515,
+    "unusable": 0,
+    "duplicate": 25,
+    "inconclusive": 202,
+    "proven": 133,
+    "proven_per_call": 0.2462962962962963,
+    "retained": 81,
+    "tradeoff": 45,
+    "material": 77,
+    "retained_per_run": 9.0,
+    "runs_with_retained": 3,
+    "share_runs_with_retained": 0.3333333333333333,
+    "retained_per_100_calls": 15.0,
+    "retained_per_usd": 4.328664497262933,
+    "retained_per_dc_hour": 4.484063582668387,
+    "best_mean": {
+     "area": 0.007078888888888889,
+     "power": 0.15241666666666667,
+     "wns": 0.0008055555555555556
+    },
+    "best_max": {
+     "area": 0.02359,
+     "power": 0.79927,
+     "wns": 0.00391
+    }
+   },
+   "gpt-5.6-luna": {
+    "runs": 18,
+    "runs_done": 18,
+    "designs": 6,
+    "calls": 1080,
+    "usd": 2.36,
+    "dc_h": 33.2,
+    "cands": 1023,
+    "unusable": 21,
+    "duplicate": 36,
+    "inconclusive": 0,
+    "proven": 645,
+    "proven_per_call": 0.5972222222222222,
+    "retained": 304,
+    "tradeoff": 247,
+    "material": 255,
+    "retained_per_run": 16.88888888888889,
+    "runs_with_retained": 14,
+    "share_runs_with_retained": 0.7777777777777778,
+    "retained_per_100_calls": 28.14814814814815,
+    "retained_per_usd": 128.990114814971,
+    "retained_per_dc_hour": 9.149048228124293,
+    "best_mean": {
+     "area": 0.11969,
+     "power": 0.1879788888888889,
+     "wns": 0.03184722222222222
+    },
+    "best_max": {
+     "area": 0.65377,
+     "power": 0.74683,
+     "wns": 0.20278
+    }
+   },
+   "designs": 6
+  },
+  "B2": {
+   "gpt-5.6-terra": {
+    "runs": 27,
+    "runs_done": 27,
+    "designs": 9,
+    "calls": 1620,
+    "usd": 45.82,
+    "dc_h": 52.2,
+    "cands": 1506,
+    "unusable": 29,
+    "duplicate": 85,
+    "inconclusive": 215,
+    "proven": 825,
+    "proven_per_call": 0.5092592592592593,
+    "retained": 396,
+    "tradeoff": 327,
+    "material": 383,
+    "retained_per_run": 14.666666666666666,
+    "runs_with_retained": 15,
+    "share_runs_with_retained": 0.5555555555555556,
+    "retained_per_100_calls": 24.444444444444443,
+    "retained_per_usd": 8.641959625624462,
+    "retained_per_dc_hour": 7.58948226379094,
+    "best_mean": {
+     "area": 0.0816525925925926,
+     "power": 0.17142,
+     "wns": 0.020883703703703703
+    },
+    "best_max": {
+     "area": 0.65844,
+     "power": 0.80486,
+     "wns": 0.16501
+    }
+   },
+   "gpt-5.6-luna": {
+    "runs": 18,
+    "runs_done": 18,
+    "designs": 6,
+    "calls": 1080,
+    "usd": 2.35,
+    "dc_h": 34.0,
+    "cands": 1028,
+    "unusable": 18,
+    "duplicate": 34,
+    "inconclusive": 0,
+    "proven": 641,
+    "proven_per_call": 0.5935185185185186,
+    "retained": 288,
+    "tradeoff": 242,
+    "material": 275,
+    "retained_per_run": 16.0,
+    "runs_with_retained": 13,
+    "share_runs_with_retained": 0.7222222222222222,
+    "retained_per_100_calls": 26.666666666666668,
+    "retained_per_usd": 122.30472943152155,
+    "retained_per_dc_hour": 8.472360232205428,
+    "best_mean": {
+     "area": 0.12006944444444445,
+     "power": 0.14396277777777777,
+     "wns": 0.028057222222222223
+    },
+    "best_max": {
+     "area": 0.6551,
+     "power": 0.74818,
+     "wns": 0.13738
+    }
+   },
+   "designs": 9
+  },
+  "DrRTL_reimpl": {
+   "gpt-5.6-terra": {
+    "runs": 9,
+    "runs_done": 9,
+    "designs": 3,
+    "calls": 540,
+    "usd": 16.81,
+    "dc_h": 11.2,
+    "cands": 330,
+    "unusable": 3,
+    "duplicate": 126,
+    "inconclusive": 106,
+    "proven": 119,
+    "proven_per_call": 0.22037037037037038,
+    "retained": 43,
+    "tradeoff": 5,
+    "material": 11,
+    "retained_per_run": 4.777777777777778,
+    "runs_with_retained": 2,
+    "share_runs_with_retained": 0.2222222222222222,
+    "retained_per_100_calls": 7.962962962962963,
+    "retained_per_usd": 2.5587173566426533,
+    "retained_per_dc_hour": 3.8536892602061767,
+    "best_mean": {
+     "area": 0.0011822222222222223,
+     "power": 0.0063122222222222225,
+     "wns": 0.00042444444444444447
+    },
+    "best_max": {
+     "area": 0.00817,
+     "power": 0.05254,
+     "wns": 0.00265
+    }
+   },
+   "gpt-5.6-luna": {
+    "runs": 18,
+    "runs_done": 18,
+    "designs": 6,
+    "calls": 1080,
+    "usd": 2.05,
+    "dc_h": 24.3,
+    "cands": 733,
+    "unusable": 14,
+    "duplicate": 188,
+    "inconclusive": 0,
+    "proven": 449,
+    "proven_per_call": 0.41574074074074074,
+    "retained": 214,
+    "tradeoff": 119,
+    "material": 207,
+    "retained_per_run": 11.88888888888889,
+    "runs_with_retained": 14,
+    "share_runs_with_retained": 0.7777777777777778,
+    "retained_per_100_calls": 19.814814814814813,
+    "retained_per_usd": 104.64033506891472,
+    "retained_per_dc_hour": 8.795353897686653,
+    "best_mean": {
+     "area": 0.10115611111111111,
+     "power": 0.16028833333333334,
+     "wns": 0.01872611111111111
+    },
+    "best_max": {
+     "area": 0.66444,
+     "power": 0.74382,
+     "wns": 0.13157
+    }
+   },
+   "designs": 6
+  },
+  "M": {
+   "gpt-5.6-luna": {
+    "runs": 27,
+    "runs_done": 27,
+    "designs": 9,
+    "calls": 1620,
+    "usd": 4.01,
+    "dc_h": 53.3,
+    "cands": 1221,
+    "unusable": 30,
+    "duplicate": 369,
+    "inconclusive": 126,
+    "proven": 354,
+    "proven_per_call": 0.21851851851851853,
+    "retained": 108,
+    "tradeoff": 116,
+    "material": 90,
+    "retained_per_run": 4.0,
+    "runs_with_retained": 18,
+    "share_runs_with_retained": 0.6666666666666666,
+    "retained_per_100_calls": 6.666666666666667,
+    "retained_per_usd": 26.920788910079718,
+    "retained_per_dc_hour": 2.0260953578028125,
+    "best_mean": {
+     "area": 0.08047555555555555,
+     "power": 0.13464555555555555,
+     "wns": 0.019633703703703705
+    },
+    "best_max": {
+     "area": 0.63843,
+     "power": 0.73325,
+     "wns": 0.11385
+    }
+   },
+   "gpt-5.6-terra": {
+    "runs": 27,
+    "runs_done": 27,
+    "designs": 9,
+    "calls": 1620,
+    "usd": 43.19,
+    "dc_h": 53.6,
+    "cands": 1145,
+    "unusable": 29,
+    "duplicate": 446,
+    "inconclusive": 196,
+    "proven": 466,
+    "proven_per_call": 0.2876543209876543,
+    "retained": 190,
+    "tradeoff": 193,
+    "material": 182,
+    "retained_per_run": 7.037037037037037,
+    "runs_with_retained": 18,
+    "share_runs_with_retained": 0.6666666666666666,
+    "retained_per_100_calls": 11.728395061728396,
+    "retained_per_usd": 4.3992107357496,
+    "retained_per_dc_hour": 3.542273984535177,
+    "best_mean": {
+     "area": 0.08727740740740741,
+     "power": 0.1800011111111111,
+     "wns": 0.019526666666666668
+    },
+    "best_max": {
+     "area": 0.66578,
+     "power": 0.80826,
+     "wns": 0.13157
+    }
+   },
+   "designs": 9
+  }
+ },
+ "missing": [
+  {
+   "item": "incomplete designs",
+   "detail": "21 of the 30 designs still have runs running or queued (medium and the whole small tier)",
+   "owner": "queue / lanes",
+   "stage": "Stage B, then Stage C"
+  },
+  {
+   "item": "the prescreened candidates' proofs",
+   "detail": "16 prescreened large-tier candidates have sim + E4 but no SEQ proof; the pool's proofs open after the small tier's search runs (offline_pool.proofs_enabled)",
+   "owner": "offline pool",
+   "stage": "after Stage C's runs"
+  },
+  {
+   "item": "replacement runs",
+   "detail": "the 6 LSTM M runs (harness_fix, prescreen off) are created but not launched; simple_spi and router carry harness-version-1 records whose D2 re-verification waits for the pool's proofs",
+   "owner": "queue",
+   "stage": "Stage B / C"
+  },
+  {
+   "item": "the small tier",
+   "detail": "126 runs queued, no candidate evaluated yet \u2014 every small-tier row prints pending",
+   "owner": "queue",
+   "stage": "Stage C"
+  },
+  {
+   "item": "hidden-configuration evaluation",
+   "detail": "the criterion is stated over the hidden configurations (H1, H2a, H2b, H3, H4, H5); the results are sealed until PHASE5_COMPLETE and are read only by scripts/report_hidden.py",
+   "owner": "operator after the marker",
+   "stage": "after Phase 5"
+  },
+  {
+   "item": "Phase 6 ablations",
+   "detail": "no map prior and the verdict-synchronous cadence are listed in PLAN 6.1 / config ablations.variants but not implemented or run",
+   "owner": "Phase 6",
+   "stage": "Phase 6"
+  },
+  {
+   "item": "SAIF baselines of the 13 default-basis designs",
+   "detail": "done for all 13 (evaluations.offline_baseline = 1, REQUEST (e) item 2); the power figures of this report still use the search basis, the SAIF-basis recomputation is reports/paper_sec3_power_basis_saif.md",
+   "owner": "operator",
+   "stage": "reported beside, not in place of"
+  }
+ ],
+ "sources": {
+  "run scan": "SELECT * FROM runs WHERE exp='phase5' AND status != 'superseded' AND COALESCE(excluded_from_tables,0)=0; per run its candidates (SELECT * FROM candidates WHERE run_id=?); labels from src.analysis.phase5.uniform_diagnosis (rule A at E4, frozen phase4 floors) and, for the metric modes, src.diagnose.m3.diagnose on the same E4 record with the other metrics removed",
+  "1 completion": "src.analysis.phase5.complete_designs (planned rows x seeds from scripts/phase5_main.plan against runs.status='done'; pending candidates by kind from pending_kind; an offline proof of a prescreened candidate does not block, DECISION 2026-09-18 D3) and completion_view; queued / running runs from the runs table",
+  "2 criterion": "docs/PROPOSAL.md \u00a77.2 (verbatim); per design the mean over seeds of each row's best retained gain per metric (0 for a run without a retained candidate), against the design's frozen rule-A floor per metric (noise_floor, floor_version phase4); the model of the tier from config exp5.model_assignment.all_arms",
+  "3 arm comparison": "per arm-model row over the runs of the given designs: runs done, LLM calls (runs.llm_calls, budget scale.budget.llm_calls_per_run), USD (runs.spent_usd), visible DC hours (evaluations.dc_seconds of the run's candidates), candidates, unusable answers (results/candidates/<run>/unusable_*.json), duplicates (label duplicate), inconclusive verdicts, proven, retained / trade-off by rule A at E4, and the best retained gain per metric per run (mean over seeds, max alongside)",
+  "4 large tier": "arm table of the large-tier complete designs (a) over the run's own candidates as the Stage A tables build it (prescreened candidates carry label 'prescreened', no verdict, and are not counted) and (b) with the offline pool's evaluation of the prescreened candidates added as provisional rows (sim + E4 done, proof pending: report_c1.rule_a_from_e4 on the E4 record); (c) the prescreen-off large-tier M runs (runs.prescreen_on = 0)",
+  "5 mechanism": "fate shares over the proven candidates of the complete designs (rule A at E4); calls per retained candidate from runs.llm_calls; parents from candidates.parent_id (NULL = D) with the archive members of the generation (gen_summary.archive_json); unverified-at-build from gen_summary.pending_json against the previous generation's candidates (src.jobqueue.core.unverified_at_build); the generation of each retained candidate from candidates.gen; the feedback strings from diagnoses.feedback_json of earlier candidates of the same run",
+  "7 per design": "the design's floor row (noise_floor, floor_version phase4: floor_class, t_d per metric), the power basis of D's E4 baseline (evaluations.power_saif_mw of is_baseline=1 at \u03a6_main), proven rate over the design's candidates, each row's best retained gain per metric (mean over seeds, max), the outcome of item 2, and the class / evidence tags of the retained candidates whose gain decided the design"
+ },
+ "summary": [
+  "1. C2 can be read today on 9 of 30 designs (6 complete, 3 complete except B0's offline E4); the other 21 are still running or queued.",
+  "2. Tally of the pre-registered comparison (visible-layer proxy; the decided rule is the area separation): wins 0, ties 6, partial 2, losses 1, undecided 0; reading it on any metric with SAIF-basis power: wins 2, ties 5, partial 0, losses 2; on area alone: wins 1, ties 7, partial 0; on WNS alone: wins 2, ties 4, partial 1, losses 2.",
+  "3. Under the decided rule M wins on 0 of the decided designs, ties on 6, is partial on 2 and loses on 1; every separation is printed against the design's floor in item 2.",
+  "4. Reachability: 18 wins are needed (60 % of 30), 0 are in, 21 designs are still open \u2014 the criterion is still arithmetically reachable.",
+  "5. The three ways of reading the comparison (any metric with SAIF-basis power, area only, WNS only) decide 4 design(s) differently.",
+  "6. On 3 of the 9 decided designs no arm produced a single proven candidate (cktevo_hsm__hsm, drrtl_arm_cpu2, drrtl_tv80), so their tie is a tie at zero retention.",
+  "7. At equal calls on the complete designs, retained per run: B0|gpt-5.6-luna 17.50, B1_E4|gpt-5.6-luna 16.89, B2|gpt-5.6-luna 16.00, B2|gpt-5.6-terra 14.67.",
+  "8. Search precision (share of proven candidates labelled retained) is printed per row in item 5; the mechanism figures do not depend on the criterion.",
+  "9. Large-tier M ran with the candidate prescreen (636 candidates never evaluated); adding their offline E4 labels does not change the large-tier ordering by retained per run \u2014 their proofs are still pending.",
+  "10. C2 cannot yet say anything about the hidden configurations (sealed until the completion marker), the small tier (not started), or the Phase 6 ablations (not run).",
+  "11. The three things that would change the picture most: (a) the medium tier's remaining designs completing (21 open); (b) the proofs of the 641 prescreened large-tier candidates (16 of them on the complete large designs); (c) the hidden-configuration evaluation, which is what the criterion is actually stated over."
+ ]
+}
