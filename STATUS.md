@@ -4,6 +4,8 @@ Written 2026-09-15 at the session handoff (the session of 2026-09-14/15 ends her
 
 ## Current phase and the next action
 
+**2026-09-20 02:00 — re-balance 01:55 applied:** SPI 14 / UART 3 / cpu 4 / router 2 / simple_spi 18 / window 9 (implied finish 13.9–16.3 h, spread 2.4 h); daemon restarted 01:56; idle seat-minutes 0 everywhere 21:10–01:11. Pool: medium and large B0 E4 and the large retries done; prescreened large 240 sims left (required), then D2 (not required). sub_32bit complete (tie): 2 complete, 3 B0 pending; tally 0 wins, 4 ties, 1 partial. **ETA: Stage B final ≈ 09-20 18:00 (16:00–19:30; drift-adjusted ≈ 20:00); Stage C final ≈ 09-21 01:00 (09-20 23:00 – 09-21 03:00).** Hourly checks from 03:10; next re-balance 07:54.
+
 **2026-09-19 20:00 — re-balance 19:55 applied:** SPI 13 / UART 6 / cpu 3 / router 2 / simple_spi 18 / window 8 (implied finish 16.8–18.6 h, spread 1.8 h); daemon restarted 19:56; idle seat-minutes 0 everywhere 16:11–19:11. Medium B0 E4 backlog drained ≈ 17:00; pool on large B0, then E4 retries, then prescreened sims. Tally 0 wins, 3 ties, 1 partial. **ETA: Stage B final ≈ 09-20 14:30 (13:00–16:00); Stage C final ≈ 09-20 22:00 (20:00–24:00).** Hourly checks from 21:10; next re-balance 01:54.
 
 **2026-09-19 15:20:** (m) 7 fired at 14:11 on restart-induced idle seat-minutes — simple_spi threshold 67 → 86 min (its cap); a needless re-fire at 15:10 (0.2-min drift) is fixed by a one-minute minimum raise. Medium B0 E4 backlog 67 left (ETA 16:05).
@@ -189,3 +191,5 @@ Then: `docs/DECISIONS.md` (tail, the entries after "Review and decisions after t
 - New complete designs since last render (2026-09-19T05:14): drrtl_arm_cpu2 — M wins (exceeds both B1_E4 and B2 by more than the floor) on 0 of them, ties on 1; tally 0 wins, 3 ties, 0 losses of 3 complete designs (visible layer; 2 of them B0 pending), 18 wins still needed of 27 remaining / undecided.
 
 - New complete designs since last render (2026-09-19T07:11): none; B0 pending (complete except for B0's offline E4, DECISION 2026-09-19 (l) 3): cktevo_ethmac__eth_cop — M wins (exceeds both B1_E4 and B2 by more than the floor) on 0 of them, ties on 0, partial on 1; tally 0 wins, 3 ties, 1 partial, 0 losses of 4 complete designs (visible layer; 3 of them B0 pending), 18 wins still needed of 26 remaining / undecided.
+
+- New complete designs since last render (2026-09-19T22:06): rtlopt_sub_32bit — M wins (exceeds both B1_E4 and B2 by more than the floor) on 0 of them, ties on 1, partial on 0; tally 0 wins, 4 ties, 1 partial, 0 losses of 5 complete designs (visible layer; 3 of them B0 pending), 18 wins still needed of 25 remaining / undecided.

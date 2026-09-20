@@ -1,6 +1,6 @@
 {
  "alert_line": null,
- "cfg_hash": "21e08fbd3c2f",
+ "cfg_hash": "d551e0178552",
  "classes": {},
  "completion": {
   "blockers": {
@@ -15,81 +15,80 @@
     "b0_e4": 1
    },
    "cktevo_nn_engine__spikeNeuron8_H7": {
-    "b0_e4": 2,
-    "proof": 48,
-    "sim": 159
+    "e4_late": 3,
+    "proof": 82,
+    "sim": 109
    },
    "cktevo_nn_engine__thresholds_128x4096": {
-    "verdict": 64
+    "verdict": 17
    },
    "cktevo_risc__btb": {
-    "b0_e4": 94
+    "b0_e4": 11
    },
    "cktevo_risc__cpu": {
-    "verdict": 82
+    "verdict": 53
    },
    "cktevo_risc__stall_control_unit": {},
    "cktevo_usb__usbf_sie_rx": {
-    "verdict": 24
+    "verdict": 22
    },
    "cktevo_vga_enh__vga_wb_slave": {
     "e4_retry": 1,
-    "verdict": 47
+    "verdict": 15
    },
    "drrtl_LSTM": {},
    "drrtl_SPI": {
-    "verdict": 34
+    "verdict": 45
    },
    "drrtl_UART": {
-    "verdict": 88
+    "e4_retry": 5,
+    "verdict": 119
    },
    "drrtl_aes": {
-    "b0_e4": 136,
-    "e4_retry": 43,
-    "proof": 7,
-    "sim": 86
+    "b0_e4": 107,
+    "e4_late": 7,
+    "e4_retry": 21,
+    "proof": 10,
+    "sim": 60
    },
    "drrtl_arm_cpu2": {},
    "drrtl_communication": {
     "b0_e4": 1,
-    "verdict": 35
+    "verdict": 1
    },
    "drrtl_controller": {},
    "drrtl_router": {
-    "b0_e4": 45,
-    "verdict": 121
+    "verdict": 37
    },
    "drrtl_simple_spi": {
     "b0_e4": 1,
-    "e4_retry": 9,
-    "verdict": 75
+    "e4_retry": 14,
+    "verdict": 82
    },
    "drrtl_ticket_machine": {},
    "drrtl_tv80": {
-    "proof": 3,
-    "sim": 7
+    "proof": 6,
+    "sim": 4
    },
    "rtlopt_alu_64bit": {
-    "verdict": 54
+    "verdict": 17
    },
    "rtlopt_calculation": {
-    "b0_e4": 2
+    "b0_e4": 2,
+    "verdict": 38
    },
    "rtlopt_decoder_8bit": {
     "b0_e4": 1
    },
    "rtlopt_divider_8bit": {
-    "verdict": 46
+    "verdict": 12
    },
    "rtlopt_mux_large": {},
    "rtlopt_register": {
     "b0_e4": 2,
-    "e4_retry": 1,
     "verdict": 10
    },
-   "rtlopt_sub_32bit": {
-    "e4_retry": 1
-   },
+   "rtlopt_sub_32bit": {},
    "rtlopt_sub_8bit": {
     "b0_e4": 19,
     "verdict": 130
@@ -185,12 +184,12 @@
      },
      "gpt-5.6-terra|B0": {
       "best_gain_max": 0.01713,
-      "best_gain_mean": 0.01007,
+      "best_gain_mean": 0.01183,
       "cands": 177,
       "proven": 141,
-      "retained": 13,
+      "retained": 39,
       "runs": 3,
-      "tradeoff": 15
+      "tradeoff": 50
      },
      "gpt-5.6-terra|B1_E4": {
       "best_gain_max": 0.02359,
@@ -374,24 +373,98 @@
      }
     },
     "t_d_area": 0.0027938146505548643
+   },
+   "rtlopt_sub_32bit": {
+    "b0_pending": false,
+    "m_exceeds": false,
+    "m_outcome": "tie",
+    "model": "gpt-5.6-luna",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "best_gain_max": 0.03826,
+      "best_gain_mean": 0.03826,
+      "cands": 146,
+      "proven": 125,
+      "retained": 36,
+      "runs": 3,
+      "tradeoff": 65
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "best_gain_max": 0.03826,
+      "best_gain_mean": 0.03826,
+      "cands": 170,
+      "proven": 137,
+      "retained": 18,
+      "runs": 3,
+      "tradeoff": 73
+     },
+     "gpt-5.6-luna|B2": {
+      "best_gain_max": 0.03826,
+      "best_gain_mean": 0.03826,
+      "cands": 169,
+      "proven": 130,
+      "retained": 18,
+      "runs": 3,
+      "tradeoff": 78
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "best_gain_max": 0.03826,
+      "best_gain_mean": 0.03826,
+      "cands": 83,
+      "proven": 73,
+      "retained": 34,
+      "runs": 3,
+      "tradeoff": 18
+     },
+     "gpt-5.6-luna|M": {
+      "best_gain_max": 0.03826,
+      "best_gain_mean": 0.03826,
+      "cands": 91,
+      "proven": 60,
+      "retained": 3,
+      "runs": 3,
+      "tradeoff": 20
+     },
+     "gpt-5.6-terra|B2": {
+      "best_gain_max": 0.03826,
+      "best_gain_mean": 0.03826,
+      "cands": 167,
+      "proven": 150,
+      "retained": 18,
+      "runs": 3,
+      "tradeoff": 84
+     },
+     "gpt-5.6-terra|M": {
+      "best_gain_max": 0.03826,
+      "best_gain_mean": 0.03826,
+      "cands": 92,
+      "proven": 88,
+      "retained": 3,
+      "runs": 3,
+      "tradeoff": 32
+     }
+    },
+    "t_d_area": 0.0027938146505548643
    }
   },
   "complete": [
-   "drrtl_arm_cpu2"
+   "drrtl_arm_cpu2",
+   "rtlopt_sub_32bit"
   ],
   "open_proofs": {
-   "cktevo_nn_engine__thresholds_128x4096": 62,
-   "cktevo_risc__cpu": 82,
-   "cktevo_usb__usbf_sie_rx": 22,
-   "cktevo_vga_enh__vga_wb_slave": 47,
-   "drrtl_SPI": 34,
-   "drrtl_UART": 88,
-   "drrtl_communication": 35,
-   "drrtl_router": 121,
-   "drrtl_simple_spi": 72,
-   "rtlopt_alu_64bit": 54,
-   "rtlopt_divider_8bit": 46,
-   "rtlopt_register": 9,
+   "cktevo_nn_engine__thresholds_128x4096": 17,
+   "cktevo_risc__cpu": 53,
+   "cktevo_usb__usbf_sie_rx": 17,
+   "cktevo_vga_enh__vga_wb_slave": 15,
+   "drrtl_SPI": 45,
+   "drrtl_UART": 119,
+   "drrtl_communication": 1,
+   "drrtl_router": 37,
+   "drrtl_simple_spi": 82,
+   "rtlopt_alu_64bit": 17,
+   "rtlopt_calculation": 38,
+   "rtlopt_divider_8bit": 12,
+   "rtlopt_register": 10,
    "rtlopt_sub_8bit": 130
   },
   "preliminary": [
@@ -405,8 +478,8 @@
    "partial": 1,
    "preliminary": 3,
    "reachable": true,
-   "remaining_designs": 26,
-   "ties": 3,
+   "remaining_designs": 25,
+   "ties": 4,
    "total_designs": 30,
    "undecided": 0,
    "wins": 0,
@@ -559,12 +632,12 @@
    "cktevo_nn_engine__spikeNeuron8_H7": {
     "gpt-5.6-luna|M": {
      "done": 3,
-     "pending": 82,
+     "pending": 55,
      "planned": 3
     },
     "gpt-5.6-terra|B0": {
      "done": 3,
-     "pending": 2,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B1_E4": {
@@ -584,7 +657,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 3,
-     "pending": 77,
+     "pending": 57,
      "planned": 3
     }
    },
@@ -595,8 +668,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
-     "done": 2,
-     "pending": 5,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -616,7 +689,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 59,
+     "pending": 17,
      "planned": 3
     }
    },
@@ -628,7 +701,7 @@
     },
     "gpt-5.6-terra|B0": {
      "done": 3,
-     "pending": 94,
+     "pending": 11,
      "planned": 3
     },
     "gpt-5.6-terra|B1_E4": {
@@ -669,13 +742,13 @@
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 2,
-     "pending": 7,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 0,
-     "pending": 13,
+     "done": 1,
+     "pending": 11,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -685,7 +758,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 62,
+     "pending": 42,
      "planned": 3
     }
    },
@@ -749,7 +822,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 11,
+     "pending": 17,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -759,7 +832,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 2,
-     "pending": 13,
+     "pending": 5,
      "planned": 3
     }
    },
@@ -786,7 +859,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 48,
+     "pending": 16,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -855,17 +928,17 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 10,
+     "pending": 9,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
      "done": 2,
-     "pending": 13,
+     "pending": 8,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 11,
+     "pending": 28,
      "planned": 3
     }
    },
@@ -876,13 +949,13 @@
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
-     "done": 1,
-     "pending": 15,
+     "done": 2,
+     "pending": 10,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
-     "done": 2,
-     "pending": 12,
+     "done": 4,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -892,49 +965,49 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 51,
+     "pending": 66,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
-     "done": 2,
-     "pending": 10,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 0,
+     "pending": 48,
      "planned": 3
     }
    },
    "drrtl_aes": {
     "gpt-5.6-luna|M": {
      "done": 3,
-     "pending": 58,
+     "pending": 51,
      "planned": 3
     },
     "gpt-5.6-terra|B0": {
      "done": 3,
-     "pending": 136,
+     "pending": 107,
      "planned": 3
     },
     "gpt-5.6-terra|B1_E4": {
      "done": 3,
-     "pending": 6,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
      "done": 3,
-     "pending": 8,
+     "pending": 1,
      "planned": 3
     },
     "gpt-5.6-terra|DrRTL_reimpl": {
      "done": 3,
-     "pending": 13,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
      "done": 3,
-     "pending": 44,
+     "pending": 36,
      "planned": 3
     }
    },
@@ -987,8 +1060,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
-     "done": 1,
-     "pending": 35,
+     "done": 2,
+     "pending": 1,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -1051,13 +1124,13 @@
    },
    "drrtl_router": {
     "gpt-5.6-luna|B0": {
-     "done": 2,
-     "pending": 46,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
      "done": 0,
-     "pending": 69,
+     "pending": 10,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
@@ -1066,8 +1139,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 2,
-     "pending": 9,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
@@ -1076,8 +1149,8 @@
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
-     "done": 0,
-     "pending": 15,
+     "done": 1,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -1094,17 +1167,17 @@
     },
     "gpt-5.6-luna|B1_E4": {
      "done": 3,
-     "pending": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
      "done": 0,
-     "pending": 33,
+     "pending": 80,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
      "done": 3,
-     "pending": 1,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
@@ -1113,8 +1186,8 @@
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
-     "done": 0,
-     "pending": 47,
+     "done": 2,
+     "pending": 16,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -1188,7 +1261,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 3,
-     "pending": 4,
+     "pending": 1,
      "planned": 3
     }
    },
@@ -1225,7 +1298,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 54,
+     "pending": 17,
      "planned": 3
     }
    },
@@ -1242,7 +1315,7 @@
     },
     "gpt-5.6-luna|B2": {
      "done": 0,
-     "pending": 0,
+     "pending": 38,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -1326,7 +1399,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 46,
+     "pending": 12,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1390,7 +1463,7 @@
     },
     "gpt-5.6-luna|B2": {
      "done": 3,
-     "pending": 1,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -1437,7 +1510,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 3,
-     "pending": 1,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1528,6 +1601,7 @@
    ],
    "ties": [
     "drrtl_arm_cpu2",
+    "rtlopt_sub_32bit",
     "cktevo_risc__btb",
     "rtlopt_decoder_8bit"
    ],
@@ -1537,49 +1611,49 @@
  },
  "conditions": {
   "large|gpt-5.6-luna|M": {
-   "load_coverage": 0.313,
-   "load_median": 101.8,
-   "load_samples": 5682,
+   "load_coverage": 0.355,
+   "load_median": 99.9,
+   "load_samples": 6858,
    "proofs": 573,
    "vcf_wait_median_min": 158.2,
    "vcf_wait_q95_min": 661.6
   },
   "large|gpt-5.6-terra|B0": {
-   "load_coverage": 0.336,
-   "load_median": 101.8,
-   "load_samples": 5682,
+   "load_coverage": 0.379,
+   "load_median": 99.9,
+   "load_samples": 6858,
    "proofs": 825,
    "vcf_wait_median_min": 106.3,
    "vcf_wait_q95_min": 507.1
   },
   "large|gpt-5.6-terra|B1_E4": {
-   "load_coverage": 0.337,
-   "load_median": 101.8,
-   "load_samples": 5682,
+   "load_coverage": 0.38,
+   "load_median": 99.9,
+   "load_samples": 6858,
    "proofs": 802,
    "vcf_wait_median_min": 139.9,
    "vcf_wait_q95_min": 510.4
   },
   "large|gpt-5.6-terra|B2": {
-   "load_coverage": 0.348,
-   "load_median": 101.8,
-   "load_samples": 5682,
+   "load_coverage": 0.392,
+   "load_median": 99.9,
+   "load_samples": 6858,
    "proofs": 814,
    "vcf_wait_median_min": 120.2,
    "vcf_wait_q95_min": 483.9
   },
   "large|gpt-5.6-terra|DrRTL_reimpl": {
-   "load_coverage": 0.383,
-   "load_median": 101.8,
-   "load_samples": 5682,
+   "load_coverage": 0.428,
+   "load_median": 99.9,
+   "load_samples": 6858,
    "proofs": 578,
    "vcf_wait_median_min": 149.9,
    "vcf_wait_q95_min": 481.0
   },
   "large|gpt-5.6-terra|M": {
-   "load_coverage": 0.315,
-   "load_median": 101.8,
-   "load_samples": 5682,
+   "load_coverage": 0.357,
+   "load_median": 99.9,
+   "load_samples": 6858,
    "proofs": 619,
    "vcf_wait_median_min": 139.9,
    "vcf_wait_q95_min": 635.0
@@ -1775,6 +1849,14 @@
     {
      "dc_hours": 2.5,
      "mean_best_gain": 0.00242
+    },
+    {
+     "dc_hours": 2.75,
+     "mean_best_gain": 0.00242
+    },
+    {
+     "dc_hours": 3.0,
+     "mean_best_gain": 0.00242
     }
    ]
   },
@@ -1792,53 +1874,53 @@
     },
     {
      "calls": 15,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
-    },
-    {
-     "calls": 20,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
-    },
-    {
-     "calls": 25,
-     "mean_best_gain": 0.0,
-     "runs_with_retained": 0
-    },
-    {
-     "calls": 30,
-     "mean_best_gain": 0.00073,
+     "mean_best_gain": 0.00011,
      "runs_with_retained": 1
     },
     {
-     "calls": 35,
-     "mean_best_gain": 0.00113,
+     "calls": 20,
+     "mean_best_gain": 0.0004,
      "runs_with_retained": 2
+    },
+    {
+     "calls": 25,
+     "mean_best_gain": 0.00059,
+     "runs_with_retained": 3
+    },
+    {
+     "calls": 30,
+     "mean_best_gain": 0.00131,
+     "runs_with_retained": 4
+    },
+    {
+     "calls": 35,
+     "mean_best_gain": 0.00173,
+     "runs_with_retained": 5
     },
     {
      "calls": 40,
-     "mean_best_gain": 0.00113,
-     "runs_with_retained": 2
+     "mean_best_gain": 0.00226,
+     "runs_with_retained": 5
     },
     {
      "calls": 45,
-     "mean_best_gain": 0.00124,
-     "runs_with_retained": 3
+     "mean_best_gain": 0.00249,
+     "runs_with_retained": 6
     },
     {
      "calls": 50,
-     "mean_best_gain": 0.00124,
-     "runs_with_retained": 3
+     "mean_best_gain": 0.00249,
+     "runs_with_retained": 6
     },
     {
      "calls": 55,
-     "mean_best_gain": 0.00159,
-     "runs_with_retained": 3
+     "mean_best_gain": 0.00249,
+     "runs_with_retained": 6
     },
     {
      "calls": 60,
-     "mean_best_gain": 0.00208,
-     "runs_with_retained": 3
+     "mean_best_gain": 0.0028,
+     "runs_with_retained": 6
     }
    ],
    "by_dc_hours": [
@@ -1852,43 +1934,111 @@
     },
     {
      "dc_hours": 0.75,
-     "mean_best_gain": 0.0004
+     "mean_best_gain": 0.0
     },
     {
      "dc_hours": 1.0,
-     "mean_best_gain": 0.00113
+     "mean_best_gain": 0.0
     },
     {
      "dc_hours": 1.25,
-     "mean_best_gain": 0.00124
+     "mean_best_gain": 0.00038
     },
     {
      "dc_hours": 1.5,
-     "mean_best_gain": 0.00124
+     "mean_best_gain": 0.00045
     },
     {
      "dc_hours": 1.75,
-     "mean_best_gain": 0.00159
+     "mean_best_gain": 0.00078
     },
     {
      "dc_hours": 2.0,
-     "mean_best_gain": 0.00202
+     "mean_best_gain": 0.001
     },
     {
      "dc_hours": 2.25,
-     "mean_best_gain": 0.00208
+     "mean_best_gain": 0.00123
     },
     {
      "dc_hours": 2.5,
-     "mean_best_gain": 0.00208
+     "mean_best_gain": 0.00123
     },
     {
      "dc_hours": 2.75,
-     "mean_best_gain": 0.00208
+     "mean_best_gain": 0.00177
     },
     {
      "dc_hours": 3.0,
-     "mean_best_gain": 0.00208
+     "mean_best_gain": 0.00177
+    },
+    {
+     "dc_hours": 3.25,
+     "mean_best_gain": 0.00177
+    },
+    {
+     "dc_hours": 3.5,
+     "mean_best_gain": 0.00249
+    },
+    {
+     "dc_hours": 3.75,
+     "mean_best_gain": 0.00249
+    },
+    {
+     "dc_hours": 4.0,
+     "mean_best_gain": 0.00249
+    },
+    {
+     "dc_hours": 4.25,
+     "mean_best_gain": 0.00249
+    },
+    {
+     "dc_hours": 4.5,
+     "mean_best_gain": 0.00249
+    },
+    {
+     "dc_hours": 4.75,
+     "mean_best_gain": 0.00249
+    },
+    {
+     "dc_hours": 5.0,
+     "mean_best_gain": 0.00274
+    },
+    {
+     "dc_hours": 5.25,
+     "mean_best_gain": 0.0028
+    },
+    {
+     "dc_hours": 5.5,
+     "mean_best_gain": 0.0028
+    },
+    {
+     "dc_hours": 5.75,
+     "mean_best_gain": 0.0028
+    },
+    {
+     "dc_hours": 6.0,
+     "mean_best_gain": 0.0028
+    },
+    {
+     "dc_hours": 6.25,
+     "mean_best_gain": 0.0028
+    },
+    {
+     "dc_hours": 6.5,
+     "mean_best_gain": 0.0028
+    },
+    {
+     "dc_hours": 6.75,
+     "mean_best_gain": 0.0028
+    },
+    {
+     "dc_hours": 7.0,
+     "mean_best_gain": 0.0028
+    },
+    {
+     "dc_hours": 7.25,
+     "mean_best_gain": 0.0028
     }
    ]
   },
@@ -1998,15 +2148,15 @@
     },
     {
      "dc_hours": 2.75,
-     "mean_best_gain": 0.00455
+     "mean_best_gain": 0.00452
     },
     {
      "dc_hours": 3.0,
-     "mean_best_gain": 0.00455
+     "mean_best_gain": 0.00452
     },
     {
      "dc_hours": 3.25,
-     "mean_best_gain": 0.00459
+     "mean_best_gain": 0.00457
     },
     {
      "dc_hours": 3.5,
@@ -2062,38 +2212,50 @@
     },
     {
      "dc_hours": 6.75,
-     "mean_best_gain": 0.00491
+     "mean_best_gain": 0.00484
     },
     {
      "dc_hours": 7.0,
-     "mean_best_gain": 0.00491
+     "mean_best_gain": 0.00484
     },
     {
      "dc_hours": 7.25,
-     "mean_best_gain": 0.00491
+     "mean_best_gain": 0.00484
     },
     {
      "dc_hours": 7.5,
-     "mean_best_gain": 0.00491
+     "mean_best_gain": 0.00484
     },
     {
      "dc_hours": 7.75,
-     "mean_best_gain": 0.00491
+     "mean_best_gain": 0.00484
     },
     {
      "dc_hours": 8.0,
-     "mean_best_gain": 0.00491
+     "mean_best_gain": 0.00484
     },
     {
      "dc_hours": 8.25,
-     "mean_best_gain": 0.00491
+     "mean_best_gain": 0.00484
     },
     {
      "dc_hours": 8.5,
-     "mean_best_gain": 0.00491
+     "mean_best_gain": 0.00484
     },
     {
      "dc_hours": 8.75,
+     "mean_best_gain": 0.00484
+    },
+    {
+     "dc_hours": 9.0,
+     "mean_best_gain": 0.00484
+    },
+    {
+     "dc_hours": 9.25,
+     "mean_best_gain": 0.00491
+    },
+    {
+     "dc_hours": 9.5,
      "mean_best_gain": 0.00491
     }
    ]
@@ -2280,6 +2442,26 @@
     },
     {
      "dc_hours": 7.5,
+     "mean_best_gain": 0.0041
+    },
+    {
+     "dc_hours": 7.75,
+     "mean_best_gain": 0.0041
+    },
+    {
+     "dc_hours": 8.0,
+     "mean_best_gain": 0.0041
+    },
+    {
+     "dc_hours": 8.25,
+     "mean_best_gain": 0.0041
+    },
+    {
+     "dc_hours": 8.5,
+     "mean_best_gain": 0.0041
+    },
+    {
+     "dc_hours": 8.75,
      "mean_best_gain": 0.0041
     }
    ]
@@ -2495,6 +2677,78 @@
     {
      "dc_hours": 9.25,
      "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 9.5,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 9.75,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 10.0,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 10.25,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 10.5,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 10.75,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 11.0,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 11.25,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 11.5,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 11.75,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 12.0,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 12.25,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 12.5,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 12.75,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 13.0,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 13.25,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 13.5,
+     "mean_best_gain": 0.00093
+    },
+    {
+     "dc_hours": 13.75,
+     "mean_best_gain": 0.00093
     }
    ]
   },
@@ -2580,19 +2834,19 @@
     },
     {
      "dc_hours": 1.25,
-     "mean_best_gain": 0.00372
+     "mean_best_gain": 0.00332
     },
     {
      "dc_hours": 1.5,
-     "mean_best_gain": 0.00373
+     "mean_best_gain": 0.00333
     },
     {
      "dc_hours": 1.75,
-     "mean_best_gain": 0.00373
+     "mean_best_gain": 0.00333
     },
     {
      "dc_hours": 2.0,
-     "mean_best_gain": 0.00393
+     "mean_best_gain": 0.00353
     },
     {
      "dc_hours": 2.25,
@@ -2774,6 +3028,68 @@
     "ced9d86ddd9183d",
     "B0",
     "DC rejected (VER-294)"
+   ],
+   [
+    "c8110d75177103a",
+    "B1_E4",
+    "DC rejected (VER-294)"
+   ],
+   [
+    "c913d5db8b8405b",
+    "B1_E4",
+    "DC rejected (VER-294)"
+   ],
+   [
+    "cacf46a37e8044d",
+    "B1_E4",
+    "DC rejected (VER-294)"
+   ],
+   [
+    "c05d41daf159d5a",
+    "B2",
+    "DC rejected (VER-294)"
+   ],
+   [
+    "c15c6ab1269a17c",
+    "B2",
+    "DC rejected (VER-294)"
+   ],
+   [
+    "c19c38a418070d6",
+    "B2",
+    "DC rejected (VER-294)"
+   ],
+   [
+    "c257d81e2ce10c4",
+    "B2",
+    "DC rejected (VER-294)"
+   ],
+   [
+    "c27dc6f8b4365a5",
+    "B2",
+    "DC rejected (VER-294)"
+   ],
+   [
+    "c4d7aa2d52e6323",
+    "B2",
+    "DC rejected (VER-294)"
+   ],
+   [
+    "c7f035194c89872",
+    "B2",
+    "DC rejected (VER-294)"
+   ],
+   [
+    "cbb1dd18094fa5a",
+    "DrRTL_reimpl",
+    "DC rejected (VER-294)"
+   ]
+  ],
+  "rtlopt_register": [
+   [
+    "c4b85a0350848a0",
+    "B2",
+    "DC rejected (VER-294)"
    ]
   ],
   "rtlopt_sub_32bit": [
@@ -2786,6 +3102,11 @@
     "c88b4d8676fba1f",
     "B1_E4",
     "DC rejected (ELAB-298)"
+   ],
+   [
+    "c6a9c53240094cf",
+    "M",
+    "DC rejected (ELAB-366)"
    ]
   ]
  },
@@ -2798,7 +3119,7 @@
   },
   "large|gpt-5.6-luna|M|cktevo_nn_engine__spikeNeuron8_H7": {
    "best_retained_area_gain": 0.0,
-   "pending": 101,
+   "pending": 92,
    "retained": 0,
    "runs": 3
   },
@@ -2816,7 +3137,7 @@
   },
   "large|gpt-5.6-luna|M|drrtl_aes": {
    "best_retained_area_gain": 0.00877,
-   "pending": 62,
+   "pending": 56,
    "retained": 4,
    "runs": 3
   },
@@ -2834,14 +3155,14 @@
   },
   "large|gpt-5.6-terra|B0|cktevo_nn_engine__spikeNeuron8_H7": {
    "best_retained_area_gain": 0.0,
-   "pending": 2,
+   "pending": 0,
    "retained": 0,
    "runs": 3
   },
   "large|gpt-5.6-terra|B0|cktevo_risc__btb": {
    "best_retained_area_gain": 0.01713,
-   "pending": 94,
-   "retained": 13,
+   "pending": 11,
+   "retained": 39,
    "runs": 3
   },
   "large|gpt-5.6-terra|B0|drrtl_LSTM": {
@@ -2852,8 +3173,8 @@
   },
   "large|gpt-5.6-terra|B0|drrtl_aes": {
    "best_retained_area_gain": 0.0072,
-   "pending": 136,
-   "retained": 1,
+   "pending": 107,
+   "retained": 4,
    "runs": 3
   },
   "large|gpt-5.6-terra|B0|drrtl_tv80": {
@@ -2888,8 +3209,8 @@
   },
   "large|gpt-5.6-terra|B1_E4|drrtl_aes": {
    "best_retained_area_gain": 0.00883,
-   "pending": 6,
-   "retained": 39,
+   "pending": 0,
+   "retained": 40,
    "runs": 3
   },
   "large|gpt-5.6-terra|B1_E4|drrtl_tv80": {
@@ -2924,7 +3245,7 @@
   },
   "large|gpt-5.6-terra|B2|drrtl_aes": {
    "best_retained_area_gain": 0.00764,
-   "pending": 8,
+   "pending": 1,
    "retained": 15,
    "runs": 3
   },
@@ -2960,7 +3281,7 @@
   },
   "large|gpt-5.6-terra|DrRTL_reimpl|drrtl_aes": {
    "best_retained_area_gain": 0.00609,
-   "pending": 13,
+   "pending": 0,
    "retained": 1,
    "runs": 3
   },
@@ -2978,7 +3299,7 @@
   },
   "large|gpt-5.6-terra|M|cktevo_nn_engine__spikeNeuron8_H7": {
    "best_retained_area_gain": 0.0,
-   "pending": 106,
+   "pending": 102,
    "retained": 0,
    "runs": 3
   },
@@ -2996,7 +3317,7 @@
   },
   "large|gpt-5.6-terra|M|drrtl_aes": {
    "best_retained_area_gain": 0.04669,
-   "pending": 47,
+   "pending": 41,
    "retained": 11,
    "runs": 3
   },
@@ -3011,8 +3332,8 @@
  "exp": "phase5",
  "final": false,
  "floor_version": "phase4",
- "generated_at": "2026-09-19T18:19",
- "git_sha": "710ba68b2e3e",
+ "generated_at": "2026-09-20T00:51",
+ "git_sha": "611102e0f752",
  "groups": {
   "large|gpt-5.6-luna|M": {
    "accepted": 29,
@@ -3054,7 +3375,7 @@
     "free->d": 13,
     "free->free": 5
    },
-   "dc_h": 38.6,
+   "dc_h": 42.69,
    "done": 15,
    "duplicate": 74,
    "error": 0,
@@ -3065,30 +3386,30 @@
    "inconclusive": 130,
    "latency_mapped": 0,
    "model": "gpt-5.6-luna",
-   "pending": 171,
+   "pending": 156,
    "pending_by": {
-    "e4": 9,
-    "proof": 24,
-    "sim": 138
+    "e4": 18,
+    "proof": 43,
+    "sim": 95
    },
    "planned": 18,
    "prescreened": 189,
    "proven": 121,
    "proven_per_call": 0.1344,
    "proven_sim_only": 0,
-   "rejected": 87,
+   "rejected": 91,
    "repairs": 183,
    "repairs_proven": 26,
    "retained": 44,
    "retained_per_100_calls": 4.889,
-   "retained_per_dc_hour": 1.14,
+   "retained_per_dc_hour": 1.031,
    "retained_per_run": 2.444,
    "retained_per_usd": 14.79,
    "role": "contrast",
    "runs": 18,
    "runs_with_retained": 4,
    "scope_flags": 235,
-   "sim_fail": 244,
+   "sim_fail": 254,
    "stored": {
     "absorbed_identical": 19,
     "harmful": 19,
@@ -3106,7 +3427,7 @@
    },
    "uniform": {
     "absorbed_identical": 19,
-    "harmful": 19,
+    "harmful": 20,
     "noise": 16,
     "retained": 44,
     "tradeoff": 22
@@ -3118,7 +3439,7 @@
   "large|gpt-5.6-terra|B0": {
    "accepted": 79,
    "arm": "B0",
-   "best_gain_mean": 0.00208,
+   "best_gain_mean": 0.0028,
    "best_gain_median": 0.0,
    "block_answers": 0,
    "block_flag_rate": null,
@@ -3155,20 +3476,20 @@
     "free->d": 46,
     "free->free": 1
    },
-   "dc_h": 8.83,
+   "dc_h": 27.72,
    "done": 15,
    "duplicate": 40,
    "error": 2,
    "falsified": 29,
    "gain_retained_max": 0.01713,
-   "gain_retained_median": 0.00089,
+   "gain_retained_median": -0.00018,
    "incomplete": true,
    "inconclusive": 344,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 232,
+   "pending": 118,
    "pending_by": {
-    "e4": 232
+    "e4": 118
    },
    "planned": 18,
    "prescreened": 0,
@@ -3178,14 +3499,14 @@
    "rejected": 18,
    "repairs": 86,
    "repairs_proven": 18,
-   "retained": 14,
-   "retained_per_100_calls": 1.556,
-   "retained_per_dc_hour": 1.585,
-   "retained_per_run": 0.778,
-   "retained_per_usd": 0.456,
+   "retained": 43,
+   "retained_per_100_calls": 4.778,
+   "retained_per_dc_hour": 1.551,
+   "retained_per_run": 2.389,
+   "retained_per_usd": 1.4,
    "role": "main",
    "runs": 18,
-   "runs_with_retained": 3,
+   "runs_with_retained": 6,
    "scope_flags": 316,
    "sim_fail": 178,
    "stored": {
@@ -3201,12 +3522,12 @@
     "q95": 39100.2
    },
    "uniform": {
-    "absorbed": 3,
-    "absorbed_identical": 2,
-    "harmful": 16,
-    "noise": 7,
-    "retained": 14,
-    "tradeoff": 15
+    "absorbed": 8,
+    "absorbed_identical": 8,
+    "harmful": 33,
+    "noise": 29,
+    "retained": 43,
+    "tradeoff": 50
    },
    "unusable": 0,
    "usd": 30.72,
@@ -3250,21 +3571,19 @@
     "free->c1": 33,
     "free->d": 54
    },
-   "dc_h": 58.11,
+   "dc_h": 60.62,
    "done": 15,
    "duplicate": 44,
    "error": 1,
    "falsified": 34,
    "gain_retained_max": 0.02359,
-   "gain_retained_median": 0.0088,
+   "gain_retained_median": 0.00876,
    "incomplete": true,
    "inconclusive": 282,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 6,
-   "pending_by": {
-    "e4": 6
-   },
+   "pending": 0,
+   "pending_by": {},
    "planned": 18,
    "prescreened": 0,
    "proven": 327,
@@ -3273,11 +3592,11 @@
    "rejected": 14,
    "repairs": 93,
    "repairs_proven": 30,
-   "retained": 120,
-   "retained_per_100_calls": 13.333,
-   "retained_per_dc_hour": 2.065,
-   "retained_per_run": 6.667,
-   "retained_per_usd": 3.459,
+   "retained": 121,
+   "retained_per_100_calls": 13.444,
+   "retained_per_dc_hour": 1.996,
+   "retained_per_run": 6.722,
+   "retained_per_usd": 3.487,
    "role": "main",
    "runs": 18,
    "runs_with_retained": 6,
@@ -3297,10 +3616,10 @@
    },
    "uniform": {
     "absorbed": 1,
-    "absorbed_identical": 41,
-    "harmful": 75,
-    "noise": 38,
-    "retained": 120,
+    "absorbed_identical": 42,
+    "harmful": 78,
+    "noise": 39,
+    "retained": 121,
     "tradeoff": 46
    },
    "unusable": 0,
@@ -3344,7 +3663,7 @@
     "free->c1": 20,
     "free->d": 52
    },
-   "dc_h": 57.27,
+   "dc_h": 60.59,
    "done": 15,
    "duplicate": 15,
    "error": 0,
@@ -3355,9 +3674,9 @@
    "inconclusive": 311,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 8,
+   "pending": 1,
    "pending_by": {
-    "e4": 8
+    "e4": 1
    },
    "planned": 18,
    "prescreened": 0,
@@ -3369,7 +3688,7 @@
    "repairs_proven": 44,
    "retained": 96,
    "retained_per_100_calls": 10.667,
-   "retained_per_dc_hour": 1.676,
+   "retained_per_dc_hour": 1.584,
    "retained_per_run": 5.333,
    "retained_per_usd": 2.803,
    "role": "main",
@@ -3391,10 +3710,10 @@
    },
    "uniform": {
     "absorbed_identical": 50,
-    "harmful": 81,
-    "noise": 45,
+    "harmful": 84,
+    "noise": 48,
     "retained": 96,
-    "tradeoff": 38
+    "tradeoff": 39
    },
    "unusable": 0,
    "usd": 34.25,
@@ -3424,7 +3743,7 @@
     "free->d": 1,
     "free->free": 2
    },
-   "dc_h": 49.06,
+   "dc_h": 53.62,
    "done": 15,
    "duplicate": 177,
    "error": 1,
@@ -3435,10 +3754,8 @@
    "inconclusive": 130,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 13,
-   "pending_by": {
-    "e4": 13
-   },
+   "pending": 0,
+   "pending_by": {},
    "planned": 18,
    "prescreened": 0,
    "proven": 341,
@@ -3449,7 +3766,7 @@
    "repairs_proven": 8,
    "retained": 44,
    "retained_per_100_calls": 4.889,
-   "retained_per_dc_hour": 0.897,
+   "retained_per_dc_hour": 0.821,
    "retained_per_run": 2.444,
    "retained_per_usd": 1.246,
    "role": "main",
@@ -3470,10 +3787,10 @@
     "q95": 31130.1
    },
    "uniform": {
-    "absorbed": 37,
-    "absorbed_identical": 40,
+    "absorbed": 38,
+    "absorbed_identical": 42,
     "harmful": 106,
-    "noise": 90,
+    "noise": 100,
     "retained": 44,
     "tradeoff": 11
    },
@@ -3520,7 +3837,7 @@
     "free->d": 14,
     "free->free": 1
    },
-   "dc_h": 45.24,
+   "dc_h": 50.75,
    "done": 15,
    "duplicate": 61,
    "error": 0,
@@ -3531,30 +3848,30 @@
    "inconclusive": 265,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 159,
+   "pending": 149,
    "pending_by": {
-    "e4": 7,
-    "proof": 34,
-    "sim": 118
+    "e4": 11,
+    "proof": 55,
+    "sim": 83
    },
    "planned": 18,
    "prescreened": 165,
    "proven": 144,
    "proven_per_call": 0.16,
    "proven_sim_only": 0,
-   "rejected": 18,
+   "rejected": 19,
    "repairs": 124,
    "repairs_proven": 28,
    "retained": 78,
    "retained_per_100_calls": 8.667,
-   "retained_per_dc_hour": 1.724,
+   "retained_per_dc_hour": 1.537,
    "retained_per_run": 4.333,
    "retained_per_usd": 2.49,
    "role": "main",
    "runs": 18,
    "runs_with_retained": 5,
    "scope_flags": 135,
-   "sim_fail": 220,
+   "sim_fail": 226,
    "stored": {
     "absorbed_identical": 8,
     "harmful": 13,
@@ -3572,10 +3889,10 @@
    },
    "uniform": {
     "absorbed_identical": 8,
-    "harmful": 13,
+    "harmful": 14,
     "noise": 11,
     "retained": 78,
-    "tradeoff": 31
+    "tradeoff": 33
    },
    "unusable": 1,
    "usd": 31.32,
@@ -3599,18 +3916,18 @@
  },
  "ops": {
   "agreement": {
-   "agree": 1281,
-   "agree_rate": 0.9034,
+   "agree": 1510,
+   "agree_rate": 0.9113,
    "by_label": {
-    "absorbed": 23,
-    "absorbed_identical": 424,
-    "duplicate": 524,
-    "harmful": 279,
-    "improved": 7010,
-    "no_gain": 2139,
-    "noise": 102,
-    "retained": 477,
-    "tradeoff": 712
+    "absorbed": 35,
+    "absorbed_identical": 501,
+    "duplicate": 544,
+    "harmful": 329,
+    "improved": 7155,
+    "no_gain": 2167,
+    "noise": 103,
+    "retained": 524,
+    "tradeoff": 736
    },
    "disagree": [
     {
@@ -3864,11 +4181,11 @@
      "provisional": "noise"
     }
    ],
-   "n_provisional": 11690,
-   "not_proven": 3044,
-   "pending": 7228,
-   "proven_final": 1418,
-   "withheld": 8139
+   "n_provisional": 12094,
+   "not_proven": 3239,
+   "pending": 7198,
+   "proven_final": 1657,
+   "withheld": 8355
   },
   "events": {
    "hidden_throttle_at": "2026-09-16T14:30",
@@ -4665,12 +4982,72 @@
      "sim_fail": 0
     },
     {
-     "falsified": 25,
-     "finished": 99,
+     "falsified": 39,
+     "finished": 192,
      "hour": "2026-09-19T18",
-     "inconclusive": 13,
-     "proven": 59,
-     "ratio": 4.54,
+     "inconclusive": 28,
+     "proven": 125,
+     "ratio": 4.46,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 4,
+     "finished": 64,
+     "hour": "2026-09-19T19",
+     "inconclusive": 27,
+     "proven": 33,
+     "ratio": 1.22,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 2,
+     "finished": 70,
+     "hour": "2026-09-19T20",
+     "inconclusive": 34,
+     "proven": 34,
+     "ratio": 1.0,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 4,
+     "finished": 87,
+     "hour": "2026-09-19T21",
+     "inconclusive": 35,
+     "proven": 48,
+     "ratio": 1.37,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 16,
+     "finished": 190,
+     "hour": "2026-09-19T22",
+     "inconclusive": 31,
+     "proven": 143,
+     "ratio": 4.61,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 7,
+     "finished": 110,
+     "hour": "2026-09-19T23",
+     "inconclusive": 26,
+     "proven": 77,
+     "ratio": 2.96,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 16,
+     "finished": 121,
+     "hour": "2026-09-20T00",
+     "inconclusive": 28,
+     "proven": 77,
+     "ratio": 2.75,
      "rejected": 0,
      "sim_fail": 0
     }
@@ -4679,15 +5056,15 @@
   },
   "reuse": {
    "by_verdict": {},
-   "records_scanned": 38212,
+   "records_scanned": 39695,
    "reused": 0,
    "sim_record_missing": 0,
    "since": "2026-09-16T15:14",
-   "split_proofs": 15569
+   "split_proofs": 16304
   }
  },
  "pending_total": {
-  "large": 589
+  "large": 424
  },
  "planned": {
   "large|gpt-5.6-luna|M": 18,
@@ -4743,7 +5120,7 @@
      24
     ]
    },
-   "median_s": 3068.0
+   "median_s": 3067.0
   },
   "drrtl_SPI": {
    "empty": {
@@ -4761,7 +5138,7 @@
     ],
     "B2-terra": [
      4,
-     28
+     36
     ],
     "DrRTL_reimpl-luna": [
      3,
@@ -4772,11 +5149,11 @@
      12
     ],
     "M-terra": [
-     4,
-     4
+     12,
+     12
     ]
    },
-   "median_s": 3063.0
+   "median_s": 3062.0
   },
   "drrtl_aes": {
    "empty": {
@@ -4818,19 +5195,19 @@
      33
     ],
     "B2-luna": [
-     7,
-     7
+     30,
+     30
     ],
     "B2-terra": [
-     25,
-     25
+     27,
+     32
     ],
     "DrRTL_reimpl-luna": [
      13,
      30
     ]
    },
-   "median_s": 3060.0
+   "median_s": 3058.0
   },
   "drrtl_tv80": {
    "empty": {
@@ -4885,6 +5262,126 @@
   },
   {
    "arm": "B0",
+   "cand_id": "cbc6138d0f16ccd",
+   "class_final": "c1",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.05339,
+    "power": 0.8045,
+    "wns": -5e-05
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area",
+   "subtags": [
+    "flip-flop bits 2008 -> 2080 and register cells 104 -> 176 with identical latency (no offset)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c7b28fa48f8b738",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.07656,
+    "power": 0.79012,
+    "wns": -0.00079
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ce2f9f6d2d96322",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00232,
+    "power": 0.00268,
+    "wns": 0.00095
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "operator family gained: add, mul, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cf2a69988b33434",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.07509,
+    "power": 0.78875,
+    "wns": -0.00064
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c87f5fe6efc8ac5",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.12472,
+    "power": -0.01826,
+    "wns": 0.00036
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c6fef16eabc85c5",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.07509,
+    "power": 0.78875,
+    "wns": -0.00064
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c52a93dbdd10e50",
    "class_final": "d",
    "design_id": "cktevo_risc__btb",
@@ -4905,6 +5402,26 @@
   },
   {
    "arm": "B0",
+   "cand_id": "ca32fc8fe328082",
+   "class_final": "c1",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.08468,
+    "power": 0.78792,
+    "wns": -0.00049
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "flip-flop bits 2008 -> 2112 and register cells 104 -> 208 with identical latency (no offset)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c1dcd9adbc4df3f",
    "class_final": "c1",
    "design_id": "cktevo_risc__btb",
@@ -4920,6 +5437,26 @@
    "sublabel": "up=power down=area",
    "subtags": [
     "flip-flop bits 2008 -> 2080 and register cells 104 -> 176 with identical latency (no offset)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ccb0f2ea5031238",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.00116,
+    "power": 0.45577,
+    "wns": -0.00062
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=power down=wns",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
    ],
    "tier": "large"
   },
@@ -4946,6 +5483,67 @@
   },
   {
    "arm": "B0",
+   "cand_id": "cbaeb7e9c96d0db",
+   "class_final": "c1",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.00808,
+    "power": 0.78855,
+    "wns": 0.00154
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "flip-flop bits 2008 -> 2016 and register cells 104 -> 112 with identical latency (no offset)",
+    "text differs widely (ratio 0.7492) without operator or topology evidence -> review"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cff133ec462d8d8",
+   "class_final": "c1",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.05764,
+    "power": 0.79558,
+    "wns": -0.00061
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "flip-flop bits 2008 -> 2080 and register cells 104 -> 176 with identical latency (no offset)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ca9609319386672",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00072,
+    "power": 0.82758,
+    "wns": 0.00012
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c40463b1649015e",
    "class_final": "b",
    "design_id": "cktevo_risc__btb",
@@ -4967,6 +5565,86 @@
   },
   {
    "arm": "B0",
+   "cand_id": "c7d0245fa7e5632",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00072,
+    "power": 0.82758,
+    "wns": 0.00012
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cd4a98edb0cc639",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.05413,
+    "power": 0.79455,
+    "wns": -0.00074
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c7fbf8a7b8c96cc",
+   "class_final": "c1",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.07549,
+    "power": 0.7899,
+    "wns": -0.00082
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "flip-flop bits 2008 -> 2080 and register cells 104 -> 176 with identical latency (no offset)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cfe4556137e2eb4",
+   "class_final": "c1",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.07919,
+    "power": 0.78632,
+    "wns": -0.00824
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "flip-flop bits 2008 -> 2080 and register cells 104 -> 176 with identical latency (no offset)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c2caa68b58f40e9",
    "class_final": "d",
    "design_id": "cktevo_risc__btb",
@@ -4982,6 +5660,27 @@
    "sublabel": "up=power down=area,wns",
    "subtags": [
     "operator family gained: shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c838acb81ff383f",
+   "class_final": "c1",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.01062,
+    "power": 0.76744,
+    "wns": -0.00061
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=area,power down=wns",
+   "subtags": [
+    "flip-flop bits 2008 -> 2016 and register cells 104 -> 112 with identical latency (no offset)",
+    "text differs widely (ratio 0.7358) without operator or topology evidence -> review"
    ],
    "tier": "large"
   },
@@ -7737,6 +8436,26 @@
   },
   {
    "arm": "B0",
+   "cand_id": "ccd6e8b216d10ea",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00232,
+    "power": 0.00268,
+    "wns": 0.00095
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "operator family gained: add, mul, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c34acd31f661138",
    "class_final": "d",
    "design_id": "cktevo_risc__btb",
@@ -7757,6 +8476,87 @@
   },
   {
    "arm": "B0",
+   "cand_id": "ce649bce1b403dc",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.07656,
+    "power": 0.79012,
+    "wns": -0.00079
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cbde09a977c001d",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.07919,
+    "power": 0.78632,
+    "wns": -0.00824
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "caf59b41464caff",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.05836,
+    "power": 0.80282,
+    "wns": -0.00067
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c8e84ef49ad7ddc",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.04338,
+    "power": 0.05761,
+    "wns": 0.00082
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=wns,power down=area",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged",
+    "text differs widely (ratio 0.7594) without operator or topology evidence -> review"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c155c3a77a91c31",
    "class_final": "b",
    "design_id": "cktevo_risc__btb",
@@ -7770,6 +8570,67 @@
    "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
    "stored_label": "improved",
    "sublabel": "up=area,power down=wns",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "caa82c2e1d56835",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.00528,
+    "power": 0.0361,
+    "wns": 0.00081
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ce1e6d2cc95323a",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.00304,
+    "power": 0.04585,
+    "wns": -0.00037
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=area,power down=wns",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged",
+    "text differs widely (ratio 0.6966) without operator or topology evidence -> review"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cc8ebaec54419aa",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00234,
+    "power": 0.81338,
+    "wns": 0.00055
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
    "subtags": [
     "register names or clocked targets changed, flip-flop count and latency unchanged"
    ],
@@ -7797,6 +8658,26 @@
   },
   {
    "arm": "B0",
+   "cand_id": "ca6643d769f5370",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.00324,
+    "power": 0.80491,
+    "wns": 0.00118
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c6705185ff70f4b",
    "class_final": "b",
    "design_id": "cktevo_risc__btb",
@@ -7804,6 +8685,46 @@
     "area": -0.00234,
     "power": 0.81338,
     "wns": 0.00055
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ccf1071e8e892a9",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00438,
+    "power": 0.82289,
+    "wns": 0.00034
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=wns,power down=area",
+   "subtags": [
+    "operator family gained: shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cd8fe0e6e9ffed6",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00094,
+    "power": 0.79769,
+    "wns": 0.00047
    },
    "label": "retained",
    "model": "gpt-5.6-terra",
@@ -7830,6 +8751,66 @@
    "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
    "stored_label": "improved",
    "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cf580d6fe78524e",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.12472,
+    "power": -0.01826,
+    "wns": 0.00036
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c752be62f46f9b4",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.13367,
+    "power": -0.00591,
+    "wns": 0.00031
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ce5d830fa8f4000",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.0579,
+    "power": 0.46363,
+    "wns": -0.00073
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
    "subtags": [
     "register names or clocked targets changed, flip-flop count and latency unchanged"
    ],
@@ -7877,6 +8858,86 @@
   },
   {
    "arm": "B0",
+   "cand_id": "cbfa2b4ffaa3e0e",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.0025,
+    "power": 0.81562,
+    "wns": 0.00029
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cde91e697e3508a",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.0016,
+    "power": 0.80159,
+    "wns": 0.00024
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c7b838eb115d69a",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00134,
+    "power": 0.81337,
+    "wns": -0.00013
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c882176ab3f3027",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00079,
+    "power": 0.80604,
+    "wns": 0.00312
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c128072263d95d4",
    "class_final": "b",
    "design_id": "cktevo_risc__btb",
@@ -7897,6 +8958,86 @@
   },
   {
    "arm": "B0",
+   "cand_id": "c9d22a03ee5ab35",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00103,
+    "power": 0.78483,
+    "wns": 0.00016
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ce98cbf795c68c8",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00103,
+    "power": 0.78483,
+    "wns": 0.00016
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cdc635bff7f81e6",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00123,
+    "power": 0.80228,
+    "wns": 0.00082
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "caaab83522f2894",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.13104,
+    "power": -0.02234,
+    "wns": 0.00119
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area,power",
+   "subtags": [
+    "operator family gained: shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c20415fc07d2cbd",
    "class_final": "d",
    "design_id": "cktevo_risc__btb",
@@ -7904,6 +9045,26 @@
     "area": -0.05683,
     "power": 0.79039,
     "wns": -0.00067
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214900_vo_risc__btb_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cba37b660124133",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.07912,
+    "power": 0.78635,
+    "wns": -0.00824
    },
    "label": "tradeoff",
    "model": "gpt-5.6-terra",
@@ -10757,6 +11918,26 @@
   },
   {
    "arm": "B0",
+   "cand_id": "cdeec551e52fb36",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.0002,
+    "power": 0.00011,
+    "wns": 0.001
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c640fe52e0b9776",
    "class_final": "d",
    "design_id": "cktevo_risc__btb",
@@ -10817,6 +11998,26 @@
   },
   {
    "arm": "B0",
+   "cand_id": "cb5878c714e506c",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00018,
+    "power": 0.01432,
+    "wns": 0.00126
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c204190602656ac",
    "class_final": "c1",
    "design_id": "cktevo_risc__btb",
@@ -10837,6 +12038,46 @@
   },
   {
    "arm": "B0",
+   "cand_id": "c9a7c3a3d153926",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.12472,
+    "power": -0.01826,
+    "wns": 0.00036
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ce28497bdc4bce9",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.18505,
+    "power": 0.78594,
+    "wns": -0.00069
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c1ea81fd1056cb6",
    "class_final": "d",
    "design_id": "cktevo_risc__btb",
@@ -10850,6 +12091,146 @@
    "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
    "stored_label": "improved",
    "sublabel": null,
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cefccd6957debca",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.00127,
+    "power": 0.03837,
+    "wns": 0.00019
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cf8afecc5574c05",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.12472,
+    "power": -0.01826,
+    "wns": 0.00036
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ca1f94a0bc33d4c",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.00197,
+    "power": 0.01123,
+    "wns": 0.00219
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cd6e7339e6e8b0b",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.02229,
+    "power": 0.45428,
+    "wns": -0.00073
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cdae4dc648ee6de",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.02229,
+    "power": 0.45428,
+    "wns": -0.00073
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ca17bc02e85de0c",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.05394,
+    "power": 0.79313,
+    "wns": -0.00574
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cb97b776b8369e8",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.02229,
+    "power": 0.45428,
+    "wns": -0.00073
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
    "subtags": [
     "operator family gained: add, shift (present in C, absent in D)"
    ],
@@ -10877,6 +12258,86 @@
   },
   {
    "arm": "B0",
+   "cand_id": "c8f399469dbf1a6",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.00188,
+    "power": 0.01123,
+    "wns": 0.00196
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "operator family gained: shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c7c3b1afeca11c3",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.00197,
+    "power": 0.01123,
+    "wns": 0.00219
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c835a93feb1362d",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.01165,
+    "power": 0.78916,
+    "wns": 0.00047
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cb70f6f33c5e8a5",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.00738,
+    "power": 0.8021,
+    "wns": -0.00075
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=area,power down=wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c4750c6fb7f3bd0",
    "class_final": "d",
    "design_id": "cktevo_risc__btb",
@@ -10892,6 +12353,46 @@
    "sublabel": "up=area,power down=wns",
    "subtags": [
     "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cf92beca0eb5761",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.0113,
+    "power": 0.78964,
+    "wns": 0.0001
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cd770e4a45b7c79",
+   "class_final": "b",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.0002,
+    "power": 0.00011,
+    "wns": 0.001
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
    ],
    "tier": "large"
   },
@@ -10917,12 +12418,92 @@
   },
   {
    "arm": "B0",
+   "cand_id": "c9099e95837d962",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.00232,
+    "power": 0.00268,
+    "wns": 0.00095
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "operator family gained: add, mul, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "cbc23e9043c6565",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.07509,
+    "power": 0.78875,
+    "wns": -0.00064
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c90549cf30929c7",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.05413,
+    "power": 0.79455,
+    "wns": -0.00074
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c306639748b53c4",
    "class_final": "d",
    "design_id": "cktevo_risc__btb",
    "gains": {
     "area": -0.05674,
     "power": 0.80525,
+    "wns": -0.00079
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "ca9538fee4bbf66",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": -0.07656,
+    "power": 0.79012,
     "wns": -0.00079
    },
    "label": "tradeoff",
@@ -10950,6 +12531,26 @@
    "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
    "stored_label": "improved",
    "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "operator family gained: add, shift (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "c9f651d684af2a2",
+   "class_final": "d",
+   "design_id": "cktevo_risc__btb",
+   "gains": {
+    "area": 0.01237,
+    "power": 0.78794,
+    "wns": -0.00032
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_vo_risc__btb_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": "up=area,power down=wns",
    "subtags": [
     "operator family gained: add, shift (present in C, absent in D)"
    ],
@@ -14697,6 +16298,26 @@
    "tier": "large"
   },
   {
+   "arm": "B0",
+   "cand_id": "ca919f15e200091",
+   "class_final": "d",
+   "design_id": "drrtl_aes",
+   "gains": {
+    "area": 0.00355,
+    "power": 0.00023,
+    "wns": 3e-05
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_drrtl_aes_B0_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "operator family gained: add (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
    "arm": "B1_E4",
    "cand_id": "c0e91d815e17499",
    "class_final": "d",
@@ -14730,6 +16351,26 @@
    "model": "gpt-5.6-terra",
    "run_id": "r20260915_214901_drrtl_aes_B1_E4_-terra_s1",
    "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "operator family gained: add (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B1_E4",
+   "cand_id": "cae5db1e25aabd4",
+   "class_final": "d",
+   "design_id": "drrtl_aes",
+   "gains": {
+    "area": 0.00718,
+    "power": 0.00174,
+    "wns": -3e-05
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_drrtl_aes_B1_E4_-terra_s1",
+   "stored_label": null,
    "sublabel": null,
    "subtags": [
     "operator family gained: add (present in C, absent in D)"
@@ -14878,6 +16519,26 @@
   },
   {
    "arm": "M",
+   "cand_id": "c806fe3afde8e49",
+   "class_final": "c1",
+   "design_id": "drrtl_aes",
+   "gains": {
+    "area": -0.0797,
+    "power": 0.10189,
+    "wns": -0.01742
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_drrtl_aes_M_-terra_s1",
+   "stored_label": null,
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "flip-flop bits 83339 -> 83659 and register cells 10243 -> 10253 with identical latency (no offset)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "M",
    "cand_id": "c8e26cda64f3c00",
    "class_final": "d",
    "design_id": "drrtl_aes",
@@ -14893,6 +16554,26 @@
    "sublabel": null,
    "subtags": [
     "operator family gained: add (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
+   "cand_id": "caf1d6ee4318abe",
+   "class_final": "b",
+   "design_id": "drrtl_aes",
+   "gains": {
+    "area": 0.00412,
+    "power": 0.0022,
+    "wns": -2e-05
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214901_drrtl_aes_B0_-terra_s2",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "flip-flop bits 83339 -> 83338 in the same register cells (widths), latency unchanged"
    ],
    "tier": "large"
   },
@@ -15978,6 +17659,26 @@
   },
   {
    "arm": "B0",
+   "cand_id": "cb909ca198f7728",
+   "class_final": "d",
+   "design_id": "drrtl_aes",
+   "gains": {
+    "area": 0.00328,
+    "power": 0.00361,
+    "wns": -4e-05
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214902_drrtl_aes_B0_-terra_s3",
+   "stored_label": "improved",
+   "sublabel": null,
+   "subtags": [
+    "operator family gained: add (present in C, absent in D)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B0",
    "cand_id": "c384e4a923bb2ad",
    "class_final": "d",
    "design_id": "drrtl_aes",
@@ -16278,6 +17979,26 @@
   },
   {
    "arm": "B2",
+   "cand_id": "cbf7b3c4fd71abf",
+   "class_final": "c1",
+   "design_id": "drrtl_aes",
+   "gains": {
+    "area": -0.09313,
+    "power": 0.10744,
+    "wns": -0.00385
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214902_drrtl_aes_B2_-terra_s3",
+   "stored_label": null,
+   "sublabel": "up=power down=area,wns",
+   "subtags": [
+    "flip-flop bits 83339 -> 83659 and register cells 10243 -> 10263 with identical latency (no offset)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "B2",
    "cand_id": "cc364e9fc5cd15e",
    "class_final": "c1",
    "design_id": "drrtl_aes",
@@ -16293,6 +18014,26 @@
    "sublabel": "up=power down=area",
    "subtags": [
     "flip-flop bits 83339 -> 83340 and register cells 10243 -> 10253 with identical latency (no offset)"
+   ],
+   "tier": "large"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c7b95dbd66eb24b",
+   "class_final": "c1",
+   "design_id": "drrtl_aes",
+   "gains": {
+    "area": -0.10554,
+    "power": 0.10087,
+    "wns": 1e-05
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214902_drrtl_aes_M_-terra_s3",
+   "stored_label": null,
+   "sublabel": "up=power down=area",
+   "subtags": [
+    "flip-flop bits 83339 -> 83659 and register cells 10243 -> 10253 with identical latency (no offset)"
    ],
    "tier": "large"
   }
@@ -16627,7 +18368,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 0.109,
+   "dc_h": 0.208,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -16699,7 +18440,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.395,
+   "dc_h": 3.286,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 11,
    "model": "gpt-5.6-luna",
@@ -16717,7 +18458,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.757,
+   "dc_h": 4.018,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -16807,7 +18548,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.33,
+   "dc_h": 3.872,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 10,
    "model": "gpt-5.6-luna",
@@ -16825,7 +18566,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.781,
+   "dc_h": 3.478,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -16843,7 +18584,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 0.0,
+   "dc_h": 0.104,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -16915,7 +18656,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 1.98,
+   "dc_h": 2.539,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 11,
    "model": "gpt-5.6-luna",
@@ -16933,7 +18674,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 3.658,
+   "dc_h": 4.935,
    "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
    "gens": 12,
    "model": "gpt-5.6-terra",
@@ -16951,7 +18692,7 @@
    "best_retained_area_gain": 0.01307,
    "calls": 60,
    "cands": 60,
-   "dc_h": 1.675,
+   "dc_h": 5.932,
    "design_id": "cktevo_risc__btb",
    "gens": 12,
    "model": "gpt-5.6-terra",
@@ -17056,10 +18797,10 @@
   },
   {
    "arm": "B0",
-   "best_retained_area_gain": 0.0,
+   "best_retained_area_gain": 0.00528,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.895,
+   "dc_h": 7.114,
    "design_id": "cktevo_risc__btb",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -17167,7 +18908,7 @@
    "best_retained_area_gain": 0.01713,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.025,
+   "dc_h": 5.004,
    "design_id": "cktevo_risc__btb",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -17272,10 +19013,10 @@
   },
   {
    "arm": "B0",
-   "best_retained_area_gain": 0.0,
+   "best_retained_area_gain": 0.00355,
    "calls": 60,
    "cands": 60,
-   "dc_h": 0.191,
+   "dc_h": 2.176,
    "design_id": "drrtl_aes",
    "gens": 12,
    "model": "gpt-5.6-terra",
@@ -17293,7 +19034,7 @@
    "best_retained_area_gain": 0.00883,
    "calls": 60,
    "cands": 60,
-   "dc_h": 6.894,
+   "dc_h": 9.408,
    "design_id": "drrtl_aes",
    "gens": 12,
    "model": "gpt-5.6-terra",
@@ -17311,7 +19052,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 5.8,
+   "dc_h": 8.695,
    "design_id": "drrtl_aes",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -17329,7 +19070,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 50,
-   "dc_h": 8.986,
+   "dc_h": 13.546,
    "design_id": "drrtl_aes",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -17347,7 +19088,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 4.484,
+   "dc_h": 4.702,
    "design_id": "drrtl_aes",
    "gens": 11,
    "model": "gpt-5.6-luna",
@@ -17365,7 +19106,7 @@
    "best_retained_area_gain": 0.0072,
    "calls": 60,
    "cands": 60,
-   "dc_h": 5.16,
+   "dc_h": 6.422,
    "design_id": "drrtl_aes",
    "gens": 10,
    "model": "gpt-5.6-terra",
@@ -17380,10 +19121,10 @@
   },
   {
    "arm": "B0",
-   "best_retained_area_gain": 0.0,
+   "best_retained_area_gain": 0.00412,
    "calls": 60,
    "cands": 60,
-   "dc_h": 0.82,
+   "dc_h": 3.866,
    "design_id": "drrtl_aes",
    "gens": 12,
    "model": "gpt-5.6-terra",
@@ -17491,7 +19232,7 @@
    "best_retained_area_gain": 0.0072,
    "calls": 60,
    "cands": 60,
-   "dc_h": 0.924,
+   "dc_h": 3.128,
    "design_id": "drrtl_aes",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -17527,7 +19268,7 @@
    "best_retained_area_gain": 0.0072,
    "calls": 60,
    "cands": 60,
-   "dc_h": 10.016,
+   "dc_h": 10.443,
    "design_id": "drrtl_aes",
    "gens": 10,
    "model": "gpt-5.6-terra",
@@ -17563,7 +19304,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 4.296,
+   "dc_h": 5.184,
    "design_id": "drrtl_aes",
    "gens": 9,
    "model": "gpt-5.6-luna",
@@ -17581,7 +19322,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 59,
-   "dc_h": 5.791,
+   "dc_h": 6.563,
    "design_id": "drrtl_aes",
    "gens": 9,
    "model": "gpt-5.6-terra",
@@ -17689,7 +19430,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.014,
+   "dc_h": 2.077,
    "design_id": "drrtl_tv80",
    "gens": 10,
    "model": "gpt-5.6-terra",
@@ -17797,7 +19538,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.636,
+   "dc_h": 2.692,
    "design_id": "drrtl_tv80",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -17905,7 +19646,7 @@
    "best_retained_area_gain": 0.0,
    "calls": 60,
    "cands": 60,
-   "dc_h": 2.781,
+   "dc_h": 2.897,
    "design_id": "drrtl_tv80",
    "gens": 11,
    "model": "gpt-5.6-terra",
@@ -18259,8 +20000,8 @@
    },
    "simple_spi": {
     "idle_min": 0.0,
-    "occupied_min": 1140.0,
-    "seats": 19
+    "occupied_min": 1080.0,
+    "seats": 18
    },
    "small": {
     "idle_min": null,
@@ -18268,93 +20009,84 @@
     "seats": null
    },
    "spi": {
-    "idle_min": 0.1,
-    "occupied_min": 839.9,
-    "seats": 14
+    "idle_min": 0.0,
+    "occupied_min": 780.0,
+    "seats": 13
    },
    "uart": {
-    "idle_min": 0.0,
-    "occupied_min": 300.0,
-    "seats": 5
+    "idle_min": 0.1,
+    "occupied_min": 359.9,
+    "seats": 6
    },
    "window": {
-    "idle_min": 0.4,
-    "occupied_min": 419.6,
-    "seats": 7
+    "idle_min": 0.1,
+    "occupied_min": 479.9,
+    "seats": 8
    }
   },
   "state": {
-   "generating": 16,
-   "queued": 192,
-   "waiting": 33
+   "generating": 11,
+   "queued": 181,
+   "waiting": 36
   },
   "unverified_by_design": {
-   "cktevo_nn_engine__thresholds_128x4096": 0.5519,
-   "cktevo_usb__usbf_sie_rx": 0.3038,
-   "cktevo_vga_enh__vga_wb_slave": 0.4195,
-   "drrtl_SPI": 0.95,
-   "drrtl_communication": 0.5206,
-   "drrtl_router": 0.7143,
-   "drrtl_simple_spi": 0.8333,
-   "rtlopt_alu_64bit": 0.419,
-   "rtlopt_divider_8bit": 0.4235,
-   "rtlopt_register": 0.0686
+   "cktevo_usb__usbf_sie_rx": 0.4583,
+   "drrtl_UART": 0.98,
+   "rtlopt_calculation": 0.877,
+   "rtlopt_register": 0.4625
   },
   "unverified_by_lane": {
-   "router": 0.7143,
-   "simple_spi": 0.8333,
-   "spi": 0.95,
-   "window": 0.3901
+   "uart": 0.98,
+   "window": 0.6684
   },
   "unverified_by_row": {
-   "gpt-5.6-luna|B1_E4": 0.7143,
-   "gpt-5.6-luna|B2": 0.5757,
-   "gpt-5.6-luna|M": 0.359,
-   "gpt-5.6-terra|B2": 0.9167,
-   "gpt-5.6-terra|M": 0.4629
+   "gpt-5.6-luna|B1_E4": 0.9,
+   "gpt-5.6-luna|B2": 0.877,
+   "gpt-5.6-luna|M": 0.7292,
+   "gpt-5.6-terra|M": 0.8208
   },
   "waits": {
    "cpu": {
-    "mean_min": 72.0,
-    "queued": 79,
+    "mean_min": 44.8,
+    "queued": 50,
     "seats": 3,
-    "wait_min": 1896.8
+    "wait_min": 745.9
    },
    "router": {
-    "mean_min": 10.2,
-    "queued": 119,
+    "mean_min": 9.6,
+    "queued": 35,
     "seats": 2,
-    "wait_min": 606.1
+    "wait_min": 168.2
    },
    "simple_spi": {
-    "mean_min": 47.2,
-    "queued": 53,
-    "seats": 19,
-    "wait_min": 131.6
+    "mean_min": 59.2,
+    "queued": 64,
+    "seats": 18,
+    "wait_min": 210.3
    },
    "small": {
-    "mean_min": 0.9,
+    "mean_min": 5.0,
     "queued": 130,
     "seats": 1,
-    "wait_min": 120.1
+    "wait_min": 650.0
    },
    "spi": {
-    "mean_min": 53.7,
-    "queued": 20,
-    "seats": 14,
-    "wait_min": 76.7
+    "mean_min": 72.2,
+    "queued": 32,
+    "seats": 13,
+    "wait_min": 177.6
    },
    "uart": {
-    "mean_min": 18.9,
-    "queued": 83,
-    "seats": 5,
-    "wait_min": 313.2
+    "mean_min": 18.3,
+    "queued": 113,
+    "seats": 6,
+    "wait_min": 344.4
    },
    "window": {
-    "mean_min": 3.2,
-    "queued": 267,
-    "seats": 7,
-    "wait_min": 122.7
+    "mean_min": 11.4,
+    "queued": 119,
+    "seats": 8,
+    "wait_min": 168.8
    }
   }
  },

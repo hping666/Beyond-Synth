@@ -1,19 +1,19 @@
 # Phase 5 report (Stage A — the large tier) — interim
 
-**Interim** (589 evaluations pending on the reported tiers: large 589; rows marked † are incomplete and `pending` stands where a value would otherwise read 0 — DECISION 2026-09-18 D1 / D3).
+**Interim** (424 evaluations pending on the reported tiers: large 424; rows marked † are incomplete and `pending` stands where a value would otherwise read 0 — DECISION 2026-09-18 D1 / D3).
 
-Generated 2026-09-19T18:19 by scripts/report_phase.py phase5 --stage A (git 710ba68b2e3e, cfg 21e08fbd3c2f). Data: reports/data/phase5_visible_A.json (src/analysis/phase5.collect). Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = phase5, floor_version = phase4); an interim report changes nothing.
+Generated 2026-09-20T00:51 by scripts/report_phase.py phase5 --stage A (git 611102e0f752, cfg d551e0178552). Data: reports/data/phase5_visible_A.json (src/analysis/phase5.collect). Visible layer only: no hidden-configuration result is read before the Phase 5 completion marker (rule 3, spec 06 §2); the hidden part follows from scripts/report_hidden.py. Protocol frozen for Phase 5: prompts, correctness aids, caps and the equivalence stack (equiv_version = phase5, floor_version = phase4); an interim report changes nothing.
 
 ## 0. Progress
 
 | tier | model | arm | runs done / existing / planned | calls | USD | DC h (visible) | VC Formal h |
 |---|---|---|---|---|---|---|---|
-| large | gpt-5.6-luna | M | 15 / 18 / 18 | 900 | 2.98 | 38.6 | 179.9 |
-| large | gpt-5.6-terra | B0 | 15 / 18 / 18 | 900 | 30.72 | 8.8 | 490.4 |
-| large | gpt-5.6-terra | B1_E4 | 15 / 18 / 18 | 900 | 34.70 | 58.1 | 470.6 |
-| large | gpt-5.6-terra | B2 | 15 / 18 / 18 | 900 | 34.25 | 57.3 | 482.2 |
-| large | gpt-5.6-terra | DrRTL_reimpl | 15 / 18 / 18 | 900 | 35.32 | 49.1 | 180.9 |
-| large | gpt-5.6-terra | M | 15 / 18 / 18 | 900 | 31.32 | 45.2 | 450.7 |
+| large | gpt-5.6-luna | M | 15 / 18 / 18 | 900 | 2.98 | 42.7 | 179.9 |
+| large | gpt-5.6-terra | B0 | 15 / 18 / 18 | 900 | 30.72 | 27.7 | 490.4 |
+| large | gpt-5.6-terra | B1_E4 | 15 / 18 / 18 | 900 | 34.70 | 60.6 | 470.6 |
+| large | gpt-5.6-terra | B2 | 15 / 18 / 18 | 900 | 34.25 | 60.6 | 482.2 |
+| large | gpt-5.6-terra | DrRTL_reimpl | 15 / 18 / 18 | 900 | 35.32 | 53.6 | 180.9 |
+| large | gpt-5.6-terra | M | 15 / 18 / 18 | 900 | 31.32 | 50.8 | 450.7 |
 
 Incomplete rows: 6 of 6 — runs still open or evaluations pending (proofs, offline simulations, E4 records); their result cells read `pending` or carry †.
 
@@ -48,7 +48,7 @@ Complete designs on the reported tiers: 0; B0 pending: 1 — cktevo_risc__btb.
 
 **Tally (DECISION 2026-09-19 (m) 4, (n) 2): M wins — exceeds both B1_E4 and B2 by more than the design's floor — on 0 of 1 complete designs (visible layer; ties 1, partial 0, M loses 0; 1 of them B0 pending).**
 Ties — no arm separates from the others on this design: cktevo_risc__btb.
-Reachability of the pre-registered criterion (18 of 30 designs under the hidden configurations — sealed; the visible layer is the proxy): wins so far 0, already lost by M 0, undecided 0, designs not yet complete 26; M still needs 18 of the 26 remaining or undecided designs — reachable in the visible layer.
+Reachability of the pre-registered criterion (18 of 30 designs under the hidden configurations — sealed; the visible layer is the proxy): wins so far 0, already lost by M 0, undecided 0, designs not yet complete 25; M still needs 18 of the 25 remaining or undecided designs — reachable in the visible layer.
 
 - Mechanism note (C2): On aes M's archive was empty in 22/29 (terra) and 27/29 (luna) generations versus 8–9/33 for B1_E4 and B2, because M admits retained candidates only.
 
@@ -57,12 +57,12 @@ Designs with every planned run done — what still blocks "complete" (DECISION 2
 | design | tier | runs done / planned | proofs open | blocks complete |
 |---|---|---|---|---|
 | cktevo_hsm__hsm | large | 18 / 18 | 0 | offline simulations pending 4 |
-| cktevo_nn_engine__spikeNeuron8_H7 | large | 18 / 18 | 0 | B0 offline E4 2 (offline pool); offline simulations pending 159; offline proofs 48 (D3, not blocking) |
-| cktevo_risc__btb | large | 18 / 18 | 0 | B0 offline E4 94 (offline pool) — B0 pending |
-| drrtl_aes | large | 18 / 18 | 0 | B0 offline E4 136 (offline pool); E4 retries 43 (failed or timed-out E4; pool group e4_timeout); offline simulations pending 86; offline proofs 7 (D3, not blocking) |
-| drrtl_tv80 | large | 18 / 18 | 0 | offline simulations pending 7; offline proofs 3 (D3, not blocking) |
+| cktevo_nn_engine__spikeNeuron8_H7 | large | 18 / 18 | 0 | E4 never submitted for 3 candidates (run finished before the proof returned; pool group e4_late); offline simulations pending 109; offline proofs 82 (D3, not blocking) |
+| cktevo_risc__btb | large | 18 / 18 | 0 | B0 offline E4 11 (offline pool) — B0 pending |
+| drrtl_aes | large | 18 / 18 | 0 | B0 offline E4 107 (offline pool); E4 retries 21 (failed or timed-out E4; pool group e4_timeout); E4 never submitted for 7 candidates (run finished before the proof returned; pool group e4_late); offline simulations pending 60; offline proofs 10 (D3, not blocking) |
+| drrtl_tv80 | large | 18 / 18 | 0 | offline simulations pending 4; offline proofs 6 (D3, not blocking) |
 
-No design is complete, so no completion alert has fired: the 5 designs with every run done are held by B0 offline E4 232, E4 retries 43, offline simulations pending 256.
+No design is complete, so no completion alert has fired: the 5 designs with every run done are held by B0 offline E4 118, E4 retries 21, E4 never submitted for 10 candidates, offline simulations pending 177.
 
 Incomplete designs (runs still open; per-row completion counts only, no arm comparison):
 
@@ -76,23 +76,23 @@ Incomplete designs (runs still open; per-row completion counts only, no arm comp
 
 | model (role) | arm | runs | candidates | pending | unusable | proven (rate / call) | inconclusive | latency-mapped (c2) | accepted (arm's own) | retained (rule A) | retained / run | runs with ≥ 1 retained | best area gain per run: mean / median | retained per 100 calls | retained per USD | retained per DC h | USD | DC h | VCF h |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna (contrast) | M | 15/18 † | 894 | 171 (e4 9, proof 24, sim 138) | 6 | 121 (0.134) † | 130 | 0 | 29 | 44 † | 2.44 † | 4 † | 0.24 % / 0.00 % † | 4.89 † | 14.79 † | 1.14 † | 2.98 | 38.6 | 179.9 |
-| gpt-5.6-terra (main) | B0 | 15/18 † | 900 | 232 (e4 232) | 0 | 289 (0.321) † | 344 | 0 | 79 | 14 † | 0.78 † | 3 † | 0.21 % / 0.00 % † | 1.56 † | 0.46 † | 1.58 † | 30.72 | 8.8 | 490.4 |
-| gpt-5.6-terra (main) | B1_E4 | 15/18 † | 900 | 6 (e4 6) | 0 | 327 (0.363) † | 282 | 0 | 152 | 120 † | 6.67 † | 6 † | 0.49 % / 0.00 % † | 13.33 † | 3.46 † | 2.06 † | 34.70 | 58.1 | 470.6 |
-| gpt-5.6-terra (main) | B2 | 15/18 † | 900 | 8 (e4 8) | 0 | 318 (0.353) † | 311 | 0 | 110 | 96 † | 5.33 † | 5 † | 0.41 % / 0.00 % † | 10.67 † | 2.80 † | 1.68 † | 34.25 | 57.3 | 482.2 |
-| gpt-5.6-terra (main) | DrRTL_reimpl | 15/18 † | 757 | 13 (e4 13) | 3 | 341 (0.379) † | 130 | 0 | 168 | 44 † | 2.44 † | 3 † | 0.09 % / 0.00 % † | 4.89 † | 1.25 † | 0.90 † | 35.32 | 49.1 | 180.9 |
-| gpt-5.6-terra (main) | M | 15/18 † | 899 | 159 (e4 7, proof 34, sim 118) | 1 | 144 (0.160) † | 265 | 0 | 49 | 78 † | 4.33 † | 5 † | 0.62 % / 0.00 % † | 8.67 † | 2.49 † | 1.72 † | 31.32 | 45.2 | 450.7 |
+| gpt-5.6-luna (contrast) | M | 15/18 † | 894 | 156 (e4 18, proof 43, sim 95) | 6 | 121 (0.134) † | 130 | 0 | 29 | 44 † | 2.44 † | 4 † | 0.24 % / 0.00 % † | 4.89 † | 14.79 † | 1.03 † | 2.98 | 42.7 | 179.9 |
+| gpt-5.6-terra (main) | B0 | 15/18 † | 900 | 118 (e4 118) | 0 | 289 (0.321) † | 344 | 0 | 79 | 43 † | 2.39 † | 6 † | 0.28 % / 0.00 % † | 4.78 † | 1.40 † | 1.55 † | 30.72 | 27.7 | 490.4 |
+| gpt-5.6-terra (main) | B1_E4 | 15/18 † | 900 | 0 | 0 | 327 (0.363) † | 282 | 0 | 152 | 121 † | 6.72 † | 6 † | 0.49 % / 0.00 % † | 13.44 † | 3.49 † | 2.00 † | 34.70 | 60.6 | 470.6 |
+| gpt-5.6-terra (main) | B2 | 15/18 † | 900 | 1 (e4 1) | 0 | 318 (0.353) † | 311 | 0 | 110 | 96 † | 5.33 † | 5 † | 0.41 % / 0.00 % † | 10.67 † | 2.80 † | 1.58 † | 34.25 | 60.6 | 482.2 |
+| gpt-5.6-terra (main) | DrRTL_reimpl | 15/18 † | 757 | 0 | 3 | 341 (0.379) † | 130 | 0 | 168 | 44 † | 2.44 † | 3 † | 0.09 % / 0.00 % † | 4.89 † | 1.25 † | 0.82 † | 35.32 | 53.6 | 180.9 |
+| gpt-5.6-terra (main) | M | 15/18 † | 899 | 149 (e4 11, proof 55, sim 83) | 1 | 144 (0.160) † | 265 | 0 | 49 | 78 † | 4.33 † | 5 † | 0.62 % / 0.00 % † | 8.67 † | 2.49 † | 1.54 † | 31.32 | 50.8 | 450.7 |
 
 Verdict mix and labels:
 
 | model | arm | sim_fail | falsified | rejected | inconclusive | error | pending | duplicate | prescreened | formal-accepted, synthesis-rejected (DC error id; DECISION 2026-09-19 (o) 2) | uniform labels of proven candidates | arm's stored labels | scope flags (block-level rate) | repairs (proven) | time to verdict s: median / q95 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| gpt-5.6-luna | M | 244 | 68 | 87 | 130 | 0 | 171 | 74 | 189 | 0 | absorbed_identical: 19, harmful: 19, noise: 16, retained: 44, tradeoff: 22 | absorbed_identical: 19, harmful: 19, noise: 16, nonequiv: 510, retained: 44, tradeoff: 22 | 235 (no block-level answers) | 183 (26) | 5332 / 28732 |
-| gpt-5.6-terra | B0 | 178 | 29 | 18 | 344 | 2 | 232 | 40 | 0 | 0 | absorbed: 3, absorbed_identical: 2, harmful: 16, noise: 7, retained: 14, tradeoff: 15 | improved: 247, no_gain: 42, nonequiv: 571 | 316 (no block-level answers) | 86 (18) | 8243 / 39100 |
-| gpt-5.6-terra | B1_E4 | 198 | 34 | 14 | 282 | 1 | 6 | 44 | 0 | 0 | absorbed: 1, absorbed_identical: 41, harmful: 75, noise: 38, retained: 120, tradeoff: 46 | improved: 256, no_gain: 62, nonequiv: 529 | 323 (no block-level answers) | 93 (30) | 10771 / 33905 |
-| gpt-5.6-terra | B2 | 218 | 25 | 13 | 311 | 0 | 8 | 15 | 0 | 0 | absorbed_identical: 50, harmful: 81, noise: 45, retained: 96, tradeoff: 38 | improved: 208, no_gain: 98, nonequiv: 567 | 327 (no block-level answers) | 129 (44) | 8682 / 30652 |
-| gpt-5.6-terra | DrRTL_reimpl | 92 | 7 | 9 | 130 | 1 | 13 | 177 | 0 | 0 | absorbed: 37, absorbed_identical: 40, harmful: 106, noise: 90, retained: 44, tradeoff: 11 | improved: 224, no_gain: 98, nonequiv: 239 | 255 (no block-level answers) | 39 (8) | 10491 / 31130 |
-| gpt-5.6-terra | M | 220 | 35 | 18 | 265 | 0 | 159 | 61 | 165 | 0 | absorbed_identical: 8, harmful: 13, noise: 11, retained: 78, tradeoff: 31 | absorbed_identical: 8, harmful: 13, noise: 11, nonequiv: 529, retained: 78, tradeoff: 31 | 135 (no block-level answers) | 124 (28) | 5964 / 39366 |
+| gpt-5.6-luna | M | 254 | 68 | 91 | 130 | 0 | 156 | 74 | 189 | 0 | absorbed_identical: 19, harmful: 20, noise: 16, retained: 44, tradeoff: 22 | absorbed_identical: 19, harmful: 19, noise: 16, nonequiv: 510, retained: 44, tradeoff: 22 | 235 (no block-level answers) | 183 (26) | 5332 / 28732 |
+| gpt-5.6-terra | B0 | 178 | 29 | 18 | 344 | 2 | 118 | 40 | 0 | 0 | absorbed: 8, absorbed_identical: 8, harmful: 33, noise: 29, retained: 43, tradeoff: 50 | improved: 247, no_gain: 42, nonequiv: 571 | 316 (no block-level answers) | 86 (18) | 8243 / 39100 |
+| gpt-5.6-terra | B1_E4 | 198 | 34 | 14 | 282 | 1 | 0 | 44 | 0 | 0 | absorbed: 1, absorbed_identical: 42, harmful: 78, noise: 39, retained: 121, tradeoff: 46 | improved: 256, no_gain: 62, nonequiv: 529 | 323 (no block-level answers) | 93 (30) | 10771 / 33905 |
+| gpt-5.6-terra | B2 | 218 | 25 | 13 | 311 | 0 | 1 | 15 | 0 | 0 | absorbed_identical: 50, harmful: 84, noise: 48, retained: 96, tradeoff: 39 | improved: 208, no_gain: 98, nonequiv: 567 | 327 (no block-level answers) | 129 (44) | 8682 / 30652 |
+| gpt-5.6-terra | DrRTL_reimpl | 92 | 7 | 9 | 130 | 1 | 0 | 177 | 0 | 0 | absorbed: 38, absorbed_identical: 42, harmful: 106, noise: 100, retained: 44, tradeoff: 11 | improved: 224, no_gain: 98, nonequiv: 239 | 255 (no block-level answers) | 39 (8) | 10491 / 31130 |
+| gpt-5.6-terra | M | 226 | 35 | 19 | 265 | 0 | 149 | 61 | 165 | 0 | absorbed_identical: 8, harmful: 14, noise: 11, retained: 78, tradeoff: 33 | absorbed_identical: 8, harmful: 13, noise: 11, nonequiv: 529, retained: 78, tradeoff: 31 | 135 (no block-level answers) | 124 (28) | 5964 / 39366 |
 
 Note (DECISION 2026-09-19 (k) 3 / (l) 4): on drrtl_tv80 the archive stayed empty during generation for all arms (proof-latency-bound search, §0a): parents were D and the search reduced to E4-guided one-shot rewriting; on drrtl_aes at 90 of 189 generation builds (B0-terra 8/35, B1_E4-terra 9/33, B2-terra 8/31, DrRTL_reimpl-terra 16/32, M-luna 27/29, M-terra 22/29) the archive was empty at that share of generation builds only — parents were D at those builds, proven candidates were in the archive at the others (wording qualified to the data).
 
@@ -103,17 +103,17 @@ Note (DECISION 2026-09-19 (k) 3 / (l) 4): on drrtl_tv80 the archive stayed empty
 | design | B0 (terra) | B1_E4 (terra) | B2 (terra) | DrRTL_reimpl (terra) | M (luna) | M (terra) |
 |---|---|---|---|---|---|---|
 | cktevo_hsm__hsm | 0 | 0 | 0 | 0 | pending | 0 |
-| cktevo_nn_engine__spikeNeuron8_H7 | pending | 0 | 0 | 0 | pending | pending |
+| cktevo_nn_engine__spikeNeuron8_H7 | 0 | 0 | 0 | 0 | pending | pending |
 | cktevo_risc__btb | 1.71 % † | 2.36 % | 2.16 % | 0.82 % | 1.76 % | 2.17 % |
 | drrtl_LSTM | 0 | 0 | 0 | 0 | 0 | 0 |
-| drrtl_aes | 0.72 % † | 0.88 % † | 0.76 % † | 0.61 % † | 0.88 % † | 4.67 % † |
+| drrtl_aes | 0.72 % † | 0.88 % | 0.76 % † | 0.61 % | 0.88 % † | 4.67 % † |
 | drrtl_tv80 | verification limit | verification limit | verification limit | verification limit | verification limit | verification limit |
 
 Note (DECISION 2026-09-19 (k) 3 / (l) 4): on drrtl_tv80 the archive stayed empty during generation for all arms (proof-latency-bound search, §0a): parents were D and the search reduced to E4-guided one-shot rewriting; on drrtl_aes at 90 of 189 generation builds (B0-terra 8/35, B1_E4-terra 9/33, B2-terra 8/31, DrRTL_reimpl-terra 16/32, M-luna 27/29, M-terra 22/29) the archive was empty at that share of generation builds only — parents were D at those builds, proven candidates were in the archive at the others (wording qualified to the data).
 
 ## 2a. Retained and tradeoff candidates under the uniform rule A: class, sub-tags, gains per metric (DECISION 2026-09-18 D2)
 
-### large tier (396 retained, 163 tradeoff)
+### large tier (426 retained, 201 tradeoff)
 
 | model | arm | design | candidate | uniform label | arm's label | class | sub-tags | area | WNS (clock periods) | power | tradeoff composition |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -121,31 +121,95 @@ Note (DECISION 2026-09-19 (k) 3 / (l) 4): on drrtl_tv80 the archive stayed empty
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c072b7bf83ef587 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 1.60 % | 0.0014 | 6.61 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c33be040762eccd | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.751) without operator or topology evidence -> review | 1.31 % | 0.0025 | 78.84 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c4750c6fb7f3bd0 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 1.29 % | -0.0007 | 78.92 % | up=area,power down=wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c9f651d684af2a2 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 1.24 % | -0.0003 | 78.79 % | up=area,power down=wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c40463b1649015e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7358) without operator or topology evidence -> review | 1.19 % | 0.0007 | 81.03 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c835a93feb1362d | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 1.17 % | 0.0005 | 78.92 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cf92beca0eb5761 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | 1.13 % | 0.0001 | 78.96 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c838acb81ff383f | tradeoff | improved | c1 | flip-flop bits 2008 -> 2016 and register cells 104 -> 112 with identical latency (no offset); text differs widely (ratio 0.7358) without operator or topology evidence -> review | 1.06 % | -0.0006 | 76.74 % | up=area,power down=wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c5258434b192e5d | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6539) without operator or topology evidence -> review | 0.83 % | 0.0003 | 80.85 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cbaeb7e9c96d0db | retained | improved | c1 | flip-flop bits 2008 -> 2016 and register cells 104 -> 112 with identical latency (no offset); text differs widely (ratio 0.7492) without operator or topology evidence -> review | 0.81 % | 0.0015 | 78.86 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cb70f6f33c5e8a5 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | 0.74 % | -0.0008 | 80.21 % | up=area,power down=wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c155c3a77a91c31 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.59 % | -0.0006 | 3.71 % | up=area,power down=wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | caa82c2e1d56835 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.53 % | 0.0008 | 3.61 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ca6643d769f5370 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.32 % | 0.0012 | 80.49 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ce1e6d2cc95323a | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6966) without operator or topology evidence -> review | 0.30 % | -0.0004 | 4.58 % | up=area,power down=wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cbfa2b4ffaa3e0e | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.25 % | 0.0003 | 81.56 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ca1f94a0bc33d4c | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.20 % | 0.0022 | 1.12 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c7c3b1afeca11c3 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.20 % | 0.0022 | 1.12 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c49a7a32438412b | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.20 % | 0.0022 | 1.12 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c8f399469dbf1a6 | retained | improved | d | operator family gained: shift (present in C, absent in D) | 0.19 % | 0.0020 | 1.12 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cefccd6957debca | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.13 % | 0.0002 | 3.84 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ccb0f2ea5031238 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.12 % | -0.0006 | 45.58 % | up=power down=wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cb5878c714e506c | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | -0.02 % | 0.0013 | 1.43 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c204190602656ac | retained | improved | c1 | flip-flop bits 2008 -> 2840 and register cells 104 -> 208 with identical latency (no offset) | -0.02 % | 0.0013 | 1.34 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c1ea81fd1056cb6 | retained | improved | d | operator family gained: add, shift (present in C, absent in D) | -0.02 % | 0.0013 | 1.43 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c515037a1a1d285 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.02 % | 0.0010 | 0.01 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cdeec551e52fb36 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.02 % | 0.0010 | 0.01 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cd770e4a45b7c79 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.02 % | 0.0010 | 0.01 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ca9609319386672 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.07 % | 0.0001 | 82.76 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c7d0245fa7e5632 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.07 % | 0.0001 | 82.76 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c4e5a61f91aabeb | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.07 % | -0.0007 | 81.48 % | up=power down=wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c882176ab3f3027 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.08 % | 0.0031 | 80.60 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cd8fe0e6e9ffed6 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.09 % | 0.0005 | 79.77 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c17980edd3ced06 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.09 % | 0.0005 | 79.77 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c0b96600b72f4e3 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.10 % | 0.0002 | 80.33 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c128072263d95d4 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.10 % | 0.0002 | 78.48 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c9d22a03ee5ab35 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.10 % | 0.0002 | 78.48 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ce98cbf795c68c8 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.10 % | 0.0002 | 78.48 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cdc635bff7f81e6 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.12 % | 0.0008 | 80.23 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c7b838eb115d69a | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.13 % | -0.0001 | 81.34 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cde91e697e3508a | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.16 % | 0.0002 | 80.16 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ce2f9f6d2d96322 | retained | improved | d | operator family gained: add, mul, shift (present in C, absent in D) | -0.23 % | 0.0009 | 0.27 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ccd6e8b216d10ea | retained | improved | d | operator family gained: add, mul, shift (present in C, absent in D) | -0.23 % | 0.0009 | 0.27 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c9099e95837d962 | retained | improved | d | operator family gained: add, mul, shift (present in C, absent in D) | -0.23 % | 0.0009 | 0.27 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cc8ebaec54419aa | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.23 % | 0.0006 | 81.34 % | - |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c6705185ff70f4b | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -0.23 % | 0.0006 | 81.34 % | - |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ccf1071e8e892a9 | tradeoff | improved | d | operator family gained: shift (present in C, absent in D) | -0.44 % | 0.0003 | 82.29 % | up=wns,power down=area |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c2b3664e3673029 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -2.23 % | -0.0007 | 45.43 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cd6e7339e6e8b0b | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -2.23 % | -0.0007 | 45.43 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cdae4dc648ee6de | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -2.23 % | -0.0007 | 45.43 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cb97b776b8369e8 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -2.23 % | -0.0007 | 45.43 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c1dcd9adbc4df3f | tradeoff | improved | c1 | flip-flop bits 2008 -> 2080 and register cells 104 -> 176 with identical latency (no offset) | -4.08 % | -0.0003 | 80.79 % | up=power down=area |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c8e84ef49ad7ddc | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7594) without operator or topology evidence -> review | -4.34 % | 0.0008 | 5.76 % | up=wns,power down=area |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cbc6138d0f16ccd | tradeoff | improved | c1 | flip-flop bits 2008 -> 2080 and register cells 104 -> 176 with identical latency (no offset) | -5.34 % | -0.0001 | 80.45 % | up=power down=area |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ca17bc02e85de0c | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -5.39 % | -0.0057 | 79.31 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cd4a98edb0cc639 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -5.41 % | -0.0007 | 79.45 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c90549cf30929c7 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -5.41 % | -0.0007 | 79.45 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c306639748b53c4 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -5.67 % | -0.0008 | 80.53 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c5abc9a3a48bac3 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -5.67 % | -0.0008 | 80.53 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c20415fc07d2cbd | tradeoff | improved | d | operator family gained: shift (present in C, absent in D) | -5.68 % | -0.0007 | 79.04 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cff133ec462d8d8 | tradeoff | improved | c1 | flip-flop bits 2008 -> 2080 and register cells 104 -> 176 with identical latency (no offset) | -5.76 % | -0.0006 | 79.56 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ce5d830fa8f4000 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -5.79 % | -0.0007 | 46.36 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | caf59b41464caff | tradeoff | improved | d | operator family gained: shift (present in C, absent in D) | -5.84 % | -0.0007 | 80.28 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c2c6f7e9ac9ab4d | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -6.02 % | -0.0008 | 80.53 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c43b04508f41084 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -6.02 % | -0.0008 | 80.53 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cf2a69988b33434 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -7.51 % | -0.0006 | 78.88 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c6fef16eabc85c5 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -7.51 % | -0.0006 | 78.88 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cbc23e9043c6565 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -7.51 % | -0.0006 | 78.88 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c7fbf8a7b8c96cc | tradeoff | improved | c1 | flip-flop bits 2008 -> 2080 and register cells 104 -> 176 with identical latency (no offset) | -7.55 % | -0.0008 | 78.99 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c7b28fa48f8b738 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -7.66 % | -0.0008 | 79.01 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c52a93dbdd10e50 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -7.66 % | -0.0008 | 79.01 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c34acd31f661138 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -7.66 % | -0.0008 | 79.01 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ce649bce1b403dc | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -7.66 % | -0.0008 | 79.01 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c640fe52e0b9776 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -7.66 % | -0.0008 | 79.01 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ca9538fee4bbf66 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -7.66 % | -0.0008 | 79.01 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c2caa68b58f40e9 | tradeoff | improved | d | operator family gained: shift (present in C, absent in D) | -7.73 % | -0.0007 | 78.86 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cba37b660124133 | tradeoff | improved | d | operator family gained: shift (present in C, absent in D) | -7.91 % | -0.0082 | 78.64 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cfe4556137e2eb4 | tradeoff | improved | c1 | flip-flop bits 2008 -> 2080 and register cells 104 -> 176 with identical latency (no offset) | -7.92 % | -0.0082 | 78.63 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cbde09a977c001d | tradeoff | improved | d | operator family gained: shift (present in C, absent in D) | -7.92 % | -0.0082 | 78.63 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ca32fc8fe328082 | tradeoff | improved | c1 | flip-flop bits 2008 -> 2112 and register cells 104 -> 208 with identical latency (no offset) | -8.47 % | -0.0005 | 78.79 % | up=power down=area,wns |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c87f5fe6efc8ac5 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -12.47 % | 0.0004 | -1.83 % | up=wns down=area |
 | gpt-5.6-terra | B0 | cktevo_risc__btb | c3bab77b0a5c5f7 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -12.47 % | 0.0004 | -1.83 % | up=wns down=area |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cf580d6fe78524e | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -12.47 % | 0.0004 | -1.83 % | up=wns down=area |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c9a7c3a3d153926 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -12.47 % | 0.0004 | -1.83 % | up=wns down=area |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | cf8afecc5574c05 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -12.47 % | 0.0004 | -1.83 % | up=wns down=area |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | caaab83522f2894 | tradeoff | improved | d | operator family gained: shift (present in C, absent in D) | -13.10 % | 0.0012 | -2.23 % | up=wns down=area,power |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | c752be62f46f9b4 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | -13.37 % | 0.0003 | -0.59 % | up=wns down=area |
+| gpt-5.6-terra | B0 | cktevo_risc__btb | ce28497bdc4bce9 | tradeoff | improved | d | operator family gained: add, shift (present in C, absent in D) | -18.50 % | -0.0007 | 78.59 % | up=power down=area,wns |
 | gpt-5.6-terra | B0 | drrtl_aes | c384e4a923bb2ad | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.72 % | 0.0000 | 0.86 % | - |
+| gpt-5.6-terra | B0 | drrtl_aes | caf1d6ee4318abe | retained | improved | b | flip-flop bits 83339 -> 83338 in the same register cells (widths), latency unchanged | 0.41 % | -0.0000 | 0.22 % | - |
+| gpt-5.6-terra | B0 | drrtl_aes | ca919f15e200091 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.36 % | 0.0000 | 0.02 % | - |
+| gpt-5.6-terra | B0 | drrtl_aes | cb909ca198f7728 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.33 % | -0.0000 | 0.36 % | - |
 | gpt-5.6-terra | B1_E4 | cktevo_risc__btb | c676419e982ce22 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.6177) without operator or topology evidence -> review | 2.36 % | -0.0001 | 46.28 % | - |
 | gpt-5.6-terra | B1_E4 | cktevo_risc__btb | cd2b39feb006fbc | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7731) without operator or topology evidence -> review | 2.17 % | -0.0006 | 47.96 % | up=area,power down=wns |
 | gpt-5.6-terra | B1_E4 | cktevo_risc__btb | c2d174ff0dc59b0 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged; text differs widely (ratio 0.7516) without operator or topology evidence -> review | 2.10 % | 0.0005 | 48.08 % | - |
@@ -298,6 +362,7 @@ Note (DECISION 2026-09-19 (k) 3 / (l) 4): on drrtl_tv80 the archive stayed empty
 | gpt-5.6-terra | B1_E4 | drrtl_aes | cb96227004466a4 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.72 % | 0.0000 | 0.86 % | - |
 | gpt-5.6-terra | B1_E4 | drrtl_aes | c40f5088c2d61f9 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.72 % | 0.0000 | 0.86 % | - |
 | gpt-5.6-terra | B1_E4 | drrtl_aes | c0e91d815e17499 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.72 % | -0.0000 | 0.17 % | - |
+| gpt-5.6-terra | B1_E4 | drrtl_aes | cae5db1e25aabd4 | retained | - | d | operator family gained: add (present in C, absent in D) | 0.72 % | -0.0000 | 0.17 % | - |
 | gpt-5.6-terra | B1_E4 | drrtl_aes | cfcb1c3412bd513 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.72 % | -0.0000 | 0.17 % | - |
 | gpt-5.6-terra | B1_E4 | drrtl_aes | c94758df13b931c | retained | improved | c1 | flip-flop bits 83339 -> 83396 and register cells 10243 -> 10259 with identical latency (no offset) | 0.68 % | -0.0000 | 0.86 % | - |
 | gpt-5.6-terra | B1_E4 | drrtl_aes | cf9312d81b163cf | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.64 % | -0.0000 | 0.95 % | - |
@@ -446,6 +511,7 @@ Note (DECISION 2026-09-19 (k) 3 / (l) 4): on drrtl_tv80 the archive stayed empty
 | gpt-5.6-terra | B2 | drrtl_aes | c65236e79070a88 | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.30 % | 0.0000 | 0.19 % | - |
 | gpt-5.6-terra | B2 | drrtl_aes | c673edf2f8f06cf | retained | improved | d | operator family gained: add (present in C, absent in D) | 0.30 % | 0.0000 | 0.19 % | - |
 | gpt-5.6-terra | B2 | drrtl_aes | cc364e9fc5cd15e | tradeoff | improved | c1 | flip-flop bits 83339 -> 83340 and register cells 10243 -> 10253 with identical latency (no offset) | -6.79 % | -0.0001 | 7.77 % | up=power down=area |
+| gpt-5.6-terra | B2 | drrtl_aes | cbf7b3c4fd71abf | tradeoff | - | c1 | flip-flop bits 83339 -> 83659 and register cells 10243 -> 10263 with identical latency (no offset) | -9.31 % | -0.0039 | 10.74 % | up=power down=area,wns |
 | gpt-5.6-terra | DrRTL_reimpl | cktevo_risc__btb | c0adc7143ee0034 | tradeoff | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.88 % | -0.0003 | 2.67 % | up=area,power down=wns |
 | gpt-5.6-terra | DrRTL_reimpl | cktevo_risc__btb | c9b7fe807a638fc | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.82 % | 0.0002 | 3.59 % | - |
 | gpt-5.6-terra | DrRTL_reimpl | cktevo_risc__btb | c7d7f485730e753 | retained | improved | b | register names or clocked targets changed, flip-flop count and latency unchanged | 0.82 % | 0.0002 | 3.59 % | - |
@@ -675,18 +741,20 @@ Note (DECISION 2026-09-19 (k) 3 / (l) 4): on drrtl_tv80 the archive stayed empty
 | gpt-5.6-terra | M | drrtl_aes | c025c847e79250e | retained | retained | d | operator family gained: add (present in C, absent in D) | 0.60 % | -0.0001 | 0.94 % | - |
 | gpt-5.6-terra | M | drrtl_aes | cd4599d079d5d43 | retained | retained | d | operator family gained: add (present in C, absent in D) | 0.51 % | 0.0001 | 0.96 % | - |
 | gpt-5.6-terra | M | drrtl_aes | cb94867eec6190e | retained | retained | d | operator family gained: add (present in C, absent in D) | 0.48 % | 0.0000 | 0.99 % | - |
+| gpt-5.6-terra | M | drrtl_aes | c806fe3afde8e49 | tradeoff | - | c1 | flip-flop bits 83339 -> 83659 and register cells 10243 -> 10253 with identical latency (no offset) | -7.97 % | -0.0174 | 10.19 % | up=power down=area,wns |
 | gpt-5.6-terra | M | drrtl_aes | ce4c5ef9e85a3f9 | tradeoff | tradeoff | d | operator family gained: add (present in C, absent in D) | -9.13 % | 0.0002 | 10.76 % | up=power down=area |
+| gpt-5.6-terra | M | drrtl_aes | c7b95dbd66eb24b | tradeoff | - | c1 | flip-flop bits 83339 -> 83659 and register cells 10243 -> 10253 with identical latency (no offset) | -10.55 % | 0.0000 | 10.09 % | up=power down=area |
 
 Per row: retained gains per metric (median / max over the retained candidates; WNS in clock periods) and the tradeoff composition:
 
 | model | arm | retained | area: median / max | WNS: median / max | power: median / max | tradeoffs | composition (up = better, down = worse) |
 |---|---|---|---|---|---|---|---|
-| gpt-5.6-terra | B0 | 14 | 0.09 % / 1.71 % | 0.0006 / 0.0025 | 42.55 % / 81.34 % | 15 | up=area,power down=wns: 2; up=power down=area: 1; up=power down=area,wns: 10; up=power down=wns: 1; up=wns down=area: 1 |
-| gpt-5.6-terra | B1_E4 | 120 | 0.88 % / 2.36 % | 0.0000 / 0.0039 | 5.10 % / 79.93 % | 46 | up=area down=wns: 2; up=area,power down=wns: 30; up=power down=area: 2; up=power down=area,wns: 7; up=power down=wns: 2; up=wns down=area: 1; up=wns,power down=area: 2 |
-| gpt-5.6-terra | B2 | 96 | 1.33 % / 2.16 % | 0.0004 / 0.0043 | 5.90 % / 80.49 % | 38 | up=area down=wns: 1; up=area,power down=wns: 25; up=power down=area: 4; up=power down=area,wns: 2; up=power down=wns: 3; up=wns down=area: 1; up=wns,power down=area: 2 |
+| gpt-5.6-terra | B0 | 43 | -0.02 % / 1.71 % | 0.0006 / 0.0031 | 78.48 % / 82.76 % | 50 | up=area,power down=wns: 6; up=power down=area: 2; up=power down=area,wns: 31; up=power down=wns: 2; up=wns down=area: 6; up=wns down=area,power: 1; up=wns,power down=area: 2 |
+| gpt-5.6-terra | B1_E4 | 121 | 0.88 % / 2.36 % | 0.0000 / 0.0039 | 5.10 % / 79.93 % | 46 | up=area down=wns: 2; up=area,power down=wns: 30; up=power down=area: 2; up=power down=area,wns: 7; up=power down=wns: 2; up=wns down=area: 1; up=wns,power down=area: 2 |
+| gpt-5.6-terra | B2 | 96 | 1.33 % / 2.16 % | 0.0004 / 0.0043 | 5.90 % / 80.49 % | 39 | up=area down=wns: 1; up=area,power down=wns: 25; up=power down=area: 4; up=power down=area,wns: 3; up=power down=wns: 3; up=wns down=area: 1; up=wns,power down=area: 2 |
 | gpt-5.6-terra | DrRTL_reimpl | 44 | 0.25 % / 0.82 % | 0.0006 / 0.0027 | 0.43 % / 5.25 % | 11 | up=area,power down=wns: 3; up=power down=area: 6; up=wns down=area: 1; up=wns down=area,power: 1 |
 | gpt-5.6-luna | M | 44 | 0.67 % / 1.76 % | 0.0005 / 0.0027 | 4.88 % / 47.76 % | 22 | up=area,power down=wns: 17; up=power down=area,wns: 2; up=power down=wns: 1; up=wns down=area: 2 |
-| gpt-5.6-terra | M | 78 | 1.47 % / 4.67 % | 0.0003 / 0.0049 | 6.31 % / 80.83 % | 31 | up=area,power down=wns: 21; up=power down=area: 2; up=power down=area,wns: 2; up=power down=wns: 1; up=wns down=area: 1; up=wns down=area,power: 1; up=wns,power down=area: 3 |
+| gpt-5.6-terra | M | 78 | 1.47 % / 4.67 % | 0.0003 / 0.0049 | 6.31 % / 80.83 % | 33 | up=area,power down=wns: 21; up=power down=area: 3; up=power down=area,wns: 3; up=power down=wns: 1; up=wns down=area: 1; up=wns down=area,power: 1; up=wns,power down=area: 3 |
 
 ## 3. Model contrast (the same arm under two models on the same tier)
 
@@ -698,7 +766,7 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 
 | model | arm | 5 calls | 10 calls | 20 calls | 30 calls | 40 calls | 50 calls | 60 calls |
 |---|---|---|---|---|---|---|---|---|
-| gpt-5.6-terra | B0 † | pending | pending | pending | 0.07 % † | 0.11 % † | 0.12 % † | 0.21 % † |
+| gpt-5.6-terra | B0 † | pending | pending | 0.04 % † | 0.13 % † | 0.23 % † | 0.25 % † | 0.28 % † |
 | gpt-5.6-terra | B1_E4 † | 0.13 % † | 0.28 % † | 0.44 % † | 0.44 % † | 0.46 % † | 0.46 % † | 0.49 % † |
 | gpt-5.6-terra | B2 † | 0.10 % † | 0.15 % † | 0.26 % † | 0.37 % † | 0.38 % † | 0.40 % † | 0.41 % † |
 | gpt-5.6-terra | DrRTL_reimpl † | 0.03 % † | 0.03 % † | 0.03 % † | 0.06 % † | 0.09 % † | 0.09 % † | 0.09 % † |
@@ -707,12 +775,12 @@ Per row: retained gains per metric (median / max over the retained candidates; W
 
 ### large tier — by visible DC hours per run
 
-- gpt-5.6-terra / B0: 0.25 h → 0.00 %, 0.75 h → 0.04 %, 1.25 h → 0.12 %, 1.75 h → 0.16 %, 2.25 h → 0.21 %, 2.75 h → 0.21 %
-- gpt-5.6-terra / B1_E4: 0.25 h → 0.09 %, 1.50 h → 0.40 %, 2.75 h → 0.46 %, 4.00 h → 0.48 %, 5.25 h → 0.48 %, 6.50 h → 0.48 %, 7.75 h → 0.49 %
-- gpt-5.6-terra / B2: 0.25 h → 0.10 %, 1.50 h → 0.25 %, 2.75 h → 0.36 %, 4.00 h → 0.40 %, 5.25 h → 0.40 %, 6.50 h → 0.40 %
-- gpt-5.6-terra / DrRTL_reimpl: 0.25 h → 0.01 %, 1.75 h → 0.03 %, 3.25 h → 0.06 %, 4.75 h → 0.06 %, 6.25 h → 0.06 %, 7.75 h → 0.09 %, 9.25 h → 0.09 %
-- gpt-5.6-luna / M: 0.25 h → 0.05 %, 0.50 h → 0.12 %, 0.75 h → 0.12 %, 1.00 h → 0.21 %, 1.25 h → 0.22 %, 1.50 h → 0.23 %, 1.75 h → 0.24 %
-- gpt-5.6-terra / M: 0.25 h → 0.07 %, 0.75 h → 0.28 %, 1.25 h → 0.37 %, 1.75 h → 0.37 %, 2.25 h → 0.62 %, 2.75 h → 0.62 %, 3.25 h → 0.62 %
+- gpt-5.6-terra / B0: 0.25 h → 0.00 %, 1.25 h → 0.04 %, 2.25 h → 0.12 %, 3.25 h → 0.18 %, 4.25 h → 0.25 %, 5.25 h → 0.28 %, 6.25 h → 0.28 %
+- gpt-5.6-terra / B1_E4: 0.25 h → 0.09 %, 1.75 h → 0.40 %, 3.25 h → 0.46 %, 4.75 h → 0.48 %, 6.25 h → 0.48 %, 7.75 h → 0.48 %, 9.25 h → 0.49 %
+- gpt-5.6-terra / B2: 0.25 h → 0.10 %, 1.50 h → 0.25 %, 2.75 h → 0.36 %, 4.00 h → 0.40 %, 5.25 h → 0.40 %, 6.50 h → 0.40 %, 7.75 h → 0.41 %
+- gpt-5.6-terra / DrRTL_reimpl: 0.25 h → 0.01 %, 2.50 h → 0.06 %, 4.75 h → 0.06 %, 7.00 h → 0.06 %, 9.25 h → 0.09 %, 11.50 h → 0.09 %, 13.75 h → 0.09 %
+- gpt-5.6-luna / M: 0.25 h → 0.05 %, 0.75 h → 0.12 %, 1.25 h → 0.22 %, 1.75 h → 0.24 %, 2.25 h → 0.24 %, 2.75 h → 0.24 %
+- gpt-5.6-terra / M: 0.25 h → 0.07 %, 0.75 h → 0.28 %, 1.25 h → 0.33 %, 1.75 h → 0.33 %, 2.25 h → 0.62 %, 2.75 h → 0.62 %, 3.25 h → 0.62 %
 
 ## 5. Correctness (the LLM's equivalence-preserving rate)
 
@@ -755,9 +823,9 @@ Runs on the reported tiers: 108 (90 done, 0 running, 18 not started). No run in 
 
 Hidden DC registrations capped at 8 from 2026-09-16T14:30; split equivalence pipeline, provisional diagnosis and proof ordering from 2026-09-16T15:14; positive provisional verdicts withheld from the model from 2026-09-16T16:03.
 
-- Provisional-versus-final diagnosis agreement: 1281 of 1418 proven candidates with a final diagnosis agree (90.3 %); 11690 candidates received a provisional label (absorbed 23, absorbed_identical 424, duplicate 524, harmful 279, improved 7010, no_gain 2139, noise 102, retained 477, tradeoff 712), 3044 of them were not proven, 7228 still wait for the proof or the diagnosis, 8139 labels withheld from the model. Disagreements: tradeoff→duplicate; tradeoff→duplicate; retained→duplicate; harmful→duplicate; retained→duplicate; retained→duplicate; retained→duplicate; tradeoff→duplicate.
+- Provisional-versus-final diagnosis agreement: 1510 of 1657 proven candidates with a final diagnosis agree (91.1 %); 12094 candidates received a provisional label (absorbed 35, absorbed_identical 501, duplicate 544, harmful 329, improved 7155, no_gain 2167, noise 103, retained 524, tradeoff 736), 3239 of them were not proven, 7198 still wait for the proof or the diagnosis, 8355 labels withheld from the model. Disagreements: tradeoff→duplicate; tradeoff→duplicate; retained→duplicate; harmful→duplicate; retained→duplicate; retained→duplicate; retained→duplicate; tradeoff→duplicate.
 - Positive provisional feedback exposure (window 2026-09-16T15:14 to 2026-09-16T16:03): 15 LLM calls carried 25 positive pending blocks (2 runs); 8 candidates behind them — proofs since: inconclusive 8.
-- Cross-run verdict reuse since 2026-09-16T15:14: 0 proofs copied from a decided record of the same pair ({}), over 15569 split-pipeline proofs of 38212 equivalence records; sim records missing: 0.
+- Cross-run verdict reuse since 2026-09-16T15:14: 0 proofs copied from a decided record of the same pair ({}), over 16304 split-pipeline proofs of 39695 equivalence records; sim records missing: 0.
 
 Equivalence jobs finished per hour on the VC Formal pool since the throttle (2026-09-16T14:30), by the candidate's verdict:
 
@@ -839,18 +907,24 @@ Equivalence jobs finished per hour on the VC Formal pool since the throttle (202
 | 2026-09-19T15 | 201 | 146 | 32 | 4.56 | 23 | 0 | 0 |
 | 2026-09-19T16 | 172 | 129 | 32 | 4.03 | 11 | 0 | 0 |
 | 2026-09-19T17 | 181 | 125 | 34 | 3.68 | 22 | 0 | 0 |
-| 2026-09-19T18 | 99 | 59 | 13 | 4.54 | 25 | 0 | 0 |
+| 2026-09-19T18 | 192 | 125 | 28 | 4.46 | 39 | 0 | 0 |
+| 2026-09-19T19 | 64 | 33 | 27 | 1.22 | 4 | 0 | 0 |
+| 2026-09-19T20 | 70 | 34 | 34 | 1.0 | 2 | 0 | 0 |
+| 2026-09-19T21 | 87 | 48 | 35 | 1.37 | 4 | 0 | 0 |
+| 2026-09-19T22 | 190 | 143 | 31 | 4.61 | 16 | 0 | 0 |
+| 2026-09-19T23 | 110 | 77 | 26 | 2.96 | 7 | 0 | 0 |
+| 2026-09-20T00 | 121 | 77 | 28 | 2.75 | 16 | 0 | 0 |
 
 ## 7b. Verification conditions per arm-model row (DECISION 2026-09-18 item 5c: median host load and VC Formal wait during the row's runs)
 
 | tier | model | arm | proofs | VC Formal queue wait: median / q95 (min) | median 1-min load over the row's run-minutes | run-minutes with a load sample (coverage) |
 |---|---|---|---|---|---|---|
-| large | gpt-5.6-luna | M | 573 | 158.2 / 661.6 | 101.8 | 5682 (31 %) |
-| large | gpt-5.6-terra | B0 | 825 | 106.3 / 507.1 | 101.8 | 5682 (34 %) |
-| large | gpt-5.6-terra | B1_E4 | 802 | 139.9 / 510.4 | 101.8 | 5682 (34 %) |
-| large | gpt-5.6-terra | B2 | 814 | 120.2 / 483.9 | 101.8 | 5682 (35 %) |
-| large | gpt-5.6-terra | DrRTL_reimpl | 578 | 149.9 / 481.0 | 101.8 | 5682 (38 %) |
-| large | gpt-5.6-terra | M | 619 | 139.9 / 635.0 | 101.8 | 5682 (32 %) |
+| large | gpt-5.6-luna | M | 573 | 158.2 / 661.6 | 99.9 | 6858 (36 %) |
+| large | gpt-5.6-terra | B0 | 825 | 106.3 / 507.1 | 99.9 | 6858 (38 %) |
+| large | gpt-5.6-terra | B1_E4 | 802 | 139.9 / 510.4 | 99.9 | 6858 (38 %) |
+| large | gpt-5.6-terra | B2 | 814 | 120.2 / 483.9 | 99.9 | 6858 (39 %) |
+| large | gpt-5.6-terra | DrRTL_reimpl | 578 | 149.9 / 481.0 | 99.9 | 6858 (43 %) |
+| large | gpt-5.6-terra | M | 619 | 139.9 / 635.0 | 99.9 | 6858 (36 %) |
 
 The load log (scripts/load_logger.py, one sample per minute) starts 2026-09-18 05:49; rows whose runs predate it show a partial coverage — the VC Formal wait comes from the queue's own timestamps and covers every proof.
 
@@ -861,36 +935,29 @@ Proofs started from 2026-09-18T05:49:54 (the load log's first sample) with a loa
 | design | class | proofs at load > threshold | inconclusive share | proofs at load ≤ threshold | inconclusive share |
 |---|---|---|---|---|---|
 
-Search slots at render time (DECISION 2026-09-19 (j) item 1c): generating 16 (max 24), waiting for verdicts 33, queued 192; waiting runs counted against the cap: no.
+Search slots at render time (DECISION 2026-09-19 (j) item 1c): generating 11 (max 24), waiting for verdicts 36, queued 181; waiting runs counted against the cap: no.
 
 | arm-model row | unverified-at-build fraction (generations built in the last hour, medium tier) |
 |---|---|
-| gpt-5.6-luna|B1_E4 | 71 % |
-| gpt-5.6-luna|B2 | 58 % |
-| gpt-5.6-luna|M | 36 % |
-| gpt-5.6-terra|B2 | 92 % |
-| gpt-5.6-terra|M | 46 % |
+| gpt-5.6-luna|B1_E4 | 90 % |
+| gpt-5.6-luna|B2 | 88 % |
+| gpt-5.6-luna|M | 73 % |
+| gpt-5.6-terra|M | 82 % |
 
 | lane | queued proofs | seats | mean proof minutes (6 h) | estimated wait of a new proof (min) | unverified-at-build (lane, last hour) | idle seat-minutes (last hour) |
 |---|---|---|---|---|---|---|
-| spi | 20 | 14 | 54 | 77 | 95 % | 0.1 of 840 |
-| uart | 83 | 5 | 19 | 313 | - | 0.0 of 300 |
-| cpu | 79 | 3 | 72 | 1897 | - | 0.0 of 180 |
-| router | 119 | 2 | 10 | 606 | 71 % | 0.0 of 120 |
-| simple_spi | 53 | 19 | 47 | 132 | 83 % | 0.0 of 1140 |
-| small | 130 | 1 | 1 | 120 | - | - |
-| window | 267 | 7 | 3 | 123 | 39 % | 0.4 of 420 |
+| spi | 32 | 13 | 72 | 178 | - | 0.0 of 780 |
+| uart | 113 | 6 | 18 | 344 | 98 % | 0.1 of 360 |
+| cpu | 50 | 3 | 45 | 746 | - | 0.0 of 180 |
+| router | 35 | 2 | 10 | 168 | - | 0.0 of 120 |
+| simple_spi | 64 | 18 | 59 | 210 | - | 0.0 of 1080 |
+| small | 130 | 1 | 5 | 650 | - | - |
+| window | 119 | 8 | 11 | 169 | 67 % | 0.1 of 480 |
 
 | design | unverified-at-build (last hour) |
 |---|---|
-| cktevo_nn_engine__thresholds_128x4096 | 55 % |
-| cktevo_usb__usbf_sie_rx | 30 % |
-| cktevo_vga_enh__vga_wb_slave | 42 % |
-| drrtl_SPI | 95 % |
-| drrtl_communication | 52 % |
-| drrtl_router | 71 % |
-| drrtl_simple_spi | 83 % |
-| rtlopt_alu_64bit | 42 % |
-| rtlopt_divider_8bit | 42 % |
-| rtlopt_register | 7 % |
+| cktevo_usb__usbf_sie_rx | 46 % |
+| drrtl_UART | 98 % |
+| rtlopt_calculation | 88 % |
+| rtlopt_register | 46 % |
 
