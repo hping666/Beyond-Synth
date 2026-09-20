@@ -1,8 +1,8 @@
 {
  "date": "2026-09-20",
- "generated_at": "2026-09-20T03:27",
+ "generated_at": "2026-09-20T03:31",
  "versions": {
-  "git_sha": "099c53fa2794",
+  "git_sha": "3c7dcd899e9b",
   "cfg_hash": "de7d24d19295",
   "floor_version": "phase4",
   "equiv_version": "phase5",
@@ -793,7 +793,7 @@
  },
  "retained_on_offset": {
   "n": 371,
-  "retained_total": 4222,
+  "retained_total": 4223,
   "designs": {
    "cktevo_mem_ctrl__mc_adr_sel": 371
   }
@@ -2018,19 +2018,19 @@
       }
      },
      "prescreened_proof_pending": {
-      "n": 142,
+      "n": 143,
       "table": {
        "a": {
-        "n": 142,
+        "n": 143,
         "labels": {
          "retained": 1,
          "tradeoff": 3,
          "absorbed_identical": 79,
          "noise": 15,
-         "harmful": 44
+         "harmful": 45
         },
         "retained": 1,
-        "retention_rate": 0.007042253521126761,
+        "retention_rate": 0.006993006993006993,
         "material": {
          "any": 0,
          "area": 0,
@@ -2042,7 +2042,7 @@
       }
      },
      "prescreened_sim_pending": 78,
-     "prescreened_e4_pending": 49
+     "prescreened_e4_pending": 48
     },
     "medium": {
      "by_arm": {
@@ -2289,33 +2289,33 @@
          }
         },
         "d": {
-         "n": 961,
+         "n": 962,
          "labels": {
-          "retained": 383,
+          "retained": 384,
           "tradeoff": 470,
           "absorbed_identical": 39,
           "absorbed": 11,
           "noise": 3,
           "harmful": 55
          },
-         "retained": 383,
-         "retention_rate": 0.39854318418314255,
+         "retained": 384,
+         "retention_rate": 0.3991683991683992,
          "material": {
-          "any": 379,
-          "area": 164,
-          "power": 374,
+          "any": 380,
+          "area": 165,
+          "power": 375,
           "wns": 106,
-          "rate_any": 0.39438085327783556
+          "rate_any": 0.39501039501039503
          }
         }
        },
-       "proven": 3597,
-       "evaluated": 3567,
+       "proven": 3598,
+       "evaluated": 3568,
        "e4_pending": 18,
        "dc_rejected": 12,
        "harness": {
         "v1": 1424,
-        "v2": 2173
+        "v2": 2174
        }
       },
       "DrRTL_reimpl": {
@@ -2595,23 +2595,23 @@
        }
       },
       "d": {
-       "n": 2694,
+       "n": 2695,
        "labels": {
-        "retained": 1243,
+        "retained": 1244,
         "tradeoff": 1143,
         "absorbed_identical": 103,
         "absorbed": 19,
         "noise": 5,
         "harmful": 181
        },
-       "retained": 1243,
-       "retention_rate": 0.46139569413511505,
+       "retained": 1244,
+       "retention_rate": 0.46159554730983304,
        "material": {
-        "any": 1208,
-        "area": 551,
-        "power": 1187,
+        "any": 1209,
+        "area": 552,
+        "power": 1188,
         "wns": 326,
-        "rate_any": 0.4484038604305865
+        "rate_any": 0.44860853432282005
        }
       }
      },
@@ -3046,21 +3046,21 @@
       }
      },
      "d": {
-      "n": 2573,
+      "n": 2574,
       "labels": {
-       "retained": 1236,
+       "retained": 1237,
        "tradeoff": 1065,
        "absorbed_identical": 86,
        "harmful": 186
       },
-      "retained": 1236,
-      "retention_rate": 0.4803731053245239,
+      "retained": 1237,
+      "retention_rate": 0.48057498057498055,
       "material": {
-       "any": 1203,
-       "area": 551,
-       "power": 1186,
+       "any": 1204,
+       "area": 552,
+       "power": 1187,
        "wns": 321,
-       "rate_any": 0.4675476097940148
+       "rate_any": 0.4677544677544678
       }
      }
     }
@@ -3082,7 +3082,7 @@
     },
     "combinational depth ratio >= threshold": {
      "noise": 3,
-     "retained": 1051,
+     "retained": 1052,
      "harmful": 186,
      "absorbed_identical": 98,
      "tradeoff": 978
@@ -5056,13 +5056,13 @@
     "absorbed_identical_share": 0.16506717850287908
    },
    "B2": {
-    "evaluated": 3983,
+    "evaluated": 3984,
     "harmful": 509,
     "absorbed_identical": 537,
-    "retained": 1208,
+    "retained": 1209,
     "tradeoff": 1504,
-    "harmful_share": 0.12779312076324378,
-    "absorbed_identical_share": 0.1348229977403967
+    "harmful_share": 0.12776104417670683,
+    "absorbed_identical_share": 0.13478915662650603
    },
    "DrRTL_reimpl": {
     "evaluated": 1800,
@@ -5089,7 +5089,7 @@
     "tradeoff": 1232
    },
    "combinational depth ratio >= threshold": {
-    "retained": 1051,
+    "retained": 1052,
     "tradeoff": 978
    },
    "wide text difference without operator / topology evidence": {
@@ -5364,9 +5364,9 @@
    },
    "cktevo_risc__cpu": {
     "tier": "medium",
-    "with_verdict": 855,
+    "with_verdict": 856,
     "proven": 88,
-    "inconclusive": 176,
+    "inconclusive": 177,
     "by_class": {
      "a": {
       "n": 103,
@@ -5374,9 +5374,9 @@
       "inconclusive": 13
      },
      "b": {
-      "n": 563,
+      "n": 564,
       "proven": 68,
-      "inconclusive": 158
+      "inconclusive": 159
      },
      "c1": {
       "n": 87,
@@ -5588,9 +5588,9 @@
    },
    "drrtl_simple_spi": {
     "tier": "medium",
-    "with_verdict": 832,
+    "with_verdict": 833,
     "proven": 139,
-    "inconclusive": 516,
+    "inconclusive": 517,
     "by_class": {
      "a": {
       "n": 34,
@@ -5598,9 +5598,9 @@
       "inconclusive": 5
      },
      "b": {
-      "n": 670,
+      "n": 671,
       "proven": 89,
-      "inconclusive": 487
+      "inconclusive": 488
      },
      "c1": {
       "n": 127,
@@ -5639,8 +5639,8 @@
    },
    "rtlopt_calculation": {
     "tier": "medium",
-    "with_verdict": 688,
-    "proven": 540,
+    "with_verdict": 690,
+    "proven": 541,
     "inconclusive": 11,
     "by_class": {
      "a": {
@@ -5654,8 +5654,8 @@
       "inconclusive": 0
      },
      "d": {
-      "n": 447,
-      "proven": 338,
+      "n": 449,
+      "proven": 339,
       "inconclusive": 0
      }
     }
@@ -5841,9 +5841,9 @@
     "share": 0.3759101941747573
    },
    "b|v2": {
-    "finished": 3608,
-    "inconclusive": 887,
-    "share": 0.24584257206208426
+    "finished": 3610,
+    "inconclusive": 889,
+    "share": 0.24626038781163434
    },
    "c1|v1": {
     "finished": 1455,
@@ -5866,14 +5866,14 @@
     "share": 0.07503152585119799
    },
    "d|v2": {
-    "finished": 1615,
+    "finished": 1616,
     "inconclusive": 31,
-    "share": 0.019195046439628483
+    "share": 0.019183168316831683
    }
   },
   "inconclusive_by_load": {
    "threshold": 100.0,
-   "n": 10633,
+   "n": 10636,
    "from": "2026-09-18T05:49:54",
    "by_class": {
     "b": {
@@ -5884,15 +5884,15 @@
      },
      "below": {
       "proven": 1052,
-      "inconclusive": 528,
-      "share": 0.3341772151898734
+      "inconclusive": 530,
+      "share": 0.3350189633375474
      }
     },
     "d": {
      "above": {
-      "proven": 1880,
+      "proven": 1881,
       "inconclusive": 24,
-      "share": 0.012605042016806723
+      "share": 0.012598425196850394
      },
      "below": {
       "proven": 428,
@@ -6298,7 +6298,7 @@
     "item": "prescreened candidates' simulation, E4 and proofs (large-tier M)",
     "owner": "offline pool (prescreened group; proofs after the small tier, DECISION 2026-09-18 (d) B5 / (q) 2)",
     "stage": "Phase 5 completion condition",
-    "status": "sim pending 78, E4 pending 49, proof pending 142"
+    "status": "sim pending 78, E4 pending 48, proof pending 143"
    },
    {
     "item": "E1 (a) / (b) reconciliation (router and tv80 harness_version-1 falsified records re-proven under v2)",
@@ -6610,10 +6610,10 @@
   }
  ],
  "summary": [
-  "1. **Supportable today.** The residual is defined against a measured floor: at E4 the pooled minimum is 0.28 % area / 2.2 % power / 0.03 % WNS of the period; 13 of the 30 Phase 5 designs carry the pooled floor (no measured perturbations at E4), 1 of them are offset designs (retained verdicts there are flagged: 371 so far, all on mc_adr_sel).",
+  "1. **Supportable today.** The residual is defined against a measured floor: at E4 the pooled minimum is 0.28 % area / 2.2 % power / 0.03 % WNS of the period; 13 of the 30 Phase 5 designs carry the pooled floor (no measured perturbations at E4), 1 of the 30 is an offset design (mc_adr_sel; its 371 retained verdicts so far are flagged).",
   "2. **Supportable.** The ladder is real but not monotone: E1 \u2192 E2 is the large step (\u22126 % to \u221237 % area on the probe), the high-effort flags are no-ops, DesignWare is a capability of its own (3\u20136 % either way), retiming and clock gating act only where their structures exist; D's area grows on 10 of 127 designs from E1 to E4.",
-  "3. **Supportable (interim).** Rule A at E4 on the Phase 4 B0 objects (10 human-written designs): 55 of 168 proven objects retained (32.7 %), 49 of them above the materiality threshold; map shape 'concentrated' with E4 retention by class {\"a\": 0.06060606060606061, \"b\": 0.4880952380952381, \"c1\": 1.0, \"d\": 0.9375} \u2014 class (a) rewrites are absorbed, (c1) / (d) survive.",
-  "4. **Supportable (interim, incomplete).** Phase 5 so far: 4222 of 12236 evaluated proven candidates retained (34.5 %), 3674 above materiality, across 13 tier-arm rows; the large tier's runs are done, the medium tier stands at 35 created, 297 done, 44 running (interim), B0's offline E4 is in for all but 146 proven B0 candidates.",
+  "3. **Supportable (interim).** Rule A at E4 on the Phase 4 B0 objects (10 human-written designs): 55 of 168 proven objects retained (32.7 %), 49 of them above the materiality threshold; map shape 'concentrated' (reports/phase4.md \u00a72) with E4 retention by class a 6 %, b 49 %, c1 100 %, d 94 %.",
+  "4. **Supportable (interim, incomplete).** Phase 5 so far: 4223 of 12237 evaluated proven candidates retained (34.5 %), 3675 above materiality, across 13 tier-arm rows; the large tier's runs are done, the medium tier stands at 35 created, 297 done, 44 running (interim), B0's offline E4 is in for all but 146 proven B0 candidates.",
   "5. **Supportable.** The literature's caliber: of B0's Yosys-'improved' candidates with an E4 record, 645 of 1490 are retained at E4 (43.3 %), 179 are absorbed_identical or noise, 183 harmful; on the literature pairs, RTL-OPT better at E1 20 \u2192 retained at E4 11 of 34 proven pairs, RTLRewriter 24 \u2192 10 of 43; under the authors' released RTL-OPT setting (plain compile, 0.1 ns) reproduced on this DC 25 of 33 pairs are better, under the paper's described setting (compile_ultra, 1 ns) 13.",
   "6. **Not yet.** Whether retained gains survive the hidden configurations (C1's certification column) \u2014 sealed until PHASE5_COMPLETE; the final map with rung attribution on Phase 5 candidates (Phase 6 ladder runs); the Dr.RTL per-design comparison (paper numbers not transcribed; the reference row not run); the large-tier M row (641 prescreened candidates await their proofs after the small tier).",
   "7. **Not yet.** Retention on the proof-latency-bound and verification-limited designs (SPI, simple_spi, tv80, cpu; hsm): the proven denominators there are too small, and E1 (a) / (b) may still flip router's and tv80's v1-falsified records.",
