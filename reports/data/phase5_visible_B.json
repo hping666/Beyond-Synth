@@ -10,32 +10,31 @@
    "cktevo_hsm__MixColumns": {},
    "cktevo_hsm__hsm": {},
    "cktevo_mem_ctrl__mc_adr_sel": {
-    "b0_e4": 1,
-    "verdict": 1
+    "b0_e4": 1
    },
    "cktevo_nn_engine__spikeNeuron8_H7": {
     "e4_retry": 1,
     "proof": 155
    },
    "cktevo_nn_engine__thresholds_128x4096": {
-    "verdict": 18
+    "verdict": 13
    },
    "cktevo_risc__btb": {
     "b0_e4": 11
    },
    "cktevo_risc__cpu": {
-    "verdict": 70
+    "verdict": 68
    },
    "cktevo_risc__stall_control_unit": {},
    "cktevo_usb__usbf_sie_rx": {},
    "cktevo_vga_enh__vga_wb_slave": {},
    "drrtl_LSTM": {},
    "drrtl_SPI": {
-    "verdict": 79
+    "verdict": 71
    },
    "drrtl_UART": {
     "e4_retry": 11,
-    "verdict": 163
+    "verdict": 159
    },
    "drrtl_aes": {
     "b0_e4": 107,
@@ -45,27 +44,27 @@
    "drrtl_arm_cpu2": {},
    "drrtl_communication": {
     "b0_e4": 1,
-    "verdict": 5
+    "verdict": 13
    },
    "drrtl_controller": {},
    "drrtl_router": {
-    "verdict": 94
+    "verdict": 84
    },
    "drrtl_simple_spi": {
     "b0_e4": 1,
     "e4_retry": 9,
-    "verdict": 63
+    "verdict": 86
    },
    "drrtl_ticket_machine": {},
    "drrtl_tv80": {
     "proof": 10
    },
    "rtlopt_alu_64bit": {
-    "verdict": 24
+    "verdict": 21
    },
    "rtlopt_calculation": {
     "b0_e4": 2,
-    "verdict": 75
+    "verdict": 85
    },
    "rtlopt_decoder_8bit": {
     "b0_e4": 1
@@ -73,7 +72,9 @@
    "rtlopt_divider_8bit": {},
    "rtlopt_mux_large": {},
    "rtlopt_register": {
-    "b0_e4": 2
+    "b0_e4": 2,
+    "e4_late": 1,
+    "verdict": 6
    },
    "rtlopt_sub_32bit": {},
    "rtlopt_sub_8bit": {
@@ -216,6 +217,78 @@
      }
     },
     "t_d_area": 0.0027938146505548643
+   },
+   "cktevo_mem_ctrl__mc_adr_sel": {
+    "b0_pending": true,
+    "m_exceeds": false,
+    "m_outcome": "tie",
+    "model": "gpt-5.6-luna",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "best_gain_max": 0.02401,
+      "best_gain_mean": 0.01961,
+      "cands": 180,
+      "proven": 121,
+      "retained": 46,
+      "runs": 3,
+      "tradeoff": 5
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "best_gain_max": 0.01691,
+      "best_gain_mean": 0.01161,
+      "cands": 176,
+      "proven": 121,
+      "retained": 70,
+      "runs": 3,
+      "tradeoff": 9
+     },
+     "gpt-5.6-luna|B2": {
+      "best_gain_max": 0.02401,
+      "best_gain_mean": 0.01364,
+      "cands": 177,
+      "proven": 127,
+      "retained": 29,
+      "runs": 3,
+      "tradeoff": 21
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "best_gain_max": 0.02401,
+      "best_gain_mean": 0.02356,
+      "cands": 153,
+      "proven": 127,
+      "retained": 119,
+      "runs": 3,
+      "tradeoff": 1
+     },
+     "gpt-5.6-luna|M": {
+      "best_gain_max": 0.01556,
+      "best_gain_mean": 0.01026,
+      "cands": 100,
+      "proven": 45,
+      "retained": 10,
+      "runs": 3,
+      "tradeoff": 2
+     },
+     "gpt-5.6-terra|B2": {
+      "best_gain_max": 0.02503,
+      "best_gain_mean": 0.02052,
+      "cands": 176,
+      "proven": 150,
+      "retained": 47,
+      "runs": 3,
+      "tradeoff": 35
+     },
+     "gpt-5.6-terra|M": {
+      "best_gain_max": 0.02266,
+      "best_gain_mean": 0.01804,
+      "cands": 88,
+      "proven": 55,
+      "retained": 16,
+      "runs": 3,
+      "tradeoff": 3
+     }
+    },
+    "t_d_area": 0.014541766721929255
    },
    "cktevo_risc__btb": {
     "b0_pending": true,
@@ -786,20 +859,21 @@
    "rtlopt_sub_32bit"
   ],
   "open_proofs": {
-   "cktevo_mem_ctrl__mc_adr_sel": 1,
-   "cktevo_nn_engine__thresholds_128x4096": 17,
-   "cktevo_risc__cpu": 70,
-   "drrtl_SPI": 79,
-   "drrtl_UART": 163,
-   "drrtl_communication": 5,
-   "drrtl_router": 94,
-   "drrtl_simple_spi": 63,
-   "rtlopt_alu_64bit": 24,
-   "rtlopt_calculation": 70,
+   "cktevo_nn_engine__thresholds_128x4096": 13,
+   "cktevo_risc__cpu": 68,
+   "drrtl_SPI": 71,
+   "drrtl_UART": 159,
+   "drrtl_communication": 13,
+   "drrtl_router": 84,
+   "drrtl_simple_spi": 86,
+   "rtlopt_alu_64bit": 21,
+   "rtlopt_calculation": 85,
+   "rtlopt_register": 6,
    "rtlopt_sub_8bit": 130
   },
   "preliminary": [
    "cktevo_ethmac__eth_cop",
+   "cktevo_mem_ctrl__mc_adr_sel",
    "cktevo_risc__btb",
    "rtlopt_decoder_8bit"
   ],
@@ -807,10 +881,10 @@
    "criterion_wins": 18,
    "lost": 1,
    "partial": 2,
-   "preliminary": 3,
+   "preliminary": 4,
    "reachable": true,
-   "remaining_designs": 20,
-   "ties": 7,
+   "remaining_designs": 19,
+   "ties": 8,
    "total_designs": 30,
    "undecided": 0,
    "wins": 0,
@@ -945,8 +1019,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 2,
-     "pending": 1,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1009,8 +1083,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 0,
-     "pending": 18,
+     "done": 1,
+     "pending": 13,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1069,7 +1143,7 @@
     },
     "gpt-5.6-luna|B2": {
      "done": 2,
-     "pending": 11,
+     "pending": 10,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -1084,7 +1158,7 @@
     },
     "gpt-5.6-terra|B2": {
      "done": 1,
-     "pending": 38,
+     "pending": 37,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -1269,7 +1343,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 38,
+     "pending": 30,
      "planned": 3
     }
    },
@@ -1296,7 +1370,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 1,
-     "pending": 97,
+     "pending": 95,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1306,7 +1380,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 77,
+     "pending": 75,
      "planned": 3
     }
    },
@@ -1402,7 +1476,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 3,
+     "pending": 11,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1461,7 +1535,7 @@
     },
     "gpt-5.6-luna|B1_E4": {
      "done": 2,
-     "pending": 21,
+     "pending": 17,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
@@ -1481,7 +1555,7 @@
     },
     "gpt-5.6-terra|B2": {
      "done": 1,
-     "pending": 60,
+     "pending": 54,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -1513,7 +1587,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 1,
-     "pending": 29,
+     "pending": 32,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1523,7 +1597,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 43,
+     "pending": 63,
      "planned": 3
     }
    },
@@ -1619,7 +1693,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 24,
+     "pending": 21,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1656,7 +1730,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 7,
+     "pending": 18,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1666,7 +1740,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 68,
+     "pending": 67,
      "planned": 3
     }
    },
@@ -1804,7 +1878,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 2,
-     "pending": 0,
+     "pending": 7,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1897,7 +1971,7 @@
    "cktevo_ethmac__eth_cop": true,
    "cktevo_hsm__MixColumns": false,
    "cktevo_hsm__hsm": true,
-   "cktevo_mem_ctrl__mc_adr_sel": false,
+   "cktevo_mem_ctrl__mc_adr_sel": true,
    "cktevo_nn_engine__spikeNeuron8_H7": true,
    "cktevo_nn_engine__thresholds_128x4096": false,
    "cktevo_risc__btb": true,
@@ -1939,6 +2013,7 @@
     "drrtl_arm_cpu2",
     "drrtl_tv80",
     "rtlopt_sub_32bit",
+    "cktevo_mem_ctrl__mc_adr_sel",
     "cktevo_risc__btb",
     "rtlopt_decoder_8bit"
    ],
@@ -1948,49 +2023,49 @@
  },
  "conditions": {
   "large|gpt-5.6-luna|M": {
-   "load_coverage": 0.413,
-   "load_median": 100.1,
-   "load_samples": 8769,
+   "load_coverage": 0.417,
+   "load_median": 100.0,
+   "load_samples": 8922,
    "proofs": 573,
    "vcf_wait_median_min": 158.2,
    "vcf_wait_q95_min": 661.6
   },
   "large|gpt-5.6-terra|B0": {
-   "load_coverage": 0.439,
-   "load_median": 100.1,
-   "load_samples": 8769,
+   "load_coverage": 0.443,
+   "load_median": 100.0,
+   "load_samples": 8922,
    "proofs": 825,
    "vcf_wait_median_min": 106.3,
    "vcf_wait_q95_min": 507.1
   },
   "large|gpt-5.6-terra|B1_E4": {
-   "load_coverage": 0.439,
-   "load_median": 100.1,
-   "load_samples": 8769,
+   "load_coverage": 0.443,
+   "load_median": 100.0,
+   "load_samples": 8922,
    "proofs": 802,
    "vcf_wait_median_min": 139.9,
    "vcf_wait_q95_min": 510.4
   },
   "large|gpt-5.6-terra|B2": {
-   "load_coverage": 0.452,
-   "load_median": 100.1,
-   "load_samples": 8769,
+   "load_coverage": 0.456,
+   "load_median": 100.0,
+   "load_samples": 8922,
    "proofs": 814,
    "vcf_wait_median_min": 120.2,
    "vcf_wait_q95_min": 483.9
   },
   "large|gpt-5.6-terra|DrRTL_reimpl": {
-   "load_coverage": 0.489,
-   "load_median": 100.1,
-   "load_samples": 8769,
+   "load_coverage": 0.494,
+   "load_median": 100.0,
+   "load_samples": 8922,
    "proofs": 578,
    "vcf_wait_median_min": 149.9,
    "vcf_wait_q95_min": 481.0
   },
   "large|gpt-5.6-terra|M": {
-   "load_coverage": 0.415,
-   "load_median": 100.1,
-   "load_samples": 8769,
+   "load_coverage": 0.42,
+   "load_median": 100.0,
+   "load_samples": 8922,
    "proofs": 619,
    "vcf_wait_median_min": 139.9,
    "vcf_wait_q95_min": 635.0
@@ -2006,18 +2081,18 @@
   "medium|gpt-5.6-luna|B1_E4": {
    "load_coverage": 0.748,
    "load_median": 101.8,
-   "load_samples": 15450,
-   "proofs": 2338,
-   "vcf_wait_median_min": 3.8,
-   "vcf_wait_q95_min": 849.2
+   "load_samples": 15501,
+   "proofs": 2342,
+   "vcf_wait_median_min": 3.9,
+   "vcf_wait_q95_min": 848.9
   },
   "medium|gpt-5.6-luna|B2": {
    "load_coverage": 0.843,
    "load_median": 102.2,
-   "load_samples": 18847,
-   "proofs": 2400,
+   "load_samples": 18898,
+   "proofs": 2401,
    "vcf_wait_median_min": 7.3,
-   "vcf_wait_q95_min": 350.6
+   "vcf_wait_q95_min": 350.1
   },
   "medium|gpt-5.6-luna|DrRTL_reimpl": {
    "load_coverage": 0.992,
@@ -2028,28 +2103,28 @@
    "vcf_wait_q95_min": 291.7
   },
   "medium|gpt-5.6-luna|M": {
-   "load_coverage": 0.914,
-   "load_median": 100.4,
-   "load_samples": 35800,
-   "proofs": 1756,
-   "vcf_wait_median_min": 9.3,
-   "vcf_wait_q95_min": 1033.4
+   "load_coverage": 0.916,
+   "load_median": 100.3,
+   "load_samples": 36816,
+   "proofs": 1793,
+   "vcf_wait_median_min": 9.0,
+   "vcf_wait_q95_min": 1032.9
   },
   "medium|gpt-5.6-terra|B2": {
-   "load_coverage": 0.956,
+   "load_coverage": 0.957,
    "load_median": 101.6,
-   "load_samples": 17901,
-   "proofs": 2354,
+   "load_samples": 18105,
+   "proofs": 2364,
    "vcf_wait_median_min": 6.7,
-   "vcf_wait_q95_min": 762.5
+   "vcf_wait_q95_min": 762.4
   },
   "medium|gpt-5.6-terra|M": {
-   "load_coverage": 0.802,
-   "load_median": 100.7,
-   "load_samples": 40765,
-   "proofs": 2024,
-   "vcf_wait_median_min": 7.7,
-   "vcf_wait_q95_min": 783.4
+   "load_coverage": 0.805,
+   "load_median": 100.6,
+   "load_samples": 41628,
+   "proofs": 2045,
+   "vcf_wait_median_min": 7.8,
+   "vcf_wait_q95_min": 808.7
   }
  },
  "correctness": {
@@ -2146,15 +2221,15 @@
   },
   "medium|gpt-5.6-luna|cktevo_mem_ctrl__mc_adr_sel": {
    "cands": 871,
-   "proven": 615,
-   "proven_rate": 0.7061,
+   "proven": 619,
+   "proven_rate": 0.7107,
    "runs": 15,
    "synth_rejected": 0
   },
   "medium|gpt-5.6-luna|cktevo_nn_engine__thresholds_128x4096": {
    "cands": 694,
-   "proven": 509,
-   "proven_rate": 0.7334,
+   "proven": 517,
+   "proven_rate": 0.745,
    "runs": 12,
    "synth_rejected": 0
   },
@@ -2188,8 +2263,8 @@
   },
   "medium|gpt-5.6-luna|drrtl_UART": {
    "cands": 940,
-   "proven": 693,
-   "proven_rate": 0.7372,
+   "proven": 695,
+   "proven_rate": 0.7394,
    "runs": 16,
    "synth_rejected": 1
   },
@@ -2201,37 +2276,37 @@
    "synth_rejected": 0
   },
   "medium|gpt-5.6-luna|drrtl_communication": {
-   "cands": 730,
-   "proven": 220,
-   "proven_rate": 0.3014,
+   "cands": 780,
+   "proven": 222,
+   "proven_rate": 0.2846,
    "runs": 15,
    "synth_rejected": 0
   },
   "medium|gpt-5.6-luna|drrtl_router": {
    "cands": 873,
-   "proven": 594,
-   "proven_rate": 0.6804,
+   "proven": 598,
+   "proven_rate": 0.685,
    "runs": 15,
    "synth_rejected": 1
   },
   "medium|gpt-5.6-luna|drrtl_simple_spi": {
-   "cands": 840,
-   "proven": 130,
-   "proven_rate": 0.1548,
+   "cands": 854,
+   "proven": 131,
+   "proven_rate": 0.1534,
    "runs": 15,
    "synth_rejected": 49
   },
   "medium|gpt-5.6-luna|rtlopt_alu_64bit": {
    "cands": 873,
-   "proven": 632,
-   "proven_rate": 0.7239,
+   "proven": 638,
+   "proven_rate": 0.7308,
    "runs": 15,
    "synth_rejected": 0
   },
   "medium|gpt-5.6-luna|rtlopt_calculation": {
-   "cands": 712,
-   "proven": 486,
-   "proven_rate": 0.6826,
+   "cands": 744,
+   "proven": 502,
+   "proven_rate": 0.6747,
    "runs": 15,
    "synth_rejected": 0
   },
@@ -2250,9 +2325,9 @@
    "synth_rejected": 0
   },
   "medium|gpt-5.6-luna|rtlopt_register": {
-   "cands": 831,
-   "proven": 675,
-   "proven_rate": 0.8123,
+   "cands": 842,
+   "proven": 683,
+   "proven_rate": 0.8112,
    "runs": 15,
    "synth_rejected": 1
   },
@@ -2285,9 +2360,9 @@
    "synth_rejected": 1
   },
   "medium|gpt-5.6-terra|cktevo_risc__cpu": {
-   "cands": 354,
-   "proven": 25,
-   "proven_rate": 0.0706,
+   "cands": 360,
+   "proven": 27,
+   "proven_rate": 0.075,
    "runs": 6,
    "synth_rejected": 0
   },
@@ -2307,15 +2382,15 @@
   },
   "medium|gpt-5.6-terra|drrtl_SPI": {
    "cands": 360,
-   "proven": 22,
-   "proven_rate": 0.0611,
+   "proven": 23,
+   "proven_rate": 0.0639,
    "runs": 6,
    "synth_rejected": 0
   },
   "medium|gpt-5.6-terra|drrtl_UART": {
    "cands": 300,
-   "proven": 213,
-   "proven_rate": 0.71,
+   "proven": 216,
+   "proven_rate": 0.72,
    "runs": 6,
    "synth_rejected": 0
   },
@@ -2335,15 +2410,15 @@
   },
   "medium|gpt-5.6-terra|drrtl_router": {
    "cands": 240,
-   "proven": 148,
-   "proven_rate": 0.6167,
+   "proven": 151,
+   "proven_rate": 0.6292,
    "runs": 6,
    "synth_rejected": 0
   },
   "medium|gpt-5.6-terra|drrtl_simple_spi": {
-   "cands": 251,
-   "proven": 31,
-   "proven_rate": 0.1235,
+   "cands": 284,
+   "proven": 33,
+   "proven_rate": 0.1162,
    "runs": 6,
    "synth_rejected": 11
   },
@@ -2356,8 +2431,8 @@
   },
   "medium|gpt-5.6-terra|rtlopt_calculation": {
    "cands": 360,
-   "proven": 210,
-   "proven_rate": 0.5833,
+   "proven": 211,
+   "proven_rate": 0.5861,
    "runs": 6,
    "synth_rejected": 0
   },
@@ -4236,120 +4311,124 @@
     },
     {
      "calls": 10,
-     "mean_best_gain": 0.01949,
+     "mean_best_gain": 0.02246,
      "runs_with_retained": 18
     },
     {
      "calls": 15,
-     "mean_best_gain": 0.03136,
-     "runs_with_retained": 21
+     "mean_best_gain": 0.0347,
+     "runs_with_retained": 22
     },
     {
      "calls": 20,
-     "mean_best_gain": 0.03166,
-     "runs_with_retained": 21
+     "mean_best_gain": 0.03575,
+     "runs_with_retained": 22
     },
     {
      "calls": 25,
-     "mean_best_gain": 0.03174,
-     "runs_with_retained": 23
+     "mean_best_gain": 0.03584,
+     "runs_with_retained": 24
     },
     {
      "calls": 30,
-     "mean_best_gain": 0.04352,
-     "runs_with_retained": 25
+     "mean_best_gain": 0.04762,
+     "runs_with_retained": 26
     },
     {
      "calls": 35,
-     "mean_best_gain": 0.04399,
-     "runs_with_retained": 27
+     "mean_best_gain": 0.04809,
+     "runs_with_retained": 28
     },
     {
      "calls": 40,
-     "mean_best_gain": 0.05561,
-     "runs_with_retained": 28
+     "mean_best_gain": 0.0597,
+     "runs_with_retained": 29
     },
     {
      "calls": 45,
-     "mean_best_gain": 0.05564,
-     "runs_with_retained": 28
+     "mean_best_gain": 0.05973,
+     "runs_with_retained": 29
     },
     {
      "calls": 50,
-     "mean_best_gain": 0.05567,
-     "runs_with_retained": 28
+     "mean_best_gain": 0.05977,
+     "runs_with_retained": 29
     },
     {
      "calls": 55,
-     "mean_best_gain": 0.05782,
-     "runs_with_retained": 29
+     "mean_best_gain": 0.06192,
+     "runs_with_retained": 30
     },
     {
      "calls": 60,
-     "mean_best_gain": 0.05782,
-     "runs_with_retained": 29
+     "mean_best_gain": 0.06192,
+     "runs_with_retained": 30
     }
    ],
    "by_dc_hours": [
     {
      "dc_hours": 0.25,
-     "mean_best_gain": 0.02035
+     "mean_best_gain": 0.02368
     },
     {
      "dc_hours": 0.5,
-     "mean_best_gain": 0.03329
+     "mean_best_gain": 0.03739
     },
     {
      "dc_hours": 0.75,
-     "mean_best_gain": 0.0448
+     "mean_best_gain": 0.0489
     },
     {
      "dc_hours": 1.0,
-     "mean_best_gain": 0.05758
+     "mean_best_gain": 0.06168
     },
     {
      "dc_hours": 1.25,
-     "mean_best_gain": 0.05775
+     "mean_best_gain": 0.06185
     },
     {
      "dc_hours": 1.5,
-     "mean_best_gain": 0.05775
+     "mean_best_gain": 0.06185
     },
     {
      "dc_hours": 1.75,
-     "mean_best_gain": 0.05779
+     "mean_best_gain": 0.06189
     },
     {
      "dc_hours": 2.0,
-     "mean_best_gain": 0.05782
+     "mean_best_gain": 0.06192
     },
     {
      "dc_hours": 2.25,
-     "mean_best_gain": 0.05782
+     "mean_best_gain": 0.06192
     },
     {
      "dc_hours": 2.5,
-     "mean_best_gain": 0.05782
+     "mean_best_gain": 0.06192
     },
     {
      "dc_hours": 2.75,
-     "mean_best_gain": 0.05782
+     "mean_best_gain": 0.06192
     },
     {
      "dc_hours": 3.0,
-     "mean_best_gain": 0.05782
+     "mean_best_gain": 0.06192
     },
     {
      "dc_hours": 3.25,
-     "mean_best_gain": 0.05782
+     "mean_best_gain": 0.06192
     },
     {
      "dc_hours": 3.5,
-     "mean_best_gain": 0.05782
+     "mean_best_gain": 0.06192
     },
     {
      "dc_hours": 3.75,
-     "mean_best_gain": 0.05782
+     "mean_best_gain": 0.06192
+    },
+    {
+     "dc_hours": 4.0,
+     "mean_best_gain": 0.06192
     }
    ]
   },
@@ -5401,7 +5480,7 @@
   },
   "medium|gpt-5.6-luna|B1_E4|drrtl_router": {
    "best_retained_area_gain": 0.0,
-   "pending": 21,
+   "pending": 17,
    "retained": 0,
    "runs": 3
   },
@@ -5671,13 +5750,13 @@
   },
   "medium|gpt-5.6-luna|M|cktevo_mem_ctrl__mc_adr_sel": {
    "best_retained_area_gain": 0.01556,
-   "pending": 4,
+   "pending": 0,
    "retained": 10,
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|cktevo_nn_engine__thresholds_128x4096": {
    "best_retained_area_gain": 0.0,
-   "pending": 21,
+   "pending": 13,
    "retained": 0,
    "runs": 3
   },
@@ -5707,7 +5786,7 @@
   },
   "medium|gpt-5.6-luna|M|drrtl_UART": {
    "best_retained_area_gain": 0.0,
-   "pending": 97,
+   "pending": 95,
    "retained": 0,
    "runs": 3
   },
@@ -5718,9 +5797,9 @@
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|drrtl_communication": {
-   "best_retained_area_gain": 0.0,
-   "pending": 3,
-   "retained": 0,
+   "best_retained_area_gain": 0.01975,
+   "pending": 12,
+   "retained": 1,
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|drrtl_router": {
@@ -5731,20 +5810,20 @@
   },
   "medium|gpt-5.6-luna|M|drrtl_simple_spi": {
    "best_retained_area_gain": 0.0,
-   "pending": 30,
+   "pending": 32,
    "retained": 0,
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|rtlopt_alu_64bit": {
    "best_retained_area_gain": 0.0102,
-   "pending": 27,
+   "pending": 21,
    "retained": 4,
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|rtlopt_calculation": {
-   "best_retained_area_gain": 0.31551,
-   "pending": 6,
-   "retained": 5,
+   "best_retained_area_gain": 0.35661,
+   "pending": 18,
+   "retained": 8,
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|rtlopt_decoder_8bit": {
@@ -5761,8 +5840,8 @@
   },
   "medium|gpt-5.6-luna|M|rtlopt_register": {
    "best_retained_area_gain": 0.00867,
-   "pending": 5,
-   "retained": 21,
+   "pending": 7,
+   "retained": 23,
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|rtlopt_sub_32bit": {
@@ -5833,7 +5912,7 @@
   },
   "medium|gpt-5.6-terra|B2|drrtl_router": {
    "best_retained_area_gain": 0.00204,
-   "pending": 60,
+   "pending": 56,
    "retained": 9,
    "runs": 3
   },
@@ -5917,13 +5996,13 @@
   },
   "medium|gpt-5.6-terra|M|drrtl_SPI": {
    "best_retained_area_gain": 0.082,
-   "pending": 38,
+   "pending": 30,
    "retained": 5,
    "runs": 3
   },
   "medium|gpt-5.6-terra|M|drrtl_UART": {
    "best_retained_area_gain": 0.0,
-   "pending": 78,
+   "pending": 75,
    "retained": 0,
    "runs": 3
   },
@@ -5947,7 +6026,7 @@
   },
   "medium|gpt-5.6-terra|M|drrtl_simple_spi": {
    "best_retained_area_gain": 0.0,
-   "pending": 44,
+   "pending": 64,
    "retained": 0,
    "runs": 3
   },
@@ -5959,7 +6038,7 @@
   },
   "medium|gpt-5.6-terra|M|rtlopt_calculation": {
    "best_retained_area_gain": 0.40378,
-   "pending": 68,
+   "pending": 67,
    "retained": 31,
    "runs": 3
   },
@@ -5992,8 +6071,8 @@
  "exp": "phase5",
  "final": false,
  "floor_version": "phase4",
- "generated_at": "2026-09-20T11:17",
- "git_sha": "f9ba99bb6980",
+ "generated_at": "2026-09-20T12:08",
+ "git_sha": "881ab53f0cb7",
  "groups": {
   "large|gpt-5.6-luna|M": {
    "accepted": 29,
@@ -6708,14 +6787,14 @@
    "inconclusive": 358,
    "latency_mapped": 0,
    "model": "gpt-5.6-luna",
-   "pending": 21,
+   "pending": 17,
    "pending_by": {
-    "verdict": 21
+    "verdict": 17
    },
    "planned": 54,
    "prescreened": 0,
-   "proven": 1794,
-   "proven_per_call": 0.5537,
+   "proven": 1798,
+   "proven_per_call": 0.5549,
    "proven_sim_only": 0,
    "rejected": 316,
    "repairs": 601,
@@ -6732,7 +6811,7 @@
    "sim_fail": 440,
    "stored": {
     "absorbed_identical": 1,
-    "improved": 1461,
+    "improved": 1465,
     "no_gain": 327,
     "nonequiv": 1300
    },
@@ -6744,9 +6823,9 @@
    },
    "tier": "medium",
    "ttv": {
-    "median": 356.4,
-    "n": 3094,
-    "q95": 34716.7
+    "median": 357.8,
+    "n": 3098,
+    "q95": 34716.6
    },
    "uniform": {
     "absorbed": 46,
@@ -6754,7 +6833,7 @@
     "harmful": 174,
     "noise": 35,
     "retained": 630,
-    "tradeoff": 601
+    "tradeoff": 605
    },
    "unusable": 21,
    "usd": 7.16,
@@ -6946,90 +7025,90 @@
    "vcf_h": 170.07
   },
   "medium|gpt-5.6-luna|M": {
-   "accepted": 79,
+   "accepted": 83,
    "arm": "M",
-   "best_gain_mean": 0.05782,
-   "best_gain_median": 0.00322,
-   "block_answers": 343,
-   "block_flag_rate": 0.0787,
+   "best_gain_mean": 0.06192,
+   "best_gain_median": 0.00381,
+   "block_answers": 337,
+   "block_flag_rate": 0.0801,
    "block_flags": 27,
-   "calls": 2789,
-   "cands": 2774,
+   "calls": 2884,
+   "cands": 2881,
    "classes": {
-    "a": 431,
-    "b": 1030,
-    "c1": 359,
+    "a": 444,
+    "b": 1061,
+    "c1": 384,
     "c2": 1,
-    "d": 328,
+    "d": 339,
     "free": 19
    },
    "confusion": {
-    "a->a": 57,
-    "a->b": 64,
-    "a->c1": 45,
-    "a->d": 26,
+    "a->a": 61,
+    "a->b": 68,
+    "a->c1": 42,
+    "a->d": 25,
     "b->a": 42,
     "b->b": 88,
-    "b->c1": 49,
+    "b->c1": 50,
     "b->c2": 1,
-    "b->d": 36,
-    "c1->a": 83,
-    "c1->b": 332,
-    "c1->c1": 77,
-    "c1->d": 109,
-    "d->a": 141,
-    "d->b": 368,
-    "d->c1": 133,
-    "d->d": 72,
-    "free->a": 108,
-    "free->b": 178,
-    "free->c1": 55,
-    "free->d": 85,
+    "b->d": 42,
+    "c1->a": 88,
+    "c1->b": 334,
+    "c1->c1": 79,
+    "c1->d": 105,
+    "d->a": 143,
+    "d->b": 379,
+    "d->c1": 157,
+    "d->d": 77,
+    "free->a": 110,
+    "free->b": 192,
+    "free->c1": 56,
+    "free->d": 90,
     "free->free": 19
    },
-   "dc_h": 107.42,
-   "done": 30,
-   "duplicate": 606,
+   "dc_h": 110.66,
+   "done": 34,
+   "duplicate": 633,
    "error": 0,
-   "falsified": 211,
+   "falsified": 214,
    "gain_retained_max": 0.63843,
    "gain_retained_median": 0.00507,
    "incomplete": true,
-   "inconclusive": 158,
+   "inconclusive": 163,
    "latency_mapped": 1,
    "model": "gpt-5.6-luna",
-   "pending": 261,
+   "pending": 266,
    "pending_by": {
     "e4": 9,
-    "verdict": 252
+    "verdict": 257
    },
    "planned": 54,
    "prescreened": 0,
-   "proven": 811,
-   "proven_per_call": 0.2908,
+   "proven": 836,
+   "proven_per_call": 0.2899,
    "proven_sim_only": 0,
-   "rejected": 337,
-   "repairs": 501,
+   "rejected": 338,
+   "repairs": 524,
    "repairs_proven": 179,
-   "retained": 169,
-   "retained_per_100_calls": 6.06,
-   "retained_per_dc_hour": 1.573,
-   "retained_per_run": 3.13,
-   "retained_per_usd": 27.577,
+   "retained": 175,
+   "retained_per_100_calls": 6.068,
+   "retained_per_dc_hour": 1.581,
+   "retained_per_run": 3.241,
+   "retained_per_usd": 27.719,
    "role": "main",
    "runs": 54,
-   "runs_with_retained": 29,
+   "runs_with_retained": 30,
    "scope_flags": 27,
-   "sim_fail": 396,
+   "sim_fail": 437,
    "stored": {
     "absorbed": 10,
-    "absorbed_identical": 292,
-    "fragile": 40,
-    "harmful": 79,
+    "absorbed_identical": 300,
+    "fragile": 42,
+    "harmful": 83,
     "noise": 20,
-    "nonequiv": 1102,
-    "retained": 129,
-    "tradeoff": 227
+    "nonequiv": 1152,
+    "retained": 133,
+    "tradeoff": 234
    },
    "synth_rejected": {
     "cktevo_vga_enh__vga_wb_slave|ELAB-366": 1,
@@ -7038,36 +7117,36 @@
    },
    "tier": "medium",
    "ttv": {
-    "median": 383.7,
-    "n": 1909,
-    "q95": 55124.7
+    "median": 369.3,
+    "n": 1984,
+    "q95": 53325.1
    },
    "uniform": {
     "absorbed": 10,
-    "absorbed_identical": 289,
-    "harmful": 79,
+    "absorbed_identical": 297,
+    "harmful": 83,
     "noise": 20,
-    "retained": 169,
-    "tradeoff": 227
+    "retained": 175,
+    "tradeoff": 234
    },
    "unusable": 26,
-   "usd": 6.13,
-   "vcf_h": 207.04
+   "usd": 6.31,
+   "vcf_h": 209.72
   },
   "medium|gpt-5.6-terra|B2": {
-   "accepted": 723,
+   "accepted": 724,
    "arm": "B2",
    "best_gain_mean": 0.074,
    "best_gain_median": 0.00479,
    "block_answers": 465,
    "block_flag_rate": 0.0323,
    "block_flags": 15,
-   "calls": 3234,
-   "cands": 3205,
+   "calls": 3240,
+   "cands": 3211,
    "classes": {
     "a": 437,
-    "b": 1263,
-    "c1": 628,
+    "b": 1267,
+    "c1": 630,
     "d": 718,
     "free": 26
    },
@@ -7082,11 +7161,11 @@
     "b->d": 123,
     "c1->a": 50,
     "c1->b": 206,
-    "c1->c1": 137,
+    "c1->c1": 138,
     "c1->d": 107,
     "d->a": 46,
-    "d->b": 328,
-    "d->c1": 197,
+    "d->b": 332,
+    "d->c1": 198,
     "d->d": 151,
     "free->a": 108,
     "free->b": 363,
@@ -7094,7 +7173,7 @@
     "free->d": 233,
     "free->free": 26
    },
-   "dc_h": 126.95,
+   "dc_h": 127.2,
    "done": 50,
    "duplicate": 133,
    "error": 2,
@@ -7102,35 +7181,35 @@
    "gain_retained_max": 0.65844,
    "gain_retained_median": 0.02089,
    "incomplete": true,
-   "inconclusive": 326,
+   "inconclusive": 328,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 100,
+   "pending": 96,
    "pending_by": {
-    "verdict": 100
+    "verdict": 96
    },
    "planned": 54,
    "prescreened": 0,
-   "proven": 1830,
-   "proven_per_call": 0.5659,
+   "proven": 1835,
+   "proven_per_call": 0.5664,
    "proven_sim_only": 0,
-   "rejected": 198,
-   "repairs": 503,
-   "repairs_proven": 182,
+   "rejected": 200,
+   "repairs": 504,
+   "repairs_proven": 183,
    "retained": 610,
-   "retained_per_100_calls": 18.862,
-   "retained_per_dc_hour": 4.805,
+   "retained_per_100_calls": 18.827,
+   "retained_per_dc_hour": 4.796,
    "retained_per_run": 11.296,
-   "retained_per_usd": 7.6,
+   "retained_per_usd": 7.577,
    "role": "second",
    "runs": 54,
    "runs_with_retained": 32,
    "scope_flags": 15,
-   "sim_fail": 431,
+   "sim_fail": 432,
    "stored": {
-    "improved": 1530,
-    "no_gain": 288,
-    "nonequiv": 1142
+    "improved": 1533,
+    "no_gain": 290,
+    "nonequiv": 1147
    },
    "synth_rejected": {
     "cktevo_nn_engine__thresholds_128x4096|VER-262": 1,
@@ -7139,20 +7218,20 @@
    "tier": "medium",
    "ttv": {
     "median": 392.9,
-    "n": 2972,
-    "q95": 36266.9
+    "n": 2982,
+    "q95": 36020.5
    },
    "uniform": {
     "absorbed": 12,
-    "absorbed_identical": 154,
+    "absorbed_identical": 156,
     "harmful": 205,
     "noise": 41,
     "retained": 610,
-    "tradeoff": 796
+    "tradeoff": 799
    },
    "unusable": 29,
-   "usd": 80.27,
-   "vcf_h": 582.7
+   "usd": 80.51,
+   "vcf_h": 586.11
   },
   "medium|gpt-5.6-terra|M": {
    "accepted": 119,
@@ -7162,102 +7241,102 @@
    "block_answers": 266,
    "block_flag_rate": 0.0263,
    "block_flags": 7,
-   "calls": 2950,
-   "cands": 2922,
+   "calls": 2984,
+   "cands": 2955,
    "classes": {
-    "a": 373,
-    "b": 948,
-    "c1": 483,
-    "d": 356,
+    "a": 375,
+    "b": 959,
+    "c1": 502,
+    "d": 355,
     "free": 10
    },
    "confusion": {
-    "a->a": 66,
-    "a->b": 57,
+    "a->a": 67,
+    "a->b": 58,
     "a->c1": 28,
     "a->d": 30,
     "b->a": 61,
     "b->b": 78,
-    "b->c1": 43,
+    "b->c1": 44,
     "b->d": 81,
     "c1->a": 47,
-    "c1->b": 180,
+    "c1->b": 179,
     "c1->c1": 113,
-    "c1->d": 49,
-    "d->a": 121,
-    "d->b": 446,
-    "d->c1": 238,
+    "c1->d": 48,
+    "d->a": 122,
+    "d->b": 456,
+    "d->c1": 256,
     "d->d": 81,
     "free->a": 78,
-    "free->b": 187,
+    "free->b": 188,
     "free->c1": 61,
     "free->d": 115,
     "free->free": 10
    },
-   "dc_h": 121.9,
-   "done": 36,
-   "duplicate": 752,
+   "dc_h": 122.65,
+   "done": 37,
+   "duplicate": 754,
    "error": 7,
-   "falsified": 234,
+   "falsified": 235,
    "gain_retained_max": 0.66578,
    "gain_retained_median": 0.02128,
    "incomplete": true,
-   "inconclusive": 208,
+   "inconclusive": 221,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 237,
+   "pending": 245,
    "pending_by": {
     "e4": 11,
-    "verdict": 226
+    "verdict": 234
    },
    "planned": 54,
    "prescreened": 0,
-   "proven": 929,
-   "proven_per_call": 0.3149,
+   "proven": 934,
+   "proven_per_call": 0.313,
    "proven_sim_only": 0,
    "rejected": 171,
-   "repairs": 428,
-   "repairs_proven": 130,
+   "repairs": 431,
+   "repairs_proven": 131,
    "retained": 255,
-   "retained_per_100_calls": 8.644,
-   "retained_per_dc_hour": 2.092,
+   "retained_per_100_calls": 8.546,
+   "retained_per_dc_hour": 2.079,
    "retained_per_run": 4.722,
-   "retained_per_usd": 3.681,
+   "retained_per_usd": 3.636,
    "role": "second",
    "runs": 54,
    "runs_with_retained": 30,
    "scope_flags": 7,
-   "sim_fail": 392,
+   "sim_fail": 396,
    "stored": {
     "absorbed": 10,
-    "absorbed_identical": 140,
+    "absorbed_identical": 143,
     "fragile": 57,
     "harmful": 101,
     "noise": 29,
-    "nonequiv": 1012,
+    "nonequiv": 1030,
     "retained": 198,
-    "tradeoff": 385
+    "tradeoff": 387
    },
    "synth_rejected": {
     "cktevo_mem_ctrl__mc_adr_sel|LINK-3": 1
    },
    "tier": "medium",
    "ttv": {
-    "median": 408.1,
-    "n": 1937,
-    "q95": 43908.5
+    "median": 416.9,
+    "n": 1960,
+    "q95": 45684.6
    },
    "uniform": {
     "absorbed": 10,
-    "absorbed_identical": 137,
+    "absorbed_identical": 140,
     "harmful": 101,
     "noise": 29,
     "retained": 255,
-    "tradeoff": 385
+    "tradeoff": 387
    },
    "unusable": 29,
-   "usd": 69.28,
-   "vcf_h": 191.31
+   "usd": 70.12,
+   "vcf_h": 197.71
   }
  },
  "inconclusive": {
@@ -7266,9 +7345,9 @@
    "large|b": 1031,
    "large|c1": 141,
    "large|d": 102,
-   "medium|a": 282,
-   "medium|b": 1305,
-   "medium|c1": 152,
+   "medium|a": 286,
+   "medium|b": 1319,
+   "medium|c1": 154,
    "medium|d": 49
   },
   "by_design": {
@@ -7278,29 +7357,29 @@
    "large|drrtl_aes": 125,
    "large|drrtl_tv80": 669,
    "medium|cktevo_mem_ctrl__mc_adr_sel": 5,
-   "medium|cktevo_risc__cpu": 219,
-   "medium|drrtl_SPI": 855,
+   "medium|cktevo_risc__cpu": 220,
+   "medium|drrtl_SPI": 861,
    "medium|drrtl_UART": 11,
    "medium|drrtl_communication": 54,
-   "medium|drrtl_router": 2,
-   "medium|drrtl_simple_spi": 629,
+   "medium|drrtl_router": 3,
+   "medium|drrtl_simple_spi": 641,
    "medium|rtlopt_calculation": 13
   }
  },
  "ops": {
   "agreement": {
-   "agree": 2044,
-   "agree_rate": 0.9016,
+   "agree": 2075,
+   "agree_rate": 0.9026,
    "by_label": {
     "absorbed": 62,
-    "absorbed_identical": 652,
-    "duplicate": 808,
-    "harmful": 441,
-    "improved": 7368,
-    "no_gain": 2312,
+    "absorbed_identical": 657,
+    "duplicate": 829,
+    "harmful": 458,
+    "improved": 7369,
+    "no_gain": 2314,
     "noise": 116,
-    "retained": 730,
-    "tradeoff": 926
+    "retained": 734,
+    "tradeoff": 938
    },
    "disagree": [
     {
@@ -7554,11 +7633,11 @@
      "provisional": "noise"
     }
    ],
-   "n_provisional": 13415,
-   "not_proven": 3562,
-   "pending": 7586,
-   "proven_final": 2267,
-   "withheld": 8964
+   "n_provisional": 13477,
+   "not_proven": 3581,
+   "pending": 7597,
+   "proven_final": 2299,
+   "withheld": 8981
   },
   "events": {
    "hidden_throttle_at": "2026-09-16T14:30",
@@ -8526,11 +8605,21 @@
     },
     {
      "falsified": 6,
-     "finished": 113,
+     "finished": 153,
      "hour": "2026-09-20T11",
-     "inconclusive": 17,
-     "proven": 89,
-     "ratio": 5.24,
+     "inconclusive": 30,
+     "proven": 117,
+     "ratio": 3.9,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 4,
+     "finished": 32,
+     "hour": "2026-09-20T12",
+     "inconclusive": 10,
+     "proven": 18,
+     "ratio": 1.8,
      "rejected": 0,
      "sim_fail": 0
     }
@@ -8539,16 +8628,16 @@
   },
   "reuse": {
    "by_verdict": {},
-   "records_scanned": 44246,
+   "records_scanned": 44532,
    "reused": 0,
    "sim_record_missing": 0,
    "since": "2026-09-16T15:14",
-   "split_proofs": 17813
+   "split_proofs": 17885
   }
  },
  "pending_total": {
   "large": 368,
-  "medium": 639
+  "medium": 644
  },
  "planned": {
   "large|gpt-5.6-luna|M": 18,
@@ -8588,8 +8677,8 @@
      21
     ],
     "B2-terra": [
-     23,
-     23
+     24,
+     24
     ],
     "DrRTL_reimpl-luna": [
      18,
@@ -8691,12 +8780,12 @@
      30
     ],
     "M-luna": [
-     24,
-     24
+     26,
+     26
     ],
     "M-terra": [
-     13,
-     13
+     18,
+     18
     ]
    },
    "median_s": 3060.0
@@ -72234,6 +72323,26 @@
    "tier": "medium"
   },
   {
+   "arm": "M",
+   "cand_id": "c5da90a9861c08d",
+   "class_final": "b",
+   "design_id": "drrtl_communication",
+   "gains": {
+    "area": 0.01975,
+    "power": 0.07122,
+    "wns": 0.01049
+   },
+   "label": "retained",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214912_ommunication_M_6-luna_s2",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "flip-flop bits 232 -> 219 in the same register cells (widths), latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
    "arm": "B0",
    "cand_id": "cefd572c4871ce8",
    "class_final": "b",
@@ -76420,6 +76529,26 @@
    "tier": "medium"
   },
   {
+   "arm": "M",
+   "cand_id": "cd795cd39dcf973",
+   "class_final": "c1",
+   "design_id": "drrtl_simple_spi",
+   "gains": {
+    "area": -0.04845,
+    "power": -0.21311,
+    "wns": 0.00409
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214914_l_simple_spi_M_-terra_s1",
+   "stored_label": "tradeoff",
+   "sublabel": "up=wns down=area,power",
+   "subtags": [
+    "flip-flop bits 131 -> 323 and register cells 29 -> 46 with identical latency (no offset)"
+   ],
+   "tier": "medium"
+  },
+  {
    "arm": "B0",
    "cand_id": "c01b19edd83e295",
    "class_final": "b",
@@ -77596,6 +77725,26 @@
    "sublabel": "up=wns down=area,power",
    "subtags": [
     "flip-flop bits, register names and clocked targets unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "cc2b00b70b97440",
+   "class_final": "c1",
+   "design_id": "drrtl_simple_spi",
+   "gains": {
+    "area": -0.06363,
+    "power": -0.04203,
+    "wns": 0.01312
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214915_l_simple_spi_M_-terra_s3",
+   "stored_label": "tradeoff",
+   "sublabel": "up=wns down=area,power",
+   "subtags": [
+    "flip-flop bits 131 -> 132 and register cells 29 -> 30 with identical latency (no offset)"
    ],
    "tier": "medium"
   },
@@ -95455,6 +95604,66 @@
   },
   {
    "arm": "M",
+   "cand_id": "cfeac2d46e36bdc",
+   "class_final": "d",
+   "design_id": "rtlopt_calculation",
+   "gains": {
+    "area": 0.31551,
+    "power": 0.41061,
+    "wns": -0.00014
+   },
+   "label": "retained",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214916__calculation_M_6-luna_s2",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "ce28a0cfe91c48d",
+   "class_final": "d",
+   "design_id": "rtlopt_calculation",
+   "gains": {
+    "area": 0.10392,
+    "power": 0.0189,
+    "wns": -0.28423
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214916__calculation_M_6-luna_s2",
+   "stored_label": "tradeoff",
+   "sublabel": "up=area down=wns",
+   "subtags": [
+    "longest combinational path 5 -> 19 cells (ratio 3.8 >= 3.0)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c808b824d3b66f4",
+   "class_final": "d",
+   "design_id": "rtlopt_calculation",
+   "gains": {
+    "area": 0.35661,
+    "power": 0.45908,
+    "wns": 0.00027
+   },
+   "label": "retained",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214916__calculation_M_6-luna_s2",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
    "cand_id": "c33f8250a973d49",
    "class_final": "a",
    "design_id": "rtlopt_calculation",
@@ -99652,6 +99861,46 @@
    "sublabel": null,
    "subtags": [
     "longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c676678141a3f71",
+   "class_final": "d",
+   "design_id": "rtlopt_calculation",
+   "gains": {
+    "area": 0.33606,
+    "power": 0.44649,
+    "wns": 0.00168
+   },
+   "label": "retained",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214916__calculation_M_6-luna_s3",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "cc3699d640f4215",
+   "class_final": "d",
+   "design_id": "rtlopt_calculation",
+   "gains": {
+    "area": 0.0766,
+    "power": 0.01378,
+    "wns": -0.23741
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214916__calculation_M_6-luna_s3",
+   "stored_label": "tradeoff",
+   "sublabel": "up=area down=wns",
+   "subtags": [
+    "longest combinational path 5 -> 27 cells (ratio 5.4 >= 3.0)"
    ],
    "tier": "medium"
   },
@@ -140305,6 +140554,150 @@
   },
   {
    "arm": "M",
+   "cand_id": "cf15a0e3bd5ce4a",
+   "class_final": "c1",
+   "design_id": "rtlopt_register",
+   "gains": {
+    "area": -0.00149,
+    "power": 0.11961,
+    "wns": 0.00381
+   },
+   "label": "retained",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214919_opt_register_M_6-luna_s3",
+   "stored_label": "fragile",
+   "sublabel": null,
+   "subtags": [
+    "flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset)",
+    "text differs widely (ratio 0.5325) without operator or topology evidence -> review"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c26edcc8f537d8e",
+   "class_final": "a",
+   "design_id": "rtlopt_register",
+   "gains": {
+    "area": 0.00364,
+    "power": 0.15051,
+    "wns": 0.00491
+   },
+   "label": "retained",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214919_opt_register_M_6-luna_s3",
+   "stored_label": "fragile",
+   "sublabel": null,
+   "subtags": [
+    "flip-flop bits, register names and clocked targets unchanged",
+    "text differs widely (ratio 0.5383) without operator or topology evidence -> review"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "ca184fe930047c7",
+   "class_final": "d",
+   "design_id": "rtlopt_register",
+   "gains": {
+    "area": -0.01356,
+    "power": -0.177,
+    "wns": 0.00478
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214919_opt_register_M_6-luna_s3",
+   "stored_label": "tradeoff",
+   "sublabel": "up=wns down=area,power",
+   "subtags": [
+    "operator family gained: shift (present in C, absent in D)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "cd79cdd18a4aeff",
+   "class_final": "b",
+   "design_id": "rtlopt_register",
+   "gains": {
+    "area": -0.00968,
+    "power": -0.37376,
+    "wns": 0.00371
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214919_opt_register_M_6-luna_s3",
+   "stored_label": "tradeoff",
+   "sublabel": "up=wns down=area,power",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged",
+    "text differs widely (ratio 0.7491) without operator or topology evidence -> review"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c7dd5e711352af9",
+   "class_final": "d",
+   "design_id": "rtlopt_register",
+   "gains": {
+    "area": 0.00784,
+    "power": -0.09077,
+    "wns": 0.00612
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214919_opt_register_M_6-luna_s3",
+   "stored_label": "tradeoff",
+   "sublabel": "up=area,wns down=power",
+   "subtags": [
+    "longest combinational path 4 -> 13 cells (ratio 3.2 >= 3.0)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "cdffa60c1399381",
+   "class_final": "a",
+   "design_id": "rtlopt_register",
+   "gains": {
+    "area": 0.00763,
+    "power": -0.31534,
+    "wns": 0.00511
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214919_opt_register_M_6-luna_s3",
+   "stored_label": "tradeoff",
+   "sublabel": "up=area,wns down=power",
+   "subtags": [
+    "flip-flop bits, register names and clocked targets unchanged",
+    "text differs widely (ratio 0.8024) without operator or topology evidence -> review"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c8736ea6a4aa977",
+   "class_final": "c1",
+   "design_id": "rtlopt_register",
+   "gains": {
+    "area": 0.0052,
+    "power": -0.05877,
+    "wns": 0.00424
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214919_opt_register_M_6-luna_s3",
+   "stored_label": "tradeoff",
+   "sublabel": "up=area,wns down=power",
+   "subtags": [
+    "flip-flop bits 992 -> 1024 and register cells 31 -> 32 with identical latency (no offset)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
    "cand_id": "c31841c55acc620",
    "class_final": "d",
    "design_id": "rtlopt_register",
@@ -156071,6 +156464,66 @@
   },
   {
    "arm": "B2",
+   "cand_id": "c6867a9c7779948",
+   "class_final": "b",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": -0.00313,
+    "power": -0.01298,
+    "wns": 0.00518
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260918_054137_drrtl_router_B2_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "B2",
+   "cand_id": "c79854413c342e1",
+   "class_final": "b",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": 0.00172,
+    "power": -0.02514,
+    "wns": 0.01486
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260918_054137_drrtl_router_B2_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=power",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "B2",
+   "cand_id": "c2a1ce860199b3e",
+   "class_final": "b",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": -0.00313,
+    "power": -0.01297,
+    "wns": 0.00518
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260918_054137_drrtl_router_B2_-terra_s1",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "B2",
    "cand_id": "c6628cb2505759d",
    "class_final": "b",
    "design_id": "drrtl_router",
@@ -161808,6 +162261,86 @@
    "tier": "medium"
   },
   {
+   "arm": "B1_E4",
+   "cand_id": "c91a26323928874",
+   "class_final": "c1",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": -0.0185,
+    "power": -0.00215,
+    "wns": 0.00092
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260918_132200_drrtl_router_B1_E4_6-luna_s1",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "flip-flop bits 587 -> 590 and register cells 86 -> 87 with identical latency (no offset)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "B1_E4",
+   "cand_id": "c281adbe08c355d",
+   "class_final": "c1",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": -0.0185,
+    "power": -0.0061,
+    "wns": 0.00092
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260918_132200_drrtl_router_B1_E4_6-luna_s1",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "flip-flop bits 587 -> 590 and register cells 86 -> 87 with identical latency (no offset)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "B1_E4",
+   "cand_id": "c9508fbb90d30ca",
+   "class_final": "c1",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": -0.0185,
+    "power": -0.0061,
+    "wns": 0.00092
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260918_132200_drrtl_router_B1_E4_6-luna_s1",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "flip-flop bits 587 -> 590 and register cells 86 -> 87 with identical latency (no offset)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "B1_E4",
+   "cand_id": "c5ce3680d23f066",
+   "class_final": "c1",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": -0.0185,
+    "power": -0.0061,
+    "wns": 0.00092
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260918_132200_drrtl_router_B1_E4_6-luna_s1",
+   "stored_label": "improved",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "flip-flop bits 587 -> 590 and register cells 86 -> 87 with identical latency (no offset)"
+   ],
+   "tier": "medium"
+  },
+  {
    "arm": "B2",
    "cand_id": "cacf44d409c5dc7",
    "class_final": "b",
@@ -164921,11 +165454,11 @@
    "role": "main",
    "run_id": "r20260915_214905___mc_adr_sel_M_6-luna_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 1,
    "usd": 0.167,
-   "vcf_h": 0.414
+   "vcf_h": 0.706
   },
   {
    "arm": "M",
@@ -165191,11 +165724,11 @@
    "role": "main",
    "run_id": "r20260915_214905_lds_128x4096_M_6-luna_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.1253,
-   "vcf_h": 0.58
+   "vcf_h": 0.766
   },
   {
    "arm": "M",
@@ -167504,11 +168037,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.0,
-   "calls": 9,
-   "cands": 9,
-   "dc_h": 0.048,
+   "calls": 21,
+   "cands": 25,
+   "dc_h": 0.27,
    "design_id": "drrtl_communication",
-   "gens": 1,
+   "gens": 3,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214911_ommunication_M_6-luna_s1",
@@ -167516,7 +168049,7 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0105,
+   "usd": 0.0404,
    "vcf_h": 0.021
   },
   {
@@ -167629,12 +168162,12 @@
   },
   {
    "arm": "M",
-   "best_retained_area_gain": 0.0,
-   "calls": 9,
-   "cands": 9,
-   "dc_h": 0.089,
+   "best_retained_area_gain": 0.01975,
+   "calls": 23,
+   "cands": 23,
+   "dc_h": 0.262,
    "design_id": "drrtl_communication",
-   "gens": 1,
+   "gens": 3,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214912_ommunication_M_6-luna_s2",
@@ -167642,8 +168175,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0087,
-   "vcf_h": 0.066
+   "usd": 0.0361,
+   "vcf_h": 0.208
   },
   {
    "arm": "M",
@@ -167756,11 +168289,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.0,
-   "calls": 17,
-   "cands": 18,
-   "dc_h": 0.217,
+   "calls": 38,
+   "cands": 38,
+   "dc_h": 0.297,
    "design_id": "drrtl_communication",
-   "gens": 2,
+   "gens": 4,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214912_ommunication_M_6-luna_s3",
@@ -167768,8 +168301,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0283,
-   "vcf_h": 0.031
+   "usd": 0.0648,
+   "vcf_h": 0.165
   },
   {
    "arm": "M",
@@ -168080,11 +168613,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.0,
-   "calls": 24,
-   "cands": 24,
-   "dc_h": 0.482,
+   "calls": 37,
+   "cands": 37,
+   "dc_h": 0.748,
    "design_id": "drrtl_simple_spi",
-   "gens": 4,
+   "gens": 6,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214914_l_simple_spi_M_-terra_s1",
@@ -168092,8 +168625,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.6019,
-   "vcf_h": 1.714
+   "usd": 1.0134,
+   "vcf_h": 4.491
   },
   {
    "arm": "B0",
@@ -168206,11 +168739,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.0,
-   "calls": 25,
-   "cands": 25,
-   "dc_h": 0.337,
+   "calls": 35,
+   "cands": 35,
+   "dc_h": 0.602,
    "design_id": "drrtl_simple_spi",
-   "gens": 4,
+   "gens": 6,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214914_l_simple_spi_M_-terra_s2",
@@ -168218,8 +168751,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.6372,
-   "vcf_h": 2.553
+   "usd": 0.9451,
+   "vcf_h": 4.267
   },
   {
    "arm": "B0",
@@ -168314,11 +168847,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.0,
-   "calls": 27,
-   "cands": 27,
-   "dc_h": 0.167,
+   "calls": 35,
+   "cands": 41,
+   "dc_h": 0.288,
    "design_id": "drrtl_simple_spi",
-   "gens": 4,
+   "gens": 5,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214915_l_simple_spi_M_6-luna_s3",
@@ -168326,17 +168859,17 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0632,
-   "vcf_h": 0.866
+   "usd": 0.0839,
+   "vcf_h": 1.716
   },
   {
    "arm": "M",
    "best_retained_area_gain": 0.0,
-   "calls": 22,
-   "cands": 22,
-   "dc_h": 0.442,
+   "calls": 32,
+   "cands": 32,
+   "dc_h": 0.66,
    "design_id": "drrtl_simple_spi",
-   "gens": 4,
+   "gens": 6,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214915_l_simple_spi_M_-terra_s3",
@@ -168344,8 +168877,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.594,
-   "vcf_h": 0.62
+   "usd": 0.8628,
+   "vcf_h": 2.317
   },
   {
    "arm": "B0",
@@ -168764,11 +169297,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.31551,
-   "calls": 5,
-   "cands": 5,
-   "dc_h": 0.252,
+   "calls": 15,
+   "cands": 16,
+   "dc_h": 0.725,
    "design_id": "rtlopt_calculation",
-   "gens": 1,
+   "gens": 3,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916__calculation_M_6-luna_s1",
@@ -168776,13 +169309,13 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0053,
-   "vcf_h": 0.102
+   "usd": 0.0123,
+   "vcf_h": 0.185
   },
   {
    "arm": "M",
    "best_retained_area_gain": 0.36245,
-   "calls": 59,
+   "calls": 60,
    "cands": 60,
    "dc_h": 2.359,
    "design_id": "rtlopt_calculation",
@@ -168889,12 +169422,12 @@
   },
   {
    "arm": "M",
-   "best_retained_area_gain": 0.17562,
-   "calls": 5,
-   "cands": 10,
-   "dc_h": 0.255,
+   "best_retained_area_gain": 0.35661,
+   "calls": 20,
+   "cands": 21,
+   "dc_h": 1.033,
    "design_id": "rtlopt_calculation",
-   "gens": 1,
+   "gens": 4,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916__calculation_M_6-luna_s2",
@@ -168902,8 +169435,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0035,
-   "vcf_h": 0.429
+   "usd": 0.0207,
+   "vcf_h": 0.686
   },
   {
    "arm": "M",
@@ -169015,12 +169548,12 @@
   },
   {
    "arm": "M",
-   "best_retained_area_gain": 0.31551,
-   "calls": 5,
-   "cands": 5,
-   "dc_h": 0.268,
+   "best_retained_area_gain": 0.33606,
+   "calls": 10,
+   "cands": 15,
+   "dc_h": 0.778,
    "design_id": "rtlopt_calculation",
-   "gens": 1,
+   "gens": 2,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916__calculation_M_6-luna_s3",
@@ -169028,7 +169561,7 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0058,
+   "usd": 0.0108,
    "vcf_h": 0.378
   },
   {
@@ -169835,11 +170368,11 @@
    "role": "main",
    "run_id": "r20260915_214918_opt_register_M_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.1143,
-   "vcf_h": 1.051
+   "vcf_h": 1.443
   },
   {
    "arm": "M",
@@ -169961,11 +170494,11 @@
    "role": "main",
    "run_id": "r20260915_214919_opt_register_M_6-luna_s2",
    "seed": 2,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.1202,
-   "vcf_h": 1.057
+   "vcf_h": 1.158
   },
   {
    "arm": "M",
@@ -169979,11 +170512,11 @@
    "role": "second",
    "run_id": "r20260915_214919_opt_register_M_-terra_s2",
    "seed": 2,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 1.2464,
-   "vcf_h": 1.548
+   "vcf_h": 1.752
   },
   {
    "arm": "B0",
@@ -170078,11 +170611,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.0085,
-   "calls": 12,
-   "cands": 17,
-   "dc_h": 0.962,
+   "calls": 22,
+   "cands": 28,
+   "dc_h": 1.843,
    "design_id": "rtlopt_register",
-   "gens": 2,
+   "gens": 4,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214919_opt_register_M_6-luna_s3",
@@ -170090,8 +170623,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0189,
-   "vcf_h": 0.109
+   "usd": 0.038,
+   "vcf_h": 0.35
   },
   {
    "arm": "M",
@@ -170636,11 +171169,11 @@
   {
    "arm": "B2",
    "best_retained_area_gain": 0.0,
-   "calls": 54,
-   "cands": 54,
-   "dc_h": 3.056,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 3.311,
    "design_id": "cktevo_risc__cpu",
-   "gens": 7,
+   "gens": 8,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260918_054138_vo_risc__cpu_B2_-terra_s1",
@@ -170648,8 +171181,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 2.4403,
-   "vcf_h": 6.228
+   "usd": 2.7433,
+   "vcf_h": 9.643
   },
   {
    "arm": "DrRTL_reimpl",
@@ -171294,7 +171827,7 @@
    },
    "router": {
     "idle_min": 0.0,
-    "occupied_min": 120.0,
+    "occupied_min": 120.4,
     "seat_min": 120.0,
     "seats": 2
    },
@@ -171330,47 +171863,45 @@
    }
   },
   "state": {
-   "generating": 12,
+   "generating": 11,
    "queued": 142,
-   "waiting": 34
+   "waiting": 33
   },
   "unverified_by_design": {
-   "cktevo_risc__cpu": 0.5105,
-   "drrtl_communication": 0.0,
-   "drrtl_simple_spi": 0.7976,
-   "rtlopt_alu_64bit": 0.1667,
-   "rtlopt_calculation": 0.1208,
-   "rtlopt_register": 0.0
+   "cktevo_risc__cpu": 0.7143,
+   "drrtl_communication": 0.1394,
+   "drrtl_simple_spi": 0.6332,
+   "rtlopt_calculation": 0.2571,
+   "rtlopt_register": 0.1333
   },
   "unverified_by_lane": {
-   "cpu": 0.5105,
-   "simple_spi": 0.7976,
-   "window": 0.1048
+   "cpu": 0.7143,
+   "simple_spi": 0.6332,
+   "window": 0.1868
   },
   "unverified_by_row": {
-   "gpt-5.6-luna|B2": 0.4222,
-   "gpt-5.6-luna|M": 0.2252,
-   "gpt-5.6-terra|B2": 0.6463,
-   "gpt-5.6-terra|M": 0.4205
+   "gpt-5.6-luna|M": 0.2198,
+   "gpt-5.6-terra|B2": 0.7143,
+   "gpt-5.6-terra|M": 0.6776
   },
   "waits": {
    "cpu": {
-    "mean_min": 36.2,
-    "queued": 64,
+    "mean_min": 40.4,
+    "queued": 62,
     "seats": 6,
-    "wait_min": 386.5
+    "wait_min": 417.2
    },
    "router": {
-    "mean_min": 13.0,
-    "queued": 92,
+    "mean_min": 12.0,
+    "queued": 81,
     "seats": 2,
-    "wait_min": 597.6
+    "wait_min": 487.7
    },
    "simple_spi": {
-    "mean_min": 67.1,
-    "queued": 41,
+    "mean_min": 68.5,
+    "queued": 64,
     "seats": 22,
-    "wait_min": 125.1
+    "wait_min": 199.1
    },
    "small": {
     "mean_min": 5.0,
@@ -171379,22 +171910,22 @@
     "wait_min": 650.0
    },
    "spi": {
-    "mean_min": 49.6,
-    "queued": 72,
+    "mean_min": 50.0,
+    "queued": 64,
     "seats": 7,
-    "wait_min": 509.7
+    "wait_min": 457.4
    },
    "uart": {
-    "mean_min": 20.2,
-    "queued": 161,
+    "mean_min": 23.1,
+    "queued": 157,
     "seats": 2,
-    "wait_min": 1622.5
+    "wait_min": 1811.0
    },
    "window": {
-    "mean_min": 4.9,
-    "queued": 108,
+    "mean_min": 5.5,
+    "queued": 127,
     "seats": 11,
-    "wait_min": 48.3
+    "wait_min": 63.1
    }
   }
  },
@@ -171406,7 +171937,7 @@
  "unfinished_note": null,
  "verification_conditions": {
   "from": "2026-09-18T05:49:54",
-  "n": 11653,
+  "n": 11722,
   "rows": {
    "cktevo_ethmac__eth_cop": {
     "a": {
@@ -171463,7 +171994,7 @@
     },
     "c1": {
      "above": [
-      676,
+      677,
       5
      ],
      "below": [
@@ -171495,7 +172026,7 @@
    "cktevo_nn_engine__thresholds_128x4096": {
     "a": {
      "above": [
-      175,
+      179,
       0
      ],
      "below": [
@@ -171525,7 +172056,7 @@
     },
     "d": {
      "above": [
-      113,
+      114,
       0
      ],
      "below": [
@@ -171542,17 +172073,17 @@
      ],
      "below": [
       12,
-      12
+      14
      ]
     },
     "b": {
      "above": [
       40,
-      95
+      96
      ],
      "below": [
       22,
-      74
+      76
      ]
     },
     "c1": {
@@ -171644,7 +172175,7 @@
     "a": {
      "above": [
       66,
-      110
+      112
      ],
      "below": [
       56,
@@ -171654,11 +172185,11 @@
     "b": {
      "above": [
       0,
-      212
+      215
      ],
      "below": [
-      1,
-      221
+      2,
+      222
      ]
     },
     "c1": {
@@ -171689,13 +172220,13 @@
       0
      ],
      "below": [
-      65,
+      67,
       0
      ]
     },
     "b": {
      "above": [
-      313,
+      315,
       0
      ],
      "below": [
@@ -171731,7 +172262,7 @@
       0
      ],
      "below": [
-      28,
+      31,
       0
      ]
     },
@@ -171759,21 +172290,21 @@
     },
     "b": {
      "above": [
-      132,
+      135,
       0
      ],
      "below": [
-      89,
-      1
+      91,
+      2
      ]
     },
     "c1": {
      "above": [
-      70,
+      71,
       0
      ],
      "below": [
-      66,
+      69,
       1
      ]
     },
@@ -171792,7 +172323,7 @@
     "a": {
      "above": [
       9,
-      7
+      8
      ],
      "below": [
       15,
@@ -171802,21 +172333,21 @@
     "b": {
      "above": [
       40,
-      250
+      255
      ],
      "below": [
       59,
-      324
+      327
      ]
     },
     "c1": {
      "above": [
-      12,
+      13,
       20
      ],
      "below": [
-      26,
-      24
+      28,
+      26
      ]
     },
     "d": {
@@ -171853,7 +172384,7 @@
     },
     "d": {
      "above": [
-      435,
+      438,
       0
      ],
      "below": [
@@ -171865,7 +172396,7 @@
    "rtlopt_calculation": {
     "a": {
      "above": [
-      108,
+      110,
       8
      ],
      "below": [
@@ -171875,7 +172406,7 @@
     },
     "d": {
      "above": [
-      183,
+      194,
       0
      ],
      "below": [
@@ -171965,7 +172496,7 @@
       0
      ],
      "below": [
-      29,
+      30,
       0
      ]
     },
@@ -171981,7 +172512,7 @@
     },
     "c1": {
      "above": [
-      240,
+      242,
       0
      ],
      "below": [
@@ -171991,7 +172522,7 @@
     },
     "d": {
      "above": [
-      90,
+      91,
       0
      ],
      "below": [
