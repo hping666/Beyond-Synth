@@ -453,7 +453,7 @@ def test_lane_threshold_raise_and_pool_progress_line(tmp_path, monkeypatch):
     assert len(g) == 1 and "spi: 100 idle seat-minutes in the last hour with 3 queued runs, mean proof 57 min -> proof-wait threshold 60 -> 86 min" in g[0] and "uart" not in g[0] and "(dry run: not applied)" in g[0] and restarted == []
     lines = AL.slot_report(cfg, conn, write=True, restart=lambda: restarted.append(1) or True)
     assert restarted == [1] and "proof_wait_max_min_by_lane: {spi: 85.5}" in (tmp_path / "config" / "experiments.yaml").read_text()
-    assert any(l.startswith("offline pool (m 1 / n 3):") and "unknown (no throughput)" in l for l in lines), [l for l in lines if "offline pool" in l]
+    assert any(l.startswith("offline pool (m 1 / n 3):") and ("-> ETA drained" in l or "unknown (no throughput)" in l) for l in lines), [l for l in lines if "offline pool" in l]
     # the other direction: the raised lane at its new threshold is not raised again (a drift of the mean below one minute changes nothing and restarts nothing); uart with idle minutes but no queued runs is left alone
     cfg["queue"]["admission_guard"]["proof_wait_max_min_by_lane"] = {"spi": 85.0}
     monkeypatch.setattr(core, "idle_seat_minutes", lambda conn, cfg, hours=1.0: {"spi": {"seats": 15, "occupied_min": 800, "idle_min": 100.0}, "uart": {"seats": 5, "occupied_min": 200, "idle_min": 100.0}})
@@ -629,3 +629,28 @@ def test_phase5_completion_condition_both_directions(tmp_path, monkeypatch):
     # a planned run not done holds it
     conn.execute("UPDATE runs SET status='running' WHERE run_id='rs'"); conn.commit()
     assert not ST.phase5_completion_condition(cfg, conn, pool_state_path=str(pool), plan=plan, e1_marker=str(e1))[0]
+
+
+def test_pool_progress_with_a_drained_backlog(tmp_path, monkeypatch):
+    """The medium B0 E4 backlog at zero: no ETA is computed from a stale 3-hour rate; the line reads 'drained', names the candidates still
+    expected from the B0 runs not done, and no longer compares against the proof path as LATER."""
+    import importlib.util, datetime
+    spec = importlib.util.spec_from_file_location("phase5_alerts", str(Path(C.ROOT) / "scripts" / "phase5_alerts.py"))
+    AL = importlib.util.module_from_spec(spec); spec.loader.exec_module(AL)
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["m1"], "small": []}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    db.insert(conn, "runs", {"run_id": "rb0", "exp": "phase5", "arm": "B0", "design_id": "m1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "done", "started_at": "t"})
+    db.insert(conn, "runs", {"run_id": "rb1", "exp": "phase5", "arm": "B0", "design_id": "m1", "seed": 2, "llm_model": "gpt-5.6-luna", "status": "running", "started_at": "t"})
+    for k in range(4):
+        db.insert(conn, "candidates", {"cand_id": f"c{k}", "run_id": "rb0", "design_id": "m1", "gen": 1, "arm": "B0", "verdict": "proven"})
+        db.insert(conn, "evaluations", {"design_id": "m1", "cand_id": f"c{k}", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "ok", "raw_dir": f"/x/{k}", "dc_seconds": 60.0})
+        conn.execute("UPDATE evaluations SET created_at=? WHERE cand_id=?", ((datetime.datetime.now() - datetime.timedelta(hours=6)).isoformat(timespec="seconds"), f"c{k}")); conn.commit()
+    sp = tmp_path / "pool_state.json"; sp.write_text(json.dumps({"cands": {}}))
+    db.insert(conn, "jobs", {"job_id": "p1", "kind": "vcf", "pool": "vcf", "design_id": "m1", "state": "queued", "priority": 4, "payload_json": "{}", "submitted_at": "t"})   # medium proofs still open
+    pp = AL.pool_progress(cfg, conn, state_path=str(sp))
+    assert pp["waiting"] == 0 and pp["eta"] is None and pp["expected"] == 4.0 and pp["rate_basis"].startswith("backlog drained; about 4 more from 1 medium B0 run not done")
+    monkeypatch.setattr(AL, "ROOT", str(tmp_path)); monkeypatch.setattr(AL, "pool_progress", lambda cfg, conn, state_path=None: pp); monkeypatch.setattr(AL, "stage_b_proof_eta", lambda cfg, conn: 5.0)
+    line = AL.pool_progress_line(cfg, conn)
+    assert "-> ETA drained" in line and "LATER" not in line and "the B0 E4 backlog is drained: Stage B final follows the proof path" in line

@@ -206,7 +206,13 @@ def pool_progress(cfg, conn, state_path=None):
     else:
         rate = h3["medium_b0"] / 3.0
         basis = ("medium proofs drained at " + drained_at + ", re-estimate at the next check" if drained_at else "last 3 h")
-    eta_h = ((waiting + expected) / rate) if rate > 0 else None
+    if waiting == 0:   # the backlog is drained: the candidates of the B0 runs not yet done are evaluated as they arrive (no ETA from a stale rate)
+        rate12 = count(12)["medium_b0"] / 12.0
+        rate = max(rate, rate12)
+        basis = "backlog drained" + (f"; about {expected:.0f} more from {unfinished} medium B0 run{'s' if unfinished != 1 else ''} not done, evaluated as they arrive (about {expected / rate:.1f} h of work at the 12-hour rate)" if (expected and rate > 0) else "")
+        eta_h = None
+    else:
+        eta_h = ((waiting + expected) / rate) if rate > 0 else None
     return {"h1": h1, "h3": h3, "rate_per_h": round(rate, 1), "rate_basis": basis, "open_medium_proofs": open_proofs, "proofs_drained_at": drained_at,
             "waiting": waiting, "expected": round(expected, 1), "unfinished_runs": unfinished, "eta_hours": (round(eta_h, 1) if eta_h is not None else None),
             "eta": (now + _dt.timedelta(hours=eta_h)).isoformat(timespec="minutes") if eta_h is not None else None}
@@ -244,11 +250,13 @@ def pool_progress_line(cfg, conn):
     sb_txt = f"{(_dt.datetime.now() + _dt.timedelta(hours=sb)).isoformat(timespec='minutes')} ({sb:.1f} h)" if sb is not None else "unknown"
     verdict = ("" if pp["eta_hours"] is None or sb is None else
                (" — the B0 E4 ETA is LATER than the Stage B proof ETA: Stage B final waits for it (D3)" if pp["eta_hours"] > sb else " — the B0 E4 ETA is earlier than the Stage B proof ETA"))
+    if pp.get("waiting") == 0 and sb is not None:
+        verdict = " — the B0 E4 backlog is drained: Stage B final follows the proof path"
     if pp.get("open_medium_proofs") == 0:
         sb_txt = f"drained ({pp.get('proofs_drained_at')})"
         verdict = ""
     return (f"offline pool (m 1 / n 3): E4 records last hour — medium B0 {pp['h1']['medium_b0']}, large B0 {pp['h1']['large_b0']}, other pool groups {pp['h1']['other']}; rate {pp['rate_per_h']}/h medium B0 ({pp['rate_basis']}); "
-            f"medium B0 E4 waiting {pp['waiting']} (+ about {pp['expected']:.0f} from {pp['unfinished_runs']} medium B0 runs not done) -> ETA " + (f"{pp['eta']} ({pp['eta_hours']} h)" if pp["eta"] else "unknown (no throughput)")
+            f"medium B0 E4 waiting {pp['waiting']} (+ about {pp['expected']:.0f} from {pp['unfinished_runs']} medium B0 runs not done) -> ETA " + (f"{pp['eta']} ({pp['eta_hours']} h)" if pp["eta"] else ("drained" if pp.get("waiting") == 0 else "unknown (no throughput)"))
             + f"; Stage B proof ETA {sb_txt}" + verdict)
 
 
