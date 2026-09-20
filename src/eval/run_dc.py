@@ -39,7 +39,7 @@ def main(argv=None):
                     pert_id=p.get("pert_id"), is_baseline=p.get("is_baseline", 0), saif=p.get("saif"),
                     saif_instance=p.get("saif_instance"), sverilog=p.get("sverilog", False), incdirs=p.get("incdirs"),
                     force_rerun=p.get("force_rerun", False), timeout_sec=runner_timeout(job),
-                    extra_meta={k: int(p[k]) for k in ("offline_eval", "prescreened_offline", "e4_rerun") if p.get(k)})
+                    extra_meta={k: int(p[k]) for k in ("offline_eval", "prescreened_offline", "e4_rerun", "offline_baseline") if p.get(k)})
     print(json.dumps({k: meta.get(k) for k in ("design_id", "config", "status", "error", "raw_dir", "dc_seconds", "cached", "eval_id")}))
     if meta["status"] == "ok":
         return 0

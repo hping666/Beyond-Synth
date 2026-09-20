@@ -5,6 +5,16 @@
  "git_sha": "dcb53665726f",
  "n_per_type": 4,
  "not_applicable": {},
+ "p1_text": {
+  "cfg_hash": "45803d414957",
+  "git_sha": "e3de7f0b1103",
+  "n": 8
+ },
+ "p2_text": {
+  "cfg_hash": "45803d414957",
+  "git_sha": "e3de7f0b1103",
+  "n": 8
+ },
  "perturbations": [
   {
    "details": {
@@ -624,6 +634,458 @@
    "path": "data/perturbations/drrtl_router/P1_text_3.v",
    "pert_id": "p746b8280320cf3",
    "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "a": "quebec_0",
+     "check_parity_error": "xray_1",
+     "count": "echo_2",
+     "count0": "foxtrot_3",
+     "count1": "tango_4",
+     "count2": "lima_5",
+     "data_out_temp": "mike_6",
+     "decode_address": "charlie_7",
+     "empty_d": "sierra_8",
+     "fifo": "bravo_9",
+     "fifo_full_state": "india_10",
+     "fifo_full_state_byte": "yankee_11",
+     "full_d": "juliet_12",
+     "hold_header_byte": "uniform_13",
+     "incrementer": "zulu_14",
+     "internal_parity": "alpha_15",
+     "lfd_state_w": "november_16",
+     "load_after_full": "oscar_17",
+     "load_data": "papa_18",
+     "load_first_data": "victor_19",
+     "load_parity": "delta_20",
+     "next_incrementer": "romeo_21",
+     "next_state": "kilo_22",
+     "packet_parity_byte": "hotel_23",
+     "present_state": "whiskey_24",
+     "read_ptr": "golf_25",
+     "temp": "quebec_26",
+     "temp_is_0": "xray_27",
+     "temp_is_1": "echo_28",
+     "temp_is_2": "foxtrot_29",
+     "w_enb": "tango_30",
+     "wait_till_empty": "lima_31",
+     "write_ptr": "mike_32"
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/drrtl_router/P1_text_4.v",
+   "pert_id": "p3997fbe18026f8",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "a": "golf_0",
+     "check_parity_error": "oscar_1",
+     "count": "xray_2",
+     "count0": "zulu_3",
+     "count1": "hotel_4",
+     "count2": "sierra_5",
+     "data_out_temp": "juliet_6",
+     "decode_address": "uniform_7",
+     "empty_d": "alpha_8",
+     "fifo": "quebec_9",
+     "fifo_full_state": "romeo_10",
+     "fifo_full_state_byte": "yankee_11",
+     "full_d": "kilo_12",
+     "hold_header_byte": "lima_13",
+     "incrementer": "india_14",
+     "internal_parity": "tango_15",
+     "lfd_state_w": "mike_16",
+     "load_after_full": "november_17",
+     "load_data": "whiskey_18",
+     "load_first_data": "bravo_19",
+     "load_parity": "echo_20",
+     "next_incrementer": "foxtrot_21",
+     "next_state": "papa_22",
+     "packet_parity_byte": "delta_23",
+     "present_state": "victor_24",
+     "read_ptr": "charlie_25",
+     "temp": "golf_26",
+     "temp_is_0": "oscar_27",
+     "temp_is_1": "xray_28",
+     "temp_is_2": "zulu_29",
+     "w_enb": "hotel_30",
+     "wait_till_empty": "sierra_31",
+     "write_ptr": "juliet_32"
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/drrtl_router/P1_text_5.v",
+   "pert_id": "p3a6677ffc1d476",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "a": "juliet_0",
+     "check_parity_error": "xray_1",
+     "count": "charlie_2",
+     "count0": "sierra_3",
+     "count1": "uniform_4",
+     "count2": "echo_5",
+     "data_out_temp": "alpha_6",
+     "decode_address": "kilo_7",
+     "empty_d": "lima_8",
+     "fifo": "tango_9",
+     "fifo_full_state": "mike_10",
+     "fifo_full_state_byte": "romeo_11",
+     "full_d": "yankee_12",
+     "hold_header_byte": "hotel_13",
+     "incrementer": "bravo_14",
+     "internal_parity": "papa_15",
+     "lfd_state_w": "delta_16",
+     "load_after_full": "zulu_17",
+     "load_data": "whiskey_18",
+     "load_first_data": "foxtrot_19",
+     "load_parity": "quebec_20",
+     "next_incrementer": "oscar_21",
+     "next_state": "india_22",
+     "packet_parity_byte": "november_23",
+     "present_state": "victor_24",
+     "read_ptr": "golf_25",
+     "temp": "juliet_26",
+     "temp_is_0": "xray_27",
+     "temp_is_1": "charlie_28",
+     "temp_is_2": "sierra_29",
+     "w_enb": "uniform_30",
+     "wait_till_empty": "echo_31",
+     "write_ptr": "alpha_32"
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/drrtl_router/P1_text_6.v",
+   "pert_id": "pded09df87da39a",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "a": "juliet_0",
+     "check_parity_error": "golf_1",
+     "count": "hotel_2",
+     "count0": "india_3",
+     "count1": "mike_4",
+     "count2": "romeo_5",
+     "data_out_temp": "papa_6",
+     "decode_address": "delta_7",
+     "empty_d": "quebec_8",
+     "fifo": "kilo_9",
+     "fifo_full_state": "tango_10",
+     "fifo_full_state_byte": "alpha_11",
+     "full_d": "whiskey_12",
+     "hold_header_byte": "lima_13",
+     "incrementer": "november_14",
+     "internal_parity": "yankee_15",
+     "lfd_state_w": "uniform_16",
+     "load_after_full": "xray_17",
+     "load_data": "sierra_18",
+     "load_first_data": "oscar_19",
+     "load_parity": "charlie_20",
+     "next_incrementer": "foxtrot_21",
+     "next_state": "echo_22",
+     "packet_parity_byte": "zulu_23",
+     "present_state": "bravo_24",
+     "read_ptr": "victor_25",
+     "temp": "juliet_26",
+     "temp_is_0": "golf_27",
+     "temp_is_1": "hotel_28",
+     "temp_is_2": "india_29",
+     "w_enb": "mike_30",
+     "wait_till_empty": "romeo_31",
+     "write_ptr": "papa_32"
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/drrtl_router/P1_text_7.v",
+   "pert_id": "pd29575000145ec",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 3
+     },
+     "router_fsm": {
+      "always_runs": 1,
+      "assign_runs": 1,
+      "items_moved": 10
+     },
+     "router_reg": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 5
+     },
+     "router_sync": {
+      "always_runs": 2,
+      "assign_runs": 2,
+      "items_moved": 10
+     },
+     "router_top": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 3
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/drrtl_router/P2_text_0.v",
+   "pert_id": "pd55b5a776bfe69",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 5
+     },
+     "router_fsm": {
+      "always_runs": 1,
+      "assign_runs": 1,
+      "items_moved": 8
+     },
+     "router_reg": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 6
+     },
+     "router_sync": {
+      "always_runs": 2,
+      "assign_runs": 2,
+      "items_moved": 10
+     },
+     "router_top": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 5
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/drrtl_router/P2_text_1.v",
+   "pert_id": "pbe8fa639cc07bb",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 6
+     },
+     "router_fsm": {
+      "always_runs": 1,
+      "assign_runs": 1,
+      "items_moved": 8
+     },
+     "router_reg": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 6
+     },
+     "router_sync": {
+      "always_runs": 2,
+      "assign_runs": 2,
+      "items_moved": 11
+     },
+     "router_top": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 6
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/drrtl_router/P2_text_2.v",
+   "pert_id": "pd27f209ff3b6b5",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 6
+     },
+     "router_fsm": {
+      "always_runs": 1,
+      "assign_runs": 1,
+      "items_moved": 9
+     },
+     "router_reg": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 6
+     },
+     "router_sync": {
+      "always_runs": 2,
+      "assign_runs": 2,
+      "items_moved": 10
+     },
+     "router_top": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 5
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/drrtl_router/P2_text_3.v",
+   "pert_id": "p75ae761534ca14",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 6
+     },
+     "router_fsm": {
+      "always_runs": 1,
+      "assign_runs": 1,
+      "items_moved": 8
+     },
+     "router_reg": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 4
+     },
+     "router_sync": {
+      "always_runs": 2,
+      "assign_runs": 2,
+      "items_moved": 10
+     },
+     "router_top": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 4
+     }
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/drrtl_router/P2_text_4.v",
+   "pert_id": "pa636eba165f6f5",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 4
+     },
+     "router_fsm": {
+      "always_runs": 1,
+      "assign_runs": 1,
+      "items_moved": 11
+     },
+     "router_reg": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 6
+     },
+     "router_sync": {
+      "always_runs": 2,
+      "assign_runs": 2,
+      "items_moved": 11
+     },
+     "router_top": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 5
+     }
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/drrtl_router/P2_text_5.v",
+   "pert_id": "pa81010e4303693",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 5
+     },
+     "router_fsm": {
+      "always_runs": 1,
+      "assign_runs": 1,
+      "items_moved": 11
+     },
+     "router_reg": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 5
+     },
+     "router_sync": {
+      "always_runs": 2,
+      "assign_runs": 2,
+      "items_moved": 11
+     },
+     "router_top": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 4
+     }
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/drrtl_router/P2_text_6.v",
+   "pert_id": "pe3d16c6449ec68",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "router_fifo": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 5
+     },
+     "router_fsm": {
+      "always_runs": 1,
+      "assign_runs": 1,
+      "items_moved": 10
+     },
+     "router_reg": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 5
+     },
+     "router_sync": {
+      "always_runs": 2,
+      "assign_runs": 2,
+      "items_moved": 8
+     },
+     "router_top": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 6
+     }
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/drrtl_router/P2_text_7.v",
+   "pert_id": "pca557ffb717c53",
+   "ptype": "P2_text"
   }
  ],
  "roundtrip": {

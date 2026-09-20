@@ -1,14 +1,12 @@
 {
  "design": {
   "instance": "bs_lockstep/u_d",
-  "saif": null,
-  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_usb__usbf_sie_rx/EQ/7f6c9ce919bc1c0a",
-  "status": "no_vcd"
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_usb__usbf_sie_rx/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_usb__usbf_sie_rx/EQ/79ea2c96b31b181a",
+  "status": "d_vs_d"
  },
  "design_id": "cktevo_usb__usbf_sie_rx",
- "missing": [
-  "design"
- ],
+ "missing": [],
  "perturbations": {
   "p8f5c22cb76eea5": {
    "instance": "bs_lockstep/u_c",

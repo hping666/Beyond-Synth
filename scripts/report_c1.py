@@ -560,6 +560,11 @@ def render(data):
          f"'pending' marks evaluation that is not complete. Phase 5 state at generation: runs {data['phase5_runs']}.", ""]
     # §0 summary
     L += ["## 0. Plain-language summary", ""] + data["summary"] + [""]
+    if data.get("default_power_basis") is not None:   # REQUEST 2026-09-20 (e) item 1
+        dp = data["default_power_basis"]
+        L += ["### 0a. Power basis (REQUEST 2026-09-20 (e) item 1)", "",
+              f"Designs whose D has no SAIF power at E4 ({len(dp)}): " + ", ".join(dp) + f". For each of them: *{P5.DEFAULT_POWER_NOTE}* — every power figure of the search on these designs is a "
+              "default-activity figure (m3.power_basis compares default with default; the candidates' SAIF figures there have no D counterpart). The recomputation without power on them, and per metric everywhere, is in reports/paper_sec3_power_basis.md.", ""]
     # §1
     f = data["floors"]
     L += ["## 1. The residual definition and the noise floor", "",
@@ -758,6 +763,7 @@ def main(argv=None):
     for r in conn.execute("SELECT design_id, status, COUNT(*) AS n FROM runs WHERE exp='phase5' AND status != 'superseded' AND COALESCE(excluded_from_tables,0)=0 GROUP BY design_id, status"):
         data["phase5_runs"].setdefault(tier_of.get(r["design_id"], "?"), {}).setdefault(r["status"], 0)
         data["phase5_runs"][tier_of.get(r["design_id"], "?")][r["status"]] += r["n"]
+    data["default_power_basis"] = P5.default_power_basis_designs(cfg, conn)   # REQUEST 2026-09-20 (e) item 1: marked in §0a
     data["floors"] = section_floors(cfg, conn, held, exp1)
     p5rows, designs = scan_phase5(cfg, conn, held)
     fl = {d: v["class"] for d, v in data["floors"]["floor_classes"]["held30"]["per_design"].items()}

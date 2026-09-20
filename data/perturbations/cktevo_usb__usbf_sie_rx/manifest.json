@@ -5,6 +5,16 @@
  "git_sha": "dcb53665726f",
  "n_per_type": 4,
  "not_applicable": {},
+ "p1_text": {
+  "cfg_hash": "45803d414957",
+  "git_sha": "e3de7f0b1103",
+  "n": 8
+ },
+ "p2_text": {
+  "cfg_hash": "45803d414957",
+  "git_sha": "e3de7f0b1103",
+  "n": 8
+ },
  "perturbations": [
   {
    "details": {
@@ -601,6 +611,398 @@
    ],
    "pert_id": "p8f5c22cb76eea5",
    "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "STATE_RX_DATA": "foxtrot_0",
+     "STATE_RX_DATA_COMPLETE": "papa_1",
+     "STATE_RX_IDLE": "golf_2",
+     "STATE_RX_IGNORED": "hotel_3",
+     "STATE_RX_SOF2": "victor_4",
+     "STATE_RX_SOF3": "oscar_5",
+     "STATE_RX_TOKEN2": "alpha_6",
+     "STATE_RX_TOKEN3": "tango_7",
+     "STATE_RX_TOKEN_COMPLETE": "kilo_8",
+     "STATE_W": "mike_9",
+     "address_match_w": "juliet_10",
+     "crc_byte_w": "zulu_11",
+     "crc_err_q": "sierra_12",
+     "crc_out_w": "romeo_13",
+     "crc_sum_q": "quebec_14",
+     "data_buffer_q": "lima_15",
+     "data_complete_q": "echo_16",
+     "data_crc_q": "delta_17",
+     "data_q": "uniform_18",
+     "data_ready_w": "xray_19",
+     "data_valid_q": "november_20",
+     "data_w": "india_21",
+     "data_zlp_q": "bravo_22",
+     "frame_num_q": "whiskey_23",
+     "frame_valid_q": "charlie_24",
+     "handshake_valid_q": "yankee_25",
+     "input_data_w": "foxtrot_26",
+     "input_ready_w": "papa_27",
+     "last_q": "golf_28",
+     "mask_q": "hotel_29",
+     "next_state_r": "victor_30",
+     "rx_active_q": "oscar_31",
+     "rx_active_w": "alpha_32",
+     "shift_en_w": "tango_33",
+     "state_q": "kilo_34",
+     "token_dev_q": "mike_35",
+     "token_ep_q": "juliet_36",
+     "token_pid_q": "zulu_37",
+     "token_valid_q": "sierra_38",
+     "valid_q": "romeo_39"
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_4/usbf_sie_rx.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_4/usbf_sie_rx.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_4/usbf_crc16.v"
+   ],
+   "pert_id": "p619a81f7addf79",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "STATE_RX_DATA": "kilo_0",
+     "STATE_RX_DATA_COMPLETE": "india_1",
+     "STATE_RX_IDLE": "charlie_2",
+     "STATE_RX_IGNORED": "golf_3",
+     "STATE_RX_SOF2": "uniform_4",
+     "STATE_RX_SOF3": "sierra_5",
+     "STATE_RX_TOKEN2": "echo_6",
+     "STATE_RX_TOKEN3": "lima_7",
+     "STATE_RX_TOKEN_COMPLETE": "yankee_8",
+     "STATE_W": "quebec_9",
+     "address_match_w": "bravo_10",
+     "crc_byte_w": "hotel_11",
+     "crc_err_q": "papa_12",
+     "crc_out_w": "november_13",
+     "crc_sum_q": "delta_14",
+     "data_buffer_q": "foxtrot_15",
+     "data_complete_q": "tango_16",
+     "data_crc_q": "oscar_17",
+     "data_q": "whiskey_18",
+     "data_ready_w": "mike_19",
+     "data_valid_q": "alpha_20",
+     "data_w": "zulu_21",
+     "data_zlp_q": "xray_22",
+     "frame_num_q": "romeo_23",
+     "frame_valid_q": "juliet_24",
+     "handshake_valid_q": "victor_25",
+     "input_data_w": "kilo_26",
+     "input_ready_w": "india_27",
+     "last_q": "charlie_28",
+     "mask_q": "golf_29",
+     "next_state_r": "uniform_30",
+     "rx_active_q": "sierra_31",
+     "rx_active_w": "echo_32",
+     "shift_en_w": "lima_33",
+     "state_q": "yankee_34",
+     "token_dev_q": "quebec_35",
+     "token_ep_q": "bravo_36",
+     "token_pid_q": "hotel_37",
+     "token_valid_q": "papa_38",
+     "valid_q": "november_39"
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_5/usbf_sie_rx.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_5/usbf_sie_rx.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_5/usbf_crc16.v"
+   ],
+   "pert_id": "p915ce5d04eb8f4",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "STATE_RX_DATA": "tango_0",
+     "STATE_RX_DATA_COMPLETE": "zulu_1",
+     "STATE_RX_IDLE": "quebec_2",
+     "STATE_RX_IGNORED": "delta_3",
+     "STATE_RX_SOF2": "juliet_4",
+     "STATE_RX_SOF3": "india_5",
+     "STATE_RX_TOKEN2": "papa_6",
+     "STATE_RX_TOKEN3": "yankee_7",
+     "STATE_RX_TOKEN_COMPLETE": "xray_8",
+     "STATE_W": "romeo_9",
+     "address_match_w": "oscar_10",
+     "crc_byte_w": "kilo_11",
+     "crc_err_q": "november_12",
+     "crc_out_w": "victor_13",
+     "crc_sum_q": "uniform_14",
+     "data_buffer_q": "charlie_15",
+     "data_complete_q": "hotel_16",
+     "data_crc_q": "alpha_17",
+     "data_q": "echo_18",
+     "data_ready_w": "whiskey_19",
+     "data_valid_q": "lima_20",
+     "data_w": "bravo_21",
+     "data_zlp_q": "foxtrot_22",
+     "frame_num_q": "mike_23",
+     "frame_valid_q": "golf_24",
+     "handshake_valid_q": "sierra_25",
+     "input_data_w": "tango_26",
+     "input_ready_w": "zulu_27",
+     "last_q": "quebec_28",
+     "mask_q": "delta_29",
+     "next_state_r": "juliet_30",
+     "rx_active_q": "india_31",
+     "rx_active_w": "papa_32",
+     "shift_en_w": "yankee_33",
+     "state_q": "xray_34",
+     "token_dev_q": "romeo_35",
+     "token_ep_q": "oscar_36",
+     "token_pid_q": "kilo_37",
+     "token_valid_q": "november_38",
+     "valid_q": "victor_39"
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_6/usbf_sie_rx.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_6/usbf_sie_rx.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_6/usbf_crc16.v"
+   ],
+   "pert_id": "pb8beee3eea85ba",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "STATE_RX_DATA": "romeo_0",
+     "STATE_RX_DATA_COMPLETE": "uniform_1",
+     "STATE_RX_IDLE": "quebec_2",
+     "STATE_RX_IGNORED": "sierra_3",
+     "STATE_RX_SOF2": "kilo_4",
+     "STATE_RX_SOF3": "oscar_5",
+     "STATE_RX_TOKEN2": "delta_6",
+     "STATE_RX_TOKEN3": "victor_7",
+     "STATE_RX_TOKEN_COMPLETE": "hotel_8",
+     "STATE_W": "yankee_9",
+     "address_match_w": "zulu_10",
+     "crc_byte_w": "tango_11",
+     "crc_err_q": "echo_12",
+     "crc_out_w": "charlie_13",
+     "crc_sum_q": "lima_14",
+     "data_buffer_q": "mike_15",
+     "data_complete_q": "xray_16",
+     "data_crc_q": "november_17",
+     "data_q": "papa_18",
+     "data_ready_w": "foxtrot_19",
+     "data_valid_q": "alpha_20",
+     "data_w": "india_21",
+     "data_zlp_q": "bravo_22",
+     "frame_num_q": "whiskey_23",
+     "frame_valid_q": "golf_24",
+     "handshake_valid_q": "juliet_25",
+     "input_data_w": "romeo_26",
+     "input_ready_w": "uniform_27",
+     "last_q": "quebec_28",
+     "mask_q": "sierra_29",
+     "next_state_r": "kilo_30",
+     "rx_active_q": "oscar_31",
+     "rx_active_w": "delta_32",
+     "shift_en_w": "victor_33",
+     "state_q": "hotel_34",
+     "token_dev_q": "yankee_35",
+     "token_ep_q": "zulu_36",
+     "token_pid_q": "tango_37",
+     "token_valid_q": "echo_38",
+     "valid_q": "charlie_39"
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_7/usbf_sie_rx.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_7/usbf_sie_rx.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P1_text_7/usbf_crc16.v"
+   ],
+   "pert_id": "p832ceb1f1b2298",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "usbf_sie_rx": "compiler directive inside the module body"
+     },
+     "usbf_crc16": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 15
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_0/usbf_crc16.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_0/usbf_crc16.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_0/usbf_sie_rx.v"
+   ],
+   "pert_id": "pe901a9f8596f60",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "usbf_sie_rx": "compiler directive inside the module body"
+     },
+     "usbf_crc16": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 16
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_1/usbf_crc16.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_1/usbf_crc16.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_1/usbf_sie_rx.v"
+   ],
+   "pert_id": "p770e0e796534cc",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "usbf_sie_rx": "compiler directive inside the module body"
+     },
+     "usbf_crc16": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 14
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_2/usbf_crc16.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_2/usbf_crc16.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_2/usbf_sie_rx.v"
+   ],
+   "pert_id": "p0104ba68965ea7",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "usbf_sie_rx": "compiler directive inside the module body"
+     },
+     "usbf_crc16": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 15
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_3/usbf_crc16.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_3/usbf_crc16.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_3/usbf_sie_rx.v"
+   ],
+   "pert_id": "pf2596fdde33474",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "usbf_sie_rx": "compiler directive inside the module body"
+     },
+     "usbf_crc16": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 16
+     }
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_4/usbf_crc16.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_4/usbf_crc16.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_4/usbf_sie_rx.v"
+   ],
+   "pert_id": "p34583a6f1b6b93",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "usbf_sie_rx": "compiler directive inside the module body"
+     },
+     "usbf_crc16": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 16
+     }
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_5/usbf_crc16.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_5/usbf_crc16.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_5/usbf_sie_rx.v"
+   ],
+   "pert_id": "p664f78b46287e2",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "usbf_sie_rx": "compiler directive inside the module body"
+     },
+     "usbf_crc16": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 16
+     }
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_6/usbf_crc16.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_6/usbf_crc16.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_6/usbf_sie_rx.v"
+   ],
+   "pert_id": "pfce25dc990b84b",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "usbf_sie_rx": "compiler directive inside the module body"
+     },
+     "usbf_crc16": {
+      "always_runs": 0,
+      "assign_runs": 1,
+      "items_moved": 16
+     }
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_7/usbf_crc16.v",
+   "paths": [
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_7/usbf_crc16.v",
+    "data/perturbations/cktevo_usb__usbf_sie_rx/P2_text_7/usbf_sie_rx.v"
+   ],
+   "pert_id": "pc5fd0f2847739b",
+   "ptype": "P2_text"
   }
  ],
  "roundtrip": {

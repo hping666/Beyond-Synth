@@ -5,7 +5,538 @@
  "git_sha": "dcb53665726f",
  "n_per_type": 4,
  "not_applicable": {},
- "perturbations": [],
+ "p1_text": {
+  "cfg_hash": "45803d414957",
+  "git_sha": "e3de7f0b1103",
+  "n": 8
+ },
+ "p2_text": {
+  "cfg_hash": "45803d414957",
+  "git_sha": "e3de7f0b1103",
+  "n": 8
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "DWIDTH": "victor_0",
+     "NBPIPE": "charlie_1",
+     "RESET": "golf_2",
+     "addrsA": "uniform_3",
+     "addrsB": "quebec_4",
+     "douta": "sierra_5",
+     "doutb": "lima_6",
+     "groupSel": "tango_7",
+     "mem": "papa_8",
+     "mem_en_pipe_rega": "delta_9",
+     "mem_en_pipe_regb": "oscar_10",
+     "mem_ena": "echo_11",
+     "mem_enb": "zulu_12",
+     "mem_pipe_rega": "kilo_13",
+     "mem_pipe_regb": "romeo_14",
+     "memrega": "alpha_15",
+     "memregb": "hotel_16",
+     "rdWordSel": "yankee_17",
+     "rdWordSel_q1": "november_18",
+     "rddataCollision": "xray_19",
+     "regcea": "bravo_20",
+     "regceb": "whiskey_21",
+     "threshholds": "foxtrot_22",
+     "wrWordSel_q2": "india_23",
+     "wraddrs_del": "juliet_24",
+     "wraddrs_q2": "mike_25",
+     "wrdata_q2": "victor_26",
+     "wrdata_q3": "charlie_27",
+     "wren_del": "golf_28"
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_0/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_0/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_0/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "p22b9cff0bb0de5",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DWIDTH": "papa_0",
+     "NBPIPE": "victor_1",
+     "RESET": "uniform_2",
+     "addrsA": "juliet_3",
+     "addrsB": "bravo_4",
+     "douta": "mike_5",
+     "doutb": "xray_6",
+     "groupSel": "quebec_7",
+     "mem": "hotel_8",
+     "mem_en_pipe_rega": "kilo_9",
+     "mem_en_pipe_regb": "lima_10",
+     "mem_ena": "foxtrot_11",
+     "mem_enb": "echo_12",
+     "mem_pipe_rega": "india_13",
+     "mem_pipe_regb": "charlie_14",
+     "memrega": "romeo_15",
+     "memregb": "yankee_16",
+     "rdWordSel": "tango_17",
+     "rdWordSel_q1": "oscar_18",
+     "rddataCollision": "november_19",
+     "regcea": "whiskey_20",
+     "regceb": "zulu_21",
+     "threshholds": "alpha_22",
+     "wrWordSel_q2": "delta_23",
+     "wraddrs_del": "golf_24",
+     "wraddrs_q2": "sierra_25",
+     "wrdata_q2": "papa_26",
+     "wrdata_q3": "victor_27",
+     "wren_del": "uniform_28"
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_1/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_1/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_1/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "pf4329c6c09f213",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DWIDTH": "kilo_0",
+     "NBPIPE": "mike_1",
+     "RESET": "papa_2",
+     "addrsA": "quebec_3",
+     "addrsB": "oscar_4",
+     "douta": "november_5",
+     "doutb": "charlie_6",
+     "groupSel": "zulu_7",
+     "mem": "golf_8",
+     "mem_en_pipe_rega": "yankee_9",
+     "mem_en_pipe_regb": "romeo_10",
+     "mem_ena": "lima_11",
+     "mem_enb": "delta_12",
+     "mem_pipe_rega": "victor_13",
+     "mem_pipe_regb": "tango_14",
+     "memrega": "sierra_15",
+     "memregb": "alpha_16",
+     "rdWordSel": "hotel_17",
+     "rdWordSel_q1": "juliet_18",
+     "rddataCollision": "uniform_19",
+     "regcea": "whiskey_20",
+     "regceb": "bravo_21",
+     "threshholds": "xray_22",
+     "wrWordSel_q2": "foxtrot_23",
+     "wraddrs_del": "echo_24",
+     "wraddrs_q2": "india_25",
+     "wrdata_q2": "kilo_26",
+     "wrdata_q3": "mike_27",
+     "wren_del": "papa_28"
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_2/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_2/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_2/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "pe2feae036895c7",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DWIDTH": "juliet_0",
+     "NBPIPE": "uniform_1",
+     "RESET": "bravo_2",
+     "addrsA": "kilo_3",
+     "addrsB": "tango_4",
+     "douta": "lima_5",
+     "doutb": "papa_6",
+     "groupSel": "charlie_7",
+     "mem": "oscar_8",
+     "mem_en_pipe_rega": "quebec_9",
+     "mem_en_pipe_regb": "india_10",
+     "mem_ena": "golf_11",
+     "mem_enb": "romeo_12",
+     "mem_pipe_rega": "foxtrot_13",
+     "mem_pipe_regb": "echo_14",
+     "memrega": "mike_15",
+     "memregb": "zulu_16",
+     "rdWordSel": "alpha_17",
+     "rdWordSel_q1": "sierra_18",
+     "rddataCollision": "delta_19",
+     "regcea": "yankee_20",
+     "regceb": "xray_21",
+     "threshholds": "november_22",
+     "wrWordSel_q2": "hotel_23",
+     "wraddrs_del": "whiskey_24",
+     "wraddrs_q2": "victor_25",
+     "wrdata_q2": "juliet_26",
+     "wrdata_q3": "uniform_27",
+     "wren_del": "bravo_28"
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_3/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_3/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_3/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "pcc76a9a7a9bc8e",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DWIDTH": "tango_0",
+     "NBPIPE": "romeo_1",
+     "RESET": "delta_2",
+     "addrsA": "oscar_3",
+     "addrsB": "charlie_4",
+     "douta": "juliet_5",
+     "doutb": "lima_6",
+     "groupSel": "quebec_7",
+     "mem": "bravo_8",
+     "mem_en_pipe_rega": "sierra_9",
+     "mem_en_pipe_regb": "alpha_10",
+     "mem_ena": "kilo_11",
+     "mem_enb": "uniform_12",
+     "mem_pipe_rega": "xray_13",
+     "mem_pipe_regb": "golf_14",
+     "memrega": "november_15",
+     "memregb": "india_16",
+     "rdWordSel": "whiskey_17",
+     "rdWordSel_q1": "victor_18",
+     "rddataCollision": "yankee_19",
+     "regcea": "hotel_20",
+     "regceb": "foxtrot_21",
+     "threshholds": "zulu_22",
+     "wrWordSel_q2": "mike_23",
+     "wraddrs_del": "echo_24",
+     "wraddrs_q2": "papa_25",
+     "wrdata_q2": "tango_26",
+     "wrdata_q3": "romeo_27",
+     "wren_del": "delta_28"
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_4/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_4/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_4/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "p9dfc56fabf5038",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DWIDTH": "charlie_0",
+     "NBPIPE": "india_1",
+     "RESET": "echo_2",
+     "addrsA": "victor_3",
+     "addrsB": "xray_4",
+     "douta": "golf_5",
+     "doutb": "foxtrot_6",
+     "groupSel": "delta_7",
+     "mem": "whiskey_8",
+     "mem_en_pipe_rega": "kilo_9",
+     "mem_en_pipe_regb": "oscar_10",
+     "mem_ena": "tango_11",
+     "mem_enb": "hotel_12",
+     "mem_pipe_rega": "juliet_13",
+     "mem_pipe_regb": "alpha_14",
+     "memrega": "uniform_15",
+     "memregb": "zulu_16",
+     "rdWordSel": "romeo_17",
+     "rdWordSel_q1": "lima_18",
+     "rddataCollision": "papa_19",
+     "regcea": "mike_20",
+     "regceb": "quebec_21",
+     "threshholds": "november_22",
+     "wrWordSel_q2": "sierra_23",
+     "wraddrs_del": "bravo_24",
+     "wraddrs_q2": "yankee_25",
+     "wrdata_q2": "charlie_26",
+     "wrdata_q3": "india_27",
+     "wren_del": "echo_28"
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_5/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_5/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_5/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "pd022099f5b9553",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DWIDTH": "zulu_0",
+     "NBPIPE": "quebec_1",
+     "RESET": "yankee_2",
+     "addrsA": "xray_3",
+     "addrsB": "romeo_4",
+     "douta": "november_5",
+     "doutb": "alpha_6",
+     "groupSel": "delta_7",
+     "mem": "lima_8",
+     "mem_en_pipe_rega": "oscar_9",
+     "mem_en_pipe_regb": "uniform_10",
+     "mem_ena": "echo_11",
+     "mem_enb": "charlie_12",
+     "mem_pipe_rega": "hotel_13",
+     "mem_pipe_regb": "kilo_14",
+     "memrega": "whiskey_15",
+     "memregb": "bravo_16",
+     "rdWordSel": "india_17",
+     "rdWordSel_q1": "mike_18",
+     "rddataCollision": "sierra_19",
+     "regcea": "papa_20",
+     "regceb": "golf_21",
+     "threshholds": "tango_22",
+     "wrWordSel_q2": "victor_23",
+     "wraddrs_del": "foxtrot_24",
+     "wraddrs_q2": "juliet_25",
+     "wrdata_q2": "zulu_26",
+     "wrdata_q3": "quebec_27",
+     "wren_del": "yankee_28"
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_6/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_6/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_6/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "p0ad8372528610c",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "DWIDTH": "bravo_0",
+     "NBPIPE": "alpha_1",
+     "RESET": "mike_2",
+     "addrsA": "juliet_3",
+     "addrsB": "oscar_4",
+     "douta": "sierra_5",
+     "doutb": "delta_6",
+     "groupSel": "papa_7",
+     "mem": "quebec_8",
+     "mem_en_pipe_rega": "hotel_9",
+     "mem_en_pipe_regb": "charlie_10",
+     "mem_ena": "romeo_11",
+     "mem_enb": "golf_12",
+     "mem_pipe_rega": "tango_13",
+     "mem_pipe_regb": "november_14",
+     "memrega": "victor_15",
+     "memregb": "zulu_16",
+     "rdWordSel": "foxtrot_17",
+     "rdWordSel_q1": "kilo_18",
+     "rddataCollision": "yankee_19",
+     "regcea": "uniform_20",
+     "regceb": "lima_21",
+     "threshholds": "whiskey_22",
+     "wrWordSel_q2": "india_23",
+     "wraddrs_del": "echo_24",
+     "wraddrs_q2": "xray_25",
+     "wrdata_q2": "bravo_26",
+     "wrdata_q3": "alpha_27",
+     "wren_del": "mike_28"
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_7/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_7/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P1_text_7/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "pd945f64b83e7cc",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "thresholds_128x4096": "always body without begin ... end"
+     },
+     "ultraRAMx72_TDP": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 7
+     }
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_0/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_0/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_0/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "p67bf7b014fe0ee",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "thresholds_128x4096": "always body without begin ... end"
+     },
+     "ultraRAMx72_TDP": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 7
+     }
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_1/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_1/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_1/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "p4bd8c8ec73f243",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "thresholds_128x4096": "always body without begin ... end"
+     },
+     "ultraRAMx72_TDP": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 7
+     }
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_2/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_2/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_2/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "p8f7f7021bc6719",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "thresholds_128x4096": "always body without begin ... end"
+     },
+     "ultraRAMx72_TDP": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 8
+     }
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_3/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_3/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_3/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "p4e77c4fa631434",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "thresholds_128x4096": "always body without begin ... end"
+     },
+     "ultraRAMx72_TDP": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 8
+     }
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_4/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_4/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_4/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "pf23c774bb6460a",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "thresholds_128x4096": "always body without begin ... end"
+     },
+     "ultraRAMx72_TDP": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 8
+     }
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_5/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_5/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_5/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "pe7e3ce4d4fb195",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "thresholds_128x4096": "always body without begin ... end"
+     },
+     "ultraRAMx72_TDP": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 9
+     }
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_6/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_6/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_6/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "pb87fffe41e3500",
+   "ptype": "P2_text"
+  },
+  {
+   "details": {
+    "reordered": {
+     "refused": {
+      "thresholds_128x4096": "always body without begin ... end"
+     },
+     "ultraRAMx72_TDP": {
+      "always_runs": 1,
+      "assign_runs": 0,
+      "items_moved": 8
+     }
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_7/thresholds_128x4096.v",
+   "paths": [
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_7/thresholds_128x4096.v",
+    "data/perturbations/cktevo_nn_engine__thresholds_128x4096/P2_text_7/ultraRAMx72_TDP.v"
+   ],
+   "pert_id": "pdb207025cd7e94",
+   "ptype": "P2_text"
+  }
+ ],
  "seed": "cktevo_nn_engine__thresholds_128x4096:1",
  "top": "thresholds_128x4096"
 }

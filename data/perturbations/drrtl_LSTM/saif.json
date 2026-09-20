@@ -1,13 +1,11 @@
 {
  "design": {
   "instance": "bs_lockstep/u_d",
-  "saif": null,
-  "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_LSTM/EQ/a45588621d1c9f68",
-  "status": "no_vcd"
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_LSTM/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_LSTM/EQ/f30fe3b8f75e16e5",
+  "status": "d_vs_d"
  },
  "design_id": "drrtl_LSTM",
- "missing": [
-  "design"
- ],
+ "missing": [],
  "perturbations": {}
 }

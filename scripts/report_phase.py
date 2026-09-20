@@ -853,7 +853,7 @@ def latency_note_lines(latency_bound, tier, tier_of):
     return ["Note (DECISION 2026-09-19 (k) 3 / (l) 4): " + "; ".join(parts) + ".", ""]
 
 
-def phase5_notes_section(cfg, tiers, tier_of, latency_bound=None, dc_rejected=None):
+def phase5_notes_section(cfg, tiers, tier_of, latency_bound=None, dc_rejected=None, default_power=None):
     """§0a of every Phase 5 report: the design notes and disclosures of DECISION 2026-09-18 (b) items 5c–5e and D1 (wording from
     config exp5.design_notes / exp5.disclosures, printed verbatim) and the proof-latency-bound marks of DECISION 2026-09-19 (k) 3 /
     (l) 4 (the decided wording where the archive stayed empty for all arms; the measured share of empty-archive builds otherwise)."""
@@ -873,7 +873,9 @@ def phase5_notes_section(cfg, tiers, tier_of, latency_bound=None, dc_rejected=No
         arms = collections.Counter(x[1] for x in items)
         notes[d] = (notes.get(d, "") + "; " if notes.get(d) else "") + (f"evaluation failed (DC rejected): {len(items)} proven candidate{'s' if len(items) != 1 else ''} "
                     f"({', '.join(f'{k} ×{n}' if n > 1 else k for k, n in sorted(ids.items()))}; {', '.join(f'{a} {n}' for a, n in sorted(arms.items()))}) — rejected by DC at elaboration, terminal, counted as resolved (DECISION 2026-09-19 (n) 1)")
-    L = ["## 0a. Design notes and disclosures (DECISION 2026-09-18 (b) items 5c–5e, D1; DECISION 2026-09-19 (k) item 3, (l) item 4, (n) item 1)", ""]
+    for d in sorted(default_power or []):   # REQUEST 2026-09-20 (e) item 1: the search's power basis on the designs whose D carries no SAIF power at E4
+        notes[d] = (notes.get(d, "") + "; " if notes.get(d) else "") + f"{P5.DEFAULT_POWER_NOTE} (REQUEST 2026-09-20 (e) 1: D's E4 baseline carries no SAIF power; m3.power_basis compares default with default)"
+    L = ["## 0a. Design notes and disclosures (DECISION 2026-09-18 (b) items 5c–5e, D1; DECISION 2026-09-19 (k) item 3, (l) item 4, (n) item 1; REQUEST 2026-09-20 (e) item 1)", ""]
     shown = [(d, n) for d, n in sorted(notes.items()) if tier_of.get(d) in tiers]
     if shown:
         L += ["| design | tier | note |", "|---|---|---|"] + [f"| {d} | {tier_of.get(d)} | {n} |" for d, n in shown] + [""]
@@ -997,7 +999,7 @@ def phase5_markdown(cfg, data, stage="all", final=False):
         L += ["", f"Incomplete rows: {len(unfinished)} of {len(keys)} — runs still open or evaluations pending (proofs, offline simulations, E4 records); their result cells read `pending` or carry †."]
     L.append("")
     tier_of = P5.tier_of_design(cfg)
-    L += phase5_notes_section(cfg, tiers, tier_of, latency_bound=data.get("proof_latency_bound"), dc_rejected=data.get("dc_rejected"))
+    L += phase5_notes_section(cfg, tiers, tier_of, latency_bound=data.get("proof_latency_bound"), dc_rejected=data.get("dc_rejected"), default_power=data.get("default_power_basis"))
     L += phase5_completion_section(cfg, data.get("completion") or {}, tiers, tier_of)
     limits = {d: n.split(" — ")[0].split(" (")[0] for d, n in ((cfg.get("exp5") or {}).get("design_notes") or {}).items() if str(n).startswith(("harness limit", "verification limit"))}
     # arm comparison per tier
@@ -1240,6 +1242,7 @@ def phase5(cfg, stage="all", out_dir=None, conn=None, final=False):
     data["completion"], data["alert_line"] = view, line
     data["proof_latency_bound"] = proof_latency_bound(conn, cfg)   # DECISION 2026-09-19 (k) item 3
     data["dc_rejected"] = P5.dc_rejected(conn, cfg)   # DECISION 2026-09-19 (n) item 1
+    data["default_power_basis"] = P5.default_power_basis_designs(cfg, conn)   # REQUEST 2026-09-20 (e) item 1
     try:   # DECISION 2026-09-19 (j) item 1c and (k) item 3: the slot figures of the moment join §7c
         from src.jobqueue.core import idle_seat_minutes, proof_wait_estimate, search_slot_state, unverified_at_build
         g = cfg["queue"].get("admission_guard") or {}

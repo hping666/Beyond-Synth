@@ -1,13 +1,11 @@
 {
  "design": {
   "instance": "bs_lockstep/u_d",
-  "saif": null,
-  "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_arm_cpu2/EQ/e360bdcea00088a4",
-  "status": "no_vcd"
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_arm_cpu2/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_arm_cpu2/EQ/9130cc66afc3d43a",
+  "status": "d_vs_d"
  },
  "design_id": "drrtl_arm_cpu2",
- "missing": [
-  "design"
- ],
+ "missing": [],
  "perturbations": {}
 }

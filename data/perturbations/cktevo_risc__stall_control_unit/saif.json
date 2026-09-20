@@ -1,5 +1,10 @@
 {
- "design": null,
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_risc__stall_control_unit/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_risc__stall_control_unit/EQ/1c8e44af8741da81",
+  "status": "d_vs_d"
+ },
  "design_id": "cktevo_risc__stall_control_unit",
  "missing": [],
  "perturbations": {}

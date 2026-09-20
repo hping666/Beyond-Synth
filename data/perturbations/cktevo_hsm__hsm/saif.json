@@ -1,5 +1,10 @@
 {
- "design": null,
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_hsm__hsm/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_hsm__hsm/EQ/f299132a7a86d795",
+  "status": "d_vs_d"
+ },
  "design_id": "cktevo_hsm__hsm",
  "missing": [],
  "perturbations": {}

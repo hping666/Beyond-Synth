@@ -1,14 +1,12 @@
 {
  "design": {
   "instance": "bs_lockstep/u_d",
-  "saif": null,
-  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_slave/EQ/05a837d7b4b2017f",
-  "status": "no_vcd"
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_vga_enh__vga_wb_slave/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_vga_enh__vga_wb_slave/EQ/932dd0ab95c0d2ff",
+  "status": "d_vs_d"
  },
  "design_id": "cktevo_vga_enh__vga_wb_slave",
- "missing": [
-  "design"
- ],
+ "missing": [],
  "perturbations": {
   "p3a4496b19ac3f2": {
    "instance": "bs_lockstep/u_c",

@@ -1,8 +1,8 @@
 {
  "date": "2026-09-20",
- "generated_at": "2026-09-20T04:40",
- "git_sha": "e0322cf7dff0",
- "cfg_hash": "de7d24d19295",
+ "generated_at": "2026-09-20T05:31",
+ "git_sha": "e3de7f0b1103",
+ "cfg_hash": "45803d414957",
  "phase5_runs": {
   "medium": {
    "done": 297,
@@ -19,6 +19,21 @@
    "created": 18
   }
  },
+ "default_power_basis": [
+  "cktevo_hsm__MixColumns",
+  "cktevo_hsm__hsm",
+  "cktevo_nn_engine__thresholds_128x4096",
+  "cktevo_risc__btb",
+  "cktevo_risc__cpu",
+  "cktevo_risc__stall_control_unit",
+  "cktevo_usb__usbf_sie_rx",
+  "cktevo_vga_enh__vga_wb_slave",
+  "drrtl_LSTM",
+  "drrtl_aes",
+  "drrtl_arm_cpu2",
+  "drrtl_simple_spi",
+  "drrtl_tv80"
+ ],
  "a": {
   "floor_version": "phase4",
   "quiet_max_abs": 0.001,
@@ -2357,9 +2372,9 @@
   ]
  },
  "g": {
-  "n_evaluated": 11312,
-  "n_duplicates_collapsed": 2617,
-  "n_proven_pending_e4": 175,
+  "n_evaluated": 11344,
+  "n_duplicates_collapsed": 2620,
+  "n_proven_pending_e4": 176,
   "n_dc_rejected": 44,
   "by_tier": {
    "large": {
@@ -2448,65 +2463,65 @@
    },
    "medium": {
     "a": {
-     "n": 2207,
+     "n": 2208,
      "labels": {
       "tradeoff": 643,
-      "retained": 422,
+      "retained": 423,
       "harmful": 205,
       "absorbed_identical": 889,
       "absorbed": 36,
       "noise": 12
      },
-     "survival": 1065,
-     "survival_rate": 0.48255550521069324,
-     "retained": 422,
-     "retained_rate": 0.19120978704123245,
-     "material_any": 393,
-     "material_rate": 0.17806977797915724,
+     "survival": 1066,
+     "survival_rate": 0.48278985507246375,
+     "retained": 423,
+     "retained_rate": 0.19157608695652173,
+     "material_any": 394,
+     "material_rate": 0.17844202898550723,
      "material_per_metric": {
-      "area": 346,
-      "power": 384,
+      "area": 347,
+      "power": 385,
       "wns": 18
      }
     },
     "b": {
-     "n": 3569,
+     "n": 3579,
      "labels": {
-      "tradeoff": 1036,
-      "harmful": 409,
-      "retained": 1269,
-      "absorbed_identical": 706,
+      "tradeoff": 1038,
+      "harmful": 414,
+      "retained": 1270,
+      "absorbed_identical": 708,
       "noise": 8,
       "absorbed": 141
      },
-     "survival": 2305,
-     "survival_rate": 0.6458391706360325,
-     "retained": 1269,
-     "retained_rate": 0.355561782011768,
-     "material_any": 982,
-     "material_rate": 0.27514710002801906,
+     "survival": 2308,
+     "survival_rate": 0.6448728695166247,
+     "retained": 1270,
+     "retained_rate": 0.35484772282760546,
+     "material_any": 983,
+     "material_rate": 0.27465772562168206,
      "material_per_metric": {
       "area": 670,
       "power": 732,
-      "wns": 812
+      "wns": 813
      }
     },
     "c1": {
-     "n": 1604,
+     "n": 1610,
      "labels": {
-      "tradeoff": 567,
+      "tradeoff": 573,
       "retained": 593,
       "harmful": 240,
       "absorbed_identical": 14,
       "noise": 185,
       "absorbed": 5
      },
-     "survival": 1160,
-     "survival_rate": 0.7231920199501247,
+     "survival": 1166,
+     "survival_rate": 0.724223602484472,
      "retained": 593,
-     "retained_rate": 0.3697007481296758,
+     "retained_rate": 0.36832298136645963,
      "material_any": 563,
-     "material_rate": 0.35099750623441395,
+     "material_rate": 0.34968944099378885,
      "material_per_metric": {
       "area": 201,
       "power": 507,
@@ -2531,24 +2546,24 @@
      }
     },
     "d": {
-     "n": 2392,
+     "n": 2407,
      "labels": {
       "harmful": 153,
-      "retained": 1059,
+      "retained": 1074,
       "absorbed_identical": 103,
       "absorbed": 19,
       "tradeoff": 1053,
       "noise": 5
      },
-     "survival": 2112,
-     "survival_rate": 0.882943143812709,
-     "retained": 1059,
-     "retained_rate": 0.4427257525083612,
-     "material_any": 1024,
-     "material_rate": 0.4280936454849498,
+     "survival": 2127,
+     "survival_rate": 0.883672621520565,
+     "retained": 1074,
+     "retained_rate": 0.4461985874532613,
+     "material_any": 1039,
+     "material_rate": 0.4316576651433319,
      "material_per_metric": {
-      "area": 536,
-      "power": 1003,
+      "area": 551,
+      "power": 1018,
       "wns": 268
      }
     }
@@ -2616,65 +2631,65 @@
   },
   "pooled": {
    "a": {
-    "n": 2691,
+    "n": 2692,
     "labels": {
      "absorbed_identical": 1034,
      "harmful": 393,
      "noise": 108,
      "absorbed": 73,
      "tradeoff": 660,
-     "retained": 423
+     "retained": 424
     },
-    "survival": 1083,
-    "survival_rate": 0.40245261984392416,
-    "retained": 423,
-    "retained_rate": 0.15719063545150502,
-    "material_any": 394,
-    "material_rate": 0.14641397250092902,
+    "survival": 1084,
+    "survival_rate": 0.4026745913818722,
+    "retained": 424,
+    "retained_rate": 0.1575037147102526,
+    "material_any": 395,
+    "material_rate": 0.14673105497771174,
     "material_per_metric": {
-     "area": 347,
-     "power": 385,
+     "area": 348,
+     "power": 386,
      "wns": 18
     }
    },
    "b": {
-    "n": 4314,
+    "n": 4324,
     "labels": {
      "noise": 116,
-     "harmful": 496,
-     "absorbed_identical": 779,
-     "retained": 1579,
+     "harmful": 501,
+     "absorbed_identical": 781,
+     "retained": 1580,
      "absorbed": 151,
-     "tradeoff": 1193
+     "tradeoff": 1195
     },
-    "survival": 2772,
-    "survival_rate": 0.6425591098748261,
-    "retained": 1579,
-    "retained_rate": 0.3660176170607325,
-    "material_any": 1235,
-    "material_rate": 0.2862772369031062,
+    "survival": 2775,
+    "survival_rate": 0.6417668825161887,
+    "retained": 1580,
+    "retained_rate": 0.3654024051803885,
+    "material_any": 1236,
+    "material_rate": 0.2858464384828862,
     "material_per_metric": {
      "area": 824,
      "power": 985,
-     "wns": 813
+     "wns": 814
     }
    },
    "c1": {
-    "n": 1651,
+    "n": 1657,
     "labels": {
-     "tradeoff": 589,
+     "tradeoff": 595,
      "retained": 605,
      "harmful": 249,
      "noise": 189,
      "absorbed_identical": 14,
      "absorbed": 5
     },
-    "survival": 1194,
-    "survival_rate": 0.723198061780739,
+    "survival": 1200,
+    "survival_rate": 0.724200362100181,
     "retained": 605,
-    "retained_rate": 0.36644457904300426,
+    "retained_rate": 0.3651176825588413,
     "material_any": 569,
-    "material_rate": 0.34463961235614776,
+    "material_rate": 0.34339167169583584,
     "material_per_metric": {
      "area": 204,
      "power": 513,
@@ -2699,24 +2714,24 @@
     }
    },
    "d": {
-    "n": 2655,
+    "n": 2670,
     "labels": {
      "tradeoff": 1097,
-     "retained": 1169,
+     "retained": 1184,
      "harmful": 227,
      "noise": 40,
      "absorbed_identical": 103,
      "absorbed": 19
     },
-    "survival": 2266,
-    "survival_rate": 0.8534839924670433,
-    "retained": 1169,
-    "retained_rate": 0.44030131826741997,
-    "material_any": 1061,
-    "material_rate": 0.39962335216572503,
+    "survival": 2281,
+    "survival_rate": 0.8543071161048689,
+    "retained": 1184,
+    "retained_rate": 0.4434456928838951,
+    "material_any": 1076,
+    "material_rate": 0.40299625468164796,
     "material_per_metric": {
-     "area": 566,
-     "power": 1040,
+     "area": 581,
+     "power": 1055,
      "wns": 268
     }
    }
@@ -2724,10 +2739,10 @@
   "families": {
    "table": {
     "Dr.RTL": {
-     "proven_evaluated": 2349,
-     "retained": 155,
-     "retained_rate": 0.06598552575564069,
-     "material": 78,
+     "proven_evaluated": 2365,
+     "retained": 156,
+     "retained_rate": 0.06596194503171247,
+     "material": 79,
      "designs": 6
     },
     "CktEvo": {
@@ -2738,17 +2753,17 @@
      "designs": 8
     },
     "RTL-OPT": {
-     "proven_evaluated": 4457,
-     "retained": 2127,
-     "retained_rate": 0.4772268341934036,
-     "material": 2071,
+     "proven_evaluated": 4473,
+     "retained": 2143,
+     "retained_rate": 0.47909680304046504,
+     "material": 2087,
      "designs": 8
     }
    },
    "medium_retained_from_rtlopt": {
-    "n": 2120,
-    "of": 3344,
-    "share": 0.6339712918660287
+    "n": 2136,
+    "of": 3361,
+    "share": 0.635525141326986
    }
   },
   "b0_yosys_vs_e4": {
@@ -2863,8 +2878,8 @@
      "evaluated": 761
     },
     "drrtl_router": {
-     "retained": 11,
-     "evaluated": 665
+     "retained": 12,
+     "evaluated": 674
     },
     "cktevo_vga_enh__vga_wb_slave": {
      "retained": 298,
@@ -2911,9 +2926,9 @@
    }
   },
   "icg_insertion": {
-   "retained_with_material_power_gain": 2924,
+   "retained_with_material_power_gain": 2940,
    "with_more_icgs_than_D": 88,
-   "share": 0.030095759233926128,
+   "share": 0.029931972789115645,
    "by_design": {
     "cktevo_risc__btb": 1,
     "cktevo_mem_ctrl__mc_adr_sel": 40,
@@ -2923,16 +2938,16 @@
   },
   "proof_coverage_designs": {
    "drrtl_SPI": {
-    "with_verdict": 969,
+    "with_verdict": 982,
     "proven": 130,
-    "inconclusive": 778,
+    "inconclusive": 788,
     "evaluated": 130,
     "retained": 58
    },
    "drrtl_simple_spi": {
-    "with_verdict": 858,
-    "proven": 141,
-    "inconclusive": 536,
+    "with_verdict": 878,
+    "proven": 142,
+    "inconclusive": 549,
     "evaluated": 87,
     "retained": 0
    },
@@ -2944,7 +2959,7 @@
     "retained": 0
    },
    "cktevo_hsm__hsm": {
-    "with_verdict": 1054,
+    "with_verdict": 1055,
     "proven": 0,
     "inconclusive": 273,
     "evaluated": 0,

@@ -1,7 +1,22 @@
 {
  "date": "2026-09-20",
- "generated_at": "2026-09-20T04:56",
- "git_sha": "953c31178e38",
+ "generated_at": "2026-09-20T05:31",
+ "git_sha": "e3de7f0b1103",
+ "default_power_basis": [
+  "cktevo_hsm__MixColumns",
+  "cktevo_hsm__hsm",
+  "cktevo_nn_engine__thresholds_128x4096",
+  "cktevo_risc__btb",
+  "cktevo_risc__cpu",
+  "cktevo_risc__stall_control_unit",
+  "cktevo_usb__usbf_sie_rx",
+  "cktevo_vga_enh__vga_wb_slave",
+  "drrtl_LSTM",
+  "drrtl_aes",
+  "drrtl_arm_cpu2",
+  "drrtl_simple_spi",
+  "drrtl_tv80"
+ ],
  "item1": {
   "design": "cktevo_mem_ctrl__mc_rf",
   "phi": 0.7,

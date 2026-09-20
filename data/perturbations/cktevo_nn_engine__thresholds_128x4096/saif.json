@@ -1,5 +1,10 @@
 {
- "design": null,
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_nn_engine__thresholds_128x4096/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_nn_engine__thresholds_128x4096/EQ/cb391c6acdda34ec",
+  "status": "d_vs_d"
+ },
  "design_id": "cktevo_nn_engine__thresholds_128x4096",
  "missing": [],
  "perturbations": {}

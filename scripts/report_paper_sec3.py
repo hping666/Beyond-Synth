@@ -499,6 +499,11 @@ def render(data):
     a, b, c, d, e, f, g, h = (data[k] for k in "abcdefgh")
     L = [f"# Data for paper Section III — Measuring Retained Gain ({data['date']}; visible layer only; interim)", "",
          f"Generated {data['generated_at']} by scripts/report_paper_sec3.py (git {data['git_sha']}, cfg {data['cfg_hash']}); floor_version **{a['floor_version']}**; duplicates collapsed as in spec 04 §B step 3; data reports/data/paper_sec3.json; every table's source in §S. Phase 5 is interim (runs at generation: {data['phase5_runs']}).", ""]
+    if data.get("default_power_basis") is not None:   # REQUEST 2026-09-20 (e) item 1
+        dp = data["default_power_basis"]
+        L += ["## 0a. Power basis (REQUEST 2026-09-20 (e) item 1)", "",
+              f"Designs whose D has no SAIF power at E4 ({len(dp)}): " + ", ".join(dp) + f". For each of them: *{P5.DEFAULT_POWER_NOTE}*. The §G tables recomputed without power on them "
+              "(version a) and per metric everywhere (version b) are in reports/paper_sec3_power_basis.md.", ""]
     # A
     L += ["## A. Table I — noise floor on the frozen phase4 floor table", "",
           f"Definitions ({a['definitions']['source']}): floor class — {a['definitions']['floor_class']} (noise.quiet_max_abs = {a['definitions']['quiet_max_abs_value']}); rule A — {a['definitions']['rule_A']}.", "",
@@ -611,6 +616,7 @@ def main(argv=None):
     for r in conn.execute("SELECT design_id, status, COUNT(*) AS n FROM runs WHERE exp='phase5' AND status != 'superseded' AND COALESCE(excluded_from_tables,0)=0 GROUP BY design_id, status"):
         runs[tier_of.get(r["design_id"], "?")][r["status"]] += r["n"]
     data["phase5_runs"] = {t: dict(v) for t, v in runs.items()}
+    data["default_power_basis"] = P5.default_power_basis_designs(cfg, conn)   # REQUEST 2026-09-20 (e) item 1: marked in §0a
     data["a"] = section_a(cfg, conn)
     p4, objs = phase4_objects(conn, fv)
     data["b"] = section_b(cfg, conn, p4, objs)

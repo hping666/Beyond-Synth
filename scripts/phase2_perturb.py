@@ -55,6 +55,7 @@ def main(argv=None):
     ap.add_argument("--priority", type=int, default=0)
     ap.add_argument("--n-per-type", type=int, default=None, help="generate: perturbations per type (config noise.n_per_type by default; 8 for spread / offset and map designs)")
     ap.add_argument("--text-p1", action="store_true", help="generate: text-level P1 renamings appended to the manifest (designs whose re-print is unusable)")
+    ap.add_argument("--text-p2", action="store_true", help="generate: text-level P2 statement reorders appended to the manifest (REQUEST 2026-09-20 (e) 3, PLAN 6.9)")
     a = ap.parse_args(argv)
     cfg = C.load()
     conn = db.connect(cfg=cfg)
@@ -62,8 +63,10 @@ def main(argv=None):
     if a.what == "generate":
         totals, na, errors = {}, {}, []
         for d in designs:
-            m = G.generate_text_p1(d, cfg, n_per_type=a.n_per_type) if a.text_p1 else G.generate(d, cfg, n_per_type=a.n_per_type)
-            if m["error"] and not (a.text_p1 and m.get("text_p1", {}).get("n")):
+            if a.text_p1 and a.text_p2:
+                G.generate_text_p1(d, cfg, n_per_type=a.n_per_type)
+            m = G.generate_text_p2(d, cfg, n_per_type=a.n_per_type) if a.text_p2 else G.generate_text_p1(d, cfg, n_per_type=a.n_per_type) if a.text_p1 else G.generate(d, cfg, n_per_type=a.n_per_type)
+            if m["error"] and not ((a.text_p1 or a.text_p2) and (m.get("p1_text", {}).get("n") or m.get("p2_text", {}).get("n") or m.get("text_p1", {}).get("n"))):
                 errors.append((d["design_id"], m["error"]))
             for p in m["perturbations"]:
                 totals[p["ptype"]] = totals.get(p["ptype"], 0) + 1

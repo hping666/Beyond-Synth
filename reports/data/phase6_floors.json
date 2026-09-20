@@ -1,0 +1,178 @@
+{
+ "generated_at": "2026-09-20T05:44:14",
+ "floor_version": "phase6",
+ "frozen_table": "phase4",
+ "pooled_min_frozen": {
+  "area": 0.0027938146505548643,
+  "power_saif": 0.022227533067402338,
+  "tns": 0.0,
+  "wns": 0.0003017775
+ },
+ "k_sigma": 2.0,
+ "designs": {
+  "cktevo_hsm__hsm": {
+   "phi": 1.0,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "offline_saif",
+   "p0_status": null,
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "cktevo_nn_engine__thresholds_128x4096": {
+   "phi": 0.5,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "offline_saif",
+   "p0_status": null,
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "cktevo_risc__btb": {
+   "phi": 2.0,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "offline_saif",
+   "p0_status": null,
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "cktevo_risc__cpu": {
+   "phi": 0.7,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "offline_saif",
+   "p0_status": null,
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "cktevo_risc__stall_control_unit": {
+   "phi": 1.0,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "offline_saif",
+   "p0_status": null,
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "cktevo_usb__usbf_sie_rx": {
+   "phi": 0.7,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 4,
+   "proven_by_type": {
+    "P1_text": 4
+   },
+   "records": 0,
+   "records_by_type": {
+    "P1_text": 0
+   },
+   "baseline_basis": "offline_saif",
+   "p0_status": "rejected",
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "cktevo_vga_enh__vga_wb_slave": {
+   "phi": 1.0,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 3,
+   "proven_by_type": {
+    "P1_text": 3
+   },
+   "records": 0,
+   "records_by_type": {
+    "P1_text": 0
+   },
+   "baseline_basis": "offline_saif",
+   "p0_status": "rejected",
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "drrtl_LSTM": {
+   "phi": 4.0,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "offline_saif",
+   "p0_status": "rejected",
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "drrtl_aes": {
+   "phi": 1.0,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "search",
+   "p0_status": null,
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "drrtl_arm_cpu2": {
+   "phi": 2.8,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "offline_saif",
+   "p0_status": "rejected",
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "drrtl_router": {
+   "phi": 1.0,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "search",
+   "p0_status": "falsified",
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "drrtl_simple_spi": {
+   "phi": 0.7,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "offline_saif",
+   "p0_status": null,
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  },
+  "drrtl_tv80": {
+   "phi": 2.0,
+   "rows": 0,
+   "floor_source": null,
+   "proven": 0,
+   "proven_by_type": {},
+   "records": 0,
+   "records_by_type": {},
+   "baseline_basis": "offline_saif",
+   "p0_status": "rejected",
+   "reason": "0 proven perturbation record(s) at E4 / \u03a6_main, 2 needed"
+  }
+ }
+}

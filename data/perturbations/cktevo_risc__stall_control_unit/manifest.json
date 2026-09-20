@@ -4,8 +4,117 @@
  "error": "parse: ParseError: Syntax Error",
  "git_sha": "dcb53665726f",
  "n_per_type": 4,
- "not_applicable": {},
- "perturbations": [],
+ "not_applicable": {
+  "P2_text": "nothing to reorder at text level"
+ },
+ "p1_text": {
+  "cfg_hash": "45803d414957",
+  "git_sha": "e3de7f0b1103",
+  "n": 8
+ },
+ "p2_text": {
+  "cfg_hash": "45803d414957",
+  "git_sha": "e3de7f0b1103",
+  "n": 0
+ },
+ "perturbations": [
+  {
+   "details": {
+    "renamed": {
+     "global_c": "hotel_0",
+     "local_c": "papa_1"
+    }
+   },
+   "k": 0,
+   "path": "data/perturbations/cktevo_risc__stall_control_unit/P1_text_0.v",
+   "pert_id": "pbf316ea06f09cc",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "global_c": "kilo_0",
+     "local_c": "quebec_1"
+    }
+   },
+   "k": 1,
+   "path": "data/perturbations/cktevo_risc__stall_control_unit/P1_text_1.v",
+   "pert_id": "pbbd04aa65865e1",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "global_c": "oscar_0",
+     "local_c": "quebec_1"
+    }
+   },
+   "k": 2,
+   "path": "data/perturbations/cktevo_risc__stall_control_unit/P1_text_2.v",
+   "pert_id": "pd781b051970c6f",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "global_c": "delta_0",
+     "local_c": "india_1"
+    }
+   },
+   "k": 3,
+   "path": "data/perturbations/cktevo_risc__stall_control_unit/P1_text_3.v",
+   "pert_id": "p9425cafacdc0c4",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "global_c": "hotel_0",
+     "local_c": "lima_1"
+    }
+   },
+   "k": 4,
+   "path": "data/perturbations/cktevo_risc__stall_control_unit/P1_text_4.v",
+   "pert_id": "p6895b71f829bd9",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "global_c": "charlie_0",
+     "local_c": "uniform_1"
+    }
+   },
+   "k": 5,
+   "path": "data/perturbations/cktevo_risc__stall_control_unit/P1_text_5.v",
+   "pert_id": "p0db001db1c9d50",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "global_c": "yankee_0",
+     "local_c": "juliet_1"
+    }
+   },
+   "k": 6,
+   "path": "data/perturbations/cktevo_risc__stall_control_unit/P1_text_6.v",
+   "pert_id": "p88d987c7aa04bd",
+   "ptype": "P1_text"
+  },
+  {
+   "details": {
+    "renamed": {
+     "global_c": "quebec_0",
+     "local_c": "charlie_1"
+    }
+   },
+   "k": 7,
+   "path": "data/perturbations/cktevo_risc__stall_control_unit/P1_text_7.v",
+   "pert_id": "pdfc4220dde0060",
+   "ptype": "P1_text"
+  }
+ ],
  "seed": "cktevo_risc__stall_control_unit:1",
  "top": "stall_control_unit"
 }

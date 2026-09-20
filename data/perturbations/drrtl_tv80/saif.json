@@ -1,13 +1,11 @@
 {
  "design": {
   "instance": "bs_lockstep/u_d",
-  "saif": null,
-  "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_tv80/EQ/89af427fec5ed7d6",
-  "status": "no_vcd"
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_tv80/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_tv80/EQ/62917e524559bea7",
+  "status": "d_vs_d"
  },
  "design_id": "drrtl_tv80",
- "missing": [
-  "design"
- ],
+ "missing": [],
  "perturbations": {}
 }

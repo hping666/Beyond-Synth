@@ -192,6 +192,9 @@ def render(data):
     i1, i2, i3, i4 = data["item1"], data["item2"], data["item3"], data["item4"]
     L = [f"# Section III — four remaining items ({data['date']}; visible layer only)", "",
          f"Generated {data['generated_at']} by scripts/report_paper_sec3_addendum.py (git {data['git_sha']}); data reports/data/paper_sec3_addendum.json; sources in §S. Mechanism lines are the operator's reading of the comment-stripped, module-by-module diff and are marked as such.", ""]
+    if data.get("default_power_basis") is not None:   # REQUEST 2026-09-20 (e) item 1
+        dp = data["default_power_basis"]
+        L += ["## 0a. Power basis (REQUEST 2026-09-20 (e) item 1)", "", f"Designs whose D has no SAIF power at E4 ({len(dp)}): " + ", ".join(dp) + f". For each of them: *{P5.DEFAULT_POWER_NOTE}*.", ""]
     # 1
     b = i1["baseline"]
     L += ["## 1. mc_rf — the largest single effect", "",
@@ -235,6 +238,7 @@ def main():
     cfg = C.load()
     conn = db.connect(cfg=cfg)
     data = {"date": datetime.date.today().isoformat(), "generated_at": datetime.datetime.now().isoformat(timespec="minutes"), "git_sha": C.git_sha()}
+    data["default_power_basis"] = P5.default_power_basis_designs(cfg, conn)   # REQUEST 2026-09-20 (e) item 1
     data["item1"] = item1(conn)
     data["item2"] = item2(conn)
     data["item3"] = item3(cfg, conn)

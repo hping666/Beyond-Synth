@@ -36,6 +36,7 @@ MIGRATIONS = [  # (table, column, DDL) added after the table already existed; CR
     ("evaluations", "offline_eval", "ALTER TABLE evaluations ADD COLUMN offline_eval INTEGER NOT NULL DEFAULT 0"),               # DECISION 2026-09-18 item 1: E4 of the large tier's proven B0 candidates, run by the offline pool
     ("evaluations", "prescreened_offline", "ALTER TABLE evaluations ADD COLUMN prescreened_offline INTEGER NOT NULL DEFAULT 0"), # DECISION 2026-09-18 item 1: E4 of the large tier's prescreened M candidates (provisional: no proof)
     ("evaluations", "e4_rerun", "ALTER TABLE evaluations ADD COLUMN e4_rerun INTEGER NOT NULL DEFAULT 0"),                       # DECISION 2026-09-18 (b) item 4: E4 re-run after a timeout (3600 s guard)
+    ("evaluations", "offline_baseline", "ALTER TABLE evaluations ADD COLUMN offline_baseline INTEGER NOT NULL DEFAULT 0"),       # REQUEST 2026-09-20 (e) item 2: D's SAIF-basis E4 record made by the offline pool (is_baseline 0: never read by the evaluators)
     ("runs", "prescreen_on", "ALTER TABLE runs ADD COLUMN prescreen_on INTEGER NOT NULL DEFAULT 0"),                             # DECISION 2026-09-18 (b) item 1c: the run executed with the map-prior prescreen active
     ("runs", "excluded_from_tables", "ALTER TABLE runs ADD COLUMN excluded_from_tables INTEGER NOT NULL DEFAULT 0"),
     ("runs", "superseded_reason", "ALTER TABLE runs ADD COLUMN superseded_reason TEXT"),                   # DECISION 2026-09-18 (d) D1: e.g. harness_fix

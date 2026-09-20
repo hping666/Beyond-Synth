@@ -20,6 +20,7 @@ import argparse
 import datetime
 import json
 import os
+import shutil
 import signal
 import subprocess
 import sys
@@ -120,12 +121,23 @@ def scope(cfg, conn, include_e4_timeouts=True):
         tried = conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' LIMIT 1", (r["cand_id"],)).fetchone() or \
             conn.execute("SELECT 1 FROM jobs WHERE cand_id=? AND pool='dc' LIMIT 1", (r["cand_id"],)).fetchone()
         out.append(item(r, "e4_timeout" if tried else "e4_late"))
+    # REQUEST 2026-09-20 (e) item 2 (PLAN 6.10): D's SAIF-basis E4 baseline for the designs whose evaluator baseline carries no SAIF power —
+    #     one D-vs-D lock-step simulation (V1 + V2 under the deterministic stimulus) -> D's SAIF -> one E4 run of D at Φ_main with SAIF
+    #     power, stored with offline_baseline = 1 and is_baseline = 0 (never read by the running evaluators; uniform_diagnosis reads it on request)
+    if o.get("d_saif_baselines"):
+        for did in d_saif_designs(cfg, conn):
+            out.append({"cand_id": f"d_saif:{did}", "group": "d_saif", "run_id": None, "design_id": did, "rtl_path": None, "model": None, "arm": None, "tier": tiers.get(did, "?")})
     # (ii) prescreened M candidates (every tier: the large tier's 636 and the 5 of the replaced thresholds run, item 1c): sim first, then E4
     for r in conn.execute(f"SELECT c.cand_id, c.run_id, c.design_id, c.rtl_path, r.llm_model, r.arm FROM candidates c JOIN runs r ON r.run_id=c.run_id "
                           f"WHERE r.exp=? AND (r.status!='superseded' OR r.superseded_reason='harness_fix') AND COALESCE(c.prescreened,0)=1 ORDER BY c.cand_id", (o["exp"],)):   # (d) D2: LSTM's prescreened candidates stay in scope after the supersession
         if has_ok_e4(r["cand_id"]):
             continue
         out.append(item(r, "prescreened"))
+    # REQUEST 2026-09-20 (e) item 3 (PLAN 6.9): the pooled-floor designs' text-level perturbations (and P0 on the listed designs) —
+    #     a SEQ proof under harness_version 2 for every entry not proven, E4 at Φ_main for every proven entry without an ok E4 record;
+    #     only once the pool's proofs are open (after the small tier's search runs)
+    if o.get("floor6_enabled") and o.get("proofs_enabled"):
+        out += floor6_items(cfg, conn, o, tiers)
     # (iv) DECISION 2026-09-18 (d) D2: the stored candidates of the runs superseded by the harness fix — simulation and E4 now under the
     #      corrected harness (simple_spi with force_rerun: its record hash did not change), the proof only when the pool's proofs are enabled
     force = set(o.get("reverify_force_rerun") or [])
@@ -182,6 +194,138 @@ def sim_payload(cfg, design, cand):
             "sverilog": design.get("sverilog", False), "incdirs": [str(p) for p in K.abs_paths(design, design["incdirs"])],
             "note": (f"offline pool (DECISION 2026-09-18 (d) D2) re-verification {cand['cand_id']}" if cand.get("group") == "reverify" else f"offline pool (DECISION 2026-09-18 item 1) prescreened {cand['cand_id']}"),
             "offline": True, "prescreened_offline": cand.get("group") != "reverify", "offline_pool": True, "reverify": cand.get("group") == "reverify", "force_rerun": bool(cand.get("force_rerun"))}
+
+
+def d_saif_designs(cfg, conn):
+    """REQUEST 2026-09-20 (e) item 2: the Phase 5 designs whose evaluator baseline has no SAIF power (src.analysis.phase5
+    default_power_basis_designs) and that have no ok offline SAIF baseline record yet."""
+    from src.analysis import phase5 as P5
+    out = []
+    for did in P5.default_power_basis_designs(cfg, conn):
+        if conn.execute("SELECT 1 FROM evaluations WHERE design_id=? AND config='E4' AND offline_baseline=1 AND status='ok' AND power_saif_mw IS NOT NULL LIMIT 1", (did,)).fetchone():
+            continue
+        out.append(did)
+    return out
+
+
+def d_saif_sim_payload(cfg, design):
+    """The D-vs-D lock-step simulation (kind sim: V1 + V2 only) whose record carries D's SAIF (saif_d, instance bs_lockstep/u_d)."""
+    from src.designs import catalog as K
+    d_rtl = [str(p) for p in K.abs_paths(design, design["files"])]
+    return {"design_id": design["design_id"], "cand_id": None, "d_rtl": d_rtl, "c_rtl": list(d_rtl), "top": design["top"], "clk": (design.get("clk_ports") or [None])[0],
+            "rst": design.get("rst_port"), "rst_sense": design.get("rst_sense"), "sverilog": design.get("sverilog", False), "incdirs": [str(p) for p in K.abs_paths(design, design["incdirs"])],
+            "note": f"offline pool (REQUEST 2026-09-20 (e) 2, PLAN 6.10): D-vs-D lock-step simulation of {design['design_id']} for D's SAIF", "offline": True, "offline_pool": True, "d_saif": True}
+
+
+def register_d_saif(cfg, design_id, rec):
+    """The D-vs-D record's SAIF of D copied to data/perturbations/<design_id>/saif/D.saif and registered in saif.json as the design's
+    SAIF (status d_vs_d): the input of D's SAIF-basis E4 record and of the phase6 floor runs (PLAN 6.9 / 6.10). -> path or None."""
+    from src.noise import generate as G
+    src_path = rec.get("saif_d")
+    if not src_path or not Path(src_path).exists() or Path(src_path).stat().st_size == 0:
+        return None
+    out = Path(G.PERT_DIR) / design_id / "saif"
+    out.mkdir(parents=True, exist_ok=True)
+    dst = out / "D.saif"
+    shutil.copyfile(src_path, dst)
+    sj = out.parent / "saif.json"
+    try:
+        s = json.loads(sj.read_text()) if sj.exists() else None
+    except (OSError, ValueError):
+        s = None
+    s = s or {"design_id": design_id, "design": None, "perturbations": {}, "missing": []}
+    s["design"] = {"saif": str(dst), "instance": "bs_lockstep/u_d", "source_record": rec.get("raw_dir"), "status": "d_vs_d"}
+    s["missing"] = [m for m in (s.get("missing") or []) if m != "design"]
+    sj.write_text(json.dumps(s, indent=1, sort_keys=True) + "\n")
+    return str(dst)
+
+
+def d_saif_e4_job(cfg, conn, design, saif):
+    """E4 of D at Φ_main with D's SAIF: an additional baseline record flagged offline_baseline = 1; is_baseline stays 0 so that no
+    evaluator query (is_baseline = 1) can pick it up (REQUEST 2026-09-20 (e) item 2)."""
+    from src.designs import jobs as J
+    o = settings(cfg)
+    phi = conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (design["design_id"],)).fetchone()[0]
+    j = J.dc_job(cfg, design, "E4", float(phi), int(o["priority"]))
+    j["payload"].update(is_baseline=0, offline_baseline=1, offline_pool=True, saif=str(saif), saif_instance="bs_lockstep/u_d")
+    return j
+
+
+def floor6_items(cfg, conn, o, tiers):
+    """REQUEST 2026-09-20 (e) item 3 (PLAN 6.9): for every pooled-floor design of the frozen table (src.analysis.phase5
+    pooled_floor_designs) the manifest's text-level perturbations (P1_text, P2_text; no Pyverilog dependency) and, on the designs of
+    offline_pool.floor6_p0_designs, the P0 round trip: entries not proven get a SEQ proof under the current harness (harness_version 2:
+    its own record hash), proven entries without an ok E4 record at Φ_main get the E4 run. Nothing here waits for a proven P0."""
+    from src.analysis import phase5 as P5
+    from src.designs import catalog as K
+    from src.noise import gate as GT
+    out = []
+    p0_designs = set(o.get("floor6_p0_designs") or [])
+    catalog = {d["design_id"]: d for d in K.load_all()}
+    for did in P5.pooled_floor_designs(cfg, conn):
+        m = GT.manifest_of(did)
+        design = catalog.get(did)
+        if not m or design is None:
+            continue
+        phi = conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (did,)).fetchone()
+        if not phi or phi[0] is None:
+            continue
+        entries = [dict(e) for e in (m.get("perturbations") or []) if e.get("ptype") in ("P1_text", "P2_text")]
+        if did in p0_designs and m.get("roundtrip"):
+            entries.append({"pert_id": m["roundtrip"]["pert_id"], "path": m["roundtrip"]["path"], "ptype": "P0_roundtrip"})
+        for e in entries:
+            row = conn.execute("SELECT seq_status FROM perturbations WHERE pert_id=?", (e["pert_id"],)).fetchone()
+            status = row["seq_status"] if row else None
+            paths = [str(Path(C.ROOT) / pth) for pth in (e.get("paths") or [e["path"]])]
+            if status in ("proven", "proven_rename"):
+                if conn.execute("SELECT 1 FROM evaluations WHERE pert_id=? AND config='E4' AND status='ok' AND abs(clock_ns-?)<1e-6 LIMIT 1", (e["pert_id"], float(phi[0]))).fetchone():
+                    continue
+                stage = "e4"
+            else:   # a record under the current harness (its own hash) decides: falsified / rejected / sim_fail is final, proven goes to E4, none -> proof
+                rec = proof_record(cfg, floor6_proof_payload(cfg, design, {"pert_id": e["pert_id"], "paths": paths, "ptype": e["ptype"]}))
+                if rec and rec.get("verdict") in ("falsified", "rejected", "sim_fail"):
+                    continue
+                stage = "e4" if rec and rec.get("verdict") == "proven" else "proof"
+            out.append({"cand_id": f"floor6:{e['pert_id']}", "group": "floor6", "run_id": None, "design_id": did, "rtl_path": None, "model": None, "arm": None, "tier": tiers.get(did, "?"),
+                        "pert_id": e["pert_id"], "ptype": e["ptype"], "paths": paths, "start_stage": stage, "seq_status_at_scope": status})
+    return out
+
+
+def floor6_proof_payload(cfg, design, cand):
+    """The gate's vcf payload (src/noise/gate.gate_jobs) for one perturbation entry: the perturbation is the candidate side."""
+    from src.designs import catalog as K
+    return {"design_id": design["design_id"], "d_rtl": [str(p) for p in K.abs_paths(design, design["files"])], "top": design["top"],
+            "clk": (design.get("clk_ports") or [None])[0], "rst": design.get("rst_port"), "rst_sense": design.get("rst_sense"), "sverilog": bool(design.get("sverilog", False)),
+            "incdirs": [str(p) for p in K.abs_paths(design, design["incdirs"])], "cand_id": cand["pert_id"], "c_rtl": list(cand["paths"]),
+            "note": f"perturbation {cand['ptype']} (offline pool floor6, REQUEST 2026-09-20 (e) 3 / PLAN 6.9)", "offline_pool": True, "floor6": True}
+
+
+def floor6_e4_job(cfg, conn, design, cand, saif=None):
+    """E4 of one proven perturbation at Φ_main (evaluations.pert_id set, is_baseline 0), with the record's SAIF of the candidate side
+    when it exists — as scripts/phase2_noise.py cmd_submit builds the noise jobs."""
+    from src.designs import jobs as J
+    from src.designs import catalog as K
+    o = settings(cfg)
+    phi = conn.execute("SELECT phi_main_ns_nangate45 FROM designs WHERE design_id=?", (design["design_id"],)).fetchone()[0]
+    j = J.dc_job(cfg, design, "E4", float(phi), int(o["priority"]))
+    j["payload"].update(rtl=list(cand["paths"]), incdirs=[str(p) for p in K.abs_paths(design, design["incdirs"])], is_baseline=0, pert_id=cand["pert_id"], offline_pool=True)
+    if saif and Path(saif).exists():
+        j["payload"].update(saif=str(saif), saif_instance="bs_lockstep/u_c")
+    return j
+
+
+def floor6_record_saif(cfg, design_id, pert_id):
+    """The SAIF of the candidate side of the perturbation's latest equivalence record (saif_c), or None."""
+    raw = Path(C.results_dir(cfg)) / "raw" / design_id / "EQ"
+    best = None
+    for eq in raw.glob("*/equiv.json"):
+        try:
+            rec = json.loads(eq.read_text())
+        except (OSError, ValueError):
+            continue
+        if rec.get("cand_id") == pert_id and rec.get("saif_c") and (best is None or eq.stat().st_mtime > best[0]):
+            best = (eq.stat().st_mtime, rec["saif_c"])
+    return best[1] if best and Path(best[1]).exists() else None
 
 
 def e4_job(cfg, conn, design, cand, saif=None):
@@ -375,11 +519,63 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
     order = []   # DECISION 2026-09-19 (m) 1: submissions follow the scope's order, not the state file's insertion order
     for it in scope(cfg, conn, include_e4_timeouts):
         order.append(it["cand_id"])
-        cands.setdefault(it["cand_id"], {**it, "stage": "sim" if it["group"] in ("prescreened", "reverify", "resim") else ("proof" if it["group"] == "reproof" else "e4"), "sim_job": None, "e4_job": None, "proof_job": None, "result": None})
+        cands.setdefault(it["cand_id"], {**it, "stage": it.get("start_stage") or ("sim" if it["group"] in ("prescreened", "reverify", "resim", "d_saif") else ("proof" if it["group"] == "reproof" else "e4")), "sim_job": None, "e4_job": None, "proof_job": None, "result": None})
     seen = set(order)
     order += [cid for cid in cands if cid not in seen]
     # progress of submitted jobs
     for cid, c in cands.items():
+        if c.get("group") == "floor6":   # REQUEST 2026-09-20 (e) item 3: proof under harness_version 2 -> perturbations row -> E4 of the proven entry
+            if c["stage"] == "proof_running":
+                js = q.get(c["proof_job"])
+                if js and js["state"] in ("done", "failed"):
+                    rec = proof_record(cfg, c["proof_payload"])
+                    d = designs.get(c["design_id"])
+                    if d is not None:
+                        try:
+                            from src.noise import gate as GT
+                            GT.collect(conn, cfg, [d]); conn.commit()
+                        except Exception as e:   # the row update must never stop the pool; the record stays on disk
+                            c["collect_error"] = f"{type(e).__name__}: {e}"[:120]
+                    row = conn.execute("SELECT seq_status FROM perturbations WHERE pert_id=?", (c["pert_id"],)).fetchone()
+                    status = row["seq_status"] if row else ((rec or {}).get("verdict") or "error")
+                    c["proof_result"] = status
+                    if status in ("proven", "proven_rename"):
+                        c.update(stage="e4", saif=(rec or {}).get("saif_c") or floor6_record_saif(cfg, c["design_id"], c["pert_id"]))
+                    else:
+                        c.update(stage="done", result=f"proof {status}")
+            elif c["stage"] == "e4_running":
+                js = q.get(c["e4_job"])
+                if js and js["state"] in ("done", "failed"):
+                    ev = conn.execute("SELECT status, dc_seconds, power_saif_mw FROM evaluations WHERE pert_id=? AND config='E4' ORDER BY eval_id DESC LIMIT 1", (c["pert_id"],)).fetchone()
+                    c.update(stage="done", result=(f"E4 {ev['status']} ({'with' if ev['power_saif_mw'] is not None else 'without'} SAIF power)" if ev else f"E4 job {js['state']} (no record)"), dc_seconds=(ev["dc_seconds"] if ev else None))
+            continue
+        if c.get("group") == "d_saif":   # REQUEST 2026-09-20 (e) item 2: D-vs-D sim -> D's SAIF registered -> E4 of D with SAIF (offline_baseline = 1)
+            if c["stage"] == "sim_running":
+                js = q.get(c["sim_job"])
+                if js and js["state"] in ("done", "failed"):
+                    rec = sim_record(cfg, c["sim_payload"])
+                    if rec is None:
+                        c.update(stage="done", result="D-vs-D simulation job failed (no record)")
+                    elif rec.get("verdict") in ("not_run", "proven_sim_only"):
+                        saif = register_d_saif(cfg, c["design_id"], rec)
+                        if saif:
+                            c.update(stage="e4", sim_result=rec.get("v2_status"), saif=saif)
+                        else:
+                            c.update(stage="done", result=f"D-vs-D simulation passed ({rec.get('v2_status')}) but the record carries no SAIF of D (saif_d)", sim_result=rec.get("v2_status"))
+                    else:
+                        c.update(stage="done", result=f"D-vs-D simulation {rec.get('verdict')} ({rec.get('v1_status')}/{rec.get('v2_status')})", sim_result=rec.get("verdict"))
+                    c["synced"] = True
+                    if rec is not None:
+                        c["sim_slimmed"] = str(slim_sim_record(cfg, c["sim_payload"]))[:120]   # D's SAIF was copied out; the build artefacts go
+            elif c["stage"] == "e4_running":
+                js = q.get(c["e4_job"])
+                if js and js["state"] in ("done", "failed"):
+                    ev = conn.execute("SELECT status, dc_seconds, power_saif_mw, eval_id FROM evaluations WHERE design_id=? AND config='E4' AND offline_baseline=1 ORDER BY eval_id DESC LIMIT 1", (c["design_id"],)).fetchone()
+                    if ev is None:
+                        c.update(stage="done", result=f"E4 job {js['state']} (no record)")
+                    else:
+                        c.update(stage="done", result=f"E4 {ev['status']} (eval {ev['eval_id']}, {'with' if ev['power_saif_mw'] is not None else 'without'} SAIF power)", dc_seconds=ev["dc_seconds"])
+            continue
         if c["stage"] == "sim_running":
             js = q.get(c["sim_job"])
             if js and js["state"] in ("done", "failed") and c.get("group") == "resim":   # DECISION 2026-09-19 (m) 2: sim -> E4 and the proof in parallel
@@ -457,7 +653,7 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
                     except Exception as e:   # retention must never stop the pool
                         c["slimmed"] = f"failed: {type(e).__name__}: {e}"[:120]
     for cid, c in cands.items():   # entries simulated before the row sync existed (2026-09-18): synced once from their records
-        if c.get("sim_payload") and not c.get("synced") and c["stage"] in ("e4", "e4_running", "done"):
+        if c.get("sim_payload") and not c.get("synced") and c["stage"] in ("e4", "e4_running", "done") and c.get("group") != "d_saif":
             rec = sim_record(cfg, c["sim_payload"])
             if rec is not None:
                 sync_candidate_row(conn, cid, rec, c.get("sim_job"))
@@ -483,6 +679,27 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
             d = designs.get(c["design_id"])
             if d is None:
                 c.update(stage="done", result="design not in the catalog"); continue
+            if c.get("group") == "floor6":   # REQUEST 2026-09-20 (e) item 3
+                if c["stage"] == "proof":
+                    pl = floor6_proof_payload(cfg, d, c)
+                    jid = q.submit("vcf", pl, design_id=c["design_id"], cand_id=c["pert_id"], config="EQ", priority=int(o["priority"]), timeout_sec=int(cfg["timeouts"]["seq_min"]) * 60 + 900)
+                    c.update(stage="proof_running", proof_job=jid, proof_payload=pl); submitted += 1
+                elif c["stage"] == "e4":
+                    saif = c.get("saif") or floor6_record_saif(cfg, c["design_id"], c["pert_id"])
+                    j = floor6_e4_job(cfg, conn, d, c, saif=saif)
+                    jid = q.submit(j["kind"], j["payload"], design_id=c["design_id"], cand_id=None, config="E4", priority=j["priority"], timeout_sec=j["timeout_sec"])
+                    c.update(stage="e4_running", e4_job=jid, saif=saif); submitted += 1
+                continue
+            if c.get("group") == "d_saif":   # REQUEST 2026-09-20 (e) item 2
+                if c["stage"] == "sim":
+                    pl = d_saif_sim_payload(cfg, d)
+                    jid = q.submit("sim", pl, design_id=c["design_id"], cand_id=None, config="EQ", priority=int(o["priority"]), timeout_sec=int(cfg["timeouts"]["sim"]) * 60 + 300)
+                    c.update(stage="sim_running", sim_job=jid, sim_payload=pl); submitted += 1
+                elif c["stage"] == "e4":
+                    j = d_saif_e4_job(cfg, conn, d, c["saif"])
+                    jid = q.submit(j["kind"], j["payload"], design_id=c["design_id"], cand_id=None, config="E4", priority=j["priority"], timeout_sec=j["timeout_sec"])
+                    c.update(stage="e4_running", e4_job=jid); submitted += 1
+                continue
             if c["stage"] == "sim" and c.get("group") == "resim":   # (m) 2: the crashed job's payload, at the run pipeline's priority, not niced
                 pl = dict(c["sim_payload_src"]); pl["note"] = f"{pl.get('note', '')} [resim (DECISION 2026-09-19 (m) 2)]"; pl["resim"] = 1
                 jid = q.submit("sim", pl, design_id=c["design_id"], cand_id=cid, config="EQ", priority=int(cfg["search"].get("job_priority", 4)), timeout_sec=int(cfg["timeouts"]["sim"]) * 60 + 300)

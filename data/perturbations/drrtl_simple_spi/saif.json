@@ -1,5 +1,10 @@
 {
- "design": null,
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_simple_spi/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_simple_spi/EQ/93d9c071c0df806a",
+  "status": "d_vs_d"
+ },
  "design_id": "drrtl_simple_spi",
  "missing": [],
  "perturbations": {}

@@ -1,14 +1,12 @@
 {
  "design": {
   "instance": "bs_lockstep/u_d",
-  "saif": null,
-  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_hsm__MixColumns/EQ/d1bfb65c987a36cc",
-  "status": "no_vcd"
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_hsm__MixColumns/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_hsm__MixColumns/EQ/35499770cc94c670",
+  "status": "d_vs_d"
  },
  "design_id": "cktevo_hsm__MixColumns",
- "missing": [
-  "design"
- ],
+ "missing": [],
  "perturbations": {
   "p3d82dcbf980cf8": {
    "instance": "bs_lockstep/u_c",

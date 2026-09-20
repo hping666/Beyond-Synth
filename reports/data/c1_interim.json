@@ -1,9 +1,9 @@
 {
  "date": "2026-09-20",
- "generated_at": "2026-09-20T04:30",
+ "generated_at": "2026-09-20T05:30",
  "versions": {
-  "git_sha": "97ccdeaaa066",
-  "cfg_hash": "de7d24d19295",
+  "git_sha": "e3de7f0b1103",
+  "cfg_hash": "45803d414957",
   "floor_version": "phase4",
   "equiv_version": "phase5",
   "harness_version": 2
@@ -24,6 +24,21 @@
    "created": 18
   }
  },
+ "default_power_basis": [
+  "cktevo_hsm__MixColumns",
+  "cktevo_hsm__hsm",
+  "cktevo_nn_engine__thresholds_128x4096",
+  "cktevo_risc__btb",
+  "cktevo_risc__cpu",
+  "cktevo_risc__stall_control_unit",
+  "cktevo_usb__usbf_sie_rx",
+  "cktevo_vga_enh__vga_wb_slave",
+  "drrtl_LSTM",
+  "drrtl_aes",
+  "drrtl_arm_cpu2",
+  "drrtl_simple_spi",
+  "drrtl_tv80"
+ ],
  "floors": {
   "floor_version": "phase4",
   "k_sigma": 2.0,
@@ -793,7 +808,7 @@
  },
  "retained_on_offset": {
   "n": 335,
-  "retained_total": 3771,
+  "retained_total": 3792,
   "designs": {
    "cktevo_mem_ctrl__mc_adr_sel": 335
   }
@@ -2018,19 +2033,19 @@
       }
      },
      "prescreened_proof_pending": {
-      "n": 157,
+      "n": 181,
       "table": {
        "a": {
-        "n": 157,
+        "n": 181,
         "labels": {
          "retained": 1,
          "tradeoff": 3,
-         "absorbed_identical": 88,
-         "noise": 16,
-         "harmful": 49
+         "absorbed_identical": 102,
+         "noise": 20,
+         "harmful": 55
         },
         "retained": 1,
-        "retention_rate": 0.006369426751592357,
+        "retention_rate": 0.0055248618784530384,
         "material": {
          "any": 0,
          "area": 0,
@@ -2041,8 +2056,8 @@
        }
       }
      },
-     "prescreened_sim_pending": 42,
-     "prescreened_e4_pending": 64
+     "prescreened_sim_pending": 0,
+     "prescreened_e4_pending": 68
     },
     "medium": {
      "by_arm": {
@@ -2157,43 +2172,43 @@
          }
         },
         "b": {
-         "n": 710,
+         "n": 715,
          "labels": {
           "retained": 218,
-          "tradeoff": 199,
-          "absorbed_identical": 169,
+          "tradeoff": 200,
+          "absorbed_identical": 171,
           "absorbed": 40,
           "noise": 1,
-          "harmful": 83
+          "harmful": 85
          },
          "retained": 218,
-         "retention_rate": 0.30704225352112674,
+         "retention_rate": 0.3048951048951049,
          "material": {
           "any": 150,
           "area": 77,
           "power": 111,
           "wns": 112,
-          "rate_any": 0.2112676056338028
+          "rate_any": 0.2097902097902098
          }
         },
         "c1": {
-         "n": 298,
+         "n": 304,
          "labels": {
           "retained": 135,
-          "tradeoff": 99,
+          "tradeoff": 105,
           "absorbed_identical": 3,
           "absorbed": 1,
           "noise": 30,
           "harmful": 30
          },
          "retained": 135,
-         "retention_rate": 0.45302013422818793,
+         "retention_rate": 0.4440789473684211,
          "material": {
           "any": 133,
           "area": 36,
           "power": 123,
           "wns": 59,
-          "rate_any": 0.4463087248322148
+          "rate_any": 0.4375
          }
         },
         "d": {
@@ -2217,105 +2232,105 @@
          }
         }
        },
-       "proven": 1756,
-       "evaluated": 1750,
+       "proven": 1767,
+       "evaluated": 1761,
        "e4_pending": 0,
        "dc_rejected": 6,
        "harness": {
         "v1": 978,
-        "v2": 778
+        "v2": 789
        }
       },
       "B2": {
        "table": {
         "a": {
-         "n": 550,
+         "n": 553,
          "labels": {
-          "retained": 115,
+          "retained": 118,
           "tradeoff": 223,
           "absorbed_identical": 132,
           "absorbed": 12,
           "noise": 2,
           "harmful": 66
          },
-         "retained": 115,
-         "retention_rate": 0.20909090909090908,
+         "retained": 118,
+         "retention_rate": 0.21338155515370705,
          "material": {
-          "any": 111,
-          "area": 108,
-          "power": 111,
+          "any": 114,
+          "area": 111,
+          "power": 114,
           "wns": 7,
-          "rate_any": 0.2018181818181818
+          "rate_any": 0.20614828209764918
          }
         },
         "b": {
-         "n": 1482,
+         "n": 1484,
          "labels": {
-          "retained": 478,
-          "tradeoff": 499,
+          "retained": 479,
+          "tradeoff": 500,
           "absorbed_identical": 274,
           "absorbed": 43,
           "noise": 5,
           "harmful": 183
          },
-         "retained": 478,
-         "retention_rate": 0.3225371120107962,
+         "retained": 479,
+         "retention_rate": 0.3227762803234501,
          "material": {
-          "any": 408,
+          "any": 409,
           "area": 279,
           "power": 311,
-          "wns": 327,
-          "rate_any": 0.27530364372469635
+          "wns": 328,
+          "rate_any": 0.2756064690026954
          }
         },
         "c1": {
-         "n": 585,
+         "n": 586,
          "labels": {
           "retained": 135,
-          "tradeoff": 241,
+          "tradeoff": 242,
           "absorbed_identical": 7,
           "absorbed": 4,
           "noise": 97,
           "harmful": 101
          },
          "retained": 135,
-         "retention_rate": 0.23076923076923078,
+         "retention_rate": 0.23037542662116042,
          "material": {
           "any": 133,
           "area": 37,
           "power": 115,
           "wns": 85,
-          "rate_any": 0.22735042735042735
+          "rate_any": 0.22696245733788395
          }
         },
         "d": {
-         "n": 983,
+         "n": 1000,
          "labels": {
-          "retained": 404,
+          "retained": 421,
           "tradeoff": 471,
           "absorbed_identical": 39,
           "absorbed": 11,
           "noise": 3,
           "harmful": 55
          },
-         "retained": 404,
-         "retention_rate": 0.41098677517802645,
+         "retained": 421,
+         "retention_rate": 0.421,
          "material": {
-          "any": 400,
-          "area": 185,
-          "power": 395,
+          "any": 417,
+          "area": 202,
+          "power": 412,
           "wns": 106,
-          "rate_any": 0.4069175991861648
+          "rate_any": 0.417
          }
         }
        },
-       "proven": 3632,
-       "evaluated": 3600,
-       "e4_pending": 20,
+       "proven": 3656,
+       "evaluated": 3623,
+       "e4_pending": 21,
        "dc_rejected": 12,
        "harness": {
         "v1": 1424,
-        "v2": 2208
+        "v2": 2232
        }
       },
       "DrRTL_reimpl": {
@@ -2429,23 +2444,23 @@
          }
         },
         "b": {
-         "n": 571,
+         "n": 577,
          "labels": {
           "retained": 234,
           "tradeoff": 137,
           "absorbed_identical": 145,
           "absorbed": 5,
           "noise": 1,
-          "harmful": 49
+          "harmful": 55
          },
          "retained": 234,
-         "retention_rate": 0.4098073555166375,
+         "retention_rate": 0.4055459272097054,
          "material": {
           "any": 191,
           "area": 136,
           "power": 122,
           "wns": 169,
-          "rate_any": 0.3345008756567426
+          "rate_any": 0.3310225303292894
          }
         },
         "c1": {
@@ -2503,13 +2518,13 @@
          }
         }
        },
-       "proven": 2207,
-       "evaluated": 1306,
+       "proven": 2213,
+       "evaluated": 1312,
        "e4_pending": 8,
        "dc_rejected": 2,
        "harness": {
         "v1": 413,
-        "v2": 1794
+        "v2": 1800
        }
       }
      },
@@ -2520,63 +2535,63 @@
      },
      "all_arms": {
       "a": {
-       "n": 2205,
+       "n": 2208,
        "labels": {
-        "retained": 420,
+        "retained": 423,
         "tradeoff": 643,
         "absorbed_identical": 889,
         "absorbed": 36,
         "noise": 12,
         "harmful": 205
        },
-       "retained": 420,
-       "retention_rate": 0.19047619047619047,
+       "retained": 423,
+       "retention_rate": 0.19157608695652173,
        "material": {
-        "any": 391,
-        "area": 344,
-        "power": 382,
+        "any": 394,
+        "area": 347,
+        "power": 385,
         "wns": 18,
-        "rate_any": 0.17732426303854876
+        "rate_any": 0.17844202898550723
        }
       },
       "b": {
-       "n": 3566,
+       "n": 3579,
        "labels": {
-        "retained": 1269,
-        "tradeoff": 1036,
-        "absorbed_identical": 706,
+        "retained": 1270,
+        "tradeoff": 1038,
+        "absorbed_identical": 708,
         "absorbed": 141,
         "noise": 8,
-        "harmful": 406
+        "harmful": 414
        },
-       "retained": 1269,
-       "retention_rate": 0.3558609085810432,
+       "retained": 1270,
+       "retention_rate": 0.35484772282760546,
        "material": {
-        "any": 982,
+        "any": 983,
         "area": 670,
         "power": 732,
-        "wns": 812,
-        "rate_any": 0.2753785754346607
+        "wns": 813,
+        "rate_any": 0.27465772562168206
        }
       },
       "c1": {
-       "n": 1603,
+       "n": 1610,
        "labels": {
         "retained": 593,
-        "tradeoff": 566,
+        "tradeoff": 573,
         "absorbed_identical": 14,
         "absorbed": 5,
         "noise": 185,
         "harmful": 240
        },
        "retained": 593,
-       "retention_rate": 0.36993137866500314,
+       "retention_rate": 0.36832298136645963,
        "material": {
         "any": 563,
         "area": 201,
         "power": 507,
         "wns": 325,
-        "rate_any": 0.3512164691203993
+        "rate_any": 0.34968944099378885
        }
       },
       "c2": {
@@ -2595,23 +2610,23 @@
        }
       },
       "d": {
-       "n": 2388,
+       "n": 2405,
        "labels": {
-        "retained": 1055,
+        "retained": 1072,
         "tradeoff": 1053,
         "absorbed_identical": 103,
         "absorbed": 19,
         "noise": 5,
         "harmful": 153
        },
-       "retained": 1055,
-       "retention_rate": 0.4417922948073702,
+       "retained": 1072,
+       "retention_rate": 0.44573804573804576,
        "material": {
-        "any": 1020,
-        "area": 532,
-        "power": 999,
+        "any": 1037,
+        "area": 549,
+        "power": 1016,
         "wns": 268,
-        "rate_any": 0.4271356783919598
+        "rate_any": 0.4311850311850312
        }
       }
      },
@@ -2933,41 +2948,41 @@
       }
      },
      "b": {
-      "n": 992,
+      "n": 1005,
       "labels": {
-       "retained": 12,
-       "tradeoff": 271,
-       "absorbed_identical": 330,
+       "retained": 13,
+       "tradeoff": 273,
+       "absorbed_identical": 332,
        "absorbed": 47,
        "noise": 54,
-       "harmful": 278
+       "harmful": 286
       },
-      "retained": 12,
-      "retention_rate": 0.012096774193548387,
+      "retained": 13,
+      "retention_rate": 0.012935323383084577,
       "material": {
-       "any": 4,
+       "any": 5,
        "area": 2,
        "power": 1,
-       "wns": 2,
-       "rate_any": 0.004032258064516129
+       "wns": 3,
+       "rate_any": 0.004975124378109453
       }
      },
      "c1": {
-      "n": 174,
+      "n": 181,
       "labels": {
        "retained": 13,
-       "tradeoff": 118,
+       "tradeoff": 125,
        "noise": 6,
        "harmful": 37
       },
       "retained": 13,
-      "retention_rate": 0.07471264367816093,
+      "retention_rate": 0.0718232044198895,
       "material": {
        "any": 7,
        "area": 5,
        "power": 7,
        "wns": 2,
-       "rate_any": 0.040229885057471264
+       "rate_any": 0.03867403314917127
       }
      },
      "d": {
@@ -2991,21 +3006,21 @@
     },
     "RTL-OPT": {
      "a": {
-      "n": 448,
+      "n": 451,
       "labels": {
-       "retained": 212,
+       "retained": 215,
        "tradeoff": 98,
        "absorbed_identical": 83,
        "harmful": 55
       },
-      "retained": 212,
-      "retention_rate": 0.4732142857142857,
+      "retained": 215,
+      "retention_rate": 0.47671840354767187,
       "material": {
-       "any": 210,
-       "area": 192,
-       "power": 210,
+       "any": 213,
+       "area": 195,
+       "power": 213,
        "wns": 3,
-       "rate_any": 0.46875
+       "rate_any": 0.4722838137472284
       }
      },
      "b": {
@@ -3046,21 +3061,21 @@
       }
      },
      "d": {
-      "n": 2267,
+      "n": 2284,
       "labels": {
-       "retained": 1048,
+       "retained": 1065,
        "tradeoff": 975,
        "absorbed_identical": 86,
        "harmful": 158
       },
-      "retained": 1048,
-      "retention_rate": 0.4622849580943979,
+      "retained": 1065,
+      "retention_rate": 0.46628721541155865,
       "material": {
-       "any": 1015,
-       "area": 532,
-       "power": 998,
+       "any": 1032,
+       "area": 549,
+       "power": 1015,
        "wns": 263,
-       "rate_any": 0.4477282752536392
+       "rate_any": 0.45183887915936954
       }
      }
     }
@@ -3068,21 +3083,21 @@
    "evidence_tags": {
     "registers renamed / retargeted, count and latency unchanged": {
      "noise": 116,
-     "harmful": 458,
-     "absorbed_identical": 777,
-     "retained": 1568,
-     "tradeoff": 1125
+     "harmful": 466,
+     "absorbed_identical": 779,
+     "retained": 1569,
+     "tradeoff": 1127
     },
     "state elements unchanged": {
      "absorbed_identical": 1034,
      "harmful": 393,
      "noise": 108,
      "tradeoff": 660,
-     "retained": 421
+     "retained": 424
     },
     "combinational depth ratio >= threshold": {
      "noise": 3,
-     "retained": 903,
+     "retained": 920,
      "harmful": 158,
      "absorbed_identical": 98,
      "tradeoff": 888
@@ -3095,7 +3110,7 @@
      "absorbed_identical": 191
     },
     "flip-flop count and register cells changed": {
-     "tradeoff": 588,
+     "tradeoff": 595,
      "retained": 606,
      "harmful": 249,
      "noise": 189,
@@ -3991,7 +4006,7 @@
   "phase5_designs": {
    "cktevo_hsm__hsm": {
     "tier": "large",
-    "status": "runs done, evaluations pending",
+    "status": "complete",
     "rows": {
      "gpt-5.6-terra|B0": {
       "runs": 3,
@@ -5047,22 +5062,22 @@
     "absorbed_identical_share": 0.14018691588785046
    },
    "B1_E4": {
-    "evaluated": 2096,
-    "harmful": 250,
-    "absorbed_identical": 349,
+    "evaluated": 2107,
+    "harmful": 252,
+    "absorbed_identical": 351,
     "retained": 754,
-    "tradeoff": 622,
-    "harmful_share": 0.11927480916030535,
-    "absorbed_identical_share": 0.16650763358778625
+    "tradeoff": 629,
+    "harmful_share": 0.11960132890365449,
+    "absorbed_identical_share": 0.1665875652586616
    },
    "B2": {
-    "evaluated": 4016,
+    "evaluated": 4039,
     "harmful": 509,
     "absorbed_identical": 538,
-    "retained": 1232,
-    "tradeoff": 1512,
-    "harmful_share": 0.1267430278884462,
-    "absorbed_identical_share": 0.1339641434262948
+    "retained": 1253,
+    "tradeoff": 1514,
+    "harmful_share": 0.1260212923991087,
+    "absorbed_identical_share": 0.13320128744738796
    },
    "DrRTL_reimpl": {
     "evaluated": 1800,
@@ -5074,22 +5089,22 @@
     "absorbed_identical_share": 0.24
    },
    "M": {
-    "evaluated": 1571,
-    "harmful": 157,
+    "evaluated": 1577,
+    "harmful": 163,
     "absorbed_identical": 356,
     "retained": 468,
     "tradeoff": 517,
-    "harmful_share": 0.09993634627625717,
-    "absorbed_identical_share": 0.2266072565245067
+    "harmful_share": 0.10336081166772353,
+    "absorbed_identical_share": 0.2257450856055802
    }
   },
   "retained_vs_tradeoff_by_tag": {
    "registers renamed / retargeted, count and latency unchanged": {
-    "retained": 1568,
-    "tradeoff": 1125
+    "retained": 1569,
+    "tradeoff": 1127
    },
    "combinational depth ratio >= threshold": {
-    "retained": 903,
+    "retained": 920,
     "tradeoff": 888
    },
    "wide text difference without operator / topology evidence": {
@@ -5098,10 +5113,10 @@
    },
    "flip-flop count and register cells changed": {
     "retained": 606,
-    "tradeoff": 588
+    "tradeoff": 595
    },
    "state elements unchanged": {
-    "retained": 421,
+    "retained": 424,
     "tradeoff": 660
    },
    "operator family gained: add": {
@@ -5140,12 +5155,12 @@
   "per_design": {
    "cktevo_hsm__hsm": {
     "tier": "large",
-    "with_verdict": 1054,
+    "with_verdict": 1055,
     "proven": 0,
     "inconclusive": 273,
     "by_class": {
      "a": {
-      "n": 5,
+      "n": 6,
       "proven": 0,
       "inconclusive": 0
      },
@@ -5168,12 +5183,12 @@
    },
    "cktevo_nn_engine__spikeNeuron8_H7": {
     "tier": "large",
-    "with_verdict": 835,
+    "with_verdict": 846,
     "proven": 314,
     "inconclusive": 311,
     "by_class": {
      "a": {
-      "n": 528,
+      "n": 539,
       "proven": 294,
       "inconclusive": 122
      },
@@ -5224,12 +5239,12 @@
    },
    "drrtl_aes": {
     "tier": "large",
-    "with_verdict": 938,
+    "with_verdict": 940,
     "proven": 577,
     "inconclusive": 125,
     "by_class": {
      "a": {
-      "n": 254,
+      "n": 256,
       "proven": 196,
       "inconclusive": 9
      },
@@ -5364,19 +5379,19 @@
    },
    "cktevo_risc__cpu": {
     "tier": "medium",
-    "with_verdict": 861,
+    "with_verdict": 866,
     "proven": 89,
-    "inconclusive": 180,
+    "inconclusive": 185,
     "by_class": {
      "a": {
-      "n": 103,
+      "n": 104,
       "proven": 20,
-      "inconclusive": 13
+      "inconclusive": 14
      },
      "b": {
-      "n": 569,
+      "n": 573,
       "proven": 69,
-      "inconclusive": 162
+      "inconclusive": 166
      },
      "c1": {
       "n": 87,
@@ -5448,22 +5463,22 @@
    },
    "drrtl_SPI": {
     "tier": "medium",
-    "with_verdict": 966,
+    "with_verdict": 982,
     "proven": 130,
-    "inconclusive": 775,
+    "inconclusive": 788,
     "by_class": {
      "a": {
-      "n": 372,
+      "n": 373,
       "proven": 124,
-      "inconclusive": 236
+      "inconclusive": 237
      },
      "b": {
-      "n": 469,
+      "n": 481,
       "proven": 2,
-      "inconclusive": 449
+      "inconclusive": 461
      },
      "c1": {
-      "n": 66,
+      "n": 69,
       "proven": 2,
       "inconclusive": 43
      },
@@ -5476,8 +5491,8 @@
    },
    "drrtl_UART": {
     "tier": "medium",
-    "with_verdict": 918,
-    "proven": 853,
+    "with_verdict": 929,
+    "proven": 863,
     "inconclusive": 11,
     "by_class": {
      "a": {
@@ -5486,8 +5501,8 @@
       "inconclusive": 0
      },
      "b": {
-      "n": 676,
-      "proven": 652,
+      "n": 686,
+      "proven": 662,
       "inconclusive": 10
      },
      "c1": {
@@ -5496,7 +5511,7 @@
       "inconclusive": 1
      },
      "d": {
-      "n": 18,
+      "n": 19,
       "proven": 0,
       "inconclusive": 0
      }
@@ -5560,8 +5575,8 @@
    },
    "drrtl_router": {
     "tier": "medium",
-    "with_verdict": 829,
-    "proven": 682,
+    "with_verdict": 842,
+    "proven": 692,
     "inconclusive": 2,
     "by_class": {
      "a": {
@@ -5570,13 +5585,13 @@
       "inconclusive": 0
      },
      "b": {
-      "n": 259,
-      "proven": 188,
+      "n": 265,
+      "proven": 191,
       "inconclusive": 1
      },
      "c1": {
-      "n": 133,
-      "proven": 109,
+      "n": 140,
+      "proven": 116,
       "inconclusive": 1
      },
      "d": {
@@ -5588,9 +5603,9 @@
    },
    "drrtl_simple_spi": {
     "tier": "medium",
-    "with_verdict": 855,
-    "proven": 141,
-    "inconclusive": 533,
+    "with_verdict": 878,
+    "proven": 142,
+    "inconclusive": 549,
     "by_class": {
      "a": {
       "n": 35,
@@ -5598,14 +5613,14 @@
       "inconclusive": 6
      },
      "b": {
-      "n": 685,
+      "n": 700,
       "proven": 91,
-      "inconclusive": 499
+      "inconclusive": 512
      },
      "c1": {
-      "n": 133,
-      "proven": 29,
-      "inconclusive": 28
+      "n": 141,
+      "proven": 30,
+      "inconclusive": 31
      },
      "d": {
       "n": 2,
@@ -5639,13 +5654,13 @@
    },
    "rtlopt_calculation": {
     "tier": "medium",
-    "with_verdict": 715,
-    "proven": 564,
+    "with_verdict": 743,
+    "proven": 584,
     "inconclusive": 11,
     "by_class": {
      "a": {
-      "n": 226,
-      "proven": 204,
+      "n": 229,
+      "proven": 207,
       "inconclusive": 11
      },
      "b": {
@@ -5654,8 +5669,8 @@
       "inconclusive": 0
      },
      "d": {
-      "n": 471,
-      "proven": 360,
+      "n": 496,
+      "proven": 377,
       "inconclusive": 0
      }
     }
@@ -5831,9 +5846,9 @@
     "share": 0.17682926829268292
    },
    "a|v2": {
-    "finished": 1447,
-    "inconclusive": 136,
-    "share": 0.09398756046993781
+    "finished": 1452,
+    "inconclusive": 138,
+    "share": 0.09504132231404959
    },
    "b|v1": {
     "finished": 3296,
@@ -5841,9 +5856,9 @@
     "share": 0.3759101941747573
    },
    "b|v2": {
-    "finished": 3655,
-    "inconclusive": 913,
-    "share": 0.24979480164158688
+    "finished": 3697,
+    "inconclusive": 942,
+    "share": 0.25480119015417907
    },
    "c1|v1": {
     "finished": 1455,
@@ -5851,9 +5866,9 @@
     "share": 0.12714776632302405
    },
    "c1|v2": {
-    "finished": 656,
-    "inconclusive": 82,
-    "share": 0.125
+    "finished": 667,
+    "inconclusive": 85,
+    "share": 0.12743628185907047
    },
    "c2|v1": {
     "finished": 1,
@@ -5866,38 +5881,38 @@
     "share": 0.07503152585119799
    },
    "d|v2": {
-    "finished": 1639,
+    "finished": 1656,
     "inconclusive": 31,
-    "share": 0.018913971934106162
+    "share": 0.018719806763285024
    }
   },
   "inconclusive_by_load": {
    "threshold": 100.0,
-   "n": 10730,
+   "n": 10805,
    "from": "2026-09-18T05:49:54",
    "by_class": {
     "b": {
      "above": {
-      "proven": 2400,
-      "inconclusive": 451,
-      "share": 0.15819010873377762
+      "proven": 2401,
+      "inconclusive": 462,
+      "share": 0.16136919315403422
      },
      "below": {
-      "proven": 1065,
-      "inconclusive": 541,
-      "share": 0.3368617683686177
+      "proven": 1077,
+      "inconclusive": 559,
+      "share": 0.3416870415647922
      }
     },
     "d": {
      "above": {
-      "proven": 1894,
+      "proven": 1898,
       "inconclusive": 24,
-      "share": 0.01251303441084463
+      "share": 0.012486992715920915
      },
      "below": {
-      "proven": 438,
+      "proven": 451,
       "inconclusive": 17,
-      "share": 0.03736263736263736
+      "share": 0.03632478632478633
      }
     },
     "a": {
@@ -5907,21 +5922,21 @@
       "share": 0.08173076923076923
      },
      "below": {
-      "proven": 724,
-      "inconclusive": 97,
-      "share": 0.11814859926918392
+      "proven": 727,
+      "inconclusive": 99,
+      "share": 0.1198547215496368
      }
     },
     "c1": {
      "above": {
-      "proven": 1271,
+      "proven": 1272,
       "inconclusive": 57,
-      "share": 0.04292168674698795
+      "share": 0.04288939051918736
      },
      "below": {
-      "proven": 240,
-      "inconclusive": 54,
-      "share": 0.1836734693877551
+      "proven": 247,
+      "inconclusive": 57,
+      "share": 0.1875
      }
     },
     "c2": {
@@ -6261,8 +6276,8 @@
   "proof_latency_bound": {
    "drrtl_SPI": {
     "median_min": 51.0,
-    "empty_archive_builds": 94,
-    "builds": 212
+    "empty_archive_builds": 100,
+    "builds": 218
    },
    "drrtl_tv80": {
     "median_min": 50.9,
@@ -6281,8 +6296,8 @@
    },
    "drrtl_simple_spi": {
     "median_min": 51.0,
-    "empty_archive_builds": 120,
-    "builds": 162
+    "empty_archive_builds": 124,
+    "builds": 166
    }
   },
   "proof_latency_bound_source": "scripts/report_phase.proof_latency_bound (median proof latency over the finished Phase 5 proofs above the 1 800 s generation window; archive-at-build from gen_summary.archive_json; DECISION 2026-09-19 (k) 3, (l) 4)"
@@ -6305,7 +6320,7 @@
     "item": "prescreened candidates' simulation, E4 and proofs (large-tier M)",
     "owner": "offline pool (prescreened group; proofs after the small tier, DECISION 2026-09-18 (d) B5 / (q) 2)",
     "stage": "Phase 5 completion condition",
-    "status": "sim pending 42, E4 pending 64, proof pending 157"
+    "status": "sim pending 0, E4 pending 68, proof pending 181"
    },
    {
     "item": "E1 (a) / (b) reconciliation (router and tv80 harness_version-1 falsified records re-proven under v2)",
@@ -6346,6 +6361,7 @@
   ],
   "completion": {
    "complete": [
+    "cktevo_hsm__hsm",
     "drrtl_arm_cpu2",
     "rtlopt_sub_32bit"
    ],
@@ -6356,7 +6372,7 @@
    ],
    "tally": {
     "wins": 0,
-    "ties": 4,
+    "ties": 5,
     "partials": 1,
     "losses": 0,
     "undecided": 0
@@ -6620,7 +6636,7 @@
   "1. **Supportable today.** The residual is defined against a measured floor: at E4 the pooled minimum is 0.28 % area / 2.2 % power / 0.03 % WNS of the period; 13 of the 30 Phase 5 designs carry the pooled floor (no measured perturbations at E4), 1 of the 30 is an offset design (mc_adr_sel; its 335 retained verdicts so far are flagged).",
   "2. **Supportable.** The ladder is real but not monotone: E1 \u2192 E2 is the large step (\u22126 % to \u221237 % area on the probe), the high-effort flags are no-ops, DesignWare is a capability of its own (3\u20136 % either way), retiming and clock gating act only where their structures exist; D's area grows on 10 of 127 designs from E1 to E4.",
   "3. **Supportable (interim).** Rule A at E4 on the Phase 4 B0 objects (10 human-written designs): 55 of 168 proven objects retained (32.7 %), 49 of them above the materiality threshold; map shape 'concentrated' (reports/phase4.md \u00a72) with E4 retention by class a 6 %, b 49 %, c1 100 %, d 94 %.",
-  "4. **Supportable (interim, incomplete).** Phase 5 so far: 3771 of 11302 evaluated proven candidates retained (33.4 %), 3254 above materiality, across 13 tier-arm rows; the large tier's runs are done, the medium tier stands at 35 created, 297 done, 44 running (interim), B0's offline E4 is in for all but 146 proven B0 candidates.",
+  "4. **Supportable (interim, incomplete).** Phase 5 so far: 3792 of 11342 evaluated proven candidates retained (33.4 %), 3275 above materiality, across 13 tier-arm rows; the large tier's runs are done, the medium tier stands at 35 created, 297 done, 44 running (interim), B0's offline E4 is in for all but 146 proven B0 candidates.",
   "5. **Supportable.** The literature's caliber: of B0's Yosys-'improved' candidates with an E4 record, 645 of 1490 are retained at E4 (43.3 %), 179 are absorbed_identical or noise, 183 harmful; on the literature pairs, RTL-OPT better at E1 20 \u2192 retained at E4 11 of 34 proven pairs, RTLRewriter 24 \u2192 10 of 43; under the authors' released RTL-OPT setting (plain compile, 0.1 ns) reproduced on this DC 25 of 33 pairs are better, under the paper's described setting (compile_ultra, 1 ns) 13.",
   "6. **Not yet.** Whether retained gains survive the hidden configurations (C1's certification column) \u2014 sealed until PHASE5_COMPLETE; the final map with rung attribution on Phase 5 candidates (Phase 6 ladder runs); the Dr.RTL per-design comparison (paper numbers not transcribed; the reference row not run); the large-tier M row (641 prescreened candidates await their proofs after the small tier).",
   "7. **Not yet.** Retention on the proof-latency-bound and verification-limited designs (SPI, simple_spi, tv80, cpu; hsm): the proven denominators there are too small, and E1 (a) / (b) may still flip router's and tv80's v1-falsified records.",

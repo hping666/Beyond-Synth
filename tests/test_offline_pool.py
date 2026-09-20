@@ -405,3 +405,151 @@ def test_e4_failure_classification_terminal_or_retry_and_scope_skips(tmp_path, m
     mod.once(cfg, conn, st, queue=FakeQ())
     assert st["cands"]["c_rej"]["result"] == "E4 DC rejected (ELAB-366), terminal" and st["cands"]["c_tmo"]["result"].endswith("(no DC error id; retry)")
     assert dict(conn.execute("SELECT e4_failure FROM candidates WHERE cand_id='c_rej'").fetchone())["e4_failure"] == "DC rejected (ELAB-366)"
+
+
+def test_d_saif_group_makes_the_offline_saif_baseline_read_only_on_request(tmp_path, monkeypatch):
+    """REQUEST 2026-09-20 (e) item 2 (PLAN 6.10): a design whose evaluator baseline (is_baseline = 1) has no SAIF power gets one D-vs-D
+    lock-step simulation (c_rtl = d_rtl, cand_id None), D's SAIF registered under data/perturbations/<design>/saif/D.saif, then one E4
+    of D at Φ_main with that SAIF flagged offline_baseline = 1 and is_baseline = 0. Both directions: a design whose baseline carries SAIF
+    power is not in scope; the search basis (_Designs) never returns the offline record while the offline_saif basis does; a design with
+    an ok offline record leaves the scope."""
+    mod = load_pool()
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": ["D1"], "medium": ["D2"], "small": []}
+    cfg["offline_pool"] = {"slots": 4, "priority": 1, "load_over_baseline": 0.10, "d_saif_baselines": True, "group_order": ["d_saif", "prescreened"]}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    for d in ("D1", "D2"):
+        conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES (?,'x',?,'p',1,1,'held',1.0,'t','g','c')", (d, d))
+    db.insert(conn, "evaluations", {"design_id": "D1", "is_baseline": 1, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 100.0, "cells": 10, "wns_ns": 0.1, "power_default_mw": 1.0, "status": "ok", "raw_dir": "/x/d1", "dc_seconds": 1})
+    db.insert(conn, "evaluations", {"design_id": "D2", "is_baseline": 1, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 100.0, "cells": 10, "wns_ns": 0.1, "power_default_mw": 1.0, "power_saif_mw": 0.5, "status": "ok", "raw_dir": "/x/d2", "dc_seconds": 1})
+    items = [(it["cand_id"], it["group"], it["design_id"]) for it in mod.scope(cfg, conn)]
+    assert items == [("d_saif:D1", "d_saif", "D1")]                                                   # D2's baseline carries SAIF power: not in scope
+    cfg["offline_pool"]["d_saif_baselines"] = False
+    assert mod.scope(cfg, conn) == []                                                                  # the switch
+    cfg["offline_pool"]["d_saif_baselines"] = True
+    monkeypatch.setattr(mod, "STATE", str(tmp_path / "state.json")); monkeypatch.setattr(mod, "LOG", str(tmp_path / "pool.log"))
+    monkeypatch.setattr(mod, "throttle", lambda cfg, conn, st: (True, 50.0, 0.0))
+    (tmp_path / "rtl").mkdir(); (tmp_path / "rtl" / "d1.v").write_text("module d1(input clk, output reg y); always @(posedge clk) y <= ~y; endmodule\n")
+    monkeypatch.setattr("src.designs.catalog.load_all", lambda: [{"design_id": "D1", "top": "d1", "files": ["rtl/d1.v"], "clk_ports": ["clk"], "rst_port": None, "rst_sense": None, "incdirs": [], "sverilog": False, "loc": 1, "_dir": str(tmp_path)}])
+    monkeypatch.setattr("src.designs.catalog.abs_paths", lambda d, paths: [tmp_path / p for p in paths])
+    submitted = {}
+    class FakeQ:
+        def submit(self, kind, payload, **kw):
+            jid = f"j_{len(submitted)}"; submitted[jid] = (kind, payload, kw); return jid
+        def get(self, jid):
+            return {"state": "done"} if jid in submitted else None
+    st = {"cands": {}, "paused": False, "baseline": 100.0}
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    sim = [v for v in submitted.values() if v[0] == "sim"]
+    assert len(sim) == 1 and sim[0][1]["c_rtl"] == sim[0][1]["d_rtl"] and sim[0][1]["cand_id"] is None and sim[0][1]["d_saif"] is True and sim[0][1]["offline_pool"] is True
+    assert sim[0][2]["cand_id"] is None and sim[0][2]["priority"] == 1 and st["cands"]["d_saif:D1"]["stage"] == "sim_running"
+    # the simulation passed; the record carries D's SAIF -> copied and registered, then E4 of D with the flag
+    saif_src = tmp_path / "saif_d.saif"; saif_src.write_text("(SAIFILE)\n")
+    from src.noise import generate as G
+    monkeypatch.setattr(G, "PERT_DIR", tmp_path / "perturbations")
+    monkeypatch.setattr(mod, "sim_record", lambda cfg, payload: {"verdict": "not_run", "v1_status": "ok", "v2_status": "identical", "saif_d": str(saif_src), "raw_dir": str(tmp_path / "rec")})
+    monkeypatch.setattr(mod, "slim_sim_record", lambda cfg, payload: "slimmed")
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    c = st["cands"]["d_saif:D1"]
+    assert c["stage"] == "e4_running" and c["saif"] == str(tmp_path / "perturbations" / "D1" / "saif" / "D.saif") and Path(c["saif"]).read_text() == "(SAIFILE)\n"
+    sj = json.loads((tmp_path / "perturbations" / "D1" / "saif.json").read_text())
+    assert sj["design"]["status"] == "d_vs_d" and sj["design"]["instance"] == "bs_lockstep/u_d" and sj["design"]["saif"] == c["saif"]
+    e4 = [v for v in submitted.values() if v[0] == "dc"]
+    assert len(e4) == 1 and e4[0][1]["is_baseline"] == 0 and e4[0][1]["offline_baseline"] == 1 and e4[0][1]["saif_instance"] == "bs_lockstep/u_d" and e4[0][1]["saif"] == c["saif"]
+    assert e4[0][1]["config"] == "E4" and e4[0][1]["clock_ns"] == 1.0 and e4[0][2]["cand_id"] is None and e4[0][1]["offline_pool"] is True
+    # the record lands (as run_dc ingests it): offline_baseline 1, is_baseline 0 -> the search basis ignores it, the offline_saif basis prefers it, the scope drops the design
+    db.insert(conn, "evaluations", {"design_id": "D1", "is_baseline": 0, "offline_baseline": 1, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 100.0, "cells": 10, "wns_ns": 0.1,
+                                    "power_default_mw": 1.0, "power_saif_mw": 0.4, "status": "ok", "raw_dir": "/x/d1s", "dc_seconds": 2})
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    assert st["cands"]["d_saif:D1"]["stage"] == "done" and "with SAIF power" in st["cands"]["d_saif:D1"]["result"]
+    assert mod.scope(cfg, conn) == []
+    from src.analysis import phase5 as P5
+    search, offline = P5._Designs(cfg, conn), P5._Designs(cfg, conn, basis="offline_saif")
+    assert search.get("D1")["base"]["metrics"]["power_saif_mw"] is None and search.get("D1")["basis"] == "search"
+    assert offline.get("D1")["base"]["metrics"]["power_saif_mw"] == 0.4 and offline.get("D1")["basis"] == "offline_saif"
+    assert offline.get("D2")["basis"] == "search"                                                     # no offline record: the search baseline
+    assert P5.default_power_basis_designs(cfg, conn) == ["D1"]                                        # the §0a mark stays: the search's basis on D1 is unchanged
+    # a failed E4 (no ok record) keeps the design in scope for another attempt only through a fresh state entry; the state says why
+    st2 = {"cands": {}, "paused": False, "baseline": 100.0}
+    conn.execute("DELETE FROM evaluations WHERE offline_baseline=1"); conn.commit()
+    monkeypatch.setattr(mod, "sim_record", lambda cfg, payload: {"verdict": "sim_fail", "v1_status": "ok", "v2_status": "mismatch", "saif_d": None})
+    mod.once(cfg, conn, st2, False, queue=FakeQ()); mod.once(cfg, conn, st2, False, queue=FakeQ())
+    assert st2["cands"]["d_saif:D1"]["stage"] == "done" and st2["cands"]["d_saif:D1"]["result"].startswith("D-vs-D simulation sim_fail")
+    assert not [v for v in list(submitted.values())[len(sim) + len(e4) + 1:] if v[0] == "dc"]        # no E4 after a failed simulation
+
+
+def test_floor6_group_proves_text_perturbations_under_harness_v2_then_runs_e4(tmp_path, monkeypatch):
+    """REQUEST 2026-09-20 (e) item 3 (PLAN 6.9): once the pool's proofs are open, every text-level perturbation (P1_text / P2_text) of a
+    pooled-floor design that is not proven gets a SEQ proof (the gate's payload, harness_version 2 hash), a proven one without an E4
+    record at Φ_main gets the E4 run with the record's SAIF; P0 only on the listed designs; nothing waits for a proven P0. Both
+    directions: proofs closed -> no floor6 item; a proven entry with an E4 record -> not in scope; a falsified proof ends the entry."""
+    mod = load_pool()
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["PF", "MF"], "small": []}
+    cfg["noise"]["floor_version"] = "phase4"
+    cfg["offline_pool"] = {"slots": 4, "priority": 1, "load_over_baseline": 0.10, "proofs_enabled": False, "floor6_enabled": True, "floor6_p0_designs": ["PF"], "group_order": ["floor6"], "proof_slots": 4}
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    for d in ("PF", "MF"):
+        conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES (?,'x',?,'p',1,1,'held',1.0,'t','g','c')", (d, d))
+    db.insert(conn, "noise_floor", {"design_id": "MF", "config": "E4", "metric": "area", "sigma_robust": 0.001, "t_d": 0.01, "floor_class": "quiet", "floor_source": "measured", "floor_version": "phase4"})   # MF has a measured floor: not a floor6 design
+    pert = tmp_path / "perturbations" / "PF"; pert.mkdir(parents=True)
+    for k in range(3):
+        (pert / f"P1_text_{k}.v").write_text(f"module pf(input clk, output reg y); reg t{k}; always @(posedge clk) y <= ~y; endmodule\n")
+    (pert / "roundtrip.v").write_text("module pf(input clk, output reg y); always @(posedge clk) y <= ~y; endmodule\n")
+    manifest = {"design_id": "PF", "top": "pf", "roundtrip": {"pert_id": "p0", "path": str(pert / "roundtrip.v")},
+                "perturbations": [{"pert_id": f"pt{k}", "ptype": "P1_text", "k": k, "path": str(pert / f"P1_text_{k}.v")} for k in range(3)] + [{"pert_id": "px", "ptype": "P3_expr", "k": 0, "path": str(pert / "P1_text_0.v")}]}
+    (pert / "manifest.json").write_text(json.dumps(manifest))
+    monkeypatch.setattr("src.noise.gate.manifest_of", lambda did, root=None: manifest if did == "PF" else None)
+    for pid, status in (("pt0", "proven"), ("pt1", "pending"), ("p0", "falsified"), ("px", "pending")):
+        db.insert(conn, "perturbations", {"pert_id": pid, "design_id": "PF", "ptype": "P1_text" if pid.startswith("pt") else ("P0_roundtrip" if pid == "p0" else "P3_expr"), "path": "x", "seq_status": status})
+    db.insert(conn, "evaluations", {"design_id": "PF", "pert_id": "pt0", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 1.0, "status": "ok", "raw_dir": "/x/pt0", "dc_seconds": 1})
+    (tmp_path / "rtl").mkdir(); (tmp_path / "rtl" / "pf.v").write_text("module pf(input clk, output reg y); always @(posedge clk) y <= ~y; endmodule\n")
+    monkeypatch.setattr("src.designs.catalog.load_all", lambda: [{"design_id": "PF", "top": "pf", "files": ["rtl/pf.v"], "clk_ports": ["clk"], "rst_port": None, "rst_sense": None, "incdirs": ["rtl"], "sverilog": False, "loc": 1, "_dir": str(tmp_path)}])
+    monkeypatch.setattr("src.designs.catalog.abs_paths", lambda d, paths: [tmp_path / p for p in paths])
+    assert mod.scope(cfg, conn) == []                                                                   # proofs closed: nothing
+    cfg["offline_pool"]["proofs_enabled"] = True
+    items = {it["cand_id"]: it for it in mod.scope(cfg, conn)}
+    assert set(items) == {"floor6:pt1", "floor6:pt2", "floor6:p0"}                                      # pt0 proven with E4: done; px (an AST type) not a floor6 entry; P0 on the listed design
+    assert items["floor6:pt1"]["start_stage"] == "proof" and items["floor6:p0"]["start_stage"] == "proof" and items["floor6:pt2"]["start_stage"] == "proof"
+    cfg["offline_pool"]["floor6_p0_designs"] = []
+    assert "floor6:p0" not in {it["cand_id"] for it in mod.scope(cfg, conn)}
+    cfg["offline_pool"]["floor6_p0_designs"] = ["PF"]
+    monkeypatch.setattr(mod, "STATE", str(tmp_path / "state.json")); monkeypatch.setattr(mod, "LOG", str(tmp_path / "pool.log"))
+    monkeypatch.setattr(mod, "throttle", lambda cfg, conn, st: (True, 50.0, 0.0))
+    submitted = {}
+    class FakeQ:
+        def submit(self, kind, payload, **kw):
+            jid = f"j_{len(submitted)}"; submitted[jid] = (kind, payload, kw); return jid
+        def get(self, jid):
+            return {"state": "done"} if jid in submitted else None
+    st = {"cands": {}, "paused": False, "baseline": 100.0}
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    proofs = [v for v in submitted.values() if v[0] == "vcf"]
+    assert len(proofs) == 3 and all(v[1]["floor6"] is True and v[1]["offline_pool"] is True and v[1]["d_rtl"] == [str(tmp_path / "rtl" / "pf.v")] for v in proofs)
+    pl = {v[1]["cand_id"]: v[1] for v in proofs}
+    assert pl["pt1"]["c_rtl"] == [str(pert / "P1_text_1.v")] and pl["p0"]["c_rtl"] == [str(pert / "roundtrip.v")] and pl["pt1"]["incdirs"] == [str(tmp_path / "rtl")]
+    assert all(v[2]["cand_id"] == v[1]["cand_id"] and v[2]["priority"] == 1 for v in proofs) and st["cands"]["floor6:pt1"]["stage"] == "proof_running"
+    # the proofs finish: pt1 proven (record with a SAIF), p0 falsified, pt2 proven_rename via the collect step; E4 follows for the proven ones only
+    saif = tmp_path / "saif_c.saif"; saif.write_text("(SAIFILE)\n")
+    verdicts = {"pt1": "proven", "p0": "falsified", "pt2": "proven"}
+    monkeypatch.setattr(mod, "proof_record", lambda cfg, payload: {"verdict": verdicts[payload["cand_id"]], "saif_c": str(saif) if payload["cand_id"] == "pt1" else None, "raw_dir": "/x/eq"})
+    def fake_collect(conn, cfg, designs=None, root=None):
+        for pid, v in verdicts.items():
+            conn.execute("UPDATE perturbations SET seq_status=? WHERE pert_id=?", ("proven_rename" if pid == "pt2" else v, pid))
+        return {}
+    monkeypatch.setattr("src.noise.gate.collect", fake_collect)
+    monkeypatch.setattr(mod, "floor6_record_saif", lambda cfg, did, pid: None)
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    assert st["cands"]["floor6:p0"]["stage"] == "done" and st["cands"]["floor6:p0"]["result"] == "proof falsified"
+    e4 = {v[1]["pert_id"]: v[1] for v in submitted.values() if v[0] == "dc"}
+    assert set(e4) == {"pt1", "pt2"} and e4["pt1"]["saif"] == str(saif) and e4["pt1"]["saif_instance"] == "bs_lockstep/u_c" and "saif" not in e4["pt2"]
+    assert e4["pt1"]["rtl"] == [str(pert / "P1_text_1.v")] and e4["pt1"]["is_baseline"] == 0 and e4["pt1"]["config"] == "E4" and e4["pt1"]["offline_pool"] is True
+    assert st["cands"]["floor6:pt1"]["stage"] == "e4_running"
+    db.insert(conn, "evaluations", {"design_id": "PF", "pert_id": "pt1", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 1.0, "power_saif_mw": 0.1, "status": "ok", "raw_dir": "/x/pt1", "dc_seconds": 1})
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    assert st["cands"]["floor6:pt1"]["stage"] == "done" and "with SAIF power" in st["cands"]["floor6:pt1"]["result"]
+    assert {it["cand_id"] for it in mod.scope(cfg, conn)} == {"floor6:pt2"}                             # pt2 proven_rename, E4 not yet recorded; pt1 done; p0 falsified under the current harness stays out
+    conn.execute("UPDATE perturbations SET seq_status='pending' WHERE pert_id='pt2'"); conn.commit()
+    assert {it["cand_id"]: it["start_stage"] for it in mod.scope(cfg, conn)} == {"floor6:pt2": "e4"}    # a proven record under the current harness whose row is not yet collected goes to E4, not to another proof

@@ -1,6 +1,10 @@
 # Section III — four remaining items (2026-09-20; visible layer only)
 
-Generated 2026-09-20T04:56 by scripts/report_paper_sec3_addendum.py (git 953c31178e38); data reports/data/paper_sec3_addendum.json; sources in §S. Mechanism lines are the operator's reading of the comment-stripped, module-by-module diff and are marked as such.
+Generated 2026-09-20T05:31 by scripts/report_paper_sec3_addendum.py (git e3de7f0b1103); data reports/data/paper_sec3_addendum.json; sources in §S. Mechanism lines are the operator's reading of the comment-stripped, module-by-module diff and are marked as such.
+
+## 0a. Power basis (REQUEST 2026-09-20 (e) item 1)
+
+Designs whose D has no SAIF power at E4 (13): cktevo_hsm__MixColumns, cktevo_hsm__hsm, cktevo_nn_engine__thresholds_128x4096, cktevo_risc__btb, cktevo_risc__cpu, cktevo_risc__stall_control_unit, cktevo_usb__usbf_sie_rx, cktevo_vga_enh__vga_wb_slave, drrtl_LSTM, drrtl_aes, drrtl_arm_cpu2, drrtl_simple_spi, drrtl_tv80. For each of them: *power on this design is on the default-activity basis for all arms during the search*.
 
 ## 1. mc_rf — the largest single effect
 

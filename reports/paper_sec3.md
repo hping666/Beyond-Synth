@@ -1,6 +1,10 @@
 # Data for paper Section III — Measuring Retained Gain (2026-09-20; visible layer only; interim)
 
-Generated 2026-09-20T04:40 by scripts/report_paper_sec3.py (git e0322cf7dff0, cfg de7d24d19295); floor_version **phase4**; duplicates collapsed as in spec 04 §B step 3; data reports/data/paper_sec3.json; every table's source in §S. Phase 5 is interim (runs at generation: {'medium': {'done': 297, 'created': 35, 'running': 44}, 'small': {'created': 120, 'done': 1, 'running': 5}, 'large': {'done': 90, 'created': 18}}).
+Generated 2026-09-20T05:31 by scripts/report_paper_sec3.py (git e3de7f0b1103, cfg 45803d414957); floor_version **phase4**; duplicates collapsed as in spec 04 §B step 3; data reports/data/paper_sec3.json; every table's source in §S. Phase 5 is interim (runs at generation: {'medium': {'done': 297, 'created': 35, 'running': 44}, 'small': {'created': 120, 'done': 1, 'running': 5}, 'large': {'done': 90, 'created': 18}}).
+
+## 0a. Power basis (REQUEST 2026-09-20 (e) item 1)
+
+Designs whose D has no SAIF power at E4 (13): cktevo_hsm__MixColumns, cktevo_hsm__hsm, cktevo_nn_engine__thresholds_128x4096, cktevo_risc__btb, cktevo_risc__cpu, cktevo_risc__stall_control_unit, cktevo_usb__usbf_sie_rx, cktevo_vga_enh__vga_wb_slave, drrtl_LSTM, drrtl_aes, drrtl_arm_cpu2, drrtl_simple_spi, drrtl_tv80. For each of them: *power on this design is on the default-activity basis for all arms during the search*. The §G tables recomputed without power on them (version a) and per metric everywhere (version b) are in reports/paper_sec3_power_basis.md.
 
 ## A. Table I — noise floor on the frozen phase4 floor table
 
@@ -177,7 +181,7 @@ RTLRewriter: 54 pairs, 43 proven, better at E1 24 → better at E4 10, retained 
 
 ## G. Phase 5 additions (E4 verdicts, rule A; no rung attribution; duplicates collapsed)
 
-Evaluated proven candidates 11312 (duplicates collapsed 2617; proven with E4 pending 175; DC-rejected terminal 44).
+Evaluated proven candidates 11344 (duplicates collapsed 2620; proven with E4 pending 176; DC-rejected terminal 44).
 
 **large** — class × verdict
 
@@ -192,11 +196,11 @@ Evaluated proven candidates 11312 (duplicates collapsed 2617; proven with E4 pen
 
 | class | n | retained | tradeoff | absorbed_identical | absorbed | noise | harmful | survival (ret.+trade-off) | retained only | material any (area / power / WNS) |
 |---|---|---|---|---|---|---|---|---|---|---|
-| a | 2207 | 422 | 643 | 889 | 36 | 12 | 205 | 1065 (48.3 %) | 422 (19.1 %) | 393 (17.8 %) (346 / 384 / 18) |
-| b | 3569 | 1269 | 1036 | 706 | 141 | 8 | 409 | 2305 (64.6 %) | 1269 (35.6 %) | 982 (27.5 %) (670 / 732 / 812) |
-| c1 | 1604 | 593 | 567 | 14 | 5 | 185 | 240 | 1160 (72.3 %) | 593 (37.0 %) | 563 (35.1 %) (201 / 507 / 325) |
+| a | 2208 | 423 | 643 | 889 | 36 | 12 | 205 | 1066 (48.3 %) | 423 (19.2 %) | 394 (17.8 %) (347 / 385 / 18) |
+| b | 3579 | 1270 | 1038 | 708 | 141 | 8 | 414 | 2308 (64.5 %) | 1270 (35.5 %) | 983 (27.5 %) (670 / 732 / 813) |
+| c1 | 1610 | 593 | 573 | 14 | 5 | 185 | 240 | 1166 (72.4 %) | 593 (36.8 %) | 563 (35.0 %) (201 / 507 / 325) |
 | c2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 1 (100.0 %) | 1 (100.0 %) | 1 (100.0 %) (0 / 1 / 0) |
-| d | 2392 | 1059 | 1053 | 103 | 19 | 5 | 153 | 2112 (88.3 %) | 1059 (44.3 %) | 1024 (42.8 %) (536 / 1003 / 268) |
+| d | 2407 | 1074 | 1053 | 103 | 19 | 5 | 153 | 2127 (88.4 %) | 1074 (44.6 %) | 1039 (43.2 %) (551 / 1018 / 268) |
 
 **small** — class × verdict
 
@@ -210,19 +214,19 @@ Evaluated proven candidates 11312 (duplicates collapsed 2617; proven with E4 pen
 
 | class | n | retained | tradeoff | absorbed_identical | absorbed | noise | harmful | survival (ret.+trade-off) | retained only | material any (area / power / WNS) |
 |---|---|---|---|---|---|---|---|---|---|---|
-| a | 2691 | 423 | 660 | 1034 | 73 | 108 | 393 | 1083 (40.2 %) | 423 (15.7 %) | 394 (14.6 %) (347 / 385 / 18) |
-| b | 4314 | 1579 | 1193 | 779 | 151 | 116 | 496 | 2772 (64.3 %) | 1579 (36.6 %) | 1235 (28.6 %) (824 / 985 / 813) |
-| c1 | 1651 | 605 | 589 | 14 | 5 | 189 | 249 | 1194 (72.3 %) | 605 (36.6 %) | 569 (34.5 %) (204 / 513 / 325) |
+| a | 2692 | 424 | 660 | 1034 | 73 | 108 | 393 | 1084 (40.3 %) | 424 (15.8 %) | 395 (14.7 %) (348 / 386 / 18) |
+| b | 4324 | 1580 | 1195 | 781 | 151 | 116 | 501 | 2775 (64.2 %) | 1580 (36.5 %) | 1236 (28.6 %) (824 / 985 / 814) |
+| c1 | 1657 | 605 | 595 | 14 | 5 | 189 | 249 | 1200 (72.4 %) | 605 (36.5 %) | 569 (34.3 %) (204 / 513 / 325) |
 | c2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 1 (100.0 %) | 1 (100.0 %) | 1 (100.0 %) (0 / 1 / 0) |
-| d | 2655 | 1169 | 1097 | 103 | 19 | 40 | 227 | 2266 (85.3 %) | 1169 (44.0 %) | 1061 (40.0 %) (566 / 1040 / 268) |
+| d | 2670 | 1184 | 1097 | 103 | 19 | 40 | 227 | 2281 (85.4 %) | 1184 (44.3 %) | 1076 (40.3 %) (581 / 1055 / 268) |
 
 | family | designs | proven (E4 in) | retained | retained rate | material |
 |---|---|---|---|---|---|
-| Dr.RTL | 6 | 2349 | 155 | 6.6 % | 78 |
+| Dr.RTL | 6 | 2365 | 156 | 6.6 % | 79 |
 | CktEvo | 8 | 4506 | 1495 | 33.2 % | 1111 |
-| RTL-OPT | 8 | 4457 | 2127 | 47.7 % | 2071 |
+| RTL-OPT | 8 | 4473 | 2143 | 47.9 % | 2087 |
 
-Share of medium-tier retained candidates on RTL-OPT designs: 2120 of 3344 (63.4 %).
+Share of medium-tier retained candidates on RTL-OPT designs: 2136 of 3361 (63.6 %).
 
 B0 (n proven 1987): Yosys label × rule-A E4 label {'improved|absorbed': 34, 'improved|absorbed_identical': 143, 'improved|dc_rejected': 20, 'improved|e4_pending': 105, 'improved|harmful': 183, 'improved|noise': 36, 'improved|retained': 645, 'improved|tradeoff': 449, 'no_gain|absorbed': 17, 'no_gain|absorbed_identical': 112, 'no_gain|dc_rejected': 2, 'no_gain|e4_pending': 41, 'no_gain|harmful': 57, 'no_gain|noise': 10, 'no_gain|retained': 39, 'no_gain|tradeoff': 84, 'none|retained': 3, 'none|tradeoff': 7}; per metric {'area: Y improved -> E4 not above t_D': 565, 'delay: Y improved -> E4 pending': 90, 'delay: Y improved -> E4 retained on that metric': 530, 'delay: Y improved -> E4 not above t_D': 313, 'area: Y improved -> E4 retained on that metric': 617, 'area: Y improved -> E4 pending': 75, 'no_y_record': 10}.
 
@@ -238,10 +242,10 @@ Large tier, class (a): 0 of 463 retained; harmful 186 (40.2 %); labels {'absorbe
 
 ## H. Caveat numbers
 
-Designs on the pooled floor: 13 of 30 — retained / evaluated per design {'cktevo_risc__stall_control_unit': {'retained': 0, 'evaluated': 0}, 'cktevo_risc__cpu': {'retained': 0, 'evaluated': 89}, 'cktevo_usb__usbf_sie_rx': {'retained': 461, 'evaluated': 761}, 'drrtl_router': {'retained': 11, 'evaluated': 665}, 'cktevo_vga_enh__vga_wb_slave': {'retained': 298, 'evaluated': 687}, 'drrtl_arm_cpu2': {'retained': 0, 'evaluated': 0}, 'cktevo_nn_engine__thresholds_128x4096': {'retained': 1, 'evaluated': 522}, 'drrtl_simple_spi': {'retained': 0, 'evaluated': 87}, 'cktevo_hsm__hsm': {'retained': 0, 'evaluated': 0}, 'drrtl_aes': {'retained': 75, 'evaluated': 414}, 'drrtl_tv80': {'retained': 0, 'evaluated': 0}, 'cktevo_risc__btb': {'retained': 351, 'evaluated': 702}, 'drrtl_LSTM': {'retained': 0, 'evaluated': 0}}.
+Designs on the pooled floor: 13 of 30 — retained / evaluated per design {'cktevo_risc__stall_control_unit': {'retained': 0, 'evaluated': 0}, 'cktevo_risc__cpu': {'retained': 0, 'evaluated': 89}, 'cktevo_usb__usbf_sie_rx': {'retained': 461, 'evaluated': 761}, 'drrtl_router': {'retained': 12, 'evaluated': 674}, 'cktevo_vga_enh__vga_wb_slave': {'retained': 298, 'evaluated': 687}, 'drrtl_arm_cpu2': {'retained': 0, 'evaluated': 0}, 'cktevo_nn_engine__thresholds_128x4096': {'retained': 1, 'evaluated': 522}, 'drrtl_simple_spi': {'retained': 0, 'evaluated': 87}, 'cktevo_hsm__hsm': {'retained': 0, 'evaluated': 0}, 'drrtl_aes': {'retained': 75, 'evaluated': 414}, 'drrtl_tv80': {'retained': 0, 'evaluated': 0}, 'cktevo_risc__btb': {'retained': 351, 'evaluated': 702}, 'drrtl_LSTM': {'retained': 0, 'evaluated': 0}}.
 Offset designs: {'cktevo_mem_ctrl__mc_adr_sel': {'retained': 335, 'evaluated': 728}}.
-ICG insertion: 88 of 2924 retained candidates with a material power gain carry more clock-gating cells than D (3.0 %); by design {'cktevo_risc__btb': 1, 'cktevo_mem_ctrl__mc_adr_sel': 40, 'rtlopt_register': 47}. request (b) item 5 is not in this session's record; computed here as retained candidates with a power gain above 2 % whose E4 netlist carries more clock-gating cells than D's E4 netlist.
-Proof coverage: {'drrtl_SPI': {'with_verdict': 969, 'proven': 130, 'inconclusive': 778, 'evaluated': 130, 'retained': 58}, 'drrtl_simple_spi': {'with_verdict': 858, 'proven': 141, 'inconclusive': 536, 'evaluated': 87, 'retained': 0}, 'drrtl_tv80': {'with_verdict': 824, 'proven': 0, 'inconclusive': 669, 'evaluated': 0, 'retained': 0}, 'cktevo_hsm__hsm': {'with_verdict': 1054, 'proven': 0, 'inconclusive': 273, 'evaluated': 0, 'retained': 0}}.
+ICG insertion: 88 of 2940 retained candidates with a material power gain carry more clock-gating cells than D (3.0 %); by design {'cktevo_risc__btb': 1, 'cktevo_mem_ctrl__mc_adr_sel': 40, 'rtlopt_register': 47}. request (b) item 5 is not in this session's record; computed here as retained candidates with a power gain above 2 % whose E4 netlist carries more clock-gating cells than D's E4 netlist.
+Proof coverage: {'drrtl_SPI': {'with_verdict': 982, 'proven': 130, 'inconclusive': 788, 'evaluated': 130, 'retained': 58}, 'drrtl_simple_spi': {'with_verdict': 878, 'proven': 142, 'inconclusive': 549, 'evaluated': 87, 'retained': 0}, 'drrtl_tv80': {'with_verdict': 824, 'proven': 0, 'inconclusive': 669, 'evaluated': 0, 'retained': 0}, 'cktevo_hsm__hsm': {'with_verdict': 1055, 'proven': 0, 'inconclusive': 273, 'evaluated': 0, 'retained': 0}}.
 
 ## S. Sources
 

@@ -1,5 +1,10 @@
 {
- "design": null,
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/drrtl_aes/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/drrtl_aes/EQ/648197e4da6aa00d",
+  "status": "d_vs_d"
+ },
  "design_id": "drrtl_aes",
  "missing": [],
  "perturbations": {}

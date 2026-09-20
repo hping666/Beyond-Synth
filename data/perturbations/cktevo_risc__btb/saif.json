@@ -1,5 +1,10 @@
 {
- "design": null,
+ "design": {
+  "instance": "bs_lockstep/u_d",
+  "saif": "/home/hping/Beyond-Synth/data/perturbations/cktevo_risc__btb/saif/D.saif",
+  "source_record": "/home/hping/Beyond-Synth/results/raw/cktevo_risc__btb/EQ/579b123e204d62de",
+  "status": "d_vs_d"
+ },
  "design_id": "cktevo_risc__btb",
  "missing": [],
  "perturbations": {}

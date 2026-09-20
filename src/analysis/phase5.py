@@ -46,10 +46,16 @@ def _q(xs, q):
 
 
 class _Designs:
-    """Per-design baseline record, floor thresholds and class, cached."""
-    def __init__(self, cfg, conn):
-        self.cfg, self.conn, self.cache = cfg, conn, {}
+    """Per-design baseline record, floor thresholds and class, cached. basis: 'search' — the E4 baseline the running evaluators
+    use (is_baseline = 1 at Φ_main, SAIF-backed record preferred); 'offline_saif' — REQUEST 2026-09-20 (e) item 2: the offline SAIF
+    baseline of D (evaluations.offline_baseline = 1; is_baseline stays 0 so that no evaluator query can pick it up) when one exists,
+    else the search baseline. Only the explicit recomputation reports pass 'offline_saif'; the stage reports keep the search basis."""
+    def __init__(self, cfg, conn, basis="search", floor_version=None):
+        """floor_version: a floor table to prefer per design (REQUEST 2026-09-20 (e) item 3: 'phase6' where measured), falling back to
+        the frozen table of config noise.floor_version for the other designs; None = the frozen table only."""
+        self.cfg, self.conn, self.cache, self.basis = cfg, conn, {}, basis
         self.floor_version = cfg["noise"].get("floor_version")
+        self.prefer_floor_version = floor_version if floor_version and floor_version != self.floor_version else None
         self.k_sigma = float(cfg["noise"]["k_sigma"])
 
     def get(self, design_id):
@@ -61,8 +67,20 @@ class _Designs:
         if phi is not None:
             base = self.conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config='E4' AND is_baseline=1 AND pert_id IS NULL AND cand_id IS NULL AND status='ok' "
                                      "AND abs(clock_ns-?)<1e-6 ORDER BY (power_saif_mw IS NOT NULL) DESC, eval_id DESC LIMIT 1", (design_id, phi)).fetchone()
-        floor = S.latest_floor(self.conn, design_id, "E4", self.floor_version) or S.latest_floor(self.conn, design_id, "E4")
-        d = {"phi": phi, "base": record_from_row(base) if base is not None else None,
+        basis = "search"
+        if phi is not None and self.basis == "offline_saif":
+            off = self.conn.execute("SELECT * FROM evaluations WHERE design_id=? AND config='E4' AND offline_baseline=1 AND is_baseline=0 AND pert_id IS NULL AND cand_id IS NULL "
+                                    "AND status='ok' AND power_saif_mw IS NOT NULL AND abs(clock_ns-?)<1e-6 ORDER BY eval_id DESC LIMIT 1", (design_id, phi)).fetchone()
+            if off is not None:
+                base, basis = off, "offline_saif"
+        floor, fv_used = {}, None
+        if self.prefer_floor_version:
+            floor = S.latest_floor(self.conn, design_id, "E4", self.prefer_floor_version)
+            fv_used = self.prefer_floor_version if floor else None
+        if not floor:
+            floor = S.latest_floor(self.conn, design_id, "E4", self.floor_version) or S.latest_floor(self.conn, design_id, "E4")
+            fv_used = self.floor_version if floor else None
+        d = {"phi": phi, "base": record_from_row(base) if base is not None else None, "basis": basis, "base_eval_id": (base["eval_id"] if base is not None else None), "floor_version": fv_used,
              "thresholds": {"area": (floor.get("area") or {}).get("t_d"), "wns": (floor.get("wns") or {}).get("t_d"), "power": (floor.get("power_saif") or {}).get("t_d")},
              "sigma": {"area": (floor.get("area") or {}).get("sigma_robust") or 0.0, "wns": (floor.get("wns") or {}).get("sigma_robust") or 0.0, "power": (floor.get("power_saif") or {}).get("sigma_robust") or 0.0},
              "floor_class": next((r.get("floor_class") for r in floor.values() if r.get("floor_class")), None)}
@@ -808,3 +826,33 @@ def operations(cfg, conn, exp="phase5", results_dir=None):
         except Exception as e:
             out[name] = {"error": f"{type(e).__name__}: {e}"[:200]}
     return out
+
+
+# ----------------------------------------------------------------------------- REQUEST 2026-09-20 (e): power basis of the search
+DEFAULT_POWER_NOTE = "power on this design is on the default-activity basis for all arms during the search"
+
+
+def default_power_basis_designs(cfg, conn):
+    """The Phase 5 designs whose E4 baseline used by the running evaluators (is_baseline = 1 at Φ_main) carries no SAIF power: every
+    power comparison of the search on them is made on DC's default switching activity (m3.power_basis never mixes the bases), whatever
+    the candidate's record carries. Sorted design ids (REQUEST 2026-09-20 (e) item 1: marked in §0a of every report)."""
+    held = [d for ds in ((cfg.get("exp5") or {}).get("starting_points") or {}).values() for d in ds]
+    designs = _Designs(cfg, conn)
+    out = []
+    for d in held:
+        base = designs.get(d)["base"]
+        if base is not None and (base.get("metrics") or {}).get("power_saif_mw") is None:
+            out.append(d)
+    return sorted(out)
+
+
+def pooled_floor_designs(cfg, conn, floor_version=None):
+    """The Phase 5 designs without a measured floor in the frozen table (floor_source != measured or no E4 area row): PLAN 6.9."""
+    fv = floor_version or cfg["noise"].get("floor_version")
+    held = [d for ds in ((cfg.get("exp5") or {}).get("starting_points") or {}).values() for d in ds]
+    out = []
+    for d in held:
+        row = conn.execute("SELECT floor_source FROM noise_floor WHERE floor_version=? AND config='E4' AND metric='area' AND design_id=?", (fv, d)).fetchone()
+        if row is None or row["floor_source"] != "measured":
+            out.append(d)
+    return sorted(out)
