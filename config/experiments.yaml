@@ -159,11 +159,11 @@ queue:                       # LOCKED (concurrency caps); automatic backoff when
   long_pole_lane: {designs: [drrtl_SPI, drrtl_UART, cktevo_risc__cpu, drrtl_router, drrtl_simple_spi], search_max: 6}   # 2026-09-19 02:0x: simple_spi added (51-minute proofs, 57 % inconclusive under the corrected harness; it held 15 window seats with 250 proofs queued)   # (d) B3 / (e) 3: dispatched outside the window, all rows round-robin, at most this many search runs in flight per lane design (router joins after C3)
   lanes:                     # (d) B3: reserved VC Formal seat shares per lane (re-balanced every 6 h from the remaining seat-hours; total never above the pool cap); the rest of the designs share cap minus the busy lanes' shares
     vcf:                     # (e) 3: proportional shares from the remaining seat-hours (scripts/rebalance_lanes.py --apply, every 6 h); inside the window the per-design cap is max(per_design_max, floor(others' share / active window designs))
-      spi: {designs: [drrtl_SPI], share: 7}
-      uart: {designs: [drrtl_UART], share: 2}
-      cpu: {designs: [cktevo_risc__cpu], share: 6}
-      router: {designs: [drrtl_router], share: 2}
-      simple_spi: {designs: [drrtl_simple_spi], share: 22}   # 2026-09-19 02:0x: the second long pole (see long_pole_lane)   # (d) B3 / (g) 2: joins at C3 with the proxy of 35 seat-hours per run until its 20th harness_version 2 proof
+      spi: {designs: [drrtl_SPI], share: 13}
+      uart: {designs: [drrtl_UART], share: 5}
+      cpu: {designs: [cktevo_risc__cpu], share: 0}
+      router: {designs: [drrtl_router], share: 4}
+      simple_spi: {designs: [drrtl_simple_spi], share: 18}   # 2026-09-19 02:0x: the second long pole (see long_pole_lane)   # (d) B3 / (g) 2: joins at C3 with the proxy of 35 seat-hours per run until its 20th harness_version 2 proof
       small: {designs: [rtlopt_sub_8bit, rtlopt_mux_large, drrtl_controller, drrtl_ticket_machine, cktevo_risc__stall_control_unit, cktevo_hsm__MixColumns], share: 0, leftover: true}   # (g) item 1: the small tier takes only the seats the medium lanes and window designs cannot fill
   lane_hours_per_run_override: {drrtl_router: 35}   # (g) item 2: router's proxy until 20 proofs under harness_version 2 (≈ 3 × the v2 D-vs-D time of 702 s per candidate, capped by the class caps)
   generating_max: 24         # DECISION 2026-09-19 (j) 1a: at most this many runs generating (calls left) at once; runs waiting for verdicts hold no search slot
