@@ -240,10 +240,10 @@ def section_map(cfg, conn, p5rows, held, exp1):
     out["phase4"] = {"n_proven_with_e4": len(objs), "by_role": {}, "by_family": {}, "absorbed_rungs": dict(collections.Counter(o.get("rung") or "?" for o in objs if o.get("label") == "absorbed"))}
     for role, label in (("b0", "Phase 4 B0 candidates (Exp1 designs)"), ("reference", "literature pairs (RTL-OPT / RTLRewriter references)"), ("llm", "RTLRewriter LLM samples")):
         rs = [o for o in objs if o.get("role") == role]
-        out["phase4"]["by_role"][role] = {"title": label, "table": class_label_table(rs, mat, cls_key="cls")}
+        out["phase4"]["by_role"][role] = {"title": label, "table": class_label_table(rs, mat, label_key="label", cls_key="cls")}
     for fam in sorted({family(o["design_id"]) for o in objs}):
         rs = [o for o in objs if family(o["design_id"]) == fam]
-        out["phase4"]["by_family"][fam] = class_label_table(rs, mat, cls_key="cls")
+        out["phase4"]["by_family"][fam] = class_label_table(rs, mat, label_key="label", cls_key="cls")
     out["phase4"]["shape"] = p4.get("shape")
     out["phase4"]["map_e4_by_class"] = {cls: p4["map"][cls]["E4"] for cls in p4["map"]}
     out["phase4"]["map_materiality_e4_by_class"] = {cls: p4["map_materiality"][cls]["E4"] for cls in p4["map_materiality"]}
@@ -356,11 +356,12 @@ def section_literature(cfg, conn, p5rows):
                 vals = [float(r["gains"].get(m) or 0.0) for r in ra if r["ulabel"] == "retained" and r["gains"].get(m) is not None]
                 best[m] = max(vals) if vals else None
             by_arm[arm] = {"proven_evaluated": len(ra), "retained": sum(1 for r in ra if r["ulabel"] == "retained"), "best_retained_gain": best}
-        p4objs = [o for o in p4["objects"] if o["design_id"] == d and o.get("verdict") == "proven" and (o.get("gains") or {}).get("E4")]
+        allobjs = [o for o in p4["objects"] if o["design_id"] == d]
+        p4objs = [o for o in allobjs if o.get("verdict") == "proven" and (o.get("gains") or {}).get("E4")]
         p4best = None
-        if p4objs:
+        if allobjs:
             vals = [float(o["gains"]["E4"].get("area") or 0.0) for o in p4objs if o.get("label") == "retained"]
-            p4best = {"objects": len(p4objs), "retained": len(vals), "best_area": (max(vals) if vals else None)}
+            p4best = {"objects": len(p4objs), "all_objects": len(allobjs), "verdicts": dict(collections.Counter(o.get("verdict") for o in allobjs)), "retained": len(vals), "best_area": (max(vals) if vals else None)}
         rows[d] = {"phase5_by_arm": by_arm, "phase4_b0": p4best, "note": notes.get(d), "status": ("Phase 5 large tier" if d in ("drrtl_aes", "drrtl_tv80", "drrtl_LSTM") else "Exp1 design (Phase 4 B0 objects only)"),
                    "paper": "pending — the paper's per-design numbers are not in the released repository (data/sources/Dr_RTL: rtl_dataset, syn_flow); transcription from arXiv:2604.14989 is the open item"}
     out["drrtl"] = {"source": src("Dr.RTL shared designs", "Phase 5 candidate scan (rule A at E4, uniform_diagnosis) by arm on drrtl_aes / tv80 / LSTM; reports/data/phase4_exp1.json B0 objects on drrtl_i2c / pcie / datapath; config exp5.design_notes"),
@@ -594,7 +595,7 @@ def render(data):
         render_class_table(L, fam, t)
     L += ["### 2.2 Phase 5 candidates by tier and arm (rule A at E4; B0 where its offline E4 is in, otherwise pending)", ""]
     for t, tv in mp["phase5"]["tiers"].items():
-        L += [f"#### {t} tier — runs {tv['runs']}", ""]
+        L += [f"#### {t} tier — runs: " + ", ".join(f"{k} {v}" for k, v in sorted(tv['runs'].items())), ""]
         for arm, av in tv["by_arm"].items():
             hv = av["harness"]
             render_class_table(L, f"{t} / {arm}: proven {av['proven']} (harness v1 {hv['v1']} / v2 {hv['v2']}), E4 in {av['evaluated']}, E4 pending {av['e4_pending']}" + (f", DC-rejected (terminal) {av['dc_rejected']}" if av["dc_rejected"] else ""), av["table"])
@@ -636,13 +637,14 @@ def render(data):
     L += ["", f"RTL-OPT reconciliation (reports/phase4.md §4d): paper claim {rc['paper_claim']}; the authors' released reports {rc['released_reports'].get('better_by_area')} of {rc['released_reports'].get('n')} better by area at their plain-compile / 0.1 ns setting; "
           f"E1_authors (their settings reproduced on this DC): {rc['counts_by_setting']['E1_authors']}; E2_1ns (the paper's Table 1 setting as described): {rc['counts_by_setting']['E2_1ns']}. E1_authors is {pl['e1_authors_records']['complete']} ({pl['e1_authors_records']['records']} records over {pl['e1_authors_records']['designs']} designs).",
           f"Non-equivalent literature objects (excluded from every count; {pl['non_equivalent']['source']}): {pl['non_equivalent']['n']} — by role {pl['non_equivalent']['by_role']}; by probable cause {pl['non_equivalent']['by_cause']}.",
-          "Retained at E4 on the RTL-OPT pairs includes add_sub (reports/phase4.md §4d: the pair whose reference is +93.7 % area at E2 / E4 against −19.6 % in the authors' released reports) — the settings, not the rewrite, decide the sign; RTLRewriter's 24 → 10 (E1 → E4) includes the memory_sharing pairs.", "",
+          "add_sub (reports/phase4.md §4d): the reference is +93.7 % area at E2 / E4 against −19.6 % in the authors' released reports and −15.1 % under E1_authors; RTLRewriter's E1 → E4 drop (24 → 10 better) includes the memory_sharing pairs (reports/phase4.md §4).", "",
           f"### 3c. Dr.RTL shared designs (source: {lt['drrtl']['source']})", "",
           "| design | status | note | our arms at E4, rule A: proven (E4 in) / retained / best retained gain area · power · WNS | Phase 4 B0 | paper |", "|---|---|---|---|---|---|"]
     for d, r in lt["drrtl"]["rows"].items():
         arms = "; ".join(f"{a}: {v['proven_evaluated']} / {v['retained']} / {pct(v['best_retained_gain']['area'])} · {pct(v['best_retained_gain']['power'])} · {pct(v['best_retained_gain']['wns'])}" for a, v in r["phase5_by_arm"].items()) or "-"
         p4 = r["phase4_b0"]
-        L.append(f"| {d} | {r['status']} | {r['note'] or '-'} | {arms} | {('objects ' + str(p4['objects']) + ', retained ' + str(p4['retained']) + ', best area ' + pct(p4['best_area'])) if p4 else '-'} | {r['paper']} |")
+        p4txt = "-" if not p4 else (f"objects {p4['objects']}, retained {p4['retained']}, best area {pct(p4['best_area'])}" if p4["objects"] else f"{p4['all_objects']} objects, none proven with an E4 record (verdicts {p4['verdicts']})")
+        L.append(f"| {d} | {r['status']} | {r['note'] or '-'} | {arms} | {p4txt} | {r['paper']} |")
     L += ["", f"Reference row: {lt['drrtl']['reference_row']}.", ""]
     # §4
     sv = data["survives"]
@@ -722,11 +724,11 @@ def summary_lines(data):
     b0pend = sum(v["pending"] for v in b0.values())
     rl = lt["phase4_literature"]
     return [
-        f"1. **Supportable today.** The residual is defined against a measured floor: at E4 the pooled minimum is {pct(data['floors']['pooled_min_E4']['area'], 2)} area / {pct(data['floors']['pooled_min_E4']['power_saif'], 1)} power / {pct(data['floors']['pooled_min_E4']['wns'], 2)} WNS of the period; {data['floors']['floor_classes']['held30']['counts'].get('pooled', 0)} of the 30 Phase 5 designs carry the pooled floor (no measured perturbations at E4), {data['floors']['floor_classes']['held30']['counts'].get('offset', 0)} are offset designs (retained verdicts there are flagged: {data['retained_on_offset']['n']} so far).",
+        f"1. **Supportable today.** The residual is defined against a measured floor: at E4 the pooled minimum is {pct(data['floors']['pooled_min_E4']['area'], 2)} area / {pct(data['floors']['pooled_min_E4']['power_saif'], 1)} power / {pct(data['floors']['pooled_min_E4']['wns'], 2)} WNS of the period; {data['floors']['floor_classes']['held30']['counts'].get('pooled', 0)} of the 30 Phase 5 designs carry the pooled floor (no measured perturbations at E4), {data['floors']['floor_classes']['held30']['counts'].get('offset', 0)} of them are offset designs (retained verdicts there are flagged: {data['retained_on_offset']['n']} so far, all on mc_adr_sel).",
         f"2. **Supportable.** The ladder is real but not monotone: E1 → E2 is the large step (−6 % to −37 % area on the probe), the high-effort flags are no-ops, DesignWare is a capability of its own (3–6 % either way), retiming and clock gating act only where their structures exist; D's area grows on 10 of 127 designs from E1 to E4.",
         f"3. **Supportable (interim).** Rule A at E4 on the Phase 4 B0 objects (10 human-written designs): {tot_r} of {tot_n} proven objects retained ({pct(rate(tot_r, tot_n))}), {tot_m} of them above the materiality threshold; map shape '{(mp['phase4'].get('shape') or {}).get('shape')}' with E4 retention by class {json.dumps((mp['phase4'].get('shape') or {}).get('e4_retention_by_class'))} — class (a) rewrites are absorbed, (c1) / (d) survive.",
-        f"4. **Supportable (interim, incomplete).** Phase 5 so far: {p5r} of {p5n} evaluated proven candidates retained ({pct(rate(p5r, p5n))}), {p5m} above materiality, across {sum(len(v['by_arm']) for v in p5.values())} tier-arm rows; the large tier's runs are done, the medium tier is {data['phase5_runs'].get('medium', {})} (interim), B0's offline E4 is in for all but {b0pend} proven B0 candidates.",
-        f"5. **Supportable.** The literature's caliber: of B0's Yosys-'improved' candidates with an E4 record, {b0ret} of {b0imp} are retained at E4 ({pct(rate(b0ret, b0imp))}), {b0abs} are absorbed_identical or noise, {b0harm} harmful; on the literature pairs, RTL-OPT better at E1 {rl['rtlopt']['better']['E1']} → retained at E4 {rl['rtlopt']['retained']['E4']} of {rl['rtlopt']['proven']} proven pairs, RTLRewriter {rl['rtlrewriter']['better']['E1']} → {rl['rtlrewriter']['retained']['E4']} of {rl['rtlrewriter']['proven']}; the RTL-OPT reconciliation shows the authors' released setting (plain compile, 0.1 ns) reproduces 25 of 33 'better' pairs and the paper's described setting 13 — the setting, not the rewrite, carries most of the claim.",
+        f"4. **Supportable (interim, incomplete).** Phase 5 so far: {p5r} of {p5n} evaluated proven candidates retained ({pct(rate(p5r, p5n))}), {p5m} above materiality, across {sum(len(v['by_arm']) for v in p5.values())} tier-arm rows; the large tier's runs are done, the medium tier stands at " + ", ".join(f"{v} {k}" for k, v in sorted(data['phase5_runs'].get('medium', {}).items())) + f" (interim), B0's offline E4 is in for all but {b0pend} proven B0 candidates.",
+        f"5. **Supportable.** The literature's caliber: of B0's Yosys-'improved' candidates with an E4 record, {b0ret} of {b0imp} are retained at E4 ({pct(rate(b0ret, b0imp))}), {b0abs} are absorbed_identical or noise, {b0harm} harmful; on the literature pairs, RTL-OPT better at E1 {rl['rtlopt']['better']['E1']} → retained at E4 {rl['rtlopt']['retained']['E4']} of {rl['rtlopt']['proven']} proven pairs, RTLRewriter {rl['rtlrewriter']['better']['E1']} → {rl['rtlrewriter']['retained']['E4']} of {rl['rtlrewriter']['proven']}; under the authors' released RTL-OPT setting (plain compile, 0.1 ns) reproduced on this DC 25 of 33 pairs are better, under the paper's described setting (compile_ultra, 1 ns) 13.",
         f"6. **Not yet.** Whether retained gains survive the hidden configurations (C1's certification column) — sealed until PHASE5_COMPLETE; the final map with rung attribution on Phase 5 candidates (Phase 6 ladder runs); the Dr.RTL per-design comparison (paper numbers not transcribed; the reference row not run); the large-tier M row (641 prescreened candidates await their proofs after the small tier).",
         f"7. **Not yet.** Retention on the proof-latency-bound and verification-limited designs (SPI, simple_spi, tv80, cpu; hsm): the proven denominators there are too small, and E1 (a) / (b) may still flip router's and tv80's v1-falsified records.",
         "8. **Three items that would change the picture most.** (i) The hidden-layer column on the accepted candidates (turns visible retention into certified retention or not); (ii) the large-tier prescreened simulations, E4 and proofs plus E1 (a) / (b) (fills the large tier's M and Dr.RTL rows, the designs where the caliber argument is strongest); (iii) the Phase 6 ladder runs on the Phase 5 accepted candidates (rung attribution of what survives — today only the Phase 4 objects carry it).",

@@ -1,0 +1,6622 @@
+{
+ "date": "2026-09-20",
+ "generated_at": "2026-09-20T03:27",
+ "versions": {
+  "git_sha": "099c53fa2794",
+  "cfg_hash": "de7d24d19295",
+  "floor_version": "phase4",
+  "equiv_version": "phase5",
+  "harness_version": 2
+ },
+ "phase5_runs": {
+  "medium": {
+   "done": 297,
+   "created": 35,
+   "running": 44
+  },
+  "small": {
+   "created": 120,
+   "done": 1,
+   "running": 5
+  },
+  "large": {
+   "done": 90,
+   "created": 18
+  }
+ },
+ "floors": {
+  "floor_version": "phase4",
+  "k_sigma": 2.0,
+  "materiality": {
+   "area": 0.01,
+   "power_saif": 0.02,
+   "wns": 0.01
+  },
+  "pooled_min_E4": {
+   "area": 0.0027938146505548643,
+   "power_saif": 0.022227533067402338,
+   "tns": 0.0,
+   "wns": 0.0003017775
+  },
+  "pooled_min_source": "reports/data/phase2_noise_floor.json pooled_min[E4] (design-weighted pooled q90, DECISIONS 2026-09-14 rule A; frozen floor_version phase4, G4.3)",
+  "summary_t_d_E4": {
+   "area": {
+    "max": 0.18659644120981564,
+    "median": 0.0027938146505548643,
+    "n": 148,
+    "q75": 0.0027938146505548643
+   },
+   "power_saif": {
+    "max": 0.6653366841353183,
+    "median": 0.022227533067402338,
+    "n": 114,
+    "q75": 0.022227533067402338
+   },
+   "tns": {
+    "max": 0.311958,
+    "median": 0.0,
+    "n": 148,
+    "q75": 0.0
+   },
+   "wns": {
+    "max": 0.18820431298199997,
+    "median": 0.0003017775,
+    "n": 148,
+    "q75": 0.0003017775
+   }
+  },
+  "floor_classes_all_E4": {
+   "none": 6,
+   "offset": 5,
+   "pooled": 25,
+   "quiet": 114,
+   "spread": 29
+  },
+  "floor_classes": {
+   "held30": {
+    "counts": {
+     "pooled": 13,
+     "quiet": 11,
+     "spread": 5,
+     "offset": 1
+    },
+    "n": 30,
+    "t_d_area_median": 0.0027938146505548643,
+    "t_d_area_max": 0.041915757941307606,
+    "per_design": {
+     "cktevo_risc__stall_control_unit": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "rtlopt_mux_large": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "drrtl_controller": {
+      "class": "spread",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "cktevo_hsm__MixColumns": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": null,
+      "t_d_wns": 0.0003017775
+     },
+     "rtlopt_sub_8bit": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "drrtl_ticket_machine": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "rtlopt_alu_64bit": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "cktevo_risc__cpu": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "drrtl_UART": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "rtlopt_calculation": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "cktevo_mem_ctrl__mc_adr_sel": {
+      "class": "offset",
+      "t_d_area": 0.014541766721929255,
+      "t_d_power": 0.06873367016523954,
+      "t_d_wns": 0.019136700000000006
+     },
+     "drrtl_SPI": {
+      "class": "spread",
+      "t_d_area": 0.0035653381701254536,
+      "t_d_power": 0.023194058527445077,
+      "t_d_wns": 0.01785098
+     },
+     "rtlopt_register": {
+      "class": "spread",
+      "t_d_area": 0.004577928706284423,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.00288415
+     },
+     "cktevo_usb__usbf_sie_rx": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "drrtl_router": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "rtlopt_divider_8bit": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "cktevo_vga_enh__vga_wb_slave": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "drrtl_arm_cpu2": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "rtlopt_decoder_8bit": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "cktevo_nn_engine__thresholds_128x4096": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "drrtl_communication": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "rtlopt_sub_32bit": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "cktevo_ethmac__eth_cop": {
+      "class": "spread",
+      "t_d_area": 0.01121075786212397,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "drrtl_simple_spi": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "cktevo_hsm__hsm": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "drrtl_aes": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "cktevo_nn_engine__spikeNeuron8_H7": {
+      "class": "spread",
+      "t_d_area": 0.041915757941307606,
+      "t_d_power": 0.06302156309188804,
+      "t_d_wns": 0.0010727045
+     },
+     "drrtl_tv80": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "cktevo_risc__btb": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "drrtl_LSTM": {
+      "class": "pooled",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     }
+    }
+   },
+   "exp1": {
+    "counts": {
+     "spread": 6,
+     "quiet": 4
+    },
+    "n": 10,
+    "t_d_area_median": 0.0027938146505548643,
+    "t_d_area_max": 0.15179797057725555,
+    "per_design": {
+     "cktevo_nn_engine__spikeLayer8_H7": {
+      "class": "spread",
+      "t_d_area": 0.10412358744076994,
+      "t_d_power": 0.21579158627724895,
+      "t_d_wns": 0.00057709175
+     },
+     "cktevo_ethmac__eth_txethmac": {
+      "class": "spread",
+      "t_d_area": 0.11634948304747127,
+      "t_d_power": 0.1313085754412415,
+      "t_d_wns": 0.031582935
+     },
+     "cktevo_vga_enh__vga_wb_master": {
+      "class": "spread",
+      "t_d_area": 0.04431244370913334,
+      "t_d_power": 0.05836255432949781,
+      "t_d_wns": 0.006120292857142858
+     },
+     "cktevo_mem_ctrl__mc_obct_top": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "cktevo_spi__spi": {
+      "class": "spread",
+      "t_d_area": 0.15179797057725555,
+      "t_d_power": 0.2356798998565216,
+      "t_d_wns": 0.020375415714285715
+     },
+     "drrtl_datapath": {
+      "class": "spread",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.007145504999999999
+     },
+     "drrtl_pcie": {
+      "class": "spread",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.0276925090709173,
+      "t_d_wns": 0.0003017775
+     },
+     "drrtl_i2c": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": null,
+      "t_d_wns": 0.0003017775
+     },
+     "rtlopt_ticket_machine": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     },
+     "rtlopt_fsm_encode": {
+      "class": "quiet",
+      "t_d_area": 0.0027938146505548643,
+      "t_d_power": 0.022227533067402338,
+      "t_d_wns": 0.0003017775
+     }
+    }
+   }
+  },
+  "delta_quantiles": {
+   "E1|area": {
+    "n": 474,
+    "q90": 0.00935,
+    "q95": 0.01563,
+    "q99": 0.02307,
+    "max": 0.07
+   },
+   "E1|power": {
+    "n": 460,
+    "q90": 0.03199,
+    "q95": 0.08886,
+    "q99": 0.2443,
+    "max": 0.26657
+   },
+   "E1|wns": {
+    "n": 474,
+    "q90": 0.04057,
+    "q95": 0.05729,
+    "q99": 0.10001,
+    "max": 0.11526
+   },
+   "E2|area": {
+    "n": 474,
+    "q90": 0.00406,
+    "q95": 0.00924,
+    "q99": 0.02224,
+    "max": 0.10274
+   },
+   "E2|power": {
+    "n": 460,
+    "q90": 0.04403,
+    "q95": 0.08003,
+    "q99": 0.1131,
+    "max": 0.12327
+   },
+   "E2|wns": {
+    "n": 474,
+    "q90": 0.01026,
+    "q95": 0.01796,
+    "q99": 0.07506,
+    "max": 0.07813
+   },
+   "E3|area": {
+    "n": 473,
+    "q90": 0.0164,
+    "q95": 0.02739,
+    "q99": 0.21477,
+    "max": 0.27161
+   },
+   "E3|power": {
+    "n": 460,
+    "q90": 0.04227,
+    "q95": 0.08003,
+    "q99": 0.10751,
+    "max": 0.583
+   },
+   "E3|wns": {
+    "n": 473,
+    "q90": 0.01026,
+    "q95": 0.01398,
+    "q99": 0.03864,
+    "max": 0.0677
+   },
+   "E4|area": {
+    "n": 475,
+    "q90": 0.01121,
+    "q95": 0.03103,
+    "q99": 0.10229,
+    "max": 0.1518
+   },
+   "E4|power": {
+    "n": 460,
+    "q90": 0.0398,
+    "q95": 0.05919,
+    "q99": 0.13107,
+    "max": 0.23568
+   },
+   "E4|wns": {
+    "n": 475,
+    "q90": 0.00093,
+    "q95": 0.00608,
+    "q99": 0.01785,
+    "max": 0.03158
+   }
+  },
+  "delta_pairs_per_config": {
+   "E1": 474,
+   "E2": 474,
+   "E3": 473,
+   "E4": 475
+  },
+  "designs_with_perturbation_records": 27,
+  "heavy_tail_E4": {
+   "over_1pct": [
+    {
+     "design_id": "cktevo_spi__spi",
+     "ptype": "P4_ctrl",
+     "abs_delta_area": 0.1518,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_txethmac",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.1163,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_txethmac",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.1151,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.1041,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_txethmac",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.1023,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_txethmac",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.1023,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_txethmac",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0997,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0886,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0679,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0644,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.058,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.058,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0556,
+     "over_5pct": true
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_txethmac",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0443,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_vga_enh__vga_wb_master",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0443,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_vga_enh__vga_wb_master",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0443,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0419,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0375,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_spi__spi",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0329,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_spi__spi",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0329,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_spi__spi",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0329,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_spi__spi",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0327,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_spi__spi",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0327,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_spi__spi",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0327,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0303,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_vga_enh__vga_wb_master",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.028,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_vga_enh__vga_wb_master",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.028,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_spi__spi",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0264,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_spi__spi",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0264,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P4_ctrl",
+     "abs_delta_area": 0.0241,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P4_ctrl",
+     "abs_delta_area": 0.0241,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_txethmac",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0236,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P4_ctrl",
+     "abs_delta_area": 0.0221,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P4_ctrl",
+     "abs_delta_area": 0.0221,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0158,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0147,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_mem_ctrl__mc_adr_sel",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0145,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_mem_ctrl__mc_adr_sel",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0145,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0144,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_vga_enh__vga_wb_master",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0143,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_vga_enh__vga_wb_master",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0143,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_mem_ctrl__mc_adr_sel",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0142,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeNeuron8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0138,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_nn_engine__spikeLayer8_H7",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0137,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_mem_ctrl__mc_adr_sel",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0129,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_mem_ctrl__mc_adr_sel",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0125,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_mem_ctrl__mc_adr_sel",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0125,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_cop",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0112,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_cop",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0112,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_cop",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0112,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_cop",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0112,
+     "over_5pct": false
+    },
+    {
+     "design_id": "cktevo_ethmac__eth_cop",
+     "ptype": "P2_reorder",
+     "abs_delta_area": 0.0112,
+     "over_5pct": false
+    }
+   ],
+   "n_over_1pct": 52,
+   "n_over_5pct": 13,
+   "by_ptype_over_1pct": {
+    "P2_reorder": 47,
+    "P4_ctrl": 5
+   },
+   "by_design_over_1pct": {
+    "cktevo_ethmac__eth_cop": 5,
+    "cktevo_ethmac__eth_txethmac": 7,
+    "cktevo_mem_ctrl__mc_adr_sel": 6,
+    "cktevo_nn_engine__spikeLayer8_H7": 13,
+    "cktevo_nn_engine__spikeNeuron8_H7": 6,
+    "cktevo_spi__spi": 9,
+    "cktevo_vga_enh__vga_wb_master": 6
+   }
+  },
+  "ladder_facts": {
+   "source": "reports/phase0.md 'Addendum (G0 follow-up, 2026-09-12)' (four-design probe, reports/data/phase0_ladder_probe_{1,2}.json) and reports/phase2.md \u00a72c (127 set designs with every rung at \u03a6_main)",
+   "E1_to_E2": "the large step everywhere on the four probe designs: \u22126 % to \u221237 % area (datapath blocks, DesignWare Foundation auto-added, ungrouping, boundary optimisation, area strategy)",
+   "no_op_flags": "-timing_high_effort_script / -area_high_effort_script are documented as kept for backward compatibility and ignored: E2t bit-identical to E2 on all four designs; compile_timing_high_effort is not an application variable in wire-load mode (OPT-1346) \u2014 E2t dropped from the ladder",
+   "designware": "compile with DesignWare Foundation (E1d) differs from compile with the standard synthetic library only (E1) by 3\u20136 % on every probe design, in both directions (the divider gets worse) \u2014 the DesignWare choice is a capability of its own (rung E1d)",
+   "retiming": "-retime (E2 \u2192 E3) acts only on near-critical pipelined designs (register counts change, area \u00b12 %), not on combinational or slack-rich designs",
+   "gate_clock": "-gate_clock is the dominant E3 \u2192 E4 effect where enable registers exist (adder_pipe_64bit \u22126 %, 4 ICGs)",
+   "non_monotone_counts": {
+    "E1->E2": {
+     "area_grows": 15,
+     "wns_drops": 46
+    },
+    "E2->E3": {
+     "area_grows": 36,
+     "wns_drops": 18
+    },
+    "E3->E4": {
+     "area_grows": 5,
+     "wns_drops": 20
+    },
+    "E1->E4": {
+     "area_grows": 10,
+     "wns_drops": 43
+    },
+    "designs": 127,
+    "note": "WNS compared at \u03a6_main; once a rung meets timing, area recovery legitimately trades slack (reports/phase2.md \u00a72c)"
+   }
+  }
+ },
+ "retained_on_offset": {
+  "n": 371,
+  "retained_total": 4222,
+  "designs": {
+   "cktevo_mem_ctrl__mc_adr_sel": 371
+  }
+ },
+ "map": {
+  "materiality": {
+   "area": 0.01,
+   "power": 0.02,
+   "wns": 0.01
+  },
+  "floor_version": "phase4",
+  "equiv_version": "phase5",
+  "phase4_source": "reports/data/phase4_exp1.json objects[] (cand_id, design_id, cls, role b0 / reference / llm, verdict, label = rule A at E4 under the frozen phase4 floors, rung / attribution for absorbed, gains per rung E1 / E1d / E2 / E3 / E2g / E4); generated 2026-09-15, floor_version phase4",
+  "phase4": {
+   "n_proven_with_e4": 254,
+   "by_role": {
+    "b0": {
+     "title": "Phase 4 B0 candidates (Exp1 designs)",
+     "table": {
+      "a": {
+       "n": 33,
+       "labels": {
+        "retained": 1,
+        "tradeoff": 1,
+        "absorbed_identical": 19,
+        "absorbed": 5,
+        "noise": 7
+       },
+       "retained": 1,
+       "retention_rate": 0.030303030303030304,
+       "material": {
+        "any": 1,
+        "area": 1,
+        "power": 1,
+        "wns": 1,
+        "rate_any": 0.030303030303030304
+       }
+      },
+      "b": {
+       "n": 84,
+       "labels": {
+        "retained": 34,
+        "tradeoff": 10,
+        "absorbed_identical": 5,
+        "absorbed": 7,
+        "noise": 22,
+        "harmful": 6
+       },
+       "retained": 34,
+       "retention_rate": 0.40476190476190477,
+       "material": {
+        "any": 30,
+        "area": 29,
+        "power": 29,
+        "wns": 24,
+        "rate_any": 0.35714285714285715
+       }
+      },
+      "c1": {
+       "n": 19,
+       "labels": {
+        "retained": 17,
+        "tradeoff": 2
+       },
+       "retained": 17,
+       "retention_rate": 0.8947368421052632,
+       "material": {
+        "any": 17,
+        "area": 17,
+        "power": 17,
+        "wns": 8,
+        "rate_any": 0.8947368421052632
+       }
+      },
+      "d": {
+       "n": 32,
+       "labels": {
+        "retained": 3,
+        "tradeoff": 29
+       },
+       "retained": 3,
+       "retention_rate": 0.09375,
+       "material": {
+        "any": 1,
+        "area": 0,
+        "power": 0,
+        "wns": 1,
+        "rate_any": 0.03125
+       }
+      }
+     }
+    },
+    "reference": {
+     "title": "literature pairs (RTL-OPT / RTLRewriter references)",
+     "table": {
+      "a": {
+       "n": 33,
+       "labels": {
+        "retained": 9,
+        "tradeoff": 3,
+        "absorbed_identical": 16,
+        "absorbed": 1,
+        "harmful": 4
+       },
+       "retained": 9,
+       "retention_rate": 0.2727272727272727,
+       "material": {
+        "any": 9,
+        "area": 9,
+        "power": 8,
+        "wns": 7,
+        "rate_any": 0.2727272727272727
+       }
+      },
+      "b": {
+       "n": 23,
+       "labels": {
+        "retained": 4,
+        "tradeoff": 5,
+        "absorbed_identical": 9,
+        "absorbed": 1,
+        "noise": 1,
+        "harmful": 3
+       },
+       "retained": 4,
+       "retention_rate": 0.17391304347826086,
+       "material": {
+        "any": 3,
+        "area": 3,
+        "power": 3,
+        "wns": 3,
+        "rate_any": 0.13043478260869565
+       }
+      },
+      "c1": {
+       "n": 5,
+       "labels": {
+        "retained": 3,
+        "tradeoff": 1,
+        "noise": 1
+       },
+       "retained": 3,
+       "retention_rate": 0.6,
+       "material": {
+        "any": 3,
+        "area": 2,
+        "power": 3,
+        "wns": 2,
+        "rate_any": 0.6
+       }
+      },
+      "c2": {
+       "n": 1,
+       "labels": {
+        "retained": 1
+       },
+       "retained": 1,
+       "retention_rate": 1.0,
+       "material": {
+        "any": 1,
+        "area": 1,
+        "power": 1,
+        "wns": 1,
+        "rate_any": 1.0
+       }
+      },
+      "d": {
+       "n": 12,
+       "labels": {
+        "retained": 2,
+        "tradeoff": 3,
+        "absorbed_identical": 3,
+        "harmful": 4
+       },
+       "retained": 2,
+       "retention_rate": 0.16666666666666666,
+       "material": {
+        "any": 1,
+        "area": 2,
+        "power": 2,
+        "wns": 1,
+        "rate_any": 0.08333333333333333
+       }
+      }
+     }
+    },
+    "llm": {
+     "title": "RTLRewriter LLM samples",
+     "table": {
+      "a": {
+       "n": 9,
+       "labels": {
+        "retained": 1,
+        "absorbed_identical": 5,
+        "absorbed": 1,
+        "noise": 1,
+        "harmful": 1
+       },
+       "retained": 1,
+       "retention_rate": 0.1111111111111111,
+       "material": {
+        "any": 1,
+        "area": 1,
+        "power": 1,
+        "wns": 1,
+        "rate_any": 0.1111111111111111
+       }
+      },
+      "b": {
+       "n": 2,
+       "labels": {
+        "absorbed_identical": 2
+       },
+       "retained": 0,
+       "retention_rate": 0.0,
+       "material": {
+        "any": 0,
+        "area": 0,
+        "power": 0,
+        "wns": 0,
+        "rate_any": 0.0
+       }
+      },
+      "d": {
+       "n": 1,
+       "labels": {
+        "harmful": 1
+       },
+       "retained": 0,
+       "retention_rate": 0.0,
+       "material": {
+        "any": 0,
+        "area": 0,
+        "power": 0,
+        "wns": 0,
+        "rate_any": 0.0
+       }
+      }
+     }
+    }
+   },
+   "by_family": {
+    "CktEvo": {
+     "a": {
+      "n": 31,
+      "labels": {
+       "absorbed_identical": 19,
+       "absorbed": 5,
+       "noise": 7
+      },
+      "retained": 0,
+      "retention_rate": 0.0,
+      "material": {
+       "any": 0,
+       "area": 0,
+       "power": 0,
+       "wns": 0,
+       "rate_any": 0.0
+      }
+     },
+     "b": {
+      "n": 50,
+      "labels": {
+       "retained": 5,
+       "tradeoff": 5,
+       "absorbed_identical": 5,
+       "absorbed": 7,
+       "noise": 22,
+       "harmful": 6
+      },
+      "retained": 5,
+      "retention_rate": 0.1,
+      "material": {
+       "any": 1,
+       "area": 0,
+       "power": 0,
+       "wns": 1,
+       "rate_any": 0.02
+      }
+     },
+     "d": {
+      "n": 32,
+      "labels": {
+       "retained": 3,
+       "tradeoff": 29
+      },
+      "retained": 3,
+      "retention_rate": 0.09375,
+      "material": {
+       "any": 1,
+       "area": 0,
+       "power": 0,
+       "wns": 1,
+       "rate_any": 0.03125
+      }
+     }
+    },
+    "Dr.RTL": {
+     "b": {
+      "n": 10,
+      "labels": {
+       "retained": 6,
+       "tradeoff": 4
+      },
+      "retained": 6,
+      "retention_rate": 0.6,
+      "material": {
+       "any": 6,
+       "area": 6,
+       "power": 6,
+       "wns": 0,
+       "rate_any": 0.6
+      }
+     },
+     "c1": {
+      "n": 10,
+      "labels": {
+       "retained": 9,
+       "tradeoff": 1
+      },
+      "retained": 9,
+      "retention_rate": 0.9,
+      "material": {
+       "any": 9,
+       "area": 9,
+       "power": 9,
+       "wns": 0,
+       "rate_any": 0.9
+      }
+     }
+    },
+    "RTL-OPT": {
+     "a": {
+      "n": 15,
+      "labels": {
+       "retained": 4,
+       "tradeoff": 4,
+       "absorbed_identical": 3,
+       "harmful": 4
+      },
+      "retained": 4,
+      "retention_rate": 0.26666666666666666,
+      "material": {
+       "any": 4,
+       "area": 4,
+       "power": 4,
+       "wns": 3,
+       "rate_any": 0.26666666666666666
+      }
+     },
+     "b": {
+      "n": 33,
+      "labels": {
+       "retained": 25,
+       "tradeoff": 5,
+       "absorbed_identical": 1,
+       "harmful": 2
+      },
+      "retained": 25,
+      "retention_rate": 0.7575757575757576,
+      "material": {
+       "any": 25,
+       "area": 25,
+       "power": 25,
+       "wns": 25,
+       "rate_any": 0.7575757575757576
+      }
+     },
+     "c1": {
+      "n": 9,
+      "labels": {
+       "retained": 8,
+       "tradeoff": 1
+      },
+      "retained": 8,
+      "retention_rate": 0.8888888888888888,
+      "material": {
+       "any": 8,
+       "area": 8,
+       "power": 8,
+       "wns": 8,
+       "rate_any": 0.8888888888888888
+      }
+     },
+     "c2": {
+      "n": 1,
+      "labels": {
+       "retained": 1
+      },
+      "retained": 1,
+      "retention_rate": 1.0,
+      "material": {
+       "any": 1,
+       "area": 1,
+       "power": 1,
+       "wns": 1,
+       "rate_any": 1.0
+      }
+     },
+     "d": {
+      "n": 10,
+      "labels": {
+       "retained": 2,
+       "tradeoff": 3,
+       "absorbed_identical": 1,
+       "harmful": 4
+      },
+      "retained": 2,
+      "retention_rate": 0.2,
+      "material": {
+       "any": 1,
+       "area": 2,
+       "power": 2,
+       "wns": 1,
+       "rate_any": 0.1
+      }
+     }
+    },
+    "RTLRewriter": {
+     "a": {
+      "n": 29,
+      "labels": {
+       "retained": 7,
+       "absorbed_identical": 18,
+       "absorbed": 2,
+       "noise": 1,
+       "harmful": 1
+      },
+      "retained": 7,
+      "retention_rate": 0.2413793103448276,
+      "material": {
+       "any": 7,
+       "area": 7,
+       "power": 6,
+       "wns": 6,
+       "rate_any": 0.2413793103448276
+      }
+     },
+     "b": {
+      "n": 16,
+      "labels": {
+       "retained": 2,
+       "tradeoff": 1,
+       "absorbed_identical": 10,
+       "absorbed": 1,
+       "noise": 1,
+       "harmful": 1
+      },
+      "retained": 2,
+      "retention_rate": 0.125,
+      "material": {
+       "any": 1,
+       "area": 1,
+       "power": 1,
+       "wns": 1,
+       "rate_any": 0.0625
+      }
+     },
+     "c1": {
+      "n": 5,
+      "labels": {
+       "retained": 3,
+       "tradeoff": 1,
+       "noise": 1
+      },
+      "retained": 3,
+      "retention_rate": 0.6,
+      "material": {
+       "any": 3,
+       "area": 2,
+       "power": 3,
+       "wns": 2,
+       "rate_any": 0.6
+      }
+     },
+     "d": {
+      "n": 3,
+      "labels": {
+       "absorbed_identical": 2,
+       "harmful": 1
+      },
+      "retained": 0,
+      "retention_rate": 0.0,
+      "material": {
+       "any": 0,
+       "area": 0,
+       "power": 0,
+       "wns": 0,
+       "rate_any": 0.0
+      }
+     }
+    }
+   },
+   "absorbed_rungs": {
+    "E1": 4,
+    "E2": 5,
+    "after_Es": 6
+   },
+   "shape": {
+    "shape": "concentrated",
+    "e4_retention_by_class": {
+     "a": 0.06060606060606061,
+     "b": 0.4880952380952381,
+     "c1": 1.0,
+     "d": 0.9375
+    },
+    "basis": "B0 objects"
+   },
+   "map_e4_by_class": {
+    "a": {
+     "n": 75,
+     "n_evaluated": 75,
+     "n_retained": 12,
+     "retention_rate": 0.16,
+     "magnitude_median": 0.17561886896329354,
+     "magnitude_iqr": 0.2736819458253791,
+     "absorption_rung": {
+      "E1": 2,
+      "E2": 4,
+      "E4": 40,
+      "after_Es": 1
+     },
+     "attribution": {
+      "measured": 46,
+      "prior": 1
+     },
+     "labels": {
+      "absorbed": 7,
+      "absorbed_identical": 40,
+      "harmful": 5,
+      "noise": 8,
+      "retained": 11,
+      "tradeoff": 4
+     },
+     "harmful_blocks_synthesis": 1
+    },
+    "b": {
+     "n": 109,
+     "n_evaluated": 109,
+     "n_retained": 47,
+     "retention_rate": 0.43119266055045874,
+     "magnitude_median": 0.2851239702801844,
+     "magnitude_iqr": 0.3800210454066093,
+     "absorption_rung": {
+      "E1": 2,
+      "E2": 1,
+      "E4": 16,
+      "after_Es": 5
+     },
+     "attribution": {
+      "measured": 19,
+      "prior": 5
+     },
+     "labels": {
+      "absorbed": 8,
+      "absorbed_identical": 16,
+      "harmful": 9,
+      "noise": 23,
+      "retained": 38,
+      "tradeoff": 15
+     },
+     "harmful_blocks_synthesis": 5
+    },
+    "c1": {
+     "n": 24,
+     "n_evaluated": 24,
+     "n_retained": 21,
+     "retention_rate": 0.875,
+     "magnitude_median": 0.10500000115914773,
+     "magnitude_iqr": 0.37362567469689534,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {
+      "noise": 1,
+      "retained": 20,
+      "tradeoff": 3
+     },
+     "harmful_blocks_synthesis": 0
+    },
+    "c2": {
+     "n": 2,
+     "n_evaluated": 2,
+     "n_retained": 1,
+     "retention_rate": 0.5,
+     "magnitude_median": 0.019305019585232647,
+     "magnitude_iqr": null,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {
+      "harmful": 1,
+      "retained": 1
+     },
+     "harmful_blocks_synthesis": 0
+    },
+    "d": {
+     "n": 45,
+     "n_evaluated": 45,
+     "n_retained": 33,
+     "retention_rate": 0.7333333333333333,
+     "magnitude_median": 0.04784998233410838,
+     "magnitude_iqr": 0.012932427099415389,
+     "absorption_rung": {
+      "E4": 3
+     },
+     "attribution": {
+      "measured": 3
+     },
+     "labels": {
+      "absorbed_identical": 3,
+      "harmful": 5,
+      "retained": 5,
+      "tradeoff": 32
+     },
+     "harmful_blocks_synthesis": 1
+    }
+   },
+   "map_materiality_e4_by_class": {
+    "a": {
+     "n": 75,
+     "n_evaluated": 75,
+     "n_retained": 16,
+     "retention_rate": 0.21333333333333335,
+     "magnitude_median": 0.11682170299028741,
+     "magnitude_iqr": 0.26432453824764124,
+     "absorption_rung": {
+      "E1": 2,
+      "E2": 4,
+      "E4": 40,
+      "after_Es": 1
+     },
+     "attribution": {
+      "measured": 46,
+      "prior": 1
+     },
+     "labels": {
+      "absorbed": 7,
+      "absorbed_identical": 40,
+      "harmful": 5,
+      "noise": 8,
+      "retained": 11,
+      "tradeoff": 4
+     },
+     "harmful_blocks_synthesis": 1
+    },
+    "b": {
+     "n": 109,
+     "n_evaluated": 109,
+     "n_retained": 43,
+     "retention_rate": 0.3944954128440367,
+     "magnitude_median": 0.4158333286497494,
+     "magnitude_iqr": 0.37053500306055054,
+     "absorption_rung": {
+      "E1": 2,
+      "E2": 1,
+      "E4": 16,
+      "after_Es": 5
+     },
+     "attribution": {
+      "measured": 19,
+      "prior": 5
+     },
+     "labels": {
+      "absorbed": 8,
+      "absorbed_identical": 16,
+      "harmful": 9,
+      "noise": 23,
+      "retained": 38,
+      "tradeoff": 15
+     },
+     "harmful_blocks_synthesis": 5
+    },
+    "c1": {
+     "n": 24,
+     "n_evaluated": 24,
+     "n_retained": 21,
+     "retention_rate": 0.875,
+     "magnitude_median": 0.10500000115914773,
+     "magnitude_iqr": 0.37362567469689534,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {
+      "noise": 1,
+      "retained": 20,
+      "tradeoff": 3
+     },
+     "harmful_blocks_synthesis": 0
+    },
+    "c2": {
+     "n": 2,
+     "n_evaluated": 2,
+     "n_retained": 1,
+     "retention_rate": 0.5,
+     "magnitude_median": 0.019305019585232647,
+     "magnitude_iqr": null,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {
+      "harmful": 1,
+      "retained": 1
+     },
+     "harmful_blocks_synthesis": 0
+    },
+    "d": {
+     "n": 45,
+     "n_evaluated": 45,
+     "n_retained": 31,
+     "retention_rate": 0.6888888888888889,
+     "magnitude_median": 0.050113157289210584,
+     "magnitude_iqr": 0.011639184267928517,
+     "absorption_rung": {
+      "E4": 3
+     },
+     "attribution": {
+      "measured": 3
+     },
+     "labels": {
+      "absorbed_identical": 3,
+      "harmful": 5,
+      "retained": 5,
+      "tradeoff": 32
+     },
+     "harmful_blocks_synthesis": 1
+    }
+   }
+  },
+  "phase5": {
+   "tiers": {
+    "large": {
+     "by_arm": {
+      "B0": {
+       "table": {
+        "a": {
+         "n": 16,
+         "labels": {
+          "absorbed_identical": 2,
+          "noise": 13,
+          "harmful": 1
+         },
+         "retained": 0,
+         "retention_rate": 0.0,
+         "material": {
+          "any": 0,
+          "area": 0,
+          "power": 0,
+          "wns": 0,
+          "rate_any": 0.0
+         }
+        },
+        "b": {
+         "n": 89,
+         "labels": {
+          "retained": 29,
+          "tradeoff": 12,
+          "absorbed_identical": 6,
+          "absorbed": 8,
+          "noise": 13,
+          "harmful": 21
+         },
+         "retained": 29,
+         "retention_rate": 0.3258426966292135,
+         "material": {
+          "any": 22,
+          "area": 3,
+          "power": 22,
+          "wns": 0,
+          "rate_any": 0.24719101123595505
+         }
+        },
+        "c1": {
+         "n": 12,
+         "labels": {
+          "retained": 2,
+          "tradeoff": 7,
+          "harmful": 3
+         },
+         "retained": 2,
+         "retention_rate": 0.16666666666666666,
+         "material": {
+          "any": 1,
+          "area": 0,
+          "power": 1,
+          "wns": 0,
+          "rate_any": 0.08333333333333333
+         }
+        },
+        "d": {
+         "n": 54,
+         "labels": {
+          "retained": 12,
+          "tradeoff": 31,
+          "noise": 3,
+          "harmful": 8
+         },
+         "retained": 12,
+         "retention_rate": 0.2222222222222222,
+         "material": {
+          "any": 3,
+          "area": 3,
+          "power": 3,
+          "wns": 0,
+          "rate_any": 0.05555555555555555
+         }
+        }
+       },
+       "proven": 289,
+       "evaluated": 171,
+       "e4_pending": 118,
+       "dc_rejected": 0,
+       "harness": {
+        "v1": 289,
+        "v2": 0
+       }
+      },
+      "B1_E4": {
+       "table": {
+        "a": {
+         "n": 104,
+         "labels": {
+          "absorbed_identical": 39,
+          "noise": 10,
+          "harmful": 55
+         },
+         "retained": 0,
+         "retention_rate": 0.0,
+         "material": {
+          "any": 0,
+          "area": 0,
+          "power": 0,
+          "wns": 0,
+          "rate_any": 0.0
+         }
+        },
+        "b": {
+         "n": 129,
+         "labels": {
+          "retained": 67,
+          "tradeoff": 39,
+          "absorbed_identical": 3,
+          "absorbed": 1,
+          "noise": 12,
+          "harmful": 7
+         },
+         "retained": 67,
+         "retention_rate": 0.5193798449612403,
+         "material": {
+          "any": 63,
+          "area": 44,
+          "power": 63,
+          "wns": 0,
+          "rate_any": 0.4883720930232558
+         }
+        },
+        "c1": {
+         "n": 6,
+         "labels": {
+          "retained": 5,
+          "noise": 1
+         },
+         "retained": 5,
+         "retention_rate": 0.8333333333333334,
+         "material": {
+          "any": 0,
+          "area": 0,
+          "power": 0,
+          "wns": 0,
+          "rate_any": 0.0
+         }
+        },
+        "d": {
+         "n": 88,
+         "labels": {
+          "retained": 49,
+          "tradeoff": 7,
+          "noise": 16,
+          "harmful": 16
+         },
+         "retained": 49,
+         "retention_rate": 0.5568181818181818,
+         "material": {
+          "any": 14,
+          "area": 14,
+          "power": 14,
+          "wns": 0,
+          "rate_any": 0.1590909090909091
+         }
+        }
+       },
+       "proven": 327,
+       "evaluated": 327,
+       "e4_pending": 0,
+       "dc_rejected": 0,
+       "harness": {
+        "v1": 327,
+        "v2": 0
+       }
+      },
+      "B2": {
+       "table": {
+        "a": {
+         "n": 123,
+         "labels": {
+          "absorbed_identical": 49,
+          "noise": 24,
+          "harmful": 50
+         },
+         "retained": 0,
+         "retention_rate": 0.0,
+         "material": {
+          "any": 0,
+          "area": 0,
+          "power": 0,
+          "wns": 0,
+          "rate_any": 0.0
+         }
+        },
+        "b": {
+         "n": 135,
+         "labels": {
+          "retained": 76,
+          "tradeoff": 35,
+          "absorbed_identical": 1,
+          "noise": 15,
+          "harmful": 8
+         },
+         "retained": 76,
+         "retention_rate": 0.562962962962963,
+         "material": {
+          "any": 68,
+          "area": 48,
+          "power": 68,
+          "wns": 0,
+          "rate_any": 0.5037037037037037
+         }
+        },
+        "c1": {
+         "n": 8,
+         "labels": {
+          "retained": 4,
+          "tradeoff": 4
+         },
+         "retained": 4,
+         "retention_rate": 0.5,
+         "material": {
+          "any": 4,
+          "area": 3,
+          "power": 4,
+          "wns": 0,
+          "rate_any": 0.5
+         }
+        },
+        "d": {
+         "n": 51,
+         "labels": {
+          "retained": 16,
+          "noise": 9,
+          "harmful": 26
+         },
+         "retained": 16,
+         "retention_rate": 0.3137254901960784,
+         "material": {
+          "any": 1,
+          "area": 1,
+          "power": 1,
+          "wns": 0,
+          "rate_any": 0.0196078431372549
+         }
+        }
+       },
+       "proven": 318,
+       "evaluated": 317,
+       "e4_pending": 1,
+       "dc_rejected": 0,
+       "harness": {
+        "v1": 318,
+        "v2": 0
+       }
+      },
+      "DrRTL_reimpl": {
+       "table": {
+        "a": {
+         "n": 202,
+         "labels": {
+          "absorbed_identical": 41,
+          "absorbed": 37,
+          "noise": 46,
+          "harmful": 78
+         },
+         "retained": 0,
+         "retention_rate": 0.0,
+         "material": {
+          "any": 0,
+          "area": 0,
+          "power": 0,
+          "wns": 0,
+          "rate_any": 0.0
+         }
+        },
+        "b": {
+         "n": 122,
+         "labels": {
+          "retained": 43,
+          "tradeoff": 4,
+          "absorbed_identical": 1,
+          "absorbed": 1,
+          "noise": 50,
+          "harmful": 23
+         },
+         "retained": 43,
+         "retention_rate": 0.3524590163934426,
+         "material": {
+          "any": 11,
+          "area": 0,
+          "power": 11,
+          "wns": 0,
+          "rate_any": 0.09016393442622951
+         }
+        },
+        "c1": {
+         "n": 16,
+         "labels": {
+          "retained": 1,
+          "tradeoff": 7,
+          "noise": 3,
+          "harmful": 5
+         },
+         "retained": 1,
+         "retention_rate": 0.0625,
+         "material": {
+          "any": 1,
+          "area": 0,
+          "power": 1,
+          "wns": 0,
+          "rate_any": 0.0625
+         }
+        },
+        "d": {
+         "n": 1,
+         "labels": {
+          "noise": 1
+         },
+         "retained": 0,
+         "retention_rate": 0.0,
+         "material": {
+          "any": 0,
+          "area": 0,
+          "power": 0,
+          "wns": 0,
+          "rate_any": 0.0
+         }
+        }
+       },
+       "proven": 341,
+       "evaluated": 341,
+       "e4_pending": 0,
+       "dc_rejected": 0,
+       "harness": {
+        "v1": 341,
+        "v2": 0
+       }
+      },
+      "M": {
+       "table": {
+        "a": {
+         "n": 22,
+         "labels": {
+          "absorbed_identical": 13,
+          "noise": 6,
+          "harmful": 3
+         },
+         "retained": 0,
+         "retention_rate": 0.0,
+         "material": {
+          "any": 0,
+          "area": 0,
+          "power": 0,
+          "wns": 0,
+          "rate_any": 0.0
+         }
+        },
+        "b": {
+         "n": 268,
+         "labels": {
+          "retained": 104,
+          "tradeoff": 58,
+          "absorbed_identical": 14,
+          "noise": 60,
+          "harmful": 32
+         },
+         "retained": 104,
+         "retention_rate": 0.3880597014925373,
+         "material": {
+          "any": 97,
+          "area": 60,
+          "power": 97,
+          "wns": 0,
+          "rate_any": 0.3619402985074627
+         }
+        },
+        "c1": {
+         "n": 5,
+         "labels": {
+          "tradeoff": 4,
+          "harmful": 1
+         },
+         "retained": 0,
+         "retention_rate": 0.0,
+         "material": {
+          "any": 0,
+          "area": 0,
+          "power": 0,
+          "wns": 0,
+          "rate_any": 0.0
+         }
+        },
+        "d": {
+         "n": 73,
+         "labels": {
+          "retained": 46,
+          "tradeoff": 7,
+          "noise": 7,
+          "harmful": 13
+         },
+         "retained": 46,
+         "retention_rate": 0.6301369863013698,
+         "material": {
+          "any": 26,
+          "area": 15,
+          "power": 26,
+          "wns": 0,
+          "rate_any": 0.3561643835616438
+         }
+        }
+       },
+       "proven": 368,
+       "evaluated": 368,
+       "e4_pending": 0,
+       "dc_rejected": 0,
+       "harness": {
+        "v1": 368,
+        "v2": 0
+       }
+      }
+     },
+     "runs": {
+      "done": 90,
+      "created": 18
+     },
+     "all_arms": {
+      "a": {
+       "n": 467,
+       "labels": {
+        "absorbed_identical": 144,
+        "absorbed": 37,
+        "noise": 99,
+        "harmful": 187
+       },
+       "retained": 0,
+       "retention_rate": 0.0,
+       "material": {
+        "any": 0,
+        "area": 0,
+        "power": 0,
+        "wns": 0,
+        "rate_any": 0.0
+       }
+      },
+      "b": {
+       "n": 743,
+       "labels": {
+        "retained": 319,
+        "tradeoff": 148,
+        "absorbed_identical": 25,
+        "absorbed": 10,
+        "noise": 150,
+        "harmful": 91
+       },
+       "retained": 319,
+       "retention_rate": 0.42934051144010765,
+       "material": {
+        "any": 261,
+        "area": 155,
+        "power": 261,
+        "wns": 0,
+        "rate_any": 0.351278600269179
+       }
+      },
+      "c1": {
+       "n": 47,
+       "labels": {
+        "retained": 12,
+        "tradeoff": 22,
+        "noise": 4,
+        "harmful": 9
+       },
+       "retained": 12,
+       "retention_rate": 0.2553191489361702,
+       "material": {
+        "any": 6,
+        "area": 3,
+        "power": 6,
+        "wns": 0,
+        "rate_any": 0.1276595744680851
+       }
+      },
+      "d": {
+       "n": 267,
+       "labels": {
+        "retained": 123,
+        "tradeoff": 45,
+        "noise": 36,
+        "harmful": 63
+       },
+       "retained": 123,
+       "retention_rate": 0.4606741573033708,
+       "material": {
+        "any": 44,
+        "area": 33,
+        "power": 44,
+        "wns": 0,
+        "rate_any": 0.1647940074906367
+       }
+      }
+     },
+     "prescreened_proof_pending": {
+      "n": 142,
+      "table": {
+       "a": {
+        "n": 142,
+        "labels": {
+         "retained": 1,
+         "tradeoff": 3,
+         "absorbed_identical": 79,
+         "noise": 15,
+         "harmful": 44
+        },
+        "retained": 1,
+        "retention_rate": 0.007042253521126761,
+        "material": {
+         "any": 0,
+         "area": 0,
+         "power": 0,
+         "wns": 0,
+         "rate_any": 0.0
+        }
+       }
+      }
+     },
+     "prescreened_sim_pending": 78,
+     "prescreened_e4_pending": 49
+    },
+    "medium": {
+     "by_arm": {
+      "B0": {
+       "table": {
+        "a": {
+         "n": 334,
+         "labels": {
+          "retained": 77,
+          "tradeoff": 49,
+          "absorbed_identical": 154,
+          "absorbed": 3,
+          "harmful": 51
+         },
+         "retained": 77,
+         "retention_rate": 0.23053892215568864,
+         "material": {
+          "any": 68,
+          "area": 60,
+          "power": 68,
+          "wns": 2,
+          "rate_any": 0.20359281437125748
+         }
+        },
+        "b": {
+         "n": 533,
+         "labels": {
+          "retained": 203,
+          "tradeoff": 137,
+          "absorbed_identical": 83,
+          "absorbed": 40,
+          "noise": 1,
+          "harmful": 69
+         },
+         "retained": 203,
+         "retention_rate": 0.3808630393996248,
+         "material": {
+          "any": 133,
+          "area": 108,
+          "power": 117,
+          "wns": 106,
+          "rate_any": 0.24953095684803
+         }
+        },
+        "c1": {
+         "n": 268,
+         "labels": {
+          "retained": 90,
+          "tradeoff": 100,
+          "absorbed_identical": 2,
+          "noise": 16,
+          "harmful": 60
+         },
+         "retained": 90,
+         "retention_rate": 0.3358208955223881,
+         "material": {
+          "any": 70,
+          "area": 23,
+          "power": 64,
+          "wns": 41,
+          "rate_any": 0.26119402985074625
+         }
+        },
+        "d": {
+         "n": 513,
+         "labels": {
+          "retained": 274,
+          "tradeoff": 204,
+          "absorbed_identical": 8,
+          "harmful": 27
+         },
+         "retained": 274,
+         "retention_rate": 0.5341130604288499,
+         "material": {
+          "any": 243,
+          "area": 162,
+          "power": 227,
+          "wns": 39,
+          "rate_any": 0.47368421052631576
+         }
+        }
+       },
+       "proven": 1679,
+       "evaluated": 1648,
+       "e4_pending": 9,
+       "dc_rejected": 22,
+       "harness": {
+        "v1": 1107,
+        "v2": 572
+       }
+      },
+      "B1_E4": {
+       "table": {
+        "a": {
+         "n": 246,
+         "labels": {
+          "retained": 31,
+          "tradeoff": 81,
+          "absorbed_identical": 108,
+          "absorbed": 3,
+          "noise": 3,
+          "harmful": 20
+         },
+         "retained": 31,
+         "retention_rate": 0.12601626016260162,
+         "material": {
+          "any": 25,
+          "area": 21,
+          "power": 23,
+          "wns": 4,
+          "rate_any": 0.1016260162601626
+         }
+        },
+        "b": {
+         "n": 703,
+         "labels": {
+          "retained": 218,
+          "tradeoff": 198,
+          "absorbed_identical": 164,
+          "absorbed": 40,
+          "noise": 1,
+          "harmful": 82
+         },
+         "retained": 218,
+         "retention_rate": 0.310099573257468,
+         "material": {
+          "any": 150,
+          "area": 77,
+          "power": 111,
+          "wns": 112,
+          "rate_any": 0.21337126600284495
+         }
+        },
+        "c1": {
+         "n": 293,
+         "labels": {
+          "retained": 135,
+          "tradeoff": 94,
+          "absorbed_identical": 3,
+          "absorbed": 1,
+          "noise": 30,
+          "harmful": 30
+         },
+         "retained": 135,
+         "retention_rate": 0.46075085324232085,
+         "material": {
+          "any": 133,
+          "area": 36,
+          "power": 123,
+          "wns": 59,
+          "rate_any": 0.4539249146757679
+         }
+        },
+        "d": {
+         "n": 496,
+         "labels": {
+          "retained": 246,
+          "tradeoff": 197,
+          "absorbed_identical": 14,
+          "absorbed": 2,
+          "noise": 1,
+          "harmful": 36
+         },
+         "retained": 246,
+         "retention_rate": 0.4959677419354839,
+         "material": {
+          "any": 246,
+          "area": 128,
+          "power": 246,
+          "wns": 76,
+          "rate_any": 0.4959677419354839
+         }
+        }
+       },
+       "proven": 1744,
+       "evaluated": 1738,
+       "e4_pending": 0,
+       "dc_rejected": 6,
+       "harness": {
+        "v1": 978,
+        "v2": 766
+       }
+      },
+      "B2": {
+       "table": {
+        "a": {
+         "n": 547,
+         "labels": {
+          "retained": 113,
+          "tradeoff": 223,
+          "absorbed_identical": 131,
+          "absorbed": 12,
+          "noise": 2,
+          "harmful": 66
+         },
+         "retained": 113,
+         "retention_rate": 0.20658135283363802,
+         "material": {
+          "any": 109,
+          "area": 106,
+          "power": 109,
+          "wns": 7,
+          "rate_any": 0.19926873857404023
+         }
+        },
+        "b": {
+         "n": 1476,
+         "labels": {
+          "retained": 477,
+          "tradeoff": 494,
+          "absorbed_identical": 274,
+          "absorbed": 43,
+          "noise": 5,
+          "harmful": 183
+         },
+         "retained": 477,
+         "retention_rate": 0.3231707317073171,
+         "material": {
+          "any": 407,
+          "area": 279,
+          "power": 311,
+          "wns": 326,
+          "rate_any": 0.2757452574525745
+         }
+        },
+        "c1": {
+         "n": 583,
+         "labels": {
+          "retained": 135,
+          "tradeoff": 239,
+          "absorbed_identical": 7,
+          "absorbed": 4,
+          "noise": 97,
+          "harmful": 101
+         },
+         "retained": 135,
+         "retention_rate": 0.23156089193825044,
+         "material": {
+          "any": 133,
+          "area": 37,
+          "power": 115,
+          "wns": 85,
+          "rate_any": 0.2281303602058319
+         }
+        },
+        "d": {
+         "n": 961,
+         "labels": {
+          "retained": 383,
+          "tradeoff": 470,
+          "absorbed_identical": 39,
+          "absorbed": 11,
+          "noise": 3,
+          "harmful": 55
+         },
+         "retained": 383,
+         "retention_rate": 0.39854318418314255,
+         "material": {
+          "any": 379,
+          "area": 164,
+          "power": 374,
+          "wns": 106,
+          "rate_any": 0.39438085327783556
+         }
+        }
+       },
+       "proven": 3597,
+       "evaluated": 3567,
+       "e4_pending": 18,
+       "dc_rejected": 12,
+       "harness": {
+        "v1": 1424,
+        "v2": 2173
+       }
+      },
+      "DrRTL_reimpl": {
+       "table": {
+        "a": {
+         "n": 747,
+         "labels": {
+          "retained": 170,
+          "tradeoff": 160,
+          "absorbed_identical": 343,
+          "absorbed": 17,
+          "noise": 5,
+          "harmful": 52
+         },
+         "retained": 170,
+         "retention_rate": 0.22757697456492637,
+         "material": {
+          "any": 163,
+          "area": 137,
+          "power": 160,
+          "wns": 0,
+          "rate_any": 0.2182061579651941
+         }
+        },
+        "b": {
+         "n": 270,
+         "labels": {
+          "retained": 136,
+          "tradeoff": 64,
+          "absorbed_identical": 35,
+          "absorbed": 13,
+          "harmful": 22
+         },
+         "retained": 136,
+         "retention_rate": 0.5037037037037037,
+         "material": {
+          "any": 100,
+          "area": 70,
+          "power": 71,
+          "wns": 98,
+          "rate_any": 0.37037037037037035
+         }
+        },
+        "c1": {
+         "n": 245,
+         "labels": {
+          "retained": 179,
+          "tradeoff": 46,
+          "noise": 7,
+          "harmful": 13
+         },
+         "retained": 179,
+         "retention_rate": 0.7306122448979592,
+         "material": {
+          "any": 179,
+          "area": 89,
+          "power": 169,
+          "wns": 115,
+          "rate_any": 0.7306122448979592
+         }
+        },
+        "d": {
+         "n": 197,
+         "labels": {
+          "retained": 101,
+          "tradeoff": 66,
+          "absorbed_identical": 12,
+          "absorbed": 5,
+          "harmful": 13
+         },
+         "retained": 101,
+         "retention_rate": 0.5126903553299492,
+         "material": {
+          "any": 101,
+          "area": 46,
+          "power": 101,
+          "wns": 35,
+          "rate_any": 0.5126903553299492
+         }
+        }
+       },
+       "proven": 1461,
+       "evaluated": 1459,
+       "e4_pending": 0,
+       "dc_rejected": 2,
+       "harness": {
+        "v1": 715,
+        "v2": 746
+       }
+      },
+      "M": {
+       "table": {
+        "a": {
+         "n": 391,
+         "labels": {
+          "retained": 33,
+          "tradeoff": 154,
+          "absorbed_identical": 152,
+          "absorbed": 1,
+          "noise": 2,
+          "harmful": 49
+         },
+         "retained": 33,
+         "retention_rate": 0.08439897698209718,
+         "material": {
+          "any": 29,
+          "area": 23,
+          "power": 24,
+          "wns": 7,
+          "rate_any": 0.0741687979539642
+         }
+        },
+        "b": {
+         "n": 888,
+         "labels": {
+          "retained": 416,
+          "tradeoff": 244,
+          "absorbed_identical": 144,
+          "absorbed": 10,
+          "noise": 1,
+          "harmful": 73
+         },
+         "retained": 416,
+         "retention_rate": 0.46846846846846846,
+         "material": {
+          "any": 351,
+          "area": 244,
+          "power": 243,
+          "wns": 292,
+          "rate_any": 0.3952702702702703
+         }
+        },
+        "c1": {
+         "n": 375,
+         "labels": {
+          "retained": 104,
+          "tradeoff": 86,
+          "absorbed_identical": 2,
+          "noise": 141,
+          "harmful": 42
+         },
+         "retained": 104,
+         "retention_rate": 0.2773333333333333,
+         "material": {
+          "any": 97,
+          "area": 23,
+          "power": 81,
+          "wns": 42,
+          "rate_any": 0.25866666666666666
+         }
+        },
+        "c2": {
+         "n": 1,
+         "labels": {
+          "retained": 1
+         },
+         "retained": 1,
+         "retention_rate": 1.0,
+         "material": {
+          "any": 1,
+          "area": 0,
+          "power": 1,
+          "wns": 0,
+          "rate_any": 1.0
+         }
+        },
+        "d": {
+         "n": 527,
+         "labels": {
+          "retained": 239,
+          "tradeoff": 206,
+          "absorbed_identical": 30,
+          "absorbed": 1,
+          "noise": 1,
+          "harmful": 50
+         },
+         "retained": 239,
+         "retention_rate": 0.45351043643263755,
+         "material": {
+          "any": 239,
+          "area": 51,
+          "power": 239,
+          "wns": 70,
+          "rate_any": 0.45351043643263755
+         }
+        }
+       },
+       "proven": 2190,
+       "evaluated": 2182,
+       "e4_pending": 6,
+       "dc_rejected": 2,
+       "harness": {
+        "v1": 413,
+        "v2": 1777
+       }
+      }
+     },
+     "runs": {
+      "done": 297,
+      "created": 35,
+      "running": 44
+     },
+     "all_arms": {
+      "a": {
+       "n": 2265,
+       "labels": {
+        "retained": 424,
+        "tradeoff": 667,
+        "absorbed_identical": 888,
+        "absorbed": 36,
+        "noise": 12,
+        "harmful": 238
+       },
+       "retained": 424,
+       "retention_rate": 0.18719646799116998,
+       "material": {
+        "any": 394,
+        "area": 347,
+        "power": 384,
+        "wns": 20,
+        "rate_any": 0.1739514348785872
+       }
+      },
+      "b": {
+       "n": 3870,
+       "labels": {
+        "retained": 1450,
+        "tradeoff": 1137,
+        "absorbed_identical": 700,
+        "absorbed": 146,
+        "noise": 8,
+        "harmful": 429
+       },
+       "retained": 1450,
+       "retention_rate": 0.37467700258397935,
+       "material": {
+        "any": 1141,
+        "area": 778,
+        "power": 853,
+        "wns": 934,
+        "rate_any": 0.29483204134366925
+       }
+      },
+      "c1": {
+       "n": 1764,
+       "labels": {
+        "retained": 643,
+        "tradeoff": 565,
+        "absorbed_identical": 14,
+        "absorbed": 5,
+        "noise": 291,
+        "harmful": 246
+       },
+       "retained": 643,
+       "retention_rate": 0.3645124716553288,
+       "material": {
+        "any": 612,
+        "area": 208,
+        "power": 552,
+        "wns": 342,
+        "rate_any": 0.3469387755102041
+       }
+      },
+      "c2": {
+       "n": 1,
+       "labels": {
+        "retained": 1
+       },
+       "retained": 1,
+       "retention_rate": 1.0,
+       "material": {
+        "any": 1,
+        "area": 0,
+        "power": 1,
+        "wns": 0,
+        "rate_any": 1.0
+       }
+      },
+      "d": {
+       "n": 2694,
+       "labels": {
+        "retained": 1243,
+        "tradeoff": 1143,
+        "absorbed_identical": 103,
+        "absorbed": 19,
+        "noise": 5,
+        "harmful": 181
+       },
+       "retained": 1243,
+       "retention_rate": 0.46139569413511505,
+       "material": {
+        "any": 1208,
+        "area": 551,
+        "power": 1187,
+        "wns": 326,
+        "rate_any": 0.4484038604305865
+       }
+      }
+     },
+     "prescreened_proof_pending": {
+      "n": 0,
+      "table": {}
+     },
+     "prescreened_sim_pending": 0,
+     "prescreened_e4_pending": 0
+    },
+    "small": {
+     "by_arm": {
+      "B0": {
+       "table": {},
+       "proven": 19,
+       "evaluated": 0,
+       "e4_pending": 19,
+       "dc_rejected": 0,
+       "harness": {
+        "v1": 0,
+        "v2": 19
+       }
+      },
+      "B1_E4": {
+       "table": {
+        "b": {
+         "n": 18,
+         "labels": {
+          "retained": 3,
+          "absorbed_identical": 13,
+          "harmful": 2
+         },
+         "retained": 3,
+         "retention_rate": 0.16666666666666666,
+         "material": {
+          "any": 3,
+          "area": 3,
+          "power": 3,
+          "wns": 0,
+          "rate_any": 0.16666666666666666
+         }
+        },
+        "d": {
+         "n": 1,
+         "labels": {
+          "harmful": 1
+         },
+         "retained": 0,
+         "retention_rate": 0.0,
+         "material": {
+          "any": 0,
+          "area": 0,
+          "power": 0,
+          "wns": 0,
+          "rate_any": 0.0
+         }
+        }
+       },
+       "proven": 19,
+       "evaluated": 19,
+       "e4_pending": 0,
+       "dc_rejected": 0,
+       "harness": {
+        "v1": 0,
+        "v2": 19
+       }
+      },
+      "B2": {
+       "table": {
+        "a": {
+         "n": 21,
+         "labels": {
+          "retained": 1,
+          "tradeoff": 17,
+          "absorbed_identical": 1,
+          "harmful": 2
+         },
+         "retained": 1,
+         "retention_rate": 0.047619047619047616,
+         "material": {
+          "any": 1,
+          "area": 1,
+          "power": 1,
+          "wns": 0,
+          "rate_any": 0.047619047619047616
+         }
+        },
+        "b": {
+         "n": 64,
+         "labels": {
+          "retained": 3,
+          "tradeoff": 20,
+          "absorbed_identical": 35,
+          "harmful": 6
+         },
+         "retained": 3,
+         "retention_rate": 0.046875,
+         "material": {
+          "any": 3,
+          "area": 3,
+          "power": 3,
+          "wns": 1,
+          "rate_any": 0.046875
+         }
+        },
+        "d": {
+         "n": 14,
+         "labels": {
+          "tradeoff": 2,
+          "harmful": 12
+         },
+         "retained": 0,
+         "retention_rate": 0.0,
+         "material": {
+          "any": 0,
+          "area": 0,
+          "power": 0,
+          "wns": 0,
+          "rate_any": 0.0
+         }
+        }
+       },
+       "proven": 99,
+       "evaluated": 99,
+       "e4_pending": 0,
+       "dc_rejected": 0,
+       "harness": {
+        "v1": 0,
+        "v2": 99
+       }
+      }
+     },
+     "runs": {
+      "created": 120,
+      "done": 1,
+      "running": 5
+     },
+     "all_arms": {
+      "a": {
+       "n": 21,
+       "labels": {
+        "retained": 1,
+        "tradeoff": 17,
+        "absorbed_identical": 1,
+        "harmful": 2
+       },
+       "retained": 1,
+       "retention_rate": 0.047619047619047616,
+       "material": {
+        "any": 1,
+        "area": 1,
+        "power": 1,
+        "wns": 0,
+        "rate_any": 0.047619047619047616
+       }
+      },
+      "b": {
+       "n": 82,
+       "labels": {
+        "retained": 6,
+        "tradeoff": 20,
+        "absorbed_identical": 48,
+        "harmful": 8
+       },
+       "retained": 6,
+       "retention_rate": 0.07317073170731707,
+       "material": {
+        "any": 6,
+        "area": 6,
+        "power": 6,
+        "wns": 1,
+        "rate_any": 0.07317073170731707
+       }
+      },
+      "d": {
+       "n": 15,
+       "labels": {
+        "tradeoff": 2,
+        "harmful": 13
+       },
+       "retained": 0,
+       "retention_rate": 0.0,
+       "material": {
+        "any": 0,
+        "area": 0,
+        "power": 0,
+        "wns": 0,
+        "rate_any": 0.0
+       }
+      }
+     },
+     "prescreened_proof_pending": {
+      "n": 0,
+      "table": {}
+     },
+     "prescreened_sim_pending": 0,
+     "prescreened_e4_pending": 0
+    }
+   },
+   "runs": {},
+   "pending": {},
+   "by_family": {
+    "CktEvo": {
+     "a": {
+      "n": 1273,
+      "labels": {
+       "retained": 155,
+       "tradeoff": 493,
+       "absorbed_identical": 375,
+       "absorbed": 32,
+       "noise": 1,
+       "harmful": 217
+      },
+      "retained": 155,
+      "retention_rate": 0.12175962293794187,
+      "material": {
+       "any": 127,
+       "area": 111,
+       "power": 118,
+       "wns": 17,
+       "rate_any": 0.0997643362136685
+      }
+     },
+     "b": {
+      "n": 2117,
+      "labels": {
+       "retained": 1005,
+       "tradeoff": 581,
+       "absorbed_identical": 183,
+       "absorbed": 105,
+       "noise": 62,
+       "harmful": 181
+      },
+      "retained": 1005,
+      "retention_rate": 0.4747283892300425,
+      "material": {
+       "any": 658,
+       "area": 325,
+       "power": 373,
+       "wns": 317,
+       "rate_any": 0.3108171941426547
+      }
+     },
+     "c1": {
+      "n": 1288,
+      "labels": {
+       "retained": 443,
+       "tradeoff": 342,
+       "absorbed_identical": 7,
+       "absorbed": 5,
+       "noise": 289,
+       "harmful": 202
+      },
+      "retained": 443,
+      "retention_rate": 0.343944099378882,
+      "material": {
+       "any": 421,
+       "area": 185,
+       "power": 362,
+       "wns": 308,
+       "rate_any": 0.3268633540372671
+      }
+     },
+     "c2": {
+      "n": 1,
+      "labels": {
+       "retained": 1
+      },
+      "retained": 1,
+      "retention_rate": 1.0,
+      "material": {
+       "any": 1,
+       "area": 0,
+       "power": 1,
+       "wns": 0,
+       "rate_any": 1.0
+      }
+     },
+     "d": {
+      "n": 220,
+      "labels": {
+       "retained": 58,
+       "tradeoff": 108,
+       "absorbed_identical": 17,
+       "absorbed": 19,
+       "noise": 6,
+       "harmful": 12
+      },
+      "retained": 58,
+      "retention_rate": 0.2636363636363636,
+      "material": {
+       "any": 43,
+       "area": 27,
+       "power": 39,
+       "wns": 5,
+       "rate_any": 0.19545454545454546
+      }
+     }
+    },
+    "Dr.RTL": {
+     "a": {
+      "n": 1006,
+      "labels": {
+       "retained": 61,
+       "tradeoff": 95,
+       "absorbed_identical": 575,
+       "absorbed": 41,
+       "noise": 110,
+       "harmful": 124
+      },
+      "retained": 61,
+      "retention_rate": 0.06063618290258449,
+      "material": {
+       "any": 61,
+       "area": 47,
+       "power": 60,
+       "wns": 0,
+       "rate_any": 0.06063618290258449
+      }
+     },
+     "b": {
+      "n": 1050,
+      "labels": {
+       "retained": 11,
+       "tradeoff": 277,
+       "absorbed_identical": 325,
+       "absorbed": 47,
+       "noise": 96,
+       "harmful": 294
+      },
+      "retained": 11,
+      "retention_rate": 0.010476190476190476,
+      "material": {
+       "any": 3,
+       "area": 2,
+       "power": 1,
+       "wns": 1,
+       "rate_any": 0.002857142857142857
+      }
+     },
+     "c1": {
+      "n": 167,
+      "labels": {
+       "retained": 13,
+       "tradeoff": 111,
+       "noise": 6,
+       "harmful": 37
+      },
+      "retained": 13,
+      "retention_rate": 0.07784431137724551,
+      "material": {
+       "any": 7,
+       "area": 5,
+       "power": 7,
+       "wns": 2,
+       "rate_any": 0.041916167664670656
+      }
+     },
+     "d": {
+      "n": 183,
+      "labels": {
+       "retained": 72,
+       "tradeoff": 17,
+       "noise": 35,
+       "harmful": 59
+      },
+      "retained": 72,
+      "retention_rate": 0.39344262295081966,
+      "material": {
+       "any": 6,
+       "area": 6,
+       "power": 6,
+       "wns": 0,
+       "rate_any": 0.03278688524590164
+      }
+     }
+    },
+    "RTL-OPT": {
+     "a": {
+      "n": 474,
+      "labels": {
+       "retained": 209,
+       "tradeoff": 96,
+       "absorbed_identical": 83,
+       "harmful": 86
+      },
+      "retained": 209,
+      "retention_rate": 0.4409282700421941,
+      "material": {
+       "any": 207,
+       "area": 190,
+       "power": 207,
+       "wns": 3,
+       "rate_any": 0.43670886075949367
+      }
+     },
+     "b": {
+      "n": 1528,
+      "labels": {
+       "retained": 759,
+       "tradeoff": 447,
+       "absorbed_identical": 265,
+       "absorbed": 4,
+       "harmful": 53
+      },
+      "retained": 759,
+      "retention_rate": 0.4967277486910995,
+      "material": {
+       "any": 747,
+       "area": 612,
+       "power": 746,
+       "wns": 617,
+       "rate_any": 0.48887434554973824
+      }
+     },
+     "c1": {
+      "n": 356,
+      "labels": {
+       "retained": 199,
+       "tradeoff": 134,
+       "absorbed_identical": 7,
+       "harmful": 16
+      },
+      "retained": 199,
+      "retention_rate": 0.5589887640449438,
+      "material": {
+       "any": 190,
+       "area": 21,
+       "power": 189,
+       "wns": 32,
+       "rate_any": 0.5337078651685393
+      }
+     },
+     "d": {
+      "n": 2573,
+      "labels": {
+       "retained": 1236,
+       "tradeoff": 1065,
+       "absorbed_identical": 86,
+       "harmful": 186
+      },
+      "retained": 1236,
+      "retention_rate": 0.4803731053245239,
+      "material": {
+       "any": 1203,
+       "area": 551,
+       "power": 1186,
+       "wns": 321,
+       "rate_any": 0.4675476097940148
+      }
+     }
+    }
+   },
+   "evidence_tags": {
+    "registers renamed / retargeted, count and latency unchanged": {
+     "noise": 158,
+     "harmful": 493,
+     "absorbed_identical": 771,
+     "retained": 1764,
+     "tradeoff": 1232
+    },
+    "state elements unchanged": {
+     "absorbed_identical": 1033,
+     "harmful": 427,
+     "noise": 111,
+     "tradeoff": 684,
+     "retained": 425
+    },
+    "combinational depth ratio >= threshold": {
+     "noise": 3,
+     "retained": 1051,
+     "harmful": 186,
+     "absorbed_identical": 98,
+     "tradeoff": 978
+    },
+    "wide text difference without operator / topology evidence": {
+     "retained": 1052,
+     "tradeoff": 591,
+     "harmful": 95,
+     "noise": 2,
+     "absorbed_identical": 191
+    },
+    "flip-flop count and register cells changed": {
+     "tradeoff": 587,
+     "retained": 656,
+     "harmful": 255,
+     "noise": 295,
+     "absorbed_identical": 14
+    },
+    "operator family gained: add": {
+     "retained": 719,
+     "tradeoff": 65,
+     "harmful": 85,
+     "noise": 33,
+     "absorbed_identical": 2
+    },
+    "operator family gained: add, shift": {
+     "tradeoff": 133,
+     "retained": 63,
+     "noise": 5,
+     "harmful": 4,
+     "absorbed_identical": 5
+    },
+    "register widths changed, same cells": {
+     "retained": 11,
+     "harmful": 35,
+     "absorbed_identical": 2,
+     "tradeoff": 73
+    },
+    "operator family gained: mul": {
+     "tradeoff": 92,
+     "retained": 11
+    },
+    "operator family gained: shift": {
+     "harmful": 8,
+     "tradeoff": 51,
+     "retained": 6
+    },
+    "operator family gained: add, mul, shift": {
+     "retained": 3,
+     "harmful": 1
+    }
+   },
+   "subtag_note": "The semantic sub-tags requested (bit-width, precomputation / LUT, strength reduction, control simplification, resource sharing, state encoding, clock gating) are not recorded as data: candidates carry the rules-v2 evidence tags (operator family gained, flip-flop / register changes, combinational depth, text-diff width) that drive the class decision. A semantic tagging pass is pending (Phase 6 item)."
+  },
+  "rtllm_contrast": {
+   "source": "reports/data/phase4_exp1.json contrast_phase3 (666 E4-diagnosed Phase 3 calibration candidates of 5 RTLLM dev designs, run-time M3 verdicts under the Phase 3 floors; reports/phase4.md \u00a78)",
+   "shape": [
+    "concentrated",
+    {
+     "a": 0.5913978494623656,
+     "b": 0.657608695652174,
+     "c1": 0.9038461538461539,
+     "d": 0.19130434782608696
+    }
+   ],
+   "map_e4_by_class": {
+    "a": {
+     "n": 93,
+     "n_evaluated": 93,
+     "n_retained": 55,
+     "retention_rate": 0.5913978494623656,
+     "magnitude_median": 0.028965517842167922,
+     "magnitude_iqr": 0.04670258961184515,
+     "absorption_rung": {
+      "E4": 14
+     },
+     "attribution": {
+      "measured": 14
+     },
+     "labels": {
+      "absorbed_identical": 14,
+      "harmful": 3,
+      "retained": 42,
+      "tradeoff": 34
+     },
+     "harmful_blocks_synthesis": 0
+    },
+    "b": {
+     "n": 184,
+     "n_evaluated": 184,
+     "n_retained": 121,
+     "retention_rate": 0.657608695652174,
+     "magnitude_median": 0.0703448290452648,
+     "magnitude_iqr": 0.07103037269177306,
+     "absorption_rung": {
+      "E4": 4
+     },
+     "attribution": {
+      "measured": 4
+     },
+     "labels": {
+      "absorbed_identical": 4,
+      "harmful": 18,
+      "retained": 86,
+      "tradeoff": 76
+     },
+     "harmful_blocks_synthesis": 0
+    },
+    "c1": {
+     "n": 156,
+     "n_evaluated": 156,
+     "n_retained": 141,
+     "retention_rate": 0.9038461538461539,
+     "magnitude_median": 0.19284294405468105,
+     "magnitude_iqr": 0.18798449201526002,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {
+      "harmful": 9,
+      "retained": 92,
+      "tradeoff": 55
+     },
+     "harmful_blocks_synthesis": 2
+    },
+    "c2": {
+     "n": 3,
+     "n_evaluated": 3,
+     "n_retained": 3,
+     "retention_rate": 1.0,
+     "magnitude_median": 0.12984496568794873,
+     "magnitude_iqr": 0.1843611378841642,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {
+      "retained": 2,
+      "tradeoff": 1
+     },
+     "harmful_blocks_synthesis": 0
+    },
+    "d": {
+     "n": 230,
+     "n_evaluated": 230,
+     "n_retained": 44,
+     "retention_rate": 0.19130434782608696,
+     "magnitude_median": 0.12187499917028902,
+     "magnitude_iqr": 0.06656250125484608,
+     "absorption_rung": {
+      "E4": 152
+     },
+     "attribution": {
+      "measured": 152
+     },
+     "labels": {
+      "absorbed_identical": 152,
+      "harmful": 1,
+      "retained": 41,
+      "tradeoff": 36
+     },
+     "harmful_blocks_synthesis": 1
+    }
+   },
+   "map_materiality_e4_by_class": {
+    "a": {
+     "n": 93,
+     "n_evaluated": 93,
+     "n_retained": 47,
+     "retention_rate": 0.5053763440860215,
+     "magnitude_median": 0.029821072667122753,
+     "magnitude_iqr": 0.044137931949970066,
+     "absorption_rung": {
+      "E4": 14
+     },
+     "attribution": {
+      "measured": 14
+     },
+     "labels": {
+      "absorbed_identical": 14,
+      "harmful": 3,
+      "retained": 42,
+      "tradeoff": 34
+     },
+     "harmful_blocks_synthesis": 0
+    },
+    "b": {
+     "n": 184,
+     "n_evaluated": 184,
+     "n_retained": 107,
+     "retention_rate": 0.5815217391304348,
+     "magnitude_median": 0.0799999964739434,
+     "magnitude_iqr": 0.06701582979684743,
+     "absorption_rung": {
+      "E4": 4
+     },
+     "attribution": {
+      "measured": 4
+     },
+     "labels": {
+      "absorbed_identical": 4,
+      "harmful": 18,
+      "retained": 86,
+      "tradeoff": 76
+     },
+     "harmful_blocks_synthesis": 0
+    },
+    "c1": {
+     "n": 156,
+     "n_evaluated": 156,
+     "n_retained": 141,
+     "retention_rate": 0.9038461538461539,
+     "magnitude_median": 0.19284294405468105,
+     "magnitude_iqr": 0.18798449201526002,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {
+      "harmful": 9,
+      "retained": 92,
+      "tradeoff": 55
+     },
+     "harmful_blocks_synthesis": 2
+    },
+    "c2": {
+     "n": 3,
+     "n_evaluated": 3,
+     "n_retained": 3,
+     "retention_rate": 1.0,
+     "magnitude_median": 0.12984496568794873,
+     "magnitude_iqr": 0.1843611378841642,
+     "absorption_rung": {},
+     "attribution": {},
+     "labels": {
+      "retained": 2,
+      "tradeoff": 1
+     },
+     "harmful_blocks_synthesis": 0
+    },
+    "d": {
+     "n": 230,
+     "n_evaluated": 230,
+     "n_retained": 43,
+     "retention_rate": 0.18695652173913044,
+     "magnitude_median": 0.12187499917028902,
+     "magnitude_iqr": 0.06593750185253172,
+     "absorption_rung": {
+      "E4": 152
+     },
+     "attribution": {
+      "measured": 152
+     },
+     "labels": {
+      "absorbed_identical": 152,
+      "harmful": 1,
+      "retained": 41,
+      "tradeoff": 36
+     },
+     "harmful_blocks_synthesis": 1
+    }
+   },
+   "harmful_by_class": {
+    "a": 3,
+    "b": 18,
+    "c1": 9,
+    "c2": 0,
+    "d": 1
+   },
+   "objects": 1169
+  },
+  "rung_attribution_note": "Rung attribution (E1 / E1d / E2 / E2g / E3) exists for the Phase 4 objects only (ladder runs on every object, reports/phase4.md \u00a72); the ladder runs on the Phase 5 accepted candidates are a Phase 6 item (config exp5.ladder_on_accepted = phase6)."
+ },
+ "literature": {
+  "b0_source": "candidates.label of the B0 arm (improved / no_gain: the run's Y-caliber fitness, Yosys + OpenSTA, spec 05 \u00a75) against the rule-A E4 label of the same proven candidate (uniform_diagnosis); proven candidates without an E4 record are pending (offline pool)",
+  "b0": {
+   "large": {
+    "proven": 289,
+    "evaluated": 171,
+    "pending": 118,
+    "cross": {
+     "improved|absorbed": 8,
+     "improved|absorbed_identical": 1,
+     "improved|e4_pending": 94,
+     "improved|harmful": 32,
+     "improved|noise": 19,
+     "improved|retained": 43,
+     "improved|tradeoff": 50,
+     "no_gain|absorbed_identical": 7,
+     "no_gain|e4_pending": 24,
+     "no_gain|harmful": 1,
+     "no_gain|noise": 10
+    },
+    "yosys_improved_evaluated": 153,
+    "improved_at_e4": {
+     "noise": 19,
+     "harmful": 32,
+     "absorbed_identical": 1,
+     "retained": 43,
+     "tradeoff": 50,
+     "absorbed": 8
+    },
+    "improved_share": {
+     "retained": 0.28104575163398693,
+     "tradeoff": 0.32679738562091504,
+     "absorbed_identical": 0.006535947712418301,
+     "absorbed": 0.05228758169934641,
+     "noise": 0.12418300653594772,
+     "harmful": 0.20915032679738563
+    },
+    "per_design": {
+     "cktevo_nn_engine__spikeNeuron8_H7": {
+      "proven": 4,
+      "evaluated": 4,
+      "pending": 0,
+      "dc_rejected": 0,
+      "yosys_improved": 4,
+      "improved_at_e4": {
+       "noise": 2,
+       "harmful": 1,
+       "absorbed_identical": 1
+      },
+      "no_gain_at_e4": {}
+     },
+     "cktevo_risc__btb": {
+      "proven": 141,
+      "evaluated": 130,
+      "pending": 11,
+      "dc_rejected": 0,
+      "yosys_improved": 133,
+      "improved_at_e4": {
+       "retained": 39,
+       "tradeoff": 50,
+       "absorbed": 8,
+       "harmful": 25,
+       "noise": 1
+      },
+      "no_gain_at_e4": {
+       "absorbed_identical": 7
+      }
+     },
+     "drrtl_aes": {
+      "proven": 144,
+      "evaluated": 37,
+      "pending": 107,
+      "dc_rejected": 0,
+      "yosys_improved": 110,
+      "improved_at_e4": {
+       "noise": 16,
+       "retained": 4,
+       "harmful": 6
+      },
+      "no_gain_at_e4": {
+       "noise": 10,
+       "harmful": 1
+      }
+     }
+    }
+   },
+   "medium": {
+    "proven": 1679,
+    "evaluated": 1648,
+    "pending": 9,
+    "cross": {
+     "improved|absorbed": 26,
+     "improved|absorbed_identical": 142,
+     "improved|dc_rejected": 20,
+     "improved|e4_pending": 7,
+     "improved|harmful": 151,
+     "improved|noise": 17,
+     "improved|retained": 602,
+     "improved|tradeoff": 399,
+     "no_gain|absorbed": 17,
+     "no_gain|absorbed_identical": 105,
+     "no_gain|dc_rejected": 2,
+     "no_gain|e4_pending": 2,
+     "no_gain|harmful": 56,
+     "no_gain|retained": 39,
+     "no_gain|tradeoff": 84,
+     "none|retained": 3,
+     "none|tradeoff": 7
+    },
+    "yosys_improved_evaluated": 1337,
+    "improved_at_e4": {
+     "tradeoff": 399,
+     "retained": 602,
+     "harmful": 151,
+     "absorbed_identical": 142,
+     "noise": 17,
+     "absorbed": 26
+    },
+    "improved_share": {
+     "retained": 0.450261780104712,
+     "tradeoff": 0.29842931937172773,
+     "absorbed_identical": 0.10620792819745699,
+     "absorbed": 0.01944652206432311,
+     "noise": 0.012715033657442034,
+     "harmful": 0.11293941660433807
+    },
+    "per_design": {
+     "cktevo_ethmac__eth_cop": {
+      "proven": 89,
+      "evaluated": 88,
+      "pending": 1,
+      "dc_rejected": 0,
+      "yosys_improved": 89,
+      "improved_at_e4": {
+       "tradeoff": 74,
+       "retained": 7,
+       "harmful": 6,
+       "absorbed_identical": 1
+      },
+      "no_gain_at_e4": {}
+     },
+     "cktevo_mem_ctrl__mc_adr_sel": {
+      "proven": 121,
+      "evaluated": 120,
+      "pending": 1,
+      "dc_rejected": 0,
+      "yosys_improved": 90,
+      "improved_at_e4": {
+       "retained": 35,
+       "harmful": 38,
+       "noise": 16
+      },
+      "no_gain_at_e4": {
+       "harmful": 15,
+       "retained": 11,
+       "tradeoff": 5
+      }
+     },
+     "cktevo_risc__cpu": {
+      "proven": 41,
+      "evaluated": 41,
+      "pending": 0,
+      "dc_rejected": 0,
+      "yosys_improved": 0,
+      "improved_at_e4": {},
+      "no_gain_at_e4": {
+       "absorbed_identical": 40,
+       "tradeoff": 1
+      }
+     },
+     "cktevo_usb__usbf_sie_rx": {
+      "proven": 116,
+      "evaluated": 116,
+      "pending": 0,
+      "dc_rejected": 0,
+      "yosys_improved": 114,
+      "improved_at_e4": {
+       "tradeoff": 17,
+       "retained": 93,
+       "absorbed_identical": 2,
+       "noise": 1,
+       "absorbed": 1
+      },
+      "no_gain_at_e4": {
+       "absorbed_identical": 1,
+       "retained": 1
+      }
+     },
+     "cktevo_vga_enh__vga_wb_slave": {
+      "proven": 115,
+      "evaluated": 115,
+      "pending": 0,
+      "dc_rejected": 0,
+      "yosys_improved": 111,
+      "improved_at_e4": {
+       "absorbed_identical": 23,
+       "tradeoff": 36,
+       "retained": 50,
+       "harmful": 2
+      },
+      "no_gain_at_e4": {
+       "absorbed_identical": 2,
+       "tradeoff": 2
+      }
+     },
+     "drrtl_UART": {
+      "proven": 160,
+      "evaluated": 160,
+      "pending": 0,
+      "dc_rejected": 0,
+      "yosys_improved": 85,
+      "improved_at_e4": {
+       "absorbed": 25,
+       "tradeoff": 28,
+       "harmful": 21,
+       "absorbed_identical": 11
+      },
+      "no_gain_at_e4": {
+       "tradeoff": 32,
+       "absorbed": 17,
+       "absorbed_identical": 6,
+       "harmful": 20
+      }
+     },
+     "drrtl_communication": {
+      "proven": 67,
+      "evaluated": 66,
+      "pending": 1,
+      "dc_rejected": 0,
+      "yosys_improved": 51,
+      "improved_at_e4": {
+       "absorbed_identical": 3,
+       "harmful": 43,
+       "tradeoff": 4
+      },
+      "no_gain_at_e4": {
+       "harmful": 6,
+       "absorbed_identical": 4,
+       "retained": 4,
+       "tradeoff": 2
+      }
+     },
+     "drrtl_router": {
+      "proven": 122,
+      "evaluated": 122,
+      "pending": 0,
+      "dc_rejected": 0,
+      "yosys_improved": 107,
+      "improved_at_e4": {
+       "absorbed_identical": 89,
+       "harmful": 6,
+       "tradeoff": 10,
+       "retained": 2
+      },
+      "no_gain_at_e4": {
+       "absorbed_identical": 15
+      }
+     },
+     "drrtl_simple_spi": {
+      "proven": 36,
+      "evaluated": 13,
+      "pending": 1,
+      "dc_rejected": 22,
+      "yosys_improved": 32,
+      "improved_at_e4": {
+       "tradeoff": 12
+      },
+      "no_gain_at_e4": {
+       "tradeoff": 1
+      }
+     },
+     "rtlopt_alu_64bit": {
+      "proven": 144,
+      "evaluated": 144,
+      "pending": 0,
+      "dc_rejected": 0,
+      "yosys_improved": 135,
+      "improved_at_e4": {
+       "tradeoff": 114,
+       "harmful": 16,
+       "retained": 5
+      },
+      "no_gain_at_e4": {
+       "absorbed_identical": 9
+      }
+     },
+     "rtlopt_calculation": {
+      "proven": 146,
+      "evaluated": 144,
+      "pending": 2,
+      "dc_rejected": 0,
+      "yosys_improved": 142,
+      "improved_at_e4": {
+       "retained": 131,
+       "harmful": 4,
+       "absorbed_identical": 1,
+       "tradeoff": 4
+      },
+      "no_gain_at_e4": {
+       "harmful": 3,
+       "tradeoff": 1
+      }
+     },
+     "rtlopt_decoder_8bit": {
+      "proven": 132,
+      "evaluated": 131,
+      "pending": 1,
+      "dc_rejected": 0,
+      "yosys_improved": 120,
+      "improved_at_e4": {
+       "retained": 117,
+       "tradeoff": 2
+      },
+      "no_gain_at_e4": {
+       "retained": 12
+      }
+     },
+     "rtlopt_divider_8bit": {
+      "proven": 127,
+      "evaluated": 127,
+      "pending": 0,
+      "dc_rejected": 0,
+      "yosys_improved": 103,
+      "improved_at_e4": {
+       "retained": 93,
+       "tradeoff": 7,
+       "absorbed_identical": 2,
+       "harmful": 1
+      },
+      "no_gain_at_e4": {
+       "absorbed_identical": 19,
+       "tradeoff": 5
+      }
+     },
+     "rtlopt_register": {
+      "proven": 138,
+      "evaluated": 136,
+      "pending": 2,
+      "dc_rejected": 0,
+      "yosys_improved": 80,
+      "improved_at_e4": {
+       "absorbed_identical": 2,
+       "tradeoff": 36,
+       "retained": 33,
+       "harmful": 8
+      },
+      "no_gain_at_e4": {
+       "harmful": 11,
+       "tradeoff": 25,
+       "retained": 11
+      }
+     },
+     "rtlopt_sub_32bit": {
+      "proven": 125,
+      "evaluated": 125,
+      "pending": 0,
+      "dc_rejected": 0,
+      "yosys_improved": 105,
+      "improved_at_e4": {
+       "tradeoff": 55,
+       "retained": 36,
+       "absorbed_identical": 8,
+       "harmful": 6
+      },
+      "no_gain_at_e4": {
+       "absorbed_identical": 9,
+       "tradeoff": 10,
+       "harmful": 1
+      }
+     }
+    }
+   },
+   "small": {
+    "proven": 19,
+    "evaluated": 0,
+    "pending": 19,
+    "cross": {
+     "improved|e4_pending": 4,
+     "no_gain|e4_pending": 15
+    },
+    "yosys_improved_evaluated": 0,
+    "improved_at_e4": {},
+    "improved_share": {
+     "retained": null,
+     "tradeoff": null,
+     "absorbed_identical": null,
+     "absorbed": null,
+     "noise": null,
+     "harmful": null
+    },
+    "per_design": {
+     "rtlopt_sub_8bit": {
+      "proven": 19,
+      "evaluated": 0,
+      "pending": 19,
+      "dc_rejected": 0,
+      "yosys_improved": 4,
+      "improved_at_e4": {},
+      "no_gain_at_e4": {}
+     }
+    }
+   }
+  },
+  "phase4_literature": {
+   "source": "reports/data/phase4_exp1.json literature (better = the optimized version's area below D's under the rung; retained = above D's rule-A threshold there; reports/phase4.md \u00a74) and reports/data/phase4_rtlopt_setting.json (reports/phase4.md \u00a74d)",
+   "rtlopt": {
+    "pairs": 40,
+    "proven": 34,
+    "better": {
+     "E1": 20,
+     "E1d": 17,
+     "E2": 13,
+     "E3": 13,
+     "E2g": 13,
+     "E4": 13
+    },
+    "retained": {
+     "E1": 20,
+     "E1d": 0,
+     "E2": 11,
+     "E3": 11,
+     "E2g": 0,
+     "E4": 11
+    },
+    "evaluated": {
+     "E1": 33,
+     "E1d": 33,
+     "E2": 33,
+     "E3": 33,
+     "E2g": 33,
+     "E4": 33
+    }
+   },
+   "rtlrewriter": {
+    "pairs": 54,
+    "proven": 43,
+    "better": {
+     "E1": 24,
+     "E1d": 21,
+     "E2": 11,
+     "E3": 10,
+     "E2g": 11,
+     "E4": 10
+    },
+    "retained": {
+     "E1": 24,
+     "E1d": 0,
+     "E2": 10,
+     "E3": 9,
+     "E2g": 0,
+     "E4": 10
+    },
+    "evaluated": {
+     "E1": 42,
+     "E1d": 42,
+     "E2": 42,
+     "E3": 42,
+     "E2g": 42,
+     "E4": 42
+    }
+   },
+   "rtlopt_reconciliation": {
+    "paper_claim": "35 of 36 better (RTL-OPT Table 1, compile_ultra 1 ns)",
+    "released_reports": {
+     "better_by_area": 34,
+     "n": 34,
+     "same": 0,
+     "setting": "data/sources/RTL-OPT/Results/RTL-OPT_DC: `compile` (not compile_ultra) at CLOCK_PERIOD 0.1 ns with set_max_delay from all inputs to all outputs, set_transform_for_retiming dont_retime, register merging / sequential area recovery / clock gating through hierarchy off, ungroup -all -flatten, DC T-2022.03-SP2, the authors' own Nangate45 typical.db (their released run_dc.tcl and command.log)",
+     "worse": 0
+    },
+    "counts_by_setting": {
+     "E1_authors": {
+      "better": 25,
+      "missing": 1,
+      "same": 1,
+      "worse": 7
+     },
+     "E2_1ns": {
+      "better": 13,
+      "missing": 1,
+      "same": 4,
+      "worse": 16
+     }
+    },
+    "pairs": 34
+   },
+   "e1_authors_records": {
+    "records": 67,
+    "designs": 34,
+    "baselines": 34,
+    "complete": "33 of 34 pairs (rtlopt_mux_dead's reference does not link under DC, LINK-3: 'missing 1' in counts_by_setting)"
+   },
+   "non_equivalent": {
+    "n": 25,
+    "by_role": {
+     "RTL-OPT reference": 6,
+     "RTLRewriter LLM sample": 8,
+     "RTLRewriter reference": 11
+    },
+    "by_cause": {
+     "genuine functional difference": 12,
+     "all-zero initial-state assumption likely": 1,
+     "does not elaborate in the V1 port check (tool boundary)": 6,
+     "undecided (bounded proof reached its cap)": 3,
+     "port mismatch": 3
+    },
+    "source": "reports/phase4.md \u00a74a table (25 objects; probable cause column), DECISIONS 2026-09-14 item 3"
+   }
+  },
+  "drrtl": {
+   "source": "Phase 5 candidate scan (rule A at E4, uniform_diagnosis) by arm on drrtl_aes / tv80 / LSTM; reports/data/phase4_exp1.json B0 objects on drrtl_i2c / pcie / datapath; config exp5.design_notes",
+   "rows": {
+    "drrtl_aes": {
+     "phase5_by_arm": {
+      "B0": {
+       "proven_evaluated": 37,
+       "retained": 4,
+       "best_retained_gain": {
+        "area": 0.0072,
+        "power": 0.00856,
+        "wns": 3e-05
+       }
+      },
+      "B1_E4": {
+       "proven_evaluated": 102,
+       "retained": 40,
+       "best_retained_gain": {
+        "area": 0.00883,
+        "power": 0.00959,
+        "wns": 3e-05
+       }
+      },
+      "B2": {
+       "proven_evaluated": 90,
+       "retained": 15,
+       "best_retained_gain": {
+        "area": 0.00764,
+        "power": 0.0097,
+        "wns": 7e-05
+       }
+      },
+      "DrRTL_reimpl": {
+       "proven_evaluated": 123,
+       "retained": 1,
+       "best_retained_gain": {
+        "area": 0.00609,
+        "power": 0.03304,
+        "wns": 1e-05
+       }
+      },
+      "M": {
+       "proven_evaluated": 117,
+       "retained": 19,
+       "best_retained_gain": {
+        "area": 0.04669,
+        "power": 0.05811,
+        "wns": 0.00074
+       }
+      }
+     },
+     "phase4_b0": null,
+     "note": null,
+     "status": "Phase 5 large tier",
+     "paper": "pending \u2014 the paper's per-design numbers are not in the released repository (data/sources/Dr_RTL: rtl_dataset, syn_flow); transcription from arXiv:2604.14989 is the open item"
+    },
+    "drrtl_tv80": {
+     "phase5_by_arm": {},
+     "phase4_b0": null,
+     "note": "verification limit (wall-clock cap under CPU contention)",
+     "status": "Phase 5 large tier",
+     "paper": "pending \u2014 the paper's per-design numbers are not in the released repository (data/sources/Dr_RTL: rtl_dataset, syn_flow); transcription from arXiv:2604.14989 is the open item"
+    },
+    "drrtl_LSTM": {
+     "phase5_by_arm": {},
+     "phase4_b0": null,
+     "note": "harness defect (catalog reset port), fixed 2026-09-18, runs superseded and repeated",
+     "status": "Phase 5 large tier",
+     "paper": "pending \u2014 the paper's per-design numbers are not in the released repository (data/sources/Dr_RTL: rtl_dataset, syn_flow); transcription from arXiv:2604.14989 is the open item"
+    },
+    "drrtl_i2c": {
+     "phase5_by_arm": {},
+     "phase4_b0": {
+      "objects": 42,
+      "all_objects": 100,
+      "verdicts": {
+       "proven": 66,
+       "falsified": 23,
+       "rejected": 10,
+       "sim_fail": 1
+      },
+      "retained": 15,
+      "best_area": 0.07826729243239847
+     },
+     "note": null,
+     "status": "Exp1 design (Phase 4 B0 objects only)",
+     "paper": "pending \u2014 the paper's per-design numbers are not in the released repository (data/sources/Dr_RTL: rtl_dataset, syn_flow); transcription from arXiv:2604.14989 is the open item"
+    },
+    "drrtl_pcie": {
+     "phase5_by_arm": {},
+     "phase4_b0": {
+      "objects": 0,
+      "all_objects": 198,
+      "verdicts": {
+       "sim_fail": 162,
+       "falsified": 24,
+       "rejected": 12
+      },
+      "retained": 0,
+      "best_area": null
+     },
+     "note": null,
+     "status": "Exp1 design (Phase 4 B0 objects only)",
+     "paper": "pending \u2014 the paper's per-design numbers are not in the released repository (data/sources/Dr_RTL: rtl_dataset, syn_flow); transcription from arXiv:2604.14989 is the open item"
+    },
+    "drrtl_datapath": {
+     "phase5_by_arm": {},
+     "phase4_b0": {
+      "objects": 0,
+      "all_objects": 164,
+      "verdicts": {
+       "rejected": 64,
+       "falsified": 70,
+       "sim_fail": 30
+      },
+      "retained": 0,
+      "best_area": null
+     },
+     "note": null,
+     "status": "Exp1 design (Phase 4 B0 objects only)",
+     "paper": "pending \u2014 the paper's per-design numbers are not in the released repository (data/sources/Dr_RTL: rtl_dataset, syn_flow); transcription from arXiv:2604.14989 is the open item"
+    }
+   },
+   "reference_row": "PLAN 5.4: the user-run original Dr.RTL reference row (Claude Code + Claude Opus, 5 Dr.RTL designs, VC Formal SEQ) is triggered manually \u2014 not started as of this report (no entry in DECISIONS / STATUS beyond the plan)"
+  }
+ },
+ "survives": {
+  "source": "Phase 5 candidate scan: per run the max over its rule-A retained candidates of each metric's gain (0 when none), then the mean over the design's seeds of that arm-model row and the max; Stage A = large tier (every run done), Stage B = complete or B0-pending designs (src.analysis.phase5.completion_view); Exp1 = Phase 4 B0 objects (max over objects, no seeds)",
+  "phase5_designs": {
+   "cktevo_hsm__hsm": {
+    "tier": "large",
+    "status": "runs done, evaluations pending",
+    "rows": {
+     "gpt-5.6-terra|B0": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|B1_E4": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|DrRTL_reimpl": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-luna|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     }
+    },
+    "any_retained": false
+   },
+   "cktevo_nn_engine__spikeNeuron8_H7": {
+    "tier": "large",
+    "status": "runs done, evaluations pending",
+    "rows": {
+     "gpt-5.6-terra|B0": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|B1_E4": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|DrRTL_reimpl": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-luna|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     }
+    },
+    "any_retained": false
+   },
+   "cktevo_risc__btb": {
+    "tier": "large",
+    "status": "B0 pending",
+    "rows": {
+     "gpt-5.6-terra|B0": {
+      "runs": 3,
+      "pending_e4": 11,
+      "mean": {
+       "area": 0.011826666666666666,
+       "power": 0.81724,
+       "wns": 0.002606666666666667
+      },
+      "max": {
+       "area": 0.01713,
+       "power": 0.82758,
+       "wns": 0.00312
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-terra|B1_E4": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.021236666666666668,
+       "power": 0.45725,
+       "wns": 0.002416666666666667
+      },
+      "max": {
+       "area": 0.02359,
+       "power": 0.79927,
+       "wns": 0.00391
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-terra|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.01965,
+       "power": 0.6844033333333334,
+       "wns": 0.0032333333333333333
+      },
+      "max": {
+       "area": 0.02159,
+       "power": 0.80486,
+       "wns": 0.00432
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-terra|DrRTL_reimpl": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0035466666666666667,
+       "power": 0.018936666666666668,
+       "wns": 0.0012733333333333333
+      },
+      "max": {
+       "area": 0.00817,
+       "power": 0.05254,
+       "wns": 0.00265
+      },
+      "runs_with_material_retention": 1
+     },
+     "gpt-5.6-luna|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.011593333333333334,
+       "power": 0.19263666666666668,
+       "wns": 0.0018866666666666667
+      },
+      "max": {
+       "area": 0.01763,
+       "power": 0.47757,
+       "wns": 0.00272
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-terra|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.019106666666666668,
+       "power": 0.69179,
+       "wns": 0.004156666666666666
+      },
+      "max": {
+       "area": 0.02175,
+       "power": 0.80826,
+       "wns": 0.00488
+      },
+      "runs_with_material_retention": 3
+     }
+    },
+    "any_retained": true
+   },
+   "drrtl_aes": {
+    "tier": "large",
+    "status": "runs done, evaluations pending",
+    "rows": {
+     "gpt-5.6-terra|B0": {
+      "runs": 3,
+      "pending_e4": 107,
+      "mean": {
+       "area": 0.0049566666666666665,
+       "power": 0.0036633333333333335,
+       "wns": 1.3333333333333333e-05
+      },
+      "max": {
+       "area": 0.0072,
+       "power": 0.00856,
+       "wns": 3e-05
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|B1_E4": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.008213333333333333,
+       "power": 0.009246666666666667,
+       "wns": 3e-05
+      },
+      "max": {
+       "area": 0.00883,
+       "power": 0.00959,
+       "wns": 3e-05
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|B2": {
+      "runs": 3,
+      "pending_e4": 1,
+      "mean": {
+       "area": 0.004946666666666667,
+       "power": 0.0060866666666666664,
+       "wns": 3.3333333333333335e-05
+      },
+      "max": {
+       "area": 0.00764,
+       "power": 0.0097,
+       "wns": 7e-05
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|DrRTL_reimpl": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.00203,
+       "power": 0.011013333333333333,
+       "wns": 3.3333333333333337e-06
+      },
+      "max": {
+       "area": 0.00609,
+       "power": 0.03304,
+       "wns": 1e-05
+      },
+      "runs_with_material_retention": 1
+     },
+     "gpt-5.6-luna|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0029233333333333333,
+       "power": 0.0031966666666666667,
+       "wns": 4.333333333333333e-05
+      },
+      "max": {
+       "area": 0.00877,
+       "power": 0.00959,
+       "wns": 0.00013
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.017963333333333335,
+       "power": 0.022223333333333335,
+       "wns": 0.00025666666666666665
+      },
+      "max": {
+       "area": 0.04669,
+       "power": 0.05811,
+       "wns": 0.00074
+      },
+      "runs_with_material_retention": 1
+     }
+    },
+    "any_retained": true
+   },
+   "drrtl_tv80": {
+    "tier": "large",
+    "status": "runs done, evaluations pending",
+    "rows": {
+     "gpt-5.6-terra|B0": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|B1_E4": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|DrRTL_reimpl": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-luna|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     }
+    },
+    "any_retained": false
+   },
+   "cktevo_ethmac__eth_cop": {
+    "tier": "medium",
+    "status": "B0 pending",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "runs": 3,
+      "pending_e4": 1,
+      "mean": {
+       "area": 0.02399,
+       "power": 0.27897666666666665,
+       "wns": 0.004083333333333334
+      },
+      "max": {
+       "area": 0.037,
+       "power": 0.35631,
+       "wns": 0.00525
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.020776666666666666,
+       "power": 0.29771,
+       "wns": 0.00301
+      },
+      "max": {
+       "area": 0.05762,
+       "power": 0.45697,
+       "wns": 0.00579
+      },
+      "runs_with_material_retention": 2
+     },
+     "gpt-5.6-luna|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.011659999999999998,
+       "power": 0.014113333333333334,
+       "wns": 0.0037366666666666668
+      },
+      "max": {
+       "area": 0.01928,
+       "power": 0.02539,
+       "wns": 0.00696
+      },
+      "runs_with_material_retention": 2
+     },
+     "gpt-5.6-terra|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.012629999999999999,
+       "power": 0.23036,
+       "wns": 0.004613333333333333
+      },
+      "max": {
+       "area": 0.02197,
+       "power": 0.35631,
+       "wns": 0.0055
+      },
+      "runs_with_material_retention": 2
+     },
+     "gpt-5.6-luna|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.02384,
+       "power": 0.1798,
+       "wns": 0.00291
+      },
+      "max": {
+       "area": 0.0352,
+       "power": 0.44464,
+       "wns": 0.00603
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-terra|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.046413333333333334,
+       "power": 0.07040333333333333,
+       "wns": 0.00269
+      },
+      "max": {
+       "area": 0.04686,
+       "power": 0.07104,
+       "wns": 0.00493
+      },
+      "runs_with_material_retention": 3
+     }
+    },
+    "any_retained": true
+   },
+   "drrtl_arm_cpu2": {
+    "tier": "medium",
+    "status": "complete",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-luna|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-luna|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     },
+     "gpt-5.6-terra|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "max": {
+       "area": 0.0,
+       "power": 0.0,
+       "wns": 0.0
+      },
+      "runs_with_material_retention": 0
+     }
+    },
+    "any_retained": false
+   },
+   "rtlopt_decoder_8bit": {
+    "tier": "medium",
+    "status": "B0 pending",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "runs": 3,
+      "pending_e4": 1,
+      "mean": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.017886666666666665
+      },
+      "max": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.0179
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.00322,
+       "power": 0.06182666666666667,
+       "wns": 0.01813333333333333
+      },
+      "max": {
+       "area": 0.00322,
+       "power": 0.0623,
+       "wns": 0.0186
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-luna|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.0179
+      },
+      "max": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.0179
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-terra|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.0179
+      },
+      "max": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.0179
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.017873333333333335
+      },
+      "max": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.0179
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-luna|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.0179
+      },
+      "max": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.0179
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-terra|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.0179
+      },
+      "max": {
+       "area": 0.00322,
+       "power": 0.06159,
+       "wns": 0.0179
+      },
+      "runs_with_material_retention": 3
+     }
+    },
+    "any_retained": true
+   },
+   "rtlopt_sub_32bit": {
+    "tier": "medium",
+    "status": "complete",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "max": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "max": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-luna|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "max": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-terra|B2": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "max": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "max": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-luna|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "max": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "runs_with_material_retention": 3
+     },
+     "gpt-5.6-terra|M": {
+      "runs": 3,
+      "pending_e4": 0,
+      "mean": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "max": {
+       "area": 0.03826,
+       "power": 0.02421,
+       "wns": 0.00055
+      },
+      "runs_with_material_retention": 3
+     }
+    },
+    "any_retained": true
+   }
+  },
+  "designs_with_retained": {
+   "large": {
+    "with": 2,
+    "listed": 5
+   },
+   "medium": {
+    "with": 3,
+    "listed": 4
+   }
+  },
+  "exp1_b0": {
+   "cktevo_nn_engine__spikeLayer8_H7": {
+    "proven_with_e4": 0,
+    "retained": 0,
+    "best_retained_gain": {
+     "area": null,
+     "power": null,
+     "wns": null
+    },
+    "material_any": 0
+   },
+   "cktevo_ethmac__eth_txethmac": {
+    "proven_with_e4": 34,
+    "retained": 0,
+    "best_retained_gain": {
+     "area": null,
+     "power": null,
+     "wns": null
+    },
+    "material_any": 0
+   },
+   "cktevo_vga_enh__vga_wb_master": {
+    "proven_with_e4": 34,
+    "retained": 0,
+    "best_retained_gain": {
+     "area": null,
+     "power": null,
+     "wns": null
+    },
+    "material_any": 0
+   },
+   "cktevo_mem_ctrl__mc_obct_top": {
+    "proven_with_e4": 66,
+    "retained": 8,
+    "best_retained_gain": {
+     "area": 0.007436146281049713,
+     "power": 0.019418481325297953,
+     "wns": 0.013379571428571432
+    },
+    "material_any": 2
+   },
+   "cktevo_spi__spi": {
+    "proven_with_e4": 34,
+    "retained": 0,
+    "best_retained_gain": {
+     "area": null,
+     "power": null,
+     "wns": null
+    },
+    "material_any": 0
+   },
+   "drrtl_datapath": {
+    "proven_with_e4": 0,
+    "retained": 0,
+    "best_retained_gain": {
+     "area": null,
+     "power": null,
+     "wns": null
+    },
+    "material_any": 0
+   },
+   "drrtl_pcie": {
+    "proven_with_e4": 0,
+    "retained": 0,
+    "best_retained_gain": {
+     "area": null,
+     "power": null,
+     "wns": null
+    },
+    "material_any": 0
+   },
+   "drrtl_i2c": {
+    "proven_with_e4": 42,
+    "retained": 15,
+    "best_retained_gain": {
+     "area": 0.07826729243239847,
+     "power": 0.11591515331203923,
+     "wns": 0.008000664
+    },
+    "material_any": 15
+   },
+   "rtlopt_ticket_machine": {
+    "proven_with_e4": 39,
+    "retained": 12,
+    "best_retained_gain": {
+     "area": 0.5844748958779638,
+     "power": 0.700274502784999,
+     "wns": 0.32700219999999997
+    },
+    "material_any": 12
+   },
+   "rtlopt_fsm_encode": {
+    "proven_with_e4": 42,
+    "retained": 20,
+    "best_retained_gain": {
+     "area": 0.46416667673872153,
+     "power": 0.6307433336491346,
+     "wns": 0.6122642857142857
+    },
+    "material_any": 20
+   }
+  },
+  "exp1_designs_with_retained": 4,
+  "shares_by_arm": {
+   "B0": {
+    "evaluated": 1819,
+    "harmful": 240,
+    "absorbed_identical": 255,
+    "retained": 687,
+    "tradeoff": 540,
+    "harmful_share": 0.1319406267179769,
+    "absorbed_identical_share": 0.14018691588785046
+   },
+   "B1_E4": {
+    "evaluated": 2084,
+    "harmful": 249,
+    "absorbed_identical": 344,
+    "retained": 754,
+    "tradeoff": 616,
+    "harmful_share": 0.11948176583493282,
+    "absorbed_identical_share": 0.16506717850287908
+   },
+   "B2": {
+    "evaluated": 3983,
+    "harmful": 509,
+    "absorbed_identical": 537,
+    "retained": 1208,
+    "tradeoff": 1504,
+    "harmful_share": 0.12779312076324378,
+    "absorbed_identical_share": 0.1348229977403967
+   },
+   "DrRTL_reimpl": {
+    "evaluated": 1800,
+    "harmful": 206,
+    "absorbed_identical": 432,
+    "retained": 630,
+    "tradeoff": 347,
+    "harmful_share": 0.11444444444444445,
+    "absorbed_identical_share": 0.24
+   },
+   "M": {
+    "evaluated": 2550,
+    "harmful": 263,
+    "absorbed_identical": 355,
+    "retained": 943,
+    "tradeoff": 759,
+    "harmful_share": 0.10313725490196078,
+    "absorbed_identical_share": 0.1392156862745098
+   }
+  },
+  "retained_vs_tradeoff_by_tag": {
+   "registers renamed / retargeted, count and latency unchanged": {
+    "retained": 1764,
+    "tradeoff": 1232
+   },
+   "combinational depth ratio >= threshold": {
+    "retained": 1051,
+    "tradeoff": 978
+   },
+   "wide text difference without operator / topology evidence": {
+    "retained": 1052,
+    "tradeoff": 591
+   },
+   "flip-flop count and register cells changed": {
+    "retained": 656,
+    "tradeoff": 587
+   },
+   "state elements unchanged": {
+    "retained": 425,
+    "tradeoff": 684
+   },
+   "operator family gained: add": {
+    "retained": 719,
+    "tradeoff": 65
+   },
+   "operator family gained: add, shift": {
+    "retained": 63,
+    "tradeoff": 133
+   },
+   "operator family gained: mul": {
+    "retained": 11,
+    "tradeoff": 92
+   },
+   "register widths changed, same cells": {
+    "retained": 11,
+    "tradeoff": 73
+   },
+   "operator family gained: shift": {
+    "retained": 6,
+    "tradeoff": 51
+   },
+   "operator family gained: add, mul, shift": {
+    "retained": 3,
+    "tradeoff": 0
+   }
+  },
+  "large_three": {
+   "drrtl_LSTM": "harness defect (catalog reset port), fixed 2026-09-18, runs superseded and repeated",
+   "cktevo_hsm__hsm": "mixed (sim_fail 65 %, inconclusive 30 %)",
+   "drrtl_tv80": "verification limit (wall-clock cap under CPU contention); D-vs-D proven under harness_version 2 (DECISION 2026-09-18 C2)",
+   "e1_note": "E1 (a) / (b) re-prove the harness_version-1 falsified records of router and tv80 under harness_version 2 in the offline pool after the small tier (DECISION 2026-09-18 (d) E1, (g) 4): a flip to proven adds candidates to those designs' E4 evaluation and can add retained ones."
+  }
+ },
+ "denominators": {
+  "per_design": {
+   "cktevo_hsm__hsm": {
+    "tier": "large",
+    "with_verdict": 1053,
+    "proven": 0,
+    "inconclusive": 273,
+    "by_class": {
+     "a": {
+      "n": 4,
+      "proven": 0,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 959,
+      "proven": 0,
+      "inconclusive": 272
+     },
+     "c1": {
+      "n": 76,
+      "proven": 0,
+      "inconclusive": 1
+     },
+     "d": {
+      "n": 13,
+      "proven": 0,
+      "inconclusive": 0
+     }
+    }
+   },
+   "cktevo_nn_engine__spikeNeuron8_H7": {
+    "tier": "large",
+    "with_verdict": 832,
+    "proven": 314,
+    "inconclusive": 311,
+    "by_class": {
+     "a": {
+      "n": 525,
+      "proven": 294,
+      "inconclusive": 122
+     },
+     "b": {
+      "n": 136,
+      "proven": 20,
+      "inconclusive": 105
+     },
+     "c1": {
+      "n": 160,
+      "proven": 0,
+      "inconclusive": 84
+     },
+     "d": {
+      "n": 10,
+      "proven": 0,
+      "inconclusive": 0
+     }
+    }
+   },
+   "cktevo_risc__btb": {
+    "tier": "large",
+    "with_verdict": 1028,
+    "proven": 752,
+    "inconclusive": 84,
+    "by_class": {
+     "a": {
+      "n": 13,
+      "proven": 9,
+      "inconclusive": 3
+     },
+     "b": {
+      "n": 848,
+      "proven": 612,
+      "inconclusive": 73
+     },
+     "c1": {
+      "n": 33,
+      "proven": 23,
+      "inconclusive": 2
+     },
+     "d": {
+      "n": 132,
+      "proven": 108,
+      "inconclusive": 6
+     }
+    }
+   },
+   "drrtl_aes": {
+    "tier": "large",
+    "with_verdict": 936,
+    "proven": 577,
+    "inconclusive": 125,
+    "by_class": {
+     "a": {
+      "n": 252,
+      "proven": 196,
+      "inconclusive": 9
+     },
+     "b": {
+      "n": 166,
+      "proven": 131,
+      "inconclusive": 5
+     },
+     "c1": {
+      "n": 96,
+      "proven": 26,
+      "inconclusive": 25
+     },
+     "d": {
+      "n": 417,
+      "proven": 224,
+      "inconclusive": 86
+     }
+    }
+   },
+   "drrtl_tv80": {
+    "tier": "large",
+    "with_verdict": 824,
+    "proven": 0,
+    "inconclusive": 669,
+    "by_class": {
+     "a": {
+      "n": 56,
+      "proven": 0,
+      "inconclusive": 54
+     },
+     "b": {
+      "n": 722,
+      "proven": 0,
+      "inconclusive": 576
+     },
+     "c1": {
+      "n": 36,
+      "proven": 0,
+      "inconclusive": 29
+     },
+     "d": {
+      "n": 10,
+      "proven": 0,
+      "inconclusive": 10
+     }
+    }
+   },
+   "cktevo_ethmac__eth_cop": {
+    "tier": "medium",
+    "with_verdict": 1183,
+    "proven": 744,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 685,
+      "proven": 447,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 185,
+      "proven": 130,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 311,
+      "proven": 167,
+      "inconclusive": 0
+     }
+    }
+   },
+   "cktevo_mem_ctrl__mc_adr_sel": {
+    "tier": "medium",
+    "with_verdict": 1161,
+    "proven": 877,
+    "inconclusive": 5,
+    "by_class": {
+     "a": {
+      "n": 8,
+      "proven": 2,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 31,
+      "proven": 10,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 1095,
+      "proven": 861,
+      "inconclusive": 5
+     },
+     "c2": {
+      "n": 1,
+      "proven": 1,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 23,
+      "proven": 3,
+      "inconclusive": 0
+     }
+    }
+   },
+   "cktevo_nn_engine__thresholds_128x4096": {
+    "tier": "medium",
+    "with_verdict": 835,
+    "proven": 530,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 234,
+      "proven": 182,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 346,
+      "proven": 180,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 108,
+      "proven": 61,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 146,
+      "proven": 107,
+      "inconclusive": 0
+     }
+    }
+   },
+   "cktevo_risc__cpu": {
+    "tier": "medium",
+    "with_verdict": 855,
+    "proven": 88,
+    "inconclusive": 176,
+    "by_class": {
+     "a": {
+      "n": 103,
+      "proven": 20,
+      "inconclusive": 13
+     },
+     "b": {
+      "n": 563,
+      "proven": 68,
+      "inconclusive": 158
+     },
+     "c1": {
+      "n": 87,
+      "proven": 0,
+      "inconclusive": 5
+     },
+     "d": {
+      "n": 22,
+      "proven": 0,
+      "inconclusive": 0
+     }
+    }
+   },
+   "cktevo_usb__usbf_sie_rx": {
+    "tier": "medium",
+    "with_verdict": 1197,
+    "proven": 819,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 9,
+      "proven": 8,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 853,
+      "proven": 664,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 324,
+      "proven": 139,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 10,
+      "proven": 8,
+      "inconclusive": 0
+     }
+    }
+   },
+   "cktevo_vga_enh__vga_wb_slave": {
+    "tier": "medium",
+    "with_verdict": 1215,
+    "proven": 794,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 392,
+      "proven": 312,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 652,
+      "proven": 438,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 118,
+      "proven": 44,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 27,
+      "proven": 0,
+      "inconclusive": 0
+     }
+    }
+   },
+   "drrtl_SPI": {
+    "tier": "medium",
+    "with_verdict": 950,
+    "proven": 129,
+    "inconclusive": 763,
+    "by_class": {
+     "a": {
+      "n": 369,
+      "proven": 123,
+      "inconclusive": 234
+     },
+     "b": {
+      "n": 459,
+      "proven": 2,
+      "inconclusive": 439
+     },
+     "c1": {
+      "n": 63,
+      "proven": 2,
+      "inconclusive": 43
+     },
+     "d": {
+      "n": 59,
+      "proven": 2,
+      "inconclusive": 47
+     }
+    }
+   },
+   "drrtl_UART": {
+    "tier": "medium",
+    "with_verdict": 906,
+    "proven": 842,
+    "inconclusive": 11,
+    "by_class": {
+     "a": {
+      "n": 198,
+      "proven": 197,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 666,
+      "proven": 642,
+      "inconclusive": 10
+     },
+     "c1": {
+      "n": 25,
+      "proven": 3,
+      "inconclusive": 1
+     },
+     "d": {
+      "n": 17,
+      "proven": 0,
+      "inconclusive": 0
+     }
+    }
+   },
+   "drrtl_arm_cpu2": {
+    "tier": "medium",
+    "with_verdict": 1102,
+    "proven": 0,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 69,
+      "proven": 0,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 103,
+      "proven": 0,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 274,
+      "proven": 0,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 557,
+      "proven": 0,
+      "inconclusive": 0
+     }
+    }
+   },
+   "drrtl_communication": {
+    "tier": "medium",
+    "with_verdict": 757,
+    "proven": 220,
+    "inconclusive": 45,
+    "by_class": {
+     "a": {
+      "n": 249,
+      "proven": 135,
+      "inconclusive": 1
+     },
+     "b": {
+      "n": 245,
+      "proven": 65,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 260,
+      "proven": 20,
+      "inconclusive": 43
+     },
+     "d": {
+      "n": 2,
+      "proven": 0,
+      "inconclusive": 1
+     }
+    }
+   },
+   "drrtl_router": {
+    "tier": "medium",
+    "with_verdict": 814,
+    "proven": 667,
+    "inconclusive": 2,
+    "by_class": {
+     "a": {
+      "n": 406,
+      "proven": 368,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 252,
+      "proven": 181,
+      "inconclusive": 1
+     },
+     "c1": {
+      "n": 126,
+      "proven": 102,
+      "inconclusive": 1
+     },
+     "d": {
+      "n": 22,
+      "proven": 16,
+      "inconclusive": 0
+     }
+    }
+   },
+   "drrtl_simple_spi": {
+    "tier": "medium",
+    "with_verdict": 832,
+    "proven": 139,
+    "inconclusive": 516,
+    "by_class": {
+     "a": {
+      "n": 34,
+      "proven": 21,
+      "inconclusive": 5
+     },
+     "b": {
+      "n": 670,
+      "proven": 89,
+      "inconclusive": 487
+     },
+     "c1": {
+      "n": 127,
+      "proven": 29,
+      "inconclusive": 24
+     },
+     "d": {
+      "n": 1,
+      "proven": 0,
+      "inconclusive": 0
+     }
+    }
+   },
+   "rtlopt_alu_64bit": {
+    "tier": "medium",
+    "with_verdict": 936,
+    "proven": 802,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 104,
+      "proven": 99,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 124,
+      "proven": 105,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 705,
+      "proven": 598,
+      "inconclusive": 0
+     }
+    }
+   },
+   "rtlopt_calculation": {
+    "tier": "medium",
+    "with_verdict": 688,
+    "proven": 540,
+    "inconclusive": 11,
+    "by_class": {
+     "a": {
+      "n": 224,
+      "proven": 202,
+      "inconclusive": 11
+     },
+     "b": {
+      "n": 8,
+      "proven": 0,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 447,
+      "proven": 338,
+      "inconclusive": 0
+     }
+    }
+   },
+   "rtlopt_decoder_8bit": {
+    "tier": "medium",
+    "with_verdict": 950,
+    "proven": 897,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 58,
+      "proven": 53,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 102,
+      "proven": 98,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 88,
+      "proven": 88,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 699,
+      "proven": 658,
+      "inconclusive": 0
+     }
+    }
+   },
+   "rtlopt_divider_8bit": {
+    "tier": "medium",
+    "with_verdict": 1188,
+    "proven": 894,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 3,
+      "proven": 3,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 1042,
+      "proven": 784,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 5,
+      "proven": 0,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 135,
+      "proven": 107,
+      "inconclusive": 0
+     }
+    }
+   },
+   "rtlopt_register": {
+    "tier": "medium",
+    "with_verdict": 954,
+    "proven": 792,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 137,
+      "proven": 94,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 346,
+      "proven": 280,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 288,
+      "proven": 268,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 180,
+      "proven": 150,
+      "inconclusive": 0
+     }
+    }
+   },
+   "rtlopt_sub_32bit": {
+    "tier": "medium",
+    "with_verdict": 1052,
+    "proven": 897,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 2,
+      "proven": 2,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 213,
+      "proven": 183,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 3,
+      "proven": 0,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 828,
+      "proven": 712,
+      "inconclusive": 0
+     }
+    }
+   },
+   "rtlopt_mux_large": {
+    "tier": "small",
+    "with_verdict": 47,
+    "proven": 38,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 20,
+      "proven": 19,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 25,
+      "proven": 17,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 2,
+      "proven": 2,
+      "inconclusive": 0
+     }
+    }
+   },
+   "rtlopt_sub_8bit": {
+    "tier": "small",
+    "with_verdict": 156,
+    "proven": 99,
+    "inconclusive": 0,
+    "by_class": {
+     "a": {
+      "n": 9,
+      "proven": 2,
+      "inconclusive": 0
+     },
+     "b": {
+      "n": 107,
+      "proven": 79,
+      "inconclusive": 0
+     },
+     "c1": {
+      "n": 6,
+      "proven": 0,
+      "inconclusive": 0
+     },
+     "d": {
+      "n": 28,
+      "proven": 18,
+      "inconclusive": 0
+     }
+    }
+   }
+  },
+  "inconclusive_by_class_harness": {
+   "a|v1": {
+    "finished": 1804,
+    "inconclusive": 319,
+    "share": 0.17682926829268292
+   },
+   "a|v2": {
+    "finished": 1436,
+    "inconclusive": 133,
+    "share": 0.09261838440111421
+   },
+   "b|v1": {
+    "finished": 3296,
+    "inconclusive": 1239,
+    "share": 0.3759101941747573
+   },
+   "b|v2": {
+    "finished": 3608,
+    "inconclusive": 887,
+    "share": 0.24584257206208426
+   },
+   "c1|v1": {
+    "finished": 1455,
+    "inconclusive": 185,
+    "share": 0.12714776632302405
+   },
+   "c1|v2": {
+    "finished": 641,
+    "inconclusive": 78,
+    "share": 0.12168486739469579
+   },
+   "c2|v1": {
+    "finished": 1,
+    "inconclusive": 0,
+    "share": 0.0
+   },
+   "d|v1": {
+    "finished": 1586,
+    "inconclusive": 119,
+    "share": 0.07503152585119799
+   },
+   "d|v2": {
+    "finished": 1615,
+    "inconclusive": 31,
+    "share": 0.019195046439628483
+   }
+  },
+  "inconclusive_by_load": {
+   "threshold": 100.0,
+   "n": 10633,
+   "from": "2026-09-18T05:49:54",
+   "by_class": {
+    "b": {
+     "above": {
+      "proven": 2392,
+      "inconclusive": 438,
+      "share": 0.15477031802120142
+     },
+     "below": {
+      "proven": 1052,
+      "inconclusive": 528,
+      "share": 0.3341772151898734
+     }
+    },
+    "d": {
+     "above": {
+      "proven": 1880,
+      "inconclusive": 24,
+      "share": 0.012605042016806723
+     },
+     "below": {
+      "proven": 428,
+      "inconclusive": 17,
+      "share": 0.038202247191011236
+     }
+    },
+    "a": {
+     "above": {
+      "proven": 1331,
+      "inconclusive": 118,
+      "share": 0.08143547273982056
+     },
+     "below": {
+      "proven": 722,
+      "inconclusive": 95,
+      "share": 0.11627906976744186
+     }
+    },
+    "c1": {
+     "above": {
+      "proven": 1267,
+      "inconclusive": 54,
+      "share": 0.0408781226343679
+     },
+     "below": {
+      "proven": 233,
+      "inconclusive": 53,
+      "share": 0.1853146853146853
+     }
+    },
+    "c2": {
+     "above": {
+      "proven": 1,
+      "inconclusive": 0,
+      "share": 0.0
+     },
+     "below": {
+      "proven": 0,
+      "inconclusive": 0,
+      "share": null
+     }
+    }
+   },
+   "source": "src.analysis.phase5.verification_conditions (1-minute host load at the proof's start above / at or below 100, DECISION 2026-09-18 (h) 1; \u00a77c of the stage reports)"
+  },
+  "dc_rejected": {
+   "cktevo_ethmac__eth_cop": [
+    [
+     "c833d72901ab5dc",
+     "B2",
+     "DC rejected (ELAB-366)"
+    ],
+    [
+     "c9b41b36acc9cbd",
+     "B2",
+     "DC rejected (ELAB-366)"
+    ],
+    [
+     "c4c6e6ed38bc104",
+     "DrRTL_reimpl",
+     "DC rejected (ELAB-366)"
+    ]
+   ],
+   "cktevo_mem_ctrl__mc_adr_sel": [
+    [
+     "c1ca0b2f6aaedef",
+     "M",
+     "DC rejected (LINK-3)"
+    ]
+   ],
+   "cktevo_nn_engine__thresholds_128x4096": [
+    [
+     "c5d116b1e8d5aaf",
+     "B2",
+     "DC rejected (VER-262)"
+    ]
+   ],
+   "drrtl_UART": [
+    [
+     "c33ed4eeba74d93",
+     "B2",
+     "DC rejected (VER-262)"
+    ]
+   ],
+   "drrtl_router": [
+    [
+     "ce1c83301bdfd85",
+     "B1_E4",
+     "DC rejected (ELAB-366)"
+    ]
+   ],
+   "drrtl_simple_spi": [
+    [
+     "c331484b29ab13b",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c3e5a07be4c07c0",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c57d965b5b29555",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c58d918035079a4",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c5c76786f21c532",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c681680a009dfed",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c767a172779f968",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c821d5a45f6d481",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c975c81d778064d",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c9d87631e325e51",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "caed51da29bef77",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "cb2e4bdfbd6710a",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "cb5b951dd033149",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "cb6d65e4f5d4a88",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "cbc5c0df58f206f",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "cd1137a1498ee01",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "cd5351bc9ce8701",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "cdeee21ee9496a2",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "ce34405f12c4b8f",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "cecd6f8fd04a0eb",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "ced266e9d55408e",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "ced9d86ddd9183d",
+     "B0",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c8110d75177103a",
+     "B1_E4",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c913d5db8b8405b",
+     "B1_E4",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "cacf46a37e8044d",
+     "B1_E4",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c05d41daf159d5a",
+     "B2",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c15c6ab1269a17c",
+     "B2",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c19c38a418070d6",
+     "B2",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c257d81e2ce10c4",
+     "B2",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c27dc6f8b4365a5",
+     "B2",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c4d7aa2d52e6323",
+     "B2",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "c7f035194c89872",
+     "B2",
+     "DC rejected (VER-294)"
+    ],
+    [
+     "cbb1dd18094fa5a",
+     "DrRTL_reimpl",
+     "DC rejected (VER-294)"
+    ]
+   ],
+   "rtlopt_register": [
+    [
+     "c4b85a0350848a0",
+     "B2",
+     "DC rejected (VER-294)"
+    ]
+   ],
+   "rtlopt_sub_32bit": [
+    [
+     "c3070aa6ac0ed1d",
+     "B1_E4",
+     "DC rejected (ELAB-366)"
+    ],
+    [
+     "c88b4d8676fba1f",
+     "B1_E4",
+     "DC rejected (ELAB-298)"
+    ],
+    [
+     "c6a9c53240094cf",
+     "M",
+     "DC rejected (ELAB-366)"
+    ]
+   ]
+  },
+  "dc_rejected_source": "candidates.e4_failure (DECISION 2026-09-19 (n) 1: terminal DC rejections with the DC error id) via src.analysis.phase5.dc_rejected",
+  "prescreen": {
+   "source": "candidates.prescreened = 1 per design (large-tier M, DECISION 2026-09-18 (b) 1c); runs with status superseded or superseded_by set per design and reason",
+   "prescreened_by_design": {
+    "cktevo_hsm__hsm": 5,
+    "cktevo_nn_engine__spikeNeuron8_H7": 229,
+    "cktevo_nn_engine__thresholds_128x4096": 5,
+    "drrtl_LSTM": 282,
+    "drrtl_aes": 109,
+    "drrtl_tv80": 11
+   },
+   "superseded_runs": {
+    "cktevo_hsm__hsm": {
+     "n": 1,
+     "reason": "superseded"
+    },
+    "cktevo_nn_engine__thresholds_128x4096": {
+     "n": 2,
+     "reason": "superseded"
+    },
+    "cktevo_risc__cpu": {
+     "n": 1,
+     "reason": "superseded"
+    },
+    "cktevo_usb__usbf_sie_rx": {
+     "n": 1,
+     "reason": "superseded"
+    },
+    "cktevo_vga_enh__vga_wb_slave": {
+     "n": 1,
+     "reason": "superseded"
+    },
+    "drrtl_LSTM": {
+     "n": 18,
+     "reason": "harness_fix"
+    },
+    "drrtl_UART": {
+     "n": 1,
+     "reason": "superseded"
+    },
+    "drrtl_router": {
+     "n": 1,
+     "reason": "superseded"
+    },
+    "drrtl_simple_spi": {
+     "n": 5,
+     "reason": "harness_fix"
+    },
+    "rtlopt_alu_64bit": {
+     "n": 1,
+     "reason": "superseded"
+    },
+    "rtlopt_calculation": {
+     "n": 2,
+     "reason": "superseded"
+    },
+    "rtlopt_decoder_8bit": {
+     "n": 2,
+     "reason": "superseded"
+    },
+    "rtlopt_divider_8bit": {
+     "n": 1,
+     "reason": "superseded"
+    },
+    "rtlopt_register": {
+     "n": 1,
+     "reason": "superseded"
+    },
+    "rtlopt_sub_32bit": {
+     "n": 2,
+     "reason": "superseded"
+    }
+   }
+  },
+  "proof_latency_bound": {
+   "drrtl_SPI": {
+    "median_min": 51.0,
+    "empty_archive_builds": 88,
+    "builds": 206
+   },
+   "drrtl_tv80": {
+    "median_min": 50.9,
+    "empty_archive_builds": 195,
+    "builds": 195
+   },
+   "drrtl_aes": {
+    "median_min": 31.4,
+    "empty_archive_builds": 90,
+    "builds": 189
+   },
+   "cktevo_risc__cpu": {
+    "median_min": 51.1,
+    "empty_archive_builds": 135,
+    "builds": 135
+   },
+   "drrtl_simple_spi": {
+    "median_min": 51.0,
+    "empty_archive_builds": 116,
+    "builds": 158
+   }
+  },
+  "proof_latency_bound_source": "scripts/report_phase.proof_latency_bound (median proof latency over the finished Phase 5 proofs above the 1 800 s generation window; archive-at-build from gen_summary.archive_json; DECISION 2026-09-19 (k) 3, (l) 4)"
+ },
+ "missing": {
+  "items": [
+   {
+    "item": "hidden-layer retention column (H1 / H2a / H2b / H3 / H5 / H4 on accepted and audit candidates)",
+    "owner": "hidden worker; scripts/report_hidden.py",
+    "stage": "sealed until PHASE5_COMPLETE: yes (spec 06, DECISION 2026-09-19 (p) / (q))",
+    "status": "sealed; bulk execution starts when the small tier's search runs finish"
+   },
+   {
+    "item": "large-tier B0 offline E4",
+    "owner": "offline pool (b0_e4 group)",
+    "stage": "Stage A completeness",
+    "status": "proven B0 without E4: large 118, medium 9, small 19 (pending)"
+   },
+   {
+    "item": "prescreened candidates' simulation, E4 and proofs (large-tier M)",
+    "owner": "offline pool (prescreened group; proofs after the small tier, DECISION 2026-09-18 (d) B5 / (q) 2)",
+    "stage": "Phase 5 completion condition",
+    "status": "sim pending 78, E4 pending 49, proof pending 142"
+   },
+   {
+    "item": "E1 (a) / (b) reconciliation (router and tv80 harness_version-1 falsified records re-proven under v2)",
+    "owner": "offline pool after the small tier; operator report (marker reports/data/phase5_e1_ab.done)",
+    "stage": "before PHASE5_COMPLETE (DECISION 2026-09-19 (q) 2)",
+    "status": "pending"
+   },
+   {
+    "item": "Phase 6 ladder runs on the Phase 5 accepted candidates and the final map with rung attribution",
+    "owner": "Phase 6 (config exp5.ladder_on_accepted = phase6)",
+    "stage": "Phase 6",
+    "status": "not started"
+   },
+   {
+    "item": "E1_authors reproduction of the RTL-OPT pairs",
+    "owner": "Phase 4 \u00a74d",
+    "stage": "done for 33 of 34 pairs",
+    "status": "rtlopt_mux_dead's reference does not link under DC (LINK-3); no further run planned"
+   },
+   {
+    "item": "RTLLM contrast finalisation (rules-v2 classes with the LLM review on the Phase 3 candidates, ladder rungs E1d / E2g)",
+    "owner": "Phase 6 / paper",
+    "stage": "contrast table only, never pooled",
+    "status": "E1d / E2g rungs not run on the Phase 3 candidates (n = 0 in reports/phase4.md \u00a78)"
+   },
+   {
+    "item": "semantic sub-tags of the map (bit-width, precomputation / LUT, strength reduction, control simplification, resource sharing, state encoding, clock gating)",
+    "owner": "Phase 6 tagging pass",
+    "stage": "Phase 6",
+    "status": "not recorded; rules-v2 evidence tags stand in"
+   },
+   {
+    "item": "Dr.RTL paper per-design numbers for the shared designs; the user-run original Dr.RTL reference row (PLAN 5.4)",
+    "owner": "human (transcription; the reference row is triggered manually)",
+    "stage": "paper",
+    "status": "not started"
+   }
+  ],
+  "completion": {
+   "complete": [
+    "drrtl_arm_cpu2",
+    "rtlopt_sub_32bit"
+   ],
+   "preliminary": [
+    "cktevo_ethmac__eth_cop",
+    "cktevo_risc__btb",
+    "rtlopt_decoder_8bit"
+   ],
+   "tally": {
+    "wins": 0,
+    "ties": 4,
+    "partials": 1,
+    "losses": 0,
+    "undecided": 0
+   }
+  }
+ },
+ "definitions": {
+  "labels": {
+   "absorbed_identical": "E4 fingerprint identical to D's (equal cell histogram, area and cell count): the synthesizer already produces D's netlist (spec 04 \u00a7B step 2)",
+   "duplicate": "E4 fingerprint identical to an earlier candidate's of the same run (spec 04 \u00a7B step 3); never counted in the map",
+   "retained": "some component g > t_D and none < \u2212t_D (rule A band; spec 04 \u00a7B step 4); on a spread / offset design a retained candidate must also beat the envelope of its own surface perturbations (arm M's extra check; the uniform caliber stops at rule A)",
+   "absorbed": "fingerprint converged at E4 with a lower rung where D reaches the candidate's PPA: rung attribution compares the candidate with D under the same rung (spec 04 \u00a7B step 5; Phase 4 objects only)",
+   "noise": "fingerprint not converged and every component within the band (step 6)",
+   "harmful": "some component g < \u2212t_D and none > t_D (step 7); sub-label blocks_synthesis when the resource diff shows DesignWare / datapath extraction in D absent from C",
+   "tradeoff": "some component > t_D and some < \u2212t_D, dimensions named (step 8)",
+   "fragile": "retained by rule A but not above the envelope of the candidate's own perturbations on a spread / offset design (arm M only)"
+  },
+  "rule_A": "t_D = max(2.0 \u00d7 \u03c3_robust, the design's own max |\u03b4| including P0, the pooled q90); designs without a measured floor carry the pooled minimum (floor_source pooled); frozen as floor_version phase4 (DECISIONS 2026-09-14, G4.3); gains relative to D: area and power relative, WNS in clock periods at \u03a6_main (src/diagnose/m3.relative_gains)",
+  "materiality": "area 1 %, power 2 %, WNS 1 % of the period (config noise.materiality) \u2014 reported beside every retention figure, never used as a verdict",
+  "classes": "rules v2 (src/classify/rules.py, spec 04 \u00a7A; docs/spec/04-classifier-diagnoser.md): (a) same registers and stored values; (b) latency-preserving refactor with unchanged register count; (c1) latency-preserving refactor with changed register count; (c2) output-timing change (latency mapping); (d) operator family gained (multiply / divide, add / subtract, variable shift in C's word-level RTLIL histogram absent from D's) or a longest-combinational-path ratio \u2265 3.0",
+  "classes_validation_60": {
+   "source": "reports/data/phase3_m6_agreement.json and reports/phase3.md \u00a76a (60 candidates read by hand, seed 2)",
+   "n": 60,
+   "human_class_counts": {
+    "a": 3,
+    "b": 23,
+    "c1": 9,
+    "c2": 4,
+    "d": 21
+   },
+   "rules": {
+    "v1": {
+     "n": 60,
+     "agree": 23,
+     "agreement": 0.38333333333333336,
+     "confusion": {
+      "a->a": 1,
+      "a->c1": 1,
+      "a->d": 1,
+      "b->a": 1,
+      "b->b": 9,
+      "b->c1": 4,
+      "b->d": 9,
+      "c1->c1": 6,
+      "c1->d": 3,
+      "c2->d": 4,
+      "d->a": 8,
+      "d->b": 1,
+      "d->c1": 5,
+      "d->d": 7
+     },
+     "per_rule_class": {
+      "a": {
+       "n": 10,
+       "correct": 1,
+       "precision": 0.1
+      },
+      "b": {
+       "n": 10,
+       "correct": 9,
+       "precision": 0.9
+      },
+      "c1": {
+       "n": 16,
+       "correct": 6,
+       "precision": 0.375
+      },
+      "c2": {
+       "n": 0,
+       "correct": 0,
+       "precision": null
+      },
+      "d": {
+       "n": 24,
+       "correct": 7,
+       "precision": 0.2916666666666667
+      }
+     },
+     "per_human_class": {
+      "a": {
+       "n": 3,
+       "found": 1,
+       "recall": 0.3333333333333333
+      },
+      "b": {
+       "n": 23,
+       "found": 9,
+       "recall": 0.391304347826087
+      },
+      "c1": {
+       "n": 9,
+       "found": 6,
+       "recall": 0.6666666666666666
+      },
+      "c2": {
+       "n": 4,
+       "found": 0,
+       "recall": 0.0
+      },
+      "d": {
+       "n": 21,
+       "found": 7,
+       "recall": 0.3333333333333333
+      }
+     }
+    },
+    "v2": {
+     "n": 60,
+     "agree": 40,
+     "agreement": 0.6666666666666666,
+     "confusion": {
+      "a->a": 2,
+      "a->c1": 1,
+      "b->a": 4,
+      "b->b": 15,
+      "b->c1": 4,
+      "c1->c1": 9,
+      "c2->c1": 4,
+      "d->a": 1,
+      "d->b": 2,
+      "d->c1": 4,
+      "d->d": 14
+     },
+     "per_rule_class": {
+      "a": {
+       "n": 7,
+       "correct": 2,
+       "precision": 0.2857142857142857
+      },
+      "b": {
+       "n": 17,
+       "correct": 15,
+       "precision": 0.8823529411764706
+      },
+      "c1": {
+       "n": 22,
+       "correct": 9,
+       "precision": 0.4090909090909091
+      },
+      "c2": {
+       "n": 0,
+       "correct": 0,
+       "precision": null
+      },
+      "d": {
+       "n": 14,
+       "correct": 14,
+       "precision": 1.0
+      }
+     },
+     "per_human_class": {
+      "a": {
+       "n": 3,
+       "found": 2,
+       "recall": 0.6666666666666666
+      },
+      "b": {
+       "n": 23,
+       "found": 15,
+       "recall": 0.6521739130434783
+      },
+      "c1": {
+       "n": 9,
+       "found": 9,
+       "recall": 1.0
+      },
+      "c2": {
+       "n": 4,
+       "found": 0,
+       "recall": 0.0
+      },
+      "d": {
+       "n": 21,
+       "found": 14,
+       "recall": 0.6666666666666666
+      }
+     }
+    }
+   }
+  }
+ },
+ "sources": [
+  {
+   "table": "floor pooled minima",
+   "source": "reports/data/phase2_noise_floor.json pooled_min[E4] (design-weighted pooled q90, DECISIONS 2026-09-14 rule A; frozen floor_version phase4, G4.3)"
+  },
+  {
+   "table": "floor classes per design set",
+   "source": "SELECT design_id, metric, floor_class, floor_source, t_d FROM noise_floor WHERE config='E4' AND floor_version=? (frozen phase4 table), one row per design and metric; designs without a row carry the pooled minimum (floor_source pooled)"
+  },
+  {
+   "table": "|delta| quantiles",
+   "source": "SELECT e.design_id, e.config, e.pert_id, p.ptype, e.area_um2, e.wns_ns, e.power_saif_mw, e.clock_ns FROM evaluations e JOIN perturbations p ON p.pert_id=e.pert_id WHERE e.status='ok' AND e.config IN ('E1','E2','E3','E4') AND e.design_id IN (held 30 + Exp1 10); baseline: the design's is_baseline=1 record of the same config and clock; |delta| relative for area and power, WNS in clock periods"
+  },
+  {
+   "table": "ladder facts",
+   "source": "reports/phase0.md 'Addendum (G0 follow-up, 2026-09-12)' (four-design probe, reports/data/phase0_ladder_probe_{1,2}.json) and reports/phase2.md \u00a72c (127 set designs with every rung at \u03a6_main)"
+  },
+  {
+   "table": "Phase 5 candidate scan",
+   "source": "SELECT c.cand_id, c.design_id, c.class_final, c.subtags_json, c.label, c.verdict, c.harness_version, c.prescreened, c.v1_status, c.v2_status, c.e4_failure, r.arm, r.llm_model, r.run_id, r.seed, r.status FROM candidates c JOIN runs r ON r.run_id=c.run_id WHERE r.exp='phase5' AND r.status != 'superseded' AND COALESCE(r.excluded_from_tables,0)=0; rule-A label = src.analysis.phase5.uniform_diagnosis (m3.diagnose on the E4 record with the design's frozen floor)"
+  },
+  {
+   "table": "Phase 4 objects",
+   "source": "reports/data/phase4_exp1.json objects[] (cand_id, design_id, cls, role b0 / reference / llm, verdict, label = rule A at E4 under the frozen phase4 floors, rung / attribution for absorbed, gains per rung E1 / E1d / E2 / E3 / E2g / E4); generated 2026-09-15, floor_version phase4"
+  },
+  {
+   "table": "Phase 5 run counts",
+   "source": "SELECT design_id, arm, status, COUNT(*) FROM runs WHERE exp='phase5' AND status != 'superseded' AND COALESCE(excluded_from_tables,0)=0 GROUP BY design_id, arm, status"
+  },
+  {
+   "table": "RTLLM contrast",
+   "source": "reports/data/phase4_exp1.json contrast_phase3 (666 E4-diagnosed Phase 3 calibration candidates of 5 RTLLM dev designs, run-time M3 verdicts under the Phase 3 floors; reports/phase4.md \u00a78)"
+  },
+  {
+   "table": "B0 own labels vs rule A",
+   "source": "candidates.label of the B0 arm (improved / no_gain: the run's Y-caliber fitness, Yosys + OpenSTA, spec 05 \u00a75) against the rule-A E4 label of the same proven candidate (uniform_diagnosis); proven candidates without an E4 record are pending (offline pool)"
+  },
+  {
+   "table": "Phase 4 literature",
+   "source": "reports/data/phase4_exp1.json literature (better = the optimized version's area below D's under the rung; retained = above D's rule-A threshold there; reports/phase4.md \u00a74) and reports/data/phase4_rtlopt_setting.json (reports/phase4.md \u00a74d)"
+  },
+  {
+   "table": "non-equivalent literature objects",
+   "source": "reports/phase4.md \u00a74a table (25 objects; probable cause column), DECISIONS 2026-09-14 item 3"
+  },
+  {
+   "table": "Dr.RTL shared designs",
+   "source": "Phase 5 candidate scan (rule A at E4, uniform_diagnosis) by arm on drrtl_aes / tv80 / LSTM; reports/data/phase4_exp1.json B0 objects on drrtl_i2c / pcie / datapath; config exp5.design_notes"
+  },
+  {
+   "table": "best retained gain per design",
+   "source": "Phase 5 candidate scan: per run the max over its rule-A retained candidates of each metric's gain (0 when none), then the mean over the design's seeds of that arm-model row and the max; Stage A = large tier (every run done), Stage B = complete or B0-pending designs (src.analysis.phase5.completion_view); Exp1 = Phase 4 B0 objects (max over objects, no seeds)"
+  },
+  {
+   "table": "proven rates per design and class",
+   "source": "Phase 5 candidate scan: candidates with a verdict (proven / falsified / inconclusive / sim_fail / rejected / error) per design and class_final; proven rate = proven / with verdict"
+  },
+  {
+   "table": "inconclusive share per class, v1 / v2",
+   "source": "candidates with a verdict per class_final and harness_version (NULL or 1 = harness_version 1, 2 = corrected V3 initial-state handling, DECISION 2026-09-18 C1\u2013C4)"
+  },
+  {
+   "table": "inconclusive share by load",
+   "source": "src.analysis.phase5.verification_conditions (1-minute host load at the proof's start above / at or below 100, DECISION 2026-09-18 (h) 1; \u00a77c of the stage reports)"
+  },
+  {
+   "table": "formal-accepted, synthesis-rejected",
+   "source": "candidates.e4_failure (DECISION 2026-09-19 (n) 1: terminal DC rejections with the DC error id) via src.analysis.phase5.dc_rejected"
+  },
+  {
+   "table": "prescreen and superseded runs",
+   "source": "candidates.prescreened = 1 per design (large-tier M, DECISION 2026-09-18 (b) 1c); runs with status superseded or superseded_by set per design and reason"
+  },
+  {
+   "table": "proof-latency-bound designs",
+   "source": "scripts/report_phase.proof_latency_bound (median proof latency over the finished Phase 5 proofs above the 1 800 s generation window; archive-at-build from gen_summary.archive_json; DECISION 2026-09-19 (k) 3, (l) 4)"
+  }
+ ],
+ "summary": [
+  "1. **Supportable today.** The residual is defined against a measured floor: at E4 the pooled minimum is 0.28 % area / 2.2 % power / 0.03 % WNS of the period; 13 of the 30 Phase 5 designs carry the pooled floor (no measured perturbations at E4), 1 of them are offset designs (retained verdicts there are flagged: 371 so far, all on mc_adr_sel).",
+  "2. **Supportable.** The ladder is real but not monotone: E1 \u2192 E2 is the large step (\u22126 % to \u221237 % area on the probe), the high-effort flags are no-ops, DesignWare is a capability of its own (3\u20136 % either way), retiming and clock gating act only where their structures exist; D's area grows on 10 of 127 designs from E1 to E4.",
+  "3. **Supportable (interim).** Rule A at E4 on the Phase 4 B0 objects (10 human-written designs): 55 of 168 proven objects retained (32.7 %), 49 of them above the materiality threshold; map shape 'concentrated' with E4 retention by class {\"a\": 0.06060606060606061, \"b\": 0.4880952380952381, \"c1\": 1.0, \"d\": 0.9375} \u2014 class (a) rewrites are absorbed, (c1) / (d) survive.",
+  "4. **Supportable (interim, incomplete).** Phase 5 so far: 4222 of 12236 evaluated proven candidates retained (34.5 %), 3674 above materiality, across 13 tier-arm rows; the large tier's runs are done, the medium tier stands at 35 created, 297 done, 44 running (interim), B0's offline E4 is in for all but 146 proven B0 candidates.",
+  "5. **Supportable.** The literature's caliber: of B0's Yosys-'improved' candidates with an E4 record, 645 of 1490 are retained at E4 (43.3 %), 179 are absorbed_identical or noise, 183 harmful; on the literature pairs, RTL-OPT better at E1 20 \u2192 retained at E4 11 of 34 proven pairs, RTLRewriter 24 \u2192 10 of 43; under the authors' released RTL-OPT setting (plain compile, 0.1 ns) reproduced on this DC 25 of 33 pairs are better, under the paper's described setting (compile_ultra, 1 ns) 13.",
+  "6. **Not yet.** Whether retained gains survive the hidden configurations (C1's certification column) \u2014 sealed until PHASE5_COMPLETE; the final map with rung attribution on Phase 5 candidates (Phase 6 ladder runs); the Dr.RTL per-design comparison (paper numbers not transcribed; the reference row not run); the large-tier M row (641 prescreened candidates await their proofs after the small tier).",
+  "7. **Not yet.** Retention on the proof-latency-bound and verification-limited designs (SPI, simple_spi, tv80, cpu; hsm): the proven denominators there are too small, and E1 (a) / (b) may still flip router's and tv80's v1-falsified records.",
+  "8. **Three items that would change the picture most.** (i) The hidden-layer column on the accepted candidates (turns visible retention into certified retention or not); (ii) the large-tier prescreened simulations, E4 and proofs plus E1 (a) / (b) (fills the large tier's M and Dr.RTL rows, the designs where the caliber argument is strongest); (iii) the Phase 6 ladder runs on the Phase 5 accepted candidates (rung attribution of what survives \u2014 today only the Phase 4 objects carry it)."
+ ]
+}
