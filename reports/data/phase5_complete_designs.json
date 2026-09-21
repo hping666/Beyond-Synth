@@ -1,7 +1,9 @@
 {
  "designs": [
+  "cktevo_ethmac__eth_cop",
   "cktevo_hsm__MixColumns",
   "cktevo_hsm__hsm",
+  "cktevo_mem_ctrl__mc_adr_sel",
   "cktevo_nn_engine__thresholds_128x4096",
   "cktevo_risc__cpu",
   "cktevo_risc__stall_control_unit",
@@ -10,27 +12,25 @@
   "drrtl_SPI",
   "drrtl_UART",
   "drrtl_arm_cpu2",
+  "drrtl_communication",
   "drrtl_controller",
   "drrtl_router",
+  "drrtl_simple_spi",
   "drrtl_ticket_machine",
   "drrtl_tv80",
   "rtlopt_alu_64bit",
+  "rtlopt_calculation",
+  "rtlopt_decoder_8bit",
   "rtlopt_divider_8bit",
   "rtlopt_mux_large",
+  "rtlopt_register",
   "rtlopt_sub_32bit",
   "rtlopt_sub_8bit"
  ],
  "preliminary": [
-  "cktevo_ethmac__eth_cop",
-  "cktevo_mem_ctrl__mc_adr_sel",
-  "cktevo_risc__btb",
-  "drrtl_communication",
-  "drrtl_simple_spi",
-  "rtlopt_calculation",
-  "rtlopt_decoder_8bit",
-  "rtlopt_register"
+  "cktevo_risc__btb"
  ],
- "at": "2026-09-21T04:11",
+ "at": "2026-09-21T04:52",
  "history": [
   {
    "at": "2026-09-19T04:10",
@@ -166,6 +166,19 @@
    "new_preliminary": [
     "drrtl_simple_spi"
    ]
+  },
+  {
+   "at": "2026-09-21T04:52",
+   "new": [
+    "cktevo_ethmac__eth_cop",
+    "cktevo_mem_ctrl__mc_adr_sel",
+    "drrtl_communication",
+    "drrtl_simple_spi",
+    "rtlopt_calculation",
+    "rtlopt_decoder_8bit",
+    "rtlopt_register"
+   ],
+   "new_preliminary": []
   }
  ]
 }

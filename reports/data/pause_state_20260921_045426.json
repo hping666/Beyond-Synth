@@ -1,0 +1,102 @@
+{
+ "at": "2026-09-21T04:54:16",
+ "git_sha": "ad57fb2495f8",
+ "cfg_hash": "f857d446d282",
+ "runs_by_tier": {
+  "medium": {
+   "done": 376
+  },
+  "small": {
+   "done": 126
+  },
+  "large": {
+   "done": 90,
+   "created": 18
+  }
+ },
+ "open_jobs": {
+  "dc|running": 12,
+  "dc_hidden|queued": 44940,
+  "search|queued": 18
+ },
+ "offline_pool_groups": {
+  "prescreened": {
+   "done": 572,
+   "e4": 69
+  },
+  "b0_e4": {
+   "done": 2624,
+   "e4_running": 16,
+   "e4": 44
+  },
+  "reverify": {
+   "await_proof": 767,
+   "done": 545
+  },
+  "e4_timeout": {
+   "done": 158,
+   "e4": 1
+  },
+  "reproof": {
+   "done": 7
+  },
+  "resim": {
+   "done": 11
+  },
+  "d_saif": {
+   "done": 13
+  }
+ },
+ "held_search_jobs": 18,
+ "stage_markers": {
+  "phase5_stage_B.done": true,
+  "phase5_stage_C.done": true
+ },
+ "processes": {
+  "stages loop": 3019827,
+  "offline pool": 977998,
+  "hidden loop": 900143,
+  "queue daemon": 3863489,
+  "load logger": 3044731
+ },
+ "resume": [
+  "setsid .venv/bin/python3 scripts/queue/daemon.py start",
+  ".venv/bin/python3 scripts/offline_pool.py start",
+  ".venv/bin/python3 scripts/phase5_stages.py start",
+  ".venv/bin/python3 scripts/hidden_loop.py start",
+  "the 18 held drrtl_LSTM search jobs (Stage A) need their `hold` payload flag removed \u2014 a separate decision"
+ ],
+ "stopped": [
+  {
+   "target": "stages loop",
+   "pid": 3019827,
+   "action": "stopped",
+   "note": "stop signal sent to pid 3019827"
+  },
+  {
+   "target": "offline pool",
+   "pid": 977998,
+   "action": "stopped",
+   "note": "stop sent to 977998"
+  },
+  {
+   "target": "hidden loop",
+   "pid": 900143,
+   "action": "stopped",
+   "note": "stop signal sent to pid 900143"
+  },
+  {
+   "target": "queue daemon",
+   "pid": 3863489,
+   "action": "stopped",
+   "note": "daemon pid=3863489 stopped"
+  },
+  {
+   "target": "load logger",
+   "pid": 3044731,
+   "action": "stopped",
+   "note": "SIGTERM"
+  }
+ ],
+ "applied": true
+}
