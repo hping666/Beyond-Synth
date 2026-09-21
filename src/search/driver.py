@@ -282,6 +282,8 @@ class SearchRun:
                 raise CA.BadAnswer("truncated at max_output_tokens (status incomplete)")
             rtl, note = CA.parse_answer(r["text"])
             rtl, spliced = SC.splice(self.d_text, rtl, region)   # out-of-scope edits restored from D; the violations become the warning flag
+            if spliced.get("parse_error"):   # 2026-09-21: an answer the scanner cannot read is unusable, it does not kill the run
+                raise CA.BadAnswer(f"the answer's text could not be read by the scope scanner: {spliced['parse_error']}")
             if spliced.get("region_missing"):
                 raise CA.BadAnswer(f"the answer does not contain the region module {spliced['region_missing']}: not a rewrite of the region")
             CA.check_top(rtl, self.design["top"])
@@ -375,6 +377,8 @@ class SearchRun:
                     raise CA.BadAnswer(f"truncated at max_output_tokens (status incomplete, {(r.get('usage') or {}).get('output_tokens')} output tokens)")
                 rtl, note = CA.parse_answer(r["text"])
                 rtl, spliced = SC.splice(self.d_text, rtl, region)   # the text outside the region comes from D (omitted modules, changed modules or blocks); the violations become the warning flag (decision 2026-09-15 evening, item 2)
+                if spliced.get("parse_error"):   # 2026-09-21: an unreadable answer is discarded as unusable (CLAUDE.md rule 8), the run goes on
+                    raise CA.BadAnswer(f"the answer's text could not be read by the scope scanner: {spliced['parse_error']}")
                 if spliced.get("region_missing"):
                     raise CA.BadAnswer(f"the answer does not contain the region module {spliced['region_missing']}: not a rewrite of the region")
                 CA.check_top(rtl, self.design["top"])

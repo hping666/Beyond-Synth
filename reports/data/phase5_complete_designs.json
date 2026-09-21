@@ -2,6 +2,7 @@
  "designs": [
   "cktevo_hsm__hsm",
   "cktevo_nn_engine__thresholds_128x4096",
+  "cktevo_risc__cpu",
   "cktevo_usb__usbf_sie_rx",
   "cktevo_vga_enh__vga_wb_slave",
   "drrtl_SPI",
@@ -19,9 +20,10 @@
   "drrtl_communication",
   "rtlopt_calculation",
   "rtlopt_decoder_8bit",
-  "rtlopt_register"
+  "rtlopt_register",
+  "rtlopt_sub_8bit"
  ],
- "at": "2026-09-20T23:11",
+ "at": "2026-09-21T02:01",
  "history": [
   {
    "at": "2026-09-19T04:10",
@@ -119,6 +121,20 @@
    ],
    "new_preliminary": [
     "rtlopt_calculation"
+   ]
+  },
+  {
+   "at": "2026-09-21T00:11",
+   "new": [
+    "cktevo_risc__cpu"
+   ],
+   "new_preliminary": []
+  },
+  {
+   "at": "2026-09-21T02:01",
+   "new": [],
+   "new_preliminary": [
+    "rtlopt_sub_8bit"
    ]
   }
  ]

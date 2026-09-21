@@ -1,13 +1,15 @@
 {
  "alert_line": null,
- "cfg_hash": "1e2f048f8653",
+ "cfg_hash": "f857d446d282",
  "classes": {},
  "completion": {
   "blockers": {
    "cktevo_ethmac__eth_cop": {
     "b0_e4": 1
    },
-   "cktevo_hsm__MixColumns": {},
+   "cktevo_hsm__MixColumns": {
+    "verdict": 4
+   },
    "cktevo_hsm__hsm": {},
    "cktevo_mem_ctrl__mc_adr_sel": {
     "b0_e4": 1
@@ -20,19 +22,18 @@
    "cktevo_risc__btb": {
     "b0_e4": 11
    },
-   "cktevo_risc__cpu": {
-    "verdict": 19
+   "cktevo_risc__cpu": {},
+   "cktevo_risc__stall_control_unit": {
+    "e4_late": 4,
+    "verdict": 16
    },
-   "cktevo_risc__stall_control_unit": {},
    "cktevo_usb__usbf_sie_rx": {},
    "cktevo_vga_enh__vga_wb_slave": {},
    "drrtl_LSTM": {},
-   "drrtl_SPI": {
-    "verdict": 12
-   },
+   "drrtl_SPI": {},
    "drrtl_UART": {
-    "e4_retry": 2,
-    "verdict": 11
+    "e4_retry": 4,
+    "verdict": 3
    },
    "drrtl_aes": {
     "b0_e4": 107,
@@ -43,36 +44,45 @@
    "drrtl_communication": {
     "b0_e4": 1
    },
-   "drrtl_controller": {},
-   "drrtl_router": {
-    "verdict": 3
+   "drrtl_controller": {
+    "b0_e4": 129,
+    "e4_late": 1,
+    "e4_retry": 15,
+    "verdict": 5
    },
+   "drrtl_router": {},
    "drrtl_simple_spi": {
     "b0_e4": 1,
-    "e4_retry": 15,
-    "verdict": 46
+    "e4_retry": 22,
+    "verdict": 8
    },
-   "drrtl_ticket_machine": {},
+   "drrtl_ticket_machine": {
+    "b0_e4": 109,
+    "e4_late": 1,
+    "verdict": 16
+   },
    "drrtl_tv80": {
     "proof": 10
    },
    "rtlopt_alu_64bit": {},
    "rtlopt_calculation": {
-    "b0_e4": 2,
-    "verdict": 27
+    "b0_e4": 2
    },
    "rtlopt_decoder_8bit": {
     "b0_e4": 1
    },
    "rtlopt_divider_8bit": {},
-   "rtlopt_mux_large": {},
+   "rtlopt_mux_large": {
+    "b0_e4": 95,
+    "verdict": 2
+   },
    "rtlopt_register": {
     "b0_e4": 2
    },
    "rtlopt_sub_32bit": {},
    "rtlopt_sub_8bit": {
-    "b0_e4": 20,
-    "verdict": 123
+    "b0_e4": 63,
+    "verdict": 5
    }
   },
   "comparisons": {
@@ -409,6 +419,78 @@
     },
     "t_d_area": 0.0027938146505548643
    },
+   "cktevo_risc__cpu": {
+    "b0_pending": false,
+    "m_exceeds": false,
+    "m_outcome": "tie",
+    "model": "gpt-5.6-luna",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 67,
+      "proven": 41,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 1
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 180,
+      "proven": 9,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 0
+     },
+     "gpt-5.6-luna|B2": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 180,
+      "proven": 8,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 0
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 165,
+      "proven": 11,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 0
+     },
+     "gpt-5.6-luna|M": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 180,
+      "proven": 5,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 0
+     },
+     "gpt-5.6-terra|B2": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 180,
+      "proven": 21,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 0
+     },
+     "gpt-5.6-terra|M": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 180,
+      "proven": 11,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 0
+     }
+    },
+    "t_d_area": 0.0027938146505548643
+   },
    "cktevo_usb__usbf_sie_rx": {
     "b0_pending": false,
     "m_exceeds": false,
@@ -552,6 +634,78 @@
      }
     },
     "t_d_area": 0.0027938146505548643
+   },
+   "drrtl_SPI": {
+    "b0_pending": false,
+    "m_exceeds": false,
+    "m_outcome": "loss",
+    "model": "gpt-5.6-luna",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 180,
+      "proven": 0,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 0
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "best_gain_max": 0.082,
+      "best_gain_mean": 0.05436,
+      "cands": 178,
+      "proven": 20,
+      "retained": 2,
+      "runs": 3,
+      "tradeoff": 6
+     },
+     "gpt-5.6-luna|B2": {
+      "best_gain_max": 0.06278,
+      "best_gain_mean": 0.04185,
+      "cands": 179,
+      "proven": 11,
+      "retained": 4,
+      "runs": 3,
+      "tradeoff": 1
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "best_gain_max": 0.08634,
+      "best_gain_mean": 0.04971,
+      "cands": 122,
+      "proven": 78,
+      "retained": 40,
+      "runs": 3,
+      "tradeoff": 32
+     },
+     "gpt-5.6-luna|M": {
+      "best_gain_max": 0.082,
+      "best_gain_mean": 0.02733,
+      "cands": 180,
+      "proven": 6,
+      "retained": 1,
+      "runs": 3,
+      "tradeoff": 2
+     },
+     "gpt-5.6-terra|B2": {
+      "best_gain_max": 0.082,
+      "best_gain_mean": 0.06919,
+      "cands": 180,
+      "proven": 8,
+      "retained": 7,
+      "runs": 3,
+      "tradeoff": 0
+     },
+     "gpt-5.6-terra|M": {
+      "best_gain_max": 0.082,
+      "best_gain_mean": 0.07559,
+      "cands": 174,
+      "proven": 14,
+      "retained": 5,
+      "runs": 3,
+      "tradeoff": 5
+     }
+    },
+    "t_d_area": 0.0035653381701254536
    },
    "drrtl_arm_cpu2": {
     "b0_pending": false,
@@ -697,6 +851,78 @@
     },
     "t_d_area": 0.0027938146505548643
    },
+   "drrtl_router": {
+    "b0_pending": false,
+    "m_exceeds": false,
+    "m_outcome": "tie",
+    "model": "gpt-5.6-luna",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 150,
+      "proven": 122,
+      "retained": 2,
+      "runs": 3,
+      "tradeoff": 10
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 176,
+      "proven": 156,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 78
+     },
+     "gpt-5.6-luna|B2": {
+      "best_gain_max": 0.00128,
+      "best_gain_mean": 0.00043,
+      "cands": 180,
+      "proven": 149,
+      "retained": 6,
+      "runs": 3,
+      "tradeoff": 102
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 84,
+      "proven": 74,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 0
+     },
+     "gpt-5.6-luna|M": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 163,
+      "proven": 111,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 5
+     },
+     "gpt-5.6-terra|B2": {
+      "best_gain_max": 0.00319,
+      "best_gain_mean": 0.00174,
+      "cands": 167,
+      "proven": 156,
+      "retained": 11,
+      "runs": 3,
+      "tradeoff": 88
+     },
+     "gpt-5.6-terra|M": {
+      "best_gain_max": 0.0044,
+      "best_gain_mean": 0.00147,
+      "cands": 133,
+      "proven": 118,
+      "retained": 7,
+      "runs": 3,
+      "tradeoff": 16
+     }
+    },
+    "t_d_area": 0.0027938146505548643
+   },
    "drrtl_tv80": {
     "b0_pending": false,
     "m_exceeds": false,
@@ -828,6 +1054,78 @@
       "retained": 3,
       "runs": 3,
       "tradeoff": 50
+     }
+    },
+    "t_d_area": 0.0027938146505548643
+   },
+   "rtlopt_calculation": {
+    "b0_pending": true,
+    "m_exceeds": false,
+    "m_outcome": "loss",
+    "model": "gpt-5.6-luna",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "best_gain_max": 0.36829,
+      "best_gain_mean": 0.36595,
+      "cands": 162,
+      "proven": 146,
+      "retained": 131,
+      "runs": 3,
+      "tradeoff": 5
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "best_gain_max": 0.40495,
+      "best_gain_mean": 0.38728,
+      "cands": 166,
+      "proven": 114,
+      "retained": 105,
+      "runs": 3,
+      "tradeoff": 1
+     },
+     "gpt-5.6-luna|B2": {
+      "best_gain_max": 0.36245,
+      "best_gain_mean": 0.34486,
+      "cands": 172,
+      "proven": 120,
+      "retained": 116,
+      "runs": 3,
+      "tradeoff": 2
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "best_gain_max": 0.34844,
+      "best_gain_mean": 0.23323,
+      "cands": 97,
+      "proven": 93,
+      "retained": 89,
+      "runs": 3,
+      "tradeoff": 0
+     },
+     "gpt-5.6-luna|M": {
+      "best_gain_max": 0.36385,
+      "best_gain_mean": 0.35622,
+      "cands": 58,
+      "proven": 26,
+      "retained": 15,
+      "runs": 3,
+      "tradeoff": 6
+     },
+     "gpt-5.6-terra|B2": {
+      "best_gain_max": 0.40495,
+      "best_gain_mean": 0.39452,
+      "cands": 169,
+      "proven": 132,
+      "retained": 127,
+      "runs": 3,
+      "tradeoff": 3
+     },
+     "gpt-5.6-terra|M": {
+      "best_gain_max": 0.40378,
+      "best_gain_mean": 0.37428,
+      "cands": 63,
+      "proven": 39,
+      "retained": 31,
+      "runs": 3,
+      "tradeoff": 8
      }
     },
     "t_d_area": 0.0027938146505548643
@@ -1124,39 +1422,42 @@
   "complete": [
    "cktevo_hsm__hsm",
    "cktevo_nn_engine__thresholds_128x4096",
+   "cktevo_risc__cpu",
    "cktevo_usb__usbf_sie_rx",
    "cktevo_vga_enh__vga_wb_slave",
+   "drrtl_SPI",
    "drrtl_arm_cpu2",
+   "drrtl_router",
    "drrtl_tv80",
    "rtlopt_alu_64bit",
    "rtlopt_divider_8bit",
    "rtlopt_sub_32bit"
   ],
   "open_proofs": {
-   "cktevo_risc__cpu": 19,
-   "drrtl_SPI": 12,
-   "drrtl_UART": 5,
-   "drrtl_router": 3,
-   "drrtl_simple_spi": 46,
-   "rtlopt_calculation": 27,
-   "rtlopt_sub_8bit": 123
+   "cktevo_risc__stall_control_unit": 3,
+   "drrtl_UART": 3,
+   "drrtl_controller": 5,
+   "drrtl_simple_spi": 8,
+   "drrtl_ticket_machine": 9,
+   "rtlopt_sub_8bit": 4
   },
   "preliminary": [
    "cktevo_ethmac__eth_cop",
    "cktevo_mem_ctrl__mc_adr_sel",
    "cktevo_risc__btb",
    "drrtl_communication",
+   "rtlopt_calculation",
    "rtlopt_decoder_8bit",
    "rtlopt_register"
   ],
   "reachability": {
    "criterion_wins": 18,
-   "lost": 3,
+   "lost": 5,
    "partial": 2,
-   "preliminary": 6,
+   "preliminary": 7,
    "reachable": false,
-   "remaining_designs": 15,
-   "ties": 10,
+   "remaining_designs": 11,
+   "ties": 12,
    "total_designs": 30,
    "undecided": 0,
    "wins": 0,
@@ -1213,7 +1514,7 @@
     },
     "gpt-5.6-luna|B2": {
      "done": 0,
-     "pending": 0,
+     "pending": 4,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -1424,8 +1725,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 2,
-     "pending": 13,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1434,15 +1735,15 @@
      "planned": 3
     },
     "gpt-5.6-terra|M": {
-     "done": 1,
-     "pending": 6,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     }
    },
    "cktevo_risc__stall_control_unit": {
     "gpt-5.6-luna|B0": {
      "done": 0,
-     "pending": 0,
+     "pending": 11,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
@@ -1452,12 +1753,12 @@
     },
     "gpt-5.6-luna|B2": {
      "done": 0,
-     "pending": 0,
+     "pending": 4,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
      "done": 0,
-     "pending": 0,
+     "pending": 5,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
@@ -1604,8 +1905,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 2,
-     "pending": 12,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1641,8 +1942,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 2,
-     "pending": 1,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1652,7 +1953,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 2,
-     "pending": 12,
+     "pending": 7,
      "planned": 3
     }
    },
@@ -1764,22 +2065,22 @@
    },
    "drrtl_controller": {
     "gpt-5.6-luna|B0": {
-     "done": 0,
-     "pending": 0,
+     "done": 3,
+     "pending": 129,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
      "done": 0,
-     "pending": 0,
+     "pending": 6,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
-     "done": 0,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 0,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
@@ -1789,8 +2090,8 @@
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
-     "done": 0,
-     "pending": 0,
+     "done": 2,
+     "pending": 15,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -1831,8 +2132,8 @@
      "planned": 3
     },
     "gpt-5.6-terra|M": {
-     "done": 1,
-     "pending": 3,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     }
    },
@@ -1859,7 +2160,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 2,
-     "pending": 17,
+     "pending": 11,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1869,29 +2170,29 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 44,
+     "pending": 19,
      "planned": 3
     }
    },
    "drrtl_ticket_machine": {
     "gpt-5.6-luna|B0": {
-     "done": 0,
-     "pending": 0,
+     "done": 1,
+     "pending": 111,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
      "done": 0,
-     "pending": 0,
+     "pending": 4,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
-     "done": 0,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 0,
-     "pending": 0,
+     "done": 1,
+     "pending": 6,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
@@ -1901,7 +2202,7 @@
     },
     "gpt-5.6-terra|B2": {
      "done": 0,
-     "pending": 0,
+     "pending": 5,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -2001,8 +2302,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 0,
-     "pending": 27,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -2092,32 +2393,32 @@
    },
    "rtlopt_mux_large": {
     "gpt-5.6-luna|B0": {
-     "done": 0,
-     "pending": 0,
+     "done": 3,
+     "pending": 95,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
-     "done": 0,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
-     "done": 1,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 0,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 0,
+     "pending": 2,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
-     "done": 0,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
@@ -2203,38 +2504,38 @@
    },
    "rtlopt_sub_8bit": {
     "gpt-5.6-luna|B0": {
-     "done": 0,
-     "pending": 43,
+     "done": 3,
+     "pending": 63,
      "planned": 3
     },
     "gpt-5.6-luna|B1_E4": {
-     "done": 0,
-     "pending": 23,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
-     "done": 0,
-     "pending": 77,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
-     "done": 0,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 0,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
-     "done": 0,
+     "done": 3,
      "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
-     "done": 0,
-     "pending": 0,
+     "done": 1,
+     "pending": 5,
      "planned": 3
     }
    }
@@ -2247,23 +2548,23 @@
    "cktevo_nn_engine__spikeNeuron8_H7": true,
    "cktevo_nn_engine__thresholds_128x4096": true,
    "cktevo_risc__btb": true,
-   "cktevo_risc__cpu": false,
+   "cktevo_risc__cpu": true,
    "cktevo_risc__stall_control_unit": false,
    "cktevo_usb__usbf_sie_rx": true,
    "cktevo_vga_enh__vga_wb_slave": true,
    "drrtl_LSTM": false,
-   "drrtl_SPI": false,
+   "drrtl_SPI": true,
    "drrtl_UART": false,
    "drrtl_aes": true,
    "drrtl_arm_cpu2": true,
    "drrtl_communication": true,
    "drrtl_controller": false,
-   "drrtl_router": false,
+   "drrtl_router": true,
    "drrtl_simple_spi": false,
    "drrtl_ticket_machine": false,
    "drrtl_tv80": true,
    "rtlopt_alu_64bit": true,
-   "rtlopt_calculation": false,
+   "rtlopt_calculation": true,
    "rtlopt_decoder_8bit": true,
    "rtlopt_divider_8bit": true,
    "rtlopt_mux_large": false,
@@ -2273,8 +2574,10 @@
   },
   "tally": {
    "losses": [
+    "drrtl_SPI",
     "rtlopt_alu_64bit",
     "rtlopt_divider_8bit",
+    "rtlopt_calculation",
     "rtlopt_register"
    ],
    "partials": [
@@ -2284,8 +2587,10 @@
    "ties": [
     "cktevo_hsm__hsm",
     "cktevo_nn_engine__thresholds_128x4096",
+    "cktevo_risc__cpu",
     "cktevo_usb__usbf_sie_rx",
     "drrtl_arm_cpu2",
+    "drrtl_router",
     "drrtl_tv80",
     "rtlopt_sub_32bit",
     "cktevo_mem_ctrl__mc_adr_sel",
@@ -2299,49 +2604,49 @@
  },
  "conditions": {
   "large|gpt-5.6-luna|M": {
-   "load_coverage": 0.458,
+   "load_coverage": 0.471,
    "load_median": 98.0,
-   "load_samples": 10536,
+   "load_samples": 11112,
    "proofs": 573,
    "vcf_wait_median_min": 158.2,
    "vcf_wait_q95_min": 661.6
   },
   "large|gpt-5.6-terra|B0": {
-   "load_coverage": 0.484,
+   "load_coverage": 0.497,
    "load_median": 98.0,
-   "load_samples": 10536,
+   "load_samples": 11112,
    "proofs": 825,
    "vcf_wait_median_min": 106.3,
    "vcf_wait_q95_min": 507.1
   },
   "large|gpt-5.6-terra|B1_E4": {
-   "load_coverage": 0.485,
+   "load_coverage": 0.498,
    "load_median": 98.0,
-   "load_samples": 10536,
+   "load_samples": 11112,
    "proofs": 802,
    "vcf_wait_median_min": 139.9,
    "vcf_wait_q95_min": 510.4
   },
   "large|gpt-5.6-terra|B2": {
-   "load_coverage": 0.498,
+   "load_coverage": 0.511,
    "load_median": 98.0,
-   "load_samples": 10536,
+   "load_samples": 11112,
    "proofs": 814,
    "vcf_wait_median_min": 120.2,
    "vcf_wait_q95_min": 483.9
   },
   "large|gpt-5.6-terra|DrRTL_reimpl": {
-   "load_coverage": 0.535,
+   "load_coverage": 0.548,
    "load_median": 98.0,
-   "load_samples": 10536,
+   "load_samples": 11112,
    "proofs": 578,
    "vcf_wait_median_min": 149.9,
    "vcf_wait_q95_min": 481.0
   },
   "large|gpt-5.6-terra|M": {
-   "load_coverage": 0.46,
+   "load_coverage": 0.474,
    "load_median": 98.0,
-   "load_samples": 10536,
+   "load_samples": 11112,
    "proofs": 619,
    "vcf_wait_median_min": 139.9,
    "vcf_wait_q95_min": 635.0
@@ -4301,8 +4606,8 @@
  "exp": "phase5",
  "final": false,
  "floor_version": "phase4",
- "generated_at": "2026-09-20T21:18",
- "git_sha": "a7df50e5ddd4",
+ "generated_at": "2026-09-21T00:29",
+ "git_sha": "a66b0c052a75",
  "groups": {
   "large|gpt-5.6-luna|M": {
    "accepted": 29,
@@ -4885,18 +5190,18 @@
  },
  "ops": {
   "agreement": {
-   "agree": 2576,
-   "agree_rate": 0.9151,
+   "agree": 2645,
+   "agree_rate": 0.9155,
    "by_label": {
     "absorbed": 88,
-    "absorbed_identical": 735,
-    "duplicate": 960,
-    "harmful": 492,
-    "improved": 7369,
-    "no_gain": 2314,
+    "absorbed_identical": 757,
+    "duplicate": 966,
+    "harmful": 504,
+    "improved": 7898,
+    "no_gain": 2667,
     "noise": 116,
     "retained": 766,
-    "tradeoff": 989
+    "tradeoff": 992
    },
    "disagree": [
     {
@@ -5150,11 +5455,11 @@
      "provisional": "noise"
     }
    ],
-   "n_provisional": 13829,
-   "not_proven": 3812,
-   "pending": 7202,
-   "proven_final": 2815,
-   "withheld": 9064
+   "n_provisional": 14754,
+   "not_proven": 3864,
+   "pending": 8001,
+   "proven_final": 2889,
+   "withheld": 9596
   },
   "events": {
    "hidden_throttle_at": "2026-09-16T14:30",
@@ -6221,12 +6526,42 @@
      "sim_fail": 0
     },
     {
-     "falsified": 2,
-     "finished": 38,
+     "falsified": 10,
+     "finished": 263,
      "hour": "2026-09-20T21",
-     "inconclusive": 11,
-     "proven": 23,
-     "ratio": 2.09,
+     "inconclusive": 27,
+     "proven": 226,
+     "ratio": 8.37,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 0,
+     "finished": 684,
+     "hour": "2026-09-20T22",
+     "inconclusive": 22,
+     "proven": 662,
+     "ratio": 30.09,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 7,
+     "finished": 980,
+     "hour": "2026-09-20T23",
+     "inconclusive": 14,
+     "proven": 959,
+     "ratio": 68.5,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 41,
+     "finished": 574,
+     "hour": "2026-09-21T00",
+     "inconclusive": 5,
+     "proven": 513,
+     "ratio": 102.6,
      "rejected": 0,
      "sim_fail": 0
     }
@@ -6235,11 +6570,11 @@
   },
   "reuse": {
    "by_verdict": {},
-   "records_scanned": 46266,
+   "records_scanned": 51455,
    "reused": 0,
    "sim_record_missing": 0,
    "since": "2026-09-16T15:14",
-   "split_proofs": 18788
+   "split_proofs": 21251
   }
  },
  "pending_total": {
@@ -6299,7 +6634,7 @@
      24
     ]
    },
-   "median_s": 3067.0
+   "median_s": 3066.0
   },
   "drrtl_SPI": {
    "empty": {
@@ -21176,104 +21511,104 @@
   "generating_max": 24,
   "idle": {
    "cpu": {
-    "idle_min": 0.0,
-    "occupied_min": 360.0,
-    "seat_min": 360.0,
-    "seats": 6
+    "idle_min": 134.9,
+    "occupied_min": 0.0,
+    "seat_min": 134.9,
+    "seats": 0
    },
    "router": {
-    "idle_min": 0.0,
-    "occupied_min": 120.0,
-    "seat_min": 120.0,
-    "seats": 2
+    "idle_min": 45.0,
+    "occupied_min": 0.0,
+    "seat_min": 45.0,
+    "seats": 0
    },
    "simple_spi": {
     "idle_min": 0.0,
-    "occupied_min": 1320.0,
-    "seat_min": 1320.0,
-    "seats": 22
+    "occupied_min": 702.4,
+    "seat_min": 494.5,
+    "seats": 0
    },
    "small": {
     "idle_min": null,
-    "occupied_min": 0.0,
+    "occupied_min": 846.0,
     "seat_min": null,
     "seats": null
    },
    "spi": {
-    "idle_min": 0.0,
-    "occupied_min": 300.0,
-    "seat_min": 300.0,
-    "seats": 5
+    "idle_min": 112.4,
+    "occupied_min": 0.0,
+    "seat_min": 112.4,
+    "seats": 0
    },
    "uart": {
-    "idle_min": 21.0,
-    "occupied_min": 579.0,
-    "seat_min": 600.0,
-    "seats": 10
+    "idle_min": 1870.9,
+    "occupied_min": 155.0,
+    "seat_min": 2025.8,
+    "seats": 48
    },
    "window": {
-    "idle_min": 0.0,
-    "occupied_min": 320.9,
-    "seat_min": 300.0,
-    "seats": 5
+    "idle_min": 187.4,
+    "occupied_min": 0.0,
+    "seat_min": 187.4,
+    "seats": 2
    }
   },
   "state": {
-   "generating": 1,
-   "queued": 138,
-   "waiting": 19
+   "generating": 24,
+   "queued": 71,
+   "waiting": 4
   },
   "unverified_by_design": {
-   "drrtl_UART": 0.8
+   "drrtl_UART": 0.4
   },
   "unverified_by_lane": {
-   "uart": 0.8
+   "uart": 0.4
   },
   "unverified_by_row": {
-   "gpt-5.6-terra|M": 0.8
+   "gpt-5.6-terra|M": 0.4
   },
   "waits": {
    "cpu": {
-    "mean_min": 39.6,
-    "queued": 13,
-    "seats": 6,
-    "wait_min": 85.9
+    "mean_min": 43.9,
+    "queued": 0,
+    "seats": 1,
+    "wait_min": 0.0
    },
    "router": {
-    "mean_min": 11.0,
-    "queued": 1,
-    "seats": 2,
-    "wait_min": 5.5
+    "mean_min": 13.3,
+    "queued": 0,
+    "seats": 1,
+    "wait_min": 0.0
    },
    "simple_spi": {
-    "mean_min": 83.8,
-    "queued": 24,
-    "seats": 22,
-    "wait_min": 91.4
+    "mean_min": 89.3,
+    "queued": 0,
+    "seats": 1,
+    "wait_min": 0.0
    },
    "small": {
-    "mean_min": 0.7,
-    "queued": 123,
+    "mean_min": 1.0,
+    "queued": 3,
     "seats": 1,
-    "wait_min": 84.0
+    "wait_min": 3.1
    },
    "spi": {
-    "mean_min": 51.7,
-    "queued": 7,
-    "seats": 5,
-    "wait_min": 72.4
+    "mean_min": 50.7,
+    "queued": 0,
+    "seats": 1,
+    "wait_min": 0.0
    },
    "uart": {
-    "mean_min": 21.6,
-    "queued": 3,
-    "seats": 10,
-    "wait_min": 6.5
+    "mean_min": 20.1,
+    "queued": 0,
+    "seats": 48,
+    "wait_min": 0.0
    },
    "window": {
-    "mean_min": 13.4,
-    "queued": 16,
-    "seats": 5,
-    "wait_min": 42.9
+    "mean_min": 15.9,
+    "queued": 0,
+    "seats": 2,
+    "wait_min": 0.0
    }
   }
  },

@@ -248,3 +248,28 @@ def test_module_level_splice_restores_changed_modules_and_adds_omitted_ones():
     assert info["restored_modules"] == ["top"] and info["added_modules"] == ["other"] and [v["module"] for v in info["violations"]] == ["top"]   # the changed module is the flag, the omitted one is not
     assert "assign y = m;" in text and "m | 1'b0" not in text and "assign y = !a;" in text and "module other" in text
     assert SC.verify(d, text, region) == []
+
+
+def test_unreadable_answer_is_discarded_not_fatal():
+    """2026-09-21: a candidate whose text the scanner cannot read (unbalanced parentheses) killed the run — scope.splice raised
+    ValueError out of the driver's BadAnswer handler and three stall_control_unit runs ended as `failed`. The scanner now raises
+    scope.ParseError, splice reports it in `info` and verify returns it as a violation, so the caller discards the answer
+    (CLAUDE.md rule 8). Both directions: a readable answer still splices and verifies."""
+    from src.search import scope as SC
+    d_text = ("module m(input clk, input [3:0] a, output reg [3:0] q, output [3:0] s);\n"
+              "  assign s = a & 4'hF;\n"
+              "  always @(posedge clk) begin q <= a; end\n"
+              "endmodule\n")
+    region = SC.select_region(SC.parse_design(d_text), "m", None)
+    good = d_text.replace("q <= a;", "q <= a | 4'h0;")
+    rtl, info = SC.splice(d_text, good, region)
+    assert "parse_error" not in info and "q <= a | 4'h0;" in rtl
+    assert SC.verify(d_text, good, region) == [] or all(v["kind"] != "parse" for v in SC.verify(d_text, good, region))
+    bad = d_text.replace("begin q <= a; end", "begin if (a == 4'h1 q <= a; end")   # the `if (` never closes: the scanner runs off the end
+    rtl2, info2 = SC.splice(d_text, bad, region)
+    assert "parse_error" in info2 and "unbalanced" in info2["parse_error"] and rtl2 == bad   # the text is handed back unchanged for the caller to discard
+    v = SC.verify(d_text, bad, region)
+    assert len(v) == 1 and v[0]["kind"] == "parse" and "could not be read" in v[0]["problem"]
+    import pytest
+    with pytest.raises(SC.ParseError):                                          # D's own text is a real defect: it still raises
+        SC.parse_design(bad)

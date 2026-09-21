@@ -13,6 +13,13 @@ import re
 
 from src.designs import verilog as V
 
+
+class ParseError(ValueError):
+    """The scanner cannot read the text (unbalanced brackets, a statement it cannot delimit). Raised for a candidate's answer
+    it is caught by the caller and the answer is discarded as unusable (CLAUDE.md rule 8: the candidate is discarded, the
+    criterion is not relaxed); for D's own text it is a real defect and propagates. 2026-09-21: before this, a candidate with
+    unbalanced parentheses killed the whole run (three stall_control_unit runs of 2026-09-20)."""
+
 _TOK = re.compile(r"""(?P<ws>\s+)
     |(?P<str>"(?:[^"\\]|\\.)*")
     |(?P<num>\d*\s*'\s*[sS]?[bBoOdDhH]\s*[0-9a-fA-FxXzZ_?]+|\d[\d_]*(?:\.\d+)?(?:[eE][+-]?\d+)?)
@@ -68,7 +75,7 @@ class _P:
                 depth -= 1
                 if depth == 0:
                     return
-        raise ValueError(f"unbalanced {open_}{close}")
+        raise ParseError(f"unbalanced {open_}{close}")
 
     def until_semicolon(self):
         """Advance to just past the next `;` outside parentheses / brackets / braces; returns the index of the `;`."""
@@ -420,6 +427,10 @@ def splice(d_text, c_text, region):
     # the warning flag counts edits outside the region; a module the answer left out is what the prompt allows ("you may return only
     # this module") and is only restored (2026-09-16: the first Phase 5 reports had flagged every module-level answer for its omissions)
     info["violations"] = [v for v in violations if v.get("problem") != "module missing from the answer"]
+    parse = next((v for v in violations if v.get("kind") == "parse"), None)
+    if parse is not None:   # 2026-09-21: the answer's text cannot be read at all — it is handed back for the caller to discard as unusable
+        info["parse_error"] = parse["problem"]
+        return c_text, info
     if region.get("kind") == "module":
         return _splice_modules(d_text, c_text, region, violations, info)
     return _splice_items(d_text, c_text, region, violations, info)
@@ -449,7 +460,12 @@ def _splice_modules(d_text, c_text, region, violations, info):
 
 def _splice_items(d_text, c_text, region, violations, info):
     mod = region["module"]
-    d, c = parse_design(d_text), parse_design(c_text)
+    d = parse_design(d_text)
+    try:
+        c = parse_design(c_text)
+    except ParseError as e:   # unreachable through splice() (it checks the verify violations first), kept for direct callers
+        info["parse_error"] = str(e)
+        return c_text, info
     dm, cm = d.get(mod), c.get(mod)
     if dm is None or cm is None:
         info["region_missing"] = mod   # the module is absent from the answer: not a rewrite of the region
@@ -500,7 +516,11 @@ def verify(d_text, c_text, region, ordered=True):
     """Violations of the region: every item of D outside the region must appear unchanged (token-identical) in the candidate's
     module of the same name, in the same order unless `ordered` is False (concurrent items are order-independent; the
     spliced text appends restored items). -> [{"module", "kind", "line", "snippet", "problem"}] (empty when the scope holds)."""
-    d, c = parse_design(d_text), parse_design(c_text)
+    d = parse_design(d_text)
+    try:
+        c = parse_design(c_text)
+    except ParseError as e:
+        return [{"module": region.get("module"), "kind": "parse", "line": 0, "snippet": "", "problem": f"the answer's text could not be read: {e}"}]
     out = []
     free_module = region["module"] if region["kind"] == "module" else None
     free_items = set(region.get("items") or []) if region["kind"] == "blocks" else set()
