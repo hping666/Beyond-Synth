@@ -758,3 +758,4 @@ Format: date · decision · basis · affected files/config · decided by (human 
   > 两份报告出来后直接暂停，不用等我确认
 
   · human
+- 2026-09-20 23:58 · Lane re-balance applied (operator; the 01:54 waiter fired early at 23:54 through a wrong until-condition, harmless): the medium proof queue has drained (0 queued, 22 running), so every medium lane except UART is released — SPI 5 → 0, UART 10 → 48, cpu 6 → 0, router 2 → 0, simple_spi 22 → 0, window 2; the small tier's leftover lane now takes every seat the medium lanes cannot fill (remaining small work 42 seat-hours: stall_control_unit 15, ticket_machine 11, controller 8, mux_large 5, sub_8bit 3). Daemon restarted. Medium: 371 runs done, 5 running; small: 30 done, 23 running, 73 queued. The automatic pause (scripts/pause_experiments.py --apply --wait-for-markers, armed 23:46) fires when both stage markers appear.
