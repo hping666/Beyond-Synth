@@ -1,29 +1,36 @@
 {
  "designs": [
+  "cktevo_hsm__MixColumns",
   "cktevo_hsm__hsm",
   "cktevo_nn_engine__thresholds_128x4096",
   "cktevo_risc__cpu",
+  "cktevo_risc__stall_control_unit",
   "cktevo_usb__usbf_sie_rx",
   "cktevo_vga_enh__vga_wb_slave",
   "drrtl_SPI",
+  "drrtl_UART",
   "drrtl_arm_cpu2",
+  "drrtl_controller",
   "drrtl_router",
+  "drrtl_ticket_machine",
   "drrtl_tv80",
   "rtlopt_alu_64bit",
   "rtlopt_divider_8bit",
-  "rtlopt_sub_32bit"
+  "rtlopt_mux_large",
+  "rtlopt_sub_32bit",
+  "rtlopt_sub_8bit"
  ],
  "preliminary": [
   "cktevo_ethmac__eth_cop",
   "cktevo_mem_ctrl__mc_adr_sel",
   "cktevo_risc__btb",
   "drrtl_communication",
+  "drrtl_simple_spi",
   "rtlopt_calculation",
   "rtlopt_decoder_8bit",
-  "rtlopt_register",
-  "rtlopt_sub_8bit"
+  "rtlopt_register"
  ],
- "at": "2026-09-21T02:01",
+ "at": "2026-09-21T04:11",
  "history": [
   {
    "at": "2026-09-19T04:10",
@@ -135,6 +142,29 @@
    "new": [],
    "new_preliminary": [
     "rtlopt_sub_8bit"
+   ]
+  },
+  {
+   "at": "2026-09-21T03:11",
+   "new": [],
+   "new_preliminary": [
+    "drrtl_ticket_machine",
+    "rtlopt_mux_large"
+   ]
+  },
+  {
+   "at": "2026-09-21T04:11",
+   "new": [
+    "cktevo_hsm__MixColumns",
+    "cktevo_risc__stall_control_unit",
+    "drrtl_UART",
+    "drrtl_controller",
+    "drrtl_ticket_machine",
+    "rtlopt_mux_large",
+    "rtlopt_sub_8bit"
+   ],
+   "new_preliminary": [
+    "drrtl_simple_spi"
    ]
   }
  ]

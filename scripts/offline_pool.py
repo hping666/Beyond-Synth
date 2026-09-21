@@ -517,8 +517,22 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
     designs = {d["design_id"]: d for d in K.load_all()}
     cands = st.setdefault("cands", {})
     order = []   # DECISION 2026-09-19 (m) 1: submissions follow the scope's order, not the state file's insertion order
+    reopened = []
     for it in scope(cfg, conn, include_e4_timeouts):
         order.append(it["cand_id"])
+        # 2026-09-21: a candidate whose E4 failed once was left at stage `done` in the state file, so the scope could list it again
+        # (no ok record, retries left) while the pool never resubmitted it — nine medium-tier B0 candidates sat like that since
+        # 2026-09-18/19 and kept Stage B out of its final report. An entry that reached `done` through a non-terminal E4 failure is
+        # re-opened, at most `reopen_max` times and never past the attempt cap of the scope.
+        c0 = cands.get(it["cand_id"])
+        if (c0 is not None and c0.get("stage") == "done" and c0.get("e4_job") and "DC rejected" not in str(c0.get("result") or "")
+                and int(c0.get("reopened") or 0) < int(o.get("reopen_max", 2))):
+            ok = conn.execute("SELECT 1 FROM evaluations WHERE cand_id=? AND config='E4' AND status='ok' LIMIT 1", (it["cand_id"],)).fetchone()
+            bad = conn.execute("SELECT COUNT(*) FROM evaluations WHERE cand_id=? AND config='E4' AND status != 'ok'", (it["cand_id"],)).fetchone()[0]
+            if not ok and bad < int(o.get("e4_max_attempts", 3)):
+                c0.update({k: v for k, v in it.items() if k != "stage"})   # refresh the item's fields (rtl_path, group, run_id) from the scope
+                c0.update(stage="e4", e4_job=None, result=None, reopened=int(c0.get("reopened") or 0) + 1)
+                reopened.append(it["cand_id"])
         cands.setdefault(it["cand_id"], {**it, "stage": it.get("start_stage") or ("sim" if it["group"] in ("prescreened", "reverify", "resim", "d_saif") else ("proof" if it["group"] == "reproof" else "e4")), "sim_job": None, "e4_job": None, "proof_job": None, "result": None})
     seen = set(order)
     order += [cid for cid in cands if cid not in seen]
@@ -736,7 +750,8 @@ def once(cfg, conn, st, include_e4_timeouts=False, queue=None):
     counts = {}
     for c in cands.values():
         counts[c["stage"]] = counts.get(c["stage"], 0) + 1
-    log(f"pass: load1 {l1:.0f} q95 {q95:.1f} min {'paused' if st.get('paused') else 'active'}; submitted {submitted}; stages {counts}")
+    log(f"pass: load1 {l1:.0f} q95 {q95:.1f} min {'paused' if st.get('paused') else 'active'}; submitted {submitted}; stages {counts}"
+        + (f"; re-opened after a non-terminal E4 failure: {len(reopened)} {reopened[:6]}" if reopened else ""))
     save_state(st)
     return counts
 

@@ -553,3 +553,50 @@ def test_floor6_group_proves_text_perturbations_under_harness_v2_then_runs_e4(tm
     assert {it["cand_id"] for it in mod.scope(cfg, conn)} == {"floor6:pt2"}                             # pt2 proven_rename, E4 not yet recorded; pt1 done; p0 falsified under the current harness stays out
     conn.execute("UPDATE perturbations SET seq_status='pending' WHERE pert_id='pt2'"); conn.commit()
     assert {it["cand_id"]: it["start_stage"] for it in mod.scope(cfg, conn)} == {"floor6:pt2": "e4"}    # a proven record under the current harness whose row is not yet collected goes to E4, not to another proof
+
+
+def test_a_non_terminal_e4_failure_is_reopened_once_the_scope_lists_it_again(tmp_path, monkeypatch):
+    """2026-09-21: the state file kept a candidate at stage `done` after its first E4 failure, so although `scope` listed it again
+    (no ok record, attempts below the cap) the pool never resubmitted it — nine medium B0 candidates sat like that from 2026-09-18
+    and held Stage B back. An entry that reached `done` through a non-terminal E4 failure is re-opened; a terminal DC rejection, an
+    entry with an ok record and an entry past `reopen_max` are not."""
+    mod = load_pool()
+    cfg = copy.deepcopy(C.load())
+    cfg["project"]["results_dir"] = str(tmp_path / "results")
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["M1"], "small": []}
+    cfg["offline_pool"] = {"slots": 4, "priority": 1, "load_over_baseline": 0.10, "reopen_max": 2, "e4_max_attempts": 3, "group_order": ["b0_e4"], "b0_tier_order": ["medium"]}
+    monkeypatch.setattr(mod, "STATE", str(tmp_path / "state.json")); monkeypatch.setattr(mod, "LOG", str(tmp_path / "pool.log"))
+    monkeypatch.setattr(mod, "throttle", lambda cfg, conn, st: (True, 50.0, 0.0))
+    conn = db.connect(path=str(tmp_path / "results" / "db" / "results.sqlite"))
+    conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES ('M1','x','m1','p',1,1,'held',1.0,'t','g','c')")
+    db.insert(conn, "runs", {"run_id": "r1", "exp": "phase5", "arm": "B0", "design_id": "M1", "seed": 1, "llm_model": "gpt-5.6-luna", "status": "done", "started_at": "t"})
+    rtl = tmp_path / "c.v"; rtl.write_text("module m1(input clk, output reg y); always @(posedge clk) y <= ~y; endmodule\n")
+    for cid in ("c_retry", "c_terminal"):
+        db.insert(conn, "candidates", {"cand_id": cid, "run_id": "r1", "design_id": "M1", "gen": 1, "arm": "B0", "rtl_path": str(rtl), "verdict": "proven",
+                                       "e4_failure": ("DC rejected (ELAB-366)" if cid == "c_terminal" else None)})
+        db.insert(conn, "evaluations", {"design_id": "M1", "cand_id": cid, "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "status": "eval_failed", "raw_dir": f"/x/{cid}", "dc_seconds": 5})
+    monkeypatch.setattr("src.designs.catalog.load_all", lambda: [{"design_id": "M1", "top": "m1", "files": ["c.v"], "incdirs": [], "clk_ports": ["clk"], "rst_port": None, "rst_sense": None, "sverilog": False, "loc": 1, "_dir": str(tmp_path)}])
+    monkeypatch.setattr("src.designs.catalog.abs_paths", lambda d, paths: [tmp_path / p for p in paths])
+    submitted = {}
+    class FakeQ:
+        def submit(self, kind, payload, **kw):
+            jid = f"j_{len(submitted)}"; submitted[jid] = (kind, payload, kw); return jid
+        def get(self, jid):
+            return {"state": "done"} if jid in submitted else None
+    st = {"cands": {"c_retry": {"cand_id": "c_retry", "group": "b0_e4", "run_id": "r1", "design_id": "M1", "tier": "medium", "rtl_path": str(rtl), "stage": "done", "e4_job": "old",
+                                "result": "E4 eval_failed (no DC error id; retry)"}},
+          "paused": False, "baseline": 100.0}
+    assert {i["cand_id"] for i in mod.scope(cfg, conn)} == {"c_retry"}          # the terminal one is out of scope (e4_failure set)
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    assert st["cands"]["c_retry"]["stage"] == "e4_running" and st["cands"]["c_retry"]["reopened"] == 1   # re-opened and resubmitted
+    assert [v[0] for v in submitted.values()] == ["dc"]
+    # an ok record stops it being re-opened again
+    st["cands"]["c_retry"].update(stage="done", e4_job="old2", result="E4 eval_failed (retry)")
+    db.insert(conn, "evaluations", {"design_id": "M1", "cand_id": "c_retry", "is_baseline": 0, "config": "E4", "lib": "nangate45", "clock_ns": 1.0, "area_um2": 1.0, "status": "ok", "raw_dir": "/x/ok", "dc_seconds": 5})
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    assert st["cands"]["c_retry"]["stage"] == "done" and st["cands"]["c_retry"]["reopened"] == 1
+    # reopen_max caps the loop even while the record is missing
+    conn.execute("DELETE FROM evaluations WHERE cand_id='c_retry' AND status='ok'"); conn.commit()
+    st["cands"]["c_retry"].update(stage="done", e4_job="old3", result="E4 eval_failed (retry)", reopened=2)
+    mod.once(cfg, conn, st, False, queue=FakeQ())
+    assert st["cands"]["c_retry"]["stage"] == "done" and st["cands"]["c_retry"]["reopened"] == 2
