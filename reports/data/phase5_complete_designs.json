@@ -14,10 +14,11 @@
   "cktevo_ethmac__eth_cop",
   "cktevo_mem_ctrl__mc_adr_sel",
   "cktevo_risc__btb",
+  "drrtl_communication",
   "rtlopt_decoder_8bit",
   "rtlopt_register"
  ],
- "at": "2026-09-20T16:10",
+ "at": "2026-09-20T19:01",
  "history": [
   {
    "at": "2026-09-19T04:10",
@@ -92,6 +93,13 @@
    ],
    "new_preliminary": [
     "rtlopt_register"
+   ]
+  },
+  {
+   "at": "2026-09-20T19:01",
+   "new": [],
+   "new_preliminary": [
+    "drrtl_communication"
    ]
   }
  ]

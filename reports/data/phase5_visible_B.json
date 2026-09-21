@@ -1,6 +1,6 @@
 {
- "alert_line": null,
- "cfg_hash": "9e769e2ef281",
+ "alert_line": "New complete designs since last render (2026-09-20T19:01): none; B0 pending (complete except for B0's offline E4, DECISION 2026-09-19 (l) 3): drrtl_communication \u2014 M wins (exceeds both B1_E4 and B2 by more than the floor) on 0 of them, ties on 1, partial on 0; tally 0 wins, 10 ties, 2 partial, 3 losses of 15 complete designs (visible layer; 6 of them B0 pending), 18 wins still needed of 15 remaining / undecided \u2014 the 18-of-30 criterion is no longer reachable in the visible layer.",
+ "cfg_hash": "e040038cab81",
  "classes": {},
  "completion": {
   "blockers": {
@@ -16,25 +16,23 @@
     "e4_retry": 1,
     "proof": 155
    },
-   "cktevo_nn_engine__thresholds_128x4096": {
-    "verdict": 13
-   },
+   "cktevo_nn_engine__thresholds_128x4096": {},
    "cktevo_risc__btb": {
     "b0_e4": 11
    },
    "cktevo_risc__cpu": {
-    "verdict": 62
+    "verdict": 47
    },
    "cktevo_risc__stall_control_unit": {},
    "cktevo_usb__usbf_sie_rx": {},
    "cktevo_vga_enh__vga_wb_slave": {},
    "drrtl_LSTM": {},
    "drrtl_SPI": {
-    "verdict": 35
+    "verdict": 12
    },
    "drrtl_UART": {
     "e4_retry": 11,
-    "verdict": 108
+    "verdict": 54
    },
    "drrtl_aes": {
     "b0_e4": 107,
@@ -43,28 +41,25 @@
    },
    "drrtl_arm_cpu2": {},
    "drrtl_communication": {
-    "b0_e4": 1,
-    "verdict": 17
+    "b0_e4": 1
    },
    "drrtl_controller": {},
    "drrtl_router": {
-    "verdict": 11
+    "verdict": 29
    },
    "drrtl_simple_spi": {
     "b0_e4": 1,
-    "e4_retry": 3,
-    "verdict": 120
+    "e4_retry": 8,
+    "verdict": 87
    },
    "drrtl_ticket_machine": {},
    "drrtl_tv80": {
     "proof": 10
    },
-   "rtlopt_alu_64bit": {
-    "verdict": 21
-   },
+   "rtlopt_alu_64bit": {},
    "rtlopt_calculation": {
     "b0_e4": 2,
-    "verdict": 152
+    "verdict": 70
    },
    "rtlopt_decoder_8bit": {
     "b0_e4": 1
@@ -72,13 +67,12 @@
    "rtlopt_divider_8bit": {},
    "rtlopt_mux_large": {},
    "rtlopt_register": {
-    "b0_e4": 2,
-    "verdict": 11
+    "b0_e4": 2
    },
    "rtlopt_sub_32bit": {},
    "rtlopt_sub_8bit": {
-    "b0_e4": 19,
-    "verdict": 130
+    "b0_e4": 20,
+    "verdict": 123
    }
   },
   "comparisons": {
@@ -288,6 +282,69 @@
      }
     },
     "t_d_area": 0.014541766721929255
+   },
+   "cktevo_nn_engine__thresholds_128x4096": {
+    "b0_pending": false,
+    "m_exceeds": false,
+    "m_outcome": "tie",
+    "model": "gpt-5.6-luna",
+    "rows": {
+     "gpt-5.6-luna|B1_E4": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 175,
+      "proven": 129,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 32
+     },
+     "gpt-5.6-luna|B2": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 178,
+      "proven": 141,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 44
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 146,
+      "proven": 130,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 19
+     },
+     "gpt-5.6-luna|M": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 129,
+      "proven": 79,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 15
+     },
+     "gpt-5.6-terra|B2": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 175,
+      "proven": 87,
+      "retained": 1,
+      "runs": 3,
+      "tradeoff": 35
+     },
+     "gpt-5.6-terra|M": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 166,
+      "proven": 43,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 11
+     }
+    },
+    "t_d_area": 0.0027938146505548643
    },
    "cktevo_risc__btb": {
     "b0_pending": true,
@@ -568,6 +625,78 @@
     },
     "t_d_area": 0.0027938146505548643
    },
+   "drrtl_communication": {
+    "b0_pending": true,
+    "m_exceeds": false,
+    "m_outcome": "tie",
+    "model": "gpt-5.6-luna",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "best_gain_max": 0.00761,
+      "best_gain_mean": 0.00761,
+      "cands": 177,
+      "proven": 67,
+      "retained": 4,
+      "runs": 3,
+      "tradeoff": 6
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "best_gain_max": 0.01975,
+      "best_gain_mean": 0.00658,
+      "cands": 157,
+      "proven": 46,
+      "retained": 2,
+      "runs": 3,
+      "tradeoff": 15
+     },
+     "gpt-5.6-luna|B2": {
+      "best_gain_max": 0.01755,
+      "best_gain_mean": 0.00585,
+      "cands": 176,
+      "proven": 56,
+      "retained": 5,
+      "runs": 3,
+      "tradeoff": 12
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 71,
+      "proven": 46,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 22
+     },
+     "gpt-5.6-luna|M": {
+      "best_gain_max": 0.01975,
+      "best_gain_mean": 0.00658,
+      "cands": 158,
+      "proven": 21,
+      "retained": 1,
+      "runs": 3,
+      "tradeoff": 4
+     },
+     "gpt-5.6-terra|B2": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 176,
+      "proven": 5,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 0
+     },
+     "gpt-5.6-terra|M": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 179,
+      "proven": 4,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 2
+     }
+    },
+    "t_d_area": 0.0027938146505548643
+   },
    "drrtl_tv80": {
     "b0_pending": false,
     "m_exceeds": false,
@@ -627,6 +756,78 @@
       "retained": 0,
       "runs": 3,
       "tradeoff": 0
+     }
+    },
+    "t_d_area": 0.0027938146505548643
+   },
+   "rtlopt_alu_64bit": {
+    "b0_pending": false,
+    "m_exceeds": false,
+    "m_outcome": "loss",
+    "model": "gpt-5.6-luna",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "best_gain_max": 0.01712,
+      "best_gain_mean": 0.00571,
+      "cands": 178,
+      "proven": 144,
+      "retained": 5,
+      "runs": 3,
+      "tradeoff": 114
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "best_gain_max": 0.28884,
+      "best_gain_mean": 0.16617,
+      "cands": 174,
+      "proven": 149,
+      "retained": 30,
+      "runs": 3,
+      "tradeoff": 98
+     },
+     "gpt-5.6-luna|B2": {
+      "best_gain_max": 0.20968,
+      "best_gain_mean": 0.06989,
+      "cands": 177,
+      "proven": 134,
+      "retained": 16,
+      "runs": 3,
+      "tradeoff": 106
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 101,
+      "proven": 93,
+      "retained": 0,
+      "runs": 3,
+      "tradeoff": 22
+     },
+     "gpt-5.6-luna|M": {
+      "best_gain_max": 0.0102,
+      "best_gain_mean": 0.0034,
+      "cands": 103,
+      "proven": 70,
+      "retained": 4,
+      "runs": 3,
+      "tradeoff": 39
+     },
+     "gpt-5.6-terra|B2": {
+      "best_gain_max": 0.15948,
+      "best_gain_mean": 0.08871,
+      "cands": 166,
+      "proven": 159,
+      "retained": 30,
+      "runs": 3,
+      "tradeoff": 119
+     },
+     "gpt-5.6-terra|M": {
+      "best_gain_max": 0.0,
+      "best_gain_mean": 0.0,
+      "cands": 85,
+      "proven": 66,
+      "retained": 3,
+      "runs": 3,
+      "tradeoff": 50
      }
     },
     "t_d_area": 0.0027938146505548643
@@ -775,6 +976,78 @@
     },
     "t_d_area": 0.0027938146505548643
    },
+   "rtlopt_register": {
+    "b0_pending": true,
+    "m_exceeds": false,
+    "m_outcome": "loss",
+    "model": "gpt-5.6-luna",
+    "rows": {
+     "gpt-5.6-luna|B0": {
+      "best_gain_max": 0.1029,
+      "best_gain_mean": 0.06353,
+      "cands": 177,
+      "proven": 138,
+      "retained": 47,
+      "runs": 3,
+      "tradeoff": 68
+     },
+     "gpt-5.6-luna|B1_E4": {
+      "best_gain_max": 0.08698,
+      "best_gain_mean": 0.03505,
+      "cands": 179,
+      "proven": 148,
+      "retained": 56,
+      "runs": 3,
+      "tradeoff": 79
+     },
+     "gpt-5.6-luna|B2": {
+      "best_gain_max": 0.10338,
+      "best_gain_mean": 0.03802,
+      "cands": 180,
+      "proven": 143,
+      "retained": 21,
+      "runs": 3,
+      "tradeoff": 109
+     },
+     "gpt-5.6-luna|DrRTL_reimpl": {
+      "best_gain_max": 0.00593,
+      "best_gain_mean": 0.004,
+      "cands": 152,
+      "proven": 135,
+      "retained": 59,
+      "runs": 3,
+      "tradeoff": 65
+     },
+     "gpt-5.6-luna|M": {
+      "best_gain_max": 0.00867,
+      "best_gain_mean": 0.00784,
+      "cands": 141,
+      "proven": 113,
+      "retained": 28,
+      "runs": 3,
+      "tradeoff": 68
+     },
+     "gpt-5.6-terra|B2": {
+      "best_gain_max": 0.07137,
+      "best_gain_mean": 0.02818,
+      "cands": 174,
+      "proven": 156,
+      "retained": 19,
+      "runs": 3,
+      "tradeoff": 122
+     },
+     "gpt-5.6-terra|M": {
+      "best_gain_max": 0.08608,
+      "best_gain_mean": 0.05925,
+      "cands": 161,
+      "proven": 138,
+      "retained": 32,
+      "runs": 3,
+      "tradeoff": 77
+     }
+    },
+    "t_d_area": 0.004577928706284423
+   },
    "rtlopt_sub_32bit": {
     "b0_pending": false,
     "m_exceeds": false,
@@ -850,40 +1123,40 @@
   },
   "complete": [
    "cktevo_hsm__hsm",
+   "cktevo_nn_engine__thresholds_128x4096",
    "cktevo_usb__usbf_sie_rx",
    "cktevo_vga_enh__vga_wb_slave",
    "drrtl_arm_cpu2",
    "drrtl_tv80",
+   "rtlopt_alu_64bit",
    "rtlopt_divider_8bit",
    "rtlopt_sub_32bit"
   ],
   "open_proofs": {
-   "cktevo_nn_engine__thresholds_128x4096": 13,
-   "cktevo_risc__cpu": 62,
-   "drrtl_SPI": 35,
-   "drrtl_UART": 108,
-   "drrtl_communication": 17,
-   "drrtl_router": 11,
-   "drrtl_simple_spi": 120,
-   "rtlopt_alu_64bit": 21,
-   "rtlopt_calculation": 152,
-   "rtlopt_register": 11,
-   "rtlopt_sub_8bit": 130
+   "cktevo_risc__cpu": 47,
+   "drrtl_SPI": 12,
+   "drrtl_UART": 54,
+   "drrtl_router": 29,
+   "drrtl_simple_spi": 87,
+   "rtlopt_calculation": 70,
+   "rtlopt_sub_8bit": 123
   },
   "preliminary": [
    "cktevo_ethmac__eth_cop",
    "cktevo_mem_ctrl__mc_adr_sel",
    "cktevo_risc__btb",
-   "rtlopt_decoder_8bit"
+   "drrtl_communication",
+   "rtlopt_decoder_8bit",
+   "rtlopt_register"
   ],
   "reachability": {
    "criterion_wins": 18,
-   "lost": 1,
+   "lost": 3,
    "partial": 2,
-   "preliminary": 4,
-   "reachable": true,
-   "remaining_designs": 19,
-   "ties": 8,
+   "preliminary": 6,
+   "reachable": false,
+   "remaining_designs": 15,
+   "ties": 10,
    "total_designs": 30,
    "undecided": 0,
    "wins": 0,
@@ -1082,8 +1355,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 1,
-     "pending": 13,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1142,7 +1415,7 @@
     },
     "gpt-5.6-luna|B2": {
      "done": 2,
-     "pending": 9,
+     "pending": 6,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -1157,7 +1430,7 @@
     },
     "gpt-5.6-terra|B2": {
      "done": 1,
-     "pending": 32,
+     "pending": 20,
      "planned": 3
     },
     "gpt-5.6-terra|M": {
@@ -1331,8 +1604,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 1,
-     "pending": 29,
+     "done": 2,
+     "pending": 12,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1341,8 +1614,8 @@
      "planned": 3
     },
     "gpt-5.6-terra|M": {
-     "done": 1,
-     "pending": 6,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     }
    },
@@ -1369,7 +1642,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 1,
-     "pending": 68,
+     "pending": 35,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1379,7 +1652,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 51,
+     "pending": 30,
      "planned": 3
     }
    },
@@ -1474,8 +1747,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 0,
-     "pending": 16,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1484,8 +1757,8 @@
      "planned": 3
     },
     "gpt-5.6-terra|M": {
-     "done": 2,
-     "pending": 1,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     }
    },
@@ -1559,7 +1832,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 1,
-     "pending": 11,
+     "pending": 29,
      "planned": 3
     }
    },
@@ -1586,7 +1859,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 2,
-     "pending": 30,
+     "pending": 25,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1596,7 +1869,7 @@
     },
     "gpt-5.6-terra|M": {
      "done": 0,
-     "pending": 93,
+     "pending": 70,
      "planned": 3
     }
    },
@@ -1691,8 +1964,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 0,
-     "pending": 21,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1729,7 +2002,7 @@
     },
     "gpt-5.6-luna|M": {
      "done": 0,
-     "pending": 85,
+     "pending": 70,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1738,8 +2011,8 @@
      "planned": 3
     },
     "gpt-5.6-terra|M": {
-     "done": 0,
-     "pending": 67,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     }
    },
@@ -1876,8 +2149,8 @@
      "planned": 3
     },
     "gpt-5.6-luna|M": {
-     "done": 2,
-     "pending": 11,
+     "done": 3,
+     "pending": 0,
      "planned": 3
     },
     "gpt-5.6-terra|B2": {
@@ -1936,12 +2209,12 @@
     },
     "gpt-5.6-luna|B1_E4": {
      "done": 0,
-     "pending": 27,
+     "pending": 23,
      "planned": 3
     },
     "gpt-5.6-luna|B2": {
      "done": 0,
-     "pending": 79,
+     "pending": 77,
      "planned": 3
     },
     "gpt-5.6-luna|DrRTL_reimpl": {
@@ -1972,7 +2245,7 @@
    "cktevo_hsm__hsm": true,
    "cktevo_mem_ctrl__mc_adr_sel": true,
    "cktevo_nn_engine__spikeNeuron8_H7": true,
-   "cktevo_nn_engine__thresholds_128x4096": false,
+   "cktevo_nn_engine__thresholds_128x4096": true,
    "cktevo_risc__btb": true,
    "cktevo_risc__cpu": false,
    "cktevo_risc__stall_control_unit": false,
@@ -1983,24 +2256,26 @@
    "drrtl_UART": false,
    "drrtl_aes": true,
    "drrtl_arm_cpu2": true,
-   "drrtl_communication": false,
+   "drrtl_communication": true,
    "drrtl_controller": false,
    "drrtl_router": false,
    "drrtl_simple_spi": false,
    "drrtl_ticket_machine": false,
    "drrtl_tv80": true,
-   "rtlopt_alu_64bit": false,
+   "rtlopt_alu_64bit": true,
    "rtlopt_calculation": false,
    "rtlopt_decoder_8bit": true,
    "rtlopt_divider_8bit": true,
    "rtlopt_mux_large": false,
-   "rtlopt_register": false,
+   "rtlopt_register": true,
    "rtlopt_sub_32bit": true,
    "rtlopt_sub_8bit": false
   },
   "tally": {
    "losses": [
-    "rtlopt_divider_8bit"
+    "rtlopt_alu_64bit",
+    "rtlopt_divider_8bit",
+    "rtlopt_register"
    ],
    "partials": [
     "cktevo_vga_enh__vga_wb_slave",
@@ -2008,12 +2283,14 @@
    ],
    "ties": [
     "cktevo_hsm__hsm",
+    "cktevo_nn_engine__thresholds_128x4096",
     "cktevo_usb__usbf_sie_rx",
     "drrtl_arm_cpu2",
     "drrtl_tv80",
     "rtlopt_sub_32bit",
     "cktevo_mem_ctrl__mc_adr_sel",
     "cktevo_risc__btb",
+    "drrtl_communication",
     "rtlopt_decoder_8bit"
    ],
    "undecided": [],
@@ -2022,49 +2299,49 @@
  },
  "conditions": {
   "large|gpt-5.6-luna|M": {
-   "load_coverage": 0.433,
-   "load_median": 99.5,
-   "load_samples": 9519,
+   "load_coverage": 0.448,
+   "load_median": 98.5,
+   "load_samples": 10119,
    "proofs": 573,
    "vcf_wait_median_min": 158.2,
    "vcf_wait_q95_min": 661.6
   },
   "large|gpt-5.6-terra|B0": {
-   "load_coverage": 0.459,
-   "load_median": 99.5,
-   "load_samples": 9519,
+   "load_coverage": 0.474,
+   "load_median": 98.5,
+   "load_samples": 10119,
    "proofs": 825,
    "vcf_wait_median_min": 106.3,
    "vcf_wait_q95_min": 507.1
   },
   "large|gpt-5.6-terra|B1_E4": {
-   "load_coverage": 0.459,
-   "load_median": 99.5,
-   "load_samples": 9519,
+   "load_coverage": 0.475,
+   "load_median": 98.5,
+   "load_samples": 10119,
    "proofs": 802,
    "vcf_wait_median_min": 139.9,
    "vcf_wait_q95_min": 510.4
   },
   "large|gpt-5.6-terra|B2": {
-   "load_coverage": 0.472,
-   "load_median": 99.5,
-   "load_samples": 9519,
+   "load_coverage": 0.488,
+   "load_median": 98.5,
+   "load_samples": 10119,
    "proofs": 814,
    "vcf_wait_median_min": 120.2,
    "vcf_wait_q95_min": 483.9
   },
   "large|gpt-5.6-terra|DrRTL_reimpl": {
-   "load_coverage": 0.51,
-   "load_median": 99.5,
-   "load_samples": 9519,
+   "load_coverage": 0.525,
+   "load_median": 98.5,
+   "load_samples": 10119,
    "proofs": 578,
    "vcf_wait_median_min": 149.9,
    "vcf_wait_q95_min": 481.0
   },
   "large|gpt-5.6-terra|M": {
-   "load_coverage": 0.435,
-   "load_median": 99.5,
-   "load_samples": 9519,
+   "load_coverage": 0.45,
+   "load_median": 98.5,
+   "load_samples": 10119,
    "proofs": 619,
    "vcf_wait_median_min": 139.9,
    "vcf_wait_q95_min": 635.0
@@ -2086,12 +2363,12 @@
    "vcf_wait_q95_min": 847.5
   },
   "medium|gpt-5.6-luna|B2": {
-   "load_coverage": 0.844,
-   "load_median": 102.1,
-   "load_samples": 19097,
-   "proofs": 2401,
+   "load_coverage": 0.846,
+   "load_median": 101.8,
+   "load_samples": 19297,
+   "proofs": 2407,
    "vcf_wait_median_min": 7.3,
-   "vcf_wait_q95_min": 350.1
+   "vcf_wait_q95_min": 372.1
   },
   "medium|gpt-5.6-luna|DrRTL_reimpl": {
    "load_coverage": 0.992,
@@ -2103,27 +2380,27 @@
   },
   "medium|gpt-5.6-luna|M": {
    "load_coverage": 1.0,
-   "load_median": 99.3,
-   "load_samples": 37235,
-   "proofs": 1939,
-   "vcf_wait_median_min": 10.1,
-   "vcf_wait_q95_min": 1049.8
+   "load_median": 98.5,
+   "load_samples": 39292,
+   "proofs": 2118,
+   "vcf_wait_median_min": 13.6,
+   "vcf_wait_q95_min": 1032.0
   },
   "medium|gpt-5.6-terra|B2": {
-   "load_coverage": 0.958,
-   "load_median": 101.1,
-   "load_samples": 18824,
-   "proofs": 2416,
-   "vcf_wait_median_min": 7.0,
-   "vcf_wait_q95_min": 761.7
+   "load_coverage": 0.959,
+   "load_median": 100.8,
+   "load_samples": 19224,
+   "proofs": 2433,
+   "vcf_wait_median_min": 7.1,
+   "vcf_wait_q95_min": 761.2
   },
   "medium|gpt-5.6-terra|M": {
-   "load_coverage": 0.919,
-   "load_median": 99.7,
-   "load_samples": 38093,
-   "proofs": 2136,
-   "vcf_wait_median_min": 8.4,
-   "vcf_wait_q95_min": 824.8
+   "load_coverage": 0.924,
+   "load_median": 98.7,
+   "load_samples": 40600,
+   "proofs": 2310,
+   "vcf_wait_median_min": 9.3,
+   "vcf_wait_q95_min": 849.1
   }
  },
  "correctness": {
@@ -2227,15 +2504,15 @@
   },
   "medium|gpt-5.6-luna|cktevo_nn_engine__thresholds_128x4096": {
    "cands": 694,
-   "proven": 517,
-   "proven_rate": 0.745,
+   "proven": 530,
+   "proven_rate": 0.7637,
    "runs": 12,
    "synth_rejected": 0
   },
   "medium|gpt-5.6-luna|cktevo_risc__cpu": {
    "cands": 885,
-   "proven": 71,
-   "proven_rate": 0.0802,
+   "proven": 72,
+   "proven_rate": 0.0814,
    "runs": 15,
    "synth_rejected": 0
   },
@@ -2254,16 +2531,16 @@
    "synth_rejected": 1
   },
   "medium|gpt-5.6-luna|drrtl_SPI": {
-   "cands": 827,
+   "cands": 862,
    "proven": 115,
-   "proven_rate": 0.1391,
+   "proven_rate": 0.1334,
    "runs": 15,
    "synth_rejected": 0
   },
   "medium|gpt-5.6-luna|drrtl_UART": {
    "cands": 940,
-   "proven": 720,
-   "proven_rate": 0.766,
+   "proven": 753,
+   "proven_rate": 0.8011,
    "runs": 16,
    "synth_rejected": 1
   },
@@ -2276,8 +2553,8 @@
   },
   "medium|gpt-5.6-luna|drrtl_communication": {
    "cands": 874,
-   "proven": 229,
-   "proven_rate": 0.262,
+   "proven": 239,
+   "proven_rate": 0.2735,
    "runs": 15,
    "synth_rejected": 0
   },
@@ -2290,22 +2567,22 @@
   },
   "medium|gpt-5.6-luna|drrtl_simple_spi": {
    "cands": 873,
-   "proven": 134,
-   "proven_rate": 0.1535,
+   "proven": 137,
+   "proven_rate": 0.1569,
    "runs": 15,
    "synth_rejected": 58
   },
   "medium|gpt-5.6-luna|rtlopt_alu_64bit": {
    "cands": 873,
-   "proven": 638,
-   "proven_rate": 0.7308,
+   "proven": 659,
+   "proven_rate": 0.7549,
    "runs": 15,
    "synth_rejected": 0
   },
   "medium|gpt-5.6-luna|rtlopt_calculation": {
-   "cands": 843,
-   "proven": 519,
-   "proven_rate": 0.6157,
+   "cands": 872,
+   "proven": 552,
+   "proven_rate": 0.633,
    "runs": 15,
    "synth_rejected": 0
   },
@@ -2325,8 +2602,8 @@
   },
   "medium|gpt-5.6-luna|rtlopt_register": {
    "cands": 874,
-   "proven": 705,
-   "proven_rate": 0.8066,
+   "proven": 716,
+   "proven_rate": 0.8192,
    "runs": 15,
    "synth_rejected": 1
   },
@@ -2360,8 +2637,8 @@
   },
   "medium|gpt-5.6-terra|cktevo_risc__cpu": {
    "cands": 360,
-   "proven": 27,
-   "proven_rate": 0.075,
+   "proven": 30,
+   "proven_rate": 0.0833,
    "runs": 6,
    "synth_rejected": 0
   },
@@ -2388,8 +2665,8 @@
   },
   "medium|gpt-5.6-terra|drrtl_UART": {
    "cands": 300,
-   "proven": 238,
-   "proven_rate": 0.7933,
+   "proven": 261,
+   "proven_rate": 0.87,
    "runs": 6,
    "synth_rejected": 0
   },
@@ -2402,22 +2679,22 @@
   },
   "medium|gpt-5.6-terra|drrtl_communication": {
    "cands": 360,
-   "proven": 8,
-   "proven_rate": 0.0222,
+   "proven": 9,
+   "proven_rate": 0.025,
    "runs": 6,
    "synth_rejected": 0
   },
   "medium|gpt-5.6-terra|drrtl_router": {
-   "cands": 271,
-   "proven": 220,
-   "proven_rate": 0.8118,
+   "cands": 354,
+   "proven": 273,
+   "proven_rate": 0.7712,
    "runs": 6,
    "synth_rejected": 2
   },
   "medium|gpt-5.6-terra|drrtl_simple_spi": {
    "cands": 360,
-   "proven": 39,
-   "proven_rate": 0.1083,
+   "proven": 42,
+   "proven_rate": 0.1167,
    "runs": 6,
    "synth_rejected": 11
   },
@@ -2430,8 +2707,8 @@
   },
   "medium|gpt-5.6-terra|rtlopt_calculation": {
    "cands": 360,
-   "proven": 211,
-   "proven_rate": 0.5861,
+   "proven": 271,
+   "proven_rate": 0.7528,
    "runs": 6,
    "synth_rejected": 0
   },
@@ -4340,27 +4617,27 @@
     },
     {
      "calls": 40,
-     "mean_best_gain": 0.06031,
+     "mean_best_gain": 0.06082,
      "runs_with_retained": 29
     },
     {
      "calls": 45,
-     "mean_best_gain": 0.06034,
+     "mean_best_gain": 0.06085,
      "runs_with_retained": 29
     },
     {
      "calls": 50,
-     "mean_best_gain": 0.06038,
+     "mean_best_gain": 0.06089,
      "runs_with_retained": 29
     },
     {
      "calls": 55,
-     "mean_best_gain": 0.06252,
+     "mean_best_gain": 0.06304,
      "runs_with_retained": 30
     },
     {
      "calls": 60,
-     "mean_best_gain": 0.06252,
+     "mean_best_gain": 0.06304,
      "runs_with_retained": 30
     }
    ],
@@ -4375,59 +4652,59 @@
     },
     {
      "dc_hours": 0.75,
-     "mean_best_gain": 0.04951
+     "mean_best_gain": 0.05002
     },
     {
      "dc_hours": 1.0,
-     "mean_best_gain": 0.06228
+     "mean_best_gain": 0.0628
     },
     {
      "dc_hours": 1.25,
-     "mean_best_gain": 0.06246
+     "mean_best_gain": 0.06297
     },
     {
      "dc_hours": 1.5,
-     "mean_best_gain": 0.06246
+     "mean_best_gain": 0.06297
     },
     {
      "dc_hours": 1.75,
-     "mean_best_gain": 0.06249
+     "mean_best_gain": 0.06301
     },
     {
      "dc_hours": 2.0,
-     "mean_best_gain": 0.06252
+     "mean_best_gain": 0.06304
     },
     {
      "dc_hours": 2.25,
-     "mean_best_gain": 0.06252
+     "mean_best_gain": 0.06304
     },
     {
      "dc_hours": 2.5,
-     "mean_best_gain": 0.06252
+     "mean_best_gain": 0.06304
     },
     {
      "dc_hours": 2.75,
-     "mean_best_gain": 0.06252
+     "mean_best_gain": 0.06304
     },
     {
      "dc_hours": 3.0,
-     "mean_best_gain": 0.06252
+     "mean_best_gain": 0.06304
     },
     {
      "dc_hours": 3.25,
-     "mean_best_gain": 0.06252
+     "mean_best_gain": 0.06304
     },
     {
      "dc_hours": 3.5,
-     "mean_best_gain": 0.06252
+     "mean_best_gain": 0.06304
     },
     {
      "dc_hours": 3.75,
-     "mean_best_gain": 0.06252
+     "mean_best_gain": 0.06304
     },
     {
      "dc_hours": 4.0,
-     "mean_best_gain": 0.06252
+     "mean_best_gain": 0.06304
     }
    ]
   },
@@ -4583,53 +4860,53 @@
     },
     {
      "calls": 15,
-     "mean_best_gain": 0.06233,
-     "runs_with_retained": 27
-    },
-    {
-     "calls": 20,
-     "mean_best_gain": 0.06518,
+     "mean_best_gain": 0.06236,
      "runs_with_retained": 28
     },
     {
-     "calls": 25,
-     "mean_best_gain": 0.06749,
+     "calls": 20,
+     "mean_best_gain": 0.06526,
      "runs_with_retained": 29
+    },
+    {
+     "calls": 25,
+     "mean_best_gain": 0.06757,
+     "runs_with_retained": 30
     },
     {
      "calls": 30,
-     "mean_best_gain": 0.07048,
-     "runs_with_retained": 29
+     "mean_best_gain": 0.07056,
+     "runs_with_retained": 30
     },
     {
      "calls": 35,
-     "mean_best_gain": 0.07055,
-     "runs_with_retained": 29
+     "mean_best_gain": 0.07063,
+     "runs_with_retained": 30
     },
     {
      "calls": 40,
-     "mean_best_gain": 0.07141,
-     "runs_with_retained": 30
+     "mean_best_gain": 0.07149,
+     "runs_with_retained": 31
     },
     {
      "calls": 45,
-     "mean_best_gain": 0.07214,
-     "runs_with_retained": 30
+     "mean_best_gain": 0.07222,
+     "runs_with_retained": 31
     },
     {
      "calls": 50,
-     "mean_best_gain": 0.07246,
-     "runs_with_retained": 30
+     "mean_best_gain": 0.07254,
+     "runs_with_retained": 31
     },
     {
      "calls": 55,
-     "mean_best_gain": 0.07259,
-     "runs_with_retained": 30
+     "mean_best_gain": 0.07268,
+     "runs_with_retained": 31
     },
     {
      "calls": 60,
-     "mean_best_gain": 0.0727,
-     "runs_with_retained": 30
+     "mean_best_gain": 0.07278,
+     "runs_with_retained": 31
     }
    ],
    "by_dc_hours": [
@@ -4639,59 +4916,59 @@
     },
     {
      "dc_hours": 0.5,
-     "mean_best_gain": 0.06582
+     "mean_best_gain": 0.06585
     },
     {
      "dc_hours": 0.75,
-     "mean_best_gain": 0.06712
+     "mean_best_gain": 0.0672
     },
     {
      "dc_hours": 1.0,
-     "mean_best_gain": 0.06829
+     "mean_best_gain": 0.06837
     },
     {
      "dc_hours": 1.25,
-     "mean_best_gain": 0.07048
+     "mean_best_gain": 0.07056
     },
     {
      "dc_hours": 1.5,
-     "mean_best_gain": 0.07266
+     "mean_best_gain": 0.07275
     },
     {
      "dc_hours": 1.75,
-     "mean_best_gain": 0.07266
+     "mean_best_gain": 0.07275
     },
     {
      "dc_hours": 2.0,
-     "mean_best_gain": 0.07266
+     "mean_best_gain": 0.07275
     },
     {
      "dc_hours": 2.25,
-     "mean_best_gain": 0.07266
+     "mean_best_gain": 0.07275
     },
     {
      "dc_hours": 2.5,
-     "mean_best_gain": 0.0727
+     "mean_best_gain": 0.07278
     },
     {
      "dc_hours": 2.75,
-     "mean_best_gain": 0.0727
+     "mean_best_gain": 0.07278
     },
     {
      "dc_hours": 3.0,
-     "mean_best_gain": 0.0727
+     "mean_best_gain": 0.07278
     },
     {
      "dc_hours": 3.25,
-     "mean_best_gain": 0.0727
+     "mean_best_gain": 0.07278
     },
     {
      "dc_hours": 3.5,
-     "mean_best_gain": 0.0727
+     "mean_best_gain": 0.07278
     },
     {
      "dc_hours": 3.75,
-     "mean_best_gain": 0.0727
+     "mean_best_gain": 0.07278
     }
    ]
   }
@@ -5600,7 +5877,7 @@
   },
   "medium|gpt-5.6-luna|B2|cktevo_risc__cpu": {
    "best_retained_area_gain": 0.0,
-   "pending": 9,
+   "pending": 6,
    "retained": 0,
    "runs": 3
   },
@@ -5810,7 +6087,7 @@
   },
   "medium|gpt-5.6-luna|M|cktevo_nn_engine__thresholds_128x4096": {
    "best_retained_area_gain": 0.0,
-   "pending": 13,
+   "pending": 0,
    "retained": 0,
    "runs": 3
   },
@@ -5834,13 +6111,13 @@
   },
   "medium|gpt-5.6-luna|M|drrtl_SPI": {
    "best_retained_area_gain": 0.082,
-   "pending": 26,
+   "pending": 14,
    "retained": 1,
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|drrtl_UART": {
    "best_retained_area_gain": 0.0,
-   "pending": 70,
+   "pending": 37,
    "retained": 0,
    "runs": 3
   },
@@ -5852,7 +6129,7 @@
   },
   "medium|gpt-5.6-luna|M|drrtl_communication": {
    "best_retained_area_gain": 0.01975,
-   "pending": 16,
+   "pending": 0,
    "retained": 1,
    "runs": 3
   },
@@ -5864,20 +6141,20 @@
   },
   "medium|gpt-5.6-luna|M|drrtl_simple_spi": {
    "best_retained_area_gain": 0.0,
-   "pending": 30,
+   "pending": 25,
    "retained": 0,
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|rtlopt_alu_64bit": {
    "best_retained_area_gain": 0.0102,
-   "pending": 21,
+   "pending": 0,
    "retained": 4,
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|rtlopt_calculation": {
-   "best_retained_area_gain": 0.35661,
-   "pending": 85,
-   "retained": 12,
+   "best_retained_area_gain": 0.36385,
+   "pending": 73,
+   "retained": 15,
    "runs": 3
   },
   "medium|gpt-5.6-luna|M|rtlopt_decoder_8bit": {
@@ -5894,7 +6171,7 @@
   },
   "medium|gpt-5.6-luna|M|rtlopt_register": {
    "best_retained_area_gain": 0.00867,
-   "pending": 11,
+   "pending": 0,
    "retained": 28,
    "runs": 3
   },
@@ -5924,7 +6201,7 @@
   },
   "medium|gpt-5.6-terra|B2|cktevo_risc__cpu": {
    "best_retained_area_gain": 0.0,
-   "pending": 32,
+   "pending": 20,
    "retained": 0,
    "runs": 3
   },
@@ -6050,13 +6327,13 @@
   },
   "medium|gpt-5.6-terra|M|drrtl_SPI": {
    "best_retained_area_gain": 0.082,
-   "pending": 7,
+   "pending": 0,
    "retained": 5,
    "runs": 3
   },
   "medium|gpt-5.6-terra|M|drrtl_UART": {
    "best_retained_area_gain": 0.0,
-   "pending": 53,
+   "pending": 30,
    "retained": 0,
    "runs": 3
   },
@@ -6068,19 +6345,19 @@
   },
   "medium|gpt-5.6-terra|M|drrtl_communication": {
    "best_retained_area_gain": 0.0,
-   "pending": 1,
+   "pending": 0,
    "retained": 0,
    "runs": 3
   },
   "medium|gpt-5.6-terra|M|drrtl_router": {
-   "best_retained_area_gain": 0.0,
-   "pending": 13,
-   "retained": 2,
+   "best_retained_area_gain": 0.0044,
+   "pending": 27,
+   "retained": 6,
    "runs": 3
   },
   "medium|gpt-5.6-terra|M|drrtl_simple_spi": {
    "best_retained_area_gain": 0.0,
-   "pending": 93,
+   "pending": 71,
    "retained": 0,
    "runs": 3
   },
@@ -6092,7 +6369,7 @@
   },
   "medium|gpt-5.6-terra|M|rtlopt_calculation": {
    "best_retained_area_gain": 0.40378,
-   "pending": 67,
+   "pending": 0,
    "retained": 31,
    "runs": 3
   },
@@ -6125,8 +6402,8 @@
  "exp": "phase5",
  "final": false,
  "floor_version": "phase4",
- "generated_at": "2026-09-20T15:27",
- "git_sha": "0e4551c839ba",
+ "generated_at": "2026-09-20T18:47",
+ "git_sha": "effed786d7ec",
  "groups": {
   "large|gpt-5.6-luna|M": {
    "accepted": 29,
@@ -6935,25 +7212,25 @@
    "done": 54,
    "duplicate": 56,
    "error": 0,
-   "falsified": 179,
+   "falsified": 180,
    "gain_retained_max": 0.6551,
    "gain_retained_median": 0.01251,
    "incomplete": true,
-   "inconclusive": 336,
+   "inconclusive": 337,
    "latency_mapped": 0,
    "model": "gpt-5.6-luna",
-   "pending": 9,
+   "pending": 6,
    "pending_by": {
-    "verdict": 9
+    "verdict": 6
    },
    "planned": 54,
    "prescreened": 0,
-   "proven": 1883,
-   "proven_per_call": 0.5706,
+   "proven": 1884,
+   "proven_per_call": 0.5709,
    "proven_sim_only": 0,
    "rejected": 312,
    "repairs": 629,
-   "repairs_proven": 299,
+   "repairs_proven": 300,
    "retained": 568,
    "retained_per_100_calls": 17.212,
    "retained_per_dc_hour": 4.422,
@@ -6966,8 +7243,8 @@
    "sim_fail": 506,
    "stored": {
     "improved": 1487,
-    "no_gain": 373,
-    "nonequiv": 1335
+    "no_gain": 374,
+    "nonequiv": 1337
    },
    "synth_rejected": {
     "cktevo_ethmac__eth_cop|ELAB-366": 2,
@@ -6977,13 +7254,13 @@
    },
    "tier": "medium",
    "ttv": {
-    "median": 480.8,
-    "n": 3213,
-    "q95": 22066.7
+    "median": 480.9,
+    "n": 3216,
+    "q95": 22134.6
    },
    "uniform": {
     "absorbed": 58,
-    "absorbed_identical": 305,
+    "absorbed_identical": 306,
     "harmful": 200,
     "noise": 66,
     "retained": 568,
@@ -7077,25 +7354,25 @@
    "vcf_h": 170.07
   },
   "medium|gpt-5.6-luna|M": {
-   "accepted": 85,
+   "accepted": 87,
    "arm": "M",
-   "best_gain_mean": 0.06252,
+   "best_gain_mean": 0.06304,
    "best_gain_median": 0.00381,
-   "block_answers": 337,
-   "block_flag_rate": 0.0801,
+   "block_answers": 321,
+   "block_flag_rate": 0.0841,
    "block_flags": 27,
-   "calls": 3166,
-   "cands": 3140,
+   "calls": 3230,
+   "cands": 3204,
    "classes": {
-    "a": 478,
-    "b": 1119,
-    "c1": 443,
+    "a": 473,
+    "b": 1134,
+    "c1": 441,
     "c2": 1,
-    "d": 411,
+    "d": 399,
     "free": 20
    },
    "confusion": {
-    "a->a": 66,
+    "a->a": 67,
     "a->b": 70,
     "a->c1": 45,
     "a->d": 26,
@@ -7103,50 +7380,50 @@
     "b->b": 92,
     "b->c1": 50,
     "b->c2": 1,
-    "b->d": 79,
-    "c1->a": 92,
-    "c1->b": 338,
-    "c1->c1": 80,
-    "c1->d": 109,
+    "b->d": 69,
+    "c1->a": 87,
+    "c1->b": 351,
+    "c1->c1": 79,
+    "c1->d": 103,
     "d->a": 148,
-    "d->b": 404,
-    "d->c1": 202,
-    "d->d": 87,
-    "free->a": 119,
-    "free->b": 215,
+    "d->b": 419,
+    "d->c1": 201,
+    "d->d": 89,
+    "free->a": 118,
+    "free->b": 202,
     "free->c1": 66,
-    "free->d": 110,
+    "free->d": 112,
     "free->free": 20
    },
-   "dc_h": 118.52,
-   "done": 36,
-   "duplicate": 668,
+   "dc_h": 120.93,
+   "done": 46,
+   "duplicate": 736,
    "error": 0,
-   "falsified": 215,
+   "falsified": 220,
    "gain_retained_max": 0.63843,
-   "gain_retained_median": 0.00531,
+   "gain_retained_median": 0.0054,
    "incomplete": true,
-   "inconclusive": 202,
+   "inconclusive": 260,
    "latency_mapped": 1,
    "model": "gpt-5.6-luna",
-   "pending": 286,
+   "pending": 163,
    "pending_by": {
-    "e4": 1,
-    "verdict": 285
+    "e4": 4,
+    "verdict": 159
    },
    "planned": 54,
    "prescreened": 0,
-   "proven": 909,
-   "proven_per_call": 0.2871,
+   "proven": 968,
+   "proven_per_call": 0.2997,
    "proven_sim_only": 0,
    "rejected": 344,
-   "repairs": 564,
-   "repairs_proven": 188,
-   "retained": 184,
-   "retained_per_100_calls": 5.812,
-   "retained_per_dc_hour": 1.553,
-   "retained_per_run": 3.407,
-   "retained_per_usd": 27.255,
+   "repairs": 556,
+   "repairs_proven": 195,
+   "retained": 187,
+   "retained_per_100_calls": 5.789,
+   "retained_per_dc_hour": 1.546,
+   "retained_per_run": 3.463,
+   "retained_per_usd": 27.332,
    "role": "main",
    "runs": 54,
    "runs_with_retained": 30,
@@ -7154,12 +7431,12 @@
    "sim_fail": 514,
    "stored": {
     "absorbed": 11,
-    "absorbed_identical": 333,
+    "absorbed_identical": 385,
     "fragile": 47,
-    "harmful": 91,
+    "harmful": 92,
     "noise": 21,
-    "nonequiv": 1275,
-    "retained": 137,
+    "nonequiv": 1338,
+    "retained": 140,
     "tradeoff": 254
    },
    "synth_rejected": {
@@ -7169,21 +7446,21 @@
    },
    "tier": "medium",
    "ttv": {
-    "median": 378.2,
-    "n": 2180,
-    "q95": 55428.7
+    "median": 413.8,
+    "n": 2302,
+    "q95": 57538.5
    },
    "uniform": {
     "absorbed": 11,
-    "absorbed_identical": 330,
-    "harmful": 91,
+    "absorbed_identical": 382,
+    "harmful": 92,
     "noise": 21,
-    "retained": 184,
+    "retained": 187,
     "tradeoff": 254
    },
    "unusable": 26,
-   "usd": 6.75,
-   "vcf_h": 270.43
+   "usd": 6.84,
+   "vcf_h": 372.79
   },
   "medium|gpt-5.6-terra|B2": {
    "accepted": 728,
@@ -7229,25 +7506,25 @@
    "done": 52,
    "duplicate": 133,
    "error": 2,
-   "falsified": 185,
+   "falsified": 187,
    "gain_retained_max": 0.65844,
    "gain_retained_median": 0.02078,
    "incomplete": true,
-   "inconclusive": 337,
+   "inconclusive": 344,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 32,
+   "pending": 20,
    "pending_by": {
-    "verdict": 32
+    "verdict": 20
    },
    "planned": 54,
    "prescreened": 0,
-   "proven": 1890,
-   "proven_per_call": 0.5833,
+   "proven": 1893,
+   "proven_per_call": 0.5843,
    "proven_sim_only": 0,
    "rejected": 200,
    "repairs": 504,
-   "repairs_proven": 183,
+   "repairs_proven": 184,
    "retained": 612,
    "retained_per_100_calls": 18.889,
    "retained_per_dc_hour": 4.811,
@@ -7260,8 +7537,8 @@
    "sim_fail": 432,
    "stored": {
     "improved": 1547,
-    "no_gain": 329,
-    "nonequiv": 1156
+    "no_gain": 332,
+    "nonequiv": 1165
    },
    "synth_rejected": {
     "cktevo_nn_engine__thresholds_128x4096|VER-262": 1,
@@ -7270,13 +7547,13 @@
    },
    "tier": "medium",
    "ttv": {
-    "median": 396.5,
-    "n": 3046,
-    "q95": 38390.3
+    "median": 397.6,
+    "n": 3058,
+    "q95": 38357.4
    },
    "uniform": {
     "absorbed": 12,
-    "absorbed_identical": 183,
+    "absorbed_identical": 186,
     "harmful": 217,
     "noise": 41,
     "retained": 612,
@@ -7287,109 +7564,109 @@
    "vcf_h": 601.5
   },
   "medium|gpt-5.6-terra|M": {
-   "accepted": 119,
+   "accepted": 121,
    "arm": "M",
-   "best_gain_mean": 0.0727,
-   "best_gain_median": 0.00541,
+   "best_gain_mean": 0.07278,
+   "best_gain_median": 0.006,
    "block_answers": 266,
    "block_flag_rate": 0.0263,
    "block_flags": 7,
-   "calls": 3081,
-   "cands": 3062,
+   "calls": 3169,
+   "cands": 3145,
    "classes": {
-    "a": 396,
-    "b": 1002,
-    "c1": 534,
-    "d": 355,
+    "a": 400,
+    "b": 1023,
+    "c1": 549,
+    "d": 312,
     "free": 10
    },
    "confusion": {
-    "a->a": 67,
-    "a->b": 68,
+    "a->a": 66,
+    "a->b": 69,
     "a->c1": 28,
-    "a->d": 30,
-    "b->a": 61,
-    "b->b": 78,
-    "b->c1": 44,
-    "b->d": 81,
-    "c1->a": 57,
-    "c1->b": 182,
-    "c1->c1": 113,
-    "c1->d": 48,
-    "d->a": 133,
-    "d->b": 481,
-    "d->c1": 288,
-    "d->d": 81,
-    "free->a": 78,
-    "free->b": 193,
-    "free->c1": 61,
-    "free->d": 115,
+    "a->d": 25,
+    "b->a": 45,
+    "b->b": 79,
+    "b->c1": 45,
+    "b->d": 57,
+    "c1->a": 66,
+    "c1->b": 186,
+    "c1->c1": 118,
+    "c1->d": 46,
+    "d->a": 140,
+    "d->b": 492,
+    "d->c1": 296,
+    "d->d": 79,
+    "free->a": 83,
+    "free->b": 197,
+    "free->c1": 62,
+    "free->d": 105,
     "free->free": 10
    },
-   "dc_h": 125.0,
-   "done": 38,
-   "duplicate": 765,
+   "dc_h": 127.61,
+   "done": 44,
+   "duplicate": 851,
    "error": 7,
-   "falsified": 235,
+   "falsified": 241,
    "gain_retained_max": 0.66578,
-   "gain_retained_median": 0.02128,
+   "gain_retained_median": 0.0206,
    "incomplete": true,
-   "inconclusive": 269,
+   "inconclusive": 298,
    "latency_mapped": 0,
    "model": "gpt-5.6-terra",
-   "pending": 241,
+   "pending": 135,
    "pending_by": {
-    "e4": 13,
-    "verdict": 228
+    "e4": 15,
+    "verdict": 120
    },
    "planned": 54,
    "prescreened": 0,
-   "proven": 972,
-   "proven_per_call": 0.3155,
+   "proven": 1034,
+   "proven_per_call": 0.3263,
    "proven_sim_only": 0,
-   "rejected": 173,
-   "repairs": 442,
-   "repairs_proven": 132,
-   "retained": 255,
-   "retained_per_100_calls": 8.277,
-   "retained_per_dc_hour": 2.04,
-   "retained_per_run": 4.722,
-   "retained_per_usd": 3.512,
+   "rejected": 178,
+   "repairs": 448,
+   "repairs_proven": 139,
+   "retained": 259,
+   "retained_per_100_calls": 8.173,
+   "retained_per_dc_hour": 2.03,
+   "retained_per_run": 4.796,
+   "retained_per_usd": 3.495,
    "role": "second",
    "runs": 54,
-   "runs_with_retained": 30,
+   "runs_with_retained": 31,
    "scope_flags": 7,
-   "sim_fail": 410,
+   "sim_fail": 413,
    "stored": {
-    "absorbed": 10,
-    "absorbed_identical": 173,
+    "absorbed": 14,
+    "absorbed_identical": 216,
     "fragile": 57,
-    "harmful": 103,
+    "harmful": 108,
     "noise": 29,
-    "nonequiv": 1094,
-    "retained": 198,
-    "tradeoff": 391
+    "nonequiv": 1137,
+    "retained": 202,
+    "tradeoff": 395
    },
    "synth_rejected": {
     "cktevo_mem_ctrl__mc_adr_sel|LINK-3": 1
    },
    "tier": "medium",
    "ttv": {
-    "median": 435.7,
-    "n": 2062,
-    "q95": 49677.8
+    "median": 456.2,
+    "n": 2167,
+    "q95": 50170.4
    },
    "uniform": {
-    "absorbed": 10,
-    "absorbed_identical": 170,
-    "harmful": 103,
+    "absorbed": 14,
+    "absorbed_identical": 213,
+    "harmful": 108,
     "noise": 29,
-    "retained": 255,
-    "tradeoff": 391
+    "retained": 259,
+    "tradeoff": 395
    },
    "unusable": 29,
-   "usd": 72.6,
-   "vcf_h": 275.68
+   "usd": 74.1,
+   "vcf_h": 349.06
   }
  },
  "inconclusive": {
@@ -7398,10 +7675,10 @@
    "large|b": 1031,
    "large|c1": 141,
    "large|d": 102,
-   "medium|a": 295,
-   "medium|b": 1390,
-   "medium|c1": 171,
-   "medium|d": 49
+   "medium|a": 300,
+   "medium|b": 1468,
+   "medium|c1": 182,
+   "medium|d": 50
   },
   "by_design": {
    "large|cktevo_hsm__hsm": 273,
@@ -7410,29 +7687,29 @@
    "large|drrtl_aes": 125,
    "large|drrtl_tv80": 669,
    "medium|cktevo_mem_ctrl__mc_adr_sel": 5,
-   "medium|cktevo_risc__cpu": 229,
-   "medium|drrtl_SPI": 908,
+   "medium|cktevo_risc__cpu": 237,
+   "medium|drrtl_SPI": 962,
    "medium|drrtl_UART": 11,
-   "medium|drrtl_communication": 62,
+   "medium|drrtl_communication": 68,
    "medium|drrtl_router": 4,
-   "medium|drrtl_simple_spi": 673,
-   "medium|rtlopt_calculation": 13
+   "medium|drrtl_simple_spi": 698,
+   "medium|rtlopt_calculation": 15
   }
  },
  "ops": {
   "agreement": {
-   "agree": 2196,
-   "agree_rate": 0.9037,
+   "agree": 2452,
+   "agree_rate": 0.9122,
    "by_label": {
-    "absorbed": 69,
-    "absorbed_identical": 692,
-    "duplicate": 915,
-    "harmful": 479,
+    "absorbed": 85,
+    "absorbed_identical": 722,
+    "duplicate": 960,
+    "harmful": 490,
     "improved": 7369,
     "no_gain": 2314,
     "noise": 116,
-    "retained": 750,
-    "tradeoff": 978
+    "retained": 764,
+    "tradeoff": 987
    },
    "disagree": [
     {
@@ -7686,11 +7963,11 @@
      "provisional": "noise"
     }
    ],
-   "n_provisional": 13682,
-   "not_proven": 3669,
-   "pending": 7583,
-   "proven_final": 2430,
-   "withheld": 9037
+   "n_provisional": 13807,
+   "not_proven": 3764,
+   "pending": 7355,
+   "proven_final": 2688,
+   "withheld": 9060
   },
   "events": {
    "hidden_throttle_at": "2026-09-16T14:30",
@@ -8698,11 +8975,41 @@
     },
     {
      "falsified": 0,
-     "finished": 77,
+     "finished": 129,
      "hour": "2026-09-20T15",
-     "inconclusive": 18,
-     "proven": 59,
-     "ratio": 3.28,
+     "inconclusive": 27,
+     "proven": 102,
+     "ratio": 3.78,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 2,
+     "finished": 152,
+     "hour": "2026-09-20T16",
+     "inconclusive": 26,
+     "proven": 124,
+     "ratio": 4.77,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 6,
+     "finished": 102,
+     "hour": "2026-09-20T17",
+     "inconclusive": 25,
+     "proven": 71,
+     "ratio": 2.84,
+     "rejected": 0,
+     "sim_fail": 0
+    },
+    {
+     "falsified": 6,
+     "finished": 77,
+     "hour": "2026-09-20T18",
+     "inconclusive": 35,
+     "proven": 36,
+     "ratio": 1.03,
      "rejected": 0,
      "sim_fail": 0
     }
@@ -8711,16 +9018,16 @@
   },
   "reuse": {
    "by_verdict": {},
-   "records_scanned": 45509,
+   "records_scanned": 46025,
    "reused": 0,
    "sim_record_missing": 0,
    "since": "2026-09-16T15:14",
-   "split_proofs": 18191
+   "split_proofs": 18574
   }
  },
  "pending_total": {
   "large": 368,
-  "medium": 577
+  "medium": 333
  },
  "planned": {
   "large|gpt-5.6-luna|M": 18,
@@ -8776,7 +9083,7 @@
      24
     ]
    },
-   "median_s": 3070.0
+   "median_s": 3068.0
   },
   "drrtl_SPI": {
    "empty": {
@@ -8801,15 +9108,15 @@
      31
     ],
     "M-luna": [
-     28,
-     28
+     34,
+     34
     ],
     "M-terra": [
      36,
      36
     ]
    },
-   "median_s": 3062.0
+   "median_s": 3060.0
   },
   "drrtl_aes": {
    "empty": {
@@ -74852,6 +75159,126 @@
    "tier": "medium"
   },
   {
+   "arm": "M",
+   "cand_id": "cb62c0aa9a7f6e0",
+   "class_final": "b",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": 0.00172,
+    "power": -0.01438,
+    "wns": 0.01486
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214913_drrtl_router_M_-terra_s2",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c52422f7eac170c",
+   "class_final": "b",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": 0.00344,
+    "power": -0.00582,
+    "wns": -0.00228
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214913_drrtl_router_M_-terra_s2",
+   "stored_label": "tradeoff",
+   "sublabel": "up=area down=wns",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "cb8436ff7dbea89",
+   "class_final": "b",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": 0.0044,
+    "power": -0.01365,
+    "wns": 0.01212
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214913_drrtl_router_M_-terra_s2",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "cbe5947e48f00cd",
+   "class_final": "b",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": 0.00172,
+    "power": -0.01492,
+    "wns": 0.01486
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214913_drrtl_router_M_-terra_s2",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c388ad0fc78054a",
+   "class_final": "c1",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": -0.0185,
+    "power": -0.0061,
+    "wns": 0.00092
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214913_drrtl_router_M_-terra_s2",
+   "stored_label": "tradeoff",
+   "sublabel": "up=wns down=area",
+   "subtags": [
+    "flip-flop bits 587 -> 590 and register cells 86 -> 87 with identical latency (no offset)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c38dbcd4fcd526f",
+   "class_final": "b",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": 0.00089,
+    "power": -0.01953,
+    "wns": 0.00317
+   },
+   "label": "retained",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214913_drrtl_router_M_-terra_s2",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
    "arm": "B1_E4",
    "cand_id": "c2a2e5d3600ff35",
    "class_final": "b",
@@ -76806,6 +77233,46 @@
    "run_id": "r20260915_214913_drrtl_router_M_-terra_s3",
    "stored_label": "tradeoff",
    "sublabel": "up=wns down=area",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "ccddd298f41079f",
+   "class_final": "b",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": 0.00606,
+    "power": -0.05365,
+    "wns": 0.01142
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214913_drrtl_router_M_-terra_s3",
+   "stored_label": "tradeoff",
+   "sublabel": "up=area,wns down=power",
+   "subtags": [
+    "register names or clocked targets changed, flip-flop count and latency unchanged"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c0ace472de212aa",
+   "class_final": "b",
+   "design_id": "drrtl_router",
+   "gains": {
+    "area": 0.0312,
+    "power": -0.06387,
+    "wns": 0.00693
+   },
+   "label": "tradeoff",
+   "model": "gpt-5.6-terra",
+   "run_id": "r20260915_214913_drrtl_router_M_-terra_s3",
+   "stored_label": "tradeoff",
+   "sublabel": "up=area,wns down=power",
    "subtags": [
     "register names or clocked targets changed, flip-flop count and latency unchanged"
    ],
@@ -91886,6 +92353,46 @@
   },
   {
    "arm": "M",
+   "cand_id": "cbc70f14ff4943c",
+   "class_final": "d",
+   "design_id": "rtlopt_calculation",
+   "gains": {
+    "area": 0.32438,
+    "power": 0.43021,
+    "wns": 0.00115
+   },
+   "label": "retained",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214916__calculation_M_6-luna_s1",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "longest combinational path 5 -> 25 cells (ratio 5.0 >= 3.0)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "c86a47253ec4245",
+   "class_final": "d",
+   "design_id": "rtlopt_calculation",
+   "gains": {
+    "area": 0.21135,
+    "power": 0.35611,
+    "wns": 0.00015
+   },
+   "label": "retained",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214916__calculation_M_6-luna_s1",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "longest combinational path 5 -> 21 cells (ratio 4.2 >= 3.0)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
    "cand_id": "cf4f0112a899285",
    "class_final": "a",
    "design_id": "rtlopt_calculation",
@@ -100424,6 +100931,26 @@
    "sublabel": "up=area,power down=wns",
    "subtags": [
     "longest combinational path 5 -> 40 cells (ratio 8.0 >= 3.0)"
+   ],
+   "tier": "medium"
+  },
+  {
+   "arm": "M",
+   "cand_id": "ca4fe4ac8138000",
+   "class_final": "d",
+   "design_id": "rtlopt_calculation",
+   "gains": {
+    "area": 0.36385,
+    "power": 0.46402,
+    "wns": 0.00191
+   },
+   "label": "retained",
+   "model": "gpt-5.6-luna",
+   "run_id": "r20260915_214916__calculation_M_6-luna_s3",
+   "stored_label": "retained",
+   "sublabel": null,
+   "subtags": [
+    "longest combinational path 5 -> 18 cells (ratio 3.6 >= 3.0)"
    ],
    "tier": "medium"
   },
@@ -166734,11 +167261,11 @@
    "role": "main",
    "run_id": "r20260915_214905_lds_128x4096_M_6-luna_s2",
    "seed": 2,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.1227,
-   "vcf_h": 0.396
+   "usd": 0.1242,
+   "vcf_h": 0.713
   },
   {
    "arm": "M",
@@ -168039,11 +168566,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.0,
-   "calls": 15,
-   "cands": 15,
-   "dc_h": 0.576,
+   "calls": 50,
+   "cands": 50,
+   "dc_h": 1.869,
    "design_id": "drrtl_SPI",
-   "gens": 3,
+   "gens": 10,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214908_drrtl_SPI_M_6-luna_s1",
@@ -168051,8 +168578,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0197,
-   "vcf_h": 3.4
+   "usd": 0.0709,
+   "vcf_h": 29.969
   },
   {
    "arm": "M",
@@ -168192,11 +168719,11 @@
    "role": "second",
    "run_id": "r20260915_214908_drrtl_SPI_M_-terra_s2",
    "seed": 2,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 1.0,
-   "vcf_h": 26.249
+   "vcf_h": 48.472
   },
   {
    "arm": "B0",
@@ -168300,11 +168827,11 @@
    "role": "main",
    "run_id": "r20260915_214908_drrtl_SPI_M_6-luna_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.0847,
-   "vcf_h": 8.504
+   "vcf_h": 49.155
   },
   {
    "arm": "M",
@@ -168318,11 +168845,11 @@
    "role": "second",
    "run_id": "r20260915_214908_drrtl_SPI_M_-terra_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 1.0007,
-   "vcf_h": 29.851
+   "vcf_h": 47.544
   },
   {
    "arm": "B0",
@@ -169164,11 +169691,11 @@
    "role": "main",
    "run_id": "r20260915_214911_ommunication_M_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.1217,
-   "vcf_h": 3.156
+   "vcf_h": 24.356
   },
   {
    "arm": "M",
@@ -169290,11 +169817,11 @@
    "role": "main",
    "run_id": "r20260915_214912_ommunication_M_6-luna_s2",
    "seed": 2,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0825,
-   "vcf_h": 3.124
+   "usd": 0.084,
+   "vcf_h": 3.185
   },
   {
    "arm": "M",
@@ -169416,11 +169943,11 @@
    "role": "main",
    "run_id": "r20260915_214912_ommunication_M_6-luna_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.1207,
-   "vcf_h": 0.261
+   "vcf_h": 8.966
   },
   {
    "arm": "M",
@@ -169434,11 +169961,11 @@
    "role": "second",
    "run_id": "r20260915_214912_ommunication_M_-terra_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 1.3153,
-   "vcf_h": 0.229
+   "usd": 1.4162,
+   "vcf_h": 14.845
   },
   {
    "arm": "M",
@@ -169568,12 +170095,12 @@
   },
   {
    "arm": "M",
-   "best_retained_area_gain": 0.0,
-   "calls": 10,
-   "cands": 15,
-   "dc_h": 0.6,
+   "best_retained_area_gain": 0.0044,
+   "calls": 56,
+   "cands": 56,
+   "dc_h": 1.787,
    "design_id": "drrtl_router",
-   "gens": 2,
+   "gens": 10,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214913_drrtl_router_M_-terra_s2",
@@ -169581,8 +170108,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.1425,
-   "vcf_h": 0.99
+   "usd": 1.0474,
+   "vcf_h": 4.983
   },
   {
    "arm": "B0",
@@ -169695,11 +170222,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.0,
-   "calls": 11,
-   "cands": 16,
-   "dc_h": 0.557,
+   "calls": 53,
+   "cands": 58,
+   "dc_h": 1.972,
    "design_id": "drrtl_router",
-   "gens": 2,
+   "gens": 10,
    "model": "gpt-5.6-terra",
    "role": "second",
    "run_id": "r20260915_214913_drrtl_router_M_-terra_s3",
@@ -169707,8 +170234,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.1287,
-   "vcf_h": 1.023
+   "usd": 0.7872,
+   "vcf_h": 5.507
   },
   {
    "arm": "M",
@@ -170082,11 +170609,11 @@
    "role": "main",
    "run_id": "r20260915_214915_pt_alu_64bit_M_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.0807,
-   "vcf_h": 0.604
+   "vcf_h": 0.84
   },
   {
    "arm": "M",
@@ -170208,11 +170735,11 @@
    "role": "main",
    "run_id": "r20260915_214915_pt_alu_64bit_M_6-luna_s2",
    "seed": 2,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0721,
-   "vcf_h": 0.394
+   "usd": 0.0738,
+   "vcf_h": 0.682
   },
   {
    "arm": "M",
@@ -170334,11 +170861,11 @@
    "role": "main",
    "run_id": "r20260915_214915_pt_alu_64bit_M_6-luna_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.0739,
-   "vcf_h": 0.43
+   "vcf_h": 0.749
   },
   {
    "arm": "M",
@@ -170415,11 +170942,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.3482,
-   "calls": 51,
-   "cands": 51,
-   "dc_h": 1.997,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.327,
    "design_id": "rtlopt_calculation",
-   "gens": 9,
+   "gens": 11,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916__calculation_M_6-luna_s1",
@@ -170427,8 +170954,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0656,
-   "vcf_h": 2.848
+   "usd": 0.0817,
+   "vcf_h": 4.206
   },
   {
    "arm": "M",
@@ -170442,11 +170969,11 @@
    "role": "second",
    "run_id": "r20260915_214916__calculation_M_-terra_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.554,
-   "vcf_h": 2.334
+   "usd": 0.5618,
+   "vcf_h": 7.894
   },
   {
    "arm": "B0",
@@ -170541,11 +171068,11 @@
   {
    "arm": "M",
    "best_retained_area_gain": 0.35661,
-   "calls": 53,
-   "cands": 53,
-   "dc_h": 2.444,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.704,
    "design_id": "rtlopt_calculation",
-   "gens": 10,
+   "gens": 12,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916__calculation_M_6-luna_s2",
@@ -170553,8 +171080,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.063,
-   "vcf_h": 1.879
+   "usd": 0.0739,
+   "vcf_h": 2.203
   },
   {
    "arm": "M",
@@ -170568,11 +171095,11 @@
    "role": "second",
    "run_id": "r20260915_214916__calculation_M_-terra_s2",
    "seed": 2,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.8665,
-   "vcf_h": 4.846
+   "vcf_h": 8.144
   },
   {
    "arm": "B0",
@@ -170666,12 +171193,12 @@
   },
   {
    "arm": "M",
-   "best_retained_area_gain": 0.33606,
-   "calls": 47,
-   "cands": 47,
-   "dc_h": 2.145,
+   "best_retained_area_gain": 0.36385,
+   "calls": 60,
+   "cands": 60,
+   "dc_h": 2.676,
    "design_id": "rtlopt_calculation",
-   "gens": 9,
+   "gens": 12,
    "model": "gpt-5.6-luna",
    "role": "main",
    "run_id": "r20260915_214916__calculation_M_6-luna_s3",
@@ -170679,8 +171206,8 @@
    "status": "running",
    "tier": "medium",
    "unusable": 0,
-   "usd": 0.0555,
-   "vcf_h": 4.73
+   "usd": 0.0726,
+   "vcf_h": 6.55
   },
   {
    "arm": "M",
@@ -170694,11 +171221,11 @@
    "role": "second",
    "run_id": "r20260915_214916__calculation_M_-terra_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.8005,
-   "vcf_h": 1.914
+   "vcf_h": 3.433
   },
   {
    "arm": "B0",
@@ -171738,11 +172265,11 @@
    "role": "main",
    "run_id": "r20260915_214919_opt_register_M_6-luna_s3",
    "seed": 3,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.1136,
-   "vcf_h": 0.864
+   "vcf_h": 1.09
   },
   {
    "arm": "M",
@@ -172422,11 +172949,11 @@
    "role": "main",
    "run_id": "r20260918_062305_lds_128x4096_M_6-luna_s1",
    "seed": 1,
-   "status": "running",
+   "status": "done",
    "tier": "medium",
    "unusable": 0,
    "usd": 0.1204,
-   "vcf_h": 0.46
+   "vcf_h": 0.747
   },
   {
    "arm": "B0",
@@ -172939,21 +173466,21 @@
   "idle": {
    "cpu": {
     "idle_min": 0.0,
-    "occupied_min": 4.2,
-    "seat_min": 0.0,
-    "seats": 0
+    "occupied_min": 540.0,
+    "seat_min": 540.0,
+    "seats": 9
    },
    "router": {
-    "idle_min": 0.1,
-    "occupied_min": 359.9,
-    "seat_min": 360.0,
-    "seats": 6
+    "idle_min": 0.0,
+    "occupied_min": 60.0,
+    "seat_min": 60.0,
+    "seats": 1
    },
    "simple_spi": {
     "idle_min": 0.0,
-    "occupied_min": 483.3,
-    "seat_min": 480.0,
-    "seats": 8
+    "occupied_min": 1440.0,
+    "seat_min": 1440.0,
+    "seats": 24
    },
    "small": {
     "idle_min": null,
@@ -172962,86 +173489,83 @@
     "seats": null
    },
    "spi": {
-    "idle_min": 7.5,
-    "occupied_min": 1312.5,
-    "seat_min": 1320.0,
-    "seats": 22
+    "idle_min": 0.0,
+    "occupied_min": 240.1,
+    "seat_min": 240.0,
+    "seats": 4
    },
    "uart": {
-    "idle_min": 0.0,
-    "occupied_min": 420.0,
-    "seat_min": 420.0,
-    "seats": 7
+    "idle_min": 0.2,
+    "occupied_min": 479.8,
+    "seat_min": 480.0,
+    "seats": 8
    },
    "window": {
     "idle_min": 0.0,
-    "occupied_min": 420.0,
-    "seat_min": 420.0,
-    "seats": 7
+    "occupied_min": 240.0,
+    "seat_min": 240.0,
+    "seats": 4
    }
   },
   "state": {
-   "generating": 6,
+   "generating": 2,
    "queued": 139,
-   "waiting": 35
+   "waiting": 23
   },
   "unverified_by_design": {
-   "drrtl_SPI": 0.8,
-   "drrtl_router": 0.7667,
-   "rtlopt_calculation": 0.65,
-   "rtlopt_register": 0.25
+   "drrtl_SPI": 1.0,
+   "drrtl_router": 0.7333
   },
   "unverified_by_lane": {
-   "router": 0.7667,
-   "spi": 0.8,
-   "window": 0.5167
+   "router": 0.7333,
+   "spi": 1.0
   },
   "unverified_by_row": {
-   "gpt-5.6-luna|M": 0.5875,
-   "gpt-5.6-terra|M": 0.7667
+   "gpt-5.6-luna|M": 1.0,
+   "gpt-5.6-terra|M": 0.7333
   },
   "waits": {
    "cpu": {
-    "mean_min": 50.8,
-    "queued": 62,
-    "seats": 1,
-    "wait_min": 3150.0
+    "mean_min": 48.3,
+    "queued": 38,
+    "seats": 9,
+    "wait_min": 203.8
    },
    "router": {
-    "mean_min": 10.1,
-    "queued": 4,
-    "seats": 6,
-    "wait_min": 6.8
+    "mean_min": 9.8,
+    "queued": 28,
+    "seats": 1,
+    "wait_min": 273.1
    },
    "simple_spi": {
-    "mean_min": 78.3,
-    "queued": 112,
-    "seats": 8,
-    "wait_min": 1096.5
+    "mean_min": 83.9,
+    "queued": 63,
+    "seats": 24,
+    "wait_min": 220.1
    },
    "small": {
-    "mean_min": 5.0,
-    "queued": 130,
+    "mean_min": 0.7,
+    "queued": 123,
     "seats": 1,
-    "wait_min": 650.0
+    "wait_min": 84.0
    },
    "spi": {
-    "mean_min": 47.1,
-    "queued": 13,
-    "seats": 22,
-    "wait_min": 27.8
+    "mean_min": 49.1,
+    "queued": 8,
+    "seats": 4,
+    "wait_min": 98.2
    },
    "uart": {
-    "mean_min": 21.4,
-    "queued": 101,
-    "seats": 7,
-    "wait_min": 309.1
+    "mean_min": 23.0,
+    "queued": 46,
+    "seats": 8,
+    "wait_min": 132.5
    },
    "window": {
-    "mean_min": 9.3,
-    "queued": 207,
-    "seats": 7,
-    "wait_min": 273.5
+    "mean_min": 17.6,
+    "queued": 66,
+    "seats": 4,
+    "wait_min": 289.7
    }
   }
  },
@@ -173053,7 +173577,7 @@
  "unfinished_note": null,
  "verification_conditions": {
   "from": "2026-09-18T05:49:54",
-  "n": 12026,
+  "n": 12388,
   "rows": {
    "cktevo_ethmac__eth_cop": {
     "a": {
@@ -173146,7 +173670,7 @@
       0
      ],
      "below": [
-      48,
+      53,
       0
      ]
     },
@@ -173156,7 +173680,7 @@
       0
      ],
      "below": [
-      28,
+      34,
       0
      ]
     },
@@ -173166,7 +173690,7 @@
       0
      ],
      "below": [
-      10,
+      11,
       0
      ]
     },
@@ -173176,7 +173700,7 @@
       0
      ],
      "below": [
-      17,
+      18,
       0
      ]
     }
@@ -173188,7 +173712,7 @@
       5
      ],
      "below": [
-      12,
+      13,
       15
      ]
     },
@@ -173198,8 +173722,8 @@
       96
      ],
      "below": [
-      22,
-      78
+      25,
+      86
      ]
     },
     "c1": {
@@ -173295,7 +173819,7 @@
      ],
      "below": [
       62,
-      84
+      85
      ]
     },
     "b": {
@@ -173305,7 +173829,7 @@
      ],
      "below": [
       2,
-      259
+      310
      ]
     },
     "c1": {
@@ -173325,7 +173849,7 @@
      ],
      "below": [
       2,
-      17
+      18
      ]
     }
    },
@@ -173336,7 +173860,7 @@
       0
      ],
      "below": [
-      72,
+      76,
       0
      ]
     },
@@ -173346,7 +173870,7 @@
       0
      ],
      "below": [
-      327,
+      377,
       0
      ]
     },
@@ -173368,7 +173892,7 @@
       0
      ],
      "below": [
-      77,
+      86,
       1
      ]
     },
@@ -173378,7 +173902,7 @@
       0
      ],
      "below": [
-      35,
+      37,
       1
      ]
     },
@@ -173389,7 +173913,7 @@
      ],
      "below": [
       13,
-      27
+      33
      ]
     }
    },
@@ -173400,7 +173924,7 @@
       0
      ],
      "below": [
-      307,
+      333,
       0
      ]
     },
@@ -173410,7 +173934,7 @@
       0
      ],
      "below": [
-      115,
+      135,
       3
      ]
     },
@@ -173420,7 +173944,7 @@
       0
      ],
      "below": [
-      85,
+      90,
       1
      ]
     },
@@ -173442,8 +173966,8 @@
       8
      ],
      "below": [
-      15,
-      6
+      17,
+      8
      ]
     },
     "b": {
@@ -173453,17 +173977,17 @@
      ],
      "below": [
       60,
-      342
+      360
      ]
     },
     "c1": {
      "above": [
-      17,
+      18,
       24
      ],
      "below": [
-      31,
-      30
+      34,
+      36
      ]
     },
     "d": {
@@ -173484,7 +174008,7 @@
       0
      ],
      "below": [
-      17,
+      19,
       0
      ]
     },
@@ -173494,7 +174018,7 @@
       0
      ],
      "below": [
-      36,
+      42,
       0
      ]
     },
@@ -173504,7 +174028,7 @@
       0
      ],
      "below": [
-      137,
+      150,
       0
      ]
     }
@@ -173516,8 +174040,8 @@
       8
      ],
      "below": [
-      116,
-      5
+      144,
+      7
      ]
     },
     "d": {
@@ -173526,7 +174050,7 @@
       0
      ],
      "below": [
-      209,
+      277,
       0
      ]
     }
@@ -173612,7 +174136,7 @@
       0
      ],
      "below": [
-      31,
+      32,
       0
      ]
     },
@@ -173622,7 +174146,7 @@
       0
      ],
      "below": [
-      76,
+      83,
       0
      ]
     },
@@ -173632,7 +174156,7 @@
       0
      ],
      "below": [
-      79,
+      82,
       0
      ]
     },
