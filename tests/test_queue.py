@@ -829,3 +829,42 @@ def test_generating_only_slot_accounting_with_guardrails(tmp_path, monkeypatch):
     q2 = Queue(cfg, conn, str(tmp_path / "logs"), env={"PATH": os.environ["PATH"]}, log=lambda m: None); q2._spawn = q._spawn
     q2._dispatch()
     assert spawned == []
+
+
+def test_rebalance_counts_the_proofs_already_queued(tmp_path):
+    """2026-09-20: a run that has spent all its calls contributes nothing to `runs_left`, so a lane whose runs are all in that state
+    was given 0 seats although its proofs were still queued (cktevo_risc__cpu: 6 running runs, 62 queued proofs, a 61-hour wait on one
+    seat). remaining_seat_hours now adds the queued proofs of each design as work of its own. Both directions: a design with queued
+    proofs and no remaining call keeps hours > 0; a design with neither is dropped."""
+    import importlib.util
+    from pathlib import Path
+    spec = importlib.util.spec_from_file_location("rebalance_lanes", str(Path(C.ROOT) / "scripts" / "rebalance_lanes.py"))
+    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    cfg = copy.deepcopy(C.load())
+    cfg["exp5"]["starting_points"] = {"large": [], "medium": ["D_QUEUED", "D_DONE", "D_RUNNING"], "small": []}
+    cfg["equiv"]["harness_version"] = 1          # the plain path: the mean over every finished proof of the design
+    cfg["queue"]["lane_hours_per_run_override"] = {}
+    conn = db.connect(path=str(tmp_path / "results.sqlite"))
+    for d in ("D_QUEUED", "D_DONE", "D_RUNNING"):
+        conn.execute("INSERT INTO designs (design_id, suite, name, path, loc, e4_synthesizable, split, phi_main_ns_nangate45, created_at, git_sha, cfg_hash) VALUES (?,'x',?,'p',1,1,'held',1.0,'t','g','c')", (d, d))
+    # D_QUEUED: one running run that has spent all 60 calls (runs_left 0) and 10 proofs still queued
+    # D_RUNNING: one running run at 30 calls (runs_left 0.5), nothing queued
+    # D_DONE: one finished run, nothing queued -> dropped
+    for rid, d, status, calls in (("r_q", "D_QUEUED", "running", 60), ("r_d", "D_DONE", "done", 60), ("r_r", "D_RUNNING", "running", 30)):
+        db.insert(conn, "runs", {"run_id": rid, "exp": "phase5", "arm": "M", "design_id": d, "seed": 1, "llm_model": "m", "status": status, "started_at": "t", "llm_calls": calls})
+    for i in range(30):   # 30 finished proofs per design so the mean is measured (>= 20)
+        for d in ("D_QUEUED", "D_RUNNING"):
+            db.insert(conn, "candidates", {"cand_id": f"c_{d}_{i}", "run_id": "r_q" if d == "D_QUEUED" else "r_r", "design_id": d, "gen": 1, "arm": "M", "verdict": "proven"})
+            db.insert(conn, "jobs", {"job_id": f"j_{d}_{i}", "kind": "vcf", "pool": "vcf", "design_id": d, "cand_id": f"c_{d}_{i}", "state": "done", "priority": 0, "payload_json": "{}",
+                                     "submitted_at": "2026-09-20T10:00:00", "started_at": "2026-09-20T10:00:00", "finished_at": "2026-09-20T10:30:00"})   # 30 min each
+    for i in range(10):
+        db.insert(conn, "jobs", {"job_id": f"jq_{i}", "kind": "vcf", "pool": "vcf", "design_id": "D_QUEUED", "state": "queued", "priority": 0, "payload_json": "{}", "submitted_at": "2026-09-20T17:00:00"})
+    conn.commit()
+    out = mod.remaining_seat_hours(cfg, conn)
+    assert "D_DONE" not in out                                                   # no remaining call, no queued proof: dropped
+    assert out["D_QUEUED"]["runs_left"] == 0.0 and out["D_QUEUED"]["queued_proofs"] == 10
+    assert abs(out["D_QUEUED"]["hours"] - 5.0) < 0.2                             # 10 queued proofs x 30 min = 5 seat-hours, although runs_left is 0
+    assert out["D_RUNNING"]["queued_proofs"] == 0 and out["D_RUNNING"]["hours"] > 0   # the remaining half run still counts through its proofs per call
+    conn.execute("UPDATE jobs SET state='done', finished_at='2026-09-20T17:30:00', started_at='2026-09-20T17:00:00' WHERE state='queued'"); conn.commit()
+    out2 = mod.remaining_seat_hours(cfg, conn)
+    assert "D_QUEUED" not in out2                                                # the queue drained: the lane is released again

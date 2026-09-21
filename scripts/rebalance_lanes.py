@@ -29,10 +29,15 @@ def remaining_seat_hours(cfg, conn, exp="phase5"):
     held = {}   # runs whose search job carries `hold` are not dispatchable (router until C3, LSTM until the small tier): they are outside the split
     for r in conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE kind='search' AND state='queued' AND payload_json LIKE '%\"hold\"%' GROUP BY design_id"):
         held[r[0]] = int(r[1])
+    queued_now = {r[0]: int(r[1]) for r in conn.execute("SELECT design_id, COUNT(*) FROM jobs WHERE kind='vcf' AND state IN ('queued','backoff') GROUP BY design_id")}
     for d in tiers:
         runs = [dict(r) for r in conn.execute("SELECT status, llm_calls FROM runs WHERE exp=? AND design_id=? AND status!='superseded' AND COALESCE(excluded_from_tables,0)=0", (exp, d))]
         rem = max(0, sum(1 for r in runs if r["status"] == "created") - held.get(d, 0)) + sum(max(0.0, 1 - int(r["llm_calls"] or 0) / 60) for r in runs if r["status"] == "running")
-        if rem <= 0:
+        # 2026-09-20 17:2x: a run that has spent all 60 calls contributes 0 to `rem` although its candidates still wait for verdicts —
+        # the lane was then given 0 seats and its queued proofs could never drain (cktevo_risc__cpu: 6 running runs, 62 queued proofs,
+        # a 61-hour wait on the one seat it kept). The proofs already in the queue are counted as work of their own.
+        q_now = queued_now.get(d, 0)
+        if rem <= 0 and q_now <= 0:
             continue
         hv_now = int((cfg.get("equiv") or {}).get("harness_version", 1) or 1)
         xs = []
@@ -47,7 +52,10 @@ def remaining_seat_hours(cfg, conn, exp="phase5"):
         proofs = conn.execute("SELECT count(*) FROM jobs j JOIN candidates x ON x.cand_id=j.cand_id JOIN runs r ON r.run_id=x.run_id WHERE j.kind='vcf' AND r.exp=? AND r.status!='superseded' AND r.design_id=?", (exp, d)).fetchone()[0]
         ppc = (proofs / calls) if calls else None
         mean = statistics.mean(xs) if xs else None
-        out[d] = {"hours": (rem * ppc * 60 * mean / 60) if (ppc is not None and mean is not None and len(xs) >= 20) else None, "runs_left": round(rem, 1),
+        queued_hours = (q_now * mean / 60) if (mean is not None and len(xs) >= 20) else None
+        future_hours = (rem * ppc * 60 * mean / 60) if (ppc is not None and mean is not None and len(xs) >= 20) else None
+        out[d] = {"hours": (None if (queued_hours is None and future_hours is None) else (queued_hours or 0.0) + (future_hours or 0.0)),
+                  "queued_proofs": q_now, "queued_hours": (round(queued_hours, 1) if queued_hours is not None else None), "runs_left": round(rem, 1),
                   "mean_min": round(mean, 1) if mean is not None else None, "proofs_per_call": round(ppc, 2) if ppc is not None else None, "proofs": len(xs), "tier": tiers[d]}
     # DECISION 2026-09-18 (g) item 2: a proxy for the seat-hours per run of a design without enough proofs under the current harness
     # (config queue.lane_hours_per_run_override: {design: hours}) — used until the design has 20 finished proofs under harness_version 2
@@ -56,7 +64,7 @@ def remaining_seat_hours(cfg, conn, exp="phase5"):
         if d in out:
             n_v2 = conn.execute("SELECT count(*) FROM candidates WHERE design_id=? AND harness_version=? AND v3_status IS NOT NULL", (d, hv)).fetchone()[0] if hv >= 2 else 0
             if n_v2 < 20:
-                out[d]["hours"] = out[d]["runs_left"] * float(h)
+                out[d]["hours"] = out[d]["runs_left"] * float(h) + (out[d].get("queued_hours") or 0.0)
                 out[d]["proxy"] = True
     # a design with fewer than 20 finished proofs (a corrected harness, a tier not started) takes its tier's median seat-hours per run
     for tier in {v["tier"] for v in out.values()}:
@@ -64,7 +72,7 @@ def remaining_seat_hours(cfg, conn, exp="phase5"):
         fallback = statistics.median(known) if known else 2.0
         for d, v in out.items():
             if v["tier"] == tier and v["hours"] is None:
-                v["hours"] = v["runs_left"] * fallback
+                v["hours"] = v["runs_left"] * fallback + (v.get("queued_proofs", 0) * 0.5)   # a queued proof without a measured mean: half an hour each
                 v["estimated"] = True
     return out
 

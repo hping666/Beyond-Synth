@@ -1,10 +1,12 @@
 {
  "designs": [
   "cktevo_hsm__hsm",
+  "cktevo_nn_engine__thresholds_128x4096",
   "cktevo_usb__usbf_sie_rx",
   "cktevo_vga_enh__vga_wb_slave",
   "drrtl_arm_cpu2",
   "drrtl_tv80",
+  "rtlopt_alu_64bit",
   "rtlopt_divider_8bit",
   "rtlopt_sub_32bit"
  ],
@@ -12,9 +14,10 @@
   "cktevo_ethmac__eth_cop",
   "cktevo_mem_ctrl__mc_adr_sel",
   "cktevo_risc__btb",
-  "rtlopt_decoder_8bit"
+  "rtlopt_decoder_8bit",
+  "rtlopt_register"
  ],
- "at": "2026-09-20T11:48",
+ "at": "2026-09-20T16:10",
  "history": [
   {
    "at": "2026-09-19T04:10",
@@ -79,6 +82,16 @@
    "new": [],
    "new_preliminary": [
     "cktevo_mem_ctrl__mc_adr_sel"
+   ]
+  },
+  {
+   "at": "2026-09-20T16:10",
+   "new": [
+    "cktevo_nn_engine__thresholds_128x4096",
+    "rtlopt_alu_64bit"
+   ],
+   "new_preliminary": [
+    "rtlopt_register"
    ]
   }
  ]
