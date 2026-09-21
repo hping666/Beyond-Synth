@@ -4,7 +4,9 @@
   "cktevo_nn_engine__thresholds_128x4096",
   "cktevo_usb__usbf_sie_rx",
   "cktevo_vga_enh__vga_wb_slave",
+  "drrtl_SPI",
   "drrtl_arm_cpu2",
+  "drrtl_router",
   "drrtl_tv80",
   "rtlopt_alu_64bit",
   "rtlopt_divider_8bit",
@@ -15,10 +17,11 @@
   "cktevo_mem_ctrl__mc_adr_sel",
   "cktevo_risc__btb",
   "drrtl_communication",
+  "rtlopt_calculation",
   "rtlopt_decoder_8bit",
   "rtlopt_register"
  ],
- "at": "2026-09-20T19:01",
+ "at": "2026-09-20T23:11",
  "history": [
   {
    "at": "2026-09-19T04:10",
@@ -100,6 +103,22 @@
    "new": [],
    "new_preliminary": [
     "drrtl_communication"
+   ]
+  },
+  {
+   "at": "2026-09-20T22:23",
+   "new": [
+    "drrtl_router"
+   ],
+   "new_preliminary": []
+  },
+  {
+   "at": "2026-09-20T23:11",
+   "new": [
+    "drrtl_SPI"
+   ],
+   "new_preliminary": [
+    "rtlopt_calculation"
    ]
   }
  ]
